@@ -36,7 +36,6 @@ public class MidiPlayground {
         Receiver receiver;
         try {
             receiver = MidiSystem.getReceiver();
-            //MidiSystem.getSynthesizer().getTransmitter().setReceiver(receiver);
             LOG.info("Receiver : " + receiver);
             receiver.send(middleC, 100);
             LOG.info("Sent note");
@@ -51,6 +50,7 @@ public class MidiPlayground {
         } catch (MidiUnavailableException e) {
             LOG.error("Cannot get MIDI transmitter", e);
         }
+
 
         Sequencer sequencer;
         try {
