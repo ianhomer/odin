@@ -1,7 +1,9 @@
 package com.purplepip.odin.midi;
 
+import javax.sound.midi.MidiDevice;
+
 /**
- * Created by ian on 05/04/2017.
+ * Main Midi Device.
  */
-public class OdinMidiDevice {
+public interface OdinMidiDevice extends MidiDevice {
 }

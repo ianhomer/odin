@@ -1,7 +1,32 @@
 package com.purplepip.odin.music;
 
 /**
- * Created by ian on 05/04/2017.
+ * Default Note
  */
-public class DefaultNote {
+public class DefaultNote implements Note {
+    private int number;
+    private int velocity;
+
+    public DefaultNote() {
+        this(60);
+    }
+
+    public DefaultNote(int number) {
+        this(number, 40);
+    }
+
+    public DefaultNote(int number, int velocity) {
+        this.number = number;
+        this.velocity = velocity;
+    }
+
+    @Override
+    public int getNumber() {
+        return number;
+    }
+
+    @Override
+    public int getVelocity() {
+        return velocity;
+    }
 }

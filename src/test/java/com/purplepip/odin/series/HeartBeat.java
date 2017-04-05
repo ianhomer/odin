@@ -1,7 +1,20 @@
 package com.purplepip.odin.series;
 
 /**
- * Created by ian on 05/04/2017.
+ * Series of heartbeats every second.
  */
-public class HeartBeat {
+public class HeartBeat implements Series<Boolean> {
+    @Override
+    public Event<Boolean> peek() {
+        return getNext();
+    }
+
+    @Override
+    public Event<Boolean> pop() {
+        return getNext();
+    }
+
+    private Event<Boolean> getNext() {
+        return new DefaultEvent<>(Boolean.TRUE, ((System.currentTimeMillis() + 999) / 1000) * 1000);
+    }
 }

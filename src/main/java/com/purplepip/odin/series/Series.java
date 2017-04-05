@@ -1,7 +1,9 @@
 package com.purplepip.odin.series;
 
 /**
- * Created by ian on 05/04/2017.
+ * Events that occur over time.
  */
-public interface Series {
+public interface Series<A> {
+    Event<A> peek();
+    Event<A> pop();
 }

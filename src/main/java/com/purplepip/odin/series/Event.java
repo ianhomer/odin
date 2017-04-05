@@ -1,7 +1,9 @@
 package com.purplepip.odin.series;
 
 /**
- * Created by ian on 05/04/2017.
+ * Series Event
  */
-public interface Event {
+public interface Event<A> {
+    A getValue();
+    long getTime();
 }

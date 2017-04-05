@@ -1,5 +1,6 @@
-package com.purplepip.odin.midi;
+package com.purplepip.odin.midi.experiments;
 
+import com.purplepip.odin.midi.MidiSystemInfo;
 import com.purplepip.odin.server.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +21,7 @@ public class MidiPlayground {
     }
 
     private void dumpInfo() {
-        Arrays.stream(MidiSystem.getMidiDeviceInfo()).collect(Collectors.toList()).forEach((temp) ->
-                LOG.info("MIDI device info : " + temp.getDescription()));
+        new MidiSystemInfo().logInfo();
 
         ShortMessage middleC = new ShortMessage();
         ShortMessage middleD = new ShortMessage();
