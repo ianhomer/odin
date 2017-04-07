@@ -12,7 +12,7 @@ public interface Note {
     int getNumber();
 
     /**
-     * Get the note velocity from 0 to 127
+     * Get the note velocity from 0 to 127.
      *
      * @return int
      */

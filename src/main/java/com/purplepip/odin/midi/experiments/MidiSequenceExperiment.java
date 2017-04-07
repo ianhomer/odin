@@ -1,7 +1,11 @@
 package com.purplepip.odin.midi.experiments;
 
+import com.purplepip.odin.midi.*;
+import com.purplepip.odin.music.Metronome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.sound.midi.*;
 
 /**
  * Midi Sequence Experiment.
@@ -9,13 +13,31 @@ import org.slf4j.LoggerFactory;
 public class MidiSequenceExperiment {
     private static final Logger LOG = LoggerFactory.getLogger(MidiSequenceExperiment.class);
 
-    public static void main(String [] args) {
+    public static void main(String [] args) throws MidiException {
         MidiSequenceExperiment experiment = new MidiSequenceExperiment();
         experiment.doExperiment();
     }
 
-    private void doExperiment() {
-        
+    private void doExperiment() throws MidiException {
+        LOG.info("Creating sequence");
+        new MidiSystemHelper().logInfo().logInstruments();
+        OdinSequencer sequencer = null;
+        try {
+            sequencer = new OdinSequencer(
+                    new OdinSequencerConfiguration().setCoreJavaSequencerEnabled(true));
+            sequencer.addSeries(new Metronome(4));
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                LOG.error("Sleep interrupted", e);
+            }
+            LOG.info("... stopping");
+        } finally {
+            if (sequencer != null) {
+                sequencer.stop();
+            }
+        }
     }
 
 }

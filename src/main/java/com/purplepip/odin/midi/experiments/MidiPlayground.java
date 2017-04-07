@@ -1,19 +1,16 @@
 package com.purplepip.odin.midi.experiments;
 
-import com.purplepip.odin.midi.MidiSystemInfo;
-import com.purplepip.odin.server.Application;
+import com.purplepip.odin.midi.MidiSystemHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sound.midi.*;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * MIDI playground.
  */
 public class MidiPlayground {
-    private static final Logger LOG = LoggerFactory.getLogger(Application.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MidiPlayground.class);
 
     public static void main(String [] args) {
         MidiPlayground playground = new MidiPlayground();
@@ -21,47 +18,69 @@ public class MidiPlayground {
     }
 
     private void dumpInfo() {
-        new MidiSystemInfo().logInfo();
+        new MidiSystemHelper().logInfo();
 
         ShortMessage middleC = new ShortMessage();
         ShortMessage middleD = new ShortMessage();
+        ShortMessage middleCoff = new ShortMessage();
+        ShortMessage middleDoff = new ShortMessage();
         try {
             middleC.setMessage(ShortMessage.NOTE_ON, 1, 60, 93);
-            middleD.setMessage(ShortMessage.NOTE_ON, 1, 62, 60);
+            middleD.setMessage(ShortMessage.NOTE_ON, 1, 72, 60);
+            middleCoff.setMessage(ShortMessage.NOTE_OFF, 1, 60, 93);
+            middleDoff.setMessage(ShortMessage.NOTE_OFF, 1, 72, 60);
         } catch (InvalidMidiDataException e) {
             LOG.error("Cannot create short message", e);
             return;
         }
 
-        Receiver receiver;
+        Receiver receiver = null;
         try {
             receiver = MidiSystem.getReceiver();
             LOG.info("Receiver : " + receiver);
-            receiver.send(middleC, 100);
+            receiver.send(middleD, -1);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                LOG.error("Sleep interrupted", e);
+            }
+            receiver.send(middleDoff, -1);
             LOG.info("Sent note");
         } catch (MidiUnavailableException e) {
             LOG.error("Cannot get MIDI receiver", e);
+        } finally {
+            if (receiver != null) {
+                receiver.close();
+            }
         }
 
-        Transmitter transmitter;
+        Transmitter transmitter = null;
         try {
             transmitter = MidiSystem.getTransmitter();
             LOG.info("Transmitter : " + transmitter);
         } catch (MidiUnavailableException e) {
             LOG.error("Cannot get MIDI transmitter", e);
+        } finally {
+            if (transmitter != null) {
+                transmitter.close();
+            }
         }
 
 
-        Sequencer sequencer;
+        Sequencer sequencer = null;
         try {
             sequencer = MidiSystem.getSequencer();
             sequencer.open();
             LOG.info("Sequencer : " + sequencer + " ; " + getDetails(sequencer));
         } catch (MidiUnavailableException e) {
             LOG.error("Cannot get MIDI sequencer", e);
+        } finally {
+            if (sequencer != null) {
+                sequencer.close();
+            }
         }
 
-        Synthesizer synthesizer;
+        Synthesizer synthesizer = null;
         try {
             synthesizer = MidiSystem.getSynthesizer();
             LOG.info("Synthesizer : " + synthesizer + " ; " + getDetails(synthesizer));
@@ -71,6 +90,11 @@ public class MidiPlayground {
             LOG.info("Sent notes to synthesizer");
         } catch (MidiUnavailableException e) {
             LOG.error("Cannot get MIDI synthesizer", e);
+        } finally {
+            if (synthesizer != null) {
+                synthesizer.close();
+            }
+
         }
 
         try {

@@ -1,7 +1,17 @@
 package com.purplepip.odin.midi;
 
 /**
- * Created by ian on 07/04/2017.
+ * Odin Sequencer Configuration.
  */
 public class OdinSequencerConfiguration {
+    private boolean isCoreJavaSequencerEnabled = true;
+
+    public OdinSequencerConfiguration setCoreJavaSequencerEnabled(boolean isCoreJavaSequencerEnabled) {
+        this.isCoreJavaSequencerEnabled = isCoreJavaSequencerEnabled;
+        return this;
+    }
+
+    public boolean isCoreJavaSequencerEnabled() {
+        return isCoreJavaSequencerEnabled;
+    }
 }

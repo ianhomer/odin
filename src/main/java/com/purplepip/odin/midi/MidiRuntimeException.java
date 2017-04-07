@@ -1,7 +1,10 @@
 package com.purplepip.odin.midi;
 
 /**
- * Custom MIDI exception;
+ * Custom runtime MIDI exception;
  */
-public class MidiException extends Exception {
+public class MidiRuntimeException extends RuntimeException {
+    public MidiRuntimeException(String message) {
+        super(message);
+    }
 }
