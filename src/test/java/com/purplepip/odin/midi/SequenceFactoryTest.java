@@ -19,7 +19,7 @@ public class SequenceFactoryTest {
 
     @Test
     public void testCreateSequence() throws InvalidMidiDataException {
-        Sequence sequence = new SequenceFactory().createSequence(new Metronome(4));
+        Sequence sequence = new SequenceFactory().createSequence(new Metronome(4, 4));
         assertEquals("One track expected in sequence", 1, sequence.getTracks().length);
         /*
          * 9 messages ; 4 x on and off and then a find end of track message

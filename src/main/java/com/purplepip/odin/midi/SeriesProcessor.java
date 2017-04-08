@@ -58,13 +58,12 @@ public class SeriesProcessor implements Runnable {
                                         device.getMicrosecondPosition());
                             } else {
                                 Note note = nextEvent.getValue();
-                                LOG.debug("Sending note {} ; {}", note.getNumber(), note.getVelocity(), note.getDuration());
+                                LOG.debug("Sending note {} ; {} ; {}", note.getNumber(), note.getVelocity(), note.getDuration());
                                 try {
                                     ShortMessage noteOn = new ShortMessage(ShortMessage.NOTE_ON, 1,
                                             note.getNumber(), note.getVelocity());
                                     ShortMessage noteOff = new ShortMessage(ShortMessage.NOTE_OFF, 1,
                                             note.getNumber());
-//                                    MidiSystem.getReceiver().send(noteOn, -1);
                                     device.getReceiver().send(noteOn, nextEvent.getTime());
                                     device.getReceiver().send(noteOff, nextEvent.getTime() + note.getDuration());
                                 } catch (InvalidMidiDataException e) {

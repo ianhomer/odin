@@ -14,18 +14,26 @@ public class Metronome implements Series<Note> {
     private static final Logger LOG = LoggerFactory.getLogger(Metronome.class);
 
     private Event<Note> nextEvent;
-    private Note note;
+    private Note noteBarStart;
+    private Note noteMidBar;
     private long time = 0;
     private long length;
+    private long beatsPerBar;
 
     public Metronome() {
-        this(-1);
+        this(4);
     }
 
-    public Metronome(long length) {
-        LOG.debug("Creating Metronome with length {}", length);
-        note = new DefaultNote();
+    public Metronome(long beatsPerBar) {
+        this(beatsPerBar, -1);
+    }
+
+    public Metronome(long beatsPerBar, long length) {
+        LOG.debug("Creating Metronome with {} beats per bar and length {}", length);
+        noteBarStart = new DefaultNote();
+        noteMidBar = new DefaultNote(64);
         this.length = length;
+        this.beatsPerBar = beatsPerBar;
         createNextEvent();
     }
 
@@ -53,6 +61,10 @@ public class Metronome implements Series<Note> {
 
     private void createNextEvent() {
         LOG.debug("Creating next event for time {}", time);
-        nextEvent = new DefaultEvent<>(note, time);
+        if (time % beatsPerBar == 0) {
+            nextEvent = new DefaultEvent<>(noteBarStart, time);
+        } else {
+            nextEvent = new DefaultEvent<>(noteMidBar, time);
+        }
     }
 }
