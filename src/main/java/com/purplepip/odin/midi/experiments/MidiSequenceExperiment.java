@@ -24,11 +24,13 @@ public class MidiSequenceExperiment {
         OdinSequencer sequencer = null;
         try {
             sequencer = new OdinSequencer(
-                    new OdinSequencerConfiguration().setCoreJavaSequencerEnabled(true));
-            sequencer.addSeries(new Metronome(4));
+                    new OdinSequencerConfiguration()
+                            .setCoreJavaSequencerEnabled(false)
+                            .setBeatsPerMinute(120));
+            sequencer.addSeries(new Metronome(), 0);
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 LOG.error("Sleep interrupted", e);
             }

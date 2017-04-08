@@ -3,6 +3,7 @@ package com.purplepip.odin.music;
 import com.purplepip.odin.series.DefaultEvent;
 import com.purplepip.odin.series.Event;
 import com.purplepip.odin.series.Series;
+import com.purplepip.odin.series.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +44,11 @@ public class Metronome implements Series<Note> {
             nextEvent = null;
         }
         return thisEvent;
+    }
+
+    @Override
+    public TimeUnit getTimeUnits() {
+        return TimeUnit.BEAT;
     }
 
     private void createNextEvent() {

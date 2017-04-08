@@ -17,4 +17,13 @@ public interface Note {
      * @return int
      */
     int getVelocity();
+
+    /**
+     * Get the note duration.  Time units are dependent on the context.
+     *
+     * @return long
+     */
+    long getDuration();
+
+
 }

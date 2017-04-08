@@ -6,4 +6,5 @@ package com.purplepip.odin.series;
 public interface Series<A> {
     Event<A> peek();
     Event<A> pop();
+    TimeUnit getTimeUnits();
 }

@@ -14,6 +14,11 @@ public class HeartBeat implements Series<Boolean> {
         return getNext();
     }
 
+    @Override
+    public TimeUnit getTimeUnits() {
+        return TimeUnit.BEAT;
+    }
+
     private Event<Boolean> getNext() {
         return new DefaultEvent<>(Boolean.TRUE, ((System.currentTimeMillis() + 999) / 1000) * 1000);
     }

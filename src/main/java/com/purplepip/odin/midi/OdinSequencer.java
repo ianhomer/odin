@@ -1,8 +1,10 @@
 package com.purplepip.odin.midi;
 
-import com.purplepip.odin.music.Metronome;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.series.Series;
+import com.purplepip.odin.series.SeriesTimeUnitConverterFactory;
+import com.purplepip.odin.series.TimeUnit;
+import com.purplepip.odin.series.TimeUnitConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +23,7 @@ public class OdinSequencer {
     private Sequencer sequencer;
     private Set<Series<Note>> seriesSet = new HashSet<>();
     private SeriesProcessor seriesProcessor;
+    private SeriesTimeUnitConverterFactory seriesTimeUnitConverterFactory;
 
     public OdinSequencer(OdinSequencerConfiguration configuration) throws MidiException {
         this.configuration = configuration;
@@ -56,10 +59,20 @@ public class OdinSequencer {
     private void initDevice() throws MidiException {
         // TODO : Externalise and prioritise external MIDI devices to connect to.
         device = new MidiSystemHelper().findMidiDeviceByName("MidiMock IN");
+        if (device == null) {
+            device = new MidiSystemHelper().findMidiDeviceByName("Gervill");
+        }
         LOG.debug("MIDI device : {}", device);
     }
 
-    public void addSeries(Series<Note> series) throws MidiException {
+    /**
+     * Add series at the given time offset, where offset is in the time units of the series being added.
+     *
+     * @param series
+     * @param offset
+     * @throws MidiException
+     */
+    public void addSeries(Series<Note> series, long offset) throws MidiException {
         if (configuration.isCoreJavaSequencerEnabled()) {
             if (sequencer.isRunning()) {
                 sequencer.stop();
@@ -73,7 +86,22 @@ public class OdinSequencer {
             sequencer.start();
             LOG.info("Sequence started");
         } else {
-            seriesSet.add(series);
+            long deviceOffset = 0;
+            switch (series.getTimeUnits()) {
+                case BEAT:
+                    // TODO : Address magic number
+                    deviceOffset = offset * configuration.getBeatsPerMinute() * 60000 * 1000;
+                    break;
+                case MILLISECOND:
+                    deviceOffset = offset * configuration.getBeatsPerMinute() * 1000;
+                    break;
+                case MICROSECOND:
+                    deviceOffset = offset;
+            }
+            LOG.debug("Adding series {} with time units {}", series, series.getTimeUnits());
+            seriesSet.add(new SeriesTimeUnitConverterFactory(
+                    new TimeUnitConverter(TimeUnit.MICROSECOND, deviceOffset, configuration.getBeatsPerMinute()))
+                    .convertSeries(series));
         }
     }
 

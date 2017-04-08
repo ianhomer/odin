@@ -1,6 +1,9 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.midi.OdinMidiDevice;
+import com.purplepip.odin.midi.OdinSequencer;
+import com.purplepip.odin.midi.OdinSequencerConfiguration;
+import com.purplepip.odin.music.Metronome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,12 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
+            OdinSequencer sequencer = new OdinSequencer(
+                    new OdinSequencerConfiguration()
+                            .setCoreJavaSequencerEnabled(false)
+                            .setBeatsPerMinute(120));
+            sequencer.addSeries(new Metronome(), 0);
+
             LOG.info("Odin Started.");
             LOG.info("device : " + midiDevice);
         };
