@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sound.midi.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Core Odin MIDI Sequencer.
@@ -17,6 +19,8 @@ public class OdinSequencer {
     private OdinSequencerConfiguration configuration;
     private MidiDevice device;
     private Sequencer sequencer;
+    private Set<Series<Note>> seriesSet = new HashSet<>();
+    private SeriesProcessor seriesProcessor;
 
     public OdinSequencer(OdinSequencerConfiguration configuration) throws MidiException {
         this.configuration = configuration;
@@ -28,6 +32,9 @@ public class OdinSequencer {
         if (configuration.isCoreJavaSequencerEnabled()) {
             initSequencer();
         }
+        seriesProcessor = new SeriesProcessor(device, seriesSet);
+        Thread thread = new Thread(seriesProcessor);
+        thread.start();
     }
 
     private void initSequencer() throws MidiUnavailableException {
@@ -48,7 +55,7 @@ public class OdinSequencer {
 
     private void initDevice() throws MidiException {
         // TODO : Externalise and prioritise external MIDI devices to connect to.
-        MidiDevice device = new MidiSystemHelper().findMidiDeviceByName("MidiMock IN");
+        device = new MidiSystemHelper().findMidiDeviceByName("MidiMock IN");
         LOG.debug("MIDI device : {}", device);
     }
 
@@ -66,8 +73,7 @@ public class OdinSequencer {
             sequencer.start();
             LOG.info("Sequence started");
         } else {
-            // TODO : Build out an internal sequencer which is directly driven from multiple series
-            throw new MidiRuntimeException("Odin default sequencer not yet created");
+            seriesSet.add(series);
         }
     }
 
@@ -85,6 +91,9 @@ public class OdinSequencer {
             if (sequencer.isRunning()) {
                 sequencer.stop();
             }
+        }
+        if (seriesProcessor != null) {
+            seriesProcessor.stop();
         }
     }
 }
