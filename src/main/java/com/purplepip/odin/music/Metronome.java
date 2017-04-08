@@ -13,6 +13,7 @@ public class Metronome implements Series<Note> {
     private Event<Note> nextEvent;
     private Note noteBarStart;
     private Note noteMidBar;
+    private Note noteOdd;
     private long time = 0;
     private long length;
     private long timeUnitsPerBar;
@@ -27,7 +28,8 @@ public class Metronome implements Series<Note> {
 
     public Metronome(long beatsPerBar, long length) {
         noteBarStart = new DefaultNote();
-        noteMidBar = new DefaultNote(64);
+        noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
+        noteOdd = new DefaultNote(62, noteBarStart.getVelocity() / 2);
         TimeUnitConverter converter = new TimeUnitConverter(TimeUnit.HALF_BEAT);
         this.length = converter.convert(TimeUnit.BEAT, length);
         this.timeUnitsPerBar = converter.convert(TimeUnit.BEAT, beatsPerBar);
@@ -60,10 +62,14 @@ public class Metronome implements Series<Note> {
 
     private void createNextEvent() {
         LOG.debug("Creating next event for time {}", time);
+        Note note;
         if (time % timeUnitsPerBar == 0) {
-            nextEvent = new DefaultEvent<>(noteBarStart, time);
+            note = noteBarStart;
+        } else if ((time % timeUnitsPerBar) == 4) {
+            note = noteMidBar;
         } else {
-            nextEvent = new DefaultEvent<>(noteMidBar, time);
+            note = noteOdd;
         }
+        nextEvent = new DefaultEvent<>(note, time);
     }
 }

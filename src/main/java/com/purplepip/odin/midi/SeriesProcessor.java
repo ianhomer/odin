@@ -19,7 +19,7 @@ public class SeriesProcessor implements Runnable {
     private MidiDevice device;
     private boolean exit;
     // TODO : Externalise configuration
-    private long refreshPeriod = 1000;
+    private long refreshPeriod = 200;
     private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
     private int maxNotesPerBuffer = 1000;
 
@@ -33,7 +33,7 @@ public class SeriesProcessor implements Runnable {
 
     public void run() {
         while (!exit) {
-            LOG.debug("Processing series");
+            LOG.debug("Processing series for device at position {}", device.getMicrosecondPosition());
             try {
                 int noteCountThisBuffer = 0;
                 for (Series<Note> series : seriesSet) {
@@ -52,13 +52,13 @@ public class SeriesProcessor implements Runnable {
                              * Pop event to get it off the buffer.
                              */
                             nextEvent = series.pop();
-                            LOG.debug("Processing Event {}", nextEvent);
+                            LOG.trace("Processing Event {}", nextEvent);
                             if (nextEvent.getTime() < device.getMicrosecondPosition()) {
                                 LOG.debug("Skipping event, too late to process {} < {}", nextEvent.getTime(),
                                         device.getMicrosecondPosition());
                             } else {
                                 Note note = nextEvent.getValue();
-                                LOG.debug("Sending note {} ; {} ; {}", note.getNumber(), note.getVelocity(), note.getDuration());
+                                LOG.debug("Sending note {} ; {} ; {}", note.getNumber(), note.getVelocity(), nextEvent.getTime());
                                 try {
                                     ShortMessage noteOn = new ShortMessage(ShortMessage.NOTE_ON, 1,
                                             note.getNumber(), note.getVelocity());
@@ -74,7 +74,7 @@ public class SeriesProcessor implements Runnable {
                             }
                             noteCountThisBuffer++;
                             nextEvent = series.peek();
-                            LOG.debug("Next event {}", nextEvent);
+                            LOG.trace("Next event {}", nextEvent);
                         }
                     } else {
                         LOG.debug("No event on series");

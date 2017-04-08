@@ -12,7 +12,7 @@ public class DefaultEvent<A> implements Event<A> {
     private long time;
 
     public DefaultEvent(A value, long time) {
-        LOG.debug("Creating new event : {} at time {}", value, time);
+        LOG.trace("Creating new event : {} at time {}", value, time);
         this.value = value;
         this.time = time;
     }

@@ -44,7 +44,7 @@ public class TimeUnitConvertedSeries implements Series<Note> {
         Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
                 timeUnitConverter.convert(series.getTimeUnits(), event.getValue().getDuration()));
         long time = timeUnitConverter.convert(series.getTimeUnits(), event.getTime());
-        LOG.debug("Converted note {} to time {}", note, time);
+        LOG.trace("Converted note {} to time {}", note, time);
         return new DefaultEvent<>(note, time);
     }
 }

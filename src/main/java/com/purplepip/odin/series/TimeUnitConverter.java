@@ -29,7 +29,7 @@ public class TimeUnitConverter {
     }
 
     public long convert(TimeUnit inputTimeUnits, long time) {
-        LOG.debug("Converting {} from {} to {}", time, inputTimeUnits, outputTimeUnits);
+        LOG.trace("Converting {} from {} to {}", time, inputTimeUnits, outputTimeUnits);
         switch (inputTimeUnits) {
             case BEAT:
                 switch (outputTimeUnits) {
