@@ -63,7 +63,7 @@ public class SeriesProcessor implements Runnable {
                                     ShortMessage noteOn = new ShortMessage(ShortMessage.NOTE_ON, 1,
                                             note.getNumber(), note.getVelocity());
                                     ShortMessage noteOff = new ShortMessage(ShortMessage.NOTE_OFF, 1,
-                                            note.getNumber());
+                                            note.getNumber(), note.getVelocity());
                                     device.getReceiver().send(noteOn, nextEvent.getTime());
                                     device.getReceiver().send(noteOff, nextEvent.getTime() + note.getDuration());
                                 } catch (InvalidMidiDataException e) {

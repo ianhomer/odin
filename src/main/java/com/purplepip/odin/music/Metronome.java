@@ -1,9 +1,6 @@
 package com.purplepip.odin.music;
 
-import com.purplepip.odin.series.DefaultEvent;
-import com.purplepip.odin.series.Event;
-import com.purplepip.odin.series.Series;
-import com.purplepip.odin.series.TimeUnit;
+import com.purplepip.odin.series.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +15,7 @@ public class Metronome implements Series<Note> {
     private Note noteMidBar;
     private long time = 0;
     private long length;
-    private long beatsPerBar;
+    private long timeUnitsPerBar;
 
     public Metronome() {
         this(4);
@@ -29,11 +26,13 @@ public class Metronome implements Series<Note> {
     }
 
     public Metronome(long beatsPerBar, long length) {
-        LOG.debug("Creating Metronome with {} beats per bar and length {}", length);
         noteBarStart = new DefaultNote();
         noteMidBar = new DefaultNote(64);
-        this.length = length;
-        this.beatsPerBar = beatsPerBar;
+        TimeUnitConverter converter = new TimeUnitConverter(TimeUnit.HALF_BEAT);
+        this.length = converter.convert(TimeUnit.BEAT, length);
+        this.timeUnitsPerBar = converter.convert(TimeUnit.BEAT, beatsPerBar);
+        LOG.debug("Creating Metronome with {} beats per bar and length {} and time units per bar {}",
+                beatsPerBar, length, timeUnitsPerBar);
         createNextEvent();
     }
 
@@ -45,7 +44,7 @@ public class Metronome implements Series<Note> {
     @Override
     public Event<Note> pop() {
         Event<Note> thisEvent = nextEvent;
-        time++;
+        time = time + 2;
         if (length < 0 || time < length) {
             createNextEvent();
         } else {
@@ -56,12 +55,12 @@ public class Metronome implements Series<Note> {
 
     @Override
     public TimeUnit getTimeUnits() {
-        return TimeUnit.BEAT;
+        return TimeUnit.HALF_BEAT;
     }
 
     private void createNextEvent() {
         LOG.debug("Creating next event for time {}", time);
-        if (time % beatsPerBar == 0) {
+        if (time % timeUnitsPerBar == 0) {
             nextEvent = new DefaultEvent<>(noteBarStart, time);
         } else {
             nextEvent = new DefaultEvent<>(noteMidBar, time);

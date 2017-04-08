@@ -14,6 +14,10 @@ public class TimeUnitConverter {
     private double millisecondsPerBeat;
     private TimeUnit outputTimeUnits;
 
+    public TimeUnitConverter(TimeUnit outputTimeUnits) {
+        this(outputTimeUnits, 0, 0);
+    }
+
     public TimeUnitConverter(TimeUnit outputTimeUnits, long offset, long bpm) {
         this.outputTimeUnits = outputTimeUnits;
         this.offset = offset;
@@ -31,10 +35,23 @@ public class TimeUnitConverter {
                 switch (outputTimeUnits) {
                     case BEAT:
                         return time;
+                    case HALF_BEAT:
+                        return time * 2;
                     case MILLISECOND:
                         return offset + (long) ((double) time * millisecondsPerBeat);
                     case MICROSECOND:
                         return offset + (long) ((double) time * millisecondsPerBeat * MILLIS_PER_MICRO);
+                }
+            case HALF_BEAT:
+                switch (outputTimeUnits) {
+                    case BEAT:
+                        return time / 2;
+                    case HALF_BEAT:
+                        return time;
+                    case MILLISECOND:
+                        return offset + (long) ((double) time * millisecondsPerBeat / 2);
+                    case MICROSECOND:
+                        return offset + (long) ((double) time * millisecondsPerBeat * MILLIS_PER_MICRO / 2);
                 }
             case MILLISECOND:
                 switch (outputTimeUnits) {
@@ -49,6 +66,8 @@ public class TimeUnitConverter {
                 switch (outputTimeUnits) {
                     case BEAT:
                         return (long) ((double) (time - offset) / (millisecondsPerBeat * 1000));
+                    case HALF_BEAT:
+                        return (long) ((double) (time - offset) / (2 * millisecondsPerBeat * 1000));
                     case MILLISECOND:
                         return time / 1000;
                     case MICROSECOND:
