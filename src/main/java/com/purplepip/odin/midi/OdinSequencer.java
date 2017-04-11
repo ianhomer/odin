@@ -23,6 +23,7 @@ public class OdinSequencer {
     private Sequencer sequencer;
     private Set<Series<Note>> seriesSet = new HashSet<>();
     private SeriesProcessor seriesProcessor;
+    private MidiMessageProcessor midiMessageProcessor;
     private SeriesTimeUnitConverterFactory seriesTimeUnitConverterFactory;
 
     public OdinSequencer(OdinSequencerConfiguration configuration) throws MidiException {
@@ -35,8 +36,11 @@ public class OdinSequencer {
         if (configuration.isCoreJavaSequencerEnabled()) {
             initSequencer();
         }
-        seriesProcessor = new SeriesProcessor(device, seriesSet);
-        Thread thread = new Thread(seriesProcessor);
+        midiMessageProcessor = new MidiMessageProcessor(device);
+        Thread thread = new Thread(midiMessageProcessor);
+        thread.start();
+        seriesProcessor = new SeriesProcessor(device, seriesSet, midiMessageProcessor);
+        thread = new Thread(seriesProcessor);
         thread.start();
     }
 
@@ -122,6 +126,9 @@ public class OdinSequencer {
         }
         if (seriesProcessor != null) {
             seriesProcessor.stop();
+        }
+        if (midiMessageProcessor != null) {
+            midiMessageProcessor.stop();
         }
     }
 }

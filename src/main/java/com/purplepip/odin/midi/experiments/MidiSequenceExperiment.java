@@ -26,7 +26,7 @@ public class MidiSequenceExperiment {
             sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
                             .setCoreJavaSequencerEnabled(false)
-                            .setBeatsPerMinute(120));
+                            .setBeatsPerMinute(140));
             sequencer.addSeries(new Metronome(4), 0);
 
             try {
