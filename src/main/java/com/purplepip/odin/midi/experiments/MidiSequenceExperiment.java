@@ -20,14 +20,15 @@ public class MidiSequenceExperiment {
 
     private void doExperiment() throws MidiException {
         LOG.info("Creating sequence");
-        new MidiSystemHelper().logInfo().logInstruments();
         OdinSequencer sequencer = null;
         try {
             sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
                             .setCoreJavaSequencerEnabled(false)
                             .setBeatsPerMinute(140));
-            sequencer.addSeries(new Metronome(4), 0);
+            sequencer.addSeries(new Metronome(4), 0, 9);
+            sequencer.addSeries(new Metronome(4), 0, 0);
+            new MidiSystemHelper().logInfo().logInstruments();
 
             try {
                 Thread.sleep(10000);

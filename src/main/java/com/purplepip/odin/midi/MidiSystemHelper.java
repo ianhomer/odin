@@ -23,14 +23,19 @@ public class MidiSystemHelper {
         Synthesizer synthesizer;
         try {
             synthesizer = MidiSystem.getSynthesizer();
-            if (synthesizer != null){
-                Arrays.stream(synthesizer.getLoadedInstruments())
-                        .collect(Collectors.toList()).forEach((instrument) ->
-                        LOG.debug("Synthesiser instruments (loaded) : " + instrument.getName()));
-
-                Arrays.stream(synthesizer.getAvailableInstruments())
-                        .collect(Collectors.toList()).forEach((instrument) ->
-                        LOG.debug("Synthesiser instruments : " + instrument.getName()));
+            if (synthesizer != null) {
+                Instrument[] instruments = synthesizer.getLoadedInstruments();
+                for (int i = 0 ; i < instruments.length ; i++) {
+                    LOG.debug("Synthesiser instruments (loaded) : % %", i, instruments[i].getName());
+                }
+                instruments = synthesizer.getAvailableInstruments();
+                for (int i = 0 ; i < instruments.length ; i++) {
+                    LOG.debug("Synthesiser instruments : {} {}", i, instruments[i].getName());
+                }
+                MidiChannel[] midiChannels = synthesizer.getChannels();
+                for (int i = 0 ; i < midiChannels.length ; i++) {
+                    LOG.debug("Synthesiser channels : {} {}", i, midiChannels[i].getProgram());
+                }
             }
         } catch (MidiUnavailableException e) {
             LOG.error("Cannot get synthesizer", e);

@@ -15,7 +15,7 @@ import java.util.Set;
 public class SeriesProcessor implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(SeriesProcessor.class);
 
-    private Set<Series<Note>> seriesSet;
+    private Set<SeriesTrack> seriesTrackSet;
     private MidiDevice device;
     private MidiMessageProcessor midiMessageProcessor;
     private boolean exit;
@@ -24,8 +24,8 @@ public class SeriesProcessor implements Runnable {
     private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
     private int maxNotesPerBuffer = 1000;
 
-    public SeriesProcessor(MidiDevice device, Set<Series<Note>> seriesSet, MidiMessageProcessor midiMessageProcessor) {
-        this.seriesSet = seriesSet;
+    public SeriesProcessor(MidiDevice device, Set<SeriesTrack> seriesTrackSet, MidiMessageProcessor midiMessageProcessor) {
+        this.seriesTrackSet = seriesTrackSet;
         if (device == null) {
             throw new RuntimeException("Device must not be null");
         }
@@ -37,7 +37,8 @@ public class SeriesProcessor implements Runnable {
         while (!exit) {
             LOG.debug("Processing series for device at position {}", device.getMicrosecondPosition());
             int noteCountThisBuffer = 0;
-            for (Series<Note> series : seriesSet) {
+            for (SeriesTrack seriesTrack : seriesTrackSet) {
+                Series<Note> series = seriesTrack.getSeries();
                 if (noteCountThisBuffer > maxNotesPerBuffer) {
                     LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
                     break;
@@ -61,9 +62,9 @@ public class SeriesProcessor implements Runnable {
                             Note note = nextEvent.getValue();
                             LOG.debug("Sending note {} ; {} ; {}", note.getNumber(), note.getVelocity(), nextEvent.getTime());
                             try {
-                                ShortMessage noteOn = new ShortMessage(ShortMessage.NOTE_ON, 1,
+                                ShortMessage noteOn = new ShortMessage(ShortMessage.NOTE_ON, seriesTrack.getChannel(),
                                         note.getNumber(), note.getVelocity());
-                                ShortMessage noteOff = new ShortMessage(ShortMessage.NOTE_OFF, 1,
+                                ShortMessage noteOff = new ShortMessage(ShortMessage.NOTE_OFF, seriesTrack.getChannel(),
                                         note.getNumber(), note.getVelocity());
                                 midiMessageProcessor.send(noteOn, nextEvent.getTime());
                                 midiMessageProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());

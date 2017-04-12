@@ -21,7 +21,7 @@ public class OdinSequencer {
     private OdinSequencerConfiguration configuration;
     private MidiDevice device;
     private Sequencer sequencer;
-    private Set<Series<Note>> seriesSet = new HashSet<>();
+    private Set<SeriesTrack> seriesTrackSet = new HashSet<>();
     private SeriesProcessor seriesProcessor;
     private MidiMessageProcessor midiMessageProcessor;
     private SeriesTimeUnitConverterFactory seriesTimeUnitConverterFactory;
@@ -33,13 +33,14 @@ public class OdinSequencer {
 
     private void init() throws MidiException, MidiUnavailableException {
         initDevice();
+        initSynthesizer();
         if (configuration.isCoreJavaSequencerEnabled()) {
             initSequencer();
         }
         midiMessageProcessor = new MidiMessageProcessor(device);
         Thread thread = new Thread(midiMessageProcessor);
         thread.start();
-        seriesProcessor = new SeriesProcessor(device, seriesSet, midiMessageProcessor);
+        seriesProcessor = new SeriesProcessor(device, seriesTrackSet, midiMessageProcessor);
         thread = new Thread(seriesProcessor);
         thread.start();
     }
@@ -51,6 +52,18 @@ public class OdinSequencer {
         sequencer.setLoopCount(1);
         sequencer.getTransmitter().setReceiver(getReceiver());
         sequencer.open();
+    }
+
+    private void initSynthesizer() {
+        if ("Gervill".equals(device.getDeviceInfo().getName())) {
+            LOG.debug("Initialising internal synthesizer");
+            try {
+                device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, 41, 0),
+                        -1);
+            } catch (MidiUnavailableException | InvalidMidiDataException e) {
+                LOG.error("Cannot change synthesizer instruments", e);
+            }
+        }
     }
 
     private Receiver getReceiver() throws MidiUnavailableException {
@@ -69,6 +82,10 @@ public class OdinSequencer {
         LOG.debug("MIDI device : {}", device);
     }
 
+    public void addSeries(Series<Note> series, long offset) throws MidiException {
+        addSeries(series, offset, 0);
+    }
+
     /**
      * Add series at the given time offset, where offset is in the time units of the series being added.
      *
@@ -76,7 +93,7 @@ public class OdinSequencer {
      * @param offset
      * @throws MidiException
      */
-    public void addSeries(Series<Note> series, long offset) throws MidiException {
+    public void addSeries(Series<Note> series, long offset, int channel) throws MidiException {
         if (configuration.isCoreJavaSequencerEnabled()) {
             if (sequencer.isRunning()) {
                 sequencer.stop();
@@ -103,9 +120,9 @@ public class OdinSequencer {
                     deviceOffset = offset;
             }
             LOG.debug("Adding series {} with time units {}", series, series.getTimeUnits());
-            seriesSet.add(new SeriesTimeUnitConverterFactory(
+            seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
                     new TimeUnitConverter(TimeUnit.MICROSECOND, deviceOffset, configuration.getBeatsPerMinute()))
-                    .convertSeries(series));
+                    .convertSeries(series), channel));
         }
     }
 
