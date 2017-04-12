@@ -58,6 +58,7 @@ public class OdinSequencer {
         if ("Gervill".equals(device.getDeviceInfo().getName())) {
             LOG.debug("Initialising internal synthesizer");
             try {
+                // TODO : Externalise configuration - 41 is strings in internal Java engine
                 device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, 41, 0),
                         -1);
             } catch (MidiUnavailableException | InvalidMidiDataException e) {
