@@ -5,8 +5,6 @@ package com.purplepip.odin.series;
  */
 public enum TimeUnit {
     BEAT,
-    HALF_BEAT,
     SECOND,
-    MILLISECOND,
-    MICROSECOND;
+    MEASURE
 }

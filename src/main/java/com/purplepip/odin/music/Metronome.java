@@ -28,9 +28,9 @@ public class Metronome implements Series<Note> {
     public Metronome(long beatsPerBar, long length) {
         noteBarStart = new DefaultNote();
         noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
-        TimeUnitConverter converter = new TimeUnitConverter(TimeUnit.HALF_BEAT);
-        this.length = converter.convert(TimeUnit.BEAT, length);
-        this.timeUnitsPerBar = converter.convert(TimeUnit.BEAT, beatsPerBar);
+        TickConverter converter = new TickConverter(Tick.HALF_BEAT);
+        this.length = converter.convert(Tick.BEAT, length);
+        this.timeUnitsPerBar = converter.convert(Tick.BEAT, beatsPerBar);
         LOG.debug("Creating Metronome with {} beats per bar and length {} and time units per bar {}",
                 beatsPerBar, length, timeUnitsPerBar);
         createNextEvent();
@@ -54,8 +54,8 @@ public class Metronome implements Series<Note> {
     }
 
     @Override
-    public TimeUnit getTimeUnits() {
-        return TimeUnit.HALF_BEAT;
+    public Tick getTick() {
+        return Tick.HALF_BEAT;
     }
 
     private void createNextEvent() {

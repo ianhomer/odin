@@ -15,8 +15,8 @@ public class HeartBeat implements Series<Boolean> {
     }
 
     @Override
-    public TimeUnit getTimeUnits() {
-        return TimeUnit.BEAT;
+    public Tick getTick() {
+        return Tick.BEAT;
     }
 
     private Event<Boolean> getNext() {

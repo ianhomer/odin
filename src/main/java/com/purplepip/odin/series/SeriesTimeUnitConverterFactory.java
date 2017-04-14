@@ -6,13 +6,13 @@ import com.purplepip.odin.music.Note;
  * Series Factory.
  */
 public class SeriesTimeUnitConverterFactory {
-    private TimeUnitConverter timeUnitConverter;
+    private TickConverter tickConverter;
 
-    public SeriesTimeUnitConverterFactory(TimeUnitConverter timeUnitConverter) {
-        this.timeUnitConverter = timeUnitConverter;
+    public SeriesTimeUnitConverterFactory(TickConverter tickConverter) {
+        this.tickConverter = tickConverter;
     }
 
     public Series<Note> convertSeries(Series<Note> series) {
-        return new TimeUnitConvertedSeries(series, timeUnitConverter);
+        return new TickConvertedSeries(series, tickConverter);
     }
 }

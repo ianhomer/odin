@@ -1,10 +1,7 @@
 package com.purplepip.odin.midi;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.series.Series;
-import com.purplepip.odin.series.SeriesTimeUnitConverterFactory;
-import com.purplepip.odin.series.TimeUnit;
-import com.purplepip.odin.series.TimeUnitConverter;
+import com.purplepip.odin.series.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +22,7 @@ public class OdinSequencer {
     private SeriesProcessor seriesProcessor;
     private MidiMessageProcessor midiMessageProcessor;
     private SeriesTimeUnitConverterFactory seriesTimeUnitConverterFactory;
+    private TickConverter deviceOffsetConverter;
 
     public OdinSequencer(OdinSequencerConfiguration configuration) throws MidiException {
         this.configuration = configuration;
@@ -37,6 +35,7 @@ public class OdinSequencer {
         if (configuration.isCoreJavaSequencerEnabled()) {
             initSequencer();
         }
+        deviceOffsetConverter = new TickConverter(Tick.MICROSECOND, 0, configuration.getBeatsPerMinute());
         midiMessageProcessor = new MidiMessageProcessor(device);
         Thread thread = new Thread(midiMessageProcessor);
         thread.start();
@@ -108,21 +107,10 @@ public class OdinSequencer {
             sequencer.start();
             LOG.info("Sequence started");
         } else {
-            long deviceOffset = 0;
-            switch (series.getTimeUnits()) {
-                case BEAT:
-                    // TODO : Address magic number
-                    deviceOffset = offset * configuration.getBeatsPerMinute() * 60000 * 1000;
-                    break;
-                case MILLISECOND:
-                    deviceOffset = offset * configuration.getBeatsPerMinute() * 1000;
-                    break;
-                case MICROSECOND:
-                    deviceOffset = offset;
-            }
-            LOG.debug("Adding series {} with time units {}", series, series.getTimeUnits());
+            long deviceOffset = deviceOffsetConverter.convert(series.getTick(), offset);
+            LOG.debug("Adding series {} with time units {}", series, series.getTick());
             seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
-                    new TimeUnitConverter(TimeUnit.MICROSECOND, deviceOffset, configuration.getBeatsPerMinute()))
+                    new TickConverter(Tick.MICROSECOND, deviceOffset, configuration.getBeatsPerMinute()))
                     .convertSeries(series), channel));
         }
     }

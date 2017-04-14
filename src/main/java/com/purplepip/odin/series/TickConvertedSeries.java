@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory;
 /**
  * Series where time is in milliseconds relative to some origin, e.g. MIDI device start
  */
-public class TimeUnitConvertedSeries implements Series<Note> {
-    private static final Logger LOG = LoggerFactory.getLogger(TimeUnitConvertedSeries.class);
+public class TickConvertedSeries implements Series<Note> {
+    private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSeries.class);
     private Series<Note> series;
-    private TimeUnitConverter timeUnitConverter;
+    private TickConverter tickConverter;
 
-    public TimeUnitConvertedSeries(Series<Note> series, TimeUnitConverter timeUnitConverter) {
+    public TickConvertedSeries(Series<Note> series, TickConverter tickConverter) {
         this.series = series;
-        this.timeUnitConverter = timeUnitConverter;
+        this.tickConverter = tickConverter;
     }
 
     @Override
@@ -29,8 +29,8 @@ public class TimeUnitConvertedSeries implements Series<Note> {
     }
 
     @Override
-    public TimeUnit getTimeUnits() {
-        return timeUnitConverter.getOutputTimeUnit();
+    public Tick getTick() {
+        return tickConverter.getOutputTick();
     }
 
     private Event<Note> convertTimeUnits(Event<Note> event) {
@@ -38,12 +38,12 @@ public class TimeUnitConvertedSeries implements Series<Note> {
             LOG.debug("No event on series to convert");
             return null;
         }
-        if (timeUnitConverter.getOutputTimeUnit() == series.getTimeUnits()) {
+        if (tickConverter.getOutputTick() == series.getTick()) {
             return event;
         }
         Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
-                timeUnitConverter.convert(series.getTimeUnits(), event.getValue().getDuration()));
-        long time = timeUnitConverter.convert(series.getTimeUnits(), event.getTime());
+                tickConverter.convert(series.getTick(), event.getValue().getDuration()));
+        long time = tickConverter.convert(series.getTick(), event.getTime());
         LOG.trace("Converted note {} to time {}", note, time);
         return new DefaultEvent<>(note, time);
     }
