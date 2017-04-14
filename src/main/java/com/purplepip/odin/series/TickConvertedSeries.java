@@ -42,8 +42,8 @@ public class TickConvertedSeries implements Series<Note> {
             return event;
         }
         Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
-                tickConverter.convert(series.getTick(), event.getValue().getDuration()));
-        long time = tickConverter.convert(series.getTick(), event.getTime());
+                tickConverter.convert(event.getValue().getDuration()));
+        long time = tickConverter.convert(event.getTime());
         LOG.trace("Converted note {} to time {}", note, time);
         return new DefaultEvent<>(note, time);
     }

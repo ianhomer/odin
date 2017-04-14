@@ -6,7 +6,7 @@ package com.purplepip.odin.midi;
 public class OdinSequencerConfiguration {
     private boolean isCoreJavaSequencerEnabled = true;
     // TODO : Externalise defaults
-    private long beatsPerMinute = 120;
+    private int beatsPerMinute = 120;
 
     public OdinSequencerConfiguration setCoreJavaSequencerEnabled(boolean isCoreJavaSequencerEnabled) {
         this.isCoreJavaSequencerEnabled = isCoreJavaSequencerEnabled;
@@ -17,12 +17,12 @@ public class OdinSequencerConfiguration {
         return isCoreJavaSequencerEnabled;
     }
 
-    public OdinSequencerConfiguration setBeatsPerMinute(long beatsPerMinute) {
+    public OdinSequencerConfiguration setBeatsPerMinute(int beatsPerMinute) {
         this.beatsPerMinute = beatsPerMinute;
         return this;
     }
 
-    public long getBeatsPerMinute() {
+    public int getBeatsPerMinute() {
         return beatsPerMinute;
     }
 }

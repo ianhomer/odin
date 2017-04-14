@@ -23,6 +23,7 @@ public class OdinSequencer {
     private MidiMessageProcessor midiMessageProcessor;
     private SeriesTimeUnitConverterFactory seriesTimeUnitConverterFactory;
     private TickConverter deviceOffsetConverter;
+    private Clock clock;
 
     public OdinSequencer(OdinSequencerConfiguration configuration) throws MidiException {
         this.configuration = configuration;
@@ -35,7 +36,7 @@ public class OdinSequencer {
         if (configuration.isCoreJavaSequencerEnabled()) {
             initSequencer();
         }
-        deviceOffsetConverter = new TickConverter(Tick.MICROSECOND, 0, configuration.getBeatsPerMinute());
+        clock = new Clock(configuration.getBeatsPerMinute());
         midiMessageProcessor = new MidiMessageProcessor(device);
         Thread thread = new Thread(midiMessageProcessor);
         thread.start();
@@ -107,10 +108,9 @@ public class OdinSequencer {
             sequencer.start();
             LOG.info("Sequence started");
         } else {
-            long deviceOffset = deviceOffsetConverter.convert(series.getTick(), offset);
             LOG.debug("Adding series {} with time units {}", series, series.getTick());
             seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
-                    new TickConverter(Tick.MICROSECOND, deviceOffset, configuration.getBeatsPerMinute()))
+                    new TickConverter(clock, series.getTick(), Tick.MICROSECOND, offset))
                     .convertSeries(series), channel));
         }
     }

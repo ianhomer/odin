@@ -7,6 +7,7 @@ public class Tick {
     private TimeUnit timeUnit;
     private int numerator;
     private int denominator;
+    private double factor;
 
     public static Tick SECOND = new Tick(TimeUnit.SECOND);
     public static Tick MILLISECOND = new Tick(TimeUnit.SECOND, 1 , 1000);
@@ -24,8 +25,9 @@ public class Tick {
 
     public Tick(TimeUnit timeUnit, int numerator, int denominator) {
         this.timeUnit = timeUnit;
-        this.denominator = denominator;
         this.numerator = numerator;
+        this.denominator = denominator;
+        this.factor = (double) numerator / (double) denominator;
     }
 
     public TimeUnit getTimeUnit() {
@@ -38,5 +40,9 @@ public class Tick {
 
     public int getDenominator() {
         return denominator;
+    }
+
+    public double getFactor() {
+        return factor;
     }
 }

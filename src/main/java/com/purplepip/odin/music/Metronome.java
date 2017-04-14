@@ -28,9 +28,10 @@ public class Metronome implements Series<Note> {
     public Metronome(long beatsPerBar, long length) {
         noteBarStart = new DefaultNote();
         noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
-        TickConverter converter = new TickConverter(Tick.HALF_BEAT);
-        this.length = converter.convert(Tick.BEAT, length);
-        this.timeUnitsPerBar = converter.convert(Tick.BEAT, beatsPerBar);
+        // TODO : We don't need clock for this converter, but we should make this more robust than setting null
+        TickConverter converter = new TickConverter(null, Tick.BEAT, Tick.HALF_BEAT);
+        this.length = converter.convert(length);
+        this.timeUnitsPerBar = converter.convert(beatsPerBar);
         LOG.debug("Creating Metronome with {} beats per bar and length {} and time units per bar {}",
                 beatsPerBar, length, timeUnitsPerBar);
         createNextEvent();
