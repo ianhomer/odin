@@ -10,11 +10,6 @@ public class TickConverter {
     private static final Logger LOG = LoggerFactory.getLogger(TickConverter.class);
 
     private long inputOffset;
-    /*
-     * A non-negative value of the output offset is set when the clock knows for sure what it is.  The clock
-     * only knows when the time has passed.
-     */
-    private long outputOffset = -1;
     private Clock clock;
     private Tick inputTick;
     private Tick outputTick;
@@ -44,7 +39,7 @@ public class TickConverter {
 
     public long convert(long time) {
         LOG.trace("Converting {} from {} to {}", time, inputTick, outputTick);
-        return getOutputOffset() + convertTimeUnit(time);
+        return convertTimeUnit(inputOffset + time);
     }
 
     private long scaleTime(long time) {
@@ -71,44 +66,5 @@ public class TickConverter {
         }
         throw new RuntimeException("Unexpected time unit " + inputTick.getTimeUnit() + ":" +
             outputTick.getTimeUnit());
-    }
-
-    /*
-     * We do not know accurately the output offset until the time has pass since the BPM might change
-     * before the series starts.
-     * TODO : Handle offsets, code below is WIP
-     */
-    private long getOutputOffset() {
-        if (outputOffset > -1) {
-            return outputOffset;
-        }
-        long outputOffsetEstimate = convertTimeUnit(inputOffset);
-        boolean isOutputOffsetAccurate = true;
-        /*
-        switch (inputTick.getTimeUnit()) {
-            case BEAT:
-                switch (outputTick.getTimeUnit()) {
-                    case BEAT:
-                        outputOffsetEstimate = scaleTime(inputOffset);
-                        isOutputOffsetAccurate = true;
-                        break;
-                    case SECOND:
-                        return (long) (inputOffset);
-                }
-            case SECOND:
-                switch (outputTick.getTimeUnit()) {
-                    case BEAT:
-                        return (long) (inputOffset);
-                    case SECOND:
-                        outputOffsetEstimate = scaleTime(inputOffset);
-                        isOutputOffsetAccurate = true;
-                        break;
-                }
-        }
-        */
-        if (isOutputOffsetAccurate) {
-            outputOffset = outputOffsetEstimate;
-        }
-        return outputOffsetEstimate;
     }
 }

@@ -22,15 +22,18 @@ public class TickConverterTest {
     public void testConvertToMicroseconds() {
         Clock clock = new Clock(120);
         TickConverter converter = new TickConverter(clock, Tick.BEAT, Tick.MICROSECOND, 0);
-        assertEquals("Beat to micros failed", 500000, converter.convert( 1));
+        assertEquals("Beat to micros failed", 500000, converter.convert(1));
         converter = new TickConverter(clock, Tick.HALF_BEAT, Tick.MICROSECOND, 0);
         assertEquals("Half beat to micros failed", 250000, converter.convert(1));
+    }
 
-        // TODO : Support offset
-        //converter = new TickConverter(clock, Tick.BEAT, Tick.MICROSECOND, 1);
-        //assertEquals("Beat to micros failed", 500001, converter.convert(1));
-        //converter = new TickConverter(clock, Tick.HALF_BEAT, Tick.MICROSECOND, 1);
-        //assertEquals("Half beat to micros failed", 250001, converter.convert(1));
+    @Test
+    public void testConvertToMicrosecondsWithOffset() {
+        Clock clock = new Clock(120);
+        TickConverter converter = new TickConverter(clock, Tick.BEAT, Tick.MICROSECOND, 1);
+        assertEquals("Beat to micros failed", 1000000, converter.convert(1));
+        converter = new TickConverter(clock, Tick.HALF_BEAT, Tick.MICROSECOND, 1);
+        assertEquals("Half beat to micros failed", 500000, converter.convert(1));
     }
 
     @Test
