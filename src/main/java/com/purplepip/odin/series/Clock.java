@@ -2,14 +2,12 @@ package com.purplepip.odin.series;
 
 /**
  * Series clock that has the intelligence to know the timings of future beats.
- *
- * TODO : Support variation in BPM.
  */
 public class Clock {
-    private StaticBeatsPerMinute beatsPerMinute;
+    private BeatsPerMinute beatsPerMinute;
     private long microsecondsStart;
 
-    public Clock(StaticBeatsPerMinute beatsPerMinute) {
+    public Clock(BeatsPerMinute beatsPerMinute) {
         this.beatsPerMinute = beatsPerMinute;
     }
 

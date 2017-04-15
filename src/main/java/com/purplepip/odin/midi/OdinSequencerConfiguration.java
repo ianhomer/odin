@@ -1,12 +1,17 @@
 package com.purplepip.odin.midi;
 
+import com.purplepip.odin.music.MeasureProvider;
+import com.purplepip.odin.music.StaticMeasureProvider;
+import com.purplepip.odin.series.BeatsPerMinute;
+import com.purplepip.odin.series.StaticBeatsPerMinute;
+
 /**
  * Odin Sequencer Configuration.
  */
 public class OdinSequencerConfiguration {
     private boolean isCoreJavaSequencerEnabled = true;
-    // TODO : Externalise defaults
-    private int beatsPerMinute = 120;
+    private BeatsPerMinute beatsPerMinute = new StaticBeatsPerMinute(140);
+    private MeasureProvider measureProvider = new StaticMeasureProvider(4);
 
     public OdinSequencerConfiguration setCoreJavaSequencerEnabled(boolean isCoreJavaSequencerEnabled) {
         this.isCoreJavaSequencerEnabled = isCoreJavaSequencerEnabled;
@@ -17,12 +22,21 @@ public class OdinSequencerConfiguration {
         return isCoreJavaSequencerEnabled;
     }
 
-    public OdinSequencerConfiguration setBeatsPerMinute(int beatsPerMinute) {
+    public OdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
         this.beatsPerMinute = beatsPerMinute;
         return this;
     }
 
-    public int getBeatsPerMinute() {
+    public OdinSequencerConfiguration setMeasureProvider(MeasureProvider measureProvider) {
+        this.measureProvider = measureProvider;
+        return this;
+    }
+
+    public BeatsPerMinute getBeatsPerMinute() {
         return beatsPerMinute;
+    }
+
+    public MeasureProvider getMeasureProvider() {
+        return measureProvider;
     }
 }

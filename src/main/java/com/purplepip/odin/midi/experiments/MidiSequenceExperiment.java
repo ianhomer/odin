@@ -1,7 +1,10 @@
 package com.purplepip.odin.midi.experiments;
 
 import com.purplepip.odin.midi.*;
+import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Metronome;
+import com.purplepip.odin.music.StaticMeasureProvider;
+import com.purplepip.odin.series.StaticBeatsPerMinute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,12 +23,15 @@ public class MidiSequenceExperiment {
         LOG.info("Creating sequence");
         OdinSequencer sequencer = null;
         try {
+            MeasureProvider measureProvider = new StaticMeasureProvider(4);
             sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
                             .setCoreJavaSequencerEnabled(false)
-                            .setBeatsPerMinute(140));
-            sequencer.addSeries(new Metronome(4), 0, 9);
-            sequencer.addSeries(new Metronome(4), 0, 0);
+                            .setBeatsPerMinute(new StaticBeatsPerMinute(140))
+                            .setMeasureProvider(measureProvider));
+
+            sequencer.addSeries(new Metronome(measureProvider), 0, 9);
+            sequencer.addSeries(new Metronome(measureProvider), 0, 0);
             new MidiSystemHelper().logInfo().logInstruments();
 
             try {

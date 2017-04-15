@@ -15,25 +15,21 @@ public class Metronome implements Series<Note> {
     private Note noteMidBar;
     private long time = 0;
     private long length;
-    private long timeUnitsPerBar;
+    private MeasureProvider measureProvider;
 
-    public Metronome() {
-        this(4);
+    public Metronome(MeasureProvider measureProvider) {
+        this(measureProvider, -1);
     }
 
-    public Metronome(long beatsPerBar) {
-        this(beatsPerBar, -1);
-    }
-
-    public Metronome(long beatsPerBar, long length) {
+    public Metronome(MeasureProvider measureProvider, long length) {
         noteBarStart = new DefaultNote();
         noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
         // TODO : We don't need clock for this converter, but we should make this more robust than setting null
         TickConverter converter = new TickConverter(null, Tick.BEAT, Tick.HALF_BEAT);
         this.length = converter.convert(length);
-        this.timeUnitsPerBar = converter.convert(beatsPerBar);
-        LOG.debug("Creating Metronome with {} beats per bar and length {} and time units per bar {}",
-                beatsPerBar, length, timeUnitsPerBar);
+        this.measureProvider = measureProvider;
+        LOG.debug("Creating Metronome with length {} and measure provider {}",
+                length, measureProvider);
         createNextEvent();
     }
 
@@ -62,7 +58,7 @@ public class Metronome implements Series<Note> {
     private void createNextEvent() {
         LOG.debug("Creating next event for time {}", time);
         Note note;
-        if (time % timeUnitsPerBar == 0) {
+        if (measureProvider.getTickPosition(new Tock(getTick(), time)) == 0) {
             note = noteBarStart;
         } else {
             note = noteMidBar;

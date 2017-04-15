@@ -1,6 +1,8 @@
 package com.purplepip.odin.midi;
 
+import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.StaticMeasureProvider;
 import com.purplepip.odin.series.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,7 @@ public class OdinSequencer {
     private SeriesTimeUnitConverterFactory seriesTimeUnitConverterFactory;
     private TickConverter deviceOffsetConverter;
     private Clock clock;
+    private Meter meter;
 
     public OdinSequencer(OdinSequencerConfiguration configuration) throws MidiException {
         this.configuration = configuration;
@@ -36,8 +39,9 @@ public class OdinSequencer {
         if (configuration.isCoreJavaSequencerEnabled()) {
             initSequencer();
         }
-        clock = new Clock(new StaticBeatsPerMinute(configuration.getBeatsPerMinute()));
+        clock = new Clock(configuration.getBeatsPerMinute());
         clock.startAtNextSecond(device.getMicrosecondPosition());
+        meter = new Meter(clock, configuration.getMeasureProvider());
         midiMessageProcessor = new MidiMessageProcessor(device);
         Thread thread = new Thread(midiMessageProcessor);
         thread.start();
