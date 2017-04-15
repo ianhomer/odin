@@ -1,5 +1,6 @@
 package com.purplepip.odin.series;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,10 +9,15 @@ import static org.junit.Assert.assertEquals;
  * Time Unit Converter Test.
  */
 public class TickConverterTest {
+    private Clock clock;
+
+    @Before
+    public void initialise() {
+        clock = new Clock(new StaticBeatsPerMinute(120));
+    }
 
     @Test
     public void testConvertToMilliseconds() {
-        Clock clock = new Clock(120);
         TickConverter converter = new TickConverter(clock, Tick.BEAT, Tick.MILLISECOND, 0);
         assertEquals("Beat to ms failed", 500, converter.convert(1));
         converter = new TickConverter(clock, Tick.HALF_BEAT, Tick.MILLISECOND, 0);
@@ -20,7 +26,6 @@ public class TickConverterTest {
 
     @Test
     public void testConvertToMicroseconds() {
-        Clock clock = new Clock(120);
         TickConverter converter = new TickConverter(clock, Tick.BEAT, Tick.MICROSECOND, 0);
         assertEquals("Beat to micros failed", 500000, converter.convert(1));
         converter = new TickConverter(clock, Tick.HALF_BEAT, Tick.MICROSECOND, 0);
@@ -29,7 +34,6 @@ public class TickConverterTest {
 
     @Test
     public void testConvertToMicrosecondsWithOffset() {
-        Clock clock = new Clock(120);
         TickConverter converter = new TickConverter(clock, Tick.BEAT, Tick.MICROSECOND, 1);
         assertEquals("Beat to micros failed", 1000000, converter.convert(1));
         converter = new TickConverter(clock, Tick.HALF_BEAT, Tick.MICROSECOND, 1);
@@ -38,7 +42,6 @@ public class TickConverterTest {
 
     @Test
     public void testConvertToBeat() {
-        Clock clock = new Clock(120);
         TickConverter converter = new TickConverter(clock, Tick.MICROSECOND, Tick.BEAT, 0);
         assertEquals("Micros to beat failed", 1, converter.convert(500000));
         converter = new TickConverter(clock, Tick.MILLISECOND, Tick.BEAT, 0);
@@ -47,7 +50,6 @@ public class TickConverterTest {
 
     @Test
     public void testConvertToHalfBeat() {
-        Clock clock = new Clock(120);
         TickConverter converter = new TickConverter(clock, Tick.MICROSECOND, Tick.HALF_BEAT, 0);
         assertEquals("Micros to half beat failed", 4, converter.convert(1000000));
         converter = new TickConverter(clock, Tick.MILLISECOND, Tick.HALF_BEAT, 0);

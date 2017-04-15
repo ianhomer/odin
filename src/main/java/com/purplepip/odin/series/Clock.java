@@ -6,30 +6,37 @@ package com.purplepip.odin.series;
  * TODO : Support variation in BPM.
  */
 public class Clock {
-    private static final float SECONDS_PER_MINUTE = 60.0f;
+    private StaticBeatsPerMinute beatsPerMinute;
+    private long microsecondsStart;
 
-    private int beatsPerMinute;
-    private double secondsPerBeat;
-
-    public Clock(int beatsPerMinute) {
+    public Clock(StaticBeatsPerMinute beatsPerMinute) {
         this.beatsPerMinute = beatsPerMinute;
-        this.secondsPerBeat = SECONDS_PER_MINUTE / beatsPerMinute;
     }
 
-    public int getBeatsPerMinute() {
+    public void start(long microsecondsStart) {
+        this.microsecondsStart = microsecondsStart;
+    }
+
+    /**
+     * Starting at next second can make debugging easier because microseconds position will start at a round
+     * number.
+     *
+     * @param microsecondsStart
+     */
+    public void startAtNextSecond(long microsecondsStart) {
+        this.microsecondsStart = 1000000 * (microsecondsStart / 1000000);
+    }
+
+    public BeatsPerMinute getBeatsPerMinute() {
         return beatsPerMinute;
     }
 
-    public double getBeat(double seconds) {
-        return seconds / secondsPerBeat;
+    public double getBeat(long microseconds) {
+        return microseconds / beatsPerMinute.getMicroSecondsPerBeat();
     }
 
-    public double getSeconds(double beat) {
-        return secondsPerBeat * beat;
+    public long getMicroSeconds(double beat) {
+        return microsecondsStart + (long) (beatsPerMinute.getMicroSecondsPerBeat() * beat);
     }
-
-
-
-
 
 }

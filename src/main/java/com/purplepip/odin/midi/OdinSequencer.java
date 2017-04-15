@@ -36,7 +36,8 @@ public class OdinSequencer {
         if (configuration.isCoreJavaSequencerEnabled()) {
             initSequencer();
         }
-        clock = new Clock(configuration.getBeatsPerMinute());
+        clock = new Clock(new StaticBeatsPerMinute(configuration.getBeatsPerMinute()));
+        clock.startAtNextSecond(device.getMicrosecondPosition());
         midiMessageProcessor = new MidiMessageProcessor(device);
         Thread thread = new Thread(midiMessageProcessor);
         thread.start();

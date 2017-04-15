@@ -53,14 +53,14 @@ public class TickConverter {
                 switch (outputTick.getTimeUnit()) {
                     case BEAT:
                         return scaleTime(time);
-                    case SECOND:
-                        return (long) (clock.getSeconds(inputTick.getFactor() * time) / outputTick.getFactor());
+                    case MICROSECOND:
+                        return clock.getMicroSeconds(inputTick.getFactor() * time) / outputTick.getFactorAsInt();
                 }
-            case SECOND:
+            case MICROSECOND:
                 switch (outputTick.getTimeUnit()) {
                     case BEAT:
-                        return (long) (clock.getBeat(inputTick.getFactor() * time) / outputTick.getFactor());
-                    case SECOND:
+                        return (long) (clock.getBeat(inputTick.getFactorAsInt() * time) / outputTick.getFactor());
+                    case MICROSECOND:
                         return scaleTime(time);
                 }
         }

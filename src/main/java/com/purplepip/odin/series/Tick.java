@@ -8,10 +8,11 @@ public class Tick {
     private int numerator;
     private int denominator;
     private double factor;
+    private int factorAsInt;
 
-    public static Tick SECOND = new Tick(TimeUnit.SECOND);
-    public static Tick MILLISECOND = new Tick(TimeUnit.SECOND, 1 , 1000);
-    public static Tick MICROSECOND = new Tick(TimeUnit.SECOND, 1 , 1000000);
+    public static Tick SECOND = new Tick(TimeUnit.MICROSECOND, 1000000);
+    public static Tick MILLISECOND = new Tick(TimeUnit.MICROSECOND, 1000);
+    public static Tick MICROSECOND = new Tick(TimeUnit.MICROSECOND);
     public static Tick BEAT = new Tick(TimeUnit.BEAT);
     public static Tick HALF_BEAT = new Tick(TimeUnit.BEAT, 1 , 2);
 
@@ -28,6 +29,7 @@ public class Tick {
         this.numerator = numerator;
         this.denominator = denominator;
         this.factor = (double) numerator / (double) denominator;
+        this.factorAsInt = numerator / denominator;
     }
 
     public TimeUnit getTimeUnit() {
@@ -44,5 +46,9 @@ public class Tick {
 
     public double getFactor() {
         return factor;
+    }
+
+    public int getFactorAsInt() {
+        return factorAsInt;
     }
 }

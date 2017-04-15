@@ -5,8 +5,6 @@ import com.purplepip.odin.music.Metronome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.sound.midi.*;
-
 /**
  * Midi Sequence Experiment.
  */
