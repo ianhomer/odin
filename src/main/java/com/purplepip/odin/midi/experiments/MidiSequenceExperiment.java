@@ -30,19 +30,19 @@ public class MidiSequenceExperiment {
             sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
                             .setCoreJavaSequencerEnabled(false)
-                            .setBeatsPerMinute(new StaticBeatsPerMinute(140))
+                            .setBeatsPerMinute(new StaticBeatsPerMinute(120))
                             .setMeasureProvider(measureProvider));
 
             sequencer.addSeries(new Metronome(measureProvider), 0, 9);
-            sequencer.addSeries(new Metronome(measureProvider), 0, 0);
-            sequencer.addSeries(new Pattern(measureProvider, Tick.QUARTER, 12, new DefaultNote()),
+            sequencer.addSeries(new Pattern(measureProvider, Tick.BEAT, 2), 0, 0);
+            sequencer.addSeries(new Pattern(measureProvider, Tick.QUARTER, 61435, new DefaultNote(42)),
                     0, 9);
             sequencer.addSeries(new Pattern(measureProvider, Tick.EIGHTH, 127, new DefaultNote(42)),
                     0, 9);
-            sequencer.addSeries(new Pattern(measureProvider, Tick.FOUR_THIRDS, 7, new DefaultNote(46)),
+            sequencer.addSeries(new Pattern(measureProvider, Tick.TWO_THIRDS, 7, new DefaultNote(46)),
                     0, 9);
-            sequencer.addSeries(new Pattern(measureProvider, Tick.BEAT, 6, new DefaultNote(62, 20)),
-                    0, 0);
+            //sequencer.addSeries(new Pattern(measureProvider, Tick.HALF, 6, new DefaultNote(62, 20)),
+            //        0, 0);
             new MidiSystemHelper().logInfo().logInstruments();
             sequencer.start();
 

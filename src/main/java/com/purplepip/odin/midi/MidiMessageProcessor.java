@@ -46,7 +46,7 @@ public class MidiMessageProcessor implements Runnable {
                     // TODO : Understand why this might have happened, and if can't reproduce then remove this branch.
                     LOG.error("Next event in queue is null, where did it go?");
                 } else {
-                    LOG.debug("Send message {} at time {} ; device time {}", nextEvent.getMidiMessage(),
+                    LOG.trace("Send message {} at time {} ; device time {}", nextEvent.getMidiMessage(),
                             nextEvent.getTime(), device.getMicrosecondPosition());
                     try {
                         device.getReceiver().send(nextEvent.getMidiMessage(), nextEvent.getTime());

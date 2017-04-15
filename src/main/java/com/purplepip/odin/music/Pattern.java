@@ -12,16 +12,30 @@ public class Pattern implements Series<Note> {
 
     private MeasureProvider measureProvider;
     private Tick tick;
+    /*
+     * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
+     */
     private int pattern;
     private Note note;
     private Event<Note> nextEvent;
     private long time = 0;
+
+    public Pattern(MeasureProvider measureProvider, Tick tick) {
+        this(measureProvider, tick,
+                (int) Math.pow(2, (measureProvider.getMeasureBeats(new Tock(tick, 0))
+                        * tick.getDenominator() / tick.getNumerator())) - 1);
+    }
+
+    public Pattern(MeasureProvider measureProvider, Tick tick, int pattern) {
+        this(measureProvider, tick, pattern, new DefaultNote());
+    }
 
     public Pattern(MeasureProvider measureProvider, Tick tick, int pattern, Note note) {
         this.measureProvider = measureProvider;
         this.tick = tick;
         this.pattern = pattern;
         this.note = note;
+        LOG.debug("Created pattern {} for note {}", pattern, note);
         createNextEvent();
     }
 
@@ -46,7 +60,7 @@ public class Pattern implements Series<Note> {
     }
 
     private void createNextEvent() {
-        LOG.debug("Creating next event for time {}", time);
+        LOG.trace("Creating next event for time {}", time);
         boolean on = false;
         long maxForwardScan = 2 * measureProvider.getMeasureBeats(new Tock(getTick(), time));
         int i = 0;

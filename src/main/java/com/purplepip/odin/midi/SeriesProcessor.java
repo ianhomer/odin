@@ -38,7 +38,7 @@ public class SeriesProcessor implements Runnable {
             int noteCountThisBuffer = 0;
             for (SeriesTrack seriesTrack : seriesTrackSet) {
                 Series<Note> series = seriesTrack.getSeries();
-                LOG.debug("Processing series {} for device at position {}", series, device.getMicrosecondPosition());
+                LOG.trace("Processing series {} for device at position {}", series, device.getMicrosecondPosition());
                 if (noteCountThisBuffer > maxNotesPerBuffer) {
                     LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
                     break;
@@ -60,8 +60,8 @@ public class SeriesProcessor implements Runnable {
                                     device.getMicrosecondPosition());
                         } else {
                             Note note = nextEvent.getValue();
-                            LOG.debug("Sending note {} ; {} ; {}",
-                                    note.getNumber(), note.getVelocity(), nextEvent.getTime());
+                            LOG.debug("Sending note {} to {} ; {}",
+                                    note.getNumber(), seriesTrack.getChannel(), nextEvent.getTime());
                             try {
                                 ShortMessage noteOn = new ShortMessage(ShortMessage.NOTE_ON, seriesTrack.getChannel(),
                                         note.getNumber(), note.getVelocity());
