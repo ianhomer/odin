@@ -25,12 +25,17 @@ public class Metronome implements Series<Note> {
         noteBarStart = new DefaultNote();
         noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
         // TODO : We don't need clock for this converter, but we should make this more robust than setting null
-        TickConverter converter = new TickConverter(null, Tick.BEAT, Tick.HALF_BEAT);
+        TickConverter converter = new SameTimeUnitTickConverter(Tick.BEAT, Tick.HALF);
         this.length = converter.convert(length);
         this.measureProvider = measureProvider;
         LOG.debug("Creating Metronome with length {} and measure provider {}",
                 length, measureProvider);
         createNextEvent();
+    }
+
+    @Override
+    public Tick getTick() {
+        return Tick.HALF;
     }
 
     @Override
@@ -50,10 +55,6 @@ public class Metronome implements Series<Note> {
         return thisEvent;
     }
 
-    @Override
-    public Tick getTick() {
-        return Tick.HALF_BEAT;
-    }
 
     private void createNextEvent() {
         LOG.debug("Creating next event for time {}", time);

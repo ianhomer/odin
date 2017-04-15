@@ -6,9 +6,9 @@ import com.purplepip.odin.music.Note;
  * Series Factory.
  */
 public class SeriesTimeUnitConverterFactory {
-    private TickConverter tickConverter;
+    private DefaultTickConverter tickConverter;
 
-    public SeriesTimeUnitConverterFactory(TickConverter tickConverter) {
+    public SeriesTimeUnitConverterFactory(DefaultTickConverter tickConverter) {
         this.tickConverter = tickConverter;
     }
 

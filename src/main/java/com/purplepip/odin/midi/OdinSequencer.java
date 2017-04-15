@@ -2,7 +2,6 @@ package com.purplepip.odin.midi;
 
 import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.music.StaticMeasureProvider;
 import com.purplepip.odin.series.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +23,17 @@ public class OdinSequencer {
     private SeriesProcessor seriesProcessor;
     private MidiMessageProcessor midiMessageProcessor;
     private SeriesTimeUnitConverterFactory seriesTimeUnitConverterFactory;
-    private TickConverter deviceOffsetConverter;
+    private DefaultTickConverter deviceOffsetConverter;
     private Clock clock;
     private Meter meter;
 
     public OdinSequencer(OdinSequencerConfiguration configuration) throws MidiException {
         this.configuration = configuration;
-        start();
+        try {
+            init();
+        } catch (MidiUnavailableException e) {
+            throw new MidiException(e);
+        }
     }
 
     private void init() throws MidiException, MidiUnavailableException {
@@ -42,13 +45,8 @@ public class OdinSequencer {
         clock = new Clock(configuration.getBeatsPerMinute());
         clock.startAtNextSecond(device.getMicrosecondPosition());
         meter = new Meter(clock, configuration.getMeasureProvider());
-        midiMessageProcessor = new MidiMessageProcessor(device);
-        Thread thread = new Thread(midiMessageProcessor);
-        thread.start();
-        seriesProcessor = new SeriesProcessor(device, seriesTrackSet, midiMessageProcessor);
-        thread = new Thread(seriesProcessor);
-        thread.start();
     }
+
 
     private void initSequencer() throws MidiUnavailableException {
         sequencer = MidiSystem.getSequencer(false);
@@ -115,18 +113,19 @@ public class OdinSequencer {
         } else {
             LOG.debug("Adding series {} with time units {}", series, series.getTick());
             seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
-                    new TickConverter(clock, series.getTick(), Tick.MICROSECOND, offset))
+                    new DefaultTickConverter(clock, series.getTick(), Tick.MICROSECOND, offset))
                     .convertSeries(series), channel));
         }
     }
 
 
     public void start() throws MidiException {
-        try {
-            init();
-        } catch (MidiUnavailableException e) {
-            throw new MidiException(e);
-        }
+        midiMessageProcessor = new MidiMessageProcessor(device);
+        Thread thread = new Thread(midiMessageProcessor);
+        thread.start();
+        seriesProcessor = new SeriesProcessor(device, seriesTrackSet, midiMessageProcessor);
+        thread = new Thread(seriesProcessor);
+        thread.start();
     }
 
     public void stop() {

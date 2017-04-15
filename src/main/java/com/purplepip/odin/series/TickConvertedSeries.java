@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 public class TickConvertedSeries implements Series<Note> {
     private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSeries.class);
     private Series<Note> series;
-    private TickConverter tickConverter;
+    private DefaultTickConverter tickConverter;
 
-    public TickConvertedSeries(Series<Note> series, TickConverter tickConverter) {
+    public TickConvertedSeries(Series<Note> series, DefaultTickConverter tickConverter) {
         this.series = series;
         this.tickConverter = tickConverter;
     }
@@ -47,4 +47,5 @@ public class TickConvertedSeries implements Series<Note> {
         LOG.trace("Converted note {} to time {}", note, time);
         return new DefaultEvent<>(note, time);
     }
+    
 }

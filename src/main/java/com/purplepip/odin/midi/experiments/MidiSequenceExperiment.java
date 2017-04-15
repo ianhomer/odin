@@ -1,10 +1,9 @@
 package com.purplepip.odin.midi.experiments;
 
 import com.purplepip.odin.midi.*;
-import com.purplepip.odin.music.MeasureProvider;
-import com.purplepip.odin.music.Metronome;
-import com.purplepip.odin.music.StaticMeasureProvider;
+import com.purplepip.odin.music.*;
 import com.purplepip.odin.series.StaticBeatsPerMinute;
+import com.purplepip.odin.series.Tick;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,9 +13,13 @@ import org.slf4j.LoggerFactory;
 public class MidiSequenceExperiment {
     private static final Logger LOG = LoggerFactory.getLogger(MidiSequenceExperiment.class);
 
-    public static void main(String [] args) throws MidiException {
+    public static void main(String [] args)  {
         MidiSequenceExperiment experiment = new MidiSequenceExperiment();
-        experiment.doExperiment();
+        try {
+            experiment.doExperiment();
+        } catch (MidiException e) {
+            LOG.error("Unexpected failure", e);
+        }
     }
 
     private void doExperiment() throws MidiException {
@@ -32,7 +35,16 @@ public class MidiSequenceExperiment {
 
             sequencer.addSeries(new Metronome(measureProvider), 0, 9);
             sequencer.addSeries(new Metronome(measureProvider), 0, 0);
+            sequencer.addSeries(new Pattern(measureProvider, Tick.QUARTER, 12, new DefaultNote()),
+                    0, 9);
+            sequencer.addSeries(new Pattern(measureProvider, Tick.EIGHTH, 127, new DefaultNote(42)),
+                    0, 9);
+            sequencer.addSeries(new Pattern(measureProvider, Tick.FOUR_THIRDS, 7, new DefaultNote(46)),
+                    0, 9);
+            sequencer.addSeries(new Pattern(measureProvider, Tick.BEAT, 6, new DefaultNote(62, 20)),
+                    0, 0);
             new MidiSystemHelper().logInfo().logInstruments();
+            sequencer.start();
 
             try {
                 Thread.sleep(10000);
