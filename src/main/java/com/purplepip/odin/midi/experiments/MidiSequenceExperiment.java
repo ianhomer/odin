@@ -31,7 +31,6 @@ public class MidiSequenceExperiment {
             MeasureProvider measureProvider = new StaticMeasureProvider(4);
             sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
-                            .setCoreJavaSequencerEnabled(false)
                             .setBeatsPerMinute(new StaticBeatsPerMinute(120))
                             .setMeasureProvider(measureProvider));
 

@@ -35,7 +35,6 @@ public class Application {
             MeasureProvider measureProvider = new StaticMeasureProvider(4);
             OdinSequencer sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
-                            .setCoreJavaSequencerEnabled(false)
                             .setBeatsPerMinute(new StaticBeatsPerMinute(140)));
             sequencer.addSeries(new Metronome(measureProvider), 0);
 

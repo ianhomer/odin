@@ -9,18 +9,8 @@ import com.purplepip.odin.series.StaticBeatsPerMinute;
  * Odin Sequencer Configuration.
  */
 public class OdinSequencerConfiguration {
-    private boolean isCoreJavaSequencerEnabled = true;
     private BeatsPerMinute beatsPerMinute = new StaticBeatsPerMinute(140);
     private MeasureProvider measureProvider = new StaticMeasureProvider(4);
-
-    public OdinSequencerConfiguration setCoreJavaSequencerEnabled(boolean isCoreJavaSequencerEnabled) {
-        this.isCoreJavaSequencerEnabled = isCoreJavaSequencerEnabled;
-        return this;
-    }
-
-    public boolean isCoreJavaSequencerEnabled() {
-        return isCoreJavaSequencerEnabled;
-    }
 
     public OdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
         this.beatsPerMinute = beatsPerMinute;

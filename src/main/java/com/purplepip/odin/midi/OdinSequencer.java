@@ -44,20 +44,7 @@ public class OdinSequencer {
         clock = new Clock(configuration.getBeatsPerMinute());
         clock.start(new MidiDeviceMicrosecondPositionProvider(device), true);
         initSynthesizer();
-        if (configuration.isCoreJavaSequencerEnabled()) {
-            initSequencer();
-        }
         meter = new Meter(clock, configuration.getMeasureProvider());
-    }
-
-
-    private void initSequencer() throws MidiUnavailableException {
-        sequencer = MidiSystem.getSequencer(false);
-        // TODO : Externalise sequencer configuration
-        sequencer.setTempoInBPM(100);
-        sequencer.setLoopCount(1);
-        sequencer.getTransmitter().setReceiver(getReceiver());
-        sequencer.open();
     }
 
     private void initSynthesizer() {
@@ -71,13 +58,6 @@ public class OdinSequencer {
                 LOG.error("Cannot change synthesizer instruments", e);
             }
         }
-    }
-
-    private Receiver getReceiver() throws MidiUnavailableException {
-        if (device != null) {
-            return device.getReceiver();
-        }
-        return MidiSystem.getReceiver();
     }
 
     private void initDevice() throws OdinException {
@@ -101,24 +81,10 @@ public class OdinSequencer {
      * @throws OdinException
      */
     public void addSeries(Series<Note> series, long offset, int channel) throws OdinException {
-        if (configuration.isCoreJavaSequencerEnabled()) {
-            if (sequencer.isRunning()) {
-                sequencer.stop();
-            }
-            try {
-                Sequence sequence = new SequenceFactory().createSequence(series);
-                sequencer.setSequence(sequence);
-            } catch (InvalidMidiDataException e) {
-                throw new OdinException("Cannot set sequence for sequencer", e);
-            }
-            sequencer.start();
-            LOG.info("Sequence started");
-        } else {
-            LOG.debug("Adding series {} with time units {}", series, series.getTick());
-            seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
-                    new DefaultTickConverter(clock, series.getTick(), Tick.MICROSECOND, offset))
-                    .convertSeries(series), channel));
-        }
+        LOG.debug("Adding series {} with time units {}", series, series.getTick());
+        seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
+                new DefaultTickConverter(clock, series.getTick(), Tick.MICROSECOND, offset))
+                .convertSeries(series), channel));
     }
 
 
