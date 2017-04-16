@@ -1,7 +1,12 @@
 package com.purplepip.odin.midi;
 
+import com.purplepip.odin.OdinException;
 import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
+import com.purplepip.odin.sequencer.OperationProcessor;
+import com.purplepip.odin.sequencer.SeriesProcessor;
+import com.purplepip.odin.sequencer.SeriesTrack;
 import com.purplepip.odin.series.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,29 +26,27 @@ public class OdinSequencer {
     private Sequencer sequencer;
     private Set<SeriesTrack> seriesTrackSet = new HashSet<>();
     private SeriesProcessor seriesProcessor;
-    private MidiMessageProcessor midiMessageProcessor;
-    private SeriesTimeUnitConverterFactory seriesTimeUnitConverterFactory;
-    private DefaultTickConverter deviceOffsetConverter;
+    private OperationProcessor operationProcessor;
     private Clock clock;
     private Meter meter;
 
-    public OdinSequencer(OdinSequencerConfiguration configuration) throws MidiException {
+    public OdinSequencer(OdinSequencerConfiguration configuration) throws OdinException {
         this.configuration = configuration;
         try {
             init();
         } catch (MidiUnavailableException e) {
-            throw new MidiException(e);
+            throw new OdinException(e);
         }
     }
 
-    private void init() throws MidiException, MidiUnavailableException {
+    private void init() throws OdinException, MidiUnavailableException {
         initDevice();
+        clock = new Clock(configuration.getBeatsPerMinute());
+        clock.start(new MidiDeviceMicrosecondPositionProvider(device), true);
         initSynthesizer();
         if (configuration.isCoreJavaSequencerEnabled()) {
             initSequencer();
         }
-        clock = new Clock(configuration.getBeatsPerMinute());
-        clock.startAtNextSecond(device.getMicrosecondPosition());
         meter = new Meter(clock, configuration.getMeasureProvider());
     }
 
@@ -77,7 +80,7 @@ public class OdinSequencer {
         return MidiSystem.getReceiver();
     }
 
-    private void initDevice() throws MidiException {
+    private void initDevice() throws OdinException {
         // TODO : Externalise and prioritise external MIDI devices to connect to.
         device = new MidiSystemHelper().findMidiDeviceByName("MidiMock IN");
         if (device == null) {
@@ -86,7 +89,7 @@ public class OdinSequencer {
         LOG.debug("MIDI device : {}", device);
     }
 
-    public void addSeries(Series<Note> series, long offset) throws MidiException {
+    public void addSeries(Series<Note> series, long offset) throws OdinException {
         addSeries(series, offset, 0);
     }
 
@@ -95,9 +98,9 @@ public class OdinSequencer {
      *
      * @param series
      * @param offset
-     * @throws MidiException
+     * @throws OdinException
      */
-    public void addSeries(Series<Note> series, long offset, int channel) throws MidiException {
+    public void addSeries(Series<Note> series, long offset, int channel) throws OdinException {
         if (configuration.isCoreJavaSequencerEnabled()) {
             if (sequencer.isRunning()) {
                 sequencer.stop();
@@ -106,7 +109,7 @@ public class OdinSequencer {
                 Sequence sequence = new SequenceFactory().createSequence(series);
                 sequencer.setSequence(sequence);
             } catch (InvalidMidiDataException e) {
-                throw new MidiException("Cannot set sequence for sequencer", e);
+                throw new OdinException("Cannot set sequence for sequencer", e);
             }
             sequencer.start();
             LOG.info("Sequence started");
@@ -119,11 +122,11 @@ public class OdinSequencer {
     }
 
 
-    public void start() throws MidiException {
-        midiMessageProcessor = new MidiMessageProcessor(device);
-        Thread thread = new Thread(midiMessageProcessor);
+    public void start() throws OdinException {
+        operationProcessor = new MidiOperationProcessor(clock, device);
+        Thread thread = new Thread(operationProcessor);
         thread.start();
-        seriesProcessor = new SeriesProcessor(device, seriesTrackSet, midiMessageProcessor);
+        seriesProcessor = new SeriesProcessor(clock, seriesTrackSet, operationProcessor);
         thread = new Thread(seriesProcessor);
         thread.start();
     }
@@ -137,8 +140,8 @@ public class OdinSequencer {
         if (seriesProcessor != null) {
             seriesProcessor.stop();
         }
-        if (midiMessageProcessor != null) {
-            midiMessageProcessor.stop();
+        if (operationProcessor != null) {
+            operationProcessor.stop();
         }
     }
 }

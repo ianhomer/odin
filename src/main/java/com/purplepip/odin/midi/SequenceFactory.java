@@ -1,6 +1,5 @@
 package com.purplepip.odin.midi;
 
-import com.purplepip.odin.music.Metronome;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.series.Event;
 import com.purplepip.odin.series.Series;

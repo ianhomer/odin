@@ -1,12 +1,13 @@
-package com.purplepip.odin.midi;
+package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.series.Event;
+import com.purplepip.odin.series.MicrosecondPositionProvider;
 import com.purplepip.odin.series.Series;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.sound.midi.*;
 import java.util.Set;
 
 /**
@@ -16,36 +17,42 @@ public class SeriesProcessor implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(SeriesProcessor.class);
 
     private Set<SeriesTrack> seriesTrackSet;
-    private MidiDevice device;
-    private MidiMessageProcessor midiMessageProcessor;
+    private MicrosecondPositionProvider microsecondPositionProvider;
+    private OperationProcessor operationProcessor;
     private boolean exit;
     // TODO : Externalise configuration
     private long refreshPeriod = 200;
     private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
     private int maxNotesPerBuffer = 1000;
 
-    public SeriesProcessor(MidiDevice device, Set<SeriesTrack> seriesTrackSet, MidiMessageProcessor midiMessageProcessor) {
+    public SeriesProcessor(MicrosecondPositionProvider microsecondPositionProvider, Set<SeriesTrack> seriesTrackSet, OperationProcessor operationProcessor) {
         this.seriesTrackSet = seriesTrackSet;
-        if (device == null) {
-            throw new RuntimeException("Device must not be null");
+        if (microsecondPositionProvider == null) {
+            throw new RuntimeException("MicrosecondPositionProvider must not be null");
         }
-        this.device = device;
-        this.midiMessageProcessor = midiMessageProcessor;
+        this.microsecondPositionProvider = microsecondPositionProvider;
+        this.operationProcessor = operationProcessor;
     }
 
     public void run() {
         while (!exit) {
+            /*
+             * Use a constant microsecond position for the whole loop to make it easier to debug loop processing.  In
+             * this loop it is only used for setting forward scan windows and does not need the precise microsecond
+             * positioning at the time of instruction execution.
+             */
+            long microsecondPosition = microsecondPositionProvider.getMicrosecondPosition();
             int noteCountThisBuffer = 0;
             for (SeriesTrack seriesTrack : seriesTrackSet) {
                 Series<Note> series = seriesTrack.getSeries();
-                LOG.trace("Processing series {} for device at position {}", series, device.getMicrosecondPosition());
+                LOG.trace("Processing series {} for device at position {}", series, microsecondPosition);
                 if (noteCountThisBuffer > maxNotesPerBuffer) {
                     LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
                     break;
                 }
                 if (series.peek() != null) {
                     Event<Note> nextEvent = series.peek();
-                    while (nextEvent != null && nextEvent.getTime() < device.getMicrosecondPosition() + timeBufferInMicroSeconds) {
+                    while (nextEvent != null && nextEvent.getTime() < microsecondPosition + timeBufferInMicroSeconds) {
                         if (noteCountThisBuffer > maxNotesPerBuffer) {
                             LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
                             break;
@@ -55,22 +62,22 @@ public class SeriesProcessor implements Runnable {
                          */
                         nextEvent = series.pop();
                         LOG.trace("Processing Event {}", nextEvent);
-                        if (nextEvent.getTime() < device.getMicrosecondPosition()) {
+                        if (nextEvent.getTime() < microsecondPosition) {
                             LOG.debug("Skipping event, too late to process {} < {}", nextEvent.getTime(),
-                                    device.getMicrosecondPosition());
+                                    microsecondPosition);
                         } else {
                             Note note = nextEvent.getValue();
                             LOG.debug("Sending note {} to {} ; {}",
                                     note.getNumber(), seriesTrack.getChannel(), nextEvent.getTime());
+                            Operation noteOn = new Operation(OperationType.ON, seriesTrack.getChannel(),
+                                    note.getNumber(), note.getVelocity());
+                            Operation noteOff = new Operation(OperationType.OFF, seriesTrack.getChannel(),
+                                    note.getNumber(), note.getVelocity());
                             try {
-                                ShortMessage noteOn = new ShortMessage(ShortMessage.NOTE_ON, seriesTrack.getChannel(),
-                                        note.getNumber(), note.getVelocity());
-                                ShortMessage noteOff = new ShortMessage(ShortMessage.NOTE_OFF, seriesTrack.getChannel(),
-                                        note.getNumber(), note.getVelocity());
-                                midiMessageProcessor.send(noteOn, nextEvent.getTime());
-                                midiMessageProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());
-                            } catch (InvalidMidiDataException e) {
-                                LOG.error("Cannot create note message {}", note);
+                                operationProcessor.send(noteOn, nextEvent.getTime());
+                                operationProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());
+                            } catch (OdinException e) {
+                                LOG.error("Cannot send operation to processor", e);
                             }
                         }
                         noteCountThisBuffer++;

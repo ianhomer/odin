@@ -1,7 +1,9 @@
 package com.purplepip.odin.midi.experiments;
 
+import com.purplepip.odin.OdinException;
 import com.purplepip.odin.midi.*;
 import com.purplepip.odin.music.*;
+import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.series.StaticBeatsPerMinute;
 import com.purplepip.odin.series.Tick;
 import org.slf4j.Logger;
@@ -17,12 +19,12 @@ public class MidiSequenceExperiment {
         MidiSequenceExperiment experiment = new MidiSequenceExperiment();
         try {
             experiment.doExperiment();
-        } catch (MidiException e) {
+        } catch (OdinException e) {
             LOG.error("Unexpected failure", e);
         }
     }
 
-    private void doExperiment() throws MidiException {
+    private void doExperiment() throws OdinException {
         LOG.info("Creating sequence");
         OdinSequencer sequencer = null;
         try {

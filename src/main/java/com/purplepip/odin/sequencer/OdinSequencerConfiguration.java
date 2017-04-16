@@ -1,4 +1,4 @@
-package com.purplepip.odin.midi;
+package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.StaticMeasureProvider;

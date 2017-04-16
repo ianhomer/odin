@@ -1,5 +1,6 @@
 package com.purplepip.odin.midi;
 
+import com.purplepip.odin.OdinException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,35 +44,35 @@ public class MidiSystemHelper {
         return this;
     }
 
-    public MidiDevice findMidiDeviceByName(String name) throws MidiException {
+    public MidiDevice findMidiDeviceByName(String name) throws OdinException {
         return findMidiDeviceByName(name, false);
     }
 
-    public MidiDevice findMidiDeviceByName(String name, boolean exceptionOnNotFound) throws MidiException {
+    public MidiDevice findMidiDeviceByName(String name, boolean exceptionOnNotFound) throws OdinException {
         MidiDevice midiDevice = findMidiDeviceByNameInternal(name, exceptionOnNotFound);
         if (midiDevice != null) {
             LOG.info("Found MIDI device : " + name + " ; " + midiDevice.getClass().getName());
             try {
                 midiDevice.open();
             } catch (MidiUnavailableException e) {
-                throw new MidiException(e);
+                throw new OdinException(e);
             }
         }
         return midiDevice;
     }
 
-    private MidiDevice findMidiDeviceByNameInternal(String name, boolean exceptionOnNotFound) throws MidiException {
+    private MidiDevice findMidiDeviceByNameInternal(String name, boolean exceptionOnNotFound) throws OdinException {
         for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
             if (info.getName().equals(name)) {
                 try {
                     return MidiSystem.getMidiDevice(info);
                 } catch (MidiUnavailableException e) {
-                    throw new MidiException(e);
+                    throw new OdinException(e);
                 }
             }
         }
         if (exceptionOnNotFound) {
-            throw new MidiException("Cannot find midi device " + name);
+            throw new OdinException("Cannot find midi device " + name);
         }
         return null;
     }
