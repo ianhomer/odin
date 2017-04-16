@@ -8,7 +8,9 @@ import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Metronome;
 import com.purplepip.odin.music.StaticMeasureProvider;
+import com.purplepip.odin.sequencer.SequenceBuilder;
 import com.purplepip.odin.series.StaticBeatsPerMinute;
+import com.purplepip.odin.series.Tick;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,12 @@ public class Application {
                             .setMeasureProvider(measureProvider)
                             .setOperationReceiver(new MidiOperationReceiver(device))
                             .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(device)));
-            sequencer.addSeries(new Metronome(measureProvider), 0, 9);
+            new SequenceBuilder(sequencer, measureProvider)
+                    .addMetronome()
+                    .addPattern(Tick.BEAT, 2)
+                    .withChannel(9).withNote(42).addPattern(Tick.QUARTER, 61435)
+                    .addPattern(Tick.EIGHTH, 127)
+                    .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
             sequencer.start();
             LOG.info("Odin Started.");
         };
