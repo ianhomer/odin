@@ -1,17 +1,12 @@
-package com.purplepip.odin.midi;
+package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.OdinException;
 import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
-import com.purplepip.odin.sequencer.OperationProcessor;
-import com.purplepip.odin.sequencer.SeriesProcessor;
-import com.purplepip.odin.sequencer.SeriesTrack;
 import com.purplepip.odin.series.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.sound.midi.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,8 +17,6 @@ public class OdinSequencer {
     private static final Logger LOG = LoggerFactory.getLogger(OdinSequencer.class);
 
     private OdinSequencerConfiguration configuration;
-    private MidiDevice device;
-    private Sequencer sequencer;
     private Set<SeriesTrack> seriesTrackSet = new HashSet<>();
     private SeriesProcessor seriesProcessor;
     private OperationProcessor operationProcessor;
@@ -32,41 +25,13 @@ public class OdinSequencer {
 
     public OdinSequencer(OdinSequencerConfiguration configuration) throws OdinException {
         this.configuration = configuration;
-        try {
-            init();
-        } catch (MidiUnavailableException e) {
-            throw new OdinException(e);
-        }
+        init();
     }
 
-    private void init() throws OdinException, MidiUnavailableException {
-        initDevice();
+    private void init() throws OdinException {
         clock = new Clock(configuration.getBeatsPerMinute());
-        clock.start(new MidiDeviceMicrosecondPositionProvider(device), true);
-        initSynthesizer();
+        clock.start(configuration.getMicrosecondPositionProvider(), true);
         meter = new Meter(clock, configuration.getMeasureProvider());
-    }
-
-    private void initSynthesizer() {
-        if ("Gervill".equals(device.getDeviceInfo().getName())) {
-            LOG.debug("Initialising internal synthesizer");
-            try {
-                // TODO : Externalise configuration - 41 is strings in internal Java engine
-                device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, 41, 0),
-                        -1);
-            } catch (MidiUnavailableException | InvalidMidiDataException e) {
-                LOG.error("Cannot change synthesizer instruments", e);
-            }
-        }
-    }
-
-    private void initDevice() throws OdinException {
-        // TODO : Externalise and prioritise external MIDI devices to connect to.
-        device = new MidiSystemHelper().findMidiDeviceByName("MidiMock IN");
-        if (device == null) {
-            device = new MidiSystemHelper().findMidiDeviceByName("Gervill");
-        }
-        LOG.debug("MIDI device : {}", device);
     }
 
     public void addSeries(Series<Note> series, long offset) throws OdinException {
@@ -89,7 +54,7 @@ public class OdinSequencer {
 
 
     public void start() throws OdinException {
-        operationProcessor = new MidiOperationProcessor(clock, device);
+        operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
         Thread thread = new Thread(operationProcessor);
         thread.start();
         seriesProcessor = new SeriesProcessor(clock, seriesTrackSet, operationProcessor);
@@ -98,11 +63,6 @@ public class OdinSequencer {
     }
 
     public void stop() {
-        if (sequencer != null) {
-            if (sequencer.isRunning()) {
-                sequencer.stop();
-            }
-        }
         if (seriesProcessor != null) {
             seriesProcessor.stop();
         }

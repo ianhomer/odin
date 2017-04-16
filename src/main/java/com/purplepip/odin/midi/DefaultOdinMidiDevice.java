@@ -11,7 +11,7 @@ import javax.sound.midi.Transmitter;
 import java.util.List;
 
 /**
- * The default Odin Midi devie
+ * The default Odin Midi device
  */
 @Component
 public class DefaultOdinMidiDevice implements OdinMidiDevice {

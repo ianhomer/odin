@@ -1,7 +1,7 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.midi.OdinMidiDevice;
-import com.purplepip.odin.midi.OdinSequencer;
+import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Metronome;

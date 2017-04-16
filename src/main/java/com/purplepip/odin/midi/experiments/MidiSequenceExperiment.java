@@ -3,11 +3,14 @@ package com.purplepip.odin.midi.experiments;
 import com.purplepip.odin.OdinException;
 import com.purplepip.odin.midi.*;
 import com.purplepip.odin.music.*;
+import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.series.StaticBeatsPerMinute;
 import com.purplepip.odin.series.Tick;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.sound.midi.MidiDevice;
 
 /**
  * Midi Sequence Experiment.
@@ -28,11 +31,14 @@ public class MidiSequenceExperiment {
         LOG.info("Creating sequence");
         OdinSequencer sequencer = null;
         try {
+            MidiDevice device = new MidiSystemHelper().getInitialisedDevice();
             MeasureProvider measureProvider = new StaticMeasureProvider(4);
             sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
                             .setBeatsPerMinute(new StaticBeatsPerMinute(120))
-                            .setMeasureProvider(measureProvider));
+                            .setMeasureProvider(measureProvider)
+                            .setOperationReceiver(new MidiOperationReceiver(device))
+                            .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(device)));
 
             sequencer.addSeries(new Metronome(measureProvider), 0, 9);
             sequencer.addSeries(new Pattern(measureProvider, Tick.BEAT, 2), 0, 0);
