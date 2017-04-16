@@ -1,6 +1,6 @@
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.OdinException;
+import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.series.Event;
 import com.purplepip.odin.series.MicrosecondPositionProvider;

@@ -1,6 +1,6 @@
 package com.purplepip.odin.midi;
 
-import com.purplepip.odin.OdinException;
+import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequencer.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
 

@@ -1,4 +1,4 @@
-package com.purplepip.odin;
+package com.purplepip.odin.common;
 
 /**
  * Custom runtime MIDI exception;

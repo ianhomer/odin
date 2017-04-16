@@ -1,6 +1,8 @@
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.midi.OdinMidiDevice;
+import com.purplepip.odin.midi.MidiDeviceMicrosecondPositionProvider;
+import com.purplepip.odin.midi.MidiOperationReceiver;
+import com.purplepip.odin.midi.MidiSystemHelper;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.music.MeasureProvider;
@@ -17,6 +19,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import javax.sound.midi.MidiDevice;
+
 /**
  * Odin Application.
  */
@@ -32,18 +36,18 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
+            MidiDevice device = new MidiSystemHelper().getInitialisedDevice();
             MeasureProvider measureProvider = new StaticMeasureProvider(4);
             OdinSequencer sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
-                            .setBeatsPerMinute(new StaticBeatsPerMinute(140)));
-            sequencer.addSeries(new Metronome(measureProvider), 0);
-
+                            .setBeatsPerMinute(new StaticBeatsPerMinute(120))
+                            .setMeasureProvider(measureProvider)
+                            .setOperationReceiver(new MidiOperationReceiver(device))
+                            .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(device)));
+            sequencer.addSeries(new Metronome(measureProvider), 0, 9);
+            sequencer.start();
             LOG.info("Odin Started.");
-            LOG.info("device : " + midiDevice);
         };
     }
-
-    @Autowired
-    private OdinMidiDevice midiDevice;
 }
 

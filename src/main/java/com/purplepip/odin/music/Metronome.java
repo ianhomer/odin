@@ -24,7 +24,6 @@ public class Metronome implements Series<Note> {
     public Metronome(MeasureProvider measureProvider, long length) {
         noteBarStart = new DefaultNote();
         noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
-        // TODO : We don't need clock for this converter, but we should make this more robust than setting null
         TickConverter converter = new SameTimeUnitTickConverter(Tick.BEAT, Tick.HALF);
         this.length = converter.convert(length);
         this.measureProvider = measureProvider;
