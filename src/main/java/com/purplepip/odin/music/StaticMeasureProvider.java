@@ -13,17 +13,17 @@ public class StaticMeasureProvider implements MeasureProvider {
     }
 
     @Override
-    public long getMeasureCount(Tock tock) {
+    public long getMeasureCountForTock(Tock tock) {
         return tock.getCount() * tock.getTick().getDenominator() / ( beatsPerBar * tock.getTick().getNumerator());
     }
 
     @Override
-    public int getMeasureBeats(Tock tock) {
+    public int getBeatsInThisMeasure(Tock tock) {
         return beatsPerBar;
     }
 
     @Override
-    public long getTickPosition(Tock tock) {
+    public long getTickPositionInThisMeasure(Tock tock) {
         return tock.getCount() % (beatsPerBar * tock.getTick().getDenominator() / tock.getTick().getNumerator());
     }
 }

@@ -22,7 +22,7 @@ public class Pattern implements Series<Note> {
 
     public Pattern(MeasureProvider measureProvider, Tick tick) {
         this(measureProvider, tick,
-                (int) Math.pow(2, (measureProvider.getMeasureBeats(new Tock(tick, 0))
+                (int) Math.pow(2, (measureProvider.getBeatsInThisMeasure(new Tock(tick, 0))
                         * tick.getDenominator() / tick.getNumerator())) - 1);
     }
 
@@ -62,12 +62,12 @@ public class Pattern implements Series<Note> {
     private void createNextEvent() {
         LOG.trace("Creating next event for time {}", time);
         boolean on = false;
-        long maxForwardScan = 2 * measureProvider.getMeasureBeats(new Tock(getTick(), time));
+        long maxForwardScan = 2 * measureProvider.getBeatsInThisMeasure(new Tock(getTick(), time));
         int i = 0;
         while (!on && i < maxForwardScan) {
             time++;
             i++;
-            long position = measureProvider.getTickPosition(new Tock(getTick(), time));
+            long position = measureProvider.getTickPositionInThisMeasure(new Tock(getTick(), time));
             on = ((pattern >> position) & 1) == 1;
         }
         if (on) {

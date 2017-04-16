@@ -4,7 +4,7 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.series.Series;
 
 /**
- * Series driving a MIDI track.
+ * Series driving a sequenced track.
  */
 public class SeriesTrack {
     private Series<Note> series;

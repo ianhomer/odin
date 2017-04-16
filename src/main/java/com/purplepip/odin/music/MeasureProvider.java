@@ -9,14 +9,14 @@ public interface MeasureProvider {
     /**
      * What measure is the tock in?
      */
-    long getMeasureCount(Tock tock);
+    long getMeasureCountForTock(Tock tock);
 
     /**
      * How many beats are in the measure for the given tock?
      * @param tock
      * @return
      */
-    int getMeasureBeats(Tock tock);
+    int getBeatsInThisMeasure(Tock tock);
 
     /**
      * What position in the measure is this tock?  0 => start of the measure.  Note that a tick might be higher
@@ -25,5 +25,5 @@ public interface MeasureProvider {
      * @param tock
      * @return
      */
-    long getTickPosition(Tock tock);
+    long getTickPositionInThisMeasure(Tock tock);
 }

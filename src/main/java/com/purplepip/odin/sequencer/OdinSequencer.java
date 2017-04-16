@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Core Odin MIDI Sequencer.
+ * Core Odin Sequencer.
  */
 public class OdinSequencer {
     private static final Logger LOG = LoggerFactory.getLogger(OdinSequencer.class);

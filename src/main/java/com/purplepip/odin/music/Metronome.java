@@ -58,7 +58,7 @@ public class Metronome implements Series<Note> {
     private void createNextEvent() {
         LOG.trace("Creating next event for time {}", time);
         Note note;
-        if (measureProvider.getTickPosition(new Tock(getTick(), time)) == 0) {
+        if (measureProvider.getTickPositionInThisMeasure(new Tock(getTick(), time)) == 0) {
             note = noteBarStart;
         } else {
             note = noteMidBar;
