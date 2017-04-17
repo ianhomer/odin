@@ -1,9 +1,8 @@
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.midi.MidiDeviceMicrosecondPositionProvider;
-import com.purplepip.odin.midi.MidiDeviceWrapper;
-import com.purplepip.odin.midi.MidiOperationReceiver;
-import com.purplepip.odin.midi.MidiSystemHelper;
+import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
+import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.music.MeasureProvider;
@@ -19,8 +18,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-
-import javax.sound.midi.MidiDevice;
 
 /**
  * Odin Application.

@@ -1,7 +1,6 @@
 package com.purplepip.odin.common;
 
-import com.purplepip.odin.midi.MidiSystemHelper;
-import com.sun.media.sound.MidiOutDeviceProvider;
+import com.purplepip.odin.midix.MidiSystemHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

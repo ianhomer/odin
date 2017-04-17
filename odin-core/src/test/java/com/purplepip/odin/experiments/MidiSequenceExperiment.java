@@ -1,7 +1,7 @@
 package com.purplepip.odin.experiments;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.midi.*;
+import com.purplepip.odin.midix.*;
 import com.purplepip.odin.music.*;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;

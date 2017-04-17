@@ -1,6 +1,6 @@
 package com.purplepip.odin.experiments;
 
-import com.purplepip.odin.midi.MidiSystemHelper;
+import com.purplepip.odin.midix.MidiSystemHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

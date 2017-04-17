@@ -1,4 +1,4 @@
-package com.purplepip.odin.midi;
+package com.purplepip.odin.midix;
 
 import com.purplepip.odin.series.MicrosecondPositionProvider;
 
