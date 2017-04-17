@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import javax.sound.midi.*;
 import javax.sound.midi.spi.MidiDeviceProvider;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Report information on the midi system.
@@ -18,8 +17,9 @@ public class MidiSystemHelper {
     private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
 
     public MidiSystemHelper logInfo() {
-        Arrays.stream(MidiSystem.getMidiDeviceInfo()).collect(Collectors.toList()).forEach((info) ->
-                LOG.info("MIDI device info : " + info.getVendor() + " ; " + info.getName() + " ; " + info.getDescription()));
+        for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
+            LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(), info.getDescription());
+        }
 
         List<?> list = JDK13Services.getProviders(MidiDeviceProvider.class);
         for (Object midiDeviceProvider : list) {
@@ -39,7 +39,11 @@ public class MidiSystemHelper {
     }
 
     public Set<MidiDevice.Info> getMidiDeviceInfos() {
-        return Arrays.stream(MidiSystem.getMidiDeviceInfo()).collect(Collectors.toSet());
+        Set<MidiDevice.Info> infos = new HashSet<>();
+        for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
+            infos.add(info);
+        }
+        return infos;
     }
 
     public MidiSystemHelper logInstruments() {
