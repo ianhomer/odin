@@ -37,8 +37,7 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-            MidiDevice device = new MidiSystemHelper().getInitialisedDevice();
-            MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(device);
+            MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(true);
             MeasureProvider measureProvider = new StaticMeasureProvider(4);
             OdinSequencer sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()

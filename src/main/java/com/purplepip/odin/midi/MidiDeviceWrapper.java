@@ -23,6 +23,7 @@ public class MidiDeviceWrapper {
 
     public MidiDeviceWrapper(boolean scan) {
         if (scan) {
+            LOG.info("MIDI Device scanning enabled");
             scanner = new MidiDeviceScanner();
             Thread thread = new Thread(scanner);
             thread.start();
@@ -65,11 +66,10 @@ public class MidiDeviceWrapper {
         @Override
         public void run() {
             while (!exit) {
-                // TODO : Work out if MIDI connections can be refreshed, it might be a challenge on OSX
-                // see http://stackoverflow.com/questions/3752352/java-sound-api-scanning-for-midi-devices
-                // https://bugs.openjdk.java.net/browse/JDK-8139153
+                // FIX : https://github.com/ianhomer/odin/issues/1
                 LOG.debug("Scanning MIDI devices");
 
+                new MidiSystemHelper().logInfo();
                 Set<MidiDevice.Info> midiDevices = new MidiSystemHelper().getMidiDeviceInfos();
                 if (!midiDevices.equals(knownMidiDevices) || device == null) {
                     LOG.debug("Refreshing MIDI device");

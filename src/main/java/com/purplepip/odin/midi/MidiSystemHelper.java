@@ -1,5 +1,6 @@
 package com.purplepip.odin.midi;
 
+import com.purplepip.odin.common.BeanUtils;
 import com.purplepip.odin.common.OdinException;
 import com.sun.media.sound.JDK13Services;
 import com.sun.media.sound.MidiInDeviceProvider;
@@ -9,8 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.sound.midi.*;
 import javax.sound.midi.spi.MidiDeviceProvider;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,30 +25,19 @@ public class MidiSystemHelper {
 
         List<?> list = JDK13Services.getProviders(MidiDeviceProvider.class);
         for (Object midiDeviceProvider : list) {
-            LOG.info(midiDeviceProvider.toString());
-            if (midiDeviceProvider instanceof com.sun.media.sound.MidiOutDeviceProvider) {
-                MidiOutDeviceProvider midiOutDeviceProvider = (MidiOutDeviceProvider) midiDeviceProvider;
-                try {
-                    Method method = MidiOutDeviceProvider.class.getDeclaredMethod("nGetNumDevices");
-                    method.setAccessible(true);
-                    LOG.info("Number of devices {} ",
-                            method.invoke(null)
-                    );
-                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                    LOG.error("Cannot invoke nGetNumDevices", e);
-                }
-                for (MidiDevice.Info info : midiOutDeviceProvider.getDeviceInfo()) {
-                    LOG.info("MIDI out : {}", info);
-                }
-            } else if (midiDeviceProvider instanceof com.sun.media.sound.MidiInDeviceProvider) {
-                MidiInDeviceProvider midiInDeviceProvider = (MidiInDeviceProvider) midiDeviceProvider;
-                for (MidiDevice.Info info : midiInDeviceProvider.getDeviceInfo()) {
-                    LOG.info("MIDI in  : {}", info);
-                }
+            if (midiDeviceProvider instanceof MidiDeviceProvider) {
+                log((MidiDeviceProvider) midiDeviceProvider);
             }
         }
 
         return this;
+    }
+
+    public void log(MidiDeviceProvider midiDeviceProvider) {
+        new BeanUtils().dumpStaticMethodResponse(midiDeviceProvider.getClass(), "nGetNumDevices");
+        for (MidiDevice.Info info : midiDeviceProvider.getDeviceInfo()) {
+            LOG.info("{} : {}", midiDeviceProvider.getClass(), info);
+        }
     }
 
     public Set<MidiDevice.Info> getMidiDeviceInfos() {
