@@ -15,12 +15,14 @@ public class RawMessage {
     public static final int NOTE_ON = 0x90;
 
     private byte[] buffer = new byte[3];
+    private int length;
 
     public RawMessage(Operation operation) throws OdinException {
         // Very simple implementation for now, which just support note on and off.
         setStatus(getCommand(operation.getType()), operation.getChannel());
         buffer[1] = (byte) (operation.getNumber() & 0xFF);
         buffer[2] = (byte) (operation.getVelocity() & 0xFF);
+        length = 3;
     }
 
     private int getCommand(OperationType type) throws OdinException {
@@ -39,5 +41,9 @@ public class RawMessage {
 
     public byte[] getBytes() {
         return buffer;
+    }
+
+    public int getLength() {
+        return length;
     }
 }
