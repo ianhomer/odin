@@ -37,7 +37,7 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-            MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(true);
+            MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(false);
             MeasureProvider measureProvider = new StaticMeasureProvider(4);
             OdinSequencer sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()

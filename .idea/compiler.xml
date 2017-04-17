@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="odin-core" />
+        <module name="odin-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="odin" target="1.5" />
+      <module name="odin" target="1.8" />
       <module name="odin-core" target="1.8" />
+      <module name="odin-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
