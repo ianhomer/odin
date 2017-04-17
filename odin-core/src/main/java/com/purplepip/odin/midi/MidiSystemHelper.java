@@ -3,8 +3,6 @@ package com.purplepip.odin.midi;
 import com.purplepip.odin.common.BeanUtils;
 import com.purplepip.odin.common.OdinException;
 import com.sun.media.sound.JDK13Services;
-import com.sun.media.sound.MidiInDeviceProvider;
-import com.sun.media.sound.MidiOutDeviceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
