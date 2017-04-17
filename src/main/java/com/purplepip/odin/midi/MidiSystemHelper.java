@@ -1,11 +1,17 @@
 package com.purplepip.odin.midi;
 
 import com.purplepip.odin.common.OdinException;
+import com.sun.media.sound.JDK13Services;
+import com.sun.media.sound.MidiInDeviceProvider;
+import com.sun.media.sound.MidiOutDeviceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sound.midi.*;
-import java.util.Arrays;
+import javax.sound.midi.spi.MidiDeviceProvider;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -17,7 +23,37 @@ public class MidiSystemHelper {
     public MidiSystemHelper logInfo() {
         Arrays.stream(MidiSystem.getMidiDeviceInfo()).collect(Collectors.toList()).forEach((info) ->
                 LOG.info("MIDI device info : " + info.getVendor() + " ; " + info.getName() + " ; " + info.getDescription()));
+
+        List<?> list = JDK13Services.getProviders(MidiDeviceProvider.class);
+        for (Object midiDeviceProvider : list) {
+            LOG.info(midiDeviceProvider.toString());
+            if (midiDeviceProvider instanceof com.sun.media.sound.MidiOutDeviceProvider) {
+                MidiOutDeviceProvider midiOutDeviceProvider = (MidiOutDeviceProvider) midiDeviceProvider;
+                try {
+                    Method method = MidiOutDeviceProvider.class.getDeclaredMethod("nGetNumDevices");
+                    method.setAccessible(true);
+                    LOG.info("Number of devices {} ",
+                            method.invoke(null)
+                    );
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    LOG.error("Cannot invoke nGetNumDevices", e);
+                }
+                for (MidiDevice.Info info : midiOutDeviceProvider.getDeviceInfo()) {
+                    LOG.info("MIDI out : {}", info);
+                }
+            } else if (midiDeviceProvider instanceof com.sun.media.sound.MidiInDeviceProvider) {
+                MidiInDeviceProvider midiInDeviceProvider = (MidiInDeviceProvider) midiDeviceProvider;
+                for (MidiDevice.Info info : midiInDeviceProvider.getDeviceInfo()) {
+                    LOG.info("MIDI in  : {}", info);
+                }
+            }
+        }
+
         return this;
+    }
+
+    public Set<MidiDevice.Info> getMidiDeviceInfos() {
+        return Arrays.stream(MidiSystem.getMidiDeviceInfo()).collect(Collectors.toSet());
     }
 
     public MidiSystemHelper logInstruments() {

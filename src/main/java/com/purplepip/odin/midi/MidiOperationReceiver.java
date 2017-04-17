@@ -10,10 +10,10 @@ import javax.sound.midi.*;
  * MIDI operation receiver.
  */
 public class MidiOperationReceiver implements OperationReceiver {
-    private MidiDevice midiDevice;
+    private MidiDeviceWrapper midiDeviceWrapper;
 
-    public MidiOperationReceiver(MidiDevice midiDevice) {
-        this.midiDevice = midiDevice;
+    public MidiOperationReceiver(MidiDeviceWrapper midiDeviceWrapper) {
+        this.midiDeviceWrapper = midiDeviceWrapper;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class MidiOperationReceiver implements OperationReceiver {
             throw new OdinException("Cannot create MIDI message for " + operation, e);
         }
         try {
-            midiDevice.getReceiver().send(midiMessage, time);
+            midiDeviceWrapper.getDevice().getReceiver().send(midiMessage, time);
         } catch (MidiUnavailableException e) {
             throw new OdinException("Cannot send MIDI message for " + midiMessage, e);
         }

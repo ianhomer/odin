@@ -11,8 +11,6 @@ import com.purplepip.odin.series.Tick;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.sound.midi.MidiDevice;
-
 /**
  * Midi Sequence Experiment.
  */
@@ -31,15 +29,16 @@ public class MidiSequenceExperiment {
     private void doExperiment() throws OdinException {
         LOG.info("Creating sequence");
         OdinSequencer sequencer = null;
+        MidiDeviceWrapper midiDeviceWrapper = null;
         try {
-            MidiDevice device = new MidiSystemHelper().getInitialisedDevice();
+            midiDeviceWrapper = new MidiDeviceWrapper();
             MeasureProvider measureProvider = new StaticMeasureProvider(4);
             sequencer = new OdinSequencer(
                     new OdinSequencerConfiguration()
                             .setBeatsPerMinute(new StaticBeatsPerMinute(120))
                             .setMeasureProvider(measureProvider)
-                            .setOperationReceiver(new MidiOperationReceiver(device))
-                            .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(device)));
+                            .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
+                            .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
             new SequenceBuilder(sequencer, measureProvider)
                     .addMetronome()
@@ -48,11 +47,11 @@ public class MidiSequenceExperiment {
                                                     .addPattern(Tick.EIGHTH, 127)
                                     .withNote(46)   .addPattern(Tick.TWO_THIRDS, 7);
 
-            new MidiSystemHelper().logInfo().logInstruments();
+            new MidiSystemHelper().logInfo();
             sequencer.start();
 
             try {
-                Thread.sleep(10000);
+                Thread.sleep(2000000);
             } catch (InterruptedException e) {
                 LOG.error("Sleep interrupted", e);
             }
@@ -61,7 +60,12 @@ public class MidiSequenceExperiment {
             if (sequencer != null) {
                 sequencer.stop();
             }
+            if (midiDeviceWrapper != null) {
+                midiDeviceWrapper.close();
+            }
         }
+
+
     }
 
 }
