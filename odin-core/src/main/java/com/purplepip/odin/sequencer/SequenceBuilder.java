@@ -8,7 +8,7 @@ import com.purplepip.odin.music.Pattern;
 import com.purplepip.odin.series.Tick;
 
 /**
- * Convenience class for building up sequences
+ * Convenience class for building up sequences.
  */
 public class SequenceBuilder {
     MeasureProvider measureProvider;

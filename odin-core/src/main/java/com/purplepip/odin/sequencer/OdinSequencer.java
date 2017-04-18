@@ -41,9 +41,9 @@ public class OdinSequencer {
     /**
      * Add series at the given time offset, where offset is in the time units of the series being added.
      *
-     * @param series
-     * @param offset
-     * @throws OdinException
+     * @param series series to add.
+     * @param offset offset to add the series to.
+     * @throws OdinException exception
      */
     public void addSeries(Series<Note> series, long offset, int channel) throws OdinException {
         LOG.debug("Adding series {} with time units {}", series, series.getTick());

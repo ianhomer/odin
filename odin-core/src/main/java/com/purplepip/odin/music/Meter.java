@@ -13,4 +13,13 @@ public class Meter {
         this.clock = clock;
         this.measureProvider = measureProvider;
     }
+
+    public Clock getClock() {
+        return clock;
+    }
+
+    public MeasureProvider getMeasureProvider() {
+        return measureProvider;
+    }
+
 }

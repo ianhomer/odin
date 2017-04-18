@@ -13,7 +13,7 @@ public interface MeasureProvider {
 
     /**
      * How many beats are in the measure for the given tock?
-     * @param tock
+     * @param tock current tick
      * @return
      */
     int getBeatsInThisMeasure(Tock tock);
@@ -22,7 +22,7 @@ public interface MeasureProvider {
      * What position in the measure is this tock?  0 => start of the measure.  Note that a tick might be higher
      * resolution than a single beat, e.g. it could be a half beat or a triplet
      *
-     * @param tock
+     * @param tock current tick
      * @return
      */
     long getTickPositionInThisMeasure(Tock tock);

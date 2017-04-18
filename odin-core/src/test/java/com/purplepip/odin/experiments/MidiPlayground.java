@@ -22,13 +22,13 @@ public class MidiPlayground {
 
         ShortMessage middleC = new ShortMessage();
         ShortMessage middleD = new ShortMessage();
-        ShortMessage middleCoff = new ShortMessage();
-        ShortMessage middleDoff = new ShortMessage();
+        ShortMessage middleCOff = new ShortMessage();
+        ShortMessage middleDOff = new ShortMessage();
         try {
             middleC.setMessage(ShortMessage.NOTE_ON, 1, 60, 93);
             middleD.setMessage(ShortMessage.NOTE_ON, 1, 72, 60);
-            middleCoff.setMessage(ShortMessage.NOTE_OFF, 1, 60, 93);
-            middleDoff.setMessage(ShortMessage.NOTE_OFF, 1, 72, 60);
+            middleCOff.setMessage(ShortMessage.NOTE_OFF, 1, 60, 93);
+            middleDOff.setMessage(ShortMessage.NOTE_OFF, 1, 72, 60);
         } catch (InvalidMidiDataException e) {
             LOG.error("Cannot create short message", e);
             return;
@@ -44,7 +44,7 @@ public class MidiPlayground {
             } catch (InterruptedException e) {
                 LOG.error("Sleep interrupted", e);
             }
-            receiver.send(middleDoff, -1);
+            receiver.send(middleDOff, -1);
             LOG.info("Sent note");
         } catch (MidiUnavailableException e) {
             LOG.error("Cannot get MIDI receiver", e);

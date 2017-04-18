@@ -27,7 +27,7 @@ public class Clock implements MicrosecondPositionProvider {
     /**
      * Start the clock.
      *
-     * @param microsecondPositionProvider
+     * @param microsecondPositionProvider Micros second provider.
      * @param startAtNextSecond Starting at next second can make debugging easier because microseconds position will start at a round
      * number.
      */
