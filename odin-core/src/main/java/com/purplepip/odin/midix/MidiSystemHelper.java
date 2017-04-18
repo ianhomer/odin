@@ -16,7 +16,7 @@ import java.util.*;
 public class MidiSystemHelper {
     private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
 
-    public MidiSystemHelper logInfo() {
+    public void logInfo() {
         for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
             LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(), info.getDescription());
         }
@@ -27,8 +27,6 @@ public class MidiSystemHelper {
                 log((MidiDeviceProvider) midiDeviceProvider);
             }
         }
-
-        return this;
     }
 
     public void log(MidiDeviceProvider midiDeviceProvider) {

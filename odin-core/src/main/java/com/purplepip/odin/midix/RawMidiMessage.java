@@ -15,7 +15,6 @@ public class RawMidiMessage extends MidiMessage {
     public Object clone() {
         byte[] newData = new byte[length];
         System.arraycopy(data, 0, newData, 0, newData.length);
-        RawMidiMessage msg = new RawMidiMessage(newData);
-        return msg;
+        return new RawMidiMessage(newData);
     }
 }

@@ -13,15 +13,15 @@ public abstract class AbstractTickConverter implements TickConverter {
     private Tick inputTick;
     private Tick outputTick;
 
-    protected void setOutputTick(Tick outputTick) {
+    void setOutputTick(Tick outputTick) {
         this.outputTick = outputTick;
     }
 
-    protected void setInputTick(Tick inputTick) {
+    void setInputTick(Tick inputTick) {
         this.inputTick = inputTick;
     }
 
-    protected void setInputOffset(long inputOffset) {
+    void setInputOffset(long inputOffset) {
         this.inputOffset = inputOffset;
     }
 
@@ -30,7 +30,7 @@ public abstract class AbstractTickConverter implements TickConverter {
         return outputTick;
     }
 
-    protected Tick getInputTick() {
+    Tick getInputTick() {
         return inputTick;
     }
 
@@ -44,7 +44,7 @@ public abstract class AbstractTickConverter implements TickConverter {
         return convertTimeUnit(inputOffset + time);
     }
 
-    protected long scaleTime(long time) {
+    long scaleTime(long time) {
         return time * inputTick.getNumerator() * outputTick.getDenominator() /
                 (inputTick.getDenominator() * outputTick.getNumerator());
     }

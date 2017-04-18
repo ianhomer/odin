@@ -15,11 +15,11 @@ public class Clock implements MicrosecondPositionProvider {
         this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
     }
 
-    public Clock(BeatsPerMinute beatsPerMinute, MicrosecondPositionProvider microsecondPositionProvider) {
+    private Clock(BeatsPerMinute beatsPerMinute, MicrosecondPositionProvider microsecondPositionProvider) {
         this(beatsPerMinute, microsecondPositionProvider, false);
     }
 
-    public Clock(BeatsPerMinute beatsPerMinute, MicrosecondPositionProvider microsecondPositionProvider, boolean startAtNextSecond) {
+    private Clock(BeatsPerMinute beatsPerMinute, MicrosecondPositionProvider microsecondPositionProvider, boolean startAtNextSecond) {
         this.beatsPerMinute = beatsPerMinute;
         start(microsecondPositionProvider, startAtNextSecond);
     }

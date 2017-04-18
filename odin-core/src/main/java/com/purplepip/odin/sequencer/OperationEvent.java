@@ -1,7 +1,5 @@
 package com.purplepip.odin.sequencer;
 
-import javax.sound.midi.MidiMessage;
-
 /**
  * Operation event that should fire at the given time
  */

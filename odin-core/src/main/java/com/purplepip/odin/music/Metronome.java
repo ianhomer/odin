@@ -21,7 +21,7 @@ public class Metronome implements Series<Note> {
         this(measureProvider, -1);
     }
 
-    public Metronome(MeasureProvider measureProvider, long length) {
+    private Metronome(MeasureProvider measureProvider, long length) {
         noteBarStart = new DefaultNote();
         noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
         TickConverter converter = new SameTimeUnitTickConverter(Tick.BEAT, Tick.HALF);
