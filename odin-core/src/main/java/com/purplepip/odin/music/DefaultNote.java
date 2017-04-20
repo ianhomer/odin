@@ -24,9 +24,9 @@ public class DefaultNote implements Note {
   /**
    * Create a default note.
    *
-   * @param number
-   * @param velocity
-   * @param duration
+   * @param number Number of note
+   * @param velocity Velocity of note
+   * @param duration Duration of note
    */
   public DefaultNote(int number, int velocity, long duration) {
     this.number = number;

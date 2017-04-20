@@ -1,12 +1,13 @@
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.common.BeanUtils;
+import com.purplepip.odin.common.OdinException;
+
+import com.sun.media.sound.JDK13Services;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.sun.media.sound.JDK13Services;
-import com.purplepip.odin.common.BeanUtils;
-import com.purplepip.odin.common.OdinException;
 
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
@@ -100,7 +101,7 @@ public class MidiSystemHelper {
    *
    * @param name Name of MIDI device to find
    * @return MIDI device
-   * @throws OdinException
+   * @throws OdinException Exception.
    */
   public MidiDevice findMidiDeviceByName(String name) throws OdinException {
     return findMidiDeviceByName(name, false);
@@ -109,12 +110,13 @@ public class MidiSystemHelper {
   /**
    * Find a MIDI device by name.
    *
-   * @param name
-   * @param exceptionOnNotFound
-   * @return
-   * @throws OdinException
+   * @param name Name of device to find
+   * @param exceptionOnNotFound whether to throw an exception if not found
+   * @return MIDI device
+   * @throws OdinException Exception
    */
-  public MidiDevice findMidiDeviceByName(String name, boolean exceptionOnNotFound) throws OdinException {
+  public MidiDevice findMidiDeviceByName(String name, boolean exceptionOnNotFound)
+      throws OdinException {
     MidiDevice midiDevice = findMidiDeviceByNameInternal(name, exceptionOnNotFound);
     if (midiDevice != null) {
       LOG.info("Found MIDI device : " + name + " ; " + midiDevice.getClass().getName());
@@ -127,7 +129,8 @@ public class MidiSystemHelper {
     return midiDevice;
   }
 
-  private MidiDevice findMidiDeviceByNameInternal(String name, boolean exceptionOnNotFound) throws OdinException {
+  private MidiDevice findMidiDeviceByNameInternal(String name, boolean exceptionOnNotFound)
+      throws OdinException {
     for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
       if (info.getName().equals(name)) {
         try {
@@ -146,9 +149,9 @@ public class MidiSystemHelper {
   /**
    * Find an instrument by name.
    *
-   * @param name
-   * @return
-   * @throws MidiUnavailableException
+   * @param name Name of instrument to find
+   * @return Instrument
+   * @throws MidiUnavailableException Exception
    */
   public Instrument findInstrumentByName(String name) throws MidiUnavailableException {
     for (Instrument instrument : MidiSystem.getSynthesizer().getAvailableInstruments()) {
@@ -162,8 +165,8 @@ public class MidiSystemHelper {
   /**
    * Get an initialised device.
    *
-   * @return
-   * @throws OdinException
+   * @return MIDI device
+   * @throws OdinException Exception
    */
   public MidiDevice getInitialisedDevice() throws OdinException {
     // TODO : Externalise and prioritise external MIDI devices to connect to.

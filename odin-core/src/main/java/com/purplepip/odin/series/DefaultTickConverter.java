@@ -41,14 +41,14 @@ public class DefaultTickConverter extends AbstractTickConverter {
           case BEAT:
             return scaleTime(time);
           case MICROSECOND:
-            return clock.getMicroSeconds(getInputTick().getFactor() * time) /
-                getOutputTick().getFactorAsInt();
+            return clock.getMicroSeconds(getInputTick().getFactor() * time)
+                / getOutputTick().getFactorAsInt();
         }
       case MICROSECOND:
         switch (getOutputTick().getTimeUnit()) {
           case BEAT:
-            return (long) (clock.getBeat(getInputTick().getFactorAsInt() * time) /
-                getOutputTick().getFactor());
+            return (long) (clock.getBeat(getInputTick().getFactorAsInt() * time)
+                / getOutputTick().getFactor());
           case MICROSECOND:
             return scaleTime(time);
         }

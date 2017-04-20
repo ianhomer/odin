@@ -2,7 +2,7 @@ package com.purplepip.odin.series;
 
 /**
  * Series clock that has the intelligence to know the timings of future beats.
- * <p>
+ *
  * Note that currently it is implemented with a static BPM, but note that the system in general
  * must support variable BPM, so it is essential that this Clock is the authority on timings of
  * each beat.
@@ -39,8 +39,8 @@ public class Clock implements MicrosecondPositionProvider {
   public void start(MicrosecondPositionProvider microsecondPositionProvider,
                     boolean startAtNextSecond) {
     if (startAtNextSecond) {
-      this.microsecondsPositionOfFirstBeat = 1000000 *
-          (microsecondPositionProvider.getMicrosecondPosition() / 1000000);
+      this.microsecondsPositionOfFirstBeat = 1000000
+          * (microsecondPositionProvider.getMicrosecondPosition() / 1000000);
     } else {
       this.microsecondPositionProvider = microsecondPositionProvider;
     }
@@ -55,8 +55,8 @@ public class Clock implements MicrosecondPositionProvider {
   }
 
   public double getBeat(long microseconds) {
-    return (microseconds - microsecondsPositionOfFirstBeat) /
-        beatsPerMinute.getMicroSecondsPerBeat();
+    return (microseconds - microsecondsPositionOfFirstBeat)
+        / beatsPerMinute.getMicroSecondsPerBeat();
   }
 
   public long getMicroSeconds(double beat) {

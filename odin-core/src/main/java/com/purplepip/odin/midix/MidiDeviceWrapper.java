@@ -1,9 +1,9 @@
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.common.OdinException;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import com.purplepip.odin.common.OdinException;
 
 import javax.sound.midi.MidiDevice;
 
@@ -23,6 +23,11 @@ public class MidiDeviceWrapper {
     this(false);
   }
 
+  /**
+   * Create a MIDI device wrapper.
+   *
+   * @param scan whether to support MIDI device change detection scanning
+   */
   public MidiDeviceWrapper(boolean scan) {
     if (scan) {
       LOG.info("MIDI Device scanning enabled");

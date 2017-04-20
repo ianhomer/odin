@@ -7,24 +7,27 @@ import com.purplepip.odin.series.Tock;
  */
 public interface MeasureProvider {
   /**
-   * What measure is the tock in?
+   * Get the measure that the tock is in.
+   *
+   * @param tock Current tick
+   * @return Current measure number
    */
   long getMeasureCountForTock(Tock tock);
 
   /**
-   * How many beats are in the measure for the given tock?
+   * Get the number of beats are in the measure for the given tock.
    *
    * @param tock current tick
-   * @return
+   * @return beats in the current measure
    */
   int getBeatsInThisMeasure(Tock tock);
 
   /**
-   * What position in the measure is this tock?  0 => start of the measure.  Note that a tick might be higher
-   * resolution than a single beat, e.g. it could be a half beat or a triplet
+   * What position in the measure is this tock?  0 => start of the measure.  Note that a tick
+   * might be higher resolution than a single beat, e.g. it could be a half beat or a triplet.
    *
    * @param tock current tick
-   * @return
+   * @return tick position in the current measure
    */
   long getTickPositionInThisMeasure(Tock tock);
 }

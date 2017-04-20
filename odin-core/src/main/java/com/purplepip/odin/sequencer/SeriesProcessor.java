@@ -1,12 +1,13 @@
 package com.purplepip.odin.sequencer;
 
-import java.util.Set;
-
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.series.Event;
 import com.purplepip.odin.series.MicrosecondPositionProvider;
 import com.purplepip.odin.series.Series;
+
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

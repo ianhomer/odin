@@ -1,9 +1,9 @@
 package com.purplepip.odin.sequencer;
 
+import java.util.Comparator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Comparator;
 
 /**
  * Comparator for a operation message.
@@ -11,6 +11,13 @@ import java.util.Comparator;
 public class OperationEventComparator implements Comparator<OperationEvent> {
   private static final Logger LOG = LoggerFactory.getLogger(OperationEventComparator.class);
 
+  /**
+   * Compare two operation events.
+   *
+   * @param x first operation
+   * @param y second operation
+   * @return -1, 0 or 1 depending on relative positioning of the two operation events
+   */
   public int compare(OperationEvent x, OperationEvent y) {
     if (x == null) {
       LOG.warn("Operation event should not be null");

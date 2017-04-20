@@ -21,7 +21,7 @@ public class RawMessage {
    * Create a raw MIDI message from the given sequence operation.
    *
    * @param operation operation from which to create MIDI message
-   * @throws OdinException
+   * @throws OdinException Exception
    */
   public RawMessage(Operation operation) throws OdinException {
     // Very simple implementation for now, which just support note on and off.

@@ -1,7 +1,7 @@
 package com.purplepip.odin.sequencer;
 
 /**
- * Operation event that should fire at the given time
+ * Operation event that should fire at the given time.
  */
 public class OperationEvent {
   private Operation operation;

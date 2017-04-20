@@ -8,11 +8,12 @@ import com.purplepip.odin.series.DefaultTickConverter;
 import com.purplepip.odin.series.Series;
 import com.purplepip.odin.series.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.series.Tick;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Core Odin Sequencer.
@@ -43,7 +44,8 @@ public class OdinSequencer {
   }
 
   /**
-   * Add series at the given time offset, where offset is in the time units of the series being added.
+   * Add series at the given time offset, where offset is in the time units of the series being
+   * added.
    *
    * @param series series to add.
    * @param offset offset to add the series to.

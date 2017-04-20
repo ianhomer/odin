@@ -30,7 +30,8 @@ public class OdinSequencerConfiguration {
     return this;
   }
 
-  public OdinSequencerConfiguration setMicrosecondPositionProvider(MicrosecondPositionProvider microsecondPositionProvider) {
+  public OdinSequencerConfiguration setMicrosecondPositionProvider(
+      MicrosecondPositionProvider microsecondPositionProvider) {
     this.microsecondPositionProvider = microsecondPositionProvider;
     return this;
   }
