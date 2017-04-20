@@ -11,17 +11,17 @@ import java.lang.reflect.Method;
  * Simple bean utilities.
  */
 public class BeanUtils {
-    private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
 
-    public void dumpStaticMethodResponse(Class clazz, String methodName) {
-        try {
-            Method method = clazz.getDeclaredMethod(methodName);
-            method.setAccessible(true);
-            LOG.info("{}.{} {} ", clazz.getSimpleName(), methodName, method.invoke(null));
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            LOG.error("Cannot invoke " + methodName + " on " + clazz.getName(), e);
-        } catch (NoSuchMethodException e) {
-            LOG.debug("No such method {} on {}", methodName, clazz.getName());
-        }
+  public void dumpStaticMethodResponse(Class clazz, String methodName) {
+    try {
+      Method method = clazz.getDeclaredMethod(methodName);
+      method.setAccessible(true);
+      LOG.info("{}.{} {} ", clazz.getSimpleName(), methodName, method.invoke(null));
+    } catch (IllegalAccessException | InvocationTargetException e) {
+      LOG.error("Cannot invoke " + methodName + " on " + clazz.getName(), e);
+    } catch (NoSuchMethodException e) {
+      LOG.debug("No such method {} on {}", methodName, clazz.getName());
     }
+  }
 }

@@ -25,32 +25,32 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan({"com.purplepip.odin"})
 public class Application {
-    private static final Logger LOG = LoggerFactory.getLogger(Application.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
 
-    @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> {
-            MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(false);
-            MeasureProvider measureProvider = new StaticMeasureProvider(4);
-            OdinSequencer sequencer = new OdinSequencer(
-                    new OdinSequencerConfiguration()
-                            .setBeatsPerMinute(new StaticBeatsPerMinute(120))
-                            .setMeasureProvider(measureProvider)
-                            .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
-                            .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
-            new SequenceBuilder(sequencer, measureProvider)
-                    .addMetronome()
-                    .addPattern(Tick.BEAT, 2)
-                    .withChannel(9).withNote(42).addPattern(Tick.QUARTER, 61435)
-                    .addPattern(Tick.EIGHTH, 127)
-                    .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
-            sequencer.start();
-            LOG.info("Odin Started.");
-        };
-    }
+  @Bean
+  public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    return args -> {
+      MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(false);
+      MeasureProvider measureProvider = new StaticMeasureProvider(4);
+      OdinSequencer sequencer = new OdinSequencer(
+          new OdinSequencerConfiguration()
+              .setBeatsPerMinute(new StaticBeatsPerMinute(120))
+              .setMeasureProvider(measureProvider)
+              .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
+              .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
+      new SequenceBuilder(sequencer, measureProvider)
+          .addMetronome()
+          .addPattern(Tick.BEAT, 2)
+          .withChannel(9).withNote(42).addPattern(Tick.QUARTER, 61435)
+          .addPattern(Tick.EIGHTH, 127)
+          .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
+      sequencer.start();
+      LOG.info("Odin Started.");
+    };
+  }
 }
 

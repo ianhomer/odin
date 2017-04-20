@@ -7,14 +7,14 @@ import javax.sound.midi.MidiMessage;
  * can be used directly on Android.
  */
 public class RawMidiMessage extends MidiMessage {
-    public RawMidiMessage(byte[] buffer) {
-        super(buffer);
-    }
+  public RawMidiMessage(byte[] buffer) {
+    super(buffer);
+  }
 
-    @Override
-    public Object clone() {
-        byte[] newData = new byte[length];
-        System.arraycopy(data, 0, newData, 0, newData.length);
-        return new RawMidiMessage(newData);
-    }
+  @Override
+  public Object clone() {
+    byte[] newData = new byte[length];
+    System.arraycopy(data, 0, newData, 0, newData.length);
+    return new RawMidiMessage(newData);
+  }
 }

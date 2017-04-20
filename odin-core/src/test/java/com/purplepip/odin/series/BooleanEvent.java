@@ -4,19 +4,19 @@ package com.purplepip.odin.series;
  * Boolean
  */
 public class BooleanEvent implements Event<Boolean> {
-    private long time;
+  private long time;
 
-    @Override
-    public Boolean getValue() {
-        return Boolean.TRUE;
-    }
+  @Override
+  public Boolean getValue() {
+    return Boolean.TRUE;
+  }
 
-    public BooleanEvent(long time) {
-        this.time = time;
-    }
+  public BooleanEvent(long time) {
+    this.time = time;
+  }
 
-    @Override
-    public long getTime() {
-        return time;
-    }
+  @Override
+  public long getTime() {
+    return time;
+  }
 }

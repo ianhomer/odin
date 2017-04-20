@@ -6,6 +6,7 @@ import com.purplepip.odin.common.OdinException;
  * Operation Processor that is responsible for firing the operations when the time is right.
  */
 public interface OperationProcessor extends Runnable {
-    void send(Operation operation, long time) throws OdinException;
-    void stop();
+  void send(Operation operation, long time) throws OdinException;
+
+  void stop();
 }
