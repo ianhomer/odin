@@ -1,7 +1,7 @@
 package com.purplepip.odin.music;
 
 /**
- * Default Note
+ * Default Note.
  */
 public class DefaultNote implements Note {
   // TODO : Externalise default note configuration.
@@ -21,6 +21,13 @@ public class DefaultNote implements Note {
     this(number, velocity, 1);
   }
 
+  /**
+   * Create a default note.
+   *
+   * @param number
+   * @param velocity
+   * @param duration
+   */
   public DefaultNote(int number, int velocity, long duration) {
     this.number = number;
     this.velocity = velocity;

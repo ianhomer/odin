@@ -1,8 +1,12 @@
 package com.purplepip.odin.experiments;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.midix.*;
-import com.purplepip.odin.music.*;
+import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
+import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.midix.MidiOperationReceiver;
+import com.purplepip.odin.midix.MidiSystemHelper;
+import com.purplepip.odin.music.MeasureProvider;
+import com.purplepip.odin.music.StaticMeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.SequenceBuilder;
@@ -38,7 +42,8 @@ public class MidiSequenceExperiment {
               .setBeatsPerMinute(new StaticBeatsPerMinute(120))
               .setMeasureProvider(measureProvider)
               .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
-              .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
+              .setMicrosecondPositionProvider(
+                  new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
       new SequenceBuilder(sequencer, measureProvider)
           .addMetronome()

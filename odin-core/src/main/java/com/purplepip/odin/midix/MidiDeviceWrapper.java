@@ -1,15 +1,17 @@
 package com.purplepip.odin.midix;
 
-import com.purplepip.odin.common.OdinException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.sound.midi.MidiDevice;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.purplepip.odin.common.OdinException;
+
+import javax.sound.midi.MidiDevice;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * Provider of a MIDI device
+ * Provider of a MIDI device.
  */
 public class MidiDeviceWrapper {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);

@@ -1,5 +1,7 @@
 package com.purplepip.odin.sequencer;
 
+import java.util.Set;
+
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.series.Event;
@@ -7,8 +9,6 @@ import com.purplepip.odin.series.MicrosecondPositionProvider;
 import com.purplepip.odin.series.Series;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Set;
 
 /**
  * Series processor.
@@ -25,7 +25,8 @@ public class SeriesProcessor implements Runnable {
   private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
   private int maxNotesPerBuffer = 1000;
 
-  public SeriesProcessor(MicrosecondPositionProvider microsecondPositionProvider, Set<SeriesTrack> seriesTrackSet, OperationProcessor operationProcessor) {
+  public SeriesProcessor(MicrosecondPositionProvider microsecondPositionProvider,
+                         Set<SeriesTrack> seriesTrackSet, OperationProcessor operationProcessor) {
     this.seriesTrackSet = seriesTrackSet;
     if (microsecondPositionProvider == null) {
       throw new RuntimeException("MicrosecondPositionProvider must not be null");
@@ -36,25 +37,28 @@ public class SeriesProcessor implements Runnable {
 
   public void run() {
     while (!exit) {
-            /*
-             * Use a constant microsecond position for the whole loop to make it easier to debug loop processing.  In
-             * this loop it is only used for setting forward scan windows and does not need the precise microsecond
-             * positioning at the time of instruction execution.
-             */
+      /*
+       * Use a constant microsecond position for the whole loop to make it easier to debug
+       * loop processing.  In this loop it is only used for setting forward scan windows and does
+       * not need the precise microsecond positioning at the time of instruction execution.
+       */
       long microsecondPosition = microsecondPositionProvider.getMicrosecondPosition();
       int noteCountThisBuffer = 0;
       for (SeriesTrack seriesTrack : seriesTrackSet) {
         Series<Note> series = seriesTrack.getSeries();
         LOG.trace("Processing series {} for device at position {}", series, microsecondPosition);
         if (noteCountThisBuffer > maxNotesPerBuffer) {
-          LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
+          LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
+              maxNotesPerBuffer);
           break;
         }
         if (series.peek() != null) {
           Event<Note> nextEvent = series.peek();
-          while (nextEvent != null && nextEvent.getTime() < microsecondPosition + timeBufferInMicroSeconds) {
+          while (nextEvent != null && nextEvent.getTime() <
+              microsecondPosition + timeBufferInMicroSeconds) {
             if (noteCountThisBuffer > maxNotesPerBuffer) {
-              LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
+              LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
+                  maxNotesPerBuffer);
               break;
             }
                         /*

@@ -5,7 +5,7 @@ package com.purplepip.odin.music;
  */
 public interface Note {
   /**
-   * Get number for the note following the MIDI standard, C0 = 0, C5 = 60
+   * Get number for the note following the MIDI standard, C0 = 0, C5 = 60.
    *
    * @return int
    */

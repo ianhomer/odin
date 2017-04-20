@@ -17,6 +17,12 @@ public class RawMessage {
   private byte[] buffer = new byte[3];
   private int length;
 
+  /**
+   * Create a raw MIDI message from the given sequence operation.
+   *
+   * @param operation operation from which to create MIDI message
+   * @throws OdinException
+   */
   public RawMessage(Operation operation) throws OdinException {
     // Very simple implementation for now, which just support note on and off.
     setStatus(getCommand(operation.getType()), operation.getChannel());
@@ -31,8 +37,9 @@ public class RawMessage {
         return NOTE_ON;
       case OFF:
         return NOTE_OFF;
+      default:
+        throw new OdinException("Operation " + type + " not recognised");
     }
-    throw new OdinException("Operation " + type + " not recognised");
   }
 
   private void setStatus(int command, int channel) {

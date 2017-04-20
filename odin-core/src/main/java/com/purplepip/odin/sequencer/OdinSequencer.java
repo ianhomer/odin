@@ -3,7 +3,11 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.series.*;
+import com.purplepip.odin.series.Clock;
+import com.purplepip.odin.series.DefaultTickConverter;
+import com.purplepip.odin.series.Series;
+import com.purplepip.odin.series.SeriesTimeUnitConverterFactory;
+import com.purplepip.odin.series.Tick;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +56,9 @@ public class OdinSequencer {
         .convertSeries(series), channel));
   }
 
-
+  /**
+   * Start the sequencer.
+   */
   public void start() {
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     Thread thread = new Thread(operationProcessor);
@@ -62,6 +68,9 @@ public class OdinSequencer {
     thread.start();
   }
 
+  /**
+   * Stop the sequencer.
+   */
   public void stop() {
     if (seriesProcessor != null) {
       seriesProcessor.stop();

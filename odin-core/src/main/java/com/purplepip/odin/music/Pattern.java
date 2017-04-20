@@ -1,6 +1,10 @@
 package com.purplepip.odin.music;
 
-import com.purplepip.odin.series.*;
+import com.purplepip.odin.series.DefaultEvent;
+import com.purplepip.odin.series.Event;
+import com.purplepip.odin.series.Series;
+import com.purplepip.odin.series.Tick;
+import com.purplepip.odin.series.Tock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

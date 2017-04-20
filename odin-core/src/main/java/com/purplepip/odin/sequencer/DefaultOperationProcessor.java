@@ -8,10 +8,11 @@ import org.slf4j.LoggerFactory;
 import java.util.PriorityQueue;
 
 /**
- * Processor responsible for taking MIDI messages off the queue and sending them to the MIDI receivers in a timely
- * manner.  Note that according to the Java MIDI specification messages should not be sent to devices too early.  The
- * time argument in the receiver send method call is really for synchronisation.  If events are fired into a receiver
- * too early then the MIDI instrument might end up handling them early.
+ * Processor responsible for taking MIDI messages off the queue and sending them to the MIDI
+ * receivers in a timely manner.  Note that according to the Java MIDI specification messages
+ * should not be sent to devices too early.  The time argument in the receiver send method call is
+ * really for synchronisation.  If events are fired into a receiver too early then the MIDI
+ * instrument might end up handling them early.
  */
 public class DefaultOperationProcessor implements OperationProcessor {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultOperationProcessor.class);
@@ -20,11 +21,13 @@ public class DefaultOperationProcessor implements OperationProcessor {
   // TODO : Externalise configuration
   private long refreshPeriod = 10;
   private long forwardPollingTime = refreshPeriod * 1000 * 5;
-  private PriorityQueue<OperationEvent> queue = new PriorityQueue<>(127, new OperationEventComparator());
+  private PriorityQueue<OperationEvent> queue = new PriorityQueue<>(127,
+      new OperationEventComparator());
   private MicrosecondPositionProvider microsecondPositionProvider;
   private OperationReceiver operationReceiver;
 
-  public DefaultOperationProcessor(MicrosecondPositionProvider microsecondPositionProvider, OperationReceiver operationReceiver) {
+  public DefaultOperationProcessor(MicrosecondPositionProvider microsecondPositionProvider,
+                                   OperationReceiver operationReceiver) {
     if (microsecondPositionProvider == null) {
       throw new RuntimeException("MicrosecondPositionProvider must not be null");
     }
@@ -48,7 +51,8 @@ public class DefaultOperationProcessor implements OperationProcessor {
       while (nextEvent != null && nextEvent.getTime() < microsecondPosition + forwardPollingTime) {
         nextEvent = queue.poll();
         if (nextEvent == null) {
-          // TODO : Understand why this might have happened, and if can't reproduce then remove this branch.
+          // TODO : Understand why this might have happened, and if can't reproduce then remove
+          // this branch.
           LOG.error("Next event in queue is null, where did it go?");
         } else {
           LOG.trace("Send operation {} at time {} ; device time {}", nextEvent.getOperation(),

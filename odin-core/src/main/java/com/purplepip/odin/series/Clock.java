@@ -3,8 +3,9 @@ package com.purplepip.odin.series;
 /**
  * Series clock that has the intelligence to know the timings of future beats.
  * <p>
- * Note that currently it is implemented with a static BPM, but note that the system in general must support
- * variable BPM, so it is essential that this Clock is the authority on timings of each beat.
+ * Note that currently it is implemented with a static BPM, but note that the system in general
+ * must support variable BPM, so it is essential that this Clock is the authority on timings of
+ * each beat.
  */
 public class Clock implements MicrosecondPositionProvider {
   private BeatsPerMinute beatsPerMinute;
@@ -15,11 +16,14 @@ public class Clock implements MicrosecondPositionProvider {
     this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
   }
 
-  private Clock(BeatsPerMinute beatsPerMinute, MicrosecondPositionProvider microsecondPositionProvider) {
+  private Clock(BeatsPerMinute beatsPerMinute,
+                MicrosecondPositionProvider microsecondPositionProvider) {
     this(beatsPerMinute, microsecondPositionProvider, false);
   }
 
-  private Clock(BeatsPerMinute beatsPerMinute, MicrosecondPositionProvider microsecondPositionProvider, boolean startAtNextSecond) {
+  private Clock(BeatsPerMinute beatsPerMinute,
+                MicrosecondPositionProvider microsecondPositionProvider,
+                boolean startAtNextSecond) {
     this.beatsPerMinute = beatsPerMinute;
     start(microsecondPositionProvider, startAtNextSecond);
   }
@@ -28,12 +32,15 @@ public class Clock implements MicrosecondPositionProvider {
    * Start the clock.
    *
    * @param microsecondPositionProvider Micros second provider.
-   * @param startAtNextSecond           Starting at next second can make debugging easier because microseconds position will start at a round
+   * @param startAtNextSecond           Starting at next second can make debugging easier
+   *                                    because microseconds position will start at a round
    *                                    number.
    */
-  public void start(MicrosecondPositionProvider microsecondPositionProvider, boolean startAtNextSecond) {
+  public void start(MicrosecondPositionProvider microsecondPositionProvider,
+                    boolean startAtNextSecond) {
     if (startAtNextSecond) {
-      this.microsecondsPositionOfFirstBeat = 1000000 * (microsecondPositionProvider.getMicrosecondPosition() / 1000000);
+      this.microsecondsPositionOfFirstBeat = 1000000 *
+          (microsecondPositionProvider.getMicrosecondPosition() / 1000000);
     } else {
       this.microsecondPositionProvider = microsecondPositionProvider;
     }
@@ -48,11 +55,13 @@ public class Clock implements MicrosecondPositionProvider {
   }
 
   public double getBeat(long microseconds) {
-    return (microseconds - microsecondsPositionOfFirstBeat) / beatsPerMinute.getMicroSecondsPerBeat();
+    return (microseconds - microsecondsPositionOfFirstBeat) /
+        beatsPerMinute.getMicroSecondsPerBeat();
   }
 
   public long getMicroSeconds(double beat) {
-    return microsecondsPositionOfFirstBeat + (long) (beatsPerMinute.getMicroSecondsPerBeat() * beat);
+    return microsecondsPositionOfFirstBeat +
+        (long) (beatsPerMinute.getMicroSecondsPerBeat() * beat);
   }
 
 }

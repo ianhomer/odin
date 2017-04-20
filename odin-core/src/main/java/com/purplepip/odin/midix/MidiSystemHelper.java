@@ -1,14 +1,25 @@
 package com.purplepip.odin.midix;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.sun.media.sound.JDK13Services;
 import com.purplepip.odin.common.BeanUtils;
 import com.purplepip.odin.common.OdinException;
-import com.sun.media.sound.JDK13Services;
+
+import javax.sound.midi.Instrument;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Synthesizer;
+import javax.sound.midi.spi.MidiDeviceProvider;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.sound.midi.*;
-import javax.sound.midi.spi.MidiDeviceProvider;
-import java.util.*;
 
 /**
  * Report information on the midi system.
@@ -16,9 +27,13 @@ import java.util.*;
 public class MidiSystemHelper {
   private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
 
+  /**
+   * Log MIDI system info.
+   */
   public void logInfo() {
     for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(), info.getDescription());
+      LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(),
+          info.getDescription());
     }
 
     List<?> list = JDK13Services.getProviders(MidiDeviceProvider.class);
@@ -29,6 +44,11 @@ public class MidiSystemHelper {
     }
   }
 
+  /**
+   * Log the info for a given MIDI device provider.
+   *
+   * @param midiDeviceProvider MIDI device provider
+   */
   public void log(MidiDeviceProvider midiDeviceProvider) {
     new BeanUtils().dumpStaticMethodResponse(midiDeviceProvider.getClass(), "nGetNumDevices");
     for (MidiDevice.Info info : midiDeviceProvider.getDeviceInfo()) {
@@ -36,6 +56,11 @@ public class MidiSystemHelper {
     }
   }
 
+  /**
+   * Return a set of MIDI device infos.
+   *
+   * @return set of MIDI device infos
+   */
   public Set<MidiDevice.Info> getMidiDeviceInfos() {
     Set<MidiDevice.Info> infos = new HashSet<>();
     for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
@@ -44,7 +69,10 @@ public class MidiSystemHelper {
     return infos;
   }
 
-  public MidiSystemHelper logInstruments() {
+  /**
+   * Log MIDI system instruments available.
+   */
+  public void logInstruments() {
     Synthesizer synthesizer;
     try {
       synthesizer = MidiSystem.getSynthesizer();
@@ -65,13 +93,27 @@ public class MidiSystemHelper {
     } catch (MidiUnavailableException e) {
       LOG.error("Cannot get synthesizer", e);
     }
-    return this;
   }
 
+  /**
+   * Find a MIDI device by name.
+   *
+   * @param name Name of MIDI device to find
+   * @return MIDI device
+   * @throws OdinException
+   */
   public MidiDevice findMidiDeviceByName(String name) throws OdinException {
     return findMidiDeviceByName(name, false);
   }
 
+  /**
+   * Find a MIDI device by name.
+   *
+   * @param name
+   * @param exceptionOnNotFound
+   * @return
+   * @throws OdinException
+   */
   public MidiDevice findMidiDeviceByName(String name, boolean exceptionOnNotFound) throws OdinException {
     MidiDevice midiDevice = findMidiDeviceByNameInternal(name, exceptionOnNotFound);
     if (midiDevice != null) {
@@ -101,6 +143,13 @@ public class MidiSystemHelper {
     return null;
   }
 
+  /**
+   * Find an instrument by name.
+   *
+   * @param name
+   * @return
+   * @throws MidiUnavailableException
+   */
   public Instrument findInstrumentByName(String name) throws MidiUnavailableException {
     for (Instrument instrument : MidiSystem.getSynthesizer().getAvailableInstruments()) {
       if (instrument.getName().equals(name)) {
@@ -110,6 +159,12 @@ public class MidiSystemHelper {
     return null;
   }
 
+  /**
+   * Get an initialised device.
+   *
+   * @return
+   * @throws OdinException
+   */
   public MidiDevice getInitialisedDevice() throws OdinException {
     // TODO : Externalise and prioritise external MIDI devices to connect to.
     MidiDevice device = new MidiSystemHelper().findMidiDeviceByName("MidiMock IN");

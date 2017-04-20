@@ -5,7 +5,8 @@ import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.sequencer.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
 
-import javax.sound.midi.*;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiUnavailableException;
 
 /**
  * MIDI operation receiver.
