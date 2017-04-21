@@ -1,11 +1,11 @@
 package com.purplepip.odin.series;
 
-import org.junit.Test;
-
 import static junit.framework.TestCase.assertTrue;
 
+import org.junit.Test;
+
 /**
- * Series Test
+ * Series Test.
  */
 public class SeriesTest {
   @Test

@@ -29,6 +29,13 @@ public class Tick {
     this(timeUnit, numerator, 1);
   }
 
+  /**
+   * Create a tick.
+   *
+   * @param timeUnit time unit
+   * @param numerator numerator
+   * @param denominator denominator
+   */
   public Tick(TimeUnit timeUnit, int numerator, int denominator) {
     this.timeUnit = timeUnit;
     this.numerator = numerator;

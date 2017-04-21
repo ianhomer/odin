@@ -12,6 +12,13 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
     this(inputTick, outputTick, 0);
   }
 
+  /**
+   * Create same time unit tick converter.
+   *
+   * @param inputTick input tick
+   * @param outputTick output tick
+   * @param inputOffset input offset
+   */
   public SameTimeUnitTickConverter(Tick inputTick, Tick outputTick, long inputOffset) {
     setInputTick(inputTick);
     setOutputTick(outputTick);
@@ -25,14 +32,24 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
         switch (getOutputTick().getTimeUnit()) {
           case BEAT:
             return scaleTime(time);
+          default:
+            return throwUnexpectedTimeUnit();
         }
       case MICROSECOND:
         switch (getOutputTick().getTimeUnit()) {
           case MICROSECOND:
             return scaleTime(time);
+          default:
+            return throwUnexpectedTimeUnit();
+
         }
+      default:
+        return throwUnexpectedTimeUnit();
     }
-    throw new RuntimeException("Unexpected time unit " + getInputTick().getTimeUnit() + ":" +
-        getOutputTick().getTimeUnit());
+  }
+
+  private long throwUnexpectedTimeUnit() {
+    throw new RuntimeException("Unexpected time unit " + getInputTick().getTimeUnit() + ":"
+        + getOutputTick().getTimeUnit());
   }
 }

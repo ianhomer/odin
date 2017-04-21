@@ -12,7 +12,7 @@ public class DefaultEvent<A> implements Event<A> {
   private long time;
 
   /**
-   * Create a default event
+   * Create a default event.
    *
    * @param value value for the event
    * @param time time of the event

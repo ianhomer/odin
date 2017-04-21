@@ -45,8 +45,8 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   long scaleTime(long time) {
-    return time * inputTick.getNumerator() * outputTick.getDenominator() /
-        (inputTick.getDenominator() * outputTick.getNumerator());
+    return time * inputTick.getNumerator() * outputTick.getDenominator()
+        / (inputTick.getDenominator() * outputTick.getNumerator());
   }
 
   protected abstract long convertTimeUnit(long time);

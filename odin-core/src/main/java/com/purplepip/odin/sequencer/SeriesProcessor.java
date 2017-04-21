@@ -26,6 +26,13 @@ public class SeriesProcessor implements Runnable {
   private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
   private int maxNotesPerBuffer = 1000;
 
+  /**
+   * Create a series processor.
+   *
+   * @param microsecondPositionProvider microsecond position provider
+   * @param seriesTrackSet series track set
+   * @param operationProcessor operation processor
+   */
   public SeriesProcessor(MicrosecondPositionProvider microsecondPositionProvider,
                          Set<SeriesTrack> seriesTrackSet, OperationProcessor operationProcessor) {
     this.seriesTrackSet = seriesTrackSet;
@@ -36,6 +43,9 @@ public class SeriesProcessor implements Runnable {
     this.operationProcessor = operationProcessor;
   }
 
+  /**
+   * Run processor.
+   */
   public void run() {
     while (!exit) {
       /*
@@ -55,16 +65,16 @@ public class SeriesProcessor implements Runnable {
         }
         if (series.peek() != null) {
           Event<Note> nextEvent = series.peek();
-          while (nextEvent != null && nextEvent.getTime() <
-              microsecondPosition + timeBufferInMicroSeconds) {
+          while (nextEvent != null && nextEvent.getTime()
+              < microsecondPosition + timeBufferInMicroSeconds) {
             if (noteCountThisBuffer > maxNotesPerBuffer) {
               LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
                   maxNotesPerBuffer);
               break;
             }
-                        /*
-                         * Pop event to get it off the buffer.
-                         */
+            /*
+             * Pop event to get it off the buffer.
+             */
             nextEvent = series.pop();
             LOG.trace("Processing Event {}", nextEvent);
             if (nextEvent.getTime() < microsecondPosition) {

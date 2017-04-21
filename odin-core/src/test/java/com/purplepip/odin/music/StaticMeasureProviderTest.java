@@ -1,10 +1,10 @@
 package com.purplepip.odin.music;
 
+import static org.junit.Assert.assertEquals;
+
 import com.purplepip.odin.series.Tick;
 import com.purplepip.odin.series.Tock;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Static measure provider test.

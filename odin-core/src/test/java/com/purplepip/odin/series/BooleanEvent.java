@@ -1,7 +1,7 @@
 package com.purplepip.odin.series;
 
 /**
- * Boolean
+ * Boolean.
  */
 public class BooleanEvent implements Event<Boolean> {
   private long time;

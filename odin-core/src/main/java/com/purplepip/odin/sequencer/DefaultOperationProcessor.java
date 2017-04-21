@@ -27,6 +27,12 @@ public class DefaultOperationProcessor implements OperationProcessor {
   private MicrosecondPositionProvider microsecondPositionProvider;
   private OperationReceiver operationReceiver;
 
+  /**
+   * Create an operation processor.
+   *
+   * @param microsecondPositionProvider microsecond position provider
+   * @param operationReceiver operation receiver
+   */
   public DefaultOperationProcessor(MicrosecondPositionProvider microsecondPositionProvider,
                                    OperationReceiver operationReceiver) {
     if (microsecondPositionProvider == null) {

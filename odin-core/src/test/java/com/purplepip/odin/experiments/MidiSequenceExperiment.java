@@ -21,6 +21,11 @@ import org.slf4j.LoggerFactory;
 public class MidiSequenceExperiment {
   private static final Logger LOG = LoggerFactory.getLogger(MidiSequenceExperiment.class);
 
+  /**
+   * Main method.
+   *
+   * @param args arguments
+   */
   public static void main(String[] args) {
     MidiSequenceExperiment experiment = new MidiSequenceExperiment();
     try {

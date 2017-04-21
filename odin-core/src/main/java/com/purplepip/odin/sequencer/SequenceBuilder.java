@@ -36,13 +36,33 @@ public class SequenceBuilder {
     return this;
   }
 
+  /**
+   * Add pattern.
+   *
+   * @param tick tick
+   * @param pattern pattern
+   * @return sequence builder
+   * @throws OdinException exception
+   */
   public SequenceBuilder addPattern(Tick tick, int pattern) throws OdinException {
-    sequencer.addSeries(new Pattern(measureProvider, tick, pattern, new DefaultNote(note)), 0, channel);
+    sequencer.addSeries(new Pattern(measureProvider, tick, pattern, new DefaultNote(note)),
+        0, channel);
     return this;
   }
 
-  public SequenceBuilder addPattern(Tick tick, int pattern, DefaultNote defaultNote) throws OdinException {
-    sequencer.addSeries(new Pattern(measureProvider, tick, pattern, defaultNote), 0, channel);
+  /**
+   * Add pattern.
+   *
+   * @param tick tick
+   * @param pattern pattern
+   * @param defaultNote default note
+   * @return sequence builder
+   * @throws OdinException exception
+   */
+  public SequenceBuilder addPattern(Tick tick, int pattern, DefaultNote defaultNote)
+      throws OdinException {
+    sequencer.addSeries(new Pattern(measureProvider, tick, pattern, defaultNote),
+        0, channel);
     return this;
   }
 }

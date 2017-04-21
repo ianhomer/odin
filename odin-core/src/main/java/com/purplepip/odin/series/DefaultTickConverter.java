@@ -23,6 +23,14 @@ public class DefaultTickConverter extends AbstractTickConverter {
     this(clock, inputTick, outputTick, 0);
   }
 
+  /**
+   * Create a tick converter.
+   *
+   * @param clock clock
+   * @param inputTick input tick
+   * @param outputTick output tick
+   * @param inputOffset input offset
+   */
   public DefaultTickConverter(Clock clock, Tick inputTick, Tick outputTick, long inputOffset) {
     if (clock == null) {
       throw new RuntimeException("Clock must not be null");
@@ -43,6 +51,8 @@ public class DefaultTickConverter extends AbstractTickConverter {
           case MICROSECOND:
             return clock.getMicroSeconds(getInputTick().getFactor() * time)
                 / getOutputTick().getFactorAsInt();
+          default:
+            return throwUnexpectedTimeUnit();
         }
       case MICROSECOND:
         switch (getOutputTick().getTimeUnit()) {
@@ -51,8 +61,15 @@ public class DefaultTickConverter extends AbstractTickConverter {
                 / getOutputTick().getFactor());
           case MICROSECOND:
             return scaleTime(time);
+          default:
+            return throwUnexpectedTimeUnit();
         }
+      default:
+        return throwUnexpectedTimeUnit();
     }
+  }
+
+  private long throwUnexpectedTimeUnit() throws RuntimeException {
     throw new RuntimeException("Unexpected time unit " + getInputTick().getTimeUnit() + ":"
         + getOutputTick().getTimeUnit());
   }

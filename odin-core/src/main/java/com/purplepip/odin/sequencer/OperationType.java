@@ -1,7 +1,7 @@
 package com.purplepip.odin.sequencer;
 
 /**
- * Operation Type
+ * Operation Type.
  */
 public enum OperationType {
   ON,
