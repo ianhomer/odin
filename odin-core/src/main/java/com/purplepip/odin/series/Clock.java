@@ -64,4 +64,8 @@ public class Clock implements MicrosecondPositionProvider {
         + (long) (beatsPerMinute.getMicroSecondsPerBeat() * beat);
   }
 
+  public double getCurrentBeat() {
+    return getBeat(microsecondPositionProvider.getMicrosecondPosition());
+  }
+
 }

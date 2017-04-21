@@ -70,6 +70,10 @@ public class OdinSequencer {
     thread.start();
   }
 
+  public Clock getClock() {
+    return clock;
+  }
+
   /**
    * Stop the sequencer.
    */
