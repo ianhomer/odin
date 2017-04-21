@@ -31,7 +31,7 @@ public class MidiSystemHelper {
   /**
    * Log MIDI system info.
    */
-  public void logInfo() {
+  public MidiSystemHelper logInfo() {
     for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
       LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(),
           info.getDescription());
@@ -43,6 +43,7 @@ public class MidiSystemHelper {
         log((MidiDeviceProvider) midiDeviceProvider);
       }
     }
+    return this;
   }
 
   /**

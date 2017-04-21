@@ -57,7 +57,7 @@ public class MidiSequenceExperiment {
           .addPattern(Tick.EIGHTH, 127)
           .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
 
-      new MidiSystemHelper().logInfo();
+      new MidiSystemHelper().logInfo().logInstruments();
       sequencer.start();
 
       try {
