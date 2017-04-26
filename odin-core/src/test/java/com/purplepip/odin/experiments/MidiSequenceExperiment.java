@@ -58,7 +58,7 @@ public class MidiSequenceExperiment {
           .withChannel(1).withVelocity(10).withNote(62).addPattern(Tick.BEAT, 4)
           .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
           .withChannel(8).withVelocity(100).withNote(42).addPattern(Tick.BEAT, 15)
-          .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
+          .withChannel(9).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
           .withVelocity(20)
           .addPattern(Tick.EIGHTH, 127)
           .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
@@ -73,12 +73,12 @@ public class MidiSequenceExperiment {
       }
 
       if (midiDeviceWrapper.isGervill()) {
-        midiDeviceWrapper.changeProgram(0,41);
-        midiDeviceWrapper.changeProgram(1,0, 123);
-        midiDeviceWrapper.changeProgram(2,4096, 52);
+        midiDeviceWrapper.changeProgram(1,"bird");
+        midiDeviceWrapper.changeProgram(2,"aahs");
         midiDeviceWrapper.changeProgram(8,26);
         // Note that channel 9, percussion has different program numbers to other channels
         midiDeviceWrapper.changeProgram(9,26);
+        midiDeviceWrapper.changeProgram(9, "TR-909");
       }
 
       new MidiSystemHelper().logInfo();

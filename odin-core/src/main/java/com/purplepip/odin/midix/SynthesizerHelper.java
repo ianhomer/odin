@@ -65,11 +65,9 @@ public class SynthesizerHelper {
       LOG.error("Cannot get soundbank", e);
       return false;
     }
-    logSoundbank(soundbank);
     synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
     boolean result = synthesizer.loadAllInstruments(soundbank);
     LOG.info("Loaded soundbank {} : {}", soundbank.getName(), result);
-    logInstruments();
 
     return result;
   }
@@ -83,13 +81,9 @@ public class SynthesizerHelper {
       for (int i = 0; i < instruments.length; i++) {
         Instrument instrument = instruments[i];
         Patch patch = instrument.getPatch();
-        Boolean isPercussion = null;
-        if (patch instanceof ModelPatch) {
-          ModelPatch modelPatch = (ModelPatch) patch;
-          isPercussion = modelPatch.isPercussion();
-        }
+        Boolean isPercussion = isPercussion(instrument);
 
-        LOG.debug("Synthesiser instruments (loaded) :{} {} {} {} {}",
+        LOG.debug("Synthesiser instruments (loaded) :{} {} {} {}",
             Boolean.TRUE.equals(isPercussion) ? "(percussion)" : "",
             patch.getBank(),
             patch.getProgram(), instrument.getName());
@@ -109,16 +103,26 @@ public class SynthesizerHelper {
     }
   }
 
+  private Boolean isPercussion(Instrument instrument) {
+    Patch patch = instrument.getPatch();
+    if (patch instanceof ModelPatch) {
+      ModelPatch modelPatch = (ModelPatch) patch;
+      return modelPatch.isPercussion();
+    }
+    return null;
+  }
+
   /**
    * Find an instrument by name.
    *
    * @param name Name of instrument to find
    * @return Instrument
-   * @throws MidiUnavailableException Exception
    */
-  public Instrument findInstrumentByName(String name) throws MidiUnavailableException {
-    for (Instrument instrument : MidiSystem.getSynthesizer().getAvailableInstruments()) {
-      if (instrument.getName().equals(name)) {
+  public Instrument findInstrumentByName(String name, boolean percussion) {
+    String lowercaseName = name.toLowerCase();
+    for (Instrument instrument : synthesizer.getLoadedInstruments()) {
+      if ((!percussion || Boolean.TRUE.equals(isPercussion(instrument))) &&
+          instrument.getName().toLowerCase().contains(lowercaseName)) {
         return instrument;
       }
     }

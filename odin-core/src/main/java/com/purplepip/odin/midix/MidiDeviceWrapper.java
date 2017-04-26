@@ -5,6 +5,7 @@ import com.purplepip.odin.common.OdinException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
@@ -123,6 +124,21 @@ public class MidiDeviceWrapper {
 
   public Synthesizer getSynthesizer() {
     return (Synthesizer) device;
+  }
+
+  public void changeProgram(int channel, String instrumentName) throws OdinException {
+    if (!isSynthesizer()) {
+      throw new OdinException("Cannot search for instrument name if not local synthesizer");
+    }
+    Instrument instrument = new SynthesizerHelper(getSynthesizer())
+        .findInstrumentByName(instrumentName, channel == 9);
+    if (instrument == null) {
+      throw new OdinException("Cannot find instrument " + instrumentName);
+    }
+    LOG.info("Instrument name {} resolves to {} bank {} program {}", instrumentName,
+        instrument.getName(),
+        instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+    changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
   }
 
   class MidiDeviceScanner implements Runnable {
