@@ -35,16 +35,15 @@ public class Application {
   @Autowired
   private MidiDeviceWrapper midiDeviceWrapper;
 
+  @Autowired
+  private MeasureProvider measureProvider;
+
+  @Autowired
+  private OdinSequencer sequencer;
+
   @Bean
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
-      MeasureProvider measureProvider = new StaticMeasureProvider(4);
-      OdinSequencer sequencer = new OdinSequencer(
-          new OdinSequencerConfiguration()
-              .setBeatsPerMinute(new StaticBeatsPerMinute(120))
-              .setMeasureProvider(measureProvider)
-              .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
-              .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
       new SequenceBuilder(sequencer, measureProvider)
           .addMetronome()
           .addPattern(Tick.BEAT, 2)

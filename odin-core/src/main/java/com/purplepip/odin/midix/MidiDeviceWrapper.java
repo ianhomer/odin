@@ -159,7 +159,7 @@ public class MidiDeviceWrapper {
         LOG.debug("Scanning MIDI devices");
 
         new MidiSystemHelper().logInfo();
-        Set<MidiDevice.Info> midiDevices = new MidiSystemHelper().getMidiDeviceInfos();
+        Set<MidiDevice.Info> midiDevices = new MidiSystemWrapper().getMidiDeviceInfos();
         if (!midiDevices.equals(knownMidiDevices) || device == null) {
           LOG.debug("Refreshing MIDI device");
           knownMidiDevices = midiDevices;

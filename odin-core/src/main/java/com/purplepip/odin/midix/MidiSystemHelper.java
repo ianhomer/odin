@@ -53,21 +53,6 @@ public class MidiSystemHelper {
   }
 
   /**
-   * Return a set of MIDI device infos.
-   *
-   * @return set of MIDI device infos
-   */
-  public Set<MidiDevice.Info> getMidiDeviceInfos() {
-    Set<MidiDevice.Info> infos = new HashSet<>();
-    for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      infos.add(info);
-    }
-    return infos;
-  }
-
-
-
-  /**
    * Find a MIDI device by name.
    *
    * @param name Name of MIDI device to find

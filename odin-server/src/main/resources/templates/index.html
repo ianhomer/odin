@@ -7,5 +7,58 @@
 <body>
     <p>Hello from Odin!</p>
     <p th:text="'Hello, ' + ${name} + '!'" />
+
+    <h1>MIDI Device</h1>
+
+    <table>
+        <tr>
+            <td>Device</td><td th:text="${midiDevice}"/>
+        </tr>
+    </table>
+
+    <table>
+        <th:block th:each="instrument : ${midiDevice.device.loadedInstruments}">
+            <tr>
+                <td th:text="${instrument.patch.bank}"/>
+                <td th:text="${instrument.patch.program}"/>
+                <td th:text="${instrument.name}"/>
+            </tr>
+        </th:block>
+    </table>
+
+    <h1>Sequencer</h1>
+
+    <table>
+        <tr>
+            <td>BPM</td><td th:text="${sequencer.clock.beatsPerMinute.beatsPerMinute}">BPM</td>
+        </tr>
+    </table>
+
+    <h1>Measure</h1>
+
+    <table>
+        <tr>
+            <td th:text="${measureProvider}"/>
+        </tr>
+    </table>
+
+    <h1>MIDI System</h1>
+    <h2>Devices</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Vendor</th>
+            <th>Version</th>
+            <th>Description</th>
+        </tr>
+        <th:block th:each="midiDeviceInfo : ${midiSystem.midiDeviceInfos}">
+            <tr>
+                <td th:text="${midiDeviceInfo.name}">Name</td>
+                <td th:text="${midiDeviceInfo.vendor}">Vendor</td>
+                <td th:text="${midiDeviceInfo.version}">Version</td>
+                <td th:text="${midiDeviceInfo.description}">Description</td>
+            </tr>
+        </th:block>
+    </table>
 </body>
 </html>
