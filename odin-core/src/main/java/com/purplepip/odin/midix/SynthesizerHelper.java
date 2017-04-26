@@ -121,8 +121,8 @@ public class SynthesizerHelper {
   public Instrument findInstrumentByName(String name, boolean percussion) {
     String lowercaseName = name.toLowerCase();
     for (Instrument instrument : synthesizer.getLoadedInstruments()) {
-      if ((!percussion || Boolean.TRUE.equals(isPercussion(instrument))) &&
-          instrument.getName().toLowerCase().contains(lowercaseName)) {
+      if ((!percussion || Boolean.TRUE.equals(isPercussion(instrument)))
+          && instrument.getName().toLowerCase().contains(lowercaseName)) {
         return instrument;
       }
     }

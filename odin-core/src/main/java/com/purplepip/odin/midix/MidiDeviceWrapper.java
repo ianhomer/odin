@@ -76,6 +76,27 @@ public class MidiDeviceWrapper {
     }
   }
 
+  /**
+   * Change channel to first instrument found that contains the given instrument name string.
+   *
+   * @param channel channel to change
+   * @param instrumentName instrument name to search for
+   * @throws OdinException exception
+   */
+  public void changeProgram(int channel, String instrumentName) throws OdinException {
+    if (!isSynthesizer()) {
+      throw new OdinException("Cannot search for instrument name if not local synthesizer");
+    }
+    Instrument instrument = new SynthesizerHelper(getSynthesizer())
+        .findInstrumentByName(instrumentName, channel == 9);
+    if (instrument == null) {
+      throw new OdinException("Cannot find instrument " + instrumentName);
+    }
+    LOG.info("Instrument name {} resolves to {} bank {} program {}", instrumentName,
+        instrument.getName(),
+        instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+    changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+  }
 
   /**
    * Change program via a MIDI program change message.
@@ -126,20 +147,6 @@ public class MidiDeviceWrapper {
     return (Synthesizer) device;
   }
 
-  public void changeProgram(int channel, String instrumentName) throws OdinException {
-    if (!isSynthesizer()) {
-      throw new OdinException("Cannot search for instrument name if not local synthesizer");
-    }
-    Instrument instrument = new SynthesizerHelper(getSynthesizer())
-        .findInstrumentByName(instrumentName, channel == 9);
-    if (instrument == null) {
-      throw new OdinException("Cannot find instrument " + instrumentName);
-    }
-    LOG.info("Instrument name {} resolves to {} bank {} program {}", instrumentName,
-        instrument.getName(),
-        instrument.getPatch().getBank(), instrument.getPatch().getProgram());
-    changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
-  }
 
   class MidiDeviceScanner implements Runnable {
     private boolean exit;
