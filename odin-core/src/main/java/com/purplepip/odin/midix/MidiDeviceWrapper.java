@@ -5,7 +5,10 @@ import com.purplepip.odin.common.OdinException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.ShortMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +57,13 @@ public class MidiDeviceWrapper {
     return device;
   }
 
+  /**
+   * Close device wrapper.
+   */
   public void close() {
-    scanner.stop();
+    if (scanner != null) {
+      scanner.stop();
+    }
   }
 
   protected void findDevice() {
@@ -64,6 +72,31 @@ public class MidiDeviceWrapper {
     } catch (OdinException e) {
       LOG.error("Cannot initialise MIDI device", e);
     }
+  }
+
+  /**
+   * Change program via a MIDI program change message.
+   *
+   * @param channel channel to change
+   * @param program program to set
+   */
+  public void changeProgram(int channel, int program) {
+    try {
+      device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, program, 0),
+          -1);
+    } catch (MidiUnavailableException | InvalidMidiDataException e) {
+      LOG.error("Cannot change synthesizer instruments", e);
+    }
+    LOG.info("Changed channel {} to program {}", channel, program);
+  }
+
+  /**
+   * Check whether this is the internal Java Gervill synthesizer.
+   *
+   * @return true if this is the internal Java Gervill synthesizer
+   */
+  public boolean isGervill() {
+    return "Gervill".equals(device.getDeviceInfo().getName());
   }
 
   class MidiDeviceScanner implements Runnable {
@@ -95,7 +128,5 @@ public class MidiDeviceWrapper {
     public void stop() {
       exit = true;
     }
-
-
   }
 }

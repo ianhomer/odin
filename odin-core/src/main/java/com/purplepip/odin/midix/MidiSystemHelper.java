@@ -2,21 +2,17 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.common.BeanUtils;
 import com.purplepip.odin.common.OdinException;
-
 import com.sun.media.sound.JDK13Services;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Synthesizer;
 import javax.sound.midi.spi.MidiDeviceProvider;
 
 import org.slf4j.Logger;
@@ -71,31 +67,7 @@ public class MidiSystemHelper {
     return infos;
   }
 
-  /**
-   * Log MIDI system instruments available.
-   */
-  public void logInstruments() {
-    Synthesizer synthesizer;
-    try {
-      synthesizer = MidiSystem.getSynthesizer();
-      if (synthesizer != null) {
-        Instrument[] instruments = synthesizer.getLoadedInstruments();
-        for (int i = 0; i < instruments.length; i++) {
-          LOG.debug("Synthesiser instruments (loaded) : % %", i, instruments[i].getName());
-        }
-        instruments = synthesizer.getAvailableInstruments();
-        for (int i = 0; i < instruments.length; i++) {
-          LOG.debug("Synthesiser instruments : {} {}", i, instruments[i].getName());
-        }
-        MidiChannel[] midiChannels = synthesizer.getChannels();
-        for (int i = 0; i < midiChannels.length; i++) {
-          LOG.debug("Synthesiser channels : {} {}", i, midiChannels[i].getProgram());
-        }
-      }
-    } catch (MidiUnavailableException e) {
-      LOG.error("Cannot get synthesizer", e);
-    }
-  }
+
 
   /**
    * Find a MIDI device by name.
@@ -148,22 +120,6 @@ public class MidiSystemHelper {
   }
 
   /**
-   * Find an instrument by name.
-   *
-   * @param name Name of instrument to find
-   * @return Instrument
-   * @throws MidiUnavailableException Exception
-   */
-  public Instrument findInstrumentByName(String name) throws MidiUnavailableException {
-    for (Instrument instrument : MidiSystem.getSynthesizer().getAvailableInstruments()) {
-      if (instrument.getName().equals(name)) {
-        return instrument;
-      }
-    }
-    return null;
-  }
-
-  /**
    * Get an initialised device.
    *
    * @return MIDI device
@@ -177,16 +133,6 @@ public class MidiSystemHelper {
     }
     LOG.debug("MIDI device : {}", device);
 
-    if ("Gervill".equals(device.getDeviceInfo().getName())) {
-      LOG.debug("Initialising internal synthesizer");
-      try {
-        // TODO : Externalise configuration - 41 is strings in internal Java engine
-        device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, 41, 0),
-            -1);
-      } catch (MidiUnavailableException | InvalidMidiDataException e) {
-        LOG.error("Cannot change synthesizer instruments", e);
-      }
-    }
     return device;
   }
 }
