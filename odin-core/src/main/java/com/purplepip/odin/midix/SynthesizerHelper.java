@@ -1,5 +1,7 @@
 package com.purplepip.odin.midix;
 
+import com.sun.media.sound.ModelPatch;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -8,6 +10,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Patch;
 import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
 
@@ -79,9 +82,17 @@ public class SynthesizerHelper {
       Instrument[] instruments = synthesizer.getLoadedInstruments();
       for (int i = 0; i < instruments.length; i++) {
         Instrument instrument = instruments[i];
-        LOG.debug("Synthesiser instruments (loaded) : {} {} {}",
-            instrument.getPatch().getBank(),
-            instrument.getPatch().getProgram(), instrument.getName());
+        Patch patch = instrument.getPatch();
+        Boolean isPercussion = null;
+        if (patch instanceof ModelPatch) {
+          ModelPatch modelPatch = (ModelPatch) patch;
+          isPercussion = modelPatch.isPercussion();
+        }
+
+        LOG.debug("Synthesiser instruments (loaded) :{} {} {} {} {}",
+            Boolean.TRUE.equals(isPercussion) ? "(percussion)" : "",
+            patch.getBank(),
+            patch.getProgram(), instrument.getName());
       }
       instruments = synthesizer.getAvailableInstruments();
       for (int i = 0; i < instruments.length; i++) {

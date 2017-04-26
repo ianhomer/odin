@@ -14,12 +14,6 @@ import com.purplepip.odin.sequencer.SequenceBuilder;
 import com.purplepip.odin.series.StaticBeatsPerMinute;
 import com.purplepip.odin.series.Tick;
 
-import java.io.IOException;
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Synthesizer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,7 +57,8 @@ public class MidiSequenceExperiment {
           .addMetronome()
           .withChannel(1).withVelocity(10).withNote(62).addPattern(Tick.BEAT, 4)
           .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
-          .withChannel(9).withVelocity(40).withNote(42).addPattern(Tick.QUARTER, 61435)
+          .withChannel(8).withVelocity(100).withNote(42).addPattern(Tick.BEAT, 15)
+          .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
           .withVelocity(20)
           .addPattern(Tick.EIGHTH, 127)
           .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
@@ -81,8 +76,8 @@ public class MidiSequenceExperiment {
         midiDeviceWrapper.changeProgram(0,41);
         midiDeviceWrapper.changeProgram(1,0, 123);
         midiDeviceWrapper.changeProgram(2,4096, 52);
-        midiDeviceWrapper.changeProgram(8,0);
-        // Note that channel 9, percussion has different program set to other channels
+        midiDeviceWrapper.changeProgram(8,26);
+        // Note that channel 9, percussion has different program numbers to other channels
         midiDeviceWrapper.changeProgram(9,26);
       }
 
