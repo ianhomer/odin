@@ -1,10 +1,10 @@
 package com.purplepip.odin.server;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.net.URL;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +36,6 @@ public class MainControllerIT {
   public void getHello() throws Exception {
     ResponseEntity<String> response = template.getForEntity(base.toString(),
         String.class);
-    assertThat(response.getBody(), equalTo("Hello from Odin...!"));
+    assertThat(response.getBody(), CoreMatchers.containsString("Hello from Odin!"));
   }
 }

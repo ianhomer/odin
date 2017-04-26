@@ -12,6 +12,7 @@ import com.purplepip.odin.series.StaticBeatsPerMinute;
 import com.purplepip.odin.series.Tick;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,10 +32,12 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
+  @Autowired
+  private MidiDeviceWrapper midiDeviceWrapper;
+
   @Bean
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
-      MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(false);
       MeasureProvider measureProvider = new StaticMeasureProvider(4);
       OdinSequencer sequencer = new OdinSequencer(
           new OdinSequencerConfiguration()
