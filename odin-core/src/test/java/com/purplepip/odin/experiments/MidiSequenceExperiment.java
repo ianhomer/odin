@@ -16,7 +16,9 @@ import com.purplepip.odin.series.Tick;
 
 import java.io.IOException;
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Synthesizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,7 @@ public class MidiSequenceExperiment {
   }
 
   private void doExperiment() throws OdinException {
+
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
     MidiDeviceWrapper midiDeviceWrapper = null;
@@ -60,24 +63,39 @@ public class MidiSequenceExperiment {
           .addMetronome()
           .addPattern(Tick.BEAT, 2)
           .withChannel(1).withNote(62).addPattern(Tick.BEAT, 4)
-          .withChannel(9).withNote(42).addPattern(Tick.QUARTER, 61435)
+          .withChannel(9).withVelocity(40).withNote(42).addPattern(Tick.QUARTER, 61435)
+          .withVelocity(20)
           .addPattern(Tick.EIGHTH, 127)
           .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
 
+      SynthesizerHelper synthesizerHelper = null;
+      if (midiDeviceWrapper.isSynthesizer()) {
+        synthesizerHelper =
+            new SynthesizerHelper(midiDeviceWrapper.getSynthesizer());
+        synthesizerHelper.loadGervillSoundBank(
+            "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
+        synthesizerHelper.logInstruments();
+      }
 
-      new MidiSystemHelper().logInfo();
-      // TODO : How to load another soundbank?  I can't see how to switch to these instruments
-      new SynthesizerHelper().loadGervillSoundBank("drums.sf2");
 
       if (midiDeviceWrapper.isGervill()) {
         midiDeviceWrapper.changeProgram(0,41);
-        midiDeviceWrapper.changeProgram(1,48);
-        // TODO : How to change percussion on channel 9, neither of these work
-        midiDeviceWrapper.changeProgram(9,44);
-        new SynthesizerHelper().changeProgram(9, 44);
+        midiDeviceWrapper.changeProgram(1,0, 123);
+        midiDeviceWrapper.changeProgram(8,126);
+        // TODO : How to change percussion on channel 9, neither of these work, perhaps
+        // channel 10 (= 9+1) is locked to percussion.
+        midiDeviceWrapper.changeProgram(9,1);
+
+        if (synthesizerHelper != null) {
+          // TODO : Using Synthesizer API seems to have no effect
+          synthesizerHelper.changeProgram(1, 0, 14);
+          synthesizerHelper.changeProgram(0, 128, 5);
+          synthesizerHelper.changeProgram(9, 1);
+        }
       }
 
-      new SynthesizerHelper().logInstruments();
+      new MidiSystemHelper().logInfo();
+
 
       sequencer.start();
 

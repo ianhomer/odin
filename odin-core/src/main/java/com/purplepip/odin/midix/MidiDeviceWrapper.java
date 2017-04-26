@@ -9,6 +9,7 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Synthesizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +75,7 @@ public class MidiDeviceWrapper {
     }
   }
 
+
   /**
    * Change program via a MIDI program change message.
    *
@@ -81,9 +83,20 @@ public class MidiDeviceWrapper {
    * @param program program to set
    */
   public void changeProgram(int channel, int program) {
+    changeProgram(channel, 0, program);
+  }
+
+  /**
+   * Change program via a MIDI program change message.
+   *
+   * @param channel channel to change
+   * @param bank bank to set
+   * @param program program to set
+   */
+  public void changeProgram(int channel, int bank, int program) {
     try {
-      device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, program, 0),
-          -1);
+      device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, program,
+          bank >> 7),  -1);
     } catch (MidiUnavailableException | InvalidMidiDataException e) {
       LOG.error("Cannot change synthesizer instruments", e);
     }
@@ -97,6 +110,19 @@ public class MidiDeviceWrapper {
    */
   public boolean isGervill() {
     return "Gervill".equals(device.getDeviceInfo().getName());
+  }
+
+  /**
+   * Check whether device is a local synthesizer.
+   *
+   * @return true if this is a local synthesizer
+   */
+  public boolean isSynthesizer() {
+    return device instanceof Synthesizer;
+  }
+
+  public Synthesizer getSynthesizer() {
+    return (Synthesizer) device;
   }
 
   class MidiDeviceScanner implements Runnable {

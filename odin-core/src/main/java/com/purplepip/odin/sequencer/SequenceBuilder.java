@@ -4,6 +4,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Metronome;
+import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.Pattern;
 import com.purplepip.odin.series.Tick;
 
@@ -15,6 +16,7 @@ public class SequenceBuilder {
   OdinSequencer sequencer;
   int channel = 0;
   int note = 60;
+  int velocity = 60;
 
   public SequenceBuilder(OdinSequencer sequencer, MeasureProvider measureProvider) {
     this.measureProvider = measureProvider;
@@ -36,6 +38,11 @@ public class SequenceBuilder {
     return this;
   }
 
+  public SequenceBuilder withVelocity(int velocity) {
+    this.velocity = velocity;
+    return this;
+  }
+
   /**
    * Add pattern.
    *
@@ -45,8 +52,7 @@ public class SequenceBuilder {
    * @throws OdinException exception
    */
   public SequenceBuilder addPattern(Tick tick, int pattern) throws OdinException {
-    sequencer.addSeries(new Pattern(measureProvider, tick, pattern, new DefaultNote(note)),
-        0, channel);
+    addPattern(tick, pattern, new DefaultNote(note, velocity));
     return this;
   }
 
@@ -59,7 +65,7 @@ public class SequenceBuilder {
    * @return sequence builder
    * @throws OdinException exception
    */
-  public SequenceBuilder addPattern(Tick tick, int pattern, DefaultNote defaultNote)
+  public SequenceBuilder addPattern(Tick tick, int pattern, Note defaultNote)
       throws OdinException {
     sequencer.addSeries(new Pattern(measureProvider, tick, pattern, defaultNote),
         0, channel);

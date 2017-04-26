@@ -20,15 +20,20 @@ import org.slf4j.LoggerFactory;
 public class SynthesizerHelper {
   private static final Logger LOG = LoggerFactory.getLogger(SynthesizerHelper.class);
 
+  private Synthesizer synthesizer;
+
+  public SynthesizerHelper(Synthesizer synthesizer) {
+    this.synthesizer = synthesizer;
+  }
+
   public void loadGervillSoundBank(String gervillSoundbankFilename) {
     loadSoundBank(System.getProperty("user.home") + "/.gervill/" + gervillSoundbankFilename);
   }
 
-  private Synthesizer ensureOpen(Synthesizer synthesizer) throws MidiUnavailableException {
+  private void ensureOpen() throws MidiUnavailableException {
     if (!synthesizer.isOpen()) {
       synthesizer.open();
     }
-    return synthesizer;
   }
 
   /**
@@ -43,14 +48,13 @@ public class SynthesizerHelper {
       LOG.info("Cannot find file {} to load soundbank from", pathname);
       return false;
     }
-    Synthesizer synthesizer;
     try {
-      synthesizer = ensureOpen(MidiSystem.getSynthesizer());
+      ensureOpen();
     } catch (MidiUnavailableException e) {
       LOG.error("Cannot get opened synthesizer", e);
       return false;
     }
-    //synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
+    synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
     Soundbank soundbank;
     try {
       soundbank = MidiSystem.getSoundbank(file);
@@ -59,8 +63,10 @@ public class SynthesizerHelper {
       return false;
     }
     logSoundbank(soundbank);
+    synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
     boolean result = synthesizer.loadAllInstruments(soundbank);
     LOG.info("Loaded soundbank {} : {}", soundbank.getName(), result);
+    logInstruments();
 
     return result;
   }
@@ -69,29 +75,25 @@ public class SynthesizerHelper {
    * Log MIDI system instruments available.
    */
   public void logInstruments() {
-    Synthesizer synthesizer;
-    try {
-      synthesizer = MidiSystem.getSynthesizer();
-      if (synthesizer != null) {
-        Instrument[] instruments = synthesizer.getLoadedInstruments();
-        for (int i = 0; i < instruments.length; i++) {
-          LOG.debug("Synthesiser instruments (loaded) : {} {} {}",
-              instruments[i].getPatch().getBank(),
-              instruments[i].getPatch().getProgram(), instruments[i].getName());
-        }
-        instruments = synthesizer.getAvailableInstruments();
-        for (int i = 0; i < instruments.length; i++) {
-          LOG.debug("Synthesiser instruments (available) : {} {} {}",
-              instruments[i].getPatch().getBank(),
-              instruments[i].getPatch().getProgram(), instruments[i].getName());
-        }
-        MidiChannel[] midiChannels = synthesizer.getChannels();
-        for (int i = 0; i < midiChannels.length; i++) {
-          LOG.debug("Synthesiser channels : {}", midiChannels[i].getProgram());
-        }
+    if (synthesizer != null) {
+      Instrument[] instruments = synthesizer.getLoadedInstruments();
+      for (int i = 0; i < instruments.length; i++) {
+        LOG.debug("Synthesiser instruments (loaded) : {} {} {}",
+            instruments[i].getPatch().getBank(),
+            instruments[i].getPatch().getProgram(), instruments[i].getName());
       }
-    } catch (MidiUnavailableException e) {
-      LOG.error("Cannot get synthesizer", e);
+      instruments = synthesizer.getAvailableInstruments();
+      for (int i = 0; i < instruments.length; i++) {
+        LOG.debug("Synthesiser instruments (available) : {} {} {}",
+            instruments[i].getPatch().getBank(),
+            instruments[i].getPatch().getProgram(), instruments[i].getName());
+      }
+      MidiChannel[] midiChannels = synthesizer.getChannels();
+      for (int i = 0; i < midiChannels.length; i++) {
+        LOG.debug("Synthesiser channels : {}", midiChannels[i].getProgram());
+      }
+    } else {
+      LOG.info("Synthesizer is null");
     }
   }
 
@@ -111,6 +113,23 @@ public class SynthesizerHelper {
     LOG.info("Changed channel {} to program {} (via Synthesizer API)", channel, program);
   }
 
+  /**
+   * Change program (via the Synthesizer API).
+   *
+   * @param channel channel on which to change the program
+   * @param bank bank to change to
+   * @param program program to change to
+   */
+  public void changeProgram(int channel, int bank, int program) {
+    try {
+      Synthesizer synthesizer = MidiSystem.getSynthesizer();
+      synthesizer.getChannels()[channel].programChange(bank, program);
+    } catch (MidiUnavailableException e) {
+      LOG.error("Cannot change program");
+    }
+    LOG.info("Changed channel {} to bank {} program {} (via Synthesizer API)",
+        channel, bank, program);
+  }
 
   /**
    * Find an instrument by name.
