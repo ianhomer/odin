@@ -61,8 +61,8 @@ public class MidiSequenceExperiment {
 
       new SequenceBuilder(sequencer, measureProvider)
           .addMetronome()
-          .addPattern(Tick.BEAT, 2)
-          .withChannel(1).withNote(62).addPattern(Tick.BEAT, 4)
+          .withChannel(1).withVelocity(10).withNote(62).addPattern(Tick.BEAT, 4)
+          .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
           .withChannel(9).withVelocity(40).withNote(42).addPattern(Tick.QUARTER, 61435)
           .withVelocity(20)
           .addPattern(Tick.EIGHTH, 127)
@@ -77,21 +77,13 @@ public class MidiSequenceExperiment {
         synthesizerHelper.logInstruments();
       }
 
-
       if (midiDeviceWrapper.isGervill()) {
         midiDeviceWrapper.changeProgram(0,41);
         midiDeviceWrapper.changeProgram(1,0, 123);
-        midiDeviceWrapper.changeProgram(8,126);
-        // TODO : How to change percussion on channel 9, neither of these work, perhaps
-        // channel 10 (= 9+1) is locked to percussion.
-        midiDeviceWrapper.changeProgram(9,1);
-
-        if (synthesizerHelper != null) {
-          // TODO : Using Synthesizer API seems to have no effect
-          synthesizerHelper.changeProgram(1, 0, 14);
-          synthesizerHelper.changeProgram(0, 128, 5);
-          synthesizerHelper.changeProgram(9, 1);
-        }
+        midiDeviceWrapper.changeProgram(2,4096, 52);
+        midiDeviceWrapper.changeProgram(8,0);
+        // Note that channel 9, percussion has different program set to other channels
+        midiDeviceWrapper.changeProgram(9,26);
       }
 
       new MidiSystemHelper().logInfo();

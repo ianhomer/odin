@@ -78,9 +78,10 @@ public class SynthesizerHelper {
     if (synthesizer != null) {
       Instrument[] instruments = synthesizer.getLoadedInstruments();
       for (int i = 0; i < instruments.length; i++) {
+        Instrument instrument = instruments[i];
         LOG.debug("Synthesiser instruments (loaded) : {} {} {}",
-            instruments[i].getPatch().getBank(),
-            instruments[i].getPatch().getProgram(), instruments[i].getName());
+            instrument.getPatch().getBank(),
+            instrument.getPatch().getProgram(), instrument.getName());
       }
       instruments = synthesizer.getAvailableInstruments();
       for (int i = 0; i < instruments.length; i++) {
@@ -95,40 +96,6 @@ public class SynthesizerHelper {
     } else {
       LOG.info("Synthesizer is null");
     }
-  }
-
-  /**
-   * Change program (via the Synthesizer API).
-   *
-   * @param channel channel on which to change the program
-   * @param program program to change to
-   */
-  public void changeProgram(int channel, int program) {
-    try {
-      Synthesizer synthesizer = MidiSystem.getSynthesizer();
-      synthesizer.getChannels()[channel].programChange(program);
-    } catch (MidiUnavailableException e) {
-      LOG.error("Cannot change program");
-    }
-    LOG.info("Changed channel {} to program {} (via Synthesizer API)", channel, program);
-  }
-
-  /**
-   * Change program (via the Synthesizer API).
-   *
-   * @param channel channel on which to change the program
-   * @param bank bank to change to
-   * @param program program to change to
-   */
-  public void changeProgram(int channel, int bank, int program) {
-    try {
-      Synthesizer synthesizer = MidiSystem.getSynthesizer();
-      synthesizer.getChannels()[channel].programChange(bank, program);
-    } catch (MidiUnavailableException e) {
-      LOG.error("Cannot change program");
-    }
-    LOG.info("Changed channel {} to bank {} program {} (via Synthesizer API)",
-        channel, bank, program);
   }
 
   /**
