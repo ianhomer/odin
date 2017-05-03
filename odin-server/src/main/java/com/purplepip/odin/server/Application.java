@@ -46,7 +46,7 @@ public class Application {
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
       new MidiSystemHelper().logInfo();
-      
+
       new SequenceBuilder(sequencer, measureProvider)
           .addMetronome()
           .addPattern(Tick.BEAT, 2)

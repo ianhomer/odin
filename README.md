@@ -32,13 +32,12 @@ See also the [Odin Android App](https://github.com/ianhomer/odin-android).
 
 Add "my.pi" domain name to /etc/hosts
         
-Set up SSH Key
+On my.pi create .ssh directory 
 
     ssh pi@my.pi
-    cd ~
-    install -d -m 700 ~/.ssh
+    cd ~ && install -d -m 700 ~/.ssh
 
-On local machine deploy SSH Key
+From **local machine** deploy SSH Key
 
     cat ~/.ssh/id_rsa.pub | ssh pi@my.pi 'cat >> .ssh/authorized_keys'
 
@@ -47,14 +46,13 @@ On my.pi
     sudo mkdir /opt/odin
     sudo chown pi /opt/odin
         
-On local machine deploy jar
+From **local machine** deploy jar 
         
     scp odin-server/target/odin-server-1.0-SNAPSHOT.jar pi@my.pi:/opt/odin
       
-On my.pi
+On my.pi 
     
-    cd /opt/odin
-    java -jar odin-server-1.0-SNAPSHOT.jar        
+    ( cd /opt/odin ; java -jar odin-server-1.0-SNAPSHOT.jar )    
 
 # Access Server
 
