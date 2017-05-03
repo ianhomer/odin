@@ -24,8 +24,37 @@ or run with developer benefits, e.g. web template reloading
 
 # Android Application
 
-The primary application is the [Odin Android App](https://github.com/ianhomer/odin-android).  The PC version 
-mainly exists for rapid development, however once a feature is good, I'll mostly be using it from an Android device.
+See also the [Odin Android App](https://github.com/ianhomer/odin-android).  
+
+# Raspberry PI 
+
+## Installation
+
+Add "my.pi" domain name to /etc/hosts
+        
+Set up SSH Key
+
+    ssh pi@my.pi
+    cd ~
+    install -d -m 700 ~/.ssh
+
+On local machine deploy SSH Key
+
+    cat ~/.ssh/id_rsa.pub | ssh pi@my.pi 'cat >> .ssh/authorized_keys'
+
+On my.pi
+
+    sudo mkdir /opt/odin
+    sudo chown pi /opt/odin
+        
+On local machine deploy jar
+        
+    scp odin-server/target/odin-server-1.0-SNAPSHOT.jar pi@my.pi:/opt/odin
+      
+On my.pi
+    
+    cd /opt/odin
+    java -jar odin-server-1.0-SNAPSHOT.jar        
 
 # Access Server
 

@@ -4,6 +4,7 @@ import com.purplepip.odin.common.BeanUtils;
 import com.purplepip.odin.common.OdinException;
 import com.sun.media.sound.JDK13Services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,27 +56,29 @@ public class MidiSystemHelper {
   /**
    * Find a MIDI device by name.
    *
-   * @param name Name of MIDI device to find
+   * @param midiDeviceMatcher Matcher to match against
    * @return MIDI device
    * @throws OdinException Exception.
    */
-  public MidiDevice findMidiDeviceByName(String name) throws OdinException {
-    return findMidiDeviceByName(name, false);
+  public MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher) throws OdinException {
+    return findMidiDeviceByName(midiDeviceMatcher, false);
   }
 
   /**
    * Find a MIDI device by name.
    *
-   * @param name Name of device to find
+   * @param midiDeviceMatcher Matcher to match against
    * @param exceptionOnNotFound whether to throw an exception if not found
    * @return MIDI device
    * @throws OdinException Exception
    */
-  public MidiDevice findMidiDeviceByName(String name, boolean exceptionOnNotFound)
+  public MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher,
+                                         boolean exceptionOnNotFound)
       throws OdinException {
-    MidiDevice midiDevice = findMidiDeviceByNameInternal(name, exceptionOnNotFound);
+    MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher, exceptionOnNotFound);
     if (midiDevice != null) {
-      LOG.info("Found MIDI device : " + name + " ; " + midiDevice.getClass().getName());
+      LOG.info("Found MIDI device : " + midiDeviceMatcher + " ; "
+          + midiDevice.getClass().getName());
       try {
         midiDevice.open();
       } catch (MidiUnavailableException e) {
@@ -85,19 +88,25 @@ public class MidiSystemHelper {
     return midiDevice;
   }
 
-  private MidiDevice findMidiDeviceByNameInternal(String name, boolean exceptionOnNotFound)
+  private MidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher,
+                                                  boolean exceptionOnNotFound)
       throws OdinException {
     for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      if (info.getName().equals(name)) {
+      if (midiDeviceMatcher.matches(info)) {
+        MidiDevice deviceCandidate;
         try {
-          return MidiSystem.getMidiDevice(info);
+          deviceCandidate = MidiSystem.getMidiDevice(info);
         } catch (MidiUnavailableException e) {
           throw new OdinException(e);
+        }
+
+        if (midiDeviceMatcher.matches(deviceCandidate)) {
+          return deviceCandidate;
         }
       }
     }
     if (exceptionOnNotFound) {
-      throw new OdinException("Cannot find midi device " + name);
+      throw new OdinException("Cannot find midi device " + midiDeviceMatcher.getDescription());
     }
     return null;
   }
@@ -110,12 +119,27 @@ public class MidiSystemHelper {
    */
   public MidiDevice getInitialisedDevice() throws OdinException {
     // TODO : Externalise and prioritise external MIDI devices to connect to.
-    MidiDevice device = new MidiSystemHelper().findMidiDeviceByName("MidiMock IN");
-    if (device == null) {
-      device = new MidiSystemHelper().findMidiDeviceByName("Gervill");
-    }
-    LOG.debug("MIDI device : {}", device);
+    List<String> deviceNames = new ArrayList<>();
+    deviceNames.add("Scarlett");
+    deviceNames.add("USB");
+    deviceNames.add("MidiMock IN");
+    deviceNames.add("KEYBOARD");
+    deviceNames.add("CTRL");
 
+    MidiDevice device = null;
+    for (String deviceName : deviceNames) {
+      device = new MidiSystemHelper().findMidiDeviceByName(new MidiDeviceInMatcher(deviceName));
+      if (device != null) {
+        break;
+      }
+    }
+
+    if (device == null) {
+      device = new MidiSystemHelper().findMidiDeviceByName(
+          new MidiDeviceNameStartsWithMatcher("Gervill"));
+    }
+
+    LOG.debug("MIDI device : {}", device);
     return device;
   }
 }

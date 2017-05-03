@@ -3,6 +3,7 @@ package com.purplepip.odin.server;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
+import com.purplepip.odin.midix.MidiSystemHelper;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.music.MeasureProvider;
@@ -44,6 +45,8 @@ public class Application {
   @Bean
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
+      new MidiSystemHelper().logInfo();
+      
       new SequenceBuilder(sequencer, measureProvider)
           .addMetronome()
           .addPattern(Tick.BEAT, 2)
