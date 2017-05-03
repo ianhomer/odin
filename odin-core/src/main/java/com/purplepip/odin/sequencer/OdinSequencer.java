@@ -3,11 +3,11 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.series.Clock;
-import com.purplepip.odin.series.DefaultTickConverter;
-import com.purplepip.odin.series.Series;
-import com.purplepip.odin.series.SeriesTimeUnitConverterFactory;
-import com.purplepip.odin.series.Tick;
+import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.DefaultTickConverter;
+import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
+import com.purplepip.odin.sequence.Tick;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -39,23 +39,23 @@ public class OdinSequencer {
     meter = new Meter(clock, configuration.getMeasureProvider());
   }
 
-  public void addSeries(Series<Note> series, long offset) throws OdinException {
-    addSeries(series, offset, 0);
+  public void addSeries(Sequence<Note> sequence, long offset) throws OdinException {
+    addSeries(sequence, offset, 0);
   }
 
   /**
-   * Add series at the given time offset, where offset is in the time units of the series being
+   * Add sequence at the given time offset, where offset is in the time units of the sequence being
    * added.
    *
-   * @param series series to add.
-   * @param offset offset to add the series to.
+   * @param sequence sequence to add.
+   * @param offset offset to add the sequence to.
    * @throws OdinException exception
    */
-  public void addSeries(Series<Note> series, long offset, int channel) {
-    LOG.debug("Adding series {} with time units {}", series, series.getTick());
+  public void addSeries(Sequence<Note> sequence, long offset, int channel) {
+    LOG.debug("Adding sequence {} with time units {}", sequence, sequence.getTick());
     seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
-        new DefaultTickConverter(clock, series.getTick(), Tick.MICROSECOND, offset))
-        .convertSeries(series), channel));
+        new DefaultTickConverter(clock, sequence.getTick(), Tick.MICROSECOND, offset))
+        .convertSeries(sequence), channel));
   }
 
   /**

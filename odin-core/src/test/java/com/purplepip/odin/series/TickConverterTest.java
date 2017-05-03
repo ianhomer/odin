@@ -2,6 +2,11 @@ package com.purplepip.odin.series;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.DefaultTickConverter;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.TickConverter;
 import org.junit.Before;
 import org.junit.Test;
 

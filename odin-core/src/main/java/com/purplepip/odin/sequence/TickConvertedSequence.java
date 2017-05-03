@@ -1,4 +1,4 @@
-package com.purplepip.odin.series;
+package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
@@ -6,26 +6,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Series where time is in milliseconds relative to some origin, e.g. MIDI device start
+ * Sequence where time is in milliseconds relative to some origin, e.g. MIDI device start
  */
-public class TickConvertedSeries implements Series<Note> {
-  private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSeries.class);
-  private Series<Note> series;
+public class TickConvertedSequence implements Sequence<Note> {
+  private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSequence.class);
+  private Sequence<Note> sequence;
   private DefaultTickConverter tickConverter;
 
-  public TickConvertedSeries(Series<Note> series, DefaultTickConverter tickConverter) {
-    this.series = series;
+  public TickConvertedSequence(Sequence<Note> sequence, DefaultTickConverter tickConverter) {
+    this.sequence = sequence;
     this.tickConverter = tickConverter;
   }
 
   @Override
   public Event<Note> peek() {
-    return convertTimeUnits(series.peek());
+    return convertTimeUnits(sequence.peek());
   }
 
   @Override
   public Event<Note> pop() {
-    return convertTimeUnits(series.pop());
+    return convertTimeUnits(sequence.pop());
   }
 
   @Override
@@ -35,10 +35,10 @@ public class TickConvertedSeries implements Series<Note> {
 
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
-      LOG.debug("No event on series to convert");
+      LOG.debug("No event on sequence to convert");
       return null;
     }
-    if (tickConverter.getOutputTick() == series.getTick()) {
+    if (tickConverter.getOutputTick() == sequence.getTick()) {
       return event;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),

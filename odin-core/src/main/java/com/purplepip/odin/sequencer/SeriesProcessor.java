@@ -2,9 +2,9 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.series.Event;
-import com.purplepip.odin.series.MicrosecondPositionProvider;
-import com.purplepip.odin.series.Series;
+import com.purplepip.odin.sequence.Event;
+import com.purplepip.odin.sequence.MicrosecondPositionProvider;
+import com.purplepip.odin.sequence.Sequence;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Series processor.
+ * Sequence processor.
  */
 public class SeriesProcessor implements Runnable {
   private static final Logger LOG = LoggerFactory.getLogger(SeriesProcessor.class);
@@ -56,15 +56,16 @@ public class SeriesProcessor implements Runnable {
       long microsecondPosition = microsecondPositionProvider.getMicrosecondPosition();
       int noteCountThisBuffer = 0;
       for (SeriesTrack seriesTrack : seriesTrackSet) {
-        Series<Note> series = seriesTrack.getSeries();
-        LOG.trace("Processing series {} for device at position {}", series, microsecondPosition);
+        Sequence<Note> sequence = seriesTrack.getSequence();
+        LOG.trace("Processing sequence {} for device at position {}", sequence,
+            microsecondPosition);
         if (noteCountThisBuffer > maxNotesPerBuffer) {
           LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
               maxNotesPerBuffer);
           break;
         }
-        if (series.peek() != null) {
-          Event<Note> nextEvent = series.peek();
+        if (sequence.peek() != null) {
+          Event<Note> nextEvent = sequence.peek();
           while (nextEvent != null && nextEvent.getTime()
               < microsecondPosition + timeBufferInMicroSeconds) {
             if (noteCountThisBuffer > maxNotesPerBuffer) {
@@ -75,7 +76,7 @@ public class SeriesProcessor implements Runnable {
             /*
              * Pop event to get it off the buffer.
              */
-            nextEvent = series.pop();
+            nextEvent = sequence.pop();
             LOG.trace("Processing Event {}", nextEvent);
             if (nextEvent.getTime() < microsecondPosition) {
               LOG.debug("Skipping event, too late to process {} < {}", nextEvent.getTime(),
@@ -96,11 +97,11 @@ public class SeriesProcessor implements Runnable {
               }
             }
             noteCountThisBuffer++;
-            nextEvent = series.peek();
+            nextEvent = sequence.peek();
             LOG.trace("Next event {}", nextEvent);
           }
         } else {
-          LOG.debug("No event on series");
+          LOG.debug("No event on sequence");
         }
       }
       try {

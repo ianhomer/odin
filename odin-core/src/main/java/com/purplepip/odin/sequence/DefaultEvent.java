@@ -1,4 +1,4 @@
-package com.purplepip.odin.series;
+package com.purplepip.odin.sequence;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

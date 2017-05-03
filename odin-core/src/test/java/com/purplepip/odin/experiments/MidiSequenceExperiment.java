@@ -8,11 +8,11 @@ import com.purplepip.odin.midix.MidiSystemHelper;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.StaticMeasureProvider;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.SequenceBuilder;
-import com.purplepip.odin.series.StaticBeatsPerMinute;
-import com.purplepip.odin.series.Tick;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

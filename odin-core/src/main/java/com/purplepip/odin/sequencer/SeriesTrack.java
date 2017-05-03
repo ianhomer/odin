@@ -1,17 +1,17 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.series.Series;
+import com.purplepip.odin.sequence.Sequence;
 
 /**
- * Series driving a sequenced track.
+ * Sequence driving a sequenced track.
  */
 public class SeriesTrack {
-  private Series<Note> series;
+  private Sequence<Note> sequence;
   private int channel;
 
-  public SeriesTrack(Series<Note> series, int channel) {
-    this.series = series;
+  public SeriesTrack(Sequence<Note> sequence, int channel) {
+    this.sequence = sequence;
     this.channel = channel;
   }
 
@@ -19,7 +19,7 @@ public class SeriesTrack {
     return channel;
   }
 
-  public Series<Note> getSeries() {
-    return series;
+  public Sequence<Note> getSequence() {
+    return sequence;
   }
 }

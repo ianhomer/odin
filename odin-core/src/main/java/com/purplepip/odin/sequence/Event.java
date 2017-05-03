@@ -1,7 +1,7 @@
-package com.purplepip.odin.series;
+package com.purplepip.odin.sequence;
 
 /**
- * Series Event.
+ * Sequence Event.
  */
 public interface Event<A> {
   A getValue();

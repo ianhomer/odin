@@ -1,4 +1,4 @@
-package com.purplepip.odin.series;
+package com.purplepip.odin.sequence;
 
 /**
  * Provides the microsecond position.

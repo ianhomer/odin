@@ -2,15 +2,16 @@ package com.purplepip.odin.series;
 
 import static junit.framework.TestCase.assertTrue;
 
+import com.purplepip.odin.sequence.Sequence;
 import org.junit.Test;
 
 /**
- * Series Test.
+ * Sequence Test.
  */
-public class SeriesTest {
+public class SequenceTest {
   @Test
   public void testSeries() {
-    Series<Boolean> heartBeat = new HeartBeat();
+    Sequence<Boolean> heartBeat = new HeartBeat();
     long currentTime = System.currentTimeMillis();
     long peekedTime = heartBeat.peek().getTime();
     long poppedTime = heartBeat.peek().getTime();

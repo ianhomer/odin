@@ -1,6 +1,6 @@
 package com.purplepip.odin.music;
 
-import com.purplepip.odin.series.Tock;
+import com.purplepip.odin.sequence.Tock;
 
 /**
  * Intelligence on what measure we are in.

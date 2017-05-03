@@ -1,4 +1,4 @@
-package com.purplepip.odin.series;
+package com.purplepip.odin.sequence;
 
 /**
  * Tick converter that is not clock aware and can only convert ticks with the same time unit.

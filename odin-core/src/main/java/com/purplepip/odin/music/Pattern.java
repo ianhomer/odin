@@ -1,17 +1,17 @@
 package com.purplepip.odin.music;
 
-import com.purplepip.odin.series.DefaultEvent;
-import com.purplepip.odin.series.Event;
-import com.purplepip.odin.series.Series;
-import com.purplepip.odin.series.Tick;
-import com.purplepip.odin.series.Tock;
+import com.purplepip.odin.sequence.DefaultEvent;
+import com.purplepip.odin.sequence.Event;
+import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.Tock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Pattern.
  */
-public class Pattern implements Series<Note> {
+public class Pattern implements Sequence<Note> {
   private static final Logger LOG = LoggerFactory.getLogger(Pattern.class);
 
   private MeasureProvider measureProvider;

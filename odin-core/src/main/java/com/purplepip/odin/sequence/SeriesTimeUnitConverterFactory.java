@@ -1,9 +1,9 @@
-package com.purplepip.odin.series;
+package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.music.Note;
 
 /**
- * Series Factory.
+ * Sequence Factory.
  */
 public class SeriesTimeUnitConverterFactory {
   private DefaultTickConverter tickConverter;
@@ -12,7 +12,7 @@ public class SeriesTimeUnitConverterFactory {
     this.tickConverter = tickConverter;
   }
 
-  public Series<Note> convertSeries(Series<Note> series) {
-    return new TickConvertedSeries(series, tickConverter);
+  public Sequence<Note> convertSeries(Sequence<Note> sequence) {
+    return new TickConvertedSequence(sequence, tickConverter);
   }
 }

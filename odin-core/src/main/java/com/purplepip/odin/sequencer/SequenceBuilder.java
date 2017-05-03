@@ -6,7 +6,7 @@ import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Metronome;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.Pattern;
-import com.purplepip.odin.series.Tick;
+import com.purplepip.odin.sequence.Tick;
 
 /**
  * Convenience class for building up sequences.

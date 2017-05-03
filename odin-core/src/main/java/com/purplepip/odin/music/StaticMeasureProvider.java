@@ -1,6 +1,6 @@
 package com.purplepip.odin.music;
 
-import com.purplepip.odin.series.Tock;
+import com.purplepip.odin.sequence.Tock;
 
 /**
  * A simple static measure provider, e.g. static time signature

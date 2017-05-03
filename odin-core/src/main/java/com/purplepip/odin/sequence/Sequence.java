@@ -1,9 +1,9 @@
-package com.purplepip.odin.series;
+package com.purplepip.odin.sequence;
 
 /**
  * Events that occur over time.
  */
-public interface Series<A> {
+public interface Sequence<A> {
   Event<A> peek();
 
   Event<A> pop();

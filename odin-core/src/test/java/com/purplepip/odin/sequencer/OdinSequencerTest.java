@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.StaticMeasureProvider;
-import com.purplepip.odin.series.DefaultMicrosecondPositionProvider;
-import com.purplepip.odin.series.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.DefaultMicrosecondPositionProvider;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 
 import org.junit.Test;
 import org.slf4j.Logger;

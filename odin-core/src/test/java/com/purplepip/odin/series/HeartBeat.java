@@ -1,9 +1,14 @@
 package com.purplepip.odin.series;
 
+import com.purplepip.odin.sequence.DefaultEvent;
+import com.purplepip.odin.sequence.Event;
+import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.Tick;
+
 /**
- * Series of heartbeats every second.
+ * Sequence of heartbeats every second.
  */
-public class HeartBeat implements Series<Boolean> {
+public class HeartBeat implements Sequence<Boolean> {
   @Override
   public Event<Boolean> peek() {
     return getNext();

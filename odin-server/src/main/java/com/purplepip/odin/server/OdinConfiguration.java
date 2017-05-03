@@ -9,7 +9,7 @@ import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.StaticMeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
-import com.purplepip.odin.series.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

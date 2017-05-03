@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Hello Thymeleaf!</title>
+    <link rel="stylesheet" href="/main.css" />
 </head>
 <body>
+    <div id="react"></div>
+    <script src="built/bundle.js"></script>
+
     <p>Hello from Odin!</p>
     <p th:text="'Hello, ' + ${name} + '!'" />
 

@@ -2,8 +2,8 @@ package com.purplepip.odin.music;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.series.Tick;
-import com.purplepip.odin.series.Tock;
+import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.Tock;
 import org.junit.Test;
 
 /**

@@ -1,5 +1,7 @@
 package com.purplepip.odin.series;
 
+import com.purplepip.odin.sequence.Event;
+
 /**
  * Boolean.
  */

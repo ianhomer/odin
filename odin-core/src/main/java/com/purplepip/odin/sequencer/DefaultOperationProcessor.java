@@ -1,7 +1,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.series.MicrosecondPositionProvider;
+import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 
 import java.util.PriorityQueue;
 
