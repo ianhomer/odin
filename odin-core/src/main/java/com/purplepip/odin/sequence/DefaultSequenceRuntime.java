@@ -1,14 +1,15 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequence.logic.Logic;
 
 /**
  * Default sequence runtime.
  */
 public class DefaultSequenceRuntime<S extends Sequence> extends MutableSequenceRuntime<S> {
-  private SequenceEventProvider eventProvider;
+  private Logic eventProvider;
 
-  public DefaultSequenceRuntime(SequenceEventProvider eventProvider) {
+  public DefaultSequenceRuntime(Logic eventProvider) {
     this.eventProvider = eventProvider;
   }
 
