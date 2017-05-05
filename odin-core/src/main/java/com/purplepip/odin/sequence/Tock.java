@@ -4,7 +4,7 @@ package com.purplepip.odin.sequence;
  * A positioned tick.
  */
 public class Tock {
-  private long count;
+  protected long count;
   private Tick tick;
 
   public Tock(Tick tick, long count) {

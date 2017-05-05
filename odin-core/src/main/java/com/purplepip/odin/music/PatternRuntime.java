@@ -3,7 +3,7 @@ package com.purplepip.odin.music;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MutableSequenceRuntime;
-import com.purplepip.odin.sequence.Tock;
+import com.purplepip.odin.sequence.MutableTock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,39 +13,17 @@ import org.slf4j.LoggerFactory;
 public class PatternRuntime extends MutableSequenceRuntime<Pattern> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternRuntime.class);
 
-  private Event<Note> nextEvent;
-  private long time = 0;
-
   @Override
-  public void setMeasureProvider(MeasureProvider measureProvider) {
-    super.setMeasureProvider(measureProvider);
-    createNextEvent();
-  }
-
-  @Override
-  public Event<Note> peek() {
-    if (nextEvent == null) {
-      createNextEvent();
-    }
-    return nextEvent;
-  }
-
-  @Override
-  public Event<Note> pop() {
-    Event<Note> thisEvent = nextEvent;
-    createNextEvent();
-    return thisEvent;
-  }
-
-  private void createNextEvent() {
-    LOG.trace("Creating next event for time {}", time);
+  protected Event<Note> createNextEvent(MutableTock tock) {
+    Event<Note> nextEvent;
+    LOG.trace("Creating next event for time {}", tock.getCount());
     boolean on = false;
-    long maxForwardScan = 2 * getMeasureProvider().getBeatsInThisMeasure(new Tock(getTick(), time));
+    long maxForwardScan = 2 * getMeasureProvider().getBeatsInThisMeasure(tock);
     int i = 0;
     while (!on && i < maxForwardScan) {
-      time++;
+      tock.increment();
       i++;
-      long position = getMeasureProvider().getTickPositionInThisMeasure(new Tock(getTick(), time));
+      long position = getMeasureProvider().getTickPositionInThisMeasure(tock);
       if (getConfiguration().getPattern() == -1) {
         on = true;
       } else {
@@ -53,10 +31,11 @@ public class PatternRuntime extends MutableSequenceRuntime<Pattern> {
       }
     }
     if (on) {
-      nextEvent = new DefaultEvent<>(getConfiguration().getNote(), time);
+      nextEvent = new DefaultEvent<>(getConfiguration().getNote(), tock.getCount());
     } else {
       LOG.debug("No notes found in the next {} ticks", maxForwardScan);
       nextEvent = null;
     }
+    return nextEvent;
   }
 }

@@ -5,4 +5,6 @@ package com.purplepip.odin.sequence;
  */
 public interface Sequence {
   Tick getTick();
+
+  long getLength();
 }

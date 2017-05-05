@@ -1,36 +1,39 @@
 package com.purplepip.odin.music;
 
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.AbstractSequence;
 import com.purplepip.odin.sequence.Tick;
 
 /**
  * MetronomeRuntime configuration.
  */
-public class Metronome implements Sequence {
+public class Metronome extends AbstractSequence {
   private Note noteBarStart;
   private Note noteMidBar;
-  private long length = -1;
 
+  /**
+   * Create a metronome.
+   */
   public Metronome() {
     noteBarStart = new DefaultNote();
     noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
+    setTick(Tick.HALF);
   }
 
-  public long getLength() {
-    return length;
-  }
-
+  /**
+   * Get note for the start of the bar.
+   *
+   * @return note
+   */
   public Note getNoteBarStart() {
     return noteBarStart;
   }
 
+  /**
+   * Get note for mid bar.
+   *
+   * @return note
+   */
   public Note getNoteMidBar() {
     return noteMidBar;
   }
-
-  @Override
-  public Tick getTick() {
-    return Tick.HALF;
-  }
-
 }

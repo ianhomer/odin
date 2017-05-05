@@ -1,18 +1,16 @@
 package com.purplepip.odin.music;
 
-import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.AbstractSequence;
 
 /**
  * PatternRuntime configuration.
  */
-public class Pattern implements Sequence {
+public class Pattern extends AbstractSequence {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */
   private int pattern;
   private Note note;
-  private Tick tick;
 
   public void setPattern(int pattern) {
     this.pattern = pattern;
@@ -28,14 +26,6 @@ public class Pattern implements Sequence {
 
   public Note getNote() {
     return note;
-  }
-
-  public void setTick(Tick tick) {
-    this.tick = tick;
-  }
-
-  public Tick getTick() {
-    return tick;
   }
 
 }

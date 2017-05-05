@@ -83,7 +83,7 @@ public class SeriesProcessor implements Runnable {
                   microsecondPosition);
             } else {
               Note note = nextEvent.getValue();
-              LOG.debug("Sending note {} to {} ; {}",
+              LOG.debug("Sending note {} to channel {} at time {}",
                   note.getNumber(), seriesTrack.getChannel(), nextEvent.getTime());
               Operation noteOn = new Operation(OperationType.ON, seriesTrack.getChannel(),
                   note.getNumber(), note.getVelocity());
