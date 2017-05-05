@@ -46,7 +46,7 @@ public class SequenceBuilder {
    */
   public SequenceBuilder addMetronome() throws OdinException {
     MutableSequenceRuntime<Metronome, Note> sequenceRuntime = createMutableSequenceRuntime(
-        Metronome.class, new MetronomeLogic(new Metronome(), measureProvider));
+        Metronome.class, new MetronomeLogic(new Metronome()));
     sequencer.addSequence(sequenceRuntime, 0, 9);
     return this;
   }
@@ -95,7 +95,7 @@ public class SequenceBuilder {
     configuration.setTick(tick);
     configuration.setNote(defaultNote);
     MutableSequenceRuntime<Pattern, Note> sequenceRuntime = createMutableSequenceRuntime(
-        Pattern.class, new PatternLogic(configuration, measureProvider));
+        Pattern.class, new PatternLogic(configuration));
     sequencer.addSequence(sequenceRuntime,0, channel);
     return this;
   }

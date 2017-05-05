@@ -13,15 +13,12 @@ import com.purplepip.odin.sequence.measure.MeasureProvider;
  * Metronome logic.
  */
 public class MetronomeLogic extends AbstractLogic<Metronome, Note> {
-  private MeasureProvider measureProvider;
-
-  public MetronomeLogic(Metronome metronome, MeasureProvider measureProvider) {
+  public MetronomeLogic(Metronome metronome) {
     setSequence(metronome);
-    this.measureProvider = measureProvider;
   }
 
   @Override
-  public Event<Note> getNextEvent(Tock tock) {
+  public Event<Note> getNextEvent(Tock tock, MeasureProvider measureProvider) {
     /*
      * Create local and temporary mutable tock for this function execution.
      */

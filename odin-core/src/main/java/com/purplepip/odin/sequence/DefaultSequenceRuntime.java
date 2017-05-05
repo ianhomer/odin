@@ -14,6 +14,6 @@ public class DefaultSequenceRuntime<S extends Sequence, A> extends MutableSequen
 
   @Override
   protected Event<A> getNextEvent(Tock tock) {
-    return logic.getNextEvent(tock);
+    return logic.getNextEvent(tock, getMeasureProvider());
   }
 }

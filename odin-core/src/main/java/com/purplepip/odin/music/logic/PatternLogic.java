@@ -19,15 +19,12 @@ import org.slf4j.LoggerFactory;
 public class PatternLogic extends AbstractLogic<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternLogic.class);
 
-  private MeasureProvider measureProvider;
-
-  public PatternLogic(Pattern pattern, MeasureProvider measureProvider) {
+  public PatternLogic(Pattern pattern) {
     setSequence(pattern);
-    this.measureProvider = measureProvider;
   }
 
   @Override
-  public Event<Note> getNextEvent(Tock tock) {
+  public Event<Note> getNextEvent(Tock tock, MeasureProvider measureProvider) {
     /*
      * Create local and temporary mutable tock for this function execution.
      */
