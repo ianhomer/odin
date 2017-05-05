@@ -6,13 +6,13 @@ import com.purplepip.odin.music.Note;
 /**
  * Abstract sequence.
  */
-public abstract class MutableSequence<A extends SequenceConfiguration> implements Sequence<Note> {
+public abstract class MutableSequenceRuntime<S extends Sequence> implements SequenceRuntime<Note> {
   private MeasureProvider measureProvider;
-  private A configuration;
+  private S sequence;
 
   @Override
   public Tick getTick() {
-    return configuration.getTick();
+    return sequence.getTick();
   }
 
   public MeasureProvider getMeasureProvider() {
@@ -23,13 +23,13 @@ public abstract class MutableSequence<A extends SequenceConfiguration> implement
     this.measureProvider = measureProvider;
   }
 
-  public void setConfiguration(A configuration) {
-    this.configuration = configuration;
+  public void setConfiguration(S sequence) {
+    this.sequence = sequence;
     reload();
   }
 
-  public A getConfiguration() {
-    return configuration;
+  public S getConfiguration() {
+    return sequence;
   }
 
   public void reload() {

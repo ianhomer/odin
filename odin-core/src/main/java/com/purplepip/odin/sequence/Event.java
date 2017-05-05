@@ -1,7 +1,7 @@
 package com.purplepip.odin.sequence;
 
 /**
- * Sequence Event.
+ * SequenceRuntime Event.
  */
 public interface Event<A> {
   A getValue();

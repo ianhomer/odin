@@ -4,10 +4,10 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Metronome;
-import com.purplepip.odin.music.MetronomeConfiguration;
+import com.purplepip.odin.music.MetronomeRuntime;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.Pattern;
-import com.purplepip.odin.music.PatternConfiguration;
+import com.purplepip.odin.music.PatternRuntime;
 import com.purplepip.odin.sequence.Tick;
 
 /**
@@ -32,10 +32,10 @@ public class SequenceBuilder {
    * @throws OdinException exception
    */
   public SequenceBuilder addMetronome() throws OdinException {
-    Metronome metronome = new Metronome();
-    metronome.setConfiguration(new MetronomeConfiguration());
-    metronome.setMeasureProvider(measureProvider);
-    sequencer.addSequence(metronome, 0, 9);
+    MetronomeRuntime metronomeRuntime = new MetronomeRuntime();
+    metronomeRuntime.setConfiguration(new Metronome());
+    metronomeRuntime.setMeasureProvider(measureProvider);
+    sequencer.addSequence(metronomeRuntime, 0, 9);
     return this;
   }
 
@@ -78,14 +78,14 @@ public class SequenceBuilder {
    */
   public SequenceBuilder addPattern(Tick tick, int pattern, Note defaultNote)
       throws OdinException {
-    PatternConfiguration configuration = new PatternConfiguration();
+    Pattern configuration = new Pattern();
     configuration.setPattern(pattern);
     configuration.setTick(tick);
     configuration.setNote(defaultNote);
-    Pattern patternSequence = new Pattern();
-    patternSequence.setConfiguration(configuration);
-    patternSequence.setMeasureProvider(measureProvider);
-    sequencer.addSequence(patternSequence,0, channel);
+    PatternRuntime patternRuntimeSequence = new PatternRuntime();
+    patternRuntimeSequence.setConfiguration(configuration);
+    patternRuntimeSequence.setMeasureProvider(measureProvider);
+    sequencer.addSequence(patternRuntimeSequence,0, channel);
     return this;
   }
 }

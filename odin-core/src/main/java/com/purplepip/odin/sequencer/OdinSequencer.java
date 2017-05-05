@@ -5,7 +5,7 @@ import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceRuntime;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.Tick;
 
@@ -39,23 +39,24 @@ public class OdinSequencer {
     meter = new Meter(clock, configuration.getMeasureProvider());
   }
 
-  public void addSequence(Sequence<Note> sequence, long offset) throws OdinException {
-    addSequence(sequence, offset, 0);
+  public void addSequence(SequenceRuntime<Note> sequenceRuntime, long offset) throws OdinException {
+    addSequence(sequenceRuntime, offset, 0);
   }
 
   /**
-   * Add sequence at the given time offset, where offset is in the time units of the sequence being
-   * added.
+   * Add sequenceRuntime at the given time offset, where offset is in the time units of the
+   * sequence runtime being added.
    *
-   * @param sequence sequence to add.
-   * @param offset offset to add the sequence to.
+   * @param sequenceRuntime sequence runtime to add.
+   * @param offset offset to add the sequenceRuntime to.
    * @throws OdinException exception
    */
-  public void addSequence(Sequence<Note> sequence, long offset, int channel) {
-    LOG.debug("Adding sequence {} with time units {}", sequence, sequence.getTick());
+  public void addSequence(SequenceRuntime<Note> sequenceRuntime, long offset, int channel) {
+    LOG.debug("Adding sequence runtime {} with time units {}", sequenceRuntime,
+        sequenceRuntime.getTick());
     seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
-        new DefaultTickConverter(clock, sequence.getTick(), Tick.MICROSECOND, offset))
-        .convertSeries(sequence), channel));
+        new DefaultTickConverter(clock, sequenceRuntime.getTick(), Tick.MICROSECOND, offset))
+        .convertSeries(sequenceRuntime), channel));
   }
 
   /**

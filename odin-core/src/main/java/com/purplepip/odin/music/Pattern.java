@@ -1,63 +1,41 @@
 package com.purplepip.odin.music;
 
-import com.purplepip.odin.sequence.DefaultEvent;
-import com.purplepip.odin.sequence.Event;
-import com.purplepip.odin.sequence.MutableSequence;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
-import com.purplepip.odin.sequence.Tock;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * Pattern.
+ * PatternRuntime configuration.
  */
-public class Pattern extends MutableSequence<PatternConfiguration> {
-  private static final Logger LOG = LoggerFactory.getLogger(Pattern.class);
+public class Pattern implements Sequence {
+  /*
+   * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
+   */
+  private int pattern;
+  private Note note;
+  private Tick tick;
 
-  private Event<Note> nextEvent;
-  private long time = 0;
-
-  @Override
-  public void setMeasureProvider(MeasureProvider measureProvider) {
-    super.setMeasureProvider(measureProvider);
-    createNextEvent();
+  public void setPattern(int pattern) {
+    this.pattern = pattern;
   }
 
-  @Override
-  public Event<Note> peek() {
-    if (nextEvent == null) {
-      createNextEvent();
-    }
-    return nextEvent;
+  public int getPattern() {
+    return pattern;
   }
 
-  @Override
-  public Event<Note> pop() {
-    Event<Note> thisEvent = nextEvent;
-    createNextEvent();
-    return thisEvent;
+  public void setNote(Note note) {
+    this.note = note;
   }
 
-  private void createNextEvent() {
-    LOG.trace("Creating next event for time {}", time);
-    boolean on = false;
-    long maxForwardScan = 2 * getMeasureProvider().getBeatsInThisMeasure(new Tock(getTick(), time));
-    int i = 0;
-    while (!on && i < maxForwardScan) {
-      time++;
-      i++;
-      long position = getMeasureProvider().getTickPositionInThisMeasure(new Tock(getTick(), time));
-      if (getConfiguration().getPattern() == -1) {
-        on = true;
-      } else {
-        on = ((getConfiguration().getPattern() >> position) & 1) == 1;
-      }
-    }
-    if (on) {
-      nextEvent = new DefaultEvent<>(getConfiguration().getNote(), time);
-    } else {
-      LOG.debug("No notes found in the next {} ticks", maxForwardScan);
-      nextEvent = null;
-    }
+  public Note getNote() {
+    return note;
   }
+
+  public void setTick(Tick tick) {
+    this.tick = tick;
+  }
+
+  public Tick getTick() {
+    return tick;
+  }
+
 }

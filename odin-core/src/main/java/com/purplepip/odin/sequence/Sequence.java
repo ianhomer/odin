@@ -1,12 +1,8 @@
 package com.purplepip.odin.sequence;
 
 /**
- * Events that occur over time.
+ * Persistable sequence configuration.
  */
-public interface Sequence<A> {
-  Event<A> peek();
-
-  Event<A> pop();
-
+public interface Sequence {
   Tick getTick();
 }

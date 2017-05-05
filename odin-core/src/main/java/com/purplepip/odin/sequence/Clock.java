@@ -1,7 +1,7 @@
 package com.purplepip.odin.sequence;
 
 /**
- * Sequence clock that has the intelligence to know the timings of future beats.
+ * SequenceRuntime clock that has the intelligence to know the timings of future beats.
  *
  * <p>Note that currently it is implemented with a static BPM, but note that the system in general
  * must support variable BPM, so it is essential that this Clock is the authority on timings of

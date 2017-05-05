@@ -6,26 +6,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Sequence where time is in milliseconds relative to some origin, e.g. MIDI device start
+ * SequenceRuntime where time is in milliseconds relative to some origin, e.g. MIDI device start
  */
-public class TickConvertedSequence implements Sequence<Note> {
-  private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSequence.class);
-  private Sequence<Note> sequence;
+public class TickConvertedSequenceRuntime implements SequenceRuntime<Note> {
+  private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSequenceRuntime.class);
+  private SequenceRuntime<Note> sequenceRuntime;
   private DefaultTickConverter tickConverter;
 
-  public TickConvertedSequence(Sequence<Note> sequence, DefaultTickConverter tickConverter) {
-    this.sequence = sequence;
+  public TickConvertedSequenceRuntime(SequenceRuntime<Note> sequenceRuntime,
+                                      DefaultTickConverter tickConverter) {
+    this.sequenceRuntime = sequenceRuntime;
     this.tickConverter = tickConverter;
   }
 
   @Override
   public Event<Note> peek() {
-    return convertTimeUnits(sequence.peek());
+    return convertTimeUnits(sequenceRuntime.peek());
   }
 
   @Override
   public Event<Note> pop() {
-    return convertTimeUnits(sequence.pop());
+    return convertTimeUnits(sequenceRuntime.pop());
   }
 
   @Override
@@ -35,10 +36,10 @@ public class TickConvertedSequence implements Sequence<Note> {
 
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
-      LOG.debug("No event on sequence to convert");
+      LOG.debug("No event on sequenceRuntime to convert");
       return null;
     }
-    if (tickConverter.getOutputTick() == sequence.getTick()) {
+    if (tickConverter.getOutputTick() == sequenceRuntime.getTick()) {
       return event;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),

@@ -1,7 +1,7 @@
 package com.purplepip.odin.server.rest;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceRuntime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DefaultSequenceRepository implements SequenceRepository {
 
   @Override
-  public Page<Sequence<Note>> findAll(Pageable pageable) {
-    return new PageImpl(new ArrayList<Sequence<Note>>());
+  public Page<SequenceRuntime<Note>> findAll(Pageable pageable) {
+    return new PageImpl(new ArrayList<SequenceRuntime<Note>>());
   }
 }

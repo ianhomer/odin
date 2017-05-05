@@ -3,7 +3,7 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.music.Note;
 
 /**
- * Sequence Factory.
+ * SequenceRuntime Factory.
  */
 public class SeriesTimeUnitConverterFactory {
   private DefaultTickConverter tickConverter;
@@ -12,7 +12,7 @@ public class SeriesTimeUnitConverterFactory {
     this.tickConverter = tickConverter;
   }
 
-  public Sequence<Note> convertSeries(Sequence<Note> sequence) {
-    return new TickConvertedSequence(sequence, tickConverter);
+  public SequenceRuntime<Note> convertSeries(SequenceRuntime<Note> sequenceRuntime) {
+    return new TickConvertedSequenceRuntime(sequenceRuntime, tickConverter);
   }
 }

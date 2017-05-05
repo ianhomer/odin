@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Midi Sequence Experiment.
+ * Midi SequenceRuntime Experiment.
  */
 public class MidiSequenceExperiment {
   private static final Logger LOG = LoggerFactory.getLogger(MidiSequenceExperiment.class);

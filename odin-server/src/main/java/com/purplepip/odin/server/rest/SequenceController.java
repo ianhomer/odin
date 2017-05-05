@@ -1,7 +1,7 @@
 package com.purplepip.odin.server.rest;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceRuntime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +24,10 @@ public class SequenceController {
   SequenceRepository repository;
 
   @RequestMapping(value = "/sequences", method = RequestMethod.GET)
-  HttpEntity<PagedResources<Sequence<Note>>> persons(Pageable pageable,
-                                                     PagedResourcesAssembler assembler) {
+  HttpEntity<PagedResources<SequenceRuntime<Note>>> persons(Pageable pageable,
+                                                            PagedResourcesAssembler assembler) {
 
-    Page<Sequence<Note>> sequences = repository.findAll(pageable);
+    Page<SequenceRuntime<Note>> sequences = repository.findAll(pageable);
     return new ResponseEntity<>(assembler.toResource(sequences), HttpStatus.OK);
   }
 }
