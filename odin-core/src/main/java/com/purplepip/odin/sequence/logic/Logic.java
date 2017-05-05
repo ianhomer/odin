@@ -6,6 +6,8 @@ import com.purplepip.odin.sequence.Tock;
 /**
  * Sequence Event Provider.
  */
-public interface Logic<A> {
+public interface Logic<S, A> {
   Event<A> getNextEvent(Tock tock);
+
+  S getSequence();
 }

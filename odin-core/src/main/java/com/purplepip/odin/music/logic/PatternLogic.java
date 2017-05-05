@@ -8,21 +8,20 @@ import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MutableTock;
 import com.purplepip.odin.sequence.ScanForwardEvent;
 import com.purplepip.odin.sequence.Tock;
-import com.purplepip.odin.sequence.logic.Logic;
+import com.purplepip.odin.sequence.logic.AbstractLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Pattern logic.
  */
-public class PatternLogic implements Logic<Note> {
+public class PatternLogic extends AbstractLogic<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternLogic.class);
 
-  private Pattern pattern;
   private MeasureProvider measureProvider;
 
   public PatternLogic(Pattern pattern, MeasureProvider measureProvider) {
-    this.pattern = pattern;
+    setSequence(pattern);
     this.measureProvider = measureProvider;
   }
 
@@ -40,19 +39,19 @@ public class PatternLogic implements Logic<Note> {
       mutableTock.increment();
       i++;
       long position = measureProvider.getTickPositionInThisMeasure(mutableTock);
-      if (pattern.getPattern() == -1) {
+      if (getSequence().getPattern() == -1) {
         on = true;
       } else {
-        on = ((pattern.getPattern() >> position) & 1) == 1;
+        on = ((getSequence().getPattern() >> position) & 1) == 1;
       }
     }
 
     if (on) {
-      nextEvent = new DefaultEvent<>(pattern.getNote(), mutableTock.getCount());
+      nextEvent = new DefaultEvent<>(getSequence().getNote(), mutableTock.getCount());
     } else {
       LOG.debug("No notes found in the next {} ticks for pattern {}", maxForwardScan,
-          pattern.getPattern());
-      nextEvent = new ScanForwardEvent(mutableTock.getCount());
+          getSequence().getPattern());
+      nextEvent = new ScanForwardEvent<>(mutableTock.getCount());
     }
     return nextEvent;
   }

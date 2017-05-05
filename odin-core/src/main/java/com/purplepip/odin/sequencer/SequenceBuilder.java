@@ -4,12 +4,15 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.logic.MetronomeLogic;
+import com.purplepip.odin.music.logic.PatternLogic;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.DefaultSequenceRuntime;
 import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.logic.Logic;
 
 /**
  * Convenience class for building up sequences.
@@ -26,11 +29,11 @@ public class SequenceBuilder {
     this.sequencer = sequencer;
   }
 
-  private <T extends Sequence> MutableSequenceRuntime<T, Note>
-      createMutableSequenceRuntime(Class<T> clazz, T sequence) {
-    MutableSequenceRuntime<T, Note> sequenceRuntime = new DefaultSequenceRuntime<>(
-        sequence.createEventProvider(measureProvider));
-    sequenceRuntime.setConfiguration(sequence);
+  private <S extends Sequence, L extends Logic<S, Note>>
+      MutableSequenceRuntime<S, Note>
+      createMutableSequenceRuntime(Class<S> clazz, L logic) {
+    MutableSequenceRuntime<S, Note> sequenceRuntime = new DefaultSequenceRuntime<>(logic);
+    sequenceRuntime.setConfiguration(logic.getSequence());
     sequenceRuntime.setMeasureProvider(measureProvider);
     return sequenceRuntime;
   }
@@ -43,7 +46,7 @@ public class SequenceBuilder {
    */
   public SequenceBuilder addMetronome() throws OdinException {
     MutableSequenceRuntime<Metronome, Note> sequenceRuntime = createMutableSequenceRuntime(
-        Metronome.class, new Metronome());
+        Metronome.class, new MetronomeLogic(new Metronome(), measureProvider));
     sequencer.addSequence(sequenceRuntime, 0, 9);
     return this;
   }
@@ -92,7 +95,7 @@ public class SequenceBuilder {
     configuration.setTick(tick);
     configuration.setNote(defaultNote);
     MutableSequenceRuntime<Pattern, Note> sequenceRuntime = createMutableSequenceRuntime(
-        Pattern.class, configuration);
+        Pattern.class, new PatternLogic(configuration, measureProvider));
     sequencer.addSequence(sequenceRuntime,0, channel);
     return this;
   }

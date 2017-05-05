@@ -41,9 +41,4 @@ public class Metronome extends AbstractSequence {
   public Note getNoteMidBar() {
     return noteMidBar;
   }
-
-  @Override
-  public Logic createEventProvider(final MeasureProvider measureProvider) {
-    return new MetronomeLogic(this, measureProvider);
-  }
 }

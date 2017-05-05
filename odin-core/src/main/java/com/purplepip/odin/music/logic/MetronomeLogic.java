@@ -7,17 +7,16 @@ import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MutableTock;
 import com.purplepip.odin.sequence.Tock;
-import com.purplepip.odin.sequence.logic.Logic;
+import com.purplepip.odin.sequence.logic.AbstractLogic;
 
 /**
  * Metronome logic.
  */
-public class MetronomeLogic implements Logic<Note> {
-  private Metronome metronome;
+public class MetronomeLogic extends AbstractLogic<Metronome, Note> {
   private MeasureProvider measureProvider;
 
   public MetronomeLogic(Metronome metronome, MeasureProvider measureProvider) {
-    this.metronome = metronome;
+    setSequence(metronome);
     this.measureProvider = measureProvider;
   }
 
@@ -30,9 +29,9 @@ public class MetronomeLogic implements Logic<Note> {
     mutableTock.increment(2);
     Note note;
     if (measureProvider.getTickPositionInThisMeasure(mutableTock) == 0) {
-      note = metronome.getNoteBarStart();
+      note = getSequence().getNoteBarStart();
     } else {
-      note = metronome.getNoteMidBar();
+      note = getSequence().getNoteMidBar();
     }
     return new DefaultEvent<>(note, mutableTock.getCount());
   }

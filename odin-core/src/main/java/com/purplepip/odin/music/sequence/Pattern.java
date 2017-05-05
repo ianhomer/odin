@@ -31,9 +31,4 @@ public class Pattern extends AbstractSequence {
   public Note getNote() {
     return note;
   }
-
-  @Override
-  public Logic createEventProvider(final MeasureProvider measureProvider) {
-    return new PatternLogic(this, measureProvider);
-  }
 }
