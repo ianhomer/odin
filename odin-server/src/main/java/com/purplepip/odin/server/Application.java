@@ -42,7 +42,7 @@ public class Application {
     return args -> {
       new MidiSystemHelper().logInfo();
 
-      new SequenceBuilder(sequencer, measureProvider)
+      new SequenceBuilder(sequencer)
           .addMetronome()
           .addPattern(Tick.BEAT, 2)
           .withChannel(9).withNote(42).addPattern(Tick.QUARTER, 61435)

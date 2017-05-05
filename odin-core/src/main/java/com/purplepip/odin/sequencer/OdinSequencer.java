@@ -4,10 +4,13 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.DefaultSequenceRuntime;
 import com.purplepip.odin.sequence.DefaultTickConverter;
-import com.purplepip.odin.sequence.SequenceRuntime;
+import com.purplepip.odin.sequence.MutableSequenceRuntime;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.logic.Logic;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -39,22 +42,34 @@ public class OdinSequencer {
     meter = new Meter(clock, configuration.getMeasureProvider());
   }
 
-  public void addSequence(SequenceRuntime<Note> sequenceRuntime, long offset) throws OdinException {
-    addSequence(sequenceRuntime, offset, 0);
+  private <S extends Sequence, L extends Logic<S, Note>>
+      MutableSequenceRuntime<S, Note>
+      createMutableSequenceRuntime(Class<S> clazz, L logic) {
+    MutableSequenceRuntime<S, Note> sequenceRuntime = new DefaultSequenceRuntime<>(logic);
+    sequenceRuntime.setConfiguration(logic.getSequence());
+    sequenceRuntime.setMeasureProvider(configuration.getMeasureProvider());
+    return sequenceRuntime;
   }
 
   /**
    * Add sequenceRuntime at the given time offset, where offset is in the time units of the
    * sequence runtime being added.
    *
-   * @param sequenceRuntime sequence runtime to add.
+   * @param logic sequence logic to add.
    * @param offset offset to add the sequenceRuntime to.
+   * @param channel channel to send the sequence to.
    * @throws OdinException exception
    */
-  public void addSequence(SequenceRuntime<Note> sequenceRuntime, long offset, int channel) {
+  <S extends Sequence> void addSequence(Class<S> clazz, Logic<S, Note> logic, long offset,
+                                        int channel) {
+    // TODO : Pass Sequence in NOT Logic and create a Logic Factory to create appropriate Logic
+    // from Sequence, then this OdinSequencer can take responsibility for persisting Sequence
+    // configuration and re-spin up from the configuration.
     LOG.debug("Adding sequence runtime {} with time units {}",
-        sequenceRuntime.getClass().getSimpleName(),
-        sequenceRuntime.getTick().getClass().getSimpleName());
+        clazz.getSimpleName(),
+        logic.getSequence().getTick().getClass().getSimpleName());
+    MutableSequenceRuntime<S, Note> sequenceRuntime = createMutableSequenceRuntime(
+        clazz, logic);
     sequenceTrackSet.add(new SequenceTrack(new SeriesTimeUnitConverterFactory(
         new DefaultTickConverter(clock, sequenceRuntime.getTick(), Tick.MICROSECOND, offset))
         .convertSeries(sequenceRuntime), channel));

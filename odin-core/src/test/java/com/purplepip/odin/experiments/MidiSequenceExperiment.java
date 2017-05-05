@@ -53,7 +53,7 @@ public class MidiSequenceExperiment {
               .setMicrosecondPositionProvider(
                   new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
-      new SequenceBuilder(sequencer, measureProvider)
+      new SequenceBuilder(sequencer)
           .addMetronome()
           .withChannel(1).withVelocity(10).withNote(62).addPattern(Tick.BEAT, 4)
           .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)

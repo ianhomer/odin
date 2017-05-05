@@ -23,11 +23,12 @@ public class OdinSequencerTest {
     CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
     OdinSequencer sequencer = new OdinSequencer(
         new OdinSequencerConfiguration()
+            .setMeasureProvider(new StaticMeasureProvider(4))
             .setBeatsPerMinute(new StaticBeatsPerMinute(1000))
             .setOperationReceiver(operationReceiver)
             .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider()));
 
-    new SequenceBuilder(sequencer, new StaticMeasureProvider(4))
+    new SequenceBuilder(sequencer)
         .addMetronome();
     sequencer.start();
 
