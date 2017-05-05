@@ -24,9 +24,9 @@ public class PatternRuntime extends MutableSequenceRuntime<Pattern> {
      */
     MutableTock mutableTock = new MutableTock(tock);
     Event<Note> nextEvent;
-    LOG.trace("Creating next event for time {}", tock.getCount());
+    LOG.trace("Creating next event for time {}", mutableTock.getCount());
     boolean on = false;
-    long maxForwardScan = 2 * getMeasureProvider().getBeatsInThisMeasure(tock);
+    long maxForwardScan = 2 * getMeasureProvider().getBeatsInThisMeasure(mutableTock);
     int i = 0;
     while (!on && i < maxForwardScan) {
       mutableTock.increment();
