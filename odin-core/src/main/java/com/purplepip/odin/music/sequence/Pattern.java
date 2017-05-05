@@ -4,7 +4,7 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.AbstractSequence;
 
 /**
- * PatternRuntime configuration.
+ * Pattern sequence configuration.
  */
 public class Pattern extends AbstractSequence {
   /*

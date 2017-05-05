@@ -57,8 +57,7 @@ public class SequenceBuilder {
    * @throws OdinException exception
    */
   public SequenceBuilder addPattern(Tick tick, int pattern) throws OdinException {
-    addPattern(tick, pattern, new DefaultNote(note, velocity));
-    return this;
+    return addPattern(tick, pattern, new DefaultNote(note, velocity));
   }
 
   /**

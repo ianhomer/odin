@@ -6,7 +6,7 @@ import com.purplepip.odin.sequence.AbstractSequence;
 import com.purplepip.odin.sequence.Tick;
 
 /**
- * MetronomeRuntime configuration.
+ * Metronome sequence configuration.
  */
 public class Metronome extends AbstractSequence {
   private Note noteBarStart;

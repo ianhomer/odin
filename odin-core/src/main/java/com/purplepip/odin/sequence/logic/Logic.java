@@ -5,7 +5,8 @@ import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
- * Sequence Event Provider.
+ * A sequence logic class has the intelligence to determine the progression of the sequence
+ * based on the sequence configuration.
  */
 public interface Logic<S, A> {
   Event<A> getNextEvent(Tock tock, MeasureProvider measureProvider);
