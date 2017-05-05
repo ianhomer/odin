@@ -4,8 +4,11 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Metronome;
+import com.purplepip.odin.music.MetronomeConfiguration;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.Pattern;
+import com.purplepip.odin.music.PatternConfiguration;
+import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Tick;
 
 /**
@@ -23,8 +26,17 @@ public class SequenceBuilder {
     this.sequencer = sequencer;
   }
 
+  /**
+   * Add metronome.
+   *
+   * @return this sequence builder
+   * @throws OdinException exception
+   */
   public SequenceBuilder addMetronome() throws OdinException {
-    sequencer.addSeries(new Metronome(measureProvider), 0, 9);
+    Metronome metronome = new Metronome();
+    metronome.setConfiguration(new MetronomeConfiguration());
+    metronome.setMeasureProvider(measureProvider);
+    sequencer.addSeries(metronome, 0, 9);
     return this;
   }
 
@@ -67,8 +79,14 @@ public class SequenceBuilder {
    */
   public SequenceBuilder addPattern(Tick tick, int pattern, Note defaultNote)
       throws OdinException {
-    sequencer.addSeries(new Pattern(measureProvider, tick, pattern, defaultNote),
-        0, channel);
+    PatternConfiguration configuration = new PatternConfiguration();
+    configuration.setPattern(pattern);
+    configuration.setTick(tick);
+    configuration.setNote(defaultNote);
+    Pattern patternSequence = new Pattern();
+    patternSequence.setConfiguration(configuration);
+    patternSequence.setMeasureProvider(measureProvider);
+    sequencer.addSeries(patternSequence,0, channel);
     return this;
   }
 }

@@ -87,7 +87,7 @@ public class MidiSequenceExperiment {
       sequencer.start();
 
       try {
-        Thread.sleep(4000);
+        Thread.sleep(6000);
       } catch (InterruptedException e) {
         LOG.error("Sleep interrupted", e);
       }
