@@ -8,7 +8,6 @@ import com.purplepip.odin.music.MetronomeConfiguration;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.Pattern;
 import com.purplepip.odin.music.PatternConfiguration;
-import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Tick;
 
 /**
@@ -36,7 +35,7 @@ public class SequenceBuilder {
     Metronome metronome = new Metronome();
     metronome.setConfiguration(new MetronomeConfiguration());
     metronome.setMeasureProvider(measureProvider);
-    sequencer.addSeries(metronome, 0, 9);
+    sequencer.addSequence(metronome, 0, 9);
     return this;
   }
 
@@ -86,7 +85,7 @@ public class SequenceBuilder {
     Pattern patternSequence = new Pattern();
     patternSequence.setConfiguration(configuration);
     patternSequence.setMeasureProvider(measureProvider);
-    sequencer.addSeries(patternSequence,0, channel);
+    sequencer.addSequence(patternSequence,0, channel);
     return this;
   }
 }

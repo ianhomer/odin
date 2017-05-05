@@ -39,8 +39,8 @@ public class OdinSequencer {
     meter = new Meter(clock, configuration.getMeasureProvider());
   }
 
-  public void addSeries(Sequence<Note> sequence, long offset) throws OdinException {
-    addSeries(sequence, offset, 0);
+  public void addSequence(Sequence<Note> sequence, long offset) throws OdinException {
+    addSequence(sequence, offset, 0);
   }
 
   /**
@@ -51,7 +51,7 @@ public class OdinSequencer {
    * @param offset offset to add the sequence to.
    * @throws OdinException exception
    */
-  public void addSeries(Sequence<Note> sequence, long offset, int channel) {
+  public void addSequence(Sequence<Note> sequence, long offset, int channel) {
     LOG.debug("Adding sequence {} with time units {}", sequence, sequence.getTick());
     seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
         new DefaultTickConverter(clock, sequence.getTick(), Tick.MICROSECOND, offset))
