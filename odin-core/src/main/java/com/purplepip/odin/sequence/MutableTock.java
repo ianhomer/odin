@@ -6,20 +6,38 @@ import org.slf4j.LoggerFactory;
 /**
  * Mutable tock.
  */
-public class MutableTock extends Tock {
+public class MutableTock implements Tock {
   private static final Logger LOG = LoggerFactory.getLogger(MutableTock.class);
+  private long count;
+  private Tick tick;
 
-  public MutableTock(Tick tick, long count) {
-    super(tick, count);
+  public MutableTock(Tock tock) {
+    this.tick = tock.getTick();
+    this.count = tock.getCount();
   }
 
-  public void increment(int increment) {
-    count = count + increment;
-    LOG.trace("Tock count {}", count);
+  public MutableTock(Tick tick, long count) {
+    this.tick = tick;
+    this.count = count;
+  }
+
+  public void setCount(long count) {
+    this.count = count;
   }
 
   public void increment() {
     count++;
-    LOG.trace("Tock count {}", count);
+  }
+
+  public void increment(long increment) {
+    count = count + increment;
+  }
+
+  public Tick getTick() {
+    return tick;
+  }
+
+  public long getCount() {
+    return count;
   }
 }

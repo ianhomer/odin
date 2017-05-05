@@ -18,15 +18,19 @@ public class MetronomeRuntime extends MutableSequenceRuntime<Metronome> {
   private static final Logger LOG = LoggerFactory.getLogger(MetronomeRuntime.class);
 
   @Override
-  protected Event<Note> createNextEvent(MutableTock tock) {
-    tock.increment(2);
-    LOG.trace("Creating next event for time {}", tock.getCount());
+  protected Event<Note> createNextEvent(Tock tock) {
+    /*
+     * Create local and temporary mutable tock for this function execution.
+     */
+    MutableTock mutableTock = new MutableTock(tock);
+    mutableTock.increment(2);
+    LOG.trace("Creating next event for time {}", mutableTock.getCount());
     Note note;
-    if (getMeasureProvider().getTickPositionInThisMeasure(tock) == 0) {
+    if (getMeasureProvider().getTickPositionInThisMeasure(mutableTock) == 0) {
       note = getConfiguration().getNoteBarStart();
     } else {
       note = getConfiguration().getNoteMidBar();
     }
-    return new DefaultEvent<>(note, tock.getCount());
+    return new DefaultEvent<>(note, mutableTock.getCount());
   }
 }

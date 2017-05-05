@@ -16,6 +16,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
   private Event<Note> nextEvent;
   private long length;
   private MutableTock tock;
+  private Tock sealedTock;
 
   @Override
   public Tick getTick() {
@@ -64,10 +65,10 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
     this.length = converter.convert(getConfiguration().getLength());
     // FIX : Currently reload resets tock to start of sequencer - we should set it to now
     tock = new MutableTock(getConfiguration().getTick(), 0);
+    sealedTock = new SealedTock(tock);
   }
 
-  // FIX : Currently side effect of this method where tock is incremented.
-  protected abstract Event<Note> createNextEvent(MutableTock tock);
+  protected abstract Event<Note> createNextEvent(Tock tock);
 
   protected long getLength() {
     return length;
@@ -77,10 +78,26 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
     return tock.getCount() < getLength();
   }
 
+  private Event<Note> createNextEventInternal(MutableTock tock) {
+    Event<Note> event = createNextEvent(sealedTock);
+    /*
+     * Now increment internal tock to the time of the provided event
+     */
+    tock.setCount(event.getTime());
+    /*
+     * If the response was a scan forward signal then we return a null event since no event
+     * was found and we've handled the scanning forward above.
+     */
+    if (event instanceof ScanForwardEvent) {
+      return null;
+    }
+    return event;
+  }
+
   @Override
   public Event<Note> peek() {
     if (nextEvent == null) {
-      nextEvent = createNextEvent(tock);
+      nextEvent = createNextEventInternal(tock);
     }
     return nextEvent;
   }
@@ -89,7 +106,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
   public Event<Note> pop() {
     Event<Note> thisEvent = nextEvent;
     if (length < 0 || isActive()) {
-      nextEvent = createNextEvent(tock);
+      nextEvent = createNextEventInternal(tock);
     } else {
       nextEvent = null;
     }
