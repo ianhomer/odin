@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Pattern logic.
  */
-public class PatternLogic implements Logic {
+public class PatternLogic implements Logic<Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternLogic.class);
 
   private Pattern pattern;

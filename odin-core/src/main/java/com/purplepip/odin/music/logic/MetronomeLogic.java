@@ -12,7 +12,7 @@ import com.purplepip.odin.sequence.logic.Logic;
 /**
  * Metronome logic.
  */
-public class MetronomeLogic implements Logic {
+public class MetronomeLogic implements Logic<Note> {
   private Metronome metronome;
   private MeasureProvider measureProvider;
 

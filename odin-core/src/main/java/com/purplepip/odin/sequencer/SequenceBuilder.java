@@ -15,20 +15,20 @@ import com.purplepip.odin.sequence.Tick;
  * Convenience class for building up sequences.
  */
 public class SequenceBuilder {
-  MeasureProvider measureProvider;
-  OdinSequencer sequencer;
-  int channel = 0;
-  int note = 60;
-  int velocity = 60;
+  private MeasureProvider measureProvider;
+  private OdinSequencer sequencer;
+  private int channel = 0;
+  private int note = 60;
+  private int velocity = 60;
 
   public SequenceBuilder(OdinSequencer sequencer, MeasureProvider measureProvider) {
     this.measureProvider = measureProvider;
     this.sequencer = sequencer;
   }
 
-  private <T extends Sequence> MutableSequenceRuntime<T>
+  private <T extends Sequence> MutableSequenceRuntime<T, Note>
       createMutableSequenceRuntime(Class<T> clazz, T sequence) {
-    MutableSequenceRuntime<T> sequenceRuntime = new DefaultSequenceRuntime<>(
+    MutableSequenceRuntime<T, Note> sequenceRuntime = new DefaultSequenceRuntime<>(
         sequence.createEventProvider(measureProvider));
     sequenceRuntime.setConfiguration(sequence);
     sequenceRuntime.setMeasureProvider(measureProvider);
@@ -42,7 +42,7 @@ public class SequenceBuilder {
    * @throws OdinException exception
    */
   public SequenceBuilder addMetronome() throws OdinException {
-    MutableSequenceRuntime<Metronome> sequenceRuntime = createMutableSequenceRuntime(
+    MutableSequenceRuntime<Metronome, Note> sequenceRuntime = createMutableSequenceRuntime(
         Metronome.class, new Metronome());
     sequencer.addSequence(sequenceRuntime, 0, 9);
     return this;
@@ -91,7 +91,7 @@ public class SequenceBuilder {
     configuration.setPattern(pattern);
     configuration.setTick(tick);
     configuration.setNote(defaultNote);
-    MutableSequenceRuntime<Pattern> sequenceRuntime = createMutableSequenceRuntime(
+    MutableSequenceRuntime<Pattern, Note> sequenceRuntime = createMutableSequenceRuntime(
         Pattern.class, configuration);
     sequencer.addSequence(sequenceRuntime,0, channel);
     return this;

@@ -1,19 +1,18 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.music.MeasureProvider;
-import com.purplepip.odin.music.Note;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Abstract sequence.
  */
-public abstract class MutableSequenceRuntime<S extends Sequence> implements SequenceRuntime<Note>  {
+public abstract class MutableSequenceRuntime<S extends Sequence, A> implements SequenceRuntime<A>  {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRuntime.class);
 
   private MeasureProvider measureProvider;
   private S sequence;
-  private Event<Note> nextEvent;
+  private Event<A> nextEvent;
   private long length;
   private MutableTock tock;
   private Tock sealedTock;
@@ -68,7 +67,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
     sealedTock = new SealedTock(tock);
   }
 
-  protected abstract Event<Note> getNextEvent(Tock tock);
+  protected abstract Event<A> getNextEvent(Tock tock);
 
   protected long getLength() {
     return length;
@@ -78,8 +77,8 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
     return tock.getCount() < getLength();
   }
 
-  private Event<Note> getNextEventInternal(MutableTock tock) {
-    Event<Note> event = getNextEvent(sealedTock);
+  private Event<A> getNextEventInternal(MutableTock tock) {
+    Event<A> event = getNextEvent(sealedTock);
     /*
      * Now increment internal tock to the time of the provided event
      */
@@ -95,7 +94,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
   }
 
   @Override
-  public Event<Note> peek() {
+  public Event<A> peek() {
     if (nextEvent == null) {
       nextEvent = getNextEventInternal(tock);
     }
@@ -103,8 +102,8 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
   }
 
   @Override
-  public Event<Note> pop() {
-    Event<Note> thisEvent = nextEvent;
+  public Event<A> pop() {
+    Event<A> thisEvent = nextEvent;
     if (length < 0 || isActive()) {
       nextEvent = getNextEventInternal(tock);
     } else {

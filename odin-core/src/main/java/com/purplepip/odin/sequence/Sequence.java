@@ -6,10 +6,10 @@ import com.purplepip.odin.sequence.logic.Logic;
 /**
  * Persistable sequence configuration.
  */
-public interface Sequence {
+public interface Sequence<A> {
   Tick getTick();
 
   long getLength();
 
-  Logic createEventProvider(MeasureProvider measureProvider);
+  Logic<A> createEventProvider(MeasureProvider measureProvider);
 }
