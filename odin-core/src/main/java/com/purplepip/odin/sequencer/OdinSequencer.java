@@ -52,8 +52,9 @@ public class OdinSequencer {
    * @throws OdinException exception
    */
   public void addSequence(SequenceRuntime<Note> sequenceRuntime, long offset, int channel) {
-    LOG.debug("Adding sequence runtime {} with time units {}", sequenceRuntime,
-        sequenceRuntime.getTick());
+    LOG.debug("Adding sequence runtime {} with time units {}",
+        sequenceRuntime.getClass().getSimpleName(),
+        sequenceRuntime.getTick().getClass().getSimpleName());
     seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
         new DefaultTickConverter(clock, sequenceRuntime.getTick(), Tick.MICROSECOND, offset))
         .convertSeries(sequenceRuntime), channel));

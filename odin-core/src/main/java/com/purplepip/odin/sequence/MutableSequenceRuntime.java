@@ -68,7 +68,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
     sealedTock = new SealedTock(tock);
   }
 
-  protected abstract Event<Note> createNextEvent(Tock tock);
+  protected abstract Event<Note> getNextEvent(Tock tock);
 
   protected long getLength() {
     return length;
@@ -78,8 +78,8 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
     return tock.getCount() < getLength();
   }
 
-  private Event<Note> createNextEventInternal(MutableTock tock) {
-    Event<Note> event = createNextEvent(sealedTock);
+  private Event<Note> getNextEventInternal(MutableTock tock) {
+    Event<Note> event = getNextEvent(sealedTock);
     /*
      * Now increment internal tock to the time of the provided event
      */
@@ -97,7 +97,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
   @Override
   public Event<Note> peek() {
     if (nextEvent == null) {
-      nextEvent = createNextEventInternal(tock);
+      nextEvent = getNextEventInternal(tock);
     }
     return nextEvent;
   }
@@ -106,7 +106,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence> implements Sequ
   public Event<Note> pop() {
     Event<Note> thisEvent = nextEvent;
     if (length < 0 || isActive()) {
-      nextEvent = createNextEventInternal(tock);
+      nextEvent = getNextEventInternal(tock);
     } else {
       nextEvent = null;
     }
