@@ -1,9 +1,10 @@
-package com.purplepip.odin.music;
+package com.purplepip.odin.sequence.measure;
 
 import com.purplepip.odin.sequence.Tock;
 
 /**
- * Intelligence on what measure we are in.
+ * Intelligence on what measure we are in.  For music a measure is bar, generically a measure
+ * is collection of beats.
  */
 public interface MeasureProvider {
   /**

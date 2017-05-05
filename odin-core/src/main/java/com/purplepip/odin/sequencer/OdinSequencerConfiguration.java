@@ -1,10 +1,10 @@
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.music.MeasureProvider;
-import com.purplepip.odin.music.StaticMeasureProvider;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 
 /**
  * Odin Sequencer Configuration.

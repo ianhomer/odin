@@ -1,6 +1,6 @@
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.music.MeasureProvider;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

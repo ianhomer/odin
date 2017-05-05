@@ -1,10 +1,7 @@
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.music.logic.PatternLogic;
 import com.purplepip.odin.sequence.AbstractSequence;
-import com.purplepip.odin.sequence.logic.Logic;
 
 /**
  * PatternRuntime configuration.

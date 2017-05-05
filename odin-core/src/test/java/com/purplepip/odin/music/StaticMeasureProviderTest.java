@@ -4,7 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.sequence.ImmutableTock;
 import com.purplepip.odin.sequence.Tick;
-import com.purplepip.odin.sequence.Tock;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 import org.junit.Test;
 
 /**

@@ -3,7 +3,7 @@ package com.purplepip.odin.server;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiSystemHelper;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.music.MeasureProvider;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.SequenceBuilder;
 import com.purplepip.odin.sequence.Tick;
 import org.slf4j.Logger;

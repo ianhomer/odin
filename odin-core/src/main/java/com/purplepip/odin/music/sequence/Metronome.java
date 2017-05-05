@@ -1,12 +1,9 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.DefaultNote;
-import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.music.logic.MetronomeLogic;
 import com.purplepip.odin.sequence.AbstractSequence;
 import com.purplepip.odin.sequence.Tick;
-import com.purplepip.odin.sequence.logic.Logic;
 
 /**
  * MetronomeRuntime configuration.

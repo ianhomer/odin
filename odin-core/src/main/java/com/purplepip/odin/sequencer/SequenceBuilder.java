@@ -2,7 +2,6 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.DefaultNote;
-import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.logic.MetronomeLogic;
 import com.purplepip.odin.music.logic.PatternLogic;
@@ -13,6 +12,7 @@ import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequence.logic.Logic;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
  * Convenience class for building up sequences.

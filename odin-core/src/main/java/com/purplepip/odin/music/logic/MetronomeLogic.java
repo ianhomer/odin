@@ -1,6 +1,5 @@
 package com.purplepip.odin.music.logic;
 
-import com.purplepip.odin.music.MeasureProvider;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.DefaultEvent;
@@ -8,6 +7,7 @@ import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MutableTock;
 import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.logic.AbstractLogic;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
  * Metronome logic.

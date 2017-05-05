@@ -1,6 +1,7 @@
 package com.purplepip.odin.music;
 
 import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
  * Defines how beats combine into measures.
