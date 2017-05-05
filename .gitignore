@@ -1,3 +1,4 @@
 .idea/workspace.xml
 target/
 node_modules/
+odin-server/src/main/resources/static/built
