@@ -28,9 +28,9 @@ public class PatternLogic implements Logic {
 
   @Override
   public Event<Note> getNextEvent(Tock tock) {
-        /*
-         * Create local and temporary mutable tock for this function execution.
-         */
+    /*
+     * Create local and temporary mutable tock for this function execution.
+     */
     MutableTock mutableTock = new MutableTock(tock);
     Event<Note> nextEvent;
     boolean on = false;

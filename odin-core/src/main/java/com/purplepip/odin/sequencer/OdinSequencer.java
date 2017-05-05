@@ -22,8 +22,8 @@ public class OdinSequencer {
   private static final Logger LOG = LoggerFactory.getLogger(OdinSequencer.class);
 
   private OdinSequencerConfiguration configuration;
-  private Set<SeriesTrack> seriesTrackSet = new HashSet<>();
-  private SeriesProcessor seriesProcessor;
+  private Set<SequenceTrack> sequenceTrackSet = new HashSet<>();
+  private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private Clock clock;
   private Meter meter;
@@ -55,7 +55,7 @@ public class OdinSequencer {
     LOG.debug("Adding sequence runtime {} with time units {}",
         sequenceRuntime.getClass().getSimpleName(),
         sequenceRuntime.getTick().getClass().getSimpleName());
-    seriesTrackSet.add(new SeriesTrack(new SeriesTimeUnitConverterFactory(
+    sequenceTrackSet.add(new SequenceTrack(new SeriesTimeUnitConverterFactory(
         new DefaultTickConverter(clock, sequenceRuntime.getTick(), Tick.MICROSECOND, offset))
         .convertSeries(sequenceRuntime), channel));
   }
@@ -67,8 +67,8 @@ public class OdinSequencer {
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     Thread thread = new Thread(operationProcessor);
     thread.start();
-    seriesProcessor = new SeriesProcessor(clock, seriesTrackSet, operationProcessor);
-    thread = new Thread(seriesProcessor);
+    sequenceProcessor = new SequenceProcessor(clock, sequenceTrackSet, operationProcessor);
+    thread = new Thread(sequenceProcessor);
     thread.start();
   }
 
@@ -80,8 +80,8 @@ public class OdinSequencer {
    * Stop the sequencer.
    */
   public void stop() {
-    if (seriesProcessor != null) {
-      seriesProcessor.stop();
+    if (sequenceProcessor != null) {
+      sequenceProcessor.stop();
     }
     if (operationProcessor != null) {
       operationProcessor.stop();

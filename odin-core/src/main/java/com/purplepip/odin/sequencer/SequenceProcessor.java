@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 /**
  * SequenceRuntime processor.
  */
-public class SeriesProcessor implements Runnable {
-  private static final Logger LOG = LoggerFactory.getLogger(SeriesProcessor.class);
+public class SequenceProcessor implements Runnable {
+  private static final Logger LOG = LoggerFactory.getLogger(SequenceProcessor.class);
 
-  private Set<SeriesTrack> seriesTrackSet;
+  private Set<SequenceTrack> sequenceTrackSet;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private OperationProcessor operationProcessor;
   private boolean exit;
@@ -30,12 +30,13 @@ public class SeriesProcessor implements Runnable {
    * Create a series processor.
    *
    * @param microsecondPositionProvider microsecond position provider
-   * @param seriesTrackSet series track set
+   * @param sequenceTrackSet series track set
    * @param operationProcessor operation processor
    */
-  public SeriesProcessor(MicrosecondPositionProvider microsecondPositionProvider,
-                         Set<SeriesTrack> seriesTrackSet, OperationProcessor operationProcessor) {
-    this.seriesTrackSet = seriesTrackSet;
+  public SequenceProcessor(MicrosecondPositionProvider microsecondPositionProvider,
+                           Set<SequenceTrack> sequenceTrackSet,
+                           OperationProcessor operationProcessor) {
+    this.sequenceTrackSet = sequenceTrackSet;
     if (microsecondPositionProvider == null) {
       throw new RuntimeException("MicrosecondPositionProvider must not be null");
     }
@@ -55,8 +56,8 @@ public class SeriesProcessor implements Runnable {
        */
       long microsecondPosition = microsecondPositionProvider.getMicrosecondPosition();
       int noteCountThisBuffer = 0;
-      for (SeriesTrack seriesTrack : seriesTrackSet) {
-        SequenceRuntime<Note> sequenceRuntime = seriesTrack.getSequenceRuntime();
+      for (SequenceTrack sequenceTrack : sequenceTrackSet) {
+        SequenceRuntime<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
         LOG.trace("Processing sequenceRuntime {} for device at position {}", sequenceRuntime,
             microsecondPosition);
         if (noteCountThisBuffer > maxNotesPerBuffer) {
@@ -84,10 +85,10 @@ public class SeriesProcessor implements Runnable {
             } else {
               Note note = nextEvent.getValue();
               LOG.debug("Sending note {} to channel {} at time {}",
-                  note.getNumber(), seriesTrack.getChannel(), nextEvent.getTime());
-              Operation noteOn = new Operation(OperationType.ON, seriesTrack.getChannel(),
+                  note.getNumber(), sequenceTrack.getChannel(), nextEvent.getTime());
+              Operation noteOn = new Operation(OperationType.ON, sequenceTrack.getChannel(),
                   note.getNumber(), note.getVelocity());
-              Operation noteOff = new Operation(OperationType.OFF, seriesTrack.getChannel(),
+              Operation noteOff = new Operation(OperationType.OFF, sequenceTrack.getChannel(),
                   note.getNumber(), note.getVelocity());
               try {
                 operationProcessor.send(noteOn, nextEvent.getTime());
