@@ -7,6 +7,8 @@ import com.purplepip.odin.music.logic.MetronomeLogic;
 import com.purplepip.odin.music.logic.PatternLogic;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
+import com.purplepip.odin.sequence.AbstractSequence;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
 
 /**
@@ -29,7 +31,7 @@ public class SequenceBuilder {
    * @throws OdinException exception
    */
   public SequenceBuilder addMetronome() throws OdinException {
-    sequencer.addSequence(Metronome.class, new MetronomeLogic(new Metronome()), 0, 9);
+    sequencer.addSequence(applyParameters(new Metronome()));
     return this;
   }
 
@@ -71,12 +73,18 @@ public class SequenceBuilder {
    */
   public SequenceBuilder addPattern(Tick tick, int pattern, Note defaultNote)
       throws OdinException {
-    Pattern configuration = new Pattern();
-    configuration.setPattern(pattern);
-    configuration.setTick(tick);
-    configuration.setNote(defaultNote);
+    Pattern sequence = new Pattern();
+    sequence.setPattern(pattern);
+    sequence.setTick(tick);
+    sequence.setNote(defaultNote);
 
-    sequencer.addSequence(Pattern.class, new PatternLogic(configuration) ,0, channel);
+    sequencer.addSequence(applyParameters(sequence));
     return this;
+  }
+
+  private Sequence applyParameters(AbstractSequence sequence) {
+    sequence.setOffset(0);
+    sequence.setChannel(channel);
+    return sequence;
   }
 }

@@ -2,6 +2,7 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.logic.MetronomeLogic;
 import com.purplepip.odin.sequence.AbstractSequence;
 import com.purplepip.odin.sequence.Tick;
 
@@ -37,5 +38,10 @@ public class Metronome extends AbstractSequence {
    */
   public Note getNoteMidBar() {
     return noteMidBar;
+  }
+
+  @Override
+  public MetronomeLogic getLogic() {
+    return new MetronomeLogic(this);
   }
 }

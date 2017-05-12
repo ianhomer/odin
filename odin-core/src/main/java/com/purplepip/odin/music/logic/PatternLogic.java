@@ -6,8 +6,10 @@ import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MutableTock;
 import com.purplepip.odin.sequence.ScanForwardEvent;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.logic.AbstractLogic;
+import com.purplepip.odin.sequence.logic.Logic;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 import org.slf4j.Logger;
@@ -19,8 +21,8 @@ import org.slf4j.LoggerFactory;
 public class PatternLogic extends AbstractLogic<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternLogic.class);
 
-  public PatternLogic(Pattern pattern) {
-    setSequence(pattern);
+  public PatternLogic(Pattern sequence) {
+    setSequence(sequence);
   }
 
   @Override
@@ -53,4 +55,5 @@ public class PatternLogic extends AbstractLogic<Pattern, Note> {
     }
     return nextEvent;
   }
+
 }

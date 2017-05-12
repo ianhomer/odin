@@ -1,6 +1,7 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.logic.PatternLogic;
 import com.purplepip.odin.sequence.AbstractSequence;
 
 /**
@@ -27,5 +28,10 @@ public class Pattern extends AbstractSequence {
 
   public Note getNote() {
     return note;
+  }
+
+  @Override
+  public PatternLogic getLogic() {
+    return new PatternLogic(this);
   }
 }
