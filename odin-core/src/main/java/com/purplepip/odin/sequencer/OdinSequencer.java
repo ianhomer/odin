@@ -5,7 +5,6 @@ import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
-import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.Tick;
