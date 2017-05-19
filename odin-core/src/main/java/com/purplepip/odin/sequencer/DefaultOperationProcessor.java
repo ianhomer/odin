@@ -1,6 +1,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 
 import java.util.PriorityQueue;
@@ -18,8 +19,7 @@ import org.slf4j.LoggerFactory;
 public class DefaultOperationProcessor implements OperationProcessor {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultOperationProcessor.class);
 
-  boolean exit = false;
-  // TODO : Externalise configuration
+  private boolean exit = false;
   private long refreshPeriod = 10;
   private long forwardPollingTime = refreshPeriod * 1000 * 5;
   private PriorityQueue<OperationEvent> queue = new PriorityQueue<>(127,
@@ -33,14 +33,14 @@ public class DefaultOperationProcessor implements OperationProcessor {
    * @param microsecondPositionProvider microsecond position provider
    * @param operationReceiver operation receiver
    */
-  public DefaultOperationProcessor(MicrosecondPositionProvider microsecondPositionProvider,
+  DefaultOperationProcessor(MicrosecondPositionProvider microsecondPositionProvider,
                                    OperationReceiver operationReceiver) {
     if (microsecondPositionProvider == null) {
-      throw new RuntimeException("MicrosecondPositionProvider must not be null");
+      throw new OdinRuntimeException("MicrosecondPositionProvider must not be null");
     }
     this.microsecondPositionProvider = microsecondPositionProvider;
     if (operationReceiver == null) {
-      throw new RuntimeException("OperationReceiver must not be null");
+      throw new OdinRuntimeException("OperationReceiver must not be null");
     }
     this.operationReceiver = operationReceiver;
   }
@@ -58,8 +58,6 @@ public class DefaultOperationProcessor implements OperationProcessor {
       while (nextEvent != null && nextEvent.getTime() < microsecondPosition + forwardPollingTime) {
         nextEvent = queue.poll();
         if (nextEvent == null) {
-          // TODO : Understand why this might have happened, and if can't reproduce then remove
-          // this branch.
           LOG.error("Next event in queue is null, where did it go?");
         } else {
           LOG.trace("Send operation {} at time {} ; device time {}", nextEvent.getOperation(),
@@ -75,6 +73,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
         Thread.sleep(refreshPeriod);
       } catch (InterruptedException e) {
         LOG.error("Thread interrupted", e);
+        Thread.currentThread().interrupt();
       }
 
     }

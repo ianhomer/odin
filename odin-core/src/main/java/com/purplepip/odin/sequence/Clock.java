@@ -46,6 +46,7 @@ public class Clock implements MicrosecondPositionProvider {
     }
   }
 
+  @Override
   public long getMicrosecondPosition() {
     return microsecondPositionProvider.getMicrosecondPosition();
   }
@@ -54,12 +55,12 @@ public class Clock implements MicrosecondPositionProvider {
     return beatsPerMinute;
   }
 
-  public double getBeat(long microseconds) {
+  double getBeat(long microseconds) {
     return (microseconds - microsecondsPositionOfFirstBeat)
-        / beatsPerMinute.getMicroSecondsPerBeat();
+        / (double) beatsPerMinute.getMicroSecondsPerBeat();
   }
 
-  public long getMicroSeconds(double beat) {
+  long getMicroSeconds(double beat) {
     return microsecondsPositionOfFirstBeat
         + (long) (beatsPerMinute.getMicroSecondsPerBeat() * beat);
   }

@@ -33,7 +33,7 @@ public class MidiDeviceWrapper {
    *
    * @param scan whether to support MIDI device change detection scanning
    */
-  public MidiDeviceWrapper(boolean scan) {
+  private MidiDeviceWrapper(boolean scan) {
     if (scan) {
       LOG.info("MIDI Device scanning enabled");
       scanner = new MidiDeviceScanner();
@@ -44,15 +44,12 @@ public class MidiDeviceWrapper {
           Thread.sleep(100);
         } catch (InterruptedException e) {
           LOG.error("Thread interrupted", e);
+          Thread.currentThread().interrupt();
         }
       }
     } else {
       findDevice();
     }
-  }
-
-  public MidiDeviceWrapper(MidiDevice device) {
-    this.device = device;
   }
 
   public MidiDevice getDevice() {
@@ -68,7 +65,7 @@ public class MidiDeviceWrapper {
     }
   }
 
-  protected void findDevice() {
+  private void findDevice() {
     try {
       device = new MidiSystemHelper().getInitialisedDevice();
     } catch (OdinException e) {
@@ -115,7 +112,7 @@ public class MidiDeviceWrapper {
    * @param bank bank to set
    * @param program program to set
    */
-  public void changeProgram(int channel, int bank, int program) {
+  private void changeProgram(int channel, int bank, int program) {
     try {
       device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, program,
           bank >> 7),  -1);
@@ -170,6 +167,7 @@ public class MidiDeviceWrapper {
           Thread.sleep(1000);
         } catch (InterruptedException e) {
           LOG.error("Thread interrupted", e);
+          Thread.currentThread().interrupt();
         }
       }
     }

@@ -1,27 +1,12 @@
 package com.purplepip.odin.sequence;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.purplepip.odin.common.OdinRuntimeException;
 
 /**
  * Time unit converter.
  */
 public class DefaultTickConverter extends AbstractTickConverter {
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultTickConverter.class);
-
   private Clock clock;
-
-  public DefaultTickConverter(Clock clock) {
-    this(clock, Tick.BEAT);
-  }
-
-  public DefaultTickConverter(Clock clock, Tick inputTick) {
-    this(clock, inputTick, Tick.MICROSECOND);
-  }
-
-  public DefaultTickConverter(Clock clock, Tick inputTick, Tick outputTick) {
-    this(clock, inputTick, outputTick, 0);
-  }
 
   /**
    * Create a tick converter.
@@ -33,7 +18,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
    */
   public DefaultTickConverter(Clock clock, Tick inputTick, Tick outputTick, long inputOffset) {
     if (clock == null) {
-      throw new RuntimeException("Clock must not be null");
+      throw new OdinRuntimeException("Clock must not be null");
     }
     this.clock = clock;
     setInputTick(inputTick);
@@ -42,35 +27,28 @@ public class DefaultTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected long convertTimeUnit(long time) {
-    switch (getInputTick().getTimeUnit()) {
+  protected long getTimeUnitAsBeat(long time) {
+    switch (getOutputTick().getTimeUnit()) {
       case BEAT:
-        switch (getOutputTick().getTimeUnit()) {
-          case BEAT:
-            return scaleTime(time);
-          case MICROSECOND:
-            return clock.getMicroSeconds(getInputTick().getFactor() * time)
-                / getOutputTick().getFactorAsInt();
-          default:
-            return throwUnexpectedTimeUnit();
-        }
+        return scaleTime(time);
       case MICROSECOND:
-        switch (getOutputTick().getTimeUnit()) {
-          case BEAT:
-            return (long) (clock.getBeat(getInputTick().getFactorAsInt() * time)
-                / getOutputTick().getFactor());
-          case MICROSECOND:
-            return scaleTime(time);
-          default:
-            return throwUnexpectedTimeUnit();
-        }
+        return clock.getMicroSeconds(getInputTick().getFactor() * time)
+            / getOutputTick().getFactorAsInt();
       default:
         return throwUnexpectedTimeUnit();
     }
   }
 
-  private long throwUnexpectedTimeUnit() throws RuntimeException {
-    throw new RuntimeException("Unexpected time unit " + getInputTick().getTimeUnit() + ":"
-        + getOutputTick().getTimeUnit());
+  @Override
+  protected long getTimeUnitAsMicrosecond(long time) {
+    switch (getOutputTick().getTimeUnit()) {
+      case BEAT:
+        return (long) (clock.getBeat(getInputTick().getFactorAsInt() * time)
+            / getOutputTick().getFactor());
+      case MICROSECOND:
+        return scaleTime(time);
+      default:
+        return throwUnexpectedTimeUnit();
+    }
   }
 }

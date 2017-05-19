@@ -78,25 +78,24 @@ public class SynthesizerHelper {
   public void logInstruments() {
     if (synthesizer != null) {
       Instrument[] instruments = synthesizer.getLoadedInstruments();
-      for (int i = 0; i < instruments.length; i++) {
-        Instrument instrument = instruments[i];
+      LOG.debug("Synthesizer info");
+      for (Instrument instrument : instruments) {
         Patch patch = instrument.getPatch();
         Boolean isPercussion = isPercussion(instrument);
-
-        LOG.debug("Synthesiser instruments (loaded) :{} {} {} {}",
-            Boolean.TRUE.equals(isPercussion) ? "(percussion)" : "",
+        LOG.debug("Instruments (loaded) : {} {} {} {}",
+            isPercussion,
             patch.getBank(),
             patch.getProgram(), instrument.getName());
       }
       instruments = synthesizer.getAvailableInstruments();
-      for (int i = 0; i < instruments.length; i++) {
-        LOG.debug("Synthesiser instruments (available) : {} {} {}",
-            instruments[i].getPatch().getBank(),
-            instruments[i].getPatch().getProgram(), instruments[i].getName());
+      for (Instrument instrument : instruments) {
+        LOG.debug("Instruments (available) : {} {} {}",
+            instrument.getPatch().getBank(),
+            instrument.getPatch().getProgram(), instrument.getName());
       }
       MidiChannel[] midiChannels = synthesizer.getChannels();
-      for (int i = 0; i < midiChannels.length; i++) {
-        LOG.debug("Synthesiser channels : {}", midiChannels[i].getProgram());
+      for (MidiChannel midiChannel : midiChannels) {
+        LOG.debug("Channels : {}", midiChannel.getProgram());
       }
     } else {
       LOG.info("Synthesizer is null");

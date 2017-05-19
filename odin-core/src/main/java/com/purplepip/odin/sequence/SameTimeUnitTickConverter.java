@@ -1,13 +1,11 @@
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.common.OdinRuntimeException;
+
 /**
  * Tick converter that is not clock aware and can only convert ticks with the same time unit.
  */
 public class SameTimeUnitTickConverter extends AbstractTickConverter {
-  public SameTimeUnitTickConverter(Tick inputTick) {
-    this(inputTick, Tick.MICROSECOND);
-  }
-
   public SameTimeUnitTickConverter(Tick inputTick, Tick outputTick) {
     this(inputTick, outputTick, 0);
   }
@@ -26,30 +24,23 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected long convertTimeUnit(long time) {
-    switch (getInputTick().getTimeUnit()) {
+  protected long getTimeUnitAsBeat(long time) {
+    switch (getOutputTick().getTimeUnit()) {
       case BEAT:
-        switch (getOutputTick().getTimeUnit()) {
-          case BEAT:
-            return scaleTime(time);
-          default:
-            return throwUnexpectedTimeUnit();
-        }
-      case MICROSECOND:
-        switch (getOutputTick().getTimeUnit()) {
-          case MICROSECOND:
-            return scaleTime(time);
-          default:
-            return throwUnexpectedTimeUnit();
-
-        }
+        return scaleTime(time);
       default:
         return throwUnexpectedTimeUnit();
     }
   }
 
-  private long throwUnexpectedTimeUnit() {
-    throw new RuntimeException("Unexpected time unit " + getInputTick().getTimeUnit() + ":"
-        + getOutputTick().getTimeUnit());
+  @Override
+  protected long getTimeUnitAsMicrosecond(long time) {
+    switch (getOutputTick().getTimeUnit()) {
+      case MICROSECOND:
+        return scaleTime(time);
+      default:
+        return throwUnexpectedTimeUnit();
+
+    }
   }
 }

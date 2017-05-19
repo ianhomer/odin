@@ -1,6 +1,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
@@ -21,7 +22,6 @@ public class SequenceProcessor implements Runnable {
   private MicrosecondPositionProvider microsecondPositionProvider;
   private OperationProcessor operationProcessor;
   private boolean exit;
-  // TODO : Externalise configuration
   private long refreshPeriod = 200;
   private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
   private int maxNotesPerBuffer = 1000;
@@ -33,12 +33,12 @@ public class SequenceProcessor implements Runnable {
    * @param sequenceTrackSet series track set
    * @param operationProcessor operation processor
    */
-  public SequenceProcessor(MicrosecondPositionProvider microsecondPositionProvider,
+  SequenceProcessor(MicrosecondPositionProvider microsecondPositionProvider,
                            Set<SequenceTrack> sequenceTrackSet,
                            OperationProcessor operationProcessor) {
     this.sequenceTrackSet = sequenceTrackSet;
     if (microsecondPositionProvider == null) {
-      throw new RuntimeException("MicrosecondPositionProvider must not be null");
+      throw new OdinRuntimeException("MicrosecondPositionProvider must not be null");
     }
     this.microsecondPositionProvider = microsecondPositionProvider;
     this.operationProcessor = operationProcessor;
@@ -83,19 +83,8 @@ public class SequenceProcessor implements Runnable {
               LOG.debug("Skipping event, too late to process {} < {}", nextEvent.getTime(),
                   microsecondPosition);
             } else {
-              Note note = nextEvent.getValue();
-              LOG.debug("Sending note {} to channel {} at time {}",
-                  note.getNumber(), sequenceTrack.getChannel(), nextEvent.getTime());
-              Operation noteOn = new Operation(OperationType.ON, sequenceTrack.getChannel(),
-                  note.getNumber(), note.getVelocity());
-              Operation noteOff = new Operation(OperationType.OFF, sequenceTrack.getChannel(),
-                  note.getNumber(), note.getVelocity());
-              try {
-                operationProcessor.send(noteOn, nextEvent.getTime());
-                operationProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());
-              } catch (OdinException e) {
-                LOG.error("Cannot send operation to processor", e);
-              }
+              sendToProcessor(nextEvent.getValue(), nextEvent, sequenceTrack);
+
             }
             noteCountThisBuffer++;
             nextEvent = sequenceRuntime.peek();
@@ -109,7 +98,23 @@ public class SequenceProcessor implements Runnable {
         Thread.sleep(refreshPeriod);
       } catch (InterruptedException e) {
         LOG.error("Thread interrupted", e);
+        Thread.currentThread().interrupt();
       }
+    }
+  }
+
+  private void sendToProcessor(Note note, Event<Note> nextEvent, SequenceTrack sequenceTrack) {
+    LOG.debug("Sending note {} to channel {} at time {}",
+        note.getNumber(), sequenceTrack.getChannel(), nextEvent.getTime());
+    Operation noteOn = new Operation(OperationType.ON, sequenceTrack.getChannel(),
+        note.getNumber(), note.getVelocity());
+    Operation noteOff = new Operation(OperationType.OFF, sequenceTrack.getChannel(),
+        note.getNumber(), note.getVelocity());
+    try {
+      operationProcessor.send(noteOn, nextEvent.getTime());
+      operationProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());
+    } catch (OdinException e) {
+      LOG.error("Cannot send operation to processor", e);
     }
   }
 

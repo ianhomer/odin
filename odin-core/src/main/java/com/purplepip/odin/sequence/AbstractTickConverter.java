@@ -1,5 +1,6 @@
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +50,24 @@ public abstract class AbstractTickConverter implements TickConverter {
         / (inputTick.getDenominator() * outputTick.getNumerator());
   }
 
-  protected abstract long convertTimeUnit(long time);
+  protected long convertTimeUnit(long time) {
+    switch (getInputTick().getTimeUnit()) {
+      case BEAT:
+        return getTimeUnitAsBeat(time);
+      case MICROSECOND:
+        return getTimeUnitAsMicrosecond(time);
+      default:
+        return throwUnexpectedTimeUnit();
+    }
+  }
 
+  protected abstract long getTimeUnitAsBeat(long time);
+
+  protected abstract long getTimeUnitAsMicrosecond(long time);
+
+  protected long throwUnexpectedTimeUnit() {
+    throw new OdinRuntimeException("Unexpected time unit " + getInputTick().getTimeUnit() + ":"
+        + getOutputTick().getTimeUnit());
+  }
 
 }

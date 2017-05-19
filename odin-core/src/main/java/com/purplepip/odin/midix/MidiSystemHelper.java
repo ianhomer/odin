@@ -5,9 +5,7 @@ import com.purplepip.odin.common.OdinException;
 import com.sun.media.sound.JDK13Services;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
@@ -77,8 +75,7 @@ public class MidiSystemHelper {
       throws OdinException {
     MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher, exceptionOnNotFound);
     if (midiDevice != null) {
-      LOG.info("Found MIDI device : " + midiDeviceMatcher + " ; "
-          + midiDevice.getClass().getName());
+      LOG.info("Found MIDI device : {} ; {}", midiDeviceMatcher, midiDevice.getClass().getName());
       try {
         midiDevice.open();
       } catch (MidiUnavailableException e) {
@@ -118,7 +115,6 @@ public class MidiSystemHelper {
    * @throws OdinException Exception
    */
   public MidiDevice getInitialisedDevice() throws OdinException {
-    // TODO : Externalise and prioritise external MIDI devices to connect to.
     List<String> deviceNames = new ArrayList<>();
     deviceNames.add("Scarlett");
     deviceNames.add("USB");
