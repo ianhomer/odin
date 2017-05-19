@@ -35,6 +35,7 @@ public abstract class AbstractSequence implements Sequence {
     this.offset = offset;
   }
 
+  @Override
   public long getOffset() {
     return offset;
   }
@@ -43,6 +44,7 @@ public abstract class AbstractSequence implements Sequence {
     this.channel = channel;
   }
 
+  @Override
   public int getChannel() {
     return channel;
   }

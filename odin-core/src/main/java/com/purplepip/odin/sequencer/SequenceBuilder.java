@@ -3,8 +3,6 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.music.logic.MetronomeLogic;
-import com.purplepip.odin.music.logic.PatternLogic;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.AbstractSequence;

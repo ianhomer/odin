@@ -76,3 +76,7 @@ Lots of combinations and choice exist to generate and receive MIDI signals, for 
 * Ableton Live as a receiver for MIDI out.
 
 For performance I use a Nord Electro 5 and Nord Lead 4.
+
+# Sonar Analysis
+
+    mvn clean verify sonar:sonar
