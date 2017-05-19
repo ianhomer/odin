@@ -47,6 +47,7 @@ public class SequenceProcessor implements Runnable {
   /**
    * Run processor.
    */
+  @Override
   public void run() {
     while (!exit) {
       /*

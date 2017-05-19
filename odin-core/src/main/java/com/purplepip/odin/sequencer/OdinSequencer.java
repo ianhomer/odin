@@ -1,7 +1,6 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.Meter;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
@@ -28,7 +27,6 @@ public class OdinSequencer {
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private Clock clock;
-  private Meter meter;
 
   public OdinSequencer(OdinSequencerConfiguration configuration) throws OdinException {
     this.configuration = configuration;
@@ -38,7 +36,6 @@ public class OdinSequencer {
   private void init() {
     clock = new Clock(configuration.getBeatsPerMinute());
     clock.start(configuration.getMicrosecondPositionProvider(), true);
-    meter = new Meter(clock, configuration.getMeasureProvider());
   }
 
   /**

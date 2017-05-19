@@ -81,7 +81,7 @@ public class SynthesizerHelper {
       LOG.debug("Synthesizer info");
       for (Instrument instrument : instruments) {
         Patch patch = instrument.getPatch();
-        Boolean isPercussion = isPercussion(instrument);
+        boolean isPercussion = isPercussion(instrument);
         LOG.debug("Instruments (loaded) : {} {} {} {}",
             isPercussion,
             patch.getBank(),
@@ -102,13 +102,13 @@ public class SynthesizerHelper {
     }
   }
 
-  private Boolean isPercussion(Instrument instrument) {
+  private boolean isPercussion(Instrument instrument) {
     Patch patch = instrument.getPatch();
     if (patch instanceof ModelPatch) {
       ModelPatch modelPatch = (ModelPatch) patch;
       return modelPatch.isPercussion();
     }
-    return null;
+    return false;
   }
 
   /**
@@ -120,7 +120,7 @@ public class SynthesizerHelper {
   public Instrument findInstrumentByName(String name, boolean percussion) {
     String lowercaseName = name.toLowerCase();
     for (Instrument instrument : synthesizer.getLoadedInstruments()) {
-      if ((!percussion || Boolean.TRUE.equals(isPercussion(instrument)))
+      if ((!percussion || isPercussion(instrument))
           && instrument.getName().toLowerCase().contains(lowercaseName)) {
         return instrument;
       }

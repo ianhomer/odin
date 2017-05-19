@@ -1,7 +1,5 @@
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.common.OdinRuntimeException;
-
 /**
  * Tick converter that is not clock aware and can only convert ticks with the same time unit.
  */
@@ -25,22 +23,17 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
 
   @Override
   protected long getTimeUnitAsBeat(long time) {
-    switch (getOutputTick().getTimeUnit()) {
-      case BEAT:
-        return scaleTime(time);
-      default:
-        return throwUnexpectedTimeUnit();
+    if (getOutputTick().getTimeUnit() == TimeUnit.BEAT) {
+      return scaleTime(time);
     }
+    return throwUnexpectedTimeUnit();
   }
 
   @Override
   protected long getTimeUnitAsMicrosecond(long time) {
-    switch (getOutputTick().getTimeUnit()) {
-      case MICROSECOND:
-        return scaleTime(time);
-      default:
-        return throwUnexpectedTimeUnit();
-
+    if (getOutputTick().getTimeUnit() == TimeUnit.MICROSECOND) {
+      return scaleTime(time);
     }
+    return throwUnexpectedTimeUnit();
   }
 }

@@ -19,22 +19,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OdinConfiguration {
   @Bean
-  public MidiDeviceWrapper MidiDeviceWrapper() {
+  public MidiDeviceWrapper midiDeviceWrapper() {
     return new MidiDeviceWrapper();
   }
 
   @Bean
-  public MeasureProvider MeasureProvider() {
+  public MeasureProvider measureProvider() {
     return new StaticMeasureProvider(4);
   }
 
   @Bean
-  public MidiSystemWrapper MidiSystemWrapper() {
+  public MidiSystemWrapper midiSystemWrapper() {
     return new MidiSystemWrapper();
   }
 
   @Bean
-  public OdinSequencer OdinSequencer(MeasureProvider measureProvider,
+  public OdinSequencer odinSequencer(MeasureProvider measureProvider,
                                      MidiDeviceWrapper midiDeviceWrapper) throws OdinException {
     return new OdinSequencer(
         new OdinSequencerConfiguration()

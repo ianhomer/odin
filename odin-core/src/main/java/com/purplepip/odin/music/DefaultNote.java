@@ -4,7 +4,6 @@ package com.purplepip.odin.music;
  * Default Note.
  */
 public class DefaultNote implements Note {
-  // TODO : Externalise default note configuration.
   private int number;
   private int velocity;
   private long duration;

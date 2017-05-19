@@ -18,6 +18,7 @@ public class OperationEventComparator implements Comparator<OperationEvent> {
    * @param y second operation
    * @return -1, 0 or 1 depending on relative positioning of the two operation events
    */
+  @Override
   public int compare(OperationEvent x, OperationEvent y) {
     if (x == null) {
       LOG.warn("Operation event should not be null");
