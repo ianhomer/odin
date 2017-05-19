@@ -13,6 +13,7 @@ public abstract class AbstractSequence implements Sequence {
     this.tick = tick;
   }
 
+  @Override
   public Tick getTick() {
     return tick;
   }

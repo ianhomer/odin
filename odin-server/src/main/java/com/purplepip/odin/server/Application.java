@@ -24,10 +24,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class Application {
   private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
-  public static void main(String[] args) {
-    SpringApplication.run(Application.class, args);
-  }
-
   @Autowired
   private MidiDeviceWrapper midiDeviceWrapper;
 
@@ -36,6 +32,10 @@ public class Application {
 
   @Autowired
   private OdinSequencer sequencer;
+
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
 
   @Bean
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {

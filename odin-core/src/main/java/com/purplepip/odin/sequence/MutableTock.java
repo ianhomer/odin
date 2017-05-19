@@ -1,13 +1,9 @@
 package com.purplepip.odin.sequence;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Mutable tock.
  */
 public class MutableTock implements Tock {
-  private static final Logger LOG = LoggerFactory.getLogger(MutableTock.class);
   private long count;
   private Tick tick;
 
@@ -33,10 +29,12 @@ public class MutableTock implements Tock {
     count = count + increment;
   }
 
+  @Override
   public Tick getTick() {
     return tick;
   }
 
+  @Override
   public long getCount() {
     return count;
   }

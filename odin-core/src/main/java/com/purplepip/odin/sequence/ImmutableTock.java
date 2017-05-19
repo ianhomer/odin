@@ -12,10 +12,12 @@ public class ImmutableTock implements Tock {
     this.tick = tick;
   }
 
+  @Override
   public Tick getTick() {
     return tick;
   }
 
+  @Override
   public long getCount() {
     return count;
   }
