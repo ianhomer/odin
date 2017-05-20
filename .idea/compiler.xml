@@ -9,13 +9,17 @@
         <module name="odin-checkstyle" />
         <module name="odin-core" />
         <module name="odin-server" />
+        <module name="tile-code-coverage" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="maven-code-coverage-tile" target="1.5" />
       <module name="odin" target="1.8" />
       <module name="odin-checkstyle" target="1.8" />
       <module name="odin-core" target="1.8" />
       <module name="odin-server" target="1.8" />
+      <module name="tile-code-coverage" target="1.5" />
+      <module name="tiles" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

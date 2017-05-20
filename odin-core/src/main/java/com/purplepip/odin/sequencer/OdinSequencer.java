@@ -27,6 +27,7 @@ public class OdinSequencer {
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private Clock clock;
+  private boolean started = false;
 
   public OdinSequencer(OdinSequencerConfiguration configuration) throws OdinException {
     this.configuration = configuration;
@@ -78,6 +79,7 @@ public class OdinSequencer {
    * Start the sequencer.
    */
   public void start() {
+    started = true;
     refreshTracks();
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     Thread thread = new Thread(operationProcessor);
@@ -101,5 +103,10 @@ public class OdinSequencer {
     if (operationProcessor != null) {
       operationProcessor.stop();
     }
+    started = false;
+  }
+
+  public boolean isStarted() {
+    return started;
   }
 }

@@ -30,6 +30,18 @@
                     <mainClass>com.purplepip.odin.experiments.MidiPlayground</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>io.repaint.maven</groupId>
+                <artifactId>tiles-maven-plugin</artifactId>
+                <version>2.10</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <filtering>true</filtering>
+                    <tiles>
+                        <tile>com.purplepip:tile-code-coverage:1.0-SNAPSHOT</tile>
+                    </tiles>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
