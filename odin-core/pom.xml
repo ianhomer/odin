@@ -1,47 +1,48 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>odin</artifactId>
-        <groupId>com.purplepip</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-    <artifactId>odin-core</artifactId>
+  <parent>
+    <artifactId>odin</artifactId>
+    <groupId>com.purplepip</groupId>
     <version>1.0-SNAPSHOT</version>
+  </parent>
 
-    <name>Odin Core</name>
+  <artifactId>odin-core</artifactId>
+  <version>1.0-SNAPSHOT</version>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>com.purplepip.odin.experiments.MidiPlayground</mainClass>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>io.repaint.maven</groupId>
-                <artifactId>tiles-maven-plugin</artifactId>
-                <version>2.10</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <filtering>true</filtering>
-                    <tiles>
-                        <tile>com.purplepip:tile-code-coverage:1.0-SNAPSHOT</tile>
-                    </tiles>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <name>Odin Core</name>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>com.purplepip.odin.experiments.MidiPlayground</mainClass>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.repaint.maven</groupId>
+        <artifactId>tiles-maven-plugin</artifactId>
+        <version>2.10</version>
+        <extensions>true</extensions>
+        <configuration>
+          <filtering>true</filtering>
+          <tiles>
+            <tile>com.purplepip:tile-code-coverage:1.0-SNAPSHOT</tile>
+          </tiles>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
