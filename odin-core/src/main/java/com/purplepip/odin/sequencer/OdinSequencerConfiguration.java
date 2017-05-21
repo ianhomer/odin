@@ -14,6 +14,7 @@ public class OdinSequencerConfiguration {
   private MeasureProvider measureProvider = new StaticMeasureProvider(4);
   private OperationReceiver operationReceiver;
   private MicrosecondPositionProvider microsecondPositionProvider;
+  private boolean isLoggingOperationReceiverEnabled = true;
 
   public OdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
     this.beatsPerMinute = beatsPerMinute;
@@ -25,8 +26,19 @@ public class OdinSequencerConfiguration {
     return this;
   }
 
+  /**
+   * Set operation receiver.
+   *
+   * @param operationReceiver operation receiver
+   * @return this configuration
+   */
   public OdinSequencerConfiguration setOperationReceiver(OperationReceiver operationReceiver) {
-    this.operationReceiver = operationReceiver;
+    if (isLoggingOperationReceiverEnabled) {
+      this.operationReceiver = new OperationReceiverCollection(operationReceiver,
+          new LoggingOperationReceiver());
+    } else {
+      this.operationReceiver = operationReceiver;
+    }
     return this;
   }
 
@@ -50,5 +62,26 @@ public class OdinSequencerConfiguration {
 
   public MicrosecondPositionProvider getMicrosecondPositionProvider() {
     return microsecondPositionProvider;
+  }
+
+  /**
+   * Get whether logging operation receiver is automatically added.
+   *
+   * @return whether logging operation receiver is automatically added
+   */
+  public boolean isLoggingOperationReceiverEnabled() {
+    return  isLoggingOperationReceiverEnabled;
+  }
+
+  /**
+   * Set whether logging operation receiver is automatically added.
+   *
+   * @param isLoggingOperationReceiverEnabled is logging operation receiver is automatically added
+   * @return this configuration
+   */
+  public OdinSequencerConfiguration setLoggingOperationReceiverEnabled(
+      boolean isLoggingOperationReceiverEnabled) {
+    this.isLoggingOperationReceiverEnabled = isLoggingOperationReceiverEnabled;
+    return this;
   }
 }
