@@ -1,6 +1,5 @@
 package com.purplepip.odin.midix;
 
-import com.purplepip.odin.common.BeanUtils;
 import com.purplepip.odin.common.OdinException;
 import com.sun.media.sound.JDK13Services;
 
@@ -45,7 +44,6 @@ public class MidiSystemHelper {
    * @param midiDeviceProvider MIDI device provider
    */
   public void log(MidiDeviceProvider midiDeviceProvider) {
-    new BeanUtils().dumpStaticMethodResponse(midiDeviceProvider.getClass(), "nGetNumDevices");
     for (MidiDevice.Info info : midiDeviceProvider.getDeviceInfo()) {
       LOG.info("{} : {}", midiDeviceProvider.getClass(), info);
     }
@@ -58,7 +56,8 @@ public class MidiSystemHelper {
    * @return MIDI device
    * @throws OdinException Exception.
    */
-  public MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher) throws OdinException {
+  private MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher)
+      throws OdinException {
     return findMidiDeviceByName(midiDeviceMatcher, false);
   }
 
@@ -70,7 +69,7 @@ public class MidiSystemHelper {
    * @return MIDI device
    * @throws OdinException Exception
    */
-  public MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher,
+  private MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher,
                                          boolean exceptionOnNotFound)
       throws OdinException {
     MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher, exceptionOnNotFound);
