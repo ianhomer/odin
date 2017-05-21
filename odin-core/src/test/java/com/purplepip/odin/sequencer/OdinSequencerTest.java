@@ -43,6 +43,7 @@ public class OdinSequencerTest {
     sequencer.stop();
     LOG.info("... stopped");
 
-    assertEquals("Number of operations sent not correct", 16, operationReceiver.getList().size());
+    assertEquals("Number of operations sent not correct", 16,
+        operationReceiver.getList().size());
   }
 }
