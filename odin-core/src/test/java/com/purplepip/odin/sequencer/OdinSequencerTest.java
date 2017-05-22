@@ -1,11 +1,10 @@
 package com.purplepip.odin.sequencer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequence.DefaultMicrosecondPositionProvider;
-import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
+import com.purplepip.odin.sequence.Tick;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -21,13 +20,7 @@ public class OdinSequencerTest {
   @Test
   public void testSequencer() throws OdinException {
     CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
-    OdinSequencer sequencer = new OdinSequencer(
-        new OdinSequencerConfiguration()
-            .setMeasureProvider(new StaticMeasureProvider(4))
-            .setBeatsPerMinute(new StaticBeatsPerMinute(1000))
-            .setOperationReceiver(operationReceiver)
-            .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider()));
-
+    OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
     new SequenceBuilder(sequencer)
         .addMetronome();
     sequencer.start();
@@ -36,7 +29,7 @@ public class OdinSequencerTest {
       try {
         Thread.sleep(10);
       } catch (InterruptedException e) {
-        LOG.error("Sleep interrupted", e);
+        Thread.currentThread().interrupt();
       }
     }
 
@@ -45,5 +38,36 @@ public class OdinSequencerTest {
 
     assertEquals("Number of operations sent not correct", 16,
         operationReceiver.getList().size());
+  }
+
+  @Test
+  public void testComplexSequencer() throws OdinException {
+    CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
+    OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
+    new SequenceBuilder(sequencer)
+        .addMetronome()
+        .withChannel(1).withVelocity(10).withNote(62).addPattern(Tick.BEAT, 4)
+        .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
+        .withChannel(8).withVelocity(100).withNote(42).addPattern(Tick.BEAT, 15)
+        .withChannel(9).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
+        .withVelocity(20)
+        .addPattern(Tick.EIGHTH, 127)
+        .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
+
+    sequencer.start();
+
+    while (sequencer.getClock().getCurrentBeat() < 8) {
+      try {
+        Thread.sleep(10);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+    }
+
+    sequencer.stop();
+    LOG.info("... stopped");
+
+    assertTrue("Number of operations sent not correct",
+        operationReceiver.getList().size() > 50);
   }
 }
