@@ -25,7 +25,6 @@ public class MidiDeviceWrapper {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
   private MidiDevice device;
-  private MidiDeviceScanner scanner;
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
 
   public MidiDeviceWrapper() {
@@ -55,14 +54,6 @@ public class MidiDeviceWrapper {
    */
   public void close() {
     scheduledPool.shutdown();
-  }
-
-  private void findDevice() {
-    try {
-      device = new MidiSystemHelper().getInitialisedDevice();
-    } catch (OdinException e) {
-      LOG.error("Cannot initialise MIDI device", e);
-    }
   }
 
   /**
@@ -150,6 +141,14 @@ public class MidiDeviceWrapper {
         LOG.debug("Refreshing MIDI device");
         knownMidiDevices = midiDevices;
         findDevice();
+      }
+    }
+
+    private void findDevice() {
+      try {
+        device = new MidiSystemHelper().getInitialisedDevice();
+      } catch (OdinException e) {
+        LOG.error("Cannot initialise MIDI device", e);
       }
     }
   }
