@@ -19,7 +19,7 @@ import org.junit.Test;
 public class MidiOdinSequencerTest {
   @Test
   public void testSequencer() throws OdinException {
-    MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
+    MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(true);
 
     CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
 

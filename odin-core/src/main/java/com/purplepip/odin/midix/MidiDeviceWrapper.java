@@ -33,7 +33,7 @@ public class MidiDeviceWrapper {
    *
    * @param scan whether to support MIDI device change detection scanning
    */
-  private MidiDeviceWrapper(boolean scan) {
+  public MidiDeviceWrapper(boolean scan) {
     if (scan) {
       LOG.info("MIDI Device scanning enabled");
       scanner = new MidiDeviceScanner();
