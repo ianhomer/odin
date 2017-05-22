@@ -1,10 +1,14 @@
 package com.purplepip.odin.sequencer;
 
+import com.google.common.collect.Lists;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Odin Sequencer Configuration.
@@ -34,8 +38,15 @@ public class OdinSequencerConfiguration {
    */
   public OdinSequencerConfiguration setOperationReceiver(OperationReceiver operationReceiver) {
     if (isLoggingOperationReceiverEnabled) {
-      this.operationReceiver = new OperationReceiverCollection(operationReceiver,
-          new LoggingOperationReceiver());
+      if (operationReceiver instanceof OperationReceiverCollection) {
+        ArrayList<OperationReceiver> operationReceiverList =
+            new ArrayList<>(Lists.newArrayList((operationReceiver)));
+        operationReceiverList.add(new LoggingOperationReceiver());
+        this.operationReceiver = new OperationReceiverCollection(operationReceiverList);
+      } else {
+        this.operationReceiver = new OperationReceiverCollection(operationReceiver,
+            new LoggingOperationReceiver());
+      }
     } else {
       this.operationReceiver = operationReceiver;
     }
