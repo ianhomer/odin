@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 public class MidiSystemHelper {
   private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
 
+  private MidiSystemWrapper midiSystemWrapper = new MidiSystemWrapper();
+
   /**
    * Log MIDI system info.
    */
@@ -87,7 +89,7 @@ public class MidiSystemHelper {
   private MidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher,
                                                   boolean exceptionOnNotFound)
       throws OdinException {
-    for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
+    for (MidiDevice.Info info : midiSystemWrapper.getMidiDeviceInfos()) {
       if (midiDeviceMatcher.matches(info)) {
         MidiDevice deviceCandidate;
         try {

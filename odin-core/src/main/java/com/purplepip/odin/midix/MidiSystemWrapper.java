@@ -1,5 +1,6 @@
 package com.purplepip.odin.midix;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +8,8 @@ import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 
 /**
- * Wrapper around the MidiSystem static.
+ * Convenience wrapper around the MidiSystem static to expose this as a bean that can be more
+ * easily accessed with direct access to statics.
  */
 public class MidiSystemWrapper {
   /**
@@ -17,9 +19,7 @@ public class MidiSystemWrapper {
    */
   public Set<MidiDevice.Info> getMidiDeviceInfos() {
     Set<MidiDevice.Info> infos = new HashSet<>();
-    for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      infos.add(info);
-    }
+    Collections.addAll(infos, MidiSystem.getMidiDeviceInfo());
     return infos;
   }
 }
