@@ -4,6 +4,9 @@ import com.purplepip.odin.common.OdinException;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
@@ -23,6 +26,7 @@ public class MidiDeviceWrapper {
 
   private MidiDevice device;
   private MidiDeviceScanner scanner;
+  private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
 
   public MidiDeviceWrapper() {
     this(false);
@@ -34,21 +38,11 @@ public class MidiDeviceWrapper {
    * @param scan whether to support MIDI device change detection scanning
    */
   public MidiDeviceWrapper(boolean scan) {
+    MidiDeviceScanner scanner = new MidiDeviceScanner();
+    scanner.run();
     if (scan) {
       LOG.info("MIDI Device scanning enabled");
-      scanner = new MidiDeviceScanner();
-      Thread thread = new Thread(scanner);
-      thread.start();
-      while (device == null) {
-        try {
-          Thread.sleep(100);
-        } catch (InterruptedException e) {
-          LOG.error("Thread interrupted", e);
-          Thread.currentThread().interrupt();
-        }
-      }
-    } else {
-      findDevice();
+      scheduledPool.scheduleWithFixedDelay(scanner, 0, 1, TimeUnit.SECONDS);
     }
   }
 
@@ -60,9 +54,7 @@ public class MidiDeviceWrapper {
    * Close device wrapper.
    */
   public void close() {
-    if (scanner != null) {
-      scanner.stop();
-    }
+    scheduledPool.shutdown();
   }
 
   private void findDevice() {
@@ -146,34 +138,19 @@ public class MidiDeviceWrapper {
 
 
   class MidiDeviceScanner implements Runnable {
-    private boolean exit;
     private Set<MidiDevice.Info> knownMidiDevices = new HashSet<>();
 
     @Override
     public void run() {
-      while (!exit) {
-        // FIX : https://github.com/ianhomer/odin/issues/1
-        LOG.debug("Scanning MIDI devices");
-
-        new MidiSystemHelper().logInfo();
-        Set<MidiDevice.Info> midiDevices = new MidiSystemWrapper().getMidiDeviceInfos();
-        if (!midiDevices.equals(knownMidiDevices) || device == null) {
-          LOG.debug("Refreshing MIDI device");
-          knownMidiDevices = midiDevices;
-          findDevice();
-        }
-
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          LOG.error("Thread interrupted", e);
-          Thread.currentThread().interrupt();
-        }
+      // FIX : https://github.com/ianhomer/odin/issues/1
+      LOG.debug("Scanning MIDI devices");
+      new MidiSystemHelper().logInfo();
+      Set<MidiDevice.Info> midiDevices = new MidiSystemWrapper().getMidiDeviceInfos();
+      if (!midiDevices.equals(knownMidiDevices) || device == null) {
+        LOG.debug("Refreshing MIDI device");
+        knownMidiDevices = midiDevices;
+        findDevice();
       }
-    }
-
-    public void stop() {
-      exit = true;
     }
   }
 }
