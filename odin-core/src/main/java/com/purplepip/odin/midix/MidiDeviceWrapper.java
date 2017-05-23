@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Provider of a MIDI device.
  */
-public class MidiDeviceWrapper {
+public class MidiDeviceWrapper implements AutoCloseable {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
   private MidiDevice device;
@@ -52,6 +52,7 @@ public class MidiDeviceWrapper {
   /**
    * Close device wrapper.
    */
+  @Override
   public void close() {
     scheduledPool.shutdown();
   }
