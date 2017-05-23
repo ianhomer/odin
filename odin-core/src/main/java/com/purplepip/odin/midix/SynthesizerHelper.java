@@ -7,7 +7,6 @@ import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
 
@@ -31,30 +30,20 @@ public class SynthesizerHelper {
         loadSoundBank(System.getProperty("user.home") + "/.gervill/" + gervillSoundbankFilename);
   }
 
-  private void ensureOpen() throws MidiUnavailableException {
-    if (!synthesizer.isOpen()) {
-      synthesizer.open();
-    }
-  }
-
   /**
    * Load sound bank.
    *
    * @param pathname path location for the soundbank file
    * @return true if sound bank loaded OK
    */
-  public boolean loadSoundBank(String pathname) {
+  private boolean loadSoundBank(String pathname) {
     File file = new File(pathname);
     if (!file.exists()) {
       LOG.info("Cannot find file {} to load soundbank from", pathname);
       return false;
     }
-    try {
-      ensureOpen();
-    } catch (MidiUnavailableException e) {
-      LOG.error("Cannot get opened synthesizer", e);
-      return false;
-    }
+    boolean isOpenResult = synthesizer.isOpen();
+    assert isOpenResult;
     synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
     Soundbank soundbank;
     try {
