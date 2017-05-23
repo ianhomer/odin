@@ -8,7 +8,6 @@ import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Odin Sequencer Configuration.
@@ -40,7 +39,7 @@ public class OdinSequencerConfiguration {
     if (isLoggingOperationReceiverEnabled) {
       if (operationReceiver instanceof OperationReceiverCollection) {
         ArrayList<OperationReceiver> operationReceiverList =
-            new ArrayList<>(Lists.newArrayList((operationReceiver)));
+            new ArrayList<>(Lists.newArrayList(operationReceiver));
         operationReceiverList.add(new LoggingOperationReceiver());
         this.operationReceiver = new OperationReceiverCollection(operationReceiverList);
       } else {
