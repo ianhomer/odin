@@ -107,20 +107,4 @@ public class SynthesizerHelper {
      */
     return instrument.toString().startsWith("Drumkit:");
   }
-
-
-  /**
-   * Log information about soundbank.
-   *
-   * @param soundbank soundbank to log information about.
-   */
-  public void logSoundbank(Soundbank soundbank) {
-    LOG.info("Soundbank {}", soundbank.getName());
-    for (Instrument instrument : soundbank.getInstruments()) {
-      LOG.debug("Instrument {} {} {}", instrument.getPatch().getBank(),
-          instrument.getPatch().getProgram(),
-          instrument.getName());
-    }
-  }
-
 }
