@@ -1,20 +1,13 @@
 package com.purplepip.odin.midix;
 
-import javax.sound.midi.MidiMessage;
+import javax.sound.midi.ShortMessage;
 
 /**
- * Raw MIDI Messages that take raw bytes.  We use this technique as it pushes more logic to a
- * generic layer than can be used directly on Android.
+ * Raw MIDI Messages that take raw bytes.  We use this technique as it uses more logic from the
+ * generic layer that is also used on Android implementation.
  */
-public class RawMidiMessage extends MidiMessage {
-  public RawMidiMessage(byte[] buffer) {
+class RawMidiMessage extends ShortMessage {
+  RawMidiMessage(byte[] buffer) {
     super(buffer);
-  }
-
-  @Override
-  public Object clone() {
-    byte[] newData = new byte[length];
-    System.arraycopy(data, 0, newData, 0, newData.length);
-    return new RawMidiMessage(newData);
   }
 }
