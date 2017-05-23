@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class MidiDeviceInMatcher extends MidiDeviceNameStartsWithMatcher {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceInMatcher.class);
 
-  public MidiDeviceInMatcher(String prefix) {
+  MidiDeviceInMatcher(String prefix) {
     super(prefix);
   }
 

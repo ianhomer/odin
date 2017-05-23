@@ -115,7 +115,7 @@ public class MidiSystemHelper {
    * @return MIDI device
    * @throws OdinException Exception
    */
-  public MidiDevice getInitialisedDevice() throws OdinException {
+  MidiDevice getInitialisedDevice() throws OdinException {
     List<String> deviceNames = new ArrayList<>();
     deviceNames.add("Scarlett");
     deviceNames.add("USB");

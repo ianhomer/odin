@@ -7,7 +7,7 @@ public class OperationEvent {
   private Operation operation;
   private long time;
 
-  public OperationEvent(Operation operation, long time) {
+  OperationEvent(Operation operation, long time) {
     this.operation = operation;
     this.time = time;
   }
