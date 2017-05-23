@@ -26,8 +26,9 @@ public class SynthesizerHelper {
     this.synthesizer = synthesizer;
   }
 
-  public void loadGervillSoundBank(String gervillSoundbankFilename) {
-    loadSoundBank(System.getProperty("user.home") + "/.gervill/" + gervillSoundbankFilename);
+  public boolean loadGervillSoundBank(String gervillSoundbankFilename) {
+    return
+        loadSoundBank(System.getProperty("user.home") + "/.gervill/" + gervillSoundbankFilename);
   }
 
   private void ensureOpen() throws MidiUnavailableException {
