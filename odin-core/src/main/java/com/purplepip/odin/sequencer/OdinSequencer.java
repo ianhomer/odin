@@ -2,6 +2,8 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.project.Project;
+import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Sequence;
@@ -12,22 +14,17 @@ import com.purplepip.odin.sequence.logic.Logic;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Core Odin Sequencer.
  */
 public class OdinSequencer {
-  private static final Logger LOG = LoggerFactory.getLogger(OdinSequencer.class);
-
   private OdinSequencerConfiguration configuration;
   private Set<SequenceTrack> sequenceTracks = new HashSet<>();
-  private Set<Sequence<Note>> sequences = new HashSet<>();
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private Clock clock;
   private boolean started = false;
+  private Project project = new TransientProject();
 
   public OdinSequencer(OdinSequencerConfiguration configuration) throws OdinException {
     this.configuration = configuration;
@@ -45,16 +42,13 @@ public class OdinSequencer {
    * @param sequence sequence to add.
    */
   void addSequence(Sequence<Note> sequence) {
-    LOG.debug("Adding sequence {} with time units {}",
-        sequence.getClass().getSimpleName(),
-        sequence.getTick().getClass().getSimpleName());
-    sequences.add(sequence);
+    project.addSequence(sequence);
   }
 
 
   private void refreshTracks() {
     sequenceTracks.clear();
-    for (Sequence<Note> sequence : sequences) {
+    for (Sequence<Note> sequence : project.getSequences()) {
       addSequenceTrack(sequence);
     }
   }
