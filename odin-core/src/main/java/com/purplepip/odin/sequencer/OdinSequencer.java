@@ -4,7 +4,6 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectListener;
-import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Sequence;
@@ -27,14 +26,25 @@ public class OdinSequencer implements ProjectListener {
   private boolean started = false;
   private Project project;
 
-  public OdinSequencer(OdinSequencerConfiguration configuration) throws OdinException {
+  /**
+   * Create an Odin sequencer.
+   *
+   * @param configuration configuration for the sequencer
+   * @throws OdinException exception
+   */
+  public OdinSequencer(OdinSequencerConfiguration configuration)
+      throws OdinException {
     this.configuration = configuration;
+    this.project = configuration.getProject();
+    project.addListener(this);
     init();
   }
 
+  public Project getProject() {
+    return project;
+  }
+
   private void init() {
-    project = new TransientProject();
-    project.addListener(this);
     clock = new Clock(configuration.getBeatsPerMinute());
     clock.start(configuration.getMicrosecondPositionProvider(), true);
   }

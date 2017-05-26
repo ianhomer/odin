@@ -10,8 +10,8 @@ import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
+import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.SequenceBuilder;
 
 import org.slf4j.Logger;
@@ -46,14 +46,14 @@ public class MidiSequenceExperiment {
       midiDeviceWrapper = new MidiDeviceWrapper();
       MeasureProvider measureProvider = new StaticMeasureProvider(4);
       sequencer = new OdinSequencer(
-          new OdinSequencerConfiguration()
+          new DefaultOdinSequencerConfiguration()
               .setBeatsPerMinute(new StaticBeatsPerMinute(120))
               .setMeasureProvider(measureProvider)
               .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
               .setMicrosecondPositionProvider(
                   new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
-      new SequenceBuilder(sequencer)
+      new SequenceBuilder(sequencer.getProject())
           .addMetronome()
           .withChannel(1).withVelocity(10).withNote(62).addPattern(Tick.BEAT, 4)
           .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)

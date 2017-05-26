@@ -7,8 +7,8 @@ import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 import com.purplepip.odin.sequencer.CapturingOperationReceiver;
+import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import com.purplepip.odin.sequencer.SequenceBuilder;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class MidiOdinSequencerTest {
       CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
       MeasureProvider measureProvider = new StaticMeasureProvider(4);
       OdinSequencer sequencer = new OdinSequencer(
-          new OdinSequencerConfiguration()
+          new DefaultOdinSequencerConfiguration()
               .setBeatsPerMinute(new StaticBeatsPerMinute(120))
               .setMeasureProvider(measureProvider)
               .setOperationReceiver(
@@ -34,7 +34,7 @@ public class MidiOdinSequencerTest {
               ).setMicrosecondPositionProvider(
               new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
-      new SequenceBuilder(sequencer).addMetronome();
+      new SequenceBuilder(sequencer.getProject()).addMetronome();
       sequencer.start();
 
       while (sequencer.getClock().getCurrentBeat() < 8) {

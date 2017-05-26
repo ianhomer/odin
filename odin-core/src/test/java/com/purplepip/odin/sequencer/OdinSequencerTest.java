@@ -21,7 +21,7 @@ public class OdinSequencerTest {
   public void testSequencer() throws OdinException {
     CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
     OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
-    new SequenceBuilder(sequencer)
+    new SequenceBuilder(sequencer.getProject())
         .addMetronome();
     sequencer.start();
 
@@ -44,7 +44,7 @@ public class OdinSequencerTest {
   public void testComplexSequencer() throws OdinException {
     CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
     OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
-    new SequenceBuilder(sequencer)
+    new SequenceBuilder(sequencer.getProject())
         .addMetronome()
         .withChannel(1).withVelocity(10).withNote(62).addPattern(Tick.BEAT, 4)
         .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)

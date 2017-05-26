@@ -19,7 +19,7 @@ class TestSequencerFactory {
   OdinSequencer createDefaultSequencer(OperationReceiver operationReceiver)
       throws OdinException {
     return new OdinSequencer(
-        new OdinSequencerConfiguration()
+        new DefaultOdinSequencerConfiguration()
             .setMeasureProvider(new StaticMeasureProvider(4))
             .setBeatsPerMinute(new StaticBeatsPerMinute(1000))
             .setOperationReceiver(operationReceiver)

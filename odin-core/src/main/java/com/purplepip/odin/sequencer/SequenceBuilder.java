@@ -5,6 +5,7 @@ import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
+import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.AbstractSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
@@ -13,13 +14,13 @@ import com.purplepip.odin.sequence.Tick;
  * Convenience class for building up sequences.
  */
 public class SequenceBuilder {
-  private OdinSequencer sequencer;
+  private Project project;
   private int channel = 0;
   private int note = 60;
   private int velocity = 60;
 
-  public SequenceBuilder(OdinSequencer sequencer) {
-    this.sequencer = sequencer;
+  public SequenceBuilder(Project project) {
+    this.project = project;
   }
 
   /**
@@ -29,7 +30,7 @@ public class SequenceBuilder {
    * @throws OdinException exception
    */
   public SequenceBuilder addMetronome() throws OdinException {
-    sequencer.addSequence(applyParameters(new Metronome()));
+    project.addSequence(applyParameters(new Metronome()));
     return this;
   }
 
@@ -76,11 +77,11 @@ public class SequenceBuilder {
     sequence.setTick(tick);
     sequence.setNote(defaultNote);
 
-    sequencer.addSequence(applyParameters(sequence));
+    project.addSequence(applyParameters(sequence));
     return this;
   }
 
-  private Sequence applyParameters(AbstractSequence sequence) {
+  private Sequence<Note> applyParameters(AbstractSequence<Note> sequence) {
     sequence.setOffset(0);
     sequence.setChannel(channel);
     return sequence;

@@ -8,7 +8,7 @@ import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
+import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +37,7 @@ public class OdinConfiguration {
   public OdinSequencer odinSequencer(MeasureProvider measureProvider,
                                      MidiDeviceWrapper midiDeviceWrapper) throws OdinException {
     return new OdinSequencer(
-        new OdinSequencerConfiguration()
+        new DefaultOdinSequencerConfiguration()
             .setBeatsPerMinute(new StaticBeatsPerMinute(120))
             .setMeasureProvider(measureProvider)
             .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
