@@ -11,15 +11,15 @@ public class Pattern extends AbstractSequence {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */
-  private int patternAsInt;
+  private int bit;
   private Note note;
 
-  public void setPattern(int patternAsInt) {
-    this.patternAsInt = patternAsInt;
+  public void setBit(int bit) {
+    this.bit = bit;
   }
 
-  public int getPattern() {
-    return patternAsInt;
+  public int getBit() {
+    return bit;
   }
 
   public void setNote(Note note) {

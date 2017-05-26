@@ -37,10 +37,10 @@ public class PatternLogic extends AbstractLogic<Pattern, Note> {
       mutableTock.increment();
       i++;
       long position = measureProvider.getTickPositionInThisMeasure(mutableTock);
-      if (getSequence().getPattern() == -1) {
+      if (getSequence().getBit() == -1) {
         on = true;
       } else {
-        on = ((getSequence().getPattern() >> position) & 1) == 1;
+        on = ((getSequence().getBit() >> position) & 1) == 1;
       }
     }
 
@@ -48,7 +48,7 @@ public class PatternLogic extends AbstractLogic<Pattern, Note> {
       nextEvent = new DefaultEvent<>(getSequence().getNote(), mutableTock.getCount());
     } else {
       LOG.debug("No notes found in the next {} ticks for pattern {}", maxForwardScan,
-          getSequence().getPattern());
+          getSequence().getBit());
       nextEvent = new ScanForwardEvent<>(mutableTock.getCount());
     }
     return nextEvent;
