@@ -1,6 +1,9 @@
 package com.purplepip.odin.project;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
@@ -28,5 +31,17 @@ public class TransientProjectTest {
     }
     assertEquals("Expected sequence count not correct", EXPECTED_SEQUENCE_COUNT, count);
     assertEquals("First sequence not as expected", pattern, sequence1);
+  }
+
+  @Test
+  public void testListener() {
+    ProjectListener listener = mock(ProjectListener.class);
+    Project project = new TransientProject();
+    project.addListener(listener);
+    project.apply();
+    project.apply();
+    verify(listener, times(2)).onProjectApply();
+    project.removeListener(listener);
+    verify(listener, times(2)).onProjectApply();
   }
 }

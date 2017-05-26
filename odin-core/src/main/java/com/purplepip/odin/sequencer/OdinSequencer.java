@@ -3,6 +3,7 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.project.ProjectListener;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
@@ -17,14 +18,14 @@ import java.util.Set;
 /**
  * Core Odin Sequencer.
  */
-public class OdinSequencer {
+public class OdinSequencer implements ProjectListener {
   private OdinSequencerConfiguration configuration;
   private Set<SequenceTrack> sequenceTracks = new HashSet<>();
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private Clock clock;
   private boolean started = false;
-  private Project project = new TransientProject();
+  private Project project;
 
   public OdinSequencer(OdinSequencerConfiguration configuration) throws OdinException {
     this.configuration = configuration;
@@ -32,6 +33,8 @@ public class OdinSequencer {
   }
 
   private void init() {
+    project = new TransientProject();
+    project.addListener(this);
     clock = new Clock(configuration.getBeatsPerMinute());
     clock.start(configuration.getMicrosecondPositionProvider(), true);
   }
@@ -45,6 +48,10 @@ public class OdinSequencer {
     project.addSequence(sequence);
   }
 
+  @Override
+  public void onProjectApply() {
+    refreshTracks();
+  }
 
   private void refreshTracks() {
     sequenceTracks.clear();
@@ -74,7 +81,7 @@ public class OdinSequencer {
    */
   public void start() {
     started = true;
-    refreshTracks();
+    project.apply();
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     Thread thread = new Thread(operationProcessor);
     thread.start();

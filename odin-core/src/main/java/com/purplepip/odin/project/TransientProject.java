@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A light weight non-persistable in memory project implementation.
  */
-public class TransientProject implements Project {
+public class TransientProject extends AbstractProject {
   private static final Logger LOG = LoggerFactory.getLogger(TransientProject.class);
 
   private Set<Sequence<Note>> sequences = new HashSet<>();
