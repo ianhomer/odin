@@ -12,28 +12,28 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {sequences: []};
+		this.state = {patterns: []};
 	}
 
 	componentDidMount() {
-		client({method: 'GET', path: '/api/sequence'}).done(response => {
-			this.setState({sequences: response.entity._embedded.sequences});
+		client({method: 'GET', path: '/api/patterns'}).done(response => {
+			this.setState({patterns: response.entity._embedded.patterns});
 		});
 	}
 
 	render() {
 		return (
-			<SequenceList series={this.state.series}/>
+			<PatternList patterns={this.state.patterns}/>
 		)
 	}
 }
 // end::app[]
 
-// tag::sequence-list[]
-class SequenceList extends React.Component{
+// tag::pattern-list[]
+class PatternList extends React.Component{
 	render() {
-		var sequences = this.props.series.map(sequence =>
-			<Sequence key={sequence._links.self.href} sequence={sequence}/>
+		var patterns = this.props.patterns.map(pattern =>
+			<Pattern key={pattern._links.self.href} pattern={pattern}/>
 		);
 		return (
 			<table>
@@ -41,25 +41,26 @@ class SequenceList extends React.Component{
 					<tr>
 						<th>Class</th>
 					</tr>
-					{sequences}
+					{patterns}
 				</tbody>
 			</table>
 		)
 	}
 }
-// end::sequence-list[]
+// end::pattern-list[]
 
-// tag::sequence[]
-class Sequence extends React.Component{
+// tag::pattern[]
+class Pattern extends React.Component{
 	render() {
 		return (
 			<tr>
-				<td>{this.props.sequence.className}</td>
+				<td>{this.props.pattern.className}</td>
+				<td>{this.props.pattern.patternAsInt}</td>
 			</tr>
 		)
 	}
 }
-// end::sequence[]
+// end::pattern[]
 
 // tag::render[]
 ReactDOM.render(
