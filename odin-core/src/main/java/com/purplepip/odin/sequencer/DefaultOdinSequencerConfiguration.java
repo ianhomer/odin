@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Odin Sequencer Configuration.
  */
-public class OdinSequencerConfiguration {
+public class DefaultOdinSequencerConfiguration implements OdinSequencerConfiguration {
   private BeatsPerMinute beatsPerMinute = new StaticBeatsPerMinute(140);
   private MeasureProvider measureProvider = new StaticMeasureProvider(4);
   private OperationReceiver operationReceiver;
@@ -22,23 +22,19 @@ public class OdinSequencerConfiguration {
   private boolean isLoggingOperationReceiverEnabled = true;
   private Project project = new TransientProject();
 
-  public OdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
+  public DefaultOdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
     this.beatsPerMinute = beatsPerMinute;
     return this;
   }
 
-  public OdinSequencerConfiguration setMeasureProvider(MeasureProvider measureProvider) {
+  public DefaultOdinSequencerConfiguration setMeasureProvider(MeasureProvider measureProvider) {
     this.measureProvider = measureProvider;
     return this;
   }
 
-  public OdinSequencerConfiguration setProject(Project project) {
+  public DefaultOdinSequencerConfiguration setProject(Project project) {
     this.project = project;
     return this;
-  }
-
-  public Project getProject() {
-    return project;
   }
 
   /**
@@ -47,7 +43,8 @@ public class OdinSequencerConfiguration {
    * @param operationReceiver operation receiver
    * @return this configuration
    */
-  public OdinSequencerConfiguration setOperationReceiver(OperationReceiver operationReceiver) {
+  public DefaultOdinSequencerConfiguration setOperationReceiver(
+      OperationReceiver operationReceiver) {
     if (isLoggingOperationReceiverEnabled) {
       if (operationReceiver instanceof OperationReceiverCollection) {
         ArrayList<OperationReceiver> operationReceiverList =
@@ -64,24 +61,33 @@ public class OdinSequencerConfiguration {
     return this;
   }
 
-  public OdinSequencerConfiguration setMicrosecondPositionProvider(
+  public DefaultOdinSequencerConfiguration setMicrosecondPositionProvider(
       MicrosecondPositionProvider microsecondPositionProvider) {
     this.microsecondPositionProvider = microsecondPositionProvider;
     return this;
   }
 
+  @Override
+  public Project getProject() {
+    return project;
+  }
+
+  @Override
   public BeatsPerMinute getBeatsPerMinute() {
     return beatsPerMinute;
   }
 
+  @Override
   public MeasureProvider getMeasureProvider() {
     return measureProvider;
   }
 
+  @Override
   public OperationReceiver getOperationReceiver() {
     return operationReceiver;
   }
 
+  @Override
   public MicrosecondPositionProvider getMicrosecondPositionProvider() {
     return microsecondPositionProvider;
   }
@@ -101,7 +107,7 @@ public class OdinSequencerConfiguration {
    * @param isLoggingOperationReceiverEnabled is logging operation receiver is automatically added
    * @return this configuration
    */
-  public OdinSequencerConfiguration setLoggingOperationReceiverEnabled(
+  public DefaultOdinSequencerConfiguration setLoggingOperationReceiverEnabled(
       boolean isLoggingOperationReceiverEnabled) {
     this.isLoggingOperationReceiverEnabled = isLoggingOperationReceiverEnabled;
     return this;
