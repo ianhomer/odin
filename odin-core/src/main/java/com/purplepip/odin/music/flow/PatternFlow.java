@@ -33,11 +33,7 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
       mutableTock.increment();
       i++;
       long position = measureProvider.getTickPositionInThisMeasure(mutableTock);
-      if (getSequence().getBits() == -1) {
-        on = true;
-      } else {
-        on = ((getSequence().getBits() >> position) & 1) == 1;
-      }
+      on = getSequence().getBits() == -1 || ((getSequence().getBits() >> position) & 1) == 1;
     }
 
     if (on) {
