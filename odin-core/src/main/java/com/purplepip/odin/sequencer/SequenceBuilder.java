@@ -7,6 +7,7 @@ import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.AbstractSequence;
+import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
 
@@ -53,6 +54,14 @@ public class SequenceBuilder {
     return new Pattern();
   }
 
+  protected Tick createTick(Tick tick) {
+    if (tick instanceof DefaultTick) {
+      return tick;
+    } else {
+      return new DefaultTick(tick);
+    }
+  }
+  
   /**
    * Add metronome.
    *
@@ -106,7 +115,7 @@ public class SequenceBuilder {
       throws OdinException {
     Pattern sequence = createPattern();
     sequence.setBits(pattern);
-    sequence.setTick(tick);
+    sequence.setTick(createTick(tick));
     sequence.setNote(defaultNote);
 
     project.addSequence(applyParameters(sequence));

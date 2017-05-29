@@ -18,6 +18,10 @@ public class DefaultTick implements Tick {
     this(timeUnit, numerator, 1);
   }
 
+  public DefaultTick(Tick tick) {
+    this(tick.getTimeUnit(), tick.getNumerator(), tick.getDenominator());
+  }
+
   /**
    * Create a tick.
    *
