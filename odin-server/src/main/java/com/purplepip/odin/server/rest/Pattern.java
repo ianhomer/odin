@@ -13,11 +13,11 @@ import javax.persistence.Id;
 @Entity
 public class Pattern {
   private @Id @GeneratedValue Long id;
-  private int patternAsInt;
+  private int bits;
   private Pattern() {
   }
 
-  public Pattern(int patternAsInt) {
-    this.patternAsInt = patternAsInt;
+  public Pattern(int bits) {
+    this.bits = bits;
   }
 }
