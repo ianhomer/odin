@@ -33,10 +33,10 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
       mutableTock.increment();
       i++;
       long position = measureProvider.getTickPositionInThisMeasure(mutableTock);
-      if (getSequence().getBit() == -1) {
+      if (getSequence().getBits() == -1) {
         on = true;
       } else {
-        on = ((getSequence().getBit() >> position) & 1) == 1;
+        on = ((getSequence().getBits() >> position) & 1) == 1;
       }
     }
 
@@ -44,7 +44,7 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
       nextEvent = new DefaultEvent<>(getSequence().getNote(), mutableTock.getCount());
     } else {
       LOG.debug("No notes found in the next {} ticks for pattern {}", maxForwardScan,
-          getSequence().getBit());
+          getSequence().getBits());
       nextEvent = new ScanForwardEvent<>(mutableTock.getCount());
     }
     return nextEvent;

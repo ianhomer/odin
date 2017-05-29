@@ -73,7 +73,7 @@ public class SequenceBuilder {
   public SequenceBuilder addPattern(Tick tick, int pattern, Note defaultNote)
       throws OdinException {
     Pattern sequence = new Pattern();
-    sequence.setBit(pattern);
+    sequence.setBits(pattern);
     sequence.setTick(tick);
     sequence.setNote(defaultNote);
 
