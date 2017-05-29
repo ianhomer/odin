@@ -7,8 +7,6 @@ public class DefaultTick implements Tick {
   private TimeUnit timeUnit;
   private int numerator;
   private int denominator;
-  private double factor;
-  private int factorAsInt;
 
   public DefaultTick(TimeUnit timeUnit) {
     this(timeUnit, 1);
@@ -33,8 +31,6 @@ public class DefaultTick implements Tick {
     this.timeUnit = timeUnit;
     this.numerator = numerator;
     this.denominator = denominator;
-    this.factor = (double) numerator / (double) denominator;
-    this.factorAsInt = numerator / denominator;
   }
 
   @Override
@@ -50,15 +46,5 @@ public class DefaultTick implements Tick {
   @Override
   public int getDenominator() {
     return denominator;
-  }
-
-  @Override
-  public double getFactor() {
-    return factor;
-  }
-
-  @Override
-  public int getFactorAsInt() {
-    return factorAsInt;
   }
 }

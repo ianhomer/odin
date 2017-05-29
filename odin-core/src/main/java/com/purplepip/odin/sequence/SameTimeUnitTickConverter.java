@@ -4,7 +4,7 @@ package com.purplepip.odin.sequence;
  * Tick converter that is not clock aware and can only convert ticks with the same time unit.
  */
 public class SameTimeUnitTickConverter extends AbstractTickConverter {
-  public SameTimeUnitTickConverter(Tick inputTick, Tick outputTick) {
+  public SameTimeUnitTickConverter(RuntimeTick inputTick, RuntimeTick outputTick) {
     this(inputTick, outputTick, 0);
   }
 
@@ -15,7 +15,8 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
    * @param outputTick output tick
    * @param inputOffset input offset
    */
-  public SameTimeUnitTickConverter(Tick inputTick, Tick outputTick, long inputOffset) {
+  public SameTimeUnitTickConverter(RuntimeTick inputTick, RuntimeTick outputTick,
+                                   long inputOffset) {
     setInputTick(inputTick);
     setOutputTick(outputTick);
     setInputOffset(inputOffset);

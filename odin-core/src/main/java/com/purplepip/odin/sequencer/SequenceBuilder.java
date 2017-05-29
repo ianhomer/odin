@@ -61,7 +61,7 @@ public class SequenceBuilder {
       return new DefaultTick(tick);
     }
   }
-  
+
   /**
    * Add metronome.
    *

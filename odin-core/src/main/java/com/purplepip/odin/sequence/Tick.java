@@ -9,8 +9,4 @@ public interface Tick {
   int getNumerator();
 
   int getDenominator();
-
-  double getFactor();
-
-  int getFactorAsInt();
 }

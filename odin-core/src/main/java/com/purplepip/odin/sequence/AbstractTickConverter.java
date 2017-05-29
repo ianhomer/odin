@@ -11,14 +11,14 @@ public abstract class AbstractTickConverter implements TickConverter {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultTickConverter.class);
 
   private long inputOffset;
-  private Tick inputTick;
-  private Tick outputTick;
+  private RuntimeTick inputTick;
+  private RuntimeTick outputTick;
 
-  void setOutputTick(Tick outputTick) {
+  void setOutputTick(RuntimeTick outputTick) {
     this.outputTick = outputTick;
   }
 
-  void setInputTick(Tick inputTick) {
+  void setInputTick(RuntimeTick inputTick) {
     this.inputTick = inputTick;
   }
 
@@ -27,11 +27,11 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   @Override
-  public Tick getOutputTick() {
+  public RuntimeTick getOutputTick() {
     return outputTick;
   }
 
-  Tick getInputTick() {
+  RuntimeTick getInputTick() {
     return inputTick;
   }
 

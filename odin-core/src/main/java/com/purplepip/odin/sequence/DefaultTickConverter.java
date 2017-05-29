@@ -16,7 +16,8 @@ public class DefaultTickConverter extends AbstractTickConverter {
    * @param outputTick output tick
    * @param inputOffset input offset
    */
-  public DefaultTickConverter(Clock clock, Tick inputTick, Tick outputTick, long inputOffset) {
+  public DefaultTickConverter(Clock clock, RuntimeTick inputTick, RuntimeTick outputTick,
+                              long inputOffset) {
     if (clock == null) {
       throw new OdinRuntimeException("Clock must not be null");
     }
