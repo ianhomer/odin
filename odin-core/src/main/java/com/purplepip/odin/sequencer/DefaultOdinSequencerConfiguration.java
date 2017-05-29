@@ -17,13 +17,24 @@ import java.util.ArrayList;
  * Odin Sequencer Configuration.
  */
 public class DefaultOdinSequencerConfiguration implements OdinSequencerConfiguration {
-  private BeatsPerMinute beatsPerMinute = new StaticBeatsPerMinute(140);
-  private MeasureProvider measureProvider = new StaticMeasureProvider(4);
+  private BeatsPerMinute beatsPerMinute;
+  private MeasureProvider measureProvider;
   private OperationReceiver operationReceiver;
   private MicrosecondPositionProvider microsecondPositionProvider;
-  private boolean isLoggingOperationReceiverEnabled = true;
-  private Project project = new TransientProject();
-  private FlowFactory flowFactory = new FlowFactory();
+  private boolean isLoggingOperationReceiverEnabled;
+  private Project project;
+  private FlowFactory<Note> flowFactory;
+
+  /**
+   * Create new configuration with defaults set.
+   */
+  public DefaultOdinSequencerConfiguration() {
+    setProject(new TransientProject());
+    setFlowFactory(new FlowFactory<>());
+    setMeasureProvider(new StaticMeasureProvider(4));
+    setBeatsPerMinute(new StaticBeatsPerMinute(140));
+    setLoggingOperationReceiverEnabled(true);
+  }
 
   public DefaultOdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
     this.beatsPerMinute = beatsPerMinute;
@@ -40,6 +51,11 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
     return this;
   }
 
+  public DefaultOdinSequencerConfiguration setFlowFactory(FlowFactory<Note> flowFactory) {
+    this.flowFactory = flowFactory;
+    return this;
+  }
+
   /**
    * Set operation receiver.
    *
@@ -48,7 +64,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
    */
   public DefaultOdinSequencerConfiguration setOperationReceiver(
       OperationReceiver operationReceiver) {
-    if (isLoggingOperationReceiverEnabled) {
+    if (isLoggingOperationReceiverEnabled()) {
       if (operationReceiver instanceof OperationReceiverCollection) {
         ArrayList<OperationReceiver> operationReceiverList =
             new ArrayList<>(Lists.newArrayList(operationReceiver));
