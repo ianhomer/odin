@@ -6,14 +6,14 @@ import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MutableTock;
 import com.purplepip.odin.sequence.Tock;
-import com.purplepip.odin.sequence.logic.AbstractLogic;
+import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
  * Metronome logic.
  */
-public class MetronomeLogic extends AbstractLogic<Metronome, Note> {
-  public MetronomeLogic(Metronome metronome) {
+public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
+  public MetronomeFlow(Metronome metronome) {
     setSequence(metronome);
   }
 
