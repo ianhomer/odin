@@ -1,8 +1,10 @@
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.music.Note;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
+import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
@@ -19,4 +21,5 @@ public interface OdinSequencerConfiguration {
 
   MicrosecondPositionProvider getMicrosecondPositionProvider();
 
+  FlowFactory<Note> getFlowFactory();
 }

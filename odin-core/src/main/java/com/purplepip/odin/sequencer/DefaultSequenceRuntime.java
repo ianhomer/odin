@@ -5,20 +5,20 @@ import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tock;
-import com.purplepip.odin.sequence.logic.Logic;
+import com.purplepip.odin.sequence.flow.Flow;
 
 /**
  * Default sequence runtime.
  */
 public class DefaultSequenceRuntime extends MutableSequenceRuntime<Sequence, Note> {
-  private Logic<Sequence<Note>, Note> logic;
+  private Flow<Sequence<Note>, Note> flow;
 
-  public DefaultSequenceRuntime(Logic<Sequence<Note>, Note> logic) {
-    this.logic = logic;
+  public DefaultSequenceRuntime(Flow<Sequence<Note>, Note> flow) {
+    this.flow = flow;
   }
 
   @Override
   protected Event<Note> getNextEvent(Tock tock) {
-    return logic.getNextEvent(tock, getMeasureProvider());
+    return flow.getNextEvent(tock, getMeasureProvider());
   }
 }

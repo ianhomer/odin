@@ -1,7 +1,5 @@
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.sequence.logic.Logic;
-
 /**
  * Persistable sequence configuration.
  */
@@ -14,5 +12,5 @@ public interface Sequence<A> {
 
   int getChannel();
 
-  Logic<Sequence<A>, A> getLogic();
+  String getFlowName();
 }

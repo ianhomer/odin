@@ -8,6 +8,7 @@ public abstract class AbstractSequence<A> implements Sequence<A> {
   private long length = -1;
   private long offset;
   private int channel;
+  private String flowName;
 
   public void setTick(Tick tick) {
     this.tick = tick;
@@ -50,4 +51,12 @@ public abstract class AbstractSequence<A> implements Sequence<A> {
     return channel;
   }
 
+  public void setFlowName(String flowName) {
+    this.flowName = flowName;
+  }
+
+  @Override
+  public String getFlowName() {
+    return flowName;
+  }
 }

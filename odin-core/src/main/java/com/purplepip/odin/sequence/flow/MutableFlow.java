@@ -1,7 +1,10 @@
 package com.purplepip.odin.sequence.flow;
 
+import com.purplepip.odin.sequence.Sequence;
+
 /**
- * Created by ian on 29/05/2017.
+ * Mutable flow.
  */
-public class MutableFlow {
+public interface MutableFlow<S extends Sequence, A> extends Flow<S, A> {
+  void setSequence(S sequence);
 }

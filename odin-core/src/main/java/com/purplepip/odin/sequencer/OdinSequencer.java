@@ -9,22 +9,26 @@ import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.Tick;
-import com.purplepip.odin.sequence.logic.Logic;
+import com.purplepip.odin.sequence.flow.Flow;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Core Odin Sequencer.
  */
 public class OdinSequencer implements ProjectListener {
+  private static final Logger LOG = LoggerFactory.getLogger(OdinSequencer.class);
+
   private OdinSequencerConfiguration configuration;
   private Set<SequenceTrack> sequenceTracks = new HashSet<>();
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private Clock clock;
   private boolean started = false;
-  private Project project;
 
   /**
    * Create an Odin sequencer.
@@ -35,16 +39,15 @@ public class OdinSequencer implements ProjectListener {
   public OdinSequencer(OdinSequencerConfiguration configuration)
       throws OdinException {
     this.configuration = configuration;
-    this.project = configuration.getProject();
-    project.addListener(this);
     init();
   }
 
   public Project getProject() {
-    return project;
+    return configuration.getProject();
   }
 
   private void init() {
+    configuration.getProject().addListener(this);
     clock = new Clock(configuration.getBeatsPerMinute());
     clock.start(configuration.getMicrosecondPositionProvider(), true);
   }
@@ -55,7 +58,7 @@ public class OdinSequencer implements ProjectListener {
    * @param sequence sequence to add.
    */
   void addSequence(Sequence<Note> sequence) {
-    project.addSequence(sequence);
+    configuration.getProject().addSequence(sequence);
   }
 
   @Override
@@ -65,13 +68,19 @@ public class OdinSequencer implements ProjectListener {
 
   private void refreshTracks() {
     sequenceTracks.clear();
-    for (Sequence<Note> sequence : project.getSequences()) {
+    for (Sequence<Note> sequence : configuration.getProject().getSequences()) {
       addSequenceTrack(sequence);
     }
   }
 
   private void addSequenceTrack(Sequence<Note> sequence) {
-    DefaultSequenceRuntime sequenceRuntime = createSequenceRuntime(sequence.getLogic());
+    DefaultSequenceRuntime sequenceRuntime = null;
+    try {
+      sequenceRuntime = createSequenceRuntime(
+          configuration.getFlowFactory().createFlow(sequence));
+    } catch (OdinException e) {
+      LOG.error("Cannot add sequence", e);
+    }
     sequenceTracks.add(new SequenceTrack(new SeriesTimeUnitConverterFactory(
         new DefaultTickConverter(clock, sequenceRuntime.getTick(), Tick.MICROSECOND,
             sequence.getOffset()))
@@ -79,9 +88,9 @@ public class OdinSequencer implements ProjectListener {
   }
 
   private DefaultSequenceRuntime
-      createSequenceRuntime(Logic<Sequence<Note>, Note> logic) {
-    DefaultSequenceRuntime sequenceRuntime = new DefaultSequenceRuntime(logic);
-    sequenceRuntime.setConfiguration(logic.getSequence());
+      createSequenceRuntime(Flow<Sequence<Note>, Note> flow) {
+    DefaultSequenceRuntime sequenceRuntime = new DefaultSequenceRuntime(flow);
+    sequenceRuntime.setConfiguration(flow.getSequence());
     sequenceRuntime.setMeasureProvider(configuration.getMeasureProvider());
     return sequenceRuntime;
   }
@@ -91,7 +100,7 @@ public class OdinSequencer implements ProjectListener {
    */
   public void start() {
     started = true;
-    project.apply();
+    configuration.getProject().apply();
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     Thread thread = new Thread(operationProcessor);
     thread.start();

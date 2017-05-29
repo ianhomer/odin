@@ -1,4 +1,4 @@
-package com.purplepip.odin.music.logic;
+package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Pattern;
@@ -14,14 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Pattern logic.
+ * Pattern flow.
  */
 public class PatternFlow extends AbstractFlow<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternFlow.class);
-
-  public PatternFlow(Pattern sequence) {
-    setSequence(sequence);
-  }
 
   @Override
   public Event<Note> getNextEvent(Tock tock, MeasureProvider measureProvider) {

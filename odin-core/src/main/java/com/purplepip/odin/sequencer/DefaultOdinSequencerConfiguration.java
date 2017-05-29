@@ -1,11 +1,13 @@
 package com.purplepip.odin.sequencer;
 
 import com.google.common.collect.Lists;
+import com.purplepip.odin.music.Note;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 
@@ -21,6 +23,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled = true;
   private Project project = new TransientProject();
+  private FlowFactory flowFactory = new FlowFactory();
 
   public DefaultOdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
     this.beatsPerMinute = beatsPerMinute;
@@ -90,6 +93,11 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
   @Override
   public MicrosecondPositionProvider getMicrosecondPositionProvider() {
     return microsecondPositionProvider;
+  }
+
+  @Override
+  public FlowFactory<Note> getFlowFactory() {
+    return flowFactory;
   }
 
   /**

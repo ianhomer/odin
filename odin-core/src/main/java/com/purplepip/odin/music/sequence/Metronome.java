@@ -2,7 +2,7 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.music.logic.MetronomeLogic;
+import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.sequence.AbstractSequence;
 import com.purplepip.odin.sequence.Tick;
 
@@ -20,6 +20,7 @@ public class Metronome extends AbstractSequence {
     noteBarStart = new DefaultNote();
     noteMidBar = new DefaultNote(64, noteBarStart.getVelocity() / 2);
     setTick(Tick.HALF);
+    setFlowName(MetronomeFlow.class.getName());
   }
 
   /**
@@ -38,10 +39,5 @@ public class Metronome extends AbstractSequence {
    */
   public Note getNoteMidBar() {
     return noteMidBar;
-  }
-
-  @Override
-  public MetronomeLogic getLogic() {
-    return new MetronomeLogic(this);
   }
 }

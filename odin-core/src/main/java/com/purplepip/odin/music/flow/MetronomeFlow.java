@@ -1,4 +1,4 @@
-package com.purplepip.odin.music.logic;
+package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
@@ -10,13 +10,9 @@ import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
- * Metronome logic.
+ * Metronome flow.
  */
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
-  public MetronomeFlow(Metronome metronome) {
-    setSequence(metronome);
-  }
-
   @Override
   public Event<Note> getNextEvent(Tock tock, MeasureProvider measureProvider) {
     /*

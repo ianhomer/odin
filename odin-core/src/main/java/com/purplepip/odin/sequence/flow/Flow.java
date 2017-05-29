@@ -1,4 +1,4 @@
-package com.purplepip.odin.sequence.logic;
+package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
@@ -6,10 +6,9 @@ import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
- * A sequence logic class has the intelligence to determine the progression of the sequence
- * based on the sequence configuration.
+ * A flow class has the intelligence to determine the next events in a sequence.
  */
-public interface Logic<S extends Sequence, A> {
+public interface Flow<S extends Sequence, A> {
   Event<A> getNextEvent(Tock tock, MeasureProvider measureProvider);
 
   S getSequence();
