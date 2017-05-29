@@ -8,15 +8,15 @@ import com.purplepip.odin.sequence.AbstractSequence;
  * Pattern sequence configuration.
  */
 public class Pattern extends AbstractSequence<Note> {
-  public Pattern() {
-    setFlowName(PatternFlow.class.getName());
-  }
-
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */
   private int bits;
   private Note note;
+
+  public Pattern() {
+    setFlowName(PatternFlow.class.getName());
+  }
 
   public void setBits(int bits) {
     this.bits = bits;

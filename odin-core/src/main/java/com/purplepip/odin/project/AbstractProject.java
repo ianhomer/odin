@@ -12,6 +12,7 @@ public abstract class AbstractProject implements Project {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void addListener(ProjectListener projectListener) {
     listeners.add(projectListener);
   }
@@ -19,6 +20,7 @@ public abstract class AbstractProject implements Project {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void removeListener(ProjectListener projectListener) {
     listeners.remove(projectListener);
   }
@@ -26,6 +28,7 @@ public abstract class AbstractProject implements Project {
   /**
    * {@inheritDoc}
    */
+  @Override
   public void apply() {
     for (ProjectListener listener : listeners) {
       listener.onProjectApply();

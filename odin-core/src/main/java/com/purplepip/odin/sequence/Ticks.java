@@ -15,4 +15,6 @@ public final class Ticks {
   public static final Tick QUARTER = new DefaultTick(TimeUnit.BEAT, 1, 4);
   public static final Tick EIGHTH = new DefaultTick(TimeUnit.BEAT, 1, 8);
 
+  private Ticks() {
+  }
 }

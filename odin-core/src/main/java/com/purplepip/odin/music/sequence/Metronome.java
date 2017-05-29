@@ -4,8 +4,6 @@ import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.sequence.AbstractSequence;
-import com.purplepip.odin.sequence.DefaultTick;
-import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequence.Ticks;
 
 /**

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class Pattern {
-  private @Id @GeneratedValue Long id;
+  @Id @GeneratedValue private Long id;
   private int bits;
   private Pattern() {
   }

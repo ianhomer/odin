@@ -8,6 +8,7 @@ import com.purplepip.odin.sequence.Sequence;
 public abstract class AbstractFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> {
   private S sequence;
 
+  @Override
   public void setSequence(S sequence) {
     this.sequence = sequence;
   }
