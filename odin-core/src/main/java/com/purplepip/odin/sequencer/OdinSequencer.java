@@ -52,15 +52,6 @@ public class OdinSequencer implements ProjectListener {
     clock.start(configuration.getMicrosecondPositionProvider(), true);
   }
 
-  /**
-   * Add sequence to the sequencer.
-   *
-   * @param sequence sequence to add.
-   */
-  void addSequence(Sequence<Note> sequence) {
-    configuration.getProject().addSequence(sequence);
-  }
-
   @Override
   public void onProjectApply() {
     refreshTracks();
@@ -74,7 +65,7 @@ public class OdinSequencer implements ProjectListener {
   }
 
   private void addSequenceTrack(Sequence<Note> sequence) {
-    DefaultSequenceRuntime sequenceRuntime = null;
+    DefaultSequenceRuntime sequenceRuntime;
     try {
       sequenceRuntime = createSequenceRuntime(
           configuration.getFlowFactory().createFlow(sequence));
