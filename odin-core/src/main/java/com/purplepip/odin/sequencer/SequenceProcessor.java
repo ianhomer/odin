@@ -37,9 +37,6 @@ public class SequenceProcessor implements Runnable {
                            Set<SequenceTrack> sequenceTrackSet,
                            OperationProcessor operationProcessor) {
     this.sequenceTrackSet = sequenceTrackSet;
-    if (microsecondPositionProvider == null) {
-      throw new OdinRuntimeException("MicrosecondPositionProvider must not be null");
-    }
     this.microsecondPositionProvider = microsecondPositionProvider;
     this.operationProcessor = operationProcessor;
   }
