@@ -80,6 +80,7 @@ public class OdinSequencer implements ProjectListener {
           configuration.getFlowFactory().createFlow(sequence));
     } catch (OdinException e) {
       LOG.error("Cannot add sequence", e);
+      return;
     }
     sequenceTracks.add(new SequenceTrack(new SeriesTimeUnitConverterFactory(
         new DefaultTickConverter(clock, sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND,
