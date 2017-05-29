@@ -9,7 +9,6 @@ import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.RuntimeTicks;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
-import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.flow.Flow;
 
 import java.util.HashSet;
@@ -91,7 +90,7 @@ public class OdinSequencer implements ProjectListener {
   private DefaultSequenceRuntime
       createSequenceRuntime(Flow<Sequence<Note>, Note> flow) {
     DefaultSequenceRuntime sequenceRuntime = new DefaultSequenceRuntime(flow);
-    sequenceRuntime.setConfiguration(flow.getSequence());
+    sequenceRuntime.setSequence(flow.getSequence());
     sequenceRuntime.setMeasureProvider(configuration.getMeasureProvider());
     return sequenceRuntime;
   }

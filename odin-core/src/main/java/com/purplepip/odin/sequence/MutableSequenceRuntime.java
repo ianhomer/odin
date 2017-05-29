@@ -44,14 +44,14 @@ public abstract class MutableSequenceRuntime<S extends Sequence, A> implements S
    *
    * @param sequence sequence configuration
    */
-  public void setConfiguration(S sequence) {
+  public void setSequence(S sequence) {
     this.sequence = sequence;
     if (measureProvider != null) {
       reload();
     }
   }
 
-  public S getConfiguration() {
+  public S getSequence() {
     return sequence;
   }
 
@@ -63,9 +63,9 @@ public abstract class MutableSequenceRuntime<S extends Sequence, A> implements S
     tick = new DefaultRuntimeTick(sequence.getTick());
     TickConverter converter = new SameTimeUnitTickConverter(RuntimeTicks.BEAT,
         getTick());
-    this.length = converter.convert(getConfiguration().getLength());
+    this.length = converter.convert(getSequence().getLength());
     // FIX : Currently reload resets tock to start of sequencer - we should set it to now
-    tock = new MutableTock(getConfiguration().getTick(), 0);
+    tock = new MutableTock(getSequence().getTick(), 0);
     sealedTock = new SealedTock(tock);
   }
 
