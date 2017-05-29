@@ -24,13 +24,44 @@ public class SequenceBuilder {
   }
 
   /**
+   * Create Metronome.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return metronome
+   */
+  protected Metronome createMetronome() {
+    return new Metronome();
+  }
+
+  /**
+   * Create Note.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return note
+   */
+  protected Note createNote(int note, int velocity, int duration) {
+    return new DefaultNote(note, velocity, duration);
+  }
+
+  /**
+   * Create Pattern.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return pattern
+   */
+  protected Pattern createPattern() {
+    return new Pattern();
+  }
+
+  /**
    * Add metronome.
    *
    * @return this sequence builder
    * @throws OdinException exception
    */
   public SequenceBuilder addMetronome() throws OdinException {
-    project.addSequence(applyParameters(new Metronome()));
+    Metronome metronome = createMetronome();
+    project.addSequence(applyParameters(metronome));
     return this;
   }
 
@@ -49,6 +80,7 @@ public class SequenceBuilder {
     return this;
   }
 
+
   /**
    * Add pattern.
    *
@@ -58,7 +90,7 @@ public class SequenceBuilder {
    * @throws OdinException exception
    */
   public SequenceBuilder addPattern(Tick tick, int pattern) throws OdinException {
-    return addPattern(tick, pattern, new DefaultNote(note, velocity));
+    return addPattern(tick, pattern, createNote(note, velocity, 1));
   }
 
   /**
@@ -72,7 +104,7 @@ public class SequenceBuilder {
    */
   public SequenceBuilder addPattern(Tick tick, int pattern, Note defaultNote)
       throws OdinException {
-    Pattern sequence = new Pattern();
+    Pattern sequence = createPattern();
     sequence.setBits(pattern);
     sequence.setTick(tick);
     sequence.setNote(defaultNote);
