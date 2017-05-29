@@ -5,11 +5,10 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectListener;
 import com.purplepip.odin.sequence.Clock;
-import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
-import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.flow.Flow;
 
 import java.util.HashSet;
@@ -83,7 +82,7 @@ public class OdinSequencer implements ProjectListener {
       LOG.error("Cannot add sequence", e);
     }
     sequenceTracks.add(new SequenceTrack(new SeriesTimeUnitConverterFactory(
-        new DefaultTickConverter(clock, sequenceRuntime.getTick(), DefaultTick.MICROSECOND,
+        new DefaultTickConverter(clock, sequenceRuntime.getTick(), Ticks.MICROSECOND,
             sequence.getOffset()))
         .convertSeries(sequenceRuntime), sequence.getChannel()));
   }
