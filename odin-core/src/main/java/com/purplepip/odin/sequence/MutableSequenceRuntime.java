@@ -59,7 +59,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence, A> implements S
    */
   private void reload() {
     LOG.debug("Reloading runtime sequence");
-    TickConverter converter = new SameTimeUnitTickConverter(Tick.BEAT,
+    TickConverter converter = new SameTimeUnitTickConverter(DefaultTick.BEAT,
         getConfiguration().getTick());
     this.length = converter.convert(getConfiguration().getLength());
     // FIX : Currently reload resets tock to start of sequencer - we should set it to now

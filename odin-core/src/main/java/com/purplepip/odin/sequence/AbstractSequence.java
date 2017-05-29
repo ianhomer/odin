@@ -51,7 +51,7 @@ public abstract class AbstractSequence<A> implements Sequence<A> {
     return channel;
   }
 
-  public void setFlowName(String flowName) {
+  protected void setFlowName(String flowName) {
     this.flowName = flowName;
   }
 

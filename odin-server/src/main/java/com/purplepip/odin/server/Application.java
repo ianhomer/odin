@@ -2,6 +2,7 @@ package com.purplepip.odin.server;
 
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiSystemHelper;
+import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.SequenceBuilder;
@@ -44,10 +45,10 @@ public class Application {
 
       new SequenceBuilder(sequencer.getProject())
           .addMetronome()
-          .addPattern(Tick.BEAT, 2)
-          .withChannel(9).withNote(42).addPattern(Tick.QUARTER, 61435)
-          .addPattern(Tick.EIGHTH, 127)
-          .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
+          .addPattern(DefaultTick.BEAT, 2)
+          .withChannel(9).withNote(42).addPattern(DefaultTick.QUARTER, 61435)
+          .addPattern(DefaultTick.EIGHTH, 127)
+          .withNote(46).addPattern(DefaultTick.TWO_THIRDS, 7);
       sequencer.start();
       LOG.info("Odin Started.");
     };

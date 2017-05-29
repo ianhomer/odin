@@ -1,6 +1,7 @@
 package com.purplepip.odin.series;
 
 import com.purplepip.odin.sequence.DefaultEvent;
+import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.SequenceRuntime;
 import com.purplepip.odin.sequence.Tick;
@@ -21,7 +22,7 @@ public class HeartBeat implements SequenceRuntime<Boolean> {
 
   @Override
   public Tick getTick() {
-    return Tick.BEAT;
+    return DefaultTick.BEAT;
   }
 
   private Event<Boolean> getNext() {

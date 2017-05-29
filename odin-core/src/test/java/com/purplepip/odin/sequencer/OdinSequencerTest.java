@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.Tick;
 
 import org.junit.Test;
@@ -46,13 +47,13 @@ public class OdinSequencerTest {
     OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
     new SequenceBuilder(sequencer.getProject())
         .addMetronome()
-        .withChannel(1).withVelocity(10).withNote(62).addPattern(Tick.BEAT, 4)
-        .withChannel(2).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
-        .withChannel(8).withVelocity(100).withNote(42).addPattern(Tick.BEAT, 15)
-        .withChannel(9).withVelocity(70).withNote(62).addPattern(Tick.BEAT, 2)
+        .withChannel(1).withVelocity(10).withNote(62).addPattern(DefaultTick.BEAT, 4)
+        .withChannel(2).withVelocity(70).withNote(62).addPattern(DefaultTick.BEAT, 2)
+        .withChannel(8).withVelocity(100).withNote(42).addPattern(DefaultTick.BEAT, 15)
+        .withChannel(9).withVelocity(70).withNote(62).addPattern(DefaultTick.BEAT, 2)
         .withVelocity(20)
-        .addPattern(Tick.EIGHTH, 127)
-        .withNote(46).addPattern(Tick.TWO_THIRDS, 7);
+        .addPattern(DefaultTick.EIGHTH, 127)
+        .withNote(46).addPattern(DefaultTick.TWO_THIRDS, 7);
 
     sequencer.start();
 
