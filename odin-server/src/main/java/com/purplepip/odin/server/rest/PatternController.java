@@ -1,14 +1,15 @@
 package com.purplepip.odin.server.rest;
 
+import com.purplepip.odin.server.rest.repositories.PatternRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
- * Sequence controller.
+ * Pattern controller.
  */
 @Controller
-public class SequenceController {
+public class PatternController {
 
   @Autowired
-  SequenceRepository repository;
+  PatternRepository repository;
 }

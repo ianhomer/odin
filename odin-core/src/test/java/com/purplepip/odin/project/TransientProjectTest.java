@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.sequence.Sequence;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class TransientProjectTest {
 
   @Test
   public void testAddSequence() {
-    Sequence<Note> pattern = new Metronome();
+    Sequence<Note> pattern = new DefaultMetronome();
     Project project = new TransientProject();
     project.addSequence(pattern);
     int count = 0;

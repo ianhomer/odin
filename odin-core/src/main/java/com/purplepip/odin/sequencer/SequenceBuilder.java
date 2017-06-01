@@ -3,11 +3,13 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.sequence.DefaultMetronome;
+import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.AbstractSequence;
 import com.purplepip.odin.sequence.DefaultTick;
+import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
 
@@ -31,7 +33,7 @@ public class SequenceBuilder {
    * @return metronome
    */
   protected Metronome createMetronome() {
-    return new Metronome();
+    return new DefaultMetronome();
   }
 
   /**
@@ -51,7 +53,7 @@ public class SequenceBuilder {
    * @return pattern
    */
   protected Pattern createPattern() {
-    return new Pattern();
+    return new DefaultPattern();
   }
 
   protected Tick createTick(Tick tick) {
@@ -122,7 +124,7 @@ public class SequenceBuilder {
     return this;
   }
 
-  private Sequence<Note> applyParameters(AbstractSequence<Note> sequence) {
+  private Sequence<Note> applyParameters(MutableSequence<Note> sequence) {
     sequence.setOffset(0);
     sequence.setChannel(channel);
     return sequence;

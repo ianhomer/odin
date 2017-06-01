@@ -6,6 +6,7 @@ import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.SequenceBuilder;
+import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -43,7 +44,7 @@ public class Application {
     return args -> {
       new MidiSystemHelper().logInfo();
 
-      new SequenceBuilder(sequencer.getProject())
+      new PersistableSequenceBuilder(sequencer.getProject())
           .addMetronome()
           .addPattern(Ticks.BEAT, 2)
           .withChannel(9).withNote(42).addPattern(Ticks.QUARTER, 61435)
