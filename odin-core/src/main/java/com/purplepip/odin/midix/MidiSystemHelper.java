@@ -1,7 +1,6 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.common.OdinException;
-import com.sun.media.sound.JDK13Services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.List;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.spi.MidiDeviceProvider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,39 +28,9 @@ public class MidiSystemHelper {
       LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(),
           info.getDescription());
     }
-
-    List<?> list = JDK13Services.getProviders(MidiDeviceProvider.class);
-    for (Object midiDeviceProvider : list) {
-      if (midiDeviceProvider instanceof MidiDeviceProvider) {
-        log((MidiDeviceProvider) midiDeviceProvider);
-      }
-    }
     return this;
   }
-
-  /**
-   * Log the info for a given MIDI device provider.
-   *
-   * @param midiDeviceProvider MIDI device provider
-   */
-  public void log(MidiDeviceProvider midiDeviceProvider) {
-    for (MidiDevice.Info info : midiDeviceProvider.getDeviceInfo()) {
-      LOG.info("{} : {}", midiDeviceProvider.getClass(), info);
-    }
-  }
-
-  /**
-   * Find a MIDI device by name.
-   *
-   * @param midiDeviceMatcher Matcher to match against
-   * @return MIDI device
-   * @throws OdinException Exception.
-   */
-  private MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher)
-      throws OdinException {
-    return findMidiDeviceByName(midiDeviceMatcher, false);
-  }
-
+  
   /**
    * Find a MIDI device by name.
    *
@@ -71,10 +39,9 @@ public class MidiSystemHelper {
    * @return MIDI device
    * @throws OdinException Exception
    */
-  private MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher,
-                                         boolean exceptionOnNotFound)
+  private MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher)
       throws OdinException {
-    MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher, exceptionOnNotFound);
+    MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher);
     if (midiDevice != null) {
       LOG.info("Found MIDI device : {} ; {}", midiDeviceMatcher, midiDevice.getClass().getName());
       try {
@@ -86,8 +53,7 @@ public class MidiSystemHelper {
     return midiDevice;
   }
 
-  private MidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher,
-                                                  boolean exceptionOnNotFound)
+  private MidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher)
       throws OdinException {
     for (MidiDevice.Info info : midiSystemWrapper.getMidiDeviceInfos()) {
       if (midiDeviceMatcher.matches(info)) {
@@ -102,9 +68,6 @@ public class MidiSystemHelper {
           return deviceCandidate;
         }
       }
-    }
-    if (exceptionOnNotFound) {
-      throw new OdinException("Cannot find midi device " + midiDeviceMatcher.getDescription());
     }
     return null;
   }
