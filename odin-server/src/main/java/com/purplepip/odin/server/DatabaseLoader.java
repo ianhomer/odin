@@ -13,11 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Database Loader.
  */
 @Component
 public class DatabaseLoader implements CommandLineRunner {
+  private static final Logger LOG = LoggerFactory.getLogger(DatabaseLoader.class);
+
   @Autowired
   private OdinSequencer sequencer;
 
@@ -47,6 +52,7 @@ public class DatabaseLoader implements CommandLineRunner {
           throw new OdinRuntimeException("Tick must not be null");
         }
         this.repository.save((PersistablePattern) sequence);
+        LOG.info("Saved {}", sequence);
       }
     }
 
