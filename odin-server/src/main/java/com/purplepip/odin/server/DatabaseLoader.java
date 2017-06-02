@@ -9,20 +9,17 @@ import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
 import com.purplepip.odin.server.rest.domain.PersistablePattern;
 import com.purplepip.odin.server.rest.repositories.PatternRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Database Loader.
  */
 @Component
+@Slf4j
 public class DatabaseLoader implements CommandLineRunner {
-  private static final Logger LOG = LoggerFactory.getLogger(DatabaseLoader.class);
-
   @Autowired
   private OdinSequencer sequencer;
 
