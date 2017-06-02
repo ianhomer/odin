@@ -1,8 +1,9 @@
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.flow.MetronomeFlow;
+import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Metronome;
@@ -12,18 +13,43 @@ import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.Ticks;
 
 /**
  * Convenience class for building up sequences.
  */
 public class SequenceBuilder {
+  private static final int DEFAULT_NOTE = 60;
+  private static final int DEFAULT_VELOCITY = 40;
+  private static final int DEFAULT_DURATION = 1;
+
   private Project project;
   private int channel = 0;
-  private int note = 60;
-  private int velocity = 60;
+  private int note = DEFAULT_NOTE;
+  private int velocity = DEFAULT_VELOCITY;
+  private int length = -1;
+
 
   public SequenceBuilder(Project project) {
     this.project = project;
+  }
+
+  private Metronome withDefaults(Metronome metronome) {
+    metronome.setTick(createTick(Ticks.HALF));
+    metronome.setFlowName(MetronomeFlow.class.getName());
+    metronome.setNoteBarStart(createNote(DEFAULT_NOTE, DEFAULT_VELOCITY, DEFAULT_DURATION));
+    metronome.setNoteMidBar(createNote(64, metronome.getNoteBarStart().getVelocity() / 2,
+        DEFAULT_DURATION));
+    return metronome;
+  }
+
+  private Pattern withDefaults(Pattern pattern) {
+    pattern.setFlowName(PatternFlow.class.getName());
+    return pattern;
+  }
+
+  private Tick withDefaults(Tick tick) {
+    return tick;
   }
 
   /**
@@ -42,7 +68,7 @@ public class SequenceBuilder {
    *
    * @return note
    */
-  protected Note createNote(int note, int velocity, int duration) {
+  protected Note createNote(int note, int velocity, long duration) {
     return new DefaultNote(note, velocity, duration);
   }
 
@@ -56,6 +82,7 @@ public class SequenceBuilder {
     return new DefaultPattern();
   }
 
+
   protected Tick createTick(Tick tick) {
     if (tick instanceof DefaultTick) {
       return tick;
@@ -68,10 +95,9 @@ public class SequenceBuilder {
    * Add metronome.
    *
    * @return this sequence builder
-   * @throws OdinException exception
    */
-  public SequenceBuilder addMetronome() throws OdinException {
-    Metronome metronome = createMetronome();
+  public SequenceBuilder addMetronome() {
+    Metronome metronome = withDefaults(createMetronome());
     project.addSequence(applyParameters(metronome));
     return this;
   }
@@ -91,17 +117,9 @@ public class SequenceBuilder {
     return this;
   }
 
-
-  /**
-   * Add pattern.
-   *
-   * @param tick tick
-   * @param pattern pattern
-   * @return sequence builder
-   * @throws OdinException exception
-   */
-  public SequenceBuilder addPattern(Tick tick, int pattern) throws OdinException {
-    return addPattern(tick, pattern, createNote(note, velocity, 1));
+  public SequenceBuilder withLength(int length) {
+    this.length = length;
+    return this;
   }
 
   /**
@@ -109,16 +127,25 @@ public class SequenceBuilder {
    *
    * @param tick tick
    * @param pattern pattern
-   * @param defaultNote default note
    * @return sequence builder
-   * @throws OdinException exception
    */
-  public SequenceBuilder addPattern(Tick tick, int pattern, Note defaultNote)
-      throws OdinException {
-    Pattern sequence = createPattern();
+  public SequenceBuilder addPattern(Tick tick, int pattern) {
+    return addPattern(tick, pattern, createNote(note, velocity,
+        DEFAULT_DURATION));
+  }
+
+  /**
+   * Add pattern.
+   *
+   * @param tick tick
+   * @param pattern pattern
+   * @return sequence builder
+   */
+  private SequenceBuilder addPattern(Tick tick, int pattern, Note note) {
+    Pattern sequence = withDefaults(createPattern());
     sequence.setBits(pattern);
-    sequence.setTick(createTick(tick));
-    sequence.setNote(defaultNote);
+    sequence.setTick(withDefaults(createTick(tick)));
+    sequence.setNote(note);
 
     project.addSequence(applyParameters(sequence));
     return this;
@@ -127,6 +154,7 @@ public class SequenceBuilder {
   private Sequence<Note> applyParameters(MutableSequence<Note> sequence) {
     sequence.setOffset(0);
     sequence.setChannel(channel);
+    sequence.setLength(length);
     return sequence;
   }
 }

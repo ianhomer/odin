@@ -1,5 +1,6 @@
 package com.purplepip.odin.server.rest.domain;
 
+import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.Tick;
 import lombok.Data;
@@ -36,5 +37,15 @@ public class PersistableMetronome implements Metronome {
   @Override
   public void setTick(Tick tick) {
     this.tick = (PersistableTick) tick;
+  }
+
+  @Override
+  public void setNoteBarStart(Note note) {
+    this.noteBarStart = (PersistableNote) note;
+  }
+
+  @Override
+  public void setNoteMidBar(Note note) {
+    this.noteMidBar = (PersistableNote) note;
   }
 }

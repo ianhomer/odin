@@ -1,7 +1,6 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.sequence.AbstractSequence;
 
 /**
@@ -13,10 +12,6 @@ public class DefaultPattern extends AbstractSequence<Note> implements Pattern {
    */
   private int bits;
   private Note note;
-
-  public DefaultPattern() {
-    setFlowName(PatternFlow.class.getName());
-  }
 
   @Override
   public void setBits(int bits) {

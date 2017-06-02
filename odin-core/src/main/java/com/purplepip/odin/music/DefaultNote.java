@@ -8,18 +8,6 @@ public class DefaultNote implements Note {
   private int velocity;
   private long duration;
 
-  public DefaultNote() {
-    this(60);
-  }
-
-  public DefaultNote(int number) {
-    this(number, 40);
-  }
-
-  public DefaultNote(int number, int velocity) {
-    this(number, velocity, 1);
-  }
-
   /**
    * Create a default note.
    *

@@ -14,10 +14,14 @@ public interface Metronome extends MutableSequence<Note> {
    */
   Note getNoteBarStart();
 
+  void setNoteBarStart(Note note);
+
   /**
    * Get note for mid bar.
    *
    * @return note
    */
   Note getNoteMidBar();
+
+  void setNoteMidBar(Note note);
 }

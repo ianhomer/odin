@@ -24,10 +24,11 @@ public class OdinSequencerTest {
     CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
     OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
     new SequenceBuilder(sequencer.getProject())
+        .withLength(8)
         .addMetronome();
     sequencer.start();
 
-    while (sequencer.getClock().getCurrentBeat() < 8) {
+    while (sequencer.getClock().getCurrentBeat() < 12) {
       try {
         Thread.sleep(10);
       } catch (InterruptedException e) {

@@ -59,7 +59,6 @@ public abstract class MutableSequenceRuntime<S extends Sequence, A> implements S
    * Reload the sequence runtime.
    */
   private void reload() {
-    LOG.debug("Reloading runtime sequence");
     tick = new DefaultRuntimeTick(sequence.getTick());
     TickConverter converter = new SameTimeUnitTickConverter(RuntimeTicks.BEAT,
         getTick());
@@ -67,6 +66,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence, A> implements S
     // FIX : Currently reload resets tock to start of sequencer - we should set it to now
     tock = new MutableTock(getSequence().getTick(), 0);
     sealedTock = new SealedTock(tock);
+    LOG.debug("Reloading runtime sequence : length = {} {}", length, tick);
   }
 
   protected abstract Event<A> getNextEvent(Tock tock);
@@ -76,7 +76,8 @@ public abstract class MutableSequenceRuntime<S extends Sequence, A> implements S
   }
 
   private boolean isActive() {
-    return tock.getCount() < getLength();
+    LOG.trace("isActive {} : {} < {}", getLength(), tock.getCount(), getLength());
+    return getLength() < 0 || tock.getCount() < getLength();
   }
 
   private Event<A> getNextEventInternal(MutableTock tock) {
@@ -97,7 +98,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence, A> implements S
 
   @Override
   public Event<A> peek() {
-    if (nextEvent == null) {
+    if (isActive() && nextEvent == null) {
       nextEvent = getNextEventInternal(tock);
     }
     return nextEvent;
@@ -106,7 +107,7 @@ public abstract class MutableSequenceRuntime<S extends Sequence, A> implements S
   @Override
   public Event<A> pop() {
     Event<A> thisEvent = nextEvent;
-    if (length < 0 || isActive()) {
+    if (isActive()) {
       nextEvent = getNextEventInternal(tock);
     } else {
       nextEvent = null;

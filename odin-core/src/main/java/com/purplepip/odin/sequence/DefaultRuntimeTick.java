@@ -43,4 +43,9 @@ public class DefaultRuntimeTick implements RuntimeTick {
   public int getFactorAsInt() {
     return factorAsInt;
   }
+
+  @Override public String toString() {
+    return DefaultRuntimeTick.class.getSimpleName()
+        + "(" + this.getNumerator() + "/" + this.getDenominator() + " " + this.getTimeUnit() + ")";
+  }
 }

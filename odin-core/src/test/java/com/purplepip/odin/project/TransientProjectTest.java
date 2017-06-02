@@ -5,9 +5,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.DefaultMetronome;
+import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequencer.SequenceBuilder;
 import org.junit.Test;
 
 /**
@@ -18,9 +21,9 @@ public class TransientProjectTest {
 
   @Test
   public void testAddSequence() {
-    Sequence<Note> pattern = new DefaultMetronome();
     Project project = new TransientProject();
-    project.addSequence(pattern);
+    SequenceBuilder builder = new SequenceBuilder(project);
+    builder.addMetronome();
     int count = 0;
     Sequence<Note> sequence1 = null;
     for (Sequence<Note> sequence : project.getSequences()) {
@@ -30,7 +33,7 @@ public class TransientProjectTest {
       count++;
     }
     assertEquals("Expected sequence count not correct", EXPECTED_SEQUENCE_COUNT, count);
-    assertEquals("First sequence not as expected", pattern, sequence1);
+    assertEquals("First sequence not as expected", DefaultMetronome.class, sequence1.getClass());
   }
 
   @Test
