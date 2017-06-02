@@ -6,19 +6,23 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="common_test_logging" />
         <module name="odin-checkstyle" />
         <module name="odin-core" />
         <module name="odin-server" />
         <module name="tile-code-coverage" />
+        <module name="tile-logging" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="common_test_logging" target="1.8" />
       <module name="maven-code-coverage-tile" target="1.5" />
       <module name="odin" target="1.8" />
       <module name="odin-checkstyle" target="1.8" />
       <module name="odin-core" target="1.8" />
       <module name="odin-server" target="1.8" />
       <module name="tile-code-coverage" target="1.5" />
+      <module name="tile-logging" target="1.5" />
       <module name="tiles" target="1.5" />
     </bytecodeTargetLevel>
   </component>

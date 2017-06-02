@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <properties>
+    <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
+    <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.purplepip</groupId>
+      <artifactId>common_test_logging</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>${purplepip.tests.log.jvm}</argLine>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

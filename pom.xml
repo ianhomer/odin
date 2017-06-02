@@ -16,6 +16,7 @@
     <module>odin-checkstyle</module>
     <module>odin-core</module>
     <module>odin-server</module>
+    <module>common_test_logging</module>
   </modules>
 
   <url>http://purplepip.com</url>

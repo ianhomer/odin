@@ -8,7 +8,8 @@
   <name>PurplePip Maven Tiles Parent POM</name>
 
   <modules>
-      <module>tile-code-coverage</module>
+    <module>tile-code-coverage</module>
+    <module>tile-logging</module>
   </modules>
 
 </project>

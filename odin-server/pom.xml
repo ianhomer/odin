@@ -144,6 +144,7 @@
           <filtering>true</filtering>
           <tiles>
             <tile>com.purplepip:tile-code-coverage:1.0-SNAPSHOT</tile>
+            <tile>com.purplepip:tile-logging:1.0-SNAPSHOT</tile>
           </tiles>
         </configuration>
       </plugin>
