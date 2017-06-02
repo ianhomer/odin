@@ -136,7 +136,6 @@ public class MidiDeviceWrapper implements AutoCloseable {
     public void run() {
       // FIX : https://github.com/ianhomer/odin/issues/1
       LOG.debug("Scanning MIDI devices");
-      new MidiSystemHelper().logInfo();
       Set<MidiDevice.Info> midiDevices = new MidiSystemWrapper().getMidiDeviceInfos();
       if (!midiDevices.equals(knownMidiDevices) || device == null) {
         LOG.debug("Refreshing MIDI device");

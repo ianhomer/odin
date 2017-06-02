@@ -49,9 +49,8 @@ public class DatabaseLoader implements CommandLineRunner {
           throw new OdinRuntimeException("Tick must not be null");
         }
         this.repository.save((PersistablePattern) sequence);
-        LOG.info("Saved {}", sequence);
+        LOG.debug("Saved {}", sequence);
       }
     }
-
   }
 }

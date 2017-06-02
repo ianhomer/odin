@@ -1,11 +1,9 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.midix.MidiSystemHelper;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.sequencer.SequenceBuilder;
 import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -42,8 +40,6 @@ public class Application {
   @Bean
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
-      new MidiSystemHelper().logInfo();
-
       new PersistableSequenceBuilder(sequencer.getProject())
           .addMetronome()
           .addPattern(Ticks.BEAT, 2)
