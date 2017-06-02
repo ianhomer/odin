@@ -1,6 +1,5 @@
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.AbstractSequence;
 

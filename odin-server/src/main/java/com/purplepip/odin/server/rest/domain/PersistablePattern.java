@@ -1,7 +1,6 @@
 package com.purplepip.odin.server.rest.domain;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.Tick;
 import lombok.Data;
