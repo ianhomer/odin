@@ -9,8 +9,8 @@ import com.purplepip.odin.sequence.AbstractSequence;
  */
 public class DefaultPattern extends AbstractSequence<Note> implements Pattern {
   /*
- * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
- */
+   * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
+   */
   private int bits;
   private Note note;
 
@@ -18,20 +18,23 @@ public class DefaultPattern extends AbstractSequence<Note> implements Pattern {
     setFlowName(PatternFlow.class.getName());
   }
 
+  @Override
   public void setBits(int bits) {
     this.bits = bits;
   }
 
+  @Override
   public int getBits() {
     return bits;
   }
 
+  @Override
   public void setNote(Note note) {
     this.note = note;
   }
 
+  @Override
   public Note getNote() {
     return note;
   }
-
 }

@@ -28,6 +28,7 @@ public class DefaultMetronome extends AbstractSequence<Note> implements Metronom
    *
    * @return note
    */
+  @Override
   public Note getNoteBarStart() {
     return noteBarStart;
   }
@@ -37,6 +38,7 @@ public class DefaultMetronome extends AbstractSequence<Note> implements Metronom
    *
    * @return note
    */
+  @Override
   public Note getNoteMidBar() {
     return noteMidBar;
   }
