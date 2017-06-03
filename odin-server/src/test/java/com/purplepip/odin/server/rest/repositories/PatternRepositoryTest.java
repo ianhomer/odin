@@ -9,7 +9,6 @@ import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * Pattern repository test.
  */
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@DataJpaTest(showSql = false)
 public class PatternRepositoryTest {
   private static final Logger LOG = LoggerFactory.getLogger(PatternRepositoryTest.class);
 

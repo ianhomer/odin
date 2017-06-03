@@ -30,7 +30,7 @@ public class MidiSystemHelper {
     }
     return this;
   }
-  
+
   /**
    * Find a MIDI device by name.
    *
