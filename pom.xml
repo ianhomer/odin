@@ -145,6 +145,9 @@
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
+          <compilerArgs>
+            <arg>-Xlint:unchecked</arg>
+          </compilerArgs>
         </configuration>
         <executions>
           <execution>

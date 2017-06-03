@@ -7,6 +7,8 @@ import com.purplepip.odin.sequence.Sequence;
  * Factory to generate flow object for given sequence.
  */
 public class FlowFactory<A> {
+
+
   /**
    * Create flow object for the given sequence.
    *
@@ -14,6 +16,7 @@ public class FlowFactory<A> {
    * @return flow
    * @throws OdinException exception
    */
+  @SuppressWarnings("unchecked")
   public Flow<Sequence<A>, A> createFlow(Sequence<A> sequence) throws OdinException {
     Class<? extends MutableFlow<Sequence<A>, A>> flowClass;
     try {
