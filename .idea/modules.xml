@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/common_test_logging/common_test_logging.iml" filepath="$PROJECT_DIR$/common_test_logging/common_test_logging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logcapture/logcapture.iml" filepath="$PROJECT_DIR$/logcapture/logcapture.iml" />
       <module fileurl="file://$PROJECT_DIR$/tiles/tile-code-coverage/maven-code-coverage-tile.iml" filepath="$PROJECT_DIR$/tiles/tile-code-coverage/maven-code-coverage-tile.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin.iml" filepath="$PROJECT_DIR$/odin.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin-checkstyle/odin-checkstyle.iml" filepath="$PROJECT_DIR$/odin-checkstyle/odin-checkstyle.iml" />

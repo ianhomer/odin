@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common_test_logging" />
+        <module name="logcapture" />
         <module name="odin-checkstyle" />
         <module name="odin-core" />
         <module name="odin-server" />
@@ -16,6 +17,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common_test_logging" target="1.8" />
+      <module name="logcapture" target="1.8" />
       <module name="maven-code-coverage-tile" target="1.5" />
       <module name="odin" target="1.8" />
       <module name="odin-checkstyle" target="1.8" />

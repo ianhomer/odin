@@ -5,10 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.logcapture.LogCapture;
+
 import javax.sound.midi.Instrument;
 
 import org.junit.Test;
-
 
 /**
  * Test synthesizer helper.
@@ -25,18 +26,24 @@ public class SynthesizerHelperTest {
   public void testLoadSoundbank() {
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
-    boolean result = synthesizerHelper.loadGervillSoundBank(
-        "soundbank-emg.sf2");
-    assertTrue("Cannot load emergency soundbank", result);
+    try (LogCapture logCapture = LogCapture.capture("ROOT")) {
+      boolean result = synthesizerHelper.loadGervillSoundBank(
+          "soundbank-emg.sf2");
+      assertTrue("Cannot load emergency soundbank", result);
+      assertEquals(1, logCapture.size());
+    }
   }
 
   @Test
   public void testLoadMissingSoundbank() {
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
-    boolean result = synthesizerHelper.loadGervillSoundBank(
-        "soundbank-that-is-missing.sf2");
-    assertFalse("Should not be able to load missing soundbank", result);
+    try (LogCapture logCapture = LogCapture.capture("ROOT")) {
+      boolean result = synthesizerHelper.loadGervillSoundBank(
+          "soundbank-that-is-missing.sf2");
+      assertFalse("Should not be able to load missing soundbank", result);
+      assertEquals(1, logCapture.size());
+    }
   }
 
   @Test
