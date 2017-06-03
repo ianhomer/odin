@@ -25,7 +25,7 @@ public class MidiSystemHelper {
    */
   public MidiSystemHelper logInfo() {
     for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(),
+      LOG.debug("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(),
           info.getDescription());
     }
     return this;
@@ -43,7 +43,7 @@ public class MidiSystemHelper {
       throws OdinException {
     MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher);
     if (midiDevice != null) {
-      LOG.info("Found MIDI device : {} ; {}", midiDeviceMatcher, midiDevice.getClass().getName());
+      LOG.debug("Found MIDI device : {} ; {}", midiDeviceMatcher, midiDevice.getClass().getName());
       try {
         midiDevice.open();
       } catch (MidiUnavailableException e) {

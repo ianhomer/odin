@@ -40,7 +40,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
     MidiDeviceScanner scanner = new MidiDeviceScanner();
     scanner.run();
     if (scan) {
-      LOG.info("MIDI Device scanning enabled");
+      LOG.debug("MIDI Device scanning enabled");
       scheduledPool.scheduleWithFixedDelay(scanner, 0, 1, TimeUnit.SECONDS);
     }
   }
@@ -73,7 +73,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
     if (instrument == null) {
       throw new OdinException("Cannot find instrument " + instrumentName);
     }
-    LOG.info("Instrument name {} resolves to {} bank {} program {}", instrumentName,
+    LOG.debug("Instrument name {} resolves to {} bank {} program {}", instrumentName,
         instrument.getName(),
         instrument.getPatch().getBank(), instrument.getPatch().getProgram());
     changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
@@ -103,7 +103,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
     } catch (MidiUnavailableException | InvalidMidiDataException e) {
       LOG.error("Cannot change synthesizer instruments", e);
     }
-    LOG.info("Changed channel {} to program {}", channel, program);
+    LOG.debug("Changed channel {} to program {}", channel, program);
   }
 
   /**

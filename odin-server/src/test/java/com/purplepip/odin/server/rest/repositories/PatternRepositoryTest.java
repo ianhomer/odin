@@ -55,13 +55,9 @@ public class PatternRepositoryTest {
 
     builder.addPattern(Ticks.BEAT, 9876);
     for (Sequence<Note> sequence : project.getSequences()) {
-      LOG.info("Saving {}", sequence);
       entityManager.persist(sequence);
     }
     patterns = repository.findByChannel(0);
-    for (Sequence<Note> sequence : project.getSequences()) {
-      LOG.info("Saved sequence {}", sequence);
-    }
     assertThat(patterns.size()).isEqualTo(1);
     Pattern pattern = patterns.get(0);
     assertThat(pattern.getBits()).isEqualTo(9876);
