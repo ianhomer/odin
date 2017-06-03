@@ -12,12 +12,12 @@
   <name>Odin</name>
 
   <modules>
+    <module>common-test-logging</module>
+    <module>log-capture</module>
     <module>tiles</module>
     <module>odin-checkstyle</module>
     <module>odin-core</module>
     <module>odin-server</module>
-    <module>common_test_logging</module>
-    <module>logcapture</module>
   </modules>
 
   <url>http://purplepip.com</url>
