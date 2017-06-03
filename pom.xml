@@ -12,9 +12,9 @@
   <name>Odin</name>
 
   <modules>
+    <module>tiles</module>
     <module>common-test-logging</module>
     <module>log-capture</module>
-    <module>tiles</module>
     <module>odin-checkstyle</module>
     <module>odin-core</module>
     <module>odin-server</module>

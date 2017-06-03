@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>common_test_logging</artifactId>
+  <artifactId>common-test-logging</artifactId>
   <name>Purple Pip Common Test Logging</name>
   <packaging>jar</packaging>
 

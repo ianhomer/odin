@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>logcapture</artifactId>
+  <artifactId>log-capture</artifactId>
   <name>Purple Pip Log Capture</name>
   <packaging>jar</packaging>
 
