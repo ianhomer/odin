@@ -9,8 +9,6 @@
       <module fileurl="file://$PROJECT_DIR$/odin-checkstyle/odin-checkstyle.iml" filepath="$PROJECT_DIR$/odin-checkstyle/odin-checkstyle.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin-core/odin-core.iml" filepath="$PROJECT_DIR$/odin-core/odin-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin-server/odin-server.iml" filepath="$PROJECT_DIR$/odin-server/odin-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tiles/tile-code-coverage/tile-code-coverage.iml" filepath="$PROJECT_DIR$/tiles/tile-code-coverage/tile-code-coverage.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tiles/tile-logging/tile-logging.iml" filepath="$PROJECT_DIR$/tiles/tile-logging/tile-logging.iml" />
     </modules>
   </component>
 </project>

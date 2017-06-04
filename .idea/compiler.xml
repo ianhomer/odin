@@ -13,8 +13,6 @@
         <module name="odin-checkstyle" />
         <module name="odin-core" />
         <module name="odin-server" />
-        <module name="tile-code-coverage" />
-        <module name="tile-logging" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
