@@ -15,6 +15,7 @@
 
   <properties>
     <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
+    <start-class>com.purplepip.odin.server.Application</start-class>
   </properties>
 
   <dependencyManagement>
@@ -114,12 +115,32 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${start-class}</mainClass>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring.boot.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <addResources>true</addResources>
           <jvmArguments>-Dlogback.debug=true</jvmArguments>
+          <mainClass>${start-class}</mainClass>
         </configuration>
       </plugin>
     </plugins>
