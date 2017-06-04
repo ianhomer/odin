@@ -3,10 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.2.RELEASE</version>
-    <relativePath/>
+    <artifactId>odin</artifactId>
+    <groupId>com.purplepip</groupId>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -21,21 +20,17 @@
     <logback.version>1.2.3</logback.version>
     <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
     <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
+    <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.purplepip</groupId>
-        <artifactId>odin</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <scope>import</scope>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring.boot.version}</version>
         <type>pom</type>
-      </dependency>
-      <dependency>
-        <groupId>com.purplepip</groupId>
-        <artifactId>odin-core</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -143,6 +138,7 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring.boot.version}</version>
         <configuration>
           <addResources>true</addResources>
           <jvmArguments>-Dlogback.debug=true</jvmArguments>

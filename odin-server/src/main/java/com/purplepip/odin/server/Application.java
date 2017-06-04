@@ -5,6 +5,8 @@ import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,9 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Odin Application.
@@ -37,6 +36,12 @@ public class Application {
     SpringApplication.run(Application.class, args);
   }
 
+  /**
+   * Commands to execute on start up.
+   *
+   * @param ctx spring application context
+   * @return command line runner
+   */
   @Bean
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {

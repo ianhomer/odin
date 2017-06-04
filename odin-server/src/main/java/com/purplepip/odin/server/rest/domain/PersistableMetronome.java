@@ -3,14 +3,13 @@ package com.purplepip.odin.server.rest.domain;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.Tick;
-import lombok.Data;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.Data;
 
 /**
  * Persistable metronome.

@@ -5,11 +5,11 @@ import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.MidiSystemWrapper;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
-import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
-import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequencer.OdinSequencer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,6 +33,14 @@ public class OdinConfiguration {
     return new MidiSystemWrapper();
   }
 
+  /**
+   * Create Odin sequencer.
+   *
+   * @param measureProvider measure provider
+   * @param midiDeviceWrapper MIDI device wrapper
+   * @return Odin sequencer
+   * @throws OdinException exception
+   */
   @Bean
   public OdinSequencer odinSequencer(MeasureProvider measureProvider,
                                      MidiDeviceWrapper midiDeviceWrapper) throws OdinException {
@@ -41,7 +49,8 @@ public class OdinConfiguration {
             .setBeatsPerMinute(new StaticBeatsPerMinute(120))
             .setMeasureProvider(measureProvider)
             .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
-            .setMicrosecondPositionProvider(new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
+            .setMicrosecondPositionProvider(
+                new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
   }
 }

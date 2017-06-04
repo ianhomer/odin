@@ -2,13 +2,12 @@ package com.purplepip.odin.server.rest.domain;
 
 import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequence.TimeUnit;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Persistable tick.
@@ -25,6 +24,11 @@ public class PersistableTick implements Tick {
   private int numerator;
   private int denominator;
 
+  /**
+   * Create a persistable tick.
+   *
+   * @param tick tick to copy parameters from
+   */
   public PersistableTick(Tick tick) {
     timeUnit = tick.getTimeUnit();
     numerator = tick.getNumerator();

@@ -9,6 +9,7 @@ import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,19 +18,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Pattern repository test.
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
 public class PatternRepositoryTest {
-  private static final Logger LOG = LoggerFactory.getLogger(PatternRepositoryTest.class);
-
   @Autowired
   private TestEntityManager entityManager;
 
@@ -39,6 +33,9 @@ public class PatternRepositoryTest {
   private TransientProject project;
   private PersistableSequenceBuilder builder;
 
+  /**
+   * Set up.
+   */
   @Before
   public void setUp() {
     project = new TransientProject();
