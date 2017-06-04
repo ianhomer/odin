@@ -28,7 +28,7 @@
     </dependency>
     <dependency>
       <groupId>com.purplepip</groupId>
-      <artifactId>common_test_logging</artifactId>
+      <artifactId>common-test-logging</artifactId>
       <version>1.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
