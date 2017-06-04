@@ -14,12 +14,6 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <java.version>1.8</java.version>
-
-    <jacoco.version>0.7.9</jacoco.version>
-    <logback.version>1.2.3</logback.version>
-    <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
-    <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
     <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
   </properties>
 
@@ -120,22 +114,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring.boot.version}</version>
@@ -144,50 +122,6 @@
           <jvmArguments>-Dlogback.debug=true</jvmArguments>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <argLine>@{argLine} ${purplepip.tests.log.jvm} -Dlogback.debug=true</argLine>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco.version}</version>
-        <executions>
-          <execution>
-            <id>pre-test</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>post-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>quick</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <skipTests>true</skipTests>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
