@@ -3,9 +3,10 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
-
 import java.util.PriorityQueue;
-
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +20,14 @@ import org.slf4j.LoggerFactory;
 public class DefaultOperationProcessor implements OperationProcessor {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultOperationProcessor.class);
 
-  private boolean exit = false;
   private long refreshPeriod = 10;
   private long forwardPollingTime = refreshPeriod * 1000 * 5;
   private PriorityQueue<OperationEvent> queue = new PriorityQueue<>(127,
       new OperationEventComparator());
   private MicrosecondPositionProvider microsecondPositionProvider;
   private OperationReceiver operationReceiver;
+  private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
+  private DefaultOperationProcessorExecutor executor = new DefaultOperationProcessorExecutor();
 
   /**
    * Create an operation processor.
@@ -43,6 +45,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }
     this.operationReceiver = operationReceiver;
+    scheduledPool.scheduleWithFixedDelay(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
   }
 
   @Override
@@ -52,16 +55,22 @@ public class DefaultOperationProcessor implements OperationProcessor {
   }
 
   @Override
-  public void run() {
-    while (!exit) {
+  public void close() {
+    scheduledPool.shutdown();
+  }
+
+  class DefaultOperationProcessorExecutor implements Runnable {
+    @Override
+    public void run() {
       OperationEvent nextEvent = queue.peek();
       long microsecondPosition = microsecondPositionProvider.getMicrosecondPosition();
-      while (nextEvent != null && nextEvent.getTime() < microsecondPosition + forwardPollingTime) {
+      while (nextEvent != null && nextEvent.getTime()
+          < microsecondPosition + forwardPollingTime) {
         nextEvent = queue.poll();
         if (nextEvent == null) {
           LOG.error("Next event in queue is null, where did it go?");
         } else {
-          LOG.trace("Send operation {} at time {} ; device time {}", nextEvent.getOperation(),
+          LOG.debug("Send operation {} at time {} ; device time {}", nextEvent.getOperation(),
               nextEvent.getTime(), microsecondPosition);
           try {
             operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
@@ -70,19 +79,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
           }
         }
       }
-
-      try {
-        Thread.sleep(refreshPeriod);
-      } catch (InterruptedException e) {
-        LOG.error("Thread interrupted", e);
-        Thread.currentThread().interrupt();
-      }
-
     }
   }
 
-  @Override
-  public void stop() {
-    exit = true;
-  }
 }
