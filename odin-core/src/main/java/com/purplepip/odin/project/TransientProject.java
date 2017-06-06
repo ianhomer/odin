@@ -1,12 +1,9 @@
 package com.purplepip.odin.project;
 
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Sequence;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
