@@ -54,6 +54,8 @@
     <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
     <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
     <slf4j.version>1.7.25</slf4j.version>
+    <!-- #4 workaround -->
+    <sonar.coverage.exclusions>**/domain/*</sonar.coverage.exclusions>
   </properties>
 
   <dependencyManagement>
@@ -221,7 +223,10 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco.version}</version>
         <configuration>
-
+          <excludes>
+            <!-- #4 workaround -->
+            <exclude>**/domain/*</exclude>
+          </excludes>
         </configuration>
         <executions>
           <execution>
