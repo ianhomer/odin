@@ -4,7 +4,6 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Event;
-import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.SequenceRuntime;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -26,7 +25,6 @@ public class SequenceProcessor {
   private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
   private int maxNotesPerBuffer = 1000;
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
-  private SequenceProcessorExecutor executor = new SequenceProcessorExecutor();
 
   /**
    * Create a series processor.
@@ -42,6 +40,7 @@ public class SequenceProcessor {
     this.clock = clock;
     this.operationProcessor = operationProcessor;
 
+    SequenceProcessorExecutor executor = new SequenceProcessorExecutor();
     scheduledPool.scheduleWithFixedDelay(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
   }
 
@@ -67,42 +66,49 @@ public class SequenceProcessor {
       long microsecondPosition = clock.getMicrosecondPosition();
       int noteCountThisBuffer = 0;
       for (SequenceTrack sequenceTrack : sequenceTrackSet) {
-        SequenceRuntime<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
-        LOG.trace("Processing sequenceRuntime {} for device at position {}", sequenceRuntime,
+        LOG.trace("Processing sequenceRuntime {} for device at position {}",
+            sequenceTrack.getSequenceRuntime(),
             microsecondPosition);
         if (noteCountThisBuffer > maxNotesPerBuffer) {
           LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
               maxNotesPerBuffer);
           break;
         }
-        if (sequenceRuntime.peek() != null) {
-          Event<Note> nextEvent = sequenceRuntime.peek();
-          while (nextEvent != null && nextEvent.getTime()
-              < microsecondPosition + timeBufferInMicroSeconds) {
-            if (noteCountThisBuffer > maxNotesPerBuffer) {
-              LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
-                  maxNotesPerBuffer);
-              break;
-            }
-            /*
-             * Pop event to get it off the buffer.
-             */
-            nextEvent = sequenceRuntime.pop();
-            LOG.trace("Processing Event {}", nextEvent);
-            if (nextEvent.getTime() < microsecondPosition) {
-              LOG.debug("Skipping event, too late to process {} < {}", nextEvent.getTime(),
-                  microsecondPosition);
-            } else {
-              sendToProcessor(nextEvent.getValue(), nextEvent, sequenceTrack);
-            }
-            noteCountThisBuffer++;
-            nextEvent = sequenceRuntime.peek();
-            LOG.trace("Next event {}", nextEvent);
-          }
-        } else {
-          LOG.debug("No event on sequenceRuntime");
-        }
+        noteCountThisBuffer += process(sequenceTrack, microsecondPosition);
       }
+    }
+
+    private int process(SequenceTrack sequenceTrack, long microsecondPosition) {
+      int noteCount = 0;
+      SequenceRuntime<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
+      if (sequenceRuntime.peek() != null) {
+        Event<Note> nextEvent = sequenceRuntime.peek();
+        while (nextEvent != null && nextEvent.getTime()
+            < microsecondPosition + timeBufferInMicroSeconds) {
+          if (noteCount > maxNotesPerBuffer) {
+            LOG.debug("Too many notes in this buffer {} > {} ", noteCount,
+                maxNotesPerBuffer);
+            return noteCount;
+          }
+          /*
+           * Pop event to get it off the buffer.
+           */
+          nextEvent = sequenceRuntime.pop();
+          LOG.trace("Processing Event {}", nextEvent);
+          if (nextEvent.getTime() < microsecondPosition) {
+            LOG.debug("Skipping event, too late to process {} < {}", nextEvent.getTime(),
+                microsecondPosition);
+          } else {
+            sendToProcessor(nextEvent.getValue(), nextEvent, sequenceTrack);
+          }
+          noteCount++;
+          nextEvent = sequenceRuntime.peek();
+          LOG.trace("Next event {}", nextEvent);
+        }
+      } else {
+        LOG.debug("No event on sequenceRuntime");
+      }
+      return noteCount;
     }
 
     private void sendToProcessor(Note note, Event<Note> nextEvent, SequenceTrack sequenceTrack) {

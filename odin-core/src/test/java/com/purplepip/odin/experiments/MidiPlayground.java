@@ -48,11 +48,6 @@ public class MidiPlayground {
       receiver = MidiSystem.getReceiver();
       LOG.info("Receiver : " + receiver);
       receiver.send(middleD, -1);
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        LOG.error("Sleep interrupted", e);
-      }
       receiver.send(middleDOff, -1);
       LOG.info("Sent note");
     } catch (MidiUnavailableException e) {
@@ -106,11 +101,6 @@ public class MidiPlayground {
 
     }
 
-    try {
-      Thread.sleep(5000);
-    } catch (InterruptedException e) {
-      LOG.error("Sleep interrupted", e);
-    }
     LOG.info("... stopping");
   }
 

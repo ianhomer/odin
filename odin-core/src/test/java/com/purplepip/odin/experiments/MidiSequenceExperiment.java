@@ -12,7 +12,11 @@ import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.sequencer.OperationReceiver;
+import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import com.purplepip.odin.sequencer.SequenceBuilder;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +31,7 @@ public class MidiSequenceExperiment {
    *
    * @param args arguments
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     MidiSequenceExperiment experiment = new MidiSequenceExperiment();
     try {
       experiment.doExperiment();
@@ -36,7 +40,12 @@ public class MidiSequenceExperiment {
     }
   }
 
-  private void doExperiment() throws OdinException {
+  private void doExperiment() throws OdinException, InterruptedException {
+    final CountDownLatch lock = new CountDownLatch(200);
+
+    OperationReceiver operationReceiver = (operation, time) -> {
+      lock.countDown();
+    };
 
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
@@ -48,7 +57,11 @@ public class MidiSequenceExperiment {
           new DefaultOdinSequencerConfiguration()
               .setBeatsPerMinute(new StaticBeatsPerMinute(120))
               .setMeasureProvider(measureProvider)
-              .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
+              .setOperationReceiver(
+                  new OperationReceiverCollection(
+                      new MidiOperationReceiver(midiDeviceWrapper),
+                      operationReceiver)
+              )
               .setMicrosecondPositionProvider(
                   new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
@@ -86,9 +99,9 @@ public class MidiSequenceExperiment {
       sequencer.start();
 
       try {
-        Thread.sleep(6000);
-      } catch (InterruptedException e) {
-        LOG.error("Sleep interrupted", e);
+        lock.await(5000, TimeUnit.MILLISECONDS);
+      } finally {
+        sequencer.stop();
       }
       LOG.info("... stopping");
     } finally {
