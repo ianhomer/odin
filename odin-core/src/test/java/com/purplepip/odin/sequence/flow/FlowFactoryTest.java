@@ -24,13 +24,13 @@ public class FlowFactoryTest {
     TransientProject project = new TransientProject();
     SequenceBuilder builder = new SequenceBuilder(project);
     builder.addMetronome();
-    Flow<Sequence<Note>, Note> flow =
+    Flow<Sequence, Note> flow =
         flowFactory.createFlow(project.getSequences().iterator().next());
     assertEquals("MetronomeFlow", flow.getClass().getSimpleName());
   }
 
   @Mock
-  private Sequence<Note> sequence;
+  private Sequence sequence;
 
   @Test(expected = OdinException.class)
   public void testCreateFlowNotExists() throws OdinException {

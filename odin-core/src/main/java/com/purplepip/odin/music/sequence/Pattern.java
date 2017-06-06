@@ -6,7 +6,7 @@ import com.purplepip.odin.sequence.MutableSequence;
 /**
  * Pattern sequence configuration.
  */
-public interface Pattern extends MutableSequence<Note> {
+public interface Pattern extends MutableSequence {
   void setBits(int bits);
 
   int getBits();

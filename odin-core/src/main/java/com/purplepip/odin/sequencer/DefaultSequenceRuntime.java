@@ -11,9 +11,9 @@ import com.purplepip.odin.sequence.flow.Flow;
  * Default sequence runtime.
  */
 public class DefaultSequenceRuntime extends MutableSequenceRuntime<Sequence, Note> {
-  private Flow<Sequence<Note>, Note> flow;
+  private Flow<Sequence, Note> flow;
 
-  public DefaultSequenceRuntime(Flow<Sequence<Note>, Note> flow) {
+  public DefaultSequenceRuntime(Flow<Sequence, Note> flow) {
     this.flow = flow;
   }
 

@@ -1,6 +1,5 @@
 package com.purplepip.odin.project;
 
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Sequence;
 
 /**
@@ -12,14 +11,14 @@ public interface Project {
    *
    * @param sequence sequence
    */
-  void addSequence(Sequence<Note> sequence);
+  void addSequence(Sequence sequence);
 
   /**
    * Get iterable of the sequences stored in this project.
    *
    * @return iterable of sequences
    */
-  Iterable<Sequence<Note>> getSequences();
+  Iterable<Sequence> getSequences();
 
   /**
    * Apply project configuration.

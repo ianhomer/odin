@@ -6,7 +6,7 @@ import com.purplepip.odin.sequence.AbstractSequence;
 /**
  * Default implementation of pattern.
  */
-public class DefaultPattern extends AbstractSequence<Note> implements Pattern {
+public class DefaultPattern extends AbstractSequence implements Pattern {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */

@@ -21,7 +21,7 @@ public class FlowFactoryUnconstructibleTest {
   public ExpectedException exception = ExpectedException.none();
 
   @Mock
-  private Sequence<Note> sequence;
+  private Sequence sequence;
 
   @Test
   public void testCreateFlowCantInstantiate() throws OdinException {

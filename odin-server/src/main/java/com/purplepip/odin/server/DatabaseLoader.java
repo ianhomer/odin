@@ -1,7 +1,6 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Ticks;
@@ -39,7 +38,7 @@ public class DatabaseLoader implements CommandLineRunner {
         .addPattern(Ticks.EIGHTH, 127)
         .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
 
-    for (Sequence<Note> sequence : sequencer.getProject().getSequences()) {
+    for (Sequence sequence : sequencer.getProject().getSequences()) {
       if (sequence instanceof Pattern) {
         PersistablePattern persistablePattern = (PersistablePattern) sequence;
         if (persistablePattern.getNote() ==  null) {

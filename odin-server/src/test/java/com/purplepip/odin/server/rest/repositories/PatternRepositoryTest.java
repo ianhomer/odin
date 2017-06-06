@@ -3,7 +3,6 @@ package com.purplepip.odin.server.rest.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
@@ -51,7 +50,7 @@ public class PatternRepositoryTest {
     assertThat(patterns.size()).isEqualTo(0);
 
     builder.addPattern(Ticks.BEAT, 9876);
-    for (Sequence<Note> sequence : project.getSequences()) {
+    for (Sequence sequence : project.getSequences()) {
       entityManager.persist(sequence);
     }
     patterns = repository.findByChannel(0);

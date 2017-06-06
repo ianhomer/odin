@@ -5,10 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.DefaultMetronome;
-import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.SequenceBuilder;
 import org.junit.Test;
@@ -25,8 +22,8 @@ public class TransientProjectTest {
     SequenceBuilder builder = new SequenceBuilder(project);
     builder.addMetronome();
     int count = 0;
-    Sequence<Note> sequence1 = null;
-    for (Sequence<Note> sequence : project.getSequences()) {
+    Sequence sequence1 = null;
+    for (Sequence sequence : project.getSequences()) {
       if (count == 0) {
         sequence1 = sequence;
       }

@@ -60,12 +60,12 @@ public class OdinSequencer implements ProjectListener {
 
   private void refreshTracks() {
     sequenceTracks.clear();
-    for (Sequence<Note> sequence : configuration.getProject().getSequences()) {
+    for (Sequence sequence : configuration.getProject().getSequences()) {
       addSequenceTrack(sequence);
     }
   }
 
-  private void addSequenceTrack(Sequence<Note> sequence) {
+  private void addSequenceTrack(Sequence sequence) {
     DefaultSequenceRuntime sequenceRuntime;
     try {
       sequenceRuntime = createSequenceRuntime(
@@ -81,7 +81,7 @@ public class OdinSequencer implements ProjectListener {
   }
 
   private DefaultSequenceRuntime
-      createSequenceRuntime(Flow<Sequence<Note>, Note> flow) {
+      createSequenceRuntime(Flow<Sequence, Note> flow) {
     DefaultSequenceRuntime sequenceRuntime = new DefaultSequenceRuntime(flow);
     sequenceRuntime.setSequence(flow.getSequence());
     sequenceRuntime.setMeasureProvider(configuration.getMeasureProvider());

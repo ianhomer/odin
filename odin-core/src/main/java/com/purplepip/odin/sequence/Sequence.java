@@ -3,7 +3,7 @@ package com.purplepip.odin.sequence;
 /**
  * Persistable sequence configuration.
  */
-public interface Sequence<A> {
+public interface Sequence {
   Tick getTick();
 
   long getLength();

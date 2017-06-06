@@ -5,7 +5,7 @@ import com.purplepip.odin.sequence.Sequence;
 /**
  * Abstract logic class.
  */
-public abstract class AbstractFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> {
+public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow<S, A> {
   private S sequence;
 
   @Override

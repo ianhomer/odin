@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 public class TransientProject extends AbstractProject {
   private static final Logger LOG = LoggerFactory.getLogger(TransientProject.class);
 
-  private Set<Sequence<Note>> sequences = new HashSet<>();
+  private Set<Sequence> sequences = new HashSet<>();
 
   @Override
-  public void addSequence(Sequence<Note> sequence) {
+  public void addSequence(Sequence sequence) {
     LOG.debug("Adding sequence {} with time units {}",
         sequence.getClass().getSimpleName(),
         sequence.getTick().getClass().getSimpleName());
@@ -27,7 +27,7 @@ public class TransientProject extends AbstractProject {
   }
 
   @Override
-  public Iterable<Sequence<Note>> getSequences() {
+  public Iterable<Sequence> getSequences() {
     return Collections.unmodifiableSet(sequences);
   }
 }

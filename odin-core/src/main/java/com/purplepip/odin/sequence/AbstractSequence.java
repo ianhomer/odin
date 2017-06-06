@@ -3,7 +3,7 @@ package com.purplepip.odin.sequence;
 /**
  * Abstract sequence.
  */
-public abstract class AbstractSequence<A> implements MutableSequence<A> {
+public abstract class AbstractSequence implements MutableSequence {
   private Tick tick;
   private long length = -1;
   private long offset;

@@ -6,7 +6,7 @@ import com.purplepip.odin.sequence.AbstractSequence;
 /**
  * Default implementation of the Metronome.
  */
-public class DefaultMetronome extends AbstractSequence<Note> implements Metronome {
+public class DefaultMetronome extends AbstractSequence implements Metronome {
   private Note noteBarStart;
   private Note noteMidBar;
 

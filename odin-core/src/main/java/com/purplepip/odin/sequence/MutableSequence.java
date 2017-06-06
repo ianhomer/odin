@@ -3,7 +3,7 @@ package com.purplepip.odin.sequence;
 /**
  * Mutable sequence.
  */
-public interface MutableSequence<A> extends Sequence<A> {
+public interface MutableSequence extends Sequence {
   void setTick(Tick tick);
 
   void setLength(long length);

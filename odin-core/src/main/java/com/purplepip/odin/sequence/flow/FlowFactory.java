@@ -17,15 +17,15 @@ public class FlowFactory<A> {
    * @throws OdinException exception
    */
   @SuppressWarnings("unchecked")
-  public Flow<Sequence<A>, A> createFlow(Sequence<A> sequence) throws OdinException {
-    Class<? extends MutableFlow<Sequence<A>, A>> flowClass;
+  public Flow<Sequence, A> createFlow(Sequence sequence) throws OdinException {
+    Class<? extends MutableFlow<Sequence, A>> flowClass;
     try {
-      flowClass = (Class<? extends MutableFlow<Sequence<A>, A>>)
+      flowClass = (Class<? extends MutableFlow<Sequence, A>>)
           Class.forName(sequence.getFlowName());
     } catch (ClassNotFoundException e) {
       throw new OdinException("Cannot find class " + sequence.getFlowName(), e);
     }
-    MutableFlow<Sequence<A>, A> flow;
+    MutableFlow<Sequence, A> flow;
     try {
       flow = flowClass.newInstance();
     } catch (InstantiationException | IllegalAccessException e) {

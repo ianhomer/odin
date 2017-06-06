@@ -151,7 +151,7 @@ public class SequenceBuilder {
     return this;
   }
 
-  private Sequence<Note> applyParameters(MutableSequence<Note> sequence) {
+  private Sequence applyParameters(MutableSequence sequence) {
     sequence.setOffset(0);
     sequence.setChannel(channel);
     sequence.setLength(length);

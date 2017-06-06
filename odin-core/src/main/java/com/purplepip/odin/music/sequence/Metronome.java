@@ -6,7 +6,7 @@ import com.purplepip.odin.sequence.MutableSequence;
 /**
  * Metronome sequence configuration.
  */
-public interface Metronome extends MutableSequence<Note> {
+public interface Metronome extends MutableSequence {
   /**
    * Get note for the start of the bar.
    *
