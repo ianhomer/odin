@@ -97,8 +97,6 @@ public class OdinSequencer implements ProjectListener {
     Thread thread = new Thread(operationProcessor);
     thread.start();
     sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
-    thread = new Thread(sequenceProcessor);
-    thread.start();
   }
 
   public Clock getClock() {
@@ -110,7 +108,7 @@ public class OdinSequencer implements ProjectListener {
    */
   public void stop() {
     if (sequenceProcessor != null) {
-      sequenceProcessor.stop();
+      sequenceProcessor.close();
     }
     if (operationProcessor != null) {
       operationProcessor.stop();

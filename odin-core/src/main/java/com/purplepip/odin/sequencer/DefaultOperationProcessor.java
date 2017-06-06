@@ -70,6 +70,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
           }
         }
       }
+
       try {
         Thread.sleep(refreshPeriod);
       } catch (InterruptedException e) {
