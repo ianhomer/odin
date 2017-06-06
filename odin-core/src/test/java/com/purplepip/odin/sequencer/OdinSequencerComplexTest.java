@@ -6,16 +6,11 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequence.Ticks;
 import org.junit.Test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Complex sequencer test.  This is in a separate class to OdinSequencerTest to make
  * troubleshooting on failure easier.
  */
 public class OdinSequencerComplexTest {
-  private static final Logger LOG = LoggerFactory.getLogger(OdinSequencerComplexTest.class);
-
   @Test
   public void testComplexSequencer() throws OdinException {
     CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
@@ -41,7 +36,6 @@ public class OdinSequencerComplexTest {
     }
 
     sequencer.stop();
-    LOG.info("... stopped");
 
     assertTrue("Number of operations sent not correct",
         operationReceiver.getList().size() > 50);
