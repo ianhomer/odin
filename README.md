@@ -80,3 +80,10 @@ For performance I use a Nord Electro 5 and Nord Lead 4.
 # Sonar Analysis
 
     mvn clean verify sonar:sonar
+
+# Testing
+
+To test a single test from command line
+
+    mvn test -Dtest=LogCaptureTest -pl log-capture/
+    

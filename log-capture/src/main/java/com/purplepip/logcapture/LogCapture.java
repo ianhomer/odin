@@ -1,60 +1,29 @@
 package com.purplepip.logcapture;
 
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.Appender;
-import ch.qos.logback.core.read.ListAppender;
-import com.google.common.collect.ImmutableList;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
 
 /**
- * Log capture tool.
+ * Builder for a Log Capture class.
  */
-public class LogCapture implements AutoCloseable {
-  public static LogCapture capture(String category) {
-    return new LogCapture(category);
+public class LogCapture {
+  LogCaptureConfiguration configuration = new LogCaptureConfiguration();
+
+  public LogCapture debug() {
+    configuration.setLevel(Level.DEBUG);
+    return this;
   }
 
-  private ListAppender capturingAppender = new ListAppender();
-  private String category;
-  private LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-
-  private List<Appender<ILoggingEvent>> removedAppenders = new ArrayList<>();
-
-  private LogCapture(String category) {
-    this.category = category;
-    Logger logger = loggerContext.getLogger(category);
-
-    for (Appender<ILoggingEvent> appenderToRemove :
-        ImmutableList.copyOf(logger.iteratorForAppenders())) {
-      logger.detachAppender(appenderToRemove);
-      removedAppenders.add(appenderToRemove);
-    }
-
-    capturingAppender.setContext(loggerContext);
-    logger.addAppender(capturingAppender);
-    capturingAppender.start();
+  public LogCapture from(String category) {
+    configuration.setCategory(category);
+    return this;
   }
 
-  @Override
-  public void close() {
-    LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
-    Logger logger = loggerContext.getLogger(category);
-
-    capturingAppender.stop();
-    logger.detachAppender(capturingAppender);
-
-    for (Appender<ILoggingEvent> appender : removedAppenders) {
-      logger.addAppender(appender);
-    }
+  public LogCapture from(Class clazz) {
+    configuration.setCategory(clazz.getName());
+    return this;
   }
 
-  public int size() {
-    return capturingAppender.list.size();
+  public LogCaptor start() {
+    return new LogCaptor(configuration);
   }
 }

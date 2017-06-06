@@ -45,7 +45,6 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
 
-
     <jacoco.version>0.7.9</jacoco.version>
     <junit.version>4.12</junit.version>
     <guava.version>21.0</guava.version>
@@ -203,7 +202,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <argLine>@{argLine} ${purplepip.tests.log.jvm} -Dlogback.debug=true</argLine>
+          <argLine>@{jacoco.argLine} ${purplepip.tests.log.jvm} -Dlogback.debug=true</argLine>
         </configuration>
       </plugin>
       <plugin>
@@ -216,6 +215,9 @@
             <goals>
               <goal>prepare-agent</goal>
             </goals>
+            <configuration>
+              <propertyName>jacoco.argLine</propertyName>
+            </configuration>
           </execution>
           <execution>
             <id>post-test</id>
