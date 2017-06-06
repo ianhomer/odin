@@ -17,11 +17,10 @@ public class MidiDeviceInMatcher extends MidiDeviceNameStartsWithMatcher {
 
   @Override
   public boolean matches(MidiDevice device) {
-    // TODO : Provide test coverage and make sure that this also tests prefix.
     LOG.debug("Device {} max transmitters {}", device.getDeviceInfo().getName(),
         device.getMaxTransmitters());
     boolean result = device.getMaxTransmitters() > -1;
     LOG.debug("Device {} match {}", device.getDeviceInfo().getName(), result);
-    return result;
+    return result && super.matches(device);
   }
 }

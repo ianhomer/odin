@@ -19,7 +19,7 @@ public class MidiDeviceNameStartsWithMatcher implements MidiDeviceMatcher {
 
   @Override
   public boolean matches(MidiDevice device) {
-    return true;
+    return matches(device.getDeviceInfo());
   }
 
   @Override
