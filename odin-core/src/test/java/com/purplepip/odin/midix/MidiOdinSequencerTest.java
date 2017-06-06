@@ -6,11 +6,13 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
-import com.purplepip.odin.sequencer.CapturingOperationReceiver;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import com.purplepip.odin.sequencer.SequenceBuilder;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 
 /**
@@ -18,13 +20,18 @@ import org.junit.Test;
  */
 public class MidiOdinSequencerTest {
   @Test
-  public void testSequencer() throws OdinException {
+  public void testSequencer() throws OdinException, InterruptedException {
     try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(true)) {
-      CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
+      final CountDownLatch lock = new CountDownLatch(16);
+
+      OperationReceiver operationReceiver = (operation, time) -> {
+        lock.countDown();
+      };
+
       MeasureProvider measureProvider = new StaticMeasureProvider(4);
       OdinSequencer sequencer = new OdinSequencer(
           new DefaultOdinSequencerConfiguration()
-              .setBeatsPerMinute(new StaticBeatsPerMinute(120))
+              .setBeatsPerMinute(new StaticBeatsPerMinute(10000))
               .setMeasureProvider(measureProvider)
               .setOperationReceiver(
                   new OperationReceiverCollection(
@@ -32,23 +39,19 @@ public class MidiOdinSequencerTest {
                       new MidiOperationReceiver(midiDeviceWrapper)
                   )
               ).setMicrosecondPositionProvider(
-              new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
+                new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper))
+              );
 
       new SequenceBuilder(sequencer.getProject()).addMetronome();
       sequencer.start();
 
-      while (sequencer.getClock().getCurrentBeat() < 8) {
-        try {
-          Thread.sleep(10);
-        } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-        }
+      try {
+        lock.await(1000, TimeUnit.MILLISECONDS);
+      } finally {
+        sequencer.stop();
       }
 
-      sequencer.stop();
-
-      assertEquals("Number of operations sent not correct", 16,
-          operationReceiver.getList().size());
+      assertEquals("Not enough events fired", 0, lock.getCount());
     }
   }
 }

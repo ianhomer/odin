@@ -21,8 +21,9 @@ public class DefaultTickConverterTest {
   @Before
   public void before() {
     when(provider.getMicrosecondPosition()).thenReturn((long) 0);
-    clock = new Clock(new StaticBeatsPerMinute(120));
-    clock.start(provider, false);
+    clock = new Clock(new StaticBeatsPerMinute(120),
+        new DefaultMicrosecondPositionProvider(), 1000);
+    clock.start();
   }
 
   @Test

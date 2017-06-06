@@ -6,16 +6,13 @@ import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.MidiSystemHelper;
 import com.purplepip.odin.midix.SynthesizerHelper;
-import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.SequenceBuilder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,8 +99,5 @@ public class MidiSequenceExperiment {
         midiDeviceWrapper.close();
       }
     }
-
-
   }
-
 }

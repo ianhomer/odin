@@ -10,7 +10,6 @@ public class DefaultMicrosecondPositionProvider implements MicrosecondPositionPr
     microsecondsStart = System.nanoTime() / 1000;
   }
 
-
   @Override
   public long getMicrosecondPosition() {
     return System.nanoTime() / 1000 - microsecondsStart;

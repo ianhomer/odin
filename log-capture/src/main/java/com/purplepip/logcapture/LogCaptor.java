@@ -17,16 +17,14 @@ import org.slf4j.LoggerFactory;
 public class LogCaptor implements AutoCloseable {
   private LogCaptureConfiguration configuration;
   private Level originalLevel;
+  private ListAppender<ILoggingEvent> capturingAppender = new ListAppender<>();
+  private LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+  private Map<String, Appender<ILoggingEvent>> removedAppenders = new HashMap<>();
 
   LogCaptor(LogCaptureConfiguration configuration) {
     this.configuration = configuration;
     start();
   }
-
-  private ListAppender<ILoggingEvent> capturingAppender = new ListAppender<>();
-  private LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
-
-  private Map<String, Appender<ILoggingEvent>> removedAppenders = new HashMap<>();
 
   private void start() {
     /*

@@ -1,9 +1,11 @@
 package com.purplepip.odin.sequencer;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequence.Ticks;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 
 /**
@@ -12,8 +14,13 @@ import org.junit.Test;
  */
 public class OdinSequencerComplexTest {
   @Test
-  public void testComplexSequencer() throws OdinException {
-    CapturingOperationReceiver operationReceiver = new CapturingOperationReceiver();
+  public void testComplexSequencer() throws OdinException, InterruptedException {
+    final CountDownLatch lock = new CountDownLatch(50);
+
+    OperationReceiver operationReceiver = (operation, time) -> {
+      lock.countDown();
+    };
+
     OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
     new SequenceBuilder(sequencer.getProject())
         .addMetronome()
@@ -26,18 +33,12 @@ public class OdinSequencerComplexTest {
         .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
 
     sequencer.start();
-
-    while (sequencer.getClock().getCurrentBeat() < 8) {
-      try {
-        Thread.sleep(10);
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
+    try {
+      lock.await(100, TimeUnit.MILLISECONDS);
+    } finally {
+      sequencer.stop();
     }
 
-    sequencer.stop();
-
-    assertTrue("Number of operations sent not correct",
-        operationReceiver.getList().size() > 50);
+    assertEquals("Not enough events fired", 0, lock.getCount());
   }
 }

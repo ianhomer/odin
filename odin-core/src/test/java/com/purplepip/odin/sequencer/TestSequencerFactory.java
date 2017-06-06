@@ -21,7 +21,8 @@ class TestSequencerFactory {
     return new OdinSequencer(
         new DefaultOdinSequencerConfiguration()
             .setMeasureProvider(new StaticMeasureProvider(4))
-            .setBeatsPerMinute(new StaticBeatsPerMinute(1000))
+            .setBeatsPerMinute(new StaticBeatsPerMinute(10000))
+            .setClockStartRoundingFactor(1000)
             .setOperationReceiver(operationReceiver)
             .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider()));
   }

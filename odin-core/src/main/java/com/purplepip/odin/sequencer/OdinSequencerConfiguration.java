@@ -22,4 +22,6 @@ public interface OdinSequencerConfiguration {
   MicrosecondPositionProvider getMicrosecondPositionProvider();
 
   FlowFactory<Note> getFlowFactory();
+
+  long getClockStartRoundingFactor();
 }

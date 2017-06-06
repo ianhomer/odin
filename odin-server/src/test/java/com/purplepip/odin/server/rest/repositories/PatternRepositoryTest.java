@@ -58,6 +58,6 @@ public class PatternRepositoryTest {
     assertThat(patterns.size()).isEqualTo(1);
     Pattern pattern = patterns.get(0);
     assertThat(pattern.getBits()).isEqualTo(9876);
-    assertThat(pattern.getTick().equals(Ticks.BEAT));
+    assertThat(pattern.getTick().getTimeUnit()).isEqualTo(Ticks.BEAT.getTimeUnit());
   }
 }

@@ -2,7 +2,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.sequence.MicrosecondPositionProvider;
+import com.purplepip.odin.sequence.Clock;
 import java.util.PriorityQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,27 +24,23 @@ public class DefaultOperationProcessor implements OperationProcessor {
   private long forwardPollingTime = refreshPeriod * 1000 * 5;
   private PriorityQueue<OperationEvent> queue = new PriorityQueue<>(127,
       new OperationEventComparator());
-  private MicrosecondPositionProvider microsecondPositionProvider;
+  private Clock clock;
   private OperationReceiver operationReceiver;
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
-  private DefaultOperationProcessorExecutor executor = new DefaultOperationProcessorExecutor();
 
   /**
    * Create an operation processor.
    *
-   * @param microsecondPositionProvider microsecond position provider
+   * @param clock clock
    * @param operationReceiver operation receiver
    */
-  DefaultOperationProcessor(MicrosecondPositionProvider microsecondPositionProvider,
-                                   OperationReceiver operationReceiver) {
-    if (microsecondPositionProvider == null) {
-      throw new OdinRuntimeException("MicrosecondPositionProvider must not be null");
-    }
-    this.microsecondPositionProvider = microsecondPositionProvider;
+  DefaultOperationProcessor(Clock clock, OperationReceiver operationReceiver) {
+    this.clock = clock;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }
     this.operationReceiver = operationReceiver;
+    DefaultOperationProcessorExecutor executor = new DefaultOperationProcessorExecutor();
     scheduledPool.scheduleWithFixedDelay(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
   }
 
@@ -63,7 +59,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
     @Override
     public void run() {
       OperationEvent nextEvent = queue.peek();
-      long microsecondPosition = microsecondPositionProvider.getMicrosecondPosition();
+      long microsecondPosition = clock.getMicrosecondPosition();
       while (nextEvent != null && nextEvent.getTime()
           < microsecondPosition + forwardPollingTime) {
         nextEvent = queue.poll();

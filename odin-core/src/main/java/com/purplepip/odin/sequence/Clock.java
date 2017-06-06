@@ -10,45 +10,49 @@ package com.purplepip.odin.sequence;
 public class Clock implements MicrosecondPositionProvider {
   private BeatsPerMinute beatsPerMinute;
   private long microsecondsPositionOfFirstBeat;
+  private long startRoundingFactor = 1;
   private MicrosecondPositionProvider microsecondPositionProvider;
 
   public Clock(BeatsPerMinute beatsPerMinute) {
     this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
   }
 
-  private Clock(BeatsPerMinute beatsPerMinute,
-                MicrosecondPositionProvider microsecondPositionProvider) {
-    this(beatsPerMinute, microsecondPositionProvider, false);
+  public Clock(BeatsPerMinute beatsPerMinute,
+               MicrosecondPositionProvider microsecondPositionProvider) {
+    this(beatsPerMinute, microsecondPositionProvider, 1);
   }
 
-  private Clock(BeatsPerMinute beatsPerMinute,
-                MicrosecondPositionProvider microsecondPositionProvider,
-                boolean startAtNextSecond) {
+  /**
+   * Create clock.
+   *
+   * @param beatsPerMinute beats per minute
+   * @param microsecondPositionProvider microsecond provider
+   * @param startRoundingFactor start rounding factor
+   */
+  public Clock(BeatsPerMinute beatsPerMinute,
+               MicrosecondPositionProvider microsecondPositionProvider,
+               long startRoundingFactor) {
     this.beatsPerMinute = beatsPerMinute;
-    start(microsecondPositionProvider, startAtNextSecond);
+    this.startRoundingFactor = startRoundingFactor;
+    this.microsecondPositionProvider = microsecondPositionProvider;
   }
 
   /**
    * Start the clock.
-   *
-   * @param microsecondPositionProvider Micros second provider.
-   * @param startAtNextSecond           Starting at next second can make debugging easier
-   *                                    because microseconds position will start at a round
-   *                                    number.
    */
-  public void start(MicrosecondPositionProvider microsecondPositionProvider,
-                    boolean startAtNextSecond) {
-    if (startAtNextSecond) {
-      this.microsecondsPositionOfFirstBeat = 1000000
-          * (microsecondPositionProvider.getMicrosecondPosition() / 1000000);
-    } else {
-      this.microsecondPositionProvider = microsecondPositionProvider;
-    }
+  public void start() {
+    this.microsecondsPositionOfFirstBeat = startRoundingFactor
+        * (microsecondPositionProvider.getMicrosecondPosition() / startRoundingFactor);
   }
 
+  /**
+   * Get microsecond position.
+   *
+   * @return microsecond position
+   */
   @Override
   public long getMicrosecondPosition() {
-    return microsecondPositionProvider.getMicrosecondPosition();
+    return microsecondPositionProvider.getMicrosecondPosition() - microsecondsPositionOfFirstBeat;
   }
 
   public BeatsPerMinute getBeatsPerMinute() {

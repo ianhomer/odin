@@ -2,6 +2,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.SequenceRuntime;
@@ -19,7 +20,7 @@ public class SequenceProcessor {
   private static final Logger LOG = LoggerFactory.getLogger(SequenceProcessor.class);
 
   private final Set<SequenceTrack> sequenceTrackSet;
-  private final MicrosecondPositionProvider microsecondPositionProvider;
+  private final Clock clock;
   private final OperationProcessor operationProcessor;
   private long refreshPeriod = 200;
   private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
@@ -34,11 +35,11 @@ public class SequenceProcessor {
    * @param sequenceTrackSet series track set
    * @param operationProcessor operation processor
    */
-  SequenceProcessor(MicrosecondPositionProvider microsecondPositionProvider,
+  SequenceProcessor(Clock clock,
                            Set<SequenceTrack> sequenceTrackSet,
                            OperationProcessor operationProcessor) {
     this.sequenceTrackSet = sequenceTrackSet;
-    this.microsecondPositionProvider = microsecondPositionProvider;
+    this.clock = clock;
     this.operationProcessor = operationProcessor;
 
     scheduledPool.scheduleWithFixedDelay(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
@@ -63,7 +64,7 @@ public class SequenceProcessor {
        * loop processing.  In this loop it is only used for setting forward scan windows and does
        * not need the precise microsecond positioning at the time of instruction execution.
        */
-      long microsecondPosition = microsecondPositionProvider.getMicrosecondPosition();
+      long microsecondPosition = clock.getMicrosecondPosition();
       int noteCountThisBuffer = 0;
       for (SequenceTrack sequenceTrack : sequenceTrackSet) {
         SequenceRuntime<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
@@ -93,7 +94,6 @@ public class SequenceProcessor {
                   microsecondPosition);
             } else {
               sendToProcessor(nextEvent.getValue(), nextEvent, sequenceTrack);
-
             }
             noteCountThisBuffer++;
             nextEvent = sequenceRuntime.peek();
