@@ -40,6 +40,7 @@ class PatternList extends React.Component{
 				<tbody>
 					<tr>
 						<th>Class</th>
+						<th>Pattern</th>
 					</tr>
 					{patterns}
 				</tbody>
