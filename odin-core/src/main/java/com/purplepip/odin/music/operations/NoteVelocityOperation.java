@@ -1,22 +1,13 @@
 package com.purplepip.odin.music.operations;
 
-import com.purplepip.odin.sequencer.ChannelOperation;
+import com.purplepip.odin.sequencer.AbstractChannelOperation;
 
 /**
  * Note operation.
  */
-public abstract class NoteVelocityOperation implements ChannelOperation {
-  private int channel;
+public abstract class NoteVelocityOperation extends AbstractChannelOperation {
   private int number;
   private int velocity;
-
-  protected void setChannel(int channel) {
-    this.channel = channel;
-  }
-
-  public int getChannel() {
-    return channel;
-  }
 
   protected void setNumber(int number) {
     this.number = number;
@@ -33,5 +24,4 @@ public abstract class NoteVelocityOperation implements ChannelOperation {
   public int getVelocity() {
     return velocity;
   }
-
 }

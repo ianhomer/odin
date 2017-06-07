@@ -4,6 +4,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.operations.NoteVelocityOperation;
+import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.ChannelOperation;
 
 /**
@@ -15,6 +16,7 @@ public class RawMessage {
    */
   private static final int NOTE_OFF = 0x80;
   private static final int NOTE_ON = 0x90;
+  private static final int PROGRAM_CHANGE = 0xC0;
 
   private byte[] buffer = new byte[3];
   private int length;
@@ -30,6 +32,8 @@ public class RawMessage {
       handle(NOTE_ON, (NoteVelocityOperation) operation);
     } else if (operation instanceof NoteOffOperation) {
       handle(NOTE_OFF, (NoteVelocityOperation) operation);
+    } else if (operation instanceof ProgramChangeOperation) {
+      handle((ProgramChangeOperation) operation);
     } else {
       throw new OdinException("Operation " + operation.getClass() + " not recognised");
     }
@@ -39,6 +43,13 @@ public class RawMessage {
     setStatus(status, operation.getChannel());
     buffer[1] = (byte) (operation.getNumber() & 0xFF);
     buffer[2] = (byte) (operation.getVelocity() & 0xFF);
+    length = 3;
+  }
+
+  private void handle(ProgramChangeOperation operation) {
+    setStatus(PROGRAM_CHANGE, operation.getChannel());
+    buffer[1] = (byte) (operation.getProgram() & 0xFF);
+    buffer[2] = (byte) ((operation.getBank() >> 7) & 0xFF);
     length = 3;
   }
 

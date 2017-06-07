@@ -1,20 +1,17 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.common.OdinException;
-
+import com.purplepip.odin.midi.RawMessage;
+import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import javax.sound.midi.Instrument;
-import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Synthesizer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,9 +95,11 @@ public class MidiDeviceWrapper implements AutoCloseable {
    */
   private void changeProgram(int channel, int bank, int program) {
     try {
-      device.getReceiver().send(new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, program,
-          bank >> 7),  -1);
-    } catch (MidiUnavailableException | InvalidMidiDataException e) {
+      device.getReceiver().send(
+          new RawMidiMessage(new RawMessage(
+              new ProgramChangeOperation(channel, bank, program)).getBytes()),
+          -1);
+    } catch (MidiUnavailableException | OdinException e) {
       LOG.error("Cannot change synthesizer instruments", e);
     }
     LOG.debug("Changed channel {} to program {}", channel, program);
