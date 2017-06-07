@@ -2,6 +2,7 @@ package com.purplepip.odin.sequencer;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.music.operations.NoteOnOperation;
 import org.junit.Test;
 
 /**
@@ -10,7 +11,7 @@ import org.junit.Test;
 public class OperationEventComparatorTest {
   @Test
   public void testOperationEventComparator() {
-    final Operation operation = new Operation(OperationType.ON, 0,0,0);
+    final Operation operation = new NoteOnOperation(0,0,0);
     final OperationEvent event1 = new OperationEvent(operation, 0);
     final OperationEvent event2 = new OperationEvent(operation, 1);
     final OperationEventComparator comparator = new OperationEventComparator();

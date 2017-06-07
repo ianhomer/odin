@@ -2,6 +2,8 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.operations.NoteOffOperation;
+import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.SequenceRuntime;
@@ -114,10 +116,10 @@ public class SequenceProcessor {
     private void sendToProcessor(Note note, Event<Note> nextEvent, SequenceTrack sequenceTrack) {
       LOG.debug("Sending note {} to channel {} at time {}",
           note.getNumber(), sequenceTrack.getChannel(), nextEvent.getTime());
-      Operation noteOn = new Operation(OperationType.ON, sequenceTrack.getChannel(),
+      Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
           note.getNumber(), note.getVelocity());
-      Operation noteOff = new Operation(OperationType.OFF, sequenceTrack.getChannel(),
-          note.getNumber(), note.getVelocity());
+      Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
+          note.getNumber());
       try {
         operationProcessor.send(noteOn, nextEvent.getTime());
         operationProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());

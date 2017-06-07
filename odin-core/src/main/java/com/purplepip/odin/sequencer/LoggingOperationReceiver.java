@@ -13,6 +13,6 @@ public class LoggingOperationReceiver implements OperationReceiver {
 
   @Override
   public void send(Operation operation, long time) throws OdinException {
-    LOG.debug("Operation {} at time {}", operation.getNumber(), time);
+    LOG.debug("Operation {} at time {}", operation, time);
   }
 }

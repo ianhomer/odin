@@ -1,11 +1,13 @@
 package com.purplepip.odin.midi;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequencer.Operation;
-import com.purplepip.odin.sequencer.OperationType;
+import com.purplepip.odin.music.operations.NoteOffOperation;
+import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.music.operations.NoteVelocityOperation;
+import com.purplepip.odin.sequencer.ChannelOperation;
 
 /**
- * Midi Operation.  Portable implementation that can be used on both PC and Android.
+ * Midi NoteOnOperation.  Portable implementation that can be used on both PC and Android.
  */
 public class RawMessage {
   /*
@@ -23,23 +25,21 @@ public class RawMessage {
    * @param operation operation from which to create MIDI message
    * @throws OdinException Exception
    */
-  public RawMessage(Operation operation) throws OdinException {
-    // Very simple implementation for now, which just support note on and off.
-    setStatus(getCommand(operation.getType()), operation.getChannel());
+  public RawMessage(ChannelOperation operation) throws OdinException {
+    if (operation instanceof NoteOnOperation) {
+      handle(NOTE_ON, (NoteVelocityOperation) operation);
+    } else if (operation instanceof NoteOffOperation) {
+      handle(NOTE_OFF, (NoteVelocityOperation) operation);
+    } else {
+      throw new OdinException("Operation " + operation.getClass() + " not recognised");
+    }
+  }
+
+  private void handle(int status, NoteVelocityOperation operation) {
+    setStatus(status, operation.getChannel());
     buffer[1] = (byte) (operation.getNumber() & 0xFF);
     buffer[2] = (byte) (operation.getVelocity() & 0xFF);
     length = 3;
-  }
-
-  private int getCommand(OperationType type) throws OdinException {
-    switch (type) {
-      case ON:
-        return NOTE_ON;
-      case OFF:
-        return NOTE_OFF;
-      default:
-        throw new OdinException("Operation " + type + " not recognised");
-    }
   }
 
   private void setStatus(int command, int channel) {

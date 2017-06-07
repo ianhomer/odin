@@ -3,7 +3,7 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 
 /**
- * Sequenced Operation Receiver.
+ * Sequenced NoteOnOperation Receiver.
  */
 @FunctionalInterface
 public interface OperationReceiver {
