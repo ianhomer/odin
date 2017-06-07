@@ -2,6 +2,7 @@ package com.purplepip.odin.project;
 
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
+import java.util.stream.Stream;
 
 /**
  * An Odin Project that stores configuration and state of the given runtime.
@@ -48,10 +49,24 @@ public interface Project {
   void addChannel(Channel channel);
 
   /**
+   * Remove channel configuration.
+   *
+   * @param channel configuration to remove
+   */
+  void removeChannel(Channel channel);
+
+  /**
    * Get iterable of the channels stored in this project.
    *
    * @return iterable of channels
    */
   Iterable<Channel> getChannels();
+
+  /**
+   * Channel stream.
+   *
+   * @return channel stream
+   */
+  Stream<Channel> getChannelStream();
 
 }

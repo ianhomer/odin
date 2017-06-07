@@ -34,7 +34,7 @@ public class OdinSequencerComplexTest {
 
     sequencer.start();
     try {
-      lock.await(100, TimeUnit.MILLISECONDS);
+      lock.await(1000, TimeUnit.MILLISECONDS);
     } finally {
       sequencer.stop();
     }

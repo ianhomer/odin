@@ -1,13 +1,17 @@
 package com.purplepip.odin.music.operations;
 
 import com.purplepip.odin.sequencer.AbstractChannelOperation;
+import com.purplepip.odin.sequencer.Channel;
+import lombok.ToString;
 
 /**
  * Program change operation.
  */
+@ToString(callSuper = true)
 public class ProgramChangeOperation extends AbstractChannelOperation {
   private int bank;
   private int program;
+  private String programName;
 
   /**
    * Create program change operation.
@@ -20,6 +24,17 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
     setChannel(channel);
     setBank(bank);
     setProgram(program);
+  }
+
+  /**
+   * Create program change operation from channel configuration.
+   *
+   * @param channel channel configuration
+   */
+  public ProgramChangeOperation(Channel channel) {
+    setChannel(channel.getNumber());
+    setProgram(channel.getProgram());
+    setProgramName(channel.getProgramName());
   }
 
   protected void setBank(int bank) {
@@ -38,4 +53,15 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
     return program;
   }
 
+  private void setProgramName(String programName) {
+    this.programName = programName;
+  }
+
+  public String getProgramName() {
+    return programName;
+  }
+
+  public boolean isAbsolute() {
+    return programName == null;
+  }
 }

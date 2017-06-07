@@ -62,17 +62,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
    * @throws OdinException exception
    */
   public void changeProgram(int channel, String instrumentName) throws OdinException {
-    if (!isSynthesizer()) {
-      throw new OdinException("Cannot search for instrument name if not local synthesizer");
-    }
-    Instrument instrument = new SynthesizerHelper(getSynthesizer())
-        .findInstrumentByName(instrumentName, channel == 9);
-    if (instrument == null) {
-      throw new OdinException("Cannot find instrument " + instrumentName);
-    }
-    LOG.debug("Instrument name {} resolves to {} bank {} program {}", instrumentName,
-        instrument.getName(),
-        instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+    Instrument instrument = findInstrument(channel, instrumentName);
     changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
   }
 
@@ -103,6 +93,29 @@ public class MidiDeviceWrapper implements AutoCloseable {
       LOG.error("Cannot change synthesizer instruments", e);
     }
     LOG.debug("Changed channel {} to program {}", channel, program);
+  }
+
+  /**
+   * Find instrument.
+   *
+   * @param channel channel
+   * @param instrumentName instrument name
+   * @return instrument
+   * @throws OdinException exception
+   */
+  public Instrument findInstrument(int channel, String instrumentName) throws OdinException {
+    if (!isSynthesizer()) {
+      throw new OdinException("Cannot search for instrument name if not local synthesizer");
+    }
+    Instrument instrument = new SynthesizerHelper(getSynthesizer())
+        .findInstrumentByName(instrumentName, channel == 9);
+    if (instrument == null) {
+      throw new OdinException("Cannot find instrument " + instrumentName);
+    }
+    LOG.debug("Instrument name {} resolves to {} bank {} program {}", instrumentName,
+        instrument.getName(),
+        instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+    return instrument;
   }
 
   /**

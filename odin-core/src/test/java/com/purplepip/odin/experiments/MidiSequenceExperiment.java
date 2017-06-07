@@ -4,7 +4,6 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
-import com.purplepip.odin.midix.MidiSystemHelper;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.Ticks;
@@ -65,19 +64,6 @@ public class MidiSequenceExperiment {
               .setMicrosecondPositionProvider(
                   new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
-      new ProjectBuilder(sequencer.getProject())
-          .addMetronome()
-          .withChannel(1)
-          .changeProgramTo("bird")
-          .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
-          .withChannel(2).withVelocity(70).withNote(62).addPattern(Ticks.BEAT, 2)
-          .withChannel(8).withVelocity(100).withNote(42).addPattern(Ticks.BEAT, 15)
-          .withChannel(9).withVelocity(70).withNote(62).addPattern(Ticks.BEAT, 2)
-          .withVelocity(20)
-          .addPattern(Ticks.EIGHTH, 127)
-          .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
-
-
       SynthesizerHelper synthesizerHelper = null;
       if (midiDeviceWrapper.isSynthesizer()) {
         synthesizerHelper =
@@ -87,16 +73,16 @@ public class MidiSequenceExperiment {
         synthesizerHelper.logInstruments();
       }
 
-      if (midiDeviceWrapper.isGervill()) {
-        midiDeviceWrapper.changeProgram(1,"bird");
-        midiDeviceWrapper.changeProgram(2,"aahs");
-        midiDeviceWrapper.changeProgram(8,26);
-        // Note that channel 9, percussion has different program numbers to other channels
-        midiDeviceWrapper.changeProgram(9,26);
-        midiDeviceWrapper.changeProgram(9, "TR-909");
-      }
-
-      new MidiSystemHelper().logInfo();
+      new ProjectBuilder(sequencer.getProject())
+          .addMetronome()
+          .withChannel(1).changeProgramTo("bird")
+          .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
+          .withChannel(2).changeProgramTo("aahs")
+          .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
+          .withChannel(9).changeProgramTo("TR-909")
+          .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
+          .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
+          .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
 
       sequencer.start();
 

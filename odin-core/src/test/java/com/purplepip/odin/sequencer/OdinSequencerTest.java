@@ -12,6 +12,10 @@ import org.junit.Test;
  * Test odin sequencer.
  */
 public class OdinSequencerTest {
+  private static final int OFFSET = 8;
+  private static final int LENGTH = 8;
+
+
   @Test
   public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(16);
@@ -22,7 +26,8 @@ public class OdinSequencerTest {
 
     OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
     new ProjectBuilder(sequencer.getProject())
-        .withLength(8)
+        .withOffset(OFFSET)
+        .withLength(LENGTH)
         .addMetronome();
     sequencer.start();
 
@@ -33,6 +38,9 @@ public class OdinSequencerTest {
     }
 
     assertEquals("Not enough events fired", 0, lock.getCount());
-    assertTrue("8 beats should not have past", sequencer.getClock().getCurrentBeat() < 8);
+    double currentBeat = sequencer.getClock().getCurrentBeat();
+    assertTrue(currentBeat
+        + " beats should not have past", sequencer.getClock().getCurrentBeat()
+        < OFFSET + LENGTH);
   }
 }

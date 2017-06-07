@@ -1,5 +1,7 @@
 package com.purplepip.odin.sequence;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * SequenceRuntime clock that has the intelligence to know the timings of future beats.
  *
@@ -7,6 +9,7 @@ package com.purplepip.odin.sequence;
  * must support variable BPM, so it is essential that this Clock is the authority on timings of
  * each beat.
  */
+@Slf4j
 public class Clock implements MicrosecondPositionProvider {
   private BeatsPerMinute beatsPerMinute;
   private long microsecondsPositionOfFirstBeat;
@@ -43,6 +46,7 @@ public class Clock implements MicrosecondPositionProvider {
   public void start() {
     this.microsecondsPositionOfFirstBeat = startRoundingFactor
         * (microsecondPositionProvider.getMicrosecondPosition() / startRoundingFactor);
+    LOG.debug("Starting clock at {}micros", microsecondsPositionOfFirstBeat);
   }
 
   /**

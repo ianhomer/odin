@@ -1,8 +1,11 @@
 package com.purplepip.odin.music;
 
+import lombok.ToString;
+
 /**
  * Default Note.
  */
+@ToString
 public class DefaultNote implements Note {
   private int number;
   private int velocity;

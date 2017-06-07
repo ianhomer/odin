@@ -4,8 +4,8 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,18 +34,21 @@ public class TransientProject extends AbstractProject {
 
   @Override
   public void addChannel(Channel channel) {
-    /*
-     * For now we replace channel with same number, in future we might merge.
-     */
-    Optional<Channel> duplicate = channels.stream()
-        .filter(o -> o.getNumber() == channel.getNumber())
-        .findFirst();
-    duplicate.ifPresent(channelToRemove -> channels.remove(channelToRemove));
     channels.add(channel);
+  }
+
+  @Override
+  public void removeChannel(Channel channel) {
+    channels.remove(channel);
   }
 
   @Override
   public Iterable<Channel> getChannels() {
     return Collections.unmodifiableSet(channels);
+  }
+
+  @Override
+  public Stream<Channel> getChannelStream() {
+    return channels.stream();
   }
 }

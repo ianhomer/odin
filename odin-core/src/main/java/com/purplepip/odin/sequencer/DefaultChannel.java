@@ -6,6 +6,7 @@ package com.purplepip.odin.sequencer;
 public class DefaultChannel implements Channel {
   private int number;
   private String programName;
+  private int program;
 
   @Override
   public int getNumber() {
@@ -25,5 +26,15 @@ public class DefaultChannel implements Channel {
   @Override
   public void setProgramName(String programName) {
     this.programName = programName;
+  }
+
+  @Override
+  public int getProgram() {
+    return program;
+  }
+
+  @Override
+  public void setProgram(int program) {
+    this.program = program;
   }
 }

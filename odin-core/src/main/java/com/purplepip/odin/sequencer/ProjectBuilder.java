@@ -14,6 +14,7 @@ import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequence.Ticks;
+import java.util.Optional;
 
 /**
  * Convenience class for building up sequences.
@@ -28,6 +29,7 @@ public class ProjectBuilder {
   private int note = DEFAULT_NOTE;
   private int velocity = DEFAULT_VELOCITY;
   private int length = -1;
+  private int offset = 0;
 
 
   public ProjectBuilder(Project project) {
@@ -126,6 +128,23 @@ public class ProjectBuilder {
     return this;
   }
 
+  public ProjectBuilder withOffset(int offset) {
+    this.offset = offset;
+    return this;
+  }
+
+  /**
+   * Change program to given program number.
+   *
+   * @param program program number
+   * @return builder
+   */
+  public ProjectBuilder changeProgramTo(int program) {
+    Channel channelConfiguration = createChannel();
+    channelConfiguration.setProgram(program);
+    return this;
+  }
+
   /**
    * Change program.
    *
@@ -134,10 +153,21 @@ public class ProjectBuilder {
    */
   public ProjectBuilder changeProgramTo(String programName) {
     Channel channelConfiguration = createChannel();
-    channelConfiguration.setNumber(channel);
     channelConfiguration.setProgramName(programName);
-    project.addChannel(channelConfiguration);
+    addChannel(channelConfiguration);
     return this;
+  }
+
+  private void addChannel(Channel channelConfiguration) {
+    channelConfiguration.setNumber(channel);
+    /*
+     * For now we replace channel with same number, in future we might merge.
+     */
+    Optional<Channel> duplicate = project.getChannelStream()
+        .filter(o -> o.getNumber() == channel)
+        .findFirst();
+    duplicate.ifPresent(channelToRemove -> project.removeChannel(channelToRemove));
+    project.addChannel(channelConfiguration);
   }
 
   /**
@@ -173,6 +203,7 @@ public class ProjectBuilder {
     sequence.setOffset(0);
     sequence.setChannel(channel);
     sequence.setLength(length);
+    sequence.setOffset(offset);
     return sequence;
   }
 }

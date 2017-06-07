@@ -66,8 +66,6 @@ public class DefaultOperationProcessor implements OperationProcessor {
         if (nextEvent == null) {
           LOG.error("Next event in queue is null, where did it go?");
         } else {
-          LOG.debug("Send operation {} at time {} ; device time {}", nextEvent.getOperation(),
-              nextEvent.getTime(), microsecondPosition);
           try {
             operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
           } catch (OdinException e) {

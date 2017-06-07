@@ -31,4 +31,19 @@ public interface Channel {
    * @param programName program name
    */
   void setProgramName(String programName);
+
+  /**
+   * Get program number.
+   *
+   * @return program number
+   */
+  int getProgram();
+
+  /**
+   * Set program name.
+   *
+   * @param program program name
+   */
+  void setProgram(int program);
+
 }
