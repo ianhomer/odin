@@ -82,6 +82,9 @@ public class ProjectBuilder {
     return new DefaultPattern();
   }
 
+  protected Channel createChannel() {
+    return new DefaultChannel();
+  }
 
   protected Tick createTick(Tick tick) {
     if (tick instanceof DefaultTick) {
@@ -107,6 +110,7 @@ public class ProjectBuilder {
     return this;
   }
 
+
   public ProjectBuilder withNote(int note) {
     this.note = note;
     return this;
@@ -119,6 +123,20 @@ public class ProjectBuilder {
 
   public ProjectBuilder withLength(int length) {
     this.length = length;
+    return this;
+  }
+
+  /**
+   * Change program.
+   *
+   * @param programName program name to change to
+   * @return builder
+   */
+  public ProjectBuilder changeProgramTo(String programName) {
+    Channel channelConfiguration = createChannel();
+    channelConfiguration.setNumber(channel);
+    channelConfiguration.setProgramName(programName);
+    project.addChannel(channelConfiguration);
     return this;
   }
 

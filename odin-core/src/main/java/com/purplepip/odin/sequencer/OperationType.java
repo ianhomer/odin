@@ -5,5 +5,6 @@ package com.purplepip.odin.sequencer;
  */
 public enum OperationType {
   ON,
-  OFF
+  OFF,
+  CHANGE
 }

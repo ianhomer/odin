@@ -1,6 +1,7 @@
 package com.purplepip.odin.project;
 
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequencer.Channel;
 
 /**
  * An Odin Project that stores configuration and state of the given runtime.
@@ -38,4 +39,19 @@ public interface Project {
    * @param projectListener project listener
    */
   void removeListener(ProjectListener projectListener);
+
+  /**
+   * Add channel configuration.
+   *
+   * @param channel configuration to add
+   */
+  void addChannel(Channel channel);
+
+  /**
+   * Get iterable of the channels stored in this project.
+   *
+   * @return iterable of channels
+   */
+  Iterable<Channel> getChannels();
+
 }
