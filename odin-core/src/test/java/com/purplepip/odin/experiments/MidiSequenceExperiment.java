@@ -14,7 +14,7 @@ import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
-import com.purplepip.odin.sequencer.SequenceBuilder;
+import com.purplepip.odin.sequencer.ProjectBuilder;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
@@ -65,7 +65,7 @@ public class MidiSequenceExperiment {
               .setMicrosecondPositionProvider(
                   new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
 
-      new SequenceBuilder(sequencer.getProject())
+      new ProjectBuilder(sequencer.getProject())
           .addMetronome()
           .withChannel(1).withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
           .withChannel(2).withVelocity(70).withNote(62).addPattern(Ticks.BEAT, 2)

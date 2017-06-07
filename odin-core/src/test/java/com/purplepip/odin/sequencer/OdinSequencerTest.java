@@ -21,7 +21,7 @@ public class OdinSequencerTest {
     };
 
     OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
-    new SequenceBuilder(sequencer.getProject())
+    new ProjectBuilder(sequencer.getProject())
         .withLength(8)
         .addMetronome();
     sequencer.start();

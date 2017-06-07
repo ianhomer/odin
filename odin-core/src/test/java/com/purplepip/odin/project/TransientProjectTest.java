@@ -7,7 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequencer.SequenceBuilder;
+import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 
 /**
@@ -19,7 +19,7 @@ public class TransientProjectTest {
   @Test
   public void testAddSequence() {
     Project project = new TransientProject();
-    SequenceBuilder builder = new SequenceBuilder(project);
+    ProjectBuilder builder = new ProjectBuilder(project);
     builder.addMetronome();
     int count = 0;
     Sequence sequence1 = null;

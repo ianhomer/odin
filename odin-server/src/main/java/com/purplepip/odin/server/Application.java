@@ -5,7 +5,7 @@ import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
+import com.purplepip.odin.server.rest.PersistableProjectBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class Application {
   @Bean
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
-      new PersistableSequenceBuilder(sequencer.getProject())
+      new PersistableProjectBuilder(sequencer.getProject())
           .addMetronome()
           .addPattern(Ticks.BEAT, 2)
           .withChannel(9).withNote(42).addPattern(Ticks.QUARTER, 61435)

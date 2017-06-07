@@ -7,7 +7,7 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Ticks;
-import com.purplepip.odin.sequencer.SequenceBuilder;
+import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 
 /**
@@ -17,7 +17,7 @@ public class DefaultNoteTest {
   @Test
   public void testDefaultNote() throws OdinException {
     Project project = new TransientProject();
-    SequenceBuilder builder = new SequenceBuilder(project);
+    ProjectBuilder builder = new ProjectBuilder(project);
     builder.addPattern(Ticks.BEAT, 1);
     Note note = ((Pattern) project.getSequences().iterator().next()).getNote();
     assertEquals("Default note number not correct", 60, note.getNumber());

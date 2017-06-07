@@ -18,7 +18,7 @@ import com.purplepip.odin.sequence.Ticks;
 /**
  * Convenience class for building up sequences.
  */
-public class SequenceBuilder {
+public class ProjectBuilder {
   private static final int DEFAULT_NOTE = 60;
   private static final int DEFAULT_VELOCITY = 40;
   private static final int DEFAULT_DURATION = 1;
@@ -30,7 +30,7 @@ public class SequenceBuilder {
   private int length = -1;
 
 
-  public SequenceBuilder(Project project) {
+  public ProjectBuilder(Project project) {
     this.project = project;
   }
 
@@ -96,28 +96,28 @@ public class SequenceBuilder {
    *
    * @return this sequence builder
    */
-  public SequenceBuilder addMetronome() {
+  public ProjectBuilder addMetronome() {
     Metronome metronome = withDefaults(createMetronome());
     project.addSequence(applyParameters(metronome));
     return this;
   }
 
-  public SequenceBuilder withChannel(int channel) {
+  public ProjectBuilder withChannel(int channel) {
     this.channel = channel;
     return this;
   }
 
-  public SequenceBuilder withNote(int note) {
+  public ProjectBuilder withNote(int note) {
     this.note = note;
     return this;
   }
 
-  public SequenceBuilder withVelocity(int velocity) {
+  public ProjectBuilder withVelocity(int velocity) {
     this.velocity = velocity;
     return this;
   }
 
-  public SequenceBuilder withLength(int length) {
+  public ProjectBuilder withLength(int length) {
     this.length = length;
     return this;
   }
@@ -129,7 +129,7 @@ public class SequenceBuilder {
    * @param pattern pattern
    * @return sequence builder
    */
-  public SequenceBuilder addPattern(Tick tick, int pattern) {
+  public ProjectBuilder addPattern(Tick tick, int pattern) {
     return addPattern(tick, pattern, createNote(note, velocity,
         DEFAULT_DURATION));
   }
@@ -141,7 +141,7 @@ public class SequenceBuilder {
    * @param pattern pattern
    * @return sequence builder
    */
-  private SequenceBuilder addPattern(Tick tick, int pattern, Note note) {
+  private ProjectBuilder addPattern(Tick tick, int pattern, Note note) {
     Pattern sequence = withDefaults(createPattern());
     sequence.setBits(pattern);
     sequence.setTick(withDefaults(createTick(tick)));

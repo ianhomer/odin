@@ -5,7 +5,7 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
+import com.purplepip.odin.server.rest.PersistableProjectBuilder;
 import com.purplepip.odin.server.rest.domain.PersistablePattern;
 import com.purplepip.odin.server.rest.repositories.PatternRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
   @Override
   public void run(String... strings) throws Exception {
-    new PersistableSequenceBuilder(sequencer.getProject())
+    new PersistableProjectBuilder(sequencer.getProject())
         .addMetronome()
         .addPattern(Ticks.BEAT, 2)
         .withChannel(9).withNote(42).addPattern(Ticks.QUARTER, 61435)

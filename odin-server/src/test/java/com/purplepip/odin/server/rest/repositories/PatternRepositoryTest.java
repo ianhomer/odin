@@ -7,7 +7,7 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Ticks;
-import com.purplepip.odin.server.rest.PersistableSequenceBuilder;
+import com.purplepip.odin.server.rest.PersistableProjectBuilder;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class PatternRepositoryTest {
   private PatternRepository repository;
 
   private TransientProject project;
-  private PersistableSequenceBuilder builder;
+  private PersistableProjectBuilder builder;
 
   /**
    * Set up.
@@ -38,7 +38,7 @@ public class PatternRepositoryTest {
   @Before
   public void setUp() {
     project = new TransientProject();
-    builder = new PersistableSequenceBuilder(project);
+    builder = new PersistableProjectBuilder(project);
     // TODO : Remove this delete all, DatabaseLoader should not execute for this test and
     // repository should be clean at start
     repository.deleteAll();

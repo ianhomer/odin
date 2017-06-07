@@ -7,7 +7,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequencer.SequenceBuilder;
+import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -22,7 +22,7 @@ public class FlowFactoryTest {
   public void testCreateFlow() throws OdinException {
     FlowFactory<Note> flowFactory = new FlowFactory<>();
     TransientProject project = new TransientProject();
-    SequenceBuilder builder = new SequenceBuilder(project);
+    ProjectBuilder builder = new ProjectBuilder(project);
     builder.addMetronome();
     Flow<Sequence, Note> flow =
         flowFactory.createFlow(project.getSequences().iterator().next());

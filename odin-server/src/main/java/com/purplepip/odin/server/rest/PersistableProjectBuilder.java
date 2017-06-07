@@ -5,7 +5,7 @@ import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.Tick;
-import com.purplepip.odin.sequencer.SequenceBuilder;
+import com.purplepip.odin.sequencer.ProjectBuilder;
 import com.purplepip.odin.server.rest.domain.PersistableMetronome;
 import com.purplepip.odin.server.rest.domain.PersistableNote;
 import com.purplepip.odin.server.rest.domain.PersistablePattern;
@@ -14,8 +14,8 @@ import com.purplepip.odin.server.rest.domain.PersistableTick;
 /**
  * Sequence builder that updates the project with persistable domain objects.
  */
-public class PersistableSequenceBuilder extends SequenceBuilder {
-  public PersistableSequenceBuilder(Project project) {
+public class PersistableProjectBuilder extends ProjectBuilder {
+  public PersistableProjectBuilder(Project project) {
     super(project);
   }
 

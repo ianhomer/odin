@@ -10,7 +10,7 @@ import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
-import com.purplepip.odin.sequencer.SequenceBuilder;
+import com.purplepip.odin.sequencer.ProjectBuilder;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class MidiOdinSequencerTest {
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper))
               );
 
-      new SequenceBuilder(sequencer.getProject()).addMetronome();
+      new ProjectBuilder(sequencer.getProject()).addMetronome();
       sequencer.start();
 
       try {
