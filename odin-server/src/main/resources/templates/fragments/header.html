@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  ...
+</head>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top" th:fragment="header">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+          data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/">odin</a>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Sequencer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/system">System</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</body>
+</html>
+
+

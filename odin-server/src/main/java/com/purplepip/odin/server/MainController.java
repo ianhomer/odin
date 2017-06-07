@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Odin Main Controller.
@@ -31,18 +30,25 @@ public class MainController {
    * Index page.
    *
    * @param model model
-   * @param name parameter name
    * @return template to render
    */
   @RequestMapping("/")
-  public String index(Model model,
-                      @RequestParam(value = "name", required = false, defaultValue = "World")
-                          String name) {
-    model.addAttribute("name", name);
+  public String index(Model model) {
+    return "index";
+  }
+
+  /**
+   * System page.
+   *
+   * @param model model
+   * @return template to render
+   */
+  @RequestMapping("/system")
+  public String system(Model model) {
     model.addAttribute("midiSystem", midiSystemWrapper);
     model.addAttribute("midiDevice", midiDeviceWrapper);
     model.addAttribute("measureProvider", measureProvider);
     model.addAttribute("sequencer", sequencer);
-    return "index";
+    return "system";
   }
 }
