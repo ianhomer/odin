@@ -35,6 +35,6 @@ public class MainControllerIntegrationTest {
   public void getHello() throws Exception {
     ResponseEntity<String> response = template.getForEntity(base.toString(),
         String.class);
-    assertThat(response.getBody(), CoreMatchers.containsString("Hello from Odin!"));
+    assertThat(response.getBody(), CoreMatchers.containsString("odin"));
   }
 }

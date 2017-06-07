@@ -81,6 +81,25 @@ For performance I use a Nord Electro 5 and Nord Lead 4.
 
     mvn clean verify sonar:sonar
 
+# Server Development with Hot Deployment
+
+Start spring boot server
+
+  cd odin-server
+  mvn spring-boot:start&
+  
+After Code change, rebuild in IDEA with ⌘ fn-F9 and server will restart with new classes.
+
+After react.js scripts change,
+
+   mvn frontend:webpack
+  
+Stop spring boot server
+  
+  fg
+
+And ctrl-c.
+  
 # Testing
 
 To test a single test from command line

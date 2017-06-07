@@ -26,6 +26,6 @@ public class MainControllerTest {
   public void getHello() throws Exception {
     mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(content().string(CoreMatchers.containsString("Hello from Odin!")));
+        .andExpect(content().string(CoreMatchers.containsString("odin")));
   }
 }
