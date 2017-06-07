@@ -95,7 +95,6 @@ public class MidiSequenceExperiment {
 
       new MidiSystemHelper().logInfo();
 
-
       sequencer.start();
 
       try {
