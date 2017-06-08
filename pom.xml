@@ -276,6 +276,17 @@
 
   <profiles>
     <profile>
+      <id>debug</id>
+      <activation>
+        <property>
+          <name>test</name>
+        </property>
+      </activation>
+      <properties>
+        <purplepip.tests.log.file>com/purplepip/common/logback-debug.xml</purplepip.tests.log.file>
+      </properties>
+    </profile>
+    <profile>
       <id>quick</id>
       <build>
         <plugins>
