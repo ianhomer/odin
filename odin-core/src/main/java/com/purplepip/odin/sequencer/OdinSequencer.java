@@ -51,7 +51,8 @@ public class OdinSequencer implements ProjectListener {
     configuration.getProject().addListener(this);
     clock = new Clock(configuration.getBeatsPerMinute(),
         configuration.getMicrosecondPositionProvider(),
-        configuration.getClockStartRoundingFactor());
+        configuration.getClockStartRoundingFactor(),
+        configuration.getClockStartOffset());
   }
 
   @Override

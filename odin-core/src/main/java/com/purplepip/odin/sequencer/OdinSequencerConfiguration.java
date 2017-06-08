@@ -24,4 +24,10 @@ public interface OdinSequencerConfiguration {
   FlowFactory<Note> getFlowFactory();
 
   long getClockStartRoundingFactor();
+
+  /*
+   * Get clock start offset.  This is can be used as a count in period.  Technically it can
+   * give time for the processors to start and determine first events before the clock starts.
+   */
+  long getClockStartOffset();
 }

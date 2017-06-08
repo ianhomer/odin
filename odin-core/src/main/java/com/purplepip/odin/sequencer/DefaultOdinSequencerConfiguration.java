@@ -25,6 +25,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
   private Project project;
   private FlowFactory<Note> flowFactory;
   private long clockStartRoundingFactor;
+  private long clockStartOffset;
 
   /**
    * Create new configuration with defaults set.
@@ -36,6 +37,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);
     setClockStartRoundingFactor(1);
+    setClockStartOffset(0);
   }
 
   public DefaultOdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
@@ -126,6 +128,17 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
   public DefaultOdinSequencerConfiguration setClockStartRoundingFactor(
       long clockStartRoundingFactor) {
     this.clockStartRoundingFactor = clockStartRoundingFactor;
+    return this;
+  }
+
+  @Override
+  public long getClockStartOffset() {
+    return clockStartOffset;
+  }
+
+  public DefaultOdinSequencerConfiguration setClockStartOffset(
+      long clockStartOffset) {
+    this.clockStartOffset = clockStartOffset;
     return this;
   }
 

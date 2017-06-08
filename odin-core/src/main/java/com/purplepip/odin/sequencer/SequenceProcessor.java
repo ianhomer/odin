@@ -81,13 +81,13 @@ public class SequenceProcessor implements ClockListener {
      */
     @Override
     public void run() {
-      LOG.debug("Processing tracks");
       /*
        * Use a constant microsecond position for the whole loop to make it easier to debug
        * loop processing.  In this loop it is only used for setting forward scan windows and does
        * not need the precise microsecond positioning at the time of instruction execution.
        */
       long microsecondPosition = clock.getMicrosecondPosition();
+      LOG.debug("Processing tracks : {}", microsecondPosition);
       int noteCountThisBuffer = 0;
       for (SequenceTrack sequenceTrack : sequenceTrackSet) {
         LOG.trace("Processing sequenceRuntime {} for device at position {}",
@@ -120,7 +120,8 @@ public class SequenceProcessor implements ClockListener {
           nextEvent = sequenceRuntime.pop();
           LOG.trace("Processing Event {}", nextEvent);
           if (nextEvent.getTime() < microsecondPosition) {
-            LOG.warn("Skipping event, too late to process {} < {}", nextEvent.getTime(),
+            LOG.warn("Skipping event, too late to process  {} : {} < {}",
+                clock.getMicrosecondsPositionOfFirstBeat(), nextEvent.getTime(),
                 microsecondPosition);
           } else {
             sendToProcessor(nextEvent.getValue(), nextEvent, sequenceTrack);
