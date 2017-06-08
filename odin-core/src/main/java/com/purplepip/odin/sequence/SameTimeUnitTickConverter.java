@@ -24,7 +24,7 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
 
   @Override
   protected long getTimeUnitAsBeat(long time) {
-    if (getOutputTick().getTimeUnit() == TimeUnit.BEAT) {
+    if (getInputTick().getTimeUnit() == TimeUnit.BEAT) {
       return scaleTime(time);
     }
     return throwUnexpectedTimeUnit();
@@ -32,7 +32,7 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
 
   @Override
   protected long getTimeUnitAsMicrosecond(long time) {
-    if (getOutputTick().getTimeUnit() == TimeUnit.MICROSECOND) {
+    if (getInputTick().getTimeUnit() == TimeUnit.MICROSECOND) {
       return scaleTime(time);
     }
     return throwUnexpectedTimeUnit();

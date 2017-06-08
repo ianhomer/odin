@@ -38,6 +38,13 @@ public class DefaultTickConverterTest {
   }
 
   @Test
+  public void testMillisecondToMillisecond() {
+    DefaultTickConverter converter = new DefaultTickConverter(clock,
+        RuntimeTicks.MILLISECOND, RuntimeTicks.MILLISECOND, 0);
+    assertEquals(1, converter.convert(1));
+  }
+
+  @Test
   public void testBeatToHalf() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         RuntimeTicks.BEAT, RuntimeTicks.HALF, 0);

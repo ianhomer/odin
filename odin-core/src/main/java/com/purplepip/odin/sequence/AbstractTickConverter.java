@@ -57,12 +57,8 @@ public abstract class AbstractTickConverter implements TickConverter {
         / (inputTick.getDenominator() * outputTick.getNumerator());
   }
 
-  protected long convertTimeUnit(long time) {
-    /*
-     * TODO : switch on output tick first and adjust asBeat method appropriately, currently
-     * the semantics of this code are not correct.
-     */
-    switch (getInputTick().getTimeUnit()) {
+  private long convertTimeUnit(long time) {
+    switch (getOutputTick().getTimeUnit()) {
       case BEAT:
         return getTimeUnitAsBeat(time);
       case MICROSECOND:

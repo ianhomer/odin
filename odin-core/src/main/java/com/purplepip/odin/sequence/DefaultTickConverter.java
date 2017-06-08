@@ -29,12 +29,12 @@ public class DefaultTickConverter extends AbstractTickConverter {
 
   @Override
   protected long getTimeUnitAsBeat(long time) {
-    switch (getOutputTick().getTimeUnit()) {
+    switch (getInputTick().getTimeUnit()) {
       case BEAT:
         return scaleTime(time);
       case MICROSECOND:
-        return clock.getMicroSeconds(getInputTick().getFactor() * time)
-            / getOutputTick().getFactorAsInt();
+        return (long) (clock.getBeat(getInputTick().getFactorAsInt() * time)
+            / getOutputTick().getFactor());
       default:
         return throwUnexpectedTimeUnit();
     }
@@ -42,10 +42,10 @@ public class DefaultTickConverter extends AbstractTickConverter {
 
   @Override
   protected long getTimeUnitAsMicrosecond(long time) {
-    switch (getOutputTick().getTimeUnit()) {
+    switch (getInputTick().getTimeUnit()) {
       case BEAT:
-        return (long) (clock.getBeat(getInputTick().getFactorAsInt() * time)
-            / getOutputTick().getFactor());
+        return clock.getMicroSeconds(getInputTick().getFactor() * time)
+            / getOutputTick().getFactorAsInt();
       case MICROSECOND:
         return scaleTime(time);
       default:
