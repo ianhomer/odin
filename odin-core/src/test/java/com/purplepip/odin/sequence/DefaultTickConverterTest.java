@@ -1,18 +1,22 @@
 package com.purplepip.odin.sequence;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * DefaultTickConverter test.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class DefaultTickConverterTest {
-  private MicrosecondPositionProvider provider = mock(MicrosecondPositionProvider.class);
+  @Mock
+  private MicrosecondPositionProvider provider;
   private Clock clock;
 
   /**
@@ -22,7 +26,7 @@ public class DefaultTickConverterTest {
   public void before() {
     when(provider.getMicrosecondPosition()).thenReturn((long) 0);
     clock = new Clock(new StaticBeatsPerMinute(120),
-        new DefaultMicrosecondPositionProvider(), 1000);
+        provider, 1000);
     clock.start();
   }
 
@@ -44,7 +48,14 @@ public class DefaultTickConverterTest {
   public void testMillisecondToBeat() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         RuntimeTicks.MILLISECOND, RuntimeTicks.BEAT, 0);
-    assertEquals(199, converter.convert(100000));
+    assertEquals(200, converter.convert(100000));
+  }
+
+  @Test
+  public void testMillisecondToBeatWithOffset() {
+    DefaultTickConverter converter = new DefaultTickConverter(clock,
+        RuntimeTicks.MILLISECOND, RuntimeTicks.BEAT, 5000);
+    assertEquals(18, converter.convert(4000));
   }
 
   @Test(expected = OdinRuntimeException.class)
@@ -58,7 +69,7 @@ public class DefaultTickConverterTest {
   public void testBeatToMicrosecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         RuntimeTicks.BEAT, RuntimeTicks.MICROSECOND, 0);
-    assertEquals(501000,converter.convert(1));
+    assertEquals(500000,converter.convert(1));
   }
 
   @Test(expected = OdinRuntimeException.class)
