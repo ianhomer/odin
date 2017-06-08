@@ -1,10 +1,12 @@
 package com.purplepip.odin.music.operations;
 
 import com.purplepip.odin.sequencer.AbstractChannelOperation;
+import lombok.ToString;
 
 /**
  * Note operation.
  */
+@ToString(callSuper = true)
 public abstract class NoteVelocityOperation extends AbstractChannelOperation {
   private int number;
   private int velocity;

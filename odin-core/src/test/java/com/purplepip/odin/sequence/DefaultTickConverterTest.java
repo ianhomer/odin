@@ -44,7 +44,7 @@ public class DefaultTickConverterTest {
   public void testMillisecondToBeat() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         RuntimeTicks.MILLISECOND, RuntimeTicks.BEAT, 0);
-    assertEquals(200, converter.convert(100000));
+    assertEquals(199, converter.convert(100000));
   }
 
   @Test(expected = OdinRuntimeException.class)
@@ -58,7 +58,7 @@ public class DefaultTickConverterTest {
   public void testBeatToMicrosecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         RuntimeTicks.BEAT, RuntimeTicks.MICROSECOND, 0);
-    assertEquals(500000,converter.convert(1));
+    assertEquals(501000,converter.convert(1));
   }
 
   @Test(expected = OdinRuntimeException.class)

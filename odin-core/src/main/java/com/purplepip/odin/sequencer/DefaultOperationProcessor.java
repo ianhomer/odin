@@ -60,6 +60,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
     public void run() {
       OperationEvent nextEvent = queue.peek();
       long microsecondPosition = clock.getMicrosecondPosition();
+      LOG.debug("Processing operations : {}", microsecondPosition);
       while (nextEvent != null && nextEvent.getTime()
           < microsecondPosition + forwardPollingTime) {
         nextEvent = queue.poll();

@@ -42,7 +42,8 @@ public class MidiOdinSequencerTest {
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper))
               );
 
-      new ProjectBuilder(sequencer.getProject()).addMetronome();
+      /* TODO : Reduce offset and lock.await time and fix code so test reliably runs */
+      new ProjectBuilder(sequencer.getProject()).withOffset(8).withLength(8).addMetronome();
       sequencer.start();
 
       try {
@@ -51,7 +52,7 @@ public class MidiOdinSequencerTest {
         sequencer.stop();
       }
 
-      assertEquals("Not enough events fired", 0, lock.getCount());
+      assertEquals("Some events have not yet fired", 0, lock.getCount());
     }
   }
 }

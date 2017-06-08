@@ -52,8 +52,11 @@ public class Clock implements MicrosecondPositionProvider {
    * Start the clock.
    */
   public void start() {
+    /*
+     * Round first beat up, to allow initial execution of processor to fire
+     */
     this.microsecondsPositionOfFirstBeat = startRoundingFactor
-        * (microsecondPositionProvider.getMicrosecondPosition() / startRoundingFactor);
+        * (1 + microsecondPositionProvider.getMicrosecondPosition() / startRoundingFactor);
     LOG.debug("Starting clock at {}micros", microsecondsPositionOfFirstBeat);
     started = true;
     listeners.forEach(ClockListener::onClockStart);
@@ -70,7 +73,7 @@ public class Clock implements MicrosecondPositionProvider {
    */
   @Override
   public long getMicrosecondPosition() {
-    return microsecondPositionProvider.getMicrosecondPosition() - microsecondsPositionOfFirstBeat;
+    return microsecondPositionProvider.getMicrosecondPosition();
   }
 
   public BeatsPerMinute getBeatsPerMinute() {

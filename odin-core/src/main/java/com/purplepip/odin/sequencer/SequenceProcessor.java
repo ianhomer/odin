@@ -94,7 +94,7 @@ public class SequenceProcessor implements ClockListener {
             sequenceTrack.getSequenceRuntime(),
             microsecondPosition);
         if (noteCountThisBuffer > maxNotesPerBuffer) {
-          LOG.debug("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
+          LOG.warn("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
               maxNotesPerBuffer);
           break;
         }
@@ -110,7 +110,7 @@ public class SequenceProcessor implements ClockListener {
         while (nextEvent != null && nextEvent.getTime()
             < microsecondPosition + timeBufferInMicroSeconds) {
           if (noteCount > maxNotesPerBuffer) {
-            LOG.debug("Too many notes in this buffer {} > {} ", noteCount,
+            LOG.warn("Too many notes in this buffer {} > {} ", noteCount,
                 maxNotesPerBuffer);
             return noteCount;
           }
@@ -120,7 +120,7 @@ public class SequenceProcessor implements ClockListener {
           nextEvent = sequenceRuntime.pop();
           LOG.trace("Processing Event {}", nextEvent);
           if (nextEvent.getTime() < microsecondPosition) {
-            LOG.debug("Skipping event, too late to process {} < {}", nextEvent.getTime(),
+            LOG.warn("Skipping event, too late to process {} < {}", nextEvent.getTime(),
                 microsecondPosition);
           } else {
             sendToProcessor(nextEvent.getValue(), nextEvent, sequenceTrack);
