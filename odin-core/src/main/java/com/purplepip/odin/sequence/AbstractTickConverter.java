@@ -47,9 +47,8 @@ public abstract class AbstractTickConverter implements TickConverter {
 
   @Override
   public long convertDuration(long time, long duration) {
-    /* TODO : Create unit tests for this and then optimise implementation */
     LOG.trace("Converting duration {} from {} to {}", time, inputTick, outputTick);
-    return convertTimeUnit(inputOffset + time + duration) - convertTimeUnit(inputOffset + time);
+    return convert(time + duration) - convert(time);
   }
 
   long scaleTime(long time) {
