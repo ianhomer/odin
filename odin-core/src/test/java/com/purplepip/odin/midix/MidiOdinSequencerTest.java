@@ -13,11 +13,13 @@ import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
  * Odin sequencer test with real sends to MIDI.
  */
+@Slf4j
 public class MidiOdinSequencerTest {
   @Test
   public void testSequencer() throws OdinException, InterruptedException {
@@ -25,6 +27,7 @@ public class MidiOdinSequencerTest {
       final CountDownLatch lock = new CountDownLatch(16);
 
       OperationReceiver operationReceiver = (operation, time) -> {
+        LOG.debug("Operation countdown {}", lock.getCount());
         lock.countDown();
       };
 
@@ -43,7 +46,9 @@ public class MidiOdinSequencerTest {
               );
 
       /* TODO : Reduce offset and lock.await time and fix code so test reliably runs */
-      new ProjectBuilder(sequencer.getProject()).withOffset(8).withLength(8).addMetronome();
+      new ProjectBuilder(sequencer.getProject()).withOffset(0).withLength(8).addMetronome();
+      lock.await(2000, TimeUnit.MILLISECONDS);
+
       sequencer.start();
 
       try {

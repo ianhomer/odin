@@ -136,13 +136,13 @@ public class SequenceProcessor implements ClockListener {
     }
 
     private void sendToProcessor(Note note, Event<Note> nextEvent, SequenceTrack sequenceTrack) {
-      LOG.debug("Sending note {} to channel {} at time {}",
-          note.getNumber(), sequenceTrack.getChannel(), nextEvent.getTime());
       Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
           note.getNumber(), note.getVelocity());
       Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
           note.getNumber());
       try {
+        LOG.debug("Sending note {} to channel {} at time {}",
+            note, sequenceTrack.getChannel(), nextEvent.getTime());
         operationProcessor.send(noteOn, nextEvent.getTime());
         operationProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());
       } catch (OdinException e) {

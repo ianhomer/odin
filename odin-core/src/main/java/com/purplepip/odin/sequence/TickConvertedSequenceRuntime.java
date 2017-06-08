@@ -43,9 +43,9 @@ public class TickConvertedSequenceRuntime implements SequenceRuntime<Note> {
       return event;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
-        tickConverter.convert(event.getValue().getDuration()));
+        tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
     long time = tickConverter.convert(event.getTime());
-    LOG.trace("Converted note {} to time {}", note, time);
+    LOG.debug("Converted note {} to time {}", note, time);
     return new DefaultEvent<>(note, time);
   }
 
