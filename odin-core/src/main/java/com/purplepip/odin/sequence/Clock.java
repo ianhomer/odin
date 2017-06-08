@@ -1,5 +1,7 @@
 package com.purplepip.odin.sequence;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,6 +17,8 @@ public class Clock implements MicrosecondPositionProvider {
   private long microsecondsPositionOfFirstBeat;
   private long startRoundingFactor = 1;
   private MicrosecondPositionProvider microsecondPositionProvider;
+  boolean started = false;
+  private List<ClockListener> listeners = new ArrayList<>();
 
   public Clock(BeatsPerMinute beatsPerMinute) {
     this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
@@ -40,6 +44,10 @@ public class Clock implements MicrosecondPositionProvider {
     this.microsecondPositionProvider = microsecondPositionProvider;
   }
 
+  public void addListener(ClockListener listener) {
+    listeners.add(listener);
+  }
+
   /**
    * Start the clock.
    */
@@ -47,6 +55,12 @@ public class Clock implements MicrosecondPositionProvider {
     this.microsecondsPositionOfFirstBeat = startRoundingFactor
         * (microsecondPositionProvider.getMicrosecondPosition() / startRoundingFactor);
     LOG.debug("Starting clock at {}micros", microsecondsPositionOfFirstBeat);
+    started = true;
+    listeners.forEach(ClockListener::onClockStart);
+  }
+
+  public void stop() {
+    listeners.forEach(ClockListener::onClockStop);
   }
 
   /**
@@ -77,4 +91,7 @@ public class Clock implements MicrosecondPositionProvider {
     return getBeat(microsecondPositionProvider.getMicrosecondPosition());
   }
 
+  public boolean isStarted() {
+    return started;
+  }
 }

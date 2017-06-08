@@ -5,6 +5,7 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.ClockListener;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.SequenceRuntime;
 import java.util.Set;
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SequenceRuntime processor.
  */
-public class SequenceProcessor {
+public class SequenceProcessor implements ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(SequenceProcessor.class);
 
   private final Set<SequenceTrack> sequenceTrackSet;
@@ -31,7 +32,7 @@ public class SequenceProcessor {
   /**
    * Create a series processor.
    *
-   * @param microsecondPositionProvider microsecond position provider
+   * @param clock clock
    * @param sequenceTrackSet series track set
    * @param operationProcessor operation processor
    */
@@ -41,7 +42,27 @@ public class SequenceProcessor {
     this.sequenceTrackSet = sequenceTrackSet;
     this.clock = clock;
     this.operationProcessor = operationProcessor;
+    clock.addListener(this);
+    /*
+     * If clock has already started then start immediately, otherwise wait for clock start
+     * event.
+     */
+    if (clock.isStarted()) {
+      start();
+    }
+  }
 
+  @Override
+  public void onClockStart() {
+    start();
+  }
+
+
+  @Override
+  public void onClockStop() {
+  }
+
+  private void start() {
     SequenceProcessorExecutor executor = new SequenceProcessorExecutor();
     scheduledPool.scheduleWithFixedDelay(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
   }
@@ -60,6 +81,7 @@ public class SequenceProcessor {
      */
     @Override
     public void run() {
+      LOG.debug("Processing tracks");
       /*
        * Use a constant microsecond position for the whole loop to make it easier to debug
        * loop processing.  In this loop it is only used for setting forward scan windows and does
