@@ -45,14 +45,11 @@ public class MidiOdinSequencerTest {
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper))
               );
 
-      /* TODO : Reduce offset and lock.await time and fix code so test reliably runs */
-      new ProjectBuilder(sequencer.getProject()).withOffset(0).withLength(8).addMetronome();
-      lock.await(2000, TimeUnit.MILLISECONDS);
-
+      new ProjectBuilder(sequencer.getProject()).withLength(8).addMetronome();
       sequencer.start();
 
       try {
-        lock.await(1000, TimeUnit.MILLISECONDS);
+        lock.await(100, TimeUnit.MILLISECONDS);
       } finally {
         sequencer.stop();
       }
