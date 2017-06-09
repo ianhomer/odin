@@ -14,6 +14,6 @@
  */
 
 /**
- * Sequence foundations.
+ * Persistable implementation for the sequencer project model.
  */
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.server.rest.domain;

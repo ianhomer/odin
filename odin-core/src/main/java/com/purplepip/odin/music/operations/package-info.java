@@ -14,6 +14,6 @@
  */
 
 /**
- * Sequence foundations.
+ * Music operations.
  */
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.music.operations;

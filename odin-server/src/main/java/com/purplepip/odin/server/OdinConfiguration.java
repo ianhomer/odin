@@ -55,6 +55,7 @@ public class OdinConfiguration {
    *
    * @param measureProvider measure provider
    * @param midiDeviceWrapper MIDI device wrapper
+   * @param projectContainer project container
    * @return Odin sequencer
    * @throws OdinException exception
    */

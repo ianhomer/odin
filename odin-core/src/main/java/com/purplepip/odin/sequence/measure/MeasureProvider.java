@@ -24,7 +24,7 @@ public interface MeasureProvider {
   int getBeatsInThisMeasure(Tock tock);
 
   /**
-   * What position in the measure is this tock?  0 => start of the measure.  Note that a tick
+   * What position in the measure is this tock?  0 =&gt; start of the measure.  Note that a tick
    * might be higher resolution than a single beat, e.g. it could be a half beat or a triplet.
    *
    * @param tock current tick

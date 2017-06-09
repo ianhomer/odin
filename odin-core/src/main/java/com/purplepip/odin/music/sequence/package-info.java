@@ -14,6 +14,6 @@
  */
 
 /**
- * Sequence foundations.
+ * Sequence definitions.
  */
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.music.sequence;

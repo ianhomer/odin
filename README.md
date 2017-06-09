@@ -106,3 +106,9 @@ To test a single test from command line
 
     mvn test -Dtest=LogCaptureTest -pl log-capture/
     
+# Site
+    
+Generate site, including javadocs with
+    
+    mvn site
+    

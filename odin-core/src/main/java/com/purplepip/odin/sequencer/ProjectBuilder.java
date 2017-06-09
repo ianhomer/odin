@@ -68,6 +68,9 @@ public class ProjectBuilder {
    * Create Note.  This method can be overridden by another sequence builder that
    * uses a different model implementation.
    *
+   * @param note note number
+   * @param velocity velocity
+   * @param duration duration
    * @return note
    */
   protected Note createNote(int note, int velocity, long duration) {

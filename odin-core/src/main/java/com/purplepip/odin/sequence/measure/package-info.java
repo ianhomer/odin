@@ -14,6 +14,6 @@
  */
 
 /**
- * Sequence foundations.
+ * Measure foundations.
  */
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.measure;

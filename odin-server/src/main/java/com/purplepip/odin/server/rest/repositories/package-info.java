@@ -14,6 +14,6 @@
  */
 
 /**
- * Sequence foundations.
+ * Repositories to access the project persisted model.
  */
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.server.rest.repositories;

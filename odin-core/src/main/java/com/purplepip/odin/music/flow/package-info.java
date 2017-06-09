@@ -14,6 +14,6 @@
  */
 
 /**
- * Sequence foundations.
+ * Sequence flow logic.
  */
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.music.flow;

@@ -22,6 +22,8 @@ public class MidiSystemHelper {
 
   /**
    * Log MIDI system info.
+   *
+   * @return this MIDI system helper
    */
   public MidiSystemHelper logInfo() {
     for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {

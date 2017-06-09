@@ -14,6 +14,6 @@
  */
 
 /**
- * Sequence foundations.
+ * Project configuration.
  */
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.project;

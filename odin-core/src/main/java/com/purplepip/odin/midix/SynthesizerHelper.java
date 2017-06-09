@@ -86,7 +86,8 @@ public class SynthesizerHelper {
    * Find an instrument by name.
    *
    * @param name Name of instrument to find
-   * @return Instrument
+   * @param percussion true if wishing to find percussion instrument
+   * @return Instrument instrument
    */
   public Instrument findInstrumentByName(String name, boolean percussion) {
     String lowercaseName = name.toLowerCase();

@@ -14,6 +14,6 @@
  */
 
 /**
- * Sequence foundations.
+ * odin web interface.
  */
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.server;
