@@ -56,23 +56,27 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
     setClockStartOffset(0);
   }
 
-  public DefaultOdinSequencerConfiguration setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
+  public final DefaultOdinSequencerConfiguration
+      setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
     this.beatsPerMinute = beatsPerMinute;
     return this;
   }
 
-  public DefaultOdinSequencerConfiguration setMeasureProvider(MeasureProvider measureProvider) {
+  public final DefaultOdinSequencerConfiguration
+      setMeasureProvider(MeasureProvider measureProvider) {
     this.measureProvider = measureProvider;
     return this;
   }
 
 
-  public DefaultOdinSequencerConfiguration setProjectContainer(ProjectContainer projectContainer) {
+  public final DefaultOdinSequencerConfiguration
+      setProjectContainer(ProjectContainer projectContainer) {
     this.projectContainer = projectContainer;
     return this;
   }
 
-  public DefaultOdinSequencerConfiguration setFlowFactory(FlowFactory<Note> flowFactory) {
+  public final DefaultOdinSequencerConfiguration
+      setFlowFactory(FlowFactory<Note> flowFactory) {
     this.flowFactory = flowFactory;
     return this;
   }
@@ -101,7 +105,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
     return this;
   }
 
-  public DefaultOdinSequencerConfiguration setMicrosecondPositionProvider(
+  public final DefaultOdinSequencerConfiguration setMicrosecondPositionProvider(
       MicrosecondPositionProvider microsecondPositionProvider) {
     this.microsecondPositionProvider = microsecondPositionProvider;
     return this;
@@ -142,7 +146,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
     return clockStartRoundingFactor;
   }
 
-  public DefaultOdinSequencerConfiguration setClockStartRoundingFactor(
+  public final DefaultOdinSequencerConfiguration setClockStartRoundingFactor(
       long clockStartRoundingFactor) {
     this.clockStartRoundingFactor = clockStartRoundingFactor;
     return this;
@@ -153,7 +157,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
     return clockStartOffset;
   }
 
-  public DefaultOdinSequencerConfiguration setClockStartOffset(
+  public final DefaultOdinSequencerConfiguration setClockStartOffset(
       long clockStartOffset) {
     this.clockStartOffset = clockStartOffset;
     return this;
@@ -174,7 +178,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
    * @param isLoggingOperationReceiverEnabled is logging operation receiver is automatically added
    * @return this configuration
    */
-  public DefaultOdinSequencerConfiguration setLoggingOperationReceiverEnabled(
+  public final DefaultOdinSequencerConfiguration setLoggingOperationReceiverEnabled(
       boolean isLoggingOperationReceiverEnabled) {
     this.isLoggingOperationReceiverEnabled = isLoggingOperationReceiverEnabled;
     return this;

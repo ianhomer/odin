@@ -24,15 +24,13 @@ import com.purplepip.odin.sequencer.OperationReceiver;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * MIDI operation receiver.
  */
+@Slf4j
 public class MidiOperationReceiver implements OperationReceiver {
-  private static final Logger LOG = LoggerFactory.getLogger(MidiOperationReceiver.class);
-
   private MidiDeviceWrapper midiDeviceWrapper;
 
   public MidiOperationReceiver(MidiDeviceWrapper midiDeviceWrapper) {
@@ -72,7 +70,8 @@ public class MidiOperationReceiver implements OperationReceiver {
     }
   }
 
-  private MidiMessage createMidiMessage(ChannelOperation operation) throws OdinException {
+  private static MidiMessage
+      createMidiMessage(ChannelOperation operation) throws OdinException {
     return new RawMidiMessage(new RawMessage(operation).getBytes());
   }
 }

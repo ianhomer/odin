@@ -31,9 +31,9 @@ public class Clock implements MicrosecondPositionProvider {
   private BeatsPerMinute beatsPerMinute;
   private long microsecondsPositionOfFirstBeat;
   private long startRoundingFactor = 1;
-  private long startOffset = 0;
+  private long startOffset;
   private MicrosecondPositionProvider microsecondPositionProvider;
-  private boolean started = false;
+  private boolean started;
   private List<ClockListener> listeners = new ArrayList<>();
 
   public Clock(BeatsPerMinute beatsPerMinute) {

@@ -52,7 +52,7 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
     setProgramName(channel.getProgramName());
   }
 
-  protected void setBank(int bank) {
+  protected final void setBank(int bank) {
     this.bank = bank;
   }
 
@@ -60,7 +60,7 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
     return bank;
   }
 
-  protected void setProgram(int program) {
+  protected final void setProgram(int program) {
     this.program = program;
   }
 
