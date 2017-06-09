@@ -6,8 +6,6 @@ import com.purplepip.odin.sequence.Tick;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
@@ -18,7 +16,6 @@ import lombok.Data;
 @Data
 @Entity(name = "Metronome")
 @Table(name = "Metronome")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class PersistableMetronome extends PersistableSequence implements Metronome {
   private int channel;
   @Column(name = "o")
