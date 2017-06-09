@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
@@ -13,15 +28,13 @@ import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.flow.Flow;
 import java.util.HashSet;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Core Odin Sequencer.
  */
+@Slf4j
 public class OdinSequencer implements ProjectListener {
-  private static final Logger LOG = LoggerFactory.getLogger(OdinSequencer.class);
-
   private OdinSequencerConfiguration configuration;
   private Set<SequenceTrack> sequenceTracks = new HashSet<>();
   private SequenceProcessor sequenceProcessor;
@@ -30,7 +43,7 @@ public class OdinSequencer implements ProjectListener {
   private boolean started = false;
 
   /**
-   * Create an Odin sequencer.
+   * Create an odin sequencer.
    *
    * @param configuration configuration for the sequencer
    * @throws OdinException exception
@@ -45,6 +58,9 @@ public class OdinSequencer implements ProjectListener {
     return configuration.getProjectContainer();
   }
 
+  /**
+   * Initialise the sequencer.
+   */
   private void init() {
     configuration.getProjectContainer().addListener(this);
     clock = new Clock(configuration.getBeatsPerMinute(),
@@ -58,6 +74,9 @@ public class OdinSequencer implements ProjectListener {
     refreshTracks();
   }
 
+  /**
+   * Refresh sequencer tracks from the project configuration.
+   */
   private void refreshTracks() {
     LOG.debug("Refreshing tracks at {}micros", clock.getMicrosecondPosition());
     sequenceTracks.clear();
@@ -90,6 +109,12 @@ public class OdinSequencer implements ProjectListener {
         .convertSeries(sequenceRuntime), sequence.getChannel()));
   }
 
+  /**
+   * Create sequence runtime from the given flow.
+   *
+   * @param flow flow
+   * @return sequence runtime
+   */
   private DefaultSequenceRuntime
       createSequenceRuntime(Flow<Sequence, Note> flow) {
     DefaultSequenceRuntime sequenceRuntime = new DefaultSequenceRuntime(flow);
@@ -103,6 +128,9 @@ public class OdinSequencer implements ProjectListener {
    */
   public void start() {
     started = true;
+    /*
+     * Create the processors and start the clock.
+     */
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
     configuration.getProjectContainer().apply();
