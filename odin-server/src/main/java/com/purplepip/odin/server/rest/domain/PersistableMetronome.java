@@ -24,26 +24,11 @@ public class PersistableMetronome extends PersistableSequence implements Metrono
   @Column(name = "o")
   private long offset;
   private long length;
-  @OneToOne(cascade = CascadeType.ALL)
-  private PersistableTick tick;
-  @OneToOne(cascade = CascadeType.ALL)
-  private PersistableNote noteBarStart;
-  @OneToOne(cascade = CascadeType.ALL)
-  private PersistableNote noteMidBar;
+  @OneToOne(cascade = CascadeType.ALL, targetEntity = PersistableTick.class)
+  private Tick tick;
+  @OneToOne(cascade = CascadeType.ALL, targetEntity = PersistableNote.class)
+  private Note noteBarStart;
+  @OneToOne(cascade = CascadeType.ALL, targetEntity = PersistableNote.class)
+  private Note noteMidBar;
   private String flowName;
-
-  @Override
-  public void setTick(Tick tick) {
-    this.tick = (PersistableTick) tick;
-  }
-
-  @Override
-  public void setNoteBarStart(Note note) {
-    this.noteBarStart = (PersistableNote) note;
-  }
-
-  @Override
-  public void setNoteMidBar(Note note) {
-    this.noteMidBar = (PersistableNote) note;
-  }
 }

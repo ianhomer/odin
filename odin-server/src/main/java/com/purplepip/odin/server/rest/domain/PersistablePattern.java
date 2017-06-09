@@ -25,19 +25,9 @@ public class PersistablePattern extends PersistableSequence implements Pattern {
   @Column(name = "o")
   private long offset;
   private long length;
-  @OneToOne(cascade = CascadeType.PERSIST)
-  private PersistableNote note;
-  @OneToOne(cascade = CascadeType.PERSIST)
-  private PersistableTick tick;
+  @OneToOne(cascade = CascadeType.PERSIST, targetEntity = PersistableNote.class)
+  private Note note;
+  @OneToOne(cascade = CascadeType.PERSIST, targetEntity = PersistableTick.class)
+  private Tick tick;
   private String flowName;
-
-  @Override
-  public void setTick(Tick tick) {
-    this.tick = (PersistableTick) tick;
-  }
-
-  @Override
-  public void setNote(Note note) {
-    this.note = (PersistableNote) note;
-  }
 }
