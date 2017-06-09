@@ -19,7 +19,7 @@ public class ApplicationTest {
   private OdinSequencer sequencer;
 
   @Test
-  public void contextLoads() throws Exception {
+  public void testContextLoads() throws Exception {
     assertThat(sequencer).isNotNull();
     assertThat(sequencer.isStarted()).isTrue();
   }

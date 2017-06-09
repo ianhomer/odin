@@ -22,8 +22,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Abstract sequence.
  */
-public abstract class MutableSequenceRuntime<S extends Sequence, A> implements SequenceRuntime<A>  {
-  private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRuntime.class);
+public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
+    implements SequenceRuntime<A>  {
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
 
   private MeasureProvider measureProvider;
   private S sequence;

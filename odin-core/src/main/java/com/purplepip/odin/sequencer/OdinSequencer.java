@@ -40,7 +40,7 @@ public class OdinSequencer implements ProjectListener {
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private Clock clock;
-  private boolean started = false;
+  private boolean started;
 
   /**
    * Create an odin sequencer.

@@ -10,6 +10,6 @@
   </parent>
 
   <artifactId>common-test-logging</artifactId>
-  <name>Purple Pip Common Test Logging</name>
   <packaging>jar</packaging>
+  <name>Purple Pip Common Test Logging</name>
 </project>

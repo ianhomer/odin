@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class MidiDeviceMicrosecondPositionProviderTest {
   @Test
-  public void getMicrosecondPosition() {
+  public void testMicrosecondPosition() {
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     MicrosecondPositionProvider provider = new MidiDeviceMicrosecondPositionProvider(wrapper);
     assertTrue(wrapper.getDevice().isOpen());

@@ -16,8 +16,8 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequence.AbstractMutableSequenceRuntime;
 import com.purplepip.odin.sequence.Event;
-import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.flow.Flow;
@@ -25,7 +25,7 @@ import com.purplepip.odin.sequence.flow.Flow;
 /**
  * Default sequence runtime.
  */
-public class DefaultSequenceRuntime extends MutableSequenceRuntime<Sequence, Note> {
+public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Sequence, Note> {
   private Flow<Sequence, Note> flow;
 
   public DefaultSequenceRuntime(Flow<Sequence, Note> flow) {
