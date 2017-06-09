@@ -11,7 +11,6 @@
 
   <artifactId>odin-server</artifactId>
   <name>Odin Server</name>
-  <version>1.0-SNAPSHOT</version>
 
   <properties>
     <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
