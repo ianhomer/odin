@@ -20,7 +20,7 @@ public class MidiDeviceInMatcherTest {
   private MidiDevice device;
 
   @Test
-  public void matches() throws Exception {
+  public void testMatches() throws Exception {
     MidiDeviceInMatcher matcher = new MidiDeviceInMatcher("Gervill");
     MidiDevice synthesizer = MidiSystem.getSynthesizer();
     when(device.getDeviceInfo()).thenReturn(synthesizer.getDeviceInfo());

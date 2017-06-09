@@ -15,16 +15,16 @@
 
 package com.purplepip.odin.sequencer;
 
+import java.io.Serializable;
 import java.util.Comparator;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Comparator for a operation message.
  */
-public class OperationEventComparator implements Comparator<OperationEvent> {
-  private static final Logger LOG = LoggerFactory.getLogger(OperationEventComparator.class);
+@Slf4j
+public class OperationEventComparator implements Comparator<OperationEvent>, Serializable {
+  private static final long serialVersionUID = 1;
 
   /**
    * Compare two operation events.

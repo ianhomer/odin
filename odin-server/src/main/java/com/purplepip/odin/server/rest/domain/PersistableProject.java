@@ -40,7 +40,7 @@ public class PersistableProject implements Project {
   @GeneratedValue
   private Long id;
   private String name;
-  @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.ALL,
+  @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER)
   private Set<Sequence> sequences = new HashSet<>();
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,

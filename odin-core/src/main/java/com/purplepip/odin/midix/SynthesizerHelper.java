@@ -18,6 +18,7 @@ package com.purplepip.odin.midix;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.Locale;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiChannel;
@@ -105,17 +106,17 @@ public class SynthesizerHelper {
    * @return Instrument instrument
    */
   public Instrument findInstrumentByName(String name, boolean percussion) {
-    String lowercaseName = name.toLowerCase();
+    String lowercaseName = name.toLowerCase(Locale.ENGLISH);
     for (Instrument instrument : synthesizer.getLoadedInstruments()) {
       if ((!percussion || isPercussion(instrument))
-          && instrument.getName().toLowerCase().contains(lowercaseName)) {
+          && instrument.getName().toLowerCase(Locale.ENGLISH).contains(lowercaseName)) {
         return instrument;
       }
     }
     return null;
   }
 
-  private boolean isPercussion(Instrument instrument) {
+  private static boolean isPercussion(Instrument instrument) {
     /*
      * This is fragile logic based on implementation of SF2Instrument however the
      * com.sun.media.sound.ModelPatch which provides an isPercussion method is not public so

@@ -31,7 +31,7 @@ import lombok.Data;
 @Data
 @Entity(name = "Metronome")
 @Table(name = "Metronome")
-public class PersistableMetronome extends PersistableSequence implements Metronome {
+public class PersistableMetronome extends AbstractPersistableSequence implements Metronome {
   private int channel;
   @Column(name = "o")
   private long offset;

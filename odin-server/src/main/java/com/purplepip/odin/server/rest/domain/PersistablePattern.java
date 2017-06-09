@@ -31,7 +31,7 @@ import lombok.Data;
 @Data
 @Entity(name = "Pattern")
 @Table(name = "Pattern")
-public class PersistablePattern extends PersistableSequence implements Pattern {
+public class PersistablePattern extends AbstractPersistableSequence implements Pattern {
   private int bits;
   private int channel;
   @Column(name = "o")
