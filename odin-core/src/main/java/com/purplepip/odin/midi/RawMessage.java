@@ -33,7 +33,7 @@ public class RawMessage {
   private static final int NOTE_ON = 0x90;
   private static final int PROGRAM_CHANGE = 0xC0;
 
-  private byte[] buffer = new byte[3];
+  private final byte[] buffer = new byte[3];
   private int length;
 
   /**
@@ -72,8 +72,15 @@ public class RawMessage {
     buffer[0] = (byte) (((command & 0xF0) | (channel & 0x0F)) & 0xFF);
   }
 
+  /**
+   * Get bytes for raw MIDI message.
+   *
+   * @return MIDI message bytes
+   */
   public byte[] getBytes() {
-    return buffer;
+    byte[] returnedArray = new byte[length];
+    System.arraycopy(buffer, 0, returnedArray, 0, length);
+    return returnedArray;
   }
 
   public int getLength() {
