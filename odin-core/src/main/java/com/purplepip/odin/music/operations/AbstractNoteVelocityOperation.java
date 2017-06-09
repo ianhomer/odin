@@ -19,10 +19,10 @@ import com.purplepip.odin.sequencer.AbstractChannelOperation;
 import lombok.ToString;
 
 /**
- * Note operation.
+ * Abstract note operation with velocity information.
  */
 @ToString(callSuper = true)
-public abstract class NoteVelocityOperation extends AbstractChannelOperation {
+public abstract class AbstractNoteVelocityOperation extends AbstractChannelOperation {
   private int number;
   private int velocity;
 

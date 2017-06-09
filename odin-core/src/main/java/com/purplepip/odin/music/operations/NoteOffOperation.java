@@ -22,7 +22,7 @@ import lombok.ToString;
  * specification to cater for after-touch.  Currently we explicitly velocity for note off to 0.
  */
 @ToString(callSuper = true)
-public class NoteOffOperation extends NoteVelocityOperation {
+public class NoteOffOperation extends AbstractNoteVelocityOperation {
   /**
    * Create note off operation.
    *

@@ -16,9 +16,9 @@
 package com.purplepip.odin.midi;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.music.operations.NoteVelocityOperation;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.ChannelOperation;
 
@@ -44,9 +44,9 @@ public class RawMessage {
    */
   public RawMessage(ChannelOperation operation) throws OdinException {
     if (operation instanceof NoteOnOperation) {
-      handle(NOTE_ON, (NoteVelocityOperation) operation);
+      handle(NOTE_ON, (AbstractNoteVelocityOperation) operation);
     } else if (operation instanceof NoteOffOperation) {
-      handle(NOTE_OFF, (NoteVelocityOperation) operation);
+      handle(NOTE_OFF, (AbstractNoteVelocityOperation) operation);
     } else if (operation instanceof ProgramChangeOperation) {
       handle((ProgramChangeOperation) operation);
     } else {
@@ -54,7 +54,7 @@ public class RawMessage {
     }
   }
 
-  private void handle(int status, NoteVelocityOperation operation) {
+  private void handle(int status, AbstractNoteVelocityOperation operation) {
     setStatus(status, operation.getChannel());
     buffer[1] = (byte) (operation.getNumber() & 0xFF);
     buffer[2] = (byte) (operation.getVelocity() & 0xFF);

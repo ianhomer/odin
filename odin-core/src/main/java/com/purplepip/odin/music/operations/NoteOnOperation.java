@@ -18,13 +18,13 @@ package com.purplepip.odin.music.operations;
 import lombok.ToString;
 
 /**
- * NoteOnOperation that is ready to be fired when time is right.
+ * Note on operation.
  *
  * <p>Note that this is bias towards music, but it will be abstracted at some point to other
  * operations.
  */
 @ToString(callSuper = true)
-public class NoteOnOperation extends NoteVelocityOperation {
+public class NoteOnOperation extends AbstractNoteVelocityOperation {
 
   /**
    * Create an operation.
