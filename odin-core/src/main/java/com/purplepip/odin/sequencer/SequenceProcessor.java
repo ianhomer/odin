@@ -23,6 +23,7 @@ import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.ClockListener;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.SequenceRuntime;
+import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -54,7 +55,7 @@ public class SequenceProcessor implements ClockListener {
   SequenceProcessor(Clock clock,
                            Set<SequenceTrack> sequenceTrackSet,
                            OperationProcessor operationProcessor) {
-    this.sequenceTrackSet = sequenceTrackSet;
+    this.sequenceTrackSet = Collections.unmodifiableSet(sequenceTrackSet);
     this.clock = clock;
     this.operationProcessor = operationProcessor;
     clock.addListener(this);
