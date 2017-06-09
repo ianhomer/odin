@@ -24,7 +24,7 @@ import lombok.ToString;
 public abstract class AbstractChannelOperation implements ChannelOperation {
   private int channel;
 
-  protected void setChannel(int channel) {
+  protected final void setChannel(int channel) {
     this.channel = channel;
   }
 

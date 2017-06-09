@@ -19,7 +19,7 @@ package com.purplepip.odin.sequence;
  * Static beats per minute.
  */
 public class StaticBeatsPerMinute implements BeatsPerMinute {
-  private static final int MICROSECONDS_PER_MINUTE = 60000000;
+  private static final int MICROSECONDS_PER_MINUTE = 60_000_000;
 
   private int beatsPerMinute;
   private long microsecondsPerBeat;

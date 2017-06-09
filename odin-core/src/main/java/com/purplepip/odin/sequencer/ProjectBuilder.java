@@ -40,11 +40,11 @@ public class ProjectBuilder {
   private static final int DEFAULT_DURATION = 1;
 
   private ProjectContainer projectContainer;
-  private int channel = 0;
+  private int channel;
   private int note = DEFAULT_NOTE;
   private int velocity = DEFAULT_VELOCITY;
   private int length = -1;
-  private int offset = 0;
+  private int offset;
 
 
   public ProjectBuilder(ProjectContainer projectContainer) {
@@ -60,12 +60,12 @@ public class ProjectBuilder {
     return metronome;
   }
 
-  private Pattern withDefaults(Pattern pattern) {
+  private static Pattern withDefaults(Pattern pattern) {
     pattern.setFlowName(PatternFlow.class.getName());
     return pattern;
   }
 
-  private Tick withDefaults(Tick tick) {
+  private static Tick withDefaults(Tick tick) {
     return tick;
   }
 

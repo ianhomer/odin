@@ -26,7 +26,7 @@ public abstract class NoteVelocityOperation extends AbstractChannelOperation {
   private int number;
   private int velocity;
 
-  protected void setNumber(int number) {
+  protected final void setNumber(int number) {
     this.number = number;
   }
 
@@ -34,7 +34,7 @@ public abstract class NoteVelocityOperation extends AbstractChannelOperation {
     return number;
   }
 
-  protected void setVelocity(int velocity) {
+  protected final void setVelocity(int velocity) {
     this.velocity = velocity;
   }
 

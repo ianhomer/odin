@@ -16,28 +16,26 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Base class for tick converters.
  */
+@Slf4j
 public abstract class AbstractTickConverter implements TickConverter {
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultTickConverter.class);
-
   private long inputOffset;
   private RuntimeTick inputTick;
   private RuntimeTick outputTick;
 
-  void setOutputTick(RuntimeTick outputTick) {
+  final void setOutputTick(RuntimeTick outputTick) {
     this.outputTick = outputTick;
   }
 
-  void setInputTick(RuntimeTick inputTick) {
+  final void setInputTick(RuntimeTick inputTick) {
     this.inputTick = inputTick;
   }
 
-  void setInputOffset(long inputOffset) {
+  final void setInputOffset(long inputOffset) {
     this.inputOffset = inputOffset;
   }
 

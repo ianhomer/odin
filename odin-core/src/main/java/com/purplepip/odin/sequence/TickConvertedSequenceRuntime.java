@@ -54,7 +54,7 @@ public class TickConvertedSequenceRuntime implements SequenceRuntime<Note> {
       LOG.debug("No event on sequenceRuntime to convert");
       return null;
     }
-    if (tickConverter.getOutputTick() == sequenceRuntime.getTick()) {
+    if (tickConverter.getOutputTick().equals(sequenceRuntime.getTick())) {
       return event;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
