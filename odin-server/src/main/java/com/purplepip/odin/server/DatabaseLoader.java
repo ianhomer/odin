@@ -3,6 +3,7 @@ package com.purplepip.odin.server;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.server.rest.PersistableProjectBuilder;
+import com.purplepip.odin.server.rest.domain.PersistableProject;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,6 @@ public class DatabaseLoader implements CommandLineRunner {
         .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
         .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
 
-    //repository.save((PersistableProject) container.getProject());
+    repository.save((PersistableProject) container.getProject());
   }
 }

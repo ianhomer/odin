@@ -26,7 +26,7 @@ public class PersistableProject implements Project {
   private Long id;
   private String name;
   @OneToMany(cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, targetEntity = PersistablePattern.class)
+      fetch = FetchType.EAGER, targetEntity = PersistableSequence.class)
   private Set<Sequence> sequences = new HashSet<>();
   @OneToMany(cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, targetEntity = PersistableChannel.class)

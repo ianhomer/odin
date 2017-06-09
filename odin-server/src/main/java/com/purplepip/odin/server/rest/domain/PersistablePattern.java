@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @Entity(name = "Pattern")
 @Table(name = "Pattern")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class PersistablePattern extends PersistableSequence implements Pattern {
   private int bits;
   private int channel;

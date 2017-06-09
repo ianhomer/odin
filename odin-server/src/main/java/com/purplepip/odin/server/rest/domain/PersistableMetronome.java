@@ -3,6 +3,7 @@ package com.purplepip.odin.server.rest.domain;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.Tick;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -17,17 +18,17 @@ import lombok.Data;
 @Data
 @Entity(name = "Metronome")
 @Table(name = "Metronome")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class PersistableMetronome extends PersistableSequence implements Metronome {
   private int channel;
   @Column(name = "o")
   private long offset;
   private long length;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private PersistableTick tick;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private PersistableNote noteBarStart;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private PersistableNote noteMidBar;
   private String flowName;
 
