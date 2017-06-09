@@ -8,7 +8,7 @@ import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
@@ -24,7 +24,7 @@ public class ProjectBuilder {
   private static final int DEFAULT_VELOCITY = 40;
   private static final int DEFAULT_DURATION = 1;
 
-  private Project project;
+  private ProjectContainer projectContainer;
   private int channel = 0;
   private int note = DEFAULT_NOTE;
   private int velocity = DEFAULT_VELOCITY;
@@ -32,8 +32,8 @@ public class ProjectBuilder {
   private int offset = 0;
 
 
-  public ProjectBuilder(Project project) {
-    this.project = project;
+  public ProjectBuilder(ProjectContainer projectContainer) {
+    this.projectContainer = projectContainer;
   }
 
   private Metronome withDefaults(Metronome metronome) {
@@ -103,7 +103,7 @@ public class ProjectBuilder {
    */
   public ProjectBuilder addMetronome() {
     Metronome metronome = withDefaults(createMetronome());
-    project.addSequence(applyParameters(metronome));
+    projectContainer.addSequence(applyParameters(metronome));
     return this;
   }
 
@@ -163,11 +163,11 @@ public class ProjectBuilder {
     /*
      * For now we replace channel with same number, in future we might merge.
      */
-    Optional<Channel> duplicate = project.getChannelStream()
+    Optional<Channel> duplicate = projectContainer.getChannelStream()
         .filter(o -> o.getNumber() == channel)
         .findFirst();
-    duplicate.ifPresent(channelToRemove -> project.removeChannel(channelToRemove));
-    project.addChannel(channelConfiguration);
+    duplicate.ifPresent(channelToRemove -> projectContainer.removeChannel(channelToRemove));
+    projectContainer.addChannel(channelConfiguration);
   }
 
   /**
@@ -195,7 +195,7 @@ public class ProjectBuilder {
     sequence.setTick(withDefaults(createTick(tick)));
     sequence.setNote(note);
 
-    project.addSequence(applyParameters(sequence));
+    projectContainer.addSequence(applyParameters(sequence));
     return this;
   }
 

@@ -3,9 +3,11 @@ package com.purplepip.odin.server.rest;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.server.rest.domain.PersistableChannel;
 import com.purplepip.odin.server.rest.domain.PersistableMetronome;
 import com.purplepip.odin.server.rest.domain.PersistableNote;
 import com.purplepip.odin.server.rest.domain.PersistablePattern;
@@ -15,8 +17,8 @@ import com.purplepip.odin.server.rest.domain.PersistableTick;
  * Sequence builder that updates the project with persistable domain objects.
  */
 public class PersistableProjectBuilder extends ProjectBuilder {
-  public PersistableProjectBuilder(Project project) {
-    super(project);
+  public PersistableProjectBuilder(ProjectContainer projectContainer) {
+    super(projectContainer);
   }
 
   @Override
@@ -46,6 +48,11 @@ public class PersistableProjectBuilder extends ProjectBuilder {
   @Override
   protected Pattern createPattern() {
     return new PersistablePattern();
+  }
+
+  @Override
+  protected Channel createChannel() {
+    return new PersistableChannel();
   }
 
   @Override

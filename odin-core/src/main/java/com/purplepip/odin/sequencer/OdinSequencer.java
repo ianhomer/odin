@@ -4,6 +4,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.ProjectListener;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
@@ -43,12 +44,22 @@ public class OdinSequencer implements ProjectListener {
     init();
   }
 
+  /**
+   * Get project.
+   * TODO : Remove this method.  All access should be via container.
+   *
+   * @return project
+   */
   public Project getProject() {
-    return configuration.getProject();
+    return configuration.getProjectContainer().getProject();
+  }
+
+  public ProjectContainer getProjectContainer() {
+    return configuration.getProjectContainer();
   }
 
   private void init() {
-    configuration.getProject().addListener(this);
+    configuration.getProjectContainer().addListener(this);
     clock = new Clock(configuration.getBeatsPerMinute(),
         configuration.getMicrosecondPositionProvider(),
         configuration.getClockStartRoundingFactor(),
@@ -63,7 +74,7 @@ public class OdinSequencer implements ProjectListener {
   private void refreshTracks() {
     LOG.debug("Refreshing tracks at {}micros", clock.getMicrosecondPosition());
     sequenceTracks.clear();
-    for (Channel channel : configuration.getProject().getChannels()) {
+    for (Channel channel : getProject().getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);
         operationProcessor.send(new ProgramChangeOperation(channel), -1);
@@ -72,7 +83,7 @@ public class OdinSequencer implements ProjectListener {
       }
     }
 
-    for (Sequence sequence : configuration.getProject().getSequences()) {
+    for (Sequence sequence : getProject().getSequences()) {
       addSequenceTrack(sequence);
     }
   }
@@ -107,7 +118,7 @@ public class OdinSequencer implements ProjectListener {
     started = true;
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
-    configuration.getProject().apply();
+    configuration.getProjectContainer().apply();
     clock.start();
   }
 

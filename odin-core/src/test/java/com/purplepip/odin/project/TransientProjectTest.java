@@ -1,9 +1,6 @@
 package com.purplepip.odin.project;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.sequence.Sequence;
@@ -19,7 +16,7 @@ public class TransientProjectTest {
   @Test
   public void testAddSequence() {
     Project project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(project);
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();
     int count = 0;
     Sequence sequence1 = null;
@@ -34,14 +31,8 @@ public class TransientProjectTest {
   }
 
   @Test
-  public void testListener() {
-    ProjectListener listener = mock(ProjectListener.class);
+  public void testGetName() {
     Project project = new TransientProject();
-    project.addListener(listener);
-    project.apply();
-    project.apply();
-    verify(listener, times(2)).onProjectApply();
-    project.removeListener(listener);
-    verify(listener, times(2)).onProjectApply();
+    assertEquals("transient", project.getName());
   }
 }

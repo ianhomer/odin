@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.ProjectBuilder;
@@ -22,7 +23,7 @@ public class FlowFactoryTest {
   public void testCreateFlow() throws OdinException {
     FlowFactory<Note> flowFactory = new FlowFactory<>();
     TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(project);
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();
     Flow<Sequence, Note> flow =
         flowFactory.createFlow(project.getSequences().iterator().next());

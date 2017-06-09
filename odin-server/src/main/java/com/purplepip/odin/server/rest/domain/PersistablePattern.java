@@ -6,8 +6,8 @@ import com.purplepip.odin.sequence.Tick;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
@@ -18,10 +18,8 @@ import lombok.Data;
 @Data
 @Entity(name = "Pattern")
 @Table(name = "Pattern")
-public class PersistablePattern implements Pattern {
-  @Id
-  @GeneratedValue
-  private Long id;
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class PersistablePattern extends PersistableSequence implements Pattern {
   private int bits;
   private int channel;
   @Column(name = "o")

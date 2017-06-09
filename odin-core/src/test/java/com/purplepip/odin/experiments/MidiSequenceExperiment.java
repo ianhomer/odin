@@ -73,7 +73,7 @@ public class MidiSequenceExperiment {
         synthesizerHelper.logInstruments();
       }
 
-      new ProjectBuilder(sequencer.getProject())
+      new ProjectBuilder(sequencer.getProjectContainer())
           .addMetronome()
           .withChannel(1).changeProgramTo("bird")
           .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)

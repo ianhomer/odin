@@ -22,7 +22,7 @@ public class OdinSequencerComplexTest {
     };
 
     OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
-    new ProjectBuilder(sequencer.getProject())
+    new ProjectBuilder(sequencer.getProjectContainer())
         .addMetronome()
         .withChannel(1).withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
         .withChannel(2).withVelocity(70).withNote(62).addPattern(Ticks.BEAT, 2)

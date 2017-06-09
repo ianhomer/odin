@@ -86,7 +86,7 @@ For performance I use a Nord Electro 5 and Nord Lead 4.
 Start spring boot server
 
   cd odin-server
-  mvn spring-boot:start&
+  mvn spring-boot:run&
   
 After Code change, rebuild in IDEA with ⌘ fn-F9 and server will restart with new classes.
 

@@ -5,8 +5,8 @@ import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.Tick;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
@@ -17,10 +17,8 @@ import lombok.Data;
 @Data
 @Entity(name = "Metronome")
 @Table(name = "Metronome")
-public class PersistableMetronome implements Metronome {
-  @Id
-  @GeneratedValue
-  private Long id;
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class PersistableMetronome extends PersistableSequence implements Metronome {
   private int channel;
   @Column(name = "o")
   private long offset;

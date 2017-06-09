@@ -4,11 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.sequence.Pattern;
+import com.purplepip.odin.project.Project;
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.server.rest.PersistableProjectBuilder;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
+@Slf4j
 public class PatternRepositoryTest {
   @Autowired
   private TestEntityManager entityManager;
@@ -29,7 +33,7 @@ public class PatternRepositoryTest {
   @Autowired
   private PatternRepository repository;
 
-  private TransientProject project;
+  private Project project;
   private PersistableProjectBuilder builder;
 
   /**
@@ -38,7 +42,7 @@ public class PatternRepositoryTest {
   @Before
   public void setUp() {
     project = new TransientProject();
-    builder = new PersistableProjectBuilder(project);
+    builder = new PersistableProjectBuilder(new ProjectContainer(project));
     // TODO : Remove this delete all, DatabaseLoader should not execute for this test and
     // repository should be clean at start
     repository.deleteAll();
@@ -51,6 +55,7 @@ public class PatternRepositoryTest {
 
     builder.addPattern(Ticks.BEAT, 9876);
     for (Sequence sequence : project.getSequences()) {
+      LOG.debug("Persisting {}", sequence);
       entityManager.persist(sequence);
     }
     patterns = repository.findByChannel(0);

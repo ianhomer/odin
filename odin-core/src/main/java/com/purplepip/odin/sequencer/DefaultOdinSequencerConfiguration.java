@@ -2,7 +2,7 @@ package com.purplepip.odin.sequencer;
 
 import com.google.common.collect.Lists;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
@@ -10,7 +10,6 @@ import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
-
 import java.util.ArrayList;
 
 /**
@@ -22,7 +21,7 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
   private OperationReceiver operationReceiver;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
-  private Project project;
+  private ProjectContainer projectContainer;
   private FlowFactory<Note> flowFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
@@ -31,7 +30,9 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
    * Create new configuration with defaults set.
    */
   public DefaultOdinSequencerConfiguration() {
-    setProject(new TransientProject());
+    ProjectContainer container = new ProjectContainer();
+    container.setProject(new TransientProject());
+    setProjectContainer(container);
     setFlowFactory(new FlowFactory<>());
     setMeasureProvider(new StaticMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
@@ -50,8 +51,9 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
     return this;
   }
 
-  public DefaultOdinSequencerConfiguration setProject(Project project) {
-    this.project = project;
+
+  public DefaultOdinSequencerConfiguration setProjectContainer(ProjectContainer projectContainer) {
+    this.projectContainer = projectContainer;
     return this;
   }
 
@@ -91,8 +93,8 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
   }
 
   @Override
-  public Project getProject() {
-    return project;
+  public ProjectContainer getProjectContainer() {
+    return projectContainer;
   }
 
   @Override

@@ -1,13 +1,9 @@
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Ticks;
-import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.server.rest.PersistableProjectBuilder;
-import com.purplepip.odin.server.rest.domain.PersistablePattern;
-import com.purplepip.odin.server.rest.repositories.PatternRepository;
+import com.purplepip.odin.server.rest.repositories.ProjectRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,36 +16,28 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DatabaseLoader implements CommandLineRunner {
   @Autowired
-  private OdinSequencer sequencer;
+  private ProjectContainer container;
 
-  private final PatternRepository repository;
+  private ProjectRepository repository;
 
   @Autowired
-  public DatabaseLoader(PatternRepository repository) {
+  public DatabaseLoader(ProjectRepository repository) {
     this.repository = repository;
   }
 
   @Override
   public void run(String... strings) throws Exception {
-    new PersistableProjectBuilder(sequencer.getProject())
+    new PersistableProjectBuilder(container)
         .addMetronome()
-        .addPattern(Ticks.BEAT, 2)
-        .withChannel(9).withNote(42).addPattern(Ticks.QUARTER, 61435)
-        .addPattern(Ticks.EIGHTH, 127)
+        .withChannel(1).changeProgramTo("bird")
+        .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
+        .withChannel(2).changeProgramTo("aahs")
+        .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
+        .withChannel(9).changeProgramTo("TR-909")
+        .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
+        .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
         .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
 
-    for (Sequence sequence : sequencer.getProject().getSequences()) {
-      if (sequence instanceof Pattern) {
-        PersistablePattern persistablePattern = (PersistablePattern) sequence;
-        if (persistablePattern.getNote() ==  null) {
-          throw new OdinRuntimeException("Note must not be null");
-        }
-        if (persistablePattern.getTick() ==  null) {
-          throw new OdinRuntimeException("Tick must not be null");
-        }
-        this.repository.save((PersistablePattern) sequence);
-        LOG.debug("Saved {}", sequence);
-      }
-    }
+    //repository.save((PersistableProject) container.getProject());
   }
 }

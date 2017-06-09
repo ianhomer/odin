@@ -34,7 +34,7 @@ public class MidiOdinSequencerTest {
       MeasureProvider measureProvider = new StaticMeasureProvider(4);
       OdinSequencer sequencer = new OdinSequencer(
           new DefaultOdinSequencerConfiguration()
-              .setClockStartOffset(10000)
+              .setClockStartOffset(15000)
               .setBeatsPerMinute(new StaticBeatsPerMinute(100000))
               .setMeasureProvider(measureProvider)
               .setOperationReceiver(
@@ -46,7 +46,7 @@ public class MidiOdinSequencerTest {
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper))
               );
 
-      new ProjectBuilder(sequencer.getProject()).withLength(8).addMetronome();
+      new ProjectBuilder(sequencer.getProjectContainer()).withLength(8).addMetronome();
       sequencer.start();
 
       try {
