@@ -3,6 +3,7 @@ package com.purplepip.odin.project;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +17,14 @@ public class ProjectContainer {
   private Project project;
 
   public ProjectContainer() {
+    // Empty constructor explicitly supported.
   }
 
   public ProjectContainer(Project project) {
     this.project = project;
   }
 
-  public Project getProject() {
+  Project getProject() {
     return project;
   }
 
@@ -63,7 +65,7 @@ public class ProjectContainer {
    * @return iterable of sequences
    */
   public Iterable<Sequence> getSequences() {
-    return getProject().getSequences();
+    return Collections.unmodifiableSet(getProject().getSequences());
   }
 
   /**
@@ -95,6 +97,10 @@ public class ProjectContainer {
    */
   public void removeChannel(Channel channel) {
     project.getChannels().remove(channel);
+  }
+
+  public Iterable<Channel> getChannels() {
+    return Collections.unmodifiableSet(project.getChannels());
   }
 
   /**

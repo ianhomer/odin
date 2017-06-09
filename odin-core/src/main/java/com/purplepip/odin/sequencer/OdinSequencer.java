@@ -3,7 +3,6 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
-import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.ProjectListener;
 import com.purplepip.odin.sequence.Clock;
@@ -12,10 +11,8 @@ import com.purplepip.odin.sequence.RuntimeTicks;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.flow.Flow;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,16 +41,6 @@ public class OdinSequencer implements ProjectListener {
     init();
   }
 
-  /**
-   * Get project.
-   * TODO : Remove this method.  All access should be via container.
-   *
-   * @return project
-   */
-  public Project getProject() {
-    return configuration.getProjectContainer().getProject();
-  }
-
   public ProjectContainer getProjectContainer() {
     return configuration.getProjectContainer();
   }
@@ -74,7 +61,7 @@ public class OdinSequencer implements ProjectListener {
   private void refreshTracks() {
     LOG.debug("Refreshing tracks at {}micros", clock.getMicrosecondPosition());
     sequenceTracks.clear();
-    for (Channel channel : getProject().getChannels()) {
+    for (Channel channel : getProjectContainer().getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);
         operationProcessor.send(new ProgramChangeOperation(channel), -1);
@@ -83,7 +70,7 @@ public class OdinSequencer implements ProjectListener {
       }
     }
 
-    for (Sequence sequence : getProject().getSequences()) {
+    for (Sequence sequence : getProjectContainer().getSequences()) {
       addSequenceTrack(sequence);
     }
   }

@@ -27,7 +27,7 @@ public class SequenceProcessor implements ClockListener {
   private long refreshPeriod = 200;
   private long timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
   private int maxNotesPerBuffer = 1000;
-  private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
+  private ScheduledExecutorService scheduledPool;
 
   /**
    * Create a series processor.
@@ -60,9 +60,11 @@ public class SequenceProcessor implements ClockListener {
 
   @Override
   public void onClockStop() {
+    scheduledPool.shutdown();
   }
 
   private void start() {
+    scheduledPool = Executors.newScheduledThreadPool(1);
     SequenceProcessorExecutor executor = new SequenceProcessorExecutor();
     scheduledPool.scheduleWithFixedDelay(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
   }
@@ -71,7 +73,7 @@ public class SequenceProcessor implements ClockListener {
    * Close sequence processor.
    */
   public void close() {
-    scheduledPool.shutdown();
+    onClockStop();
   }
 
   class SequenceProcessorExecutor implements Runnable {

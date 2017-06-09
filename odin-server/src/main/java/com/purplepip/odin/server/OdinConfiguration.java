@@ -8,10 +8,12 @@ import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.server.rest.PersistableProjectBuilder;
 import com.purplepip.odin.server.rest.domain.PersistableProject;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OdinConfiguration {
   public static final String DEFAULT_PROJECT_NAME = "defaultProject";
+
+  @Autowired
+  private ProjectRepository projectRepository;
 
   @Bean
   public MidiDeviceWrapper midiDeviceWrapper() {
@@ -45,9 +50,6 @@ public class OdinConfiguration {
     return new ProjectContainer();
   }
 
-  @Autowired
-  private ProjectRepository projectRepository;
-
   /**
    * Create Odin sequencer.
    *
@@ -63,9 +65,21 @@ public class OdinConfiguration {
     Project project = projectRepository.findByName(DEFAULT_PROJECT_NAME);
     if (project == null) {
       project = new PersistableProject();
+      projectContainer.setProject(project);
+      new PersistableProjectBuilder(projectContainer)
+          .addMetronome()
+          .withChannel(1).changeProgramTo("bird")
+          .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
+          .withChannel(2).changeProgramTo("aahs")
+          .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
+          .withChannel(9).changeProgramTo("TR-909")
+          .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
+          .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
+          .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
       projectRepository.save((PersistableProject) project);
+    } else {
+      projectContainer.setProject(project);
     }
-    projectContainer.setProject(project);
     return new OdinSequencer(
         new DefaultOdinSequencerConfiguration()
             .setProjectContainer(projectContainer)

@@ -13,6 +13,7 @@ public abstract class AbstractChannelOperation implements ChannelOperation {
     this.channel = channel;
   }
 
+  @Override
   public int getChannel() {
     return channel;
   }

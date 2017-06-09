@@ -37,7 +37,7 @@ public class ProjectRepositoryTest {
   public void setUp() {
     project = new PersistableProject();
     builder = new PersistableProjectBuilder(new ProjectContainer(project));
-    // TODO : Remove this delete all, DatabaseLoader should not execute for this test and
+    // TODO : Remove this delete all, initialisation of data should not execute for this test and
     // repository should be clean at start
     repository.deleteAll();
   }

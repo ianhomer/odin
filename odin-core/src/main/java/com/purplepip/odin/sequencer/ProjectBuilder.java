@@ -166,7 +166,7 @@ public class ProjectBuilder {
     Optional<Channel> duplicate = projectContainer.getChannelStream()
         .filter(o -> o.getNumber() == channel)
         .findFirst();
-    duplicate.ifPresent(channelToRemove -> projectContainer.removeChannel(channelToRemove));
+    duplicate.ifPresent(projectContainer::removeChannel);
     projectContainer.addChannel(channelConfiguration);
   }
 
