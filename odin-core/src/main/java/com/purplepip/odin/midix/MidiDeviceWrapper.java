@@ -76,9 +76,10 @@ public class MidiDeviceWrapper implements AutoCloseable {
    * @param instrumentName instrument name to search for
    * @throws OdinException exception
    */
-  public void changeProgram(int channel, String instrumentName) throws OdinException {
+  public Instrument changeProgram(int channel, String instrumentName) throws OdinException {
     Instrument instrument = findInstrument(channel, instrumentName);
     changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+    return instrument;
   }
 
   /**

@@ -18,7 +18,10 @@ public class SynthesizerHelperTest {
   public void testLogInstruments() {
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
-    synthesizerHelper.logInstruments();
+    try (LogCaptor captor = new LogCapture().debug().from(SynthesizerHelper.class).start()) {
+      synthesizerHelper.logInstruments();
+      assertTrue("Not enough messages logged", captor.size() > 10);
+    }
   }
 
   @Test

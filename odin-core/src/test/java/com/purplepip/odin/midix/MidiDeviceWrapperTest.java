@@ -1,8 +1,10 @@
 package com.purplepip.odin.midix;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.purplepip.odin.common.OdinException;
+import javax.sound.midi.Instrument;
 import org.junit.Test;
 
 /**
@@ -19,7 +21,9 @@ public class MidiDeviceWrapperTest {
   @Test
   public void testChangeProgramByName() throws OdinException {
     try (MidiDeviceWrapper wrapper = new MidiDeviceWrapper()) {
-      wrapper.changeProgram(0,"Bright");
+      Instrument instrument = wrapper.changeProgram(0,"Bright");
+      assertEquals("Instrument should have been changed",
+          "Bright Acoustic Pian", instrument.getName());
     }
   }
 }
