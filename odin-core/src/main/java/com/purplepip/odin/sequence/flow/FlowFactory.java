@@ -16,13 +16,31 @@
 package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.music.flow.MetronomeFlow;
+import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.sequence.Sequence;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Factory to generate flow object for given sequence.
  */
 public class FlowFactory<A> {
+  private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
 
+  /*
+   * Statically register known flows.  In the future we may design a plugin architecture, but
+   * for now it is kept tight by only allowing registered classes.
+   */
+
+  static {
+    register(PatternFlow.class);
+    register(MetronomeFlow.class);
+  }
+
+  private static void register(Class<? extends MutableFlow> clazz) {
+    FLOWS.put(clazz.getName(), clazz);
+  }
 
   /**
    * Create flow object for the given sequence.
@@ -34,11 +52,10 @@ public class FlowFactory<A> {
   @SuppressWarnings("unchecked")
   public Flow<Sequence, A> createFlow(Sequence sequence) throws OdinException {
     Class<? extends MutableFlow<Sequence, A>> flowClass;
-    try {
-      flowClass = (Class<? extends MutableFlow<Sequence, A>>)
-          Class.forName(sequence.getFlowName());
-    } catch (ClassNotFoundException e) {
-      throw new OdinException("Cannot find class " + sequence.getFlowName(), e);
+    flowClass = (Class<? extends MutableFlow<Sequence, A>>)
+          FLOWS.get(sequence.getFlowName());
+    if (flowClass == null) {
+      throw new OdinException("Flow class " + sequence.getFlowName() + " not registered");
     }
     MutableFlow<Sequence, A> flow;
     try {

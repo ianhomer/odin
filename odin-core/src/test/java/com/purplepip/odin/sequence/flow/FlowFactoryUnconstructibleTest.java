@@ -26,7 +26,8 @@ public class FlowFactoryUnconstructibleTest {
   @Test
   public void testCreateFlowCantInstantiate() throws OdinException {
     exception.expect(OdinException.class);
-    exception.expectMessage("Cannot create instance");
+    exception.expectMessage(
+        "Flow class com.purplepip.odin.sequence.flow.UnconstructibleFlow not registered");
     when(sequence.getFlowName()).thenReturn("com.purplepip.odin.sequence.flow.UnconstructibleFlow");
     FlowFactory<Note> flowFactory = new FlowFactory<>();
     flowFactory.createFlow(sequence);
