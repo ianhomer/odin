@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/head :: head">
-  <title id="title">sequencer : odin</title>
+<html layout:decorator="layout"
+      lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>sequencer</title>
 </head>
 <body>
-<div th:replace="fragments/header :: header">...</div>
-<h1>Odin Controller</h1>
-<div id="react"></div>
-<script src="built/bundle.js"></script>
+<div layout:fragment="content">
+  <h1>Odin Controller</h1>
+  <div id="react"></div>
+</div>
 </body>
 </html>

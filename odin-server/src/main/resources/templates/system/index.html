@@ -1,0 +1,48 @@
+<html layout:decorator="layout"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title id="title">system</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>MIDI Device</h1>
+
+  <table>
+    <tr>
+      <td>Device</td>
+      <td th:text="${midiDevice}"/>
+    </tr>
+  </table>
+
+
+  <h1>Measure</h1>
+
+  <table>
+    <tr>
+      <td th:text="${measureProvider}"/>
+    </tr>
+  </table>
+
+  <h1>MIDI System</h1>
+  <h2>Devices</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Vendor</th>
+      <th>Version</th>
+      <th>Description</th>
+    </tr>
+    <th:block th:each="midiDeviceInfo : ${midiSystem.midiDeviceInfos}">
+      <tr>
+        <td th:text="${midiDeviceInfo.name}">Name</td>
+        <td th:text="${midiDeviceInfo.vendor}">Vendor</td>
+        <td th:text="${midiDeviceInfo.version}">Version</td>
+        <td th:text="${midiDeviceInfo.description}">Description</td>
+      </tr>
+    </th:block>
+  </table>
+</div>
+</body>
+</html>

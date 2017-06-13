@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html layout:decorator="layout" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>sequencer</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>Sequencer</h1>
+
+  <table>
+    <tr>
+      <td>BPM</td>
+      <td th:text="${sequencer.clock.beatsPerMinute.beatsPerMinute}">BPM</td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
