@@ -2,10 +2,12 @@
 
 // tag::vars[]
 const React = require('react');
-const ReactDOM = require('react-dom')
+const ReactDOM = require('react-dom');
 const client = require('./client');
 const follow = require('./follow');
 const root = '/api';
+const PatternList = require('./patternList')
+const ProjectList = require('./projectList')
 // end::vars[]
 
 
@@ -14,7 +16,10 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {patterns: [], channels: [], attributes: [], pageSize: 5, links: {}};
+		this.state = {
+		  patterns: [], channels: [], projects: [],
+		  attributes: [], pageSize: 5, links: {}
+		};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.onCreate = this.onCreate.bind(this);
 		this.onDelete = this.onDelete.bind(this);
@@ -22,6 +27,9 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
+		client({method: 'GET', path: '/api/projects'}).done(response => {
+			this.setState({projects: response.entity._embedded.projects});
+		});
 		client({method: 'GET', path: '/api/patterns'}).done(response => {
 			this.setState({patterns: response.entity._embedded.patterns});
 		});
@@ -103,8 +111,10 @@ class App extends React.Component {
 	render() {
 		return (
 		  <div>
-		    <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
+        <h1>Projects</h1>
+        <ProjectList projects={this.state.projects}/>
 		    <h1>Channels</h1>
+		    <CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
         <ChannelList channels={this.state.channels}
                       links={this.state.links}
           						pageSize={this.state.pageSize}
@@ -173,44 +183,6 @@ class CreateDialog extends React.Component {
 
 }
 // end::create-dialog[]
-
-// tag::pattern-list[]
-class PatternList extends React.Component{
-	render() {
-		var patterns = this.props.patterns.map(pattern =>
-			<Pattern key={pattern._links.self.href} pattern={pattern}/>
-		);
-		return (
-			<table>
-				<tbody>
-					<tr>
-						<th>Channel</th>
-						<th>Bits</th>
-						<th>Tick</th>
-						<th>Flow Name</th>
-					</tr>
-					{patterns}
-				</tbody>
-			</table>
-		)
-	}
-}
-// end::pattern-list[]
-
-// tag::pattern[]
-class Pattern extends React.Component{
-	render() {
-		return (
-			<tr>
-				<td>{this.props.pattern.channel}</td>
-				<td>{this.props.pattern.bits}</td>
-				<td>{this.props.pattern.tick}</td>
-				<td>{this.props.pattern.flowName}</td>
-			</tr>
-		)
-	}
-}
-// end::pattern[]
 
 // tag::channel-list[]
 class ChannelList extends React.Component{

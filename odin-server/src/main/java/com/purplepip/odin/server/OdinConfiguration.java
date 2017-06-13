@@ -82,6 +82,7 @@ public class OdinConfiguration {
     Project project = projectRepository.findByName(DEFAULT_PROJECT_NAME);
     if (project == null) {
       project = new PersistableProject();
+      ((PersistableProject) project).setName(DEFAULT_PROJECT_NAME);
       projectContainer.setProject(project);
       new PersistableProjectBuilder(projectContainer)
           .addMetronome()
