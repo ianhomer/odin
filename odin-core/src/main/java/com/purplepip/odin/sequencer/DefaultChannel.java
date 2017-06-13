@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.project.Project;
+
 /**
  * Default channel implementation.
  */
@@ -22,6 +24,7 @@ public class DefaultChannel implements Channel {
   private int number;
   private String programName;
   private int program;
+  private Project project;
 
   @Override
   public int getNumber() {
@@ -51,5 +54,15 @@ public class DefaultChannel implements Channel {
   @Override
   public void setProgram(int program) {
     this.program = program;
+  }
+
+  @Override
+  public Project getProject() {
+    return project;
+  }
+
+  @Override
+  public void setProject(Project project) {
+    this.project = project;
   }
 }

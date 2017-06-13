@@ -16,7 +16,8 @@ public class ProjectBuilderTest {
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.withChannel(1).changeProgramTo("test");
     Channel channel = project.getChannels().iterator().next();
-    assertEquals("test", channel.getProgramName());
-    assertEquals(1, channel.getNumber());
+    assertEquals("Program name not correct", "test", channel.getProgramName());
+    assertEquals("Channel number not correct", 1, channel.getNumber());
+    assertEquals("Project not correct", project, channel.getProject());
   }
 }

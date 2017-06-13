@@ -15,12 +15,16 @@
 
 package com.purplepip.odin.server.rest.domain;
 
+import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequencer.Channel;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Persistable channel.
@@ -28,6 +32,7 @@ import lombok.Data;
 @Data
 @Entity(name = "Channel")
 @Table(name = "Channel")
+@EqualsAndHashCode(exclude = "project")
 public class PersistableChannel implements Channel {
   @Id
   @GeneratedValue
@@ -35,4 +40,7 @@ public class PersistableChannel implements Channel {
   private int number;
   private String programName;
   private int program;
+  @ManyToOne(targetEntity = PersistableProject.class)
+  @JoinColumn(name = "PROJECT_ID", nullable = false)
+  private Project project;
 }

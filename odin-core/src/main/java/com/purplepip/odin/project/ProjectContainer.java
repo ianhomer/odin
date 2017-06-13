@@ -101,7 +101,7 @@ public class ProjectContainer {
    * @param channel configuration to add
    */
   public void addChannel(Channel channel) {
-    project.getChannels().add(channel);
+    project.addChannel(channel);
   }
 
 
@@ -111,7 +111,7 @@ public class ProjectContainer {
    * @param channel configuration to remove
    */
   public void removeChannel(Channel channel) {
-    project.getChannels().remove(channel);
+    project.removeChannel(channel);
   }
 
   public Iterable<Channel> getChannels() {

@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.project.Project;
+
 /**
  * Channel configuration.
  */
@@ -61,4 +63,17 @@ public interface Channel {
    */
   void setProgram(int program);
 
+  /**
+   * Get the project.
+   *
+   * @return project
+   */
+  Project getProject();
+
+  /**
+   * Set the project.
+   *
+   * @param project project
+   */
+  void setProject(Project project);
 }

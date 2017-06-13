@@ -44,4 +44,15 @@ public class TransientProject implements Project {
   public Set<Channel> getChannels() {
     return channels;
   }
+
+  @Override
+  public void addChannel(Channel channel) {
+    channel.setProject(this);
+    channels.add(channel);
+  }
+
+  @Override
+  public void removeChannel(Channel channel) {
+    channels.remove(channel);
+  }
 }

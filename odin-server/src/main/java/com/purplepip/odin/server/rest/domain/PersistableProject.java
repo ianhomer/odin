@@ -44,6 +44,17 @@ public class PersistableProject implements Project {
       fetch = FetchType.EAGER)
   private Set<Sequence> sequences = new HashSet<>();
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER)
+      fetch = FetchType.EAGER, mappedBy = "project")
   private Set<Channel> channels = new HashSet<>();
+
+  @Override
+  public void addChannel(Channel channel) {
+    channel.setProject(this);
+    channels.add(channel);
+  }
+
+  @Override
+  public void removeChannel(Channel channel) {
+    channels.remove(channel);
+  }
 }

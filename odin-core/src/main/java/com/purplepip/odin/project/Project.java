@@ -38,4 +38,14 @@ public interface Project {
    * @return iterable of channels
    */
   Set<Channel> getChannels();
+
+  /**
+   * Add channel.
+   */
+  void addChannel(Channel channel);
+
+  /**
+   * Remove channel.
+   */
+  void removeChannel(Channel channel);
 }
