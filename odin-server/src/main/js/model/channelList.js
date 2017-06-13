@@ -1,4 +1,5 @@
-var React = require('react');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
 // tag::create-dialog[]
 class CreateDialog extends React.Component {
@@ -123,7 +124,7 @@ class ChannelList extends React.Component{
 		return (
       <div>
         <h1>Channels</h1>
-        <CreateDialog attributes={this.props.attributes} onCreate={this.onCreate}/>
+        <CreateDialog attributes={this.props.attributes} onCreate={this.props.onCreate}/>
         <input ref="pageSize" defaultValue={this.props.pageSize} onInput={this.handleInput}/>
         <table>
           <tbody>

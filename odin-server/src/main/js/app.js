@@ -19,12 +19,13 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 		  patterns: [], channels: [], projects: [],
-		  attributes: [], pageSize: 5, links: {}
+		  attributes: [], pageSize: 10, links: {}
 		};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.onCreate = this.onCreate.bind(this);
 		this.onDelete = this.onDelete.bind(this);
 		this.onNavigate = this.onNavigate.bind(this);
+		this.loadChannelsFromServer = this.loadChannelsFromServer.bind(this);
 	}
 
 	componentDidMount() {
@@ -34,10 +35,10 @@ class App extends React.Component {
 		client({method: 'GET', path: '/api/patterns'}).done(response => {
 			this.setState({patterns: response.entity._embedded.patterns});
 		});
-		this.loadFromServer(this.state.pageSize);
+		this.loadChannelsFromServer(this.state.pageSize);
 	}
 
-	loadFromServer(pageSize) {
+	loadChannelsFromServer(pageSize) {
   	follow(client, root, [
   		{rel: 'channels', params: {size: pageSize}}]
   	).then(channelCollection => {
@@ -76,6 +77,7 @@ class App extends React.Component {
 			} else {
 				this.onNavigate(response.entity._links.self.href);
 			}
+			this.loadChannelsFromServer(this.state.pageSize);
 		});
 	}
 	// end::create[]
@@ -83,7 +85,7 @@ class App extends React.Component {
 	// tag::delete[]
 	onDelete(employee) {
 		client({method: 'DELETE', path: employee._links.self.href}).done(response => {
-			this.loadFromServer(this.state.pageSize);
+			this.loadChannelsFromServer(this.state.pageSize);
 		});
 	}
 	// end::delete[]
@@ -104,7 +106,7 @@ class App extends React.Component {
 	// tag::update-page-size[]
 	updatePageSize(pageSize) {
 		if (pageSize !== this.state.pageSize) {
-			this.loadFromServer(pageSize);
+			this.loadChannelsFromServer(pageSize);
 		}
 	}
 	// end::update-page-size[]
@@ -117,6 +119,7 @@ class App extends React.Component {
         <ChannelList channels={this.state.channels}
                       links={this.state.links}
           						pageSize={this.state.pageSize}
+          						onCreate={this.onCreate}
           						onNavigate={this.onNavigate}
           						onDelete={this.onDelete}
           						updatePageSize={this.updatePageSize}

@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 // tag::project-list[]
 class ProjectList extends React.Component{

@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 // tag::pattern-list[]
 class PatternList extends React.Component{
