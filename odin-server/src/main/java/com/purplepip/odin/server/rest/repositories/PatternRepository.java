@@ -19,10 +19,12 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.server.rest.domain.PersistablePattern;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Pattern repository.
  */
+@RepositoryRestResource(collectionResourceRel = "patterns", path = "patterns")
 public interface PatternRepository extends CrudRepository<PersistablePattern, Long> {
   List<Pattern> findByChannel(int channel);
 }

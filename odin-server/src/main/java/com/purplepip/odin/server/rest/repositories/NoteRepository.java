@@ -17,9 +17,11 @@ package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.server.rest.domain.PersistableNote;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Note repository.
  */
+@RepositoryRestResource(collectionResourceRel = "notes", path = "notes")
 public interface NoteRepository extends CrudRepository<PersistableNote, Long> {
 }

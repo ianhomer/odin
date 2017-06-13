@@ -17,9 +17,11 @@ package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.server.rest.domain.PersistableMetronome;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Metronome repository.
  */
+@RepositoryRestResource(collectionResourceRel = "metronomes", path = "metronomes")
 public interface MetronomeRepository extends CrudRepository<PersistableMetronome, Long> {
 }

@@ -17,9 +17,11 @@ package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.server.rest.domain.PersistableTick;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Tick repository.
  */
+@RepositoryRestResource(collectionResourceRel = "ticks", path = "ticks")
 public interface TickRepository extends CrudRepository<PersistableTick, Long> {
 }

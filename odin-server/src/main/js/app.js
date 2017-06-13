@@ -39,8 +39,8 @@ class PatternList extends React.Component{
 			<table>
 				<tbody>
 					<tr>
-						<th>Class</th>
-						<th>Pattern</th>
+						<th>Flow Name</th>
+						<th>Bits</th>
 					</tr>
 					{patterns}
 				</tbody>
@@ -55,8 +55,8 @@ class Pattern extends React.Component{
 	render() {
 		return (
 			<tr>
-				<td>{this.props.pattern.className}</td>
-				<td>{this.props.pattern.patternAsInt}</td>
+				<td>{this.props.pattern.flowName}</td>
+				<td>{this.props.pattern.bits}</td>
 			</tr>
 		)
 	}
