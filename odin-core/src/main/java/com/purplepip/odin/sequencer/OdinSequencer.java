@@ -79,7 +79,6 @@ public class OdinSequencer implements ProjectListener {
    */
   private void refreshTracks() {
     LOG.debug("Refreshing tracks at {}micros", clock.getMicrosecondPosition());
-    sequenceTracks.clear();
     for (Channel channel : getProjectContainer().getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);
@@ -89,6 +88,7 @@ public class OdinSequencer implements ProjectListener {
       }
     }
 
+    sequenceTracks.clear();
     for (Sequence sequence : getProjectContainer().getSequences()) {
       addSequenceTrack(sequence);
     }
