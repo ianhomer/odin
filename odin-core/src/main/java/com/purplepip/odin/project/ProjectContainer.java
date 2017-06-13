@@ -39,7 +39,7 @@ public class ProjectContainer {
     this.project = project;
   }
 
-  Project getProject() {
+  protected Project getProject() {
     return project;
   }
 

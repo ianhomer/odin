@@ -26,6 +26,7 @@ import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Persistable channel.
@@ -34,6 +35,7 @@ import lombok.EqualsAndHashCode;
 @Entity(name = "Channel")
 @Table(name = "Channel")
 @EqualsAndHashCode(exclude = "project")
+@ToString(exclude = "project")
 public class PersistableChannel implements Channel {
   @Id
   @GeneratedValue

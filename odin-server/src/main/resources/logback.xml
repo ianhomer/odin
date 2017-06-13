@@ -7,6 +7,9 @@
   </appender>
 
   <logger name="com.purplepip" level="INFO"/>
+  <logger name="com.purplepip.odin.sequencer.OdinSequencer" level="DEBUG"/>
+  <logger name="com.purplepip.odin.midix.MidiOperationReceiver" level="DEBUG"/>
+
 
   <root level="WARN">
     <appender-ref ref="STDOUT"/>
