@@ -33,7 +33,6 @@ public class PersistableNote implements Note {
   @GeneratedValue
   private Long id;
   private int velocity;
-  private int note;
   private int number;
   private long duration;
 }

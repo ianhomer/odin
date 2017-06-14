@@ -47,11 +47,11 @@ public class PersistableProjectBuilder extends ProjectBuilder {
    * @return note
    */
   @Override
-  protected Note createNote(int note, int velocity, long duration) {
+  protected Note createNote(int number, int velocity, long duration) {
     PersistableNote persistableNote = new PersistableNote();
     persistableNote.setDuration(duration);
     persistableNote.setVelocity(velocity);
-    persistableNote.setNote(note);
+    persistableNote.setNumber(number);
     return persistableNote;
   }
 

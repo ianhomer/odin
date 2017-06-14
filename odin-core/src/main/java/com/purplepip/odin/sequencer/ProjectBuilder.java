@@ -88,8 +88,8 @@ public class ProjectBuilder {
    * @param duration duration
    * @return note
    */
-  protected Note createNote(int note, int velocity, long duration) {
-    return new DefaultNote(note, velocity, duration);
+  protected Note createNote(int number, int velocity, long duration) {
+    return new DefaultNote(number, velocity, duration);
   }
 
   /**
