@@ -6,12 +6,14 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequence.Ticks;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
  * Complex sequencer test.  This is in a separate class to OdinSequencerTest to make
  * troubleshooting on failure easier.
  */
+@Slf4j
 public class OdinSequencerComplexTest {
   @Test
   public void testComplexSequencer() throws OdinException, InterruptedException {
@@ -19,6 +21,7 @@ public class OdinSequencerComplexTest {
 
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();
+      LOG.debug("Received {}", operation);
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);

@@ -16,16 +16,43 @@
 package com.purplepip.odin.sequence;
 
 /**
- * Persistable sequence configuration.
+ * Sequence configuration.
  */
 public interface Sequence {
+  /**
+   * Units for 1 tick of this sequence.
+   *
+   * @return tick units.
+   */
   Tick getTick();
 
+  /**
+   * Length of this sequence in ticks from the offset point.  Note that sequence will stop
+   * at offset + length ticks.
+   *
+   * @return length
+   */
   long getLength();
 
+  /**
+   * Offset for the start of this sequence.
+   *
+   * @return offset
+   */
   long getOffset();
 
+  /**
+   * Channel number for this sequence.
+   *
+   * @return channel
+   */
   int getChannel();
 
+  /**
+   * Flow name for this sequence.  This is currently exactly equal to the class name of flow.
+   * The flow provides logic for how the sequence progresses over time.
+   *
+   * @return flow name.
+   */
   String getFlowName();
 }

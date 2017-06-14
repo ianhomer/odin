@@ -17,10 +17,12 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.AbstractMutableSequenceRuntime;
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.flow.Flow;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
  * Default sequence runtime.
@@ -28,8 +30,20 @@ import com.purplepip.odin.sequence.flow.Flow;
 public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Sequence, Note> {
   private Flow<Sequence, Note> flow;
 
-  public DefaultSequenceRuntime(Flow<Sequence, Note> flow) {
+  /**
+   * Create an instance of the default sequence runtime.
+   *
+   * @param clock clock
+   * @param measureProvider measure provider
+   * @param flow sequence flow
+   */
+  public DefaultSequenceRuntime(Clock clock, MeasureProvider measureProvider,
+                                Flow<Sequence, Note> flow) {
+    setClock(clock);
+    setMeasureProvider(measureProvider);
+    setSequence(flow.getSequence());
     this.flow = flow;
+    initialise();
   }
 
   @Override

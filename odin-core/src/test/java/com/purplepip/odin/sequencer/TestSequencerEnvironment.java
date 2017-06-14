@@ -35,7 +35,8 @@ public class TestSequencerEnvironment {
     sequencer = new OdinSequencer(
         new DefaultOdinSequencerConfiguration()
             .setMeasureProvider(new StaticMeasureProvider(4))
-            .setBeatsPerMinute(new StaticBeatsPerMinute(10000))
+            .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
+            .setClockStartOffset(10000)
             .setClockStartRoundingFactor(1000)
             .setOperationReceiver(operationReceiver)
             .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider()));

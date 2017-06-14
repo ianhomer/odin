@@ -22,16 +22,20 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * SequenceRuntime processor.
  */
+@Slf4j
 public class SequenceProcessor implements ClockListener {
   private final Set<SequenceTrack> sequenceTrackSet;
   private final Clock clock;
   private final OperationProcessor operationProcessor;
   private long refreshPeriod = 200;
   private ScheduledExecutorService scheduledPool;
+  private SequenceProcessorExecutor executor;
+  private boolean running;
 
   /**
    * Create a series processor.
@@ -64,21 +68,36 @@ public class SequenceProcessor implements ClockListener {
 
   @Override
   public void onClockStop() {
-    scheduledPool.shutdown();
+    stop();
   }
 
   private void start() {
     scheduledPool = Executors.newScheduledThreadPool(1);
-    SequenceProcessorExecutor executor = new SequenceProcessorExecutor(
+    executor = new SequenceProcessorExecutor(
         clock, sequenceTrackSet, operationProcessor, refreshPeriod
     );
-    scheduledPool.scheduleWithFixedDelay(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
+    LOG.info("Starting sequence processor");
+    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
+    running = true;
+  }
+
+  private void stop() {
+    scheduledPool.shutdown();
+    LOG.info("Stopped sequence processor");
+  }
+
+  public void processOnce() {
+    executor.run();
+  }
+
+  public boolean isRunning() {
+    return running;
   }
 
   /**
    * Close sequence processor.
    */
   public void close() {
-    onClockStop();
+    stop();
   }
 }

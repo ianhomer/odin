@@ -23,9 +23,10 @@ import org.slf4j.LoggerFactory;
  * Abstract sequence.
  */
 public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
-    implements SequenceRuntime<A>  {
+    implements SequenceRuntime<A>, ClockListener  {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
 
+  private Clock clock;
   private MeasureProvider measureProvider;
   private S sequence;
   private Event<A> nextEvent;
@@ -33,10 +34,15 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
   private MutableTock tock;
   private Tock sealedTock;
   private RuntimeTick tick;
+  private TickConverter microsecondToSequenceTickConverter;
 
   @Override
   public RuntimeTick getTick() {
     return tick;
+  }
+
+  protected void setClock(Clock clock) {
+    this.clock = clock;
   }
 
   public MeasureProvider getMeasureProvider() {
@@ -48,11 +54,8 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
    *
    * @param measureProvider measure provider
    */
-  public void setMeasureProvider(MeasureProvider measureProvider) {
+  protected void setMeasureProvider(MeasureProvider measureProvider) {
     this.measureProvider = measureProvider;
-    if (sequence != null) {
-      reload();
-    }
   }
 
   /**
@@ -60,35 +63,78 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
    *
    * @param sequence sequence configuration
    */
-  public void setSequence(S sequence) {
+  protected void setSequence(S sequence) {
     this.sequence = sequence;
-    if (measureProvider != null) {
-      reload();
-    }
   }
 
   public S getSequence() {
     return sequence;
   }
 
-  /**
-   * Reload the sequence runtime.
-   */
-  private void reload() {
+  protected void initialise() {
+    clock.addListener(this);
     tick = new DefaultRuntimeTick(sequence.getTick());
     TickConverter converter = new SameTimeUnitTickConverter(RuntimeTicks.BEAT,
         getTick());
     this.length = converter.convert(getSequence().getLength());
-    // FIX : Currently reload resets tock to start of sequencer - we should set it to now
-    tock = new MutableTock(getSequence().getTick(), 0);
+    /*
+     * Calculate offset of this sequence in microseconds ...
+     */
+    long microsecondOffset = new DefaultTickConverter(clock, getTick(),
+        RuntimeTicks.MICROSECOND, 0).convert(getSequence().getOffset());
+    LOG.debug("Microsecond start for this sequence : {}", microsecondOffset);
+    /*
+     * ... and use this to create a converter that will convert microseconds into tock count
+     * for this sequence runtime.
+     */
+    microsecondToSequenceTickConverter =
+        new DefaultTickConverter(clock, RuntimeTicks.MICROSECOND, getTick(),
+            - microsecondOffset);
+    if (clock.isStarted()) {
+      start();
+    }
+  }
+
+  /**
+   * Action on clock start.
+   */
+  @Override
+  public void onClockStart() {
+    start();
+  }
+
+  /**
+   * Action on clock stop.
+   */
+  public void onClockStop() {
+
+  }
+
+  private void start() {
+    /*
+     * Set the tock count, that this sequence runtime should start at, to the current tock
+     * count according to the clock.  There is no point starting the tock any earlier since
+     * that time has passed.
+     */
+    long tockCountStart = microsecondToSequenceTickConverter
+        .convert(clock.getMicrosecondPosition());
+    if (tockCountStart < 0) {
+      /*
+       * If sequence start is the future then set tock to 0 so that it is ready to
+       * start when the time is right.
+       */
+      tockCountStart = 0;
+    }
+    LOG.info("Tock count start is {} at {}", tockCountStart, clock);
+    tock = new MutableTock(getSequence().getTick(), tockCountStart);
     sealedTock = new SealedTock(tock);
-    LOG.debug("Reloading runtime sequence {}", sequence);
+    LOG.debug("Started runtime sequence {}", sequence);
   }
 
   protected abstract Event<A> getNextEvent(Tock tock);
 
   protected long getLength() {
-    return length;
+    return sequence.getLength();
   }
 
   private boolean isActive() {
@@ -98,6 +144,7 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
 
   private Event<A> getNextEventInternal(MutableTock tock) {
     Event<A> event = getNextEvent(sealedTock);
+    LOG.trace("Next event after {} is at {}", tock, event.getTime());
     /*
      * Now increment internal tock to the time of the provided event
      */

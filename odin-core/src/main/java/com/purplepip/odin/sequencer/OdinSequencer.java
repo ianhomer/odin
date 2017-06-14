@@ -73,7 +73,7 @@ public class OdinSequencer implements ProjectApplyListener {
    * Refresh sequencer tracks from the project configuration.
    */
   private void refreshTracks(Project project) {
-    LOG.debug("Refreshing tracks at {}micros", clock.getMicrosecondPosition());
+    LOG.debug("Refreshing tracks : {}", clock);
     for (Channel channel : project.getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);
@@ -86,6 +86,14 @@ public class OdinSequencer implements ProjectApplyListener {
     sequenceTracks.clear();
     for (Sequence sequence : project.getSequences()) {
       addSequenceTrack(sequence);
+    }
+
+    /*
+     * If processor is running then process a one execution immediately so that the
+     * refreshed tracks can take effect.
+     */
+    if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
+      sequenceProcessor.processOnce();
     }
   }
 
@@ -112,9 +120,8 @@ public class OdinSequencer implements ProjectApplyListener {
    */
   private DefaultSequenceRuntime
       createSequenceRuntime(Flow<Sequence, Note> flow) {
-    DefaultSequenceRuntime sequenceRuntime = new DefaultSequenceRuntime(flow);
-    sequenceRuntime.setSequence(flow.getSequence());
-    sequenceRuntime.setMeasureProvider(configuration.getMeasureProvider());
+    DefaultSequenceRuntime sequenceRuntime = new DefaultSequenceRuntime(
+        clock, configuration.getMeasureProvider(), flow);
     return sequenceRuntime;
   }
 

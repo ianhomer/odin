@@ -88,7 +88,7 @@ public class Clock implements MicrosecondPositionProvider {
     this.microsecondsPositionOfFirstBeat = startRoundingFactor
         * ((startOffset + startRoundingFactor - 1 + currentMicrosecondPosition)
         / startRoundingFactor);
-    LOG.debug("Starting clock at {}micros", microsecondsPositionOfFirstBeat);
+    LOG.info("Starting clock at {}μs", microsecondsPositionOfFirstBeat);
     started = true;
     listeners.forEach(ClockListener::onClockStart);
   }
@@ -131,5 +131,9 @@ public class Clock implements MicrosecondPositionProvider {
 
   public boolean isStarted() {
     return started;
+  }
+
+  @Override public String toString() {
+    return getMicrosecondPosition() + "μs (beat=" + (long) getCurrentBeat() + ")";
   }
 }

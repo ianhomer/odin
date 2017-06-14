@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 public class OdinSequencerTest {
   private static final int OFFSET = 0;
-  private static final int LENGTH = 8;
+  private static final int LENGTH = 16;
 
   @Test
   public void testSequencer() throws OdinException, InterruptedException {

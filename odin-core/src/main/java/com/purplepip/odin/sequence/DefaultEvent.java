@@ -15,12 +15,14 @@
 
 package com.purplepip.odin.sequence;
 
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Default Event.
  */
+@ToString
 public class DefaultEvent<A> implements Event<A> {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultEvent.class);
   private A value;

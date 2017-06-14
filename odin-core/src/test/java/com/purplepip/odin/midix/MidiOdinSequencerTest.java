@@ -29,15 +29,15 @@ public class MidiOdinSequencerTest {
       final CountDownLatch lock = new CountDownLatch(16);
 
       OperationReceiver operationReceiver = (operation, time) -> {
-        LOG.debug("Operation countdown {}", lock.getCount());
+        LOG.info("Operation countdown {}", lock.getCount());
         lock.countDown();
       };
 
       MeasureProvider measureProvider = new StaticMeasureProvider(4);
       OdinSequencer sequencer = new OdinSequencer(
           new DefaultOdinSequencerConfiguration()
-              .setClockStartOffset(15000)
-              .setBeatsPerMinute(new StaticBeatsPerMinute(100000))
+              .setClockStartOffset(10000)
+              .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
               .setMeasureProvider(measureProvider)
               .setOperationReceiver(
                   new OperationReceiverCollection(
@@ -50,7 +50,7 @@ public class MidiOdinSequencerTest {
 
       ProjectContainer container = new ProjectContainer(new TransientProject());
       container.addApplyListener(sequencer);
-      new ProjectBuilder(container).withLength(8).addMetronome();
+      new ProjectBuilder(container).withLength(16).addMetronome();
       container.apply();
       sequencer.start();
 

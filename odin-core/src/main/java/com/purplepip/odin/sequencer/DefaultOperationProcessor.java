@@ -18,8 +18,8 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.Clock;
-import java.util.PriorityQueue;
 import java.util.concurrent.Executors;
+import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
@@ -35,9 +35,11 @@ import org.slf4j.LoggerFactory;
 public class DefaultOperationProcessor implements OperationProcessor {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultOperationProcessor.class);
 
-  private long refreshPeriod = 10;
+  private static final int MAX_OPERATIONS_PER_EXECUTION = 1000;
+
+  private long refreshPeriod = 50;
   private long forwardPollingTime = refreshPeriod * 1000 * 5;
-  private PriorityQueue<OperationEvent> queue = new PriorityQueue<>(127,
+  private PriorityBlockingQueue<OperationEvent> queue = new PriorityBlockingQueue<>(127,
       new OperationEventComparator());
   private Clock clock;
   private OperationReceiver operationReceiver;
@@ -50,13 +52,14 @@ public class DefaultOperationProcessor implements OperationProcessor {
    * @param operationReceiver operation receiver
    */
   DefaultOperationProcessor(Clock clock, OperationReceiver operationReceiver) {
+    LOG.info("Starting operation processor");
     this.clock = clock;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }
     this.operationReceiver = operationReceiver;
     DefaultOperationProcessorExecutor executor = new DefaultOperationProcessorExecutor();
-    scheduledPool.scheduleWithFixedDelay(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
+    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
   }
 
   @Override
@@ -68,6 +71,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
   @Override
   public void close() {
     scheduledPool.shutdown();
+    LOG.info("Closed operation processor");
   }
 
   class DefaultOperationProcessorExecutor implements Runnable {
@@ -75,8 +79,9 @@ public class DefaultOperationProcessor implements OperationProcessor {
     public void run() {
       OperationEvent nextEvent = queue.peek();
       long microsecondPosition = clock.getMicrosecondPosition();
-      LOG.debug("Processing operations : {}", microsecondPosition);
-      while (nextEvent != null && nextEvent.getTime()
+      long count = 0;
+      long size = queue.size();
+      while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
           < microsecondPosition + forwardPollingTime) {
         nextEvent = queue.poll();
         if (nextEvent == null) {
@@ -84,11 +89,13 @@ public class DefaultOperationProcessor implements OperationProcessor {
         } else {
           try {
             operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
+            count++;
           } catch (OdinException e) {
             LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
           }
         }
       }
+      LOG.info("Processed {} of {} operations at {}", count, size, clock);
     }
   }
 

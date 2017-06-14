@@ -54,7 +54,6 @@ public class SequenceProcessorExecutor implements Runnable {
      * not need the precise microsecond positioning at the time of instruction execution.
      */
     long microsecondPosition = clock.getMicrosecondPosition();
-    LOG.debug("Processing tracks : {}", microsecondPosition);
     int noteCountThisBuffer = 0;
     for (SequenceTrack sequenceTrack : sequenceTrackSet) {
       LOG.trace("Processing sequenceRuntime {} for device at position {}",
@@ -67,6 +66,8 @@ public class SequenceProcessorExecutor implements Runnable {
       }
       noteCountThisBuffer += process(sequenceTrack, microsecondPosition);
     }
+    LOG.info("Processed {} notes in {} tracks : {}",
+        noteCountThisBuffer, sequenceTrackSet.size(), clock);
   }
 
   private int process(SequenceTrack sequenceTrack, long microsecondPosition) {
@@ -85,10 +86,9 @@ public class SequenceProcessorExecutor implements Runnable {
          * Pop event to get it off the buffer.
          */
         nextEvent = sequenceRuntime.pop();
-        LOG.trace("Processing Event {}", nextEvent);
+        LOG.debug("Processing Event {}", nextEvent);
         if (nextEvent.getTime() < microsecondPosition) {
-          LOG.warn("Skipping event, too late to process  {} : {} < {}",
-              clock.getMicrosecondsPositionOfFirstBeat(), nextEvent.getTime(),
+          LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
               microsecondPosition);
         } else {
           sendToProcessor(nextEvent.getValue(), nextEvent, sequenceTrack);

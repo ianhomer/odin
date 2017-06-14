@@ -14,7 +14,7 @@ import org.junit.Test;
 @Slf4j
 public class SequenceUpdatedAtRuntimeTest {
   private static final int OFFSET = 0;
-  private static final int LENGTH = 8;
+  private static final int LENGTH = 16;
 
   @Test
   public void testSequencer() throws OdinException, InterruptedException {
@@ -26,8 +26,10 @@ public class SequenceUpdatedAtRuntimeTest {
         ChannelOperation channelOperation = (ChannelOperation) operation;
         if (channelOperation.getChannel() == 0) {
           channel0Events.countDown();
+          LOG.debug("Channel 0 count : {}", channel0Events.getCount());
         } else if (channelOperation.getChannel() == 1) {
           channel1Events.countDown();
+          LOG.debug("Channel 1 count : {}", channel1Events.getCount());
         } else {
           LOG.warn("Unexpected channel operation");
         }
@@ -45,13 +47,14 @@ public class SequenceUpdatedAtRuntimeTest {
 
     try {
       channel0Events.await(1000, TimeUnit.MILLISECONDS);
-      builder.withChannel(1).withLength(LENGTH).withOffset(LENGTH).addMetronome();
+      assertEquals("Not enough channel 0 events fired", 0, channel0Events.getCount());
+      builder.withChannel(1).withLength(LENGTH).withOffset(OFFSET + LENGTH * 2).addMetronome();
       environment.getContainer().apply();
       channel1Events.await(1000, TimeUnit.MILLISECONDS);
     } finally {
       environment.stop();
     }
 
-    assertEquals("Not enough channel 0 events fired", 0, channel0Events.getCount());
+    assertEquals("Not enough channel 1 events fired", 0, channel1Events.getCount());
   }
 }

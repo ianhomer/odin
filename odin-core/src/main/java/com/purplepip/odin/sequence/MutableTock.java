@@ -15,9 +15,12 @@
 
 package com.purplepip.odin.sequence;
 
+import lombok.ToString;
+
 /**
  * Mutable tock.
  */
+@ToString
 public class MutableTock implements Tock {
   private long count;
   private Tick tick;
