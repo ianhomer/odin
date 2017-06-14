@@ -46,12 +46,14 @@ public class PersistableProjectListener implements
    */
   @Transactional
   public void onProjectLoad(ProjectContainer container) {
+    LOG.info("Reloading project");
     container.setProject(projectRepository.findByName(container.getName()));
   }
 
   @Override
   public void onProjectSave(Project project) {
     if (project instanceof PersistableProject) {
+      LOG.info("Saving project");
       projectRepository.save((PersistableProject) project);
     }
   }

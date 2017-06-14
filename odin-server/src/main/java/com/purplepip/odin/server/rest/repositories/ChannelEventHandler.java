@@ -32,21 +32,39 @@ public class ChannelEventHandler {
   @Autowired
   private ProjectContainer projectContainer;
 
+  /**
+   * Apply project after channel save.
+   *
+   * @param channel channel saved
+   */
   @HandleAfterSave
   public void handleChannelSave(Channel channel) {
     LOG.info("Channel saved");
     projectContainer.load();
+    projectContainer.apply();
   }
 
+  /**
+   * Apply project after channel create.
+   *
+   * @param channel channel created
+   */
   @HandleAfterCreate
   public void handleChannelCreate(Channel channel) {
     LOG.info("Channel created");
     projectContainer.load();
+    projectContainer.apply();
   }
 
+  /**
+   * Apply project after channel delete.
+   *
+   * @param channel channel deleted
+   */
   @HandleAfterDelete
-  public void handleChannel(Channel channel) {
+  public void handleChannelDelete(Channel channel) {
     LOG.info("Channel deleted");
     projectContainer.load();
+    projectContainer.apply();
   }
 }

@@ -45,11 +45,13 @@ public class ProjectRepositoryTest {
     assertThat(projects.iterator().hasNext()).isTrue();
     assertThat(projects.iterator().next().getChannels()).isEmpty();
     builder.changeProgramTo("newProgram").addMetronome();
-    entityManager.persist(project);
+    repository.save(project);
     project.setName("newProject");
     Project reloadedProject = repository.findByName("newProject");
     assertThat(reloadedProject).isNotNull();
     assertThat(reloadedProject.getChannels().iterator().next().getProgramName())
         .isEqualTo("newProgram");
+    assertThat(reloadedProject.getSequences().iterator().next().getTick().getDenominator())
+        .isEqualTo(2);
   }
 }
