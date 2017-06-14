@@ -37,15 +37,13 @@ public class ProjectRepositoryTest {
   public void setUp() {
     project = new PersistableProject();
     builder = new PersistableProjectBuilder(new ProjectContainer(project));
-    // TODO : Remove this delete all, initialisation of data should not execute for this test and
-    // repository should be clean at start
-    repository.deleteAll();
   }
 
   @Test
   public void testProject() throws OdinException {
     Iterable<PersistableProject> projects = repository.findAll();
-    assertThat(projects.iterator().hasNext()).isFalse();
+    assertThat(projects.iterator().hasNext()).isTrue();
+    assertThat(projects.iterator().next().getChannels()).isEmpty();
     builder.changeProgramTo("newProgram").addMetronome();
     entityManager.persist(project);
     project.setName("newProject");
