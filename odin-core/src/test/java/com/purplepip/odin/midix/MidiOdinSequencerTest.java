@@ -29,7 +29,7 @@ public class MidiOdinSequencerTest {
       final CountDownLatch lock = new CountDownLatch(16);
 
       OperationReceiver operationReceiver = (operation, time) -> {
-        LOG.info("Operation countdown {}", lock.getCount());
+        LOG.debug("Operation countdown {}", lock.getCount());
         lock.countDown();
       };
 

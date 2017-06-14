@@ -125,7 +125,7 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
        */
       tockCountStart = 0;
     }
-    LOG.info("Tock count start is {} at {}", tockCountStart, clock);
+    LOG.debug("Tock count start is {} at {}", tockCountStart, clock);
     tock = new MutableTock(getSequence().getTick(), tockCountStart);
     sealedTock = new SealedTock(tock);
     LOG.debug("Started runtime sequence {}", sequence);

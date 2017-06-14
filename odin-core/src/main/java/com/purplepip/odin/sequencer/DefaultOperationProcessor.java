@@ -52,7 +52,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
    * @param operationReceiver operation receiver
    */
   DefaultOperationProcessor(Clock clock, OperationReceiver operationReceiver) {
-    LOG.info("Starting operation processor");
+    LOG.debug("Starting operation processor");
     this.clock = clock;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
@@ -71,7 +71,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
   @Override
   public void close() {
     scheduledPool.shutdown();
-    LOG.info("Closed operation processor");
+    LOG.debug("Closed operation processor");
   }
 
   class DefaultOperationProcessorExecutor implements Runnable {
@@ -95,7 +95,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
           }
         }
       }
-      LOG.info("Processed {} of {} operations at {}", count, size, clock);
+      LOG.debug("Processed {} of {} operations at {}", count, size, clock);
     }
   }
 

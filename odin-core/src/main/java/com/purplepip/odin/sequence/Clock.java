@@ -88,7 +88,7 @@ public class Clock implements MicrosecondPositionProvider {
     this.microsecondsPositionOfFirstBeat = startRoundingFactor
         * ((startOffset + startRoundingFactor - 1 + currentMicrosecondPosition)
         / startRoundingFactor);
-    LOG.info("Starting clock at {}μs", microsecondsPositionOfFirstBeat);
+    LOG.debug("Starting clock at {}μs", microsecondsPositionOfFirstBeat);
     started = true;
     listeners.forEach(ClockListener::onClockStart);
   }

@@ -66,7 +66,7 @@ public class SequenceProcessorExecutor implements Runnable {
       }
       noteCountThisBuffer += process(sequenceTrack, microsecondPosition);
     }
-    LOG.info("Processed {} notes in {} tracks : {}",
+    LOG.debug("Processed {} notes in {} tracks : {}",
         noteCountThisBuffer, sequenceTrackSet.size(), clock);
   }
 

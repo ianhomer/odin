@@ -76,14 +76,14 @@ public class SequenceProcessor implements ClockListener {
     executor = new SequenceProcessorExecutor(
         clock, sequenceTrackSet, operationProcessor, refreshPeriod
     );
-    LOG.info("Starting sequence processor");
+    LOG.debug("Starting sequence processor");
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     running = true;
   }
 
   private void stop() {
     scheduledPool.shutdown();
-    LOG.info("Stopped sequence processor");
+    LOG.debug("Stopped sequence processor");
   }
 
   public void processOnce() {
