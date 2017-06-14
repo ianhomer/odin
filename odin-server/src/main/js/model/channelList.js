@@ -26,10 +26,18 @@ class CreateDialog extends React.Component {
 		window.location = "#";
 	}
 
+  getDefaultValue(attribute) {
+    if (attribute === "project") {
+      return this.props.project._links.self.href;
+    }
+    return "";
+  }
+
 	render() {
 		var inputs = this.props.attributes.map(attribute =>
 			<p key={attribute}>
-				<input type="text" placeholder={attribute} ref={attribute} className="field" />
+				<input type="text" placeholder={attribute} ref={attribute} className="field"
+				  defaultValue={this.getDefaultValue(attribute)} />
 			</p>
 		);
 
@@ -60,6 +68,7 @@ class CreateDialog extends React.Component {
 class ChannelList extends React.Component{
 	constructor(props) {
 		super(props);
+
 		this.handleNavFirst = this.handleNavFirst.bind(this);
 		this.handleNavPrev = this.handleNavPrev.bind(this);
 		this.handleNavNext = this.handleNavNext.bind(this);
@@ -124,7 +133,8 @@ class ChannelList extends React.Component{
 		return (
       <div>
         <h1>Channels</h1>
-        <CreateDialog attributes={this.props.attributes} onCreate={this.props.onCreate}/>
+        <CreateDialog attributes={this.props.attributes} project={this.props.project}
+          onCreate={this.props.onCreate}/>
         <input ref="pageSize" defaultValue={this.props.pageSize} onInput={this.handleInput}/>
         <table>
           <tbody>

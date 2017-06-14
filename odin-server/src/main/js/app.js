@@ -18,8 +18,8 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		  patterns: [], channels: [], projects: [],
-		  attributes: [], pageSize: 10, links: {}
+		  patterns: [], channels: [], projects: [],  project: null,
+		  attributes: [], pageSize: 10, links: {},
 		};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.onCreate = this.onCreate.bind(this);
@@ -30,7 +30,8 @@ class App extends React.Component {
 
 	componentDidMount() {
 		client({method: 'GET', path: '/api/projects'}).done(response => {
-			this.setState({projects: response.entity._embedded.projects});
+		  var projects = response.entity._embedded.projects;
+			this.setState({projects: projects, project: projects[0]});
 		});
 		client({method: 'GET', path: '/api/patterns'}).done(response => {
 			this.setState({patterns: response.entity._embedded.patterns});
@@ -117,6 +118,7 @@ class App extends React.Component {
         <h1>Projects</h1>
         <ProjectList projects={this.state.projects}/>
         <ChannelList channels={this.state.channels}
+                      project={this.state.project}
                       links={this.state.links}
           						pageSize={this.state.pageSize}
           						onCreate={this.onCreate}
