@@ -15,9 +15,12 @@
 
 package com.purplepip.odin.sequence;
 
+import lombok.ToString;
+
 /**
  * Abstract sequence.
  */
+@ToString
 public abstract class AbstractSequence implements MutableSequence {
   private Tick tick;
   private long length = -1;

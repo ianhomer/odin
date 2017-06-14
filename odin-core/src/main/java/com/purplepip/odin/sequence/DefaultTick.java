@@ -15,9 +15,12 @@
 
 package com.purplepip.odin.sequence;
 
+import lombok.ToString;
+
 /**
  * Default tick implementation.
  */
+@ToString
 public class DefaultTick implements Tick {
   private TimeUnit timeUnit;
   private int numerator;

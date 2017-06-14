@@ -26,10 +26,10 @@ import org.slf4j.LoggerFactory;
 public class TickConvertedSequenceRuntime implements SequenceRuntime<Note> {
   private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSequenceRuntime.class);
   private SequenceRuntime<Note> sequenceRuntime;
-  private DefaultTickConverter tickConverter;
+  private TickConverter tickConverter;
 
   public TickConvertedSequenceRuntime(SequenceRuntime<Note> sequenceRuntime,
-                                      DefaultTickConverter tickConverter) {
+                                      TickConverter tickConverter) {
     this.sequenceRuntime = sequenceRuntime;
     this.tickConverter = tickConverter;
   }
@@ -60,7 +60,7 @@ public class TickConvertedSequenceRuntime implements SequenceRuntime<Note> {
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
         tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
     long time = tickConverter.convert(event.getTime());
-    LOG.debug("Converted note {} to time {}", note, time);
+    LOG.trace("Converted note {} to time {}", note, time);
     return new DefaultEvent<>(note, time);
   }
 

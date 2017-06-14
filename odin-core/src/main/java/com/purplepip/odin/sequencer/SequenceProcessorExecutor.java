@@ -109,7 +109,7 @@ public class SequenceProcessorExecutor implements Runnable {
     Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
         note.getNumber());
     try {
-      LOG.debug("Sending note {} to channel {} at time {}",
+      LOG.trace("Sending note {} to channel {} at time {}",
           note, sequenceTrack.getChannel(), nextEvent.getTime());
       operationProcessor.send(noteOn, nextEvent.getTime());
       operationProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());

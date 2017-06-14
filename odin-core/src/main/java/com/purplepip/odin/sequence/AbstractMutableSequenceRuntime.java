@@ -82,7 +82,7 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
     // FIX : Currently reload resets tock to start of sequencer - we should set it to now
     tock = new MutableTock(getSequence().getTick(), 0);
     sealedTock = new SealedTock(tock);
-    LOG.debug("Reloading runtime sequence : length = {} {}", length, tick);
+    LOG.debug("Reloading runtime sequence {}", sequence);
   }
 
   protected abstract Event<A> getNextEvent(Tock tock);

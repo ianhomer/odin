@@ -21,9 +21,9 @@ import com.purplepip.odin.music.Note;
  * SequenceRuntime Factory.
  */
 public class SeriesTimeUnitConverterFactory {
-  private DefaultTickConverter tickConverter;
+  private TickConverter tickConverter;
 
-  public SeriesTimeUnitConverterFactory(DefaultTickConverter tickConverter) {
+  public SeriesTimeUnitConverterFactory(TickConverter tickConverter) {
     this.tickConverter = tickConverter;
   }
 
