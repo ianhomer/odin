@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.server.PersistableProjectContainer;
+import com.purplepip.odin.project.ProjectContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class OdinRepositoryEventListener extends AbstractRepositoryEventListener {
   @Autowired
-  private PersistableProjectContainer projectContainer;
+  private ProjectContainer projectContainer;
 
   @Override
   public void onAfterSave(Object entity) {
@@ -35,6 +35,6 @@ public class OdinRepositoryEventListener extends AbstractRepositoryEventListener
   @Override
   public void onAfterCreate(Object entity) {
     LOG.info("onAfterCreate {}", entity);
-    projectContainer.refresh();
+    projectContainer.load();
   }
 }

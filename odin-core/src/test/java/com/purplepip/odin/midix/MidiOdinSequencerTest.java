@@ -3,6 +3,8 @@ package com.purplepip.odin.midix;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
@@ -34,6 +36,7 @@ public class MidiOdinSequencerTest {
       MeasureProvider measureProvider = new StaticMeasureProvider(4);
       OdinSequencer sequencer = new OdinSequencer(
           new DefaultOdinSequencerConfiguration()
+              .setClockStartOffset(15000)
               .setBeatsPerMinute(new StaticBeatsPerMinute(100000))
               .setMeasureProvider(measureProvider)
               .setOperationReceiver(
@@ -45,7 +48,10 @@ public class MidiOdinSequencerTest {
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper))
               );
 
-      new ProjectBuilder(sequencer.getProjectContainer()).withLength(8).addMetronome();
+      ProjectContainer container = new ProjectContainer(new TransientProject());
+      container.addApplyListener(sequencer);
+      new ProjectBuilder(container).withLength(8).addMetronome();
+      container.apply();
       sequencer.start();
 
       try {

@@ -17,6 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.google.common.collect.Lists;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatsPerMinute;
@@ -30,13 +31,13 @@ import java.util.ArrayList;
 /**
  * Odin Sequencer Configuration.
  */
-public class DefaultOdinSequencerConfiguration implements OdinSequencerConfiguration {
+public class DefaultOdinSequencerConfiguration
+    implements OdinSequencerConfiguration {
   private BeatsPerMinute beatsPerMinute;
   private MeasureProvider measureProvider;
   private OperationReceiver operationReceiver;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
-  private ProjectContainer projectContainer;
   private FlowFactory<Note> flowFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
@@ -45,9 +46,6 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
    * Create new configuration with defaults set.
    */
   public DefaultOdinSequencerConfiguration() {
-    ProjectContainer container = new ProjectContainer();
-    container.setProject(new TransientProject());
-    setProjectContainer(container);
     setFlowFactory(new FlowFactory<>());
     setMeasureProvider(new StaticMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
@@ -65,13 +63,6 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
   public final DefaultOdinSequencerConfiguration
       setMeasureProvider(MeasureProvider measureProvider) {
     this.measureProvider = measureProvider;
-    return this;
-  }
-
-
-  public final DefaultOdinSequencerConfiguration
-      setProjectContainer(ProjectContainer projectContainer) {
-    this.projectContainer = projectContainer;
     return this;
   }
 
@@ -109,11 +100,6 @@ public class DefaultOdinSequencerConfiguration implements OdinSequencerConfigura
       MicrosecondPositionProvider microsecondPositionProvider) {
     this.microsecondPositionProvider = microsecondPositionProvider;
     return this;
-  }
-
-  @Override
-  public ProjectContainer getProjectContainer() {
-    return projectContainer;
   }
 
   @Override

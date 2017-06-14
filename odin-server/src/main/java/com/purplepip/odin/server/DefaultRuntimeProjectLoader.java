@@ -15,11 +15,9 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.server.rest.PersistableProjectBuilder;
-import com.purplepip.odin.server.rest.domain.PersistableProject;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +45,7 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments applicationArguments) throws Exception {
-    Project project = projectRepository.findByName(DefaultProjectCreater.DEFAULT_PROJECT_NAME);
-    if (project.getChannels().isEmpty()) {
+    if (projectContainer.isEmpty()) {
       new PersistableProjectBuilder(projectContainer)
           .addMetronome()
           .withChannel(1).changeProgramTo("bird")
@@ -59,8 +56,8 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
           .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
           .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
           .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
-      projectRepository.save((PersistableProject) project);
-      LOG.info("Loaded default project");
+      projectContainer.save();
+      LOG.info("Default project populated");
     } else {
       LOG.warn("Default project has already been loaded");
     }

@@ -17,36 +17,48 @@ package com.purplepip.odin.server;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.project.ProjectLoadListener;
+import com.purplepip.odin.project.ProjectSaveListener;
 import com.purplepip.odin.server.rest.domain.PersistableProject;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
+import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * Project container that contains a persistable project.
+ */
 @Component
-@Order(1)
 @Slf4j
-public class DefaultProjectCreater implements ApplicationRunner {
-  private static final String DEFAULT_PROJECT_NAME = "defaultProject";
-
-  @Autowired
-  private ProjectRepository projectRepository;
+public class PersistableProjectListener implements
+    ProjectSaveListener, ProjectLoadListener, InitializingBean {
 
   @Autowired
   private ProjectContainer projectContainer;
 
+  @Autowired
+  private ProjectRepository projectRepository;
+
+  /**
+   * Refresh container.
+   */
+  @Transactional
+  public void onProjectLoad(ProjectContainer container) {
+    container.setProject(projectRepository.findByName(container.getName()));
+  }
+
   @Override
-  public void run(ApplicationArguments applicationArguments) throws Exception {
-    Project project = projectRepository.findByName(DEFAULT_PROJECT_NAME);
-    if (project == null) {
-      project = new PersistableProject();
-      ((PersistableProject) project).setName(DEFAULT_PROJECT_NAME);
+  public void onProjectSave(Project project) {
+    if (project instanceof PersistableProject) {
       projectRepository.save((PersistableProject) project);
-      LOG.info("Created default project");
     }
-    projectContainer.setProject(project);
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    projectContainer.addSaveListener(this);
+    projectContainer.addLoadListener(this);
   }
 }

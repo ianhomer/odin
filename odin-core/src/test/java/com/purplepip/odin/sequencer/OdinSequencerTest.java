@@ -15,7 +15,6 @@ public class OdinSequencerTest {
   private static final int OFFSET = 0;
   private static final int LENGTH = 8;
 
-
   @Test
   public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(16);
@@ -24,23 +23,22 @@ public class OdinSequencerTest {
       lock.countDown();
     };
 
-    OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
-    new ProjectBuilder(sequencer.getProjectContainer())
+    TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
+    new ProjectBuilder(environment.getContainer())
         .withOffset(OFFSET)
         .withLength(LENGTH)
         .addMetronome();
-    sequencer.start();
+    environment.start();
 
     try {
       lock.await(1000, TimeUnit.MILLISECONDS);
     } finally {
-      sequencer.stop();
+      environment.stop();
     }
 
     assertEquals("Not enough events fired", 0, lock.getCount());
-    double currentBeat = sequencer.getClock().getCurrentBeat();
+    double currentBeat = environment.getSequencer().getClock().getCurrentBeat();
     assertTrue(currentBeat
-        + " beats should not have past", sequencer.getClock().getCurrentBeat()
-        < OFFSET + LENGTH);
+        + " beats should not have past", currentBeat < OFFSET + LENGTH);
   }
 }

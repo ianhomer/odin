@@ -5,6 +5,8 @@ import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
+import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
@@ -72,8 +74,8 @@ public class MidiSequenceExperiment {
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
         synthesizerHelper.logInstruments();
       }
-
-      new ProjectBuilder(sequencer.getProjectContainer())
+      ProjectContainer container = new ProjectContainer(new TransientProject());
+      new ProjectBuilder(container)
           .addMetronome()
           .withChannel(1).changeProgramTo("bird")
           .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
@@ -83,7 +85,7 @@ public class MidiSequenceExperiment {
           .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
           .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
           .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
-
+      container.addApplyListener(sequencer);
       sequencer.start();
 
       try {

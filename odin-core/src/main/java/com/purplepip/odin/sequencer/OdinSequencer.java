@@ -18,8 +18,8 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.ProjectListener;
+import com.purplepip.odin.project.Project;
+import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.RuntimeTicks;
@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
  * Core Odin Sequencer.
  */
 @Slf4j
-public class OdinSequencer implements ProjectListener {
+public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
   private Set<SequenceTrack> sequenceTracks = new HashSet<>();
   private SequenceProcessor sequenceProcessor;
@@ -54,15 +54,10 @@ public class OdinSequencer implements ProjectListener {
     init();
   }
 
-  public ProjectContainer getProjectContainer() {
-    return configuration.getProjectContainer();
-  }
-
   /**
    * Initialise the sequencer.
    */
   private void init() {
-    configuration.getProjectContainer().addListener(this);
     clock = new Clock(configuration.getBeatsPerMinute(),
         configuration.getMicrosecondPositionProvider(),
         configuration.getClockStartRoundingFactor(),
@@ -70,16 +65,16 @@ public class OdinSequencer implements ProjectListener {
   }
 
   @Override
-  public void onProjectApply() {
-    refreshTracks();
+  public void onProjectApply(Project project) {
+    refreshTracks(project);
   }
 
   /**
    * Refresh sequencer tracks from the project configuration.
    */
-  private void refreshTracks() {
+  private void refreshTracks(Project project) {
     LOG.debug("Refreshing tracks at {}micros", clock.getMicrosecondPosition());
-    for (Channel channel : getProjectContainer().getChannels()) {
+    for (Channel channel : project.getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);
         operationProcessor.send(new ProgramChangeOperation(channel), -1);
@@ -89,7 +84,7 @@ public class OdinSequencer implements ProjectListener {
     }
 
     sequenceTracks.clear();
-    for (Sequence sequence : getProjectContainer().getSequences()) {
+    for (Sequence sequence : project.getSequences()) {
       addSequenceTrack(sequence);
     }
   }
@@ -133,7 +128,6 @@ public class OdinSequencer implements ProjectListener {
      */
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
-    configuration.getProjectContainer().apply();
     clock.start();
   }
 

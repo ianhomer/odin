@@ -17,6 +17,7 @@ package com.purplepip.odin.server;
 
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.SynthesizerHelper;
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import org.slf4j.Logger;
@@ -46,6 +47,9 @@ public class Application {
   @Autowired
   private OdinSequencer sequencer;
 
+  @Autowired
+  private ProjectContainer container;
+
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
   }
@@ -68,6 +72,8 @@ public class Application {
       }
 
       sequencer.start();
+      container.apply();
+
       LOG.info("Odin Started.");
     };
   }

@@ -28,7 +28,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ProjectContainer {
-  private List<ProjectListener> listeners = new ArrayList<>();
+  private List<ProjectApplyListener> applyListeners = new ArrayList<>();
+  private List<ProjectLoadListener> loadListeners = new ArrayList<>();
+  private List<ProjectSaveListener> saveListeners = new ArrayList<>();
+
   private Project project;
 
   public ProjectContainer() {
@@ -47,31 +50,92 @@ public class ProjectContainer {
     this.project = project;
   }
 
+  public String getName() {
+    return project.getName();
+  }
+
   /**
-   * Apply project configuration.
+   * Save project to persistent store.
    */
-  public void apply() {
-    for (ProjectListener listener : listeners) {
-      listener.onProjectApply();
+  public final void save() {
+    for (ProjectSaveListener listener : saveListeners) {
+      listener.onProjectSave(project);
     }
   }
 
   /**
-   * Add project listener.
-   *
-   * @param projectListener project listener.
+   * Load project from persistent store.
    */
-  public void addListener(ProjectListener projectListener) {
-    listeners.add(projectListener);
+  public final void load() {
+    for (ProjectLoadListener listener : loadListeners) {
+      listener.onProjectLoad(this);
+    }
   }
 
   /**
-   * Remove project listener.
-   *
-   * @param projectListener project listener
+   * Apply project changes.
    */
-  public void removeListener(ProjectListener projectListener) {
-    listeners.remove(projectListener);
+  public final void apply() {
+    for (ProjectApplyListener listener : applyListeners) {
+      listener.onProjectApply(project);
+    }
+  }
+
+
+
+  /**
+   * Add project apply listener.
+   *
+   * @param listener project apply listener.
+   */
+  public void addApplyListener(ProjectApplyListener listener) {
+    applyListeners.add(listener);
+  }
+
+  /**
+   * Add project load listener.
+   *
+   * @param listener project load listener.
+   */
+  public void addLoadListener(ProjectLoadListener listener) {
+    loadListeners.add(listener);
+  }
+
+
+  /**
+   * Add project save listener.
+   *
+   * @param listener project save listener.
+   */
+  public void addSaveListener(ProjectSaveListener listener) {
+    saveListeners.add(listener);
+  }
+
+  /**
+   * Remove project apply listener.
+   *
+   * @param listener project apply listener
+   */
+  public void removeApplyListener(ProjectApplyListener listener) {
+    applyListeners.remove(listener);
+  }
+
+  /**
+   * Remove project remove listener.
+   *
+   * @param listener project remove listener
+   */
+  public void removeLoadListener(ProjectLoadListener listener) {
+    loadListeners.remove(listener);
+  }
+
+  /**
+   * Remove project save listener.
+   *
+   * @param listener project save listener
+   */
+  public void removeSaveListener(ProjectSaveListener listener) {
+    saveListeners.remove(listener);
   }
 
   /**
@@ -125,5 +189,9 @@ public class ProjectContainer {
    */
   public Stream<Channel> getChannelStream() {
     return project.getChannels().stream();
+  }
+
+  public boolean isEmpty() {
+    return project.getChannels().isEmpty() && project.getSequences().isEmpty();
   }
 }

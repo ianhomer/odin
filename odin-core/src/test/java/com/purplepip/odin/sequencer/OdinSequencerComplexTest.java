@@ -21,8 +21,8 @@ public class OdinSequencerComplexTest {
       lock.countDown();
     };
 
-    OdinSequencer sequencer = new TestSequencerFactory().createDefaultSequencer(operationReceiver);
-    new ProjectBuilder(sequencer.getProjectContainer())
+    TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
+    new ProjectBuilder(environment.getContainer())
         .addMetronome()
         .withChannel(1).withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
         .withChannel(2).withVelocity(70).withNote(62).addPattern(Ticks.BEAT, 2)
@@ -32,11 +32,11 @@ public class OdinSequencerComplexTest {
         .addPattern(Ticks.EIGHTH, 127)
         .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
 
-    sequencer.start();
+    environment.start();
     try {
       lock.await(1000, TimeUnit.MILLISECONDS);
     } finally {
-      sequencer.stop();
+      environment.stop();
     }
 
     assertEquals("Not enough events fired", 0, lock.getCount());

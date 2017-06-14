@@ -16,9 +16,9 @@
 package com.purplepip.odin.project;
 
 /**
- * Project listener interface.
+ * Project load listener interface.
  */
 @FunctionalInterface
-public interface ProjectListener {
-  void onProjectApply();
+public interface ProjectLoadListener {
+  void onProjectLoad(ProjectContainer container);
 }

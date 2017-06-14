@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
+import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequencer.Channel;
-import com.purplepip.odin.server.PersistableProjectContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
@@ -30,23 +30,23 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ChannelEventHandler {
   @Autowired
-  private PersistableProjectContainer projectContainer;
+  private ProjectContainer projectContainer;
 
   @HandleAfterSave
   public void handleChannelSave(Channel channel) {
     LOG.info("Channel saved");
-    projectContainer.refresh();
+    projectContainer.load();
   }
 
   @HandleAfterCreate
   public void handleChannelCreate(Channel channel) {
     LOG.info("Channel created");
-    projectContainer.refresh();
+    projectContainer.load();
   }
 
   @HandleAfterDelete
   public void handleChannel(Channel channel) {
     LOG.info("Channel deleted");
-    projectContainer.refresh();
+    projectContainer.load();
   }
 }
