@@ -78,10 +78,15 @@ public class Clock implements MicrosecondPositionProvider {
    */
   public void start() {
     /*
-     * Round first beat up, to allow initial execution of processor to fire
+     * Note that the first beat is never in the past, so the first beat timing needs to be
+     * rounded up if necessary.  This rounding takes place after adding start offset.
+     *
+     * Note that (startRoundingFactor - 1) ensure we don't round up if we are already
+     * on a rounding boundary.
      */
+    long currentMicrosecondPosition = microsecondPositionProvider.getMicrosecondPosition();
     this.microsecondsPositionOfFirstBeat = startRoundingFactor
-        * ((startOffset + microsecondPositionProvider.getMicrosecondPosition())
+        * ((startOffset + startRoundingFactor - 1 + currentMicrosecondPosition)
         / startRoundingFactor);
     LOG.debug("Starting clock at {}micros", microsecondsPositionOfFirstBeat);
     started = true;
