@@ -83,17 +83,13 @@ public class DefaultOperationProcessor implements OperationProcessor {
       long size = queue.size();
       while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
           < microsecondPosition + forwardPollingTime) {
-        nextEvent = queue.poll();
-        if (nextEvent == null) {
-          LOG.error("Next event in queue is null, where did it go?");
-        } else {
-          try {
-            operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
-            count++;
-          } catch (OdinException e) {
-            LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
-          }
+        try {
+          operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
+          count++;
+        } catch (OdinException e) {
+          LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
         }
+        nextEvent = queue.poll();
       }
       LOG.debug("Processed {} of {} operations at {}", count, size, clock);
     }
