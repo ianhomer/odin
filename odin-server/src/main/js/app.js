@@ -32,11 +32,11 @@ class App extends React.Component {
 		client({method: 'GET', path: '/api/projects'}).done(response => {
 		  var projects = response.entity._embedded.projects;
 			this.setState({projects: projects, project: projects[0]});
+  		this.loadChannelsFromServer(this.state.pageSize);
 		});
 		client({method: 'GET', path: '/api/patterns'}).done(response => {
 			this.setState({patterns: response.entity._embedded.patterns});
 		});
-		this.loadChannelsFromServer(this.state.pageSize);
 	}
 
 	loadChannelsFromServer(pageSize) {

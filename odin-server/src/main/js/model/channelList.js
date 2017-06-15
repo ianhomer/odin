@@ -2,8 +2,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 // tag::create-dialog[]
-class CreateDialog extends React.Component {
-
+class CreateRow extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,36 +27,24 @@ class CreateDialog extends React.Component {
 
   getDefaultValue(attribute) {
     if (attribute === "project") {
-      return this.props.project._links.self.href;
+      return ;
     }
     return "";
   }
 
 	render() {
-		var inputs = this.props.attributes.map(attribute =>
-			<p key={attribute}>
-				<input type="text" placeholder={attribute} ref={attribute} className="field"
-				  defaultValue={this.getDefaultValue(attribute)} />
-			</p>
-		);
-
 		return (
-			<div>
-				<a href="#createChannel">Create</a>
-
-				<div id="createChannel" className="modalDialog">
-					<div>
-						<a href="#" title="Close" className="close">X</a>
-
-						<h2>Create new channel</h2>
-
-						<form>
-							{inputs}
-							<button onClick={this.handleSubmit}>Create</button>
-						</form>
-					</div>
-				</div>
-			</div>
+      <tr id="createChannel">
+        <td><input type="text" placeholder="number" ref="number" className="field" /></td>
+        <td><input type="text" placeholder="programName" ref="programName" className="field" /></td>
+        <td>
+          <input type="hidden" name="program" ref="program"
+                      value="" />
+          <input type="hidden" name="project" ref="project"
+                      value={this.props.project._links.self.href} />
+          <button onClick={this.handleSubmit}>Create</button>
+        </td>
+      </tr>
 		)
 	}
 
@@ -133,8 +120,6 @@ class ChannelList extends React.Component{
 		return (
       <div>
         <h1>Channels</h1>
-        <CreateDialog attributes={this.props.attributes} project={this.props.project}
-          onCreate={this.props.onCreate}/>
         <input ref="pageSize" defaultValue={this.props.pageSize} onInput={this.handleInput}/>
         <table>
           <tbody>
@@ -143,6 +128,10 @@ class ChannelList extends React.Component{
               <th>Program</th>
             </tr>
             {channels}
+            {this.props.project &&
+              <CreateRow attributes={this.props.attributes} project={this.props.project}
+                onCreate={this.props.onCreate}/>
+            }
           </tbody>
         </table>
 				<div>

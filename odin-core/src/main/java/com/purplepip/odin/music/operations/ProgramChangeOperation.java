@@ -42,6 +42,21 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
   }
 
   /**
+   * Create program change operation with program name. Note that program name will take
+   * precedence over program integer value and will be resolved during the MIDI operation
+   * receiver execution.
+   *
+   * @param channel channel
+   * @param bank bank
+   * @param program program
+   * @param programName programName
+   */
+  public ProgramChangeOperation(int channel, int bank, int program, String programName) {
+    this(channel, bank, program);
+    setProgramName(programName);
+  }
+
+  /**
    * Create program change operation from channel configuration.
    *
    * @param channel channel configuration

@@ -53,7 +53,8 @@ public class MidiOperationReceiver implements OperationReceiver {
               .findInstrument(programChangeOperation.getChannel(),
                   programChangeOperation.getProgramName());
           resolvedOperation = new ProgramChangeOperation(programChangeOperation.getChannel(),
-              instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+              instrument.getPatch().getBank(), instrument.getPatch().getProgram(),
+              programChangeOperation.getProgramName());
         }
         LOG.debug("Program change operation : {}", resolvedOperation);
       } else {
