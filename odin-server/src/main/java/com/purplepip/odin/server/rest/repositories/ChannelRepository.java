@@ -22,6 +22,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Channel repository.
  */
-@RepositoryRestResource(collectionResourceRel = "channels", path = "channels")
+@RepositoryRestResource(path = "channels", collectionResourceRel = "channels")
 public interface ChannelRepository extends PagingAndSortingRepository<PersistableChannel, Long> {
 }

@@ -22,6 +22,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Note repository.
  */
-@RepositoryRestResource(collectionResourceRel = "notes", path = "notes")
+@RepositoryRestResource(path = "notes", collectionResourceRel = "notes")
 public interface NoteRepository extends CrudRepository<PersistableNote, Long> {
 }

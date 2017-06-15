@@ -103,6 +103,7 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
   /**
    * Action on clock stop.
    */
+  @Override
   public void onClockStop() {
 
   }

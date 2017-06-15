@@ -22,6 +22,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Sequence repository.
  */
-@RepositoryRestResource(collectionResourceRel = "sequences", path = "sequences")
+@RepositoryRestResource(path = "sequences", collectionResourceRel = "sequences")
 public interface SequenceRepository extends CrudRepository<AbstractPersistableSequence, Long>  {
 }

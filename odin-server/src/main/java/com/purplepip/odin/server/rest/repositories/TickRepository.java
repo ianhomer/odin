@@ -22,6 +22,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Tick repository.
  */
-@RepositoryRestResource(collectionResourceRel = "ticks", path = "ticks")
+@RepositoryRestResource(path = "ticks", collectionResourceRel = "ticks")
 public interface TickRepository extends CrudRepository<PersistableTick, Long> {
 }
