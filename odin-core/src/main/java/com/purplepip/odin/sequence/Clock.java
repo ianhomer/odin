@@ -28,13 +28,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Clock implements MicrosecondPositionProvider {
+  private MicrosecondPositionProvider microsecondPositionProvider;
+  private Set<ClockListener> listeners = new TreeSet<>(new ClockListenerComparator());
   private BeatsPerMinute beatsPerMinute;
+
   private long microsecondsPositionOfFirstBeat;
   private long startRoundingFactor = 1;
   private long startOffset;
-  private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean started;
-  private Set<ClockListener> listeners = new TreeSet<>(new ClockListenerComparator());
 
   public Clock(BeatsPerMinute beatsPerMinute) {
     this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
@@ -94,6 +95,9 @@ public class Clock implements MicrosecondPositionProvider {
     listeners.forEach(ClockListener::onClockStart);
   }
 
+  /**
+   * Stop the clock.
+   */
   public void stop() {
     listeners.forEach(ClockListener::onClockStop);
   }

@@ -31,7 +31,6 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
   private MeasureProvider measureProvider;
   private S sequence;
   private Event<A> nextEvent;
-  private long length;
   private MutableTock tock;
   private Tock sealedTock;
   private RuntimeTick tick;
@@ -42,7 +41,7 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
     return tick;
   }
 
-  protected void setClock(Clock clock) {
+  protected final void setClock(Clock clock) {
     this.clock = clock;
   }
 
@@ -55,7 +54,7 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
    *
    * @param measureProvider measure provider
    */
-  protected void setMeasureProvider(MeasureProvider measureProvider) {
+  protected final void setMeasureProvider(MeasureProvider measureProvider) {
     this.measureProvider = measureProvider;
   }
 
@@ -64,7 +63,7 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
    *
    * @param sequence sequence configuration
    */
-  protected void setSequence(S sequence) {
+  protected final void setSequence(S sequence) {
     this.sequence = sequence;
   }
 
@@ -75,9 +74,6 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
   protected void initialise() {
     clock.addListener(this);
     tick = new DefaultRuntimeTick(sequence.getTick());
-    TickConverter converter = new SameTimeUnitTickConverter(RuntimeTicks.BEAT,
-        getTick());
-    this.length = converter.convert(getSequence().getLength());
     /*
      * Calculate offset of this sequence in microseconds ...
      */

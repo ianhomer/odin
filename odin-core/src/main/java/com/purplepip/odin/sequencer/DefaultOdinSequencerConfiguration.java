@@ -17,9 +17,6 @@ package com.purplepip.odin.sequencer;
 
 import com.google.common.collect.Lists;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;

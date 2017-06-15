@@ -50,8 +50,8 @@ public class SequenceProcessorExecutor implements Runnable {
   public void run() {
     try {
       doJob();
-    } catch (Throwable t) {
-      LOG.error("Error whilst executing sequence processing", t);
+    } catch (RuntimeException e) {
+      LOG.error("Error whilst executing sequence processing", e);
     }
   }
 

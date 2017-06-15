@@ -3,7 +3,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -22,7 +23,7 @@ import java.util.Comparator;
  * for example runtime sequences need to have started before processors start.  This comparator
  * looks for the ListenerPriority annotation and sorts priorities with lower numbers first.
  */
-public class ClockListenerComparator implements Comparator<ClockListener> {
+public class ClockListenerComparator implements Comparator<ClockListener>, Serializable {
 
   @Override
   public int compare(ClockListener listener1, ClockListener listener2) {
@@ -36,7 +37,7 @@ public class ClockListenerComparator implements Comparator<ClockListener> {
     return result;
   }
 
-  private int getPriority(ClockListener listener) {
+  private static int getPriority(ClockListener listener) {
     ListenerPriority annotation =
         listener.getClass().getAnnotation(ListenerPriority.class);
     return annotation == null ? 0 : annotation.value();

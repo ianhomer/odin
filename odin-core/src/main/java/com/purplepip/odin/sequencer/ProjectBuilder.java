@@ -23,7 +23,6 @@ import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.MutableSequence;

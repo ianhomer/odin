@@ -19,7 +19,6 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.ClockListener;
-import com.purplepip.odin.sequence.ClockListenerComparator;
 import com.purplepip.odin.sequence.ListenerPriority;
 import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -103,8 +102,8 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
     public void run() {
       try {
         doJob();
-      } catch (Throwable t) {
-        LOG.error("Error whilst executing sequence processing", t);
+      } catch (RuntimeException e) {
+        LOG.error("Error whilst executing sequence processing", e);
       }
     }
 
