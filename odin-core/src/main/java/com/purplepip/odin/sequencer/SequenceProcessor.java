@@ -31,9 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ListenerPriority(9)
 public class SequenceProcessor implements ClockListener {
-  private final Set<SequenceTrack> sequenceTrackSet;
-  private final Clock clock;
-  private final OperationProcessor operationProcessor;
   private long refreshPeriod = 200;
   private ScheduledExecutorService scheduledPool;
   private SequenceProcessorExecutor executor;
@@ -49,12 +46,9 @@ public class SequenceProcessor implements ClockListener {
   SequenceProcessor(Clock clock,
                     Set<SequenceTrack> sequenceTrackSet,
                     OperationProcessor operationProcessor) {
-    this.sequenceTrackSet = Collections.unmodifiableSet(sequenceTrackSet);
-    this.clock = clock;
-    this.operationProcessor = operationProcessor;
     scheduledPool = Executors.newScheduledThreadPool(1);
     executor = new SequenceProcessorExecutor(
-        clock, sequenceTrackSet, operationProcessor, refreshPeriod
+        clock, Collections.unmodifiableSet(sequenceTrackSet), operationProcessor, refreshPeriod
     );
     clock.addListener(this);
     LOG.debug("Created sequence processor");

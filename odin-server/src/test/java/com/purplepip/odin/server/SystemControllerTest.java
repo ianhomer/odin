@@ -34,6 +34,5 @@ public class SystemControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(content().string(CoreMatchers.containsString("odin")));
-
   }
 }

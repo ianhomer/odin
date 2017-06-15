@@ -123,11 +123,8 @@ public class OdinSequencer implements ProjectApplyListener {
    * @param flow flow
    * @return sequence runtime
    */
-  private DefaultSequenceRuntime
-      createSequenceRuntime(Flow<Sequence, Note> flow) {
-    DefaultSequenceRuntime sequenceRuntime = new DefaultSequenceRuntime(
-        clock, configuration.getMeasureProvider(), flow);
-    return sequenceRuntime;
+  private DefaultSequenceRuntime createSequenceRuntime(Flow<Sequence, Note> flow) {
+    return new DefaultSequenceRuntime(clock, configuration.getMeasureProvider(), flow);
   }
 
   /**

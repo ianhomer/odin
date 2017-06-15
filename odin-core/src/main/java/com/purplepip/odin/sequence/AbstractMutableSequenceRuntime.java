@@ -71,7 +71,7 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
     return sequence;
   }
 
-  protected void initialise() {
+  protected final void initialise() {
     clock.addListener(this);
     tick = new DefaultRuntimeTick(sequence.getTick());
     /*

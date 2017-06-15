@@ -18,8 +18,6 @@ package com.purplepip.odin.server;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.server.rest.repositories.ProjectRepository;
-import javax.persistence.EntityManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +28,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataJpaTest(showSql = false)
 public class DefaultRuntimeProjectLoaderTest {
   @Autowired
-  private ProjectRepository projectRepository;
-
-  @Autowired
   private ProjectContainer projectContainer;
-
-  @Autowired
-  private EntityManager entityManager;
 
   @Test
   public void testDefaultRuntimeProjectLoader() throws Exception {
     assertThat(projectContainer.getChannels()).isEmpty();
     DefaultRuntimeProjectLoader loader =
-        new DefaultRuntimeProjectLoader(projectRepository, projectContainer);
+        new DefaultRuntimeProjectLoader(projectContainer);
     loader.run(null);
     assertThat(projectContainer.getChannels()).isNotEmpty();
   }

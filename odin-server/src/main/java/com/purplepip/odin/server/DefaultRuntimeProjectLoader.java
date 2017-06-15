@@ -18,7 +18,6 @@ package com.purplepip.odin.server;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.server.rest.PersistableProjectBuilder;
-import com.purplepip.odin.server.rest.repositories.ProjectRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -32,14 +31,10 @@ import org.springframework.stereotype.Component;
 @Order(2)
 @Slf4j
 public class DefaultRuntimeProjectLoader implements ApplicationRunner {
-  private ProjectRepository projectRepository;
-
   private ProjectContainer projectContainer;
 
   @Autowired
-  public DefaultRuntimeProjectLoader(ProjectRepository projectRepository,
-                                     ProjectContainer projectContainer) {
-    this.projectRepository = projectRepository;
+  public DefaultRuntimeProjectLoader(ProjectContainer projectContainer) {
     this.projectContainer = projectContainer;
   }
 
