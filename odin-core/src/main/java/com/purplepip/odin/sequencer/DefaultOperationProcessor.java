@@ -24,8 +24,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Processor responsible for taking MIDI messages off the queue and sending them to the MIDI
@@ -35,17 +34,11 @@ import org.slf4j.LoggerFactory;
  * instrument might end up handling them early.
  */
 @ListenerPriority(9)
+@Slf4j
 public class DefaultOperationProcessor implements OperationProcessor, ClockListener {
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultOperationProcessor.class);
-
-  private static final int MAX_OPERATIONS_PER_EXECUTION = 1000;
-
-  private long refreshPeriod = 50;
-  private long forwardPollingTime = refreshPeriod * 1000 * 5;
+  protected static final long REFRESH_PERIOD = 50;
   private PriorityBlockingQueue<OperationEvent> queue = new PriorityBlockingQueue<>(127,
       new OperationEventComparator());
-  private Clock clock;
-  private OperationReceiver operationReceiver;
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
   private DefaultOperationProcessorExecutor executor;
 
@@ -56,13 +49,11 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
    * @param operationReceiver operation receiver
    */
   DefaultOperationProcessor(Clock clock, OperationReceiver operationReceiver) {
-    this.clock = clock;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }
-    this.operationReceiver = operationReceiver;
     clock.addListener(this);
-    executor = new DefaultOperationProcessorExecutor();
+    executor = new DefaultOperationProcessorExecutor(clock, queue, operationReceiver);
     LOG.debug("Created operation processor");
   }
 
@@ -73,7 +64,7 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
   }
 
   private void start() {
-    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
+    scheduledPool.scheduleAtFixedRate(executor, 0, REFRESH_PERIOD, TimeUnit.MILLISECONDS);
     LOG.debug("Started operation processor");
   }
 
@@ -96,34 +87,4 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
   public void onClockStop() {
     stop();
   }
-
-  class DefaultOperationProcessorExecutor implements Runnable {
-    @Override
-    public void run() {
-      try {
-        doJob();
-      } catch (RuntimeException e) {
-        LOG.error("Error whilst executing sequence processing", e);
-      }
-    }
-
-    private void doJob() {
-      OperationEvent nextEvent = queue.peek();
-      long microsecondPosition = clock.getMicrosecondPosition();
-      long count = 0;
-      long size = queue.size();
-      while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
-          < microsecondPosition + forwardPollingTime) {
-        try {
-          operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
-          count++;
-        } catch (OdinException e) {
-          LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
-        }
-        nextEvent = queue.poll();
-      }
-      LOG.debug("Processed {} of {} operations at {}", count, size, clock);
-    }
-  }
-
 }
