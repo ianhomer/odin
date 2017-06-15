@@ -19,6 +19,8 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.ClockListener;
+import com.purplepip.odin.sequence.ClockListenerComparator;
+import com.purplepip.odin.sequence.ListenerPriority;
 import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
@@ -33,6 +35,7 @@ import org.slf4j.LoggerFactory;
  * really for synchronisation.  If events are fired into a receiver too early then the MIDI
  * instrument might end up handling them early.
  */
+@ListenerPriority(9)
 public class DefaultOperationProcessor implements OperationProcessor, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultOperationProcessor.class);
 
@@ -54,7 +57,6 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
    * @param operationReceiver operation receiver
    */
   DefaultOperationProcessor(Clock clock, OperationReceiver operationReceiver) {
-    LOG.debug("Creating operation processor");
     this.clock = clock;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
@@ -62,6 +64,7 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
     this.operationReceiver = operationReceiver;
     clock.addListener(this);
     executor = new DefaultOperationProcessorExecutor();
+    LOG.debug("Created operation processor");
   }
 
   @Override
@@ -98,6 +101,14 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
   class DefaultOperationProcessorExecutor implements Runnable {
     @Override
     public void run() {
+      try {
+        doJob();
+      } catch (Throwable t) {
+        LOG.error("Error whilst executing sequence processing", t);
+      }
+    }
+
+    private void doJob() {
       OperationEvent nextEvent = queue.peek();
       long microsecondPosition = clock.getMicrosecondPosition();
       long count = 0;

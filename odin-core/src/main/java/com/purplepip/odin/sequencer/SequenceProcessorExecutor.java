@@ -48,6 +48,14 @@ public class SequenceProcessorExecutor implements Runnable {
    */
   @Override
   public void run() {
+    try {
+      doJob();
+    } catch (Throwable t) {
+      LOG.error("Error whilst executing sequence processing", t);
+    }
+  }
+
+  private void doJob() {
     /*
      * Use a constant microsecond position for the whole loop to make it easier to debug
      * loop processing.  In this loop it is only used for setting forward scan windows and does

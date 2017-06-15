@@ -17,6 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.ClockListener;
+import com.purplepip.odin.sequence.ListenerPriority;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -28,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * SequenceRuntime processor.
  */
 @Slf4j
+@ListenerPriority(9)
 public class SequenceProcessor implements ClockListener {
   private final Set<SequenceTrack> sequenceTrackSet;
   private final Clock clock;
@@ -50,14 +52,12 @@ public class SequenceProcessor implements ClockListener {
     this.sequenceTrackSet = Collections.unmodifiableSet(sequenceTrackSet);
     this.clock = clock;
     this.operationProcessor = operationProcessor;
+    scheduledPool = Executors.newScheduledThreadPool(1);
+    executor = new SequenceProcessorExecutor(
+        clock, sequenceTrackSet, operationProcessor, refreshPeriod
+    );
     clock.addListener(this);
-    /*
-     * If clock has already started then start immediately, otherwise wait for clock start
-     * event.
-     */
-    if (clock.isStarted()) {
-      start();
-    }
+    LOG.debug("Created sequence processor");
   }
 
   @Override
@@ -72,13 +72,9 @@ public class SequenceProcessor implements ClockListener {
   }
 
   private void start() {
-    scheduledPool = Executors.newScheduledThreadPool(1);
-    executor = new SequenceProcessorExecutor(
-        clock, sequenceTrackSet, operationProcessor, refreshPeriod
-    );
-    LOG.debug("Starting sequence processor");
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     running = true;
+    LOG.debug("Started sequence processor");
   }
 
   private void stop() {

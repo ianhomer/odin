@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.sequence;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -34,7 +34,7 @@ public class Clock implements MicrosecondPositionProvider {
   private long startOffset;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean started;
-  private List<ClockListener> listeners = new ArrayList<>();
+  private Set<ClockListener> listeners = new TreeSet<>(new ClockListenerComparator());
 
   public Clock(BeatsPerMinute beatsPerMinute) {
     this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
@@ -70,8 +70,8 @@ public class Clock implements MicrosecondPositionProvider {
   }
 
   public void addListener(ClockListener listener) {
-    LOG.debug("Clock listener {} added", listener);
-    listeners.add(listener);
+    boolean result = listeners.add(listener);
+    LOG.debug("Clock listener {} added {} : 1 of {} listeners", listener, result, listeners.size());
   }
 
   /**

@@ -73,7 +73,6 @@ public class MidiSequenceExperiment {
             new SynthesizerHelper(midiDeviceWrapper.getSynthesizer());
         synthesizerHelper.loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
-        synthesizerHelper.logInstruments();
       }
       ProjectContainer container = new ProjectContainer(new TransientProject());
       new ProjectBuilder(container)

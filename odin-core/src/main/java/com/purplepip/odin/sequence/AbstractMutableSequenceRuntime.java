@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Abstract sequence.
  */
+@ListenerPriority()
 public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
     implements SequenceRuntime<A>, ClockListener  {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
@@ -138,6 +139,10 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
   }
 
   private boolean isActive() {
+    if (tock == null) {
+      LOG.trace("is Active false : not started");
+      return false;
+    }
     LOG.trace("isActive {} : {} < {}", getLength(), tock.getCount(), getLength());
     return getLength() < 0 || tock.getCount() < getLength();
   }

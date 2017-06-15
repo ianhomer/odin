@@ -63,9 +63,10 @@ public class OdinSequencer implements ProjectApplyListener {
         configuration.getClockStartRoundingFactor(),
         configuration.getClockStartOffset());
     /*
-     * Create the operation processor early.  Note that it'll start when the clock starts.
+     * Create the processors early.  Note that they'll start when the clock starts.
      */
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
+    sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
   }
 
   @Override
@@ -135,9 +136,8 @@ public class OdinSequencer implements ProjectApplyListener {
   public void start() {
     started = true;
     /*
-     * Create the processors and start the clock.
+     * Start the clock.
      */
-    sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
     clock.start();
   }
 
@@ -150,12 +150,6 @@ public class OdinSequencer implements ProjectApplyListener {
    */
   public void stop() {
     clock.stop();
-    if (sequenceProcessor != null) {
-      sequenceProcessor.close();
-    }
-    if (operationProcessor != null) {
-      operationProcessor.close();
-    }
     started = false;
   }
 
