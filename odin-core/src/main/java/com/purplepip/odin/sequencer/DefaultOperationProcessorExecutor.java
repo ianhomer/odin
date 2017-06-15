@@ -48,10 +48,10 @@ public class DefaultOperationProcessorExecutor implements Runnable {
   }
 
   private void doJob() {
-    OperationEvent nextEvent = queue.peek();
+    long size = queue.size();
+    OperationEvent nextEvent = queue.poll();
     long microsecondPosition = clock.getMicrosecondPosition();
     long count = 0;
-    long size = queue.size();
     while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
         < microsecondPosition + FORWARD_POLLING_TIME) {
       try {
