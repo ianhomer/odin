@@ -21,7 +21,6 @@ import com.purplepip.odin.project.ProjectLoadListener;
 import com.purplepip.odin.project.ProjectSaveListener;
 import com.purplepip.odin.server.rest.domain.PersistableProject;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
-import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,6 @@ public class PersistableProjectListener implements
   /**
    * Refresh container.
    */
-  @Transactional
   @Override
   public void onProjectLoad(ProjectContainer container) {
     LOG.info("Reloading project");
