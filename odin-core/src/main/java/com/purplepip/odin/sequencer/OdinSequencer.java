@@ -62,6 +62,10 @@ public class OdinSequencer implements ProjectApplyListener {
         configuration.getMicrosecondPositionProvider(),
         configuration.getClockStartRoundingFactor(),
         configuration.getClockStartOffset());
+    /*
+     * Create the operation processor early.  Note that it'll start when the clock starts.
+     */
+    operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
   }
 
   @Override
@@ -133,7 +137,6 @@ public class OdinSequencer implements ProjectApplyListener {
     /*
      * Create the processors and start the clock.
      */
-    operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
     clock.start();
   }

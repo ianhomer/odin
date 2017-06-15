@@ -46,6 +46,7 @@ public class MidiSequenceExperiment {
 
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();
+      LOG.info("Received operation {}", operation);
     };
 
     LOG.info("Creating sequence");
@@ -86,6 +87,7 @@ public class MidiSequenceExperiment {
           .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
           .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
       container.addApplyListener(sequencer);
+      container.apply();
       sequencer.start();
 
       try {

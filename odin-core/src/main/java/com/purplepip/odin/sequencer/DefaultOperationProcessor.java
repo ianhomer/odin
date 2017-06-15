@@ -18,6 +18,7 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.ClockListener;
 import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
@@ -32,7 +33,7 @@ import org.slf4j.LoggerFactory;
  * really for synchronisation.  If events are fired into a receiver too early then the MIDI
  * instrument might end up handling them early.
  */
-public class DefaultOperationProcessor implements OperationProcessor {
+public class DefaultOperationProcessor implements OperationProcessor, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultOperationProcessor.class);
 
   private static final int MAX_OPERATIONS_PER_EXECUTION = 1000;
@@ -44,6 +45,7 @@ public class DefaultOperationProcessor implements OperationProcessor {
   private Clock clock;
   private OperationReceiver operationReceiver;
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
+  private DefaultOperationProcessorExecutor executor;
 
   /**
    * Create an operation processor.
@@ -52,14 +54,14 @@ public class DefaultOperationProcessor implements OperationProcessor {
    * @param operationReceiver operation receiver
    */
   DefaultOperationProcessor(Clock clock, OperationReceiver operationReceiver) {
-    LOG.debug("Starting operation processor");
+    LOG.debug("Creating operation processor");
     this.clock = clock;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }
     this.operationReceiver = operationReceiver;
-    DefaultOperationProcessorExecutor executor = new DefaultOperationProcessorExecutor();
-    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
+    clock.addListener(this);
+    executor = new DefaultOperationProcessorExecutor();
   }
 
   @Override
@@ -68,10 +70,29 @@ public class DefaultOperationProcessor implements OperationProcessor {
     queue.add(operationEvent);
   }
 
-  @Override
-  public void close() {
+  private void start() {
+    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
+    LOG.debug("Started operation processor");
+  }
+
+  private void stop() {
     scheduledPool.shutdown();
     LOG.debug("Closed operation processor");
+  }
+
+  @Override
+  public void close() {
+    stop();
+  }
+
+  @Override
+  public void onClockStart() {
+    start();
+  }
+
+  @Override
+  public void onClockStop() {
+    stop();
   }
 
   class DefaultOperationProcessorExecutor implements Runnable {

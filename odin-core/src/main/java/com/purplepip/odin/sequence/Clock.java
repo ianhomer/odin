@@ -70,6 +70,7 @@ public class Clock implements MicrosecondPositionProvider {
   }
 
   public void addListener(ClockListener listener) {
+    LOG.debug("Clock listener {} added", listener);
     listeners.add(listener);
   }
 
