@@ -1,55 +1,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-// tag::create-dialog[]
-class CreateRow extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	handleSubmit(e) {
-		e.preventDefault();
-		var newChannel = {};
-		this.props.attributes.forEach(attribute => {
-			newChannel[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
-		});
-		this.props.onCreate(newChannel);
-
-		// clear out the dialog's inputs
-		this.props.attributes.forEach(attribute => {
-			ReactDOM.findDOMNode(this.refs[attribute]).value = '';
-		});
-
-		// Navigate away from the dialog to hide it.
-		window.location = "#";
-	}
-
-  getDefaultValue(attribute) {
-    if (attribute === "project") {
-      return ;
-    }
-    return "";
-  }
-
-	render() {
-		return (
-      <tr id="createChannel">
-        <td><input type="text" placeholder="number" ref="number" className="field" /></td>
-        <td><input type="text" placeholder="programName" ref="programName" className="field" /></td>
-        <td>
-          <input type="hidden" name="program" ref="program"
-                      value="" />
-          <input type="hidden" name="project" ref="project"
-                      value={this.props.project._links.self.href} />
-          <button onClick={this.handleSubmit}>Create</button>
-        </td>
-      </tr>
-		)
-	}
-
-}
-// end::create-dialog[]
+const Channel = require('./channel')
+const CreateRow = require('./createRow')
 
 // tag::channel-list[]
 class ChannelList extends React.Component{
@@ -141,31 +94,9 @@ class ChannelList extends React.Component{
 		)
 	}
 }
-// end::channel-list[]
-
-// tag::channel[]
-class Channel extends React.Component{
-	constructor(props) {
-		super(props);
-		this.handleDelete = this.handleDelete.bind(this);
-	}
-
-	handleDelete() {
-		this.props.onDelete(this.props.channel);
-	}
-
-	render() {
-			return (
-			<tr>
-				<td>{this.props.channel.number}</td>
-				<td>{this.props.channel.programName}</td>
-				<td>
-					<button onClick={this.handleDelete}>Delete</button>
-				</td>
-			</tr>
-		)
-	}
+ChannelList.defaultProps = {
+  path: 'channels'
 }
-// end::channel[]
+// end::channel-list[]
 
 module.exports = ChannelList

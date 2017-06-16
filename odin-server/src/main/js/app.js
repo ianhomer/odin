@@ -7,9 +7,9 @@ const client = require('./client');
 const crud = require('./crud');
 const pagination = require('./pagination');
 
-const ChannelList = require('./model/channelList')
-const PatternList = require('./model/patternList')
-const ProjectList = require('./model/projectList')
+const ChannelList = require('./components/channelList')
+const PatternList = require('./components/patternList')
+const ProjectList = require('./components/projectList')
 
 // end::vars[]
 

@@ -33,12 +33,12 @@ module.exports = {
   },
 
   // tag::create[]
-  onCreate : function(newChannel) {
-    follow(client, root, ['channels']).then(channelCollection => {
+  onCreate : function(newEntity) {
+    follow(client, root, ['channels']).then(entities => {
       return client({
         method: 'POST',
-        path: channelCollection.entity._links.self.href,
-        entity: newChannel,
+        path: entities.entity._links.self.href,
+        entity: newEntity,
         headers: {'Content-Type': 'application/json'}
       })
     }).then(response => {
@@ -65,12 +65,12 @@ module.exports = {
 
   // tag::navigate[]
   onNavigate : function(navUri) {
-    client({method: 'GET', path: navUri}).done(employeeCollection => {
+    client({method: 'GET', path: navUri}).done(entities => {
       this.setState({
-        employees: employeeCollection.entity._embedded.employees,
+        channels: entities.entity._embedded.channels,
         attributes: this.state.attributes,
         pageSize: this.state.pageSize,
-        links: employeeCollection.entity._links
+        links: entities.entity._links
       });
     });
   }
