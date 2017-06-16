@@ -50,6 +50,10 @@ public class PersistableProject implements Project {
   @Override
   public void addChannel(Channel channel) {
     channel.setProject(this);
+    /*
+     * Replace any existing channel for same channel number.
+     */
+    channels.removeIf(c -> c.getNumber() == channel.getNumber());
     channels.add(channel);
   }
 

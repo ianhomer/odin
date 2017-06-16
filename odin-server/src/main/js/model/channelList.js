@@ -120,21 +120,21 @@ class ChannelList extends React.Component{
 		return (
       <div>
         <h1>Channels</h1>
-        <input ref="pageSize" defaultValue={this.props.pageSize} onInput={this.handleInput}/>
         <table>
           <tbody>
             <tr>
               <th>Number</th>
               <th>Program</th>
             </tr>
-            {channels}
             {this.props.project &&
               <CreateRow attributes={this.props.attributes} project={this.props.project}
                 onCreate={this.props.onCreate}/>
             }
+            {channels}
           </tbody>
         </table>
 				<div>
+          page size : <input ref="pageSize" defaultValue={this.props.pageSize} onInput={this.handleInput}/>
 					{navLinks}
 				</div>
 			</div>
