@@ -2,11 +2,12 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const crud = require('./../crud');
+const pagination = require('./../pagination');
 
+const Trace = require('./trace');
 const Channel = require('./channel')
 const CreateRow = require('./createRow')
 
-// tag::channel-list[]
 class ChannelList extends React.Component{
 	constructor(props) {
 		super(props);
@@ -22,48 +23,46 @@ class ChannelList extends React.Component{
 
 		this.onCreate = crud.onCreate.bind(this);
 		this.onDelete = crud.onDelete.bind(this);
-		this.onNavigate = crud.onNavigate.bind(this);
 		this.loadFromServer = crud.loadFromServer.bind(this);
+
+		this.updatePageSize = pagination.updatePageSize.bind(this);
+		this.onNavigate = pagination.onNavigate.bind(this);
 	}
 
 	componentDidMount() {
     this.loadFromServer('channels', this.state.pageSize);
 	}
 
-	// tag::handle-page-size-updates[]
   handleInput(e) {
     e.preventDefault();
     var pageSize = ReactDOM.findDOMNode(this.refs.pageSize).value;
     if (/^[0-9]+$/.test(pageSize)) {
-      this.props.updatePageSize(pageSize);
+      this.updatePageSize(pageSize);
     } else {
       ReactDOM.findDOMNode(this.refs.pageSize).value =
         pageSize.substring(0, pageSize.length - 1);
     }
   }
-  // end::handle-page-size-updates[]
 
-  // tag::handle-nav[]
   handleNavFirst(e){
     e.preventDefault();
-    this.props.onNavigate(this.state.links.first.href);
+    this.onNavigate(this.state.links.first.href);
   }
 
   handleNavPrev(e) {
     e.preventDefault();
-    this.props.onNavigate(this.state.links.prev.href);
+    this.onNavigate(this.state.links.prev.href);
   }
 
   handleNavNext(e) {
     e.preventDefault();
-    this.props.onNavigate(this.state.links.next.href);
+    this.onNavigate(this.state.links.next.href);
   }
 
   handleNavLast(e) {
     e.preventDefault();
-    this.props.onNavigate(this.state.links.last.href);
+    this.onNavigate(this.state.links.last.href);
   }
-  // end::handle-nav[]
 
   render() {
     var entities = this.state.entities.map(channel =>
@@ -86,7 +85,7 @@ class ChannelList extends React.Component{
 
 		return (
       <div>
-		    <div className="debug time"><span className="scope">channelList</span>{new Date().toLocaleTimeString()}</div>
+        <Trace scope="channelList"/>
         <table>
           <tbody>
             <tr>
@@ -111,6 +110,5 @@ class ChannelList extends React.Component{
 ChannelList.defaultProps = {
   path: 'channels'
 }
-// end::channel-list[]
 
 module.exports = ChannelList

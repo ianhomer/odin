@@ -32,7 +32,6 @@ module.exports = {
     });
   },
 
-  // tag::create[]
   onCreate : function(newEntity) {
     follow(client, root, ['channels']).then(entities => {
       return client({
@@ -53,26 +52,10 @@ module.exports = {
       this.loadFromServer('channels', this.state.pageSize);
     });
   },
-  // end::create[]
 
-  // tag::delete[]
   onDelete : function(entity) {
     client({method: 'DELETE', path: entity._links.self.href}).done(response => {
       this.loadFromServer('channels', this.state.pageSize);
     });
-  },
-  // end::delete[]
-
-  // tag::navigate[]
-  onNavigate : function(navUri) {
-    client({method: 'GET', path: navUri}).done(entities => {
-      this.setState({
-        entities: entities.entity._embedded.channels,
-        attributes: this.state.attributes,
-        pageSize: this.state.pageSize,
-        links: entities.entity._links
-      });
-    });
   }
-  // end::navigate[]
 }
