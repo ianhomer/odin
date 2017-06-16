@@ -53,6 +53,10 @@ table {
   background: #555;
 }
 
+.tick {
+  text-align : right;
+}
+
 .debug {
   border: 1px solid blue;
   padding: 2px;

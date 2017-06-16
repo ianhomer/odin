@@ -34,6 +34,7 @@ module.exports = {
       for (var key in collection.entity._embedded) {
         entities = entities.concat(collection.entity._embedded[key]);
       }
+      console.log(JSON.stringify(entities))
       this.setState({
         entities: entities,
         attributes: Object.keys(this.schema.properties),
