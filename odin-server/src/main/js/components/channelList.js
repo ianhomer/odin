@@ -30,7 +30,7 @@ class ChannelList extends React.Component{
 	}
 
 	componentDidMount() {
-    this.loadFromServer('channels', this.state.pageSize);
+    this.loadFromServer();
 	}
 
   handleInput(e) {

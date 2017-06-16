@@ -8,12 +8,18 @@ const follow = require('./follow');
 const root = '/api';
 
 /*
- * Load given named entities from the server.
+ * Load entities from the server.
+ *
+ * Which entities loaded is determined by this.props.path.  For example this might be set
+ * 'channels' to load the channels.  Page size is controlled by this.state.pageSize.
+ *
+ * The side effect of this function is that the attributes 'entities', 'attributes' and
+ * 'links' are set in this.state.
  */
 module.exports = {
-  loadFromServer : function(name, pageSize) {
+  loadFromServer : function(pageSize = this.state.pageSize) {
     follow(client, root, [
-      {rel: name, params: {size: pageSize}}]
+      {rel: this.props.path, params: {size: pageSize}}]
     ).then(collection => {
       return client({
         method: 'GET',
@@ -25,7 +31,7 @@ module.exports = {
       });
     }).done(collection => {
       this.setState({
-        entities: collection.entity._embedded[name],
+        entities: collection.entity._embedded[this.props.path],
         attributes: Object.keys(this.schema.properties),
         pageSize: pageSize,
         links: collection.entity._links});
@@ -33,7 +39,7 @@ module.exports = {
   },
 
   onCreate : function(newEntity) {
-    follow(client, root, ['channels']).then(entities => {
+    follow(client, root, [this.props.path]).then(entities => {
       return client({
         method: 'POST',
         path: entities.entity._links.self.href,
@@ -42,20 +48,20 @@ module.exports = {
       })
     }).then(response => {
       return follow(client, root, [
-        {rel: 'channels', params: {'size': this.state.pageSize}}]);
+        {rel: this.props.path, params: {'size': this.state.pageSize}}]);
     }).done(response => {
       if (typeof response.entity._links.last != "undefined") {
         this.onNavigate(response.entity._links.last.href);
       } else {
         this.onNavigate(response.entity._links.self.href);
       }
-      this.loadFromServer('channels', this.state.pageSize);
+      this.loadFromServer();
     });
   },
 
   onDelete : function(entity) {
     client({method: 'DELETE', path: entity._links.self.href}).done(response => {
-      this.loadFromServer('channels', this.state.pageSize);
+      this.loadFromServer();
     });
   }
 }

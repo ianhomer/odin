@@ -1,11 +1,12 @@
 /*
  * Functions to handle pagination
  */
+const client = require('./client');
 
 module.exports = {
   updatePageSize : function (pageSize) {
    if (pageSize !== this.state.pageSize) {
-     this.loadFromServer('channels', pageSize);
+     this.loadFromServer(pageSize);
    }
   },
 
