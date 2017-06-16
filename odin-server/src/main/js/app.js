@@ -20,8 +20,7 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		  patterns: [], entities: [], projects: [],  project: null,
-		  attributes: [], pageSize: 10, links: {},
+		  patterns: [], projects: [],  project: null, pageSize: 10, links: {},
 		};
 		this.updatePageSize = pagination.updatePageSize.bind(this);
 		this.onCreate = crud.onCreate.bind(this);
@@ -34,7 +33,6 @@ class App extends React.Component {
 		client({method: 'GET', path: '/api/projects'}).done(response => {
 		  var projects = response.entity._embedded.projects;
 			this.setState({projects: projects, project: projects[0]});
-  		this.loadFromServer('channels', this.state.pageSize);
       client({method: 'GET', path: '/api/patterns'}).done(response => {
         this.setState({patterns: response.entity._embedded.patterns});
       });
@@ -44,18 +42,22 @@ class App extends React.Component {
 	render() {
 		return (
 		  <div>
-        <h1>Projects</h1>
+		    <div className="debug time"><span className="scope">app</span>{new Date().toLocaleTimeString()}</div>
+		    {this.state.entities &&
+		      <div className="warn">WARNING : Entities store in app state {JSON.stringify(this.state.entities)}</div>
+		    }
         <ProjectList projects={this.state.projects}/>
-        <ChannelList channels={this.state.entities}
-                      project={this.state.project}
-                      links={this.state.links}
-          						pageSize={this.state.pageSize}
-          						onCreate={this.onCreate}
-          						onNavigate={this.onNavigate}
-          						onDelete={this.onDelete}
-          						updatePageSize={this.updatePageSize}
-          						attributes={this.state.attributes}/>
-        <h1>Patterns</h1>
+        {this.state.project &&
+          <ChannelList channels={this.state.entities}
+                        project={this.state.project}
+                        links={this.state.links}
+                        pageSize={this.state.pageSize}
+                        onCreate={crud.onCreate}
+                        onDelete={crud.onDelete}
+                        onNavigate={crud.onNavigate}
+                        updatePageSize={this.updatePageSize}
+                        attributes={this.state.attributes}/>
+        }
         <PatternList patterns={this.state.patterns}/>
 			</div>
 		)

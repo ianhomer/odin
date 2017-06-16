@@ -67,7 +67,7 @@ module.exports = {
   onNavigate : function(navUri) {
     client({method: 'GET', path: navUri}).done(entities => {
       this.setState({
-        channels: entities.entity._embedded.channels,
+        entities: entities.entity._embedded.channels,
         attributes: this.state.attributes,
         pageSize: this.state.pageSize,
         links: entities.entity._links

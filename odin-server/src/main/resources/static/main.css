@@ -1,5 +1,6 @@
 body {
-    padding-top: 65px;
+  padding-top: 65px;
+  font-size: 0.8em;
 }
 
 table {
@@ -50,4 +51,19 @@ table {
 
 .close:hover {
   background: #555;
+}
+
+.debug {
+  border: 1px solid blue;
+  padding: 2px;
+  float: right;
+}
+.debug .scope {
+  background-color: blue;
+  color: #fff;
+}
+
+.warn {
+  border: 1px solid red;
+  padding: 2px;
 }

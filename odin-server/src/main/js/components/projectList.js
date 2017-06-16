@@ -7,14 +7,7 @@ class ProjectList extends React.Component{
 			<Project key={project._links.self.href} project={project}/>
 		);
 		return (
-			<table>
-				<tbody>
-					<tr>
-						<th>Name</th>
-					</tr>
-					{projects}
-				</tbody>
-			</table>
+      <div>{projects}</div>
 		)
 	}
 }
@@ -24,9 +17,7 @@ class ProjectList extends React.Component{
 class Project extends React.Component{
 	render() {
 		return (
-			<tr>
-				<td>{this.props.project.name}</td>
-			</tr>
+			<span>{this.props.project.name}</span>
 		)
 	}
 }
