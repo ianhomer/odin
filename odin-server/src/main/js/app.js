@@ -18,45 +18,48 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		  patterns: [], channels: [], projects: [],  project: null,
+		  patterns: [], entities: [], projects: [],  project: null,
 		  attributes: [], pageSize: 10, links: {},
 		};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.onCreate = this.onCreate.bind(this);
 		this.onDelete = this.onDelete.bind(this);
 		this.onNavigate = this.onNavigate.bind(this);
-		this.loadChannelsFromServer = this.loadChannelsFromServer.bind(this);
+		this.loadFromServer = this.loadFromServer.bind(this);
 	}
 
 	componentDidMount() {
 		client({method: 'GET', path: '/api/projects'}).done(response => {
 		  var projects = response.entity._embedded.projects;
 			this.setState({projects: projects, project: projects[0]});
-  		this.loadChannelsFromServer(this.state.pageSize);
-		});
-		client({method: 'GET', path: '/api/patterns'}).done(response => {
-			this.setState({patterns: response.entity._embedded.patterns});
+  		this.loadFromServer('channels', this.state.pageSize);
+      client({method: 'GET', path: '/api/patterns'}).done(response => {
+        this.setState({patterns: response.entity._embedded.patterns});
+      });
 		});
 	}
 
-	loadChannelsFromServer(pageSize) {
+  /*
+   * Load given named entities from the server.
+   */
+	loadFromServer(name, pageSize) {
   	follow(client, root, [
-  		{rel: 'channels', params: {size: pageSize}}]
-  	).then(channelCollection => {
+  		{rel: name, params: {size: pageSize}}]
+  	).then(collection => {
   		return client({
   			method: 'GET',
-  			path: channelCollection.entity._links.profile.href,
+  			path: collection.entity._links.profile.href,
   			headers: {'Accept': 'application/schema+json'}
   		}).then(schema => {
   			this.schema = schema.entity;
-  			return channelCollection;
+  			return collection;
   		});
-  	}).done(channelCollection => {
+  	}).done(collection => {
   		this.setState({
-  			channels: channelCollection.entity._embedded.channels,
+  			entities: collection.entity._embedded[name],
   			attributes: Object.keys(this.schema.properties),
   			pageSize: pageSize,
-  			links: channelCollection.entity._links});
+  			links: collection.entity._links});
   	});
   }
 
@@ -84,9 +87,9 @@ class App extends React.Component {
 	// end::create[]
 
 	// tag::delete[]
-	onDelete(employee) {
-		client({method: 'DELETE', path: employee._links.self.href}).done(response => {
-			this.loadChannelsFromServer(this.state.pageSize);
+	onDelete(entity) {
+		client({method: 'DELETE', path: entity._links.self.href}).done(response => {
+			this.loadFromServer('channels', this.state.pageSize);
 		});
 	}
 	// end::delete[]
@@ -117,7 +120,7 @@ class App extends React.Component {
 		  <div>
         <h1>Projects</h1>
         <ProjectList projects={this.state.projects}/>
-        <ChannelList channels={this.state.channels}
+        <ChannelList channels={this.state.entities}
                       project={this.state.project}
                       links={this.state.links}
           						pageSize={this.state.pageSize}
