@@ -16,12 +16,12 @@
 package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.server.rest.domain.AbstractPersistableSequence;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Sequence repository.
  */
 @RepositoryRestResource(path = "sequences", collectionResourceRel = "sequences")
-public interface SequenceRepository extends CrudRepository<AbstractPersistableSequence, Long>  {
+public interface SequenceRepository extends PagingAndSortingRepository<AbstractPersistableSequence, Long> {
 }

@@ -21,9 +21,7 @@ class PatternList extends React.Component{
 		)
 	}
 }
-// end::pattern-list[]
 
-// tag::pattern[]
 class Pattern extends React.Component{
 	render() {
 		return (
@@ -36,6 +34,5 @@ class Pattern extends React.Component{
 		)
 	}
 }
-// end::pattern[]
 
 module.exports = PatternList

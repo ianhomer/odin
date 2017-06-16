@@ -30,8 +30,12 @@ module.exports = {
         return collection;
       });
     }).done(collection => {
+      var entities = [];
+      for (var key in collection.entity._embedded) {
+        entities = entities.concat(collection.entity._embedded[key]);
+      }
       this.setState({
-        entities: collection.entity._embedded[this.props.path],
+        entities: entities,
         attributes: Object.keys(this.schema.properties),
         pageSize: pageSize,
         links: collection.entity._links});

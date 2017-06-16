@@ -7,7 +7,7 @@ const client = require('./client');
 
 const Trace = require('./components/trace')
 const ChannelList = require('./components/channelList')
-const PatternList = require('./components/patternList')
+const SequenceList = require('./components/sequenceList')
 const ProjectList = require('./components/projectList')
 
 // end::vars[]
@@ -27,7 +27,7 @@ class App extends React.Component {
 		client({method: 'GET', path: '/api/projects'}).done(response => {
 		  var projects = response.entity._embedded.projects;
 			this.setState({projects: projects, project: projects[0]});
-      client({method: 'GET', path: '/api/patterns'}).done(response => {
+      client({method: 'GET', path: '/api/sequences'}).done(response => {
         this.setState({patterns: response.entity._embedded.patterns});
       });
 		});
@@ -44,7 +44,9 @@ class App extends React.Component {
         {this.state.project &&
           <ChannelList project={this.state.project}/>
         }
-        <PatternList patterns={this.state.patterns}/>
+        {this.state.project &&
+          <SequenceList project={this.state.project}/>
+        }
 			</div>
 		)
 	}

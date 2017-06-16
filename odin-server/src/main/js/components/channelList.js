@@ -65,8 +65,8 @@ class ChannelList extends React.Component{
   }
 
   render() {
-    var entities = this.state.entities.map(channel =>
-      <Channel key={channel._links.self.href} channel={channel} onDelete={this.onDelete}/>
+    var entities = this.state.entities.map(entity =>
+      <Channel key={entity._links.self.href} channel={entity} onDelete={this.onDelete}/>
     );
 
     var navLinks = [];
@@ -107,6 +107,7 @@ class ChannelList extends React.Component{
 		)
 	}
 }
+
 ChannelList.defaultProps = {
   path: 'channels'
 }
