@@ -38,8 +38,6 @@ class PatternList extends React.Component{
               <th>Bits</th>
               <th>Tick</th>
               <th>Note</th>
-              <th>Velocity</th>
-              <th>Duration</th>
               <th>Flow Name</th>
             </tr>
             <EntityCreateRow project={this.props.project} onCreate={this.onCreate}
@@ -59,12 +57,20 @@ PatternList.defaultProps = {
     'offset' : { defaultValue : -1},
     'length' : {defaultValue : 0},
     'bits' : {defaultValue : 1},
-    'tick.numerator' : {defaultValue : 1},
-    'tick.denominator' : {defaultValue : 1},
-    'tick.timeUnit' : {defaultValue : "BEAT"},
-    'note.number' : {defaultValue : 60},
-    'note.velocity' : {defaultValue : 100},
-    'note.duration' : {defaultValue : 1},
+    'tick' : {
+      fields : {
+        'numerator' : {defaultValue : 1},
+        'denominator' : {defaultValue : 1},
+        'timeUnit' : {defaultValue : "BEAT"},
+      }
+    },
+    'note' : {
+      fields : {
+        'number' : {defaultValue : 60},
+        'velocity' : {defaultValue : 100},
+        'duration' : {defaultValue : 1}
+      }
+    },
     'flowName' : {defaultValue : "com.purplepip.odin.music.flow.PatternFlow"}
   },
 }
