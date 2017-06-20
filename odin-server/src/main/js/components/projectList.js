@@ -1,5 +1,7 @@
 const React = require('react');
 
+const Project = require('./project')
+
 class ProjectList extends React.Component{
 	render() {
 		var projects = this.props.projects.map(project =>
@@ -7,14 +9,6 @@ class ProjectList extends React.Component{
 		);
 		return (
       <div>{projects}</div>
-		)
-	}
-}
-
-class Project extends React.Component{
-	render() {
-		return (
-			<span>{this.props.project.name}</span>
 		)
 	}
 }
