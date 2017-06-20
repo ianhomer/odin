@@ -15,6 +15,7 @@ class PatternList extends React.Component{
 		};
 
     crud.bindMe(this);
+    pagination.bindMe(this);
 	}
 
   componentDidMount() {

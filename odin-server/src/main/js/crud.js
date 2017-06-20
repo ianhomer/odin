@@ -8,6 +8,15 @@ const follow = require('./follow');
 
 const root = '/api';
 
+function getFieldValue(schema, refs, name) {
+  if (schema.properties[name].type == 'object') {
+    console.log("Read object TODO");
+  } else {
+    var node = ReactDOM.findDOMNode(refs[name]);
+    return node === null ? "" : node.value.trim();
+  }
+};
+
 /*
  * Load entities from the server.
  *
@@ -58,9 +67,9 @@ module.exports = {
 		var newEntity = {};
 		Object.keys(this.props.schema.properties).map(function(name) {
 		  console.log("Looking for node " + name + ":" + this);
-		  var node = ReactDOM.findDOMNode(this.refs[name]);
-			newEntity[name] = node === null ? "" : node.value.trim();
+			newEntity[name] = getFieldValue(this.props.schema, this.refs, name);
 		}, this);
+		console.log("Creating new entity : " + JSON.stringify(newEntity));
 		this.props.onCreate(newEntity);
 	},
 
