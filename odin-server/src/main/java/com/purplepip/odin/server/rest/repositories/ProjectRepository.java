@@ -23,7 +23,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Project repository.
  */
-@RepositoryRestResource(path = "projects", collectionResourceRel = "projects")
+@RepositoryRestResource(path = "projects", collectionResourceRel = "projects",
+    itemResourceRel = "project")
 public interface ProjectRepository extends CrudRepository<PersistableProject, Long> {
   Project findByName(String name);
 }

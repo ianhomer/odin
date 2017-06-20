@@ -22,6 +22,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Sequence repository.
  */
-@RepositoryRestResource(path = "sequences", collectionResourceRel = "sequences")
-public interface SequenceRepository extends PagingAndSortingRepository<AbstractPersistableSequence, Long> {
+@RepositoryRestResource(path = "sequences", collectionResourceRel = "sequences",
+    itemResourceRel = "sequence")
+public interface SequenceRepository extends
+    PagingAndSortingRepository<AbstractPersistableSequence, Long> {
 }

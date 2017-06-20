@@ -1,10 +1,12 @@
 const React = require('react');
 
-class Sequence extends React.Component{
+class Pattern extends React.Component{
 	render() {
 		return (
 			<tr>
 				<td>{this.props.sequence.channel}</td>
+				<td>{this.props.sequence.offset}</td>
+				<td>{this.props.sequence.length}</td>
 				<td>{this.props.sequence.bits}</td>
 				<td>
 				  <div className="tick">
@@ -17,13 +19,15 @@ class Sequence extends React.Component{
 				    &nbsp;{this.props.sequence.tick.timeUnit}
 				  </div>
 				</td>
+				<td>{this.props.sequence.note.number}</td>
+				<td>{this.props.sequence.note.velocity}</td>
+				<td>{this.props.sequence.note.duration}</td>
 				<td>
 				  {this.props.sequence.flowName}
-				  {JSON.stringify(this.props.sequence)}
 				</td>
 			</tr>
 		)
 	}
 }
 
-module.exports = Sequence
+module.exports = Pattern

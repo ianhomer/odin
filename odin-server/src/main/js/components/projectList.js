@@ -1,6 +1,5 @@
 const React = require('react');
 
-// tag::project-list[]
 class ProjectList extends React.Component{
 	render() {
 		var projects = this.props.projects.map(project =>
@@ -11,9 +10,7 @@ class ProjectList extends React.Component{
 		)
 	}
 }
-// end::project-list[]
 
-// tag::project[]
 class Project extends React.Component{
 	render() {
 		return (
@@ -21,6 +18,5 @@ class Project extends React.Component{
 		)
 	}
 }
-// end::project[]
 
 module.exports = ProjectList

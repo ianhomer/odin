@@ -24,7 +24,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Pattern repository.
  */
-@RepositoryRestResource(path = "patterns", collectionResourceRel = "patterns")
+@RepositoryRestResource(path = "patterns", collectionResourceRel = "patterns",
+    itemResourceRel = "pattern")
 public interface PatternRepository extends CrudRepository<PersistablePattern, Long> {
   List<Pattern> findByChannel(int channel);
 }

@@ -4,6 +4,7 @@ const crud = require('./../crud');
 const pagination = require('./../pagination');
 
 const Sequence = require('./sequence')
+const Trace = require('./trace');
 
 class SequenceList extends React.Component{
 	constructor(props) {
@@ -29,17 +30,20 @@ class SequenceList extends React.Component{
       <Sequence key={entity._links.self.href} sequence={entity} onDelete={this.onDelete}/>
     );
 		return (
-			<table>
-				<tbody>
-					<tr>
-						<th>Channel</th>
-						<th>Bits</th>
-						<th>Tick</th>
-						<th>Flow Name</th>
-					</tr>
-					{entities}
-				</tbody>
-			</table>
+		  <div>
+        <Trace scope="sequenceList"/>
+        <table>
+          <tbody>
+            <tr>
+              <th>Channel</th>
+              <th>Bits</th>
+              <th>Tick</th>
+              <th>Flow Name</th>
+            </tr>
+            {entities}
+          </tbody>
+        </table>
+      </div>
 		)
 	}
 }

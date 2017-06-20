@@ -18,6 +18,7 @@ const root = '/api';
  */
 module.exports = {
   loadFromServer : function(pageSize = this.state.pageSize) {
+    console.log("Loading " + this.props.path)
     follow(client, root, [
       {rel: this.props.path, params: {size: pageSize}}]
     ).then(collection => {

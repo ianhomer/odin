@@ -5,10 +5,11 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
 
-const Trace = require('./components/trace')
 const ChannelList = require('./components/channelList')
-const SequenceList = require('./components/sequenceList')
+const PatternList = require('./components/patternList')
 const ProjectList = require('./components/projectList')
+const SequenceList = require('./components/sequenceList')
+const Trace = require('./components/trace')
 
 // end::vars[]
 
@@ -19,7 +20,7 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-		  patterns: [], projects: [],  project: null, pageSize: 10,
+		  sequences: [], projects: [],  project: null, pageSize: 10,
 		};
 	}
 
@@ -27,13 +28,11 @@ class App extends React.Component {
 		client({method: 'GET', path: '/api/projects'}).done(response => {
 		  var projects = response.entity._embedded.projects;
 			this.setState({projects: projects, project: projects[0]});
-      client({method: 'GET', path: '/api/sequences'}).done(response => {
-        this.setState({patterns: response.entity._embedded.patterns});
-      });
 		});
 	}
 
 	render() {
+    // TODO : Switch to generic sequence list to configure more than just patterns
 		return (
 		  <div>
         <Trace scope="app"/>
@@ -45,7 +44,7 @@ class App extends React.Component {
           <ChannelList project={this.state.project}/>
         }
         {this.state.project &&
-          <SequenceList project={this.state.project}/>
+          <PatternList project={this.state.project}/>
         }
 			</div>
 		)

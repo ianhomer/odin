@@ -1,38 +1,60 @@
 const React = require('react');
 
-// tag::pattern-list[]
+const crud = require('./../crud');
+const pagination = require('./../pagination');
+
+const Pattern = require('./pattern')
+const Trace = require('./trace');
+
 class PatternList extends React.Component{
-	render() {
-		var patterns = this.props.patterns.map(pattern =>
-			<Pattern key={pattern._links.self.href} pattern={pattern}/>
-		);
+	constructor(props) {
+		super(props);
+		this.state = {
+		  attributes: [], entities: [], links: [], pageSize: 10,
+		};
+
+		this.onCreate = crud.onCreate.bind(this);
+		this.onDelete = crud.onDelete.bind(this);
+		this.loadFromServer = crud.loadFromServer.bind(this);
+
+		this.updatePageSize = pagination.updatePageSize.bind(this);
+		this.onNavigate = pagination.onNavigate.bind(this);
+	}
+
+  componentDidMount() {
+    this.loadFromServer();
+  }
+
+  render() {
+    var entities = this.state.entities.map(entity =>
+      <Pattern key={entity._links.self.href} sequence={entity} onDelete={this.onDelete}/>
+    );
 		return (
-			<table>
-				<tbody>
-					<tr>
-						<th>Channel</th>
-						<th>Bits</th>
-						<th>Tick</th>
-						<th>Flow Name</th>
-					</tr>
-					{patterns}
-				</tbody>
-			</table>
+		  <div>
+        <Trace scope={this.path}/>
+        <table>
+          <tbody>
+            <tr>
+              <th>Channel</th>
+              <th>Offset</th>
+              <th>Length</th>
+              <th>Bits</th>
+              <th>Tick</th>
+              <th>Note</th>
+              <th>Velocity</th>
+              <th>Duration</th>
+              <th>Flow Name</th>
+            </tr>
+            {entities}
+          </tbody>
+        </table>
+      </div>
 		)
 	}
 }
 
-class Pattern extends React.Component{
-	render() {
-		return (
-			<tr>
-				<td>{this.props.pattern.channel}</td>
-				<td>{this.props.pattern.bits}</td>
-				<td>{this.props.pattern.tick}</td>
-				<td>{this.props.pattern.flowName}</td>
-			</tr>
-		)
-	}
+PatternList.defaultProps = {
+  path: 'patterns'
 }
 
 module.exports = PatternList

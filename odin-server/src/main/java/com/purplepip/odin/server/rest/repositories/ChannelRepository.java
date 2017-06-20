@@ -17,11 +17,14 @@ package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.server.rest.domain.PersistableChannel;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Channel repository.
  */
-@RepositoryRestResource(path = "channels", collectionResourceRel = "channels")
+@RepositoryRestResource(path = "channels",
+    collectionResourceRel = "channels", collectionResourceDescription = @Description("channels"),
+    itemResourceRel = "channel", itemResourceDescription = @Description("channel"))
 public interface ChannelRepository extends PagingAndSortingRepository<PersistableChannel, Long> {
 }
