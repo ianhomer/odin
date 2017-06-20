@@ -1,6 +1,7 @@
 /*
  * Functions to create, read, update and delete entities
  */
+const ReactDOM = require('react-dom');
 
 const client = require('./client');
 const follow = require('./follow');
@@ -43,6 +44,20 @@ module.exports = {
         links: collection.entity._links});
     });
   },
+
+	handleCreateSubmit(e) {
+		e.preventDefault();
+		var newEntity = {};
+		this.state.attributes.forEach(attribute => {
+			newEntity[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
+		});
+		this.onCreate(newEntity);
+
+		// clear out the dialog's inputs
+		this.state.attributes.forEach(attribute => {
+			ReactDOM.findDOMNode(this.refs[attribute]).value = '';
+		});
+	},
 
   onCreate : function(newEntity) {
     follow(client, root, [this.props.path]).then(entities => {

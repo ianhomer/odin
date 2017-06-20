@@ -6,7 +6,6 @@ const pagination = require('./../pagination');
 
 const Trace = require('./trace');
 const Channel = require('./channel')
-const CreateRow = require('./createRow')
 
 class ChannelList extends React.Component{
 	constructor(props) {
@@ -21,9 +20,10 @@ class ChannelList extends React.Component{
 		this.handleNavLast = this.handleNavLast.bind(this);
 		this.handleInput = this.handleInput.bind(this);
 
+    this.handleCreateSubmit = crud.handleCreateSubmit.bind(this);
+		this.loadFromServer = crud.loadFromServer.bind(this);
 		this.onCreate = crud.onCreate.bind(this);
 		this.onDelete = crud.onDelete.bind(this);
-		this.loadFromServer = crud.loadFromServer.bind(this);
 
 		this.updatePageSize = pagination.updatePageSize.bind(this);
 		this.onNavigate = pagination.onNavigate.bind(this);
@@ -92,10 +92,20 @@ class ChannelList extends React.Component{
               <th>Number</th>
               <th>Program</th>
             </tr>
-            {this.props.project &&
-              <CreateRow attributes={this.state.attributes} project={this.props.project}
-                onCreate={this.onCreate}/>
-            }
+            <tr id="createEntity">
+              <td>
+                <input type="text" placeholder="number" ref="number" className="field" />
+              </td>
+              <td>
+                <input type="text" placeholder="programName" ref="programName" className="field" />
+                <input type="hidden" name="program" ref="program" value="" />
+                <input type="hidden" name="project" ref="project"
+                  value={this.props.project._links.self.href} />
+              </td>
+              <td>
+                <button onClick={this.handleCreateSubmit}>Create</button>
+              </td>
+            </tr>
             {entities}
           </tbody>
         </table>
