@@ -78,7 +78,7 @@ public class OdinSequencer implements ProjectApplyListener {
    * Refresh sequencer tracks from the project configuration.
    */
   private void refreshTracks(Project project) {
-    LOG.debug("Refreshing tracks : {}", clock);
+    LOG.debug("Refreshing with {} tracks : {}", project.getSequences().size(), clock);
     for (Channel channel : project.getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);

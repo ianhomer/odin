@@ -54,8 +54,8 @@ PatternList.defaultProps = {
   path: 'patterns',
   fields: {
     'channel' : { defaultValue : 1},
-    'offset' : { defaultValue : -1},
-    'length' : {defaultValue : 0},
+    'offset' : { defaultValue : 0},
+    'length' : {defaultValue : -1},
     'bits' : {defaultValue : 1},
     'tick' : {
       fields : {

@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.project.Project;
 import lombok.ToString;
 
 /**
@@ -27,6 +28,7 @@ public abstract class AbstractSequence implements MutableSequence {
   private long offset;
   private int channel;
   private String flowName;
+  private Project project;
 
   @Override
   public void setTick(Tick tick) {
@@ -81,5 +83,14 @@ public abstract class AbstractSequence implements MutableSequence {
   @Override
   public String getFlowName() {
     return flowName;
+  }
+
+  @Override
+  public Project getProject() {
+    return project;
+  }
+
+  public void setProject(Project project) {
+    this.project = project;
   }
 }

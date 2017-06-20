@@ -41,7 +41,7 @@ public class PersistableProject implements Project {
   private Long id;
   private String name;
   @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER)
+      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Sequence> sequences = new HashSet<>();
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
@@ -60,5 +60,14 @@ public class PersistableProject implements Project {
   @Override
   public void removeChannel(Channel channel) {
     channels.remove(channel);
+  }
+
+  public void addSequence(Sequence sequence) {
+    sequence.setProject(this);
+    sequences.add(sequence);
+  }
+
+  public void removeSequence(Sequence sequence) {
+    sequences.remove(sequence);
   }
 }

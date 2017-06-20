@@ -48,4 +48,15 @@ public interface Project {
    * Remove channel.
    */
   void removeChannel(Channel channel);
+
+  /**
+   * Add sequence.
+   */
+  void addSequence(Sequence sequence);
+
+  /**
+   * Remove channel.
+   */
+  void removeSequence(Sequence sequence);
+
 }

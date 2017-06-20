@@ -24,6 +24,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Persistable pattern.
@@ -31,6 +32,7 @@ import lombok.Data;
 @Data
 @Entity(name = "Pattern")
 @Table(name = "Pattern")
+@EqualsAndHashCode(callSuper = true)
 public class PersistablePattern extends AbstractPersistableSequence implements Pattern {
   private int bits;
   private int channel;

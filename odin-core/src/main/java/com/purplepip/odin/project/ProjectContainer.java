@@ -156,7 +156,7 @@ public class ProjectContainer {
     LOG.debug("Adding sequence {} with time units {}",
         sequence.getClass().getSimpleName(),
         sequence.getTick().getClass().getSimpleName());
-    project.getSequences().add(sequence);
+    project.addSequence(sequence);
   }
 
   /**

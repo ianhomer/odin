@@ -46,6 +46,7 @@
     <java.version>1.8</java.version>
 
     <jacoco.version>0.7.9</jacoco.version>
+    <jacoco.covered.ratio>0.80</jacoco.covered.ratio>
     <junit.version>4.12</junit.version>
     <guava.version>21.0</guava.version>
     <logback.version>1.2.3</logback.version>
@@ -246,7 +247,7 @@
                     <limit>
                       <counter>INSTRUCTION</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.80</minimum>
+                      <minimum>${jacoco.covered.ratio}</minimum>
                     </limit>
                     <limit>
                       <counter>CLASS</counter>

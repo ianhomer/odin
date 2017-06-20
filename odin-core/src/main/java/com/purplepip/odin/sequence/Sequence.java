@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.project.Project;
+
 /**
  * Sequence configuration.
  */
@@ -55,4 +57,18 @@ public interface Sequence {
    * @return flow name.
    */
   String getFlowName();
+
+  /**
+   * Get the project.
+   *
+   * @return project
+   */
+  Project getProject();
+
+  /**
+   * Set the project.
+   *
+   * @param project project
+   */
+  void setProject(Project project);
 }

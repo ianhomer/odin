@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.server.rest.domain;
 
+import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.Sequence;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Persistable sequence.
@@ -30,8 +38,25 @@ import javax.persistence.Table;
 @Entity(name = "Sequence")
 @Table(name = "Sequence")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Data
+@EqualsAndHashCode(exclude = "project")
+@ToString(exclude = "project")
 public abstract class AbstractPersistableSequence implements Sequence {
   @Id
   @GeneratedValue(strategy = GenerationType.TABLE)
   public Long id;
+
+  @ManyToOne(targetEntity = PersistableProject.class)
+  @JoinColumn(name = "PROJECT_ID", nullable = false)
+  private Project project;
+
+  @PrePersist
+  public void addToProject() {
+    project.addSequence(this);
+  }
+
+  @PreRemove
+  public void removeFromProject() {
+    project.removeSequence(this);
+  }
 }

@@ -4,12 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.server.rest.PersistableProjectBuilder;
+import com.purplepip.odin.server.rest.domain.PersistableProject;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -33,7 +32,10 @@ public class PatternRepositoryTest {
   @Autowired
   private PatternRepository repository;
 
-  private Project project;
+  @Autowired
+  private ProjectRepository projectRepository;
+
+  PersistableProject project;
   private PersistableProjectBuilder builder;
 
   /**
@@ -41,7 +43,8 @@ public class PatternRepositoryTest {
    */
   @Before
   public void setUp() {
-    project = new TransientProject();
+    project = new PersistableProject();
+    projectRepository.save(project);
     builder = new PersistableProjectBuilder(new ProjectContainer(project));
   }
 
