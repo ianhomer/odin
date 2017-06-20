@@ -4,6 +4,15 @@ const Tick = require('./tick')
 const Note = require('./note')
 
 class Pattern extends React.Component{
+	constructor(props) {
+		super(props);
+		this.handleDelete = this.handleDelete.bind(this);
+	}
+
+  handleDelete() {
+    this.props.onDelete(this.props.sequence);
+  }
+
 	render() {
 		return (
 			<tr>
@@ -27,6 +36,9 @@ class Pattern extends React.Component{
         }</td>
 				<td>
 				  {this.props.sequence.flowName}
+				</td>
+				<td>
+					<button onClick={this.handleDelete}>Delete</button>
 				</td>
 			</tr>
 		)
