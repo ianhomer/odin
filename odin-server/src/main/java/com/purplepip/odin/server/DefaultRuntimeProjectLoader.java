@@ -42,7 +42,6 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
   public void run(ApplicationArguments applicationArguments) throws Exception {
     if (projectContainer.isEmpty()) {
       new PersistableProjectBuilder(projectContainer)
-          .addMetronome()
           .withChannel(1).changeProgramTo("bird")
           .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
           .withChannel(2).changeProgramTo("aahs")

@@ -1,6 +1,5 @@
 'use strict';
 
-// tag::vars[]
 const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
@@ -11,10 +10,6 @@ const ProjectList = require('./components/projectList')
 const SequenceList = require('./components/sequenceList')
 const Trace = require('./components/trace')
 
-// end::vars[]
-
-
-// tag::app[]
 class App extends React.Component {
 
 	constructor(props) {
@@ -50,11 +45,8 @@ class App extends React.Component {
 		)
 	}
 }
-// end::app[]
 
-// tag::render[]
 ReactDOM.render(
 	<App />,
 	document.getElementById('react')
 )
-// end::render[]

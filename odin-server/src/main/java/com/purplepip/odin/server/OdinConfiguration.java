@@ -26,6 +26,8 @@ import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.sequencer.OperationReceiverCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -56,6 +58,9 @@ public class OdinConfiguration {
     return new ProjectContainer();
   }
 
+  @Autowired
+  private AuditingOperationReceiver auditingOperationReceiver;
+
   /**
    * Create Odin sequencer.
    *
@@ -74,7 +79,9 @@ public class OdinConfiguration {
         new DefaultOdinSequencerConfiguration()
             .setBeatsPerMinute(new StaticBeatsPerMinute(120))
             .setMeasureProvider(measureProvider)
-            .setOperationReceiver(new MidiOperationReceiver(midiDeviceWrapper))
+            .setOperationReceiver(new OperationReceiverCollection(
+                new MidiOperationReceiver(midiDeviceWrapper),
+                auditingOperationReceiver))
             .setMicrosecondPositionProvider(
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
     projectContainer.addApplyListener(odinSequencer);
