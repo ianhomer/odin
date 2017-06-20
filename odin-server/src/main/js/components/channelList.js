@@ -67,7 +67,10 @@ class ChannelList extends React.Component{
 
 ChannelList.defaultProps = {
   path: 'channels',
-  fields: ['number', 'programName']
+  fields: {
+    'number' : { defaultValue : '1'},
+    'programName' : { defaultValue : 'piano'}
+  }
 }
 
 module.exports = ChannelList

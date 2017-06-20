@@ -9,14 +9,28 @@ class EntityCreateRow extends React.Component{
 	}
 
 	render() {
-    var fields = this.props.fields.map(name =>
-      <td key={name}>
-        <input type="text" placeholder={name} ref={name} className="field" />
-      </td>
-    );
+	  var fields = this.props.fields
+    var renderedFields = Object.keys(fields).map(function(key) {
+      var size = 0;
+      if (this.props.attributes[key]) {
+        if (this.props.attributes[key].type == 'integer') {
+          size = 2;
+        }
+      } else {
+        console.log("WARN : Cannot find attribute : " + key);
+      }
+      return (
+        <td key={key}>
+          <input type="text" placeholder={key} ref={key} className="field"
+            defaultValue={fields[key].defaultValue}
+            size={size}
+          />
+        </td>
+      )
+    }, this);
 	  return (
       <tr id="createEntity">
-        {fields}
+        {renderedFields}
         <td>
           <div>
             <input type="hidden" name="project" ref="project"

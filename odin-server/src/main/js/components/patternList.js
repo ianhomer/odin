@@ -4,6 +4,7 @@ const crud = require('./../crud');
 const pagination = require('./../pagination');
 
 const Pattern = require('./pattern')
+const EntityCreateRow = require('./entityCreateRow')
 const Trace = require('./trace');
 
 class PatternList extends React.Component{
@@ -40,6 +41,8 @@ class PatternList extends React.Component{
               <th>Duration</th>
               <th>Flow Name</th>
             </tr>
+            <EntityCreateRow project={this.props.project} onCreate={this.onCreate}
+              fields={this.props.fields} attributes={this.state.attributes}/>
             {entities}
           </tbody>
         </table>
@@ -49,7 +52,20 @@ class PatternList extends React.Component{
 }
 
 PatternList.defaultProps = {
-  path: 'patterns'
+  path: 'patterns',
+  fields: {
+    'channel' : { defaultValue : 1},
+    'offset' : { defaultValue : -1},
+    'length' : {defaultValue : 0},
+    'bits' : {defaultValue : 1},
+    'tick.numerator' : {defaultValue : 1},
+    'tick.denominator' : {defaultValue : 1},
+    'tick.timeUnit' : {defaultValue : "BEAT"},
+    'note.number' : {defaultValue : 60},
+    'note.velocity' : {defaultValue : 100},
+    'note.duration' : {defaultValue : 1},
+    'flowName' : {defaultValue : "com.purplepip.odin.music.flow.PatternFlow"}
+  },
 }
 
 module.exports = PatternList

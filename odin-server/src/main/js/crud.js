@@ -45,7 +45,7 @@ module.exports = {
       console.log(JSON.stringify(entities))
       this.setState({
         entities: entities,
-        attributes: Object.keys(this.schema.properties),
+        attributes: this.schema.properties,
         pageSize: pageSize,
         links: collection.entity._links});
     });
@@ -54,20 +54,12 @@ module.exports = {
 	handleCreateSubmit(e) {
 		e.preventDefault();
 		var newEntity = {};
-		this.props.attributes.forEach(attribute => {
+		Object.keys(this.props.attributes).forEach(attribute => {
 		  console.log("Looking for node " + attribute);
 		  var node = ReactDOM.findDOMNode(this.refs[attribute]);
 			newEntity[attribute] = node === null ? "" : node.value.trim();
 		});
 		this.props.onCreate(newEntity);
-
-		// clear out the dialog's inputs
-		this.props.attributes.forEach(attribute => {
-		  var node = ReactDOM.findDOMNode(this.refs[attribute]);
-		  if (node !== null) {
-			  node.value = '';
-			}
-		});
 	},
 
   onCreate : function(newEntity) {

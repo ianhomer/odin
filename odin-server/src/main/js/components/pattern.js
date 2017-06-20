@@ -8,17 +8,13 @@ class Pattern extends React.Component{
 				<td>{this.props.sequence.offset}</td>
 				<td>{this.props.sequence.length}</td>
 				<td>{this.props.sequence.bits}</td>
-				<td>
-				  <div className="tick">
-				    {(this.props.sequence.tick.denominator > 1 || this.props.sequence.tick.numerator > 1) &&
+				<td>{(this.props.sequence.tick.denominator > 1 || this.props.sequence.tick.numerator > 1) &&
               <span className="numerator">{this.props.sequence.tick.numerator}</span>
-            }
-            {this.props.sequence.tick.denominator > 1 &&
+            }</td>
+        <td>{this.props.sequence.tick.denominator > 1 &&
               <span className="denominator">/{this.props.sequence.tick.denominator}</span>
-            }
-				    &nbsp;{this.props.sequence.tick.timeUnit}
-				  </div>
-				</td>
+            }</td>
+				<td>{this.props.sequence.tick.timeUnit}</td>
 				<td>{this.props.sequence.note.number}</td>
 				<td>{this.props.sequence.note.velocity}</td>
 				<td>{this.props.sequence.note.duration}</td>
