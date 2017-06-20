@@ -19,5 +19,36 @@ module.exports = {
         links: entities.entity._links
       });
     });
+  },
+
+  handlePageSizeInput(e) {
+    e.preventDefault();
+    var pageSize = ReactDOM.findDOMNode(this.refs.pageSize).value;
+    if (/^[0-9]+$/.test(pageSize)) {
+      this.updatePageSize(pageSize);
+    } else {
+      ReactDOM.findDOMNode(this.refs.pageSize).value =
+        pageSize.substring(0, pageSize.length - 1);
+    }
+  },
+
+  handleNavFirst(e){
+    e.preventDefault();
+    this.onNavigate(this.state.links.first.href);
+  },
+
+  handleNavPrev(e) {
+    e.preventDefault();
+    this.onNavigate(this.state.links.prev.href);
+  },
+
+  handleNavNext(e) {
+    e.preventDefault();
+    this.onNavigate(this.state.links.next.href);
+  },
+
+  handleNavLast(e) {
+    e.preventDefault();
+    this.onNavigate(this.state.links.last.href);
   }
 }

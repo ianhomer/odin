@@ -14,17 +14,16 @@ class ChannelList extends React.Component{
 		  attributes: [], entities: [], links: [], pageSize: 10,
 		};
 
-		this.handleNavFirst = this.handleNavFirst.bind(this);
-		this.handleNavPrev = this.handleNavPrev.bind(this);
-		this.handleNavNext = this.handleNavNext.bind(this);
-		this.handleNavLast = this.handleNavLast.bind(this);
-		this.handleInput = this.handleInput.bind(this);
-
     this.handleCreateSubmit = crud.handleCreateSubmit.bind(this);
 		this.loadFromServer = crud.loadFromServer.bind(this);
 		this.onCreate = crud.onCreate.bind(this);
 		this.onDelete = crud.onDelete.bind(this);
 
+		this.handleNavFirst = pagination.handleNavFirst.bind(this);
+		this.handleNavPrev = pagination.handleNavPrev.bind(this);
+		this.handleNavNext = pagination.handleNavNext.bind(this);
+		this.handleNavLast = pagination.handleNavLast.bind(this);
+		this.handleInput = pagination.handlePageSizeInput.bind(this);
 		this.updatePageSize = pagination.updatePageSize.bind(this);
 		this.onNavigate = pagination.onNavigate.bind(this);
 	}
@@ -32,37 +31,6 @@ class ChannelList extends React.Component{
 	componentDidMount() {
     this.loadFromServer();
 	}
-
-  handleInput(e) {
-    e.preventDefault();
-    var pageSize = ReactDOM.findDOMNode(this.refs.pageSize).value;
-    if (/^[0-9]+$/.test(pageSize)) {
-      this.updatePageSize(pageSize);
-    } else {
-      ReactDOM.findDOMNode(this.refs.pageSize).value =
-        pageSize.substring(0, pageSize.length - 1);
-    }
-  }
-
-  handleNavFirst(e){
-    e.preventDefault();
-    this.onNavigate(this.state.links.first.href);
-  }
-
-  handleNavPrev(e) {
-    e.preventDefault();
-    this.onNavigate(this.state.links.prev.href);
-  }
-
-  handleNavNext(e) {
-    e.preventDefault();
-    this.onNavigate(this.state.links.next.href);
-  }
-
-  handleNavLast(e) {
-    e.preventDefault();
-    this.onNavigate(this.state.links.last.href);
-  }
 
   render() {
     var entities = this.state.entities.map(entity =>
@@ -110,7 +78,7 @@ class ChannelList extends React.Component{
           </tbody>
         </table>
 				<div>
-          page size : <input ref="pageSize" defaultValue={this.state.pageSize} onInput={this.handleInput}/>
+          page size : <input ref="pageSize" defaultValue={this.state.pageSize} onInput={this.handlePageSizeInput}/>
 					{navLinks}
 				</div>
 			</div>
