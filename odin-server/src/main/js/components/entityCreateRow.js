@@ -9,6 +9,7 @@ class EntityCreateRow extends React.Component{
 	}
 
   renderInputFieldGroup(fields, properties, parentKey) {
+    // TODO : Need to deference schema to inspect properties of embedded objects.
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + "." + fieldName : fieldName;
       if (fields[fieldName].fields) {

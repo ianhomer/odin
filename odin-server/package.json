@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ianhomer/odin",
   "dependencies": {
+    "ajv": "^5.2.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "rest": "^1.3.1",

@@ -2,7 +2,7 @@
  * Functions to create, read, update and delete entities
  */
 const ReactDOM = require('react-dom');
-
+const Ajv = require('ajv');
 const client = require('./client');
 const follow = require('./follow');
 
@@ -50,6 +50,12 @@ module.exports = {
       var entities = [];
       for (var key in collection.entity._embedded) {
         entities = entities.concat(collection.entity._embedded[key]);
+      }
+      var ajv = new Ajv({extendRefs : true});
+      ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
+      if (this.props.path == 'patterns') {
+        ajv.addSchema(this.schema, 'patterns');
+        console.log("Tick Schema : " + JSON.stringify(ajv.getSchema('patterns#/definitions/tick').schema));
       }
       this.setState({
         entities: entities,
