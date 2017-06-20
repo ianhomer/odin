@@ -21,6 +21,7 @@ module.exports = {
    }
   },
 
+  // TODO : Review whether this function is still needed.  It used to be called from within onCreate
   onNavigate : function(navUri) {
     client({method: 'GET', path: navUri}).done(entities => {
       this.setState({

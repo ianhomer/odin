@@ -8,14 +8,43 @@ const follow = require('./follow');
 
 const root = '/api';
 
-function getFieldValue(schema, refs, name) {
-  if (schema.properties[name].type == 'object') {
-    console.log("Read object TODO");
+const ajv = new Ajv({extendRefs : true});
+ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
+
+/*
+ * Get value of field from from fields, e.g. after form submit.
+ */
+function getFieldValue(schema, refs, name, key) {
+  var key = key ? key : name;
+  var value;
+  if (schema.properties[name]['$ref']) {
+    /*
+     * Navigate through object definition to find property names.
+     */
+    var fieldSchema = getSchema('patterns', schema.properties[name]['$ref']);
+    var property = {};
+    Object.keys(fieldSchema.properties).map(function(propertyName) {
+      var propertyKey = key + '.' + propertyName;
+      property[propertyName] = getFieldValue(fieldSchema, refs, propertyName, propertyKey);
+      console.log("test " + propertyName + ":" + property[propertyName] + ":" + JSON.stringify(property));
+    });
+    value = property;
   } else {
-    var node = ReactDOM.findDOMNode(refs[name]);
-    return node === null ? "" : node.value.trim();
+    var node = ReactDOM.findDOMNode(refs[key]);
+    value = node === null ? "" : node.value.trim();
   }
-};
+  console.log("Got field value : " + key + " = " + JSON.stringify(value));
+  return value;
+}
+
+/*
+ * Get schema for the given ID and ref combination.
+ *
+ * e.g. getSchema('patterns','#/definitions/tick')
+ */
+function getSchema(id, ref = '') {
+  return ajv.getSchema(id + ref).schema;
+}
 
 /*
  * Load entities from the server.
@@ -48,22 +77,31 @@ module.exports = {
       });
     }).done(collection => {
       var entities = [];
+      /*
+       * Load all the entities by concatenating all embedded entities
+       */
       for (var key in collection.entity._embedded) {
         entities = entities.concat(collection.entity._embedded[key]);
       }
-      var ajv = new Ajv({extendRefs : true});
-      ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
-      if (this.props.path == 'patterns') {
-        ajv.addSchema(this.schema, 'patterns');
-        console.log("Tick Schema : " + JSON.stringify(ajv.getSchema('patterns#/definitions/tick').schema));
+      console.log("Loaded entities : " + JSON.stringify(entities));
+      /*
+       * Register the schema.
+       */
+      if (!ajv.getSchema(this.props.path)) {
+        console.log("Registering schema : " + this.props.path)
+        ajv.addSchema(this.schema, this.props.path);
       }
+      /*
+       * Set the state.
+       */
       this.setState({
         entities: entities,
-        schema: this.schema,
+        schema: getSchema(this.props.path),
         pageSize: pageSize,
         links: collection.entity._links});
     });
   },
+
 
   /*
    * Handle creation of an entity when form submitted.
@@ -72,7 +110,6 @@ module.exports = {
 		e.preventDefault();
 		var newEntity = {};
 		Object.keys(this.props.schema.properties).map(function(name) {
-		  console.log("Looking for node " + name + ":" + this);
 			newEntity[name] = getFieldValue(this.props.schema, this.refs, name);
 		}, this);
 		console.log("Creating new entity : " + JSON.stringify(newEntity));
@@ -91,11 +128,6 @@ module.exports = {
       return follow(client, root, [
         {rel: this.props.path, params: {'size': this.state.pageSize}}]);
     }).done(response => {
-      if (typeof response.entity._links.last != "undefined") {
-        this.onNavigate(response.entity._links.last.href);
-      } else {
-        this.onNavigate(response.entity._links.self.href);
-      }
       this.loadFromServer();
     });
   },
