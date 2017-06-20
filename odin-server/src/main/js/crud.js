@@ -42,23 +42,25 @@ module.exports = {
       for (var key in collection.entity._embedded) {
         entities = entities.concat(collection.entity._embedded[key]);
       }
-      console.log(JSON.stringify(entities))
       this.setState({
         entities: entities,
-        attributes: this.schema.properties,
+        schema: this.schema,
         pageSize: pageSize,
         links: collection.entity._links});
     });
   },
 
+  /*
+   * Handle creation of an entity when form submitted.
+   */
 	handleCreateSubmit(e) {
 		e.preventDefault();
 		var newEntity = {};
-		Object.keys(this.props.attributes).forEach(attribute => {
-		  console.log("Looking for node " + attribute);
-		  var node = ReactDOM.findDOMNode(this.refs[attribute]);
-			newEntity[attribute] = node === null ? "" : node.value.trim();
-		});
+		Object.keys(this.props.schema.properties).map(function(name) {
+		  console.log("Looking for node " + name + ":" + this);
+		  var node = ReactDOM.findDOMNode(this.refs[name]);
+			newEntity[name] = node === null ? "" : node.value.trim();
+		}, this);
 		this.props.onCreate(newEntity);
 	},
 

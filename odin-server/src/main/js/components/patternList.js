@@ -11,7 +11,7 @@ class PatternList extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-		  attributes: [], entities: [], links: [], pageSize: 10,
+		  schema: [], entities: [], links: [], pageSize: 10,
 		};
 
     crud.bindMe(this);
@@ -42,7 +42,7 @@ class PatternList extends React.Component{
               <th>Flow Name</th>
             </tr>
             <EntityCreateRow project={this.props.project} onCreate={this.onCreate}
-              fields={this.props.fields} attributes={this.state.attributes}/>
+              fields={this.props.fields} schema={this.state.schema}/>
             {entities}
           </tbody>
         </table>

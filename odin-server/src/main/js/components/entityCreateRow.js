@@ -2,18 +2,24 @@ const React = require('react');
 const crud = require('./../crud');
 
 class EntityCreateRow extends React.Component{
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
     this.handleCreateSubmit = crud.handleCreateSubmit.bind(this);
 	}
 
 	render() {
+	  if (!Object.keys(this.props.schema).length) {
+	    console.log("WARN : Schema not defined, cannot create entity create row.")
+	    return (<tr/>);
+	  }
+
 	  var fields = this.props.fields
     var renderedFields = Object.keys(fields).map(function(key) {
       var size = 0;
-      if (this.props.attributes[key]) {
-        if (this.props.attributes[key].type == 'integer') {
+      var properties = this.props.schema.properties
+      if (properties[key]) {
+        if (properties[key].type == 'integer') {
           size = 2;
         }
       } else {
