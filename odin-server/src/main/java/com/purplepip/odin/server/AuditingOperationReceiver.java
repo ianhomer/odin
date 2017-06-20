@@ -16,23 +16,61 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
+import com.purplepip.odin.sequencer.ChannelOperation;
 import com.purplepip.odin.sequencer.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.server.rest.domain.PersistableOperation;
 import com.purplepip.odin.server.rest.repositories.OperationRepository;
+import java.util.Calendar;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuditingOperationReceiver implements OperationReceiver {
+@Slf4j
+public class AuditingOperationReceiver implements OperationReceiver, InitializingBean {
+  private static final long CLEAN_PERIOD = 30;
+
   @Autowired
   private OperationRepository repository;
+
+  private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
 
   @Override
   public void send(Operation operation, long time) throws OdinException {
     PersistableOperation persistableOperation = new PersistableOperation();
     persistableOperation.setMessage(operation.toString());
     persistableOperation.setTime(time);
+    if (operation instanceof ChannelOperation) {
+      persistableOperation.setChannel(((ChannelOperation) operation).getChannel());
+      if (operation instanceof AbstractNoteVelocityOperation) {
+        AbstractNoteVelocityOperation noteVelocityOperation = (AbstractNoteVelocityOperation)
+            operation;
+        persistableOperation.setNumber(noteVelocityOperation.getNumber());
+        persistableOperation.setVelocity(noteVelocityOperation.getVelocity());
+      }
+    }
     repository.save(persistableOperation);
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    scheduledPool.scheduleAtFixedRate(() -> {
+      try {
+        long countBefore = repository.count();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.SECOND, -60);
+        repository.deleteByCreatedDateBefore(calendar.getTime());
+        long countAfter = repository.count();
+        LOG.info("Cleaning audit table : reduced from {} to {}", countBefore, countAfter);
+      } catch (RuntimeException e) {
+        LOG.error("Error whilst executing sequence processing", e);
+      }
+    },0, CLEAN_PERIOD, TimeUnit.SECONDS);
   }
 }

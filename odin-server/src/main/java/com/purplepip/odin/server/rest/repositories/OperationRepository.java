@@ -16,6 +16,10 @@
 package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.server.rest.domain.PersistableOperation;
+import java.util.Date;
+import javax.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -26,5 +30,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     itemResourceRel = "operation", itemResourceDescription = @Description("operation"))
 public interface OperationRepository
     extends PagingAndSortingRepository<PersistableOperation, Long> {
+
+  @Modifying
+  @Transactional
+  @Query("delete from Operation o where o.dateCreated < ?1")
+  void deleteByCreatedDateBefore(Date date);
 }
 

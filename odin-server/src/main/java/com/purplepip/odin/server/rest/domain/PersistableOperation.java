@@ -34,9 +34,12 @@ public class PersistableOperation {
   @Id
   @GeneratedValue
   private Long id;
+  private Date dateCreated;
   private String message;
   private long time;
-  private Date dateCreated;
+  private int channel;
+  private int number;
+  private int velocity;
 
   @PrePersist
   protected void onPrePersist() {
