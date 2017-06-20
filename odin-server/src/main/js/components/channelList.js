@@ -14,18 +14,8 @@ class ChannelList extends React.Component{
 		  attributes: [], entities: [], links: [], pageSize: 10,
 		};
 
-    this.handleCreateSubmit = crud.handleCreateSubmit.bind(this);
-		this.loadFromServer = crud.loadFromServer.bind(this);
-		this.onCreate = crud.onCreate.bind(this);
-		this.onDelete = crud.onDelete.bind(this);
-
-		this.handleNavFirst = pagination.handleNavFirst.bind(this);
-		this.handleNavPrev = pagination.handleNavPrev.bind(this);
-		this.handleNavNext = pagination.handleNavNext.bind(this);
-		this.handleNavLast = pagination.handleNavLast.bind(this);
-		this.handleInput = pagination.handlePageSizeInput.bind(this);
-		this.updatePageSize = pagination.updatePageSize.bind(this);
-		this.onNavigate = pagination.onNavigate.bind(this);
+    crud.bindMe(this);
+    pagination.bindMe(this);
 	}
 
 	componentDidMount() {

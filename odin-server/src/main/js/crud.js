@@ -18,6 +18,13 @@ const root = '/api';
  * 'links' are set in this.state.
  */
 module.exports = {
+  bindMe : function(that) {
+    that.handleCreateSubmit = this.handleCreateSubmit.bind(that);
+    that.loadFromServer = this.loadFromServer.bind(that);
+    that.onCreate = this.onCreate.bind(that);
+    that.onDelete = this.onDelete.bind(that);
+  },
+
   loadFromServer : function(pageSize = this.state.pageSize) {
     console.log("Loading " + this.props.path)
     follow(client, root, [

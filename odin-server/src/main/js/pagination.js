@@ -2,8 +2,19 @@
  * Functions to handle pagination
  */
 const client = require('./client');
+const ReactDOM = require('react-dom');
 
 module.exports = {
+  bindMe : function(that) {
+		that.handleNavFirst = this.handleNavFirst.bind(that);
+		that.handleNavPrev = this.handleNavPrev.bind(that);
+		that.handleNavNext = this.handleNavNext.bind(that);
+		that.handleNavLast = this.handleNavLast.bind(that);
+		that.handlePageSizeInput = this.handlePageSizeInput.bind(that);
+		that.updatePageSize = this.updatePageSize.bind(that);
+		that.onNavigate = this.onNavigate.bind(that);
+  },
+
   updatePageSize : function (pageSize) {
    if (pageSize !== this.state.pageSize) {
      this.loadFromServer(pageSize);
@@ -21,7 +32,7 @@ module.exports = {
     });
   },
 
-  handlePageSizeInput(e) {
+  handlePageSizeInput : function(e) {
     e.preventDefault();
     var pageSize = ReactDOM.findDOMNode(this.refs.pageSize).value;
     if (/^[0-9]+$/.test(pageSize)) {
@@ -32,22 +43,22 @@ module.exports = {
     }
   },
 
-  handleNavFirst(e){
+  handleNavFirst : function(e){
     e.preventDefault();
     this.onNavigate(this.state.links.first.href);
   },
 
-  handleNavPrev(e) {
+  handleNavPrev : function(e) {
     e.preventDefault();
     this.onNavigate(this.state.links.prev.href);
   },
 
-  handleNavNext(e) {
+  handleNavNext : function(e) {
     e.preventDefault();
     this.onNavigate(this.state.links.next.href);
   },
 
-  handleNavLast(e) {
+  handleNavLast: function(e) {
     e.preventDefault();
     this.onNavigate(this.state.links.last.href);
   }

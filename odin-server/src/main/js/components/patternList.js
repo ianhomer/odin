@@ -13,12 +13,7 @@ class PatternList extends React.Component{
 		  attributes: [], entities: [], links: [], pageSize: 10,
 		};
 
-		this.onCreate = crud.onCreate.bind(this);
-		this.onDelete = crud.onDelete.bind(this);
-		this.loadFromServer = crud.loadFromServer.bind(this);
-
-		this.updatePageSize = pagination.updatePageSize.bind(this);
-		this.onNavigate = pagination.onNavigate.bind(this);
+    crud.bindMe(this);
 	}
 
   componentDidMount() {
