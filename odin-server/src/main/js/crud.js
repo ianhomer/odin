@@ -19,10 +19,9 @@ const root = '/api';
  */
 module.exports = {
   bindMe : function(that) {
-    that.handleCreateSubmit = this.handleCreateSubmit.bind(that);
     that.loadFromServer = this.loadFromServer.bind(that);
-    that.onCreate = this.onCreate.bind(that);
     that.onDelete = this.onDelete.bind(that);
+    that.onCreate = this.onCreate.bind(that);
   },
 
   loadFromServer : function(pageSize = this.state.pageSize) {
@@ -55,14 +54,19 @@ module.exports = {
 	handleCreateSubmit(e) {
 		e.preventDefault();
 		var newEntity = {};
-		this.state.attributes.forEach(attribute => {
-			newEntity[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
+		this.props.attributes.forEach(attribute => {
+		  console.log("Looking for node " + attribute);
+		  var node = ReactDOM.findDOMNode(this.refs[attribute]);
+			newEntity[attribute] = node === null ? "" : node.value.trim();
 		});
-		this.onCreate(newEntity);
+		this.props.onCreate(newEntity);
 
 		// clear out the dialog's inputs
-		this.state.attributes.forEach(attribute => {
-			ReactDOM.findDOMNode(this.refs[attribute]).value = '';
+		this.props.attributes.forEach(attribute => {
+		  var node = ReactDOM.findDOMNode(this.refs[attribute]);
+		  if (node !== null) {
+			  node.value = '';
+			}
 		});
 	},
 

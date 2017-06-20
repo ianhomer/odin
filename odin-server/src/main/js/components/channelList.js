@@ -6,6 +6,7 @@ const pagination = require('./../pagination');
 
 const Trace = require('./trace');
 const Channel = require('./channel')
+const EntityCreateRow = require('./entityCreateRow')
 
 class ChannelList extends React.Component{
 	constructor(props) {
@@ -50,20 +51,8 @@ class ChannelList extends React.Component{
               <th>Number</th>
               <th>Program</th>
             </tr>
-            <tr id="createEntity">
-              <td>
-                <input type="text" placeholder="number" ref="number" className="field" />
-              </td>
-              <td>
-                <input type="text" placeholder="programName" ref="programName" className="field" />
-                <input type="hidden" name="program" ref="program" value="" />
-                <input type="hidden" name="project" ref="project"
-                  value={this.props.project._links.self.href} />
-              </td>
-              <td>
-                <button onClick={this.handleCreateSubmit}>Create</button>
-              </td>
-            </tr>
+            <EntityCreateRow project={this.props.project} onCreate={this.onCreate}
+              fields={this.props.fields} attributes={this.state.attributes}/>
             {entities}
           </tbody>
         </table>
@@ -77,7 +66,8 @@ class ChannelList extends React.Component{
 }
 
 ChannelList.defaultProps = {
-  path: 'channels'
+  path: 'channels',
+  fields: ['number', 'programName']
 }
 
 module.exports = ChannelList
