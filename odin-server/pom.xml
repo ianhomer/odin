@@ -17,6 +17,7 @@
     <jacoco.covered.ratio>0.60</jacoco.covered.ratio>
     <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
     <start-class>com.purplepip.odin.server.Application</start-class>
+    <jvm.properties.debug/>
   </properties>
 
   <dependencyManagement>
@@ -144,10 +145,18 @@
         </executions>
         <configuration>
           <addResources>true</addResources>
-          <jvmArguments>-Dlogback.debug=true</jvmArguments>
+          <jvmArguments>-Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
           <mainClass>${start-class}</mainClass>
         </configuration>
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>debug</id>
+      <properties>
+        <jvm.properties.debug>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=relax:5005,suspend=y</jvm.properties.debug>
+      </properties>
+    </profile>
+  </profiles>
 </project>

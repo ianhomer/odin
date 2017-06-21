@@ -49,18 +49,25 @@ public class DefaultOperationProcessorExecutor implements Runnable {
 
   private void doJob() {
     long size = queue.size();
-    OperationEvent nextEvent = queue.poll();
     long microsecondPosition = clock.getMicrosecondPosition();
     long count = 0;
+    /*
+     * Peek at next event on queue first to see whether we are ready to process this operation.
+     */
+    OperationEvent nextEvent = queue.peek();
     while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
         < microsecondPosition + FORWARD_POLLING_TIME) {
+      /*
+       * If we are ready for next event then take it off the queue and process.
+       */
+      nextEvent = queue.poll();
       try {
         operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
         count++;
       } catch (OdinException e) {
         LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
       }
-      nextEvent = queue.poll();
+      nextEvent = queue.peek();
     }
     LOG.debug("Processed {} of {} operations at {}", count, size, clock);
   }
