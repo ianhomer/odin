@@ -88,8 +88,15 @@ public class OdinSequencer implements ProjectApplyListener {
          */
         ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
         if (!programChangeOperations.contains(programChangeOperation)) {
-          programChangeOperations.add(programChangeOperation);
           operationProcessor.send(programChangeOperation, -1);
+          /*
+           * Remove any previous program changes on this channel, since they are now historic.
+           */
+          boolean result = programChangeOperations
+              .removeIf(o -> o.getChannel() == channel.getNumber());
+          LOG.debug("Historic program change option removed for channel {} : {}",
+              channel.getNumber(), result);
+          programChangeOperations.add(programChangeOperation);
         }
       } catch (OdinException e) {
         LOG.warn("Cannot send operation", e);

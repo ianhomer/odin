@@ -22,7 +22,8 @@ public class SequenceUpdatedAtRuntimeTest {
   public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch channel0Events = new CountDownLatch(16);
     final CountDownLatch channel1Events = new CountDownLatch(16);
-    final AtomicInteger programChangeEvents = new AtomicInteger();
+    final CountDownLatch channel3Events = new CountDownLatch(16);
+    final AtomicInteger programChangeEventCount = new AtomicInteger();
 
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof ChannelOperation) {
@@ -33,12 +34,14 @@ public class SequenceUpdatedAtRuntimeTest {
         } else if (channelOperation.getChannel() == 1) {
           channel1Events.countDown();
           LOG.debug("Channel 1 count : {}", channel1Events.getCount());
+        } else if (channelOperation.getChannel() == 3) {
+          channel3Events.countDown();
         } else {
           LOG.warn("Unexpected channel operation");
         }
         if (operation instanceof ProgramChangeOperation) {
-          programChangeEvents.incrementAndGet();
-          LOG.debug("Program change event : {} : {}", operation, programChangeEvents.get());
+          programChangeEventCount.incrementAndGet();
+          LOG.debug("Program change event : {} : {}", operation, programChangeEventCount.get());
         }
       } else {
         LOG.warn("Unexpected operation");
@@ -57,18 +60,31 @@ public class SequenceUpdatedAtRuntimeTest {
       channel0Events.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough channel 0 events fired", 0, channel0Events.getCount());
       builder
-          .withChannel(1).withLength(LENGTH).withOffset(OFFSET + LENGTH * 2).addMetronome()
+          .withChannel(1).changeProgramTo("cello")
+          .withLength(LENGTH).withOffset(OFFSET + LENGTH * 2).addMetronome()
           .withChannel(2).changeProgramTo("piano");
       environment.getContainer().apply();
       channel1Events.await(1000, TimeUnit.MILLISECONDS);
+      /*
+       * Verify that only the explicit program changes are received and earlier ones are not
+       * repeated.
+       */
+      assertEquals("Incorrect number of program change events", 3, programChangeEventCount.get());
+      assertEquals("Not enough channel 1 events fired", 0, channel1Events.getCount());
+      /*
+       * Verify that changing back to early change that had since been overwritten is picked up.
+       */
+      builder
+          .withChannel(1).changeProgramTo("violin")
+          .withChannel(3).withLength(LENGTH).withOffset(OFFSET + LENGTH * 4).addMetronome();
+      environment.getContainer().apply();
+      channel3Events.await(1000, TimeUnit.MILLISECONDS);
+      assertEquals("Not enough channel 3 events fired", 0, channel3Events.getCount());
+      assertEquals("Incorrect number of program change events", 4,
+          programChangeEventCount.get());
     } finally {
       environment.stop();
     }
 
-    /*
-     * Verify that only the explicit program changes are received and earlier ones are not repeated.
-     */
-    assertEquals("Incorrect number of program change events", 2, programChangeEvents.get());
-    assertEquals("Not enough channel 1 events fired", 0, channel1Events.getCount());
   }
 }
