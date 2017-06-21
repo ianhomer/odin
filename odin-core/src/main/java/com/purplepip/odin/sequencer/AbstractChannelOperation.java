@@ -15,12 +15,14 @@
 
 package com.purplepip.odin.sequencer;
 
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * Channel operation.
  */
 @ToString
+@EqualsAndHashCode
 public abstract class AbstractChannelOperation implements ChannelOperation {
   private int channel;
 

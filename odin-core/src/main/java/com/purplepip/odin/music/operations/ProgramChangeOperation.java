@@ -17,12 +17,14 @@ package com.purplepip.odin.music.operations;
 
 import com.purplepip.odin.sequencer.AbstractChannelOperation;
 import com.purplepip.odin.sequencer.Channel;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * Program change operation.
  */
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class ProgramChangeOperation extends AbstractChannelOperation {
   private int bank;
   private int program;

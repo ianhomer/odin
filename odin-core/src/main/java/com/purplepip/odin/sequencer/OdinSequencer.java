@@ -37,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
   private Set<SequenceTrack> sequenceTracks = new HashSet<>();
+  private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private Clock clock;
@@ -82,7 +83,14 @@ public class OdinSequencer implements ProjectApplyListener {
     for (Channel channel : project.getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);
-        operationProcessor.send(new ProgramChangeOperation(channel), -1);
+        /*
+         * Only send program change operation if it has not already been sent.
+         */
+        ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
+        if (!programChangeOperations.contains(programChangeOperation)) {
+          programChangeOperations.add(programChangeOperation);
+          operationProcessor.send(programChangeOperation, -1);
+        }
       } catch (OdinException e) {
         LOG.warn("Cannot send operation", e);
       }
