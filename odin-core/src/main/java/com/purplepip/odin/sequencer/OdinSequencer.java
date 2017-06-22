@@ -42,6 +42,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private OperationProcessor operationProcessor;
   private Clock clock;
   private boolean started;
+  private MutableOdinSequenceStatistics statistics = new MutableOdinSequenceStatistics();
 
   /**
    * Create an odin sequencer.
@@ -70,6 +71,10 @@ public class OdinSequencer implements ProjectApplyListener {
     sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
   }
 
+  public OdinSequenceStatistics getStatistics() {
+    return new UnmodifiableOdinSequenceStatistics(statistics);
+  }
+
   @Override
   public void onProjectApply(Project project) {
     refreshTracks(project);
@@ -79,7 +84,6 @@ public class OdinSequencer implements ProjectApplyListener {
    * Refresh sequencer tracks from the project configuration.
    */
   private void refreshTracks(Project project) {
-    LOG.debug("Refreshing with {} tracks : {}", project.getSequences().size(), clock);
     for (Channel channel : project.getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);
@@ -103,10 +107,33 @@ public class OdinSequencer implements ProjectApplyListener {
       }
     }
 
-    sequenceTracks.clear();
-    for (Sequence sequence : project.getSequences()) {
-      addSequenceTrack(sequence);
+    /*
+     * Remove any tracks for which the sequence in the project has been removed.
+     */
+    int sizeBefore = sequenceTracks.size();
+    boolean result = sequenceTracks.removeIf(t -> project.getSequences().stream().noneMatch(
+        s -> s.getId() == t.getSequenceRuntime().getSequence().getId()
+    ));
+    if (result) {
+      statistics.incrementTrackRemovedCount(sizeBefore - sequenceTracks.size());
     }
+
+    for (Sequence sequence : project.getSequences()) {
+      /*
+       * Add sequence if not present in tracks.
+       * TODO : Implement modification of existing sequences.
+       */
+      if (sequenceTracks.stream().noneMatch(s ->
+          sequence.getId() == s.getSequenceRuntime().getSequence().getId())) {
+        statistics.incrementTrackAddedCount();
+        addSequenceTrack(sequence);
+      } else {
+        LOG.debug("Sequence {} already added", sequence);
+      }
+    }
+
+
+    LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 
     /*
      * If processor is running then process a one execution immediately so that the

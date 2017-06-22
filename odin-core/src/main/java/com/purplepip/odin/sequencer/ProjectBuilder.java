@@ -19,6 +19,7 @@ import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
+import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Metronome;
@@ -45,7 +46,6 @@ public class ProjectBuilder {
   private int velocity = DEFAULT_VELOCITY;
   private int length = -1;
   private int offset;
-
 
   public ProjectBuilder(ProjectContainer projectContainer) {
     this.projectContainer = projectContainer;
@@ -214,6 +214,11 @@ public class ProjectBuilder {
     sequence.setNote(note);
 
     projectContainer.addSequence(applyParameters(sequence));
+    return this;
+  }
+
+  public ProjectBuilder removeSequence(Sequence sequence) {
+    projectContainer.removeSequence(sequence);
     return this;
   }
 

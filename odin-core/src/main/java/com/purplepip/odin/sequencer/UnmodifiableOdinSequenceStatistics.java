@@ -13,17 +13,25 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequencer;
 
-/**
- * Events that occur over time.
- */
-public interface SequenceRuntime<A> {
-  Event<A> peek();
+import lombok.ToString;
 
-  Event<A> pop();
+@ToString
+public class UnmodifiableOdinSequenceStatistics implements OdinSequenceStatistics {
+  private OdinSequenceStatistics statistics;
 
-  Tick getTick();
+  public UnmodifiableOdinSequenceStatistics(OdinSequenceStatistics statistics) {
+    this.statistics = statistics;
+  }
 
-  Sequence getSequence();
+  @Override
+  public int getTrackAddedCount() {
+    return statistics.getTrackAddedCount();
+  }
+
+  @Override
+  public int getTrackRemovedCount() {
+    return statistics.getTrackRemovedCount();
+  }
 }

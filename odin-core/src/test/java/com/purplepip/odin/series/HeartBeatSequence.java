@@ -13,17 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.series;
 
-/**
- * Events that occur over time.
- */
-public interface SequenceRuntime<A> {
-  Event<A> peek();
+import com.purplepip.odin.sequence.AbstractSequence;
 
-  Event<A> pop();
-
-  Tick getTick();
-
-  Sequence getSequence();
+public class HeartBeatSequence extends AbstractSequence {
 }

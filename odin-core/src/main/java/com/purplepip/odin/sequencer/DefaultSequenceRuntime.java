@@ -27,7 +27,7 @@ import com.purplepip.odin.sequence.measure.MeasureProvider;
 /**
  * Default sequence runtime.
  */
-public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Sequence, Note> {
+public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Note> {
   private Flow<Sequence, Note> flow;
 
   /**

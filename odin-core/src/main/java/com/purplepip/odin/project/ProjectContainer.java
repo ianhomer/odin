@@ -153,10 +153,13 @@ public class ProjectContainer {
    * @param sequence sequence
    */
   public void addSequence(Sequence sequence) {
-    LOG.debug("Adding sequence {} with time units {}",
-        sequence.getClass().getSimpleName(),
-        sequence.getTick().getClass().getSimpleName());
+    LOG.debug("Adding sequence {}", sequence);
     project.addSequence(sequence);
+  }
+
+  public void removeSequence(Sequence sequence) {
+    LOG.debug("Removing sequence {}", sequence);
+    project.removeSequence(sequence);
   }
 
   /**

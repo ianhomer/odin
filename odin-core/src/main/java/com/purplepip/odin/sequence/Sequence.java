@@ -21,6 +21,8 @@ import com.purplepip.odin.project.Project;
  * Sequence configuration.
  */
 public interface Sequence {
+  long getId();
+
   /**
    * Units for 1 tick of this sequence.
    *

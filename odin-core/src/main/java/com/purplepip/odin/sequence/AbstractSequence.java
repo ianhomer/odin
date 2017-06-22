@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.project.Project;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.ToString;
 
 /**
@@ -23,12 +24,29 @@ import lombok.ToString;
  */
 @ToString
 public abstract class AbstractSequence implements MutableSequence {
+  /*
+   * Cheap ID generator for default patterns.  Note that persistence implementation used for
+   * the runtime has a more robust ID generation mechanism, however for the transient usage,
+   * this cheap generator is good enough.
+   */
+  private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
+
+  private long id = LAST_PATTERN_ID.incrementAndGet();
   private Tick tick;
   private long length = -1;
   private long offset;
   private int channel;
   private String flowName;
   private Project project;
+
+  @Override
+  public long getId() {
+    return id;
+  }
+
+  protected void setId(long id) {
+    this.id = id;
+  }
 
   @Override
   public void setTick(Tick tick) {

@@ -23,13 +23,13 @@ import org.slf4j.LoggerFactory;
  * Abstract sequence.
  */
 @ListenerPriority()
-public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
+public abstract class AbstractMutableSequenceRuntime<A>
     implements SequenceRuntime<A>, ClockListener  {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
 
   private Clock clock;
   private MeasureProvider measureProvider;
-  private S sequence;
+  private Sequence sequence;
   private Event<A> nextEvent;
   private MutableTock tock;
   private Tock sealedTock;
@@ -63,11 +63,12 @@ public abstract class AbstractMutableSequenceRuntime<S extends Sequence, A>
    *
    * @param sequence sequence configuration
    */
-  protected final void setSequence(S sequence) {
+  protected final void setSequence(Sequence sequence) {
     this.sequence = sequence;
   }
 
-  public S getSequence() {
+  @Override
+  public Sequence getSequence() {
     return sequence;
   }
 

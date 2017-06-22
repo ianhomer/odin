@@ -44,7 +44,7 @@ import lombok.ToString;
 public abstract class AbstractPersistableSequence implements Sequence {
   @Id
   @GeneratedValue(strategy = GenerationType.TABLE)
-  public Long id;
+  public long id;
 
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)

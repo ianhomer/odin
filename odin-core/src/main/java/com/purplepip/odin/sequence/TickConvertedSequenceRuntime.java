@@ -49,6 +49,11 @@ public class TickConvertedSequenceRuntime implements SequenceRuntime<Note> {
     return tickConverter.getOutputTick();
   }
 
+  @Override
+  public Sequence getSequence() {
+    return sequenceRuntime.getSequence();
+  }
+
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
       LOG.debug("No event on sequenceRuntime to convert");

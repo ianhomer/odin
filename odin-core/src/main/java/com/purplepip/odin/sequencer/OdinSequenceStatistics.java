@@ -13,17 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequencer;
 
-/**
- * Events that occur over time.
- */
-public interface SequenceRuntime<A> {
-  Event<A> peek();
+public interface OdinSequenceStatistics {
+  int getTrackAddedCount();
 
-  Event<A> pop();
-
-  Tick getTick();
-
-  Sequence getSequence();
+  int getTrackRemovedCount();
 }

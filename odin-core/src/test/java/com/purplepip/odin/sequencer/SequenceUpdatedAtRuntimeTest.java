@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
+import com.purplepip.odin.sequence.Sequence;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -55,6 +56,9 @@ public class SequenceUpdatedAtRuntimeTest {
         .withLength(LENGTH)
         .addMetronome();
     environment.start();
+    OdinSequenceStatistics statistics = environment.getSequencer().getStatistics();
+    Sequence channel0metronome = environment.getContainer().getSequences().iterator().next();
+
 
     try {
       channel0Events.await(1000, TimeUnit.MILLISECONDS);
@@ -76,7 +80,9 @@ public class SequenceUpdatedAtRuntimeTest {
        */
       builder
           .withChannel(1).changeProgramTo("violin")
-          .withChannel(3).withLength(LENGTH).withOffset(OFFSET + LENGTH * 4).addMetronome();
+          .withChannel(3).withLength(LENGTH).withOffset(OFFSET + LENGTH * 4).addMetronome()
+          .removeSequence(channel0metronome);
+
       environment.getContainer().apply();
       channel3Events.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough channel 3 events fired", 0, channel3Events.getCount());
@@ -86,5 +92,7 @@ public class SequenceUpdatedAtRuntimeTest {
       environment.stop();
     }
 
+    assertEquals("Number of added tracks not correct", 3, statistics.getTrackAddedCount());
+    assertEquals("Number of removed tracks not correct", 1, statistics.getTrackRemovedCount());
   }
 }
