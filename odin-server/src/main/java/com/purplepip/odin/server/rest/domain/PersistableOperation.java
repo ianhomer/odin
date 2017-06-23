@@ -33,7 +33,7 @@ import lombok.Data;
 public class PersistableOperation {
   @Id
   @GeneratedValue
-  private Long id;
+  private long id;
   private Date dateCreated;
   private String message;
   private long time;

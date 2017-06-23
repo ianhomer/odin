@@ -31,7 +31,7 @@ import lombok.Data;
 public class PersistableNote implements Note {
   @Id
   @GeneratedValue
-  private Long id;
+  private long id;
   private int velocity;
   private int number;
   private long duration;

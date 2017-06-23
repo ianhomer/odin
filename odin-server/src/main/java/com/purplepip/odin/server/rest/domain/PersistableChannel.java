@@ -40,7 +40,7 @@ import lombok.ToString;
 public class PersistableChannel implements Channel {
   @Id
   @GeneratedValue
-  private Long id;
+  private long id;
   private int number;
   private String programName;
   private int program;

@@ -51,7 +51,7 @@ class ChannelList extends React.Component{
             <div className="col-3">Program</div>
           </div>
           <EditEntity
-            onCreate={this.onCreate} project={this.props.project}
+            onApply={this.onCreate} project={this.props.project}
             path={this.props.path} fields={this.props.fields} schema={this.state.schema}
             />
             {entities}

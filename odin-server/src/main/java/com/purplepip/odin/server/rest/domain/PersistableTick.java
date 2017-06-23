@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 public class PersistableTick implements Tick {
   @Id
   @GeneratedValue
-  private Long id;
+  private long id;
   private TimeUnit timeUnit;
   private int numerator;
   private int denominator;

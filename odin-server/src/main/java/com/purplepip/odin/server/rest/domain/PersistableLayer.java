@@ -42,7 +42,7 @@ import lombok.ToString;
 public class PersistableLayer implements MutableLayer {
   @Id
   @GeneratedValue
-  private Long id;
+  private long id;
   private String name;
 
   @ManyToOne(targetEntity = PersistableProject.class)

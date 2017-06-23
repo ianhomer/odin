@@ -40,7 +40,7 @@ import lombok.Data;
 public class PersistableProject implements Project {
   @Id
   @GeneratedValue
-  private Long id;
+  private long id;
   private String name;
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)

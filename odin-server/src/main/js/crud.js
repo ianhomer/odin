@@ -112,20 +112,20 @@ module.exports = {
 
 
   /*
-   * Handle creation of an entity when form submitted.
+   * Handle creation or update an entity.
    */
-	handleCreateSubmit(e) {
-	  console.log("Handling submit");
+	handleApply(e) {
+	  console.log("Handling entity apply");
 		e.preventDefault();
-		var newEntity = {};
+		var entity = {};
 		Object.keys(this.props.schema.properties).map(function(name) {
 		  var value = getFieldValue(this.props.schema, this.refs, name);
 		  if (value) {
-			  newEntity[name] = value;
+			  entity[name] = value;
 			}
 		}, this);
-		console.log("Creating new entity : " + JSON.stringify(newEntity));
-		this.props.onCreate(newEntity);
+		console.log("Applying entity : " + JSON.stringify(entity));
+		this.props.onApply(entity);
 	},
 
   onCreate : function(newEntity) {

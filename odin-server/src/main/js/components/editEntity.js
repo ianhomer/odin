@@ -8,7 +8,7 @@ class EditEntity extends React.Component{
   constructor(props) {
     super(props);
 
-    this.handleSubmit = crud.handleCreateSubmit.bind(this);
+    this.handleApply = crud.handleApply.bind(this);
     this.getSchemaDefinition = crud.getSchemaDefinition.bind(this);
     this.handleKeyPress = this._handleKeyPress.bind(this);
 	}
@@ -16,7 +16,7 @@ class EditEntity extends React.Component{
 	_handleKeyPress(e) {
 	  if (e.key === 'Enter') {
 	    console.log("Enter -> submit");
-      this.handleSubmit(e);
+      this.handleApply(e);
     }
 	}
 
@@ -52,10 +52,16 @@ class EditEntity extends React.Component{
     }
     var cellWidth = fields[fieldName].cellWidth || 1;
     var cellClassName = "col-" + cellWidth;
+    var defaultValue;
+    if (this.props.entity) {
+      defaultValue = "x";
+    } else {
+      defaultValue = fields[fieldName].defaultValue;
+    }
     return (
       <div className={cellClassName} key={key}>
         <input type="text" placeholder={key} ref={key} className="field"
-          defaultValue={fields[fieldName].defaultValue}
+          defaultValue={defaultValue}
           onKeyPress={this.handleKeyPress}
           size={size}
         />
@@ -76,7 +82,7 @@ class EditEntity extends React.Component{
         <div className="col-1">
           <input type="hidden" name="project" ref="project"
             value={this.props.project._links.self.href} />
-          <button onClick={this.handleSubmit}>Create</button>
+          <button onClick={this.handleApply}>Create</button>
         </div>
       </div>
 	  )
