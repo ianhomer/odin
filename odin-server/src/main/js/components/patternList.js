@@ -22,6 +22,10 @@ class PatternList extends React.Component{
     this.loadFromServer();
   }
 
+  /*
+   * Render patterns.  Note that as per bootstrap requirement element sizes in a row MUST not
+   * add up to greater than 12 - see https://v4-alpha.getbootstrap.com/layout/grid/ .
+   */
   render() {
     var entities = this.state.entities.map(entity =>
       <Pattern key={entity._links.self.href} sequence={entity} onDelete={this.onDelete}/>
@@ -29,24 +33,22 @@ class PatternList extends React.Component{
 		return (
 		  <div>
         <Trace scope={this.path}/>
-        <table>
-          <tbody>
-            <tr>
-              <th>Channel</th>
-              <th>Offset</th>
-              <th>Length</th>
-              <th>Bits</th>
-              <th>Tick</th>
-              <th>Note</th>
-              <th>Flow Name</th>
-            </tr>
-            <EntityCreateRow
-              onCreate={this.onCreate} project={this.props.project}
-              path={this.props.path} fields={this.props.fields} schema={this.state.schema}
-              />
-            {entities}
-          </tbody>
-        </table>
+        <div className="container">
+          <div className="row">
+            <div className="col-1">Channel</div>
+            <div className="col-1">Offset</div>
+            <div className="col-1">Length</div>
+            <div className="col-1">Bits</div>
+            <div className="col-2">Tick</div>
+            <div className="col-2">Note</div>
+            <div className="col-3">Flow Name</div>
+          </div>
+          <EntityCreateRow
+            onCreate={this.onCreate} project={this.props.project}
+            path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+            />
+          {entities}
+        </div>
       </div>
 		)
 	}
@@ -60,6 +62,7 @@ PatternList.defaultProps = {
     'length' : {defaultValue : -1},
     'bits' : {defaultValue : 1},
     'tick' : {
+      cellWidth : 2,
       fields : {
         'numerator' : {defaultValue : 1},
         'denominator' : {defaultValue : 1},
@@ -67,6 +70,7 @@ PatternList.defaultProps = {
       }
     },
     'note' : {
+      cellWidth : 2,
       fields : {
         'number' : {defaultValue : 60},
         'velocity' : {defaultValue : 100},

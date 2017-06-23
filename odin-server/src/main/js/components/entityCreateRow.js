@@ -16,17 +16,15 @@ class EntityCreateRow extends React.Component{
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + "." + fieldName : fieldName;
       if (fields[fieldName].fields) {
+        var cellWidth = fields[fieldName].cellWidth || 1;
+        var cellClassName = "component col-" + cellWidth;
         return (
-          <td key={key} className="component">
-            <table>
-              <tbody>
-                <tr>
-                {this.renderInputFieldGroup(
-                  fields[fieldName].fields, this.getSchemaDefinition(fieldName), key)}
-                </tr>
-              </tbody>
-            </table>
-          </td>
+          <div className={cellClassName} key={key}>
+            <div className="row">
+              {this.renderInputFieldGroup(
+                fields[fieldName].fields, this.getSchemaDefinition(fieldName), key)}
+            </div>
+          </div>
         )
       } else {
         return this.renderInputField(fields, schema, fieldName, key);
@@ -44,34 +42,34 @@ class EntityCreateRow extends React.Component{
     } else {
       console.log("WARN : Cannot find attribute : " + fieldName + " in " + JSON.stringify(properties));
     }
+    var cellWidth = fields[fieldName].cellWidth || 1;
+    var cellClassName = "col-" + cellWidth;
     return (
-      <td key={key}>
+      <div className={cellClassName} key={key}>
         <input type="text" placeholder={key} ref={key} className="field"
           defaultValue={fields[fieldName].defaultValue}
           size={size}
         />
-      </td>
+      </div>
     )
   }
 
 	render() {
 	  if (!Object.keys(this.props.schema).length) {
 	    console.log("WARN : Schema not defined, cannot create entity create row.")
-	    return (<tr/>);
+	    return (<div/>);
 	  }
 
     var renderedFields = this.renderInputFieldGroup(this.props.fields, this.props.schema);
 	  return (
-      <tr id="createEntity">
+      <div className="entityCreate row">
         {renderedFields}
-        <td>
-          <div>
-            <input type="hidden" name="project" ref="project"
-              value={this.props.project._links.self.href} />
-            <button onClick={this.handleCreateSubmit}>Create</button>
-          </div>
-        </td>
-      </tr>
+        <div className="col-1">
+          <input type="hidden" name="project" ref="project"
+            value={this.props.project._links.self.href} />
+          <button onClick={this.handleCreateSubmit}>Create</button>
+        </div>
+      </div>
 	  )
 	}
 }

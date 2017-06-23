@@ -12,13 +12,13 @@ class Channel extends React.Component{
 
 	render() {
 			return (
-			<tr>
-				<td>{this.props.channel.number}</td>
-				<td>{this.props.channel.programName}</td>
-				<td>
+			<div className="row">
+				<div className="col-2">{this.props.channel.number}</div>
+				<div className="col-3">{this.props.channel.programName}</div>
+				<div className="col-1">
 					<button onClick={this.handleDelete}>Delete</button>
-				</td>
-			</tr>
+				</div>
+			</div>
 		)
 	}
 }

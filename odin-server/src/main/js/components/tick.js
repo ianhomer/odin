@@ -7,19 +7,15 @@ class Tick extends React.Component{
 
 	render() {
 	  return (
-	    <table className="tick">
-        <tbody>
-          <tr>
-            <td>{(this.props.denominator > 1 || this.props.numerator > 1) &&
-                  <span className="numerator">{this.props.numerator}</span>
-                }</td>
-            <td>{this.props.denominator > 1 &&
-                  <span className="denominator">/{this.props.denominator}</span>
-                }</td>
-            <td>{this.props.timeUnit}</td>
-          </tr>
-        </tbody>
-      </table>
+  	  <div className="component row">
+        <div className="col-md-1">{(this.props.denominator > 1 || this.props.numerator > 1) &&
+              <span className="numerator">{this.props.numerator}</span>
+            }</div>
+        <div className="col-md-1">{this.props.denominator > 1 &&
+              <span className="denominator">/{this.props.denominator}</span>
+            }</div>
+        <div className="col-md-1">{this.props.timeUnit}</div>
+      </div>
     )
 	}
 }

@@ -7,15 +7,11 @@ class Note extends React.Component{
 
 	render() {
 	  return (
-	    <table className="note">
-        <tbody>
-          <tr>
-            <td>{this.props.number}</td>
-            <td>{this.props.velocity}</td>
-            <td>{this.props.duration}</td>
-          </tr>
-        </tbody>
-      </table>
+  	  <div className="component row">
+        <div className="col-1">{this.props.number}</div>
+        <div className="col-1">{this.props.velocity}</div>
+        <div className="col-1">{this.props.duration}</div>
+      </div>
     )
 	}
 }

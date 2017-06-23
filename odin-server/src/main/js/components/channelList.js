@@ -45,19 +45,17 @@ class ChannelList extends React.Component{
 		return (
       <div>
         <Trace scope="channelList"/>
-        <table>
-          <tbody>
-            <tr>
-              <th>Number</th>
-              <th>Program</th>
-            </tr>
-            <EntityCreateRow
-              onCreate={this.onCreate} project={this.props.project}
-              path={this.props.path} fields={this.props.fields} schema={this.state.schema}
-              />
+        <div className="container">
+          <div className="row">
+            <div className="col-2">Number</div>
+            <div className="col-3">Program</div>
+          </div>
+          <EntityCreateRow
+            onCreate={this.onCreate} project={this.props.project}
+            path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+            />
             {entities}
-          </tbody>
-        </table>
+        </div>
 				<div>
           page size : <input ref="pageSize" defaultValue={this.state.pageSize} onInput={this.handlePageSizeInput}/>
 					{navLinks}
@@ -70,8 +68,14 @@ class ChannelList extends React.Component{
 ChannelList.defaultProps = {
   path: 'channels',
   fields: {
-    'number' : { defaultValue : '1'},
-    'programName' : { defaultValue : 'piano'}
+    'number' : {
+      defaultValue : '1',
+      cellWidth : 2
+    },
+    'programName' : {
+      defaultValue : 'piano',
+      cellWidth : 3
+    }
   }
 }
 
