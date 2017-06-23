@@ -13,12 +13,11 @@ class EntityCreateRow extends React.Component{
 	}
 
   renderInputFieldGroup(fields, schema, parentKey) {
-    // TODO : Need to deference schema to inspect properties of embedded objects.
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + "." + fieldName : fieldName;
       if (fields[fieldName].fields) {
         return (
-          <td key={key}>
+          <td key={key} className="component">
             <table>
               <tbody>
                 <tr>
@@ -45,7 +44,6 @@ class EntityCreateRow extends React.Component{
     } else {
       console.log("WARN : Cannot find attribute : " + fieldName + " in " + JSON.stringify(properties));
     }
-    console.log("Rendering : " + key);
     return (
       <td key={key}>
         <input type="text" placeholder={key} ref={key} className="field"

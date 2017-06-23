@@ -20,14 +20,14 @@ class Pattern extends React.Component{
 				<td>{this.props.sequence.offset}</td>
 				<td>{this.props.sequence.length}</td>
 				<td>{this.props.sequence.bits}</td>
-				<td>{this.props.sequence.tick ?
+				<td className="component">{this.props.sequence.tick ?
 				  <Tick
 				    numerator={this.props.sequence.tick.numerator}
 				    denominator={this.props.sequence.tick.denominator}
 				    timeUnit={this.props.sequence.tick.timeUnit}/>
           : <div className="warn">NULL tick</div>
         }</td>
-        <td>{this.props.sequence.note ?
+        <td className="component">{this.props.sequence.note ?
           <Note
             number={this.props.sequence.note.number}
             velocity={this.props.sequence.note.velocity}
