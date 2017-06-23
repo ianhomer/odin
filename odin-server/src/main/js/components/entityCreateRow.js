@@ -10,6 +10,14 @@ class EntityCreateRow extends React.Component{
 
     this.handleCreateSubmit = crud.handleCreateSubmit.bind(this);
     this.getSchemaDefinition = crud.getSchemaDefinition.bind(this);
+    this.handleKeyPress = this._handleKeyPress.bind(this);
+	}
+
+	_handleKeyPress(e) {
+	  if (e.key === 'Enter') {
+	    console.log("Enter -> submit");
+      this.handleCreateSubmit(e);
+    }
 	}
 
   renderInputFieldGroup(fields, schema, parentKey) {
@@ -48,6 +56,7 @@ class EntityCreateRow extends React.Component{
       <div className={cellClassName} key={key}>
         <input type="text" placeholder={key} ref={key} className="field"
           defaultValue={fields[fieldName].defaultValue}
+          onKeyPress={this.handleKeyPress}
           size={size}
         />
       </div>
