@@ -16,6 +16,8 @@
 package com.purplepip.odin.server.rest.domain;
 
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.Layer;
+import com.purplepip.odin.sequence.MutableLayer;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashSet;
@@ -40,12 +42,15 @@ public class PersistableProject implements Project {
   @GeneratedValue
   private Long id;
   private String name;
-  @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private Set<Sequence> sequences = new HashSet<>();
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Channel> channels = new HashSet<>();
+  @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
+      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
+  private Set<Layer> layers = new HashSet<>();
+  @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
+      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
+  private Set<Sequence> sequences = new HashSet<>();
 
   @Override
   public void addChannel(Channel channel) {
@@ -58,9 +63,21 @@ public class PersistableProject implements Project {
   }
 
   @Override
+  public void removeLayer(Layer layer) {
+    layers.remove(layer);
+  }
+
+  @Override
+  public void addLayer(MutableLayer layer) {
+    layer.setProject(this);
+    layers.add(layer);
+  }
+
+  @Override
   public void removeChannel(Channel channel) {
     channels.remove(channel);
   }
+
 
   public void addSequence(Sequence sequence) {
     sequence.setProject(this);

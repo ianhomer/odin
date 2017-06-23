@@ -15,21 +15,10 @@
 
 package com.purplepip.odin.sequence;
 
-/**
- * Mutable sequence.
- */
-public interface MutableSequence extends Sequence {
-  void setTick(Tick tick);
+import com.purplepip.odin.project.Project;
 
-  void setLength(long length);
+public interface MutableLayer extends Layer {
+  void setProject(Project project);
 
-  void setOffset(long offset);
-
-  void setChannel(int channel);
-
-  void setFlowName(String flowName);
-
-  void addLayer(Layer layer);
-
-  void removeLayer(Layer layer);
+  void setName(String name);
 }

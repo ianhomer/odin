@@ -6,6 +6,7 @@ const client = require('./client');
 
 const ChannelList = require('./components/channelList')
 const PatternList = require('./components/patternList')
+const LayerList = require('./components/layerList')
 const ProjectList = require('./components/projectList')
 const SequenceList = require('./components/sequenceList')
 const Trace = require('./components/trace')
@@ -35,6 +36,9 @@ class App extends React.Component {
 		      <div className="warn">WARNING : Entities store in app state {JSON.stringify(this.state.entities)}</div>
 		    }
         <ProjectList projects={this.state.projects}/>
+        {this.state.project &&
+          <LayerList project={this.state.project}/>
+        }
         {this.state.project &&
           <ChannelList project={this.state.project}/>
         }

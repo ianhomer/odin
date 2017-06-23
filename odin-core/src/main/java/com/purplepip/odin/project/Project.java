@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.project;
 
+import com.purplepip.odin.sequence.Layer;
+import com.purplepip.odin.sequence.MutableLayer;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.Set;
@@ -26,18 +28,25 @@ public interface Project {
   String getName();
 
   /**
-   * Get iterable of the sequences stored in this project.
+   * Get set of the sequences stored in this project.
    *
-   * @return iterable of sequences
+   * @return set of sequences
    */
   Set<Sequence> getSequences();
 
   /**
-   * Get iterable of the channels stored in this project.
+   * Get set of the channels stored in this project.
    *
-   * @return iterable of channels
+   * @return set of channels
    */
   Set<Channel> getChannels();
+
+  /**
+   * Get set of the layers stored in this project.
+   *
+   * @return set of layers
+   */
+  Set<Layer> getLayers();
 
   /**
    * Add channel.
@@ -48,6 +57,16 @@ public interface Project {
    * Remove channel.
    */
   void removeChannel(Channel channel);
+
+  /**
+   * Add layer.
+   */
+  void addLayer(MutableLayer layer);
+
+  /**
+   * Remove layer.
+   */
+  void removeLayer(Layer layer);
 
   /**
    * Add sequence.

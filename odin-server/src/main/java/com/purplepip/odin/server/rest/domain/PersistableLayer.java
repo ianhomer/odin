@@ -17,65 +17,38 @@ package com.purplepip.odin.server.rest.domain;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.Layer;
-import com.purplepip.odin.sequence.MutableSequence;
+import com.purplepip.odin.sequence.MutableLayer;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Persistable sequence.
+ * Persistable layer.
  */
-@Entity(name = "Sequence")
-@Table(name = "Sequence")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
+@Entity(name = "Layer")
+@Table(name = "Layer")
 @EqualsAndHashCode(exclude = "project")
 @ToString(exclude = "project")
-public abstract class AbstractPersistableSequence implements MutableSequence {
+public class PersistableLayer implements MutableLayer {
   @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  public long id;
+  @GeneratedValue
+  private Long id;
+  private String name;
 
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
 
-  @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private Set<Layer> layers;
-
-  @Override
-  public void removeLayer(Layer layer) {
-    layers.remove(layer);
-  }
-
-  @Override
-  public void addLayer(Layer layer) {
-    layers.add(layer);
-  }
-
-  @PrePersist
-  public void addToProject() {
-    project.addSequence(this);
-  }
-
-  @PreRemove
-  public void removeFromProject() {
-    project.removeSequence(this);
-  }
+  @OneToMany(targetEntity = PersistableLayer.class, fetch = FetchType.EAGER)
+  private Set<Layer> parents;
 }

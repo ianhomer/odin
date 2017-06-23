@@ -15,26 +15,36 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
-import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.sequence.DefaultLayer;
 import com.purplepip.odin.sequence.DefaultTick;
+import com.purplepip.odin.sequence.Layer;
+import com.purplepip.odin.sequence.MutableLayer;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequence.Ticks;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Convenience class for building up sequences.
  */
+@Slf4j
 public class ProjectBuilder {
   private static final int DEFAULT_NOTE = 60;
   private static final int DEFAULT_VELOCITY = 40;
@@ -46,9 +56,25 @@ public class ProjectBuilder {
   private int velocity = DEFAULT_VELOCITY;
   private int length = -1;
   private int offset;
+  private Set<Layer> layersToAdd = new HashSet<>();
+  private List<Long> sequenceIds = new ArrayList<>();
 
   public ProjectBuilder(ProjectContainer projectContainer) {
     this.projectContainer = projectContainer;
+  }
+
+  public Layer getLayer(String name) {
+    return projectContainer.getLayerStream().filter(l -> name.equals(l.getName())).findFirst()
+        .orElse(null);
+  }
+
+  /*
+   * Get sequence IDs added so that we can inspect the sequences that were created.  Note that
+   * this is an ordered list in the order that they were added.  Note that sequences in a project
+   * do not have a fixed ordering so we can not rely on the iteration of the project sequences.
+   */
+  public Sequence getSequenceByOrder(int id) {
+    return projectContainer.getSequence(sequenceIds.get(id));
   }
 
   private Metronome withDefaults(Metronome metronome) {
@@ -67,6 +93,20 @@ public class ProjectBuilder {
 
   private static Tick withDefaults(Tick tick) {
     return tick;
+  }
+
+  private static MutableLayer withDefaults(MutableLayer layer) {
+    return layer;
+  }
+
+  /**
+   * Create Layer.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return metronome
+   */
+  protected MutableLayer createLayer() {
+    return new DefaultLayer();
   }
 
   /**
@@ -114,6 +154,11 @@ public class ProjectBuilder {
     }
   }
 
+  private void addSequence(Sequence sequence) {
+    sequenceIds.add(sequence.getId());
+    projectContainer.addSequence(sequence);
+  }
+
   /**
    * Add metronome.
    *
@@ -121,7 +166,20 @@ public class ProjectBuilder {
    */
   public ProjectBuilder addMetronome() {
     Metronome metronome = withDefaults(createMetronome());
-    projectContainer.addSequence(applyParameters(metronome));
+    addSequence(applyParameters(metronome));
+    return this;
+  }
+
+  /**
+   * Add layer with the given name.
+   *
+   * @param name name of layer
+   * @return this project builder
+   */
+  public ProjectBuilder addLayer(String name) {
+    MutableLayer layer = withDefaults(createLayer());
+    layer.setName(name);
+    projectContainer.addLayer(layer);
     return this;
   }
 
@@ -146,6 +204,27 @@ public class ProjectBuilder {
     return this;
   }
 
+  /**
+   * Specify which layers to add to the sequence.
+   *
+   * @param layers layers to add to the sequence.
+   * @return project builder
+   */
+  public ProjectBuilder withLayers(String... layers) {
+    List<String> layerNamesToAdd = Lists.newArrayList(layers);
+    this.layersToAdd = Sets.newHashSet(
+        projectContainer.getLayerStream()
+            .filter(l -> layerNamesToAdd.contains(l.getName())).iterator());
+    LOG.debug("Layers to add : {}", layersToAdd);
+    return this;
+  }
+
+  /**
+   * Offset to apply to the sequence.
+   *
+   * @param offset offset
+   * @return project builder
+   */
   public ProjectBuilder withOffset(int offset) {
     this.offset = offset;
     return this;
@@ -213,7 +292,7 @@ public class ProjectBuilder {
     sequence.setTick(withDefaults(createTick(tick)));
     sequence.setNote(note);
 
-    projectContainer.addSequence(applyParameters(sequence));
+    addSequence(applyParameters(sequence));
     return this;
   }
 
@@ -227,6 +306,7 @@ public class ProjectBuilder {
     sequence.setChannel(channel);
     sequence.setLength(length);
     sequence.setOffset(offset);
+    layersToAdd.forEach(sequence::addLayer);
     return sequence;
   }
 }

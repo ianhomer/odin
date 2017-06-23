@@ -25,6 +25,10 @@ module.exports = function follow(api, rootPath, relArray) {
 			if(!response.entity._links) {
 				return [];
 			}
+      if(!response.entity._links[rel]) {
+        console.log("WARN : " + root.path + " _links[" + rel + "] is not defined")
+        return [];
+      }
 
 			if (typeof arrayItem === 'string') {
 				return api({

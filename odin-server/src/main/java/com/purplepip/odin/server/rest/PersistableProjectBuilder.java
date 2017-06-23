@@ -23,6 +23,7 @@ import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import com.purplepip.odin.server.rest.domain.PersistableChannel;
+import com.purplepip.odin.server.rest.domain.PersistableLayer;
 import com.purplepip.odin.server.rest.domain.PersistableMetronome;
 import com.purplepip.odin.server.rest.domain.PersistableNote;
 import com.purplepip.odin.server.rest.domain.PersistablePattern;
@@ -34,6 +35,11 @@ import com.purplepip.odin.server.rest.domain.PersistableTick;
 public class PersistableProjectBuilder extends ProjectBuilder {
   public PersistableProjectBuilder(ProjectContainer projectContainer) {
     super(projectContainer);
+  }
+
+  @Override
+  protected PersistableLayer createLayer() {
+    return new PersistableLayer();
   }
 
   @Override

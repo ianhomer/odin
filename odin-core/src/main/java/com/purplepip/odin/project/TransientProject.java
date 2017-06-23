@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.project;
 
+import com.purplepip.odin.sequence.Layer;
+import com.purplepip.odin.sequence.MutableLayer;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashSet;
@@ -29,6 +31,8 @@ public class TransientProject implements Project {
   private Set<Sequence> sequences = new HashSet<>();
 
   private Set<Channel> channels = new HashSet<>();
+
+  private Set<Layer> layers = new HashSet<>();
 
   @Override
   public String getName() {
@@ -46,6 +50,11 @@ public class TransientProject implements Project {
   }
 
   @Override
+  public Set<Layer> getLayers() {
+    return layers;
+  }
+
+  @Override
   public void addChannel(Channel channel) {
     channel.setProject(this);
     channels.add(channel);
@@ -54,6 +63,17 @@ public class TransientProject implements Project {
   @Override
   public void removeChannel(Channel channel) {
     channels.remove(channel);
+  }
+
+  @Override
+  public void addLayer(MutableLayer layer) {
+    layer.setProject(this);
+    layers.add(layer);
+  }
+
+  @Override
+  public void removeLayer(Layer layer) {
+    layers.remove(layer);
   }
 
   @Override

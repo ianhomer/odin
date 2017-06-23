@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.project.Project;
+import java.util.Set;
 
 /**
  * Sequence configuration.
@@ -73,4 +74,9 @@ public interface Sequence {
    * @param project project
    */
   void setProject(Project project);
+
+  /**
+   * Get the sequence layers.
+   */
+  Set<Layer> getLayers();
 }

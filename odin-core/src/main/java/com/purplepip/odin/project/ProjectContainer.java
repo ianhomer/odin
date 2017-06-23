@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.project;
 
+import com.purplepip.odin.sequence.Layer;
+import com.purplepip.odin.sequence.MutableLayer;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.ArrayList;
@@ -138,6 +140,11 @@ public class ProjectContainer {
     saveListeners.remove(listener);
   }
 
+  public Sequence getSequence(long id) {
+    return getProject().getSequences().stream().filter(s -> s.getId() == id)
+        .findFirst().orElse(null);
+  }
+
   /**
    * Get iterable of the sequences stored in this project.
    *
@@ -171,6 +178,23 @@ public class ProjectContainer {
     project.addChannel(channel);
   }
 
+  /**
+   * Add layer.
+   *
+   * @param layer to add
+   */
+  public void addLayer(MutableLayer layer) {
+    project.addLayer(layer);
+  }
+
+  /**
+   * Layer stream.
+   *
+   * @return layer stream
+   */
+  public Stream<Layer> getLayerStream() {
+    return project.getLayers().stream();
+  }
 
   /**
    * Remove channel configuration.

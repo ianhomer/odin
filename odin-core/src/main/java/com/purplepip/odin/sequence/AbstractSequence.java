@@ -16,13 +16,17 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.project.Project;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Abstract sequence.
  */
 @ToString
+@Slf4j
 public abstract class AbstractSequence implements MutableSequence {
   /*
    * Cheap ID generator for default patterns.  Note that persistence implementation used for
@@ -38,6 +42,7 @@ public abstract class AbstractSequence implements MutableSequence {
   private int channel;
   private String flowName;
   private Project project;
+  private Set<Layer> layers = new HashSet<>();
 
   @Override
   public long getId() {
@@ -110,5 +115,21 @@ public abstract class AbstractSequence implements MutableSequence {
 
   public void setProject(Project project) {
     this.project = project;
+  }
+
+  @Override
+  public Set<Layer> getLayers() {
+    return layers;
+  }
+
+  @Override
+  public void addLayer(Layer layer) {
+    LOG.debug("Adding layer : {}", layer);
+    layers.add(layer);
+  }
+
+  @Override
+  public void removeLayer(Layer layer) {
+    layers.remove(layer);
   }
 }
