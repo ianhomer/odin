@@ -144,6 +144,25 @@ module.exports = {
     });
   },
 
+  onUpdate : function(entity, updatedEntity) {
+    client({
+      method: 'PUT',
+      path: entity.entity._links.self.href,
+      entity: updatedEntity,
+      headers: {
+        'Content-Type': 'application/json',
+        'If-Match': employee.headers.Etag
+      }
+    }).done(response => {
+      this.loadFromServer(this.state.pageSize);
+    }, response => {
+      if (response.status.code === 412) {
+        alert('DENIED: Unable to update ' +
+          entity.entity._links.self.href + '. Your copy is stale.');
+      }
+    });
+  },
+
   onDelete : function(entity) {
     client({method: 'DELETE', path: entity._links.self.href}).done(response => {
       this.loadFromServer();

@@ -4,7 +4,7 @@ const crud = require('./../crud');
 const pagination = require('./../pagination');
 
 const Pattern = require('./pattern')
-const EntityCreateRow = require('./entityCreateRow')
+const EditEntity = require('./editEntity')
 const Trace = require('./trace');
 
 class PatternList extends React.Component{
@@ -43,7 +43,7 @@ class PatternList extends React.Component{
             <div className="col-2">Note</div>
             <div className="col-3">Flow Name</div>
           </div>
-          <EntityCreateRow
+          <EditEntity
             onCreate={this.onCreate} project={this.props.project}
             path={this.props.path} fields={this.props.fields} schema={this.state.schema}
             />

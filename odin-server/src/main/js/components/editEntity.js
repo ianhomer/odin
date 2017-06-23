@@ -4,11 +4,11 @@ const crud = require('./../crud');
 /**
  * Table row to create an entity
  */
-class EntityCreateRow extends React.Component{
+class EditEntity extends React.Component{
   constructor(props) {
     super(props);
 
-    this.handleCreateSubmit = crud.handleCreateSubmit.bind(this);
+    this.handleSubmit = crud.handleCreateSubmit.bind(this);
     this.getSchemaDefinition = crud.getSchemaDefinition.bind(this);
     this.handleKeyPress = this._handleKeyPress.bind(this);
 	}
@@ -16,7 +16,7 @@ class EntityCreateRow extends React.Component{
 	_handleKeyPress(e) {
 	  if (e.key === 'Enter') {
 	    console.log("Enter -> submit");
-      this.handleCreateSubmit(e);
+      this.handleSubmit(e);
     }
 	}
 
@@ -76,11 +76,11 @@ class EntityCreateRow extends React.Component{
         <div className="col-1">
           <input type="hidden" name="project" ref="project"
             value={this.props.project._links.self.href} />
-          <button onClick={this.handleCreateSubmit}>Create</button>
+          <button onClick={this.handleSubmit}>Create</button>
         </div>
       </div>
 	  )
 	}
 }
 
-module.exports = EntityCreateRow
+module.exports = EditEntity

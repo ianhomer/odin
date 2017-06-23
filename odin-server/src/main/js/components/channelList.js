@@ -6,7 +6,7 @@ const pagination = require('./../pagination');
 
 const Trace = require('./trace');
 const Channel = require('./channel')
-const EntityCreateRow = require('./entityCreateRow')
+const EditEntity = require('./editEntity')
 
 class ChannelList extends React.Component{
 	constructor(props) {
@@ -50,7 +50,7 @@ class ChannelList extends React.Component{
             <div className="col-2">Number</div>
             <div className="col-3">Program</div>
           </div>
-          <EntityCreateRow
+          <EditEntity
             onCreate={this.onCreate} project={this.props.project}
             path={this.props.path} fields={this.props.fields} schema={this.state.schema}
             />
