@@ -40,8 +40,10 @@ class PatternList extends React.Component{
               <th>Note</th>
               <th>Flow Name</th>
             </tr>
-            <EntityCreateRow project={this.props.project} onCreate={this.onCreate}
-              fields={this.props.fields} schema={this.state.schema}/>
+            <EntityCreateRow
+              onCreate={this.onCreate} project={this.props.project}
+              path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+              />
             {entities}
           </tbody>
         </table>

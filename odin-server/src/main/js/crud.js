@@ -43,6 +43,7 @@ function getFieldValue(schema, refs, name, key) {
  * e.g. getSchema('patterns','#/definitions/tick')
  */
 function getSchema(id, ref = '') {
+  console.log("Getting schema " + id + ref);
   return ajv.getSchema(id + ref).schema;
 }
 
@@ -60,6 +61,13 @@ module.exports = {
     that.loadFromServer = this.loadFromServer.bind(that);
     that.onDelete = this.onDelete.bind(that);
     that.onCreate = this.onCreate.bind(that);
+  },
+
+  /*
+   * Get the schema definition for a given field name.
+   */
+  getSchemaDefinition : function(name) {
+    return getSchema(this.props.path, this.props.schema.properties[name]['$ref']);
   },
 
   loadFromServer : function(pageSize = this.state.pageSize) {

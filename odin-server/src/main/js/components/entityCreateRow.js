@@ -1,14 +1,18 @@
 const React = require('react');
 const crud = require('./../crud');
 
+/**
+ * Table row to create an entity
+ */
 class EntityCreateRow extends React.Component{
   constructor(props) {
     super(props);
 
     this.handleCreateSubmit = crud.handleCreateSubmit.bind(this);
+    this.getSchemaDefinition = crud.getSchemaDefinition.bind(this);
 	}
 
-  renderInputFieldGroup(fields, properties, parentKey) {
+  renderInputFieldGroup(fields, schema, parentKey) {
     // TODO : Need to deference schema to inspect properties of embedded objects.
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + "." + fieldName : fieldName;
@@ -18,27 +22,28 @@ class EntityCreateRow extends React.Component{
             <table>
               <tbody>
                 <tr>
-                {this.renderInputFieldGroup(fields[fieldName].fields, properties, key)}
+                {this.renderInputFieldGroup(
+                  fields[fieldName].fields, this.getSchemaDefinition(fieldName), key)}
                 </tr>
               </tbody>
             </table>
           </td>
         )
       } else {
-        return this.renderInputField(fields, properties, fieldName, key);
+        return this.renderInputField(fields, schema, fieldName, key);
       }
     }, this);
     return renderedFields;
   }
 
-  renderInputField(fields, properties, fieldName, key) {
+  renderInputField(fields, schema, fieldName, key) {
     var size = 0;
-    if (properties[key]) {
-      if (properties[key].type == 'integer') {
-        size = 2;
+    if (schema.properties[fieldName]) {
+      if (schema.properties[fieldName].type == 'integer') {
+        size = 3;
       }
     } else {
-      console.log("WARN : Cannot find attribute : " + key);
+      console.log("WARN : Cannot find attribute : " + fieldName + " in " + JSON.stringify(properties));
     }
     console.log("Rendering : " + key);
     return (
@@ -57,7 +62,7 @@ class EntityCreateRow extends React.Component{
 	    return (<tr/>);
 	  }
 
-    var renderedFields = this.renderInputFieldGroup(this.props.fields, this.props.schema.properties);
+    var renderedFields = this.renderInputFieldGroup(this.props.fields, this.props.schema);
 	  return (
       <tr id="createEntity">
         {renderedFields}
