@@ -25,9 +25,8 @@ class ChannelList extends React.Component{
 
   render() {
     var entities = this.state.entities.map(entity =>
-      <Channel entity={entity}
+      <Channel entity={entity} key={entity._links.self.href}
         path={this.props.path} schema={this.state.schema}
-        key={entity._links.self.href}
         onDelete={this.onDelete}/>
     );
 

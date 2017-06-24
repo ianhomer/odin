@@ -6,6 +6,9 @@ const pagination = require('./../pagination');
 const Sequence = require('./sequence')
 const Trace = require('./trace');
 
+/**
+ * Rendering of generic sequence list - NOT CURRENTLY USED.
+ */
 class SequenceList extends React.Component{
 	constructor(props) {
 		super(props);
@@ -25,6 +28,9 @@ class SequenceList extends React.Component{
       <Sequence key={entity._links.self.href} sequence={entity} onDelete={this.onDelete}/>
     );
 		return (
+		  /*
+		   * View sequence list.
+		   */
 		  <div>
         <Trace scope="sequenceList"/>
         <table>

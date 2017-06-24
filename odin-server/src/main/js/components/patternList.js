@@ -7,6 +7,9 @@ const Pattern = require('./pattern')
 const EditEntity = require('./editEntity')
 const Trace = require('./trace');
 
+/**
+ * Pattern list component.
+ */
 class PatternList extends React.Component{
 	constructor(props) {
 		super(props);
@@ -47,13 +50,11 @@ class PatternList extends React.Component{
             <div className="col-2">Note</div>
             <div className="col-3">Flow Name</div>
           </div>
-          {this.props.project &&
-            <EditEntity
-              project={this.props.project}
-              path={this.props.path} fields={this.props.fields} schema={this.state.schema}
-              onApply={this.onCreate}
-              />
-          }
+          <EditEntity
+            project={this.props.project}
+            path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+            onApply={this.onCreate}
+            />
           {entities}
         </div>
       </div>

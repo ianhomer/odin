@@ -1,5 +1,8 @@
 const React = require('react');
 
+/**
+ * Tick component.
+ */
 class Tick extends React.Component{
 	constructor(props) {
 		super(props);

@@ -1,5 +1,8 @@
 const React = require('react');
 
+/**
+ * Trace component to handle information for development support.
+ */
 class Trace extends React.Component{
 	constructor(props) {
 		super(props);

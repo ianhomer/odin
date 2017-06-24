@@ -1,5 +1,8 @@
 const React = require('react');
 
+/**
+ * Rendering of generic sequence - NOT CURRENTLY USED.
+ */
 class Sequence extends React.Component{
 	render() {
 		return (

@@ -4,11 +4,15 @@ const EditEntity = require('./editEntity')
 const Note = require('./note')
 const Tick = require('./tick')
 
+/**
+ * Pattern component.
+ */
 class Pattern extends React.Component{
 	constructor(props) {
 		super(props);
 
     this.state = {};
+
 		this.handleDelete = this.handleDelete.bind(this);
 		this.toggleEditing = this._toggleEditing.bind(this);
 		this.onApplySuccess = this._onApplySuccess.bind(this);
@@ -32,6 +36,9 @@ class Pattern extends React.Component{
 	  var sequence = this.props.entity;
 	  if (this.state.editing) {
       return (
+        /*
+         * Edit entity
+         */
         <EditEntity entity={sequence}
           project={this.props.project}
           path={this.props.path} fields={this.props.fields} schema={this.props.schema}
@@ -41,6 +48,9 @@ class Pattern extends React.Component{
       )
 	  } else {
       return (
+        /*
+         * View entity
+         */
         <div className="row" onClick={this.toggleEditing}>
           <div className="col-1">{sequence.channel}</div>
           <div className="col-1">{sequence.offset}</div>
