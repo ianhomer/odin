@@ -8,38 +8,35 @@ class Pattern extends React.Component{
 	constructor(props) {
 		super(props);
 
-		this.state = {
-		  sequence : this.props.sequence
-		};
+    this.state = {};
 		this.handleDelete = this.handleDelete.bind(this);
 		this.toggleEditing = this._toggleEditing.bind(this);
-		this.onUpdate = this._onUpdate.bind(this);
-		this.container = this.props.container;
+		this.onApplySuccess = this._onApplySuccess.bind(this);
 	}
 
   _toggleEditing(e) {
-    console.log("Editing : " + this.state.sequence._links.self.href);
-    this.setState({editing : this.state.sequence._links.self.href});
+    console.log("Editing : " + this.props.entity._links.self.href);
+    this.setState({editing : this.props.entity._links.self.href});
   }
 
-  _onUpdate(e) {
-    console.log("TODO on Update");
+  _onApplySuccess(e) {
+    console.log("On apply success");
     this.setState({editing : null});
   }
 
   handleDelete() {
-    this.props.onDelete(this.props.sequence);
+    this.props.onDelete(this.props.entity);
   }
 
 	render() {
-	  var sequence = this.state.sequence;
+	  var sequence = this.props.entity;
 	  if (this.state.editing) {
       return (
-        <EditEntity
-          onApply={this.onUpdate}
-          project={this.container.props.project} entity={sequence}
-          path={this.container.props.path} fields={this.container.props.fields}
-          schema={this.container.state.schema}
+        <EditEntity entity={sequence}
+          project={this.props.project}
+          path={this.props.path} fields={this.props.fields} schema={this.props.schema}
+          onApply={this.onApplySuccess}
+          onApplySuccess={this.onApplySuccess}
           />
       )
 	  } else {
@@ -57,7 +54,7 @@ class Pattern extends React.Component{
               timeUnit={sequence.tick.timeUnit}/>
             : <div className="warn">NULL tick</div>
           }</div>
-          <div className="col-2">{this.props.sequence.note ?
+          <div className="col-2">{sequence.note ?
             <Note
               number={sequence.note.number}
               velocity={sequence.note.velocity}

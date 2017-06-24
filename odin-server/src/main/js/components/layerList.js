@@ -23,7 +23,8 @@ class LayerList extends React.Component{
 
 	render() {
     var entities = this.state.entities.map(entity =>
-      <Layer key={entity._links.self.href} layer={entity} onDelete={this.onDelete}/>
+      <Layer entity={entity}
+        key={entity._links.self.href} onDelete={this.onDelete}/>
     );
 		return (
       <div>

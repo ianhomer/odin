@@ -3,7 +3,7 @@ const React = require('react');
 class Layer extends React.Component{
 	render() {
 		return (
-			<span>{this.props.layer.name}</span>
+			<span>{this.props.entity.name}</span>
 		)
 	}
 }

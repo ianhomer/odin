@@ -61,6 +61,7 @@ module.exports = {
     that.loadFromServer = this.loadFromServer.bind(that);
     that.onDelete = this.onDelete.bind(that);
     that.onCreate = this.onCreate.bind(that);
+    that.onUpdate = this.onUpdate.bind(that);
   },
 
   /*
@@ -102,6 +103,8 @@ module.exports = {
       /*
        * Set the state.
        */
+      var schema = getSchema(this.props.path);
+      console.log("Schema : " + JSON.stringify(schema));
       this.setState({
         entities: entities,
         schema: getSchema(this.props.path),
@@ -128,12 +131,15 @@ module.exports = {
 		this.props.onApply(entity);
 	},
 
-  onCreate : function(newEntity) {
+  /*
+   * Create entity via REST API.
+   */
+  onCreate : function(entity) {
     follow(client, root, [this.props.path]).then(entities => {
       return client({
         method: 'POST',
         path: entities.entity._links.self.href,
-        entity: newEntity,
+        entity: entity,
         headers: {'Content-Type': 'application/json'}
       })
     }).then(response => {
@@ -144,17 +150,23 @@ module.exports = {
     });
   },
 
-  onUpdate : function(entity, updatedEntity) {
+  /*
+   * Update entity via REST API.
+   */
+  onUpdate : function(entity) {
     client({
       method: 'PUT',
       path: entity.entity._links.self.href,
-      entity: updatedEntity,
+      entity: entity,
       headers: {
         'Content-Type': 'application/json',
         'If-Match': employee.headers.Etag
       }
     }).done(response => {
-      this.loadFromServer(this.state.pageSize);
+      if (this.props.onApplySuccess) {
+        this.onApplySuccess();
+      }
+      this.loadFromServer(this.props.entityListComponent.state.pageSize);
     }, response => {
       if (response.status.code === 412) {
         alert('DENIED: Unable to update ' +

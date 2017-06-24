@@ -28,12 +28,15 @@ class PatternList extends React.Component{
    */
   render() {
     var entities = this.state.entities.map(entity =>
-      <Pattern key={entity._links.self.href} sequence={entity} container={this}
-        onDelete={this.onDelete}/>
+      <Pattern entity={entity} key={entity._links.self.href}
+        project={this.props.project}
+        path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+        onDelete={this.onDelete}
+        />
     );
 		return (
 		  <div>
-        <Trace scope={this.path}/>
+        <Trace scope={this.props.path}/>
         <div className="container">
           <div className="row">
             <div className="col-1">Channel</div>
@@ -44,10 +47,13 @@ class PatternList extends React.Component{
             <div className="col-2">Note</div>
             <div className="col-3">Flow Name</div>
           </div>
-          <EditEntity
-            onApply={this.onCreate} project={this.props.project}
-            path={this.props.path} fields={this.props.fields} schema={this.state.schema}
-            />
+          {this.props.project &&
+            <EditEntity
+              project={this.props.project}
+              path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+              onApply={this.onCreate}
+              />
+          }
           {entities}
         </div>
       </div>

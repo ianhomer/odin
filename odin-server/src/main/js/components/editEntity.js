@@ -1,4 +1,5 @@
 const React = require('react');
+const objectPath = require("object-path");
 const crud = require('./../crud');
 
 /**
@@ -9,6 +10,11 @@ class EditEntity extends React.Component{
     super(props);
 
     this.handleApply = crud.handleApply.bind(this);
+    if (this.props.entity) {
+      this.onApply = crud.onUpdate.bind(this);
+    } else {
+      this.onApply = crud.onCreate.bind(this);
+    }
     this.getSchemaDefinition = crud.getSchemaDefinition.bind(this);
     this.handleKeyPress = this._handleKeyPress.bind(this);
 	}
@@ -21,6 +27,10 @@ class EditEntity extends React.Component{
 	}
 
   renderInputFieldGroup(fields, schema, parentKey) {
+    if (!fields) {
+      console.log("WARN : fields not defined");
+      return (<div/>)
+    }
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + "." + fieldName : fieldName;
       if (fields[fieldName].fields) {
@@ -54,7 +64,7 @@ class EditEntity extends React.Component{
     var cellClassName = "col-" + cellWidth;
     var defaultValue;
     if (this.props.entity) {
-      defaultValue = "x";
+      defaultValue = objectPath.get(this.props.entity, key);
     } else {
       defaultValue = fields[fieldName].defaultValue;
     }
@@ -72,6 +82,10 @@ class EditEntity extends React.Component{
 	render() {
 	  if (!Object.keys(this.props.schema).length) {
 	    console.log("WARN : Schema not defined, cannot create entity create row.")
+	    return (<div/>);
+	  }
+	  if (!this.props.project) {
+	    console.log("WARN : Project not defined, cannot create entity create row.")
 	    return (<div/>);
 	  }
 

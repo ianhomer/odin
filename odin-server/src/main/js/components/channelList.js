@@ -25,7 +25,10 @@ class ChannelList extends React.Component{
 
   render() {
     var entities = this.state.entities.map(entity =>
-      <Channel key={entity._links.self.href} channel={entity} onDelete={this.onDelete}/>
+      <Channel entity={entity}
+        path={this.props.path} schema={this.state.schema}
+        key={entity._links.self.href}
+        onDelete={this.onDelete}/>
     );
 
     var navLinks = [];
@@ -51,13 +54,15 @@ class ChannelList extends React.Component{
             <div className="col-3">Program</div>
           </div>
           <EditEntity
-            onApply={this.onCreate} project={this.props.project}
+            project={this.props.project}
             path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+            onApply={this.onCreate}
             />
-            {entities}
+          {entities}
         </div>
 				<div>
-          page size : <input ref="pageSize" defaultValue={this.state.pageSize} onInput={this.handlePageSizeInput}/>
+          page size :
+          <input ref="pageSize" defaultValue={this.state.pageSize} onInput={this.handlePageSizeInput}/>
 					{navLinks}
 				</div>
 			</div>
