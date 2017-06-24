@@ -1,10 +1,9 @@
-/*
- * With thanks to https://spring.io/guides/tutorials/react-and-spring-data-rest/
- *
- * The first argument to the follow() function is the client object used to make REST calls.
- * The second argument is the root URI to start from.
- * The third argument is an array of relationships to navigate along. Each one can be a string or an object.
- */
+// With thanks to https://spring.io/guides/tutorials/react-and-spring-data-rest/
+//
+// The first argument to the follow() function is the client object used to make REST calls.
+// The second argument is the root URI to start from.
+// The third argument is an array of relationships to navigate along. Each one can be a string or an object.
+//
 module.exports = function follow(api, rootPath, relArray) {
 	var root = api({
 		method: 'GET',
