@@ -77,10 +77,23 @@ Lots of combinations and choice exist to generate and receive MIDI signals, for 
 
 For performance I use a Nord Electro 5 and Nord Lead 4.
 
-# Sonar Analysis
+# Static Code Analysis
+
+## Sonar
 
     mvn clean verify sonar:sonar
 
+## JavaScript
+
+### Karma
+
+    cd odin-server
+    ./node_modules/karma/bin/karma start karma.conf.ci.js
+
+### ESlint
+
+    ./node_modules/eslint/bin/eslint.js src/main/js/*.js
+    
 # Server Development with Hot Deployment
 
 Start spring boot server

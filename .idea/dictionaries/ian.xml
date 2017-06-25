@@ -9,6 +9,7 @@
       <w>dlogback</w>
       <w>drumkit</w>
       <w>electro</w>
+      <w>eslint</w>
       <w>etag</w>
       <w>gervill</w>
       <w>ianhomer</w>
@@ -18,9 +19,12 @@
       <w>missedcount</w>
       <w>navbar</w>
       <w>nord</w>
+      <w>phantomjs</w>
       <w>pian</w>
       <w>purplepip</w>
       <w>ruslan</w>
+      <w>sinon</w>
+      <w>slint</w>
       <w>sonatype</w>
       <w>soundbank</w>
       <w>springframework</w>

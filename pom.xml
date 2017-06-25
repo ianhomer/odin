@@ -58,6 +58,7 @@
     <slf4j.version>1.7.25</slf4j.version>
     <!-- #4 workaround -->
     <sonar.coverage.exclusions>**/domain/*</sonar.coverage.exclusions>
+    <sonar.javascript.file.suffixes>.js,.jsx</sonar.javascript.file.suffixes>
   </properties>
 
   <dependencyManagement>
