@@ -20,19 +20,19 @@ const ReactDOM = require('react-dom');
 
 module.exports = {
   bindMe : function(that) {
-		that.handleNavFirst = this.handleNavFirst.bind(that);
-		that.handleNavPrev = this.handleNavPrev.bind(that);
-		that.handleNavNext = this.handleNavNext.bind(that);
-		that.handleNavLast = this.handleNavLast.bind(that);
-		that.handlePageSizeInput = this.handlePageSizeInput.bind(that);
-		that.updatePageSize = this.updatePageSize.bind(that);
-		that.onNavigate = this.onNavigate.bind(that);
+    that.handleNavFirst = this.handleNavFirst.bind(that);
+    that.handleNavPrev = this.handleNavPrev.bind(that);
+    that.handleNavNext = this.handleNavNext.bind(that);
+    that.handleNavLast = this.handleNavLast.bind(that);
+    that.handlePageSizeInput = this.handlePageSizeInput.bind(that);
+    that.updatePageSize = this.updatePageSize.bind(that);
+    that.onNavigate = this.onNavigate.bind(that);
   },
 
   updatePageSize : function (pageSize) {
-   if (pageSize !== this.state.pageSize) {
-     this.loadFromServer(pageSize);
-   }
+    if (pageSize !== this.state.pageSize) {
+      this.loadFromServer(pageSize);
+    }
   },
 
   // TODO : Review whether this function is still needed.  It used to be called from within onCreate
@@ -77,4 +77,4 @@ module.exports = {
     e.preventDefault();
     this.onNavigate(this.state.links.last.href);
   }
-}
+};

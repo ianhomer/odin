@@ -40,14 +40,14 @@ function getFieldValue(schema, refs, name, key) {
     Object.keys(fieldSchema.properties).map(function(propertyName) {
       var propertyKey = key + '.' + propertyName;
       property[propertyName] = getFieldValue(fieldSchema, refs, propertyName, propertyKey);
-      console.log("test " + propertyName + ":" + property[propertyName] + ":" + JSON.stringify(property));
+      console.log('test ' + propertyName + ':' + property[propertyName] + ':' + JSON.stringify(property));
     });
     value = property;
   } else {
     var node = ReactDOM.findDOMNode(refs[key]);
-    value = node === null ? "" : node.value.trim();
+    value = node === null ? '' : node.value.trim();
   }
-  console.log("Got field value : " + key + " = " + JSON.stringify(value));
+  console.log('Got field value : ' + key + ' = ' + JSON.stringify(value));
   return value;
 }
 
@@ -55,7 +55,7 @@ function getFieldValue(schema, refs, name, key) {
 //
 // e.g. getSchema('patterns','#/definitions/tick')
 function getSchema(id, ref = '') {
-  console.log("Getting schema " + id + ref);
+  console.log('Getting schema ' + id + ref);
   return ajv.getSchema(id + ref).schema;
 }
 
@@ -81,7 +81,7 @@ module.exports = {
   },
 
   loadFromServer : function(pageSize = this.state.pageSize) {
-    console.log("Loading " + this.props.path)
+    console.log('Loading ' + this.props.path);
     follow(client, root, [
       {rel: this.props.path, params: {size: pageSize}}]
     ).then(collection => {
@@ -101,19 +101,19 @@ module.exports = {
       for (var key in collection.entity._embedded) {
         entities = entities.concat(collection.entity._embedded[key]);
       }
-      console.log("Loaded entities : " + JSON.stringify(entities));
+      console.log('Loaded entities : ' + JSON.stringify(entities));
 
       // Register the schema.
 
       if (!ajv.getSchema(this.props.path)) {
-        console.log("Registering schema : " + this.props.path)
+        console.log('Registering schema : ' + this.props.path);
         ajv.addSchema(this.schema, this.props.path);
       }
 
       // Set the state.
 
       var schema = getSchema(this.props.path);
-      console.log("Schema : " + JSON.stringify(schema));
+      console.log('Schema : ' + JSON.stringify(schema));
       this.setState({
         entities: entities,
         schema: getSchema(this.props.path),
@@ -124,19 +124,19 @@ module.exports = {
 
 
   // Handle creation or update an entity.
-	handleApply(e) {
-	  console.log("Handling entity apply");
-		e.preventDefault();
-		var entity = {};
-		Object.keys(this.props.schema.properties).map(function(name) {
+  handleApply(e) {
+	  console.log('Handling entity apply');
+    e.preventDefault();
+    var entity = {};
+    Object.keys(this.props.schema.properties).map(function(name) {
 		  var value = getFieldValue(this.props.schema, this.refs, name);
 		  if (value) {
 			  entity[name] = value;
-			}
-		}, this);
-		console.log("Applying entity : " + JSON.stringify(entity));
-		this.props.onApply(entity);
-	},
+      }
+    }, this);
+    console.log('Applying entity : ' + JSON.stringify(entity));
+    this.props.onApply(entity);
+  },
 
   // Create entity via REST API.
   onCreate : function(entity) {
@@ -146,7 +146,7 @@ module.exports = {
         path: entities.entity._links.self.href,
         entity: entity,
         headers: {'Content-Type': 'application/json'}
-      })
+      });
     }).then(response => {
       return follow(client, root, [
         {rel: this.props.path, params: {'size': this.state.pageSize}}]);
@@ -183,4 +183,4 @@ module.exports = {
       this.loadFromServer();
     });
   }
-}
+};
