@@ -19,7 +19,6 @@
 const React = require('react');
 
 const crud = require('./../crud');
-const pagination = require('./../pagination');
 
 const Sequence = require('./sequence');
 const Trace = require('./trace');
@@ -47,7 +46,7 @@ class SequenceList extends React.Component{
       // View sequence list.
       <div>
         <Trace scope="sequenceList"/>
-          <table>
+        <table>
           <tbody>
             <tr>
               <th>Channel</th>

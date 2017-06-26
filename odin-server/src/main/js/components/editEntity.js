@@ -74,7 +74,7 @@ class EditEntity extends React.Component{
         size = 3;
       }
     } else {
-      console.log('WARN : Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(properties));
+      console.warn('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(schema.properties));
     }
     var cellWidth = fields[fieldName].cellWidth || 1;
     var cellClassName = 'col-' + cellWidth;
