@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*eslint-env node*/
+
 'use strict';
 
 const React = require('react');
@@ -22,7 +24,7 @@ class ProjectList extends React.Component{
   render() {
     var projects = this.props.projects.map(project =>
       <Project entity={project}
-			  key={project._links.self.href} />
+        key={project._links.self.href} />
     );
     return (
       <div>{projects}</div>

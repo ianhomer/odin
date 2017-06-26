@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*eslint-env node*/
+
 'use strict';
 
 const React = require('react');
@@ -27,7 +29,7 @@ class SequenceList extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-		  attributes: [], entities: [], links: [], pageSize: 10,
+      attributes: [], entities: [], links: [], pageSize: 10,
     };
 
     crud.bindMe(this);
@@ -42,12 +44,10 @@ class SequenceList extends React.Component{
       <Sequence key={entity._links.self.href} sequence={entity} onDelete={this.onDelete}/>
     );
     return (
-		  /*
-		   * View sequence list.
-		   */
-		  <div>
+      // View sequence list.
+      <div>
         <Trace scope="sequenceList"/>
-        <table>
+          <table>
           <tbody>
             <tr>
               <th>Channel</th>

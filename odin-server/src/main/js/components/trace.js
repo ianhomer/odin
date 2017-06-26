@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*eslint-env node*/
+
 'use strict';
 
 const React = require('react');
@@ -24,7 +26,7 @@ class Trace extends React.Component{
 
   render() {
     return (
-		    <div className="debug time"><span className="scope">{this.props.scope}</span>{new Date().toLocaleTimeString()}</div>
+      <div className="debug time"><span className="scope">{this.props.scope}</span>{new Date().toLocaleTimeString()}</div>
     );
   }
 }

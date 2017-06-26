@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*eslint-env node*/
+
 'use strict';
 
 const React = require('react');
@@ -34,8 +36,8 @@ class EditEntity extends React.Component{
   }
 
   _handleKeyPress(e) {
-	  if (e.key === 'Enter') {
-	    console.log('Enter -> submit');
+    if (e.key === 'Enter') {
+      console.log('Enter -> submit');
       this.handleApply(e);
     }
   }
@@ -94,17 +96,17 @@ class EditEntity extends React.Component{
   }
 
   render() {
-	  if (!Object.keys(this.props.schema).length) {
-	    console.log('WARN : Schema not defined, cannot create entity create row.');
-	    return (<div/>);
-	  }
-	  if (!this.props.project) {
-	    console.log('WARN : Project not defined, cannot create entity create row.');
-	    return (<div/>);
-	  }
+    if (!Object.keys(this.props.schema).length) {
+      console.log('WARN : Schema not defined, cannot create entity create row.');
+      return (<div/>);
+    }
+    if (!this.props.project) {
+      console.log('WARN : Project not defined, cannot create entity create row.');
+      return (<div/>);
+    }
 
     var renderedFields = this.renderInputFieldGroup(this.props.fields, this.props.schema);
-	  return (
+    return (
       <div className="entityCreate row">
         {renderedFields}
         <div className="col-1">
@@ -113,7 +115,7 @@ class EditEntity extends React.Component{
           <button onClick={this.handleApply}>Create</button>
         </div>
       </div>
-	  );
+    );
   }
 }
 

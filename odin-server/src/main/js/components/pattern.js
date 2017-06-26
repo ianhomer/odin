@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*eslint-env node*/
+
 'use strict';
 
 const React = require('react');
@@ -47,8 +49,8 @@ class Pattern extends React.Component{
   }
 
   render() {
-	  var sequence = this.props.entity;
-	  if (this.state.editing) {
+    var sequence = this.props.entity;
+    if (this.state.editing) {
       return (
 
         // Edit entity
@@ -60,7 +62,7 @@ class Pattern extends React.Component{
           onApplySuccess={this.onApplySuccess}
         />
       );
-	  } else {
+    } else {
       return (
 
         // View entity

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*eslint-env node*/
+
 'use strict';
 
 const React = require('react');
@@ -22,8 +24,8 @@ class Note extends React.Component{
   }
 
   render() {
-	  return (
-  	  <div className="component row">
+    return (
+      <div className="component row">
         <div className="col-1">{this.props.number}</div>
         <div className="col-1">{this.props.velocity}</div>
         <div className="col-1">{this.props.duration}</div>

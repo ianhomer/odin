@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*eslint-env node*/
+
 'use strict';
 
 const React = require('react');
@@ -23,8 +25,8 @@ class Tick extends React.Component{
   }
 
   render() {
-	  return (
-  	  <div className="component row">
+    return (
+      <div className="component row">
         <div className="col-md-1">{(this.props.denominator > 1 || this.props.numerator > 1) &&
               <span className="numerator">{this.props.numerator}</span>
         }</div>
