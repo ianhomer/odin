@@ -15,7 +15,7 @@
 'use strict';
 
 const React = require('react');
-const objectPath = require("object-path");
+const objectPath = require('object-path');
 const crud = require('./../crud');
 
 // Edit an entity.
@@ -31,25 +31,25 @@ class EditEntity extends React.Component{
     }
     this.getSchemaDefinition = crud.getSchemaDefinition.bind(this);
     this.handleKeyPress = this._handleKeyPress.bind(this);
-	}
+  }
 
-	_handleKeyPress(e) {
+  _handleKeyPress(e) {
 	  if (e.key === 'Enter') {
-	    console.log("Enter -> submit");
+	    console.log('Enter -> submit');
       this.handleApply(e);
     }
-	}
+  }
 
   renderInputFieldGroup(fields, schema, parentKey) {
     if (!fields) {
-      console.log("WARN : fields not defined");
-      return (<div/>)
+      console.log('WARN : fields not defined');
+      return (<div/>);
     }
     var renderedFields = Object.keys(fields).map(function(fieldName) {
-      var key = parentKey ? parentKey + "." + fieldName : fieldName;
+      var key = parentKey ? parentKey + '.' + fieldName : fieldName;
       if (fields[fieldName].fields) {
         var cellWidth = fields[fieldName].cellWidth || 1;
-        var cellClassName = "component col-" + cellWidth;
+        var cellClassName = 'component col-' + cellWidth;
         return (
           <div className={cellClassName} key={key}>
             <div className="row">
@@ -57,7 +57,7 @@ class EditEntity extends React.Component{
                 fields[fieldName].fields, this.getSchemaDefinition(fieldName), key)}
             </div>
           </div>
-        )
+        );
       } else {
         return this.renderInputField(fields, schema, fieldName, key);
       }
@@ -72,10 +72,10 @@ class EditEntity extends React.Component{
         size = 3;
       }
     } else {
-      console.log("WARN : Cannot find attribute : " + fieldName + " in " + JSON.stringify(properties));
+      console.log('WARN : Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(properties));
     }
     var cellWidth = fields[fieldName].cellWidth || 1;
-    var cellClassName = "col-" + cellWidth;
+    var cellClassName = 'col-' + cellWidth;
     var defaultValue;
     if (this.props.entity) {
       defaultValue = objectPath.get(this.props.entity, key);
@@ -90,16 +90,16 @@ class EditEntity extends React.Component{
           size={size}
         />
       </div>
-    )
+    );
   }
 
-	render() {
+  render() {
 	  if (!Object.keys(this.props.schema).length) {
-	    console.log("WARN : Schema not defined, cannot create entity create row.")
+	    console.log('WARN : Schema not defined, cannot create entity create row.');
 	    return (<div/>);
 	  }
 	  if (!this.props.project) {
-	    console.log("WARN : Project not defined, cannot create entity create row.")
+	    console.log('WARN : Project not defined, cannot create entity create row.');
 	    return (<div/>);
 	  }
 
@@ -113,8 +113,8 @@ class EditEntity extends React.Component{
           <button onClick={this.handleApply}>Create</button>
         </div>
       </div>
-	  )
-	}
+	  );
+  }
 }
 
-module.exports = EditEntity
+module.exports = EditEntity;

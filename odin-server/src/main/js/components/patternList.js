@@ -19,21 +19,21 @@ const React = require('react');
 const crud = require('./../crud');
 const pagination = require('./../pagination');
 
-const Pattern = require('./pattern')
-const EditEntity = require('./editEntity')
+const Pattern = require('./pattern');
+const EditEntity = require('./editEntity');
 const Trace = require('./trace');
 
 // Pattern list component.
 class PatternList extends React.Component{
-	constructor(props) {
-		super(props);
-		this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
 		  schema: [], entities: [], links: [], pageSize: 10,
-		};
+    };
 
     crud.bindMe(this);
     pagination.bindMe(this);
-	}
+  }
 
   componentDidMount() {
     this.loadFromServer();
@@ -46,9 +46,9 @@ class PatternList extends React.Component{
         project={this.props.project}
         path={this.props.path} fields={this.props.fields} schema={this.state.schema}
         onDelete={this.onDelete}
-        />
+      />
     );
-		return (
+    return (
 		  <div>
         <Trace scope={this.props.path}/>
         <div className="container">
@@ -65,12 +65,12 @@ class PatternList extends React.Component{
             project={this.props.project}
             path={this.props.path} fields={this.props.fields} schema={this.state.schema}
             onApply={this.onCreate}
-            />
+          />
           {entities}
         </div>
       </div>
-		)
-	}
+    );
+  }
 }
 
 PatternList.defaultProps = {
@@ -85,7 +85,7 @@ PatternList.defaultProps = {
       fields : {
         'numerator' : {defaultValue : 1},
         'denominator' : {defaultValue : 1},
-        'timeUnit' : {defaultValue : "BEAT"},
+        'timeUnit' : {defaultValue : 'BEAT'},
       }
     },
     'note' : {
@@ -96,8 +96,8 @@ PatternList.defaultProps = {
         'duration' : {defaultValue : 1}
       }
     },
-    'flowName' : {defaultValue : "com.purplepip.odin.music.flow.PatternFlow"}
+    'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.PatternFlow'}
   },
-}
+};
 
-module.exports = PatternList
+module.exports = PatternList;

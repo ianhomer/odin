@@ -19,19 +19,19 @@ const React = require('react');
 const crud = require('./../crud');
 const pagination = require('./../pagination');
 
-const Sequence = require('./sequence')
+const Sequence = require('./sequence');
 const Trace = require('./trace');
 
 // Rendering of generic sequence list - NOT CURRENTLY USED.
 class SequenceList extends React.Component{
-	constructor(props) {
-		super(props);
-		this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
 		  attributes: [], entities: [], links: [], pageSize: 10,
-		};
+    };
 
-		crud.bindMe(this);
-	}
+    crud.bindMe(this);
+  }
 
   componentDidMount() {
     this.loadFromServer();
@@ -41,7 +41,7 @@ class SequenceList extends React.Component{
     var entities = this.state.entities.map(entity =>
       <Sequence key={entity._links.self.href} sequence={entity} onDelete={this.onDelete}/>
     );
-		return (
+    return (
 		  /*
 		   * View sequence list.
 		   */
@@ -59,12 +59,12 @@ class SequenceList extends React.Component{
           </tbody>
         </table>
       </div>
-		)
-	}
+    );
+  }
 }
 
 SequenceList.defaultProps = {
   path: 'sequences'
-}
+};
 
-module.exports = SequenceList
+module.exports = SequenceList;

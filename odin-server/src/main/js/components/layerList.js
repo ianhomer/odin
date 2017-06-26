@@ -20,39 +20,39 @@ const crud = require('./../crud');
 const pagination = require('./../pagination');
 
 const Trace = require('./trace');
-const Layer = require('./layer')
+const Layer = require('./layer');
 
 class LayerList extends React.Component{
-	constructor(props) {
-		super(props);
-		this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
 		  schema: [], entities: [], links: [], pageSize: 10,
-		};
+    };
 
     crud.bindMe(this);
     pagination.bindMe(this);
-	}
+  }
 
-	componentDidMount() {
+  componentDidMount() {
     this.loadFromServer();
-	}
+  }
 
-	render() {
+  render() {
     var entities = this.state.entities.map(entity =>
       <Layer entity={entity}
         key={entity._links.self.href} onDelete={this.onDelete}/>
     );
-		return (
+    return (
       <div>
         <Trace scope="layerList"/>
         <div>{entities}</div>
       </div>
-		)
-	}
+    );
+  }
 }
 
 LayerList.defaultProps = {
   path: 'layers'
-}
+};
 
-module.exports = LayerList
+module.exports = LayerList;

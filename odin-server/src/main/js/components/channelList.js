@@ -21,23 +21,23 @@ const crud = require('./../crud');
 const pagination = require('./../pagination');
 
 const Trace = require('./trace');
-const Channel = require('./channel')
-const EditEntity = require('./editEntity')
+const Channel = require('./channel');
+const EditEntity = require('./editEntity');
 
 class ChannelList extends React.Component{
-	constructor(props) {
-		super(props);
-		this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {
 		  schema: [], entities: [], links: [], pageSize: 10,
-		};
+    };
 
     crud.bindMe(this);
     pagination.bindMe(this);
-	}
+  }
 
-	componentDidMount() {
+  componentDidMount() {
     this.loadFromServer();
-	}
+  }
 
   render() {
     var entities = this.state.entities.map(entity =>
@@ -47,20 +47,20 @@ class ChannelList extends React.Component{
     );
 
     var navLinks = [];
-    if ("first" in this.state.links) {
+    if ('first' in this.state.links) {
       navLinks.push(<button key="first" onClick={this.handleNavFirst}>&lt;&lt;</button>);
     }
-    if ("prev" in this.state.links) {
+    if ('prev' in this.state.links) {
       navLinks.push(<button key="prev" onClick={this.handleNavPrev}>&lt;</button>);
     }
-    if ("next" in this.state.links) {
+    if ('next' in this.state.links) {
       navLinks.push(<button key="next" onClick={this.handleNavNext}>&gt;</button>);
     }
-    if ("last" in this.state.links) {
+    if ('last' in this.state.links) {
       navLinks.push(<button key="last" onClick={this.handleNavLast}>&gt;&gt;</button>);
     }
 
-		return (
+    return (
       <div>
         <Trace scope="channelList"/>
         <div className="container">
@@ -72,17 +72,17 @@ class ChannelList extends React.Component{
             project={this.props.project}
             path={this.props.path} fields={this.props.fields} schema={this.state.schema}
             onApply={this.onCreate}
-            />
+          />
           {entities}
         </div>
-				<div>
+        <div>
           page size :
           <input ref="pageSize" defaultValue={this.state.pageSize} onInput={this.handlePageSizeInput}/>
-					{navLinks}
-				</div>
-			</div>
-		)
-	}
+          {navLinks}
+        </div>
+      </div>
+    );
+  }
 }
 
 ChannelList.defaultProps = {
@@ -97,6 +97,6 @@ ChannelList.defaultProps = {
       cellWidth : 3
     }
   }
-}
+};
 
-module.exports = ChannelList
+module.exports = ChannelList;
