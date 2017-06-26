@@ -30,6 +30,9 @@
             "error",
             "single"
         ],
+        "react/jsx-uses-vars": [
+            "error"
+        ],
         "semi": [
             "error",
             "always"
