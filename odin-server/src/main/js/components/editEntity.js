@@ -97,11 +97,11 @@ class EditEntity extends React.Component{
 
   render() {
     if (!Object.keys(this.props.schema).length) {
-      console.log('WARN : Schema not defined, cannot create entity create row.');
+      console.warn('Schema not defined, cannot create entity create row.');
       return (<div/>);
     }
     if (!this.props.project) {
-      console.log('WARN : Project not defined, cannot create entity create row.');
+      console.warn('Project not defined, cannot create entity create row.');
       return (<div/>);
     }
 
