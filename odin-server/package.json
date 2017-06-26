@@ -21,6 +21,7 @@
   "homepage": "https://github.com/ianhomer/odin",
   "dependencies": {
     "ajv": "^5.2.0",
+    "json-loader": "^0.5.4",
     "object-path": "^0.11.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -39,6 +40,8 @@
     "chai": "^4.0.2",
     "eslint": "^4.1.0",
     "eslint-plugin-react": "^7.1.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.0",
     "jasmine-core": "^2.6.4",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.2.0",
