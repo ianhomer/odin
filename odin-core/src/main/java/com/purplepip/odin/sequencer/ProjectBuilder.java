@@ -81,7 +81,7 @@ public class ProjectBuilder {
     metronome.setTick(createTick(Ticks.HALF));
     metronome.setFlowName(MetronomeFlow.class.getName());
     metronome.setNoteBarStart(createNote(DEFAULT_NOTE, DEFAULT_VELOCITY, DEFAULT_DURATION));
-    metronome.setNoteMidBar(createNote(64, metronome.getNoteBarStart().getVelocity() / 2,
+    metronome.setNoteBarMid(createNote(64, metronome.getNoteBarStart().getVelocity() / 2,
         DEFAULT_DURATION));
     return metronome;
   }

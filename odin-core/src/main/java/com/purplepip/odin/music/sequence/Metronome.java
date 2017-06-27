@@ -26,7 +26,7 @@ public interface Metronome extends MutableSequence {
   @Override
   default Sequence copy() {
     Metronome copy = new DefaultMetronome(this.getId());
-    copy.setNoteMidBar(this.getNoteMidBar());
+    copy.setNoteBarMid(this.getNoteBarMid());
     copy.setNoteBarStart(this.getNoteBarStart());
     copy.setChannel(this.getChannel());
     copy.setFlowName(this.getFlowName());
@@ -51,7 +51,7 @@ public interface Metronome extends MutableSequence {
    *
    * @return note
    */
-  Note getNoteMidBar();
+  Note getNoteBarMid();
 
-  void setNoteMidBar(Note note);
+  void setNoteBarMid(Note note);
 }

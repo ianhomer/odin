@@ -43,6 +43,6 @@ public class PersistableMetronome extends AbstractPersistableSequence implements
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
   private Note noteBarStart;
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
-  private Note noteMidBar;
+  private Note noteBarMid;
   private String flowName;
 }

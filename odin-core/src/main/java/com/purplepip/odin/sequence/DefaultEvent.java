@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,9 @@ public class DefaultEvent<A> implements Event<A> {
    * @param time time of the event
    */
   public DefaultEvent(A value, long time) {
+    if (value == null) {
+      throw new OdinRuntimeException("Cannot create an event with a null value");
+    }
     LOG.trace("Creating new event : {} at time {}", value, time);
     this.value = value;
     this.time = time;

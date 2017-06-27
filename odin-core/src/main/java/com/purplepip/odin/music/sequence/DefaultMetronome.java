@@ -25,7 +25,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class DefaultMetronome extends AbstractSequence implements Metronome {
   private Note noteBarStart;
-  private Note noteMidBar;
+  private Note noteBarMid;
 
   public DefaultMetronome() {
     super();
@@ -56,12 +56,12 @@ public class DefaultMetronome extends AbstractSequence implements Metronome {
    * @return note
    */
   @Override
-  public Note getNoteMidBar() {
-    return noteMidBar;
+  public Note getNoteBarMid() {
+    return noteBarMid;
   }
 
   @Override
-  public void setNoteMidBar(Note note) {
-    noteMidBar = note;
+  public void setNoteBarMid(Note note) {
+    noteBarMid = note;
   }
 }

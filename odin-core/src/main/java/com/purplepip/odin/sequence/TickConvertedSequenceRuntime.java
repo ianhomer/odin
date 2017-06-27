@@ -56,7 +56,10 @@ public class TickConvertedSequenceRuntime implements SequenceRuntime<Note> {
 
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
-      LOG.debug("No event on sequenceRuntime to convert");
+      LOG.warn("No event on sequenceRuntime to convert");
+      return null;
+    } else if (event.getValue() == null) {
+      LOG.warn("Event value {} is null", event);
       return null;
     }
     if (tickConverter.getOutputTick().equals(sequenceRuntime.getTick())) {
