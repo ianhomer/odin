@@ -103,13 +103,26 @@ class EditEntity extends React.Component{
     }
 
     var renderedFields = this.renderInputFieldGroup(this.props.fields, this.props.schema);
+    var label = this.props.entity ? 'Update' : 'Create';
+
+    // TODO : Etag support
+    //          <input type="hidden" name="headers.Etag" ref="headers.Etag"
+    //            value={this.props.entity.headers.Etag} />
+
     return (
       <div className="entityCreate row">
         {renderedFields}
         <div className="col-1">
           <input type="hidden" name="project" ref="project"
             value={this.props.project._links.self.href} />
-          <button onClick={this.handleApply}>Create</button>
+          {this.props.entity &&
+            <div>
+              <input type="hidden" name="_links.self.href" ref="_links.self.href"
+                value={this.props.entity._links.self.href} />
+
+            </div>
+          }
+          <button onClick={this.handleApply}>{label}</button>
         </div>
       </div>
     );

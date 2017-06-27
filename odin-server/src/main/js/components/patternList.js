@@ -43,7 +43,7 @@ class PatternList extends React.Component{
       <Pattern entity={entity} key={entity._links.self.href}
         project={this.props.project}
         path={this.props.path} fields={this.props.fields} schema={this.state.schema}
-        onDelete={this.onDelete}
+        onDelete={this.onDelete} onUpdate={this.onUpdate}
       />
     );
     return (

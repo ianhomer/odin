@@ -19,6 +19,8 @@
 
 const ReactDOM = require('react-dom');
 const Ajv = require('ajv');
+const objectPath = require('object-path');
+
 const client = require('./client');
 const follow = require('./follow');
 
@@ -27,11 +29,18 @@ const root = '/api';
 const ajv = new Ajv({extendRefs : true});
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
 
+function setFieldValue(entity, schema, refs, name, key) {
+  var value = getFieldValue(schema, refs, name, key);
+  if (value) {
+    objectPath.set(entity, name, value);
+  }
+}
+
 // Get value of field from from fields, e.g. after form submit.
 function getFieldValue(schema, refs, name, key) {
   var _key = key ? key : name;
   var value;
-  if (schema.properties[name]['$ref']) {
+  if (schema && schema.properties[name]['$ref']) {
 
     // Navigate through object definition to find property names.
 
@@ -119,11 +128,9 @@ module.exports = {
     e.preventDefault();
     var entity = {};
     Object.keys(this.props.schema.properties).map(function(name) {
-      var value = getFieldValue(this.props.schema, this.refs, name);
-      if (value) {
-        entity[name] = value;
-      }
+      setFieldValue(entity, this.props.schema, this.refs, name);
     }, this);
+    setFieldValue(entity, null, this.refs, '_links.self.href');
     this.props.onApply(entity);
   },
 
@@ -145,17 +152,20 @@ module.exports = {
   onUpdate : function(entity) {
     client({
       method: 'PUT',
-      path: entity.entity._links.self.href,
+      path: entity._links.self.href,
       entity: entity,
       headers: {
-        'Content-Type': 'application/json',
-        'If-Match': entity.headers.Etag
+        'Content-Type': 'application/json'
+        // TODO : Etag support, note that entity needs to be loaded from server prior to
+        // editing to populate Etag
+        //'If-Match': entity.headers.Etag
       }
     }).done(_response => {
-      if (this.props.onApplySuccess) {
-        this.onApplySuccess();
-      }
-      this.loadFromServer();
+      this.setState({
+        entity: entity,
+        editing: null
+      });
+      // this.loadFromServer();
     }, response => {
       if (response.status.code === 412) {
         alert('DENIED: Unable to update ' +

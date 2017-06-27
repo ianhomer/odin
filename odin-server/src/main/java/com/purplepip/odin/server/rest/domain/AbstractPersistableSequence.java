@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.server.rest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.Layer;
 import com.purplepip.odin.sequence.MutableSequence;
@@ -33,6 +34,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -50,6 +52,10 @@ public abstract class AbstractPersistableSequence implements MutableSequence {
   @Id
   @GeneratedValue(strategy = GenerationType.TABLE)
   public long id;
+
+  @Version
+  @JsonIgnore
+  private Long version;
 
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)

@@ -16,6 +16,8 @@
 
 const React = require('react');
 
+const crud = require('./../crud');
+
 const EditEntity = require('./editEntity');
 const Note = require('./note');
 const Tick = require('./tick');
@@ -25,19 +27,17 @@ class Pattern extends React.Component{
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      entity: this.props.entity, editing: null
+    };
 
     this.handleDelete = this.handleDelete.bind(this);
     this.toggleEditing = this._toggleEditing.bind(this);
-    this.onApplySuccess = this._onApplySuccess.bind(this);
+    this.onUpdate = crud.onUpdate.bind(this);
   }
 
   _toggleEditing() {
-    this.setState({editing : this.props.entity._links.self.href});
-  }
-
-  _onApplySuccess() {
-    this.setState({editing : null});
+    this.setState({editing : this.state.entity._links.self.href});
   }
 
   handleDelete() {
@@ -45,7 +45,7 @@ class Pattern extends React.Component{
   }
 
   render() {
-    var sequence = this.props.entity;
+    var sequence = this.state.entity;
     if (this.state.editing) {
       return (
 
@@ -54,8 +54,7 @@ class Pattern extends React.Component{
         <EditEntity entity={sequence}
           project={this.props.project}
           path={this.props.path} fields={this.props.fields} schema={this.props.schema}
-          onApply={this.onApplySuccess}
-          onApplySuccess={this.onApplySuccess}
+          onApply={this.onUpdate}
         />
       );
     } else {
