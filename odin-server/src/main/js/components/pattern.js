@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/*eslint-env node*/
-
 'use strict';
 
 const React = require('react');
@@ -34,13 +32,11 @@ class Pattern extends React.Component{
     this.onApplySuccess = this._onApplySuccess.bind(this);
   }
 
-  _toggleEditing(e) {
-    console.log('Editing : ' + this.props.entity._links.self.href);
+  _toggleEditing() {
     this.setState({editing : this.props.entity._links.self.href});
   }
 
-  _onApplySuccess(e) {
-    console.log('On apply success');
+  _onApplySuccess() {
     this.setState({editing : null});
   }
 

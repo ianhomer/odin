@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/*eslint-env node*/
-
 'use strict';
 
 const React = require('react');
@@ -37,14 +35,13 @@ class EditEntity extends React.Component{
 
   _handleKeyPress(e) {
     if (e.key === 'Enter') {
-      console.log('Enter -> submit');
       this.handleApply(e);
     }
   }
 
   renderInputFieldGroup(fields, schema, parentKey) {
     if (!fields) {
-      console.log('WARN : fields not defined');
+      console.warn('Fields not defined');
       return (<div/>);
     }
     var renderedFields = Object.keys(fields).map(function(fieldName) {
