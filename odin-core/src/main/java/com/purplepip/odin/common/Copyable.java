@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.common;
 
+@FunctionalInterface
 public interface Copyable<C> {
   C copy();
 }

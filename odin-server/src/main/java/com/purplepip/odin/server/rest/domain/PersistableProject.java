@@ -78,12 +78,13 @@ public class PersistableProject implements Project {
     channels.remove(channel);
   }
 
-
+  @Override
   public void addSequence(Sequence sequence) {
     sequence.setProject(this);
     sequences.add(sequence);
   }
 
+  @Override
   public void removeSequence(Sequence sequence) {
     sequences.remove(sequence);
   }

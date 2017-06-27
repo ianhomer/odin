@@ -16,12 +16,14 @@
 package com.purplepip.odin.music.operations;
 
 import com.purplepip.odin.sequencer.AbstractChannelOperation;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * Abstract note operation with velocity information.
  */
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public abstract class AbstractNoteVelocityOperation extends AbstractChannelOperation {
   private int number;
   private int velocity;

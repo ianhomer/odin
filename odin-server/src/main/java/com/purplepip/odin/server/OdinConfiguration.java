@@ -38,6 +38,9 @@ import org.springframework.context.annotation.Configuration;
 public class OdinConfiguration {
   private static final int FOUR_FOUR_TIME = 4;
 
+  @Autowired
+  private AuditingOperationReceiver auditingOperationReceiver;
+
   @Bean
   public MidiDeviceWrapper midiDeviceWrapper() {
     return new MidiDeviceWrapper();
@@ -57,9 +60,6 @@ public class OdinConfiguration {
   public ProjectContainer projectContainer() {
     return new ProjectContainer();
   }
-
-  @Autowired
-  private AuditingOperationReceiver auditingOperationReceiver;
 
   /**
    * Create Odin sequencer.

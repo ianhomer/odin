@@ -21,6 +21,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Data;
 
 /**
@@ -34,7 +36,10 @@ public class PersistableOperation {
   @Id
   @GeneratedValue
   private long id;
+
+  @Temporal(TemporalType.DATE)
   private Date dateCreated;
+
   private String message;
   private long time;
   private int channel;

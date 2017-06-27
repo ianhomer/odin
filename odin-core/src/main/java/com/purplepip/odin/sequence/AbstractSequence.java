@@ -127,6 +127,7 @@ public abstract class AbstractSequence implements MutableSequence {
     return project;
   }
 
+  @Override
   public void setProject(Project project) {
     this.project = project;
   }
