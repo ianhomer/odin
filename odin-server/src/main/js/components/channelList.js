@@ -17,7 +17,6 @@
 const React = require('react');
 
 const crud = require('./../crud');
-const pagination = require('./../pagination');
 
 const Trace = require('./trace');
 const Channel = require('./channel');
@@ -27,11 +26,10 @@ class ChannelList extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      schema: [], entities: [], links: [], pageSize: 10,
+      schema: [], entities: [], links: []
     };
 
     crud.bindMe(this);
-    pagination.bindMe(this);
   }
 
   componentDidMount() {
@@ -44,20 +42,6 @@ class ChannelList extends React.Component{
         path={this.props.path} schema={this.state.schema}
         onDelete={this.onDelete}/>
     );
-
-    var navLinks = [];
-    if ('first' in this.state.links) {
-      navLinks.push(<button key="first" onClick={this.handleNavFirst}>&lt;&lt;</button>);
-    }
-    if ('prev' in this.state.links) {
-      navLinks.push(<button key="prev" onClick={this.handleNavPrev}>&lt;</button>);
-    }
-    if ('next' in this.state.links) {
-      navLinks.push(<button key="next" onClick={this.handleNavNext}>&gt;</button>);
-    }
-    if ('last' in this.state.links) {
-      navLinks.push(<button key="last" onClick={this.handleNavLast}>&gt;&gt;</button>);
-    }
 
     return (
       <div>
@@ -73,11 +57,6 @@ class ChannelList extends React.Component{
             onApply={this.onCreate}
           />
           {entities}
-        </div>
-        <div>
-          page size :
-          <input ref="pageSize" defaultValue={this.state.pageSize} onInput={this.handlePageSizeInput}/>
-          {navLinks}
         </div>
       </div>
     );

@@ -60,7 +60,7 @@ function getSchema(id, ref = '') {
 // Load entities from the server.
 //
 // Which entities loaded is determined by this.props.path.  For example this might be set
-// 'channels' to load the channels.  Page size is controlled by this.state.pageSize.
+// 'channels' to load the channels.
 //
 // The side effect of this function is that the attributes 'entities', 'attributes' and
 // 'links' are set in this.state.
@@ -78,9 +78,8 @@ module.exports = {
     return getSchema(this.props.path, this.props.schema.properties[name]['$ref']);
   },
 
-  loadFromServer : function(pageSize = this.state.pageSize) {
-    follow(client, root,
-      [{rel: this.props.path, params: {size: pageSize}}]
+  loadFromServer : function() {
+    follow(client, root, [{rel: this.props.path}]
     ).then(collection => {
       return client({
         method: 'GET',
@@ -110,7 +109,6 @@ module.exports = {
       this.setState({
         entities: entities,
         schema: getSchema(this.props.path),
-        pageSize: pageSize,
         links: collection.entity._links});
     });
   },
@@ -157,7 +155,7 @@ module.exports = {
       if (this.props.onApplySuccess) {
         this.onApplySuccess();
       }
-      this.loadFromServer(this.props.entityListComponent.state.pageSize);
+      this.loadFromServer();
     }, response => {
       if (response.status.code === 412) {
         alert('DENIED: Unable to update ' +

@@ -17,7 +17,6 @@
 const React = require('react');
 
 const crud = require('./../crud');
-const pagination = require('./../pagination');
 
 const Trace = require('./trace');
 const Layer = require('./layer');
@@ -26,11 +25,10 @@ class LayerList extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      schema: [], entities: [], links: [], pageSize: 10,
+      schema: [], entities: [], links: []
     };
 
     crud.bindMe(this);
-    pagination.bindMe(this);
   }
 
   componentDidMount() {

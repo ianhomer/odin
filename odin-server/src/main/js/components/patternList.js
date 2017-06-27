@@ -17,7 +17,6 @@
 const React = require('react');
 
 const crud = require('./../crud');
-const pagination = require('./../pagination');
 
 const Pattern = require('./pattern');
 const EditEntity = require('./editEntity');
@@ -28,11 +27,10 @@ class PatternList extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      schema: [], entities: [], links: [], pageSize: 10,
+      schema: [], entities: [], links: []
     };
 
     crud.bindMe(this);
-    pagination.bindMe(this);
   }
 
   componentDidMount() {
