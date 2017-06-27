@@ -17,11 +17,26 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.MutableSequence;
+import com.purplepip.odin.sequence.Sequence;
 
 /**
  * Pattern sequence configuration.
  */
 public interface Pattern extends MutableSequence {
+  @Override
+  default Sequence copy() {
+    Pattern copy = new DefaultPattern(this.getId());
+    copy.setBits(this.getBits());
+    copy.setChannel(this.getChannel());
+    copy.setFlowName(this.getFlowName());
+    copy.setLength(this.getLength());
+    copy.setNote(this.getNote());
+    copy.setOffset(this.getOffset());
+    copy.setProject(this.getProject());
+    copy.setTick(this.getTick());
+    return copy;
+  }
+
   void setBits(int bits);
 
   int getBits();

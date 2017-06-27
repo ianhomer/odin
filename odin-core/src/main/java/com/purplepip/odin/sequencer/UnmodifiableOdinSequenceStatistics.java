@@ -34,4 +34,9 @@ public class UnmodifiableOdinSequenceStatistics implements OdinSequenceStatistic
   public int getTrackRemovedCount() {
     return statistics.getTrackRemovedCount();
   }
+
+  @Override
+  public int getTrackUpdatedCount() {
+    return statistics.getTrackUpdatedCount();
+  }
 }

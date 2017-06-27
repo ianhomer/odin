@@ -15,13 +15,14 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
 import java.util.Set;
 
 /**
  * Sequence configuration.
  */
-public interface Sequence {
+public interface Sequence extends Copyable<Sequence> {
   long getId();
 
   /**

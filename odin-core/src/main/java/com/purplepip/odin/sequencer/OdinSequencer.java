@@ -27,6 +27,7 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.flow.Flow;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
@@ -123,12 +124,22 @@ public class OdinSequencer implements ProjectApplyListener {
        * Add sequence if not present in tracks.
        * TODO : Implement modification of existing sequences.
        */
-      if (sequenceTracks.stream().noneMatch(s ->
-          sequence.getId() == s.getSequenceRuntime().getSequence().getId())) {
+      Optional<SequenceTrack> existingTrack = sequenceTracks.stream().filter(s ->
+          sequence.getId() == s.getSequenceRuntime().getSequence().getId()).findFirst();
+      if (existingTrack.isPresent()) {
+        if (existingTrack.get().getSequenceRuntime().getSequence().equals(sequence)) {
+          LOG.debug("Sequence {} already added", sequence);
+        } else {
+          /*
+           * TODO : Update sequence runtime on the fly instead of delete and recreate
+           */
+          statistics.incrementTrackUpdatedCount();
+          sequenceTracks.remove(existingTrack.get());
+          addSequenceTrack(sequence);
+        }
+      } else {
         statistics.incrementTrackAddedCount();
         addSequenceTrack(sequence);
-      } else {
-        LOG.debug("Sequence {} already added", sequence);
       }
     }
 

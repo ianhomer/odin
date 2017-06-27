@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRuntime;
 
 /**
@@ -36,5 +37,9 @@ public class SequenceTrack {
 
   public SequenceRuntime<Note> getSequenceRuntime() {
     return sequenceRuntime;
+  }
+
+  public void setSequence(Sequence sequence) {
+
   }
 }

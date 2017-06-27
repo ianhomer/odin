@@ -27,6 +27,14 @@ public class DefaultMetronome extends AbstractSequence implements Metronome {
   private Note noteBarStart;
   private Note noteMidBar;
 
+  public DefaultMetronome() {
+    super();
+  }
+
+  public DefaultMetronome(long id) {
+    super(id);
+  }
+
   /**
    * Get note for the start of the bar.
    *

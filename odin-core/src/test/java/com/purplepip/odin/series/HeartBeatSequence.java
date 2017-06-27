@@ -16,6 +16,26 @@
 package com.purplepip.odin.series;
 
 import com.purplepip.odin.sequence.AbstractSequence;
+import com.purplepip.odin.sequence.Sequence;
 
 public class HeartBeatSequence extends AbstractSequence {
+  public HeartBeatSequence() {
+    super();
+  }
+
+  public HeartBeatSequence(long id) {
+    super(id);
+  }
+
+  @Override
+  public Sequence copy() {
+    HeartBeatSequence copy = new HeartBeatSequence(this.getId());
+    copy.setChannel(this.getChannel());
+    copy.setFlowName(this.getFlowName());
+    copy.setLength(this.getLength());
+    copy.setOffset(this.getOffset());
+    copy.setProject(this.getProject());
+    copy.setTick(this.getTick());
+    return copy;
+  }
 }

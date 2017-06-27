@@ -21,11 +21,20 @@ import lombok.ToString;
 @ToString
 public class MutableOdinSequenceStatistics implements OdinSequenceStatistics {
   private AtomicInteger trackAddedCount = new AtomicInteger();
+  private AtomicInteger trackUpdatedCount = new AtomicInteger();
   private AtomicInteger trackRemovedCount = new AtomicInteger();
+
+  void incrementTrackAddedCount() {
+    trackAddedCount.incrementAndGet();
+  }
 
   @Override
   public int getTrackAddedCount() {
     return trackAddedCount.get();
+  }
+
+  void incrementTrackRemovedCount(int removedCount) {
+    trackRemovedCount.addAndGet(removedCount);
   }
 
   @Override
@@ -33,11 +42,12 @@ public class MutableOdinSequenceStatistics implements OdinSequenceStatistics {
     return trackRemovedCount.get();
   }
 
-  void incrementTrackAddedCount() {
-    trackAddedCount.incrementAndGet();
+  void incrementTrackUpdatedCount() {
+    trackUpdatedCount.incrementAndGet();
   }
 
-  void incrementTrackRemovedCount(int removedCount) {
-    trackRemovedCount.addAndGet(removedCount);
+  @Override
+  public int getTrackUpdatedCount() {
+    return trackUpdatedCount.get();
   }
 }

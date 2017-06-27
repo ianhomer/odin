@@ -17,11 +17,26 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.MutableSequence;
+import com.purplepip.odin.sequence.Sequence;
 
 /**
  * Metronome sequence configuration.
  */
 public interface Metronome extends MutableSequence {
+  @Override
+  default Sequence copy() {
+    Metronome copy = new DefaultMetronome(this.getId());
+    copy.setNoteMidBar(this.getNoteMidBar());
+    copy.setNoteBarStart(this.getNoteBarStart());
+    copy.setChannel(this.getChannel());
+    copy.setFlowName(this.getFlowName());
+    copy.setLength(this.getLength());
+    copy.setOffset(this.getOffset());
+    copy.setProject(this.getProject());
+    copy.setTick(this.getTick());
+    return copy;
+  }
+
   /**
    * Get note for the start of the bar.
    *

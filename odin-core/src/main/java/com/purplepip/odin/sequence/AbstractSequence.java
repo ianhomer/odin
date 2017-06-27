@@ -34,8 +34,8 @@ public abstract class AbstractSequence implements MutableSequence {
    * this cheap generator is good enough.
    */
   private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
+  protected long id = LAST_PATTERN_ID.incrementAndGet();
 
-  private long id = LAST_PATTERN_ID.incrementAndGet();
   private Tick tick;
   private long length = -1;
   private long offset;
@@ -43,6 +43,20 @@ public abstract class AbstractSequence implements MutableSequence {
   private String flowName;
   private Project project;
   private Set<Layer> layers = new HashSet<>();
+
+  /**
+   * ID auto generated.
+   */
+  public AbstractSequence() {
+    id = LAST_PATTERN_ID.incrementAndGet();
+  }
+
+  /**
+   * ID taken from constructor.
+   */
+  public AbstractSequence(long id) {
+    this.id = id;
+  }
 
   @Override
   public long getId() {

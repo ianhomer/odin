@@ -22,6 +22,14 @@ import com.purplepip.odin.sequence.AbstractSequence;
  * Default implementation of pattern.
  */
 public class DefaultPattern extends AbstractSequence implements Pattern {
+  public DefaultPattern() {
+    super();
+  }
+
+  public DefaultPattern(long id) {
+    super(id);
+  }
+
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */

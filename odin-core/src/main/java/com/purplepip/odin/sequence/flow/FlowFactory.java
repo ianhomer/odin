@@ -63,7 +63,7 @@ public class FlowFactory<A> {
     } catch (InstantiationException | IllegalAccessException e) {
       throw new OdinException("Cannot create instance of " + flowClass, e);
     }
-    flow.setSequence(sequence);
+    flow.setSequence(sequence.copy());
     return flow;
   }
 }
