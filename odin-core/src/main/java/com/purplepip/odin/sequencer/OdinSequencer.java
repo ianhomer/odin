@@ -100,10 +100,7 @@ public class OdinSequencer implements ProjectApplyListener {
     programChangeOperations.add(programChangeOperation);
   }
 
-  /**
-   * Refresh sequencer tracks from the project configuration.
-   */
-  private void refreshTracks(Project project) {
+  private void refreshChannels(Project project) {
     for (Channel channel : project.getChannels()) {
       try {
         LOG.debug("Sending channel operation : {}", channel);
@@ -118,7 +115,9 @@ public class OdinSequencer implements ProjectApplyListener {
         LOG.warn("Cannot send operation", e);
       }
     }
+  }
 
+  private void refreshSequences(Project project) {
     /*
      * Remove any tracks for which the sequence in the project has been removed.
      */
@@ -152,12 +151,19 @@ public class OdinSequencer implements ProjectApplyListener {
         addSequenceTrack(sequence);
       }
     }
-
+  }
+  
+  /**
+   * Refresh sequencer tracks from the project configuration.
+   */
+  private void refreshTracks(Project project) {
+    refreshChannels(project);
+    refreshSequences(project);
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 
     /*
-     * If processor is running then process a one execution immediately so that the
+     * If processor is running then process one execution immediately so that the
      * refreshed tracks can take effect.
      */
     if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
