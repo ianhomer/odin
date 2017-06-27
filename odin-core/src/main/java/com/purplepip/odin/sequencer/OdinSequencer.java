@@ -82,6 +82,25 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   /**
+   * Send program change operation.
+   *
+   * @param programChangeOperation program change operation
+   * @throws OdinException exception
+   */
+  private void sendProgramChangeOperation(ProgramChangeOperation programChangeOperation)
+      throws OdinException {
+    operationProcessor.send(programChangeOperation, -1);
+    /*
+     * Remove any previous program changes on this channel, since they are now historic.
+     */
+    boolean result = programChangeOperations
+        .removeIf(o -> o.getChannel() == programChangeOperation.getChannel());
+    LOG.debug("Historic program change option removed for operation {} : {}",
+        programChangeOperation, result);
+    programChangeOperations.add(programChangeOperation);
+  }
+
+  /**
    * Refresh sequencer tracks from the project configuration.
    */
   private void refreshTracks(Project project) {
@@ -93,15 +112,7 @@ public class OdinSequencer implements ProjectApplyListener {
          */
         ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
         if (!programChangeOperations.contains(programChangeOperation)) {
-          operationProcessor.send(programChangeOperation, -1);
-          /*
-           * Remove any previous program changes on this channel, since they are now historic.
-           */
-          boolean result = programChangeOperations
-              .removeIf(o -> o.getChannel() == channel.getNumber());
-          LOG.debug("Historic program change option removed for channel {} : {}",
-              channel.getNumber(), result);
-          programChangeOperations.add(programChangeOperation);
+          sendProgramChangeOperation(programChangeOperation);
         }
       } catch (OdinException e) {
         LOG.warn("Cannot send operation", e);
@@ -122,7 +133,6 @@ public class OdinSequencer implements ProjectApplyListener {
     for (Sequence sequence : project.getSequences()) {
       /*
        * Add sequence if not present in tracks.
-       * TODO : Implement modification of existing sequences.
        */
       Optional<SequenceTrack> existingTrack = sequenceTracks.stream().filter(s ->
           sequence.getId() == s.getSequenceRuntime().getSequence().getId()).findFirst();
