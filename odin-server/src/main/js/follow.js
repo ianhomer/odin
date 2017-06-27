@@ -10,6 +10,7 @@ module.exports = function follow(api, rootPath, relArray) {
     path: rootPath
   });
 
+
   return relArray.reduce(function(root, arrayItem) {
     var rel = typeof arrayItem === 'string' ? arrayItem : arrayItem.rel;
     return traverseNext(root, rel, arrayItem);

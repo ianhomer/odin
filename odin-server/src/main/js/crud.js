@@ -32,9 +32,9 @@ function getFieldValue(schema, refs, name, key) {
   var _key = key ? key : name;
   var value;
   if (schema.properties[name]['$ref']) {
-    /*
-     * Navigate through object definition to find property names.
-     */
+
+    // Navigate through object definition to find property names.
+
     var fieldSchema = getSchema('patterns', schema.properties[name]['$ref']);
     var property = {};
     Object.keys(fieldSchema.properties).map(function(propertyName) {
@@ -52,6 +52,7 @@ function getFieldValue(schema, refs, name, key) {
 // Get schema for the given ID and ref combination.
 //
 // e.g. getSchema('patterns','#/definitions/tick')
+
 function getSchema(id, ref = '') {
   return ajv.getSchema(id + ref).schema;
 }
@@ -63,7 +64,7 @@ function getSchema(id, ref = '') {
 //
 // The side effect of this function is that the attributes 'entities', 'attributes' and
 // 'links' are set in this.state.
-//
+
 module.exports = {
   bindMe : function(that) {
     that.loadFromServer = this.loadFromServer.bind(that);
@@ -78,8 +79,8 @@ module.exports = {
   },
 
   loadFromServer : function(pageSize = this.state.pageSize) {
-    follow(client, root, [
-      {rel: this.props.path, params: {size: pageSize}}]
+    follow(client, root,
+      [{rel: this.props.path, params: {size: pageSize}}]
     ).then(collection => {
       return client({
         method: 'GET',
@@ -106,7 +107,6 @@ module.exports = {
 
       // Set the state.
 
-      var schema = getSchema(this.props.path);
       this.setState({
         entities: entities,
         schema: getSchema(this.props.path),
@@ -138,10 +138,7 @@ module.exports = {
         entity: entity,
         headers: {'Content-Type': 'application/json'}
       });
-    }).then(response => {
-      return follow(client, root, [
-        {rel: this.props.path, params: {'size': this.state.pageSize}}]);
-    }).done(response => {
+    }).done(_response => {
       this.loadFromServer();
     });
   },
@@ -156,7 +153,7 @@ module.exports = {
         'Content-Type': 'application/json',
         'If-Match': entity.headers.Etag
       }
-    }).done(response => {
+    }).done(_response => {
       if (this.props.onApplySuccess) {
         this.onApplySuccess();
       }
@@ -170,7 +167,7 @@ module.exports = {
   },
 
   onDelete : function(entity) {
-    client({method: 'DELETE', path: entity._links.self.href}).done(response => {
+    client({method: 'DELETE', path: entity._links.self.href}).done(_response => {
       this.loadFromServer();
     });
   }
