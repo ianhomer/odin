@@ -20,9 +20,9 @@ import com.purplepip.odin.sequence.AbstractMutableSequenceRuntime;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.tick.Tock;
 
 /**
  * Default sequence runtime.

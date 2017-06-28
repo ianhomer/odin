@@ -13,18 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
 /**
- * This class consists exclusively of static properties that utilise the RuntimeTick model.
+ * A positioned tick.
  */
-public final class RuntimeTicks {
-  public static final RuntimeTick MICROSECOND = new ImmutableRuntimeTick(Ticks.MICROSECOND);
-  public static final RuntimeTick BEAT = new ImmutableRuntimeTick(Ticks.BEAT);
-  public static final RuntimeTick HALF = new ImmutableRuntimeTick(Ticks.HALF);
-  public static final RuntimeTick MILLISECOND = new ImmutableRuntimeTick(Ticks.MILLISECOND);
-  public static final RuntimeTick MEASURE = new ImmutableRuntimeTick(Ticks.MEASURE);
+public interface Tock {
+  Tick getTick();
 
-  private RuntimeTicks() {
-  }
+  long getCount();
 }

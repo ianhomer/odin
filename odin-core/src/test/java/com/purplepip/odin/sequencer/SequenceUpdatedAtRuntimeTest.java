@@ -7,7 +7,7 @@ import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequence.Ticks;
+import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;

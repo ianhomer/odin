@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.sequence.tick.Tick;
+
 /**
  * Tick converter.
  */

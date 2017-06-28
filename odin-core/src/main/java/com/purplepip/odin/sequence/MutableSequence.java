@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
-import lombok.ToString;
+import com.purplepip.odin.sequence.tick.Tick;
 
 /**
  * Mutable sequence.

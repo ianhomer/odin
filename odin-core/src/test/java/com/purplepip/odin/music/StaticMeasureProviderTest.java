@@ -2,11 +2,11 @@ package com.purplepip.odin.music;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.sequence.ImmutableTock;
-import com.purplepip.odin.sequence.Tick;
-import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
+import com.purplepip.odin.sequence.tick.ImmutableTock;
+import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Before;
 import org.junit.Test;
 

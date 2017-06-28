@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.tick.Tick;
 import java.util.Set;
 
 /**

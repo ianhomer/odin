@@ -16,7 +16,7 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.Ticks;
+import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.server.rest.PersistableProjectBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

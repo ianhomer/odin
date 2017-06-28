@@ -1,9 +1,14 @@
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.DefaultTickConverter;
+import com.purplepip.odin.sequence.MicrosecondPositionProvider;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

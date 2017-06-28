@@ -6,7 +6,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.Ticks;
+import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.server.rest.PersistableProjectBuilder;
 import com.purplepip.odin.server.rest.domain.PersistableProject;
 import java.util.List;

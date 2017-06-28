@@ -4,8 +4,8 @@ import com.purplepip.odin.sequence.AbstractSequenceRuntime;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.Tick;
-import com.purplepip.odin.sequence.Ticks;
+import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.Ticks;
 
 /**
  * SequenceRuntime of heartbeats every second.

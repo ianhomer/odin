@@ -13,13 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
+
+import com.purplepip.odin.sequence.TimeUnit;
 
 /**
- * Runtime tick with extra methods used by runtime.
+ * Length of one unit in the time series.
  */
-public interface RuntimeTick extends Tick {
-  double getFactor();
+public interface Tick {
+  TimeUnit getTimeUnit();
 
-  int getFactorAsInt();
+  int getNumerator();
+
+  int getDenominator();
 }

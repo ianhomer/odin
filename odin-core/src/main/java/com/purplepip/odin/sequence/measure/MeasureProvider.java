@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequence.measure;
 
-import com.purplepip.odin.sequence.Tock;
+import com.purplepip.odin.sequence.tick.Tock;
 
 /**
  * Intelligence on what measure we are in.  For music a measure is bar, generically a measure

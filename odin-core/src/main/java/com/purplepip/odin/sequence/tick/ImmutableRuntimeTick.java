@@ -13,25 +13,35 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
-public abstract class AbstractRuntimeTick implements RuntimeTick {
-  private double factor;
-  private int factorAsInt;
+import com.purplepip.odin.sequence.TimeUnit;
+import lombok.ToString;
 
-  protected final void afterTickChanged() {
-    factor = (double) getNumerator() / (double) getDenominator();
-    factorAsInt = getNumerator() / getDenominator();
+/**
+ * A runtime tick that can change at runtime.
+ */
+@ToString
+public class ImmutableRuntimeTick extends AbstractRuntimeTick {
+  private Tick underlyingTick;
+
+  public ImmutableRuntimeTick(Tick tick) {
+    underlyingTick = tick;
+    afterTickChanged();
   }
 
   @Override
-  public double getFactor() {
-    return factor;
+  public TimeUnit getTimeUnit() {
+    return underlyingTick.getTimeUnit();
   }
 
   @Override
-  public int getFactorAsInt() {
-    return factorAsInt;
+  public int getNumerator() {
+    return underlyingTick.getNumerator();
   }
 
+  @Override
+  public int getDenominator() {
+    return underlyingTick.getDenominator();
+  }
 }

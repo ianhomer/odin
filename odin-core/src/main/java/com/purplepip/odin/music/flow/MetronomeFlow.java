@@ -19,10 +19,10 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
-import com.purplepip.odin.sequence.MutableTock;
-import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.tick.MutableTock;
+import com.purplepip.odin.sequence.tick.Tock;
 
 /**
  * Metronome flow.

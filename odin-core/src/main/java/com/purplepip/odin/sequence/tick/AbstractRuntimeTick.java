@@ -13,15 +13,25 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
-/**
- * Length of one unit in the time series.
- */
-public interface Tick {
-  TimeUnit getTimeUnit();
+public abstract class AbstractRuntimeTick implements RuntimeTick {
+  private double factor;
+  private int factorAsInt;
 
-  int getNumerator();
+  protected final void afterTickChanged() {
+    factor = (double) getNumerator() / (double) getDenominator();
+    factorAsInt = getNumerator() / getDenominator();
+  }
 
-  int getDenominator();
+  @Override
+  public double getFactor() {
+    return factor;
+  }
+
+  @Override
+  public int getFactorAsInt() {
+    return factorAsInt;
+  }
+
 }

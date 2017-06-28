@@ -13,34 +13,47 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
 import lombok.ToString;
 
 /**
- * A runtime tick that can change at runtime.
+ * Mutable tock.
  */
 @ToString
-public class ImmutableRuntimeTick extends AbstractRuntimeTick {
-  private Tick underlyingTick;
+public class MutableTock implements Tock {
+  private long count;
+  private Tick tick;
 
-  public ImmutableRuntimeTick(Tick tick) {
-    underlyingTick = tick;
-    afterTickChanged();
+  public MutableTock(Tock tock) {
+    this.tick = tock.getTick();
+    this.count = tock.getCount();
+  }
+
+  public MutableTock(Tick tick, long count) {
+    this.tick = tick;
+    this.count = count;
+  }
+
+  public void setCount(long count) {
+    this.count = count;
+  }
+
+  public void increment() {
+    count++;
+  }
+
+  public void increment(long increment) {
+    count = count + increment;
   }
 
   @Override
-  public TimeUnit getTimeUnit() {
-    return underlyingTick.getTimeUnit();
+  public Tick getTick() {
+    return tick;
   }
 
   @Override
-  public int getNumerator() {
-    return underlyingTick.getNumerator();
-  }
-
-  @Override
-  public int getDenominator() {
-    return underlyingTick.getDenominator();
+  public long getCount() {
+    return count;
   }
 }

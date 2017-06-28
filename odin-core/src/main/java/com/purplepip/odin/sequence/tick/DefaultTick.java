@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
+import com.purplepip.odin.sequence.TimeUnit;
 import lombok.ToString;
 
 /**

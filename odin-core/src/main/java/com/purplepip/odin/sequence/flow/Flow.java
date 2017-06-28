@@ -17,8 +17,8 @@ package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.Tock;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.tick.Tock;
 
 /**
  * A flow class has the intelligence to determine the next events in a sequence.

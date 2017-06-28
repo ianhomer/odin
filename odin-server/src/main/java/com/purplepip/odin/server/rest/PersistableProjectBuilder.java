@@ -19,7 +19,7 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import com.purplepip.odin.server.rest.domain.PersistableChannel;

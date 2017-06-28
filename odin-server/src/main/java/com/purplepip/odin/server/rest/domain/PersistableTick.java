@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.domain;
 
-import com.purplepip.odin.sequence.Tick;
+import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.TimeUnit;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

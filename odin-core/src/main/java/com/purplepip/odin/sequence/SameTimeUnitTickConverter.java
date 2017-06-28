@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.sequence.tick.RuntimeTick;
+
 /**
  * Tick converter that is not clock aware and can only convert ticks with the same time unit.
  */

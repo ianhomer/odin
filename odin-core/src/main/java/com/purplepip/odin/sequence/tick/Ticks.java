@@ -13,7 +13,11 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
+
+import com.purplepip.odin.sequence.TimeUnit;
+import com.purplepip.odin.sequence.tick.DefaultTick;
+import com.purplepip.odin.sequence.tick.Tick;
 
 /**
  * This class consists exclusively of static properties that utilise the Tick model.

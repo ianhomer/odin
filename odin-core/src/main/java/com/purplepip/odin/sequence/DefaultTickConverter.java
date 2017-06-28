@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.sequence.tick.RuntimeTick;
 
 /**
  * Time unit converter.

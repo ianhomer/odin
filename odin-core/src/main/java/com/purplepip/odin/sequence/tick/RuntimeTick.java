@@ -13,25 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
 /**
- * Tock that wraps another, potentially mutable, tock, but cannot mutate the tock itself.
+ * Runtime tick with extra methods used by runtime.
  */
-public class SealedTock implements Tock {
-  private Tock tock;
+public interface RuntimeTick extends Tick {
+  double getFactor();
 
-  public SealedTock(Tock tock) {
-    this.tock = tock;
-  }
-
-  @Override
-  public Tick getTick() {
-    return tock.getTick();
-  }
-
-  @Override
-  public long getCount() {
-    return tock.getCount();
-  }
+  int getFactorAsInt();
 }

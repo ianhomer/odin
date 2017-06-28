@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.sequence.tick.RuntimeTick;
 import lombok.ToString;
 
 @ToString

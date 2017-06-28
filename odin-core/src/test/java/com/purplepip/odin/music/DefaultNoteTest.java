@@ -7,7 +7,7 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequence.Ticks;
+import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 

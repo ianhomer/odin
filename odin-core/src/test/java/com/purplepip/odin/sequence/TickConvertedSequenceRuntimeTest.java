@@ -5,6 +5,9 @@ import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequence.tick.ImmutableRuntimeTick;
+import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

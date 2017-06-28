@@ -3,6 +3,7 @@ package com.purplepip.odin.sequence;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import org.junit.Test;
 
 /**
