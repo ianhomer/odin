@@ -39,7 +39,7 @@ import com.purplepip.odin.sequence.tick.Tock;
  */
 public interface MeasureProvider {
   /**
-   * Get the measure that the tock is in.
+   * Get the measure that the given tock is in.
    *
    * @param tock Current tick
    * @return Current measure number
@@ -55,8 +55,9 @@ public interface MeasureProvider {
   int getBeats(Tock tock);
 
   /**
-   * What position in the measure is this tock?  0 =&gt; start of the measure.  Note that a tick
-   * might be higher resolution than a single beat, e.g. it could be a half beat or a triplet.
+   * What position in the measure is the given tock?  0 =&gt; start of the measure.  Note that
+   * a tick might be higher resolution than a single beat, e.g. it could be a half beat or a
+   * triplet.
    *
    * @param tock current tick
    * @return tick position in the current measure
