@@ -29,17 +29,17 @@ public class DefaultTickConverter extends AbstractTickConverter {
    * @param clock clock
    * @param inputTick input tick
    * @param outputTick output tick
-   * @param inputOffset input offset
+   * @param inputOffsetProvider input offset provider
    */
   public DefaultTickConverter(Clock clock, RuntimeTick inputTick, RuntimeTick outputTick,
-                              long inputOffset) {
+                              OffsetProvider inputOffsetProvider) {
     if (clock == null) {
       throw new OdinRuntimeException("Clock must not be null");
     }
     this.clock = clock;
     setInputTick(inputTick);
     setOutputTick(outputTick);
-    setInputOffset(inputOffset);
+    setInputOffsetProvider(inputOffsetProvider);
   }
 
   @Override

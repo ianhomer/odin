@@ -15,17 +15,9 @@
 
 package com.purplepip.odin.sequence;
 
-/**
- * Events that occur over time.
- */
-public interface SequenceRuntime<A> {
-  Event<A> peek();
-
-  Event<A> pop();
-
-  Tick getTick();
-
-  Sequence getSequence();
-
-  OffsetProvider getOffsetProvider();
+public abstract class AbstractSequenceRuntime<A> implements SequenceRuntime<A> {
+  @Override
+  public OffsetProvider getOffsetProvider() {
+    return () -> getSequence().getOffset();
+  }
 }

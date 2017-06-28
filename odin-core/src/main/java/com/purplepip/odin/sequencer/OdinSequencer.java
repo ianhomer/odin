@@ -181,7 +181,8 @@ public class OdinSequencer implements ProjectApplyListener {
         new SequenceTrack(
             new SeriesTimeUnitConverterFactory(
                 new DefaultTickConverter(clock,
-                    sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND, sequence.getOffset()
+                    sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND,
+                    sequenceRuntime.getOffsetProvider()
                 )
             ).convertSeries(sequenceRuntime)));
   }

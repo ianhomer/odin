@@ -20,7 +20,7 @@ package com.purplepip.odin.sequence;
  */
 public class SameTimeUnitTickConverter extends AbstractTickConverter {
   public SameTimeUnitTickConverter(RuntimeTick inputTick, RuntimeTick outputTick) {
-    this(inputTick, outputTick, 0);
+    this(inputTick, outputTick, () -> 0);
   }
 
   /**
@@ -28,13 +28,13 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
    *
    * @param inputTick input tick
    * @param outputTick output tick
-   * @param inputOffset input offset
+   * @param inputOffsetProvider input offset provider
    */
   public SameTimeUnitTickConverter(RuntimeTick inputTick, RuntimeTick outputTick,
-                                   long inputOffset) {
+                                   OffsetProvider inputOffsetProvider) {
     setInputTick(inputTick);
     setOutputTick(outputTick);
-    setInputOffset(inputOffset);
+    setInputOffsetProvider(inputOffsetProvider);
   }
 
   @Override

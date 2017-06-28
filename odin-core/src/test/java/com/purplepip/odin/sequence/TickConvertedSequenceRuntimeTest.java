@@ -38,7 +38,7 @@ public class TickConvertedSequenceRuntimeTest {
     return new TickConvertedSequenceRuntime(sequenceRuntime,
         new DefaultTickConverter(clock,
             new ImmutableRuntimeTick(input),
-            new ImmutableRuntimeTick(output), offset));
+            new ImmutableRuntimeTick(output), () -> offset));
   }
 
   @Test

@@ -23,14 +23,12 @@ import org.slf4j.LoggerFactory;
  * Abstract sequence.
  */
 @ListenerPriority()
-public abstract class AbstractMutableSequenceRuntime<A>
-    implements SequenceRuntime<A>, ClockListener  {
+public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequenceRuntime<A>
+    implements ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
 
   private Clock clock;
   private MeasureProvider measureProvider;
-  private Sequence sequence;
-  private boolean sequenceDirty;
   private Event<A> nextEvent;
   private MutableTock tock;
   private Tock sealedTock;
@@ -38,6 +36,8 @@ public abstract class AbstractMutableSequenceRuntime<A>
   private final UnmodifiableRuntimeTick unmodifiableRuntimeTick = new UnmodifiableRuntimeTick(tick);
   private boolean tickDirty;
   private TickConverter microsecondToSequenceTickConverter;
+  private Sequence sequence;
+  private boolean sequenceDirty;
 
   @Override
   public RuntimeTick getTick() {
@@ -67,13 +67,9 @@ public abstract class AbstractMutableSequenceRuntime<A>
    *
    * @param sequence sequence configuration
    */
-  public final void setSequence(Sequence sequence) {
-    sequenceDirty = true;
-    /*
-     * Determine if the tick has changed
-     */
-    tickDirty = this.sequence == null || !sequence.getTick().equals(this.getTick());
+  public void setSequence(Sequence sequence) {
     this.sequence = sequence;
+    sequenceDirty = true;
   }
 
   @Override
@@ -88,21 +84,27 @@ public abstract class AbstractMutableSequenceRuntime<A>
     if (sequenceDirty) {
       afterSequenceChange();
     }
-    if (clock.isStarted()) {
+    if (clock.isStarted() && tickDirty) {
       afterTickChange();
     }
   }
 
   private void afterSequenceChange() {
     /*
-     * Change runtime tick
+     * Determine if the tick has changed
      */
-    tick.setTick(sequence.getTick());
+    tickDirty = this.getTick() == null || !getSequence().getTick().equals(this.getTick());
+    if (tickDirty) {
+      /*
+       * Change runtime tick
+       */
+      tick.setTick(getSequence().getTick());
+    }
     /*
      * Calculate offset of this sequence in microseconds ...
      */
     long microsecondOffset = new DefaultTickConverter(clock, getTick(),
-        RuntimeTicks.MICROSECOND, 0).convert(getSequence().getOffset());
+        RuntimeTicks.MICROSECOND, () -> 0).convert(getSequence().getOffset());
     LOG.debug("Microsecond start for this sequence : {}", microsecondOffset);
     /*
      * ... and use this to create a converter that will convert microseconds into tock count
@@ -110,7 +112,7 @@ public abstract class AbstractMutableSequenceRuntime<A>
      */
     microsecondToSequenceTickConverter =
         new DefaultTickConverter(clock, RuntimeTicks.MICROSECOND, getTick(),
-            - microsecondOffset);
+            () -> - microsecondOffset);
     sequenceDirty = false;
     LOG.debug("afterSequenceChange executed");
   }
@@ -159,7 +161,7 @@ public abstract class AbstractMutableSequenceRuntime<A>
   protected abstract Event<A> getNextEvent(Tock tock);
 
   protected long getLength() {
-    return sequence.getLength();
+    return getSequence().getLength();
   }
 
   private boolean isActive() {

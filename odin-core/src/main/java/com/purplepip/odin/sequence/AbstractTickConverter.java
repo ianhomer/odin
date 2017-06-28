@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public abstract class AbstractTickConverter implements TickConverter {
-  private long inputOffset;
+  private OffsetProvider inputOffsetProvider;
   private RuntimeTick inputTick;
   private RuntimeTick outputTick;
 
@@ -35,8 +35,8 @@ public abstract class AbstractTickConverter implements TickConverter {
     this.inputTick = inputTick;
   }
 
-  final void setInputOffset(long inputOffset) {
-    this.inputOffset = inputOffset;
+  final void setInputOffsetProvider(OffsetProvider inputOffsetProvider) {
+    this.inputOffsetProvider = inputOffsetProvider;
   }
 
   @Override
@@ -48,14 +48,14 @@ public abstract class AbstractTickConverter implements TickConverter {
     return inputTick;
   }
 
-  protected long getInputOffset() {
-    return inputOffset;
+  private long getInputOffset() {
+    return inputOffsetProvider.getOffset();
   }
 
   @Override
   public long convert(long time) {
     LOG.trace("Converting {} from {} to {}", time, inputTick, outputTick);
-    return convertTimeUnit(inputOffset + time);
+    return convertTimeUnit(getInputOffset() + time);
   }
 
   @Override
