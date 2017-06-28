@@ -35,19 +35,18 @@ public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Note>
    *
    * @param clock clock
    * @param measureProvider measure provider
-   * @param flow sequence flow
    */
-  public DefaultSequenceRuntime(Clock clock, MeasureProvider measureProvider,
-                                Flow<Sequence, Note> flow) {
+  public DefaultSequenceRuntime(Clock clock, MeasureProvider measureProvider) {
     setClock(clock);
     setMeasureProvider(measureProvider);
-    setSequence(flow.getSequence());
-    this.flow = flow;
-    initialise();
   }
 
   @Override
   protected Event<Note> getNextEvent(Tock tock) {
     return flow.getNextEvent(tock, getMeasureProvider());
+  }
+
+  public void setFlow(Flow<Sequence, Note> flow) {
+    this.flow = flow;
   }
 }

@@ -30,10 +30,12 @@ public abstract class AbstractMutableSequenceRuntime<A>
   private Clock clock;
   private MeasureProvider measureProvider;
   private Sequence sequence;
+  private boolean sequenceDirty;
   private Event<A> nextEvent;
   private MutableTock tock;
   private Tock sealedTock;
   private RuntimeTick tick;
+  private boolean tickDirty;
   private TickConverter microsecondToSequenceTickConverter;
 
   @Override
@@ -43,6 +45,7 @@ public abstract class AbstractMutableSequenceRuntime<A>
 
   protected final void setClock(Clock clock) {
     this.clock = clock;
+    clock.addListener(this);
   }
 
   public MeasureProvider getMeasureProvider() {
@@ -63,7 +66,12 @@ public abstract class AbstractMutableSequenceRuntime<A>
    *
    * @param sequence sequence configuration
    */
-  protected final void setSequence(Sequence sequence) {
+  public final void setSequence(Sequence sequence) {
+    sequenceDirty = true;
+    /*
+     * Determine if the tick has changed
+     */
+    tickDirty = this.sequence == null || !sequence.getTick().equals(this.getTick());
     this.sequence = sequence;
   }
 
@@ -72,8 +80,19 @@ public abstract class AbstractMutableSequenceRuntime<A>
     return sequence;
   }
 
-  protected final void initialise() {
-    clock.addListener(this);
+  /**
+   * Refresh the sequence runtime after a sequence change.
+   */
+  public final void refresh() {
+    if (sequenceDirty) {
+      afterSequenceChange();
+    }
+    if (clock.isStarted()) {
+      afterTickChange();
+    }
+  }
+
+  private void afterSequenceChange() {
     tick = new DefaultRuntimeTick(sequence.getTick());
     /*
      * Calculate offset of this sequence in microseconds ...
@@ -88,9 +107,8 @@ public abstract class AbstractMutableSequenceRuntime<A>
     microsecondToSequenceTickConverter =
         new DefaultTickConverter(clock, RuntimeTicks.MICROSECOND, getTick(),
             - microsecondOffset);
-    if (clock.isStarted()) {
-      start();
-    }
+    sequenceDirty = false;
+    LOG.debug("afterSequenceChange executed");
   }
 
   /**
@@ -98,7 +116,9 @@ public abstract class AbstractMutableSequenceRuntime<A>
    */
   @Override
   public void onClockStart() {
-    start();
+    if (tickDirty) {
+      afterTickChange();
+    }
   }
 
   /**
@@ -109,7 +129,7 @@ public abstract class AbstractMutableSequenceRuntime<A>
 
   }
 
-  private void start() {
+  private void afterTickChange() {
     /*
      * Set the tock count, that this sequence runtime should start at, to the current tock
      * count according to the clock.  There is no point starting the tock any earlier since
@@ -127,7 +147,9 @@ public abstract class AbstractMutableSequenceRuntime<A>
     LOG.debug("Tock count start is {} at {}", tockCountStart, clock);
     tock = new MutableTock(getSequence().getTick(), tockCountStart);
     sealedTock = new SealedTock(tock);
-    LOG.debug("Started runtime sequence {}", sequence);
+    tickDirty = false;
+    LOG.debug("afterTickChange executed");
+
   }
 
   protected abstract Event<A> getNextEvent(Tock tock);

@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
@@ -25,7 +24,6 @@ import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.RuntimeTicks;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
-import com.purplepip.odin.sequence.flow.Flow;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -144,11 +142,11 @@ public class OdinSequencer implements ProjectApplyListener {
            */
           statistics.incrementTrackUpdatedCount();
           sequenceTracks.remove(existingTrack.get());
-          addSequenceTrack(sequence);
+          addSequenceTrack(sequence.copy());
         }
       } else {
         statistics.incrementTrackAddedCount();
-        addSequenceTrack(sequence);
+        addSequenceTrack(sequence.copy());
       }
     }
   }
@@ -172,28 +170,23 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   private void addSequenceTrack(Sequence sequence) {
-    DefaultSequenceRuntime sequenceRuntime;
-    try {
-      sequenceRuntime = createSequenceRuntime(
-          configuration.getFlowFactory().createFlow(sequence));
-    } catch (OdinException e) {
-      LOG.error("Cannot add sequence", e);
-      return;
-    }
+    DefaultSequenceRuntime sequenceRuntime =
+        new DefaultSequenceRuntime(clock, configuration.getMeasureProvider());
+    setSequenceTrackFlow(sequenceRuntime, sequence);
+    sequenceRuntime.setSequence(sequence);
+    sequenceRuntime.refresh();
     sequenceTracks.add(new SequenceTrack(new SeriesTimeUnitConverterFactory(
         new DefaultTickConverter(clock, sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND,
             sequence.getOffset()))
         .convertSeries(sequenceRuntime), sequence.getChannel()));
   }
 
-  /**
-   * Create sequence runtime from the given flow.
-   *
-   * @param flow flow
-   * @return sequence runtime
-   */
-  private DefaultSequenceRuntime createSequenceRuntime(Flow<Sequence, Note> flow) {
-    return new DefaultSequenceRuntime(clock, configuration.getMeasureProvider(), flow);
+  private void setSequenceTrackFlow(DefaultSequenceRuntime sequenceRuntime, Sequence sequence) {
+    try {
+      sequenceRuntime.setFlow(configuration.getFlowFactory().createFlow(sequence));
+    } catch (OdinException e) {
+      LOG.error("Cannot set sequence track flow", e);
+    }
   }
 
   /**
