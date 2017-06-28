@@ -108,7 +108,10 @@ public class OdinSequencer implements ProjectApplyListener {
          */
         ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
         if (!programChangeOperations.contains(programChangeOperation)) {
+          LOG.debug("Program change operation {} not in {}", programChangeOperation,
+              programChangeOperations);
           sendProgramChangeOperation(programChangeOperation);
+          statistics.incrementProgramChangeCount();
         }
       } catch (OdinException e) {
         LOG.warn("Cannot send operation", e);
@@ -125,7 +128,12 @@ public class OdinSequencer implements ProjectApplyListener {
         s -> s.getId() == t.getSequenceRuntime().getSequence().getId()
     ));
     if (result) {
-      statistics.incrementTrackRemovedCount(sizeBefore - sequenceTracks.size());
+      int removalCount = sizeBefore - sequenceTracks.size();
+      LOG.debug("Removed {} tracks, ", removalCount);
+      statistics.incrementTrackRemovedCount(removalCount);
+    } else {
+      LOG.debug("No sequence tracks detected for removal {} / {}", sequenceTracks.size(),
+          project.getSequences().size());
     }
 
     for (Sequence sequence : project.getSequences()) {

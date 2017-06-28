@@ -22,6 +22,13 @@ import com.purplepip.odin.project.Project;
  */
 public interface Channel {
   /**
+   * Unique channel ID.
+   *
+   * @return channel ID
+   */
+  long getId();
+
+  /**
    * Get channel number.
    *
    * @return channel number

@@ -58,6 +58,7 @@ public class ProjectBuilder {
   private int offset;
   private Set<Layer> layersToAdd = new HashSet<>();
   private List<Long> sequenceIds = new ArrayList<>();
+  private List<Long> channelIds = new ArrayList<>();
 
   public ProjectBuilder(ProjectContainer projectContainer) {
     this.projectContainer = projectContainer;
@@ -76,6 +77,14 @@ public class ProjectBuilder {
   public Sequence getSequenceByOrder(int id) {
     return projectContainer.getSequence(sequenceIds.get(id));
   }
+
+  /*
+   * As per getSequenceByOrder logic.
+   */
+  public Channel getChannelByOrder(int id) {
+    return projectContainer.getChannel(channelIds.get(id));
+  }
+
 
   private Metronome withDefaults(Metronome metronome) {
     metronome.setTick(createTick(Ticks.HALF));
@@ -239,6 +248,7 @@ public class ProjectBuilder {
   public ProjectBuilder changeProgramTo(int program) {
     Channel channelConfiguration = createChannel();
     channelConfiguration.setProgram(program);
+    addChannel(channelConfiguration);
     return this;
   }
 
@@ -256,6 +266,7 @@ public class ProjectBuilder {
   }
 
   private void addChannel(Channel channelConfiguration) {
+    channelIds.add(channelConfiguration.getId());
     channelConfiguration.setNumber(channel);
     /*
      * For now we replace channel with same number, in future we might merge.

@@ -35,7 +35,7 @@ import lombok.ToString;
 @Data
 @Entity(name = "Channel")
 @Table(name = "Channel")
-@EqualsAndHashCode(exclude = "project")
+@EqualsAndHashCode(exclude = {"project", "id"})
 @ToString(exclude = "project")
 public class PersistableChannel implements Channel {
   @Id

@@ -55,9 +55,14 @@ public class ChannelUpdatedAtRuntimeTest {
         .withOffset(OFFSET)
         .withLength(LENGTH)
         .addMetronome();
+    LOG.debug("*** *** *** Added first metronome");
     environment.start();
-    OdinSequenceStatistics statistics = environment.getSequencer().getStatistics();
-    Sequence channel0metronome = environment.getContainer().getSequences().iterator().next();
+    Sequence channel0metronome = builder.getSequenceByOrder(0);
+    Channel channel0 = builder.getChannelByOrder(0);
+    assertEquals("Unexpected number of program changes", 1,
+        environment.getContainer().getChannelStream().count());
+    LOG.debug("Program changes : {}", environment.getContainer().getChannels());
+    assertEquals("Unexpected program change", "violin", channel0.getProgramName());
 
     try {
       channel0Events.await(1000, TimeUnit.MILLISECONDS);
@@ -66,6 +71,8 @@ public class ChannelUpdatedAtRuntimeTest {
           .withChannel(1).changeProgramTo("cello")
           .withLength(LENGTH).withOffset(OFFSET + LENGTH * 2).addMetronome()
           .withChannel(2).changeProgramTo("piano");
+      LOG.debug("*** *** *** Changed channel 1 to cello, channel 2 to piano and adding channel 1"
+          + " metronome");
       environment.getContainer().apply();
       channel1Events.await(1000, TimeUnit.MILLISECONDS);
       /*
@@ -81,7 +88,7 @@ public class ChannelUpdatedAtRuntimeTest {
           .withChannel(1).changeProgramTo("violin")
           .withChannel(3).withLength(LENGTH).withOffset(OFFSET + LENGTH * 4).addMetronome()
           .removeSequence(channel0metronome);
-
+      LOG.debug("*** *** *** Removed channel 0 metronome");
       environment.getContainer().apply();
       channel3Events.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough channel 3 events fired", 0, channel3Events.getCount());
@@ -91,6 +98,8 @@ public class ChannelUpdatedAtRuntimeTest {
       environment.stop();
     }
 
+    OdinSequenceStatistics statistics = environment.getSequencer().getStatistics();
+    assertEquals("Number of program changes not correct", 4, statistics.getProgramChangeCount());
     assertEquals("Number of added tracks not correct", 3, statistics.getTrackAddedCount());
     assertEquals("Number of removed tracks not correct", 1, statistics.getTrackRemovedCount());
   }

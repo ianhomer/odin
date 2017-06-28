@@ -179,6 +179,17 @@ public class ProjectContainer {
   }
 
   /**
+   * Get channel by ID.
+   *
+   * @param id channel ID
+   * @return channel for the given ID.
+   */
+  public Channel getChannel(long id) {
+    return getProject().getChannels().stream().filter(s -> s.getId() == id)
+        .findFirst().orElse(null);
+  }
+
+  /**
    * Add layer.
    *
    * @param layer to add

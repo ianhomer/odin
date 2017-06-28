@@ -39,4 +39,9 @@ public class UnmodifiableOdinSequenceStatistics implements OdinSequenceStatistic
   public int getTrackUpdatedCount() {
     return statistics.getTrackUpdatedCount();
   }
+
+  @Override
+  public int getProgramChangeCount() {
+    return statistics.getProgramChangeCount();
+  }
 }

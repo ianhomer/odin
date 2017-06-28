@@ -23,6 +23,11 @@ import java.util.Set;
  * Sequence configuration.
  */
 public interface Sequence extends Copyable<Sequence> {
+  /**
+   * Unique sequence ID.
+   *
+   * @return sequence ID
+   */
   long getId();
 
   /**

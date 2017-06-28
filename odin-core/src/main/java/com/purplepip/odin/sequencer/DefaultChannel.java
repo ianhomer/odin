@@ -16,15 +16,40 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.project.Project;
+import java.util.concurrent.atomic.AtomicLong;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Default channel implementation.
  */
+@ToString(exclude = "project")
+@EqualsAndHashCode(exclude = "project")
 public class DefaultChannel implements Channel {
+  /*
+   * Cheap ID generator for default channels.  Note that persistence implementation used for
+   * the runtime has a more robust ID generation mechanism, however for the transient usage,
+   * this cheap generator is good enough.
+   */
+  private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
+  protected long id = LAST_PATTERN_ID.incrementAndGet();
+
   private int number;
   private String programName;
   private int program;
   private Project project;
+
+  /**
+   * ID auto generated.
+   */
+  public DefaultChannel() {
+    id = LAST_PATTERN_ID.incrementAndGet();
+  }
+
+  @Override
+  public long getId() {
+    return id;
+  }
 
   @Override
   public int getNumber() {

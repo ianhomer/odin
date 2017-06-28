@@ -21,4 +21,6 @@ public interface OdinSequenceStatistics {
   int getTrackRemovedCount();
 
   int getTrackUpdatedCount();
+
+  int getProgramChangeCount();
 }
