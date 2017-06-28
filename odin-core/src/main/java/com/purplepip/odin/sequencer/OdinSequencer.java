@@ -102,14 +102,12 @@ public class OdinSequencer implements ProjectApplyListener {
   private void refreshChannels(Project project) {
     for (Channel channel : project.getChannels()) {
       try {
-        LOG.debug("Sending channel operation : {}", channel);
         /*
          * Only send program change operation if it has not already been sent.
          */
         ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
         if (!programChangeOperations.contains(programChangeOperation)) {
-          LOG.debug("Program change operation {} not in {}", programChangeOperation,
-              programChangeOperations);
+          LOG.debug("Sending channel operation : {}", channel);
           sendProgramChangeOperation(programChangeOperation);
           statistics.incrementProgramChangeCount();
         }

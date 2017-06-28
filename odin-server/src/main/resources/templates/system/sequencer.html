@@ -15,6 +15,27 @@
       <td th:text="${sequencer.clock.beatsPerMinute.beatsPerMinute}">BPM</td>
     </tr>
   </table>
+
+  <h1>Statistics</h1>
+
+  <table>
+    <tr>
+      <td>Track added count</td>
+      <td th:text="${sequencer.statistics.trackAddedCount}"></td>
+    </tr>
+    <tr>
+      <td>Track removed count</td>
+      <td th:text="${sequencer.statistics.trackRemovedCount}"></td>
+    </tr>
+    <tr>
+      <td>Track updated count</td>
+      <td th:text="${sequencer.statistics.trackUpdatedCount}"></td>
+    </tr>
+    <tr>
+      <td>Program change count</td>
+      <td th:text="${sequencer.statistics.programChangeCount}"></td>
+    </tr>
+  </table>
 </div>
 </body>
 </html>
