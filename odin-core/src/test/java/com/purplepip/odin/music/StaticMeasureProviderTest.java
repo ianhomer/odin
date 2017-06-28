@@ -24,7 +24,8 @@ public class StaticMeasureProviderTest {
   @Test
   public void testMeasure() {
     // TODO : Add tests to get millisecond in measure as this will verify that converter logic
-    // implemented in measure provider, since at this time it is not implemented.
+    // implemented in measure provider.  Current the StaticMeasureProvider only supports
+    // tocks with BEAT units, not millisecond units.
 
     assertEquals(1, getTickPosition(Ticks.BEAT, 9));
     assertEquals(0, getTickPosition(Ticks.BEAT, 12));

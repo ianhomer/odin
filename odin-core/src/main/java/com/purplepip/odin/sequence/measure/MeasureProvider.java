@@ -36,6 +36,8 @@ import com.purplepip.odin.sequence.tick.Tock;
  *   <li>At 100 seconds from the starts, how many seconds are we from
  *   the beginning of the current measure?</li>
  * </ul>
+ *
+ * TODO : Implement method on interface to get the number of ticks in the measure for the given tock
  */
 public interface MeasureProvider {
   /**
