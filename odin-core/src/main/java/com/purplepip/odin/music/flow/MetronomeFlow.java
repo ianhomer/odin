@@ -36,7 +36,7 @@ public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
     MutableTock mutableTock = new MutableTock(tock);
     mutableTock.increment(2);
     Note note;
-    if (measureProvider.getTickPositionInThisMeasure(mutableTock) == 0) {
+    if (measureProvider.getTickPosition(mutableTock) == 0) {
       note = getSequence().getNoteBarStart();
     } else {
       note = getSequence().getNoteBarMid();

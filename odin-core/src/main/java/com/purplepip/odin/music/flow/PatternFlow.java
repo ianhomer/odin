@@ -42,12 +42,12 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
     MutableTock mutableTock = new MutableTock(tock);
     Event<Note> nextEvent;
     boolean on = false;
-    int maxForwardScan = 2 * measureProvider.getBeatsInThisMeasure(mutableTock);
+    int maxForwardScan = 2 * measureProvider.getBeats(mutableTock);
     int i = 0;
     while (!on && i < maxForwardScan) {
       mutableTock.increment();
       i++;
-      long position = measureProvider.getTickPositionInThisMeasure(mutableTock);
+      long position = measureProvider.getTickPosition(mutableTock);
       on = getSequence().getBits() == -1 || ((getSequence().getBits() >> position) & 1) == 1;
     }
 

@@ -17,23 +17,30 @@ public class StaticMeasureProviderTest {
     // TODO : Add tests to get millisecond in measure as this will verify that converter logic
     // implemented in measure provider, since at this time it is not implemented.
     MeasureProvider measureProvider = new StaticMeasureProvider(4);
+
     assertEquals(1, measureProvider
-        .getTickPositionInThisMeasure(new ImmutableTock(Ticks.BEAT, 9)));
+        .getTickPosition(new ImmutableTock(Ticks.BEAT, 9)));
     assertEquals(0, measureProvider
-        .getTickPositionInThisMeasure(new ImmutableTock(Ticks.BEAT, 12)));
+        .getTickPosition(new ImmutableTock(Ticks.BEAT, 12)));
     assertEquals(0, measureProvider
-        .getTickPositionInThisMeasure(new ImmutableTock(Ticks.HALF, 0)));
+        .getTickPosition(new ImmutableTock(Ticks.HALF, 0)));
     assertEquals(1, measureProvider
-        .getTickPositionInThisMeasure(new ImmutableTock(Ticks.HALF, 1)));
+        .getTickPosition(new ImmutableTock(Ticks.HALF, 1)));
     assertEquals(7, measureProvider
-        .getTickPositionInThisMeasure(new ImmutableTock(Ticks.HALF, 7)));
+        .getTickPosition(new ImmutableTock(Ticks.HALF, 7)));
     assertEquals(4, measureProvider
-        .getTickPositionInThisMeasure(new ImmutableTock(Ticks.HALF, 12)));
+        .getTickPosition(new ImmutableTock(Ticks.HALF, 12)));
     assertEquals(0, measureProvider
-        .getMeasureCountForTock(new ImmutableTock(Ticks.BEAT, 0)));
+        .getTickPosition(new ImmutableTock(Ticks.FOUR_THIRDS, 9)));
+    assertEquals(1, measureProvider
+        .getTickPosition(new ImmutableTock(Ticks.FOUR_THIRDS, 10)));
+
+    assertEquals(0, measureProvider
+        .getMeasureCount(new ImmutableTock(Ticks.BEAT, 0)));
     assertEquals(2, measureProvider
-        .getMeasureCountForTock(new ImmutableTock(Ticks.BEAT, 8)));
+        .getMeasureCount(new ImmutableTock(Ticks.BEAT, 8)));
+
     assertEquals(4, measureProvider
-        .getBeatsInThisMeasure(new ImmutableTock(Ticks.BEAT, 0)));
+        .getBeats(new ImmutableTock(Ticks.BEAT, 0)));
   }
 }
