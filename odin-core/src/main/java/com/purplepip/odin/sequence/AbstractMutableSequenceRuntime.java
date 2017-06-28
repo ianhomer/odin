@@ -94,6 +94,9 @@ public abstract class AbstractMutableSequenceRuntime<A>
   }
 
   private void afterSequenceChange() {
+    /*
+     * Change runtime tick
+     */
     tick.setTick(sequence.getTick());
     /*
      * Calculate offset of this sequence in microseconds ...

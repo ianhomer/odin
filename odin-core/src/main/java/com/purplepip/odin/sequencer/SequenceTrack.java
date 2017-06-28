@@ -23,15 +23,13 @@ import com.purplepip.odin.sequence.SequenceRuntime;
  */
 public class SequenceTrack {
   private SequenceRuntime<Note> sequenceRuntime;
-  private int channel;
 
-  public SequenceTrack(SequenceRuntime<Note> sequenceRuntime, int channel) {
+  public SequenceTrack(SequenceRuntime<Note> sequenceRuntime) {
     this.sequenceRuntime = sequenceRuntime;
-    this.channel = channel;
   }
 
   public int getChannel() {
-    return channel;
+    return sequenceRuntime.getSequence().getChannel();
   }
 
   public SequenceRuntime<Note> getSequenceRuntime() {

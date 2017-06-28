@@ -173,13 +173,17 @@ public class OdinSequencer implements ProjectApplyListener {
     DefaultSequenceRuntime sequenceRuntime =
         new DefaultSequenceRuntime(clock, configuration.getMeasureProvider());
     setSequenceTrackFlow(sequenceRuntime, sequence);
+
     sequenceRuntime.setSequence(sequence);
     sequenceRuntime.refresh();
 
-    sequenceTracks.add(new SequenceTrack(new SeriesTimeUnitConverterFactory(
-        new DefaultTickConverter(clock, sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND,
-            sequence.getOffset()))
-        .convertSeries(sequenceRuntime), sequence.getChannel()));
+    sequenceTracks.add(
+        new SequenceTrack(
+            new SeriesTimeUnitConverterFactory(
+                new DefaultTickConverter(clock,
+                    sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND, sequence.getOffset()
+                )
+            ).convertSeries(sequenceRuntime)));
   }
 
   private void setSequenceTrackFlow(DefaultSequenceRuntime sequenceRuntime, Sequence sequence) {
