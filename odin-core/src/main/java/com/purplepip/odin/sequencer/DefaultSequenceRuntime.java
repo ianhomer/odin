@@ -21,14 +21,14 @@ import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Tock;
-import com.purplepip.odin.sequence.flow.Flow;
+import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
  * Default sequence runtime.
  */
 public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Note> {
-  private Flow<Sequence, Note> flow;
+  private MutableFlow<Sequence, Note> flow;
 
   /**
    * Create an instance of the default sequence runtime.
@@ -46,7 +46,13 @@ public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Note>
     return flow.getNextEvent(tock, getMeasureProvider());
   }
 
-  public void setFlow(Flow<Sequence, Note> flow) {
+  @Override
+  public void setFlow(MutableFlow<Sequence, Note> flow) {
     this.flow = flow;
+  }
+
+  @Override
+  public MutableFlow<Sequence, Note> getFlow() {
+    return flow;
   }
 }

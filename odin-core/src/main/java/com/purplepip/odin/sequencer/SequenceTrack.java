@@ -16,23 +16,41 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.SequenceRuntime;
 
 /**
  * SequenceRuntime driving a sequenced track.
  */
 public class SequenceTrack {
+  private MutableSequenceRuntime<Note> rootSequenceRuntime;
   private SequenceRuntime<Note> sequenceRuntime;
 
-  public SequenceTrack(SequenceRuntime<Note> sequenceRuntime) {
+  public SequenceTrack(SequenceRuntime<Note> sequenceRuntime,
+                       MutableSequenceRuntime<Note> rootSequenceRuntime) {
     this.sequenceRuntime = sequenceRuntime;
+    this.rootSequenceRuntime = rootSequenceRuntime;
   }
 
   public int getChannel() {
     return sequenceRuntime.getSequence().getChannel();
   }
 
+  /**
+   * Get end of pipe line sequence runtime, after any post processing.
+   *
+   * @return sequence runtime.
+   */
   public SequenceRuntime<Note> getSequenceRuntime() {
     return sequenceRuntime;
+  }
+
+  /**
+   * Get the root sequence runtime, before post-processing.
+   *
+   * @return root sequence runtime.
+   */
+  public MutableSequenceRuntime<Note> getRootSequenceRuntime() {
+    return rootSequenceRuntime;
   }
 }

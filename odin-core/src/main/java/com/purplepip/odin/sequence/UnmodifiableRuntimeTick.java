@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.sequence;
 
+import lombok.ToString;
+
+@ToString
 public class UnmodifiableRuntimeTick implements RuntimeTick {
   private RuntimeTick underlyingTick;
 

@@ -21,10 +21,12 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.ToString;
 
 /**
  * A light weight non-persistable in memory project implementation.
  */
+@ToString(exclude = {"channels", "layers", "sequences"})
 public class TransientProject implements Project {
   private static final String TRANSIENT_PROJECT_NAME = "transient";
 

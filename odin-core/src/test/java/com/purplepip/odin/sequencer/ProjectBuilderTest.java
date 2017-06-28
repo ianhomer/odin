@@ -2,7 +2,7 @@ package com.purplepip.odin.sequencer;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.project.ProjectContainer;
@@ -39,14 +39,14 @@ public class ProjectBuilderTest {
     Sequence sequence2 = builder.getSequenceByOrder(1);
 
     assertThat("Sequence 1 : " + sequence1,
-        sequence1.getLayers().stream().map(Layer::getName).collect(Collectors.toList()),
-        contains("layer1"));
+        sequence1.getLayers().stream().map(Layer::getName).collect(Collectors.toSet()),
+        containsInAnyOrder("layer1"));
     assertThat("Sequence 2 : " + sequence2,
-        sequence2.getLayers().stream().map(Layer::getName).collect(Collectors.toList()),
-        contains("layer2", "layer3"));
+        sequence2.getLayers().stream().map(Layer::getName).collect(Collectors.toSet()),
+        containsInAnyOrder("layer2", "layer3"));
     assertThat("Sequence 2 : " + sequence2,
-        sequence2.getLayers().stream().map(Layer::getName).collect(Collectors.toList()),
-        not(contains("layer1")));
+        sequence2.getLayers().stream().map(Layer::getName).collect(Collectors.toSet()),
+        not(containsInAnyOrder("layer1")));
   }
 
 }

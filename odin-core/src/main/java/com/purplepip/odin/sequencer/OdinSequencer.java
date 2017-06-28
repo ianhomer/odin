@@ -21,6 +21,7 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
+import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.RuntimeTicks;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
@@ -137,16 +138,20 @@ public class OdinSequencer implements ProjectApplyListener {
         if (existingTrack.get().getSequenceRuntime().getSequence().equals(sequence)) {
           LOG.debug("Sequence {} already added", sequence);
         } else {
-          /*
-           * TODO : Update sequence runtime on the fly instead of delete and recreate
-           */
           statistics.incrementTrackUpdatedCount();
-          sequenceTracks.remove(existingTrack.get());
-          addSequenceTrack(sequence.copy());
+          try {
+            setSequenceInRuntime(existingTrack.get().getRootSequenceRuntime(), sequence);
+          } catch (OdinException e) {
+            LOG.error("Cannot add track for " + sequence, e);
+          }
         }
       } else {
         statistics.incrementTrackAddedCount();
-        addSequenceTrack(sequence.copy());
+        try {
+          addSequenceTrack(sequence.copy());
+        } catch (OdinException e) {
+          LOG.error("Cannot add track for " + sequence, e);
+        }
       }
     }
   }
@@ -169,13 +174,11 @@ public class OdinSequencer implements ProjectApplyListener {
     }
   }
 
-  private void addSequenceTrack(Sequence sequence) {
+  private void addSequenceTrack(Sequence sequence) throws OdinException {
     DefaultSequenceRuntime sequenceRuntime =
         new DefaultSequenceRuntime(clock, configuration.getMeasureProvider());
-    setSequenceTrackFlow(sequenceRuntime, sequence);
 
-    sequenceRuntime.setSequence(sequence);
-    sequenceRuntime.refresh();
+    setSequenceInRuntime(sequenceRuntime, sequence);
 
     sequenceTracks.add(
         new SequenceTrack(
@@ -184,15 +187,23 @@ public class OdinSequencer implements ProjectApplyListener {
                     sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND,
                     sequenceRuntime.getOffsetProvider()
                 )
-            ).convertSeries(sequenceRuntime)));
+            ).createConvertedSeries(sequenceRuntime), sequenceRuntime));
   }
 
-  private void setSequenceTrackFlow(DefaultSequenceRuntime sequenceRuntime, Sequence sequence) {
-    try {
+  private void setSequenceInRuntime(MutableSequenceRuntime sequenceRuntime, Sequence sequence)
+      throws OdinException {
+    /*
+     * Only update the flow if the flow name has changed.
+     */
+    if (sequenceRuntime.getSequence() == null
+        || !sequence.getFlowName().equals(sequenceRuntime.getSequence().getFlowName())) {
       sequenceRuntime.setFlow(configuration.getFlowFactory().createFlow(sequence));
-    } catch (OdinException e) {
-      LOG.error("Cannot set sequence track flow", e);
+    } else {
+      sequenceRuntime.getFlow().setSequence(sequence);
     }
+
+    sequenceRuntime.setSequence(sequence);
+    sequenceRuntime.refresh();
   }
 
   /**

@@ -15,23 +15,14 @@
 
 package com.purplepip.odin.sequence;
 
-import lombok.ToString;
+import com.purplepip.odin.sequence.flow.MutableFlow;
 
-/**
- * Mutable sequence.
- */
-public interface MutableSequence extends Sequence {
-  void setTick(Tick tick);
+public interface MutableSequenceRuntime<A> extends SequenceRuntime<A> {
+  void setSequence(Sequence sequence);
 
-  void setLength(long length);
+  void refresh();
 
-  void setOffset(long offset);
+  void setFlow(MutableFlow<Sequence, A> flow);
 
-  void setChannel(int channel);
-
-  void setFlowName(String flowName);
-
-  void addLayer(Layer layer);
-
-  void removeLayer(Layer layer);
+  MutableFlow<Sequence, A> getFlow();
 }

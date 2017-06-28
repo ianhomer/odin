@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,8 +24,9 @@ import org.slf4j.LoggerFactory;
  * Abstract sequence.
  */
 @ListenerPriority()
+@ToString(callSuper = true)
 public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequenceRuntime<A>
-    implements ClockListener {
+    implements MutableSequenceRuntime<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
 
   private Clock clock;
@@ -67,6 +69,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
    *
    * @param sequence sequence configuration
    */
+  @Override
   public void setSequence(Sequence sequence) {
     this.sequence = sequence;
     sequenceDirty = true;
@@ -80,6 +83,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
   /**
    * Refresh the sequence runtime after a sequence change.
    */
+  @Override
   public final void refresh() {
     if (sequenceDirty) {
       afterSequenceChange();
@@ -87,6 +91,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
     if (clock.isStarted() && tickDirty) {
       afterTickChange();
     }
+    LOG.debug("Refreshed {}", this);
   }
 
   private void afterSequenceChange() {

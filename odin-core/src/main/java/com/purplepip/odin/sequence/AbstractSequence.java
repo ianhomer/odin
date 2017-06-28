@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Abstract sequence.
  */
-@ToString
+@ToString(exclude = "project")
 @Slf4j
 public abstract class AbstractSequence implements MutableSequence {
   /*

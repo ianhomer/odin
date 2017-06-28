@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.sequence;
 
+import lombok.ToString;
+
+@ToString
 public abstract class AbstractSequenceRuntime<A> implements SequenceRuntime<A> {
   @Override
   public OffsetProvider getOffsetProvider() {

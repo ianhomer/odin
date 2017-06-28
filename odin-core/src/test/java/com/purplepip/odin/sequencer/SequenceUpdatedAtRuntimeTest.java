@@ -10,7 +10,6 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.Ticks;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -23,7 +22,6 @@ public class SequenceUpdatedAtRuntimeTest {
   public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch note60Events = new CountDownLatch(16);
     final CountDownLatch note61Events = new CountDownLatch(16);
-    final AtomicInteger programChangeEventCount = new AtomicInteger();
 
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof AbstractNoteVelocityOperation) {
@@ -44,7 +42,7 @@ public class SequenceUpdatedAtRuntimeTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    ProjectBuilder builder = new ProjectBuilder(environment.getContainer())
+    new ProjectBuilder(environment.getContainer())
         .withNote(60)
         .addPattern(Ticks.BEAT, 1);
     environment.start();

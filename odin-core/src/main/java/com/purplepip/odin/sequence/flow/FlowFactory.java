@@ -50,7 +50,7 @@ public class FlowFactory<A> {
    * @throws OdinException exception
    */
   @SuppressWarnings("unchecked")
-  public Flow<Sequence, A> createFlow(Sequence sequence) throws OdinException {
+  public MutableFlow<Sequence, A> createFlow(Sequence sequence) throws OdinException {
     Class<? extends MutableFlow<Sequence, A>> flowClass;
     flowClass = (Class<? extends MutableFlow<Sequence, A>>)
           FLOWS.get(sequence.getFlowName());
