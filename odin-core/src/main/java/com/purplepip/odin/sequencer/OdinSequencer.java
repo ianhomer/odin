@@ -175,6 +175,7 @@ public class OdinSequencer implements ProjectApplyListener {
     setSequenceTrackFlow(sequenceRuntime, sequence);
     sequenceRuntime.setSequence(sequence);
     sequenceRuntime.refresh();
+
     sequenceTracks.add(new SequenceTrack(new SeriesTimeUnitConverterFactory(
         new DefaultTickConverter(clock, sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND,
             sequence.getOffset()))

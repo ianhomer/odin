@@ -15,23 +15,11 @@
 
 package com.purplepip.odin.sequence;
 
-/**
- * Default runtime tick.
- */
-public class DefaultRuntimeTick implements RuntimeTick {
-  private Tick underlyingTick;
-  private double factor;
-  private int factorAsInt;
+public class UnmodifiableRuntimeTick implements RuntimeTick {
+  private RuntimeTick underlyingTick;
 
-  /**
-   * Create a default runtime tick.
-   *
-   * @param tick underlying tick to base this runtime tick off
-   */
-  public DefaultRuntimeTick(Tick tick) {
-    underlyingTick = tick;
-    this.factor = (double) tick.getNumerator() / (double) tick.getDenominator();
-    this.factorAsInt = tick.getNumerator() / tick.getDenominator();
+  public UnmodifiableRuntimeTick(RuntimeTick runtimeTick) {
+    underlyingTick = runtimeTick;
   }
 
   @Override
@@ -51,16 +39,11 @@ public class DefaultRuntimeTick implements RuntimeTick {
 
   @Override
   public double getFactor() {
-    return factor;
+    return underlyingTick.getFactor();
   }
 
   @Override
   public int getFactorAsInt() {
-    return factorAsInt;
-  }
-
-  @Override public String toString() {
-    return DefaultRuntimeTick.class.getSimpleName()
-        + "(" + this.getNumerator() + "/" + this.getDenominator() + " " + this.getTimeUnit() + ")";
+    return underlyingTick.getFactorAsInt();
   }
 }

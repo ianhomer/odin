@@ -15,16 +15,32 @@
 
 package com.purplepip.odin.sequence;
 
-/**
- * This class consists exclusively of static properties that utilise the RuntimeTick model.
- */
-public final class RuntimeTicks {
-  public static final RuntimeTick MICROSECOND = new ImmutableRuntimeTick(Ticks.MICROSECOND);
-  public static final RuntimeTick BEAT = new ImmutableRuntimeTick(Ticks.BEAT);
-  public static final RuntimeTick HALF = new ImmutableRuntimeTick(Ticks.HALF);
-  public static final RuntimeTick MILLISECOND = new ImmutableRuntimeTick(Ticks.MILLISECOND);
-  public static final RuntimeTick MEASURE = new ImmutableRuntimeTick(Ticks.MEASURE);
+import lombok.ToString;
 
-  private RuntimeTicks() {
+/**
+ * A runtime tick that can change at runtime.
+ */
+@ToString
+public class MutableRuntimeTick extends AbstractRuntimeTick {
+  private Tick underlyingTick;
+
+  public void setTick(Tick tick) {
+    underlyingTick = tick;
+    afterTickChanged();
+  }
+
+  @Override
+  public TimeUnit getTimeUnit() {
+    return underlyingTick.getTimeUnit();
+  }
+
+  @Override
+  public int getNumerator() {
+    return underlyingTick.getNumerator();
+  }
+
+  @Override
+  public int getDenominator() {
+    return underlyingTick.getDenominator();
   }
 }

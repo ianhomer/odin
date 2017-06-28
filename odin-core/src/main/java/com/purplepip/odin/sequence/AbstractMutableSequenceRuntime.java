@@ -34,13 +34,14 @@ public abstract class AbstractMutableSequenceRuntime<A>
   private Event<A> nextEvent;
   private MutableTock tock;
   private Tock sealedTock;
-  private RuntimeTick tick;
+  private final MutableRuntimeTick tick = new MutableRuntimeTick();
+  private final UnmodifiableRuntimeTick unmodifiableRuntimeTick = new UnmodifiableRuntimeTick(tick);
   private boolean tickDirty;
   private TickConverter microsecondToSequenceTickConverter;
 
   @Override
   public RuntimeTick getTick() {
-    return tick;
+    return unmodifiableRuntimeTick;
   }
 
   protected final void setClock(Clock clock) {
@@ -93,7 +94,7 @@ public abstract class AbstractMutableSequenceRuntime<A>
   }
 
   private void afterSequenceChange() {
-    tick = new DefaultRuntimeTick(sequence.getTick());
+    tick.setTick(sequence.getTick());
     /*
      * Calculate offset of this sequence in microseconds ...
      */

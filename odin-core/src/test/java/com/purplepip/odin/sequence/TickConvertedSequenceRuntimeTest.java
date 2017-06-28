@@ -37,8 +37,8 @@ public class TickConvertedSequenceRuntimeTest {
   private TickConvertedSequenceRuntime createRuntime(Tick input, Tick output, int offset) {
     return new TickConvertedSequenceRuntime(sequenceRuntime,
         new DefaultTickConverter(clock,
-            new DefaultRuntimeTick(input),
-            new DefaultRuntimeTick(output), offset));
+            new ImmutableRuntimeTick(input),
+            new ImmutableRuntimeTick(output), offset));
   }
 
   @Test
