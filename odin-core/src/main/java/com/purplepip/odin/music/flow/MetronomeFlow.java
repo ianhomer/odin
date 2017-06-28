@@ -21,7 +21,7 @@ import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.tick.MutableTock;
+import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.Tock;
 
 /**
@@ -33,7 +33,7 @@ public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
     /*
      * Create local and temporary mutable tock for this function execution.
      */
-    MutableTock mutableTock = new MutableTock(tock);
+    MovableTock mutableTock = new MovableTock(tock);
     mutableTock.increment(2);
     Note note;
     if (measureProvider.getTickPosition(mutableTock) == 0) {

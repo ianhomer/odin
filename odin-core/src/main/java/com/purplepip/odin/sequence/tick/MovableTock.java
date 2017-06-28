@@ -18,19 +18,19 @@ package com.purplepip.odin.sequence.tick;
 import lombok.ToString;
 
 /**
- * Mutable tock.
+ * Tock where the count can be moved.
  */
 @ToString
-public class MutableTock implements Tock {
+public class MovableTock implements Tock {
   private long count;
   private Tick tick;
 
-  public MutableTock(Tock tock) {
+  public MovableTock(Tock tock) {
     this.tick = tock.getTick();
     this.count = tock.getCount();
   }
 
-  public MutableTock(Tick tick, long count) {
+  public MovableTock(Tick tick, long count) {
     this.tick = tick;
     this.count = count;
   }

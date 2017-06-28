@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequence.tick;
 
 /**
- * Immutable tock.
+ * Tock that cannot change once created.
  */
 public class ImmutableTock implements Tock {
   private long count;

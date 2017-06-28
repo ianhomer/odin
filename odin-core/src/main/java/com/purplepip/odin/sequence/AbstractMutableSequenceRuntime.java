@@ -16,8 +16,8 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.MutableRuntimeTick;
-import com.purplepip.odin.sequence.tick.MutableTock;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequence.tick.SealedTock;
@@ -38,7 +38,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
   private Clock clock;
   private MeasureProvider measureProvider;
   private Event<A> nextEvent;
-  private MutableTock tock;
+  private MovableTock tock;
   private Tock sealedTock;
   private final MutableRuntimeTick tick = new MutableRuntimeTick();
   private final UnmodifiableRuntimeTick unmodifiableRuntimeTick = new UnmodifiableRuntimeTick(tick);
@@ -162,7 +162,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
       tockCountStart = 0;
     }
     LOG.debug("Tock count start is {} at {}", tockCountStart, clock);
-    tock = new MutableTock(getSequence().getTick(), tockCountStart);
+    tock = new MovableTock(getSequence().getTick(), tockCountStart);
     sealedTock = new SealedTock(tock);
     tickDirty = false;
     LOG.debug("afterTickChange executed");
@@ -184,7 +184,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
     return getLength() < 0 || tock.getCount() < getLength();
   }
 
-  private Event<A> getNextEventInternal(MutableTock tock) {
+  private Event<A> getNextEventInternal(MovableTock tock) {
     Event<A> event = getNextEvent(sealedTock);
     LOG.trace("Next event after {} is at {}", tock, event.getTime());
     /*
