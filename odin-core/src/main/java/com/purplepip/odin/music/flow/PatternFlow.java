@@ -54,8 +54,8 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
     if (on) {
       nextEvent = new DefaultEvent<>(getSequence().getNote(), mutableTock.getCount());
     } else {
-      LOG.debug("No notes found in the next {} ticks for pattern {}", maxForwardScan,
-          getSequence().getBits());
+      LOG.debug("No notes found in the next {} ticks after tock {} for pattern {}",
+          maxForwardScan, tock, getSequence().getBits());
       nextEvent = new ScanForwardEvent<>(mutableTock.getCount());
     }
     return nextEvent;

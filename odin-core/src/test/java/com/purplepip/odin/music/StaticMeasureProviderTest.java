@@ -2,9 +2,7 @@ package com.purplepip.odin.music;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.sequence.DefaultTick;
 import com.purplepip.odin.sequence.ImmutableTock;
-import com.purplepip.odin.sequence.Tick;
 import com.purplepip.odin.sequence.Ticks;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
@@ -16,6 +14,8 @@ import org.junit.Test;
 public class StaticMeasureProviderTest {
   @Test
   public void testMeasure() {
+    // TODO : Add tests to get millisecond in measure as this will verify that converter logic
+    // implemented in measure provider, since at this time it is not implemented.
     MeasureProvider measureProvider = new StaticMeasureProvider(4);
     assertEquals(1, measureProvider
         .getTickPositionInThisMeasure(new ImmutableTock(Ticks.BEAT, 9)));
