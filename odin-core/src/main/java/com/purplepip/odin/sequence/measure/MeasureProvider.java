@@ -18,26 +18,19 @@ package com.purplepip.odin.sequence.measure;
 import com.purplepip.odin.sequence.tick.Tock;
 
 /**
- * Intelligence on how the measures are defined over time.  For music a measure is bar and
+ * <p>Intelligence on how the measures are defined over time.  For music a measure is bar and
  * for a given point in time a measure will have a will defined number of beats.
- *
  * For example the simple StaticMeasureProvider has a very predictable fixed number of beats in
  * each bar, so it can be easily calculated which measure we are in from the beat count.
+ * Generally, however, not all bars may have the same beat count, so more intelligent measure
+ * providers will be provided in the future.</p>
  *
- * Generally, however, BPM might change at given points and not all bars may have the same
- * beat count, so more intelligent measure providers will be provided in the future.
- *
- * The measure provider must be able to cope with tocks of different units.
- * For example it must be able to answer the following questions.
- *
- * <ul>
- *   <li>How many eighth beats are in there in the measure 100 eighth beats from the start?</li>
- *   <li>How many beats are in there in the measure 60 seconds from the start?</li>
- *   <li>At 100 seconds from the starts, how many seconds are we from
- *   the beginning of the current measure?</li>
- * </ul>
- *
- * TODO : Implement method on interface to get the number of ticks in the measure for the given tock
+ * <p>Note that the measure provider is only beat dependent, NOT time dependent.  It says nothing
+ * about the timings of the beats just which beat each measure starts and how long that measure.</p>
+ */
+/*
+ * TODO : Handle offset, tock count starts at offset from the start of the clock which is not
+ * currently taken into account here.
  */
 public interface MeasureProvider {
   /**

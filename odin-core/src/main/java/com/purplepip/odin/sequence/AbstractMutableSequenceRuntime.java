@@ -43,7 +43,6 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
   private final MutableRuntimeTick tick = new MutableRuntimeTick();
   private final UnmodifiableRuntimeTick unmodifiableRuntimeTick = new UnmodifiableRuntimeTick(tick);
   private boolean tickDirty;
-  private TickConverter microsecondToSequenceTickConverter;
   private Sequence sequence;
   private boolean sequenceDirty;
 
@@ -111,6 +110,12 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
        */
       tick.setTick(getSequence().getTick());
     }
+
+    sequenceDirty = false;
+    LOG.debug("afterSequenceChange executed");
+  }
+
+  private void afterTickChange() {
     /*
      * Calculate offset of this sequence in microseconds ...
      */
@@ -121,11 +126,28 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
      * ... and use this to create a converter that will convert microseconds into tock count
      * for this sequence runtime.
      */
-    microsecondToSequenceTickConverter =
+    TickConverter microsecondToSequenceTickConverter =
         new DefaultTickConverter(clock, RuntimeTicks.MICROSECOND, getTick(),
             () -> - microsecondOffset);
-    sequenceDirty = false;
-    LOG.debug("afterSequenceChange executed");
+    /*
+     * Set the tock count, that this sequence runtime should start at, to the current tock
+     * count according to the clock.  There is no point starting the tock any earlier since
+     * that time has passed.
+     */
+    long tockCountStart = microsecondToSequenceTickConverter
+        .convert(clock.getMicrosecondPosition());
+    if (tockCountStart < 0) {
+      /*
+       * If sequence start is the future then set tock to 0 so that it is ready to
+       * start when the time is right.
+       */
+      tockCountStart = 0;
+    }
+    LOG.debug("Tock count start is {} at {}", tockCountStart, clock);
+    tock = new MovableTock(getSequence().getTick(), tockCountStart);
+    sealedTock = new SealedTock(tock);
+    tickDirty = false;
+    LOG.debug("afterTickChange executed");
   }
 
   /**
@@ -146,28 +168,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
 
   }
 
-  private void afterTickChange() {
-    /*
-     * Set the tock count, that this sequence runtime should start at, to the current tock
-     * count according to the clock.  There is no point starting the tock any earlier since
-     * that time has passed.
-     */
-    long tockCountStart = microsecondToSequenceTickConverter
-        .convert(clock.getMicrosecondPosition());
-    if (tockCountStart < 0) {
-      /*
-       * If sequence start is the future then set tock to 0 so that it is ready to
-       * start when the time is right.
-       */
-      tockCountStart = 0;
-    }
-    LOG.debug("Tock count start is {} at {}", tockCountStart, clock);
-    tock = new MovableTock(getSequence().getTick(), tockCountStart);
-    sealedTock = new SealedTock(tock);
-    tickDirty = false;
-    LOG.debug("afterTickChange executed");
 
-  }
 
   protected abstract Event<A> getNextEvent(Tock tock);
 
