@@ -27,25 +27,29 @@ public class StaticMeasureProviderTest {
     // implemented in measure provider.  Current the StaticMeasureProvider only supports
     // tocks with BEAT units, not millisecond units.
 
-    assertEquals(1, getTickPosition(Ticks.BEAT, 9));
-    assertEquals(0, getTickPosition(Ticks.BEAT, 12));
-    assertEquals(0, getTickPosition(Ticks.HALF, 0));
-    assertEquals(1, getTickPosition(Ticks.HALF, 1));
-    assertEquals(7, getTickPosition(Ticks.HALF, 7));
-    assertEquals(4, getTickPosition(Ticks.HALF, 12));
-    assertEquals(0, getTickPosition(Ticks.FOUR_THIRDS, 9));
-    assertEquals(1, getTickPosition(Ticks.FOUR_THIRDS, 10));
+    assertEquals(1, getCount(Ticks.BEAT, 9));
+    assertEquals(0, getCount(Ticks.BEAT, 12));
+    assertEquals(0, getCount(Ticks.HALF, 0));
+    assertEquals(1, getCount(Ticks.HALF, 1));
+    assertEquals(7, getCount(Ticks.HALF, 7));
+    assertEquals(4, getCount(Ticks.HALF, 12));
+    assertEquals(0, getCount(Ticks.FOUR_THIRDS, 9));
+    assertEquals(1, getCount(Ticks.FOUR_THIRDS, 10));
 
     assertEquals(0, measureProvider
-        .getMeasureCount(new ImmutableTock(Ticks.BEAT, 0)));
+        .getMeasure(new ImmutableTock(Ticks.BEAT, 0)));
     assertEquals(2, measureProvider
-        .getMeasureCount(new ImmutableTock(Ticks.BEAT, 8)));
+        .getMeasure(new ImmutableTock(Ticks.BEAT, 8)));
 
     assertEquals(4, measureProvider
         .getBeats(new ImmutableTock(Ticks.BEAT, 0)));
+    assertEquals(4, measureProvider
+        .getBeats(new ImmutableTock(Ticks.QUARTER, 0)));
+    assertEquals(4, measureProvider
+        .getBeats(new ImmutableTock(Ticks.THREE_QUARTERS, 0)));
   }
 
-  private long getTickPosition(Tick tick, long count) {
-    return measureProvider.getTickPosition(new ImmutableTock(tick, count));
+  private long getCount(Tick tick, long count) {
+    return measureProvider.getCount(new ImmutableTock(tick, count));
   }
 }

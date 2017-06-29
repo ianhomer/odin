@@ -39,10 +39,10 @@ public interface MeasureProvider {
    * @param tock Current tick
    * @return Current measure number
    */
-  long getMeasureCount(Tock tock);
+  long getMeasure(Tock tock);
 
   /**
-   * Get the number of beats are in the measure for the given tock.
+   * Get the number of beats in the measure for the given tock.
    *
    * @param tock current tick
    * @return beats in the current measure
@@ -50,12 +50,12 @@ public interface MeasureProvider {
   int getBeats(Tock tock);
 
   /**
-   * What position in the measure is the given tock?  0 =&gt; start of the measure.  Note that
+   * What tick count in the measure is the given tock?  0 =&gt; start of the measure.  Note that
    * a tick might be higher resolution than a single beat, e.g. it could be a half beat or a
    * triplet.
    *
    * @param tock current tick
    * @return tick position in the current measure
    */
-  long getTickPosition(Tock tock);
+  long getCount(Tock tock);
 }

@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PatternFlow extends AbstractFlow<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternFlow.class);
+  private static final int MAX_FORWARD_SCAN = 48;
 
   @Override
   public Event<Note> getNextEvent(Tock tock, MeasureProvider measureProvider) {
@@ -42,12 +43,11 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
     MovableTock mutableTock = new MovableTock(tock);
     Event<Note> nextEvent;
     boolean on = false;
-    int maxForwardScan = 2 * measureProvider.getBeats(mutableTock);
     int i = 0;
-    while (!on && i < maxForwardScan) {
+    while (!on && i < MAX_FORWARD_SCAN) {
       mutableTock.increment();
       i++;
-      long position = measureProvider.getTickPosition(mutableTock);
+      long position = measureProvider.getCount(mutableTock);
       on = getSequence().getBits() == -1 || ((getSequence().getBits() >> position) & 1) == 1;
     }
 
@@ -55,7 +55,7 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
       nextEvent = new DefaultEvent<>(getSequence().getNote(), mutableTock.getCount());
     } else {
       LOG.debug("No notes found in the next {} ticks after tock {} for pattern {}",
-          maxForwardScan, tock, getSequence().getBits());
+          MAX_FORWARD_SCAN, tock, getSequence().getBits());
       nextEvent = new ScanForwardEvent<>(mutableTock.getCount());
     }
     return nextEvent;
