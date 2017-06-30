@@ -43,6 +43,11 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
     Event<Note> nextEvent;
     boolean on = false;
     int i = 0;
+    // TODO : We need to be able to scan forward enough tocks to cover at the the sequence
+    // processor execution interval, since next event polling won't happen again until that point
+    // and this flow needs to keep up the processor execution.  This flow currently does not
+    // have access to the clock to work out how far forward this should be.  What's the best way
+    // to provide this intelligence?
     while (!on && i < getConfiguration().getMaxForwardScan()) {
       mutableTock.increment();
       i++;

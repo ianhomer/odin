@@ -43,6 +43,9 @@ public class SequenceProcessorExecutor implements Runnable {
     this.clock = clock;
     this.sequenceTrackSet = sequenceTrackSet;
     this.operationProcessor = operationProcessor;
+    /*
+     * We need to scan forward more that the interval between executions of this processor.
+     */
     timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
     this.statistics = statistics;
   }

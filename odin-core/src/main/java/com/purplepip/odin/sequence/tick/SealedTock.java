@@ -15,9 +15,12 @@
 
 package com.purplepip.odin.sequence.tick;
 
+import lombok.ToString;
+
 /**
  * Tock that wraps another, potentially mutable, tock, but cannot mutate the tock itself.
  */
+@ToString
 public class SealedTock implements Tock {
   private Tock tock;
 
