@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
 
 /**
@@ -34,9 +33,6 @@ public class DefaultTickConverter extends AbstractTickConverter {
    */
   public DefaultTickConverter(Clock clock, RuntimeTick inputTick, RuntimeTick outputTick,
                               OffsetProvider inputOffsetProvider) {
-    if (clock == null) {
-      throw new OdinRuntimeException("Clock must not be null");
-    }
     this.clock = clock;
     setInputTick(inputTick);
     setOutputTick(outputTick);
