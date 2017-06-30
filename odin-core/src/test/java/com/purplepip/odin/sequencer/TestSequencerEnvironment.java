@@ -20,6 +20,7 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
 
 public class TestSequencerEnvironment {
@@ -32,8 +33,11 @@ public class TestSequencerEnvironment {
   }
 
   private void initialiseSequencer(OperationReceiver operationReceiver) throws OdinException {
+    DefaultFlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
+    flowConfiguration.setMaxForwardScan(36);
+
     sequencer = new OdinSequencer(
-        new DefaultOdinSequencerConfiguration()
+        new DefaultOdinSequencerConfiguration(flowConfiguration)
             .setMeasureProvider(new StaticMeasureProvider(4))
             .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
             .setClockStartOffset(10000)

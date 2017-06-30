@@ -22,6 +22,7 @@ import com.purplepip.odin.sequence.Sequence;
  */
 public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow<S, A> {
   private S sequence;
+  private FlowConfiguration configuration;
 
   @Override
   public void setSequence(S sequence) {
@@ -31,5 +32,14 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
   @Override
   public S getSequence() {
     return sequence;
+  }
+
+  public void setConfiguration(FlowConfiguration configuration) {
+    this.configuration = configuration;
+  }
+
+  @Override
+  public FlowConfiguration getConfiguration() {
+    return configuration;
   }
 }

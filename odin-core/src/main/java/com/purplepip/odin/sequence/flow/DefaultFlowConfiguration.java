@@ -15,13 +15,18 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.sequence.Sequence;
+public class DefaultFlowConfiguration implements FlowConfiguration {
+  private static final int DEFAULT_MAX_FORWARD_SCAN = 48;
 
-/**
- * Mutable flow.
- */
-public interface MutableFlow<S extends Sequence, A> extends Flow<S, A> {
-  void setSequence(S sequence);
+  private int maxForwardScan = DEFAULT_MAX_FORWARD_SCAN;
 
-  void setConfiguration(FlowConfiguration configuration);
+  @Override
+  public int getMaxForwardScan() {
+    return maxForwardScan;
+  }
+
+  public DefaultFlowConfiguration setMaxForwardScan(int maxForwardScan) {
+    this.maxForwardScan = maxForwardScan;
+    return this;
+  }
 }

@@ -21,7 +21,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class FlowFactoryTest {
   @Test
   public void testCreateFlow() throws OdinException {
-    FlowFactory<Note> flowFactory = new FlowFactory<>();
+    FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();
@@ -35,7 +35,7 @@ public class FlowFactoryTest {
 
   @Test(expected = OdinException.class)
   public void testCreateFlowNotExists() throws OdinException {
-    FlowFactory<Note> flowFactory = new FlowFactory<>();
+    FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
     when(sequence.getFlowName()).thenReturn("FlowDoesNotExist");
     flowFactory.createFlow(sequence);
   }

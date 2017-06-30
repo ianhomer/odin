@@ -20,6 +20,8 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
+import com.purplepip.odin.sequence.flow.FlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
@@ -38,12 +40,17 @@ public class DefaultOdinSequencerConfiguration
   private FlowFactory<Note> flowFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
+  private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
+
+  public DefaultOdinSequencerConfiguration() {
+    this(new DefaultFlowConfiguration());
+  }
 
   /**
    * Create new configuration with defaults set.
    */
-  public DefaultOdinSequencerConfiguration() {
-    setFlowFactory(new FlowFactory<>());
+  public DefaultOdinSequencerConfiguration(FlowConfiguration flowConfiguration) {
+    setFlowFactory(new FlowFactory<>(flowConfiguration));
     setMeasureProvider(new StaticMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);
@@ -138,6 +145,12 @@ public class DefaultOdinSequencerConfiguration
   @Override
   public long getClockStartOffset() {
     return clockStartOffset;
+  }
+
+  public final DefaultOdinSequencerConfiguration setFlowConfiguration(
+      FlowConfiguration flowConfiguration) {
+    this.flowConfiguration = flowConfiguration;
+    return this;
   }
 
   public final DefaultOdinSequencerConfiguration setClockStartOffset(

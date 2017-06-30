@@ -29,7 +29,7 @@ public class FlowFactoryUnconstructibleTest {
     exception.expectMessage(
         "Flow class com.purplepip.odin.sequence.flow.UnconstructibleFlow not registered");
     when(sequence.getFlowName()).thenReturn("com.purplepip.odin.sequence.flow.UnconstructibleFlow");
-    FlowFactory<Note> flowFactory = new FlowFactory<>();
+    FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
     flowFactory.createFlow(sequence);
   }
 }

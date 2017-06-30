@@ -28,6 +28,8 @@ import java.util.Map;
 public class FlowFactory<A> {
   private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
 
+  private FlowConfiguration flowConfiguration;
+
   /*
    * Statically register known flows.  In the future we may design a plugin architecture, but
    * for now it is kept tight by only allowing registered classes.
@@ -40,6 +42,10 @@ public class FlowFactory<A> {
 
   private static void register(Class<? extends MutableFlow> clazz) {
     FLOWS.put(clazz.getName(), clazz);
+  }
+
+  public FlowFactory(FlowConfiguration flowConfiguration) {
+    this.flowConfiguration = flowConfiguration;
   }
 
   /**
@@ -64,6 +70,7 @@ public class FlowFactory<A> {
       throw new OdinException("Cannot create instance of " + flowClass, e);
     }
     flow.setSequence(sequence.copy());
+    flow.setConfiguration(flowConfiguration);
     return flow;
   }
 }

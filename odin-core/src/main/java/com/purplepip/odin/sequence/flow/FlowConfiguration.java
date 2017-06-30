@@ -15,13 +15,6 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.sequence.Sequence;
-
-/**
- * Mutable flow.
- */
-public interface MutableFlow<S extends Sequence, A> extends Flow<S, A> {
-  void setSequence(S sequence);
-
-  void setConfiguration(FlowConfiguration configuration);
+public interface FlowConfiguration {
+  int getMaxForwardScan();
 }

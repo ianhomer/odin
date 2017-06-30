@@ -27,4 +27,6 @@ public interface Flow<S extends Sequence, A> {
   Event<A> getNextEvent(Tock tock, MeasureProvider measureProvider);
 
   S getSequence();
+
+  FlowConfiguration getConfiguration();
 }
