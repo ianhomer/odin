@@ -11,7 +11,6 @@ import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -20,7 +19,6 @@ import org.junit.Test;
 @Slf4j
 public class SequenceTickUpdatedAtRuntimeTest {
   @Test
-  @Ignore
   public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch note60Events = new CountDownLatch(16);
     final CountDownLatch note61Events = new CountDownLatch(16);
