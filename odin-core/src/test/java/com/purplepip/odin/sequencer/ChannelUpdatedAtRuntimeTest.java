@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -98,7 +99,7 @@ public class ChannelUpdatedAtRuntimeTest {
       environment.stop();
     }
 
-    OdinSequenceStatistics statistics = environment.getSequencer().getStatistics();
+    OdinSequencerStatistics statistics = environment.getSequencer().getStatistics();
     assertEquals("Number of program changes not correct", 4, statistics.getProgramChangeCount());
     assertEquals("Number of added tracks not correct", 3, statistics.getTrackAddedCount());
     assertEquals("Number of removed tracks not correct", 1, statistics.getTrackRemovedCount());

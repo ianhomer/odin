@@ -8,6 +8,7 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class SequenceTickUpdatedAtRuntimeTest {
         .withNote(60)
         .addPattern(Ticks.EIGHTH, 1);
     environment.start();
-    OdinSequenceStatistics statistics = environment.getSequencer().getStatistics();
+    OdinSequencerStatistics statistics = environment.getSequencer().getStatistics();
     Pattern pattern = (Pattern) environment.getContainer().getSequences().iterator().next();
 
     try {
@@ -64,6 +65,7 @@ public class SequenceTickUpdatedAtRuntimeTest {
       environment.stop();
     }
 
+    //assertEquals("No events should have been skipped", 0, statistics.getEventTooLateCount());
     assertEquals("Number of added tracks not correct", 1, statistics.getTrackAddedCount());
     assertEquals("Number of updated tracks not correct", 1, statistics.getTrackUpdatedCount());
     assertEquals("Number of removed tracks not correct", 0, statistics.getTrackRemovedCount());

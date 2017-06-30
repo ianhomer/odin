@@ -13,19 +13,21 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.sequencer.statistics;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.ToString;
 
 @ToString
-public class MutableOdinSequenceStatistics implements OdinSequenceStatistics {
+public class DefaultOdinSequencerStatistics
+    implements MutableOdinSequencerStatistics {
   private AtomicInteger programChangeCount = new AtomicInteger();
   private AtomicInteger trackAddedCount = new AtomicInteger();
   private AtomicInteger trackUpdatedCount = new AtomicInteger();
   private AtomicInteger trackRemovedCount = new AtomicInteger();
+  private AtomicInteger eventTooLateCount = new AtomicInteger();
 
-  void incrementTrackAddedCount() {
+  public void incrementTrackAddedCount() {
     trackAddedCount.incrementAndGet();
   }
 
@@ -34,7 +36,7 @@ public class MutableOdinSequenceStatistics implements OdinSequenceStatistics {
     return trackAddedCount.get();
   }
 
-  void incrementTrackRemovedCount(int removedCount) {
+  public void incrementTrackRemovedCount(int removedCount) {
     trackRemovedCount.addAndGet(removedCount);
   }
 
@@ -43,7 +45,7 @@ public class MutableOdinSequenceStatistics implements OdinSequenceStatistics {
     return trackRemovedCount.get();
   }
 
-  void incrementTrackUpdatedCount() {
+  public void incrementTrackUpdatedCount() {
     trackUpdatedCount.incrementAndGet();
   }
 
@@ -52,11 +54,21 @@ public class MutableOdinSequenceStatistics implements OdinSequenceStatistics {
     return trackUpdatedCount.get();
   }
 
-  void incrementProgramChangeCount() {
+  public void incrementProgramChangeCount() {
     programChangeCount.incrementAndGet();
   }
 
   public int getProgramChangeCount() {
     return programChangeCount.get();
   }
+
+  public void incrementEventTooLateCount() {
+    eventTooLateCount.incrementAndGet();
+  }
+
+  @Override
+  public int getEventTooLateCount() {
+    return eventTooLateCount.get();
+  }
+
 }

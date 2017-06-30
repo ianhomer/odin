@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.sequencer.statistics;
 
 import lombok.ToString;
 
 @ToString
-public class UnmodifiableOdinSequenceStatistics implements OdinSequenceStatistics {
-  private OdinSequenceStatistics statistics;
+public class UnmodifiableOdinSequencerStatistics implements OdinSequencerStatistics {
+  private OdinSequencerStatistics statistics;
 
-  public UnmodifiableOdinSequenceStatistics(OdinSequenceStatistics statistics) {
+  public UnmodifiableOdinSequencerStatistics(OdinSequencerStatistics statistics) {
     this.statistics = statistics;
   }
 
@@ -43,5 +43,10 @@ public class UnmodifiableOdinSequenceStatistics implements OdinSequenceStatistic
   @Override
   public int getProgramChangeCount() {
     return statistics.getProgramChangeCount();
+  }
+
+  @Override
+  public int getEventTooLateCount() {
+    return statistics.getEventTooLateCount();
   }
 }

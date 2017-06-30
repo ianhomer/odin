@@ -25,6 +25,10 @@ import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
+import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
+import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
+import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
+import com.purplepip.odin.sequencer.statistics.UnmodifiableOdinSequencerStatistics;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -42,7 +46,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private OperationProcessor operationProcessor;
   private Clock clock;
   private boolean started;
-  private MutableOdinSequenceStatistics statistics = new MutableOdinSequenceStatistics();
+  private MutableOdinSequencerStatistics statistics = new DefaultOdinSequencerStatistics();
 
   /**
    * Create an odin sequencer.
@@ -68,11 +72,12 @@ public class OdinSequencer implements ProjectApplyListener {
      * Create the processors early.  Note that they'll start when the clock starts.
      */
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
-    sequenceProcessor = new SequenceProcessor(clock, sequenceTracks, operationProcessor);
+    sequenceProcessor = new SequenceProcessor(
+        clock, sequenceTracks, operationProcessor, statistics);
   }
 
-  public OdinSequenceStatistics getStatistics() {
-    return new UnmodifiableOdinSequenceStatistics(statistics);
+  public OdinSequencerStatistics getStatistics() {
+    return new UnmodifiableOdinSequencerStatistics(statistics);
   }
 
   @Override

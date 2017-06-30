@@ -22,6 +22,7 @@ import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.SequenceRuntime;
+import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,15 +33,18 @@ public class SequenceProcessorExecutor implements Runnable {
   private final OperationProcessor operationProcessor;
   private long timeBufferInMicroSeconds;
   private int maxNotesPerBuffer = 1000;
+  private MutableSequenceProcessorStatistics statistics;
 
   SequenceProcessorExecutor(Clock clock,
                             Set<SequenceTrack> sequenceTrackSet,
                             OperationProcessor operationProcessor,
-                            long refreshPeriod) {
+                            long refreshPeriod,
+                            MutableSequenceProcessorStatistics statistics) {
     this.clock = clock;
     this.sequenceTrackSet = sequenceTrackSet;
     this.operationProcessor = operationProcessor;
     timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
+    this.statistics = statistics;
   }
 
   /**
@@ -96,6 +100,7 @@ public class SequenceProcessorExecutor implements Runnable {
         nextEvent = sequenceRuntime.pop();
         LOG.debug("Processing Event {}", nextEvent);
         if (nextEvent.getTime() < microsecondPosition) {
+          statistics.incrementEventTooLateCount();
           LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
               microsecondPosition);
         } else {

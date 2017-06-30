@@ -13,14 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.sequencer.statistics;
 
-public interface OdinSequenceStatistics {
-  int getTrackAddedCount();
-
-  int getTrackRemovedCount();
-
-  int getTrackUpdatedCount();
-
-  int getProgramChangeCount();
+public interface MutableSequenceProcessorStatistics extends SequenceProcessorStatistics {
+  void incrementEventTooLateCount();
 }

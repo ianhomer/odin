@@ -18,6 +18,7 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.ClockListener;
 import com.purplepip.odin.sequence.ListenerPriority;
+import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -35,6 +36,7 @@ public class SequenceProcessor implements ClockListener {
   private ScheduledExecutorService scheduledPool;
   private SequenceProcessorExecutor executor;
   private boolean running;
+  private MutableSequenceProcessorStatistics statistics;
 
   /**
    * Create a series processor.
@@ -45,10 +47,13 @@ public class SequenceProcessor implements ClockListener {
    */
   SequenceProcessor(Clock clock,
                     Set<SequenceTrack> sequenceTrackSet,
-                    OperationProcessor operationProcessor) {
+                    OperationProcessor operationProcessor,
+                    MutableSequenceProcessorStatistics statistics) {
     scheduledPool = Executors.newScheduledThreadPool(1);
+    this.statistics = statistics;
     executor = new SequenceProcessorExecutor(
-        clock, Collections.unmodifiableSet(sequenceTrackSet), operationProcessor, refreshPeriod
+        clock, Collections.unmodifiableSet(sequenceTrackSet), operationProcessor, refreshPeriod,
+        statistics
     );
     clock.addListener(this);
     LOG.debug("Created sequence processor");
