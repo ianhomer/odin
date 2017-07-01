@@ -21,10 +21,30 @@ import com.purplepip.odin.sequence.tick.Tick;
  * A clock is aware of the chronological timing of each tick.
  */
 public interface Clock extends MicrosecondPositionProvider {
+  /**
+   * Get the time unit for the ticks of this clock.
+   *
+   * @return tick time unit for clock
+   */
   Tick getTick();
 
-  /*
-   * Get the current tock count.
+  /**
+   * Get microsecond position for the given tick count.
+   */
+  long getMicroseconds(long count);
+
+  /**
+   * Get microsecond position for the given tick count.
+   */
+  long getMicroseconds(double count);
+
+  /**
+   * Get the current tick count.
    */
   long getCount();
+
+  /**
+   * Get the tick count for the given microsecond position.
+   */
+  long getCount(long microseconds);
 }

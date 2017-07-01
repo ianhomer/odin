@@ -114,9 +114,16 @@ public class BeatClock implements Clock {
     return microsecondPositionProvider.getMicroseconds();
   }
 
-  long getMicroseconds(double count) {
+  @Override
+  public long getMicroseconds(double count) {
     return microsecondsPositionOfFirstBeat
         + (long) (beatsPerMinute.getMicroSecondsPerBeat() * count);
+  }
+
+  @Override
+  public long getMicroseconds(long count) {
+    return microsecondsPositionOfFirstBeat
+        + beatsPerMinute.getMicroSecondsPerBeat() * count;
   }
 
   public long getMicrosecondsOfFirstBeat() {
@@ -127,11 +134,13 @@ public class BeatClock implements Clock {
     return beatsPerMinute;
   }
 
-  long getCount(long microseconds) {
+  @Override
+  public long getCount(long microseconds) {
     return (microseconds - microsecondsPositionOfFirstBeat)
         / beatsPerMinute.getMicroSecondsPerBeat();
   }
 
+  @Override
   public long getCount() {
     return getCount(microsecondPositionProvider.getMicroseconds());
   }

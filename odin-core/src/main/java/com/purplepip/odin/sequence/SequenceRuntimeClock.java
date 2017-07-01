@@ -24,35 +24,56 @@ import com.purplepip.odin.sequence.tick.Tick;
  */
 public class SequenceRuntimeClock implements Clock {
   private Tick tick;
-  private BeatClock clock;
+  private BeatClock beatClock;
   private TickConverter beatToTickConverter;
 
   /**
    * Create new sequence runtime clock.
    *
-   * @param clock clock
+   * @param beatClock clock
    * @param tick tick for the sequence runtime
    * @param offsetProvider offset provider for the sequence runtime
    */
-  public SequenceRuntimeClock(BeatClock clock, Tick tick, OffsetProvider offsetProvider) {
+  public SequenceRuntimeClock(BeatClock beatClock, Tick tick, OffsetProvider offsetProvider) {
     this.tick = tick;
-    this.clock = clock;
-    beatToTickConverter = new DefaultTickConverter(clock,
+    this.beatClock = beatClock;
+    beatToTickConverter = new DefaultTickConverter(beatClock,
         RuntimeTicks.BEAT, new ImmutableRuntimeTick(tick), offsetProvider);
   }
-
-  @Override
-  public long getMicroseconds() {
-    return clock.getMicroseconds();
-  }
-
+  
   @Override
   public Tick getTick() {
     return tick;
   }
 
   @Override
+  public long getMicroseconds() {
+    return beatClock.getMicroseconds();
+  }
+
+  /*
+   * TODO : Convert count to beat before getting ms on beat clock.
+   */
+  @Override
+  public long getMicroseconds(long count) {
+    return beatClock.getMicroseconds(count);
+  }
+
+  /*
+   * TODO : Convert count to beat before getting ms on beat clock.
+   */
+  @Override
+  public long getMicroseconds(double count) {
+    return beatClock.getMicroseconds(count);
+  }
+
+  @Override
   public long getCount() {
-    return beatToTickConverter.convert(clock.getCount());
+    return beatToTickConverter.convert(beatClock.getCount());
+  }
+
+  @Override
+  public long getCount(long microseconds) {
+    return 0;
   }
 }
