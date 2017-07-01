@@ -27,39 +27,40 @@ public class DefaultTickConverter extends AbstractTickConverter {
    * Create a tick converter.
    *
    * @param clock clock
-   * @param inputTick input tick
-   * @param outputTick output tick
-   * @param inputOffsetProvider input offset provider
+   * @param sourceTick input tick
+   * @param targetTick output tick
+   * @param sourceOffsetProvider input offset provider
    */
-  public DefaultTickConverter(BeatClock clock, RuntimeTick inputTick, RuntimeTick outputTick,
-                              OffsetProvider inputOffsetProvider) {
+  public DefaultTickConverter(BeatClock clock, RuntimeTick sourceTick, RuntimeTick targetTick,
+                              OffsetProvider sourceOffsetProvider) {
     this.clock = clock;
-    setInputTick(inputTick);
-    setOutputTick(outputTick);
-    setInputOffsetProvider(inputOffsetProvider);
+    setSourceTick(sourceTick);
+    setTargetTick(targetTick);
+    setSourceOffsetProvider(sourceOffsetProvider);
+    afterPropertiesSet();
   }
 
   @Override
-  protected long getTimeUnitAsBeat(long time) {
-    switch (getInputTick().getTimeUnit()) {
+  protected long getTimeWithBeatBasedTimeUnits(Direction direction, long time) {
+    switch (direction.getSourceTick().getTimeUnit()) {
       case BEAT:
-        return scaleTime(time);
+        return direction.scaleTime(time);
       case MICROSECOND:
-        return (long) (clock.getCount(getInputTick().getFactorAsInt() * time)
-            / getOutputTick().getFactor());
+        return (long) (clock.getCountAsDouble((long) direction.getSourceTick().getFactor() * time)
+            / direction.getTargetTick().getFactor());
       default:
         return throwUnexpectedTimeUnit();
     }
   }
 
   @Override
-  protected long getTimeUnitAsMicrosecond(long time) {
-    switch (getInputTick().getTimeUnit()) {
+  protected long getTimeWithMicrosecondBasedTimeUnits(Direction direction, long time) {
+    switch (direction.getSourceTick().getTimeUnit()) {
       case BEAT:
-        return clock.getMicroseconds(getInputTick().getFactor() * time)
-            / getOutputTick().getFactorAsInt();
+        return (long) (clock.getMicroseconds(direction.getSourceTick().getFactor() * time)
+            / direction.getTargetTick().getFactor());
       case MICROSECOND:
-        return scaleTime(time);
+        return direction.scaleTime(time);
       default:
         return throwUnexpectedTimeUnit();
     }

@@ -135,16 +135,20 @@ public class BeatClock implements Clock {
   }
 
   @Override
-  public long getCount(long microseconds) {
-    return (microseconds - microsecondsPositionOfFirstBeat)
-        / beatsPerMinute.getMicroSecondsPerBeat();
-  }
-
-  @Override
   public long getCount() {
     return getCount(microsecondPositionProvider.getMicroseconds());
   }
 
+  @Override
+  public long getCount(long microseconds) {
+    return (long) getCountAsDouble(microseconds);
+  }
+  
+  @Override
+  public double getCountAsDouble(long microseconds) {
+    return (microseconds - microsecondsPositionOfFirstBeat)
+        / (double) beatsPerMinute.getMicroSecondsPerBeat();
+  }
 
   @Override
   public Tick getTick() {

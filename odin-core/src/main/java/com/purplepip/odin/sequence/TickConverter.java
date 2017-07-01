@@ -21,9 +21,11 @@ import com.purplepip.odin.sequence.tick.Tick;
  * Tick converter.
  */
 public interface TickConverter {
-  Tick getOutputTick();
+  Tick getTargetTick();
 
   long convert(long time);
+
+  long convertBack(long time);
 
   /**
    * Convert duration at the given time.  Note that duration can be variable over time so
@@ -35,4 +37,6 @@ public interface TickConverter {
    * @return converted duration
    */
   long convertDuration(long time, long duration);
+
+  long convertDurationBack(long time, long duration);
 }

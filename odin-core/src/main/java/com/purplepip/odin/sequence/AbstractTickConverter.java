@@ -24,70 +24,109 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public abstract class AbstractTickConverter implements TickConverter {
-  private OffsetProvider inputOffsetProvider;
-  private RuntimeTick inputTick;
-  private RuntimeTick outputTick;
+  private OffsetProvider sourceOffsetProvider;
+  private RuntimeTick sourceTick;
+  private RuntimeTick targetTick;
+  private Direction forwards;
+  private Direction backwards;
 
-  final void setOutputTick(RuntimeTick outputTick) {
-    this.outputTick = outputTick;
+  final void setTargetTick(RuntimeTick outputTick) {
+    this.targetTick = outputTick;
   }
 
-  final void setInputTick(RuntimeTick inputTick) {
-    this.inputTick = inputTick;
+  final void setSourceTick(RuntimeTick inputTick) {
+    this.sourceTick = inputTick;
   }
 
-  final void setInputOffsetProvider(OffsetProvider inputOffsetProvider) {
-    this.inputOffsetProvider = inputOffsetProvider;
+  final void setSourceOffsetProvider(OffsetProvider inputOffsetProvider) {
+    this.sourceOffsetProvider = inputOffsetProvider;
+  }
+
+  void afterPropertiesSet() {
+    forwards = new Direction(sourceTick, targetTick);
+    backwards = new Direction(targetTick, sourceTick);
   }
 
   @Override
-  public RuntimeTick getOutputTick() {
-    return outputTick;
+  public RuntimeTick getTargetTick() {
+    return targetTick;
   }
 
-  RuntimeTick getInputTick() {
-    return inputTick;
+  RuntimeTick getSourceTick() {
+    return sourceTick;
   }
 
-  private long getInputOffset() {
-    return inputOffsetProvider.getOffset();
+  private long getSourceOffset() {
+    return sourceOffsetProvider.getOffset();
   }
 
   @Override
   public long convert(long time) {
-    LOG.trace("Converting {} from {} to {}", time, inputTick, outputTick);
-    return convertTimeUnit(getInputOffset() + time);
+    LOG.trace("Converting {} from {} to {}", time, sourceTick, targetTick);
+    return convertTimeUnit(forwards, getSourceOffset() + time);
+  }
+
+  @Override
+  public long convertBack(long time) {
+    LOG.trace("Converting back {} from {} to {}", time, targetTick, sourceTick);
+    return convertTimeUnit(backwards, time) - getSourceOffset();
   }
 
   @Override
   public long convertDuration(long time, long duration) {
-    LOG.trace("Converting duration {} from {} to {}", time, inputTick, outputTick);
+    LOG.trace("Converting duration {} from {} to {}", time, sourceTick, targetTick);
     return convert(time + duration) - convert(time);
   }
 
-  long scaleTime(long time) {
-    return time * inputTick.getNumerator() * outputTick.getDenominator()
-        / (inputTick.getDenominator() * outputTick.getNumerator());
+  @Override
+  public long convertDurationBack(long time, long duration) {
+    LOG.trace("Converting duration back {} from {} to {}", time, targetTick, sourceTick);
+    return convertBack(time + duration) - convertBack(time);
   }
 
-  private long convertTimeUnit(long time) {
-    switch (getOutputTick().getTimeUnit()) {
+  private long convertTimeUnit(Direction direction, long time) {
+    switch (direction.getTargetTick().getTimeUnit()) {
       case BEAT:
-        return getTimeUnitAsBeat(time);
+        return getTimeWithBeatBasedTimeUnits(direction, time);
       case MICROSECOND:
-        return getTimeUnitAsMicrosecond(time);
+        return getTimeWithMicrosecondBasedTimeUnits(direction, time);
       default:
         return throwUnexpectedTimeUnit();
     }
   }
 
-  protected abstract long getTimeUnitAsBeat(long time);
+  protected abstract long getTimeWithBeatBasedTimeUnits(Direction direction, long time);
 
-  protected abstract long getTimeUnitAsMicrosecond(long time);
+  protected abstract long getTimeWithMicrosecondBasedTimeUnits(Direction direction, long time);
 
-  protected long throwUnexpectedTimeUnit() {
-    throw new OdinRuntimeException("Unexpected time unit " + getInputTick().getTimeUnit() + ":"
-        + getOutputTick().getTimeUnit());
+  long throwUnexpectedTimeUnit() {
+    throw new OdinRuntimeException("Unexpected time unit " + getSourceTick().getTimeUnit() + ":"
+        + getTargetTick().getTimeUnit());
   }
 
+  protected class Direction {
+    private RuntimeTick sourceTick;
+    private RuntimeTick targetTick;
+    private double scaleFactor;
+
+    private Direction(RuntimeTick sourceTick, RuntimeTick targetTick) {
+      this.sourceTick = sourceTick;
+      this.targetTick = targetTick;
+      scaleFactor = sourceTick.getNumerator() * targetTick.getDenominator()
+          / (double) (sourceTick.getDenominator() * targetTick.getNumerator());
+      LOG.trace("{} to {} factor is {}", sourceTick, targetTick, scaleFactor);
+    }
+
+    protected RuntimeTick getSourceTick() {
+      return sourceTick;
+    }
+
+    protected RuntimeTick getTargetTick() {
+      return targetTick;
+    }
+
+    long scaleTime(long time) {
+      return (long) (time * scaleFactor);
+    }
+  }
 }

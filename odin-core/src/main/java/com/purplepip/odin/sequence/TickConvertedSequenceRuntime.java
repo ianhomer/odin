@@ -47,7 +47,7 @@ public class TickConvertedSequenceRuntime extends AbstractSequenceRuntime<Note> 
 
   @Override
   public Tick getTick() {
-    return tickConverter.getOutputTick();
+    return tickConverter.getTargetTick();
   }
 
   @Override
@@ -60,7 +60,7 @@ public class TickConvertedSequenceRuntime extends AbstractSequenceRuntime<Note> 
       LOG.debug("No event on sequenceRuntime to convert");
       return null;
     }
-    if (tickConverter.getOutputTick().equals(sequenceRuntime.getTick())) {
+    if (tickConverter.getTargetTick().equals(sequenceRuntime.getTick())) {
       return event;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),

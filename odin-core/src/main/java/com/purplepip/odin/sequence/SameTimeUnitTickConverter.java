@@ -34,23 +34,24 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
    */
   public SameTimeUnitTickConverter(RuntimeTick inputTick, RuntimeTick outputTick,
                                    OffsetProvider inputOffsetProvider) {
-    setInputTick(inputTick);
-    setOutputTick(outputTick);
-    setInputOffsetProvider(inputOffsetProvider);
+    setSourceTick(inputTick);
+    setTargetTick(outputTick);
+    setSourceOffsetProvider(inputOffsetProvider);
+    afterPropertiesSet();
   }
 
   @Override
-  protected long getTimeUnitAsBeat(long time) {
-    if (getInputTick().getTimeUnit() == TimeUnit.BEAT) {
-      return scaleTime(time);
+  protected long getTimeWithBeatBasedTimeUnits(Direction direction, long time) {
+    if (getSourceTick().getTimeUnit() == TimeUnit.BEAT) {
+      return direction.scaleTime(time);
     }
     return throwUnexpectedTimeUnit();
   }
 
   @Override
-  protected long getTimeUnitAsMicrosecond(long time) {
-    if (getInputTick().getTimeUnit() == TimeUnit.MICROSECOND) {
-      return scaleTime(time);
+  protected long getTimeWithMicrosecondBasedTimeUnits(Direction direction, long time) {
+    if (getSourceTick().getTimeUnit() == TimeUnit.MICROSECOND) {
+      return direction.scaleTime(time);
     }
     return throwUnexpectedTimeUnit();
   }

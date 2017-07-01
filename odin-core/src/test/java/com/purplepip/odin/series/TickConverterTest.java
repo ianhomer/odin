@@ -1,12 +1,16 @@
 package com.purplepip.odin.series;
 
+import static com.purplepip.odin.sequence.tick.RuntimeTicks.BEAT;
+import static com.purplepip.odin.sequence.tick.RuntimeTicks.HALF;
+import static com.purplepip.odin.sequence.tick.RuntimeTicks.MICROSECOND;
+import static com.purplepip.odin.sequence.tick.RuntimeTicks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.TickConverter;
-import com.purplepip.odin.sequence.tick.RuntimeTicks;
+import com.purplepip.odin.sequence.tick.RuntimeTick;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,54 +25,48 @@ public class TickConverterTest {
     clock = new BeatClock(new StaticBeatsPerMinute(120));
   }
 
+  private void assertConversion(BeatClock clock, RuntimeTick sourceTick, RuntimeTick targetTick,
+                                long offset, long... times) {
+    TickConverter converter = new DefaultTickConverter(clock, sourceTick, targetTick, () -> offset);
+    for (int i = 0 ; i < times.length ; i = i + 2) {
+      assertEquals(sourceTick + " to " + targetTick + " failed",
+          times[i + 1], converter.convert(times[i]));
+      assertEquals(targetTick + " back to " + sourceTick + " failed",
+          times[i], converter.convertBack(times[i + 1]));
+    }
+  }
+
   @Test
   public void testConvertToMilliseconds() {
-    TickConverter converter = new DefaultTickConverter(clock, RuntimeTicks.BEAT,
-        RuntimeTicks.MILLISECOND, () -> 0);
-    assertEquals("Beat to ms failed", 500, converter.convert(1));
-    converter = new DefaultTickConverter(clock, RuntimeTicks.HALF,
-        RuntimeTicks.MILLISECOND, () -> 0);
-    assertEquals("Half beat to ms failed", 250, converter.convert(1));
+    assertConversion(clock, BEAT, MILLISECOND, 0, 1,500);
+  }
+
+  @Test
+  public void testConvertHalfBeatToMilliseconds() {
+    assertConversion(clock, HALF, MILLISECOND, 0, 1,250);
   }
 
   @Test
   public void testConvertToMicroseconds() {
-    TickConverter converter = new DefaultTickConverter(clock, RuntimeTicks.BEAT,
-        RuntimeTicks.MICROSECOND, () -> 0);
-    assertEquals("Beat to micros failed", 500000, converter.convert(1));
-    converter = new DefaultTickConverter(clock, RuntimeTicks.HALF,
-        RuntimeTicks.MICROSECOND, () -> 0);
-    assertEquals("Half beat to micros failed", 250000, converter.convert(1));
+    assertConversion(clock, BEAT, MICROSECOND, 0, 1,500000);
+    assertConversion(clock, HALF, MICROSECOND, 0, 1,250000);
   }
 
   @Test
   public void testConvertToMicrosecondsWithOffset() {
-    TickConverter converter = new DefaultTickConverter(clock, RuntimeTicks.BEAT,
-        RuntimeTicks.MICROSECOND, () -> 1);
-    assertEquals("Beat to micros failed", 1000000, converter.convert(1));
-    converter = new DefaultTickConverter(clock, RuntimeTicks.HALF,
-        RuntimeTicks.MICROSECOND, () -> 1);
-    assertEquals("Half beat to micros failed", 500000, converter.convert(1));
+    assertConversion(clock, BEAT, MICROSECOND, 1, 1,1000000);
+    assertConversion(clock, HALF, MICROSECOND, 1, 1,500000);
   }
 
   @Test
   public void testConvertToBeat() {
-    TickConverter converter = new DefaultTickConverter(clock, RuntimeTicks.MICROSECOND,
-        RuntimeTicks.BEAT, () -> 0);
-    assertEquals("Micros to beat failed", 1, converter.convert(500000));
-    converter = new DefaultTickConverter(clock, RuntimeTicks.MILLISECOND,
-        RuntimeTicks.BEAT, () -> 0);
-    assertEquals("Ms to beat failed", 1, converter.convert(500));
+    assertConversion(clock, MICROSECOND, BEAT, 0, 500000, 1);
+    assertConversion(clock, MILLISECOND, BEAT, 0, 500, 1);
   }
 
   @Test
   public void testConvertToHalfBeat() {
-    TickConverter converter = new DefaultTickConverter(clock, RuntimeTicks.MICROSECOND,
-        RuntimeTicks.HALF, () -> 0);
-    assertEquals("Micros to half beat failed", 4, converter.convert(1000000));
-    converter = new DefaultTickConverter(clock, RuntimeTicks.MILLISECOND,
-        RuntimeTicks.HALF, () -> 0);
-    assertEquals("Ms to half beat failed", 4, converter.convert(1000));
+    assertConversion(clock, MICROSECOND, HALF, 0, 1000000, 4);
+    assertConversion(clock, MILLISECOND, HALF, 0, 1000, 4);
   }
-
 }

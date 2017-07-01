@@ -40,7 +40,7 @@ public class SequenceRuntimeClock implements Clock {
     beatToTickConverter = new DefaultTickConverter(beatClock,
         RuntimeTicks.BEAT, new ImmutableRuntimeTick(tick), offsetProvider);
   }
-  
+
   @Override
   public Tick getTick() {
     return tick;
@@ -74,6 +74,11 @@ public class SequenceRuntimeClock implements Clock {
 
   @Override
   public long getCount(long microseconds) {
+    return 0;
+  }
+
+  @Override
+  public double getCountAsDouble(long microseconds) {
     return 0;
   }
 }
