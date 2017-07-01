@@ -28,7 +28,7 @@ public class MidiDeviceMicrosecondPositionProvider implements MicrosecondPositio
   }
 
   @Override
-  public long getMicrosecondPosition() {
+  public long getMicroseconds() {
     return midiDeviceWrapper.getDevice().getMicrosecondPosition();
   }
 }

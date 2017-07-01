@@ -56,7 +56,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
   protected long getTimeUnitAsMicrosecond(long time) {
     switch (getInputTick().getTimeUnit()) {
       case BEAT:
-        return clock.getMicroSeconds(getInputTick().getFactor() * time)
+        return clock.getMicroseconds(getInputTick().getFactor() * time)
             / getOutputTick().getFactorAsInt();
       case MICROSECOND:
         return scaleTime(time);

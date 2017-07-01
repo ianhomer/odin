@@ -49,7 +49,7 @@ public class DefaultOperationProcessorExecutor implements Runnable {
 
   private void doJob() {
     long size = queue.size();
-    long microsecondPosition = clock.getMicrosecondPosition();
+    long microsecondPosition = clock.getMicroseconds();
     long count = 0;
     /*
      * Peek at next event on queue first to see whether we are ready to process this operation.

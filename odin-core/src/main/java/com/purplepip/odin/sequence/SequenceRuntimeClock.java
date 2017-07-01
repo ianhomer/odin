@@ -42,8 +42,8 @@ public class SequenceRuntimeClock implements Clock {
   }
 
   @Override
-  public long getMicrosecondPosition() {
-    return clock.getMicrosecondPosition();
+  public long getMicroseconds() {
+    return clock.getMicroseconds();
   }
 
   @Override
@@ -52,8 +52,7 @@ public class SequenceRuntimeClock implements Clock {
   }
 
   @Override
-  // TODO : Should clock return longs not double?  Why do we need double?
-  public double getCount() {
-    return beatToTickConverter.convert((long) clock.getCount());
+  public long getCount() {
+    return beatToTickConverter.convert(clock.getCount());
   }
 }

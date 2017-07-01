@@ -116,6 +116,8 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
   }
 
   private void afterTickChange() {
+
+
     /*
      * Calculate offset of this sequence in microseconds ...
      */
@@ -135,7 +137,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
      * that time has passed.
      */
     long tockCountStart = microsecondToSequenceTickConverter
-        .convert(clock.getMicrosecondPosition());
+        .convert(clock.getMicroseconds());
     if (tockCountStart < 0) {
       /*
        * If sequence start is the future then set tock to 0 so that it is ready to

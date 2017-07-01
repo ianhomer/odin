@@ -88,7 +88,7 @@ public class BeatClock implements Clock {
      * Note that (startRoundingFactor - 1) ensure we don't round up if we are already
      * on a rounding boundary.
      */
-    long currentMicrosecondPosition = microsecondPositionProvider.getMicrosecondPosition();
+    long currentMicrosecondPosition = microsecondPositionProvider.getMicroseconds();
     this.microsecondsPositionOfFirstBeat = startRoundingFactor
         * ((startOffset + startRoundingFactor - 1 + currentMicrosecondPosition)
         / startRoundingFactor);
@@ -110,11 +110,16 @@ public class BeatClock implements Clock {
    * @return microsecond position
    */
   @Override
-  public long getMicrosecondPosition() {
-    return microsecondPositionProvider.getMicrosecondPosition();
+  public long getMicroseconds() {
+    return microsecondPositionProvider.getMicroseconds();
   }
 
-  public long getMicrosecondsPositionOfFirstBeat() {
+  long getMicroseconds(double count) {
+    return microsecondsPositionOfFirstBeat
+        + (long) (beatsPerMinute.getMicroSecondsPerBeat() * count);
+  }
+
+  public long getMicrosecondsOfFirstBeat() {
     return microsecondsPositionOfFirstBeat;
   }
 
@@ -122,19 +127,15 @@ public class BeatClock implements Clock {
     return beatsPerMinute;
   }
 
-  double getCount(long microseconds) {
+  long getCount(long microseconds) {
     return (microseconds - microsecondsPositionOfFirstBeat)
-        / (double) beatsPerMinute.getMicroSecondsPerBeat();
+        / beatsPerMinute.getMicroSecondsPerBeat();
   }
 
-  public double getCount() {
-    return getCount(microsecondPositionProvider.getMicrosecondPosition());
+  public long getCount() {
+    return getCount(microsecondPositionProvider.getMicroseconds());
   }
 
-  long getMicroSeconds(double beat) {
-    return microsecondsPositionOfFirstBeat
-        + (long) (beatsPerMinute.getMicroSecondsPerBeat() * beat);
-  }
 
   @Override
   public Tick getTick() {
@@ -146,6 +147,6 @@ public class BeatClock implements Clock {
   }
 
   @Override public String toString() {
-    return getMicrosecondPosition() + "μs (beat=" + (long) getCount() + ")";
+    return getMicroseconds() + "μs (beat=" + (long) getCount() + ")";
   }
 }

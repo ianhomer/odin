@@ -68,7 +68,7 @@ public class SequenceProcessorExecutor implements Runnable {
      * loop processing.  In this loop it is only used for setting forward scan windows and does
      * not need the precise microsecond positioning at the time of instruction execution.
      */
-    long microsecondPosition = clock.getMicrosecondPosition();
+    long microsecondPosition = clock.getMicroseconds();
     int noteCountThisBuffer = 0;
     for (SequenceTrack sequenceTrack : sequenceTrackSet) {
       LOG.trace("Processing sequenceRuntime {} for device at position {}",

@@ -20,5 +20,5 @@ package com.purplepip.odin.sequence;
  */
 @FunctionalInterface
 public interface MicrosecondPositionProvider {
-  long getMicrosecondPosition();
+  long getMicroseconds();
 }

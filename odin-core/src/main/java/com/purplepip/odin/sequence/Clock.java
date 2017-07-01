@@ -26,5 +26,5 @@ public interface Clock extends MicrosecondPositionProvider {
   /*
    * Get the current tock count.
    */
-  double getCount();
+  long getCount();
 }
