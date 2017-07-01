@@ -88,10 +88,10 @@ public class SequenceProcessorExecutor implements Runnable {
   private int process(SequenceTrack sequenceTrack, long microsecondPosition) {
     int noteCount = 0;
     SequenceRuntime<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
-    if (sequenceRuntime.peek() != null) {
-      Event<Note> nextEvent = sequenceRuntime.peek();
-      while (nextEvent != null && nextEvent.getTime()
-          < microsecondPosition + timeBufferInMicroSeconds) {
+    Event<Note> nextEvent = sequenceRuntime.peek();
+    long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
+    if (nextEvent != null) {
+      while (nextEvent != null && nextEvent.getTime() < maxMicrosecondPosition) {
         if (noteCount > maxNotesPerBuffer) {
           LOG.warn("Too many notes in this buffer {} > {} ", noteCount,
               maxNotesPerBuffer);
@@ -112,6 +112,11 @@ public class SequenceProcessorExecutor implements Runnable {
         noteCount++;
         nextEvent = sequenceRuntime.peek();
         LOG.trace("Next event {}", nextEvent);
+      }
+      if (nextEvent == null) {
+        LOG.debug("No more events on sequence runtime");
+      } else {
+        LOG.debug("Next event {} is beyond horizon {}", nextEvent, maxMicrosecondPosition);
       }
     } else {
       LOG.debug("No event on sequenceRuntime");

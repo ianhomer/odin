@@ -29,9 +29,16 @@ public class TickConvertedSequenceRuntime extends AbstractSequenceRuntime<Note> 
   private SequenceRuntime<Note> sequenceRuntime;
   private TickConverter tickConverter;
 
+  /**
+   * Create tick converted sequence runtime.
+   *
+   * @param sequenceRuntime sequence runtime to convert
+   * @param tickConverter tick converter to convert the runtime with
+   */
   public TickConvertedSequenceRuntime(SequenceRuntime<Note> sequenceRuntime,
                                       TickConverter tickConverter) {
     this.sequenceRuntime = sequenceRuntime;
+    // TODO : This tick converter does not get updated from runtime changes of sequence.
     this.tickConverter = tickConverter;
   }
 
