@@ -17,7 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.ClockListener;
 import com.purplepip.odin.sequence.ListenerPriority;
 import java.util.concurrent.Executors;
@@ -48,7 +48,7 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
    * @param clock clock
    * @param operationReceiver operation receiver
    */
-  DefaultOperationProcessor(Clock clock, OperationReceiver operationReceiver) {
+  DefaultOperationProcessor(BeatClock clock, OperationReceiver operationReceiver) {
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }

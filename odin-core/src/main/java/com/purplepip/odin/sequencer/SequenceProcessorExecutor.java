@@ -19,7 +19,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.SequenceRuntime;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
@@ -29,13 +29,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SequenceProcessorExecutor implements Runnable {
   private final Set<SequenceTrack> sequenceTrackSet;
-  private final Clock clock;
+  private final BeatClock clock;
   private final OperationProcessor operationProcessor;
   private long timeBufferInMicroSeconds;
   private int maxNotesPerBuffer = 1000;
   private MutableSequenceProcessorStatistics statistics;
 
-  SequenceProcessorExecutor(Clock clock,
+  SequenceProcessorExecutor(BeatClock clock,
                             Set<SequenceTrack> sequenceTrackSet,
                             OperationProcessor operationProcessor,
                             long refreshPeriod,

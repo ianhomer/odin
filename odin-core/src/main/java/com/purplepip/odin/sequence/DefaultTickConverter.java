@@ -21,7 +21,7 @@ import com.purplepip.odin.sequence.tick.RuntimeTick;
  * Time unit converter.
  */
 public class DefaultTickConverter extends AbstractTickConverter {
-  private Clock clock;
+  private BeatClock clock;
 
   /**
    * Create a tick converter.
@@ -31,7 +31,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
    * @param outputTick output tick
    * @param inputOffsetProvider input offset provider
    */
-  public DefaultTickConverter(Clock clock, RuntimeTick inputTick, RuntimeTick outputTick,
+  public DefaultTickConverter(BeatClock clock, RuntimeTick inputTick, RuntimeTick outputTick,
                               OffsetProvider inputOffsetProvider) {
     this.clock = clock;
     setInputTick(inputTick);
@@ -45,7 +45,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
       case BEAT:
         return scaleTime(time);
       case MICROSECOND:
-        return (long) (clock.getBeat(getInputTick().getFactorAsInt() * time)
+        return (long) (clock.getCount(getInputTick().getFactorAsInt() * time)
             / getOutputTick().getFactor());
       default:
         return throwUnexpectedTimeUnit();

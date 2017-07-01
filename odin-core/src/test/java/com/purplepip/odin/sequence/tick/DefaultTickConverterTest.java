@@ -4,11 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +21,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class DefaultTickConverterTest {
   @Mock
   private MicrosecondPositionProvider provider;
-  private Clock clock;
+  private BeatClock clock;
 
   /**
    * Execute before tests.
@@ -30,7 +29,7 @@ public class DefaultTickConverterTest {
   @Before
   public void before() {
     when(provider.getMicrosecondPosition()).thenReturn((long) 0);
-    clock = new Clock(new StaticBeatsPerMinute(120),
+    clock = new BeatClock(new StaticBeatsPerMinute(120),
         provider, 1000);
     clock.start();
   }

@@ -35,7 +35,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
     implements MutableSequenceRuntime<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
 
-  private Clock clock;
+  private BeatClock clock;
   private MeasureProvider measureProvider;
   private Event<A> nextEvent;
   private MovableTock tock;
@@ -51,7 +51,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
     return unmodifiableRuntimeTick;
   }
 
-  protected final void setClock(Clock clock) {
+  protected final void setClock(BeatClock clock) {
     this.clock = clock;
     clock.addListener(this);
   }

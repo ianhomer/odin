@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.BeatClock;
 import java.util.concurrent.PriorityBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,11 +26,11 @@ public class DefaultOperationProcessorExecutor implements Runnable {
   private static final long FORWARD_POLLING_TIME =
       DefaultOperationProcessor.REFRESH_PERIOD * 1000 * 5;
 
-  private Clock clock;
+  private BeatClock clock;
   private PriorityBlockingQueue<OperationEvent> queue;
   private OperationReceiver operationReceiver;
 
-  DefaultOperationProcessorExecutor(Clock clock,
+  DefaultOperationProcessorExecutor(BeatClock clock,
                                     PriorityBlockingQueue<OperationEvent> queue,
                                     OperationReceiver operationReceiver) {
     this.clock = clock;

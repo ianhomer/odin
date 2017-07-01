@@ -15,16 +15,16 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.sequence.tick.Tick;
+import static org.junit.Assert.assertTrue;
 
-/**
- * A clock is aware of the chronological timing of each tick.
- */
-public interface Clock extends MicrosecondPositionProvider {
-  Tick getTick();
+import com.purplepip.odin.sequence.tick.Ticks;
+import org.junit.Test;
 
-  /*
-   * Get the current tock count.
-   */
-  double getCount();
+public class SequenceRuntimeClockTest {
+  @Test
+  public void testCount() {
+    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(120));
+    Clock clock = new SequenceRuntimeClock(beatClock, Ticks.QUARTER, () -> 0);
+    assertTrue(clock.getCount() > -1);
+  }
 }

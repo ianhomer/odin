@@ -19,7 +19,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
-import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Sequence;
@@ -44,7 +44,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
-  private Clock clock;
+  private BeatClock clock;
   private boolean started;
   private MutableOdinSequencerStatistics statistics = new DefaultOdinSequencerStatistics();
 
@@ -64,7 +64,7 @@ public class OdinSequencer implements ProjectApplyListener {
    * Initialise the sequencer.
    */
   private void init() {
-    clock = new Clock(configuration.getBeatsPerMinute(),
+    clock = new BeatClock(configuration.getBeatsPerMinute(),
         configuration.getMicrosecondPositionProvider(),
         configuration.getClockStartRoundingFactor(),
         configuration.getClockStartOffset());
@@ -228,7 +228,7 @@ public class OdinSequencer implements ProjectApplyListener {
     clock.start();
   }
 
-  public Clock getClock() {
+  public BeatClock getClock() {
     return clock;
   }
 

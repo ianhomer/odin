@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.ClockListener;
 import com.purplepip.odin.sequence.ListenerPriority;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
@@ -47,7 +47,7 @@ public class SequenceProcessor implements ClockListener {
    * @param sequenceTrackSet series track set
    * @param operationProcessor operation processor
    */
-  SequenceProcessor(Clock clock,
+  SequenceProcessor(BeatClock clock,
                     Set<SequenceTrack> sequenceTrackSet,
                     OperationProcessor operationProcessor,
                     MutableSequenceProcessorStatistics statistics) {

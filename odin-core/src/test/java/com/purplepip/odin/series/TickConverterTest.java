@@ -2,7 +2,7 @@ package com.purplepip.odin.series;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.TickConverter;
@@ -14,11 +14,11 @@ import org.junit.Test;
  * Time Unit Converter Test.
  */
 public class TickConverterTest {
-  private Clock clock;
+  private BeatClock clock;
 
   @Before
   public void initialise() {
-    clock = new Clock(new StaticBeatsPerMinute(120));
+    clock = new BeatClock(new StaticBeatsPerMinute(120));
   }
 
   @Test

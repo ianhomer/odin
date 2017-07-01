@@ -25,7 +25,7 @@ public class TickConvertedSequenceRuntimeTest {
   @Mock
   private SequenceRuntime<Note> sequenceRuntime;
 
-  private Clock clock;
+  private BeatClock clock;
 
   /**
    * Set up.
@@ -33,7 +33,7 @@ public class TickConvertedSequenceRuntimeTest {
   @Before
   public void setUp() {
     when(provider.getMicrosecondPosition()).thenReturn((long) 0);
-    clock = new Clock(new StaticBeatsPerMinute(60), provider);
+    clock = new BeatClock(new StaticBeatsPerMinute(60), provider);
     clock.start();
   }
 
