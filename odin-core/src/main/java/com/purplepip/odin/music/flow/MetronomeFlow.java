@@ -17,6 +17,7 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
@@ -29,7 +30,7 @@ import com.purplepip.odin.sequence.tick.Tock;
  */
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
   @Override
-  public Event<Note> getNextEvent(Tock tock, MeasureProvider measureProvider) {
+  public Event<Note> getNextEvent(Tock tock, Clock clock, MeasureProvider measureProvider) {
     /*
      * Create local and temporary mutable tock for this function execution.
      */

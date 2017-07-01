@@ -37,13 +37,13 @@ public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Note>
    * @param measureProvider measure provider
    */
   public DefaultSequenceRuntime(BeatClock clock, MeasureProvider measureProvider) {
-    setClock(clock);
+    setBeatClock(clock);
     setMeasureProvider(measureProvider);
   }
 
   @Override
   protected Event<Note> getNextEvent(Tock tock) {
-    return flow.getNextEvent(tock, getMeasureProvider());
+    return flow.getNextEvent(tock, getClock(), getMeasureProvider());
   }
 
   @Override

@@ -35,7 +35,11 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
     implements MutableSequenceRuntime<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
 
-  private BeatClock clock;
+  private BeatClock beatClock;
+  /*
+   * Tick converted clock.
+   */
+  private Clock clock;
   private MeasureProvider measureProvider;
   private Event<A> nextEvent;
   private MovableTock tock;
@@ -51,9 +55,9 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
     return unmodifiableRuntimeTick;
   }
 
-  protected final void setClock(BeatClock clock) {
-    this.clock = clock;
-    clock.addListener(this);
+  protected final void setBeatClock(BeatClock beatClock) {
+    this.beatClock = beatClock;
+    beatClock.addListener(this);
   }
 
   public MeasureProvider getMeasureProvider() {
@@ -93,7 +97,7 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
     if (sequenceDirty) {
       afterSequenceChange();
     }
-    if (clock.isStarted() && tickDirty) {
+    if (beatClock.isStarted() && tickDirty) {
       afterTickChange();
     }
     LOG.debug("Refreshed {}", this);
@@ -116,12 +120,10 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
   }
 
   private void afterTickChange() {
-
-
     /*
      * Calculate offset of this sequence in microseconds ...
      */
-    long microsecondOffset = new DefaultTickConverter(clock, getTick(),
+    long microsecondOffset = new DefaultTickConverter(beatClock, getTick(),
         RuntimeTicks.MICROSECOND, () -> 0).convert(getSequence().getOffset());
     LOG.debug("Microsecond start for this sequence : {}", microsecondOffset);
     /*
@@ -129,15 +131,15 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
      * for this sequence runtime.
      */
     TickConverter microsecondToSequenceTickConverter =
-        new DefaultTickConverter(clock, RuntimeTicks.MICROSECOND, getTick(),
+        new DefaultTickConverter(beatClock, RuntimeTicks.MICROSECOND, getTick(),
             () -> - microsecondOffset);
     /*
      * Set the tock count, that this sequence runtime should start at, to the current tock
-     * count according to the clock.  There is no point starting the tock any earlier since
+     * count according to the beatClock.  There is no point starting the tock any earlier since
      * that time has passed.
      */
     long tockCountStart = microsecondToSequenceTickConverter
-        .convert(clock.getMicroseconds());
+        .convert(beatClock.getMicroseconds());
     if (tockCountStart < 0) {
       /*
        * If sequence start is the future then set tock to 0 so that it is ready to
@@ -145,15 +147,17 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
        */
       tockCountStart = 0;
     }
-    LOG.debug("Tock count start is {} at {}", tockCountStart, clock);
+    LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
     tock = new MovableTock(getSequence().getTick(), tockCountStart);
     sealedTock = new SealedTock(tock);
+
+    clock = new TickConvertedClock(beatClock, getTick(), getOffsetProvider());
     tickDirty = false;
     LOG.debug("afterTickChange executed");
   }
 
   /**
-   * Action on clock start.
+   * Action on beatClock start.
    */
   @Override
   public void onClockStart() {
@@ -163,14 +167,12 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
   }
 
   /**
-   * Action on clock stop.
+   * Action on beatClock stop.
    */
   @Override
   public void onClockStop() {
 
   }
-
-
 
   protected abstract Event<A> getNextEvent(Tock tock);
 
@@ -185,6 +187,15 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
     }
     LOG.trace("isActive {} : {} < {}", getLength(), tock.getCount(), getLength());
     return getLength() < 0 || tock.getCount() < getLength();
+  }
+
+  /**
+   * Get tick converted clock.
+   *
+   * @return tick converted clock.
+   */
+  protected Clock getClock() {
+    return clock;
   }
 
   private Event<A> getNextEventInternal(MovableTock tock) {

@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.sequence.tick.Ticks;
@@ -23,8 +24,16 @@ import org.junit.Test;
 public class SequenceRuntimeClockTest {
   @Test
   public void testCount() {
-    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(120));
-    Clock clock = new SequenceRuntimeClock(beatClock, Ticks.QUARTER, () -> 0);
+    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
+    Clock clock = new TickConvertedClock(beatClock, Ticks.QUARTER, () -> 0);
     assertTrue(clock.getCount() > -1);
+  }
+
+  @Test
+  public void testDuration() {
+    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
+    Clock clock = new TickConvertedClock(beatClock, Ticks.QUARTER, () -> 0);
+    assertEquals(4, clock.getDuration(1000000));
+    assertEquals(4, clock.getDuration(1000000, 10));
   }
 }

@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.flow;
 
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
@@ -24,7 +25,7 @@ import com.purplepip.odin.sequence.tick.Tock;
  * A flow class has the intelligence to determine the next events in a sequence.
  */
 public interface Flow<S extends Sequence, A> {
-  Event<A> getNextEvent(Tock tock, MeasureProvider measureProvider);
+  Event<A> getNextEvent(Tock tock, Clock clock, MeasureProvider measureProvider);
 
   S getSequence();
 

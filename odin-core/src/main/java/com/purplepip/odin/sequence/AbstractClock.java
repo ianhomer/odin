@@ -13,25 +13,19 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.flow;
+package com.purplepip.odin.sequence;
 
-public class DefaultFlowConfiguration implements FlowConfiguration {
-  private static final int DEFAULT_MAX_FORWARD_SCAN = 200000;
-
-  private long maxForwardScan = DEFAULT_MAX_FORWARD_SCAN;
-
-  /**
-   * Max time in microseconds that a flow can scan forward to find the next event.
-   *
-   * @return max forward scan in microseconds
-   */
-  @Override
-  public long getMaxForwardScan() {
-    return maxForwardScan;
+public abstract class AbstractClock implements Clock {
+  public final long getDuration(long microseconds) {
+    return getDurationFromMicroseconds(microseconds, getMicroseconds());
   }
 
-  public DefaultFlowConfiguration setMaxForwardScan(int maxForwardScan) {
-    this.maxForwardScan = maxForwardScan;
-    return this;
+  public final long getDuration(long microseconds, long count) {
+    return getDurationFromMicroseconds(microseconds, getMicroseconds(count));
+  }
+
+  private long getDurationFromMicroseconds(long microsecondsDuration, long microsecondsPosition) {
+    return getCount(microsecondsPosition + microsecondsDuration)
+        - getCount(microsecondsPosition);
   }
 }

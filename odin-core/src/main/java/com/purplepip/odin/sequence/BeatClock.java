@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * each beat.</p>
  */
 @Slf4j
-public class BeatClock implements Clock {
+public class BeatClock extends AbstractClock {
   private MicrosecondPositionProvider microsecondPositionProvider;
   private Set<ClockListener> listeners = new TreeSet<>(new ClockListenerComparator());
   private BeatsPerMinute beatsPerMinute;
@@ -143,7 +143,7 @@ public class BeatClock implements Clock {
   public long getCount(long microseconds) {
     return (long) getCountAsDouble(microseconds);
   }
-  
+
   @Override
   public double getCountAsDouble(long microseconds) {
     return (microseconds - microsecondsPositionOfFirstBeat)

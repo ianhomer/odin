@@ -16,16 +16,17 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.sequence.tick.ImmutableRuntimeTick;
+import com.purplepip.odin.sequence.tick.RuntimeTick;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequence.tick.Tick;
 
 /**
  * Clock for the given sequence runtime.
  */
-public class SequenceRuntimeClock implements Clock {
+public class TickConvertedClock extends AbstractClock {
   private Tick tick;
   private BeatClock beatClock;
-  private TickConverter beatToTickConverter;
+  private TickConverter tickToBeatConverter;
 
   /**
    * Create new sequence runtime clock.
@@ -34,11 +35,12 @@ public class SequenceRuntimeClock implements Clock {
    * @param tick tick for the sequence runtime
    * @param offsetProvider offset provider for the sequence runtime
    */
-  public SequenceRuntimeClock(BeatClock beatClock, Tick tick, OffsetProvider offsetProvider) {
+  public TickConvertedClock(BeatClock beatClock, Tick tick, OffsetProvider offsetProvider) {
     this.tick = tick;
     this.beatClock = beatClock;
-    beatToTickConverter = new DefaultTickConverter(beatClock,
-        RuntimeTicks.BEAT, new ImmutableRuntimeTick(tick), offsetProvider);
+    RuntimeTick runtimeTick = new ImmutableRuntimeTick(tick);
+    tickToBeatConverter = new DefaultTickConverter(beatClock,
+        runtimeTick, RuntimeTicks.BEAT, offsetProvider);
   }
 
   @Override
@@ -51,34 +53,32 @@ public class SequenceRuntimeClock implements Clock {
     return beatClock.getMicroseconds();
   }
 
-  /*
-   * TODO : Convert count to beat before getting ms on beat clock.
-   */
   @Override
   public long getMicroseconds(long count) {
-    return beatClock.getMicroseconds(count);
+    return beatClock.getMicroseconds(tickToBeatConverter.convert(count));
   }
 
-  /*
-   * TODO : Convert count to beat before getting ms on beat clock.
-   */
   @Override
   public long getMicroseconds(double count) {
-    return beatClock.getMicroseconds(count);
+    return beatClock.getMicroseconds(tickToBeatConverter.convert((long) count));
   }
 
   @Override
   public long getCount() {
-    return beatToTickConverter.convert(beatClock.getCount());
+    return tickToBeatConverter.convertBack(beatClock.getCount());
   }
 
   @Override
   public long getCount(long microseconds) {
-    return 0;
+    return tickToBeatConverter.convertBack(beatClock.getCount(microseconds));
   }
 
+  /*
+   * TODO : Count as double needs to retain double precision, currently convertBack always
+   * rounds to long.
+   */
   @Override
   public double getCountAsDouble(long microseconds) {
-    return 0;
+    return tickToBeatConverter.convertBack(beatClock.getCount(microseconds));
   }
 }

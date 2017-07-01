@@ -34,7 +34,7 @@ public class TestSequencerEnvironment {
 
   private void initialiseSequencer(OperationReceiver operationReceiver) throws OdinException {
     DefaultFlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
-    flowConfiguration.setMaxForwardScan(40);
+    flowConfiguration.setMaxForwardScan(1000000);
 
     sequencer = new OdinSequencer(
         new DefaultOdinSequencerConfiguration(flowConfiguration)

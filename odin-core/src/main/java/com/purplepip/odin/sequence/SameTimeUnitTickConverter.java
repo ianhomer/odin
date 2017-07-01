@@ -41,7 +41,7 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected long getTimeWithBeatBasedTimeUnits(Direction direction, long time) {
+  protected double getTimeWithBeatBasedTimeUnits(Direction direction, long time) {
     if (getSourceTick().getTimeUnit() == TimeUnit.BEAT) {
       return direction.scaleTime(time);
     }
@@ -49,7 +49,7 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected long getTimeWithMicrosecondBasedTimeUnits(Direction direction, long time) {
+  protected double getTimeWithMicrosecondBasedTimeUnits(Direction direction, long time) {
     if (getSourceTick().getTimeUnit() == TimeUnit.MICROSECOND) {
       return direction.scaleTime(time);
     }
