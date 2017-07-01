@@ -22,14 +22,14 @@ import java.util.TreeSet;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * SequenceRuntime clock that has the intelligence to know the timings of future beats.
+ * Primary clock that has the intelligence to know the timings of future beats.
  *
  * <p>Note that currently it is implemented with a static BPM, but note that the system in general
  * must support variable BPM, so it is essential that this Clock is the authority on timings of
- * each beat.
+ * each beat.</p>
  */
 @Slf4j
-public class DefaultClock implements Clock {
+public class BeatClock implements Clock {
   private MicrosecondPositionProvider microsecondPositionProvider;
   private Set<ClockListener> listeners = new TreeSet<>(new ClockListenerComparator());
   private BeatsPerMinute beatsPerMinute;
@@ -39,18 +39,18 @@ public class DefaultClock implements Clock {
   private long startOffset;
   private boolean started;
 
-  public DefaultClock(BeatsPerMinute beatsPerMinute) {
+  public BeatClock(BeatsPerMinute beatsPerMinute) {
     this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
   }
 
-  public DefaultClock(BeatsPerMinute beatsPerMinute,
-                      MicrosecondPositionProvider microsecondPositionProvider) {
+  public BeatClock(BeatsPerMinute beatsPerMinute,
+                   MicrosecondPositionProvider microsecondPositionProvider) {
     this(beatsPerMinute, microsecondPositionProvider, 1);
   }
 
-  public DefaultClock(BeatsPerMinute beatsPerMinute,
-                      MicrosecondPositionProvider microsecondPositionProvider,
-                      long startRoundingFactor) {
+  public BeatClock(BeatsPerMinute beatsPerMinute,
+                   MicrosecondPositionProvider microsecondPositionProvider,
+                   long startRoundingFactor) {
     this(beatsPerMinute, microsecondPositionProvider, startRoundingFactor, 0);
   }
 
@@ -62,10 +62,10 @@ public class DefaultClock implements Clock {
    * @param startOffset how many microseconds to start in
    * @param startRoundingFactor start rounding factor
    */
-  public DefaultClock(BeatsPerMinute beatsPerMinute,
-                      MicrosecondPositionProvider microsecondPositionProvider,
-                      long startRoundingFactor,
-                      long startOffset) {
+  public BeatClock(BeatsPerMinute beatsPerMinute,
+                   MicrosecondPositionProvider microsecondPositionProvider,
+                   long startRoundingFactor,
+                   long startOffset) {
     this.beatsPerMinute = beatsPerMinute;
     this.startRoundingFactor = startRoundingFactor;
     this.microsecondPositionProvider = microsecondPositionProvider;
@@ -127,6 +127,10 @@ public class DefaultClock implements Clock {
         / (double) beatsPerMinute.getMicroSecondsPerBeat();
   }
 
+  public double getCount() {
+    return getCount(microsecondPositionProvider.getMicrosecondPosition());
+  }
+
   long getMicroSeconds(double beat) {
     return microsecondsPositionOfFirstBeat
         + (long) (beatsPerMinute.getMicroSecondsPerBeat() * beat);
@@ -135,10 +139,6 @@ public class DefaultClock implements Clock {
   @Override
   public Tick getTick() {
     return Ticks.BEAT;
-  }
-
-  public double getCount() {
-    return getCount(microsecondPositionProvider.getMicrosecondPosition());
   }
 
   public boolean isStarted() {
