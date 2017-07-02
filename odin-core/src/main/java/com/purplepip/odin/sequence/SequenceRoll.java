@@ -15,8 +15,23 @@
 
 package com.purplepip.odin.sequence;
 
-import lombok.ToString;
+import com.purplepip.odin.sequence.flow.MutableFlow;
 
-@ToString
-public abstract class AbstractSequenceRuntime<A> implements Roll<A> {
+/**
+ * A roll that is based on a sequence.
+ *
+ * @param <A> type of object controlled by this roll
+ */
+public interface SequenceRoll<A> extends Roll<A> {
+  void setSequence(Sequence sequence);
+
+  Sequence getSequence();
+
+  void refresh();
+
+  void setFlow(MutableFlow<Sequence, A> flow);
+
+  MutableFlow<Sequence, A> getFlow();
+
+  OffsetProvider getOffsetProvider();
 }

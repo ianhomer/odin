@@ -72,7 +72,7 @@ public class SequenceProcessorExecutor implements Runnable {
     int noteCountThisBuffer = 0;
     for (Track sequenceTrack : sequenceTrackSet) {
       LOG.trace("Processing sequenceRuntime {} for device at position {}",
-          sequenceTrack.getSequenceRuntime(),
+          sequenceTrack.getRoll(),
           microsecondPosition);
       if (noteCountThisBuffer > maxNotesPerBuffer) {
         LOG.warn("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
@@ -87,7 +87,7 @@ public class SequenceProcessorExecutor implements Runnable {
 
   private int process(Track sequenceTrack, long microsecondPosition) {
     int noteCount = 0;
-    Roll<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
+    Roll<Note> sequenceRuntime = sequenceTrack.getRoll();
     Event<Note> nextEvent = sequenceRuntime.peek();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     if (nextEvent != null) {

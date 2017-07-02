@@ -21,8 +21,8 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
-import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
@@ -151,7 +151,7 @@ public class OdinSequencer implements ProjectApplyListener {
         } else {
           statistics.incrementTrackUpdatedCount();
           try {
-            setSequenceInRuntime(existingTrack.get().getRootSequenceRuntime(), sequence);
+            setSequenceInRuntime(existingTrack.get().getSequenceRoll(), sequence);
           } catch (OdinException e) {
             LOG.error("Cannot add track for " + sequence, e);
           }
@@ -201,7 +201,7 @@ public class OdinSequencer implements ProjectApplyListener {
             ).createConvertedSeries(sequenceRuntime), sequenceRuntime));
   }
 
-  private void setSequenceInRuntime(MutableSequenceRuntime sequenceRuntime, Sequence sequence)
+  private void setSequenceInRuntime(SequenceRoll sequenceRuntime, Sequence sequence)
       throws OdinException {
     /*
      * Only update the flow if the flow name has changed.

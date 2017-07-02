@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SequenceRuntime where time is in milliseconds relative to some origin, e.g. MIDI device start
  */
-public class TickConvertedSequenceRuntime extends AbstractSequenceRuntime<Note> {
+public class TickConvertedSequenceRuntime implements Roll<Note> {
   private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSequenceRuntime.class);
   private Roll<Note> sequenceRuntime;
   private TickConverter tickConverter;

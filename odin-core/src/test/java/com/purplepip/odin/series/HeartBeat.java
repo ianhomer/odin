@@ -1,15 +1,15 @@
 package com.purplepip.odin.series;
 
-import com.purplepip.odin.sequence.AbstractSequenceRuntime;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
+import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 
 /**
  * SequenceRuntime of heartbeats every second.
  */
-public class HeartBeat extends AbstractSequenceRuntime<Boolean> {
+public class HeartBeat implements Roll<Boolean> {
   @Override
   public Event<Boolean> peek() {
     return getNext();

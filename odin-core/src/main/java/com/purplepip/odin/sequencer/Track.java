@@ -16,21 +16,20 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.MutableSequenceRuntime;
 import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceRoll;
 
 /**
  * SequenceRuntime driving a sequenced track.
  */
 public class Track {
-  private MutableSequenceRuntime<Note> rootSequenceRuntime;
-  private Roll<Note> sequenceRuntime;
+  private SequenceRoll<Note> sequenceRoll;
+  private Roll<Note> roll;
 
-  public Track(Roll<Note> sequenceRuntime,
-               MutableSequenceRuntime<Note> rootSequenceRuntime) {
-    this.sequenceRuntime = sequenceRuntime;
-    this.rootSequenceRuntime = rootSequenceRuntime;
+  public Track(Roll<Note> roll, SequenceRoll<Note> sequenceRoll) {
+    this.roll = roll;
+    this.sequenceRoll = sequenceRoll;
   }
 
   public int getChannel() {
@@ -42,8 +41,8 @@ public class Track {
    *
    * @return sequence runtime.
    */
-  public Roll<Note> getSequenceRuntime() {
-    return sequenceRuntime;
+  public Roll<Note> getRoll() {
+    return roll;
   }
 
   /**
@@ -51,11 +50,11 @@ public class Track {
    *
    * @return root sequence runtime.
    */
-  public MutableSequenceRuntime<Note> getRootSequenceRuntime() {
-    return rootSequenceRuntime;
+  public SequenceRoll<Note> getSequenceRoll() {
+    return sequenceRoll;
   }
 
   public Sequence getSequence() {
-    return rootSequenceRuntime.getSequence();
+    return sequenceRoll.getSequence();
   }
 }

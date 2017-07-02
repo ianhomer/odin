@@ -19,10 +19,6 @@ import com.purplepip.odin.sequence.AbstractSequence;
 import com.purplepip.odin.sequence.Sequence;
 
 public class HeartBeatSequence extends AbstractSequence {
-  public HeartBeatSequence() {
-    super();
-  }
-
   public HeartBeatSequence(long id) {
     super(id);
   }
