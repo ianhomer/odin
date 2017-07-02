@@ -60,25 +60,26 @@ public class TickConvertedClock extends AbstractClock {
 
   @Override
   public long getMicroseconds(double count) {
-    return beatClock.getMicroseconds(tickToBeatConverter.convert((long) count));
+    return beatClock.getMicroseconds(tickToBeatConverter.convert(count));
   }
 
   @Override
   public long getCount() {
-    return tickToBeatConverter.convertBack(beatClock.getCount());
+    return (long) tickToBeatConverter.convertBack(beatClock.getCountAsDouble());
   }
 
   @Override
   public long getCount(long microseconds) {
-    return tickToBeatConverter.convertBack(beatClock.getCount(microseconds));
+    return (long) tickToBeatConverter.convertBack(beatClock.getCountAsDouble(microseconds));
   }
 
-  /*
-   * TODO : Count as double needs to retain double precision, currently convertBack always
-   * rounds to long.
-   */
+  @Override
+  public double getCountAsDouble() {
+    return tickToBeatConverter.convertBack(beatClock.getCountAsDouble());
+  }
+
   @Override
   public double getCountAsDouble(long microseconds) {
-    return tickToBeatConverter.convertBack(beatClock.getCount(microseconds));
+    return tickToBeatConverter.convertBack(beatClock.getCountAsDouble(microseconds));
   }
 }

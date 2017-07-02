@@ -31,9 +31,9 @@ public class TickConverterTest {
         clock, () -> sourceTick, () -> targetTick, () -> offset);
     for (int i = 0 ; i < times.length ; i = i + 2) {
       assertEquals(sourceTick + " to " + targetTick + " failed",
-          times[i + 1], converter.convert(times[i]));
+          times[i + 1], converter.convert(times[i]), 0.0001);
       assertEquals(targetTick + " back to " + sourceTick + " failed",
-          times[i], converter.convertBack(times[i + 1]));
+          times[i], converter.convertBack(times[i + 1]), 0.0001);
     }
   }
 

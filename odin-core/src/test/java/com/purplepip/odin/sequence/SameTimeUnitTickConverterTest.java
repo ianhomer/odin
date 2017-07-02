@@ -14,14 +14,14 @@ public class SameTimeUnitTickConverterTest {
   public void testMicrosecondToMillisecond() {
     SameTimeUnitTickConverter converter = new SameTimeUnitTickConverter(
         () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.MICROSECOND);
-    assertEquals(1000, converter.convert(1));
+    assertEquals(1000, converter.convert(1),0.001);
   }
 
   @Test
   public void testBeatToHalf() {
     SameTimeUnitTickConverter converter = new SameTimeUnitTickConverter(
         () -> RuntimeTicks.BEAT, () -> RuntimeTicks.HALF);
-    assertEquals(2, converter.convert(1));
+    assertEquals(2, converter.convert(1), 0.001);
   }
 
   @Test(expected = OdinRuntimeException.class)

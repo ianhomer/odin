@@ -38,35 +38,35 @@ public class DefaultTickConverterTest {
   public void testMicrosecondToMillisecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.MICROSECOND, () -> 0L);
-    assertEquals(1000, converter.convert(1));
+    assertEquals(1000, converter.convert(1),0.0001);
   }
 
   @Test
   public void testMillisecondToMillisecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.MILLISECOND, () -> 0L);
-    assertEquals(1, converter.convert(1));
+    assertEquals(1, converter.convert(1),0.0001);
   }
 
   @Test
   public void testBeatToHalf() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> RuntimeTicks.BEAT, () -> RuntimeTicks.HALF, () -> 0L);
-    assertEquals(2, converter.convert(1));
+    assertEquals(2, converter.convert(1),0.0001);
   }
 
   @Test
   public void testMillisecondToBeat() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.BEAT, () -> 0L);
-    assertEquals(200, converter.convert(100000));
+    assertEquals(200, converter.convert(100000),0.0001);
   }
 
   @Test
   public void testMillisecondToBeatWithOffset() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.BEAT, () -> 5000L);
-    assertEquals(18, converter.convert(4000));
+    assertEquals(18, converter.convert(4000),0.0001);
   }
 
   @Test(expected = OdinRuntimeException.class)
@@ -80,7 +80,7 @@ public class DefaultTickConverterTest {
   public void testBeatToMicrosecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> RuntimeTicks.BEAT, () -> RuntimeTicks.MICROSECOND, () -> 0L);
-    assertEquals(500000,converter.convert(1));
+    assertEquals(500000,converter.convert(1),0.0001);
   }
 
   @Test(expected = OdinRuntimeException.class)

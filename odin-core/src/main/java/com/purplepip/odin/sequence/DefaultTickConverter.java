@@ -46,12 +46,12 @@ public class DefaultTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected double getTimeWithBeatBasedTimeUnits(Direction direction, long time) {
+  protected double getTimeWithBeatBasedTimeUnits(Direction direction, double time) {
     switch (direction.getSourceTick().getTimeUnit()) {
       case BEAT:
         return direction.scaleTime(time);
       case MICROSECOND:
-        return clock.getCountAsDouble((long) direction.getSourceTick().getFactor() * time)
+        return clock.getCountAsDouble((long) (direction.getSourceTick().getFactor() * time))
             / direction.getTargetTick().getFactor();
       default:
         return throwUnexpectedTimeUnit();
@@ -59,7 +59,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected double getTimeWithMicrosecondBasedTimeUnits(Direction direction, long time) {
+  protected double getTimeWithMicrosecondBasedTimeUnits(Direction direction, double time) {
     switch (direction.getSourceTick().getTimeUnit()) {
       case BEAT:
         return clock.getMicroseconds(direction.getSourceTick().getFactor() * time)

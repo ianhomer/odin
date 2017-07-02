@@ -72,26 +72,26 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   @Override
-  public long convert(long time) {
+  public double convert(double time) {
     return (long) convertTimeUnit(forwards, getSourceOffset() + time);
   }
 
   @Override
-  public long convertBack(long time) {
+  public double convertBack(double time) {
     return (long) convertTimeUnit(backwards, time) - getSourceOffset();
   }
 
   @Override
-  public long convertDuration(long time, long duration) {
+  public double convertDuration(double time, long duration) {
     return convert(time + duration) - convert(time);
   }
 
   @Override
-  public long convertDurationBack(long time, long duration) {
+  public double convertDurationBack(double time, long duration) {
     return convertBack(time + duration) - convertBack(time);
   }
 
-  private double convertTimeUnit(Direction direction, long time) {
+  private double convertTimeUnit(Direction direction, double time) {
     switch (direction.getTargetTick().getTimeUnit()) {
       case BEAT:
         return getTimeWithBeatBasedTimeUnits(direction, time);
@@ -102,9 +102,9 @@ public abstract class AbstractTickConverter implements TickConverter {
     }
   }
 
-  protected abstract double getTimeWithBeatBasedTimeUnits(Direction direction, long time);
+  protected abstract double getTimeWithBeatBasedTimeUnits(Direction direction, double time);
 
-  protected abstract double getTimeWithMicrosecondBasedTimeUnits(Direction direction, long time);
+  protected abstract double getTimeWithMicrosecondBasedTimeUnits(Direction direction, double time);
 
   long throwUnexpectedTimeUnit() {
     throw new OdinRuntimeException("Unexpected time unit " + getSourceTick().getTimeUnit() + ":"
@@ -132,7 +132,7 @@ public abstract class AbstractTickConverter implements TickConverter {
       return targetTick;
     }
 
-    double scaleTime(long time) {
+    double scaleTime(double time) {
       return time * scaleFactor;
     }
   }

@@ -39,7 +39,6 @@ public class TickConvertedRoll implements Roll<Note> {
   public TickConvertedRoll(Roll<Note> roll,
                            TickConverter tickConverter) {
     this.roll = roll;
-    // TODO : This tick converter does not get updated from runtime changes of sequence.
     this.tickConverter = tickConverter;
   }
 
@@ -64,8 +63,8 @@ public class TickConvertedRoll implements Roll<Note> {
       return null;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
-        tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
-    long time = tickConverter.convert(event.getTime());
+        (long) tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
+    long time = (long) tickConverter.convert(event.getTime());
     LOG.trace("Converted event {} to note {} at time {}", event, note, time);
     return new DefaultEvent<>(note, time);
   }
