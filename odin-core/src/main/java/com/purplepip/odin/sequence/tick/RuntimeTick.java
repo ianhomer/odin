@@ -25,16 +25,16 @@ public class RuntimeTick implements Tick {
   private int factorAsInt;
   private Tick underlyingTick;
 
+  /**
+   * Create new runtime tick.
+   *
+   * @param tick underlying tick to base this on
+   */
   public RuntimeTick(Tick tick) {
     underlyingTick = tick;
-    afterTickChanged();
-  }
-
-  private void afterTickChanged() {
     factor = (double) getNumerator() / (double) getDenominator();
     factorAsInt = getNumerator() / getDenominator();
   }
-
 
   @Override
   public TimeUnit getTimeUnit() {
