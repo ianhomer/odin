@@ -23,7 +23,7 @@ import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRoll;
-import com.purplepip.odin.sequence.SeriesTimeUnitConverterFactory;
+import com.purplepip.odin.sequence.TickConvertedRoll;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
@@ -186,19 +186,18 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   private void addSequenceTrack(Sequence sequence) throws OdinException {
-    DefaultSequenceRoll sequenceRuntime =
+    DefaultSequenceRoll sequenceRoll =
         new DefaultSequenceRoll(clock, configuration.getMeasureProvider());
 
-    setSequenceInRuntime(sequenceRuntime, sequence);
+    setSequenceInRuntime(sequenceRoll, sequence);
 
     sequenceTracks.add(
-        new Track(
-            new SeriesTimeUnitConverterFactory(
-                new DefaultTickConverter(clock,
-                    sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND,
-                    sequenceRuntime.getOffsetProvider()
-                )
-            ).createConvertedSeries(sequenceRuntime), sequenceRuntime));
+        new Track(new TickConvertedRoll(
+            sequenceRoll,
+            new DefaultTickConverter(clock,
+                sequenceRoll.getTick(), RuntimeTicks.MICROSECOND,
+                sequenceRoll.getOffsetProvider()
+            )), sequenceRoll));
   }
 
   private void setSequenceInRuntime(SequenceRoll sequenceRuntime, Sequence sequence)
