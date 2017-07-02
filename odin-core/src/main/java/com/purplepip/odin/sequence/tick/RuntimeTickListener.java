@@ -15,6 +15,6 @@
 
 package com.purplepip.odin.sequence.tick;
 
-public interface RuntimeTickProvider {
-  RuntimeTick getTick();
+public interface RuntimeTickListener {
+  void onChange();
 }

@@ -13,8 +13,14 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.tick;
+package com.purplepip.odin.properties;
 
-public interface RuntimeTickProvider {
-  RuntimeTick getTick();
+public interface Mutable<T> {
+  T get();
+
+  void set(T t);
+
+  void addObserver(Observer o);
+
+  void removeObserver(Observer o);
 }
