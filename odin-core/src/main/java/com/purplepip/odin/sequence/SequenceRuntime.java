@@ -26,8 +26,4 @@ public interface SequenceRuntime<A> {
   Event<A> pop();
 
   Tick getTick();
-
-  Sequence getSequence();
-
-  OffsetProvider getOffsetProvider();
 }

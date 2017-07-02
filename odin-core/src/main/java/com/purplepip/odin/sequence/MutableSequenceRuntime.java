@@ -20,9 +20,13 @@ import com.purplepip.odin.sequence.flow.MutableFlow;
 public interface MutableSequenceRuntime<A> extends SequenceRuntime<A> {
   void setSequence(Sequence sequence);
 
+  Sequence getSequence();
+
   void refresh();
 
   void setFlow(MutableFlow<Sequence, A> flow);
 
   MutableFlow<Sequence, A> getFlow();
+
+  OffsetProvider getOffsetProvider();
 }

@@ -57,11 +57,6 @@ public class TickConvertedSequenceRuntime extends AbstractSequenceRuntime<Note> 
     return tickConverter.getTargetTick();
   }
 
-  @Override
-  public Sequence getSequence() {
-    return sequenceRuntime.getSequence();
-  }
-
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
       LOG.debug("No event on sequenceRuntime to convert");

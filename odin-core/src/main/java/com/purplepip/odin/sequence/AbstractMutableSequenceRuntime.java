@@ -51,6 +51,11 @@ public abstract class AbstractMutableSequenceRuntime<A> extends AbstractSequence
   private boolean sequenceDirty;
 
   @Override
+  public OffsetProvider getOffsetProvider() {
+    return () -> getSequence().getOffset();
+  }
+
+  @Override
   public RuntimeTick getTick() {
     return unmodifiableRuntimeTick;
   }

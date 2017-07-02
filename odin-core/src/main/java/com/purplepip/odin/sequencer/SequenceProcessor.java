@@ -48,7 +48,7 @@ public class SequenceProcessor implements ClockListener {
    * @param operationProcessor operation processor
    */
   SequenceProcessor(BeatClock clock,
-                    Set<SequenceTrack> sequenceTrackSet,
+                    Set<Track> sequenceTrackSet,
                     OperationProcessor operationProcessor,
                     MutableSequenceProcessorStatistics statistics) {
     scheduledPool = Executors.newScheduledThreadPool(1);

@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
-  private Set<SequenceTrack> sequenceTracks = new HashSet<>();
+  private Set<Track> sequenceTracks = new HashSet<>();
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private SequenceProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
@@ -127,8 +127,8 @@ public class OdinSequencer implements ProjectApplyListener {
      * Remove any tracks for which the sequence in the project has been removed.
      */
     int sizeBefore = sequenceTracks.size();
-    boolean result = sequenceTracks.removeIf(t -> project.getSequences().stream().noneMatch(
-        s -> s.getId() == t.getSequenceRuntime().getSequence().getId()
+    boolean result = sequenceTracks.removeIf(track -> project.getSequences().stream().noneMatch(
+        sequence -> sequence.getId() == track.getSequence().getId()
     ));
     if (result) {
       int removalCount = sizeBefore - sequenceTracks.size();
@@ -143,10 +143,10 @@ public class OdinSequencer implements ProjectApplyListener {
       /*
        * Add sequence if not present in tracks.
        */
-      Optional<SequenceTrack> existingTrack = sequenceTracks.stream().filter(s ->
-          sequence.getId() == s.getSequenceRuntime().getSequence().getId()).findFirst();
+      Optional<Track> existingTrack = sequenceTracks.stream().filter(track ->
+          sequence.getId() == track.getSequence().getId()).findFirst();
       if (existingTrack.isPresent()) {
-        if (existingTrack.get().getSequenceRuntime().getSequence().equals(sequence)) {
+        if (existingTrack.get().getSequence().equals(sequence)) {
           LOG.debug("Sequence {} already added", sequence);
         } else {
           statistics.incrementTrackUpdatedCount();
@@ -192,7 +192,7 @@ public class OdinSequencer implements ProjectApplyListener {
     setSequenceInRuntime(sequenceRuntime, sequence);
 
     sequenceTracks.add(
-        new SequenceTrack(
+        new Track(
             new SeriesTimeUnitConverterFactory(
                 new DefaultTickConverter(clock,
                     sequenceRuntime.getTick(), RuntimeTicks.MICROSECOND,

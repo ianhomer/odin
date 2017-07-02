@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SequenceProcessorExecutor implements Runnable {
-  private final Set<SequenceTrack> sequenceTrackSet;
+  private final Set<Track> sequenceTrackSet;
   private final BeatClock clock;
   private final OperationProcessor operationProcessor;
   private long timeBufferInMicroSeconds;
@@ -36,7 +36,7 @@ public class SequenceProcessorExecutor implements Runnable {
   private MutableSequenceProcessorStatistics statistics;
 
   SequenceProcessorExecutor(BeatClock clock,
-                            Set<SequenceTrack> sequenceTrackSet,
+                            Set<Track> sequenceTrackSet,
                             OperationProcessor operationProcessor,
                             long refreshPeriod,
                             MutableSequenceProcessorStatistics statistics) {
@@ -70,7 +70,7 @@ public class SequenceProcessorExecutor implements Runnable {
      */
     long microsecondPosition = clock.getMicroseconds();
     int noteCountThisBuffer = 0;
-    for (SequenceTrack sequenceTrack : sequenceTrackSet) {
+    for (Track sequenceTrack : sequenceTrackSet) {
       LOG.trace("Processing sequenceRuntime {} for device at position {}",
           sequenceTrack.getSequenceRuntime(),
           microsecondPosition);
@@ -85,7 +85,7 @@ public class SequenceProcessorExecutor implements Runnable {
         noteCountThisBuffer, sequenceTrackSet.size(), clock);
   }
 
-  private int process(SequenceTrack sequenceTrack, long microsecondPosition) {
+  private int process(Track sequenceTrack, long microsecondPosition) {
     int noteCount = 0;
     SequenceRuntime<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
     Event<Note> nextEvent = sequenceRuntime.peek();
@@ -124,7 +124,7 @@ public class SequenceProcessorExecutor implements Runnable {
     return noteCount;
   }
 
-  private void sendToProcessor(Note note, Event<Note> nextEvent, SequenceTrack sequenceTrack) {
+  private void sendToProcessor(Note note, Event<Note> nextEvent, Track sequenceTrack) {
     Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
         note.getNumber(), note.getVelocity());
     Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
