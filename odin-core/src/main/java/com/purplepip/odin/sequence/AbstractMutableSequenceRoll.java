@@ -45,7 +45,6 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
   private Event<A> nextEvent;
   private MovableTock tock;
   private Tock sealedTock;
-  // TODO : Use Mutable interface to manage tick.
   private final Mutable<RuntimeTick> tick = new ObservableProperty<>();
   private boolean tickDirty;
   private Sequence sequence;
@@ -180,7 +179,6 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
    */
   @Override
   public void onClockStop() {
-
   }
 
   protected abstract Event<A> getNextEvent(Tock tock);
