@@ -44,7 +44,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
   private Set<Track> tracks = new HashSet<>();
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
-  private SequenceProcessor sequenceProcessor;
+  private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private BeatClock clock;
   private boolean started;
@@ -74,7 +74,7 @@ public class OdinSequencer implements ProjectApplyListener {
      * Create the processors early.  Note that they'll start when the clock starts.
      */
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
-    sequenceProcessor = new SequenceProcessor(
+    sequenceProcessor = new TrackProcessor(
         clock, tracks, operationProcessor, statistics);
   }
 

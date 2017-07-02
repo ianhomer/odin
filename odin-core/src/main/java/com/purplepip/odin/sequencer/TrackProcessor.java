@@ -31,13 +31,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @ListenerPriority(9)
-public class SequenceProcessor implements ClockListener {
+public class TrackProcessor implements ClockListener {
   /*
    * Time in milliseconds between each processor execution.
    */
   private long refreshPeriod = 200;
   private ScheduledExecutorService scheduledPool;
-  private SequenceProcessorExecutor executor;
+  private TrackProcessorExecutor executor;
   private boolean running;
 
   /**
@@ -47,12 +47,12 @@ public class SequenceProcessor implements ClockListener {
    * @param trackSet series track set
    * @param operationProcessor operation processor
    */
-  SequenceProcessor(BeatClock clock,
-                    Set<Track> trackSet,
-                    OperationProcessor operationProcessor,
-                    MutableSequenceProcessorStatistics statistics) {
+  TrackProcessor(BeatClock clock,
+                 Set<Track> trackSet,
+                 OperationProcessor operationProcessor,
+                 MutableSequenceProcessorStatistics statistics) {
     scheduledPool = Executors.newScheduledThreadPool(1);
-    executor = new SequenceProcessorExecutor(
+    executor = new TrackProcessorExecutor(
         clock, Collections.unmodifiableSet(trackSet), operationProcessor, refreshPeriod,
         statistics
     );

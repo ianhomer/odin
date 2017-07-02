@@ -27,7 +27,7 @@ import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SequenceProcessorExecutor implements Runnable {
+public class TrackProcessorExecutor implements Runnable {
   private final Set<Track> trackSet;
   private final BeatClock clock;
   private final OperationProcessor operationProcessor;
@@ -35,11 +35,11 @@ public class SequenceProcessorExecutor implements Runnable {
   private int maxNotesPerBuffer = 1000;
   private MutableSequenceProcessorStatistics statistics;
 
-  SequenceProcessorExecutor(BeatClock clock,
-                            Set<Track> trackSet,
-                            OperationProcessor operationProcessor,
-                            long refreshPeriod,
-                            MutableSequenceProcessorStatistics statistics) {
+  TrackProcessorExecutor(BeatClock clock,
+                         Set<Track> trackSet,
+                         OperationProcessor operationProcessor,
+                         long refreshPeriod,
+                         MutableSequenceProcessorStatistics statistics) {
     this.clock = clock;
     this.trackSet = trackSet;
     this.operationProcessor = operationProcessor;
