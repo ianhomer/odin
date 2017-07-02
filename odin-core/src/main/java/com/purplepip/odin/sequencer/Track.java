@@ -17,17 +17,17 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.MutableSequenceRuntime;
+import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.SequenceRuntime;
 
 /**
  * SequenceRuntime driving a sequenced track.
  */
 public class Track {
   private MutableSequenceRuntime<Note> rootSequenceRuntime;
-  private SequenceRuntime<Note> sequenceRuntime;
+  private Roll<Note> sequenceRuntime;
 
-  public Track(SequenceRuntime<Note> sequenceRuntime,
+  public Track(Roll<Note> sequenceRuntime,
                MutableSequenceRuntime<Note> rootSequenceRuntime) {
     this.sequenceRuntime = sequenceRuntime;
     this.rootSequenceRuntime = rootSequenceRuntime;
@@ -42,7 +42,7 @@ public class Track {
    *
    * @return sequence runtime.
    */
-  public SequenceRuntime<Note> getSequenceRuntime() {
+  public Roll<Note> getSequenceRuntime() {
     return sequenceRuntime;
   }
 

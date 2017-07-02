@@ -2,7 +2,7 @@ package com.purplepip.odin.series;
 
 import static junit.framework.TestCase.assertTrue;
 
-import com.purplepip.odin.sequence.SequenceRuntime;
+import com.purplepip.odin.sequence.Roll;
 import org.junit.Test;
 
 /**
@@ -11,7 +11,7 @@ import org.junit.Test;
 public class SequenceRuntimeTest {
   @Test
   public void testSeries() {
-    SequenceRuntime<Boolean> heartBeat = new HeartBeat();
+    Roll<Boolean> heartBeat = new HeartBeat();
     long currentTime = System.currentTimeMillis();
     long peekedTime = heartBeat.peek().getTime();
     long poppedTime = heartBeat.peek().getTime();

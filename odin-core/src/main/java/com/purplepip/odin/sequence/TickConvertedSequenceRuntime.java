@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TickConvertedSequenceRuntime extends AbstractSequenceRuntime<Note> {
   private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSequenceRuntime.class);
-  private SequenceRuntime<Note> sequenceRuntime;
+  private Roll<Note> sequenceRuntime;
   private TickConverter tickConverter;
 
   /**
@@ -35,7 +35,7 @@ public class TickConvertedSequenceRuntime extends AbstractSequenceRuntime<Note> 
    * @param sequenceRuntime sequence runtime to convert
    * @param tickConverter tick converter to convert the runtime with
    */
-  public TickConvertedSequenceRuntime(SequenceRuntime<Note> sequenceRuntime,
+  public TickConvertedSequenceRuntime(Roll<Note> sequenceRuntime,
                                       TickConverter tickConverter) {
     this.sequenceRuntime = sequenceRuntime;
     // TODO : This tick converter does not get updated from runtime changes of sequence.

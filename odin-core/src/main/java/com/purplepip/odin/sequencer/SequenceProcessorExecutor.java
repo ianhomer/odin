@@ -21,7 +21,7 @@ import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.Event;
-import com.purplepip.odin.sequence.SequenceRuntime;
+import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
@@ -87,7 +87,7 @@ public class SequenceProcessorExecutor implements Runnable {
 
   private int process(Track sequenceTrack, long microsecondPosition) {
     int noteCount = 0;
-    SequenceRuntime<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
+    Roll<Note> sequenceRuntime = sequenceTrack.getSequenceRuntime();
     Event<Note> nextEvent = sequenceRuntime.peek();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     if (nextEvent != null) {

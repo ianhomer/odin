@@ -17,7 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.sequence.flow.MutableFlow;
 
-public interface MutableSequenceRuntime<A> extends SequenceRuntime<A> {
+public interface MutableSequenceRuntime<A> extends Roll<A> {
   void setSequence(Sequence sequence);
 
   Sequence getSequence();

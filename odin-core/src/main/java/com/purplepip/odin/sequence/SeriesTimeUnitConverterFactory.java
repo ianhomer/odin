@@ -27,7 +27,7 @@ public class SeriesTimeUnitConverterFactory {
     this.tickConverter = tickConverter;
   }
 
-  public SequenceRuntime<Note> createConvertedSeries(SequenceRuntime<Note> sequenceRuntime) {
+  public Roll<Note> createConvertedSeries(Roll<Note> sequenceRuntime) {
     return new TickConvertedSequenceRuntime(sequenceRuntime, tickConverter);
   }
 }

@@ -20,7 +20,7 @@ import com.purplepip.odin.sequence.tick.Tick;
 /**
  * Events that occur over time.
  */
-public interface SequenceRuntime<A> {
+public interface Roll<A> {
   Event<A> peek();
 
   Event<A> pop();

@@ -23,7 +23,7 @@ public class TickConvertedSequenceRuntimeTest {
   private MicrosecondPositionProvider provider;
 
   @Mock
-  private SequenceRuntime<Note> sequenceRuntime;
+  private Roll<Note> sequenceRuntime;
 
   private BeatClock clock;
 
