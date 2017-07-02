@@ -22,6 +22,7 @@ public final class RuntimeTicks {
   public static final RuntimeTick MICROSECOND = new RuntimeTick(Ticks.MICROSECOND);
   public static final RuntimeTick BEAT = new RuntimeTick(Ticks.BEAT);
   public static final RuntimeTick HALF = new RuntimeTick(Ticks.HALF);
+  public static final RuntimeTick QUARTER = new RuntimeTick(Ticks.QUARTER);
   public static final RuntimeTick MILLISECOND = new RuntimeTick(Ticks.MILLISECOND);
   public static final RuntimeTick MEASURE = new RuntimeTick(Ticks.MEASURE);
 

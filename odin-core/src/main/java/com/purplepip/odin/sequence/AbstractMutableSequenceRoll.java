@@ -158,7 +158,7 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
     tock = new MovableTock(getSequence().getTick(), tockCountStart);
     sealedTock = new SealedTock(tock);
 
-    clock = new TickConvertedClock(beatClock, getTick(), getOffsetProvider());
+    clock = new TickConvertedClock(beatClock, tick, getOffsetProvider());
     tickDirty = false;
     nextEvent = null;
     LOG.debug("afterTickChange executed");

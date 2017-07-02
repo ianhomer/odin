@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -23,7 +24,7 @@ import com.purplepip.odin.sequence.tick.Tick;
  * Clock for the given roll.
  */
 public class TickConvertedClock extends AbstractClock {
-  private Tick tick;
+  private Property<RuntimeTick> tick;
   private BeatClock beatClock;
   private TickConverter tickToBeatConverter;
 
@@ -34,18 +35,16 @@ public class TickConvertedClock extends AbstractClock {
    * @param tick tick for the sequence runtime
    * @param offsetProvider offset provider for the sequence runtime
    */
-  public TickConvertedClock(BeatClock beatClock, Tick tick, OffsetProvider offsetProvider) {
-    this.tick = tick;
+  public TickConvertedClock(BeatClock beatClock, Property<RuntimeTick> tick,
+                            OffsetProvider offsetProvider) {
     this.beatClock = beatClock;
-    RuntimeTick runtimeTick = new RuntimeTick(tick);
-    // TODO : runtimeTick needs to be set via a provider that will update if track updates
     tickToBeatConverter = new DefaultTickConverter(beatClock,
-        () -> runtimeTick, () -> RuntimeTicks.BEAT, offsetProvider);
+        tick, () -> RuntimeTicks.BEAT, offsetProvider);
   }
 
   @Override
   public Tick getTick() {
-    return tick;
+    return tick.get();
   }
 
   @Override
