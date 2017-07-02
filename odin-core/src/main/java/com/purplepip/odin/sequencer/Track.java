@@ -25,7 +25,7 @@ import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
 
 /**
- * SequenceRuntime driving a sequenced track.
+ * Track in the sequencer.
  */
 public class Track {
   private SequenceRoll<Note> sequenceRoll;

@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Midi SequenceRuntime Experiment.
+ * Midi Sequence Experiment.
  */
 public class MidiSequenceExperiment {
   private static final Logger LOG = LoggerFactory.getLogger(MidiSequenceExperiment.class);

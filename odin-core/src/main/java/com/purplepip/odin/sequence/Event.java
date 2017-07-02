@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequence;
 
 /**
- * SequenceRuntime Event.
+ * Roll Event.
  */
 public interface Event<A> {
   A getValue();

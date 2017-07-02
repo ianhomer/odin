@@ -23,7 +23,7 @@ public class TickConvertedRollTest {
   private MicrosecondPositionProvider provider;
 
   @Mock
-  private Roll<Note> sequenceRuntime;
+  private Roll<Note> roll;
 
   private BeatClock clock;
 
@@ -38,7 +38,7 @@ public class TickConvertedRollTest {
   }
 
   private TickConvertedRoll createRoll(Tick input, Tick output, long offset) {
-    return new TickConvertedRoll(sequenceRuntime,
+    return new TickConvertedRoll(roll,
         new DefaultTickConverter(clock,
             () -> new RuntimeTick(input),
             () -> new RuntimeTick(output), () -> offset));
@@ -46,12 +46,12 @@ public class TickConvertedRollTest {
 
   @Test
   public void testNoteConversionBeatToMillis() {
-    TickConvertedRoll convertedSequenceRuntime =
+    TickConvertedRoll convertedRoll =
         createRoll(Ticks.BEAT, Ticks.MILLISECOND, 10);
-    when(sequenceRuntime.pop()).thenReturn(
+    when(roll.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,3), 5));
-    Event<Note> eventNote = convertedSequenceRuntime.pop();
+    Event<Note> eventNote = convertedRoll.pop();
     assertEquals("event time not correct",15000, eventNote.getTime());
     assertEquals("note duration not correct", 3000, eventNote.getValue().getDuration());
   }
@@ -60,7 +60,7 @@ public class TickConvertedRollTest {
   public void testNoteConversionBeatToBeats() {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.BEAT, Ticks.BEAT, 10);
-    when(sequenceRuntime.pop()).thenReturn(
+    when(roll.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,3), 5));
     Event<Note> eventNote = convertedRoll.pop();
@@ -72,7 +72,7 @@ public class TickConvertedRollTest {
   public void testNoteConversionMillisToBeats() {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.MILLISECOND, Ticks.BEAT, 5000);
-    when(sequenceRuntime.pop()).thenReturn(
+    when(roll.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,7000), 4000));
     Event<Note> eventNote = convertedRoll.pop();
@@ -84,7 +84,7 @@ public class TickConvertedRollTest {
   public void testNoteConversionMillisToMillis() {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.MILLISECOND, Ticks.MILLISECOND, 5000);
-    when(sequenceRuntime.pop()).thenReturn(
+    when(roll.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,7000), 4000));
     Event<Note> eventNote = convertedRoll.pop();

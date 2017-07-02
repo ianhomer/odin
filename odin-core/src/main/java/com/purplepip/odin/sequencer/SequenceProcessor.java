@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * SequenceRuntime processor.
+ * Track processor.
  */
 @Slf4j
 @ListenerPriority(9)
@@ -44,16 +44,16 @@ public class SequenceProcessor implements ClockListener {
    * Create a series processor.
    *
    * @param clock clock
-   * @param sequenceTrackSet series track set
+   * @param trackSet series track set
    * @param operationProcessor operation processor
    */
   SequenceProcessor(BeatClock clock,
-                    Set<Track> sequenceTrackSet,
+                    Set<Track> trackSet,
                     OperationProcessor operationProcessor,
                     MutableSequenceProcessorStatistics statistics) {
     scheduledPool = Executors.newScheduledThreadPool(1);
     executor = new SequenceProcessorExecutor(
-        clock, Collections.unmodifiableSet(sequenceTrackSet), operationProcessor, refreshPeriod,
+        clock, Collections.unmodifiableSet(trackSet), operationProcessor, refreshPeriod,
         statistics
     );
     clock.addListener(this);

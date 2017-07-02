@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SequenceProcessorExecutor implements Runnable {
-  private final Set<Track> sequenceTrackSet;
+  private final Set<Track> trackSet;
   private final BeatClock clock;
   private final OperationProcessor operationProcessor;
   private long timeBufferInMicroSeconds;
@@ -36,12 +36,12 @@ public class SequenceProcessorExecutor implements Runnable {
   private MutableSequenceProcessorStatistics statistics;
 
   SequenceProcessorExecutor(BeatClock clock,
-                            Set<Track> sequenceTrackSet,
+                            Set<Track> trackSet,
                             OperationProcessor operationProcessor,
                             long refreshPeriod,
                             MutableSequenceProcessorStatistics statistics) {
     this.clock = clock;
-    this.sequenceTrackSet = sequenceTrackSet;
+    this.trackSet = trackSet;
     this.operationProcessor = operationProcessor;
     /*
      * We need to scan forward more that the interval between executions of this processor.
@@ -70,25 +70,25 @@ public class SequenceProcessorExecutor implements Runnable {
      */
     long microsecondPosition = clock.getMicroseconds();
     int noteCountThisBuffer = 0;
-    for (Track sequenceTrack : sequenceTrackSet) {
-      LOG.trace("Processing sequenceRuntime {} for device at position {}",
-          sequenceTrack.getRoll(),
+    for (Track track : trackSet) {
+      LOG.trace("Processing roll {} for device at position {}",
+          track.getRoll(),
           microsecondPosition);
       if (noteCountThisBuffer > maxNotesPerBuffer) {
         LOG.warn("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
             maxNotesPerBuffer);
         break;
       }
-      noteCountThisBuffer += process(sequenceTrack, microsecondPosition);
+      noteCountThisBuffer += process(track, microsecondPosition);
     }
     LOG.debug("Processed {} notes in {} tracks : {}",
-        noteCountThisBuffer, sequenceTrackSet.size(), clock);
+        noteCountThisBuffer, trackSet.size(), clock);
   }
 
-  private int process(Track sequenceTrack, long microsecondPosition) {
+  private int process(Track track, long microsecondPosition) {
     int noteCount = 0;
-    Roll<Note> sequenceRuntime = sequenceTrack.getRoll();
-    Event<Note> nextEvent = sequenceRuntime.peek();
+    Roll<Note> roll = track.getRoll();
+    Event<Note> nextEvent = roll.peek();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     if (nextEvent != null) {
       while (nextEvent != null && nextEvent.getTime() < maxMicrosecondPosition) {
@@ -100,17 +100,17 @@ public class SequenceProcessorExecutor implements Runnable {
         /*
          * Pop event to get it off the buffer.
          */
-        nextEvent = sequenceRuntime.pop();
+        nextEvent = roll.pop();
         LOG.debug("Processing Event {}", nextEvent);
         if (nextEvent.getTime() < microsecondPosition) {
           statistics.incrementEventTooLateCount();
           LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
               microsecondPosition);
         } else {
-          sendToProcessor(nextEvent.getValue(), nextEvent, sequenceTrack);
+          sendToProcessor(nextEvent.getValue(), nextEvent, track);
         }
         noteCount++;
-        nextEvent = sequenceRuntime.peek();
+        nextEvent = roll.peek();
         LOG.trace("Next event {}", nextEvent);
       }
       if (nextEvent == null) {
@@ -119,7 +119,7 @@ public class SequenceProcessorExecutor implements Runnable {
         LOG.debug("Next event {} is beyond horizon {}", nextEvent, maxMicrosecondPosition);
       }
     } else {
-      LOG.debug("No event on sequenceRuntime");
+      LOG.debug("No event on roll");
     }
     return noteCount;
   }

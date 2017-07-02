@@ -7,7 +7,7 @@ import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 
 /**
- * SequenceRuntime of heartbeats every second.
+ * Roll of heartbeats every second.
  */
 public class HeartBeat implements Roll<Boolean> {
   @Override
