@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.properties.Mutable;
 import com.purplepip.odin.properties.ObservableProperty;
+import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
@@ -51,7 +52,7 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
   private boolean sequenceDirty;
 
   @Override
-  public OffsetProvider getOffsetProvider() {
+  public Property<Long> getOffsetProperty() {
     return () -> getSequence().getOffset();
   }
 
@@ -130,7 +131,7 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
      * Calculate offset of this sequence in microseconds ...
      */
     long microsecondOffset = new DefaultTickConverter(beatClock, this::getTick,
-        () -> RuntimeTicks.MICROSECOND, () -> 0).convert(getSequence().getOffset());
+        () -> RuntimeTicks.MICROSECOND, () -> 0L).convert(getSequence().getOffset());
     LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
         getSequence().getOffset());
     /*
@@ -158,7 +159,7 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
     tock = new MovableTock(getSequence().getTick(), tockCountStart);
     sealedTock = new SealedTock(tock);
 
-    clock = new TickConvertedClock(beatClock, tick, getOffsetProvider());
+    clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
     tickDirty = false;
     nextEvent = null;
     LOG.debug("afterTickChange executed");

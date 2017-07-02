@@ -32,16 +32,16 @@ public class DefaultTickConverter extends AbstractTickConverter {
    * @param clock clock
    * @param sourceTick source tick property
    * @param targetTick target tick property
-   * @param sourceOffsetProvider input offset provider
+   * @param sourceOffset source offset property
    */
   public DefaultTickConverter(BeatClock clock,
                               Property<RuntimeTick> sourceTick,
                               Property<RuntimeTick> targetTick,
-                              OffsetProvider sourceOffsetProvider) {
+                              Property<Long> sourceOffset) {
     this.clock = clock;
     setSourceTick(sourceTick);
     setTargetTick(targetTick);
-    setSourceOffsetProvider(sourceOffsetProvider);
+    setSourceOffset(sourceOffset);
     refresh();
   }
 

@@ -24,7 +24,7 @@ import com.purplepip.odin.sequence.tick.RuntimeTick;
 public class SameTimeUnitTickConverter extends AbstractTickConverter {
   public SameTimeUnitTickConverter(Property<RuntimeTick> sourceTick,
                                    Property<RuntimeTick> targetTick) {
-    this(sourceTick, targetTick, () -> 0);
+    this(sourceTick, targetTick, () -> 0L);
   }
 
   /**
@@ -32,14 +32,14 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
    *
    * @param sourceTick source tick property
    * @param targetTick target tick property
-   * @param inputOffsetProvider input offset provider
+   * @param sourceOffset input offset provider
    */
   public SameTimeUnitTickConverter(Property<RuntimeTick> sourceTick,
                                    Property<RuntimeTick> targetTick,
-                                   OffsetProvider inputOffsetProvider) {
+                                   Property<Long> sourceOffset) {
     setSourceTick(sourceTick);
     setTargetTick(targetTick);
-    setSourceOffsetProvider(inputOffsetProvider);
+    setSourceOffset(sourceOffset);
     refresh();
   }
 

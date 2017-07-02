@@ -15,24 +15,25 @@
 
 package com.purplepip.odin.sequence;
 
+import static com.purplepip.odin.sequence.tick.RuntimeTicks.QUARTER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import org.junit.Test;
 
 public class TickConvertedClockTest {
   @Test
   public void testCount() {
     BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
-    Clock clock = new TickConvertedClock(beatClock, () -> RuntimeTicks.QUARTER, () -> 0);
+    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
     assertTrue(clock.getCount() > -1);
+    assertEquals(QUARTER, clock.getTick());
   }
 
   @Test
   public void testDuration() {
     BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
-    Clock clock = new TickConvertedClock(beatClock, () -> RuntimeTicks.QUARTER, () -> 0);
+    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
     assertEquals(4, clock.getDuration(1000000));
     assertEquals(4, clock.getDuration(1000000, 10));
   }

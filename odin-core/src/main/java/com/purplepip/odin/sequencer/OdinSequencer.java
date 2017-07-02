@@ -198,7 +198,7 @@ public class OdinSequencer implements ProjectApplyListener {
 
     TickConverter tickConverter = new DefaultTickConverter(clock,
         runtimeTick, () -> RuntimeTicks.MICROSECOND,
-        sequenceRoll.getOffsetProvider()
+        sequenceRoll.getOffsetProperty()
     );
 
     tracks.add(new Track(runtimeTick, sequenceRoll, tickConverter));

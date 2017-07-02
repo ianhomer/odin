@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 
 /**
@@ -33,5 +34,5 @@ public interface SequenceRoll<A> extends Roll<A> {
 
   MutableFlow<Sequence, A> getFlow();
 
-  OffsetProvider getOffsetProvider();
+  Property<Long> getOffsetProperty();
 }

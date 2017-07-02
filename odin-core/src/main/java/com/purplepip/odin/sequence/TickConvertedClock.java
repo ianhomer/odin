@@ -33,13 +33,14 @@ public class TickConvertedClock extends AbstractClock {
    *
    * @param beatClock clock
    * @param tick tick for the sequence runtime
-   * @param offsetProvider offset provider for the sequence runtime
+   * @param offset offset property for the sequence roll
    */
   public TickConvertedClock(BeatClock beatClock, Property<RuntimeTick> tick,
-                            OffsetProvider offsetProvider) {
+                            Property<Long> offset) {
+    this.tick = tick;
     this.beatClock = beatClock;
     tickToBeatConverter = new DefaultTickConverter(beatClock,
-        tick, () -> RuntimeTicks.BEAT, offsetProvider);
+        tick, () -> RuntimeTicks.BEAT, offset);
   }
 
   @Override

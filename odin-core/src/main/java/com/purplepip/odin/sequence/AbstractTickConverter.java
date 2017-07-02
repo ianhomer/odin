@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString(exclude = {"backwards", "forwards"})
 public abstract class AbstractTickConverter implements TickConverter {
-  private OffsetProvider sourceOffsetProvider;
+  private Property<Long> sourceOffset;
   private Property<RuntimeTick> sourceTick;
   private Property<RuntimeTick> targetTick;
   private Direction forwards;
@@ -48,8 +48,8 @@ public abstract class AbstractTickConverter implements TickConverter {
     }
   }
 
-  final void setSourceOffsetProvider(OffsetProvider inputOffsetProvider) {
-    this.sourceOffsetProvider = inputOffsetProvider;
+  final void setSourceOffset(Property<Long> sourceOffset) {
+    this.sourceOffset = sourceOffset;
   }
 
   void refresh() {
@@ -68,7 +68,7 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   private long getSourceOffset() {
-    return sourceOffsetProvider.getOffset();
+    return sourceOffset.get();
   }
 
   @Override

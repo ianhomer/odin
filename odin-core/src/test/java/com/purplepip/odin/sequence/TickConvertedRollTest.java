@@ -37,7 +37,7 @@ public class TickConvertedRollTest {
     clock.start();
   }
 
-  private TickConvertedRoll createRoll(Tick input, Tick output, int offset) {
+  private TickConvertedRoll createRoll(Tick input, Tick output, long offset) {
     return new TickConvertedRoll(sequenceRuntime,
         new DefaultTickConverter(clock,
             () -> new RuntimeTick(input),
