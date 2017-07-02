@@ -19,11 +19,11 @@ package com.purplepip.odin.sequence.tick;
  * This class consists exclusively of static properties that utilise the RuntimeTick model.
  */
 public final class RuntimeTicks {
-  public static final RuntimeTick MICROSECOND = new ImmutableRuntimeTick(Ticks.MICROSECOND);
-  public static final RuntimeTick BEAT = new ImmutableRuntimeTick(Ticks.BEAT);
-  public static final RuntimeTick HALF = new ImmutableRuntimeTick(Ticks.HALF);
-  public static final RuntimeTick MILLISECOND = new ImmutableRuntimeTick(Ticks.MILLISECOND);
-  public static final RuntimeTick MEASURE = new ImmutableRuntimeTick(Ticks.MEASURE);
+  public static final RuntimeTick MICROSECOND = new RuntimeTick(Ticks.MICROSECOND);
+  public static final RuntimeTick BEAT = new RuntimeTick(Ticks.BEAT);
+  public static final RuntimeTick HALF = new RuntimeTick(Ticks.HALF);
+  public static final RuntimeTick MILLISECOND = new RuntimeTick(Ticks.MILLISECOND);
+  public static final RuntimeTick MEASURE = new RuntimeTick(Ticks.MEASURE);
 
   private RuntimeTicks() {
   }

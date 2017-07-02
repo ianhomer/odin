@@ -15,11 +15,47 @@
 
 package com.purplepip.odin.sequence.tick;
 
+import com.purplepip.odin.sequence.TimeUnit;
+
 /**
  * Runtime tick with extra methods used by runtime.
  */
-public interface RuntimeTick extends Tick {
-  double getFactor();
+public class RuntimeTick implements Tick {
+  private double factor;
+  private int factorAsInt;
+  private Tick underlyingTick;
 
-  int getFactorAsInt();
+  public RuntimeTick(Tick tick) {
+    underlyingTick = tick;
+    afterTickChanged();
+  }
+
+  private void afterTickChanged() {
+    factor = (double) getNumerator() / (double) getDenominator();
+    factorAsInt = getNumerator() / getDenominator();
+  }
+
+
+  @Override
+  public TimeUnit getTimeUnit() {
+    return underlyingTick.getTimeUnit();
+  }
+
+  @Override
+  public int getNumerator() {
+    return underlyingTick.getNumerator();
+  }
+
+  @Override
+  public int getDenominator() {
+    return underlyingTick.getDenominator();
+  }
+
+  public double getFactor() {
+    return factor;
+  }
+
+  public int getFactorAsInt() {
+    return factorAsInt;
+  }
 }
