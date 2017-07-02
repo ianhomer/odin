@@ -16,11 +16,13 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.properties.Mutable;
 import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.TickConvertedRoll;
 import com.purplepip.odin.sequence.TickConverter;
+import com.purplepip.odin.sequence.tick.RuntimeTick;
 
 /**
  * SequenceRuntime driving a sequenced track.
@@ -29,6 +31,7 @@ public class Track {
   private SequenceRoll<Note> sequenceRoll;
   private TickConverter tickConverter;
   private Roll<Note> roll;
+  private Mutable<RuntimeTick> runtimeTick;
 
   /**
    * Create new track.
@@ -36,11 +39,13 @@ public class Track {
    * @param sequenceRoll sequence roll to base this track on
    * @param tickConverter tick converter for this sequence roll
    */
-  public Track(SequenceRoll<Note> sequenceRoll, TickConverter tickConverter) {
+  public Track(Mutable<RuntimeTick> runtimeTick,
+               SequenceRoll<Note> sequenceRoll, TickConverter tickConverter) {
     // TODO : Generate tickConverter in this constructor as opposed to argument in
     roll = new TickConvertedRoll(sequenceRoll, tickConverter);
     this.tickConverter = tickConverter;
     this.sequenceRoll = sequenceRoll;
+    this.runtimeTick = runtimeTick;
   }
 
   public int getChannel() {
@@ -71,5 +76,9 @@ public class Track {
 
   public TickConverter getTickConverter() {
     return tickConverter;
+  }
+
+  public Mutable<RuntimeTick> getTick() {
+    return runtimeTick;
   }
 }

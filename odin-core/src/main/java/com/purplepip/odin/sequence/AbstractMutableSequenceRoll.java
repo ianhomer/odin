@@ -120,6 +120,7 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
     }
 
     sequenceDirty = false;
+    nextEvent = null;
     LOG.debug("afterSequenceChange executed");
   }
 
@@ -129,7 +130,8 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
      */
     long microsecondOffset = new DefaultTickConverter(beatClock, this::getTick,
         () -> RuntimeTicks.MICROSECOND, () -> 0).convert(getSequence().getOffset());
-    LOG.debug("Microsecond start for this sequence : {}", microsecondOffset);
+    LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
+        getSequence().getOffset());
     /*
      * ... and use this to create a converter that will convert microseconds into tock count
      * for this sequence runtime.
@@ -157,6 +159,7 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
 
     clock = new TickConvertedClock(beatClock, getTick(), getOffsetProvider());
     tickDirty = false;
+    nextEvent = null;
     LOG.debug("afterTickChange executed");
   }
 

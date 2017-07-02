@@ -24,7 +24,7 @@ public class ObserverTest {
   @Test
   public void testChange() {
     final AtomicInteger total = new AtomicInteger(0);
-    final Mutable<Integer> property = new Property<>(1);
+    final ObservableProperty<Integer> property = new ObservableProperty<>(1);
     Observer observer = () -> total.addAndGet(property.get());
     property.addObserver(observer);
     property.set(2);

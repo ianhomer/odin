@@ -15,35 +15,7 @@
 
 package com.purplepip.odin.properties;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class Property<T> implements Mutable<T> {
-  private T value;
-  private Set<Observer> observers = new HashSet<>();
-
-  public Property(T value) {
-    set(value);
-  }
-
-  @Override
-  public T get() {
-    return value;
-  }
-
-  @Override
-  public void set(T value) {
-    this.value = value;
-    observers.forEach(Observer::onChange);
-  }
-
-  @Override
-  public void addObserver(Observer observer) {
-    observers.add(observer);
-  }
-
-  @Override
-  public void removeObserver(Observer observer) {
-    observers.remove(observer);
-  }
+@FunctionalInterface
+public interface Property<T> {
+  T get();
 }

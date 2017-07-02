@@ -16,45 +16,55 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.properties.Observable;
+import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
-import com.purplepip.odin.sequence.tick.RuntimeTickProvider;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Base class for tick converters.
  */
 @Slf4j
+@ToString(exclude = {"backwards", "forwards"})
 public abstract class AbstractTickConverter implements TickConverter {
   private OffsetProvider sourceOffsetProvider;
-  private RuntimeTickProvider sourceTickProvider;
-  private RuntimeTickProvider targetTickProvider;
+  private Property<RuntimeTick> sourceTick;
+  private Property<RuntimeTick> targetTick;
   private Direction forwards;
   private Direction backwards;
 
-  final void setTargetTickProvider(RuntimeTickProvider targetTickProvider) {
-    this.targetTickProvider = targetTickProvider;
+  final void setTargetTick(Property<RuntimeTick> targetTick) {
+    this.targetTick = targetTick;
+    if (targetTick instanceof Observable) {
+      ((Observable) targetTick).addObserver(this::refresh);
+    }
   }
 
-  final void setSourceTickProvider(RuntimeTickProvider sourceTickProvider) {
-    this.sourceTickProvider = sourceTickProvider;
+  final void setSourceTick(Property<RuntimeTick> sourceTick) {
+    this.sourceTick = sourceTick;
+    if (sourceTick instanceof Observable) {
+      ((Observable) sourceTick).addObserver(this::refresh);
+    }
   }
 
   final void setSourceOffsetProvider(OffsetProvider inputOffsetProvider) {
     this.sourceOffsetProvider = inputOffsetProvider;
   }
 
-  void afterPropertiesSet() {
-    forwards = new Direction(sourceTickProvider.getTick(), targetTickProvider.getTick());
-    backwards = new Direction(targetTickProvider.getTick(), sourceTickProvider.getTick());
+  void refresh() {
+    forwards = new Direction(sourceTick.get(), targetTick.get());
+    backwards = new Direction(targetTick.get(), sourceTick.get());
+    LOG.debug("Refreshed {}", this);
   }
 
   @Override
   public RuntimeTick getTargetTick() {
-    return targetTickProvider.getTick();
+    return targetTick.get();
   }
 
   RuntimeTick getSourceTick() {
-    return sourceTickProvider.getTick();
+    return sourceTick.get();
   }
 
   private long getSourceOffset() {

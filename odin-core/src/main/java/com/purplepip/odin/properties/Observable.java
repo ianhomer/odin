@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.properties;
 
-public interface Mutable<T> extends Property<T> {
-  void set(T t);
+public interface Observable {
+  void addObserver(Observer o);
+
+  void removeObserver(Observer o);
 }

@@ -19,11 +19,14 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
+import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.TickConverter;
+import com.purplepip.odin.sequence.tick.ImmutableRuntimeTick;
+import com.purplepip.odin.sequence.tick.RuntimeTick;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
@@ -191,17 +194,20 @@ public class OdinSequencer implements ProjectApplyListener {
 
     setSequenceInRuntime(sequenceRoll, sequence);
 
+    ObservableProperty<RuntimeTick> runtimeTick = new ObservableProperty<>(
+        new ImmutableRuntimeTick(sequence.getTick()));
+
     TickConverter tickConverter = new DefaultTickConverter(clock,
-        sequenceRoll::getTick, () -> RuntimeTicks.MICROSECOND,
+        runtimeTick, () -> RuntimeTicks.MICROSECOND,
         sequenceRoll.getOffsetProvider()
     );
 
-    tracks.add(new Track(sequenceRoll, tickConverter));
+    tracks.add(new Track(runtimeTick, sequenceRoll, tickConverter));
   }
 
   private void setSequenceInTrack(Track track, Sequence sequence) throws OdinException {
+    track.getTick().set(new ImmutableRuntimeTick(sequence.getTick()));
     setSequenceInRuntime(track.getSequenceRoll(), sequence);
-    // TODO : Set sequence in roll
   }
 
   private void setSequenceInRuntime(SequenceRoll sequenceRuntime, Sequence sequence)
