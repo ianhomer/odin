@@ -33,7 +33,6 @@ public class RuntimeTick implements Tick {
   public RuntimeTick(Tick tick) {
     underlyingTick = tick;
     factor = (double) getNumerator() / (double) getDenominator();
-    factorAsInt = getNumerator() / getDenominator();
   }
 
   @Override
@@ -53,9 +52,5 @@ public class RuntimeTick implements Tick {
 
   public double getFactor() {
     return factor;
-  }
-
-  public int getFactorAsInt() {
-    return factorAsInt;
   }
 }
