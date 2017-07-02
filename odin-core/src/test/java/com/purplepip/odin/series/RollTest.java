@@ -6,9 +6,9 @@ import com.purplepip.odin.sequence.Roll;
 import org.junit.Test;
 
 /**
- * SequenceRuntime Test.
+ * Roll Test.
  */
-public class SequenceRuntimeTest {
+public class RollTest {
   @Test
   public void testSeries() {
     Roll<Boolean> heartBeat = new HeartBeat();

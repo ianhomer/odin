@@ -15,10 +15,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 /**
- * TickConvertedSequenceRuntime test.
+ * TickConvertedRoll test.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TickConvertedSequenceRuntimeTest {
+public class TickConvertedRollTest {
   @Mock
   private MicrosecondPositionProvider provider;
 
@@ -37,8 +37,8 @@ public class TickConvertedSequenceRuntimeTest {
     clock.start();
   }
 
-  private TickConvertedSequenceRuntime createRuntime(Tick input, Tick output, int offset) {
-    return new TickConvertedSequenceRuntime(sequenceRuntime,
+  private TickConvertedRoll createRoll(Tick input, Tick output, int offset) {
+    return new TickConvertedRoll(sequenceRuntime,
         new DefaultTickConverter(clock,
             new ImmutableRuntimeTick(input),
             new ImmutableRuntimeTick(output), () -> offset));
@@ -46,8 +46,8 @@ public class TickConvertedSequenceRuntimeTest {
 
   @Test
   public void testNoteConversionBeatToMillis() {
-    TickConvertedSequenceRuntime convertedSequenceRuntime =
-        createRuntime(Ticks.BEAT, Ticks.MILLISECOND, 10);
+    TickConvertedRoll convertedSequenceRuntime =
+        createRoll(Ticks.BEAT, Ticks.MILLISECOND, 10);
     when(sequenceRuntime.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,3), 5));
@@ -58,36 +58,36 @@ public class TickConvertedSequenceRuntimeTest {
 
   @Test
   public void testNoteConversionBeatToBeats() {
-    TickConvertedSequenceRuntime convertedSequenceRuntime =
-        createRuntime(Ticks.BEAT, Ticks.BEAT, 10);
+    TickConvertedRoll convertedRoll =
+        createRoll(Ticks.BEAT, Ticks.BEAT, 10);
     when(sequenceRuntime.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,3), 5));
-    Event<Note> eventNote = convertedSequenceRuntime.pop();
+    Event<Note> eventNote = convertedRoll.pop();
     assertEquals("event time not correct",15, eventNote.getTime());
     assertEquals("note duration not correct", 3, eventNote.getValue().getDuration());
   }
 
   @Test
   public void testNoteConversionMillisToBeats() {
-    TickConvertedSequenceRuntime convertedSequenceRuntime =
-        createRuntime(Ticks.MILLISECOND, Ticks.BEAT, 5000);
+    TickConvertedRoll convertedRoll =
+        createRoll(Ticks.MILLISECOND, Ticks.BEAT, 5000);
     when(sequenceRuntime.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,7000), 4000));
-    Event<Note> eventNote = convertedSequenceRuntime.pop();
+    Event<Note> eventNote = convertedRoll.pop();
     assertEquals("event time not correct",9, eventNote.getTime());
     assertEquals("note duration not correct", 7, eventNote.getValue().getDuration());
   }
 
   @Test
   public void testNoteConversionMillisToMillis() {
-    TickConvertedSequenceRuntime convertedSequenceRuntime =
-        createRuntime(Ticks.MILLISECOND, Ticks.MILLISECOND, 5000);
+    TickConvertedRoll convertedRoll =
+        createRoll(Ticks.MILLISECOND, Ticks.MILLISECOND, 5000);
     when(sequenceRuntime.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,7000), 4000));
-    Event<Note> eventNote = convertedSequenceRuntime.pop();
+    Event<Note> eventNote = convertedRoll.pop();
     assertEquals("event time not correct", 9000, eventNote.getTime());
     assertEquals("note duration not correct", 7000, eventNote.getValue().getDuration());
   }

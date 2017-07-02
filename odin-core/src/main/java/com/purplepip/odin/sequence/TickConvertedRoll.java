@@ -22,34 +22,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * SequenceRuntime where time is in milliseconds relative to some origin, e.g. MIDI device start
+ * Roll calculated from another roll with the tick units converted.  Note that this tick
+ * unit conversion can include offset adjustment as well as time unit conversion.
  */
-public class TickConvertedSequenceRuntime implements Roll<Note> {
-  private static final Logger LOG = LoggerFactory.getLogger(TickConvertedSequenceRuntime.class);
-  private Roll<Note> sequenceRuntime;
+public class TickConvertedRoll implements Roll<Note> {
+  private static final Logger LOG = LoggerFactory.getLogger(TickConvertedRoll.class);
+  private Roll<Note> roll;
   private TickConverter tickConverter;
 
   /**
-   * Create tick converted sequence runtime.
+   * Create tick converted roll.
    *
-   * @param sequenceRuntime sequence runtime to convert
+   * @param roll roll to convert
    * @param tickConverter tick converter to convert the runtime with
    */
-  public TickConvertedSequenceRuntime(Roll<Note> sequenceRuntime,
-                                      TickConverter tickConverter) {
-    this.sequenceRuntime = sequenceRuntime;
+  public TickConvertedRoll(Roll<Note> roll,
+                           TickConverter tickConverter) {
+    this.roll = roll;
     // TODO : This tick converter does not get updated from runtime changes of sequence.
     this.tickConverter = tickConverter;
   }
 
   @Override
   public Event<Note> peek() {
-    return convertTimeUnits(sequenceRuntime.peek());
+    return convertTimeUnits(roll.peek());
   }
 
   @Override
   public Event<Note> pop() {
-    return convertTimeUnits(sequenceRuntime.pop());
+    return convertTimeUnits(roll.pop());
   }
 
   @Override
@@ -59,11 +60,8 @@ public class TickConvertedSequenceRuntime implements Roll<Note> {
 
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
-      LOG.debug("No event on sequenceRuntime to convert");
+      LOG.debug("No event on roll to convert");
       return null;
-    }
-    if (tickConverter.getTargetTick().equals(sequenceRuntime.getTick())) {
-      return event;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
         tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
@@ -71,5 +69,4 @@ public class TickConvertedSequenceRuntime implements Roll<Note> {
     LOG.trace("Converted note {} to time {}", note, time);
     return new DefaultEvent<>(note, time);
   }
-
 }

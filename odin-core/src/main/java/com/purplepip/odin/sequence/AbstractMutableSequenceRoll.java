@@ -31,8 +31,8 @@ import org.slf4j.LoggerFactory;
  */
 @ListenerPriority()
 @ToString(callSuper = true)
-public abstract class AbstractMutableSequenceRuntime<A> implements SequenceRoll<A>, ClockListener {
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRuntime.class);
+public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRoll.class);
 
   private BeatClock beatClock;
   /*

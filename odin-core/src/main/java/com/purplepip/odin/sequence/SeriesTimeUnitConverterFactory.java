@@ -28,6 +28,6 @@ public class SeriesTimeUnitConverterFactory {
   }
 
   public Roll<Note> createConvertedSeries(Roll<Note> sequenceRuntime) {
-    return new TickConvertedSequenceRuntime(sequenceRuntime, tickConverter);
+    return new TickConvertedRoll(sequenceRuntime, tickConverter);
   }
 }

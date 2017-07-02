@@ -186,8 +186,8 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   private void addSequenceTrack(Sequence sequence) throws OdinException {
-    DefaultSequenceRuntime sequenceRuntime =
-        new DefaultSequenceRuntime(clock, configuration.getMeasureProvider());
+    DefaultSequenceRoll sequenceRuntime =
+        new DefaultSequenceRoll(clock, configuration.getMeasureProvider());
 
     setSequenceInRuntime(sequenceRuntime, sequence);
 

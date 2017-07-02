@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.AbstractMutableSequenceRuntime;
+import com.purplepip.odin.sequence.AbstractMutableSequenceRoll;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
@@ -27,7 +27,7 @@ import com.purplepip.odin.sequence.tick.Tock;
 /**
  * Default sequence runtime.
  */
-public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Note> {
+public class DefaultSequenceRoll extends AbstractMutableSequenceRoll<Note> {
   private MutableFlow<Sequence, Note> flow;
 
   /**
@@ -36,7 +36,7 @@ public class DefaultSequenceRuntime extends AbstractMutableSequenceRuntime<Note>
    * @param clock clock
    * @param measureProvider measure provider
    */
-  public DefaultSequenceRuntime(BeatClock clock, MeasureProvider measureProvider) {
+  public DefaultSequenceRoll(BeatClock clock, MeasureProvider measureProvider) {
     setBeatClock(clock);
     setMeasureProvider(measureProvider);
   }

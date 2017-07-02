@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Test;
 
-public class SequenceRuntimeClockTest {
+public class TickConvertedClockTest {
   @Test
   public void testCount() {
     BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
