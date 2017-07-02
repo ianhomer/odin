@@ -22,7 +22,6 @@ import com.purplepip.odin.sequence.TimeUnit;
  */
 public class RuntimeTick implements Tick {
   private double factor;
-  private int factorAsInt;
   private Tick underlyingTick;
 
   /**
