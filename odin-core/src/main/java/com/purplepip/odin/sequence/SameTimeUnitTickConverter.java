@@ -15,27 +15,29 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.RuntimeTickProvider;
 
 /**
  * Tick converter that is not clock aware and can only convert ticks with the same time unit.
  */
 public class SameTimeUnitTickConverter extends AbstractTickConverter {
-  public SameTimeUnitTickConverter(RuntimeTick inputTick, RuntimeTick outputTick) {
-    this(inputTick, outputTick, () -> 0);
+  public SameTimeUnitTickConverter(RuntimeTickProvider sourceTickProvider,
+                                   RuntimeTickProvider targetTickProvider) {
+    this(sourceTickProvider, targetTickProvider, () -> 0);
   }
 
   /**
    * Create same time unit tick converter.
    *
-   * @param inputTick input tick
-   * @param outputTick output tick
+   * @param sourceTickProvider source tick provider
+   * @param targetTickProvider target tick provider
    * @param inputOffsetProvider input offset provider
    */
-  public SameTimeUnitTickConverter(RuntimeTick inputTick, RuntimeTick outputTick,
+  public SameTimeUnitTickConverter(RuntimeTickProvider sourceTickProvider,
+                                   RuntimeTickProvider targetTickProvider,
                                    OffsetProvider inputOffsetProvider) {
-    setSourceTick(inputTick);
-    setTargetTick(outputTick);
+    setSourceTickProvider(sourceTickProvider);
+    setTargetTickProvider(targetTickProvider);
     setSourceOffsetProvider(inputOffsetProvider);
     afterPropertiesSet();
   }

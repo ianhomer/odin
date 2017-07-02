@@ -21,7 +21,7 @@ import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequence.tick.Tick;
 
 /**
- * Clock for the given sequence runtime.
+ * Clock for the given roll.
  */
 public class TickConvertedClock extends AbstractClock {
   private Tick tick;
@@ -39,8 +39,9 @@ public class TickConvertedClock extends AbstractClock {
     this.tick = tick;
     this.beatClock = beatClock;
     RuntimeTick runtimeTick = new ImmutableRuntimeTick(tick);
+    // TODO : runtimeTick needs to be set via a provider that will update if track updates
     tickToBeatConverter = new DefaultTickConverter(beatClock,
-        runtimeTick, RuntimeTicks.BEAT, offsetProvider);
+        () -> runtimeTick, () -> RuntimeTicks.BEAT, offsetProvider);
   }
 
   @Override

@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.RuntimeTickProvider;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,17 +26,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractTickConverter implements TickConverter {
   private OffsetProvider sourceOffsetProvider;
-  private RuntimeTick sourceTick;
-  private RuntimeTick targetTick;
+  private RuntimeTickProvider sourceTickProvider;
+  private RuntimeTickProvider targetTickProvider;
   private Direction forwards;
   private Direction backwards;
 
-  final void setTargetTick(RuntimeTick outputTick) {
-    this.targetTick = outputTick;
+  final void setTargetTickProvider(RuntimeTickProvider targetTickProvider) {
+    this.targetTickProvider = targetTickProvider;
   }
 
-  final void setSourceTick(RuntimeTick inputTick) {
-    this.sourceTick = inputTick;
+  final void setSourceTickProvider(RuntimeTickProvider sourceTickProvider) {
+    this.sourceTickProvider = sourceTickProvider;
   }
 
   final void setSourceOffsetProvider(OffsetProvider inputOffsetProvider) {
@@ -43,17 +44,17 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   void afterPropertiesSet() {
-    forwards = new Direction(sourceTick, targetTick);
-    backwards = new Direction(targetTick, sourceTick);
+    forwards = new Direction(sourceTickProvider.getTick(), targetTickProvider.getTick());
+    backwards = new Direction(targetTickProvider.getTick(), sourceTickProvider.getTick());
   }
 
   @Override
   public RuntimeTick getTargetTick() {
-    return targetTick;
+    return targetTickProvider.getTick();
   }
 
   RuntimeTick getSourceTick() {
-    return sourceTick;
+    return sourceTickProvider.getTick();
   }
 
   private long getSourceOffset() {
@@ -62,25 +63,21 @@ public abstract class AbstractTickConverter implements TickConverter {
 
   @Override
   public long convert(long time) {
-    LOG.trace("Converting {} from {} to {}", time, sourceTick, targetTick);
     return (long) convertTimeUnit(forwards, getSourceOffset() + time);
   }
 
   @Override
   public long convertBack(long time) {
-    LOG.trace("Converting back {} from {} to {}", time, targetTick, sourceTick);
     return (long) convertTimeUnit(backwards, time) - getSourceOffset();
   }
 
   @Override
   public long convertDuration(long time, long duration) {
-    LOG.trace("Converting duration {} from {} to {}", time, sourceTick, targetTick);
     return convert(time + duration) - convert(time);
   }
 
   @Override
   public long convertDurationBack(long time, long duration) {
-    LOG.trace("Converting duration back {} from {} to {}", time, targetTick, sourceTick);
     return convertBack(time + duration) - convertBack(time);
   }
 

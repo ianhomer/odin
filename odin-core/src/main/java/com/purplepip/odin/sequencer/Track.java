@@ -19,16 +19,27 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRoll;
+import com.purplepip.odin.sequence.TickConvertedRoll;
+import com.purplepip.odin.sequence.TickConverter;
 
 /**
  * SequenceRuntime driving a sequenced track.
  */
 public class Track {
   private SequenceRoll<Note> sequenceRoll;
+  private TickConverter tickConverter;
   private Roll<Note> roll;
 
-  public Track(Roll<Note> roll, SequenceRoll<Note> sequenceRoll) {
-    this.roll = roll;
+  /**
+   * Create new track.
+   *
+   * @param sequenceRoll sequence roll to base this track on
+   * @param tickConverter tick converter for this sequence roll
+   */
+  public Track(SequenceRoll<Note> sequenceRoll, TickConverter tickConverter) {
+    // TODO : Generate tickConverter in this constructor as opposed to argument in
+    roll = new TickConvertedRoll(sequenceRoll, tickConverter);
+    this.tickConverter = tickConverter;
     this.sequenceRoll = sequenceRoll;
   }
 
@@ -56,5 +67,9 @@ public class Track {
 
   public Sequence getSequence() {
     return sequenceRoll.getSequence();
+  }
+
+  public TickConverter getTickConverter() {
+    return tickConverter;
   }
 }

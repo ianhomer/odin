@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.RuntimeTickProvider;
 
 /**
- * Time unit converter.
+ * Default tick converter.
  */
 public class DefaultTickConverter extends AbstractTickConverter {
   private BeatClock clock;
@@ -27,15 +27,17 @@ public class DefaultTickConverter extends AbstractTickConverter {
    * Create a tick converter.
    *
    * @param clock clock
-   * @param sourceTick input tick
-   * @param targetTick output tick
+   * @param sourceTickProvider source tick provider
+   * @param targetTickProvider target tick provider
    * @param sourceOffsetProvider input offset provider
    */
-  public DefaultTickConverter(BeatClock clock, RuntimeTick sourceTick, RuntimeTick targetTick,
+  public DefaultTickConverter(BeatClock clock,
+                              RuntimeTickProvider sourceTickProvider,
+                              RuntimeTickProvider targetTickProvider,
                               OffsetProvider sourceOffsetProvider) {
     this.clock = clock;
-    setSourceTick(sourceTick);
-    setTargetTick(targetTick);
+    setSourceTickProvider(sourceTickProvider);
+    setTargetTickProvider(targetTickProvider);
     setSourceOffsetProvider(sourceOffsetProvider);
     afterPropertiesSet();
   }

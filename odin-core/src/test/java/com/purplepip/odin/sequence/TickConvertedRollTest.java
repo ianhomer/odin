@@ -40,8 +40,8 @@ public class TickConvertedRollTest {
   private TickConvertedRoll createRoll(Tick input, Tick output, int offset) {
     return new TickConvertedRoll(sequenceRuntime,
         new DefaultTickConverter(clock,
-            new ImmutableRuntimeTick(input),
-            new ImmutableRuntimeTick(output), () -> offset));
+            () -> new ImmutableRuntimeTick(input),
+            () -> new ImmutableRuntimeTick(output), () -> offset));
   }
 
   @Test

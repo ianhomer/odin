@@ -27,7 +27,8 @@ public class TickConverterTest {
 
   private void assertConversion(BeatClock clock, RuntimeTick sourceTick, RuntimeTick targetTick,
                                 long offset, long... times) {
-    TickConverter converter = new DefaultTickConverter(clock, sourceTick, targetTick, () -> offset);
+    TickConverter converter = new DefaultTickConverter(
+        clock, () -> sourceTick, () -> targetTick, () -> offset);
     for (int i = 0 ; i < times.length ; i = i + 2) {
       assertEquals(sourceTick + " to " + targetTick + " failed",
           times[i + 1], converter.convert(times[i]));
