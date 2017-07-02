@@ -15,39 +15,40 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.properties.Mutable;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
 import lombok.ToString;
 
 @ToString
 public class UnmodifiableRuntimeTick implements RuntimeTick {
-  private RuntimeTick underlyingTick;
+  private Mutable<RuntimeTick> underlyingTick;
 
-  public UnmodifiableRuntimeTick(RuntimeTick runtimeTick) {
+  public UnmodifiableRuntimeTick(Mutable<RuntimeTick> runtimeTick) {
     underlyingTick = runtimeTick;
   }
 
   @Override
   public TimeUnit getTimeUnit() {
-    return underlyingTick.getTimeUnit();
+    return underlyingTick.get().getTimeUnit();
   }
 
   @Override
   public int getNumerator() {
-    return underlyingTick.getNumerator();
+    return underlyingTick.get().getNumerator();
   }
 
   @Override
   public int getDenominator() {
-    return underlyingTick.getDenominator();
+    return underlyingTick.get().getDenominator();
   }
 
   @Override
   public double getFactor() {
-    return underlyingTick.getFactor();
+    return underlyingTick.get().getFactor();
   }
 
   @Override
   public int getFactorAsInt() {
-    return underlyingTick.getFactorAsInt();
+    return underlyingTick.get().getFactorAsInt();
   }
 }

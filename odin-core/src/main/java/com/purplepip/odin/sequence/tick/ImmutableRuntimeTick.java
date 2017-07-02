@@ -22,13 +22,21 @@ import lombok.ToString;
  * A runtime tick that can change at runtime.
  */
 @ToString
-public class ImmutableRuntimeTick extends AbstractRuntimeTick {
+public class ImmutableRuntimeTick implements RuntimeTick {
+  private double factor;
+  private int factorAsInt;
   private Tick underlyingTick;
 
   public ImmutableRuntimeTick(Tick tick) {
     underlyingTick = tick;
     afterTickChanged();
   }
+
+  private void afterTickChanged() {
+    factor = (double) getNumerator() / (double) getDenominator();
+    factorAsInt = getNumerator() / getDenominator();
+  }
+
 
   @Override
   public TimeUnit getTimeUnit() {
@@ -43,5 +51,15 @@ public class ImmutableRuntimeTick extends AbstractRuntimeTick {
   @Override
   public int getDenominator() {
     return underlyingTick.getDenominator();
+  }
+
+  @Override
+  public double getFactor() {
+    return factor;
+  }
+
+  @Override
+  public int getFactorAsInt() {
+    return factorAsInt;
   }
 }

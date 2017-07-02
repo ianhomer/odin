@@ -210,20 +210,20 @@ public class OdinSequencer implements ProjectApplyListener {
     setSequenceInRuntime(track.getSequenceRoll(), sequence);
   }
 
-  private void setSequenceInRuntime(SequenceRoll sequenceRuntime, Sequence sequence)
+  private void setSequenceInRuntime(SequenceRoll sequenceRoll, Sequence sequence)
       throws OdinException {
     /*
      * Only update the flow if the flow name has changed.
      */
-    if (sequenceRuntime.getSequence() == null
-        || !sequence.getFlowName().equals(sequenceRuntime.getSequence().getFlowName())) {
-      sequenceRuntime.setFlow(configuration.getFlowFactory().createFlow(sequence));
+    if (sequenceRoll.getSequence() == null
+        || !sequence.getFlowName().equals(sequenceRoll.getSequence().getFlowName())) {
+      sequenceRoll.setFlow(configuration.getFlowFactory().createFlow(sequence));
     } else {
-      sequenceRuntime.getFlow().setSequence(sequence);
+      sequenceRoll.getFlow().setSequence(sequence);
     }
 
-    sequenceRuntime.setSequence(sequence);
-    sequenceRuntime.refresh();
+    sequenceRoll.setSequence(sequence);
+    sequenceRoll.refresh();
   }
 
   /**

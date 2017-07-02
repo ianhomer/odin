@@ -26,6 +26,9 @@ public class ObservableProperty<T> implements Mutable<T>, Observable {
   private T value;
   private Set<Observer> observers = new HashSet<>();
 
+  public ObservableProperty() {
+  }
+
   public ObservableProperty(T value) {
     set(value);
   }

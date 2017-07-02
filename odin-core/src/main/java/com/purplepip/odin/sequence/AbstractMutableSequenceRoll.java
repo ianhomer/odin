@@ -15,9 +15,11 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.properties.Mutable;
+import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.tick.ImmutableRuntimeTick;
 import com.purplepip.odin.sequence.tick.MovableTock;
-import com.purplepip.odin.sequence.tick.MutableRuntimeTick;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequence.tick.SealedTock;
@@ -43,7 +45,8 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
   private Event<A> nextEvent;
   private MovableTock tock;
   private Tock sealedTock;
-  private final MutableRuntimeTick tick = new MutableRuntimeTick();
+  // TODO : Use Mutable interface to manage tick.
+  private final Mutable<RuntimeTick> tick = new ObservableProperty<>();
   private final UnmodifiableRuntimeTick unmodifiableRuntimeTick = new UnmodifiableRuntimeTick(tick);
   private boolean tickDirty;
   private Sequence sequence;
@@ -116,7 +119,7 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
       /*
        * Change runtime tick
        */
-      tick.setTick(getSequence().getTick());
+      tick.set(new ImmutableRuntimeTick(getSequence().getTick()));
     }
 
     sequenceDirty = false;
