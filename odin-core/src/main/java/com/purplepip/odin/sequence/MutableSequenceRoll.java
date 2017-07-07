@@ -18,6 +18,7 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.properties.Mutable;
 import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;
+import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
@@ -39,6 +40,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private final Mutable<RuntimeTick> tick = new ObservableProperty<>();
   private MutableFlow<Sequence, A> flow;
   private BeatClock beatClock;
+
   /*
    * Tick converted clock.
    */
@@ -50,15 +52,22 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private boolean tickDirty;
   private Sequence sequence;
   private boolean sequenceDirty;
+  private FlowFactory<A> flowFactory;
 
-  public MutableSequenceRoll(BeatClock clock, MeasureProvider measureProvider) {
-    setBeatClock(clock);
-    setMeasureProvider(measureProvider);
-  }
-
-  protected final void setBeatClock(BeatClock beatClock) {
-    this.beatClock = beatClock;
+  /**
+   * Create a base line mutable sequence roll onto which a sequence can be set and reset.
+   *
+   * @param clock clock
+   * @param flowFactory flow factory
+   * @param measureProvider measure provider
+   */
+  public MutableSequenceRoll(BeatClock clock, FlowFactory<A> flowFactory,
+                             MeasureProvider measureProvider) {
+    this.beatClock = clock;
     beatClock.addListener(this);
+
+    this.measureProvider = measureProvider;
+    this.flowFactory = flowFactory;
   }
 
   @Override
@@ -124,8 +133,19 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    */
   @Override
   public void setSequence(Sequence sequence) {
+    /*
+     * Only update the flow if the flow name has changed.
+     */
+    if (getSequence() == null
+        || !sequence.getFlowName().equals(getSequence().getFlowName())) {
+      setFlow(flowFactory.createFlow(sequence));
+    } else {
+      getFlow().setSequence(sequence);
+    }
+
     this.sequence = sequence;
     sequenceDirty = true;
+    refresh();
   }
 
   protected long getLength() {
@@ -228,15 +248,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      */
     nextEvent = null;
     LOG.debug("afterTickChange executed");
-  }
-
-  /**
-   * Set measure provider.
-   *
-   * @param measureProvider measure provider
-   */
-  protected final void setMeasureProvider(MeasureProvider measureProvider) {
-    this.measureProvider = measureProvider;
   }
 
   @Override

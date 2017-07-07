@@ -90,4 +90,8 @@ public class LogCaptor implements AutoCloseable {
   public int size() {
     return capturingAppender.list.size();
   }
+
+  public String getMessage(int index) {
+    return capturingAppender.list.get(index).getMessage();
+  }
 }

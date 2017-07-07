@@ -15,18 +15,21 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.sequence.Sequence;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Factory to generate flow object for given sequence.
  */
+@Slf4j
 public class FlowFactory<A> {
   private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
+  private static final Class FAIL_OVER_FLOW_CLASS = FailOverFlow.class;
 
   private FlowConfiguration flowConfiguration;
 
@@ -53,21 +56,22 @@ public class FlowFactory<A> {
    *
    * @param sequence sequence
    * @return flow
-   * @throws OdinException exception
    */
   @SuppressWarnings("unchecked")
-  public MutableFlow<Sequence, A> createFlow(Sequence sequence) throws OdinException {
+  public MutableFlow<Sequence, A> createFlow(Sequence sequence) {
     Class<? extends MutableFlow<Sequence, A>> flowClass;
     flowClass = (Class<? extends MutableFlow<Sequence, A>>)
           FLOWS.get(sequence.getFlowName());
     if (flowClass == null) {
-      throw new OdinException("Flow class " + sequence.getFlowName() + " not registered");
+      LOG.error("Flow class " + sequence.getFlowName() + " not registered");
+      flowClass = (Class<? extends MutableFlow<Sequence, A>>) FAIL_OVER_FLOW_CLASS;
     }
     MutableFlow<Sequence, A> flow;
     try {
       flow = flowClass.newInstance();
     } catch (InstantiationException | IllegalAccessException e) {
-      throw new OdinException("Cannot create instance of " + flowClass, e);
+      LOG.error("Cannot create instance of " + flowClass, e);
+      flow = (MutableFlow<Sequence, A>) new FailOverFlow();
     }
     flow.setSequence(sequence.copy());
     flow.setConfiguration(flowConfiguration);

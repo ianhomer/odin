@@ -52,4 +52,13 @@ public class LogCaptureTest {
       assertEquals(1, captor.size());
     }
   }
+
+  @Test
+  public void testCaptureError() {
+    try (LogCaptor captor = new LogCapture().from(LogCaptureTest.class).start()) {
+      LOG.error("testCaptureError : Test info message");
+      assertEquals(1, captor.size());
+      assertEquals("testCaptureError : Test info message", captor.getMessage(0));
+    }
+  }
 }

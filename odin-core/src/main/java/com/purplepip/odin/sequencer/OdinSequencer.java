@@ -25,7 +25,6 @@ import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
 import com.purplepip.odin.sequence.tick.RuntimeTicks;
@@ -198,14 +197,15 @@ public class OdinSequencer implements ProjectApplyListener {
 
   private void setSequenceInTrack(SequenceTrack track, Sequence sequence) throws OdinException {
     track.getMutableTick().set(new RuntimeTick(sequence.getTick()));
-    setSequenceInRuntime(track.getSequenceRoll(), sequence);
+    track.getSequenceRoll().setSequence(sequence);
   }
 
   private void addSequenceTrack(Sequence sequence) throws OdinException {
     MutableSequenceRoll<Note> sequenceRoll =
-        new MutableSequenceRoll<>(clock, configuration.getMeasureProvider());
+        new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
+            configuration.getMeasureProvider());
 
-    setSequenceInRuntime(sequenceRoll, sequence);
+    sequenceRoll.setSequence(sequence);
 
     ObservableProperty<RuntimeTick> runtimeTick = new ObservableProperty<>(
         new RuntimeTick(sequence.getTick()));
@@ -216,23 +216,6 @@ public class OdinSequencer implements ProjectApplyListener {
     );
 
     tracks.add(new SequenceTrack(runtimeTick, sequenceRoll, tickConverter));
-  }
-
-  private void setSequenceInRuntime(SequenceRoll sequenceRoll, Sequence sequence)
-      throws OdinException {
-
-    /*
-     * Only update the flow if the flow name has changed.
-     */
-    if (sequenceRoll.getSequence() == null
-        || !sequence.getFlowName().equals(sequenceRoll.getSequence().getFlowName())) {
-      sequenceRoll.setFlow(configuration.getFlowFactory().createFlow(sequence));
-    } else {
-      sequenceRoll.getFlow().setSequence(sequence);
-    }
-
-    sequenceRoll.setSequence(sequence);
-    sequenceRoll.refresh();
   }
 
   /**

@@ -1,9 +1,13 @@
 package com.purplepip.odin.sequence.flow;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import com.purplepip.logcapture.LogCaptor;
+import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.sequence.Sequence;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,11 +29,15 @@ public class FlowFactoryUnconstructibleTest {
 
   @Test
   public void testCreateFlowCantInstantiate() throws OdinException {
-    exception.expect(OdinException.class);
-    exception.expectMessage(
-        "Flow class com.purplepip.odin.sequence.flow.UnconstructibleFlow not registered");
-    when(sequence.getFlowName()).thenReturn("com.purplepip.odin.sequence.flow.UnconstructibleFlow");
+    // TODO : Correct this test to test for instantiation error NOT registration error.
+    when(sequence.getFlowName()).thenReturn("FlowCantInstantiate");
     FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
-    flowFactory.createFlow(sequence);
+    try (LogCaptor captor = new LogCapture().error().from(FlowFactory.class).start()) {
+      Flow flow = flowFactory.createFlow(sequence);
+      assertEquals(FailOverFlow.class.getName(), flow.getClass().getName());
+      assertEquals(1, captor.size());
+      assertEquals("Flow class FlowCantInstantiate not registered",
+          captor.getMessage(0));
+    }
   }
 }
