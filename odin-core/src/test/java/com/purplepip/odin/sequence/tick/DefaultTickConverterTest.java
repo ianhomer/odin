@@ -1,5 +1,10 @@
 package com.purplepip.odin.sequence.tick;
 
+import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
+import static com.purplepip.odin.sequence.tick.Ticks.HALF;
+import static com.purplepip.odin.sequence.tick.Ticks.MEASURE;
+import static com.purplepip.odin.sequence.tick.Ticks.MICROSECOND;
+import static com.purplepip.odin.sequence.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -37,56 +42,56 @@ public class DefaultTickConverterTest {
   @Test
   public void testMicrosecondToMillisecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
-        () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.MICROSECOND, () -> 0L);
+        () -> MILLISECOND, () -> MICROSECOND, () -> 0L);
     assertEquals(1000, converter.convert(1),0.0001);
   }
 
   @Test
   public void testMillisecondToMillisecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
-        () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.MILLISECOND, () -> 0L);
+        () -> MILLISECOND, () -> MILLISECOND, () -> 0L);
     assertEquals(1, converter.convert(1),0.0001);
   }
 
   @Test
   public void testBeatToHalf() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
-        () -> RuntimeTicks.BEAT, () -> RuntimeTicks.HALF, () -> 0L);
+        () -> BEAT, () -> HALF, () -> 0L);
     assertEquals(2, converter.convert(1),0.0001);
   }
 
   @Test
   public void testMillisecondToBeat() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
-        () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.BEAT, () -> 0L);
+        () -> MILLISECOND, () -> BEAT, () -> 0L);
     assertEquals(200, converter.convert(100000),0.0001);
   }
 
   @Test
   public void testMillisecondToBeatWithOffset() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
-        () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.BEAT, () -> 5000L);
+        () -> MILLISECOND, () -> BEAT, () -> 5000L);
     assertEquals(18, converter.convert(4000),0.0001);
   }
 
   @Test(expected = OdinRuntimeException.class)
   public void testMillisecondToMeasure() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
-        () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.MEASURE, () -> 0L);
+        () -> MILLISECOND, () -> MEASURE, () -> 0L);
     converter.convert(1);
   }
 
   @Test
   public void testBeatToMicrosecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
-        () -> RuntimeTicks.BEAT, () -> RuntimeTicks.MICROSECOND, () -> 0L);
+        () -> BEAT, () -> MICROSECOND, () -> 0L);
     assertEquals(500000,converter.convert(1),0.0001);
   }
 
   @Test(expected = OdinRuntimeException.class)
   public void testBeatToMeasure() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
-        () -> RuntimeTicks.BEAT, () -> RuntimeTicks.MEASURE, () -> 0L);
+        () -> BEAT, () -> MEASURE, () -> 0L);
     converter.convert(1);
   }
 

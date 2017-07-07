@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Before;
@@ -40,8 +39,8 @@ public class TickConvertedRollTest {
   private TickConvertedRoll createRoll(Tick input, Tick output, long offset) {
     return new TickConvertedRoll(roll,
         new DefaultTickConverter(clock,
-            () -> new RuntimeTick(input),
-            () -> new RuntimeTick(output), () -> offset));
+            () -> input,
+            () -> output, () -> offset));
   }
 
   @Test

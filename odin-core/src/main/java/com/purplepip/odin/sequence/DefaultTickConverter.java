@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.properties.Property;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.Tick;
 import lombok.ToString;
 
 /**
@@ -35,8 +35,8 @@ public class DefaultTickConverter extends AbstractTickConverter {
    * @param sourceOffset source offset property
    */
   public DefaultTickConverter(BeatClock clock,
-                              Property<RuntimeTick> sourceTick,
-                              Property<RuntimeTick> targetTick,
+                              Property<Tick> sourceTick,
+                              Property<Tick> targetTick,
                               Property<Long> sourceOffset) {
     this.clock = clock;
     setSourceTick(sourceTick);

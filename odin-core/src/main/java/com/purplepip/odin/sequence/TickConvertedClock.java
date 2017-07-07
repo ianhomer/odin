@@ -16,15 +16,14 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.properties.Property;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
-import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.Ticks;
 
 /**
  * Clock for the given roll.
  */
 public class TickConvertedClock extends AbstractClock {
-  private Property<RuntimeTick> tick;
+  private Property<Tick> tick;
   private BeatClock beatClock;
   private TickConverter tickToBeatConverter;
 
@@ -35,12 +34,12 @@ public class TickConvertedClock extends AbstractClock {
    * @param tick tick for the sequence runtime
    * @param offset offset property for the sequence roll
    */
-  public TickConvertedClock(BeatClock beatClock, Property<RuntimeTick> tick,
+  public TickConvertedClock(BeatClock beatClock, Property<Tick> tick,
                             Property<Long> offset) {
     this.tick = tick;
     this.beatClock = beatClock;
     tickToBeatConverter = new DefaultTickConverter(beatClock,
-        tick, () -> RuntimeTicks.BEAT, offset);
+        tick, () -> Ticks.BEAT, offset);
   }
 
   @Override

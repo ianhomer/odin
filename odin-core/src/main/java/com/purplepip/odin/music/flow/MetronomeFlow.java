@@ -24,10 +24,12 @@ import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.Tock;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Metronome flow.
  */
+@Slf4j
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
   @Override
   public Event<Note> getNextEvent(Tock tock, Clock clock, MeasureProvider measureProvider) {
@@ -42,6 +44,7 @@ public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
     } else {
       note = getSequence().getNoteBarMid();
     }
+    LOG.trace("Creating metronome note {} at {}", note, mutableTock);
     return new DefaultEvent<>(note, mutableTock.getCount());
   }
 }

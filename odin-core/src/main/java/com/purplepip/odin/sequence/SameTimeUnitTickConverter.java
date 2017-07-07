@@ -16,14 +16,14 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.properties.Property;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.Tick;
 
 /**
  * Tick converter that is not clock aware and can only convert ticks with the same time unit.
  */
 public class SameTimeUnitTickConverter extends AbstractTickConverter {
-  public SameTimeUnitTickConverter(Property<RuntimeTick> sourceTick,
-                                   Property<RuntimeTick> targetTick) {
+  public SameTimeUnitTickConverter(Property<Tick> sourceTick,
+                                   Property<Tick> targetTick) {
     this(sourceTick, targetTick, () -> 0L);
   }
 
@@ -34,8 +34,8 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
    * @param targetTick target tick property
    * @param sourceOffset input offset provider
    */
-  public SameTimeUnitTickConverter(Property<RuntimeTick> sourceTick,
-                                   Property<RuntimeTick> targetTick,
+  public SameTimeUnitTickConverter(Property<Tick> sourceTick,
+                                   Property<Tick> targetTick,
                                    Property<Long> sourceOffset) {
     setSourceTick(sourceTick);
     setTargetTick(targetTick);

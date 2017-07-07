@@ -17,7 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.sequence.Roll;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.Tick;
 
 public interface Track {
   /**
@@ -39,5 +39,5 @@ public interface Track {
    *
    * @return runtime tick.
    */
-  RuntimeTick getTick();
+  Tick getTick();
 }

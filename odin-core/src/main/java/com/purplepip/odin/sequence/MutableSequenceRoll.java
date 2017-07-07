@@ -22,9 +22,9 @@ import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
-import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequence.tick.SealedTock;
+import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.ToString;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 @ToString(callSuper = true)
 public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
-  private final Mutable<RuntimeTick> tick = new ObservableProperty<>();
+  private final Mutable<Tick> tick = new ObservableProperty<>();
   private MutableFlow<Sequence, A> flow;
   private BeatClock beatClock;
 
@@ -188,12 +188,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     /*
      * Determine if the tick has changed
      */
-    tickDirty = this.getTick() == null || !getSequence().getTick().equals(this.getTick());
-    if (tickDirty) {
+    if (this.getTick() == null || !getSequence().getTick().equals(this.getTick())) {
+      tickDirty = true;
       /*
-       * Change runtime tick
+       * Change tick
        */
-      tick.set(new RuntimeTick(getSequence().getTick()));
+      tick.set(getSequence().getTick());
     }
 
     sequenceDirty = false;
@@ -213,7 +213,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * Calculate offset of this sequence in microseconds ...
      */
     long microsecondOffset = (long) new DefaultTickConverter(beatClock, this::getTick,
-        () -> RuntimeTicks.MICROSECOND, () -> 0L).convert(getSequence().getOffset());
+        () -> Ticks.MICROSECOND, () -> 0L).convert(getSequence().getOffset());
     LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
         getSequence().getOffset());
     /*
@@ -221,7 +221,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * for this sequence runtime.
      */
     TickConverter microsecondToSequenceTickConverter =
-        new DefaultTickConverter(beatClock, () -> RuntimeTicks.MICROSECOND, this::getTick,
+        new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, this::getTick,
             () -> - microsecondOffset);
     /*
      * Set the tock count, that this sequence runtime should start at, to the current tock
@@ -262,7 +262,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   }
 
   @Override
-  public RuntimeTick getTick() {
+  public Tick getTick() {
     return tick.get();
   }
 

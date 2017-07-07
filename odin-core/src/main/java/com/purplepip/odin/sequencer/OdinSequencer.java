@@ -23,7 +23,6 @@ import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
@@ -172,7 +171,7 @@ public class OdinSequencer implements ProjectApplyListener {
       if (modifiedTrack != null) {
         // TODO : Why do we need to set the mutable tick on the track?  It should be hooked
         // into sequence on sequence roll.
-        modifiedTrack.getMutableTick().set(new RuntimeTick(sequence.getTick()));
+        modifiedTrack.getMutableTick().set(sequence.getTick());
         /*
          * Update sequence in new or modified track.
          */

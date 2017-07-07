@@ -25,8 +25,8 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.TickConvertedRoll;
 import com.purplepip.odin.sequence.TickConverter;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
-import com.purplepip.odin.sequence.tick.RuntimeTicks;
+import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.Ticks;
 
 /**
  * Track in the sequencer.
@@ -35,7 +35,7 @@ public class SequenceTrack implements Track {
   private SequenceRoll<Note> sequenceRoll;
   private TickConverter tickConverter;
   private Roll<Note> roll;
-  private Mutable<RuntimeTick> runtimeTick;
+  private Mutable<Tick> tick;
 
   /**
    * Create new track.
@@ -44,7 +44,7 @@ public class SequenceTrack implements Track {
    * @param sequenceRoll sequence roll to base this track on
    */
   SequenceTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll, Sequence sequence) {
-    this.runtimeTick = new ObservableProperty<>(new RuntimeTick(sequence.getTick()));
+    this.tick = new ObservableProperty<>(sequence.getTick());
     /*
      * Sequence is set late, so any sequence set here will change.
      *
@@ -54,7 +54,7 @@ public class SequenceTrack implements Track {
     sequenceRoll.setSequence(sequence);
     this.sequenceRoll = sequenceRoll;
     this.tickConverter = new DefaultTickConverter(clock,
-        runtimeTick, () -> RuntimeTicks.MICROSECOND,
+        tick, () -> Ticks.MICROSECOND,
         sequenceRoll.getOffsetProperty()
     );
     roll = new TickConvertedRoll(sequenceRoll, tickConverter);
@@ -75,8 +75,8 @@ public class SequenceTrack implements Track {
   }
 
   @Override
-  public RuntimeTick getTick() {
-    return runtimeTick.get();
+  public Tick getTick() {
+    return tick.get();
   }
 
   /**
@@ -96,7 +96,7 @@ public class SequenceTrack implements Track {
     return tickConverter;
   }
 
-  public Mutable<RuntimeTick> getMutableTick() {
-    return runtimeTick;
+  public Mutable<Tick> getMutableTick() {
+    return tick;
   }
 }

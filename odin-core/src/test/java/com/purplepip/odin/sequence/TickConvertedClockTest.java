@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
-import static com.purplepip.odin.sequence.tick.RuntimeTicks.QUARTER;
+import static com.purplepip.odin.sequence.tick.Ticks.QUARTER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

@@ -1,9 +1,12 @@
 package com.purplepip.odin.sequence;
 
+import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
+import static com.purplepip.odin.sequence.tick.Ticks.HALF;
+import static com.purplepip.odin.sequence.tick.Ticks.MICROSECOND;
+import static com.purplepip.odin.sequence.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import org.junit.Test;
 
 /**
@@ -13,28 +16,28 @@ public class SameTimeUnitTickConverterTest {
   @Test
   public void testMicrosecondToMillisecond() {
     SameTimeUnitTickConverter converter = new SameTimeUnitTickConverter(
-        () -> RuntimeTicks.MILLISECOND, () -> RuntimeTicks.MICROSECOND);
+        () -> MILLISECOND, () -> MICROSECOND);
     assertEquals(1000, converter.convert(1),0.001);
   }
 
   @Test
   public void testBeatToHalf() {
     SameTimeUnitTickConverter converter = new SameTimeUnitTickConverter(
-        () -> RuntimeTicks.BEAT, () -> RuntimeTicks.HALF);
+        () -> BEAT, () -> HALF);
     assertEquals(2, converter.convert(1), 0.001);
   }
 
   @Test(expected = OdinRuntimeException.class)
   public void testMicrosecondToBeat() {
     SameTimeUnitTickConverter converter = new SameTimeUnitTickConverter(
-        () -> RuntimeTicks.MICROSECOND, () -> RuntimeTicks.BEAT);
+        () -> MICROSECOND, () -> BEAT);
     converter.convert(1);
   }
 
   @Test(expected = OdinRuntimeException.class)
   public void testBeatToMicrosecond() {
     SameTimeUnitTickConverter converter = new SameTimeUnitTickConverter(
-        () -> RuntimeTicks.BEAT, () -> RuntimeTicks.MICROSECOND);
+        () -> BEAT, () -> MICROSECOND);
     converter.convert(1);
   }
 

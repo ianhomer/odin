@@ -1,16 +1,16 @@
 package com.purplepip.odin.series;
 
-import static com.purplepip.odin.sequence.tick.RuntimeTicks.BEAT;
-import static com.purplepip.odin.sequence.tick.RuntimeTicks.HALF;
-import static com.purplepip.odin.sequence.tick.RuntimeTicks.MICROSECOND;
-import static com.purplepip.odin.sequence.tick.RuntimeTicks.MILLISECOND;
+import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
+import static com.purplepip.odin.sequence.tick.Ticks.HALF;
+import static com.purplepip.odin.sequence.tick.Ticks.MICROSECOND;
+import static com.purplepip.odin.sequence.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.TickConverter;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.Tick;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class TickConverterTest {
     clock = new BeatClock(new StaticBeatsPerMinute(120));
   }
 
-  private void assertConversion(BeatClock clock, RuntimeTick sourceTick, RuntimeTick targetTick,
+  private void assertConversion(BeatClock clock, Tick sourceTick, Tick targetTick,
                                 long offset, long... times) {
     TickConverter converter = new DefaultTickConverter(
         clock, () -> sourceTick, () -> targetTick, () -> offset);

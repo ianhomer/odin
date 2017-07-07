@@ -26,4 +26,8 @@ public interface Tick {
   int getNumerator();
 
   int getDenominator();
+
+  default double getFactor() {
+    return (double) getNumerator() / (double) getDenominator();
+  }
 }

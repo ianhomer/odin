@@ -18,7 +18,7 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.properties.Observable;
 import com.purplepip.odin.properties.Property;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.Tick;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,19 +29,19 @@ import lombok.extern.slf4j.Slf4j;
 @ToString(exclude = {"backwards", "forwards"})
 public abstract class AbstractTickConverter implements TickConverter {
   private Property<Long> sourceOffset;
-  private Property<RuntimeTick> sourceTick;
-  private Property<RuntimeTick> targetTick;
+  private Property<Tick> sourceTick;
+  private Property<Tick> targetTick;
   private Direction forwards;
   private Direction backwards;
 
-  final void setTargetTick(Property<RuntimeTick> targetTick) {
+  final void setTargetTick(Property<Tick> targetTick) {
     this.targetTick = targetTick;
     if (targetTick instanceof Observable) {
       ((Observable) targetTick).addObserver(this::refresh);
     }
   }
 
-  final void setSourceTick(Property<RuntimeTick> sourceTick) {
+  final void setSourceTick(Property<Tick> sourceTick) {
     this.sourceTick = sourceTick;
     if (sourceTick instanceof Observable) {
       ((Observable) sourceTick).addObserver(this::refresh);
@@ -59,11 +59,11 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   @Override
-  public RuntimeTick getTargetTick() {
+  public Tick getTargetTick() {
     return targetTick.get();
   }
 
-  RuntimeTick getSourceTick() {
+  Tick getSourceTick() {
     return sourceTick.get();
   }
 
@@ -112,11 +112,11 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   protected class Direction {
-    private RuntimeTick sourceTick;
-    private RuntimeTick targetTick;
+    private Tick sourceTick;
+    private Tick targetTick;
     private double scaleFactor;
 
-    private Direction(RuntimeTick sourceTick, RuntimeTick targetTick) {
+    private Direction(Tick sourceTick, Tick targetTick) {
       this.sourceTick = sourceTick;
       this.targetTick = targetTick;
       scaleFactor = sourceTick.getNumerator() * targetTick.getDenominator()
@@ -124,11 +124,11 @@ public abstract class AbstractTickConverter implements TickConverter {
       LOG.trace("{} to {} factor is {}", sourceTick, targetTick, scaleFactor);
     }
 
-    protected RuntimeTick getSourceTick() {
+    protected Tick getSourceTick() {
       return sourceTick;
     }
 
-    protected RuntimeTick getTargetTick() {
+    protected Tick getTargetTick() {
       return targetTick;
     }
 
