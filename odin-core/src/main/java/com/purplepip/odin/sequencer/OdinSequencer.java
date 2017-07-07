@@ -150,6 +150,7 @@ public class OdinSequencer implements ProjectApplyListener {
               .filter(o -> o instanceof SequenceTrack)
               .map(o -> (SequenceTrack) o)
               .filter(track -> sequence.getId() == track.getSequence().getId()).findFirst();
+
       SequenceTrack modifiedTrack = null;
       if (!existingTrack.isPresent()) {
         statistics.incrementTrackAddedCount();
@@ -158,7 +159,6 @@ public class OdinSequencer implements ProjectApplyListener {
          */
         modifiedTrack = createSequenceTrack(sequence);
         tracks.add(modifiedTrack);
-        modifiedTrack.getSequenceRoll().setSequence(sequence.copy());
       } else {
         if (existingTrack.get().getSequence().equals(sequence)) {
           LOG.debug("Sequence {} already added and unchanged", sequence);
@@ -166,16 +166,17 @@ public class OdinSequencer implements ProjectApplyListener {
           LOG.debug("Updating track for {}", sequence);
           statistics.incrementTrackUpdatedCount();
           modifiedTrack = existingTrack.get();
-          modifiedTrack.getSequenceRoll().setSequence(sequence);
         }
       }
 
       if (modifiedTrack != null) {
+        // TODO : Why do we need to set the mutable tick on the track?  It should be hooked
+        // into sequence on sequence roll.
         modifiedTrack.getMutableTick().set(new RuntimeTick(sequence.getTick()));
         /*
          * Update sequence in new or modified track.
          */
-        //modifiedTrack.getSequenceRoll().setSequence(sequence.copy());
+        modifiedTrack.getSequenceRoll().setSequence(sequence.copy());
       }
     }
   }
