@@ -42,7 +42,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
-  private Set<Track> tracks = new HashSet<>();
+  private Set<Track> trackSet = new HashSet<>();
+  private Tracks tracks = new Tracks();
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
@@ -75,7 +76,7 @@ public class OdinSequencer implements ProjectApplyListener {
      */
     operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
     sequenceProcessor = new TrackProcessor(
-        clock, tracks, operationProcessor, statistics);
+        clock, trackSet, operationProcessor, statistics);
   }
 
   public OdinSequencerStatistics getStatistics() {
@@ -126,27 +127,34 @@ public class OdinSequencer implements ProjectApplyListener {
 
   private void refreshSequences(Project project) {
     /*
-     * Remove any tracks for which the sequence in the project has been removed.
+     * Remove any trackSet for which the sequence in the project has been removed.
      */
-    int sizeBefore = tracks.size();
-    boolean result = tracks.removeIf(track -> project.getSequences().stream().noneMatch(
-        sequence -> sequence.getId() == track.getSequence().getId()
+    int sizeBefore = trackSet.size();
+
+
+    boolean result = trackSet.removeIf(track -> project.getSequences().stream()
+        .noneMatch(
+            sequence -> track instanceof SequenceTrack
+            && sequence.getId() == ((SequenceTrack) track).getSequence().getId()
     ));
     if (result) {
-      int removalCount = sizeBefore - tracks.size();
-      LOG.debug("Removed {} tracks, ", removalCount);
+      int removalCount = sizeBefore - trackSet.size();
+      LOG.debug("Removed {} trackSet, ", removalCount);
       statistics.incrementTrackRemovedCount(removalCount);
     } else {
-      LOG.debug("No sequence tracks detected for removal {} / {}", tracks.size(),
+      LOG.debug("No sequence trackSet detected for removal {} / {}", trackSet.size(),
           project.getSequences().size());
     }
 
     for (Sequence sequence : project.getSequences()) {
       /*
-       * Add sequence if not present in tracks.
+       * Add sequence if not present in trackSet.
        */
-      Optional<Track> existingTrack = tracks.stream().filter(track ->
-          sequence.getId() == track.getSequence().getId()).findFirst();
+      Optional<SequenceTrack> existingTrack =
+          trackSet.stream()
+              .filter(o -> o instanceof SequenceTrack)
+              .map(o -> (SequenceTrack) o)
+              .filter(track -> sequence.getId() == track.getSequence().getId()).findFirst();
       if (existingTrack.isPresent()) {
         if (existingTrack.get().getSequence().equals(sequence)) {
           LOG.debug("Sequence {} already added", sequence);
@@ -170,7 +178,7 @@ public class OdinSequencer implements ProjectApplyListener {
   }
   
   /**
-   * Refresh sequencer tracks from the project configuration.
+   * Refresh sequencer trackSet from the project configuration.
    */
   private void refreshTracks(Project project) {
     refreshChannels(project);
@@ -180,7 +188,7 @@ public class OdinSequencer implements ProjectApplyListener {
 
     /*
      * If processor is running then process one execution immediately so that the
-     * refreshed tracks can take effect.
+     * refreshed trackSet can take effect.
      */
     if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
       sequenceProcessor.processOnce();
@@ -201,11 +209,11 @@ public class OdinSequencer implements ProjectApplyListener {
         sequenceRoll.getOffsetProperty()
     );
 
-    tracks.add(new Track(runtimeTick, sequenceRoll, tickConverter));
+    trackSet.add(new SequenceTrack(runtimeTick, sequenceRoll, tickConverter));
   }
 
-  private void setSequenceInTrack(Track track, Sequence sequence) throws OdinException {
-    track.getTick().set(new RuntimeTick(sequence.getTick()));
+  private void setSequenceInTrack(SequenceTrack track, Sequence sequence) throws OdinException {
+    track.getMutableTick().set(new RuntimeTick(sequence.getTick()));
     setSequenceInRuntime(track.getSequenceRoll(), sequence);
   }
 

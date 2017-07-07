@@ -15,29 +15,14 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.Roll;
-import com.purplepip.odin.sequence.tick.RuntimeTick;
+import java.util.HashSet;
+import java.util.Set;
 
-public interface Track {
-  /**
-   * Channel for the track.
-   *
-   * @return channel
-   */
-  int getChannel();
+/**
+ * Tracks in the current runtime used by the sequencer.
+ */
+public class Tracks {
+  private Set<SequenceTrack> tracks = new HashSet<>();
 
-  /**
-   * Roll for the track.
-   *
-   * @return roll
-   */
-  Roll<Note> getRoll();
 
-  /**
-   * Runtime tick for the track.
-   *
-   * @return runtime tick.
-   */
-  RuntimeTick getTick();
 }
