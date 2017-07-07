@@ -150,24 +150,32 @@ public class OdinSequencer implements ProjectApplyListener {
               .filter(o -> o instanceof SequenceTrack)
               .map(o -> (SequenceTrack) o)
               .filter(track -> sequence.getId() == track.getSequence().getId()).findFirst();
-      if (existingTrack.isPresent()) {
-        if (existingTrack.get().getSequence().equals(sequence)) {
-          LOG.debug("Sequence {} already added", sequence);
-        } else {
-          statistics.incrementTrackUpdatedCount();
-          try {
-            setSequenceInTrack(existingTrack.get(), sequence);
-          } catch (OdinException e) {
-            LOG.error("Cannot add track for " + sequence, e);
-          }
-        }
-      } else {
+      SequenceTrack modifiedTrack = null;
+      if (!existingTrack.isPresent()) {
         statistics.incrementTrackAddedCount();
-        try {
-          addSequenceTrack(sequence.copy());
-        } catch (OdinException e) {
-          LOG.error("Cannot add track for " + sequence, e);
+        /*
+         * Create new track
+         */
+        modifiedTrack = createSequenceTrack(sequence);
+        tracks.add(modifiedTrack);
+        modifiedTrack.getSequenceRoll().setSequence(sequence.copy());
+      } else {
+        if (existingTrack.get().getSequence().equals(sequence)) {
+          LOG.debug("Sequence {} already added and unchanged", sequence);
+        } else {
+          LOG.debug("Updating track for {}", sequence);
+          statistics.incrementTrackUpdatedCount();
+          modifiedTrack = existingTrack.get();
+          modifiedTrack.getSequenceRoll().setSequence(sequence);
         }
+      }
+
+      if (modifiedTrack != null) {
+        modifiedTrack.getMutableTick().set(new RuntimeTick(sequence.getTick()));
+        /*
+         * Update sequence in new or modified track.
+         */
+        //modifiedTrack.getSequenceRoll().setSequence(sequence.copy());
       }
     }
   }
@@ -191,17 +199,13 @@ public class OdinSequencer implements ProjectApplyListener {
     programChangeOperations.add(programChangeOperation);
   }
 
-  private void setSequenceInTrack(SequenceTrack track, Sequence sequence) throws OdinException {
-    track.getMutableTick().set(new RuntimeTick(sequence.getTick()));
-    track.getSequenceRoll().setSequence(sequence);
-  }
-
-  private void addSequenceTrack(Sequence sequence) throws OdinException {
+  private SequenceTrack createSequenceTrack(Sequence sequence) {
+    // TODO : Remove sequence from this method arguments since it's not logically needed and
+    // is only included to prevent a NPE.
     MutableSequenceRoll<Note> roll =
         new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
             configuration.getMeasureProvider());
-    roll.setSequence(sequence);
-    tracks.add(new SequenceTrack(clock, roll));
+    return new SequenceTrack(clock, roll, sequence);
   }
 
   /**

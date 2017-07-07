@@ -43,14 +43,20 @@ public class SequenceTrack implements Track {
    * @param clock beat clock
    * @param sequenceRoll sequence roll to base this track on
    */
-  SequenceTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll) {
-    this.runtimeTick = new ObservableProperty<>(
-        new RuntimeTick(sequenceRoll.getSequence().getTick()));
+  SequenceTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll, Sequence sequence) {
+    this.runtimeTick = new ObservableProperty<>(new RuntimeTick(sequence.getTick()));
+    /*
+     * Sequence is set late, so any sequence set here will change.
+     *
+     * TODO : Improve this logic, I don't like using sequence in this constructor since logically
+     * it'll have no impact.  This may be confusing at some point
+     */
+    sequenceRoll.setSequence(sequence);
+    this.sequenceRoll = sequenceRoll;
     this.tickConverter = new DefaultTickConverter(clock,
         runtimeTick, () -> RuntimeTicks.MICROSECOND,
         sequenceRoll.getOffsetProperty()
     );
-    this.sequenceRoll = sequenceRoll;
     roll = new TickConvertedRoll(sequenceRoll, tickConverter);
   }
 
