@@ -18,6 +18,7 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.properties.Mutable;
 import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;
+import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
@@ -33,9 +34,10 @@ import org.slf4j.LoggerFactory;
  */
 @ListenerPriority()
 @ToString(callSuper = true)
-public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractMutableSequenceRoll.class);
+public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
+  private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
 
+  private MutableFlow<Sequence, A> flow;
   private BeatClock beatClock;
   /*
    * Tick converted clock.
@@ -49,6 +51,11 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
   private boolean tickDirty;
   private Sequence sequence;
   private boolean sequenceDirty;
+
+  public MutableSequenceRoll(BeatClock clock, MeasureProvider measureProvider) {
+    setBeatClock(clock);
+    setMeasureProvider(measureProvider);
+  }
 
   @Override
   public Property<Long> getOffsetProperty() {
@@ -187,7 +194,9 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
   public void onClockStop() {
   }
 
-  protected abstract Event<A> getNextEvent(Tock tock);
+  protected Event<A> getNextEvent(Tock tock) {
+    return flow.getNextEvent(tock, getClock(), getMeasureProvider());
+  }
 
   protected long getLength() {
     return getSequence().getLength();
@@ -245,5 +254,15 @@ public abstract class AbstractMutableSequenceRoll<A> implements SequenceRoll<A>,
       nextEvent = null;
     }
     return thisEvent;
+  }
+
+  @Override
+  public void setFlow(MutableFlow<Sequence, A> flow) {
+    this.flow = flow;
+  }
+
+  @Override
+  public MutableFlow<Sequence, A> getFlow() {
+    return flow;
   }
 }

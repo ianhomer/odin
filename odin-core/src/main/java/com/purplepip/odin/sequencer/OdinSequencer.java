@@ -16,12 +16,14 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
+import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.TickConverter;
@@ -195,8 +197,8 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   private void addSequenceTrack(Sequence sequence) throws OdinException {
-    DefaultSequenceRoll sequenceRoll =
-        new DefaultSequenceRoll(clock, configuration.getMeasureProvider());
+    MutableSequenceRoll<Note> sequenceRoll =
+        new MutableSequenceRoll<>(clock, configuration.getMeasureProvider());
 
     setSequenceInRuntime(sequenceRoll, sequence);
 
@@ -218,6 +220,7 @@ public class OdinSequencer implements ProjectApplyListener {
 
   private void setSequenceInRuntime(SequenceRoll sequenceRoll, Sequence sequence)
       throws OdinException {
+
     /*
      * Only update the flow if the flow name has changed.
      */
