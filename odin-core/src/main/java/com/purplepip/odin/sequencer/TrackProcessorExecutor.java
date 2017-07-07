@@ -23,12 +23,11 @@ import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
-import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TrackProcessorExecutor implements Runnable {
-  private final Set<Track> trackSet;
+  private final Tracks tracks;
   private final BeatClock clock;
   private final OperationProcessor operationProcessor;
   private long timeBufferInMicroSeconds;
@@ -36,12 +35,12 @@ public class TrackProcessorExecutor implements Runnable {
   private MutableSequenceProcessorStatistics statistics;
 
   TrackProcessorExecutor(BeatClock clock,
-                         Set<Track> trackSet,
+                         Tracks tracks,
                          OperationProcessor operationProcessor,
                          long refreshPeriod,
                          MutableSequenceProcessorStatistics statistics) {
     this.clock = clock;
-    this.trackSet = trackSet;
+    this.tracks = tracks;
     this.operationProcessor = operationProcessor;
     /*
      * We need to scan forward more that the interval between executions of this processor.
@@ -70,7 +69,7 @@ public class TrackProcessorExecutor implements Runnable {
      */
     long microsecondPosition = clock.getMicroseconds();
     int noteCountThisBuffer = 0;
-    for (Track track : trackSet) {
+    for (Track track : tracks) {
       LOG.trace("Processing roll {} for device at position {}",
           track.getRoll(),
           microsecondPosition);
@@ -82,7 +81,7 @@ public class TrackProcessorExecutor implements Runnable {
       noteCountThisBuffer += process(track, microsecondPosition);
     }
     LOG.debug("Processed {} notes in {} tracks : {}",
-        noteCountThisBuffer, trackSet.size(), clock);
+        noteCountThisBuffer, tracks.size(), clock);
   }
 
   private int process(Track track, long microsecondPosition) {

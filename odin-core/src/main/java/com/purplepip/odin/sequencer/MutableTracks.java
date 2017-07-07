@@ -15,14 +15,33 @@
 
 package com.purplepip.odin.sequencer;
 
-/**
- * Tracks in the current runtime used by the sequencer.
- */
-public interface Tracks extends Iterable<Track> {
-  /**
-   * Number of tracks.
-   *
-   * @return size
-   */
-  int size();
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+public class MutableTracks implements Tracks {
+  private Set<Track> tracks = new HashSet<>();
+
+  boolean add(Track track) {
+    return tracks.add(track);
+  }
+
+  public int size() {
+    return tracks.size();
+  }
+
+  boolean removeIf(Predicate<Track> filter) {
+    return tracks.removeIf(filter);
+  }
+
+  Stream<Track> stream() {
+    return tracks.stream();
+  }
+
+  @Override
+  public Iterator<Track> iterator() {
+    return tracks.iterator();
+  }
 }

@@ -15,14 +15,28 @@
 
 package com.purplepip.odin.sequencer;
 
+import java.util.Iterator;
+
 /**
- * Tracks in the current runtime used by the sequencer.
+ * Immutable tracks.
  */
-public interface Tracks extends Iterable<Track> {
-  /**
-   * Number of tracks.
-   *
-   * @return size
-   */
-  int size();
+/*
+ * //TODO : Ensure that each track is immutable too.
+ */
+public class ImmutableTracks implements Tracks {
+  private Tracks underlyingTracks;
+
+  ImmutableTracks(Tracks tracks) {
+    this.underlyingTracks = tracks;
+  }
+
+  @Override
+  public Iterator<Track> iterator() {
+    return underlyingTracks.iterator();
+  }
+
+  @Override
+  public int size() {
+    return underlyingTracks.size();
+  }
 }

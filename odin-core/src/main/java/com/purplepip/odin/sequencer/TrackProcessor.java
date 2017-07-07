@@ -19,8 +19,6 @@ import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.ClockListener;
 import com.purplepip.odin.sequence.ListenerPriority;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
-import java.util.Collections;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -44,16 +42,16 @@ public class TrackProcessor implements ClockListener {
    * Create a series processor.
    *
    * @param clock clock
-   * @param trackSet series track set
+   * @param tracks tracks
    * @param operationProcessor operation processor
    */
   TrackProcessor(BeatClock clock,
-                 Set<Track> trackSet,
+                 Tracks tracks,
                  OperationProcessor operationProcessor,
                  MutableSequenceProcessorStatistics statistics) {
     scheduledPool = Executors.newScheduledThreadPool(1);
     executor = new TrackProcessorExecutor(
-        clock, Collections.unmodifiableSet(trackSet), operationProcessor, refreshPeriod,
+        clock, tracks, operationProcessor, refreshPeriod,
         statistics
     );
     clock.addListener(this);
