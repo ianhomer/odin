@@ -91,22 +91,21 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   /**
-   * Send program change operation.
-   *
-   * @param programChangeOperation program change operation
-   * @throws OdinException exception
+   * Refresh sequencer trackSet from the project configuration.
    */
-  private void sendProgramChangeOperation(ProgramChangeOperation programChangeOperation)
-      throws OdinException {
-    operationProcessor.send(programChangeOperation, -1);
+  private void refreshTracks(Project project) {
+    refreshChannels(project);
+    refreshSequences(project);
+
+    LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
+
     /*
-     * Remove any previous program changes on this channel, since they are now historic.
+     * If processor is running then process one execution immediately so that the
+     * refreshed trackSet can take effect.
      */
-    boolean result = programChangeOperations
-        .removeIf(o -> o.getChannel() == programChangeOperation.getChannel());
-    LOG.debug("Historic program change option removed for operation {} : {}",
-        programChangeOperation, result);
-    programChangeOperations.add(programChangeOperation);
+    if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
+      sequenceProcessor.processOnce();
+    }
   }
 
   private void refreshChannels(Project project) {
@@ -136,8 +135,8 @@ public class OdinSequencer implements ProjectApplyListener {
     boolean result = tracks.removeIf(track -> project.getSequences().stream()
         .noneMatch(
             sequence -> track instanceof SequenceTrack
-            && sequence.getId() == ((SequenceTrack) track).getSequence().getId()
-    ));
+                && sequence.getId() == ((SequenceTrack) track).getSequence().getId()
+        ));
     if (result) {
       int removalCount = sizeBefore - tracks.size();
       LOG.debug("Removed {} trackSet, ", removalCount);
@@ -177,23 +176,29 @@ public class OdinSequencer implements ProjectApplyListener {
       }
     }
   }
-  
+
   /**
-   * Refresh sequencer trackSet from the project configuration.
+   * Send program change operation.
+   *
+   * @param programChangeOperation program change operation
+   * @throws OdinException exception
    */
-  private void refreshTracks(Project project) {
-    refreshChannels(project);
-    refreshSequences(project);
-
-    LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
-
+  private void sendProgramChangeOperation(ProgramChangeOperation programChangeOperation)
+      throws OdinException {
+    operationProcessor.send(programChangeOperation, -1);
     /*
-     * If processor is running then process one execution immediately so that the
-     * refreshed trackSet can take effect.
+     * Remove any previous program changes on this channel, since they are now historic.
      */
-    if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
-      sequenceProcessor.processOnce();
-    }
+    boolean result = programChangeOperations
+        .removeIf(o -> o.getChannel() == programChangeOperation.getChannel());
+    LOG.debug("Historic program change option removed for operation {} : {}",
+        programChangeOperation, result);
+    programChangeOperations.add(programChangeOperation);
+  }
+
+  private void setSequenceInTrack(SequenceTrack track, Sequence sequence) throws OdinException {
+    track.getMutableTick().set(new RuntimeTick(sequence.getTick()));
+    setSequenceInRuntime(track.getSequenceRoll(), sequence);
   }
 
   private void addSequenceTrack(Sequence sequence) throws OdinException {
@@ -211,11 +216,6 @@ public class OdinSequencer implements ProjectApplyListener {
     );
 
     tracks.add(new SequenceTrack(runtimeTick, sequenceRoll, tickConverter));
-  }
-
-  private void setSequenceInTrack(SequenceTrack track, Sequence sequence) throws OdinException {
-    track.getMutableTick().set(new RuntimeTick(sequence.getTick()));
-    setSequenceInRuntime(track.getSequenceRoll(), sequence);
   }
 
   private void setSequenceInRuntime(SequenceRoll sequenceRoll, Sequence sequence)

@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 @ToString(callSuper = true)
 public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
-
+  private final Mutable<RuntimeTick> tick = new ObservableProperty<>();
   private MutableFlow<Sequence, A> flow;
   private BeatClock beatClock;
   /*
@@ -47,7 +47,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private Event<A> nextEvent;
   private MovableTock tock;
   private Tock sealedTock;
-  private final Mutable<RuntimeTick> tick = new ObservableProperty<>();
   private boolean tickDirty;
   private Sequence sequence;
   private boolean sequenceDirty;
@@ -57,32 +56,65 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     setMeasureProvider(measureProvider);
   }
 
-  @Override
-  public Property<Long> getOffsetProperty() {
-    return () -> getSequence().getOffset();
-  }
-
-  @Override
-  public RuntimeTick getTick() {
-    return tick.get();
-  }
-
   protected final void setBeatClock(BeatClock beatClock) {
     this.beatClock = beatClock;
     beatClock.addListener(this);
   }
 
-  public MeasureProvider getMeasureProvider() {
-    return measureProvider;
+  @Override
+  public Property<Long> getOffsetProperty() {
+    return () -> getSequence().getOffset();
   }
 
   /**
-   * Set measure provider.
-   *
-   * @param measureProvider measure provider
+   * Action on beatClock start.
    */
-  protected final void setMeasureProvider(MeasureProvider measureProvider) {
-    this.measureProvider = measureProvider;
+  @Override
+  public void onClockStart() {
+    if (tickDirty) {
+      afterTickChange();
+    }
+  }
+
+  /**
+   * Action on beatClock stop.
+   */
+  @Override
+  public void onClockStop() {
+  }
+
+  @Override
+  public Event<A> peek() {
+    if (isActive() && nextEvent == null) {
+      nextEvent = getNextEventInternal(tock);
+    }
+    return nextEvent;
+  }
+
+  private boolean isActive() {
+    if (tock == null) {
+      LOG.trace("is Active false : not started");
+      return false;
+    }
+    LOG.trace("isActive {} : {} < {}", getLength(), tock.getCount(), getLength());
+    return getLength() < 0 || tock.getCount() < getLength();
+  }
+
+  private Event<A> getNextEventInternal(MovableTock tock) {
+    Event<A> event = getNextEvent(sealedTock);
+    LOG.trace("Next event after {} is at {}", tock, event.getTime());
+    /*
+     * Now increment internal tock to the time of the provided event
+     */
+    tock.setCount(event.getTime());
+    /*
+     * If the response was a scan forward signal then we return a null event since no event
+     * was found and we've handled the scanning forward above.
+     */
+    if (event instanceof ScanForwardEvent) {
+      return null;
+    }
+    return event;
   }
 
   /**
@@ -96,9 +128,17 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     sequenceDirty = true;
   }
 
+  protected long getLength() {
+    return getSequence().getLength();
+  }
+
   @Override
   public Sequence getSequence() {
     return sequence;
+  }
+
+  protected Event<A> getNextEvent(Tock tock) {
+    return flow.getNextEvent(tock, getClock(), getMeasureProvider());
   }
 
   /**
@@ -113,6 +153,15 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       afterTickChange();
     }
     LOG.debug("Refreshed {}", this);
+  }
+
+  /**
+   * Get tick converted clock.
+   *
+   * @return tick converted clock.
+   */
+  protected Clock getClock() {
+    return clock;
   }
 
   private void afterSequenceChange() {
@@ -133,6 +182,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      */
     nextEvent = null;
     LOG.debug("afterSequenceChange executed");
+  }
+
+  public MeasureProvider getMeasureProvider() {
+    return measureProvider;
   }
 
   private void afterTickChange() {
@@ -178,71 +231,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   }
 
   /**
-   * Action on beatClock start.
-   */
-  @Override
-  public void onClockStart() {
-    if (tickDirty) {
-      afterTickChange();
-    }
-  }
-
-  /**
-   * Action on beatClock stop.
-   */
-  @Override
-  public void onClockStop() {
-  }
-
-  protected Event<A> getNextEvent(Tock tock) {
-    return flow.getNextEvent(tock, getClock(), getMeasureProvider());
-  }
-
-  protected long getLength() {
-    return getSequence().getLength();
-  }
-
-  private boolean isActive() {
-    if (tock == null) {
-      LOG.trace("is Active false : not started");
-      return false;
-    }
-    LOG.trace("isActive {} : {} < {}", getLength(), tock.getCount(), getLength());
-    return getLength() < 0 || tock.getCount() < getLength();
-  }
-
-  /**
-   * Get tick converted clock.
+   * Set measure provider.
    *
-   * @return tick converted clock.
+   * @param measureProvider measure provider
    */
-  protected Clock getClock() {
-    return clock;
-  }
-
-  private Event<A> getNextEventInternal(MovableTock tock) {
-    Event<A> event = getNextEvent(sealedTock);
-    LOG.trace("Next event after {} is at {}", tock, event.getTime());
-    /*
-     * Now increment internal tock to the time of the provided event
-     */
-    tock.setCount(event.getTime());
-    /*
-     * If the response was a scan forward signal then we return a null event since no event
-     * was found and we've handled the scanning forward above.
-     */
-    if (event instanceof ScanForwardEvent) {
-      return null;
-    }
-    return event;
-  }
-
-  @Override
-  public Event<A> peek() {
-    if (isActive() && nextEvent == null) {
-      nextEvent = getNextEventInternal(tock);
-    }
-    return nextEvent;
+  protected final void setMeasureProvider(MeasureProvider measureProvider) {
+    this.measureProvider = measureProvider;
   }
 
   @Override
@@ -254,6 +248,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       nextEvent = null;
     }
     return thisEvent;
+  }
+
+  @Override
+  public RuntimeTick getTick() {
+    return tick.get();
   }
 
   @Override
