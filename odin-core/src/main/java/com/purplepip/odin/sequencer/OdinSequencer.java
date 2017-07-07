@@ -20,14 +20,10 @@ import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
-import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
-import com.purplepip.odin.sequence.tick.RuntimeTicks;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
@@ -201,21 +197,11 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   private void addSequenceTrack(Sequence sequence) throws OdinException {
-    MutableSequenceRoll<Note> sequenceRoll =
+    MutableSequenceRoll<Note> roll =
         new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
             configuration.getMeasureProvider());
-
-    sequenceRoll.setSequence(sequence);
-
-    ObservableProperty<RuntimeTick> runtimeTick = new ObservableProperty<>(
-        new RuntimeTick(sequence.getTick()));
-
-    TickConverter tickConverter = new DefaultTickConverter(clock,
-        runtimeTick, () -> RuntimeTicks.MICROSECOND,
-        sequenceRoll.getOffsetProperty()
-    );
-
-    tracks.add(new SequenceTrack(runtimeTick, sequenceRoll, tickConverter));
+    roll.setSequence(sequence);
+    tracks.add(new SequenceTrack(clock, roll));
   }
 
   /**

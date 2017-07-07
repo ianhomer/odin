@@ -17,12 +17,16 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.properties.Mutable;
+import com.purplepip.odin.properties.ObservableProperty;
+import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.TickConvertedRoll;
 import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.tick.RuntimeTick;
+import com.purplepip.odin.sequence.tick.RuntimeTicks;
 
 /**
  * Track in the sequencer.
@@ -36,17 +40,20 @@ public class SequenceTrack implements Track {
   /**
    * Create new track.
    *
+   * @param clock beat clock
    * @param sequenceRoll sequence roll to base this track on
-   * @param tickConverter tick converter for this sequence roll
    */
-  public SequenceTrack(Mutable<RuntimeTick> runtimeTick,
-                       SequenceRoll<Note> sequenceRoll, TickConverter tickConverter) {
-    // TODO : Generate tickConverter in this constructor as opposed to argument in
-    roll = new TickConvertedRoll(sequenceRoll, tickConverter);
-    this.tickConverter = tickConverter;
+  SequenceTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll) {
+    this.runtimeTick = new ObservableProperty<>(
+        new RuntimeTick(sequenceRoll.getSequence().getTick()));
+    this.tickConverter = new DefaultTickConverter(clock,
+        runtimeTick, () -> RuntimeTicks.MICROSECOND,
+        sequenceRoll.getOffsetProperty()
+    );
     this.sequenceRoll = sequenceRoll;
-    this.runtimeTick = runtimeTick;
+    roll = new TickConvertedRoll(sequenceRoll, tickConverter);
   }
+
 
   public int getChannel() {
     return getSequence().getChannel();
