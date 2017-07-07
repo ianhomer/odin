@@ -27,7 +27,7 @@ import com.purplepip.odin.sequence.tick.RuntimeTick;
 /**
  * Track in the sequencer.
  */
-public class Track {
+public class SequenceTrack implements Track {
   private SequenceRoll<Note> sequenceRoll;
   private TickConverter tickConverter;
   private Roll<Note> roll;
@@ -39,8 +39,8 @@ public class Track {
    * @param sequenceRoll sequence roll to base this track on
    * @param tickConverter tick converter for this sequence roll
    */
-  public Track(Mutable<RuntimeTick> runtimeTick,
-               SequenceRoll<Note> sequenceRoll, TickConverter tickConverter) {
+  public SequenceTrack(Mutable<RuntimeTick> runtimeTick,
+                       SequenceRoll<Note> sequenceRoll, TickConverter tickConverter) {
     // TODO : Generate tickConverter in this constructor as opposed to argument in
     roll = new TickConvertedRoll(sequenceRoll, tickConverter);
     this.tickConverter = tickConverter;
@@ -61,6 +61,11 @@ public class Track {
     return roll;
   }
 
+  @Override
+  public RuntimeTick getTick() {
+    return runtimeTick.get();
+  }
+
   /**
    * Get the root sequence runtime, before post-processing.
    *
@@ -78,7 +83,7 @@ public class Track {
     return tickConverter;
   }
 
-  public Mutable<RuntimeTick> getTick() {
+  public Mutable<RuntimeTick> getMutableTick() {
     return runtimeTick;
   }
 }
