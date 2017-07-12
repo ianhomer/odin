@@ -42,14 +42,10 @@ public class DefaultOdinSequencerConfiguration
   private long clockStartOffset;
   private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
 
-  public DefaultOdinSequencerConfiguration() {
-    this(new DefaultFlowConfiguration());
-  }
-
   /**
    * Create new configuration with defaults set.
    */
-  public DefaultOdinSequencerConfiguration(FlowConfiguration flowConfiguration) {
+  public DefaultOdinSequencerConfiguration() {
     setFlowFactory(new FlowFactory<>(flowConfiguration));
     setMeasureProvider(new StaticMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
