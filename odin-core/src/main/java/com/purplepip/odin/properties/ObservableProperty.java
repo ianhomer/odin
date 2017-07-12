@@ -30,6 +30,9 @@ public class ObservableProperty<T> implements Mutable<T>, Observable {
    * Create a property without setting an initial value.
    */
   public ObservableProperty() {
+    /*
+     * Empty constructor to explicitly differentiate with constructor that sets value.
+     */
   }
 
   public ObservableProperty(T value) {

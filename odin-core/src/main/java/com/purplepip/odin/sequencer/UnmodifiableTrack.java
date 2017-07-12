@@ -15,35 +15,30 @@
 
 package com.purplepip.odin.sequencer;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
+import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequence.Roll;
+import com.purplepip.odin.sequence.UnmodifiableRoll;
+import com.purplepip.odin.sequence.tick.Tick;
 
-public class MutableTracks implements Tracks {
-  private Set<Track> tracks = new HashSet<>();
+public class UnmodifiableTrack implements Track {
+  private Track underlyingTrack;
 
-  boolean add(Track track) {
-    return tracks.add(track);
+  public UnmodifiableTrack(Track track) {
+    this.underlyingTrack = track;
   }
 
   @Override
-  public int size() {
-    return tracks.size();
-  }
-
-  boolean removeIf(Predicate<Track> filter) {
-    return tracks.removeIf(filter);
+  public int getChannel() {
+    return underlyingTrack.getChannel();
   }
 
   @Override
-  public Stream<Track> stream() {
-    return tracks.stream();
+  public Roll<Note> getRoll() {
+    return new UnmodifiableRoll<>(underlyingTrack.getRoll());
   }
 
   @Override
-  public Iterator<Track> iterator() {
-    return tracks.iterator();
+  public Tick getTick() {
+    return underlyingTrack.getTick();
   }
 }

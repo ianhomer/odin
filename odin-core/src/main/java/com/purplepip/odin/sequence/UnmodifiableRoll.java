@@ -13,12 +13,29 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.statistics;
+package com.purplepip.odin.sequence;
 
-/**
- * Sequence processor statistics.
- */
-@FunctionalInterface
-public interface SequenceProcessorStatistics {
-  int getEventTooLateCount();
+import com.purplepip.odin.sequence.tick.Tick;
+
+public class UnmodifiableRoll<A> implements Roll<A> {
+  private Roll<A> underlyingRoll;
+
+  public UnmodifiableRoll(Roll<A> roll) {
+    this.underlyingRoll = roll;
+  }
+
+  @Override
+  public Event<A> peek() {
+    return underlyingRoll.peek();
+  }
+
+  @Override
+  public Event<A> pop() {
+    return underlyingRoll.pop();
+  }
+
+  @Override
+  public Tick getTick() {
+    return underlyingRoll.getTick();
+  }
 }

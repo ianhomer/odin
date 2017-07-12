@@ -90,6 +90,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    */
   @Override
   public void onClockStop() {
+    /*
+     * No action is needed on a clock stop.
+     */
   }
 
   @Override

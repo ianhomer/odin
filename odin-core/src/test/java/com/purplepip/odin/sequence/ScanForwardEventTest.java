@@ -22,12 +22,12 @@ import org.junit.Test;
 
 public class ScanForwardEventTest {
   @Test
-  public void getValue() throws Exception {
+  public void testGetValue() throws Exception {
     assertNull(new ScanForwardEvent<>(0).getValue());
   }
 
   @Test
-  public void getTime() throws Exception {
+  public void testGetTime() throws Exception {
     assertEquals(9, new ScanForwardEvent<>(9).getTime());
   }
 }

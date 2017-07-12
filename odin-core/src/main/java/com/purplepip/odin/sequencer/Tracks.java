@@ -15,10 +15,19 @@
 
 package com.purplepip.odin.sequencer;
 
+import java.util.stream.Stream;
+
 /**
  * Tracks in the current runtime used by the sequencer.
  */
 public interface Tracks extends Iterable<Track> {
+  /**
+   * Stream of tracks.
+   *
+   * @return stream of tracks.
+   */
+  Stream<Track> stream();
+
   /**
    * Number of tracks.
    *

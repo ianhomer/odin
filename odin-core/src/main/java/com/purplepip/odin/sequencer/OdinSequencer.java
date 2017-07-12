@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
   private MutableTracks tracks = new MutableTracks();
-  private Tracks immutableTracks = new ImmutableTracks(tracks);
+  private Tracks immutableTracks = new UnmodifiableTracks(tracks);
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;

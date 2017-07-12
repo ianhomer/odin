@@ -60,7 +60,7 @@ public class SequenceTrack implements Track {
     roll = new TickConvertedRoll(sequenceRoll, tickConverter);
   }
 
-
+  @Override
   public int getChannel() {
     return getSequence().getChannel();
   }
@@ -70,6 +70,7 @@ public class SequenceTrack implements Track {
    *
    * @return sequence runtime.
    */
+  @Override
   public Roll<Note> getRoll() {
     return roll;
   }

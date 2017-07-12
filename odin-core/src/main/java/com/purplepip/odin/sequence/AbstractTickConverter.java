@@ -111,7 +111,7 @@ public abstract class AbstractTickConverter implements TickConverter {
         + getTargetTick().getTimeUnit());
   }
 
-  protected class Direction {
+  protected final class Direction {
     private Tick sourceTick;
     private Tick targetTick;
     private double scaleFactor;

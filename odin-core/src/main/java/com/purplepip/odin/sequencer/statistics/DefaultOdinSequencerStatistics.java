@@ -27,6 +27,7 @@ public class DefaultOdinSequencerStatistics
   private AtomicInteger trackRemovedCount = new AtomicInteger();
   private AtomicInteger eventTooLateCount = new AtomicInteger();
 
+  @Override
   public void incrementTrackAddedCount() {
     trackAddedCount.incrementAndGet();
   }
@@ -36,6 +37,7 @@ public class DefaultOdinSequencerStatistics
     return trackAddedCount.get();
   }
 
+  @Override
   public void incrementTrackRemovedCount(int removedCount) {
     trackRemovedCount.addAndGet(removedCount);
   }
@@ -45,6 +47,7 @@ public class DefaultOdinSequencerStatistics
     return trackRemovedCount.get();
   }
 
+  @Override
   public void incrementTrackUpdatedCount() {
     trackUpdatedCount.incrementAndGet();
   }
@@ -54,14 +57,17 @@ public class DefaultOdinSequencerStatistics
     return trackUpdatedCount.get();
   }
 
+  @Override
   public void incrementProgramChangeCount() {
     programChangeCount.incrementAndGet();
   }
 
+  @Override
   public int getProgramChangeCount() {
     return programChangeCount.get();
   }
 
+  @Override
   public void incrementEventTooLateCount() {
     eventTooLateCount.incrementAndGet();
   }

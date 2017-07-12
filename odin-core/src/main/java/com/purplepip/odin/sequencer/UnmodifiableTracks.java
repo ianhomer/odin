@@ -13,12 +13,32 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.statistics;
+package com.purplepip.odin.sequencer;
+
+import java.util.Iterator;
+import java.util.stream.Stream;
 
 /**
- * Sequence processor statistics.
+ * Unmodifiable tracks.
  */
-@FunctionalInterface
-public interface SequenceProcessorStatistics {
-  int getEventTooLateCount();
+public class UnmodifiableTracks implements Tracks {
+  private Tracks underlyingTracks;
+
+  UnmodifiableTracks(Tracks tracks) {
+    this.underlyingTracks = tracks;
+  }
+
+  @Override
+  public Iterator<Track> iterator() {
+    return stream().iterator();
+  }
+
+  @Override
+  public int size() {
+    return underlyingTracks.size();
+  }
+
+  public Stream<Track> stream() {
+    return underlyingTracks.stream().map(UnmodifiableTrack::new);
+  }
 }
