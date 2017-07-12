@@ -111,7 +111,7 @@ public abstract class AbstractTickConverter implements TickConverter {
         + getTargetTick().getTimeUnit());
   }
 
-  protected final class Direction {
+  final class Direction {
     private Tick sourceTick;
     private Tick targetTick;
     private double scaleFactor;
@@ -124,11 +124,11 @@ public abstract class AbstractTickConverter implements TickConverter {
       LOG.trace("{} to {} factor is {}", sourceTick, targetTick, scaleFactor);
     }
 
-    protected Tick getSourceTick() {
+    Tick getSourceTick() {
       return sourceTick;
     }
 
-    protected Tick getTargetTick() {
+    Tick getTargetTick() {
       return targetTick;
     }
 
