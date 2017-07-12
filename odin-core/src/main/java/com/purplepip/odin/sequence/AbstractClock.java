@@ -16,10 +16,12 @@
 package com.purplepip.odin.sequence;
 
 public abstract class AbstractClock implements Clock {
+  @Override
   public final long getDuration(long microseconds) {
     return getDurationFromMicroseconds(microseconds, getMicroseconds());
   }
 
+  @Override
   public final long getDuration(long microseconds, long count) {
     return getDurationFromMicroseconds(microseconds, getMicroseconds(count));
   }

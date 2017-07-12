@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.flow;
 
+@FunctionalInterface
 public interface FlowConfiguration {
   /*
    * Max time in microseconds to scan forward

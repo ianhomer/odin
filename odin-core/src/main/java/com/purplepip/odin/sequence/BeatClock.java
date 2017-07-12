@@ -165,6 +165,6 @@ public class BeatClock extends AbstractClock {
   }
 
   @Override public String toString() {
-    return getMicroseconds() + "μs (beat=" + (long) getCount() + ")";
+    return getMicroseconds() + "μs (beat=" + getCount() + ")";
   }
 }

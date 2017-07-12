@@ -26,6 +26,9 @@ public class ObservableProperty<T> implements Mutable<T>, Observable {
   private T value;
   private Set<Observer> observers = new HashSet<>();
 
+  /**
+   * Create a property without setting an initial value.
+   */
   public ObservableProperty() {
   }
 
@@ -39,7 +42,7 @@ public class ObservableProperty<T> implements Mutable<T>, Observable {
   }
 
   @Override
-  public void set(T value) {
+  public final void set(T value) {
     LOG.debug("Changing property to {}", value);
     this.value = value;
     observers.forEach(Observer::onChange);

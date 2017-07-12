@@ -13,25 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.flow;
-
-public class DefaultFlowConfiguration implements FlowConfiguration {
-  private static final int DEFAULT_MAX_FORWARD_SCAN = 200_000;
-
-  private long maxForwardScan = DEFAULT_MAX_FORWARD_SCAN;
-
-  /**
-   * Max time in microseconds that a flow can scan forward to find the next event.
-   *
-   * @return max forward scan in microseconds
-   */
-  @Override
-  public long getMaxForwardScan() {
-    return maxForwardScan;
-  }
-
-  public DefaultFlowConfiguration setMaxForwardScan(int maxForwardScan) {
-    this.maxForwardScan = maxForwardScan;
-    return this;
-  }
-}
+/**
+ * A tick is a single unit of time for a clock.  For example, amongst other things, it could be a
+ * microsecond or a beat
+ */
+package com.purplepip.odin.sequence.tick;

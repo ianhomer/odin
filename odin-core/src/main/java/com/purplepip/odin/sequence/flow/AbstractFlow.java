@@ -34,6 +34,7 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
     return sequence;
   }
 
+  @Override
   public void setConfiguration(FlowConfiguration configuration) {
     this.configuration = configuration;
   }

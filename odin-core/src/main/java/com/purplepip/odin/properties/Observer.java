@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.properties;
 
+@FunctionalInterface
 public interface Observer {
   void onChange();
 }

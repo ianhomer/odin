@@ -52,7 +52,7 @@ public abstract class AbstractTickConverter implements TickConverter {
     this.sourceOffset = sourceOffset;
   }
 
-  void refresh() {
+  final void refresh() {
     forwards = new Direction(sourceTick.get(), targetTick.get());
     backwards = new Direction(targetTick.get(), sourceTick.get());
     LOG.debug("Refreshed {}", this);
@@ -73,12 +73,12 @@ public abstract class AbstractTickConverter implements TickConverter {
 
   @Override
   public double convert(double time) {
-    return (long) convertTimeUnit(forwards, getSourceOffset() + time);
+    return convertTimeUnit(forwards, getSourceOffset() + time);
   }
 
   @Override
   public double convertBack(double time) {
-    return (long) convertTimeUnit(backwards, time) - getSourceOffset();
+    return convertTimeUnit(backwards, time) - getSourceOffset();
   }
 
   @Override

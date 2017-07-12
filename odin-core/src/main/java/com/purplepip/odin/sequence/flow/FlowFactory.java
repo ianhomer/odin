@@ -43,12 +43,12 @@ public class FlowFactory<A> {
     register(MetronomeFlow.class);
   }
 
-  private static void register(Class<? extends MutableFlow> clazz) {
-    FLOWS.put(clazz.getName(), clazz);
-  }
-
   public FlowFactory(FlowConfiguration flowConfiguration) {
     this.flowConfiguration = flowConfiguration;
+  }
+
+  private static void register(Class<? extends MutableFlow> clazz) {
+    FLOWS.put(clazz.getName(), clazz);
   }
 
   /**
