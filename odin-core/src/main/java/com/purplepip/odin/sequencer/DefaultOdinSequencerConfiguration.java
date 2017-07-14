@@ -24,7 +24,7 @@ import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
+import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import java.util.ArrayList;
 
 /**
@@ -47,7 +47,7 @@ public class DefaultOdinSequencerConfiguration
    */
   public DefaultOdinSequencerConfiguration() {
     setFlowFactory(new FlowFactory<>(flowConfiguration));
-    setMeasureProvider(new StaticMeasureProvider(4));
+    setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);
     setClockStartRoundingFactor(1);

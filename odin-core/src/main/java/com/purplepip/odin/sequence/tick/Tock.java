@@ -16,11 +16,9 @@
 package com.purplepip.odin.sequence.tick;
 
 /**
- * A positioned tick.
- */
-/*
- * TODO : Define whether a tock is relative to an offset or relative to the start of the clock
- * we'll need to make it is implemented consistently either way, currently it isn't.
+ * A positioned tick starting from a specific point in time.  Note that this point in time
+ * may be offset from clock start.  The tock itself is not aware of this absolute position,
+ * only the component that is using the tock does.
  */
 public interface Tock {
   Tick getTick();

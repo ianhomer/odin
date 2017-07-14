@@ -38,6 +38,7 @@ public class UnmodifiableTracks implements Tracks {
     return underlyingTracks.size();
   }
 
+  @Override
   public Stream<Track> stream() {
     return underlyingTracks.stream().map(UnmodifiableTrack::new);
   }

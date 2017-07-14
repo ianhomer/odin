@@ -7,7 +7,7 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
+import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiver;
@@ -33,7 +33,7 @@ public class MidiOdinSequencerTest {
         lock.countDown();
       };
 
-      MeasureProvider measureProvider = new StaticMeasureProvider(4);
+      MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
       OdinSequencer sequencer = new OdinSequencer(
           new DefaultOdinSequencerConfiguration()
               .setClockStartOffset(10000)

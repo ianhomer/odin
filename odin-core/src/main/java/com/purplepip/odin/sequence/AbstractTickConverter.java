@@ -82,12 +82,12 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   @Override
-  public double convertDuration(double time, long duration) {
+  public double convertDuration(double time, double duration) {
     return convert(time + duration) - convert(time);
   }
 
   @Override
-  public double convertDurationBack(double time, long duration) {
+  public double convertDurationBack(double time, double duration) {
     return convertBack(time + duration) - convertBack(time);
   }
 

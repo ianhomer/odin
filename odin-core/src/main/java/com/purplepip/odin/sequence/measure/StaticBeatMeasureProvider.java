@@ -15,38 +15,35 @@
 
 package com.purplepip.odin.sequence.measure;
 
-import com.purplepip.odin.sequence.tick.Tock;
-
 /**
- * A simple static measure provider, e.g. for music this is a static time signature
+ * A simple static measure provider for the beats from the clock start
+ * , e.g. for music this is a static time signature.
  */
-public class StaticMeasureProvider implements MeasureProvider {
+public class StaticBeatMeasureProvider implements MeasureProvider {
   private int beatsPerMeasure;
 
-  public StaticMeasureProvider(int beatsPerMeasure) {
+  public StaticBeatMeasureProvider(int beatsPerMeasure) {
     this.beatsPerMeasure = beatsPerMeasure;
   }
 
   @Override
-  public long getMeasure(Tock tock) {
-    return tock.getCount() * tock.getTick().getDenominator()
-        / (beatsPerMeasure * tock.getTick().getNumerator());
+  public long getMeasure(double count) {
+    return (long) count / beatsPerMeasure;
   }
 
   /**
    * Get beats in the measure where the given tock lies.
    *
-   * @param tock current tick
+   * @param count current count
    * @return beast in the given measure
    */
   @Override
-  public int getBeats(Tock tock) {
+  public int getBeats(double count) {
     return beatsPerMeasure;
   }
 
   @Override
-  public long getCount(Tock tock) {
-    return tock.getCount() % (beatsPerMeasure * tock.getTick().getDenominator()
-        / tock.getTick().getNumerator());
+  public double getCount(double count) {
+    return count % beatsPerMeasure;
   }
 }

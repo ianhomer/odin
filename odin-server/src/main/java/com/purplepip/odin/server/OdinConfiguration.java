@@ -23,7 +23,7 @@ import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
+import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
@@ -48,7 +48,7 @@ public class OdinConfiguration {
 
   @Bean
   public MeasureProvider measureProvider() {
-    return new StaticMeasureProvider(FOUR_FOUR_TIME);
+    return new StaticBeatMeasureProvider(FOUR_FOUR_TIME);
   }
 
   @Bean

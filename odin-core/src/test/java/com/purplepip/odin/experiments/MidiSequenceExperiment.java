@@ -9,7 +9,7 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticMeasureProvider;
+import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
@@ -54,7 +54,7 @@ public class MidiSequenceExperiment {
     MidiDeviceWrapper midiDeviceWrapper = null;
     try {
       midiDeviceWrapper = new MidiDeviceWrapper();
-      MeasureProvider measureProvider = new StaticMeasureProvider(4);
+      MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
       sequencer = new OdinSequencer(
           new DefaultOdinSequencerConfiguration()
               .setBeatsPerMinute(new StaticBeatsPerMinute(120))

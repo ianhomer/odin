@@ -15,8 +15,6 @@
 
 package com.purplepip.odin.sequence.measure;
 
-import com.purplepip.odin.sequence.tick.Tock;
-
 /**
  * <p>Intelligence on how the measures are defined over time.  For music a measure is bar and
  * for a given point in time a measure will have a will defined number of beats.
@@ -27,35 +25,48 @@ import com.purplepip.odin.sequence.tick.Tock;
  *
  * <p>Note that the measure provider is only beat dependent, NOT time dependent.  It says nothing
  * about the timings of the beats just which beat each measure starts and how long that measure.</p>
- */
-/*
- * TODO : Handle offset, tock count starts at offset from the start of the clock which is not
- * currently taken into account here.
+ *
+ * <p>Note also that it is the responsibility of the MeasureProvider implementation to take
+ * care of any tock offset from the clock start.</p>
  */
 public interface MeasureProvider {
   /**
-   * Get the measure that the given tock is in.
+   * Get the measure count, from the clock start, that the given tick count is in.
    *
-   * @param tock Current tick
+   * @param count tick count
    * @return Current measure number
    */
-  long getMeasure(Tock tock);
+  long getMeasure(double count);
+
+  default double getMeasure(long count) {
+    return getMeasure((double) count);
+  }
 
   /**
    * Get the number of beats in the measure for the given tock.
    *
-   * @param tock current tick
+   * @param count tick count
    * @return beats in the current measure
    */
-  int getBeats(Tock tock);
+  // TODO : getBeats should be renamed and changed to returned the number of ticks in the current
+  // measure
+  int getBeats(double count);
+
+  default double getBeats(long count) {
+    return getBeats((double) count);
+  }
 
   /**
    * What tick count in the measure is the given tock?  0 =&gt; start of the measure.  Note that
    * a tick might be higher resolution than a single beat, e.g. it could be a half beat or a
    * triplet.
    *
-   * @param tock current tick
+   * @param count tick count
    * @return tick position in the current measure
    */
-  long getCount(Tock tock);
+  double getCount(double count);
+
+  default double getCount(long count) {
+    return getCount((double) count);
+  }
 }

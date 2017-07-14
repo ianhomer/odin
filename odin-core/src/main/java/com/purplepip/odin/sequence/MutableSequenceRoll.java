@@ -20,6 +20,7 @@ import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.flow.MutableFlow;
+import com.purplepip.odin.sequence.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.SealedTock;
@@ -45,6 +46,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    * Tick converted clock.
    */
   private Clock clock;
+  private MeasureProvider beatMeasureProvider;
   private MeasureProvider measureProvider;
   private Event<A> nextEvent;
   private MovableTock tock;
@@ -59,20 +61,168 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    *
    * @param clock clock
    * @param flowFactory flow factory
-   * @param measureProvider measure provider
+   * @param beatMeasureProvider beat measure provider
    */
   public MutableSequenceRoll(BeatClock clock, FlowFactory<A> flowFactory,
-                             MeasureProvider measureProvider) {
+                             MeasureProvider beatMeasureProvider) {
     this.beatClock = clock;
     beatClock.addListener(this);
 
-    this.measureProvider = measureProvider;
+    this.beatMeasureProvider = beatMeasureProvider;
     this.flowFactory = flowFactory;
   }
 
   @Override
   public Property<Long> getOffsetProperty() {
     return () -> getSequence().getOffset();
+  }
+
+  /**
+   * Set configuration for this sequence runtime.
+   *
+   * @param sequence sequence configuration
+   */
+  @Override
+  public void setSequence(Sequence sequence) {
+    /*
+     * Only update the flow if the flow name has changed.
+     */
+    if (getSequence() == null
+        || !sequence.getFlowName().equals(getSequence().getFlowName())) {
+      setFlow(flowFactory.createFlow(sequence));
+    } else {
+      getFlow().setSequence(sequence);
+    }
+
+    this.sequence = sequence;
+    sequenceDirty = true;
+    refresh();
+  }
+
+  protected long getLength() {
+    return getSequence().getLength();
+  }
+
+  @Override
+  public Sequence getSequence() {
+    return sequence;
+  }
+
+  /**
+   * Get tick converted clock.
+   *
+   * @return tick converted clock.
+   */
+  protected Clock getClock() {
+    return clock;
+  }
+
+  public MeasureProvider getMeasureProvider() {
+    return measureProvider;
+  }
+
+  @Override
+  public Tick getTick() {
+    return tick.get();
+  }
+
+  @Override
+  public void setFlow(MutableFlow<Sequence, A> flow) {
+    this.flow = flow;
+  }
+
+  @Override
+  public MutableFlow<Sequence, A> getFlow() {
+    return flow;
+  }
+
+
+  private void afterSequenceChange() {
+    /*
+     * Determine if the tick has changed
+     */
+    if (this.getTick() == null || !getSequence().getTick().equals(this.getTick())) {
+      tickDirty = true;
+      /*
+       * Change tick
+       */
+      tick.set(getSequence().getTick());
+    }
+
+    sequenceDirty = false;
+    /*
+     * Force next event to be taken from sequence flow.
+     */
+    nextEvent = null;
+    LOG.debug("afterSequenceChange executed");
+  }
+
+  private void afterTickChange() {
+    /*
+     * Calculate offset of this sequence in microseconds ...
+     */
+    long microsecondOffset = (long) new DefaultTickConverter(beatClock, this::getTick,
+        () -> Ticks.MICROSECOND, () -> 0L).convert(getSequence().getOffset());
+    LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
+        getSequence().getOffset());
+    /*
+     * ... and use this to create a converter that will convert microseconds into tock count
+     * for this sequence runtime.
+     */
+    TickConverter microsecondToSequenceTickConverter =
+        new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, this::getTick,
+            () -> - microsecondOffset);
+
+    /*
+     * Create the measure provider with a tick converter converting form beats.
+     */
+    long beatOffset = (long) new DefaultTickConverter(beatClock, this::getTick,
+        () -> Ticks.BEAT, () -> 0L).convert(getSequence().getOffset());
+    TickConverter beatToSequenceTickConverter =
+        new DefaultTickConverter(beatClock, () -> Ticks.BEAT, this::getTick,
+            () -> - beatOffset);
+    measureProvider = new ConvertedMeasureProvider(beatMeasureProvider,
+        beatToSequenceTickConverter);
+
+    /*
+     * Set the tock count, that this sequence runtime should start at, to the current tock
+     * count according to the beatClock.  There is no point starting the tock any earlier since
+     * that time has passed.
+     */
+    long tockCountStart = (long) microsecondToSequenceTickConverter
+        .convert(beatClock.getMicroseconds());
+    if (tockCountStart < 0) {
+      /*
+       * If sequence start is the future then set tock to 0 so that it is ready to
+       * start when the time is right.
+       */
+      tockCountStart = 0;
+    }
+    LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
+    tock = new MovableTock(getSequence().getTick(), tockCountStart);
+    sealedTock = new SealedTock(tock);
+
+    clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
+    tickDirty = false;
+    /*
+     * Force next event to be taken from sequence flow.
+     */
+    nextEvent = null;
+    LOG.debug("afterTickChange executed");
+  }
+
+  /**
+   * Refresh the sequence runtime after a sequence change.
+   */
+  @Override
+  public final void refresh() {
+    if (sequenceDirty) {
+      afterSequenceChange();
+    }
+    if (beatClock.isStarted() && tickDirty) {
+      afterTickChange();
+    }
+    LOG.debug("Refreshed {}", this);
   }
 
   /**
@@ -129,128 +279,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     return event;
   }
 
-  /**
-   * Set configuration for this sequence runtime.
-   *
-   * @param sequence sequence configuration
-   */
-  @Override
-  public void setSequence(Sequence sequence) {
-    /*
-     * Only update the flow if the flow name has changed.
-     */
-    if (getSequence() == null
-        || !sequence.getFlowName().equals(getSequence().getFlowName())) {
-      setFlow(flowFactory.createFlow(sequence));
-    } else {
-      getFlow().setSequence(sequence);
-    }
-
-    this.sequence = sequence;
-    sequenceDirty = true;
-    refresh();
-  }
-
-  protected long getLength() {
-    return getSequence().getLength();
-  }
-
-  @Override
-  public Sequence getSequence() {
-    return sequence;
-  }
-
   protected Event<A> getNextEvent(Tock tock) {
     return flow.getNextEvent(tock, getClock(), getMeasureProvider());
-  }
-
-  /**
-   * Refresh the sequence runtime after a sequence change.
-   */
-  @Override
-  public final void refresh() {
-    if (sequenceDirty) {
-      afterSequenceChange();
-    }
-    if (beatClock.isStarted() && tickDirty) {
-      afterTickChange();
-    }
-    LOG.debug("Refreshed {}", this);
-  }
-
-  /**
-   * Get tick converted clock.
-   *
-   * @return tick converted clock.
-   */
-  protected Clock getClock() {
-    return clock;
-  }
-
-  private void afterSequenceChange() {
-    /*
-     * Determine if the tick has changed
-     */
-    if (this.getTick() == null || !getSequence().getTick().equals(this.getTick())) {
-      tickDirty = true;
-      /*
-       * Change tick
-       */
-      tick.set(getSequence().getTick());
-    }
-
-    sequenceDirty = false;
-    /*
-     * Force next event to be taken from sequence flow.
-     */
-    nextEvent = null;
-    LOG.debug("afterSequenceChange executed");
-  }
-
-  public MeasureProvider getMeasureProvider() {
-    return measureProvider;
-  }
-
-  private void afterTickChange() {
-    /*
-     * Calculate offset of this sequence in microseconds ...
-     */
-    long microsecondOffset = (long) new DefaultTickConverter(beatClock, this::getTick,
-        () -> Ticks.MICROSECOND, () -> 0L).convert(getSequence().getOffset());
-    LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
-        getSequence().getOffset());
-    /*
-     * ... and use this to create a converter that will convert microseconds into tock count
-     * for this sequence runtime.
-     */
-    TickConverter microsecondToSequenceTickConverter =
-        new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, this::getTick,
-            () -> - microsecondOffset);
-    /*
-     * Set the tock count, that this sequence runtime should start at, to the current tock
-     * count according to the beatClock.  There is no point starting the tock any earlier since
-     * that time has passed.
-     */
-    long tockCountStart = (long) microsecondToSequenceTickConverter
-        .convert(beatClock.getMicroseconds());
-    if (tockCountStart < 0) {
-      /*
-       * If sequence start is the future then set tock to 0 so that it is ready to
-       * start when the time is right.
-       */
-      tockCountStart = 0;
-    }
-    LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
-    tock = new MovableTock(getSequence().getTick(), tockCountStart);
-    sealedTock = new SealedTock(tock);
-
-    clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
-    tickDirty = false;
-    /*
-     * Force next event to be taken from sequence flow.
-     */
-    nextEvent = null;
-    LOG.debug("afterTickChange executed");
   }
 
   @Override
@@ -262,20 +292,5 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       nextEvent = null;
     }
     return thisEvent;
-  }
-
-  @Override
-  public Tick getTick() {
-    return tick.get();
-  }
-
-  @Override
-  public void setFlow(MutableFlow<Sequence, A> flow) {
-    this.flow = flow;
-  }
-
-  @Override
-  public MutableFlow<Sequence, A> getFlow() {
-    return flow;
   }
 }

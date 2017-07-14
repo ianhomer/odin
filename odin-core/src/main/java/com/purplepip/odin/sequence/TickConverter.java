@@ -36,7 +36,7 @@ public interface TickConverter {
   double convertBack(double time);
 
   default double convertDuration(long time, long duration) {
-    return convertDuration((double) time, duration);
+    return convertDuration((double) time, (double) duration);
   }
 
   /**
@@ -48,11 +48,12 @@ public interface TickConverter {
    * @param duration duration to convert
    * @return converted duration
    */
-  double convertDuration(double time, long duration);
+  double convertDuration(double time, double duration);
 
   default double convertDurationBack(long time, long duration) {
-    return convertDurationBack((double) time, duration);
+    return convertDurationBack((double) time, (double) duration);
   }
 
-  double convertDurationBack(double time, long duration);
+  // TODO change duration argument to double
+  double convertDurationBack(double time, double duration);
 }
