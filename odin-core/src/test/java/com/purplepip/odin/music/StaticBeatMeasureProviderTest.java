@@ -28,6 +28,6 @@ public class StaticBeatMeasureProviderTest {
     assertEquals(2, measureProvider
         .getMeasure(8),0.001);
 
-    assertEquals(4, measureProvider.getBeats(0), 0.001);
+    assertEquals(4, measureProvider.getTicksInMeasure(0), 0.001);
   }
 }

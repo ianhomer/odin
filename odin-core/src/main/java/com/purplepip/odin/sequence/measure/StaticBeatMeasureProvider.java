@@ -27,18 +27,18 @@ public class StaticBeatMeasureProvider implements MeasureProvider {
   }
 
   @Override
-  public long getMeasure(double count) {
+  public double getMeasure(double count) {
     return (long) count / beatsPerMeasure;
   }
 
   /**
-   * Get beats in the measure where the given tock lies.
+   * Get tick in the measure where the given tock lies.
    *
    * @param count current count
-   * @return beast in the given measure
+   * @return ticks in the given measure
    */
   @Override
-  public int getBeats(double count) {
+  public double getTicksInMeasure(double count) {
     return beatsPerMeasure;
   }
 

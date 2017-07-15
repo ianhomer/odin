@@ -17,7 +17,10 @@ package com.purplepip.odin.music;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
@@ -28,9 +31,6 @@ import org.junit.Test;
 /**
  * Converted measure provider test.
  */
-// TODO : Add tests to get millisecond in measure as this will verify that converter logic
-// implemented in measure provider.  Current the StaticMeasureProvider only supports
-// tocks with BEAT units, not millisecond units.
 
 public class ConvertedMeasureProviderTest {
   private MeasureProvider staticMeasureProvider;
@@ -51,6 +51,7 @@ public class ConvertedMeasureProviderTest {
     assertEquals(4, measureProvider.getCount(12), 0.01);
   }
 
+
   @Test
   public void testFourThirdsBeats() {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
@@ -65,13 +66,25 @@ public class ConvertedMeasureProviderTest {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.QUARTER));
 
-    assertEquals(4, measureProvider.getBeats(0), 0.001);
+    assertEquals(16, measureProvider.getTicksInMeasure(0), 0.001);
   }
 
   @Test
   public void testThreeQuarterBeats() {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.THREE_QUARTERS));
-    assertEquals(4, measureProvider.getBeats(0), 0.001);
+    assertEquals(5.333, measureProvider.getTicksInMeasure(0), 0.001);
+  }
+
+  @Test
+  public void testMicroseconds() {
+    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
+    DefaultTickConverter tickConverter = new DefaultTickConverter(beatClock,
+        () -> Ticks.BEAT, () -> Ticks.MICROSECOND, () -> 0L);
+
+    MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
+        tickConverter);
+    assertEquals(1000, measureProvider.getCount(1000), 0.001);
+    assertEquals(2000, measureProvider.getCount(4002000), 0.001);
   }
 }

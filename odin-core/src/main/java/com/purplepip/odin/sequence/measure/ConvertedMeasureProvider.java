@@ -39,7 +39,7 @@ public class ConvertedMeasureProvider implements MeasureProvider {
   }
 
   @Override
-  public long getMeasure(double count) {
+  public double getMeasure(double count) {
     return underlyingMeasureProvider.getMeasure(tickConverter.convertBack(count));
   }
 
@@ -50,8 +50,9 @@ public class ConvertedMeasureProvider implements MeasureProvider {
    * @return beast in the given measure
    */
   @Override
-  public int getBeats(double count) {
-    return underlyingMeasureProvider.getBeats(tickConverter.convertBack(count));
+  public double getTicksInMeasure(double count) {
+    return tickConverter.convertDuration(count,
+        underlyingMeasureProvider.getTicksInMeasure(tickConverter.convertBack(count)));
   }
 
   @Override

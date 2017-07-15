@@ -36,24 +36,22 @@ public interface MeasureProvider {
    * @param count tick count
    * @return Current measure number
    */
-  long getMeasure(double count);
+  double getMeasure(double count);
 
   default double getMeasure(long count) {
     return getMeasure((double) count);
   }
 
   /**
-   * Get the number of beats in the measure for the given tock.
+   * Get the number of ticks in the measure for the given tock.
    *
    * @param count tick count
    * @return beats in the current measure
    */
-  // TODO : getBeats should be renamed and changed to returned the number of ticks in the current
-  // measure
-  int getBeats(double count);
+  double getTicksInMeasure(double count);
 
-  default double getBeats(long count) {
-    return getBeats((double) count);
+  default double getTicksInMeasure(long count) {
+    return getTicksInMeasure((double) count);
   }
 
   /**
