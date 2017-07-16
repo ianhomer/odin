@@ -143,4 +143,8 @@ public class BeatClock extends AbstractClock {
   @Override public String toString() {
     return getMicroseconds() + "μs (beat=" + getCount() + ")";
   }
+
+  public BeatsPerMinute getBeatsPerMinute() {
+    return beatsPerMinute;
+  }
 }

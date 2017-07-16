@@ -28,7 +28,7 @@ public class StaticBeatMeasureProvider implements MeasureProvider {
 
   @Override
   public double getMeasure(double count) {
-    return (long) count / beatsPerMeasure;
+    return count / beatsPerMeasure;
   }
 
   /**
