@@ -53,23 +53,8 @@ public class TickConvertedClock extends AbstractClock {
   }
 
   @Override
-  public long getMicroseconds(long count) {
-    return beatClock.getMicroseconds(tickToBeatConverter.convert(count));
-  }
-
-  @Override
   public long getMicroseconds(double count) {
     return beatClock.getMicroseconds(tickToBeatConverter.convert(count));
-  }
-
-  @Override
-  public long getCount() {
-    return (long) tickToBeatConverter.convertBack(beatClock.getCountAsDouble());
-  }
-
-  @Override
-  public long getCount(long microseconds) {
-    return (long) tickToBeatConverter.convertBack(beatClock.getCountAsDouble(microseconds));
   }
 
   @Override

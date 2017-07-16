@@ -31,7 +31,9 @@ public interface Clock extends MicrosecondPositionProvider {
   /**
    * Get microsecond position for the given tick count.
    */
-  long getMicroseconds(long count);
+  default long getMicroseconds(long count) {
+    return getMicroseconds((double) count);
+  }
 
   /**
    * Get microsecond position for the given tick count.
@@ -41,12 +43,16 @@ public interface Clock extends MicrosecondPositionProvider {
   /**
    * Get the current tick count.
    */
-  long getCount();
+  default long getCount() {
+    return (long) getCountAsDouble();
+  }
 
   /**
    * Get the tick count for the given microsecond position.
    */
-  long getCount(long microseconds);
+  default long getCount(long microseconds) {
+    return (long) getCountAsDouble(microseconds);
+  }
 
   /**
    * Get tick count duration for the given number of microseconds from now.
