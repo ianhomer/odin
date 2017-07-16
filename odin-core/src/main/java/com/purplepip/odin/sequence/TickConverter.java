@@ -54,6 +54,5 @@ public interface TickConverter {
     return convertDurationBack((double) time, (double) duration);
   }
 
-  // TODO change duration argument to double
   double convertDurationBack(double time, double duration);
 }
