@@ -121,30 +121,6 @@ public class BeatClock extends AbstractClock {
   }
 
   @Override
-  public long getMicroseconds(long count) {
-    return microsecondsPositionOfFirstBeat
-        + beatsPerMinute.getMicroSecondsPerBeat() * count;
-  }
-
-  public long getMicrosecondsOfFirstBeat() {
-    return microsecondsPositionOfFirstBeat;
-  }
-
-  public BeatsPerMinute getBeatsPerMinute() {
-    return beatsPerMinute;
-  }
-
-  @Override
-  public long getCount() {
-    return getCount(microsecondPositionProvider.getMicroseconds());
-  }
-
-  @Override
-  public long getCount(long microseconds) {
-    return (long) getCountAsDouble(microseconds);
-  }
-
-  @Override
   public double getCountAsDouble() {
     return getCountAsDouble(microsecondPositionProvider.getMicroseconds());
   }
