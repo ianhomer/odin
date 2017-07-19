@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequence.flow;
 
 public class DefaultFlowConfiguration implements FlowConfiguration {
-  private static final int DEFAULT_MAX_FORWARD_SCAN = 200_000;
+  private static final int DEFAULT_MAX_FORWARD_SCAN = 10_000_000;
 
   private long maxForwardScan = DEFAULT_MAX_FORWARD_SCAN;
 
