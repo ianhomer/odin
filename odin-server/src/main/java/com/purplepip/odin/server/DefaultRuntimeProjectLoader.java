@@ -50,7 +50,8 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
           .withChannel(9).changeProgramTo("TR-909")
           .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
           .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
-          .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
+          .withNote(46).addPattern(Ticks.TWO_THIRDS, 7)
+          .addNotation(Ticks.BEAT, "Cn-D-E/4 F#/5");
       projectContainer.save();
       LOG.info("Default project populated");
     } else {

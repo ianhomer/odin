@@ -17,6 +17,7 @@ package com.purplepip.odin.server.rest;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -25,6 +26,7 @@ import com.purplepip.odin.sequencer.ProjectBuilder;
 import com.purplepip.odin.server.rest.domain.PersistableChannel;
 import com.purplepip.odin.server.rest.domain.PersistableLayer;
 import com.purplepip.odin.server.rest.domain.PersistableMetronome;
+import com.purplepip.odin.server.rest.domain.PersistableNotation;
 import com.purplepip.odin.server.rest.domain.PersistableNote;
 import com.purplepip.odin.server.rest.domain.PersistablePattern;
 import com.purplepip.odin.server.rest.domain.PersistableTick;
@@ -69,6 +71,11 @@ public class PersistableProjectBuilder extends ProjectBuilder {
   @Override
   protected Pattern createPattern() {
     return new PersistablePattern();
+  }
+
+  @Override
+  protected Notation createNotation() {
+    return new PersistableNotation();
   }
 
   @Override

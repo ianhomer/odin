@@ -20,10 +20,13 @@ import com.google.common.collect.Sets;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.flow.MetronomeFlow;
+import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.sequence.DefaultMetronome;
+import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.DefaultLayer;
@@ -49,6 +52,7 @@ public class ProjectBuilder {
   private static final int DEFAULT_NOTE = 60;
   private static final int DEFAULT_VELOCITY = 40;
   private static final int DEFAULT_DURATION = 1;
+  private static final String DEFAULT_NOTATION_FORMAT = "VexTab";
 
   private ProjectContainer projectContainer;
   private int channel;
@@ -100,6 +104,11 @@ public class ProjectBuilder {
     return pattern;
   }
 
+  private static Notation withDefaults(Notation notation) {
+    notation.setFlowName(NotationFlow.class.getName());
+    return notation;
+  }
+
   private static Tick withDefaults(Tick tick) {
     return tick;
   }
@@ -129,10 +138,20 @@ public class ProjectBuilder {
   }
 
   /**
+   * Create Notation.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return notation
+   */
+  protected Notation createNotation() {
+    return new DefaultNotation();
+  }
+
+  /**
    * Create Note.  This method can be overridden by another sequence builder that
    * uses a different model implementation.
    *
-   * @param note note number
+   * @param number note number
    * @param velocity velocity
    * @param duration duration
    * @return note
@@ -302,6 +321,20 @@ public class ProjectBuilder {
     sequence.setBits(pattern);
     sequence.setTick(withDefaults(createTick(tick)));
     sequence.setNote(note);
+
+    addSequence(applyParameters(sequence));
+    return this;
+  }
+
+  public ProjectBuilder addNotation(Tick tick, String notation) {
+    return addNotation(tick, notation, DEFAULT_NOTATION_FORMAT);
+  }
+
+  private ProjectBuilder addNotation(Tick tick, String notation, String format) {
+    Notation sequence = withDefaults(createNotation());
+    sequence.setTick(withDefaults(createTick(tick)));
+    sequence.setFormat(format);
+    sequence.setNotation(notation);
 
     addSequence(applyParameters(sequence));
     return this;

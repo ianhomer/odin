@@ -5,10 +5,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Layer;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
@@ -49,4 +51,12 @@ public class ProjectBuilderTest {
         not(containsInAnyOrder("layer1")));
   }
 
+  @Test
+  public void addNotation() {
+    TransientProject project = new TransientProject();
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    builder.addNotation(Ticks.BEAT, "a");
+    Notation notation = (Notation) builder.getSequenceByOrder(0);
+    assertEquals("a", notation.getNotation());
+  }
 }

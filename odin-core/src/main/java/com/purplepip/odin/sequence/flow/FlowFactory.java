@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.music.flow.MetronomeFlow;
+import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.sequence.Sequence;
 import java.util.HashMap;
@@ -39,8 +40,9 @@ public class FlowFactory<A> {
    */
 
   static {
-    register(PatternFlow.class);
     register(MetronomeFlow.class);
+    register(NotationFlow.class);
+    register(PatternFlow.class);
   }
 
   public FlowFactory(FlowConfiguration flowConfiguration) {
