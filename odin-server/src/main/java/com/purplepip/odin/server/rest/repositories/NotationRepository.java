@@ -15,17 +15,14 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.server.rest.domain.PersistablePattern;
-import java.util.List;
+import com.purplepip.odin.server.rest.domain.PersistableNotation;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Pattern repository.
  */
-@RepositoryRestResource(path = "patterns", collectionResourceRel = "patterns",
-    itemResourceRel = "pattern")
-public interface PatternRepository extends CrudRepository<PersistablePattern, Long> {
-  List<Pattern> findByChannel(int channel);
+@RepositoryRestResource(path = "notations", collectionResourceRel = "notations",
+    itemResourceRel = "notation")
+public interface NotationRepository extends CrudRepository<PersistableNotation, Long> {
 }
