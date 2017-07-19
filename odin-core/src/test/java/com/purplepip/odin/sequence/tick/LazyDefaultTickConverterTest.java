@@ -13,23 +13,18 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
-import com.purplepip.odin.properties.Property;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.common.OdinImplementationException;
+import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.DefaultTickConverter;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import org.junit.Test;
 
-/**
- * Events that occur over time.
- */
-public interface Roll<A> {
-  Event<A> peek();
-
-  Event<A> pop();
-
-  /**
-   * Tick as a property.
-   *
-   * @return tick as a property
-   */
-  Property<Tick> getTick();
+public class LazyDefaultTickConverterTest {
+  @Test(expected = OdinImplementationException.class)
+  public void testLazyNeedsObservableProperty() {
+    new DefaultTickConverter(new BeatClock(new StaticBeatsPerMinute(120)),
+        () -> Ticks.BEAT, () -> Ticks.BEAT, () -> 0L, false);
+  }
 }

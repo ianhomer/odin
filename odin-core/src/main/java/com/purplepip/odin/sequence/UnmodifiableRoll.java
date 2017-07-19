@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 
 public class UnmodifiableRoll<A> implements Roll<A> {
@@ -35,7 +36,7 @@ public class UnmodifiableRoll<A> implements Roll<A> {
   }
 
   @Override
-  public Tick getTick() {
+  public Property<Tick> getTick() {
     return underlyingRoll.getTick();
   }
 }

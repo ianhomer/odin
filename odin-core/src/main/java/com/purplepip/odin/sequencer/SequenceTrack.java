@@ -16,8 +16,6 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.properties.Mutable;
-import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Roll;
@@ -35,7 +33,6 @@ public class SequenceTrack implements Track {
   private SequenceRoll<Note> sequenceRoll;
   private TickConverter tickConverter;
   private Roll<Note> roll;
-  private Mutable<Tick> tick;
 
   /**
    * Create new track.
@@ -43,19 +40,11 @@ public class SequenceTrack implements Track {
    * @param clock beat clock
    * @param sequenceRoll sequence roll to base this track on
    */
-  SequenceTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll, Sequence sequence) {
-    this.tick = new ObservableProperty<>(sequence.getTick());
-    /*
-     * Sequence is set late, so any sequence set here will change.
-     *
-     * TODO : Improve this logic, I don't like using sequence in this constructor since logically
-     * it'll have no impact.  This may be confusing at some point
-     */
-    sequenceRoll.setSequence(sequence);
+  SequenceTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll) {
     this.sequenceRoll = sequenceRoll;
     this.tickConverter = new DefaultTickConverter(clock,
-        tick, () -> Ticks.MICROSECOND,
-        sequenceRoll.getOffsetProperty()
+        this.sequenceRoll.getTick(), () -> Ticks.MICROSECOND,
+        sequenceRoll.getOffsetProperty(), false
     );
     roll = new TickConvertedRoll(sequenceRoll, tickConverter);
   }
@@ -77,7 +66,7 @@ public class SequenceTrack implements Track {
 
   @Override
   public Tick getTick() {
-    return tick.get();
+    return sequenceRoll.getTick().get();
   }
 
   /**
@@ -95,9 +84,5 @@ public class SequenceTrack implements Track {
 
   public TickConverter getTickConverter() {
     return tickConverter;
-  }
-
-  public Mutable<Tick> getMutableTick() {
-    return tick;
   }
 }

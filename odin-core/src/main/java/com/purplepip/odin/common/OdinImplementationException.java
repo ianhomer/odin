@@ -13,23 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
-
-import com.purplepip.odin.properties.Property;
-import com.purplepip.odin.sequence.tick.Tick;
+package com.purplepip.odin.common;
 
 /**
- * Events that occur over time.
+ * Exception that indicates that this might be caused by a bug and NOT user error.
  */
-public interface Roll<A> {
-  Event<A> peek();
-
-  Event<A> pop();
-
-  /**
-   * Tick as a property.
-   *
-   * @return tick as a property
-   */
-  Property<Tick> getTick();
+public class OdinImplementationException extends OdinRuntimeException {
+  public OdinImplementationException(String message) {
+    super(message);
+  }
 }

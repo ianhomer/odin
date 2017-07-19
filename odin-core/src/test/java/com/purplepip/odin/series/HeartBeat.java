@@ -1,5 +1,6 @@
 package com.purplepip.odin.series;
 
+import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Roll;
@@ -21,8 +22,8 @@ public class HeartBeat implements Roll<Boolean> {
   }
 
   @Override
-  public Tick getTick() {
-    return Ticks.BEAT;
+  public Property<Tick> getTick() {
+    return () -> Ticks.BEAT;
   }
 
   private Event<Boolean> getNext() {

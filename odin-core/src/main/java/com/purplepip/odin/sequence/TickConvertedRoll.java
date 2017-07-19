@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
+import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +54,8 @@ public class TickConvertedRoll implements Roll<Note> {
   }
 
   @Override
-  public Tick getTick() {
-    return tickConverter.getTargetTick();
+  public Property<Tick> getTick() {
+    return () -> tickConverter.getTargetTick();
   }
 
   private Event<Note> convertTimeUnits(Event<Note> event) {

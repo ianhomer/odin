@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.common.OdinImplementationException;
+import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 import lombok.ToString;
@@ -38,11 +40,38 @@ public class DefaultTickConverter extends AbstractTickConverter {
                               Property<Tick> sourceTick,
                               Property<Tick> targetTick,
                               Property<Long> sourceOffset) {
+    this(clock, sourceTick, targetTick, sourceOffset, true);
+  }
+
+  /**
+   * Create a tick converter.
+   *
+   * @param clock clock
+   * @param sourceTick source tick property
+   * @param targetTick target tick property
+   * @param sourceOffset source offset property
+   * @param initialise whether to initialise this tick converter.  If this is false then the system
+   *                will expect the property to be an observable property and for this property
+   *                to change before the tick converter is used.
+   */
+  public DefaultTickConverter(BeatClock clock,
+                              Property<Tick> sourceTick,
+                              Property<Tick> targetTick,
+                              Property<Long> sourceOffset,
+                              boolean initialise) {
     this.clock = clock;
     setSourceTick(sourceTick);
     setTargetTick(targetTick);
     setSourceOffset(sourceOffset);
-    refresh();
+    if (initialise) {
+      refresh();
+    } else {
+      if (!(sourceTick instanceof ObservableProperty)
+          && !(targetTick instanceof ObservableProperty)) {
+        throw new OdinImplementationException(
+            "Source tick or target tick MUST be an ObservableProperty for lazy initialisation");
+      }
+    }
   }
 
   @Override

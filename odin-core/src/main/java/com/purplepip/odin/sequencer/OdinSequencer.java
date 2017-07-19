@@ -156,7 +156,7 @@ public class OdinSequencer implements ProjectApplyListener {
         /*
          * Create new track
          */
-        modifiedTrack = createSequenceTrack(sequence);
+        modifiedTrack = createSequenceTrack();
         tracks.add(modifiedTrack);
       } else {
         if (existingTrack.get().getSequence().equals(sequence)) {
@@ -169,9 +169,6 @@ public class OdinSequencer implements ProjectApplyListener {
       }
 
       if (modifiedTrack != null) {
-        // TODO : Why do we need to set the mutable tick on the track?  It should be hooked
-        // into sequence on sequence roll.
-        modifiedTrack.getMutableTick().set(sequence.getTick());
         /*
          * Update sequence in new or modified track.
          */
@@ -199,13 +196,13 @@ public class OdinSequencer implements ProjectApplyListener {
     programChangeOperations.add(programChangeOperation);
   }
 
-  private SequenceTrack createSequenceTrack(Sequence sequence) {
+  private SequenceTrack createSequenceTrack() {
     // TODO : Remove sequence from this method arguments since it's not logically needed and
     // is only included to prevent a NPE.
     MutableSequenceRoll<Note> roll =
         new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
             configuration.getMeasureProvider());
-    return new SequenceTrack(clock, roll, sequence);
+    return new SequenceTrack(clock, roll);
   }
 
   /**

@@ -67,7 +67,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
                              MeasureProvider beatMeasureProvider) {
     this.beatClock = clock;
     beatClock.addListener(this);
-
     this.beatMeasureProvider = beatMeasureProvider;
     this.flowFactory = flowFactory;
   }
@@ -122,8 +121,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   }
 
   @Override
-  public Tick getTick() {
-    return tick.get();
+  public Property<Tick> getTick() {
+    return tick;
   }
 
   @Override
@@ -161,7 +160,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     /*
      * Calculate offset of this sequence in microseconds ...
      */
-    long microsecondOffset = (long) new DefaultTickConverter(beatClock, this::getTick,
+    long microsecondOffset = (long) new DefaultTickConverter(beatClock, getTick(),
         () -> Ticks.MICROSECOND, () -> 0L).convert(getSequence().getOffset());
     LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
         getSequence().getOffset());
@@ -170,16 +169,16 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * for this sequence runtime.
      */
     TickConverter microsecondToSequenceTickConverter =
-        new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, this::getTick,
+        new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, getTick(),
             () -> - microsecondOffset);
 
     /*
      * Create the measure provider with a tick converter converting form beats.
      */
-    long beatOffset = (long) new DefaultTickConverter(beatClock, this::getTick,
+    long beatOffset = (long) new DefaultTickConverter(beatClock, getTick(),
         () -> Ticks.BEAT, () -> 0L).convert(getSequence().getOffset());
     TickConverter beatToSequenceTickConverter =
-        new DefaultTickConverter(beatClock, () -> Ticks.BEAT, this::getTick,
+        new DefaultTickConverter(beatClock, () -> Ticks.BEAT, getTick(),
             () -> - beatOffset);
     measureProvider = new ConvertedMeasureProvider(beatMeasureProvider,
         beatToSequenceTickConverter);
