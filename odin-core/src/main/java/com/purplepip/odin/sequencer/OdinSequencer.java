@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
@@ -122,7 +121,7 @@ public class OdinSequencer implements ProjectApplyListener {
 
   private void refreshSequences(Project project) {
     /*
-     * Remove any trackSet for which the sequence in the project has been removed.
+     * Remove any track for which the sequence in the project has been removed.
      */
     int sizeBefore = tracks.size();
 
@@ -133,16 +132,16 @@ public class OdinSequencer implements ProjectApplyListener {
         ));
     if (result) {
       int removalCount = sizeBefore - tracks.size();
-      LOG.debug("Removed {} trackSet, ", removalCount);
+      LOG.debug("Removed {} tracks, ", removalCount);
       statistics.incrementTrackRemovedCount(removalCount);
     } else {
-      LOG.debug("No sequence trackSet detected for removal {} / {}", tracks.size(),
+      LOG.debug("No sequence track detected for removal {} / {}", tracks.size(),
           project.getSequences().size());
     }
 
     for (Sequence sequence : project.getSequences()) {
       /*
-       * Add sequence if not present in trackSet.
+       * Add sequence if not present in tracks.
        */
       Optional<SequenceTrack> existingTrack =
           tracks.stream()
@@ -150,29 +149,29 @@ public class OdinSequencer implements ProjectApplyListener {
               .map(o -> (SequenceTrack) o)
               .filter(track -> sequence.getId() == track.getSequence().getId()).findFirst();
 
-      SequenceTrack modifiedTrack = null;
-      if (!existingTrack.isPresent()) {
-        statistics.incrementTrackAddedCount();
-        /*
-         * Create new track
-         */
-        modifiedTrack = createSequenceTrack();
-        tracks.add(modifiedTrack);
-      } else {
+      SequenceTrack sequenceTrack = null;
+      if (existingTrack.isPresent()) {
         if (existingTrack.get().getSequence().equals(sequence)) {
           LOG.debug("Sequence {} already added and unchanged", sequence);
         } else {
           LOG.debug("Updating track for {}", sequence);
           statistics.incrementTrackUpdatedCount();
-          modifiedTrack = existingTrack.get();
+          sequenceTrack = existingTrack.get();
         }
+      } else {
+        statistics.incrementTrackAddedCount();
+        LOG.debug("Creating new track for {}", sequence);
+        sequenceTrack = new SequenceTrack(clock,
+            new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
+                configuration.getMeasureProvider()));
+        tracks.add(sequenceTrack);
       }
 
-      if (modifiedTrack != null) {
+      if (sequenceTrack != null) {
         /*
          * Update sequence in new or modified track.
          */
-        modifiedTrack.getSequenceRoll().setSequence(sequence.copy());
+        sequenceTrack.getSequenceRoll().setSequence(sequence.copy());
       }
     }
   }
@@ -194,15 +193,6 @@ public class OdinSequencer implements ProjectApplyListener {
     LOG.debug("Historic program change option removed for operation {} : {}",
         programChangeOperation, result);
     programChangeOperations.add(programChangeOperation);
-  }
-
-  private SequenceTrack createSequenceTrack() {
-    // TODO : Remove sequence from this method arguments since it's not logically needed and
-    // is only included to prevent a NPE.
-    MutableSequenceRoll<Note> roll =
-        new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
-            configuration.getMeasureProvider());
-    return new SequenceTrack(clock, roll);
   }
 
   /**

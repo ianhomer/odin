@@ -19,7 +19,9 @@ import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 
 /**
- * Events that occur over time.
+ * Events that occur over time.  It is called a roll in relation to the piano rolls in early
+ * automatic pianos, which was a roll of paper with holes in to indicate when a note should
+ * be played.
  */
 public interface Roll<A> {
   Event<A> peek();

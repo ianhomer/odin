@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Abstract sequence.
+ * Abstract sequence roll.
  */
 @ListenerPriority()
 @ToString(callSuper = true)
@@ -138,12 +138,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
 
   private void afterSequenceChange() {
     /*
-     * Determine if the tick has changed
+     * Determine if the tick has changed.
      */
     if (this.getTick() == null || !getSequence().getTick().equals(this.getTick())) {
       tickDirty = true;
       /*
-       * Change tick
+       * Change tick.
        */
       tick.set(getSequence().getTick());
     }

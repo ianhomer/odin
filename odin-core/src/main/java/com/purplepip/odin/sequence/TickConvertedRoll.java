@@ -55,7 +55,7 @@ public class TickConvertedRoll implements Roll<Note> {
 
   @Override
   public Property<Tick> getTick() {
-    return () -> tickConverter.getTargetTick();
+    return tickConverter::getTargetTick;
   }
 
   private Event<Note> convertTimeUnits(Event<Note> event) {
