@@ -19,9 +19,10 @@ const ReactDOM = require('react-dom');
 const client = require('./client');
 
 const ChannelList = require('./components/channelList');
-const PatternList = require('./components/patternList');
 const LayerList = require('./components/layerList');
+const PatternList = require('./components/patternList');
 const ProjectList = require('./components/projectList');
+const SequenceList = require('./components/sequenceList');
 const Trace = require('./components/trace');
 
 class App extends React.Component {
@@ -56,7 +57,10 @@ class App extends React.Component {
           <ChannelList project={this.state.project}/>
         }
         {this.state.project &&
-          <PatternList project={this.state.project}/>
+          <div>
+            <PatternList project={this.state.project}/>
+            <SequenceList project={this.state.project}/>
+          </div>
         }
       </div>
     );

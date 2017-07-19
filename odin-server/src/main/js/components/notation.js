@@ -19,11 +19,10 @@ const React = require('react');
 const crud = require('./../crud');
 
 const EditEntity = require('./editEntity');
-const Note = require('./note');
 const Tick = require('./tick');
 
-// Pattern component.
-class Pattern extends React.Component{
+// Notation component.
+class Notation extends React.Component{
   constructor(props) {
     super(props);
 
@@ -74,14 +73,7 @@ class Pattern extends React.Component{
                 timeUnit={sequence.tick.timeUnit}/>
               : <div className="warn">NULL tick</div>
             }</div>
-          <div className="col-1">{sequence.bits}</div>
-          <div className="col-2">{sequence.note ?
-            <Note
-              number={sequence.note.number}
-              velocity={sequence.note.velocity}
-              duration={sequence.note.duration}/>
-            : <div className="warn">NULL note</div>
-          }</div>
+          <div className="col-3">{sequence.notation}</div>
           <div className="col-3">
             {sequence.flowName}
           </div>
@@ -94,4 +86,26 @@ class Pattern extends React.Component{
   }
 }
 
-module.exports = Pattern;
+Notation.defaultProps = {
+  path: 'notations',
+  fields: {
+    'channel' : { defaultValue : 1},
+    'offset' : { defaultValue : 0},
+    'length' : {defaultValue : -1},
+    'tick' : {
+      cellWidth : 2,
+      fields : {
+        'numerator' : {defaultValue : 1},
+        'denominator' : {defaultValue : 1},
+        'timeUnit' : {defaultValue : 'BEAT'},
+      }
+    },
+    'notation' : {
+      cellWidth : 2,
+      defaultValue : 'a',
+    },
+    'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.NotationFlow'}
+  },
+};
+
+module.exports = Notation;

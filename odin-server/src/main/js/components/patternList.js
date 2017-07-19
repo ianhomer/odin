@@ -41,8 +41,7 @@ class PatternList extends React.Component{
   render() {
     var entities = this.state.entities.map(entity =>
       <Pattern entity={entity} key={entity._links.self.href}
-        project={this.props.project}
-        path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+        project={this.props.project} schema={this.state.schema}
         onDelete={this.onDelete} onUpdate={this.onUpdate}
       />
     );
@@ -54,14 +53,14 @@ class PatternList extends React.Component{
             <div className="col-1">Channel</div>
             <div className="col-1">Offset</div>
             <div className="col-1">Length</div>
-            <div className="col-1">Bits</div>
             <div className="col-2">Tick</div>
+            <div className="col-1">Bits</div>
             <div className="col-2">Note</div>
             <div className="col-3">Flow Name</div>
           </div>
           <EditEntity
             project={this.props.project}
-            path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+            path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields} schema={this.state.schema}
             onApply={this.onCreate}
           />
           {entities}
@@ -72,30 +71,7 @@ class PatternList extends React.Component{
 }
 
 PatternList.defaultProps = {
-  path: 'patterns',
-  fields: {
-    'channel' : { defaultValue : 1},
-    'offset' : { defaultValue : 0},
-    'length' : {defaultValue : -1},
-    'bits' : {defaultValue : 1},
-    'tick' : {
-      cellWidth : 2,
-      fields : {
-        'numerator' : {defaultValue : 1},
-        'denominator' : {defaultValue : 1},
-        'timeUnit' : {defaultValue : 'BEAT'},
-      }
-    },
-    'note' : {
-      cellWidth : 2,
-      fields : {
-        'number' : {defaultValue : 60},
-        'velocity' : {defaultValue : 100},
-        'duration' : {defaultValue : 1}
-      }
-    },
-    'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.PatternFlow'}
-  },
+  path: 'patterns'
 };
 
 module.exports = PatternList;

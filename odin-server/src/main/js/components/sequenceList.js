@@ -18,15 +18,16 @@ const React = require('react');
 
 const crud = require('./../crud');
 
-const Sequence = require('./sequence');
+const Notation = require('./notation');
+//const Pattern = require('./pattern');
 const Trace = require('./trace');
 
-// Rendering of generic sequence list - NOT CURRENTLY USED.
+// Rendering of generic sequence list
 class SequenceList extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      attributes: [], entities: [], links: [], pageSize: 10,
+      attributes: [], entities: [], links: []
     };
 
     crud.bindMe(this);
@@ -38,23 +39,31 @@ class SequenceList extends React.Component{
 
   render() {
     var entities = this.state.entities.map(entity =>
-      <Sequence key={entity._links.self.href} sequence={entity} onDelete={this.onDelete}/>
+      <div key={'div-' + entity._links.self.href}>
+        {'notation' in entity._links &&
+          <Notation entity={entity} key={entity._links.self.href}
+            project={this.props.project}
+            path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+            onDelete={this.onDelete} onUpdate={this.onUpdate}
+          />
+        }
+      </div>
     );
     return (
       // View sequence list.
       <div>
-        <Trace scope="sequenceList"/>
-        <table>
-          <tbody>
-            <tr>
-              <th>Channel</th>
-              <th>Bits</th>
-              <th>Tick</th>
-              <th>Flow Name</th>
-            </tr>
-            {entities}
-          </tbody>
-        </table>
+        <Trace scope={this.props.path}/>
+        <div className="container">
+          <div className="row">
+            <div className="col-1">Channel</div>
+            <div className="col-1">Offset</div>
+            <div className="col-1">Length</div>
+            <div className="col-2">Tick</div>
+            <div className="col-3">Configuration</div>
+            <div className="col-3">Flow Name</div>
+          </div>
+          {entities}
+        </div>
       </div>
     );
   }

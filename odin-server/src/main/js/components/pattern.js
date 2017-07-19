@@ -66,7 +66,6 @@ class Pattern extends React.Component{
           <div className="col-1">{sequence.channel}</div>
           <div className="col-1">{sequence.offset}</div>
           <div className="col-1">{sequence.length}</div>
-          <div className="col-1">{sequence.bits}</div>
           <div className="col-2">
             {sequence.tick ?
               <Tick
@@ -75,6 +74,7 @@ class Pattern extends React.Component{
                 timeUnit={sequence.tick.timeUnit}/>
               : <div className="warn">NULL tick</div>
             }</div>
+          <div className="col-1">{sequence.bits}</div>
           <div className="col-2">{sequence.note ?
             <Note
               number={sequence.note.number}
@@ -93,5 +93,32 @@ class Pattern extends React.Component{
     }
   }
 }
+
+Pattern.defaultProps = {
+  path: 'patterns',
+  fields: {
+    'channel' : { defaultValue : 1},
+    'offset' : { defaultValue : 0},
+    'length' : {defaultValue : -1},
+    'tick' : {
+      cellWidth : 2,
+      fields : {
+        'numerator' : {defaultValue : 1},
+        'denominator' : {defaultValue : 1},
+        'timeUnit' : {defaultValue : 'BEAT'},
+      }
+    },
+    'bits' : {defaultValue : 1},
+    'note' : {
+      cellWidth : 2,
+      fields : {
+        'number' : {defaultValue : 60},
+        'velocity' : {defaultValue : 100},
+        'duration' : {defaultValue : 1}
+      }
+    },
+    'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.PatternFlow'}
+  },
+};
 
 module.exports = Pattern;
