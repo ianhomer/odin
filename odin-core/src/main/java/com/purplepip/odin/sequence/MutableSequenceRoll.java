@@ -87,7 +87,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * Only update the flow if the flow name has changed.
      */
     if (getSequence() == null
-        || !sequence.getFlowName().equals(getSequence().getFlowName())) {
+        || !getSequence().getFlowName().equals(sequence.getFlowName())) {
       setFlow(flowFactory.createFlow(sequence));
     } else {
       getFlow().setSequence(sequence);
@@ -140,7 +140,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     /*
      * Determine if the tick has changed.
      */
-    if (this.getTick() == null || !getSequence().getTick().equals(this.getTick())) {
+    if (this.getTick() == null || !this.getTick().equals(getSequence().getTick())) {
       tickDirty = true;
       /*
        * Change tick.
