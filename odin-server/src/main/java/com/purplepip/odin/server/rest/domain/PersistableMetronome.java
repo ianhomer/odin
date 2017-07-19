@@ -23,6 +23,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -39,10 +40,12 @@ public class PersistableMetronome extends AbstractPersistableSequence implements
   private long offset;
   private long length;
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL)
+  @NotNull
   private Tick tick;
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
   private Note noteBarStart;
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
   private Note noteBarMid;
+  @NotNull
   private String flowName;
 }

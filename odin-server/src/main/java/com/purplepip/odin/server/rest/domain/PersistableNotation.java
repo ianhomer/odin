@@ -22,6 +22,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -38,8 +39,12 @@ public class PersistableNotation extends AbstractPersistableSequence implements 
   private long offset;
   private long length;
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL)
+  @NotNull
   private Tick tick;
+  @NotNull
   private String flowName;
+  @NotNull
   private String format;
+  @NotNull
   private String notation;
 }
