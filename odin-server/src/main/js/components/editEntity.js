@@ -30,6 +30,7 @@ class EditEntity extends React.Component{
       this.onApply = crud.onCreate.bind(this);
     }
     this.getSchemaDefinition = crud.getSchemaDefinition.bind(this);
+    this.getSchema = crud.getSchema.bind(this);
     this.handleKeyPress = this._handleKeyPress.bind(this);
   }
 
@@ -101,8 +102,8 @@ class EditEntity extends React.Component{
   }
 
   render() {
-    if (!Object.keys(this.props.schema).length) {
-      console.warn('Schema not defined for ' + this.props.path + ', cannot create entity create row.');
+    if (!Object.keys(this.getSchema()).length) {
+      console.warn('Schema not defined for ' + this.getSchema() + ', cannot create entity create row.');
       return (<div/>);
     }
     if (!this.props.project) {
@@ -110,7 +111,7 @@ class EditEntity extends React.Component{
       return (<div/>);
     }
 
-    var renderedFields = this.renderInputFieldGroup(this.props.fields, this.props.schema);
+    var renderedFields = this.renderInputFieldGroup(this.props.fields, this.getSchema());
     var label = this.props.entity ? 'Update' : 'Create';
 
     // TODO : Etag support

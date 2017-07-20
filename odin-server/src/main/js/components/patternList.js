@@ -42,7 +42,7 @@ class PatternList extends React.Component{
   render() {
     var entities = this.state.entities.map(entity =>
       <Pattern entity={entity} key={entity._links.self.href}
-        project={this.props.project} schema={this.state.schema}
+        project={this.props.project}
         onDelete={this.onDelete} onUpdate={this.onUpdate}
       />
     );
@@ -61,7 +61,7 @@ class PatternList extends React.Component{
           </div>
           <EditEntity
             project={this.props.project}
-            path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields} schema={this.state.schema}
+            path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields}
             onApply={this.onCreate}
           />
           {entities}

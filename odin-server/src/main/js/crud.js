@@ -63,7 +63,13 @@ function getFieldValue(schema, refs, name, key) {
 // e.g. getSchema('patterns','#/definitions/tick')
 
 function getSchema(id, ref = '') {
-  return ajv.getSchema(id + ref).schema;
+  var internalSchema = ajv.getSchema(id + ref);
+  if (internalSchema) {
+    return ajv.getSchema(id + ref).schema;
+  } else {
+    console.warn("Cannot get schema for " + id + ref);
+    return [];
+  }
 }
 
 
@@ -87,49 +93,56 @@ module.exports = {
   // Get the schema definition for a given field name.
 
   getSchemaDefinition : function(name) {
-    return getSchema(this.props.path, this.props.schema.properties[name]['$ref']);
+    var schema = getSchema(this.props.path)
+    return getSchema(this.props.path, schema.properties[name]['$ref']);
   },
 
   // Exported method for get schema
 
-  getSchema : function(id, ref = '') {
+  getSchema : function(id = this.props.path, ref = '') {
     return getSchema(id, ref);
   },
 
   // Load schema if it has not already been loaded
 
   loadSchema : function(path = this.props.path) {
-    if (!ajv.getSchema(path)) {
-      client({
-        method: 'GET',
-        path: root + '/profile/' + path,
-        headers: {'Accept': 'application/schema+json'}
-      }).then(schema => {
-        if (!ajv.getSchema(path)) {
-          ajv.addSchema(schema.entity, path);
-        }
-      })
-    }
+    return new Promise((resolve, reject) => {
+      var schema = ajv.getSchema(path)
+      if (!schema) {
+        client({
+          method: 'GET',
+          path: root + '/profile/' + path,
+          headers: {'Accept': 'application/schema+json'}
+        }).then(response => {
+          if (!ajv.getSchema(path)) {
+            ajv.addSchema(response.entity, path);
+          }
+          resolve(response.entity);
+        })
+      } else {
+        resolve(schema)
+      }
+    });
   },
 
   loadFromServer : function() {
-    this.loadSchema();
-    follow(client, root, [{rel: this.props.path}]
-    ).done(collection => {
-      var entities = [];
+    this.loadSchema().then(schema => {
+      follow(client, root, [{rel: this.props.path}]).done(collection => {
+        var entities = [];
 
-      // Load all the entities by concatenating all embedded entities
+        // Load all the entities by concatenating all embedded entities
 
-      for (var key in collection.entity._embedded) {
-        entities = entities.concat(collection.entity._embedded[key]);
-      }
+        for (var key in collection.entity._embedded) {
+          entities = entities.concat(collection.entity._embedded[key]);
+        }
 
-      // Set the state.
+        // Set the state.
 
-      this.setState({
-        entities: entities,
-        schema: getSchema(this.props.path),
-        links: collection.entity._links});
+        this.setState({
+          entities: entities,
+          schema: getSchema(this.props.path),
+          links: collection.entity._links});
+      });
     });
   },
 
@@ -137,8 +150,9 @@ module.exports = {
   handleApply(e) {
     e.preventDefault();
     var entity = {};
-    Object.keys(this.props.schema.properties).map(function(name) {
-      setFieldValue(entity, this.props.schema, this.refs, name);
+    var schema = getSchema(this.props.path)
+    Object.keys(schema.properties).map(function(name) {
+      setFieldValue(entity, schema, this.refs, name);
     }, this);
     setFieldValue(entity, null, this.refs, '_links.self.href');
     this.props.onApply(entity);
