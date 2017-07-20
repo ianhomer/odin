@@ -35,6 +35,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // Load projects
     client({method: 'GET', path: '/api/projects'}).done(response => {
       var projects = response.entity._embedded.projects;
       this.setState({projects: projects, project: projects[0]});

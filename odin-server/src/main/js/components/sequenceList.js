@@ -27,13 +27,15 @@ class SequenceList extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      attributes: [], entities: [], links: []
+      schema: [], entities: [], links: []
     };
 
     crud.bindMe(this);
   }
 
   componentDidMount() {
+    crud.loadSchema('patterns')
+
     this.loadFromServer();
   }
 

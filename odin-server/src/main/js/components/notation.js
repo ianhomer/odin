@@ -18,7 +18,7 @@ const React = require('react');
 
 const crud = require('./../crud');
 
-const EditEntity = require('./editEntity');
+//const EditEntity = require('./editEntity');
 const Tick = require('./tick');
 
 // Notation component.
@@ -49,12 +49,12 @@ class Notation extends React.Component{
       return (
 
         // Edit entity
-
-        <EditEntity entity={sequence}
-          project={this.props.project}
-          path={this.props.path} fields={this.props.fields} schema={this.props.schema}
-          onApply={this.onUpdate}
-        />
+        <div/>
+        //<EditEntity entity={sequence}
+        //  project={this.props.project}
+        //  path={this.props.path} fields={this.props.fields} schema={this.props.schema}
+        //  onApply={this.onUpdate}
+        ///>
       );
     } else {
       return (

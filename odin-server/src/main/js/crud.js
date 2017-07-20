@@ -87,6 +87,20 @@ module.exports = {
     return getSchema(this.props.path, this.props.schema.properties[name]['$ref']);
   },
 
+  // Load schema if it has not already been loaded
+
+  loadSchema : function(path) {
+    if (!ajv.getSchema(path)) {
+      client({
+        method: 'GET',
+        path: root + '/profile/' + path,
+        headers: {'Accept': 'application/schema+json'}
+      }).then(schema => {
+        ajv.addSchema(schema.entity, path);
+      })
+    }
+  },
+
   loadFromServer : function() {
     follow(client, root, [{rel: this.props.path}]
     ).then(collection => {

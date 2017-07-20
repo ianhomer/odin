@@ -44,6 +44,14 @@ class EditEntity extends React.Component{
       console.warn('Fields not defined');
       return (<div/>);
     }
+    if (!schema) {
+      console.warn('Schema not defined');
+      return (<div/>);
+    }
+    if (!schema.properties) {
+      console.warn('Schema does not have properties');
+      return (<div>{JSON.stringify(schema)}</div>);
+    }
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + '.' + fieldName : fieldName;
       if (fields[fieldName].fields) {
@@ -115,13 +123,12 @@ class EditEntity extends React.Component{
         <div className="col-1">
           <input type="hidden" name="project" ref="project"
             value={this.props.project._links.self.href} />
-          {this.props.entity &&
-            <div>
-              <input type="hidden" name="_links.self.href" ref="_links.self.href"
-                value={this.props.entity._links.self.href} />
-
-            </div>
-          }
+            {this.props.entity &&
+              <div>
+                <input type="hidden" name="_links.self.href" ref="_links.self.href"
+                  value={this.props.entity._links.self.href} />
+              </div>
+            }
           <button onClick={this.handleApply}>{label}</button>
         </div>
       </div>
