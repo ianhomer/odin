@@ -34,9 +34,9 @@ class SequenceList extends React.Component{
   }
 
   componentDidMount() {
-    crud.loadSchema('patterns')
-
-    this.loadFromServer();
+    crud.loadSchema('notations').then(() => {
+      this.loadFromServer();
+    });
   }
 
   render() {

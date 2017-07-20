@@ -124,12 +124,12 @@ class EditEntity extends React.Component{
         <div className="col-1">
           <input type="hidden" name="project" ref="project"
             value={this.props.project._links.self.href} />
-            {this.props.entity &&
-              <div>
-                <input type="hidden" name="_links.self.href" ref="_links.self.href"
-                  value={this.props.entity._links.self.href} />
-              </div>
-            }
+          {this.props.entity &&
+            <div>
+              <input type="hidden" name="_links.self.href" ref="_links.self.href"
+                value={this.props.entity._links.self.href} />
+            </div>
+          }
           <button onClick={this.handleApply}>{label}</button>
         </div>
       </div>

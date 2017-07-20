@@ -41,7 +41,7 @@ class App extends React.Component {
       var projects = response.entity._embedded.projects;
       this.setState({projects: projects, project: projects[0]});
 
-      crud.loadSchema('channels')
+      crud.loadSchema('channels');
     });
   }
 

@@ -67,13 +67,13 @@ function getSchema(id, ref = '') {
   if (internalSchema) {
     return ajv.getSchema(id + ref).schema;
   } else {
-    console.warn("Cannot get schema for " + id + ref);
+    console.warn('Cannot get schema for ' + id + ref);
     return [];
   }
 }
 
 function isSchemaLoaded(id, ref = '') {
-  return ajv.getSchema(id + ref) != null
+  return ajv.getSchema(id + ref) != null;
 }
 
 
@@ -98,7 +98,7 @@ module.exports = {
   // Get the schema definition for a given field name.
 
   getSchemaDefinition : function(name) {
-    var schema = getSchema(this.props.path)
+    var schema = getSchema(this.props.path);
     return getSchema(this.props.path, schema.properties[name]['$ref']);
   },
 
@@ -116,7 +116,7 @@ module.exports = {
 
   loadSchema : function(path = this.props.path) {
     return new Promise((resolve, reject) => {
-      var schema = ajv.getSchema(path)
+      var schema = ajv.getSchema(path);
       if (!schema) {
         client({
           method: 'GET',
@@ -127,15 +127,17 @@ module.exports = {
             ajv.addSchema(response.entity, path);
           }
           resolve(response.entity);
-        })
+        }).catch(reason => {
+          reject(reason);
+        });
       } else {
-        resolve(schema)
+        resolve(schema);
       }
     });
   },
 
   loadFromServer : function() {
-    this.loadSchema().then(schema => {
+    this.loadSchema().then(() => {
       follow(client, root, [{rel: this.props.path}]).done(collection => {
         var entities = [];
 
@@ -158,7 +160,7 @@ module.exports = {
   handleApply(e) {
     e.preventDefault();
     var entity = {};
-    var schema = getSchema(this.props.path)
+    var schema = getSchema(this.props.path);
     Object.keys(schema.properties).map(function(name) {
       setFieldValue(entity, schema, this.refs, name);
     }, this);
