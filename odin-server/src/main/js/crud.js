@@ -112,6 +112,16 @@ module.exports = {
     return isSchemaLoaded(id, ref);
   },
 
+  // load multiple schemas
+
+  loadSchemas : function(paths) {
+    var promises = [];
+    paths.forEach(path => {
+      promises.concat(this.loadSchema(path));
+    });
+    return Promise.all(promises);
+  },
+
   // Load schema if it has not already been loaded
 
   loadSchema : function(path = this.props.path) {
@@ -141,10 +151,22 @@ module.exports = {
       follow(client, root, [{rel: this.props.path}]).done(collection => {
         var entities = [];
 
-        // Load all the entities by concatenating all embedded entities
+        // Load all the entities by concatenating all embedded entities.
 
-        for (var key in collection.entity._embedded) {
-          entities = entities.concat(collection.entity._embedded[key]);
+        for (var path in collection.entity._embedded) {
+          var embeddedEntities = collection.entity._embedded[path];
+
+          // Set the path value in the entity so that the front end knows what type of entity
+          // this is.
+
+          if (Array.isArray(embeddedEntities)) {
+            for (var key in embeddedEntities) {
+              embeddedEntities[key].path = path;
+            }
+          } else {
+            embeddedEntities.path = path;
+          }
+          entities = entities.concat(embeddedEntities);
         }
 
         // Set the state.

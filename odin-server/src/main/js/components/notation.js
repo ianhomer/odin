@@ -103,6 +103,10 @@ Notation.defaultProps = {
       cellWidth : 2,
       defaultValue : 'a',
     },
+    'format' : {
+      cellWidth : 1,
+      defaultValue : 'VexTab',
+    },
     'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.NotationFlow'}
   },
 };

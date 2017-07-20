@@ -21,7 +21,6 @@ const crud = require('./crud');
 
 const ChannelList = require('./components/channelList');
 const LayerList = require('./components/layerList');
-const PatternList = require('./components/patternList');
 const ProjectList = require('./components/projectList');
 const SequenceList = require('./components/sequenceList');
 const Trace = require('./components/trace');
@@ -62,7 +61,6 @@ class App extends React.Component {
         }
         {this.state.project &&
           <div>
-            <PatternList project={this.state.project}/>
             <SequenceList project={this.state.project}/>
           </div>
         }

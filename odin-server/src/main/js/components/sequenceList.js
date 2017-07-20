@@ -18,9 +18,15 @@ const React = require('react');
 
 const crud = require('./../crud');
 
+const EditEntity = require('./editEntity');
+
 const Notation = require('./notation');
-//const Pattern = require('./pattern');
+const Pattern = require('./pattern');
 const Trace = require('./trace');
+const Sequences = {
+  'notations' : Notation,
+  'patterns'  : Pattern
+};
 
 // Rendering of generic sequence list
 class SequenceList extends React.Component{
@@ -31,26 +37,28 @@ class SequenceList extends React.Component{
     };
 
     crud.bindMe(this);
+
   }
 
   componentDidMount() {
-    crud.loadSchema('notations').then(() => {
+    crud.loadSchemas(['notations', 'patterns']).then(() => {
       this.loadFromServer();
     });
   }
 
   render() {
-    var entities = this.state.entities.map(entity =>
-      <div key={'div-' + entity._links.self.href}>
-        {'notation' in entity._links &&
-          <Notation entity={entity} key={entity._links.self.href}
+    var entities = this.state.entities.map(entity => {
+      var Sequence = Sequences[entity.path];
+      return (
+        <div key={'div-' + entity._links.self.href}>
+          <Sequence entity={entity} key={entity._links.self.href}
             project={this.props.project}
-            path={this.props.path} fields={this.props.fields} schema={this.state.schema}
+            path={entity.path} fields={Sequence.defaultProps.fields}
             onDelete={this.onDelete} onUpdate={this.onUpdate}
           />
-        }
-      </div>
-    );
+        </div>
+      );
+    });
     return (
       // View sequence list.
       <div>
@@ -64,6 +72,14 @@ class SequenceList extends React.Component{
             <div className="col-3">Configuration</div>
             <div className="col-3">Flow Name</div>
           </div>
+          {this.isSchemaLoaded('patterns') &&
+            <EditEntity
+              project={this.props.project}
+              path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields}
+              onApply={this.onCreate}
+            />
+          }
+          <hr/>
           {entities}
         </div>
       </div>
