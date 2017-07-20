@@ -66,6 +66,7 @@ function getSchema(id, ref = '') {
   return ajv.getSchema(id + ref).schema;
 }
 
+
 // Load entities from the server.
 //
 // Which entities loaded is determined by this.props.path.  For example this might be set
@@ -77,54 +78,50 @@ function getSchema(id, ref = '') {
 module.exports = {
   bindMe : function(that) {
     that.loadFromServer = this.loadFromServer.bind(that);
+    that.loadSchema = this.loadSchema.bind(that);
     that.onDelete = this.onDelete.bind(that);
     that.onCreate = this.onCreate.bind(that);
     that.onUpdate = this.onUpdate.bind(that);
   },
 
   // Get the schema definition for a given field name.
+
   getSchemaDefinition : function(name) {
     return getSchema(this.props.path, this.props.schema.properties[name]['$ref']);
   },
 
+  // Exported method for get schema
+
+  getSchema : function(id, ref = '') {
+    return getSchema(id, ref);
+  },
+
   // Load schema if it has not already been loaded
 
-  loadSchema : function(path) {
+  loadSchema : function(path = this.props.path) {
     if (!ajv.getSchema(path)) {
       client({
         method: 'GET',
         path: root + '/profile/' + path,
         headers: {'Accept': 'application/schema+json'}
       }).then(schema => {
-        ajv.addSchema(schema.entity, path);
+        if (!ajv.getSchema(path)) {
+          ajv.addSchema(schema.entity, path);
+        }
       })
     }
   },
 
   loadFromServer : function() {
+    this.loadSchema();
     follow(client, root, [{rel: this.props.path}]
-    ).then(collection => {
-      return client({
-        method: 'GET',
-        path: collection.entity._links.profile.href,
-        headers: {'Accept': 'application/schema+json'}
-      }).then(schema => {
-        this.schema = schema.entity;
-        return collection;
-      });
-    }).done(collection => {
+    ).done(collection => {
       var entities = [];
 
       // Load all the entities by concatenating all embedded entities
 
       for (var key in collection.entity._embedded) {
         entities = entities.concat(collection.entity._embedded[key]);
-      }
-
-      // Register the schema.
-
-      if (!ajv.getSchema(this.props.path)) {
-        ajv.addSchema(this.schema, this.props.path);
       }
 
       // Set the state.
@@ -135,7 +132,6 @@ module.exports = {
         links: collection.entity._links});
     });
   },
-
 
   // Handle creation or update an entity.
   handleApply(e) {

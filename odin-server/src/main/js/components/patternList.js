@@ -34,6 +34,7 @@ class PatternList extends React.Component{
   }
 
   componentDidMount() {
+    this.loadSchema()
     this.loadFromServer();
   }
 

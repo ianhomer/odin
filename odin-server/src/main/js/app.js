@@ -17,6 +17,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
+const crud = require('./crud');
 
 const ChannelList = require('./components/channelList');
 const LayerList = require('./components/layerList');
@@ -39,6 +40,8 @@ class App extends React.Component {
     client({method: 'GET', path: '/api/projects'}).done(response => {
       var projects = response.entity._embedded.projects;
       this.setState({projects: projects, project: projects[0]});
+
+      crud.loadSchema('channels')
     });
   }
 
