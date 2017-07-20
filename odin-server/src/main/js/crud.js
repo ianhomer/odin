@@ -72,6 +72,10 @@ function getSchema(id, ref = '') {
   }
 }
 
+function isSchemaLoaded(id, ref = '') {
+  return ajv.getSchema(id + ref) != null
+}
+
 
 // Load entities from the server.
 //
@@ -85,6 +89,7 @@ module.exports = {
   bindMe : function(that) {
     that.loadFromServer = this.loadFromServer.bind(that);
     that.loadSchema = this.loadSchema.bind(that);
+    that.isSchemaLoaded = this.isSchemaLoaded.bind(that);
     that.onDelete = this.onDelete.bind(that);
     that.onCreate = this.onCreate.bind(that);
     that.onUpdate = this.onUpdate.bind(that);
@@ -101,6 +106,10 @@ module.exports = {
 
   getSchema : function(id = this.props.path, ref = '') {
     return getSchema(id, ref);
+  },
+
+  isSchemaLoaded : function(id = this.props.path, ref = '') {
+    return isSchemaLoaded(id, ref);
   },
 
   // Load schema if it has not already been loaded
@@ -139,9 +148,8 @@ module.exports = {
         // Set the state.
 
         this.setState({
-          entities: entities,
-          schema: getSchema(this.props.path),
-          links: collection.entity._links});
+          entities: entities
+        });
       });
     });
   },

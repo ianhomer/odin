@@ -26,7 +26,7 @@ class ChannelList extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      schema: [], entities: [], links: []
+      entities: [], links: [], loaded: false
     };
 
     crud.bindMe(this);
@@ -39,7 +39,7 @@ class ChannelList extends React.Component{
   render() {
     var entities = this.state.entities.map(entity =>
       <Channel entity={entity} key={entity._links.self.href}
-        path={this.props.path} schema={this.state.schema}
+        path={this.props.path}
         onDelete={this.onDelete}/>
     );
 
@@ -51,11 +51,13 @@ class ChannelList extends React.Component{
             <div className="col-2">Number</div>
             <div className="col-3">Program</div>
           </div>
-          <EditEntity
-            project={this.props.project}
-            path={this.props.path} fields={this.props.fields} schema={this.state.schema}
-            onApply={this.onCreate}
-          />
+          {this.isSchemaLoaded() &&
+            <EditEntity
+              project={this.props.project}
+              path={this.props.path} fields={this.props.fields}
+              onApply={this.onCreate}
+            />
+          }
           {entities}
         </div>
       </div>

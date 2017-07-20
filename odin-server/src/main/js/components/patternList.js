@@ -59,11 +59,13 @@ class PatternList extends React.Component{
             <div className="col-2">Note</div>
             <div className="col-3">Flow Name</div>
           </div>
-          <EditEntity
-            project={this.props.project}
-            path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields}
-            onApply={this.onCreate}
-          />
+          {this.isSchemaLoaded() &&
+            <EditEntity
+              project={this.props.project}
+              path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields}
+              onApply={this.onCreate}
+            />
+          }
           {entities}
         </div>
       </div>
