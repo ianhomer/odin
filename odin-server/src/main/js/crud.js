@@ -40,7 +40,7 @@ function setFieldValue(entity, schema, refs, name, key) {
 function getFieldValue(schema, refs, name, key) {
   var _key = key ? key : name;
   var value;
-  if (schema && schema.properties[name]['$ref']) {
+  if (schema && schema.properties[name] && schema.properties[name]['$ref']) {
 
     // Navigate through object definition to find property names.
 
@@ -187,12 +187,17 @@ module.exports = {
       setFieldValue(entity, schema, this.refs, name);
     }, this);
     setFieldValue(entity, null, this.refs, '_links.self.href');
-    this.props.onApply(entity);
+    var path = getFieldValue(schema, this.refs, 'path');
+    if (path) {
+      this.props.onApply(entity, path);
+    } else {
+      this.props.onApply(entity);
+    }
   },
 
   // Create entity via REST API.
-  onCreate : function(entity) {
-    follow(client, root, [this.props.path]).then(entities => {
+  onCreate : function(entity, path) {
+    follow(client, root, [path]).then(entities => {
       return client({
         method: 'POST',
         path: entities.entity._links.self.href,

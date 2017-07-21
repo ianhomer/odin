@@ -124,6 +124,16 @@ class EditEntity extends React.Component{
         <div className="col-1">
           <input type="hidden" name="project" ref="project"
             value={this.props.project._links.self.href} />
+
+          {/* Provide path value for create flow so we know what type of object we are creating. */}
+
+          {!this.props.entity &&
+            <input type="hidden" name="path" ref="path"
+              value={this.props.path} />
+          }
+
+          {/* Provide self href for update flow so we know what to update. */}
+
           {this.props.entity &&
             <div>
               <input type="hidden" name="_links.self.href" ref="_links.self.href"

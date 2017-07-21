@@ -59,6 +59,7 @@ class SequenceList extends React.Component{
         </div>
       );
     });
+
     return (
       // View sequence list.
       <div>
@@ -72,14 +73,24 @@ class SequenceList extends React.Component{
             <div className="col-3">Configuration</div>
             <div className="col-3">Flow Name</div>
           </div>
-          {this.isSchemaLoaded('patterns') &&
-            <EditEntity
-              project={this.props.project}
-              path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields}
-              onApply={this.onCreate}
-            />
-          }
+
+          {/* Render edit entities for each sequence type */}
+
+          {Object.keys(Sequences).map(path => {
+            var Sequence = Sequences[path];
+            if (this.isSchemaLoaded(path)) {
+              return (
+                <EditEntity key={'create-' + path}
+                  project={this.props.project}
+                  path={Sequence.defaultProps.path} fields={Sequence.defaultProps.fields}
+                  onApply={this.onCreate}
+                />
+              );
+            }
+          })}
+
           <hr/>
+
           {entities}
         </div>
       </div>
