@@ -20,6 +20,7 @@ const crud = require('./../crud');
 
 const EditEntity = require('./editEntity');
 const Tick = require('./tick');
+const Score = require('./score');
 
 // Notation component.
 class Notation extends React.Component{
@@ -72,7 +73,9 @@ class Notation extends React.Component{
                 timeUnit={sequence.tick.timeUnit}/>
               : <div className="warn">NULL tick</div>
             }</div>
-          <div className="col-3">{sequence.notation}</div>
+          <div className="col-3">
+            <Score notation={sequence.notation}/>
+          </div>
           <div className="col-3">
             {sequence.flowName}
           </div>
