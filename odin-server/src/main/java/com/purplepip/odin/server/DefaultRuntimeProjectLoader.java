@@ -51,7 +51,7 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
           .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
           .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
           .withNote(46).addPattern(Ticks.TWO_THIRDS, 7)
-          .addNotation(Ticks.BEAT, "Cn-D-E/4 F#/5");
+          .addNotation(Ticks.BEAT, "C#5/q, B4, A4, G#4");
       projectContainer.save();
       LOG.info("Default project populated");
     } else {
