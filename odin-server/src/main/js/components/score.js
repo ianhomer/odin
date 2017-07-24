@@ -28,8 +28,9 @@ class Score extends React.Component{
   }
 
   renderNotation() {
+
     var vf = new Vex.Flow.Factory({
-      renderer: {selector: 'boo', width: 500, height: 200}
+      renderer: {selector: this.props.sequence._links.self.href + '-notation', width: 500, height: 200}
     });
 
     var score = vf.EasyScore();
@@ -49,8 +50,8 @@ class Score extends React.Component{
 
     return (
       <div className="component row">
-        Score : {this.props.notation}
-        <div id="boo"/>
+        Score : {this.props.sequence.notation}
+        <div id={this.props.sequence._links.self.href + '-notation'}/>
       </div>
     );
   }

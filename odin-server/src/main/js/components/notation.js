@@ -74,7 +74,7 @@ class Notation extends React.Component{
               : <div className="warn">NULL tick</div>
             }</div>
           <div className="col-3">
-            <Score notation={sequence.notation}/>
+            <Score sequence={sequence}/>
           </div>
           <div className="col-3">
             {sequence.flowName}
