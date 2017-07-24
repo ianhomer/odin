@@ -44,6 +44,7 @@ function getFieldValue(schema, refs, name, key) {
 
     // Navigate through object definition to find property names.
 
+    // TODO : Why does this read 'patterns', shouldn't we get the appropriate schema dynamically
     var fieldSchema = getSchema('patterns', schema.properties[name]['$ref']);
     var property = {};
     Object.keys(fieldSchema.properties).map(function(propertyName) {
@@ -53,7 +54,12 @@ function getFieldValue(schema, refs, name, key) {
     value = property;
   } else {
     var node = ReactDOM.findDOMNode(refs[_key]);
-    value = node === null ? '' : node.value.trim();
+    if (node === null) {
+      console.warn('Cannot find field ' + _key);
+      value = '';
+    } else {
+      value = node.value.trim();
+    }
   }
   return value;
 }

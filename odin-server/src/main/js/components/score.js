@@ -21,16 +21,31 @@ const Vex = require('vexflow');
 class Score extends React.Component{
   constructor(props) {
     super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {notation: this.props.entity.notation};
   }
 
   componentDidMount() {
     this.renderNotation();
   }
 
+  handleChange(event) {
+    this.setState( {notation: event.target.value} );
+  }
+
+  getElementId() {
+    if (this.props.entity && this.props.entity._links) {
+      return this.props.entity._links.self.href + '-notation';
+    } else {
+      return this.props.elementKey + '-notation';
+    }
+  }
+
   renderNotation() {
 
     var vf = new Vex.Flow.Factory({
-      renderer: {selector: this.props.sequence._links.self.href + '-notation', width: 500, height: 200}
+      renderer: {selector: this.getElementId(), width: 500, height: 200}
     });
 
     var score = vf.EasyScore();
@@ -38,7 +53,7 @@ class Score extends React.Component{
 
     system.addStave({
       voices: [
-        score.voice(score.notes(this.props.sequence.notation))
+        score.voice(score.notes(this.state.notation))
       ]
     }).addClef('treble').addTimeSignature('4/4');
 
@@ -46,13 +61,34 @@ class Score extends React.Component{
   }
 
   render() {
+    var elementId;
 
-    return (
-      <div className="component row">
-        Score : {this.props.sequence.notation}
-        <div id={this.props.sequence._links.self.href + '-notation'}/>
-      </div>
-    );
+    if (this.props.editor) {
+      console.log(this.props.componentKey)
+      return (
+        <div>
+          <span>
+            <input type="text" placeholder={this.props.componentKey}
+              ref={this.props.componentRef} className="field"
+              defaultValue={this.state.notation}
+              onKeyPress={this.props.onKeyPress}
+              onChange={this.handleChange}
+              size={this.props.size}
+            />
+          </span>
+          <span id={this.getElementId()}/>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          {this.props.displayText &&
+            <span>{this.props.entity.notation}</span>
+          }
+          <span id={this.getElementId()}/>
+        </div>
+      );
+    }
   }
 }
 

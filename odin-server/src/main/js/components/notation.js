@@ -73,8 +73,11 @@ class Notation extends React.Component{
                 timeUnit={sequence.tick.timeUnit}/>
               : <div className="warn">NULL tick</div>
             }</div>
-          <div className="col-3">
-            <Score sequence={sequence}/>
+          <div className="col-2">
+            <Score entity={sequence} displayText="true"/>
+          </div>
+          <div className="col-1">
+            {sequence.format}
           </div>
           <div className="col-3">
             {sequence.flowName}
@@ -104,7 +107,7 @@ Notation.defaultProps = {
     },
     'notation' : {
       cellWidth : 2,
-      defaultValue : 'a',
+      defaultValue : 'C#5/q, B4, A4, G#4',
     },
     'format' : {
       cellWidth : 1,

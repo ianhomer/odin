@@ -17,6 +17,7 @@
 const React = require('react');
 const objectPath = require('object-path');
 const crud = require('./../crud');
+const Score = require('./score');
 
 // Edit an entity.
 class EditEntity extends React.Component{
@@ -90,15 +91,28 @@ class EditEntity extends React.Component{
     } else {
       defaultValue = fields[fieldName].defaultValue;
     }
-    return (
-      <div className={cellClassName} key={key}>
-        <input type="text" placeholder={key} ref={key} className="field"
-          defaultValue={defaultValue}
-          onKeyPress={this.handleKeyPress}
-          size={size}
-        />
-      </div>
-    );
+    if (fieldName == 'notation') {
+      var scoreEntity = this.props.entity ?
+        this.props.entity :
+        { notation : defaultValue };
+      return (
+        <div className={cellClassName} key={key}>
+          <Score entity={scoreEntity} editor="true"
+            size={size} componentKey={key} componentRef={el => this.refs[key] = el}
+            onKeyPress={this.handleKeyPress}/>
+        </div>
+      );
+    } else {
+      return (
+        <div className={cellClassName} key={key}>
+          <input type="text" placeholder={key} ref={key} className="field"
+            defaultValue={defaultValue}
+            onKeyPress={this.handleKeyPress}
+            size={size}
+          />
+        </div>
+      );
+    }
   }
 
   render() {
