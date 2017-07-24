@@ -192,6 +192,7 @@ module.exports = {
     Object.keys(schema.properties).map(function(name) {
       setFieldValue(entity, schema, this.refs, name);
     }, this);
+    // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
     setFieldValue(entity, null, this.refs, '_links.self.href');
     var path = getFieldValue(schema, this.refs, 'path');
     if (path) {

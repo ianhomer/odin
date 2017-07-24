@@ -30,7 +30,12 @@ class Score extends React.Component{
     this.renderNotation();
   }
 
+  componentDidUpdate() {
+    this.renderNotation();
+  }
+
   handleChange(event) {
+    console.log('Change : ' + event.target.value);
     this.setState( {notation: event.target.value} );
   }
 
@@ -51,6 +56,7 @@ class Score extends React.Component{
     var score = vf.EasyScore();
     var system = vf.System();
 
+    console.log('Rendering score : ' + this.state.notation);
     system.addStave({
       voices: [
         score.voice(score.notes(this.state.notation))
@@ -61,10 +67,10 @@ class Score extends React.Component{
   }
 
   render() {
+    console.log('Rendering score');
     var elementId;
 
     if (this.props.editor) {
-      console.log(this.props.componentKey)
       return (
         <div>
           <span>
@@ -83,7 +89,7 @@ class Score extends React.Component{
       return (
         <div>
           {this.props.displayText &&
-            <span>{this.props.entity.notation}</span>
+            <span>{this.state.notation}</span>
           }
           <span id={this.getElementId()}/>
         </div>
