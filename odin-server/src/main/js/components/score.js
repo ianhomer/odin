@@ -16,6 +16,7 @@
 
 const React = require('react');
 const Vex = require('vexflow');
+const Trace = require('./trace');
 
 // Musical score component.
 class Score extends React.Component{
@@ -23,43 +24,55 @@ class Score extends React.Component{
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
-    this.state = {notation: this.props.entity.notation};
+    this.state = {notation: this.props.entity.notation, count: 1};
   }
 
   componentDidMount() {
-    this.renderNotation();
+    this.componentDidUpdate();
   }
 
   componentDidUpdate() {
-    this.renderNotation();
-  }
-
-  handleChange(event) {
-    console.log('Change : ' + event.target.value);
-    this.setState( {notation: event.target.value} );
-  }
-
-  getElementId() {
-    if (this.props.entity && this.props.entity._links) {
-      return this.props.entity._links.self.href + '-notation';
-    } else {
-      return this.props.elementKey + '-notation';
+    try {
+      this.renderNotation();
+    } catch (error) {
+      console.error(error, "Cannot draw score");
     }
   }
 
-  renderNotation() {
+  handleChange(event) {
+    try {
+      this.renderNotation(event.target.value);
+      this.setState( {notation: event.target.value, count: this.state.count + 1} );
+    } catch (error) {
+      console.warn("Cannot draw score so not updating state : " + error.message);
+    }
+  }
 
+  getElementId() {
+    // Element ID changes are each handleChange call.  Since the key attribute of the score element
+    // set to this changing value, React will force a reload of the element, otherwise React is
+    // not aware that the element is changing (via the VexFlow API) and so VexFlow draw keeps
+    // appending further scores instead of replacing.
+    if (this.props.entity && this.props.entity._links) {
+      return this.props.entity._links.self.href + '-notation-' + this.state.count;
+    } else {
+      return this.props.elementKey + '-notation-' + this.state.count;
+    }
+  }
+
+  renderNotation(notation = this.state.notation) {
     var vf = new Vex.Flow.Factory({
       renderer: {selector: this.getElementId(), width: 500, height: 200}
     });
 
+    vf.reset();
+    vf.getContext().clear();
     var score = vf.EasyScore();
     var system = vf.System();
 
-    console.log('Rendering score : ' + this.state.notation);
     system.addStave({
       voices: [
-        score.voice(score.notes(this.state.notation))
+        score.voice(score.notes(notation))
       ]
     }).addClef('treble').addTimeSignature('4/4');
 
@@ -67,9 +80,6 @@ class Score extends React.Component{
   }
 
   render() {
-    console.log('Rendering score');
-    var elementId;
-
     if (this.props.editor) {
       return (
         <div>
@@ -82,7 +92,8 @@ class Score extends React.Component{
               size={this.props.size}
             />
           </span>
-          <span id={this.getElementId()}/>
+          <div key={this.getElementId()} id={this.getElementId()}/>
+          <Trace scope="layerList"/>
         </div>
       );
     } else {
