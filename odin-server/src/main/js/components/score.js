@@ -16,7 +16,6 @@
 
 const React = require('react');
 const Vex = require('vexflow');
-const Trace = require('./trace');
 
 // Musical score component.
 class Score extends React.Component{
@@ -35,7 +34,7 @@ class Score extends React.Component{
     try {
       this.renderNotation();
     } catch (error) {
-      console.error(error, "Cannot draw score");
+      console.error(error, 'Cannot draw score');
     }
   }
 
@@ -44,7 +43,7 @@ class Score extends React.Component{
       this.renderNotation(event.target.value);
       this.setState( {notation: event.target.value, count: this.state.count + 1} );
     } catch (error) {
-      console.warn("Cannot draw score so not updating state : " + error.message);
+      console.warn('Cannot draw score so not updating state : ' + error.message);
     }
   }
 
@@ -53,10 +52,11 @@ class Score extends React.Component{
     // set to this changing value, React will force a reload of the element, otherwise React is
     // not aware that the element is changing (via the VexFlow API) and so VexFlow draw keeps
     // appending further scores instead of replacing.
+    var ending = '-notation-' + this.state.count;
     if (this.props.entity && this.props.entity._links) {
-      return this.props.entity._links.self.href + '-notation-' + this.state.count;
+      return this.props.entity._links.self.href + ending;
     } else {
-      return this.props.elementKey + '-notation-' + this.state.count;
+      return this.props.elementKey + ending;
     }
   }
 
@@ -93,7 +93,6 @@ class Score extends React.Component{
             />
           </span>
           <div key={this.getElementId()} id={this.getElementId()}/>
-          <Trace scope="layerList"/>
         </div>
       );
     } else {
