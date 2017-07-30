@@ -51,10 +51,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private Event<A> nextEvent;
   private MovableTock tock;
   private Tock sealedTock;
-  private boolean tickDirty;
   private Sequence sequence;
-  private boolean sequenceDirty;
   private FlowFactory<A> flowFactory;
+  private boolean tickDirty;
+  private boolean sequenceDirty;
+  private boolean flowNameDirty;
+  private boolean flowDirty;
 
   /**
    * Create a base line mutable sequence roll onto which a sequence can be set and reset.
@@ -83,14 +85,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    */
   @Override
   public void setSequence(Sequence sequence) {
-    /*
-     * Only update the flow if the flow name has changed.
-     */
     if (getSequence() == null
         || !getSequence().getFlowName().equals(sequence.getFlowName())) {
-      setFlow(flowFactory.createFlow(sequence));
-    } else {
-      getFlow().setSequence(sequence);
+      flowNameDirty = true;
     }
 
     this.sequence = sequence;
@@ -208,6 +205,33 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      */
     nextEvent = null;
     LOG.debug("afterTickChange executed");
+    /*
+     * After a tick change the flow is dirty.
+     */
+    flowDirty = true;
+    /*
+     * ... and we can refresh the flow
+     */
+    refreshFlow();
+
+  }
+
+  private void refreshFlow() {
+    /*
+     * Only update the flow if the flow name has changed.
+     */
+    if (getFlow() == null || flowDirty || flowNameDirty) {
+      if (clock != null) {
+        setFlow(flowFactory.createFlow(sequence, clock, measureProvider));
+        flowNameDirty = false;
+        flowDirty = false;
+      } else {
+        LOG.debug("Waiting until clock is set to create flow");
+      }
+    } else {
+      getFlow().setSequence(sequence);
+    }
+
   }
 
   /**
@@ -218,9 +242,18 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     if (sequenceDirty) {
       afterSequenceChange();
     }
+    /*
+     * Tick change handling must be after sequence change handling since the sequence may
+     * change the tick.
+     */
     if (beatClock.isStarted() && tickDirty) {
       afterTickChange();
     }
+    /*
+     * ... then after tick has changed, which may set or change the clock we can refresh the flow
+     */
+    refreshFlow();
+
     LOG.debug("Refreshed {}", this);
   }
 
@@ -279,7 +312,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   }
 
   protected Event<A> getNextEvent(Tock tock) {
-    return flow.getNextEvent(tock, getClock(), getMeasureProvider());
+    return flow.getNextEvent(tock);
   }
 
   @Override

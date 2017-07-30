@@ -43,11 +43,11 @@ public class NotationFlowTest {
     builder.addNotation(Ticks.BEAT, "a");
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
-    Flow<Sequence, Note> flow = flowFactory.createFlow(notation);
     BeatClock clock = new BeatClock(new StaticBeatsPerMinute(60));
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
+    Flow<Sequence, Note> flow = flowFactory.createFlow(notation, clock, measureProvider);
     Event<Note> event = flow
-        .getNextEvent(new MovableTock(notation.getTick(), 0),clock, measureProvider);
+        .getNextEvent(new MovableTock(notation.getTick(), 0));
     assertEquals(1, event.getTime());
     assertEquals(60, event.getValue().getNumber());
   }

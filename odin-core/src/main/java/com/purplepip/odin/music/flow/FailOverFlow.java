@@ -17,12 +17,10 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tock;
 
 /**
@@ -30,7 +28,7 @@ import com.purplepip.odin.sequence.tick.Tock;
  */
 public class FailOverFlow extends AbstractFlow<Sequence, Note>  {
   @Override
-  public Event<Note> getNextEvent(Tock tock, Clock clock, MeasureProvider measureProvider) {
+  public Event<Note> getNextEvent(Tock tock) {
     Note note = new DefaultNote(100, 70,2);
     return new DefaultEvent<>(note, tock.getCount() + 1);
   }

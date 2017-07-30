@@ -15,13 +15,17 @@
 
 package com.purplepip.odin.sequence.flow;
 
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
  * Abstract logic class.
  */
 public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow<S, A> {
   private S sequence;
+  private Clock clock;
+  private MeasureProvider measureProvider;
   private FlowConfiguration configuration;
 
   @Override
@@ -32,6 +36,26 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
   @Override
   public S getSequence() {
     return sequence;
+  }
+
+  @Override
+  public void setClock(Clock clock) {
+    this.clock = clock;
+  }
+
+  @Override
+  public Clock getClock() {
+    return clock;
+  }
+
+  @Override
+  public void setMeasureProvider(MeasureProvider measureProvider) {
+    this.measureProvider = measureProvider;
+  }
+
+  @Override
+  public MeasureProvider getMeasureProvider() {
+    return measureProvider;
   }
 
   @Override

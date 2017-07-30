@@ -18,17 +18,15 @@ package com.purplepip.odin.music.flow;
 import com.purplepip.odin.music.DefaultNote;
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.Tock;
 
 public class NotationFlow extends AbstractFlow<Pattern, Note> {
   @Override
-  public Event<Note> getNextEvent(Tock tock, Clock clock, MeasureProvider measureProvider) {
+  public Event<Note> getNextEvent(Tock tock) {
     MovableTock mutableTock = new MovableTock(tock);
     mutableTock.increment();
     return new DefaultEvent<>(new DefaultNote(60,100,1), mutableTock.getCount());

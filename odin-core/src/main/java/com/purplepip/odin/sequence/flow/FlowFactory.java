@@ -19,7 +19,9 @@ import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +62,8 @@ public class FlowFactory<A> {
    * @return flow
    */
   @SuppressWarnings("unchecked")
-  public MutableFlow<Sequence, A> createFlow(Sequence sequence) {
+  public MutableFlow<Sequence, A> createFlow(Sequence sequence, Clock clock,
+                                             MeasureProvider measureProvider) {
     Class<? extends MutableFlow<Sequence, A>> flowClass;
     flowClass = (Class<? extends MutableFlow<Sequence, A>>)
           FLOWS.get(sequence.getFlowName());
@@ -76,6 +79,8 @@ public class FlowFactory<A> {
       flow = (MutableFlow<Sequence, A>) new FailOverFlow();
     }
     flow.setSequence(sequence.copy());
+    flow.setClock(clock);
+    flow.setMeasureProvider(measureProvider);
     flow.setConfiguration(flowConfiguration);
     return flow;
   }

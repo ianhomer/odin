@@ -17,11 +17,9 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.sequence.Metronome;
-import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultEvent;
 import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
@@ -32,14 +30,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
   @Override
-  public Event<Note> getNextEvent(Tock tock, Clock clock, MeasureProvider measureProvider) {
+  public Event<Note> getNextEvent(Tock tock) {
     /*
      * Create local and temporary mutable tock for this function execution.
      */
     MovableTock mutableTock = new MovableTock(tock);
     mutableTock.increment(2);
     Note note;
-    if ((long) measureProvider.getCount(mutableTock.getCount()) == 0) {
+    if ((long) getMeasureProvider().getCount(mutableTock.getCount()) == 0) {
       note = getSequence().getNoteBarStart();
     } else {
       note = getSequence().getNoteBarMid();
