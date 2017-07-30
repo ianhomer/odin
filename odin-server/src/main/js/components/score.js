@@ -40,19 +40,22 @@ class Score extends React.Component{
 
   handleChange(event) {
     try {
-      this.renderNotation(event.target.value);
+      this.renderNotation(event.target.value, true);
       this.setState( {notation: event.target.value, count: this.state.count + 1} );
     } catch (error) {
       console.warn('Cannot draw score so not updating state : ' + error.message);
     }
   }
 
-  getElementId() {
+  getElementId(extra = '') {
     // Element ID changes are each handleChange call.  Since the key attribute of the score element
     // set to this changing value, React will force a reload of the element, otherwise React is
     // not aware that the element is changing (via the VexFlow API) and so VexFlow draw keeps
     // appending further scores instead of replacing.
     var ending = '-notation-' + this.state.count;
+    if (extra != '') {
+      ending += '-' + extra;
+    }
     if (this.props.entity && this.props.entity._links) {
       return this.props.entity._links.self.href + ending;
     } else {
@@ -60,9 +63,18 @@ class Score extends React.Component{
     }
   }
 
-  renderNotation(notation = this.state.notation) {
+  renderNotation(notation = this.state.notation, dryRun = false) {
+    var selector;
+    if (dryRun) {
+      // For dry run we render score in a hidden element so that we that end user does not
+      // see a blank canvas on error.
+      selector = this.getElementId('hidden');
+    } else {
+      selector = this.getElementId();
+    }
+
     var vf = new Vex.Flow.Factory({
-      renderer: {selector: this.getElementId(), width: 500, height: 200}
+      renderer: {selector: selector, width: 500, height: 200}
     });
 
     vf.reset();
@@ -93,6 +105,7 @@ class Score extends React.Component{
             />
           </span>
           <div key={this.getElementId()} id={this.getElementId()}/>
+          <div id={this.getElementId('hidden')} className="hidden"/>
         </div>
       );
     } else {
