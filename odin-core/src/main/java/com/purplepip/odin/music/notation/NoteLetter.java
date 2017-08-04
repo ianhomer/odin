@@ -13,39 +13,24 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music;
+package com.purplepip.odin.music.notation;
 
-/**
- * Note.
- */
-public interface Note {
-  /**
-   * Get number for the note following the MIDI standard, C0 = 0, C5 = 60.
-   *
-   * @return int
-   */
-  int getNumber();
+public enum NoteLetter {
+  C(0),
+  D(2),
+  E(4),
+  F(5),
+  G(7),
+  A(9),
+  B(11);
 
-  /**
-   * Get the note velocity from 0 to 127.
-   *
-   * @return int
-   */
-  int getVelocity();
+  private final int number;
 
-  /**
-   * Get the note duration.  Time units are dependent on the context.
-   *
-   * @return long
-   */
-  long getDuration();
+  NoteLetter(int number) {
+    this.number = number;
+  }
 
-  /**
-   * Get the note duration denominator.  Time units are dependent on the context.
-   *
-   * @return long
-   */
-  long getDenominator();
-
-
+  public int getValue() {
+    return number;
+  }
 }

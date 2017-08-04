@@ -13,39 +13,24 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music;
+package com.purplepip.odin.music.composition;
+
+import com.purplepip.odin.music.Note;
+import com.purplepip.odin.sequence.Event;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Note.
+ * Composition of music.  Tick unit is a beat.
  */
-public interface Note {
-  /**
-   * Get number for the note following the MIDI standard, C0 = 0, C5 = 60.
-   *
-   * @return int
-   */
-  int getNumber();
+public class Composition {
+  private List<Event<Note>> events = new ArrayList<>();
 
-  /**
-   * Get the note velocity from 0 to 127.
-   *
-   * @return int
-   */
-  int getVelocity();
+  public void addEvent(Event<Note> event) {
+    events.add(event);
+  }
 
-  /**
-   * Get the note duration.  Time units are dependent on the context.
-   *
-   * @return long
-   */
-  long getDuration();
-
-  /**
-   * Get the note duration denominator.  Time units are dependent on the context.
-   *
-   * @return long
-   */
-  long getDenominator();
-
-
+  public List<Event<Note>> getEvents() {
+    return events;
+  }
 }

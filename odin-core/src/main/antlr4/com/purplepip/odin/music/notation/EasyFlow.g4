@@ -9,13 +9,18 @@ WHITESPACE : [ \t]+ -> skip ;
 COMMA : [,]+ -> skip ;
 SLASH: [/];
 NEWLINE: [\n\r];
-NOTE: [A-G][#]?[0-9];
-DURATION: [q];
+LETTER: [A-G];
+SHARP : [#];
+OCTAVE : [0-9];
+QUAVER: [q];
 
 composition : (line)+;
 
 line: NEWLINE* measure+ NEWLINE*;
 measure: notes+;
 notes: note (duration)?;
-note: NOTE;
-duration: SLASH DURATION;
+note: letter (sharp)? octave;
+letter : LETTER;
+sharp : SHARP;
+octave : OCTAVE;
+duration: SLASH QUAVER;

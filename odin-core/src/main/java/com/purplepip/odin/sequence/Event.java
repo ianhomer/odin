@@ -28,4 +28,11 @@ public interface Event<A> {
    * @return time
    */
   long getTime();
+
+  /**
+   * Get denominator.
+   */
+  default long getDenominator() {
+    return 1;
+  }
 }

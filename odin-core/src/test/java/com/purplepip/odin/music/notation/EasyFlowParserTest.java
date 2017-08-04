@@ -17,12 +17,17 @@ package com.purplepip.odin.music.notation;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.sequence.Event;
+import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Test;
 
+@Slf4j
 public class EasyFlowParserTest {
   @Test
   public void testParser() {
@@ -34,5 +39,17 @@ public class EasyFlowParserTest {
     TestEasyFlowListener listener = new TestEasyFlowListener();
     walker.walk(listener, tree);
     assertEquals(4 , listener.getNoteCount());
+
+    LOG.debug("Testing composition");
+    EasyFlowCompositionListener compositionListener = new EasyFlowCompositionListener();
+    walker.walk(compositionListener, tree);
+    Composition composition = compositionListener.getComposition();
+    assertEquals(4, composition.getEvents().size());
+    Event<Note> event1 = composition.getEvents().get(0);
+    assertEquals(73, event1.getValue().getNumber());
+    assertEquals(0, event1.getTime());
+    Event<Note> event2 = composition.getEvents().get(1);
+    assertEquals("Note 2 number not correct",71, event2.getValue().getNumber());
+    assertEquals(1, event2.getTime());
   }
 }

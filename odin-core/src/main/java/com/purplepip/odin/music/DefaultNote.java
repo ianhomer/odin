@@ -25,6 +25,7 @@ public class DefaultNote implements Note {
   private int number;
   private int velocity;
   private long duration;
+  private long denominator;
 
   /**
    * Create a default note.
@@ -34,9 +35,22 @@ public class DefaultNote implements Note {
    * @param duration Duration of note
    */
   public DefaultNote(int number, int velocity, long duration) {
+    this(number, velocity, duration, 1);
+  }
+
+  /**
+   * Create a default note.
+   *
+   * @param number Number of note
+   * @param velocity Velocity of note
+   * @param duration Duration of note
+   * @param denominator Duration denominator of note
+   */
+  public DefaultNote(int number, int velocity, long duration, long denominator) {
     this.number = number;
     this.velocity = velocity;
     this.duration = duration;
+    this.denominator = denominator;
   }
 
   @Override
@@ -52,5 +66,10 @@ public class DefaultNote implements Note {
   @Override
   public long getDuration() {
     return duration;
+  }
+
+  @Override
+  public long getDenominator() {
+    return denominator;
   }
 }
