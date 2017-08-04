@@ -45,6 +45,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
 
+    <antlr.version>4.7</antlr.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
     <jacoco.version>0.7.9</jacoco.version>
     <jacoco.covered.ratio>0.80</jacoco.covered.ratio>
@@ -158,6 +159,11 @@
           </dependencies>
         </plugin>
         <plugin>
+          <groupId>org.antlr</groupId>
+          <artifactId>antlr4-maven-plugin</artifactId>
+          <version>${antlr.version}</version>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.1</version>
@@ -198,6 +204,7 @@
           <consoleOutput>true</consoleOutput>
           <logViolationsToConsole>true</logViolationsToConsole>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
         </configuration>
         <executions>
           <execution>
