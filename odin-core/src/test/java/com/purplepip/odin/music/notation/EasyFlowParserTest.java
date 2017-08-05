@@ -48,7 +48,12 @@ public class EasyFlowParserTest {
   public void testCompositions() {
     Map<String, String> notations = new HashMap<>();
 
-    notations.put("C#5/q, B4, A4, G#4", "0.1-61 1.1-59 2.1-57 3.1-56 ");
+    notations.put("C#5/q, B4, A4, G#4",
+        "0.1-61 1.1-59 2.1-57 3.1-56 ");
+    notations.put("C5/q, B4, A4, G#4",
+        "0.1-60 1.1-59 2.1-57 3.1-56 ");
+    notations.put("C5/q, B@4, A4, G#4",
+        "0.1-60 1.1-58 2.1-57 3.1-56 ");
 
     for (Map.Entry<String, String> entry : notations.entrySet()) {
       ParseTree tree = getTree(entry.getKey());
