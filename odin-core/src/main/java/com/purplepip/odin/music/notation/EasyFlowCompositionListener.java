@@ -21,11 +21,27 @@ import com.purplepip.odin.music.composition.CompositionBuilder;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Letter;
 import com.purplepip.odin.music.notes.NoteNumber;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Easy flow composition listener for for easy flow (i.e. vexflow) notation parsing.
+ */
+/*
+ * //TODO Handle key signature
+ */
 @Slf4j
 public class EasyFlowCompositionListener extends EasyFlowBaseListener {
   private static final int DEFAULT_VELOCITY = 100;
+  private static final Map<String, Integer> accidentals = new HashMap<>();
+
+  static {
+    accidentals.put("#", 1);
+    accidentals.put("@", -1);
+    accidentals.put("n", 0);
+  }
+
   private CompositionBuilder builder = new CompositionBuilder();
   private Composition composition;
 
@@ -58,8 +74,8 @@ public class EasyFlowCompositionListener extends EasyFlowBaseListener {
   }
 
   @Override
-  public void enterSharp(EasyFlowParser.SharpContext ctx) {
-    intonation++;
+  public void enterAccidental(EasyFlowParser.AccidentalContext ctx) {
+    intonation = intonation + accidentals.get(ctx.getText());
   }
 
   @Override
