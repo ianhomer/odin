@@ -13,31 +13,24 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.music.notes;
 
-import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.Roll;
-import com.purplepip.odin.sequence.tick.Tick;
+public enum Letter {
+  C(0),
+  D(2),
+  E(4),
+  F(5),
+  G(7),
+  A(9),
+  B(11);
 
-public interface Track {
-  /**
-   * Channel for the track.
-   *
-   * @return channel
-   */
-  int getChannel();
+  private final int number;
 
-  /**
-   * Roll for the track.
-   *
-   * @return roll
-   */
-  Roll<Note> getRoll();
+  Letter(int number) {
+    this.number = number;
+  }
 
-  /**
-   * Runtime tick for the track.
-   *
-   * @return runtime tick.
-   */
-  Tick getTick();
+  public int getValue() {
+    return number;
+  }
 }

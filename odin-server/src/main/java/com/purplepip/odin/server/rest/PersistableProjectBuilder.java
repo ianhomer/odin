@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest;
 
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;

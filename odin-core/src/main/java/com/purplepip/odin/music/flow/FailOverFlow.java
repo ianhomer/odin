@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.music.flow;
 
-import com.purplepip.odin.music.DefaultNote;
-import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.DefaultEvent;
-import com.purplepip.odin.sequence.Event;
+import com.purplepip.odin.events.DefaultEvent;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.tick.Tock;

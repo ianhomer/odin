@@ -13,26 +13,26 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.music.composition;
 
-/**
- * Roll Event.
- */
-public interface Event<A> {
-  A getValue();
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.notes.Note;
+import java.util.ArrayList;
+import java.util.List;
 
-  /**
-   * Get relative time.  The unit of time is dependent on implementation, e.g. it could be beats,
-   * bars, seconds, or milliseconds.
-   *
-   * @return time
-   */
-  long getTime();
+public class CompositionBuilder {
+  private List<Event<Note>> events = new ArrayList<>();
+  private int length;
 
-  /**
-   * Get denominator.
-   */
-  default long getDenominator() {
-    return 1;
+  public void addEvent(Event<Note> event) {
+    events.add(event);
+  }
+
+  public void setLength(int length) {
+    this.length = length;
+  }
+
+  public Composition create() {
+    return new Composition(events, length);
   }
 }

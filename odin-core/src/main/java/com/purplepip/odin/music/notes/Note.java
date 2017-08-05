@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music;
+package com.purplepip.odin.music.notes;
 
 /**
  * Note.

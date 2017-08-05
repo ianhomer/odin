@@ -28,6 +28,8 @@ public class ScanForwardEventTest {
 
   @Test
   public void testGetTime() throws Exception {
-    assertEquals(9, new ScanForwardEvent<>(9).getTime());
+    ScanForwardEvent event = new ScanForwardEvent<>(9);
+    assertEquals(9, event.getTime());
+    assertEquals(1, event.getDenominator());
   }
 }

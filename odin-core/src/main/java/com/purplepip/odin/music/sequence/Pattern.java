@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 

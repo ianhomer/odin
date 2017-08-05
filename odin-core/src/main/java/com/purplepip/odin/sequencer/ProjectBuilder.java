@@ -17,11 +17,11 @@ package com.purplepip.odin.sequencer;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.purplepip.odin.music.DefaultNote;
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
+import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.DefaultPattern;

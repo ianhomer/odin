@@ -15,8 +15,10 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.music.DefaultNote;
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.events.DefaultEvent;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 import org.slf4j.Logger;

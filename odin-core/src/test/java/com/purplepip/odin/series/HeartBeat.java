@@ -1,8 +1,8 @@
 package com.purplepip.odin.series;
 
+import com.purplepip.odin.events.DefaultEvent;
+import com.purplepip.odin.events.Event;
 import com.purplepip.odin.properties.Property;
-import com.purplepip.odin.sequence.DefaultEvent;
-import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;

@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.events.Event;
+
 /**
  * Event indicating that no value was found up to the given time that was scanned.  This
  * event signal can be used to allow a tock of a runtime sequence to be moved forward to this

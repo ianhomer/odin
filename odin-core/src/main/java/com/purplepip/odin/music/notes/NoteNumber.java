@@ -13,24 +13,26 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation;
+package com.purplepip.odin.music.notes;
 
-public enum NoteLetter {
-  C(0),
-  D(2),
-  E(4),
-  F(5),
-  G(7),
-  A(9),
-  B(11);
+/**
+ * Note number, based on MIDI standard.
+ */
+public class NoteNumber {
+  private int value;
 
-  private final int number;
-
-  NoteLetter(int number) {
-    this.number = number;
+  /**
+   * Create a note number
+   *
+   * @param letter note letter
+   * @param intonation e.g. sharp or flat
+   * @param octave octave, 0 to 10
+   */
+  public NoteNumber(Letter letter, int intonation, int octave) {
+    value = octave * 12 + letter.getValue() + intonation;
   }
 
   public int getValue() {
-    return number;
+    return value;
   }
 }

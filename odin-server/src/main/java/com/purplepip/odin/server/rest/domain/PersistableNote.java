@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.domain;
 
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.notes.Note;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

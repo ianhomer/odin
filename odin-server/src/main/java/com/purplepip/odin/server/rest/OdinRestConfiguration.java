@@ -18,7 +18,7 @@ package com.purplepip.odin.server.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.server.rest.domain.PersistableNote;
 import com.purplepip.odin.server.rest.domain.PersistableTick;

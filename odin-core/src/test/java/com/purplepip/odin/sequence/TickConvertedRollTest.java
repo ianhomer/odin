@@ -3,8 +3,10 @@ package com.purplepip.odin.sequence;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import com.purplepip.odin.music.DefaultNote;
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.events.DefaultEvent;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Before;

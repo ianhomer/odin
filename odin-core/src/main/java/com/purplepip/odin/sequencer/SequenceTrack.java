@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Roll;

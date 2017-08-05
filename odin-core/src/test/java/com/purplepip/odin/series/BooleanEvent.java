@@ -1,6 +1,6 @@
 package com.purplepip.odin.series;
 
-import com.purplepip.odin.sequence.Event;
+import com.purplepip.odin.events.Event;
 
 /**
  * Boolean.

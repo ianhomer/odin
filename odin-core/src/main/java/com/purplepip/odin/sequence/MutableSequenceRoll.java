@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.events.Event;
 import com.purplepip.odin.properties.Mutable;
 import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;

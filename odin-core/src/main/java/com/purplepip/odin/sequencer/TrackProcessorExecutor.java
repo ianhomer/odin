@@ -16,11 +16,11 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import lombok.extern.slf4j.Slf4j;

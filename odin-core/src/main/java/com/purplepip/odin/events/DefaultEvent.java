@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.events;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import lombok.ToString;

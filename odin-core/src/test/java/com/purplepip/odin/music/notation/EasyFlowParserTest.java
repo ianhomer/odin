@@ -17,9 +17,7 @@ package com.purplepip.odin.music.notation;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.music.Note;
 import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.sequence.Event;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -44,12 +42,8 @@ public class EasyFlowParserTest {
     EasyFlowCompositionListener compositionListener = new EasyFlowCompositionListener();
     walker.walk(compositionListener, tree);
     Composition composition = compositionListener.getComposition();
-    assertEquals(4, composition.getEvents().size());
-    Event<Note> event1 = composition.getEvents().get(0);
-    assertEquals(73, event1.getValue().getNumber());
-    assertEquals(0, event1.getTime());
-    Event<Note> event2 = composition.getEvents().get(1);
-    assertEquals("Note 2 number not correct",71, event2.getValue().getNumber());
-    assertEquals(1, event2.getTime());
+    assertEquals(4, composition.size());
+    assertEquals("0.1-61 1.1-59 2.1-57 3.1-56 ",
+        new CompositionNotation(composition).getBody());
   }
 }

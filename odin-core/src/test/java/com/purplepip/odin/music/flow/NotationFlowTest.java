@@ -17,12 +17,12 @@ package com.purplepip.odin.music.flow;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.Event;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;

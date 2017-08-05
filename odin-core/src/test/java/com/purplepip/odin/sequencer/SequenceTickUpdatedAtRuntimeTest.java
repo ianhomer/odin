@@ -4,8 +4,8 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.DefaultNote;
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.tick.Ticks;

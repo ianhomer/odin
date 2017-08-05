@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.domain;
 
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.tick.Tick;
 import javax.persistence.CascadeType;

@@ -15,22 +15,33 @@
 
 package com.purplepip.odin.music.composition;
 
-import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.Event;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Composition of music.  Tick unit is a beat.
  */
 public class Composition {
   private List<Event<Note>> events = new ArrayList<>();
+  private int tocks;
 
-  public void addEvent(Event<Note> event) {
-    events.add(event);
+  public Composition(List<Event<Note>> events, int tocks) {
+    this.events.addAll(events);
+    this.tocks = tocks;
   }
 
-  public List<Event<Note>> getEvents() {
-    return events;
+  public int getTocks() {
+    return tocks;
+  }
+
+  public Stream<Event<Note>> stream() {
+    return events.stream();
+  }
+
+  public int size() {
+    return events.size();
   }
 }

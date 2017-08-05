@@ -15,18 +15,22 @@
 
 package com.purplepip.odin.music.notation;
 
-import com.purplepip.odin.music.DefaultNote;
+import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.sequence.DefaultEvent;
+import com.purplepip.odin.music.composition.CompositionBuilder;
+import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Letter;
+import com.purplepip.odin.music.notes.NoteNumber;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EasyFlowCompositionListener extends EasyFlowBaseListener {
   private static final int DEFAULT_VELOCITY = 100;
-  private Composition composition = new Composition();
+  private CompositionBuilder builder = new CompositionBuilder();
+  private Composition composition;
 
-  private NoteLetter noteLetter;
-  private int relativeNoteNumber;
+  private Letter letter;
+  private int intonation = 0;
   private int octave;
   private int tock;
   private int velocity = DEFAULT_VELOCITY;
@@ -36,10 +40,16 @@ public class EasyFlowCompositionListener extends EasyFlowBaseListener {
   }
 
   @Override
+  public void exitComposition(EasyFlowParser.CompositionContext ctx) {
+    builder.setLength(tock);
+    composition = builder.create();
+  }
+
+  @Override
   public void enterLetter(EasyFlowParser.LetterContext ctx) {
     LOG.debug("Entering note {}", ctx.getText());
-    noteLetter = NoteLetter.valueOf(ctx.getText());
-    relativeNoteNumber = noteLetter.getValue();
+    letter = Letter.valueOf(ctx.getText());
+    intonation = 0;
   }
 
   @Override
@@ -49,14 +59,16 @@ public class EasyFlowCompositionListener extends EasyFlowBaseListener {
 
   @Override
   public void enterSharp(EasyFlowParser.SharpContext ctx) {
-    relativeNoteNumber++;
+    intonation++;
   }
 
   @Override
   public void exitNote(EasyFlowParser.NoteContext ctx) {
-    composition.addEvent(new DefaultEvent<>(
-        new DefaultNote((octave + 1) * 12 + relativeNoteNumber, velocity, 1),
+    builder.addEvent(new DefaultEvent<>(
+        new DefaultNote(
+            new NoteNumber(letter, intonation, octave).getValue(),
+            velocity, 1),
         tock));
-    tock ++;
+    tock++;
   }
 }
