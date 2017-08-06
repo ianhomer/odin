@@ -4,7 +4,7 @@ Harmonising Chaos.
 
 # Initial Use Case
 
-Sounds to accompany a live performance.
+Sequencer to generate sounds to accompany and in response from a live performance.
 
 # Background
 
