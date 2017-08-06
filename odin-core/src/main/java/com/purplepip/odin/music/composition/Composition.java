@@ -59,6 +59,9 @@ public class Composition {
    * @param tock tock
    * @return loop start
    */
+  /*
+   * TODO : Implement as rational arithmetic.
+   */
   public long getLoopStart(double tock) {
     return (long) ((long) (tock / tocks.getValue()) * tocks.getValue());
   }
