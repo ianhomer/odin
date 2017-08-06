@@ -17,18 +17,40 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.composition.CompositionFactory;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.Pattern;
+import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
+import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
-import com.purplepip.odin.sequence.tick.MovableTock;
+import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequence.tick.Tock;
+import lombok.extern.slf4j.Slf4j;
 
-public class NotationFlow extends AbstractFlow<Pattern, Note> {
+@Slf4j
+public class NotationFlow extends AbstractFlow<Notation, Note> {
+  private Composition composition;
+  private TickConverter tickConverter;
+  private int index;
+
   @Override
   public Event<Note> getNextEvent(Tock tock) {
-    MovableTock mutableTock = new MovableTock(tock);
-    mutableTock.increment();
-    return new DefaultEvent<>(new DefaultNote(60,100,1), mutableTock.getCount());
+    double compositionTock  = tickConverter.convertBack(tock.getCount());
+
+    Event<Note> nextCompositionEvent = composition.getNextEvent(compositionTock);
+    double flowTock = tickConverter
+        .convert(composition.getLoopStart(compositionTock) + nextCompositionEvent.getTime());
+    LOG.debug("Next composition event {} at flow tock {}", nextCompositionEvent, flowTock);
+
+    return new DefaultEvent<>(nextCompositionEvent.getValue(), (long) flowTock);
+  }
+
+  @Override
+  public void afterPropertiesSet() {
+    LOG.debug("Initialising notation flow with {}", getSequence().getNotation());
+    composition = new CompositionFactory().create(getSequence().getNotation());
+    tickConverter =
+        new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> getClock().getTick());
   }
 }

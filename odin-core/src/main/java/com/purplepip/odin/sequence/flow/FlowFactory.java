@@ -82,6 +82,7 @@ public class FlowFactory<A> {
     flow.setClock(clock);
     flow.setMeasureProvider(measureProvider);
     flow.setConfiguration(flowConfiguration);
+    flow.afterPropertiesSet();
     return flow;
   }
 }

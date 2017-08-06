@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.music.composition;
 
+import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
@@ -43,5 +44,34 @@ public class Composition {
 
   public int size() {
     return events.size();
+  }
+
+  /**
+   * Get the tock value for the start of the loop which the given tock is in
+   *
+   * @param tock tock
+   * @return loop start
+   */
+  public long getLoopStart(double tock) {
+    return (long) (tock / tocks) * tocks;
+  }
+
+  public Event<Note> getNextEvent(double tock) {
+    long relativeTock = (long) tock % tocks;
+    return
+        events.stream().sequential()
+            .filter(event -> event.getTime() > relativeTock)
+            .findFirst()
+            .orElseGet(() -> rollOver(events.get(0)));
+  }
+
+  /**
+   * Roll over the given event to the following loop.
+   *
+   * @param event event to roll over
+   * @return event that has been rolled over
+   */
+  private Event<Note> rollOver(Event<Note> event) {
+    return new DefaultEvent<>(event.getValue(), event.getTime() + tocks);
   }
 }

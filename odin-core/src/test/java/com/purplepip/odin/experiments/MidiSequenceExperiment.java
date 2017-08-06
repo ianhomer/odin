@@ -42,7 +42,7 @@ public class MidiSequenceExperiment {
   }
 
   private void doExperiment() throws OdinException, InterruptedException {
-    final CountDownLatch lock = new CountDownLatch(400);
+    final CountDownLatch lock = new CountDownLatch(800);
 
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();
@@ -83,9 +83,10 @@ public class MidiSequenceExperiment {
           .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
           .withChannel(9).changeProgramTo("TR-909")
           .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
-          .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
+          .withVelocity(50).addPattern(Ticks.EIGHTH, 127)
           .withNote(46).addPattern(Ticks.TWO_THIRDS, 7)
-          .addNotation(Ticks.BEAT, "Cn-D-E/4 F#/5");
+          .withChannel(3).changeProgramTo("bass")
+          .withVelocity(100).addNotation(Ticks.BEAT, "B5/q, E5, G5, C5");
 
       container.addApplyListener(sequencer);
       container.apply();

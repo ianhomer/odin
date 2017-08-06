@@ -34,4 +34,6 @@ public interface Flow<S extends Sequence, A> {
   MeasureProvider getMeasureProvider();
 
   FlowConfiguration getConfiguration();
+
+  default void afterPropertiesSet() {}
 }
