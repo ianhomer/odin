@@ -47,7 +47,7 @@ public class Composition {
   }
 
   /**
-   * Get the tock value for the start of the loop which the given tock is in
+   * Get the tock value for the start of the loop which the given tock is in.
    *
    * @param tock tock
    * @return loop start
@@ -56,11 +56,19 @@ public class Composition {
     return (long) (tock / tocks) * tocks;
   }
 
+  /**
+   * Get next event in the composition after the given tock.  Note that if the event is in the
+   * next loop then the time for this event will be relative to loop start for the loop in which
+   * the given tock is in.
+   *
+   * @param tock tock from which to find next event*
+   * @return next event
+   */
   public Event<Note> getNextEvent(double tock) {
     long relativeTock = (long) tock % tocks;
     return
         events.stream().sequential()
-            .filter(event -> event.getTime() > relativeTock)
+            .filter(event -> event.getTime() >= relativeTock)
             .findFirst()
             .orElseGet(() -> rollOver(events.get(0)));
   }

@@ -22,7 +22,16 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+/**
+ * Composition factory.
+ */
 public class CompositionFactory {
+  /**
+   * Create composition from the given notation.
+   *
+   * @param notation notation to create composition for
+   * @return composition
+   */
   public Composition create(String notation) {
     EasyFlowLexer lexer = new EasyFlowLexer(CharStreams.fromString(notation));
     CommonTokenStream tokens = new CommonTokenStream(lexer);

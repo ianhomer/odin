@@ -40,7 +40,7 @@ public class NotationFlowTest {
   public void testGetNextEvent() {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
-    builder.addNotation(Ticks.BEAT, "a");
+    builder.addNotation(Ticks.BEAT, "B5/q, E5, G5, C5");
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
     BeatClock clock = new BeatClock(new StaticBeatsPerMinute(60));
@@ -48,7 +48,7 @@ public class NotationFlowTest {
     Flow<Sequence, Note> flow = flowFactory.createFlow(notation, clock, measureProvider);
     Event<Note> event = flow
         .getNextEvent(new MovableTock(notation.getTick(), 0));
-    assertEquals(1, event.getTime());
-    assertEquals(60, event.getValue().getNumber());
+    assertEquals(0, event.getTime());
+    assertEquals(71, event.getValue().getNumber());
   }
 }
