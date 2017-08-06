@@ -35,11 +35,16 @@ import lombok.extern.slf4j.Slf4j;
 public class EasyScoreCompositionListener extends EasyScoreBaseListener {
   private static final int DEFAULT_VELOCITY = 100;
   private static final Map<String, Integer> accidentals = new HashMap<>();
+  private static final Map<String, Integer> durations = new HashMap<>();
 
   static {
     accidentals.put("#", 1);
     accidentals.put("@", -1);
     accidentals.put("n", 0);
+
+    durations.put("h", 2);
+    durations.put("q", 1);
+    durations.put("8", 1);
   }
 
   private CompositionBuilder builder = new CompositionBuilder();

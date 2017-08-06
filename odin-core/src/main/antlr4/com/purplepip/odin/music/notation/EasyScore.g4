@@ -12,7 +12,7 @@ NEWLINE: [\n\r];
 LETTER: [A-G];
 ACCIDENTAL : [#@n];
 OCTAVE : [0-9];
-QUAVER: [q];
+DURATION: [hq8];
 
 composition : (line)+;
 
@@ -23,4 +23,4 @@ note: letter (accidental)? octave;
 letter : LETTER;
 accidental : ACCIDENTAL;
 octave : OCTAVE;
-duration: SLASH QUAVER;
+duration: SLASH DURATION;

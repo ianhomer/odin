@@ -18,7 +18,7 @@ package com.purplepip.odin.music.notation;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.composition.Composition;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.CharStreams;
@@ -45,8 +45,8 @@ public class EasyScoreParserTest {
   }
 
   @Test
-  public void testCompositions() {
-    Map<String, String> notations = new HashMap<>();
+  public void testBasicCompositions() {
+    Map<String, String> notations = new LinkedHashMap<>();
 
     notations.put("C#5/q, B4, A4, G#4",
         "0.1-61 1.1-59 2.1-57 3.1-56 ");
@@ -54,7 +54,20 @@ public class EasyScoreParserTest {
         "0.1-60 1.1-59 2.1-57 3.1-56 ");
     notations.put("C5/q, B@4, A4, G#4",
         "0.1-60 1.1-58 2.1-57 3.1-56 ");
+    assertCompositionsOk(notations);
+  }
 
+  @Test
+  public void testBeatVariations() {
+    Map<String, String> notations = new LinkedHashMap<>();
+    notations.put("C5/h, C5, C5, C5",
+        "0.2-60 2.2-60 4.2-60 6.2-60 ");
+    notations.put("C5/8, C5, C5, C5",
+        "0.1/2-60 1/2.1/2-60 1.1/2-60 3/2.1/2-60 ");
+    assertCompositionsOk(notations);
+  }
+
+  private void assertCompositionsOk(Map<String, String> notations) {
     for (Map.Entry<String, String> entry : notations.entrySet()) {
       ParseTree tree = getTree(entry.getKey());
 
@@ -66,5 +79,4 @@ public class EasyScoreParserTest {
       assertEquals(entry.getValue(), new CompositionNotation(composition).getBody());
     }
   }
-
 }
