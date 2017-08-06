@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.music.composition;
 
-import com.purplepip.odin.music.notation.EasyFlowCompositionListener;
-import com.purplepip.odin.music.notation.EasyFlowLexer;
-import com.purplepip.odin.music.notation.EasyFlowParser;
+import com.purplepip.odin.music.notation.EasyScoreCompositionListener;
+import com.purplepip.odin.music.notation.EasyScoreLexer;
+import com.purplepip.odin.music.notation.EasyScoreParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -33,10 +33,10 @@ public class CompositionFactory {
    * @return composition
    */
   public Composition create(String notation) {
-    EasyFlowLexer lexer = new EasyFlowLexer(CharStreams.fromString(notation));
+    EasyScoreLexer lexer = new EasyScoreLexer(CharStreams.fromString(notation));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
-    EasyFlowParser parser = new EasyFlowParser(tokens);
-    EasyFlowCompositionListener compositionListener = new EasyFlowCompositionListener();
+    EasyScoreParser parser = new EasyScoreParser(tokens);
+    EasyScoreCompositionListener compositionListener = new EasyScoreCompositionListener();
     new ParseTreeWalker().walk(compositionListener, parser.composition());
     return compositionListener.getComposition();
   }

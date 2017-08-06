@@ -28,18 +28,18 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Test;
 
 @Slf4j
-public class EasyFlowParserTest {
+public class EasyScoreParserTest {
   private ParseTree getTree(String notation) {
-    EasyFlowLexer lexer = new EasyFlowLexer(CharStreams.fromString(notation));
+    EasyScoreLexer lexer = new EasyScoreLexer(CharStreams.fromString(notation));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
-    EasyFlowParser parser = new EasyFlowParser(tokens);
+    EasyScoreParser parser = new EasyScoreParser(tokens);
     return parser.composition();
   }
 
   @Test
   public void testParser() {
     ParseTree tree = getTree("C#5/q, B4, A4, G#4");
-    TestEasyFlowListener listener = new TestEasyFlowListener();
+    TestEasyScoreListener listener = new TestEasyScoreListener();
     new ParseTreeWalker().walk(listener, tree);
     assertEquals(4, listener.getNoteCount());
   }
@@ -59,7 +59,7 @@ public class EasyFlowParserTest {
       ParseTree tree = getTree(entry.getKey());
 
       LOG.debug("Testing composition");
-      EasyFlowCompositionListener compositionListener = new EasyFlowCompositionListener();
+      EasyScoreCompositionListener compositionListener = new EasyScoreCompositionListener();
       new ParseTreeWalker().walk(compositionListener, tree);
       Composition composition = compositionListener.getComposition();
       assertEquals(4, composition.size());

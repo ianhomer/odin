@@ -15,14 +15,14 @@
 
 package com.purplepip.odin.music.notation;
 
-public class TestEasyFlowListener extends EasyFlowBaseListener {
+public class TestEasyScoreListener extends EasyScoreBaseListener {
   private int noteCount;
 
   public int getNoteCount() {
     return noteCount;
   }
 
-  @Override public void enterNote(EasyFlowParser.NoteContext ctx) {
+  @Override public void enterNote(EasyScoreParser.NoteContext ctx) {
     noteCount++;
   }
 }

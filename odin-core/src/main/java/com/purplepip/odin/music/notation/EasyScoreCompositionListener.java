@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  * //TODO Handle key signature
  */
 @Slf4j
-public class EasyFlowCompositionListener extends EasyFlowBaseListener {
+public class EasyScoreCompositionListener extends EasyScoreBaseListener {
   private static final int DEFAULT_VELOCITY = 100;
   private static final Map<String, Integer> accidentals = new HashMap<>();
 
@@ -56,30 +56,30 @@ public class EasyFlowCompositionListener extends EasyFlowBaseListener {
   }
 
   @Override
-  public void exitComposition(EasyFlowParser.CompositionContext ctx) {
+  public void exitComposition(EasyScoreParser.CompositionContext ctx) {
     builder.setLength(tock);
     composition = builder.create();
   }
 
   @Override
-  public void enterLetter(EasyFlowParser.LetterContext ctx) {
+  public void enterLetter(EasyScoreParser.LetterContext ctx) {
     LOG.debug("Entering note {}", ctx.getText());
     letter = Letter.valueOf(ctx.getText());
     intonation = 0;
   }
 
   @Override
-  public void enterOctave(EasyFlowParser.OctaveContext ctx) {
+  public void enterOctave(EasyScoreParser.OctaveContext ctx) {
     octave = Integer.parseInt(ctx.getText());
   }
 
   @Override
-  public void enterAccidental(EasyFlowParser.AccidentalContext ctx) {
+  public void enterAccidental(EasyScoreParser.AccidentalContext ctx) {
     intonation = intonation + accidentals.get(ctx.getText());
   }
 
   @Override
-  public void exitNote(EasyFlowParser.NoteContext ctx) {
+  public void exitNote(EasyScoreParser.NoteContext ctx) {
     builder.addEvent(new DefaultEvent<>(
         new DefaultNote(
             new NoteNumber(letter, intonation, octave).getValue(),

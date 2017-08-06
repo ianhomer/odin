@@ -3,7 +3,7 @@
  * Example : C#5/q, B4, A4, G#4
  */
 
-grammar EasyFlow;
+grammar EasyScore;
 
 WHITESPACE : [ \t]+ -> skip ;
 COMMA : [,]+ -> skip ;
