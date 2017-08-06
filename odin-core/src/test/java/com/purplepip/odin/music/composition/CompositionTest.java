@@ -2,6 +2,7 @@ package com.purplepip.odin.music.composition;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.math.Rational;
 import org.junit.Test;
 
 /*
@@ -22,6 +23,7 @@ public class CompositionTest {
   @Test
   public void testLoopStart() {
     Composition composition = new CompositionFactory().create("C#5/q, B4, A4, G#4");
+    assertEquals(new Rational(4), composition.getTocks());
     assertEquals(0, composition.getLoopStart(0));
     assertEquals(8, composition.getLoopStart(9.3));
   }

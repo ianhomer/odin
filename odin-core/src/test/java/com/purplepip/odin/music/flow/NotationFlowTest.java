@@ -16,8 +16,11 @@
 package com.purplepip.odin.music.flow;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
@@ -36,19 +39,39 @@ import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 
 public class NotationFlowTest {
-  @Test
-  public void testGetNextEvent() {
+  private Flow<Sequence, Note> createNotationFlow(String notationAsString) {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
-    builder.addNotation(Ticks.BEAT, "B5/q, E5, G5, C5");
+    builder.addNotation(Ticks.BEAT, notationAsString);
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
     BeatClock clock = new BeatClock(new StaticBeatsPerMinute(60));
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
-    Flow<Sequence, Note> flow = flowFactory.createFlow(notation, clock, measureProvider);
+    return flowFactory.createFlow(notation, clock, measureProvider);
+  }
+
+  @Test
+  public void testGetNextEvent() {
+    Flow<Sequence, Note> flow = createNotationFlow("B5/q, E5, G5, C5");
     Event<Note> event = flow
-        .getNextEvent(new MovableTock(notation.getTick(), 0));
-    assertEquals(0, event.getTime());
+        .getNextEvent(new MovableTock(Ticks.BEAT, Rationals.MINUS_ONE));
+    assertEquals(Rationals.ZERO, event.getTime());
     assertEquals(71, event.getValue().getNumber());
+  }
+
+  @Test
+  public void testGetMultipleEvents() {
+    Flow<Sequence, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
+    Event<Note> event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Rationals.ZERO));
+    for (int i = 0; i < 6 ;i++) {
+      Rational previousEventTime = event.getTime();
+      event = flow.getNextEvent(new MovableTock(Ticks.BEAT, previousEventTime));
+      assertTrue("Event should be after previous one",
+          event.getTime().gt(previousEventTime));
+    }
+
+    assertEquals(new Rational(5), event.getTime());
+    assertEquals(64, event.getValue().getNumber());
+
   }
 }

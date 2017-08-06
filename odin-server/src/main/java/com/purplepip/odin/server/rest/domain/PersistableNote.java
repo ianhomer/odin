@@ -35,4 +35,5 @@ public class PersistableNote implements Note {
   private int velocity;
   private int number;
   private long duration;
+  private long denominator;
 }

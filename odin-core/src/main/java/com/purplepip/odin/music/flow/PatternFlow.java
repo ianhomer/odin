@@ -45,7 +45,8 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
     while (!on && i < maxScanForward) {
       mutableTock.increment();
       i++;
-      long countInMeasure = (long) getMeasureProvider().getCount(mutableTock.getCount());
+      long countInMeasure = (long) getMeasureProvider()
+          .getCount(mutableTock.getCount().approximateAsDouble());
       on = getSequence().getBits() == -1 || ((getSequence().getBits() >> countInMeasure) & 1) == 1;
     }
 

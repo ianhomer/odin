@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.events;
 
+import com.purplepip.odin.math.Rational;
+
 /**
  * Generic event describing something at a given time.  Time is relative to an origin with some
  * time units that are known from the context of use.
@@ -28,14 +30,5 @@ public interface Event<A> {
    *
    * @return time
    */
-  long getTime();
-
-  /**
-   * Get denominator for time.  Typical time is a whole number, but sometimes, for example
-   * when considering music notation it is useful to think in fractions to account for concepts
-   * such as triplets.
-   */
-  default long getDenominator() {
-    return 1;
-  }
+  Rational getTime();
 }

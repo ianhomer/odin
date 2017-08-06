@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 
 /**
  * Event indicating that no value was found up to the given time that was scanned.  This
@@ -23,9 +24,9 @@ import com.purplepip.odin.events.Event;
  * point so that future scans for values start from this point.
  */
 public class ScanForwardEvent<A> implements Event<A> {
-  private long time;
+  private Rational time;
 
-  public ScanForwardEvent(long time) {
+  public ScanForwardEvent(Rational time) {
     this.time = time;
   }
 
@@ -35,7 +36,7 @@ public class ScanForwardEvent<A> implements Event<A> {
   }
 
   @Override
-  public long getTime() {
+  public Rational getTime() {
     return time;
   }
 }

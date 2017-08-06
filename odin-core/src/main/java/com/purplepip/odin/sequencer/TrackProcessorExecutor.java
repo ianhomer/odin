@@ -17,6 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
@@ -90,7 +91,8 @@ public class TrackProcessorExecutor implements Runnable {
     Event<Note> nextEvent = roll.peek();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     if (nextEvent != null) {
-      while (nextEvent != null && nextEvent.getTime() < maxMicrosecondPosition) {
+      while (nextEvent != null
+          && nextEvent.getTime().lt(new Rational(maxMicrosecondPosition))) {
         if (noteCount > maxNotesPerBuffer) {
           LOG.warn("Too many notes in this buffer {} > {} ", noteCount,
               maxNotesPerBuffer);
@@ -101,7 +103,7 @@ public class TrackProcessorExecutor implements Runnable {
          */
         nextEvent = roll.pop();
         LOG.debug("Processing Event {}", nextEvent);
-        if (nextEvent.getTime() < microsecondPosition) {
+        if (nextEvent.getTime().lt(new Rational(microsecondPosition))) {
           statistics.incrementEventTooLateCount();
           LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
               microsecondPosition);
@@ -131,8 +133,8 @@ public class TrackProcessorExecutor implements Runnable {
     try {
       LOG.trace("Sending note {} to channel {} at time {}",
           note, sequenceTrack.getChannel(), nextEvent.getTime());
-      operationProcessor.send(noteOn, nextEvent.getTime());
-      operationProcessor.send(noteOff, nextEvent.getTime() + note.getDuration());
+      operationProcessor.send(noteOn, nextEvent.getTime().floor());
+      operationProcessor.send(noteOff, nextEvent.getTime().floor() + note.getDuration());
     } catch (OdinException e) {
       LOG.error("Cannot send operation to processor", e);
     }

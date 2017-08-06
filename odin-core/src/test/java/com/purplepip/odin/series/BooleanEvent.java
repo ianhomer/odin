@@ -1,24 +1,25 @@
 package com.purplepip.odin.series;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 
 /**
  * Boolean.
  */
 public class BooleanEvent implements Event<Boolean> {
-  private long time;
+  private Rational time;
 
   @Override
   public Boolean getValue() {
     return Boolean.TRUE;
   }
 
-  public BooleanEvent(long time) {
+  public BooleanEvent(Rational time) {
     this.time = time;
   }
 
   @Override
-  public long getTime() {
+  public Rational getTime() {
     return time;
   }
 }

@@ -17,6 +17,7 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.CoercedRational;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.composition.CompositionFactory;
 import com.purplepip.odin.music.notes.Note;
@@ -24,7 +25,6 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
 import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
-import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,18 +32,19 @@ import lombok.extern.slf4j.Slf4j;
 public class NotationFlow extends AbstractFlow<Notation, Note> {
   private Composition composition;
   private TickConverter tickConverter;
-  private int index;
 
   @Override
   public Event<Note> getNextEvent(Tock tock) {
-    double compositionTock  = tickConverter.convertBack(tock.getCount());
+    LOG.debug("Getting next event after {}", tock);
+    double compositionTock  = tickConverter.convertBack(tock.getCount().approximateAsDouble());
 
-    Event<Note> nextCompositionEvent = composition.getNextEvent(compositionTock);
+    Event<Note> nextCompositionEvent =
+        composition.getNextEvent(new CoercedRational(compositionTock));
     double flowTock = tickConverter
-        .convert(composition.getLoopStart(compositionTock) + nextCompositionEvent.getTime());
+        .convert(composition.getLoopStart(compositionTock)
+            + nextCompositionEvent.getTime().approximateAsDouble());
     LOG.debug("Next composition event {} at flow tock {}", nextCompositionEvent, flowTock);
-
-    return new DefaultEvent<>(nextCompositionEvent.getValue(), (long) flowTock);
+    return new DefaultEvent<>(nextCompositionEvent.getValue(), new CoercedRational(flowTock));
   }
 
   @Override
@@ -51,6 +52,6 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
     LOG.debug("Initialising notation flow with {}", getSequence().getNotation());
     composition = new CompositionFactory().create(getSequence().getNotation());
     tickConverter =
-        new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> getClock().getTick());
+        new SameTimeUnitTickConverter(() -> composition.getTick(), () -> getClock().getTick());
   }
 }

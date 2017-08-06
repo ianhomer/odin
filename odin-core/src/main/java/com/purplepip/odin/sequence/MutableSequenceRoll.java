@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.properties.Mutable;
 import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;
@@ -196,7 +197,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       tockCountStart = 0;
     }
     LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
-    tock = new MovableTock(getSequence().getTick(), tockCountStart);
+    tock = new MovableTock(getSequence().getTick(), new Rational(tockCountStart));
     sealedTock = new SealedTock(tock);
 
     clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
@@ -292,12 +293,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       return false;
     }
     LOG.trace("isActive {} : {} < {}", getLength(), tock.getCount(), getLength());
-    return getLength() < 0 || tock.getCount() < getLength();
+    return getLength() < 0 || tock.getCount().lt(new Rational(getLength()));
   }
 
   private Event<A> getNextEventInternal(MovableTock tock) {
     Event<A> event = getNextEvent(sealedTock);
-    LOG.trace("Next event after {} is at {}", tock, event.getTime());
+    LOG.debug("Next event after {} is at {}", tock, event.getTime());
     /*
      * Now increment internal tock to the time of the provided event
      */

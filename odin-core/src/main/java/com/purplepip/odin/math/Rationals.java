@@ -13,17 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.tick;
+package com.purplepip.odin.math;
 
-import com.purplepip.odin.math.Rational;
+public class Rationals {
+  public static final Rational MINUS_ONE = new Rational(-1);
+  public static final Rational ZERO = new Rational(0);
+  public static final Rational ONE = new Rational(1);
 
-/**
- * A positioned tick starting from a specific point in time.  Note that this point in time
- * may be offset from clock start.  The tock itself is not aware of this absolute position,
- * only the component that is using the tock does.
- */
-public interface Tock {
-  Tick getTick();
-
-  Rational getCount();
+  private Rationals() {
+  }
 }

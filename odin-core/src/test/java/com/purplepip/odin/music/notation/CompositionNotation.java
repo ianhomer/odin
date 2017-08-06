@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.music.notation;
 
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.composition.Composition;
 
 /**
@@ -32,21 +33,14 @@ class CompositionNotation {
     StringBuilder builder = new StringBuilder(128);
     composition.stream().forEachOrdered(event ->
         builder
-          .append(getDuration(event.getTime(), event.getDenominator()))
+          .append(event.getTime().toString())
           .append(".")
-          .append(getDuration(event.getValue().getDuration(), event.getValue().getDenominator()))
+          .append(new Rational(event.getValue().getDuration(), event.getValue().getDenominator(),
+              true).toString())
           .append("-")
           .append(event.getValue().getNumber()).append(" ")
     );
     return builder.toString();
-  }
-
-  private String getDuration(long numerator, long denominator) {
-    if (denominator == 1) {
-      return String.valueOf(numerator);
-    } else {
-      return String.valueOf(numerator) + "/" + String.valueOf(denominator);
-    }
   }
 
   public String getBody() {

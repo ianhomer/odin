@@ -16,6 +16,7 @@
 package com.purplepip.odin.events;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.math.Rational;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +28,7 @@ import org.slf4j.LoggerFactory;
 public class DefaultEvent<A> implements Event<A> {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultEvent.class);
   private A value;
-  private long time;
-  private long denominator;
+  private Rational time;
 
   /**
    * Create a default event.
@@ -37,7 +37,7 @@ public class DefaultEvent<A> implements Event<A> {
    * @param time time of the event
    */
   public DefaultEvent(A value, long time) {
-    this(value, time, 1);
+    this(value, new Rational(time));
   }
 
   /**
@@ -45,16 +45,14 @@ public class DefaultEvent<A> implements Event<A> {
    *
    * @param value value for the event
    * @param time time of the event
-   * @param denominator denominator for the time of the event
    */
-  public DefaultEvent(A value, long time, long denominator) {
+  public DefaultEvent(A value, Rational time) {
     if (value == null) {
       throw new OdinRuntimeException("Cannot create an event with a null value");
     }
     LOG.trace("Creating new event : {} at time {}", value, time);
     this.value = value;
     this.time = time;
-    this.denominator = denominator;
   }
 
   @Override
@@ -63,12 +61,7 @@ public class DefaultEvent<A> implements Event<A> {
   }
 
   @Override
-  public long getTime() {
+  public Rational getTime() {
     return time;
-  }
-
-  @Override
-  public long getDenominator() {
-    return denominator;
   }
 }

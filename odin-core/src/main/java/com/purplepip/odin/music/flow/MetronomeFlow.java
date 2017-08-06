@@ -17,6 +17,7 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
@@ -35,9 +36,9 @@ public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
      * Create local and temporary mutable tock for this function execution.
      */
     MovableTock mutableTock = new MovableTock(tock);
-    mutableTock.increment(2);
+    mutableTock.increment(new Rational(2));
     Note note;
-    if ((long) getMeasureProvider().getCount(mutableTock.getCount()) == 0) {
+    if ((long) getMeasureProvider().getCount(mutableTock.getCount().approximateAsDouble()) == 0) {
       note = getSequence().getNoteBarStart();
     } else {
       note = getSequence().getNoteBarMid();

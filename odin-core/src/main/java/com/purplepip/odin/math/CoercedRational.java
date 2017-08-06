@@ -13,17 +13,23 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.tick;
-
-import com.purplepip.odin.math.Rational;
+package com.purplepip.odin.math;
 
 /**
- * A positioned tick starting from a specific point in time.  Note that this point in time
- * may be offset from clock start.  The tock itself is not aware of this absolute position,
- * only the component that is using the tock does.
+ * Coerced rational, that might have some margin of error attached.
  */
-public interface Tock {
-  Tick getTick();
-
-  Rational getCount();
+/*
+ * TODO : Remove usage of this since it is an indication that true rational arithmetic not
+ * implemented.
+ */
+@Deprecated
+public class CoercedRational extends Rational {
+  /**
+   * Create an approximate rational from a double.
+   *
+   * @param value double value to create rational number from
+   */
+  public CoercedRational(double value) {
+    super((long) (value * 1000), 1000, true);
+  }
 }

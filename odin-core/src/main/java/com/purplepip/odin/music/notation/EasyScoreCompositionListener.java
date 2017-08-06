@@ -16,6 +16,7 @@
 package com.purplepip.odin.music.notation;
 
 import com.purplepip.odin.events.DefaultEvent;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.composition.CompositionBuilder;
 import com.purplepip.odin.music.notes.DefaultNote;
@@ -35,16 +36,16 @@ import lombok.extern.slf4j.Slf4j;
 public class EasyScoreCompositionListener extends EasyScoreBaseListener {
   private static final int DEFAULT_VELOCITY = 100;
   private static final Map<String, Integer> accidentals = new HashMap<>();
-  private static final Map<String, Integer> durations = new HashMap<>();
+  private static final Map<String, Rational> durations = new HashMap<>();
 
   static {
     accidentals.put("#", 1);
     accidentals.put("@", -1);
     accidentals.put("n", 0);
 
-    durations.put("h", 2);
-    durations.put("q", 1);
-    durations.put("8", 1);
+    durations.put("/h", new Rational(2));
+    durations.put("/q", new Rational(1));
+    durations.put("/8", new Rational(1,2));
   }
 
   private CompositionBuilder builder = new CompositionBuilder();
@@ -52,8 +53,9 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
 
   private Letter letter;
   private int intonation = 0;
+  private Rational duration = new Rational(1);
   private int octave;
-  private int tock;
+  private Rational tock = new Rational(0);
   private int velocity = DEFAULT_VELOCITY;
 
   public Composition getComposition() {
@@ -61,26 +63,32 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
   }
 
   @Override
-  public void exitComposition(EasyScoreParser.CompositionContext ctx) {
+  public void exitComposition(EasyScoreParser.CompositionContext context) {
     builder.setLength(tock);
     composition = builder.create();
   }
 
   @Override
-  public void enterLetter(EasyScoreParser.LetterContext ctx) {
-    LOG.debug("Entering note {}", ctx.getText());
-    letter = Letter.valueOf(ctx.getText());
+  public void enterLetter(EasyScoreParser.LetterContext context) {
+    LOG.debug("Entering note {}", context.getText());
+    letter = Letter.valueOf(context.getText());
     intonation = 0;
   }
 
   @Override
-  public void enterOctave(EasyScoreParser.OctaveContext ctx) {
-    octave = Integer.parseInt(ctx.getText());
+  public void enterOctave(EasyScoreParser.OctaveContext context) {
+    octave = Integer.parseInt(context.getText());
   }
 
   @Override
-  public void enterAccidental(EasyScoreParser.AccidentalContext ctx) {
-    intonation = intonation + accidentals.get(ctx.getText());
+  public void enterAccidental(EasyScoreParser.AccidentalContext context) {
+    intonation = intonation + accidentals.get(context.getText());
+  }
+
+  @Override
+  public void enterDuration(EasyScoreParser.DurationContext context) {
+    duration = durations.get(context.getText());
+    LOG.debug("Entering duration {} = {}", context.getText(), duration);
   }
 
   @Override
@@ -88,8 +96,8 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
     builder.addEvent(new DefaultEvent<>(
         new DefaultNote(
             new NoteNumber(letter, intonation, octave).getValue(),
-            velocity, 1),
+            velocity, duration.getNumerator(), duration.getDenominator()),
         tock));
-    tock++;
+    tock = tock.add(duration);
   }
 }

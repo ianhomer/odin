@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.tick;
 
+import com.purplepip.odin.math.Rational;
 import lombok.ToString;
 
 /**
@@ -22,7 +23,10 @@ import lombok.ToString;
  */
 @ToString
 public class MovableTock implements Tock {
-  private long count;
+  /*
+   * TODO : Rename count to position to improve readability
+   */
+  private Rational count;
   private Tick tick;
 
   public MovableTock(Tock tock) {
@@ -30,21 +34,21 @@ public class MovableTock implements Tock {
     this.count = tock.getCount();
   }
 
-  public MovableTock(Tick tick, long count) {
+  public MovableTock(Tick tick, Rational count) {
     this.tick = tick;
     this.count = count;
   }
 
-  public void setCount(long count) {
+  public void setCount(Rational count) {
     this.count = count;
   }
 
   public void increment() {
-    count++;
+    count = count.add(new Rational(1));
   }
 
-  public void increment(long increment) {
-    count = count + increment;
+  public void increment(Rational increment) {
+    count = count.add(increment);
   }
 
   @Override
@@ -53,7 +57,7 @@ public class MovableTock implements Tock {
   }
 
   @Override
-  public long getCount() {
+  public Rational getCount() {
     return count;
   }
 }

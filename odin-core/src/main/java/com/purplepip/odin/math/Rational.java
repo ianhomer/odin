@@ -43,6 +43,10 @@ public class Rational {
     fractionCharacters.put(new Rational(7,8), '⅞');
   }
 
+  public Rational(long numerator) {
+    this(numerator, 1, false);
+  }
+
   /**
    * Create rational number.
    *
@@ -93,6 +97,52 @@ public class Rational {
     return numerator / denominator;
   }
 
+  /*
+   * TODO : Remove usage of approximate() since it indicates that true rational arithmetic
+   * is not implemented
+   */
+  @Deprecated
+  public double approximateAsDouble() {
+    return getValue();
+  }
+
+  /**
+   * Add rational number.
+   *
+   * @param rational rational number to add
+   * @return result of addition
+   */
+  public Rational add(Rational rational) {
+    return new Rational(numerator * rational.denominator
+        + rational.getNumerator() * getDenominator(),
+        denominator * rational.denominator, true);
+  }
+
+  /**
+   * Calculate modulo.
+   *
+   * @param rational rational number
+   * @return modulo result
+   */
+  public Rational modulo(Rational rational) {
+    return new Rational((numerator * rational.getDenominator())
+        % (rational.getNumerator() * denominator),
+        rational.getDenominator() * denominator,
+        true);
+  }
+
+  public boolean ge(Rational rational) {
+    return getValue() >= rational.getValue();
+  }
+
+  public boolean gt(Rational rational) {
+    return getValue() > rational.getValue();
+  }
+
+  public boolean lt(Rational rational) {
+    return getValue() < rational.getValue();
+  }
+
   @Override
   public String toString() {
     if (numerator == 0) {
@@ -125,7 +175,7 @@ public class Rational {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (o == null || !(o instanceof Rational)) {
       return false;
     }
 

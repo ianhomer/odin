@@ -17,7 +17,10 @@ package com.purplepip.odin.music.composition;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,14 +30,18 @@ import java.util.stream.Stream;
  */
 public class Composition {
   private List<Event<Note>> events = new ArrayList<>();
-  private int tocks;
+  private Rational tocks;
 
-  public Composition(List<Event<Note>> events, int tocks) {
+  public Composition(List<Event<Note>> events, Rational tocks) {
     this.events.addAll(events);
     this.tocks = tocks;
   }
 
-  public int getTocks() {
+  public Tick getTick() {
+    return Ticks.BEAT;
+  }
+
+  public Rational getTocks() {
     return tocks;
   }
 
@@ -53,7 +60,7 @@ public class Composition {
    * @return loop start
    */
   public long getLoopStart(double tock) {
-    return (long) (tock / tocks) * tocks;
+    return (long) ((long) (tock / tocks.getValue()) * tocks.getValue());
   }
 
   /**
@@ -64,11 +71,11 @@ public class Composition {
    * @param tock tock from which to find next event*
    * @return next event
    */
-  public Event<Note> getNextEvent(double tock) {
-    long relativeTock = (long) tock % tocks;
+  public Event<Note> getNextEvent(Rational tock) {
+    Rational relativeTock = tock.modulo(tocks);
     return
         events.stream().sequential()
-            .filter(event -> event.getTime() >= relativeTock)
+            .filter(event -> event.getTime().gt(relativeTock))
             .findFirst()
             .orElseGet(() -> rollOver(events.get(0)));
   }
@@ -80,6 +87,6 @@ public class Composition {
    * @return event that has been rolled over
    */
   private Event<Note> rollOver(Event<Note> event) {
-    return new DefaultEvent<>(event.getValue(), event.getTime() + tocks);
+    return new DefaultEvent<>(event.getValue(), event.getTime().add(tocks));
   }
 }

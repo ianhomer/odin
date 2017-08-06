@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.tick;
 
+import com.purplepip.odin.math.Rational;
 import lombok.ToString;
 
 /**
@@ -34,7 +35,7 @@ public class SealedTock implements Tock {
   }
 
   @Override
-  public long getCount() {
+  public Rational getCount() {
     return tock.getCount();
   }
 }

@@ -86,7 +86,7 @@ public class MidiSequenceExperiment {
           .withVelocity(50).addPattern(Ticks.EIGHTH, 127)
           .withNote(46).addPattern(Ticks.TWO_THIRDS, 7)
           .withChannel(3).changeProgramTo("bass")
-          .withVelocity(100).addNotation(Ticks.BEAT, "B5/q, E5, G5, C5");
+          .withVelocity(100).addNotation(Ticks.BEAT, "B4/8, B4, E4/q, G4, C4");
 
       container.addApplyListener(sequencer);
       container.apply();

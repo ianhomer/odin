@@ -16,23 +16,27 @@
 package com.purplepip.odin.music.composition;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class CompositionBuilder {
   private List<Event<Note>> events = new ArrayList<>();
-  private int length;
+  private Rational length;
 
   public void addEvent(Event<Note> event) {
     events.add(event);
   }
 
-  public void setLength(int length) {
+  public void setLength(Rational length) {
     this.length = length;
   }
 
   public Composition create() {
+    LOG.debug("Creating composition with length {}", length);
     return new Composition(events, length);
   }
 }

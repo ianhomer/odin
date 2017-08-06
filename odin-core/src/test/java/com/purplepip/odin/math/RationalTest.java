@@ -1,6 +1,8 @@
 package com.purplepip.odin.math;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -42,5 +44,41 @@ public class RationalTest {
     assertEquals("½", new Rational(2,4, true).toString());
     assertEquals("2¼", new Rational(9,4).toString());
     assertEquals("1+3/7", new Rational(10,7).toString());
+  }
+
+  @Test
+  public void testAdd() {
+    assertEquals("1½", new Rational(1,1)
+        .add(new Rational(1,2)).toString());
+    assertEquals("7/12", new Rational(1,3)
+        .add(new Rational(1,4)).toString());
+  }
+
+  @Test
+  public void testGe() {
+    assertTrue(new Rational(2).ge(new Rational(2)));
+    assertTrue(new Rational(2).ge(new Rational(4, 2)));
+  }
+
+  @Test
+  public void testGt() {
+    assertFalse(new Rational(2).gt(new Rational(2)));
+    assertTrue(new Rational(3).gt(new Rational(4, 2)));
+  }
+
+  @Test
+  public void testLt() {
+    assertFalse(new Rational(2).lt(new Rational(2)));
+    assertTrue(new Rational(1).lt(new Rational(4, 2)));
+  }
+
+  @Test
+  public void testModulo() {
+    assertEquals("1", new Rational(3)
+        .modulo(new Rational(2)).toString());
+    assertEquals("0", new Rational(4)
+        .modulo(new Rational(2)).toString());
+    assertEquals("½", new Rational(3,2)
+        .modulo(new Rational(1)).toString());
   }
 }

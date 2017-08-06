@@ -12,15 +12,15 @@ NEWLINE: [\n\r];
 LETTER: [A-G];
 ACCIDENTAL : [#@n];
 OCTAVE : [0-9];
-DURATION: [hq8];
+DURATION: [/][hq8];
 
 composition : (line)+;
 
 line: NEWLINE* measure+ NEWLINE*;
 measure: notes+;
-notes: note (duration)?;
-note: letter (accidental)? octave;
+notes: note;
+note: letter (accidental)? octave (duration)?;
 letter : LETTER;
 accidental : ACCIDENTAL;
 octave : OCTAVE;
-duration: SLASH DURATION;
+duration: DURATION;

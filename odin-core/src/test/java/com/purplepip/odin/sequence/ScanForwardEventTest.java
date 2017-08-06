@@ -18,18 +18,19 @@ package com.purplepip.odin.sequence;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import com.purplepip.odin.math.Rational;
 import org.junit.Test;
 
 public class ScanForwardEventTest {
   @Test
   public void testGetValue() throws Exception {
-    assertNull(new ScanForwardEvent<>(0).getValue());
+    assertNull(new ScanForwardEvent<>(new Rational(0)).getValue());
   }
 
   @Test
   public void testGetTime() throws Exception {
-    ScanForwardEvent event = new ScanForwardEvent<>(9);
-    assertEquals(9, event.getTime());
-    assertEquals(1, event.getDenominator());
+    ScanForwardEvent event = new ScanForwardEvent<>(new Rational(9));
+    assertEquals(9, event.getTime().getNumerator());
+    assertEquals(1, event.getTime().getDenominator());
   }
 }

@@ -17,6 +17,7 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.Sequence;
@@ -30,6 +31,6 @@ public class FailOverFlow extends AbstractFlow<Sequence, Note>  {
   @Override
   public Event<Note> getNextEvent(Tock tock) {
     Note note = new DefaultNote(100, 70,2);
-    return new DefaultEvent<>(note, tock.getCount() + 1);
+    return new DefaultEvent<>(note, tock.getCount().add(Rationals.ONE));
   }
 }
