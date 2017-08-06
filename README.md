@@ -8,10 +8,12 @@ Sequencer to generate sounds to accompany and in response from a live performanc
 
 # Background
 
-Maintains ingested environmental state and streams live patterns that can be experienced by our human senses.
+The general goal for the Odin system is to react to any ingested environmental state and 
+will generate live streams that can be experienced by our human senses.
 
-The first milestone of this software will focus on driving live music performance via MIDI.  Out of this specific
-use case will emerge an abstract concept to drive other outputs and consume other inputs.
+The first milestone of this system will focus on driving live music performance via MIDI.  Out of 
+this specific use case will emerge an abstract concept to drive other outputs and consume other 
+inputs.
 
 # Build
 
