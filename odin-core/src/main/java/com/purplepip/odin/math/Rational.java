@@ -43,7 +43,6 @@ public class Rational extends Real {
     fractionCharacters.put(new Rational(7,8), '⅞');
   }
 
-
   /**
    * Create whole number.
    *
@@ -101,18 +100,6 @@ public class Rational extends Real {
   @Override
   public double calculateValue() {
     return (double) numerator / denominator;
-  }
-
-  /**
-   * @deprecated usage of approximateAsDouble() will be removed ASAP since it indicates that true
-   *     rational arithmetic is not implemented.  It is only in place to handle transition period.
-   */
-  /*
-   * TODO : Remove approximateAsDouble
-   */
-  @Deprecated
-  public double approximateAsDouble() {
-    return getValue();
   }
 
   /**
