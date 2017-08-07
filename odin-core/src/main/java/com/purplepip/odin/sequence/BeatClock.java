@@ -118,7 +118,7 @@ public class BeatClock extends AbstractClock {
   @Override
   public long getMicroseconds(Real count) {
     return microsecondsPositionOfFirstBeat
-        + count.times(Real.valueOf(beatsPerMinute.getMicroSecondsPerBeat())).floor();
+        + count.times(beatsPerMinute.getMicroSecondsPerBeat()).floor();
   }
 
   @Override
@@ -128,8 +128,8 @@ public class BeatClock extends AbstractClock {
 
   @Override
   public Real getCount(long microseconds) {
-    return Real.valueOf((microseconds - microsecondsPositionOfFirstBeat)
-        / (double) beatsPerMinute.getMicroSecondsPerBeat());
+    return Real.valueOf(microseconds - microsecondsPositionOfFirstBeat)
+        .divide(beatsPerMinute.getMicroSecondsPerBeat());
   }
 
   @Override

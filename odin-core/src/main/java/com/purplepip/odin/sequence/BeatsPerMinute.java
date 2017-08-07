@@ -15,11 +15,13 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.math.Real;
+
 /**
  * Beats per minute provider.
  */
 public interface BeatsPerMinute {
   int getBeatsPerMinute();
 
-  long getMicroSecondsPerBeat();
+  Real getMicroSecondsPerBeat();
 }
