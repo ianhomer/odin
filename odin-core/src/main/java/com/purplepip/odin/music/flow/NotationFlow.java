@@ -52,6 +52,6 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
     LOG.debug("Initialising notation flow with {}", getSequence().getNotation());
     composition = new CompositionFactory().create(getSequence().getNotation());
     tickConverter =
-        new SameTimeUnitTickConverter(() -> composition.getTick(), () -> getClock().getTick());
+        new SameTimeUnitTickConverter(composition::getTick, getClock()::getTick);
   }
 }

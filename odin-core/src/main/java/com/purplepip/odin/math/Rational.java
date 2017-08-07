@@ -97,9 +97,12 @@ public class Rational {
     return numerator / denominator;
   }
 
+  /**
+   * @deprecated usage of approximateAsDouble() will be removed ASAP since it indicates that true
+   *     rational arithmetic is not implemented.  It is only in place to handle transition period.
+   */
   /*
-   * TODO : Remove usage of approximate() since it indicates that true rational arithmetic
-   * is not implemented
+   * TODO : Remove approximateAsDouble
    */
   @Deprecated
   public double approximateAsDouble() {
@@ -175,7 +178,7 @@ public class Rational {
     if (this == o) {
       return true;
     }
-    if (o == null || !(o instanceof Rational)) {
+    if (o == null || getClass() != o.getClass()) {
       return false;
     }
 

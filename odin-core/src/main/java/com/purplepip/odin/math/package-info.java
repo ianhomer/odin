@@ -13,13 +13,7 @@
  * limitations under the License.
  */
 
+/**
+ * Generic math utilities.
+ */
 package com.purplepip.odin.math;
-
-public final class Rationals {
-  public static final Rational MINUS_ONE = new Rational(-1);
-  public static final Rational ZERO = new Rational(0);
-  public static final Rational ONE = new Rational(1);
-
-  private Rationals() {
-  }
-}

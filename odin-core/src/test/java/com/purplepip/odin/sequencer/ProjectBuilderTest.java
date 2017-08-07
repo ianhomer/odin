@@ -52,7 +52,7 @@ public class ProjectBuilderTest {
   }
 
   @Test
-  public void addNotation() {
+  public void testAddNotation() {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addNotation(Ticks.BEAT, "a");

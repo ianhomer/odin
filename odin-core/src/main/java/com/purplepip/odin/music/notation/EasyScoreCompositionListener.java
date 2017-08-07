@@ -52,7 +52,7 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
   private Composition composition;
 
   private Letter letter;
-  private int intonation = 0;
+  private int intonation;
   private Rational duration = new Rational(1);
   private int octave;
   private Rational tock = new Rational(0);

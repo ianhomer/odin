@@ -17,10 +17,12 @@ package com.purplepip.odin.math;
 
 /**
  * Coerced rational, that might have some margin of error attached.
+ *
+ * @deprecated usage of CoercedRational() will be removed ASAP since it indicates that true
+ *     rational arithmetic is not implemented.  It is only in place to handle transition period.
  */
 /*
- * TODO : Remove usage of this since it is an indication that true rational arithmetic not
- * implemented.
+ * TODO : Remove usage of CoercedRational
  */
 @Deprecated
 public class CoercedRational extends Rational {
