@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinImplementationException;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -75,26 +76,26 @@ public class DefaultTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected double getTimeWithBeatBasedTimeUnits(Direction direction, double time) {
+  protected Real getTimeWithBeatBasedTimeUnits(Direction direction, Real time) {
     switch (direction.getSourceTick().getTimeUnit()) {
       case BEAT:
         return direction.scaleTime(time);
       case MICROSECOND:
-        return clock.getCountAsDouble(
-            (long) (direction.getSourceTick().getFactor().approximateAsDouble() * time))
-            / direction.getTargetTick().getFactor().approximateAsDouble();
+        return Real.valueOf(clock.getCountAsDouble(
+            direction.getSourceTick().getFactor().times(time)
+              .divide(direction.getTargetTick().getFactor()).floor()));
       default:
         return throwUnexpectedTimeUnit();
     }
   }
 
   @Override
-  protected double getTimeWithMicrosecondBasedTimeUnits(Direction direction, double time) {
+  protected Real getTimeWithMicrosecondBasedTimeUnits(Direction direction, Real time) {
     switch (direction.getSourceTick().getTimeUnit()) {
       case BEAT:
-        return clock.getMicroseconds(
-            direction.getSourceTick().getFactor().approximateAsDouble() * time)
-            / direction.getTargetTick().getFactor().approximateAsDouble();
+        return Real.valueOf(clock.getMicroseconds(
+            direction.getSourceTick().getFactor().times(time)
+                .divide(direction.getTargetTick().getFactor()).getValue()));
       case MICROSECOND:
         return direction.scaleTime(time);
       default:

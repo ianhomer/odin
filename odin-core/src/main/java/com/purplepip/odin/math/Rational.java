@@ -116,76 +116,79 @@ public class Rational extends Real {
   }
 
   /**
-   * Add rational number.
-   *
-   * @param rational rational number to plus
-   * @return result of addition
+   * {@inheritDoc}
    */
-  public Rational plus(Rational rational) {
-    return new Rational(numerator * rational.denominator
-        + rational.getNumerator() * getDenominator(),
-        denominator * rational.denominator, true);
+  @Override
+  public Real plus(Real real) {
+    if (real instanceof Rational) {
+      Rational rational = (Rational) real;
+      return Real.valueOf(numerator * rational.denominator
+              + rational.getNumerator() * getDenominator(),
+          denominator * rational.denominator);
+    }
+    return super.plus(real);
   }
 
   /**
-   * Minus a rational number.
-   *
-   * @param rational rational number to minus
-   * @return result of minus
+   * {@inheritDoc}
    */
-  public Rational minus(Rational rational) {
-    return new Rational(numerator * rational.denominator
-        - rational.getNumerator() * getDenominator(),
-        denominator * rational.denominator, true);
-  }
-
-  public Rational divide(Rational rational) {
-    return new Rational(numerator * rational.getDenominator(),
-        denominator * rational.getNumerator());
+  @Override
+  public Real minus(Real real) {
+    if (real instanceof Rational) {
+      Rational rational = (Rational) real;
+      return Real.valueOf(numerator * rational.denominator
+              - rational.getNumerator() * getDenominator(),
+          denominator * rational.denominator);
+    }
+    return super.minus(real);
   }
 
   /**
-   * Calculate modulo.
-   *
-   * @param rational rational number
-   * @return modulo result
+   * {@inheritDoc}
    */
-  public Rational modulo(Rational rational) {
-    return new Rational((numerator * rational.getDenominator())
-        % (rational.getNumerator() * denominator),
-        rational.getDenominator() * denominator,
-        true);
+  @Override
+  public Real times(Real real) {
+    if (real instanceof Rational) {
+      Rational rational = (Rational) real;
+      return Real.valueOf(numerator * rational.getNumerator(),
+          denominator * rational.getDenominator());
+    }
+    return super.times(real);
   }
 
   /**
-   * Calculate the nearest multiple of base less than this rational number.
-   *
-   * @param radix radix
-   * @return floored value
+   * {@inheritDoc}
    */
-  public Rational floor(Rational radix) {
-    return minus(modulo(radix));
+  @Override
+  public Real divide(Real real) {
+    if (real instanceof Rational) {
+      Rational rational = (Rational) real;
+      return Real.valueOf(numerator * rational.getDenominator(),
+          denominator * rational.getNumerator());
+    }
+    return super.divide(real);
   }
 
   /**
-   * Calculate the nearest integer less than this rational number.
-   *
-   * @return floored value
+   * {@inheritDoc}
    */
+  @Override
+  public Real modulo(Real real) {
+    if (real instanceof Rational) {
+      Rational rational = (Rational) real;
+      return Real.valueOf((numerator * rational.getDenominator())
+              % (rational.getNumerator() * denominator),
+          rational.getDenominator() * denominator);
+    }
+    return super.modulo(real);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public long floor() {
     return numerator / denominator;
-  }
-
-  public boolean ge(Rational rational) {
-    return getValue() >= rational.getValue();
-  }
-
-  public boolean gt(Rational rational) {
-    return getValue() > rational.getValue();
-  }
-
-  public boolean lt(Rational rational) {
-    return getValue() < rational.getValue();
   }
 
   @Override

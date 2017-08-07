@@ -17,7 +17,7 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.CoercedRational;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.composition.CompositionFactory;
 import com.purplepip.odin.music.notes.Note;
@@ -36,16 +36,15 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
   @Override
   public Event<Note> getNextEvent(Tock tock) {
     LOG.debug("Getting next event after {}", tock);
-    double compositionTock  = tickConverter.convertBack(tock.getCount().approximateAsDouble());
+    Real compositionTock  = tickConverter.convertBack(tock.getCount());
 
     Event<Note> nextCompositionEvent =
-        composition.getNextEvent(new CoercedRational(compositionTock));
-    double flowTock = tickConverter
-        .convert(composition.getLoopStart(new CoercedRational(compositionTock))
-            .approximateAsDouble()
-            + nextCompositionEvent.getTime().approximateAsDouble());
+        composition.getNextEvent(compositionTock);
+    Real flowTock = tickConverter
+        .convert(composition.getLoopStart(compositionTock)
+            .plus(nextCompositionEvent.getTime()));
     LOG.debug("Next composition event {} at flow tock {}", nextCompositionEvent, flowTock);
-    return new DefaultEvent<>(nextCompositionEvent.getValue(), new CoercedRational(flowTock));
+    return new DefaultEvent<>(nextCompositionEvent.getValue(), flowTock);
   }
 
   @Override

@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.Mutable;
 import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;
@@ -159,8 +160,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     /*
      * Calculate offset of this sequence in microseconds ...
      */
-    long microsecondOffset = (long) new DefaultTickConverter(beatClock, getTick(),
-        () -> Ticks.MICROSECOND, () -> 0L).convert(getSequence().getOffset());
+    long microsecondOffset = new DefaultTickConverter(beatClock, getTick(),
+        () -> Ticks.MICROSECOND,
+        () -> 0L)
+        .convert(Real.valueOf(getSequence().getOffset())).floor();
     LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
         getSequence().getOffset());
     /*
@@ -174,8 +177,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     /*
      * Create the measure provider with a tick converter converting form beats.
      */
-    long beatOffset = (long) new DefaultTickConverter(beatClock, getTick(),
-        () -> Ticks.BEAT, () -> 0L).convert(getSequence().getOffset());
+    long beatOffset = new DefaultTickConverter(beatClock, getTick(),
+        () -> Ticks.BEAT, () -> 0L).convert(Real.valueOf(getSequence().getOffset())).floor();
     TickConverter beatToSequenceTickConverter =
         new DefaultTickConverter(beatClock, () -> Ticks.BEAT, getTick(),
             () -> - beatOffset);
@@ -187,8 +190,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * count according to the beatClock.  There is no point starting the tock any earlier since
      * that time has passed.
      */
-    long tockCountStart = (long) microsecondToSequenceTickConverter
-        .convert(beatClock.getMicroseconds());
+    long tockCountStart = microsecondToSequenceTickConverter
+        .convert(Real.valueOf(beatClock.getMicroseconds())).floor();
     if (tockCountStart < 0) {
       /*
        * If sequence start is the future then set tock to 0 so that it is ready to

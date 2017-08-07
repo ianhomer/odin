@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -54,7 +54,7 @@ public class TickConvertedRollTest {
         new DefaultEvent<>(
             new DefaultNote(1,1,3), 5));
     Event<Note> eventNote = convertedRoll.pop();
-    assertEquals("event time not correct", new Rational(15000),
+    assertEquals("event time not correct", Real.valueOf(15000),
         eventNote.getTime());
     assertEquals("note duration not correct", 3000, eventNote.getValue().getDuration());
   }
@@ -67,7 +67,7 @@ public class TickConvertedRollTest {
         new DefaultEvent<>(
             new DefaultNote(1,1,3), 5));
     Event<Note> eventNote = convertedRoll.pop();
-    assertEquals("event time not correct",new Rational(15),
+    assertEquals("event time not correct", Real.valueOf(15),
         eventNote.getTime());
     assertEquals("note duration not correct", 3, eventNote.getValue().getDuration());
   }
@@ -80,7 +80,7 @@ public class TickConvertedRollTest {
         new DefaultEvent<>(
             new DefaultNote(1,1,7000), 4000));
     Event<Note> eventNote = convertedRoll.pop();
-    assertEquals("event time not correct",new Rational(9), eventNote.getTime());
+    assertEquals("event time not correct", Real.valueOf(9), eventNote.getTime());
     assertEquals("note duration not correct", 7, eventNote.getValue().getDuration());
   }
 
@@ -92,7 +92,7 @@ public class TickConvertedRollTest {
         new DefaultEvent<>(
             new DefaultNote(1,1,7000), 4000));
     Event<Note> eventNote = convertedRoll.pop();
-    assertEquals("event time not correct", new Rational(9000),
+    assertEquals("event time not correct", Real.valueOf(9000),
         eventNote.getTime());
     assertEquals("note duration not correct", 7000, eventNote.getValue().getDuration());
   }

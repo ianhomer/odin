@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.measure;
 
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.TickConverter;
 
 /**
@@ -40,7 +41,8 @@ public class ConvertedMeasureProvider implements MeasureProvider {
 
   @Override
   public double getMeasure(double count) {
-    return underlyingMeasureProvider.getMeasure(tickConverter.convertBack(count));
+    return underlyingMeasureProvider.getMeasure(
+        tickConverter.convertBack(Real.valueOf(count)).getValue());
   }
 
   /**
@@ -49,16 +51,22 @@ public class ConvertedMeasureProvider implements MeasureProvider {
    * @param count tock count
    * @return beast in the given measure
    */
+  // TODO : Optimise this logic so that we don't need to keep converting back and forwards
+  // between Real
   @Override
   public double getTicksInMeasure(double count) {
-    return tickConverter.convertDuration(count,
-        underlyingMeasureProvider.getTicksInMeasure(tickConverter.convertBack(count)));
+    return tickConverter.convertDuration(Real.valueOf(count),
+        Real.valueOf(underlyingMeasureProvider.getTicksInMeasure(
+            tickConverter.convertBack(Real.valueOf(count)).getValue()))).getValue();
   }
 
+  // TODO : Optimise this logic so that we don't need to keep converting back and forwards
+  // between Real
   @Override
   public double getCount(double count) {
     double underlyingTickCount = underlyingMeasureProvider
-        .getCount(tickConverter.convertBack(count));
-    return tickConverter.convertDuration(count, underlyingTickCount);
+        .getCount(tickConverter.convertBack(Real.valueOf(count)).getValue());
+    return tickConverter.convertDuration(Real.valueOf(count), Real.valueOf(underlyingTickCount))
+        .getValue();
   }
 }

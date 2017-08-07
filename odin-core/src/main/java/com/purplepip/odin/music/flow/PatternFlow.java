@@ -46,7 +46,7 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
       mutableTock.increment();
       i++;
       long countInMeasure = (long) getMeasureProvider()
-          .getCount(mutableTock.getCount().approximateAsDouble());
+          .getCount(mutableTock.getCount().getValue());
       on = getSequence().getBits() == -1 || ((getSequence().getBits() >> countInMeasure) & 1) == 1;
     }
 

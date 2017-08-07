@@ -16,22 +16,13 @@
 package com.purplepip.odin.math;
 
 /**
- * Coerced rational, that might have some margin of error attached.
- *
- * @deprecated usage of CoercedRational() will be removed ASAP since it indicates that true
- *     rational arithmetic is not implemented.  It is only in place to handle transition period.
+ * Whole numbers.
  */
-/*
- * TODO : Remove usage of CoercedRational
- */
-@Deprecated
-public class CoercedRational extends Rational {
-  /**
-   * Create an approximate rational from a double.
-   *
-   * @param value double value to create rational number from
-   */
-  public CoercedRational(double value) {
-    super((long) (value * 1000), 1000, true);
+public final class Wholes {
+  public static final Whole ZERO = new Whole(0);
+  public static final Whole ONE = new Whole(1);
+  public static final Whole TWO = new Whole(2);
+
+  private Wholes() {
   }
 }

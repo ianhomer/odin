@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequence.tick;
 
-import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 
 /**
  * A positioned tick starting from a specific point in time.  Note that this point in time
@@ -25,5 +25,5 @@ import com.purplepip.odin.math.Rational;
 public interface Tock {
   Tick getTick();
 
-  Rational getCount();
+  Real getCount();
 }

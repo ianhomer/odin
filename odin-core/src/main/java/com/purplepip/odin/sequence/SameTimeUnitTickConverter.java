@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 
@@ -44,7 +45,7 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected double getTimeWithBeatBasedTimeUnits(Direction direction, double time) {
+  protected Real getTimeWithBeatBasedTimeUnits(Direction direction, Real time) {
     if (getSourceTick().getTimeUnit() == TimeUnit.BEAT) {
       return direction.scaleTime(time);
     }
@@ -52,7 +53,7 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
   }
 
   @Override
-  protected double getTimeWithMicrosecondBasedTimeUnits(Direction direction, double time) {
+  protected Real getTimeWithMicrosecondBasedTimeUnits(Direction direction, Real time) {
     if (getSourceTick().getTimeUnit() == TimeUnit.MICROSECOND) {
       return direction.scaleTime(time);
     }

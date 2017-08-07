@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.math;
 
+/**
+ * Rational numbers.
+ */
 public final class Rationals {
   public static final Rational MINUS_ONE = new Rational(-1);
   public static final Rational ZERO = new Rational(0);

@@ -6,6 +6,7 @@ import static com.purplepip.odin.sequence.tick.Ticks.MICROSECOND;
 import static com.purplepip.odin.sequence.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
@@ -32,27 +33,27 @@ public class TickConverterTest {
     String label = (duration ? "duration" : "time") + " : ";
     int increment = (duration ? 3 : 2);
     for (int i = 0 ; i < times.length ; i = i + increment) {
-      double forward;
-      double back;
-      double forwardExpect;
-      double backExpect;
+      Real forward;
+      Real back;
+      Real forwardExpect;
+      Real backExpect;
 
       if (duration) {
-        forward = converter.convertDuration(times[i], times[i + 1]);
-        forwardExpect = times[i + 2];
-        back = converter.convertDurationBack(times[i], times[i + 2]);
-        backExpect = times[i + 1];
+        forward = converter.convertDuration(Real.valueOf(times[i]), Real.valueOf(times[i + 1]));
+        forwardExpect = Real.valueOf(times[i + 2]);
+        back = converter.convertDurationBack(Real.valueOf(times[i]), Real.valueOf(times[i + 2]));
+        backExpect = Real.valueOf(times[i + 1]);
       } else {
-        forward = converter.convert(times[i]);
-        forwardExpect = times[i + 1];
-        back = converter.convertBack(times[i + 1]);
-        backExpect = times[i];
+        forward = converter.convert(Real.valueOf(times[i]));
+        forwardExpect = Real.valueOf(times[i + 1]);
+        back = converter.convertBack(Real.valueOf(times[i + 1]));
+        backExpect = Real.valueOf(times[i]);
       }
 
       assertEquals(label + sourceTick + " to " + targetTick + " failed",
-          forwardExpect, forward, 0.0001);
+          forwardExpect, forward);
       assertEquals(label + targetTick + " back to " + sourceTick + " failed",
-          backExpect, back, 0.0001);
+          backExpect, back);
     }
   }
 

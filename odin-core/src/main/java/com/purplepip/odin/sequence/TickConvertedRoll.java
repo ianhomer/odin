@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.Property;
@@ -66,9 +67,9 @@ public class TickConvertedRoll implements Roll<Note> {
       return null;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
-        (long) tickConverter.convertDuration(event.getTime().approximateAsDouble(),
-            event.getValue().getDuration()));
-    long time = (long) tickConverter.convert(event.getTime().approximateAsDouble());
+        tickConverter.convertDuration(event.getTime(),
+            Real.valueOf(event.getValue().getDuration())).floor());
+    long time = tickConverter.convert(event.getTime()).floor();
     LOG.trace("Converted event {} to note {} at time {}", event, note, time);
     return new DefaultEvent<>(note, time);
   }

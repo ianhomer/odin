@@ -21,13 +21,13 @@ import org.junit.Test;
 public class RealTest {
   @Test
   public void testValueOf() {
-    assertEquals(Rationals.ZERO, Real.valueOf(0));
+    assertEquals(Wholes.ZERO, Real.valueOf(0));
   }
 
   @Test
   public void testPlus() {
-    assertEquals(Rationals.TWO, Real.valueOf(1).plus(Real.valueOf(1)));
-    assertEquals(new Real(2.0), Real.valueOf(1.0).plus(Real.valueOf(1)));
-    assertEquals(new Real(2.0), Real.valueOf(1).plus(Real.valueOf(1.0)));
+    assertEquals(Wholes.TWO, Real.valueOf(1).plus(Real.valueOf(1)));
+    assertEquals(Real.valueOf(2.0), Real.valueOf(1.0).plus(Real.valueOf(1)));
+    assertEquals(Real.valueOf(2.0), Real.valueOf(1).plus(Real.valueOf(1.0)));
   }
 }

@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 import org.junit.Test;
 
 public class ScanForwardEventTest {
@@ -29,8 +30,7 @@ public class ScanForwardEventTest {
 
   @Test
   public void testGetTime() throws Exception {
-    ScanForwardEvent event = new ScanForwardEvent<>(new Rational(9));
-    assertEquals(9, event.getTime().getNumerator());
-    assertEquals(1, event.getTime().getDenominator());
+    ScanForwardEvent event = new ScanForwardEvent<>(Real.valueOf(9));
+    assertEquals(Real.valueOf(9,1), event.getTime());
   }
 }

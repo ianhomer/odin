@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.events;
 
-import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 
 /**
  * Generic event describing something at a given time.  Time is relative to an origin with some
@@ -30,5 +30,5 @@ public interface Event<A> {
    *
    * @return time
    */
-  Rational getTime();
+  Real getTime();
 }

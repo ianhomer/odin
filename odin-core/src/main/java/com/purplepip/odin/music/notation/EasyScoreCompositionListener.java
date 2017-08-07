@@ -17,6 +17,7 @@ package com.purplepip.odin.music.notation;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.composition.CompositionBuilder;
 import com.purplepip.odin.music.notes.DefaultNote;
@@ -55,7 +56,7 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
   private int intonation;
   private Rational duration = new Rational(1);
   private int octave;
-  private Rational tock = new Rational(0);
+  private Rational tock = Wholes.ZERO;
   private int velocity = DEFAULT_VELOCITY;
 
   public Composition getComposition() {
@@ -98,6 +99,6 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
             new NoteNumber(letter, intonation, octave).getValue(),
             velocity, duration.getNumerator(), duration.getDenominator()),
         tock));
-    tock = tock.plus(duration);
+    tock = (Rational) tock.plus(duration);
   }
 }

@@ -18,6 +18,7 @@ package com.purplepip.odin.music.composition;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
@@ -62,7 +63,7 @@ public class Composition {
   /*
    * TODO : Implement as rational arithmetic.
    */
-  public Rational getLoopStart(Rational tock) {
+  public Real getLoopStart(Real tock) {
     return tock.floor(tocks);
   }
 
@@ -74,8 +75,8 @@ public class Composition {
    * @param tock tock from which to find next event*
    * @return next event
    */
-  public Event<Note> getNextEvent(Rational tock) {
-    Rational relativeTock = tock.modulo(tocks);
+  public Event<Note> getNextEvent(Real tock) {
+    Real relativeTock = tock.modulo(tocks);
     return
         events.stream().sequential()
             .filter(event -> event.getTime().gt(relativeTock))

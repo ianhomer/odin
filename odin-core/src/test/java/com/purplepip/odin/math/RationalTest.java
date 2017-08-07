@@ -42,7 +42,7 @@ public class RationalTest {
   }
 
   @Test
-  public void testAdd() {
+  public void testPlus() {
     assertEquals("1½", new Rational(1,1)
         .plus(new Rational(1,2)).toString());
     assertEquals("7/12", new Rational(1,3)
@@ -55,6 +55,14 @@ public class RationalTest {
         .minus(new Rational(1,2)).toString());
     assertEquals("1/12", new Rational(1,3)
         .minus(new Rational(1,4)).toString());
+  }
+
+  @Test
+  public void testTimes() {
+    assertEquals("1", new Rational(2,1)
+        .times(new Rational(1,2)).toString());
+    assertEquals("1/12", new Rational(1,3)
+        .times(new Rational(1,4)).toString());
   }
 
   @Test

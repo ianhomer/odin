@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.tick.Tick;
 
 /**
@@ -23,21 +24,9 @@ import com.purplepip.odin.sequence.tick.Tick;
 public interface TickConverter {
   Tick getTargetTick();
 
-  default double convert(long time) {
-    return convert((double) time);
-  }
+  Real convert(Real time);
 
-  double convert(double time);
-
-  default double convertBack(long time) {
-    return convertBack((double) time);
-  }
-
-  double convertBack(double time);
-
-  default double convertDuration(long time, long duration) {
-    return convertDuration((double) time, (double) duration);
-  }
+  Real convertBack(Real time);
 
   /**
    * Convert duration at the given time.  Note that duration can be variable over time so
@@ -48,11 +37,7 @@ public interface TickConverter {
    * @param duration duration to convert
    * @return converted duration
    */
-  double convertDuration(double time, double duration);
+  Real convertDuration(Real time, Real duration);
 
-  default double convertDurationBack(long time, long duration) {
-    return convertDurationBack((double) time, (double) duration);
-  }
-
-  double convertDurationBack(double time, double duration);
+  Real convertDurationBack(Real time, Real duration);
 }

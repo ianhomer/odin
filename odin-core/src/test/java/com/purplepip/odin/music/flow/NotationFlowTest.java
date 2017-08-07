@@ -19,8 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Rationals;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
@@ -65,7 +65,7 @@ public class NotationFlowTest {
     Flow<Sequence, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
     Event<Note> event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Rationals.ZERO));
     for (int i = 0; i < 6 ;i++) {
-      Rational previousEventTime = event.getTime();
+      Real previousEventTime = event.getTime();
       event = flow.getNextEvent(new MovableTock(Ticks.BEAT, previousEventTime));
       assertTrue("Event should be after previous one",
           event.getTime().gt(previousEventTime));

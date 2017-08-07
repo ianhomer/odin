@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
@@ -54,16 +55,17 @@ public class TickConvertedClock extends AbstractClock {
 
   @Override
   public long getMicroseconds(double count) {
-    return beatClock.getMicroseconds(tickToBeatConverter.convert(count));
+    return beatClock.getMicroseconds(tickToBeatConverter.convert(Real.valueOf(count)).getValue());
   }
 
   @Override
   public double getCountAsDouble() {
-    return tickToBeatConverter.convertBack(beatClock.getCountAsDouble());
+    return tickToBeatConverter.convertBack(Real.valueOf(beatClock.getCountAsDouble())).getValue();
   }
 
   @Override
   public double getCountAsDouble(long microseconds) {
-    return tickToBeatConverter.convertBack(beatClock.getCountAsDouble(microseconds));
+    return tickToBeatConverter.convertBack(
+        Real.valueOf(beatClock.getCountAsDouble(microseconds))).getValue();
   }
 }

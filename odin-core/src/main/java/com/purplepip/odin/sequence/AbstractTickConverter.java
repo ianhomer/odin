@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.Observable;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -72,26 +73,26 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   @Override
-  public double convert(double time) {
-    return convertTimeUnit(forwards, getSourceOffset() + time);
+  public Real convert(Real time) {
+    return convertTimeUnit(forwards, Real.valueOf(getSourceOffset()).plus(time));
   }
 
   @Override
-  public double convertBack(double time) {
-    return convertTimeUnit(backwards, time) - getSourceOffset();
+  public Real convertBack(Real time) {
+    return convertTimeUnit(backwards, time).minus(Real.valueOf(getSourceOffset()));
   }
 
   @Override
-  public double convertDuration(double time, double duration) {
-    return convert(time + duration) - convert(time);
+  public Real convertDuration(Real time, Real duration) {
+    return convert(time.plus(duration)).minus(convert(time));
   }
 
   @Override
-  public double convertDurationBack(double time, double duration) {
-    return convertBack(time + duration) - convertBack(time);
+  public Real convertDurationBack(Real time, Real duration) {
+    return convertBack(time.plus(duration)).minus(convertBack(time));
   }
 
-  private double convertTimeUnit(Direction direction, double time) {
+  private Real convertTimeUnit(Direction direction, Real time) {
     switch (direction.getTargetTick().getTimeUnit()) {
       case BEAT:
         return getTimeWithBeatBasedTimeUnits(direction, time);
@@ -102,11 +103,11 @@ public abstract class AbstractTickConverter implements TickConverter {
     }
   }
 
-  protected abstract double getTimeWithBeatBasedTimeUnits(Direction direction, double time);
+  protected abstract Real getTimeWithBeatBasedTimeUnits(Direction direction, Real time);
 
-  protected abstract double getTimeWithMicrosecondBasedTimeUnits(Direction direction, double time);
+  protected abstract Real getTimeWithMicrosecondBasedTimeUnits(Direction direction, Real time);
 
-  long throwUnexpectedTimeUnit() {
+  Real throwUnexpectedTimeUnit() {
     throw new OdinRuntimeException("Unexpected time unit " + getSourceTick().getTimeUnit() + ":"
         + getTargetTick().getTimeUnit());
   }
@@ -114,12 +115,12 @@ public abstract class AbstractTickConverter implements TickConverter {
   final class Direction {
     private Tick sourceTick;
     private Tick targetTick;
-    private double scaleFactor;
+    private Real scaleFactor;
 
     private Direction(Tick sourceTick, Tick targetTick) {
       this.sourceTick = sourceTick;
       this.targetTick = targetTick;
-      scaleFactor = sourceTick.getFactor().divide(targetTick.getFactor()).approximateAsDouble();
+      scaleFactor = sourceTick.getFactor().divide(targetTick.getFactor());
       LOG.trace("{} to {} factor is {}", sourceTick, targetTick, scaleFactor);
     }
 
@@ -131,8 +132,8 @@ public abstract class AbstractTickConverter implements TickConverter {
       return targetTick;
     }
 
-    double scaleTime(double time) {
-      return time * scaleFactor;
+    Real scaleTime(Real time) {
+      return time.times(scaleFactor);
     }
   }
 }
