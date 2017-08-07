@@ -79,4 +79,16 @@ public class Whole extends Rational {
     }
     return super.modulo(real);
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Real floor(Real radix) {
+    if (radix instanceof Whole) {
+      Whole whole = (Whole) radix;
+      return Real.valueOf(getNumerator() - (getNumerator() % whole.getNumerator()));
+    }
+    return super.floor(radix);
+  }
 }

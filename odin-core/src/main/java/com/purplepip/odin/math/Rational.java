@@ -123,7 +123,7 @@ public class Rational extends Real {
   public Real minus(Real real) {
     if (real instanceof Rational) {
       Rational rational = (Rational) real;
-      return Real.valueOf(numerator * rational.denominator
+      return Real.valueOf(numerator * rational.getDenominator()
               - rational.getNumerator() * getDenominator(),
           denominator * rational.denominator);
     }
@@ -176,6 +176,21 @@ public class Rational extends Real {
   @Override
   public long floor() {
     return numerator / denominator;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Real floor(Real radix) {
+    if (radix instanceof Rational) {
+      Rational rational = (Rational) radix;
+      long product1 = numerator * rational.getDenominator();
+      long product2 = rational.getNumerator() * denominator;
+      long product3 = denominator * rational.getDenominator();
+      return Real.valueOf(product1 - (product1 % product2), product3);
+    }
+    return super.floor(radix);
   }
 
   @Override

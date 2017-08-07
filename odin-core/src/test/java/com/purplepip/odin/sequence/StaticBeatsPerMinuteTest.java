@@ -1,12 +1,3 @@
-package com.purplepip.odin.sequence;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
-import org.junit.Test;
-
 /*
  * Copyright (c) 2017 Ian Homer. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +12,16 @@ import org.junit.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.purplepip.odin.sequence;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
+import org.junit.Test;
+
 public class StaticBeatsPerMinuteTest {
   @Test
   public void testBeatsPerMinute() {

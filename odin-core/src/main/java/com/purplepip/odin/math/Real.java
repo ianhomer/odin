@@ -29,12 +29,13 @@ public class Real {
   private double value;
   private boolean valueCalculated = false;
 
-  public static Whole valueOf(long numerator) {
-    return new Whole(numerator);
+  public static Whole valueOf(long integer) {
+    return new Whole(integer);
   }
 
   /**
-   * Create a rational number from a given numerator and denominator.
+   * Create a rational number from a given numerator and denominator.  Note a Whole number is
+   * returned if the numerator is multiple of the denominator.
    *
    * @param numerator numerator
    * @param denominator denominator
@@ -157,7 +158,7 @@ public class Real {
    * @return floored value
    */
   public Real floor(Real radix) {
-    return minus(modulo(radix));
+    return Real.valueOf(getValue() - (getValue() % radix.getValue()));
   }
 
   public boolean ge(Real rational) {

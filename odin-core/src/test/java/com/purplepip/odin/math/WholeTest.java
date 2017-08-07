@@ -18,21 +18,20 @@ import org.junit.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class RealTest {
+public class WholeTest {
   @Test
-  public void testValueOf() {
-    assertEquals(Wholes.ZERO, Real.valueOf(0));
+  public void testFloor() {
+    assertEquals(3, Real.valueOf(3).floor());
+    assertEquals(2, Real.valueOf(2.1).floor());
   }
 
   @Test
-  public void testPlus() {
-    assertEquals(Wholes.TWO, Real.valueOf(1).plus(Real.valueOf(1)));
-    assertEquals(Real.valueOf(2.1), Real.valueOf(1.1).plus(Real.valueOf(1)));
-    assertEquals(Real.valueOf(2.1), Real.valueOf(1).plus(Real.valueOf(1.1)));
+  public void testModulo() {
+    assertEquals(Real.valueOf(2), Real.valueOf(10).modulo(Real.valueOf(4)));
   }
 
   @Test
-  public void testFloorToRadix() {
-    assertEquals(Real.valueOf(8), Real.valueOf(9.3).floor(Real.valueOf(4)));
+  public void testFloorWithRadix() {
+    assertEquals(Real.valueOf(8), Real.valueOf(10).floor(Real.valueOf(4)));
   }
 }

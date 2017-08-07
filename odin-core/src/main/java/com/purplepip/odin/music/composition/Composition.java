@@ -60,9 +60,6 @@ public class Composition {
    * @param tock tock
    * @return loop start
    */
-  /*
-   * TODO : Implement as rational arithmetic.
-   */
   public Real getLoopStart(Real tock) {
     return tock.floor(tocks);
   }
