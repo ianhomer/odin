@@ -19,6 +19,7 @@ package com.purplepip.odin.math;
  * Whole numbers.
  */
 public final class Wholes {
+  public static final Whole MINUS_ONE = new Whole(-1);
   public static final Whole ZERO = new Whole(0);
   public static final Whole ONE = new Whole(1);
   public static final Whole TWO = new Whole(2);

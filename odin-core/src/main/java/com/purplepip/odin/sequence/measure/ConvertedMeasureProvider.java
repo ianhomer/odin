@@ -40,9 +40,9 @@ public class ConvertedMeasureProvider implements MeasureProvider {
   }
 
   @Override
-  public double getMeasure(double count) {
+  public Real getMeasure(Real count) {
     return underlyingMeasureProvider.getMeasure(
-        tickConverter.convertBack(Real.valueOf(count)).getValue());
+        tickConverter.convertBack(count));
   }
 
   /**
@@ -51,22 +51,16 @@ public class ConvertedMeasureProvider implements MeasureProvider {
    * @param count tock count
    * @return beast in the given measure
    */
-  // TODO : Optimise this logic so that we don't need to keep converting back and forwards
-  // between Real
   @Override
-  public double getTicksInMeasure(double count) {
-    return tickConverter.convertDuration(Real.valueOf(count),
-        Real.valueOf(underlyingMeasureProvider.getTicksInMeasure(
-            tickConverter.convertBack(Real.valueOf(count)).getValue()))).getValue();
+  public Real getTicksInMeasure(Real count) {
+    return tickConverter.convertDuration(count,
+        underlyingMeasureProvider.getTicksInMeasure(tickConverter.convertBack(count)));
   }
 
-  // TODO : Optimise this logic so that we don't need to keep converting back and forwards
-  // between Real
   @Override
-  public double getCount(double count) {
-    double underlyingTickCount = underlyingMeasureProvider
-        .getCount(tickConverter.convertBack(Real.valueOf(count)).getValue());
-    return tickConverter.convertDuration(Real.valueOf(count), Real.valueOf(underlyingTickCount))
-        .getValue();
+  public Real getCount(Real count) {
+    Real underlyingTickCount = underlyingMeasureProvider
+        .getCount(tickConverter.convertBack(count));
+    return tickConverter.convertDuration(count, underlyingTickCount);
   }
 }

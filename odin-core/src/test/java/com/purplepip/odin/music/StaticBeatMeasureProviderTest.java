@@ -2,6 +2,8 @@ package com.purplepip.odin.music;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import org.junit.Before;
@@ -20,14 +22,12 @@ public class StaticBeatMeasureProviderTest {
 
   @Test
   public void testMeasure() {
-    assertEquals(1, measureProvider.getCount(9),0.001);
-    assertEquals(0, measureProvider.getCount(12),0.001);
+    assertEquals(Wholes.ONE, measureProvider.getCount(Real.valueOf(9)));
+    assertEquals(Wholes.ZERO, measureProvider.getCount(Real.valueOf(12)));
 
-    assertEquals(0, measureProvider
-        .getMeasure(0), 0.001);
-    assertEquals(2, measureProvider
-        .getMeasure(8),0.001);
+    assertEquals(Wholes.ZERO, measureProvider.getMeasure(Wholes.ZERO));
+    assertEquals(Wholes.TWO, measureProvider.getMeasure(Real.valueOf(8)));
 
-    assertEquals(4, measureProvider.getTicksInMeasure(0), 0.001);
+    assertEquals(Real.valueOf(4), measureProvider.getTicksInMeasure(Wholes.ZERO));
   }
 }

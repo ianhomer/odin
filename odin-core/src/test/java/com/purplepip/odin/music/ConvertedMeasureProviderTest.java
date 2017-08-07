@@ -17,6 +17,8 @@ package com.purplepip.odin.music;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
@@ -45,10 +47,10 @@ public class ConvertedMeasureProviderTest {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.HALF));
 
-    assertEquals(0, measureProvider.getCount(0), 0.01);
-    assertEquals(1, measureProvider.getCount(1), 0.01);
-    assertEquals(7, measureProvider.getCount(7), 0.01);
-    assertEquals(4, measureProvider.getCount(12), 0.01);
+    assertEquals(Wholes.ZERO, measureProvider.getCount(Wholes.ZERO));
+    assertEquals(Wholes.ONE, measureProvider.getCount(Wholes.ONE));
+    assertEquals(Real.valueOf(7), measureProvider.getCount(Real.valueOf(7)));
+    assertEquals(Real.valueOf(4), measureProvider.getCount(Real.valueOf(12)));
   }
 
 
@@ -57,8 +59,8 @@ public class ConvertedMeasureProviderTest {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.FOUR_THIRDS));
 
-    assertEquals(0, measureProvider.getCount(9), 0.001);
-    assertEquals(1, measureProvider.getCount(10), 0.01);
+    assertEquals(Wholes.ZERO, measureProvider.getCount(Real.valueOf(9)));
+    assertEquals(Wholes.ONE, measureProvider.getCount(Real.valueOf(10)));
   }
 
   @Test
@@ -66,14 +68,14 @@ public class ConvertedMeasureProviderTest {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.QUARTER));
 
-    assertEquals(16, measureProvider.getTicksInMeasure(0), 0.001);
+    assertEquals(Real.valueOf(16), measureProvider.getTicksInMeasure(Wholes.ZERO));
   }
 
   @Test
   public void testThreeQuarterBeats() {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.THREE_QUARTERS));
-    assertEquals(5.333, measureProvider.getTicksInMeasure(0), 0.001);
+    assertEquals(Real.valueOf(16, 3), measureProvider.getTicksInMeasure(Wholes.ZERO));
   }
 
   @Test
@@ -84,7 +86,7 @@ public class ConvertedMeasureProviderTest {
 
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         tickConverter);
-    assertEquals(1000, measureProvider.getCount(1000), 0.001);
-    assertEquals(2000, measureProvider.getCount(4002000), 0.001);
+    assertEquals(Real.valueOf(1000), measureProvider.getCount(Real.valueOf(1000)));
+    assertEquals(Real.valueOf(2000), measureProvider.getCount(Real.valueOf(4002000)));
   }
 }

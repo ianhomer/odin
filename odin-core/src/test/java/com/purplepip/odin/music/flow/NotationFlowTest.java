@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
@@ -55,8 +56,7 @@ public class NotationFlowTest {
     Flow<Sequence, Note> flow = createNotationFlow("B5/q, E5, G5, C5");
     Event<Note> event = flow
         .getNextEvent(new MovableTock(Ticks.BEAT, Rationals.MINUS_ONE));
-    // TODO : Ensure that getTime returns Rational NOT CoercedRational and enforce equality
-    //assertEquals(Rationals.ZERO, event.getTime());
+    assertEquals(Wholes.ZERO, event.getTime());
     assertEquals(71, event.getValue().getNumber());
   }
 
@@ -71,8 +71,7 @@ public class NotationFlowTest {
           event.getTime().gt(previousEventTime));
     }
 
-    // TODO : Ensure that getTime returns Rational NOT CoercedRational and enforce equality
-    // assertEquals(new Rational(5), event.getTime().floor());
+    assertEquals(Real.valueOf(5), event.getTime());
     assertEquals(64, event.getValue().getNumber());
 
   }

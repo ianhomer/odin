@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequence.measure;
 
+import com.purplepip.odin.math.Real;
+
 /**
  * <p>Intelligence on how the measures are defined over time.  For music a measure is bar and
  * for a given point in time a measure will have a will defined number of beats.
@@ -36,11 +38,7 @@ public interface MeasureProvider {
    * @param count tick count
    * @return Current measure number
    */
-  double getMeasure(double count);
-
-  default double getMeasure(long count) {
-    return getMeasure((double) count);
-  }
+  Real getMeasure(Real count);
 
   /**
    * Get the number of ticks in the measure for the given tock.
@@ -48,11 +46,7 @@ public interface MeasureProvider {
    * @param count tick count
    * @return beats in the current measure
    */
-  double getTicksInMeasure(double count);
-
-  default double getTicksInMeasure(long count) {
-    return getTicksInMeasure((double) count);
-  }
+  Real getTicksInMeasure(Real count);
 
   /**
    * What tick count in the measure is the given tock?  0 =&gt; start of the measure.  Note that
@@ -62,9 +56,5 @@ public interface MeasureProvider {
    * @param count tick count
    * @return tick position in the current measure
    */
-  double getCount(double count);
-
-  default double getCount(long count) {
-    return getCount((double) count);
-  }
+  Real getCount(Real count);
 }

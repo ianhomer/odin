@@ -15,20 +15,22 @@
 
 package com.purplepip.odin.sequence.measure;
 
+import com.purplepip.odin.math.Real;
+
 /**
  * A simple static measure provider for the beats from the clock start
  * , e.g. for music this is a static time signature.
  */
 public class StaticBeatMeasureProvider implements MeasureProvider {
-  private int beatsPerMeasure;
+  private Real beatsPerMeasure;
 
   public StaticBeatMeasureProvider(int beatsPerMeasure) {
-    this.beatsPerMeasure = beatsPerMeasure;
+    this.beatsPerMeasure = Real.valueOf(beatsPerMeasure);
   }
 
   @Override
-  public double getMeasure(double count) {
-    return count / beatsPerMeasure;
+  public Real getMeasure(Real count) {
+    return count.divide(beatsPerMeasure);
   }
 
   /**
@@ -38,12 +40,12 @@ public class StaticBeatMeasureProvider implements MeasureProvider {
    * @return ticks in the given measure
    */
   @Override
-  public double getTicksInMeasure(double count) {
+  public Real getTicksInMeasure(Real count) {
     return beatsPerMeasure;
   }
 
   @Override
-  public double getCount(double count) {
-    return count % beatsPerMeasure;
+  public Real getCount(Real count) {
+    return count.modulo(beatsPerMeasure);
   }
 }

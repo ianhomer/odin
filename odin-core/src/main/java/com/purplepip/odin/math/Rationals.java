@@ -19,10 +19,10 @@ package com.purplepip.odin.math;
  * Rational numbers.
  */
 public final class Rationals {
-  public static final Rational MINUS_ONE = new Rational(-1);
-  public static final Rational ZERO = new Rational(0);
-  public static final Rational ONE = new Rational(1);
-  public static final Rational TWO = new Rational(2);
+  public static final Rational MINUS_ONE = Wholes.MINUS_ONE;
+  public static final Rational ZERO = Wholes.ZERO;
+  public static final Rational ONE = Wholes.ONE;
+  public static final Rational TWO = Wholes.TWO;
   public static final Rational HALF = new Rational(1, 2);
   public static final Rational THIRD = new Rational(1, 3);
   public static final Rational TWO_THIRDS = new Rational(2, 3);
