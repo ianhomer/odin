@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.tick.Tick;
 
 /**
@@ -31,46 +32,25 @@ public interface Clock extends MicrosecondPositionProvider {
   /**
    * Get microsecond position for the given tick count.
    */
-  default long getMicroseconds(long count) {
-    return getMicroseconds((double) count);
-  }
-
-  /**
-   * Get microsecond position for the given tick count.
-   */
-  long getMicroseconds(double count);
-
-  /**
-   * Get the current tick count.
-   */
-  default long getCount() {
-    return (long) getCountAsDouble();
-  }
-
-  /**
-   * Get the tick count for the given microsecond position.
-   */
-  default long getCount(long microseconds) {
-    return (long) getCountAsDouble(microseconds);
-  }
+  long getMicroseconds(Real count);
 
   /**
    * Get tick count duration for the given number of microseconds from now.
    */
-  long getDuration(long microseconds);
+  Real getDuration(long microseconds);
 
   /**
    * Get tick count duration for the given number of microseconds form the given tick count.
    */
-  long getDuration(long microseconds, long count);
+  Real getDuration(long microseconds, Real count);
 
   /**
    * Get the tick count for the current position.
    */
-  double getCountAsDouble();
+  Real getCount();
 
   /**
    * Get the tick count for the given microsecond position.
    */
-  double getCountAsDouble(long microseconds);
+  Real getCount(long microseconds);
 }

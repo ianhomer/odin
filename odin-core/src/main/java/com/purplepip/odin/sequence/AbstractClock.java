@@ -15,19 +15,21 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.math.Real;
+
 public abstract class AbstractClock implements Clock {
   @Override
-  public final long getDuration(long microseconds) {
+  public final Real getDuration(long microseconds) {
     return getDurationFromMicroseconds(microseconds, getMicroseconds());
   }
 
   @Override
-  public final long getDuration(long microseconds, long count) {
+  public final Real getDuration(long microseconds, Real count) {
     return getDurationFromMicroseconds(microseconds, getMicroseconds(count));
   }
 
-  private long getDurationFromMicroseconds(long microsecondsDuration, long microsecondsPosition) {
+  private Real getDurationFromMicroseconds(long microsecondsDuration, long microsecondsPosition) {
     return getCount(microsecondsPosition + microsecondsDuration)
-        - getCount(microsecondsPosition);
+        .minus(getCount(microsecondsPosition));
   }
 }

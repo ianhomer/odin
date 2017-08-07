@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.math.Real;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;
@@ -37,8 +38,8 @@ public class OdinSequencerTest {
     }
 
     assertEquals("Not enough events fired", 0, lock.getCount());
-    double currentBeat = environment.getSequencer().getClock().getCount();
+    Real currentBeat = environment.getSequencer().getClock().getCount();
     assertTrue(currentBeat
-        + " beats should not have past", currentBeat < OFFSET + LENGTH);
+        + " beats should not have past", currentBeat.lt(Real.valueOf(OFFSET + LENGTH)));
   }
 }

@@ -63,7 +63,7 @@ public class Whole extends Rational {
   public Real divide(Real real) {
     if (real instanceof Whole) {
       Whole whole = (Whole) real;
-      return Real.valueOf(getNumerator() / whole.getNumerator());
+      return Real.valueOf(getNumerator(), whole.getNumerator());
     }
     return super.divide(real);
   }

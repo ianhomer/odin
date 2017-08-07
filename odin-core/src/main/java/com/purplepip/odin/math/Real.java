@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.math;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * A real number.  Note that the Rational and Whole classes extend this Real class and
  * where possible maintain the precision of Rational and Whole via operation calls.  This
@@ -22,6 +24,7 @@ package com.purplepip.odin.math;
  * between a Rational and Real will become a Real.  This allows sequences such as music and
  * rhythm to retain precision such as triplets through tick conversions.
  */
+@Slf4j
 public class Real {
   private double value;
   private boolean valueCalculated = false;
@@ -55,6 +58,10 @@ public class Real {
    */
   public static Real valueOf(double value) {
     if (value % 1 == 0) {
+      /*
+       * TODO : Review when this code is executed
+       */
+      LOG.warn("Converting double {} to whole number, have we lost rational precision?", value);
       return new Whole((long) value);
     }
     return new Real(value);

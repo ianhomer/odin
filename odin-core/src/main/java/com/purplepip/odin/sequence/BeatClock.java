@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.Set;
@@ -115,20 +116,20 @@ public class BeatClock extends AbstractClock {
   }
 
   @Override
-  public long getMicroseconds(double count) {
+  public long getMicroseconds(Real count) {
     return microsecondsPositionOfFirstBeat
-        + (long) (beatsPerMinute.getMicroSecondsPerBeat() * count);
+        + count.times(Real.valueOf(beatsPerMinute.getMicroSecondsPerBeat())).floor();
   }
 
   @Override
-  public double getCountAsDouble() {
-    return getCountAsDouble(microsecondPositionProvider.getMicroseconds());
+  public Real getCount() {
+    return getCount(microsecondPositionProvider.getMicroseconds());
   }
 
   @Override
-  public double getCountAsDouble(long microseconds) {
-    return (microseconds - microsecondsPositionOfFirstBeat)
-        / (double) beatsPerMinute.getMicroSecondsPerBeat();
+  public Real getCount(long microseconds) {
+    return Real.valueOf((microseconds - microsecondsPositionOfFirstBeat)
+        / (double) beatsPerMinute.getMicroSecondsPerBeat());
   }
 
   @Override

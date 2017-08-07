@@ -81,9 +81,9 @@ public class DefaultTickConverter extends AbstractTickConverter {
       case BEAT:
         return direction.scaleTime(time);
       case MICROSECOND:
-        return Real.valueOf(clock.getCountAsDouble(
+        return clock.getCount(
             direction.getSourceTick().getFactor().times(time)
-              .divide(direction.getTargetTick().getFactor()).floor()));
+              .divide(direction.getTargetTick().getFactor()).floor());
       default:
         return throwUnexpectedTimeUnit();
     }
@@ -95,7 +95,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
       case BEAT:
         return Real.valueOf(clock.getMicroseconds(
             direction.getSourceTick().getFactor().times(time)
-                .divide(direction.getTargetTick().getFactor()).getValue()));
+                .divide(direction.getTargetTick().getFactor())));
       case MICROSECOND:
         return direction.scaleTime(time);
       default:

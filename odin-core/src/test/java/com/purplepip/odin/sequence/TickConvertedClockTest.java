@@ -19,6 +19,8 @@ import static com.purplepip.odin.sequence.tick.Ticks.QUARTER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
 public class TickConvertedClockTest {
@@ -26,7 +28,7 @@ public class TickConvertedClockTest {
   public void testCount() {
     BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
-    assertTrue(clock.getCount() > -1);
+    assertTrue(clock.getCount().gt(Wholes.MINUS_ONE));
     assertEquals(QUARTER, clock.getTick());
   }
 
@@ -34,7 +36,7 @@ public class TickConvertedClockTest {
   public void testDuration() {
     BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
-    assertEquals(4, clock.getDuration(1000000));
-    assertEquals(4, clock.getDuration(1000000, 10));
+    assertEquals(Real.valueOf(4), clock.getDuration(1000000));
+    assertEquals(Real.valueOf(4), clock.getDuration(1000000, Real.valueOf(10)));
   }
 }

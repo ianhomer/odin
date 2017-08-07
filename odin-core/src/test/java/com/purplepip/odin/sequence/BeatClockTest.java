@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Test;
 
@@ -29,6 +30,6 @@ public class BeatClockTest {
     assertEquals("Tick unit not correct",
         Ticks.BEAT, beatClock.getTick());
     assertEquals("Count not correct",
-        1, beatClock.getCount(1000000));
+        Wholes.ONE, beatClock.getCount(1000000));
   }
 }
