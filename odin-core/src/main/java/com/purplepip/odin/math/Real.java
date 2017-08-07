@@ -51,20 +51,15 @@ public class Real {
   }
 
   /**
-   * Create a real number from the given double.  This will return a whole number if the given
-   * double is a whole number.
+   * Create a real number from the given double.  This will ALWAYS return a real number using a
+   * double underlying value.  This ensure that once a logic pathway chooses to go to double
+   * arithmetic it will stay with double arithmetic.
+   *
    *
    * @param value double value
    * @return real value
    */
   public static Real valueOf(double value) {
-    if (value % 1 == 0) {
-      /*
-       * TODO : Review when this code is executed
-       */
-      LOG.warn("Converting double {} to whole number, have we lost rational precision?", value);
-      return new Whole((long) value);
-    }
     return new Real(value);
   }
 
@@ -158,7 +153,14 @@ public class Real {
    * @return floored value
    */
   public Real floor(Real radix) {
-    return Real.valueOf(getValue() - (getValue() % radix.getValue()));
+    double flooredValue = getValue() - (getValue() % radix.getValue());
+    if (radix instanceof Whole) {
+      /*
+       * Flooring with whole radix will always give a whole number, so lets be explicit about it.
+       */
+      return Real.valueOf((long) flooredValue);
+    }
+    return Real.valueOf(flooredValue);
   }
 
   public boolean ge(Real rational) {
