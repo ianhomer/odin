@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.server.rest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -43,6 +44,7 @@ public class PersistableTick implements Tick {
   private long denominator;
 
   @Transient
+  @JsonIgnore
   private Rational rational;
 
   @Override
