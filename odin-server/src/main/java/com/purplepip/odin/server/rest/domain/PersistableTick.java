@@ -47,6 +47,18 @@ public class PersistableTick implements Tick {
   @JsonIgnore
   private Rational rational;
 
+  /**
+   * Create a persistable tick.
+   *
+   * @param tick tick to copy parameters from
+   */
+  public PersistableTick(Tick tick) {
+    timeUnit = tick.getTimeUnit();
+    numerator = tick.getFactor().getNumerator();
+    denominator = tick.getFactor().getDenominator();
+    initialise();
+  }
+
   @Override
   public Rational getFactor() {
     return rational;
@@ -59,17 +71,5 @@ public class PersistableTick implements Tick {
 
   private void initialise() {
     rational = new Rational(numerator, denominator);
-  }
-
-  /**
-   * Create a persistable tick.
-   *
-   * @param tick tick to copy parameters from
-   */
-  public PersistableTick(Tick tick) {
-    timeUnit = tick.getTimeUnit();
-    numerator = tick.getFactor().getNumerator();
-    denominator = tick.getFactor().getDenominator();
-    initialise();
   }
 }

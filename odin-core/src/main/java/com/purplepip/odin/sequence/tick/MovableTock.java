@@ -24,32 +24,29 @@ import lombok.ToString;
  */
 @ToString
 public class MovableTock implements Tock {
-  /*
-   * TODO : Rename count to position to improve readability
-   */
-  private Real count;
+  private Real position;
   private Tick tick;
 
   public MovableTock(Tock tock) {
     this.tick = tock.getTick();
-    this.count = tock.getPosition();
+    this.position = tock.getPosition();
   }
 
   public MovableTock(Tick tick, Real count) {
     this.tick = tick;
-    this.count = count;
+    this.position = count;
   }
 
   public void setCount(Real count) {
-    this.count = count;
+    this.position = count;
   }
 
   public void increment() {
-    count = count.plus(Wholes.ONE);
+    position = position.plus(Wholes.ONE);
   }
 
   public void increment(Real increment) {
-    count = count.plus(increment);
+    position = position.plus(increment);
   }
 
   @Override
@@ -59,6 +56,6 @@ public class MovableTock implements Tock {
 
   @Override
   public Real getPosition() {
-    return count;
+    return position;
   }
 }

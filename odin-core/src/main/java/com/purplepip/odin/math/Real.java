@@ -27,7 +27,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Real {
   private double value;
-  private boolean valueCalculated = false;
+  private boolean valueCalculated;
+
+  Real() {
+  }
+
+  public Real(double value) {
+    this.value = value;
+  }
 
   public static Whole valueOf(long integer) {
     return new Whole(integer);
@@ -61,13 +68,6 @@ public class Real {
    */
   public static Real valueOf(double value) {
     return new Real(value);
-  }
-
-  Real() {
-  }
-
-  public Real(double value) {
-    this.value = value;
   }
 
   public double calculateValue() {
@@ -195,6 +195,7 @@ public class Real {
     return (int) (temp ^ (temp >>> 32));
   }
 
+  @Override
   public String toString() {
     return String.valueOf(value);
   }
