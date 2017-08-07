@@ -46,16 +46,16 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
       mutableTock.increment();
       i++;
       long countInMeasure = getMeasureProvider()
-          .getCount(mutableTock.getCount()).floor();
+          .getCount(mutableTock.getPosition()).floor();
       on = getSequence().getBits() == -1 || ((getSequence().getBits() >> countInMeasure) & 1) == 1;
     }
 
     if (on) {
-      nextEvent = new DefaultEvent<>(getSequence().getNote(), mutableTock.getCount());
+      nextEvent = new DefaultEvent<>(getSequence().getNote(), mutableTock.getPosition());
     } else {
       LOG.debug("No notes found in the next {} ticks after tock {} for pattern {}",
           maxScanForward, tock, getSequence().getBits());
-      nextEvent = new ScanForwardEvent<>(mutableTock.getCount());
+      nextEvent = new ScanForwardEvent<>(mutableTock.getPosition());
     }
     return nextEvent;
   }

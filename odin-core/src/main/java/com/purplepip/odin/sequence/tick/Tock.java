@@ -25,5 +25,5 @@ import com.purplepip.odin.math.Real;
 public interface Tock {
   Tick getTick();
 
-  Real getCount();
+  Real getPosition();
 }

@@ -36,7 +36,7 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
   @Override
   public Event<Note> getNextEvent(Tock tock) {
     LOG.debug("Getting next event after {}", tock);
-    Real compositionTock  = tickConverter.convertBack(tock.getCount());
+    Real compositionTock  = tickConverter.convertBack(tock.getPosition());
 
     Event<Note> nextCompositionEvent =
         composition.getNextEvent(compositionTock);

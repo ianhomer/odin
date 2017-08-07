@@ -31,6 +31,6 @@ public class FailOverFlow extends AbstractFlow<Sequence, Note>  {
   @Override
   public Event<Note> getNextEvent(Tock tock) {
     Note note = new DefaultNote(100, 70,2);
-    return new DefaultEvent<>(note, tock.getCount().plus(Rationals.ONE));
+    return new DefaultEvent<>(note, tock.getPosition().plus(Rationals.ONE));
   }
 }

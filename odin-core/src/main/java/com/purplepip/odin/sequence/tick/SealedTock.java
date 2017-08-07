@@ -35,7 +35,7 @@ public class SealedTock implements Tock {
   }
 
   @Override
-  public Real getCount() {
-    return tock.getCount();
+  public Real getPosition() {
+    return tock.getPosition();
   }
 }

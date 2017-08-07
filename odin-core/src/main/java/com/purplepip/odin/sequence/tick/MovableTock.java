@@ -32,7 +32,7 @@ public class MovableTock implements Tock {
 
   public MovableTock(Tock tock) {
     this.tick = tock.getTick();
-    this.count = tock.getCount();
+    this.count = tock.getPosition();
   }
 
   public MovableTock(Tick tick, Real count) {
@@ -58,7 +58,7 @@ public class MovableTock implements Tock {
   }
 
   @Override
-  public Real getCount() {
+  public Real getPosition() {
     return count;
   }
 }

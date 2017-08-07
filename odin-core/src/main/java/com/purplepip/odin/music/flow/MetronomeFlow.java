@@ -38,12 +38,12 @@ public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
     MovableTock mutableTock = new MovableTock(tock);
     mutableTock.increment(new Rational(2));
     Note note;
-    if (getMeasureProvider().getCount(mutableTock.getCount()).floor() == 0) {
+    if (getMeasureProvider().getCount(mutableTock.getPosition()).floor() == 0) {
       note = getSequence().getNoteBarStart();
     } else {
       note = getSequence().getNoteBarMid();
     }
     LOG.trace("Creating metronome note {} at {}", note, mutableTock);
-    return new DefaultEvent<>(note, mutableTock.getCount());
+    return new DefaultEvent<>(note, mutableTock.getPosition());
   }
 }
