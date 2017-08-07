@@ -98,6 +98,6 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
             new NoteNumber(letter, intonation, octave).getValue(),
             velocity, duration.getNumerator(), duration.getDenominator()),
         tock));
-    tock = tock.add(duration);
+    tock = tock.plus(duration);
   }
 }

@@ -41,7 +41,8 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
     Event<Note> nextCompositionEvent =
         composition.getNextEvent(new CoercedRational(compositionTock));
     double flowTock = tickConverter
-        .convert(composition.getLoopStart(compositionTock)
+        .convert(composition.getLoopStart(new CoercedRational(compositionTock))
+            .approximateAsDouble()
             + nextCompositionEvent.getTime().approximateAsDouble());
     LOG.debug("Next composition event {} at flow tock {}", nextCompositionEvent, flowTock);
     return new DefaultEvent<>(nextCompositionEvent.getValue(), new CoercedRational(flowTock));

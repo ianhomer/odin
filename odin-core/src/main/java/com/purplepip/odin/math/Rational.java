@@ -20,7 +20,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Rational {
+public class Rational extends Real {
   private long numerator;
   private long denominator;
   private static final Map<Rational, Character> fractionCharacters = new HashMap<>();
@@ -98,12 +98,9 @@ public class Rational {
     }
   }
 
-  public double getValue() {
+  @Override
+  public double calculateValue() {
     return (double) numerator / denominator;
-  }
-
-  public long floor() {
-    return numerator / denominator;
   }
 
   /**
@@ -121,12 +118,24 @@ public class Rational {
   /**
    * Add rational number.
    *
-   * @param rational rational number to add
+   * @param rational rational number to plus
    * @return result of addition
    */
-  public Rational add(Rational rational) {
+  public Rational plus(Rational rational) {
     return new Rational(numerator * rational.denominator
         + rational.getNumerator() * getDenominator(),
+        denominator * rational.denominator, true);
+  }
+
+  /**
+   * Minus a rational number.
+   *
+   * @param rational rational number to minus
+   * @return result of minus
+   */
+  public Rational minus(Rational rational) {
+    return new Rational(numerator * rational.denominator
+        - rational.getNumerator() * getDenominator(),
         denominator * rational.denominator, true);
   }
 
@@ -146,6 +155,25 @@ public class Rational {
         % (rational.getNumerator() * denominator),
         rational.getDenominator() * denominator,
         true);
+  }
+
+  /**
+   * Calculate the nearest multiple of base less than this rational number.
+   *
+   * @param radix radix
+   * @return floored value
+   */
+  public Rational floor(Rational radix) {
+    return minus(modulo(radix));
+  }
+
+  /**
+   * Calculate the nearest integer less than this rational number.
+   *
+   * @return floored value
+   */
+  public long floor() {
+    return numerator / denominator;
   }
 
   public boolean ge(Rational rational) {

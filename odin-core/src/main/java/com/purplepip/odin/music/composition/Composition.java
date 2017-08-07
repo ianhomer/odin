@@ -62,8 +62,8 @@ public class Composition {
   /*
    * TODO : Implement as rational arithmetic.
    */
-  public long getLoopStart(double tock) {
-    return (long) ((long) (tock / tocks.getValue()) * tocks.getValue());
+  public Rational getLoopStart(Rational tock) {
+    return tock.floor(tocks);
   }
 
   /**
@@ -90,6 +90,6 @@ public class Composition {
    * @return event that has been rolled over
    */
   private Event<Note> rollOver(Event<Note> event) {
-    return new DefaultEvent<>(event.getValue(), event.getTime().add(tocks));
+    return new DefaultEvent<>(event.getValue(), event.getTime().plus(tocks));
   }
 }

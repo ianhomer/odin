@@ -233,9 +233,9 @@ public class ProjectBuilder {
   }
 
   /**
-   * Specify which layers to add to the sequence.
+   * Specify which layers to plus to the sequence.
    *
-   * @param layers layers to add to the sequence.
+   * @param layers layers to plus to the sequence.
    * @return project builder
    */
   public ProjectBuilder withLayers(String... layers) {
@@ -243,7 +243,7 @@ public class ProjectBuilder {
     this.layersToAdd = Sets.newHashSet(
         projectContainer.getLayerStream()
             .filter(l -> layerNamesToAdd.contains(l.getName())).iterator());
-    LOG.debug("Layers to add : {}", layersToAdd);
+    LOG.debug("Layers to plus : {}", layersToAdd);
     return this;
   }
 

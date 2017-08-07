@@ -1,3 +1,9 @@
+package com.purplepip.odin.math;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 /*
  * Copyright (c) 2017 Ian Homer. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,22 +18,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.purplepip.odin.music.composition;
-
-import static org.junit.Assert.assertEquals;
-
-import com.purplepip.odin.math.CoercedRational;
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Rationals;
-import org.junit.Test;
-
-public class CompositionTest {
+public class RealTest {
   @Test
-  public void testLoopStart() {
-    Composition composition = new CompositionFactory().create("C#5/q, B4, A4, G#4");
-    assertEquals(new Rational(4), composition.getTocks());
-    assertEquals(Rationals.ZERO, composition.getLoopStart(Rationals.ZERO));
-    assertEquals(new Rational(8), composition.getLoopStart(new CoercedRational(9.3)));
+  public void testValueOf() {
+    assertEquals(Rationals.ZERO, Real.valueOf(0));
+  }
+
+  @Test
+  public void testPlus() {
+    assertEquals(Rationals.TWO, Real.valueOf(1).plus(Real.valueOf(1)));
+    assertEquals(new Real(2.0), Real.valueOf(1.0).plus(Real.valueOf(1)));
+    assertEquals(new Real(2.0), Real.valueOf(1).plus(Real.valueOf(1.0)));
   }
 }

@@ -44,11 +44,11 @@ public class MovableTock implements Tock {
   }
 
   public void increment() {
-    count = count.add(new Rational(1));
+    count = count.plus(new Rational(1));
   }
 
   public void increment(Rational increment) {
-    count = count.add(increment);
+    count = count.plus(increment);
   }
 
   @Override
