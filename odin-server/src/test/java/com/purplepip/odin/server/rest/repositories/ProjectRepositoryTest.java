@@ -51,7 +51,8 @@ public class ProjectRepositoryTest {
     assertThat(reloadedProject).isNotNull();
     assertThat(reloadedProject.getChannels().iterator().next().getProgramName())
         .isEqualTo("newProgram");
-    assertThat(reloadedProject.getSequences().iterator().next().getTick().getDenominator())
+    assertThat(reloadedProject.getSequences().iterator()
+        .next().getTick().getFactor().getDenominator())
         .isEqualTo(2);
   }
 }

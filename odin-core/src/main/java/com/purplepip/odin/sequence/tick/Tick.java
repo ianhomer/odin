@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.tick;
 
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.sequence.TimeUnit;
 
 /**
@@ -23,11 +24,5 @@ import com.purplepip.odin.sequence.TimeUnit;
 public interface Tick {
   TimeUnit getTimeUnit();
 
-  int getNumerator();
-
-  int getDenominator();
-
-  default double getFactor() {
-    return (double) getNumerator() / (double) getDenominator();
-  }
+  Rational getFactor();
 }

@@ -15,9 +15,8 @@
 
 package com.purplepip.odin.sequence.tick;
 
+import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.sequence.TimeUnit;
-import com.purplepip.odin.sequence.tick.DefaultTick;
-import com.purplepip.odin.sequence.tick.Tick;
 
 /**
  * This class consists exclusively of static properties that utilise the Tick model.
@@ -27,13 +26,14 @@ public final class Ticks {
   public static final Tick MILLISECOND = new DefaultTick(TimeUnit.MICROSECOND, 1_000);
   public static final Tick MICROSECOND = new DefaultTick(TimeUnit.MICROSECOND);
   public static final Tick BEAT = new DefaultTick(TimeUnit.BEAT);
-  public static final Tick HALF = new DefaultTick(TimeUnit.BEAT, 1, 2);
-  public static final Tick THREE_QUARTERS = new DefaultTick(TimeUnit.BEAT, 3, 4);
-  public static final Tick FOUR_THIRDS = new DefaultTick(TimeUnit.BEAT, 4, 3);
-  public static final Tick TWO_THIRDS = new DefaultTick(TimeUnit.BEAT, 2, 3);
-  public static final Tick THIRD = new DefaultTick(TimeUnit.BEAT, 1, 3);
-  public static final Tick QUARTER = new DefaultTick(TimeUnit.BEAT, 1, 4);
-  public static final Tick EIGHTH = new DefaultTick(TimeUnit.BEAT, 1, 8);
+  public static final Tick HALF = new DefaultTick(TimeUnit.BEAT, Rationals.HALF);
+  public static final Tick THIRD = new DefaultTick(TimeUnit.BEAT, Rationals.THIRD);
+  public static final Tick TWO_THIRDS = new DefaultTick(TimeUnit.BEAT, Rationals.TWO_THIRDS);
+  public static final Tick FOUR_THIRDS = new DefaultTick(TimeUnit.BEAT, Rationals.FOUR_THIRDS);
+  public static final Tick QUARTER = new DefaultTick(TimeUnit.BEAT, Rationals.QUARTER);
+  public static final Tick THREE_QUARTERS = new DefaultTick(TimeUnit.BEAT,
+      Rationals.THREE_QUARTERS);
+  public static final Tick EIGHTH = new DefaultTick(TimeUnit.BEAT, Rationals.EIGTH);
   public static final Tick MEASURE = new DefaultTick(TimeUnit.MEASURE);
 
   private Ticks() {

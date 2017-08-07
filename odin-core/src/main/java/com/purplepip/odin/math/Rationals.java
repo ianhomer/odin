@@ -19,6 +19,13 @@ public final class Rationals {
   public static final Rational MINUS_ONE = new Rational(-1);
   public static final Rational ZERO = new Rational(0);
   public static final Rational ONE = new Rational(1);
+  public static final Rational HALF = new Rational(1, 2);
+  public static final Rational THIRD = new Rational(1, 3);
+  public static final Rational TWO_THIRDS = new Rational(2, 3);
+  public static final Rational FOUR_THIRDS = new Rational(4, 3);
+  public static final Rational QUARTER = new Rational(1, 4);
+  public static final Rational THREE_QUARTERS = new Rational(3, 4);
+  public static final Rational EIGTH = new Rational(1, 8);
 
   private Rationals() {
   }

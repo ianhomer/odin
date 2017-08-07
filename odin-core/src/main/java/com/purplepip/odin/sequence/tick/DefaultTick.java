@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.tick;
 
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.sequence.TimeUnit;
 import lombok.ToString;
 
@@ -24,32 +25,29 @@ import lombok.ToString;
 @ToString
 public class DefaultTick implements Tick {
   private TimeUnit timeUnit;
-  private int numerator;
-  private int denominator;
+  private Rational factor;
 
   public DefaultTick(TimeUnit timeUnit) {
     this(timeUnit, 1);
   }
 
   public DefaultTick(TimeUnit timeUnit, int numerator) {
-    this(timeUnit, numerator, 1);
+    this(timeUnit, new Rational(numerator, 1));
   }
 
   public DefaultTick(Tick tick) {
-    this(tick.getTimeUnit(), tick.getNumerator(), tick.getDenominator());
+    this(tick.getTimeUnit(), tick.getFactor());
   }
 
   /**
    * Create a tick.
    *
    * @param timeUnit time unit
-   * @param numerator numerator
-   * @param denominator denominator
+   * @param factor factor
    */
-  public DefaultTick(TimeUnit timeUnit, int numerator, int denominator) {
+  public DefaultTick(TimeUnit timeUnit, Rational factor) {
     this.timeUnit = timeUnit;
-    this.numerator = numerator;
-    this.denominator = denominator;
+    this.factor = factor;
   }
 
   @Override
@@ -58,12 +56,8 @@ public class DefaultTick implements Tick {
   }
 
   @Override
-  public int getNumerator() {
-    return numerator;
+  public Rational getFactor() {
+    return factor;
   }
 
-  @Override
-  public int getDenominator() {
-    return denominator;
-  }
 }

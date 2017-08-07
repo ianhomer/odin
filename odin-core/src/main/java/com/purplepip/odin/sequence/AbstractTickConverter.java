@@ -119,8 +119,7 @@ public abstract class AbstractTickConverter implements TickConverter {
     private Direction(Tick sourceTick, Tick targetTick) {
       this.sourceTick = sourceTick;
       this.targetTick = targetTick;
-      scaleFactor = sourceTick.getNumerator() * targetTick.getDenominator()
-          / (double) (sourceTick.getDenominator() * targetTick.getNumerator());
+      scaleFactor = sourceTick.getFactor().divide(targetTick.getFactor()).approximateAsDouble();
       LOG.trace("{} to {} factor is {}", sourceTick, targetTick, scaleFactor);
     }
 

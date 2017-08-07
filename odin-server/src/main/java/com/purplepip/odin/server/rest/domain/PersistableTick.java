@@ -15,12 +15,15 @@
 
 package com.purplepip.odin.server.rest.domain;
 
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.tick.Tick;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,8 +39,25 @@ public class PersistableTick implements Tick {
   @GeneratedValue
   private long id;
   private TimeUnit timeUnit;
-  private int numerator;
-  private int denominator;
+  private long numerator;
+  private long denominator;
+
+  @Transient
+  private Rational rational;
+
+  @Override
+  public Rational getFactor() {
+    return rational;
+  }
+
+  @PostLoad
+  protected void afterLoad() {
+    initialise();
+  }
+
+  private void initialise() {
+    rational = new Rational(numerator, denominator);
+  }
 
   /**
    * Create a persistable tick.
@@ -46,7 +66,8 @@ public class PersistableTick implements Tick {
    */
   public PersistableTick(Tick tick) {
     timeUnit = tick.getTimeUnit();
-    numerator = tick.getNumerator();
-    denominator = tick.getDenominator();
+    numerator = tick.getFactor().getNumerator();
+    denominator = tick.getFactor().getDenominator();
+    initialise();
   }
 }

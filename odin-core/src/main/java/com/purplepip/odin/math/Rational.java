@@ -43,18 +43,27 @@ public class Rational {
     fractionCharacters.put(new Rational(7,8), '⅞');
   }
 
+
+  /**
+   * Create whole number.
+   *
+   * @param numerator numerator
+   */
   public Rational(long numerator) {
+    /*
+     * Note that there is no need for simplification since denominator is 1.
+     */
     this(numerator, 1, false);
   }
 
   /**
-   * Create rational number.
+   * Create rational number with fraction simplification.
    *
    * @param numerator numerator
    * @param denominator denominator
    */
   public Rational(long numerator, long denominator) {
-    this(numerator, denominator, false);
+    this(numerator, denominator, true);
   }
 
   /**
@@ -119,6 +128,11 @@ public class Rational {
     return new Rational(numerator * rational.denominator
         + rational.getNumerator() * getDenominator(),
         denominator * rational.denominator, true);
+  }
+
+  public Rational divide(Rational rational) {
+    return new Rational(numerator * rational.getDenominator(),
+        denominator * rational.getNumerator());
   }
 
   /**
