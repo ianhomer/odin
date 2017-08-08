@@ -13,11 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.notation;
 
-import com.purplepip.odin.music.notation.EasyScoreCompositionListener;
-import com.purplepip.odin.music.notation.EasyScoreLexer;
-import com.purplepip.odin.music.notation.EasyScoreParser;
+import com.purplepip.odin.music.composition.Composition;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -25,7 +23,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 /**
  * Composition factory.
  */
-public class CompositionFactory {
+public class EasyScoreCompositionFactory {
   /**
    * Create composition from the given notation.
    *

@@ -20,12 +20,13 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.music.notation.EasyScoreCompositionFactory;
 import org.junit.Test;
 
 public class CompositionTest {
   @Test
   public void testLoopStart() {
-    Composition composition = new CompositionFactory().create("C#5/q, B4, A4, G#4");
+    Composition composition = new EasyScoreCompositionFactory().create("C#5/q, B4, A4, G#4");
     assertEquals(Real.valueOf(4), composition.getTocks());
     assertEquals(Wholes.ZERO, composition.getLoopStart(Rationals.ZERO));
     assertEquals(Real.valueOf(8), composition.getLoopStart(Real.valueOf(9.3)));

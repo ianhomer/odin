@@ -17,6 +17,10 @@
 const React = require('react');
 const Vex = require('vexflow');
 
+function concat(a, b) {
+  return a.concat(b);
+}
+
 // Musical score component.
 class Score extends React.Component{
   constructor(props) {
@@ -64,6 +68,22 @@ class Score extends React.Component{
   }
 
   renderNotation(notation = this.state.notation, dryRun = false) {
+    // JSON Object for composition
+    var composition = {
+      measures : [
+        {
+          key : 'C',
+          time : '4/4',
+          staves : [
+            {
+              clef : 'treble',
+              notes : this.state.notation
+            }
+          ]
+        }
+      ]
+    };
+
     var selector;
     if (dryRun) {
       // For dry run we render score in a hidden element so that we that end user does not
@@ -74,19 +94,46 @@ class Score extends React.Component{
     }
 
     var vf = new Vex.Flow.Factory({
-      renderer: {selector: selector, width: 500, height: 200}
+      renderer: {selector: selector, width: 500, height: 100}
     });
 
     vf.reset();
     vf.getContext().clear();
-    var score = vf.EasyScore();
-    var system = vf.System();
 
-    system.addStave({
-      voices: [
-        score.voice(score.notes(notation))
-      ]
-    }).addClef('treble').addTimeSignature('4/4');
+    var score = vf.EasyScore();
+
+    var voice = score.voice.bind(score);
+    var notes = score.notes.bind(score);
+    var beam = score.beam.bind(score);
+
+    var x = 0;
+    var y = 0;
+
+    // Render composition
+    for (var i = 0 ; i < composition.measures.length ; i++) {
+
+      // Render measure
+      var measure = composition.measures[i];
+
+      var width = 200;
+      var system = vf.System({ x: x, y: y, width: width, spaceBetweenStaves: 10 });
+      x += width;
+
+      // Render stave
+      for (var j = 0 ; j < measure.staves.length ; j++) {
+        var stave = measure.staves[j];
+        system.addStave({
+          voices: [
+            voice([
+              notes(stave.notes)
+            ].reduce(concat))
+          ]
+        })
+        .addClef(stave.clef)
+        .addKeySignature(measure.key)
+        .addTimeSignature(measure.time);
+      }
+    }
 
     vf.draw();
   }

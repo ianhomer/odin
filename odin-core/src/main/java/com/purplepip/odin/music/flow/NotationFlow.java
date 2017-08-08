@@ -19,7 +19,7 @@ import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.music.composition.CompositionFactory;
+import com.purplepip.odin.music.notation.EasyScoreCompositionFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
@@ -50,7 +50,7 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
   @Override
   public void afterPropertiesSet() {
     LOG.debug("Initialising notation flow with {}", getSequence().getNotation());
-    composition = new CompositionFactory().create(getSequence().getNotation());
+    composition = new EasyScoreCompositionFactory().create(getSequence().getNotation());
     tickConverter =
         new SameTimeUnitTickConverter(composition::getTick, getClock()::getTick);
   }
