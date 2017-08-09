@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.music.notes;
 
+import com.purplepip.odin.math.Real;
+
 /**
  * Note.
  */
@@ -22,30 +24,21 @@ public interface Note {
   /**
    * Get number for the note following the MIDI standard, C0 = 0, C5 = 60.
    *
-   * @return int
+   * @return number
    */
   int getNumber();
 
   /**
    * Get the note velocity from 0 to 127.
    *
-   * @return int
+   * @return velocity
    */
   int getVelocity();
 
   /**
    * Get the note duration.  Time units are dependent on the context.
    *
-   * @return long
+   * @return duration
    */
-  long getDuration();
-
-  /**
-   * Get the note duration denominator.  Time units are dependent on the context.
-   *
-   * @return long
-   */
-  long getDenominator();
-
-
+  Real getDuration();
 }

@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.server.rest;
 
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
@@ -55,11 +56,13 @@ public class PersistableProjectBuilder extends ProjectBuilder {
    * @return note
    */
   @Override
-  protected Note createNote(int number, int velocity, long duration) {
+  protected Note createNote(int number, int velocity, Rational duration) {
     PersistableNote persistableNote = new PersistableNote();
-    persistableNote.setDuration(duration);
+    persistableNote.setDuration(duration.getNumerator());
+    persistableNote.setDenominator(duration.getDenominator());
     persistableNote.setVelocity(velocity);
     persistableNote.setNumber(number);
+    persistableNote.afterLoad();
     return persistableNote;
   }
 

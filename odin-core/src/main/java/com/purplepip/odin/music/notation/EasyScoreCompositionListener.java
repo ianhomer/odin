@@ -17,6 +17,7 @@ package com.purplepip.odin.music.notation;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.composition.CompositionBuilder;
@@ -24,8 +25,6 @@ import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Letter;
 import com.purplepip.odin.music.notes.NoteNumber;
 import com.purplepip.odin.sequencer.ProjectBuilder;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -36,26 +35,15 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class EasyScoreCompositionListener extends EasyScoreBaseListener {
-  private static final Map<String, Integer> accidentals = new HashMap<>();
-  private static final Map<String, Rational> durations = new HashMap<>();
-
-  static {
-    accidentals.put("#", 1);
-    accidentals.put("@", -1);
-    accidentals.put("n", 0);
-
-    durations.put("/h", new Rational(2));
-    durations.put("/q", new Rational(1));
-    durations.put("/8", new Rational(1,2));
-  }
-
+  private static final int DEFAULT_OCTAVE = 5;
   private CompositionBuilder builder = new CompositionBuilder();
   private Composition composition;
+  private EasyScoreNotationReference reference = new EasyScoreNotationReference();
 
   private Letter letter;
   private int intonation;
-  private Rational duration = new Rational(ProjectBuilder.DEFAULT_DURATION);
-  private int octave;
+  private Rational duration = ProjectBuilder.DEFAULT_DURATION;
+  private int octave = DEFAULT_OCTAVE;
   private Rational tock = Wholes.ZERO;
   private int velocity = ProjectBuilder.DEFAULT_VELOCITY;
 
@@ -82,12 +70,12 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
 
   @Override
   public void enterAccidental(EasyScoreParser.AccidentalContext context) {
-    intonation = intonation + accidentals.get(context.getText());
+    intonation = intonation + reference.getAccidentalIncrement(context.getText());
   }
 
   @Override
   public void enterDuration(EasyScoreParser.DurationContext context) {
-    duration = durations.get(context.getText());
+    duration = reference.getDurationLength(context.getText());
     LOG.debug("Entering duration {} = {}", context.getText(), duration);
   }
 
@@ -96,7 +84,7 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
     builder.addEvent(new DefaultEvent<>(
         new DefaultNote(
             new NoteNumber(letter, intonation, octave).getValue(),
-            velocity, duration.getNumerator(), duration.getDenominator()),
+            velocity, Real.valueOf(duration.getNumerator(), duration.getDenominator())),
         tock));
     tock = (Rational) tock.plus(duration);
   }

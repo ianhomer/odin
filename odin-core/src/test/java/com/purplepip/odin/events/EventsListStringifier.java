@@ -47,7 +47,7 @@ public class EventsListStringifier {
         builder.append(note.getVelocity());
       }
       builder.append('-');
-      if (note.getDuration() != ProjectBuilder.DEFAULT_DURATION) {
+      if (!note.getDuration().equals(ProjectBuilder.DEFAULT_DURATION)) {
         builder.append(note.getDuration());
       }
       return builder.toString();

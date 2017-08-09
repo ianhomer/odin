@@ -29,7 +29,7 @@ public class Voice {
     this.name = name;
   }
 
-  public Stream<Event<Note>> eventStream() {
+  public Stream<Event<Note>> stream() {
     return events.stream();
   }
 

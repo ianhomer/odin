@@ -17,6 +17,8 @@ package com.purplepip.odin.sequencer;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
@@ -51,7 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProjectBuilder {
   private static final int DEFAULT_NOTE = 60;
   public static final int DEFAULT_VELOCITY = 40;
-  public static final int DEFAULT_DURATION = 1;
+  public static final Rational DEFAULT_DURATION = Wholes.ONE;
   private static final String DEFAULT_NOTATION_FORMAT = "VexTab";
 
   private ProjectContainer projectContainer;
@@ -156,7 +158,7 @@ public class ProjectBuilder {
    * @param duration duration
    * @return note
    */
-  protected Note createNote(int number, int velocity, long duration) {
+  protected Note createNote(int number, int velocity, Rational duration) {
     return new DefaultNote(number, velocity, duration);
   }
 

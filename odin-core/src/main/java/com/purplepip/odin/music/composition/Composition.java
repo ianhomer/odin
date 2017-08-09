@@ -46,6 +46,10 @@ public class Composition {
         .reduce(Stream::concat).orElseGet(Stream::empty);
   }
 
+  public Stream<Measure> stream() {
+    return measures.stream();
+  }
+
   public int numberOfMeasures() {
     return measures.size();
   }

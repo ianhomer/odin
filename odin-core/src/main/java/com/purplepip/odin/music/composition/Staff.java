@@ -30,8 +30,12 @@ public class Staff {
   }
 
   public Stream<Event<Note>> eventStream() {
-    return voices.values().stream().map(Voice::eventStream)
+    return voices.values().stream().map(Voice::stream)
         .reduce(Stream::concat).orElseGet(Stream::empty);
+  }
+
+  public Stream<Map.Entry<String, Voice>> stream() {
+    return voices.entrySet().stream();
   }
 
   public String getName() {

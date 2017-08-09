@@ -91,4 +91,23 @@ public class Whole extends Rational {
     }
     return super.floor(radix);
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Whole whole = (Whole) o;
+
+    return getNumerator() == whole.getNumerator();
+  }
+
+  @Override
+  public int hashCode() {
+    return (int) (getNumerator() ^ (getNumerator() >>> 32));
+  }
 }

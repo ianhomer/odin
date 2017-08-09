@@ -15,12 +15,17 @@
 
 package com.purplepip.odin.math;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Rational extends Real {
+  private static final int MAX_EGYPTIAN_FRACTIONS = 10;
+
   private long numerator;
   private long denominator;
   private static final Map<Rational, Character> fractionCharacters = new HashMap<>();
@@ -123,11 +128,21 @@ public class Rational extends Real {
   public Real minus(Real real) {
     if (real instanceof Rational) {
       Rational rational = (Rational) real;
-      return Real.valueOf(numerator * rational.getDenominator()
-              - rational.getNumerator() * getDenominator(),
-          denominator * rational.denominator);
+      return minus(rational);
     }
     return super.minus(real);
+  }
+
+  /**
+   * Subtraction when we know we have a rational number.
+   *
+   * @param rational rational number
+   * @return result of subtraction
+   */
+  public Rational minus(Rational rational) {
+    return Real.valueOf(numerator * rational.getDenominator()
+            - rational.getNumerator() * getDenominator(),
+        denominator * rational.denominator);
   }
 
   /**
@@ -185,12 +200,22 @@ public class Rational extends Real {
   public Real floor(Real radix) {
     if (radix instanceof Rational) {
       Rational rational = (Rational) radix;
-      long product1 = numerator * rational.getDenominator();
-      long product2 = rational.getNumerator() * denominator;
-      long product3 = denominator * rational.getDenominator();
-      return Real.valueOf(product1 - (product1 % product2), product3);
+      return floor(rational);
     }
     return super.floor(radix);
+  }
+
+  /**
+   * Calculate floor from a value we know is rational.
+   *
+   * @param rational rational number
+   * @return floored value
+   */
+  public Rational floor(Rational rational) {
+    long product1 = numerator * rational.getDenominator();
+    long product2 = rational.getNumerator() * denominator;
+    long product3 = denominator * rational.getDenominator();
+    return Real.valueOf(product1 - (product1 % product2), product3);
   }
 
   @Override
@@ -206,7 +231,6 @@ public class Rational extends Real {
     long partNumerator = numerator % denominator;
     if (partNumerator > 0) {
       Rational part = new Rational(partNumerator, denominator, true);
-      LOG.debug("Rational part = {}", part);
       Character special = fractionCharacters.get(part);
       if (special != null) {
         builder.append(special);
@@ -218,6 +242,31 @@ public class Rational extends Real {
       }
     }
     return builder.toString();
+  }
+
+  /**
+   * Get egyptian fractions.
+   *
+   * @return egyptian fractions
+   */
+  public Stream<Rational> getEgyptianFractions() {
+    List<Rational> egyptianFractions = new ArrayList<>();
+    Rational remainder = this;
+    int count = 0;
+    int lastDenominator = 0;
+    while (count < MAX_EGYPTIAN_FRACTIONS && !remainder.equals(Wholes.ZERO)) {
+      count++;
+      lastDenominator++;
+      if (remainder.getDenominator() % lastDenominator == 0) {
+        Rational floor = remainder.floor(Real.valueOf(1, lastDenominator));
+        remainder = remainder.minus(floor);
+        for (int i = 1 ; i <= floor.getNumerator() ; i++) {
+          Rational unitOfFloor = Real.valueOf(1, floor.getDenominator());
+          egyptianFractions.add(unitOfFloor);
+        }
+      }
+    }
+    return egyptianFractions.stream();
   }
 
   @Override

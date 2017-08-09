@@ -67,16 +67,16 @@ public class NotationFlowTest {
   public void testGetMultipleEvents() {
     Flow<Sequence, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
     List<Event> events = new ArrayList<>();
-    Event<Note> event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Rationals.ZERO));
+    Real previousEventTime = Rationals.MINUS_ONE;
     for (int i = 0; i < 10 ;i++) {
-      Real previousEventTime = event.getTime();
-      event = flow.getNextEvent(new MovableTock(Ticks.BEAT, previousEventTime));
+      Event event = flow.getNextEvent(new MovableTock(Ticks.BEAT, previousEventTime));
       assertTrue("Event should be after previous one",
           event.getTime().gt(previousEventTime));
       events.add(event);
+      previousEventTime = event.getTime();
     }
 
-    assertEquals("1=64--;2=67--;3=60--;4=71--;4½=71--;5=64--;6=67--;7=60--;8=71--;8½=71--;",
+    assertEquals("0=71--½;½=71--½;1=64--;2=67--;3=60--;4=71--½;4½=71--½;5=64--;6=67--;7=60--;",
         new EventsListStringifier(events).toString());
   }
 }

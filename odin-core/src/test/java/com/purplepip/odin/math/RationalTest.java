@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.stream.Collectors;
 import org.junit.Test;
 
 /*
@@ -111,4 +112,15 @@ public class RationalTest {
         .floor(new Rational(3, 2)).toString());
   }
 
+  @Test
+  public void testEgyptianFractions() {
+    assertEquals("1+⅓", getEgyptianFractionsAsString(4,3));
+    assertEquals("⅕+⅕", getEgyptianFractionsAsString(2, 5));
+    assertEquals("1+½+¼", getEgyptianFractionsAsString(7, 4));
+  }
+
+  private String getEgyptianFractionsAsString(long numerator, long denominator) {
+    return Real.valueOf(numerator, denominator)
+        .getEgyptianFractions().map(Rational::toString).collect(Collectors.joining("+"));
+  }
 }

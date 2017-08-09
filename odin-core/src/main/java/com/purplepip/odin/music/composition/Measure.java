@@ -42,6 +42,10 @@ public class Measure {
         .reduce(Stream::concat).orElseGet(Stream::empty);
   }
 
+  public Stream<Map.Entry<String, Staff>> stream() {
+    return staves.entrySet().stream();
+  }
+
   public Staff getStaff(String name) {
     return staves.get(name);
   }

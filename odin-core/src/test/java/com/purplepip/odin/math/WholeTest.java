@@ -34,4 +34,9 @@ public class WholeTest {
   public void testFloorWithRadix() {
     assertEquals(Real.valueOf(8), Real.valueOf(10).floor(Real.valueOf(4)));
   }
+
+  @Test
+  public void testEquals() {
+    assertEquals(Real.valueOf(1), new Whole(1));
+  }
 }

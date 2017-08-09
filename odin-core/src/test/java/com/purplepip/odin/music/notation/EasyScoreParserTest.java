@@ -52,7 +52,7 @@ public class EasyScoreParserTest {
         "0.1-61 1.1-59 2.1-57 3.1-56 ");
     notations.put("C5/q, B4, A4, G#4",
         "0.1-60 1.1-59 2.1-57 3.1-56 ");
-    notations.put("C5/q, B@4, A4, G#4",
+    notations.put("C5/q, Bb4, A4, G#4",
         "0.1-60 1.1-58 2.1-57 3.1-56 ");
     assertCompositionsOk(notations);
   }

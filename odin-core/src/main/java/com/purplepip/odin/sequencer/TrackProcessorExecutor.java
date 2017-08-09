@@ -134,7 +134,7 @@ public class TrackProcessorExecutor implements Runnable {
       LOG.trace("Sending note {} to channel {} at time {}",
           note, sequenceTrack.getChannel(), nextEvent.getTime());
       operationProcessor.send(noteOn, nextEvent.getTime().floor());
-      operationProcessor.send(noteOff, nextEvent.getTime().floor() + note.getDuration());
+      operationProcessor.send(noteOff, nextEvent.getTime().plus(note.getDuration()).floor());
     } catch (OdinException e) {
       LOG.error("Cannot send operation to processor", e);
     }

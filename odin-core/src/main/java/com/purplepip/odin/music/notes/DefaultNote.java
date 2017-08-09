@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.music.notes;
 
+import com.purplepip.odin.math.Real;
 import lombok.ToString;
 
 /**
@@ -24,8 +25,7 @@ import lombok.ToString;
 public class DefaultNote implements Note {
   private int number;
   private int velocity;
-  private long duration;
-  private long denominator;
+  private Real duration;
 
   /**
    * Create a default note.
@@ -35,7 +35,7 @@ public class DefaultNote implements Note {
    * @param duration Duration of note
    */
   public DefaultNote(int number, int velocity, long duration) {
-    this(number, velocity, duration, 1);
+    this(number, velocity, Real.valueOf(duration));
   }
 
   /**
@@ -44,13 +44,11 @@ public class DefaultNote implements Note {
    * @param number Number of note
    * @param velocity Velocity of note
    * @param duration Duration of note
-   * @param denominator Duration denominator of note
    */
-  public DefaultNote(int number, int velocity, long duration, long denominator) {
+  public DefaultNote(int number, int velocity, Real duration) {
     this.number = number;
     this.velocity = velocity;
     this.duration = duration;
-    this.denominator = denominator;
   }
 
   @Override
@@ -64,12 +62,7 @@ public class DefaultNote implements Note {
   }
 
   @Override
-  public long getDuration() {
+  public Real getDuration() {
     return duration;
-  }
-
-  @Override
-  public long getDenominator() {
-    return denominator;
   }
 }

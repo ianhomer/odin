@@ -163,6 +163,21 @@ public class Real {
     return Real.valueOf(flooredValue);
   }
 
+  /**
+   * Convert this to a rational number.
+   *
+   * @return rational version of this number
+   */
+  public Rational toRational() {
+    if (this instanceof Rational) {
+      return (Rational) this;
+    }
+    /*
+     * Very cheap flooring of non-rationals which is good enough for purpose.
+     */
+    return Real.valueOf(this.floor());
+  }
+
   public boolean ge(Real rational) {
     return getValue() >= rational.getValue();
   }

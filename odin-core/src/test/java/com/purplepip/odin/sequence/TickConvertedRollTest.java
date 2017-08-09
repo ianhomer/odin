@@ -56,7 +56,8 @@ public class TickConvertedRollTest {
     Event<Note> eventNote = convertedRoll.pop();
     assertEquals("event time not correct", Real.valueOf(15000),
         eventNote.getTime());
-    assertEquals("note duration not correct", 3000, eventNote.getValue().getDuration());
+    assertEquals("note duration not correct", Real.valueOf(3000),
+        eventNote.getValue().getDuration());
   }
 
   @Test
@@ -69,7 +70,7 @@ public class TickConvertedRollTest {
     Event<Note> eventNote = convertedRoll.pop();
     assertEquals("event time not correct", Real.valueOf(15),
         eventNote.getTime());
-    assertEquals("note duration not correct", 3, eventNote.getValue().getDuration());
+    assertEquals("note duration not correct", Real.valueOf(3), eventNote.getValue().getDuration());
   }
 
   @Test
@@ -81,7 +82,7 @@ public class TickConvertedRollTest {
             new DefaultNote(1,1,7000), 4000));
     Event<Note> eventNote = convertedRoll.pop();
     assertEquals("event time not correct", Real.valueOf(9), eventNote.getTime());
-    assertEquals("note duration not correct", 7, eventNote.getValue().getDuration());
+    assertEquals("note duration not correct", Real.valueOf(7), eventNote.getValue().getDuration());
   }
 
   @Test
@@ -94,6 +95,7 @@ public class TickConvertedRollTest {
     Event<Note> eventNote = convertedRoll.pop();
     assertEquals("event time not correct", Real.valueOf(9000),
         eventNote.getTime());
-    assertEquals("note duration not correct", 7000, eventNote.getValue().getDuration());
+    assertEquals("note duration not correct", Real.valueOf(7000),
+        eventNote.getValue().getDuration());
   }
 }

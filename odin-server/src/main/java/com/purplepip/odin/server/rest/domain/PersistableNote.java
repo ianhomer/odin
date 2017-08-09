@@ -15,11 +15,15 @@
 
 package com.purplepip.odin.server.rest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Data;
 
 /**
@@ -36,4 +40,23 @@ public class PersistableNote implements Note {
   private int number;
   private long duration;
   private long denominator;
+
+  @Transient
+  @JsonIgnore
+  private Rational rational;
+
+  @Override
+  public Rational getDuration() {
+    return rational;
+  }
+
+  @PostLoad
+  public void afterLoad() {
+    initialise();
+  }
+
+  private void initialise() {
+    rational = new Rational(duration, denominator);
+  }
+
 }
