@@ -31,7 +31,7 @@ class CompositionNotation {
 
   private String createNotation(Composition composition) {
     StringBuilder builder = new StringBuilder(128);
-    composition.stream().forEachOrdered(event ->
+    composition.eventStream().forEachOrdered(event ->
         builder
           .append(event.getTime().toString())
           .append(".")

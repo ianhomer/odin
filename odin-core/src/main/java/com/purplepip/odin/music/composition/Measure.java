@@ -16,41 +16,46 @@
 package com.purplepip.odin.music.composition;
 
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.tick.Tick;
-import com.purplepip.odin.sequence.tick.Ticks;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
-/**
- * Composition of music.  Tick unit is a beat.
- */
-public class Composition {
-  private List<Measure> measures = new ArrayList<>();
-  private Rational numberOfBeats;
+public class Measure {
+  private Map<String, Staff> staves = new HashMap<>();
+  private long upper;
+  private long lower;
 
-  public Composition(List<Measure> measures) {
-    this.measures.addAll(measures);
-    this.numberOfBeats = Real.valueOf(measures.stream().mapToLong(Measure::getUpper).sum());
-  }
-
-  public Tick getTick() {
-    return Ticks.BEAT;
+  /**
+   * Create a measure in given a time signature
+   *
+   * @param upper upper part of time signature.
+   * @param lower lower part of the time signature.
+   */
+  public Measure(long upper, long lower) {
+    this.upper = upper;
+    this.lower = lower;
   }
 
   public Stream<Event<Note>> eventStream() {
-    return measures.stream().map(Measure::eventStream)
+    return staves.values().stream().map(Staff::eventStream)
         .reduce(Stream::concat).orElseGet(Stream::empty);
   }
 
-  public int numberOfMeasures() {
-    return measures.size();
+  public Staff getStaff(String name) {
+    return staves.get(name);
   }
 
-  public Rational getNumberOfBeats() {
-    return numberOfBeats;
+  public Staff addStaff(String name) {
+    staves.put(name, new Staff(name));
+    return staves.get(name);
+  }
+
+  public long getUpper() {
+    return upper;
+  }
+
+  public long getLower() {
+    return lower;
   }
 }

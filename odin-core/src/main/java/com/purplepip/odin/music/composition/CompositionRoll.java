@@ -46,7 +46,7 @@ public class CompositionRoll implements Roll<Note> {
    */
   public CompositionRoll(Composition composition) {
     this.composition = composition;
-    composition.stream().forEach(e -> events.add(e));
+    composition.eventStream().forEach(e -> events.add(e));
     events.sort(new SequentialEventComparator());
     currentEvent = calculateCurrentEvent();
   }
@@ -75,12 +75,12 @@ public class CompositionRoll implements Roll<Note> {
 
   private void increment() {
     position++;
-    if (position == composition.size()) {
+    if (position == events.size()) {
       /*
        * Composition starts again
        */
       position = 0;
-      currentLoopStart = currentLoopStart.plus(composition.getTocks());
+      currentLoopStart = currentLoopStart.plus(composition.getNumberOfBeats());
       LOG.debug("Composition looped : {}", currentLoopStart);
     }
     /*

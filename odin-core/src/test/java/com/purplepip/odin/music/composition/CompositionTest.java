@@ -25,6 +25,6 @@ public class CompositionTest {
   @Test
   public void testLoopStart() {
     Composition composition = new EasyScoreCompositionFactory().create("C#5/q, B4, A4, G#4");
-    assertEquals(Real.valueOf(4), composition.getTocks());
+    assertEquals(Real.valueOf(4), composition.getNumberOfBeats());
   }
 }

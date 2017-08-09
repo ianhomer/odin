@@ -65,7 +65,6 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
 
   @Override
   public void exitComposition(EasyScoreParser.CompositionContext context) {
-    builder.setLength(tock);
     composition = builder.create();
   }
 

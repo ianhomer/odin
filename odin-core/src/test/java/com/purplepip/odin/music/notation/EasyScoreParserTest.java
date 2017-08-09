@@ -77,7 +77,6 @@ public class EasyScoreParserTest {
       EasyScoreCompositionListener compositionListener = new EasyScoreCompositionListener();
       new ParseTreeWalker().walk(compositionListener, tree);
       Composition composition = compositionListener.getComposition();
-      assertEquals(4, composition.size());
       assertEquals(entry.getValue(), new CompositionNotation(composition).getBody());
     }
   }
