@@ -50,8 +50,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProjectBuilder {
   private static final int DEFAULT_NOTE = 60;
-  private static final int DEFAULT_VELOCITY = 40;
-  private static final int DEFAULT_DURATION = 1;
+  public static final int DEFAULT_VELOCITY = 40;
+  public static final int DEFAULT_DURATION = 1;
   private static final String DEFAULT_NOTATION_FORMAT = "VexTab";
 
   private ProjectContainer projectContainer;

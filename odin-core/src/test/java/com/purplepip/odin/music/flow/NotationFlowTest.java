@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.events.EventsListStringifier;
 import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
@@ -37,6 +38,8 @@ import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequencer.ProjectBuilder;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 
 public class NotationFlowTest {
@@ -63,16 +66,17 @@ public class NotationFlowTest {
   @Test
   public void testGetMultipleEvents() {
     Flow<Sequence, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
+    List<Event> events = new ArrayList<>();
     Event<Note> event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Rationals.ZERO));
-    for (int i = 0; i < 6 ;i++) {
+    for (int i = 0; i < 10 ;i++) {
       Real previousEventTime = event.getTime();
       event = flow.getNextEvent(new MovableTock(Ticks.BEAT, previousEventTime));
       assertTrue("Event should be after previous one",
           event.getTime().gt(previousEventTime));
+      events.add(event);
     }
 
-    assertEquals(Real.valueOf(5), event.getTime());
-    assertEquals(64, event.getValue().getNumber());
-
+    assertEquals("1=64--;2=67--;3=60--;4=71--;4½=71--;5=64--;6=67--;7=60--;8=71--;8½=71--;",
+        new EventsListStringifier(events).toString());
   }
 }

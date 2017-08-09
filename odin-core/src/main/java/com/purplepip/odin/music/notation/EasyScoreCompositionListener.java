@@ -23,6 +23,7 @@ import com.purplepip.odin.music.composition.CompositionBuilder;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Letter;
 import com.purplepip.odin.music.notes.NoteNumber;
+import com.purplepip.odin.sequencer.ProjectBuilder;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class EasyScoreCompositionListener extends EasyScoreBaseListener {
-  private static final int DEFAULT_VELOCITY = 100;
   private static final Map<String, Integer> accidentals = new HashMap<>();
   private static final Map<String, Rational> durations = new HashMap<>();
 
@@ -54,10 +54,10 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
 
   private Letter letter;
   private int intonation;
-  private Rational duration = new Rational(1);
+  private Rational duration = new Rational(ProjectBuilder.DEFAULT_DURATION);
   private int octave;
   private Rational tock = Wholes.ZERO;
-  private int velocity = DEFAULT_VELOCITY;
+  private int velocity = ProjectBuilder.DEFAULT_VELOCITY;
 
   public Composition getComposition() {
     return composition;
