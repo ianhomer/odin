@@ -13,18 +13,16 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.events;
 
-import static org.junit.Assert.assertEquals;
+import java.io.Serializable;
+import java.util.Comparator;
 
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.notation.EasyScoreCompositionFactory;
-import org.junit.Test;
+public class SequentialEventComparator implements Comparator<Event>, Serializable {
+  private static final long serialVersionUID = 1;
 
-public class CompositionTest {
-  @Test
-  public void testLoopStart() {
-    Composition composition = new EasyScoreCompositionFactory().create("C#5/q, B4, A4, G#4");
-    assertEquals(Real.valueOf(4), composition.getTocks());
+  @Override
+  public int compare(Event event1, Event event2) {
+    return (int) event1.getTime().minus(event2.getTime()).floor();
   }
 }

@@ -15,10 +15,8 @@
 
 package com.purplepip.odin.music.composition;
 
-import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
@@ -42,7 +40,7 @@ public class Composition {
     return Ticks.BEAT;
   }
 
-  public Rational getTocks() {
+  Rational getTocks() {
     return tocks;
   }
 
@@ -52,42 +50,5 @@ public class Composition {
 
   public int size() {
     return events.size();
-  }
-
-  /**
-   * Get the tock value for the start of the loop which the given tock is in.
-   *
-   * @param tock tock
-   * @return loop start
-   */
-  public Real getLoopStart(Real tock) {
-    return tock.floor(tocks);
-  }
-
-  /**
-   * Get next event in the composition after the given tock.  Note that if the event is in the
-   * next loop then the time for this event will be relative to loop start for the loop in which
-   * the given tock is in.
-   *
-   * @param tock tock from which to find next event*
-   * @return next event
-   */
-  public Event<Note> getNextEvent(Real tock) {
-    Real relativeTock = tock.modulo(tocks);
-    return
-        events.stream().sequential()
-            .filter(event -> event.getTime().gt(relativeTock))
-            .findFirst()
-            .orElseGet(() -> rollOver(events.get(0)));
-  }
-
-  /**
-   * Roll over the given event to the following loop.
-   *
-   * @param event event to roll over
-   * @return event that has been rolled over
-   */
-  private Event<Note> rollOver(Event<Note> event) {
-    return new DefaultEvent<>(event.getValue(), event.getTime().plus(tocks));
   }
 }

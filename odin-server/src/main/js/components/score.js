@@ -77,7 +77,7 @@ class Score extends React.Component{
           staves : [
             {
               clef : 'treble',
-              notes : this.state.notation
+              notes : notation
             }
           ]
         }
@@ -104,7 +104,6 @@ class Score extends React.Component{
 
     var voice = score.voice.bind(score);
     var notes = score.notes.bind(score);
-    var beam = score.beam.bind(score);
 
     var x = 0;
     var y = 0;
@@ -129,9 +128,9 @@ class Score extends React.Component{
             ].reduce(concat))
           ]
         })
-        .addClef(stave.clef)
-        .addKeySignature(measure.key)
-        .addTimeSignature(measure.time);
+          .addClef(stave.clef)
+          .addKeySignature(measure.key)
+          .addTimeSignature(measure.time);
       }
     }
 

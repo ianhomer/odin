@@ -41,7 +41,7 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
     Event<Note> nextEvent;
     boolean on = false;
     int i = 0;
-    long maxScanForward = getClock().getDuration(getConfiguration().getMaxForwardScan()).floor();
+    long maxScanForward = getMaxScanForward().floor();
     while (!on && i < maxScanForward) {
       mutableTock.increment();
       i++;

@@ -19,6 +19,7 @@ import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.composition.CompositionRoll;
 import com.purplepip.odin.music.notation.EasyScoreCompositionFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
@@ -28,21 +29,33 @@ import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
 
+/*
+ * TODO : Should we force flow tock to equal composition tock to equal a beat?  This will
+ * make this implementation simpler and I don't think restrictive in anyway.
+ */
 @Slf4j
 public class NotationFlow extends AbstractFlow<Notation, Note> {
-  private Composition composition;
+  private static final int MAX_EVENT_SCAN = 1000;
+  private CompositionRoll compositionRoll;
   private TickConverter tickConverter;
 
   @Override
   public Event<Note> getNextEvent(Tock tock) {
     LOG.debug("Getting next event after {}", tock);
     Real compositionTock  = tickConverter.convertBack(tock.getPosition());
-
-    Event<Note> nextCompositionEvent =
-        composition.getNextEvent(compositionTock);
-    Real flowTock = tickConverter
-        .convert(composition.getLoopStart(compositionTock)
-            .plus(nextCompositionEvent.getTime()));
+    Event<Note> nextCompositionEvent = compositionRoll.pop();
+    int i = 0;
+    while (nextCompositionEvent.getTime().le(compositionTock)) {
+      i++;
+      if (i > MAX_EVENT_SCAN) {
+        LOG.warn("Max composition scan reached");
+        break;
+      }
+      LOG.warn("Composition event too late : {} <= {}",
+          nextCompositionEvent.getTime(), compositionTock);
+      nextCompositionEvent = compositionRoll.pop();
+    }
+    Real flowTock = tickConverter.convert(nextCompositionEvent.getTime());
     LOG.debug("Next composition event {} at flow tock {}", nextCompositionEvent, flowTock);
     return new DefaultEvent<>(nextCompositionEvent.getValue(), flowTock);
   }
@@ -50,7 +63,8 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
   @Override
   public void afterPropertiesSet() {
     LOG.debug("Initialising notation flow with {}", getSequence().getNotation());
-    composition = new EasyScoreCompositionFactory().create(getSequence().getNotation());
+    Composition composition = new EasyScoreCompositionFactory().create(getSequence().getNotation());
+    compositionRoll = new CompositionRoll(composition);
     tickConverter =
         new SameTimeUnitTickConverter(composition::getTick, getClock()::getTick);
   }

@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.flow;
 
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
@@ -66,5 +67,9 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
   @Override
   public FlowConfiguration getConfiguration() {
     return configuration;
+  }
+
+  protected Real getMaxScanForward() {
+    return getClock().getDuration(getConfiguration().getMaxForwardScan());
   }
 }

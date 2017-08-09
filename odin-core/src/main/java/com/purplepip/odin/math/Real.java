@@ -175,6 +175,10 @@ public class Real {
     return getValue() < rational.getValue();
   }
 
+  public boolean le(Real rational) {
+    return getValue() <= rational.getValue();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
