@@ -16,50 +16,48 @@
 package com.purplepip.odin.music.composition;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Measure {
-  private Map<String, Staff> staves = new HashMap<>();
-  private long upper;
-  private long lower;
+  private List<Staff> staves = new ArrayList<>();
+  private Rational time;
+  private String key;
 
   /**
-   * Create a measure in given a time signature
+   * Create a measure in given a time signature and for a given key
    *
-   * @param upper upper part of time signature.
-   * @param lower lower part of the time signature.
+   * @param time time signature
+   * @param key key signature.
    */
-  public Measure(long upper, long lower) {
-    this.upper = upper;
-    this.lower = lower;
+  public Measure(Rational time, String key) {
+    this.time = time;
+    this.key = key;
   }
 
-  public Stream<Event<Note>> eventStream() {
-    return staves.values().stream().map(Staff::eventStream)
+  Stream<Event<Note>> eventStream() {
+    return staves.stream().map(Staff::eventStream)
         .reduce(Stream::concat).orElseGet(Stream::empty);
   }
 
-  public Stream<Map.Entry<String, Staff>> stream() {
-    return staves.entrySet().stream();
+  public Stream<Staff> stream() {
+    return staves.stream();
   }
 
-  public Staff getStaff(String name) {
-    return staves.get(name);
+  Staff addStaff(String clef) {
+    Staff staff = new Staff(clef);
+    staves.add(staff);
+    return staff;
   }
 
-  public Staff addStaff(String name) {
-    staves.put(name, new Staff(name));
-    return staves.get(name);
+  public String getKey() {
+    return key;
   }
 
-  public long getUpper() {
-    return upper;
-  }
-
-  public long getLower() {
-    return lower;
+  public Rational getTime() {
+    return time;
   }
 }

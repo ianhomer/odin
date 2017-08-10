@@ -28,6 +28,7 @@ public class Rational extends Real {
 
   private long numerator;
   private long denominator;
+  private boolean simplified;
   private static final Map<Rational, Character> fractionCharacters = new HashMap<>();
 
   static {
@@ -54,10 +55,7 @@ public class Rational extends Real {
    * @param numerator numerator
    */
   public Rational(long numerator) {
-    /*
-     * Note that there is no need for simplification since denominator is 1.
-     */
-    this(numerator, 1, false);
+    this(numerator, 1, true);
   }
 
   /**
@@ -100,6 +98,11 @@ public class Rational extends Real {
         numerator /= i;
       }
     }
+    simplified = true;
+  }
+
+  public boolean isSimplified() {
+    return simplified;
   }
 
   @Override
@@ -224,13 +227,24 @@ public class Rational extends Real {
       return "0";
     }
     StringBuilder builder = new StringBuilder(8);
-    long floor = floor();
-    if (floor > 0) {
-      builder.append(floor());
+    long floor;
+    long partNumerator;
+    if (simplified) {
+      floor = floor();
+      if (floor > 0) {
+        builder.append(floor());
+      }
+      partNumerator = numerator % denominator;
+    } else {
+      /*
+       * If fraction was not simplified then we write as it is and do not pull out the integer
+       * part.  This is useful for writing musical time signatures.
+       */
+      floor = 0;
+      partNumerator = numerator;
     }
-    long partNumerator = numerator % denominator;
     if (partNumerator > 0) {
-      Rational part = new Rational(partNumerator, denominator, true);
+      Rational part = new Rational(partNumerator, denominator, isSimplified());
       Character special = fractionCharacters.get(part);
       if (special != null) {
         builder.append(special);

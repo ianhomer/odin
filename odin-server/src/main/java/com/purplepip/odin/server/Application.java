@@ -15,20 +15,32 @@
 
 package com.purplepip.odin.server;
 
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.SynthesizerHelper;
+import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.composition.Measure;
+import com.purplepip.odin.music.composition.Staff;
+import com.purplepip.odin.music.composition.Voice;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.server.services.CompositionSerializer;
+import com.purplepip.odin.server.services.MeasureSerializer;
+import com.purplepip.odin.server.services.RationalSerializer;
+import com.purplepip.odin.server.services.StaffSerializer;
+import com.purplepip.odin.server.services.VoiceSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 /**
  * Odin Application.
@@ -49,6 +61,21 @@ public class Application {
 
   @Autowired
   private ProjectContainer container;
+
+  @Autowired
+  private CompositionSerializer compositionSerializer;
+
+  @Autowired
+  private MeasureSerializer measureSerializer;
+
+  @Autowired
+  private StaffSerializer staffSerializer;
+
+  @Autowired
+  private VoiceSerializer voiceSerializer;
+
+  @Autowired
+  private RationalSerializer rationalSerializer;
 
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
@@ -75,6 +102,25 @@ public class Application {
       container.apply();
 
       LOG.info("Odin Started.");
+    };
+  }
+
+  /**
+   * Customize the JSON output from this application.
+   *
+   * @return jackson object mapper customizer
+   */
+  @Bean
+  public Jackson2ObjectMapperBuilderCustomizer customizeJson() {
+    return new Jackson2ObjectMapperBuilderCustomizer() {
+      @Override
+      public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
+        jacksonObjectMapperBuilder.serializerByType(Composition.class,  compositionSerializer);
+        jacksonObjectMapperBuilder.serializerByType(Measure.class,  measureSerializer);
+        jacksonObjectMapperBuilder.serializerByType(Staff.class, staffSerializer);
+        jacksonObjectMapperBuilder.serializerByType(Voice.class, voiceSerializer);
+        jacksonObjectMapperBuilder.serializerByType(Rational.class,  rationalSerializer);
+      }
     };
   }
 }

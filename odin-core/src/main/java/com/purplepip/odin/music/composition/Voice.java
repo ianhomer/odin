@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 public class Voice {
   private List<Event<Note>> events = new ArrayList<>();
   private String name;
+  private String notation;
 
   public Voice(String name) {
     this.name = name;
@@ -37,8 +38,15 @@ public class Voice {
     events.add(event);
   }
 
-
   public String getName() {
     return name;
+  }
+
+  public String getNotation() {
+    return notation;
+  }
+
+  public void setNotation(String notation) {
+    this.notation = notation;
   }
 }

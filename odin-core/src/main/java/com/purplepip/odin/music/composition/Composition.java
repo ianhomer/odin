@@ -32,9 +32,16 @@ public class Composition {
   private List<Measure> measures = new ArrayList<>();
   private Rational numberOfBeats;
 
+  /**
+   * Create composition.
+   *
+   * @param measures measures to create the composition with
+   */
   public Composition(List<Measure> measures) {
     this.measures.addAll(measures);
-    this.numberOfBeats = Real.valueOf(measures.stream().mapToLong(Measure::getUpper).sum());
+    this.numberOfBeats = Real.valueOf(measures.stream().mapToLong(measure ->
+        measure.getTime().getNumerator()
+    ).sum());
   }
 
   public Tick getTick() {

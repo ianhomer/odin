@@ -17,37 +17,34 @@ package com.purplepip.odin.music.composition;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Staff {
-  private String name;
-  private Map<String, Voice> voices = new HashMap<>();
+  private String clef;
+  private List<Voice> voices = new ArrayList<>();
 
-  public Staff(String name) {
-    this.name = name;
+  public Staff(String clef) {
+    this.clef = clef;
   }
 
-  public Stream<Event<Note>> eventStream() {
-    return voices.values().stream().map(Voice::stream)
+  Stream<Event<Note>> eventStream() {
+    return voices.stream().map(Voice::stream)
         .reduce(Stream::concat).orElseGet(Stream::empty);
   }
 
-  public Stream<Map.Entry<String, Voice>> stream() {
-    return voices.entrySet().stream();
+  public Stream<Voice> stream() {
+    return voices.stream();
   }
 
-  public String getName() {
-    return name;
+  public String getClef() {
+    return clef;
   }
 
-  public Voice getVoice(String name) {
-    return voices.get(name);
-  }
-
-  public Voice addVoice(String name) {
-    voices.put(name, new Voice(name));
-    return voices.get(name);
+  Voice addVoice(String name) {
+    Voice voice = new Voice(name);
+    voices.add(voice);
+    return voice;
   }
 }

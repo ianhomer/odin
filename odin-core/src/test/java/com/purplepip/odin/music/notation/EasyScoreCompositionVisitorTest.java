@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Test;
 
-public class EasyScoreNotationWriterTest {
+public class EasyScoreCompositionVisitorTest {
   @Test
   public void testWriter() {
     Map<String, String> notations = new LinkedHashMap<>();
@@ -46,7 +46,22 @@ public class EasyScoreNotationWriterTest {
     for (Map.Entry<String, String> entry : notations.entrySet()) {
       Composition composition = new EasyScoreCompositionFactory().create(entry.getKey());
       String expectedValue = entry.getValue() == null ? entry.getKey() : entry.getValue();
-      assertEquals(expectedValue, new EasyScoreNotationWriter(composition).getNotation());
+      new EasyScoreCompositionVisitor(composition).visit();
+      assertEquals("4/4:" + expectedValue, toNotationString(composition));
     }
+  }
+
+  private String toNotationString(Composition composition) {
+    StringBuilder builder = new StringBuilder(128);
+    composition.stream().forEachOrdered(measure -> {
+      if (builder.length() > 0) {
+        builder.append('|');
+      }
+      builder.append(measure.getTime()).append(":");
+      measure.stream().forEachOrdered(staff ->
+          staff.stream().forEachOrdered(voice -> builder.append(voice.getNotation()))
+      );
+    });
+    return builder.toString();
   }
 }

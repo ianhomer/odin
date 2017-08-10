@@ -31,7 +31,7 @@ import com.purplepip.odin.music.notes.NoteNameCache;
 /**
  * Write a composition as easy score notation.
  */
-public class EasyScoreNotationWriter {
+public class EasyScoreCompositionVisitor {
   private static final String REST_NOTE = "B4";
 
   private Composition composition;
@@ -45,38 +45,36 @@ public class EasyScoreNotationWriter {
   private Rational currentMeasurePosition;
 
 
-  public EasyScoreNotationWriter(Composition composition) {
-    builder = new StringBuilder(128);
+  public EasyScoreCompositionVisitor(Composition composition) {
     this.composition = composition;
-  }
-
-  /**
-   * Write the composition as an easy score notation.
-
-   * @return notation
-   */
-  public String getNotation() {
-    composition.stream().forEachOrdered(this::append);
-    return builder.toString();
   }
 
   private void setCurrentMeasure(Measure measure) {
     currentMeasure = measure;
-    currentMeasurePosition = Wholes.ZERO;
   }
 
-  private void append(Measure measure) {
+  /**
+   * Visit the composition objects and set appropriate notations.
+   */
+  public Composition visit() {
+    composition.stream().forEachOrdered(this::visit);
+    return composition;
+  }
+
+  private void visit(Measure measure) {
     setCurrentMeasure(measure);
-    measure.stream().forEachOrdered(staffEntry -> append(staffEntry.getValue()));
+    measure.stream().forEachOrdered(this::visit);
   }
 
-  private void append(Staff staff) {
-    staff.stream().forEachOrdered(voiceEntry -> append(voiceEntry.getValue()));
+  private void visit(Staff staff) {
+    staff.stream().forEachOrdered(this::visit);
   }
 
-  private void append(Voice voice) {
-    voice.stream().forEachOrdered(this::append);
-    Whole expectedBeats = Real.valueOf(currentMeasure.getUpper());
+  private void visit(Voice voice) {
+    currentMeasurePosition = Wholes.ZERO;
+    builder = new StringBuilder(128);
+    voice.stream().forEachOrdered(this::visit);
+    Whole expectedBeats = Real.valueOf(currentMeasure.getTime().getNumerator());
     if (!currentMeasurePosition.equals(expectedBeats)) {
       Rational remainingBeats = expectedBeats.minus(currentMeasurePosition);
       remainingBeats.getEgyptianFractions()
@@ -84,9 +82,10 @@ public class EasyScoreNotationWriter {
               duration -> builder.append(", ").append(REST_NOTE)
                   .append(reference.getDurationLabel(duration)).append("/r"));
     }
+    voice.setNotation(builder.toString());
   }
 
-  private void append(Event event) {
+  private void visit(Event event) {
     Object value = event.getValue();
     if (value instanceof Note) {
       Note note = (Note) value;
