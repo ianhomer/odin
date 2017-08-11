@@ -48,7 +48,6 @@ class App extends React.Component {
     // TODO : Switch to generic sequence list to configure more than just patterns
     return (
       <div>
-        <Trace scope="app"/>
         {this.state.entities &&
           <div className="warn">WARNING : Entities store in app state {JSON.stringify(this.state.entities)}</div>
         }

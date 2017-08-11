@@ -17,7 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
@@ -92,7 +92,7 @@ public class TrackProcessorExecutor implements Runnable {
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     if (nextEvent != null) {
       while (nextEvent != null
-          && nextEvent.getTime().lt(new Rational(maxMicrosecondPosition))) {
+          && nextEvent.getTime().lt(Whole.valueOf(maxMicrosecondPosition))) {
         if (noteCount > maxNotesPerBuffer) {
           LOG.warn("Too many notes in this buffer {} > {} ", noteCount,
               maxNotesPerBuffer);
@@ -103,7 +103,7 @@ public class TrackProcessorExecutor implements Runnable {
          */
         nextEvent = roll.pop();
         LOG.debug("Processing Event {}", nextEvent);
-        if (nextEvent.getTime().lt(new Rational(microsecondPosition))) {
+        if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
           statistics.incrementEventTooLateCount();
           LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
               microsecondPosition);

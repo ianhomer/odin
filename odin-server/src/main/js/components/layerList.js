@@ -42,7 +42,6 @@ class LayerList extends React.Component{
     );
     return (
       <div>
-        <Trace scope="layerList"/>
         <div>{entities}</div>
       </div>
     );

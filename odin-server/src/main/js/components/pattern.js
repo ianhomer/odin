@@ -114,7 +114,7 @@ Pattern.defaultProps = {
       fields : {
         'number' : {defaultValue : 60},
         'velocity' : {defaultValue : 100},
-        'duration' : {defaultValue : 1}
+        'numerator' : {defaultValue : 1}
       }
     },
     'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.PatternFlow'}

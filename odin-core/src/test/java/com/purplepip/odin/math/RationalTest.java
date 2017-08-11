@@ -1,14 +1,3 @@
-package com.purplepip.odin.math;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-
-import com.purplepip.odin.common.OdinRuntimeException;
-import java.util.stream.Collectors;
-import org.junit.Test;
-
 /*
  * Copyright (c) 2017 Ian Homer. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +12,18 @@ import org.junit.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.purplepip.odin.math;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
+import com.purplepip.odin.common.OdinRuntimeException;
+import java.util.stream.Collectors;
+import org.junit.Test;
+
 public class RationalTest {
   @Test
   public void testValue() {
@@ -80,33 +81,33 @@ public class RationalTest {
 
   @Test
   public void testGe() {
-    assertTrue(new Rational(2).ge(new Rational(2)));
-    assertTrue(new Rational(2).ge(new Rational(4, 2)));
+    assertTrue(new Rational(2, 1).ge(new Rational(2, 1)));
+    assertTrue(new Rational(2, 1).ge(new Rational(4, 2)));
   }
 
   @Test
   public void testGt() {
-    assertFalse(new Rational(2).gt(new Rational(2)));
+    assertFalse(new Rational(2, 1).gt(new Rational(2, 1)));
     assertFalse(new Rational(-2, 5).gt(new Whole(0)));
-    assertTrue(new Rational(3).gt(new Rational(4, 2)));
+    assertTrue(new Rational(3, 1).gt(new Rational(4, 2)));
   }
 
   @Test
   public void testLt() {
-    assertFalse(new Rational(2).lt(new Rational(2)));
-    assertTrue(new Rational(1).lt(new Rational(4, 2)));
+    assertFalse(new Rational(2, 1).lt(new Rational(2, 1)));
+    assertTrue(new Rational(1, 1).lt(new Rational(4, 2)));
   }
 
   @Test
   public void testModulo() {
-    assertEquals("0", new Rational(3)
-        .modulo(new Rational(1)).toString());
-    assertEquals("1", new Rational(3)
-        .modulo(new Rational(2)).toString());
-    assertEquals("0", new Rational(4)
-        .modulo(new Rational(2)).toString());
+    assertEquals("0", new Rational(3, 1)
+        .modulo(new Rational(1, 1)).toString());
+    assertEquals("1", new Rational(3, 1)
+        .modulo(new Rational(2, 1)).toString());
+    assertEquals("0", new Rational(4, 1)
+        .modulo(new Rational(2, 1)).toString());
     assertEquals("½", new Rational(3,2)
-        .modulo(new Rational(1)).toString());
+        .modulo(new Rational(1, 1)).toString());
   }
 
   @Test
@@ -117,11 +118,11 @@ public class RationalTest {
 
   @Test
   public void testFloorToRadix() {
-    assertEquals("2", new Rational(3)
-        .floor(new Rational(2)).toString());
-    assertEquals("1½", new Rational(2)
+    assertEquals("2", new Rational(3, 1)
+        .floor(new Rational(2, 1)).toString());
+    assertEquals("1½", new Rational(2, 1)
         .floor(new Rational(3, 2)).toString());
-    assertEquals("3", new Rational(4)
+    assertEquals("3", new Rational(4, 1)
         .floor(new Rational(3, 2)).toString());
   }
 

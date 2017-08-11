@@ -129,7 +129,7 @@ class Score extends React.Component{
               notes(staff.voices[0].notation)
             ].reduce(concat))
           ]
-        })
+        });
 
         if (i == 0 || composition.measures[i-1].staves[j].clef != staff.clef) {
           systemStaff.addClef(staff.clef);

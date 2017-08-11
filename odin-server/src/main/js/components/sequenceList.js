@@ -63,7 +63,6 @@ class SequenceList extends React.Component{
     return (
       // View sequence list.
       <div>
-        <Trace scope={this.props.path}/>
         <div className="container">
           <div className="row">
             <div className="col-1">Channel</div>

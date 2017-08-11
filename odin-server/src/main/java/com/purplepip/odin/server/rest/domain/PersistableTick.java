@@ -45,7 +45,7 @@ public class PersistableTick implements Tick {
 
   @Transient
   @JsonIgnore
-  private Rational rational;
+  private Rational factor;
 
   /**
    * Create a persistable tick.
@@ -60,8 +60,9 @@ public class PersistableTick implements Tick {
   }
 
   @Override
+  @JsonIgnore
   public Rational getFactor() {
-    return rational;
+    return factor;
   }
 
   @PostLoad
@@ -70,6 +71,6 @@ public class PersistableTick implements Tick {
   }
 
   private void initialise() {
-    rational = new Rational(numerator, denominator);
+    factor = new Rational(numerator, denominator);
   }
 }

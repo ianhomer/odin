@@ -38,7 +38,7 @@ public class PersistableNote implements Note {
   private long id;
   private int velocity;
   private int number;
-  private long duration;
+  private long numerator;
   private long denominator;
 
   @Transient
@@ -46,6 +46,7 @@ public class PersistableNote implements Note {
   private Rational rational;
 
   @Override
+  @JsonIgnore
   public Rational getDuration() {
     return rational;
   }
@@ -56,7 +57,7 @@ public class PersistableNote implements Note {
   }
 
   private void initialise() {
-    rational = new Rational(duration, denominator);
+    rational = new Rational(numerator, denominator);
   }
 
 }

@@ -48,7 +48,6 @@ class PatternList extends React.Component{
     );
     return (
       <div>
-        <Trace scope={this.props.path}/>
         <div className="container">
           <div className="row">
             <div className="col-1">Channel</div>

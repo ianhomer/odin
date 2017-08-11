@@ -51,15 +51,6 @@ public class Rational extends Real {
   }
 
   /**
-   * Create whole number.
-   *
-   * @param numerator numerator
-   */
-  public Rational(long numerator) {
-    this(numerator, 1, true);
-  }
-
-  /**
    * Create rational number with fraction simplification.
    *
    * @param numerator numerator

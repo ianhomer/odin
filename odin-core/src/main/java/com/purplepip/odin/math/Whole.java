@@ -17,7 +17,7 @@ package com.purplepip.odin.math;
 
 public class Whole extends Rational {
   public Whole(long numerator) {
-    super(numerator);
+    super(numerator, 1);
   }
 
   public static Whole valueOf(long integer) {

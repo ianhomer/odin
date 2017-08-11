@@ -58,7 +58,7 @@ public class PersistableProjectBuilder extends ProjectBuilder {
   @Override
   protected Note createNote(int number, int velocity, Rational duration) {
     PersistableNote persistableNote = new PersistableNote();
-    persistableNote.setDuration(duration.getNumerator());
+    persistableNote.setNumerator(duration.getNumerator());
     persistableNote.setDenominator(duration.getDenominator());
     persistableNote.setVelocity(velocity);
     persistableNote.setNumber(number);
