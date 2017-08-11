@@ -13,16 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation;
-
-public class TestEasyScoreListener extends EasyScoreBaseListener {
-  private int noteCount;
-
-  public int getNoteCount() {
-    return noteCount;
-  }
-
-  @Override public void enterNote(EasyScoreParser.NoteContext ctx) {
-    noteCount++;
-  }
-}
+/**
+ * Easy score notation handling classes.  Easy score is notation from the Vexflow library that
+ * can render notation graphically in standard music notation formats.
+ */
+package com.purplepip.odin.music.notation.easy;

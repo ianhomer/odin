@@ -16,15 +16,15 @@
 package com.purplepip.odin.server.services;
 
 import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.music.notation.EasyScoreCompositionFactory;
-import com.purplepip.odin.music.notation.EasyScoreCompositionVisitor;
+import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
+import com.purplepip.odin.music.notation.easy.EasyScoreCompositionVisitor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CompositionController {
-  private EasyScoreCompositionFactory factory = new EasyScoreCompositionFactory();
+  private NaturalScoreCompositionFactory factory = new NaturalScoreCompositionFactory();
 
   @RequestMapping("/service/composition")
   public Composition createCompositionFromNotation(

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation;
+package com.purplepip.odin.music.notation.easy;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.events.Event;
@@ -38,7 +38,7 @@ public class EasyScoreCompositionVisitor {
   private StringBuilder builder;
   private NoteNameCache noteNameCache = new NoteNameCache();
   private boolean noteWritten = false;
-  private EasyScoreNotationReference reference = new EasyScoreNotationReference();
+  private EasyScoreReference reference = new EasyScoreReference();
 
   private Measure currentMeasure;
   private Rational lastNoteDuration;

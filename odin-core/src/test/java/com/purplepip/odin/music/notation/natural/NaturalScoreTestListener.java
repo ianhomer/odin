@@ -13,18 +13,19 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.notation.natural;
 
-import static org.junit.Assert.assertEquals;
+import com.purplepip.odin.music.notation.NaturalScoreBaseListener;
+import com.purplepip.odin.music.notation.NaturalScoreParser;
 
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
-import org.junit.Test;
+public class NaturalScoreTestListener extends NaturalScoreBaseListener {
+  private int noteCount;
 
-public class CompositionTest {
-  @Test
-  public void testLoopStart() {
-    Composition composition = new NaturalScoreCompositionFactory().create("C#5/q, B4, A4, G#4");
-    assertEquals(Real.valueOf(4), composition.getNumberOfBeats());
+  public int getNoteCount() {
+    return noteCount;
+  }
+
+  @Override public void enterNote(NaturalScoreParser.NoteContext ctx) {
+    noteCount++;
   }
 }

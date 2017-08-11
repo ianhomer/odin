@@ -13,18 +13,25 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.notation.natural;
 
-import static org.junit.Assert.assertEquals;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.music.notation.Reference;
 
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
-import org.junit.Test;
+/**
+ * Reference lookups for NaturalScore.
+ */
+class NaturalScoreReference extends Reference {
+  @Override
+  public String getDurationLabel(Rational length) {
+    return "/" + super.getDurationLabel(length);
+  }
 
-public class CompositionTest {
-  @Test
-  public void testLoopStart() {
-    Composition composition = new NaturalScoreCompositionFactory().create("C#5/q, B4, A4, G#4");
-    assertEquals(Real.valueOf(4), composition.getNumberOfBeats());
+  @Override
+  public Rational getDurationLength(String duration) {
+    /*
+     * Natural score duration labels start with a "/"
+     */
+    return super.getDurationLength(duration.substring(1));
   }
 }

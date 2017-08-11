@@ -21,10 +21,10 @@ import com.purplepip.odin.music.composition.Composition;
  * Notation for internal composition structure used only for test assertion purposes.  This
  * notation is simple to serialise for comparison, but not designed for human readability.
  */
-class CompositionNotation {
+public class CompositionTestNotation {
   private String notation;
 
-  CompositionNotation(Composition composition) {
+  public CompositionTestNotation(Composition composition) {
     notation = createNotation(composition);
   }
 

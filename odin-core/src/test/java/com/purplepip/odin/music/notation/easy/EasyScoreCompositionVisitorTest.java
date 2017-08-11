@@ -13,11 +13,12 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation;
+package com.purplepip.odin.music.notation.easy;
 
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Test;
@@ -45,7 +46,7 @@ public class EasyScoreCompositionVisitorTest {
     notations.put("C5/q, B4, A/8", "C5/q, B4, A4/8, B4/q/r, B4/8/r");
 
     for (Map.Entry<String, String> entry : notations.entrySet()) {
-      Composition composition = new EasyScoreCompositionFactory().create(entry.getKey());
+      Composition composition = new NaturalScoreCompositionFactory().create(entry.getKey());
       String expectedValue = entry.getValue() == null ? entry.getKey() : entry.getValue();
       new EasyScoreCompositionVisitor(composition).visit();
       assertEquals("4/4:" + expectedValue, toNotationString(composition));

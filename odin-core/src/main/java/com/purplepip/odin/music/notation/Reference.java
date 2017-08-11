@@ -20,7 +20,10 @@ import com.purplepip.odin.math.Real;
 import java.util.HashMap;
 import java.util.Map;
 
-class EasyScoreNotationReference {
+/**
+ * Generic reference lookups that can be used by any specific notation reference lookup.
+ */
+public abstract class Reference {
   private static final Map<String, Integer> accidentals = new HashMap<>();
   private static final Map<String, Rational> durations = new HashMap<>();
   private static final Map<Rational, String> durationsReverse = new HashMap<>();
@@ -30,25 +33,31 @@ class EasyScoreNotationReference {
     accidentals.put("b", -1);
     accidentals.put("n", 0);
 
-    durations.put("/h", Real.valueOf(2));
-    durations.put("/q", Real.valueOf(1));
-    durations.put("/8", Real.valueOf(1,2));
+    durations.put("h", Real.valueOf(2));
+    durations.put("q", Real.valueOf(1));
+    durations.put("8", Real.valueOf(1,2));
 
     durations.forEach((key, value) -> durationsReverse.put(value, key));
   }
 
-  int getAccidentalIncrement(String accidental) {
+  public int getAccidentalIncrement(String accidental) {
     return accidentals.get(accidental);
   }
 
-  Rational getDurationLength(String duration) {
+  public Rational getDurationLength(String duration) {
     return durations.get(duration);
   }
 
-  String getDurationLabel(Rational length) {
+  /**
+   * Duration label.
+   *
+   * @param length length of note
+   * @return how the duration should be written
+   */
+  public String getDurationLabel(Rational length) {
     String label = durationsReverse.get(length);
     if (label == null) {
-      return "/" + length.toString();
+      return length.toString();
     }
     return label;
   }

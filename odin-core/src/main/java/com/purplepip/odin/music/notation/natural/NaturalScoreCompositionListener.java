@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation;
+package com.purplepip.odin.music.notation.natural;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.math.Rational;
@@ -21,6 +21,9 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.composition.CompositionBuilder;
+import com.purplepip.odin.music.notation.NaturalScoreBaseListener;
+import com.purplepip.odin.music.notation.NaturalScoreParser;
+import com.purplepip.odin.music.notation.Reference;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Letter;
 import com.purplepip.odin.music.notes.NoteNumber;
@@ -28,17 +31,17 @@ import com.purplepip.odin.sequencer.ProjectBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Easy flow composition listener for for easy flow (i.e. vexflow) notation parsing.
+ * Natural score composition listener for natural score notation parsing.
  */
 /*
  * //TODO Handle key signature
  */
 @Slf4j
-public class EasyScoreCompositionListener extends EasyScoreBaseListener {
-  private static final int DEFAULT_OCTAVE = 5;
+public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
+  private static final int DEFAULT_OCTAVE = 4;
   private CompositionBuilder builder = new CompositionBuilder();
   private Composition composition;
-  private EasyScoreNotationReference reference = new EasyScoreNotationReference();
+  private Reference reference = new NaturalScoreReference();
 
   private Letter letter;
   private int intonation;
@@ -52,35 +55,35 @@ public class EasyScoreCompositionListener extends EasyScoreBaseListener {
   }
 
   @Override
-  public void exitComposition(EasyScoreParser.CompositionContext context) {
+  public void exitComposition(NaturalScoreParser.CompositionContext context) {
     composition = builder.create();
   }
 
   @Override
-  public void enterLetter(EasyScoreParser.LetterContext context) {
+  public void enterLetter(NaturalScoreParser.LetterContext context) {
     LOG.debug("Entering note {}", context.getText());
     letter = Letter.valueOf(context.getText());
     intonation = 0;
   }
 
   @Override
-  public void enterOctave(EasyScoreParser.OctaveContext context) {
+  public void enterOctave(NaturalScoreParser.OctaveContext context) {
     octave = Integer.parseInt(context.getText());
   }
 
   @Override
-  public void enterAccidental(EasyScoreParser.AccidentalContext context) {
+  public void enterAccidental(NaturalScoreParser.AccidentalContext context) {
     intonation = intonation + reference.getAccidentalIncrement(context.getText());
   }
 
   @Override
-  public void enterDuration(EasyScoreParser.DurationContext context) {
+  public void enterDuration(NaturalScoreParser.DurationContext context) {
     duration = reference.getDurationLength(context.getText());
     LOG.debug("Entering duration {} = {}", context.getText(), duration);
   }
 
   @Override
-  public void exitNote(EasyScoreParser.NoteContext ctx) {
+  public void exitNote(NaturalScoreParser.NoteContext ctx) {
     builder.addEvent(new DefaultEvent<>(
         new DefaultNote(
             new NoteNumber(letter, intonation, octave).getValue(),

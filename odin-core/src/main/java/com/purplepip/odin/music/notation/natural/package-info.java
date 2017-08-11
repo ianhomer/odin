@@ -13,18 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
-
-import static org.junit.Assert.assertEquals;
-
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
-import org.junit.Test;
-
-public class CompositionTest {
-  @Test
-  public void testLoopStart() {
-    Composition composition = new NaturalScoreCompositionFactory().create("C#5/q, B4, A4, G#4");
-    assertEquals(Real.valueOf(4), composition.getNumberOfBeats());
-  }
-}
+/**
+ * Natural score notation handling classes.  Natural score is a score that is an easy to write
+ * fail safe text string.  The system interpreting the score must make best attempts to apply
+ * defaults and convert the string to into a sensible composition.   The notation is focused
+ * primarily on creating a composition that a sequencer can play.
+ */
+package com.purplepip.odin.music.notation.natural;

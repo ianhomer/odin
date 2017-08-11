@@ -13,33 +13,38 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation;
+package com.purplepip.odin.music.notation.natural;
 
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.notation.CompositionTestNotation;
+import com.purplepip.odin.music.notation.NaturalScoreLexer;
+import com.purplepip.odin.music.notation.NaturalScoreParser;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.junit.Assert;
 import org.junit.Test;
 
 @Slf4j
-public class EasyScoreParserTest {
+public class NaturalScoreParserTest {
   private ParseTree getTree(String notation) {
-    EasyScoreLexer lexer = new EasyScoreLexer(CharStreams.fromString(notation));
+    Lexer lexer = new NaturalScoreLexer(CharStreams.fromString(notation));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
-    EasyScoreParser parser = new EasyScoreParser(tokens);
+    NaturalScoreParser parser = new NaturalScoreParser(tokens);
     return parser.composition();
   }
 
   @Test
   public void testParser() {
     ParseTree tree = getTree("C#5/q, B4, A4, G#4");
-    TestEasyScoreListener listener = new TestEasyScoreListener();
+    NaturalScoreTestListener listener = new NaturalScoreTestListener();
     new ParseTreeWalker().walk(listener, tree);
     assertEquals(4, listener.getNoteCount());
   }
@@ -74,10 +79,10 @@ public class EasyScoreParserTest {
       ParseTree tree = getTree(entry.getKey());
 
       LOG.debug("Testing composition");
-      EasyScoreCompositionListener compositionListener = new EasyScoreCompositionListener();
+      NaturalScoreCompositionListener compositionListener = new NaturalScoreCompositionListener();
       new ParseTreeWalker().walk(compositionListener, tree);
       Composition composition = compositionListener.getComposition();
-      assertEquals(entry.getValue(), new CompositionNotation(composition).getBody());
+      Assert.assertEquals(entry.getValue(), new CompositionTestNotation(composition).getBody());
     }
   }
 }

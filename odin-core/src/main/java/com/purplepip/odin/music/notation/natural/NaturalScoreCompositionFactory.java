@@ -13,17 +13,20 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation;
+package com.purplepip.odin.music.notation.natural;
 
 import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.notation.NaturalScoreLexer;
+import com.purplepip.odin.music.notation.NaturalScoreParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 /**
  * Composition factory.
  */
-public class EasyScoreCompositionFactory {
+public class NaturalScoreCompositionFactory {
   /**
    * Create composition from the given notation.
    *
@@ -31,10 +34,10 @@ public class EasyScoreCompositionFactory {
    * @return composition
    */
   public Composition create(String notation) {
-    EasyScoreLexer lexer = new EasyScoreLexer(CharStreams.fromString(notation));
+    Lexer lexer = new NaturalScoreLexer(CharStreams.fromString(notation));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
-    EasyScoreParser parser = new EasyScoreParser(tokens);
-    EasyScoreCompositionListener compositionListener = new EasyScoreCompositionListener();
+    NaturalScoreParser parser = new NaturalScoreParser(tokens);
+    NaturalScoreCompositionListener compositionListener = new NaturalScoreCompositionListener();
     new ParseTreeWalker().walk(compositionListener, parser.composition());
     return compositionListener.getComposition();
   }
