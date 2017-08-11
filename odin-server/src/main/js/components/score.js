@@ -17,6 +17,8 @@
 const React = require('react');
 const Vex = require('vexflow');
 
+const client = require('../client');
+
 function concat(a, b) {
   return a.concat(b);
 }
@@ -68,22 +70,20 @@ class Score extends React.Component{
   }
 
   renderNotation(notation = this.state.notation, dryRun = false) {
-    // JSON Object for composition
-    var composition = {
-      measures : [
-        {
-          key : 'C',
-          time : '4/4',
-          staves : [
-            {
-              clef : 'treble',
-              notes : notation
-            }
-          ]
-        }
-      ]
-    };
+    // Resolve composition structure from this notation
+    var composition = client({
+      method: 'GET',
+      path: '/service/composition',
+      params: {'notation' : notation},
+      headers: {'Accept': 'application/json'}
+    }).then(response => {
+      this.renderComposition(response.entity, dryRun);
+    }).catch(reason => {
+      console.error(reason);
+    });
+  }
 
+  renderComposition(composition, dryRun = false) {
     var selector;
     if (dryRun) {
       // For dry run we render score in a hidden element so that we that end user does not
@@ -120,15 +120,17 @@ class Score extends React.Component{
 
       // Render stave
       for (var j = 0 ; j < measure.staves.length ; j++) {
-        var stave = measure.staves[j];
+        var staff = measure.staves[j];
+
+        // TODO : Support more than one voice per staff
         system.addStave({
           voices: [
             voice([
-              notes(stave.notes)
+              notes(staff.voices[0].notation)
             ].reduce(concat))
           ]
         })
-          .addClef(stave.clef)
+          .addClef(staff.clef)
           .addKeySignature(measure.key)
           .addTimeSignature(measure.time);
       }

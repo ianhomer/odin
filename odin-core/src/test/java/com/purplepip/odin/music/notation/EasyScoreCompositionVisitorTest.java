@@ -38,6 +38,7 @@ public class EasyScoreCompositionVisitorTest {
      */
     notations.put("C5/q, B4, A, G#", "C5/q, B4, A4, G#4");
     notations.put("C5/q, B4, A", "C5/q, B4, A4, B4/q/r");
+
     /*
      * Test rests are automatically added to pad out the measure
      */
