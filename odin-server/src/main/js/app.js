@@ -23,7 +23,6 @@ const ChannelList = require('./components/channelList');
 const LayerList = require('./components/layerList');
 const ProjectList = require('./components/projectList');
 const SequenceList = require('./components/sequenceList');
-const Trace = require('./components/trace');
 
 class App extends React.Component {
 

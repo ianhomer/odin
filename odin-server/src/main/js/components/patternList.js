@@ -20,7 +20,6 @@ const crud = require('./../crud');
 
 const Pattern = require('./pattern');
 const EditEntity = require('./editEntity');
-const Trace = require('./trace');
 
 // Pattern list component.
 class PatternList extends React.Component{

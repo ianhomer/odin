@@ -18,7 +18,6 @@ const React = require('react');
 
 const crud = require('./../crud');
 
-const Trace = require('./trace');
 const Layer = require('./layer');
 
 class LayerList extends React.Component{

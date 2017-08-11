@@ -22,7 +22,6 @@ const EditEntity = require('./editEntity');
 
 const Notation = require('./notation');
 const Pattern = require('./pattern');
-const Trace = require('./trace');
 const Sequences = {
   'notations' : Notation,
   'patterns'  : Pattern
