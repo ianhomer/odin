@@ -21,56 +21,81 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.music.composition.Measure;
-import com.purplepip.odin.music.composition.Staff;
-import com.purplepip.odin.music.composition.Voice;
+import com.purplepip.odin.music.composition.events.EventsComposition;
+import com.purplepip.odin.music.composition.events.EventsMeasure;
+import com.purplepip.odin.music.composition.events.EventsStaff;
+import com.purplepip.odin.music.composition.events.EventsVoice;
+import com.purplepip.odin.music.notation.Reference;
+import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
+import com.purplepip.odin.music.notation.easy.composition.EasyMeasure;
+import com.purplepip.odin.music.notation.easy.composition.EasyStaff;
+import com.purplepip.odin.music.notation.easy.composition.EasyVoice;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.NoteNameCache;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Write a composition as easy score notation.
  */
-public class EasyScoreCompositionVisitor {
+public class EasyScoreCompositionBuilder {
   private static final String REST_NOTE = "B4";
 
-  private Composition composition;
+  private EventsComposition eventsComposition;
+  private List<EasyMeasure> easyMeasures = new ArrayList<>();
   private StringBuilder builder;
   private NoteNameCache noteNameCache = new NoteNameCache();
   private boolean noteWritten = false;
-  private EasyScoreReference reference = new EasyScoreReference();
+  private Reference reference = new EasyScoreReference();
 
-  private Measure currentMeasure;
+  private EasyMeasure currentMeasure;
+  private EasyStaff currentStaff;
+
   private Rational lastNoteDuration;
   private Rational currentMeasurePosition;
 
 
-  public EasyScoreCompositionVisitor(Composition composition) {
-    this.composition = composition;
-  }
-
-  private void setCurrentMeasure(Measure measure) {
-    currentMeasure = measure;
+  public EasyScoreCompositionBuilder(EventsComposition composition) {
+    this.eventsComposition = composition;
   }
 
   /**
    * Visit the composition objects and set appropriate notations.
    */
-  public Composition visit() {
-    composition.stream().forEachOrdered(this::visit);
-    return composition;
+  public EasyComposition build() {
+    eventsComposition.stream().forEachOrdered(this::visit);
+    return new EasyComposition(easyMeasures);
   }
 
-  private void visit(Measure measure) {
-    setCurrentMeasure(measure);
+  private void startCurrentMeasure(EasyMeasure measure) {
+    currentMeasure = measure;
+    easyMeasures.add(measure);
+  }
+
+  private EasyMeasure createEasyMeasure(EventsMeasure measure) {
+    return new EasyMeasure(measure.getTime(), measure.getKey());
+  }
+
+  private void startCurrentStaff(EasyStaff staff) {
+    currentStaff = staff;
+    currentMeasure.addStaff(staff);
+  }
+
+  private EasyStaff createEasyStaff(EventsStaff staff) {
+    return new EasyStaff(staff.getClef());
+  }
+
+  private void visit(EventsMeasure measure) {
+    startCurrentMeasure(createEasyMeasure(measure));
     measure.stream().forEachOrdered(this::visit);
   }
 
-  private void visit(Staff staff) {
+  private void visit(EventsStaff staff) {
+    startCurrentStaff(createEasyStaff(staff));
     staff.stream().forEachOrdered(this::visit);
   }
 
-  private void visit(Voice voice) {
+  private void visit(EventsVoice voice) {
     currentMeasurePosition = Wholes.ZERO;
     builder = new StringBuilder(128);
     voice.stream().forEachOrdered(this::visit);
@@ -82,7 +107,7 @@ public class EasyScoreCompositionVisitor {
               duration -> builder.append(", ").append(REST_NOTE)
                   .append(reference.getDurationLabel(duration)).append("/r"));
     }
-    voice.setNotation(builder.toString());
+    currentStaff.addVoice(new EasyVoice(builder.toString()));
   }
 
   private void visit(Event event) {

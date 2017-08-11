@@ -18,7 +18,7 @@ package com.purplepip.odin.server.services;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.purplepip.odin.music.composition.Measure;
+import com.purplepip.odin.music.notation.easy.composition.EasyMeasure;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +26,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class MeasureSerializer extends StdSerializer<Measure> {
+public class MeasureSerializer extends StdSerializer<EasyMeasure> {
   public MeasureSerializer() {
-    super(Measure.class);
+    super(EasyMeasure.class);
   }
 
   @Override
-  public void serialize(Measure measure,
+  public void serialize(EasyMeasure measure,
                         JsonGenerator jsonGenerator,
                         SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartObject();

@@ -20,7 +20,8 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.music.composition.CompositionBuilder;
+import com.purplepip.odin.music.composition.events.EventsComposition;
+import com.purplepip.odin.music.composition.events.EventsCompositionBuilder;
 import com.purplepip.odin.music.notation.NaturalScoreBaseListener;
 import com.purplepip.odin.music.notation.NaturalScoreParser;
 import com.purplepip.odin.music.notation.Reference;
@@ -39,8 +40,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
   private static final int DEFAULT_OCTAVE = 4;
-  private CompositionBuilder builder = new CompositionBuilder();
-  private Composition composition;
+  private EventsCompositionBuilder builder = new EventsCompositionBuilder();
+  private EventsComposition composition;
   private Reference reference = new NaturalScoreReference();
 
   private Letter letter;
@@ -50,7 +51,7 @@ public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
   private Rational tock = Wholes.ZERO;
   private int velocity = ProjectBuilder.DEFAULT_VELOCITY;
 
-  public Composition getComposition() {
+  public EventsComposition getComposition() {
     return composition;
   }
 

@@ -18,7 +18,8 @@ package com.purplepip.odin.server.services;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.composition.events.EventsComposition;
+import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +27,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class CompositionSerializer extends StdSerializer<Composition> {
+public class CompositionSerializer extends StdSerializer<EasyComposition> {
   public CompositionSerializer() {
-    super(Composition.class);
+    super(EasyComposition.class);
   }
 
   @Override
-  public void serialize(Composition composition,
+  public void serialize(EasyComposition composition,
                         JsonGenerator jsonGenerator,
                         SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartObject();

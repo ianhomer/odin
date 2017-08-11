@@ -13,7 +13,23 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.composition.events;
 
-public abstract class Voice {
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.composition.Staff;
+import com.purplepip.odin.music.notes.Note;
+import java.util.stream.Stream;
+
+/**
+ * Staff based on events.
+ */
+public class EventsStaff extends Staff<EventsVoice> {
+  public EventsStaff(String clef) {
+    super(clef);
+  }
+
+  Stream<Event<Note>> eventStream() {
+    return stream().map(EventsVoice::stream)
+        .reduce(Stream::concat).orElseGet(Stream::empty);
+  }
 }

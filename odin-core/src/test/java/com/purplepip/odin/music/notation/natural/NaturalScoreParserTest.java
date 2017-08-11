@@ -17,10 +17,10 @@ package com.purplepip.odin.music.notation.natural;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.music.notation.CompositionTestNotation;
+import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.notation.NaturalScoreLexer;
 import com.purplepip.odin.music.notation.NaturalScoreParser;
+import com.purplepip.odin.music.notation.events.CompositionTestNotation;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -81,7 +81,7 @@ public class NaturalScoreParserTest {
       LOG.debug("Testing composition");
       NaturalScoreCompositionListener compositionListener = new NaturalScoreCompositionListener();
       new ParseTreeWalker().walk(compositionListener, tree);
-      Composition composition = compositionListener.getComposition();
+      EventsComposition composition = compositionListener.getComposition();
       Assert.assertEquals(entry.getValue(), new CompositionTestNotation(composition).getBody());
     }
   }

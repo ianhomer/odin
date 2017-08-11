@@ -13,7 +13,21 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.notation.easy.composition;
 
-public abstract class Voice {
+import com.purplepip.odin.music.composition.Voice;
+
+/**
+ * Voice based on easy score notation.
+ */
+public class EasyVoice extends Voice {
+  private String notation;
+
+  public EasyVoice(String notation) {
+    this.notation = notation;
+  }
+
+  public String getNotation() {
+    return notation;
+  }
 }

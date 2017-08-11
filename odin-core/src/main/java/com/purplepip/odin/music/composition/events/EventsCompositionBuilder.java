@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.composition.events;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
@@ -23,26 +23,27 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CompositionBuilder {
+public class EventsCompositionBuilder {
   private static final Rational DEFAULT_TIME = new Rational(4, 4, false);
   private static final String DEFAULT_KEY = "C";
   private static final String DEFAULT_CLEF_NAME = "treble";
-  private static final String DEFAULT_VOICE_NAME = "default";
 
-  private List<Measure> measures = new ArrayList<>();
-  private Measure currentMeasure;
-  private Staff currentStaff;
-  private Voice currentVoice;
+  private List<EventsMeasure> measures = new ArrayList<>();
+  private EventsMeasure currentMeasure;
+  private EventsStaff currentStaff;
+  private EventsVoice currentVoice;
 
   private void beforeAddEvent() {
     if (currentMeasure == null) {
       addMeasure(DEFAULT_TIME, DEFAULT_KEY);
     }
     if (currentStaff == null) {
-      currentStaff = currentMeasure.addStaff(DEFAULT_CLEF_NAME);
+      currentStaff = new EventsStaff(DEFAULT_CLEF_NAME);
+      currentMeasure.addStaff(currentStaff);
     }
     if (currentVoice == null) {
-      currentVoice = currentStaff.addVoice(DEFAULT_VOICE_NAME);
+      currentVoice = new EventsVoice();
+      currentStaff.addVoice(currentVoice);
     }
   }
 
@@ -53,8 +54,8 @@ public class CompositionBuilder {
    * @param key key signature
    * @return this
    */
-  public CompositionBuilder addMeasure(Rational time, String key) {
-    currentMeasure = new Measure(time, key);
+  public EventsCompositionBuilder addMeasure(Rational time, String key) {
+    currentMeasure = new EventsMeasure(time, key);
     measures.add(currentMeasure);
     return this;
   }
@@ -65,14 +66,14 @@ public class CompositionBuilder {
    * @param event note event
    * @return this
    */
-  public CompositionBuilder addEvent(Event<Note> event) {
+  public EventsCompositionBuilder addEvent(Event<Note> event) {
     beforeAddEvent();
     currentVoice.addEvent(event);
     return this;
   }
 
-  public Composition create() {
+  public EventsComposition create() {
     LOG.debug("Creating composition with {} measures", measures.size());
-    return new Composition(measures);
+    return new EventsComposition(measures);
   }
 }

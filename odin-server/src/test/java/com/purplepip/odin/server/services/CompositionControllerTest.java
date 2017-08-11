@@ -32,7 +32,7 @@ public class CompositionControllerTest {
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(content().string(
-            CoreMatchers.containsString("C5/q, D5, E5, F5")))
+            CoreMatchers.containsString("C4/q, D4, E4, F4")))
         .andReturn();
     String json = result.getResponse().getContentAsString();
     LOG.debug("JSON = {}", json);

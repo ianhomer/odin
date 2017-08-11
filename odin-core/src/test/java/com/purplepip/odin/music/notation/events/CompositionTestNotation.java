@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation;
+package com.purplepip.odin.music.notation.events;
 
-import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.composition.events.EventsComposition;
 
 /**
  * Notation for internal composition structure used only for test assertion purposes.  This
@@ -24,11 +24,11 @@ import com.purplepip.odin.music.composition.Composition;
 public class CompositionTestNotation {
   private String notation;
 
-  public CompositionTestNotation(Composition composition) {
+  public CompositionTestNotation(EventsComposition composition) {
     notation = createNotation(composition);
   }
 
-  private String createNotation(Composition composition) {
+  private String createNotation(EventsComposition composition) {
     StringBuilder builder = new StringBuilder(128);
     composition.eventStream().forEachOrdered(event ->
         builder

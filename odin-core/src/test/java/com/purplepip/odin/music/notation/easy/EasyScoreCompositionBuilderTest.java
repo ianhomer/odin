@@ -17,13 +17,14 @@ package com.purplepip.odin.music.notation.easy;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.composition.events.EventsComposition;
+import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.Test;
 
-public class EasyScoreCompositionVisitorTest {
+public class EasyScoreCompositionBuilderTest {
   @Test
   public void testWriter() {
     Map<String, String> notations = new LinkedHashMap<>();
@@ -46,14 +47,16 @@ public class EasyScoreCompositionVisitorTest {
     notations.put("C5/q, B4, A/8", "C5/q, B4, A4/8, B4/q/r, B4/8/r");
 
     for (Map.Entry<String, String> entry : notations.entrySet()) {
-      Composition composition = new NaturalScoreCompositionFactory().create(entry.getKey());
+      EventsComposition eventsComposition =
+          new NaturalScoreCompositionFactory().create(entry.getKey());
       String expectedValue = entry.getValue() == null ? entry.getKey() : entry.getValue();
-      new EasyScoreCompositionVisitor(composition).visit();
-      assertEquals("4/4:" + expectedValue, toNotationString(composition));
+      EasyComposition easyComposition =
+          new EasyScoreCompositionBuilder(eventsComposition).build();
+      assertEquals("4/4:" + expectedValue, toNotationString(easyComposition));
     }
   }
 
-  private String toNotationString(Composition composition) {
+  private String toNotationString(EasyComposition composition) {
     StringBuilder builder = new StringBuilder(128);
     composition.stream().forEachOrdered(measure -> {
       if (builder.length() > 0) {

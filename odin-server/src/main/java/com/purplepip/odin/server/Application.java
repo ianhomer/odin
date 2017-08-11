@@ -18,10 +18,10 @@ package com.purplepip.odin.server;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.SynthesizerHelper;
-import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.music.composition.Measure;
-import com.purplepip.odin.music.composition.Staff;
-import com.purplepip.odin.music.composition.Voice;
+import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
+import com.purplepip.odin.music.notation.easy.composition.EasyMeasure;
+import com.purplepip.odin.music.notation.easy.composition.EasyStaff;
+import com.purplepip.odin.music.notation.easy.composition.EasyVoice;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
@@ -115,10 +115,10 @@ public class Application {
     return new Jackson2ObjectMapperBuilderCustomizer() {
       @Override
       public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
-        jacksonObjectMapperBuilder.serializerByType(Composition.class,  compositionSerializer);
-        jacksonObjectMapperBuilder.serializerByType(Measure.class,  measureSerializer);
-        jacksonObjectMapperBuilder.serializerByType(Staff.class, staffSerializer);
-        jacksonObjectMapperBuilder.serializerByType(Voice.class, voiceSerializer);
+        jacksonObjectMapperBuilder.serializerByType(EasyComposition.class,  compositionSerializer);
+        jacksonObjectMapperBuilder.serializerByType(EasyMeasure.class,  measureSerializer);
+        jacksonObjectMapperBuilder.serializerByType(EasyStaff.class, staffSerializer);
+        jacksonObjectMapperBuilder.serializerByType(EasyVoice.class, voiceSerializer);
         jacksonObjectMapperBuilder.serializerByType(Rational.class,  rationalSerializer);
       }
     };

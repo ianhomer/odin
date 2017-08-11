@@ -18,20 +18,20 @@ package com.purplepip.odin.server.services;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.purplepip.odin.music.composition.Voice;
+import com.purplepip.odin.music.notation.easy.composition.EasyVoice;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class VoiceSerializer extends StdSerializer<Voice> {
+public class VoiceSerializer extends StdSerializer<EasyVoice> {
   public VoiceSerializer() {
-    super(Voice.class);
+    super(EasyVoice.class);
   }
 
   @Override
-  public void serialize(Voice voice,
+  public void serialize(EasyVoice voice,
                         JsonGenerator jsonGenerator,
                         SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartObject();

@@ -13,7 +13,15 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.notation.easy.composition;
 
-public abstract class Voice {
+import com.purplepip.odin.music.composition.Staff;
+
+/**
+ * Staff based on easy score notation.
+ */
+public class EasyStaff extends Staff<EasyVoice> {
+  public EasyStaff(String clef) {
+    super(clef);
+  }
 }

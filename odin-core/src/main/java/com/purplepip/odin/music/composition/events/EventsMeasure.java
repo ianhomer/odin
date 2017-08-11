@@ -13,42 +13,24 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.composition.events;
 
+import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
-import java.util.ArrayList;
-import java.util.List;
+import com.purplepip.odin.music.composition.Measure;
+import com.purplepip.odin.music.notes.Note;
 import java.util.stream.Stream;
 
-public abstract class Measure<S extends Staff> {
-  private List<S> staves = new ArrayList<>();
-  private Rational time;
-  private String key;
-
-  /**
-   * Create a measure in given a time signature and for a given key
-   *
-   * @param time time signature
-   * @param key key signature.
-   */
-  public Measure(Rational time, String key) {
-    this.time = time;
-    this.key = key;
+/**
+ * Measure based on events.
+ */
+public class EventsMeasure extends Measure<EventsStaff> {
+  public EventsMeasure(Rational time, String key) {
+    super(time, key);
   }
 
-  public Stream<S> stream() {
-    return staves.stream();
-  }
-
-  public void addStaff(S staff) {
-    staves.add(staff);
-  }
-
-  public String getKey() {
-    return key;
-  }
-
-  public Rational getTime() {
-    return time;
+  Stream<Event<Note>> eventStream() {
+    return stream().map(EventsStaff::eventStream)
+        .reduce(Stream::concat).orElseGet(Stream::empty);
   }
 }

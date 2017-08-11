@@ -15,10 +15,8 @@
 
 package com.purplepip.odin.music.composition;
 
-import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.ArrayList;
@@ -28,8 +26,8 @@ import java.util.stream.Stream;
 /**
  * Composition of music.  Tick unit is a beat.
  */
-public class Composition {
-  private List<Measure> measures = new ArrayList<>();
+public abstract class Composition<M extends Measure> {
+  private List<M> measures = new ArrayList<>();
   private Rational numberOfBeats;
 
   /**
@@ -37,7 +35,7 @@ public class Composition {
    *
    * @param measures measures to create the composition with
    */
-  public Composition(List<Measure> measures) {
+  public Composition(List<M> measures) {
     this.measures.addAll(measures);
     this.numberOfBeats = Real.valueOf(measures.stream().mapToLong(measure ->
         measure.getTime().getNumerator()
@@ -48,12 +46,7 @@ public class Composition {
     return Ticks.BEAT;
   }
 
-  public Stream<Event<Note>> eventStream() {
-    return measures.stream().map(Measure::eventStream)
-        .reduce(Stream::concat).orElseGet(Stream::empty);
-  }
-
-  public Stream<Measure> stream() {
+  public Stream<M> stream() {
     return measures.stream();
   }
 

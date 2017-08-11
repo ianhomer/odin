@@ -16,8 +16,8 @@
 package com.purplepip.odin.server.services;
 
 import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.notation.easy.EasyScoreCompositionBuilder;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
-import com.purplepip.odin.music.notation.easy.EasyScoreCompositionVisitor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +29,6 @@ public class CompositionController {
   @RequestMapping("/service/composition")
   public Composition createCompositionFromNotation(
       @RequestParam(value = "notation", defaultValue = "C") String notation) {
-    return new EasyScoreCompositionVisitor(factory.create(notation)).visit();
+    return new EasyScoreCompositionBuilder(factory.create(notation)).build();
   }
 }

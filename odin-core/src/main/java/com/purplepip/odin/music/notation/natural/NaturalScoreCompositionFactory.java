@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.music.notation.natural;
 
-import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.notation.NaturalScoreLexer;
 import com.purplepip.odin.music.notation.NaturalScoreParser;
 import org.antlr.v4.runtime.CharStreams;
@@ -33,7 +33,7 @@ public class NaturalScoreCompositionFactory {
    * @param notation notation to create composition for
    * @return composition
    */
-  public Composition create(String notation) {
+  public EventsComposition create(String notation) {
     Lexer lexer = new NaturalScoreLexer(CharStreams.fromString(notation));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     NaturalScoreParser parser = new NaturalScoreParser(tokens);

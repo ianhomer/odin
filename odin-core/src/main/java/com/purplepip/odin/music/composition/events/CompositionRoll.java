@@ -13,13 +13,14 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.composition.events;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SequentialEventComparator;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.Roll;
@@ -44,7 +45,7 @@ public class CompositionRoll implements Roll<Note> {
    *
    * @param composition composition
    */
-  public CompositionRoll(Composition composition) {
+  public CompositionRoll(EventsComposition composition) {
     this.composition = composition;
     composition.eventStream().forEach(e -> events.add(e));
     events.sort(new SequentialEventComparator());

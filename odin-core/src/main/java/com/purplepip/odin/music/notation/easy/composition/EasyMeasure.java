@@ -13,7 +13,16 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.notation.easy.composition;
 
-public abstract class Voice {
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.music.composition.Measure;
+
+/**
+ * Measure based on easy score notation.
+ */
+public class EasyMeasure extends Measure<EasyStaff> {
+  public EasyMeasure(Rational time, String key) {
+    super(time, key);
+  }
 }

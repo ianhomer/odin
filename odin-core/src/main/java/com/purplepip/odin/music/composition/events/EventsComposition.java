@@ -13,29 +13,29 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition;
+package com.purplepip.odin.music.composition.events;
 
-import java.util.ArrayList;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.music.composition.Composition;
+import com.purplepip.odin.music.notes.Note;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class Staff<V extends Voice> {
-  private String clef;
-  private List<V> voices = new ArrayList<>();
-
-  public Staff(String clef) {
-    this.clef = clef;
+/**
+ * Composition based on events.
+ */
+public class EventsComposition extends Composition<EventsMeasure> {
+  /**
+   * Create an events composition.
+   *
+   * @param measures measures to create the composition from
+   */
+  public EventsComposition(List<EventsMeasure> measures) {
+    super(measures);
   }
 
-  public Stream<V> stream() {
-    return voices.stream();
-  }
-
-  public String getClef() {
-    return clef;
-  }
-
-  public void addVoice(V voice) {
-    voices.add(voice);
+  public Stream<Event<Note>> eventStream() {
+    return stream().map(EventsMeasure::eventStream)
+        .reduce(Stream::concat).orElseGet(Stream::empty);
   }
 }

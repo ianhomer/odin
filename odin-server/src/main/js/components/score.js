@@ -71,7 +71,7 @@ class Score extends React.Component{
 
   renderNotation(notation = this.state.notation, dryRun = false) {
     // Resolve composition structure from this notation
-    var composition = client({
+    client({
       method: 'GET',
       path: '/service/composition',
       params: {'notation' : notation},
