@@ -40,7 +40,8 @@ class Notation extends React.Component{
     this.setState({editing : this.state.entity._links.self.href});
   }
 
-  handleDelete() {
+  handleDelete(event) {
+    event.stopPropagation();
     this.props.onDelete(this.props.entity);
   }
 
