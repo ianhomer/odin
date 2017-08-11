@@ -44,6 +44,9 @@ class Score extends React.Component{
     }
   }
 
+  componentWillMount() {
+  }
+
   handleChange(event) {
     try {
       this.renderNotation(event.target.value, true);
@@ -91,6 +94,15 @@ class Score extends React.Component{
       selector = this.getElementId('hidden');
     } else {
       selector = this.getElementId();
+    }
+
+    // Remove previous score canvas that might have been drawn
+    var element = document.getElementById(this.getElementId());
+    if (element) {
+      var canvases = element.getElementsByTagName("svg");
+      for (var i = 0; i < canvases.length ; i++) {
+        element.removeChild(canvases[i]);
+      }
     }
 
     var vf = new Vex.Flow.Factory({
