@@ -41,4 +41,14 @@ public interface Note {
    * @return duration
    */
   Real getDuration();
+
+  /**
+   * Create a copy of this note with a new duration.
+   *
+   * @param duration new duration for note
+   * @return copy of note with new duration
+   */
+  default DefaultNote copyWithNewDuration(Real duration) {
+    return new DefaultNote(getNumber(), getVelocity(), duration);
+  }
 }

@@ -36,25 +36,20 @@ public class Real {
     this.value = value;
   }
 
-  public static Whole valueOf(long integer) {
-    return new Whole(integer);
-  }
-
   /**
-   * Create a rational number from a given numerator and denominator.  Note a Whole number is
-   * returned if the numerator is multiple of the denominator.
+   * Create Whole number.  Please use the Whole.valueOf method.  This only exists
+   * to prevent auto use of the valueOf with a double argument when an long is passed in.
    *
-   * @param numerator numerator
-   * @param denominator denominator
-   * @return rational number
+   * @param integer integer to create the whole number from
+   * @return whole number
    */
-  public static Rational valueOf(long numerator, long denominator) {
-    if (numerator == 0) {
-      return new Whole(0);
-    } else if (numerator % denominator == 0) {
-      return new Whole(numerator / denominator);
-    }
-    return new Rational(numerator, denominator);
+  public static Whole valueOf(long integer) {
+    StackTraceElement stackTraceElement = new Exception().getStackTrace()[1];
+    LOG.warn("Please call 'Whole.valueOf({})' not 'Real.valueOf({})' "
+        + "in {} @ line {} "
+        + "given you know at compile time you what a whole number", integer, integer,
+        stackTraceElement.getClassName(), stackTraceElement.getLineNumber());
+    return Whole.valueOf(integer);
   }
 
   /**
@@ -158,9 +153,34 @@ public class Real {
       /*
        * Flooring with whole radix will always give a whole number, so lets be explicit about it.
        */
-      return Real.valueOf((long) flooredValue);
+      return Whole.valueOf((long) flooredValue);
     }
     return Real.valueOf(flooredValue);
+  }
+
+  /**
+   * Calculate the absolute of this number.
+   *
+   * @return absolute of this number
+   */
+  public Real absolute() {
+    if (isNegative()) {
+      return Real.valueOf(-getValue());
+    }
+    return this;
+  }
+
+  /**
+   * Return negative of this number.
+   *
+   * @return negative of this number
+   */
+  public Real negative() {
+    return Real.valueOf(-getValue());
+  }
+
+  public boolean isNegative() {
+    return getValue() < 0;
   }
 
   /**
@@ -172,26 +192,27 @@ public class Real {
     if (this instanceof Rational) {
       return (Rational) this;
     }
+    LOG.warn("Cheap flooring of {} to make it a rational", this);
     /*
      * Very cheap flooring of non-rationals which is good enough for purpose.
      */
-    return Real.valueOf(this.floor());
+    return Whole.valueOf(this.floor());
   }
 
-  public boolean ge(Real rational) {
-    return getValue() >= rational.getValue();
+  public boolean ge(Real real) {
+    return getValue() >= real.getValue();
   }
 
-  public boolean gt(Real rational) {
-    return getValue() > rational.getValue();
+  public boolean gt(Real real) {
+    return getValue() > real.getValue();
   }
 
-  public boolean lt(Real rational) {
-    return getValue() < rational.getValue();
+  public boolean lt(Real real) {
+    return getValue() < real.getValue();
   }
 
-  public boolean le(Real rational) {
-    return getValue() <= rational.getValue();
+  public boolean le(Real real) {
+    return getValue() <= real.getValue();
   }
 
   @Override

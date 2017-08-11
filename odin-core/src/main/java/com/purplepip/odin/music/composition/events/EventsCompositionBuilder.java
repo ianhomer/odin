@@ -15,8 +15,11 @@
 
 package com.purplepip.odin.music.composition.events;
 
+import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,19 +35,34 @@ public class EventsCompositionBuilder {
   private EventsMeasure currentMeasure;
   private EventsStaff currentStaff;
   private EventsVoice currentVoice;
+  private Rational positionInComposition = Wholes.ZERO;
+  private Rational positionInMeasure;
 
-  private void beforeAddEvent() {
+  private void beforeAddNote() {
     if (currentMeasure == null) {
-      addMeasure(DEFAULT_TIME, DEFAULT_KEY);
+      startMeasure(DEFAULT_TIME, DEFAULT_KEY);
+    } else {
+      /*
+       * Start new measure if we've come to the end of the previous one
+       */
+      if (positionInMeasure.equals(currentMeasure.getNumberOfBeats())) {
+        startMeasure();
+      }
     }
+
     if (currentStaff == null) {
       currentStaff = new EventsStaff(DEFAULT_CLEF_NAME);
       currentMeasure.addStaff(currentStaff);
     }
+
     if (currentVoice == null) {
       currentVoice = new EventsVoice();
       currentStaff.addVoice(currentVoice);
     }
+  }
+
+  public EventsCompositionBuilder startMeasure() {
+    return startMeasure(currentMeasure.getTime(), currentMeasure.getKey());
   }
 
   /**
@@ -54,21 +72,47 @@ public class EventsCompositionBuilder {
    * @param key key signature
    * @return this
    */
-  public EventsCompositionBuilder addMeasure(Rational time, String key) {
+  public EventsCompositionBuilder startMeasure(Rational time, String key) {
+    positionInMeasure = Wholes.ZERO;
     currentMeasure = new EventsMeasure(time, key);
+    /*
+     * Reset staff and voice since new ones will need to be created for this new measure.
+     */
+    currentStaff = null;
+    currentVoice = null;
     measures.add(currentMeasure);
     return this;
   }
 
+  public EventsMeasure getCurrentMeasure() {
+    return currentMeasure;
+  }
+
   /**
-   * Add a note event to the composition.
+   * Add a note to the composition.
    *
-   * @param event note event
+   * @param note note
    * @return this
    */
-  public EventsCompositionBuilder addEvent(Event<Note> event) {
-    beforeAddEvent();
-    currentVoice.addEvent(event);
+  public EventsCompositionBuilder addNote(Note note) {
+    beforeAddNote();
+    Real remaining = currentMeasure.getNumberOfBeats().minus(positionInMeasure);
+    LOG.debug("Tock {} ; Measure {} ; Time {} ; Remaining {} ; Duration {}",
+        positionInComposition, positionInMeasure,
+        currentMeasure.getTime(), remaining, note.getDuration());
+    if (remaining.lt(note.getDuration())) {
+      /*
+       * If the note goes over the end of the current measure, then split the note in two so that
+       * they are place in consecutive measures.
+       */
+      addNote(note.copyWithNewDuration(remaining));
+      addNote(note.copyWithNewDuration(note.getDuration().minus(remaining)));
+    } else {
+      Event<Note> event = new DefaultEvent<>(note, positionInComposition);
+      currentVoice.addEvent(event);
+      positionInMeasure = positionInMeasure.plus(note.getDuration().toRational());
+      positionInComposition = positionInComposition.plus(note.getDuration().toRational());
+    }
     return this;
   }
 

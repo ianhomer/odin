@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 
 /**
  * Static beats per minute.
@@ -28,7 +29,7 @@ public class StaticBeatsPerMinute implements BeatsPerMinute {
 
   public StaticBeatsPerMinute(int beatsPerMinute) {
     this.beatsPerMinute = beatsPerMinute;
-    microsecondsPerBeat = Real.valueOf(MICROSECONDS_PER_MINUTE / beatsPerMinute);
+    microsecondsPerBeat = Whole.valueOf(MICROSECONDS_PER_MINUTE / beatsPerMinute);
   }
 
   @Override

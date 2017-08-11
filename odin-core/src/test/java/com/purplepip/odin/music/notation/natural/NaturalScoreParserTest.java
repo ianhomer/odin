@@ -65,12 +65,16 @@ public class NaturalScoreParserTest {
   @Test
   public void testBeatVariations() {
     Map<String, String> notations = new LinkedHashMap<>();
-    notations.put("C5/h, C5, C5, C5",
-        "0.2-60 2.2-60 4.2-60 6.2-60 ");
-    notations.put("C5/8, C5, C5, C5",
-        "0.½-60 ½.½-60 1.½-60 1½.½-60 ");
-    notations.put("C5/8, C5, C5/q, C5",
-        "0.½-60 ½.½-60 1.1-60 2.1-60 ");
+    notations.put("C5/h, C5, C5, C5", "0.2-60 2.2-60 4.2-60 6.2-60 ");
+    notations.put("C5/8, C5, C5, C5", "0.½-60 ½.½-60 1.½-60 1½.½-60 ");
+    notations.put("C5/8, C5, C5/q, C5", "0.½-60 ½.½-60 1.1-60 2.1-60 ");
+    assertCompositionsOk(notations);
+  }
+
+  @Test
+  public void testIncompleteMeasures() {
+    Map<String, String> notations = new LinkedHashMap<>();
+    notations.put("C5/q, C, C/8", "0.1-60 1.1-60 2.½-60 ");
     assertCompositionsOk(notations);
   }
 

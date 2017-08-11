@@ -20,6 +20,10 @@ public class Whole extends Rational {
     super(numerator);
   }
 
+  public static Whole valueOf(long integer) {
+    return new Whole(integer);
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -27,9 +31,13 @@ public class Whole extends Rational {
   public Real plus(Real real) {
     if (real instanceof Whole) {
       Whole whole = (Whole) real;
-      return Real.valueOf(getNumerator() + whole.getNumerator());
+      return plus(whole);
     }
     return super.plus(real);
+  }
+
+  public Whole plus(Whole whole) {
+    return Whole.valueOf(getNumerator() + whole.getNumerator());
   }
 
   /**
@@ -39,9 +47,13 @@ public class Whole extends Rational {
   public Real minus(Real real) {
     if (real instanceof Whole) {
       Whole whole = (Whole) real;
-      return Real.valueOf(getNumerator() - whole.getNumerator());
+      return minus(whole);
     }
     return super.minus(real);
+  }
+
+  public Whole minus(Whole whole) {
+    return Whole.valueOf(getNumerator() - whole.getNumerator());
   }
 
   /**
@@ -51,9 +63,13 @@ public class Whole extends Rational {
   public Real times(Real real) {
     if (real instanceof Whole) {
       Whole whole = (Whole) real;
-      return Real.valueOf(getNumerator() * whole.getNumerator());
+      return times(whole);
     }
     return super.times(real);
+  }
+
+  public Whole times(Whole whole) {
+    return Whole.valueOf(getNumerator() * whole.getNumerator());
   }
 
   /**
@@ -63,9 +79,13 @@ public class Whole extends Rational {
   public Real divide(Real real) {
     if (real instanceof Whole) {
       Whole whole = (Whole) real;
-      return Real.valueOf(getNumerator(), whole.getNumerator());
+      return divide(whole);
     }
     return super.divide(real);
+  }
+
+  public Rational divide(Whole whole) {
+    return Rational.valueOf(getNumerator(), whole.getNumerator());
   }
 
   /**
@@ -75,9 +95,13 @@ public class Whole extends Rational {
   public Real modulo(Real real) {
     if (real instanceof Whole) {
       Whole whole = (Whole) real;
-      return Real.valueOf(getNumerator() % whole.getNumerator());
+      return modulo(whole);
     }
     return super.modulo(real);
+  }
+
+  public Whole modulo(Whole whole) {
+    return Whole.valueOf(getNumerator() % whole.getNumerator());
   }
 
   /**
@@ -87,9 +111,36 @@ public class Whole extends Rational {
   public Real floor(Real radix) {
     if (radix instanceof Whole) {
       Whole whole = (Whole) radix;
-      return Real.valueOf(getNumerator() - (getNumerator() % whole.getNumerator()));
+      return floor(whole);
     }
     return super.floor(radix);
+  }
+
+  public Whole floor(Whole radix) {
+    return Whole.valueOf(getNumerator() - (getNumerator() % radix.getNumerator()));
+  }
+
+  @Override
+  public Whole absolute() {
+    if (isNegative()) {
+      return Whole.valueOf(-getNumerator());
+    }
+    return this;
+  }
+
+  @Override
+  public Rational negative() {
+    return Whole.valueOf(-getNumerator());
+  }
+
+  @Override
+  public boolean isNegative() {
+    return getNumerator() < 0;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(getNumerator());
   }
 
   @Override

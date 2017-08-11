@@ -45,7 +45,31 @@ public class EasyScoreCompositionBuilderTest {
      * Test rests are automatically added to pad out the measure
      */
     notations.put("C5/q, B4, A/8", "C5/q, B4, A4/8, B4/q/r, B4/8/r");
+    notations.put("C5", "C5/q, B4/h/r, B4/q/r");
+    notations.put("C5/q, B4", "C5/q, B4, B4/h/r");
 
+    /*
+     * Test default octave to middle C
+     */
+    notations.put("C", "C4/q, B4/h/r, B4/q/r");
+
+    assertNotationsOk(notations);
+
+  }
+
+  @Test
+  public void testMultipleMeasures() {
+    Map<String, String> notations = new LinkedHashMap<>();
+
+    /*
+     * Test multiple measures
+     */
+    notations.put("A B C D E", "A4/q, B4, C4, D4|4/4:E4/q, B4/h/r, B4/q/r");
+
+    assertNotationsOk(notations);
+  }
+
+  private void assertNotationsOk(Map<String, String> notations) {
     for (Map.Entry<String, String> entry : notations.entrySet()) {
       EventsComposition eventsComposition =
           new NaturalScoreCompositionFactory().create(entry.getKey());

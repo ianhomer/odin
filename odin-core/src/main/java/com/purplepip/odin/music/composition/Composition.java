@@ -16,7 +16,7 @@
 package com.purplepip.odin.music.composition;
 
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public abstract class Composition<M extends Measure> {
    */
   public Composition(List<M> measures) {
     this.measures.addAll(measures);
-    this.numberOfBeats = Real.valueOf(measures.stream().mapToLong(measure ->
+    this.numberOfBeats = Whole.valueOf(measures.stream().mapToLong(measure ->
         measure.getTime().getNumerator()
     ).sum());
   }

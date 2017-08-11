@@ -13,16 +13,18 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation.easy.composition;
+package com.purplepip.odin.music.notes;
 
-import com.purplepip.odin.music.composition.Composition;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Composition based on easy score notation.  This composition is designed for display purposes.
- */
-public class EasyComposition extends Composition<EasyMeasure> {
-  public EasyComposition(List<EasyMeasure> measures) {
-    super(measures);
+import com.purplepip.odin.math.Whole;
+import org.junit.Test;
+
+public class NoteTest {
+  @Test
+  public void testCopyWithNewDuration() {
+    Note note = new DefaultNote(1,2,3);
+    assertEquals(new DefaultNote(1,2,4),
+        note.copyWithNewDuration(Whole.valueOf(4)));
   }
 }

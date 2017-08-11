@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinImplementationException;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.ObservableProperty;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -93,7 +94,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
   protected Real getTimeWithMicrosecondBasedTimeUnits(Direction direction, Real time) {
     switch (direction.getSourceTick().getTimeUnit()) {
       case BEAT:
-        return Real.valueOf(clock.getMicroseconds(
+        return Whole.valueOf(clock.getMicroseconds(
             direction.getSourceTick().getFactor().times(time)
                 .divide(direction.getTargetTick().getFactor())));
       case MICROSECOND:

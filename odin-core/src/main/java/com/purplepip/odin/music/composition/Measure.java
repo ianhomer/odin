@@ -16,6 +16,7 @@
 package com.purplepip.odin.music.composition;
 
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Whole;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -23,6 +24,7 @@ import java.util.stream.Stream;
 public abstract class Measure<S extends Staff> {
   private List<S> staves = new ArrayList<>();
   private Rational time;
+  private Rational numberOfBeats;
   private String key;
 
   /**
@@ -33,6 +35,7 @@ public abstract class Measure<S extends Staff> {
    */
   public Measure(Rational time, String key) {
     this.time = time;
+    numberOfBeats = Whole.valueOf(time.getNumerator());
     this.key = key;
   }
 
@@ -50,5 +53,9 @@ public abstract class Measure<S extends Staff> {
 
   public Rational getTime() {
     return time;
+  }
+
+  public Rational getNumberOfBeats() {
+    return numberOfBeats;
   }
 }

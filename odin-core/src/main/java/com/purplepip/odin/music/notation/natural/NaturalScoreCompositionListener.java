@@ -15,11 +15,7 @@
 
 package com.purplepip.odin.music.notation.natural;
 
-import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.composition.events.EventsCompositionBuilder;
 import com.purplepip.odin.music.notation.NaturalScoreBaseListener;
@@ -48,7 +44,6 @@ public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
   private int intonation;
   private Rational duration = ProjectBuilder.DEFAULT_DURATION;
   private int octave = DEFAULT_OCTAVE;
-  private Rational tock = Wholes.ZERO;
   private int velocity = ProjectBuilder.DEFAULT_VELOCITY;
 
   public EventsComposition getComposition() {
@@ -85,11 +80,7 @@ public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
 
   @Override
   public void exitNote(NaturalScoreParser.NoteContext ctx) {
-    builder.addEvent(new DefaultEvent<>(
-        new DefaultNote(
-            new NoteNumber(letter, intonation, octave).getValue(),
-            velocity, Real.valueOf(duration.getNumerator(), duration.getDenominator())),
-        tock));
-    tock = (Rational) tock.plus(duration);
+    builder.addNote(new DefaultNote(
+        new NoteNumber(letter, intonation, octave).getValue(),velocity, duration));
   }
 }

@@ -1,7 +1,11 @@
 package com.purplepip.odin.math;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import com.purplepip.logcapture.LogCaptor;
+import com.purplepip.logcapture.LogCapture;
 import org.junit.Test;
 
 /*
@@ -21,18 +25,51 @@ import org.junit.Test;
 public class RealTest {
   @Test
   public void testValueOf() {
-    assertEquals(Wholes.ZERO, Real.valueOf(0));
+    assertEquals(Wholes.ZERO, Whole.valueOf(0));
+    try (LogCaptor captor = new LogCapture().warn().from(Real.class).start()) {
+      assertEquals(Wholes.ZERO, Real.valueOf(0));
+      /*
+       * We should have received a warn message for using the Real static not the Whole static
+       */
+      assertEquals(captor.size(), 1);
+    }
   }
 
   @Test
   public void testPlus() {
-    assertEquals(Wholes.TWO, Real.valueOf(1).plus(Real.valueOf(1)));
-    assertEquals(Real.valueOf(2.1), Real.valueOf(1.1).plus(Real.valueOf(1)));
-    assertEquals(Real.valueOf(2.1), Real.valueOf(1).plus(Real.valueOf(1.1)));
+    assertEquals(Wholes.TWO, Whole.valueOf(1).plus(Whole.valueOf(1)));
+    assertEquals(Real.valueOf(2.1), Real.valueOf(1.1).plus(Whole.valueOf(1)));
+    assertEquals(Real.valueOf(2.1), Whole.valueOf(1).plus(Real.valueOf(1.1)));
   }
 
   @Test
   public void testFloorToRadix() {
-    assertEquals(Real.valueOf(8), Real.valueOf(9.3).floor(Real.valueOf(4)));
+    assertEquals(Whole.valueOf(8), Real.valueOf(9.3).floor(Whole.valueOf(4)));
+  }
+
+  @Test
+  public void testIsNegative() {
+    assertTrue(Real.valueOf(-0.2).isNegative());
+    assertFalse(Real.valueOf(0.2).isNegative());
+  }
+
+  @Test
+  public void testNegative() {
+    assertEquals(Real.valueOf(-0.2), Real.valueOf(0.2).negative());
+    assertEquals(Real.valueOf(0.2), Real.valueOf(-0.2).negative());
+  }
+
+  @Test
+  public void testAbsolute() {
+    assertEquals(Real.valueOf(0.2), Real.valueOf(-0.2).absolute());
+    assertEquals(Real.valueOf(0.2), Real.valueOf(0.2).absolute());
+  }
+
+  @Test
+  public void testToString() {
+    assertEquals("0.1", Real.valueOf(0.1).toString());
+    assertEquals("1.0", new Real(1).toString());
+    assertEquals("-1.0", new Real(-1).toString());
+    assertEquals("0.0", new Real(0).toString());
   }
 }

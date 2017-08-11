@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Composition based on events.
+ * Composition based on events. This composition is designed for playing compositions.
  */
 public class EventsComposition extends Composition<EventsMeasure> {
   /**

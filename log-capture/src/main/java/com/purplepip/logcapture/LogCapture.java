@@ -28,6 +28,11 @@ public class LogCapture {
     return this;
   }
 
+  public LogCapture warn() {
+    configuration.setLevel(Level.WARN);
+    return this;
+  }
+
   public LogCapture error() {
     configuration.setLevel(Level.ERROR);
     return this;

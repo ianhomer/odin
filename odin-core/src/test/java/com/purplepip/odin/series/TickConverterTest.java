@@ -7,6 +7,7 @@ import static com.purplepip.odin.sequence.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
@@ -39,15 +40,15 @@ public class TickConverterTest {
       Real backExpect;
 
       if (duration) {
-        forward = converter.convertDuration(Real.valueOf(times[i]), Real.valueOf(times[i + 1]));
-        forwardExpect = Real.valueOf(times[i + 2]);
-        back = converter.convertDurationBack(Real.valueOf(times[i]), Real.valueOf(times[i + 2]));
-        backExpect = Real.valueOf(times[i + 1]);
+        forward = converter.convertDuration(Whole.valueOf(times[i]), Whole.valueOf(times[i + 1]));
+        forwardExpect = Whole.valueOf(times[i + 2]);
+        back = converter.convertDurationBack(Whole.valueOf(times[i]), Whole.valueOf(times[i + 2]));
+        backExpect = Whole.valueOf(times[i + 1]);
       } else {
-        forward = converter.convert(Real.valueOf(times[i]));
-        forwardExpect = Real.valueOf(times[i + 1]);
-        back = converter.convertBack(Real.valueOf(times[i + 1]));
-        backExpect = Real.valueOf(times[i]);
+        forward = converter.convert(Whole.valueOf(times[i]));
+        forwardExpect = Whole.valueOf(times[i + 1]);
+        back = converter.convertBack(Whole.valueOf(times[i + 1]));
+        backExpect = Whole.valueOf(times[i]);
       }
 
       assertEquals(label + sourceTick + " to " + targetTick + " failed",

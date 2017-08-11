@@ -19,18 +19,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import org.junit.Test;
 
 public class ScanForwardEventTest {
   @Test
   public void testGetValue() throws Exception {
-    assertNull(new ScanForwardEvent<>(new Rational(0)).getValue());
+    assertNull(new ScanForwardEvent<>(new Whole(0)).getValue());
   }
 
   @Test
   public void testGetTime() throws Exception {
-    ScanForwardEvent event = new ScanForwardEvent<>(Real.valueOf(9));
-    assertEquals(Real.valueOf(9,1), event.getTime());
+    ScanForwardEvent event = new ScanForwardEvent<>(Whole.valueOf(9));
+    assertEquals(Rational.valueOf(9,1), event.getTime());
   }
 }

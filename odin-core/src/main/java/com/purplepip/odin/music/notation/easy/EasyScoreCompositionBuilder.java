@@ -18,7 +18,6 @@ package com.purplepip.odin.music.notation.easy;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.events.EventsComposition;
@@ -34,10 +33,12 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.NoteNameCache;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Write a composition as easy score notation.
  */
+@Slf4j
 public class EasyScoreCompositionBuilder {
   private static final String REST_NOTE = "B4";
 
@@ -45,14 +46,14 @@ public class EasyScoreCompositionBuilder {
   private List<EasyMeasure> easyMeasures = new ArrayList<>();
   private StringBuilder builder;
   private NoteNameCache noteNameCache = new NoteNameCache();
-  private boolean noteWritten = false;
+  private boolean noteWrittenInVoice = false;
   private Reference reference = new EasyScoreReference();
 
   private EasyMeasure currentMeasure;
   private EasyStaff currentStaff;
 
-  private Rational lastNoteDuration;
-  private Rational currentMeasurePosition;
+  private Rational lastNoteDurationInVoice;
+  private Rational currentVoicePosition;
 
 
   public EasyScoreCompositionBuilder(EventsComposition composition) {
@@ -96,13 +97,20 @@ public class EasyScoreCompositionBuilder {
   }
 
   private void visit(EventsVoice voice) {
-    currentMeasurePosition = Wholes.ZERO;
+    currentVoicePosition = Wholes.ZERO;
+    noteWrittenInVoice = false;
+    lastNoteDurationInVoice = null;
     builder = new StringBuilder(128);
     voice.stream().forEachOrdered(this::visit);
-    Whole expectedBeats = Real.valueOf(currentMeasure.getTime().getNumerator());
-    if (!currentMeasurePosition.equals(expectedBeats)) {
-      Rational remainingBeats = expectedBeats.minus(currentMeasurePosition);
-      remainingBeats.getEgyptianFractions()
+    Whole expectedBeats = Whole.valueOf(currentMeasure.getTime().getNumerator());
+
+    /*
+     * If the measure has not enough notes then fill up with rests.
+     */
+    if (!currentVoicePosition.equals(expectedBeats)) {
+      Rational remainingBeats = expectedBeats.minus(currentVoicePosition);
+      LOG.debug("Remaining beats in bar {}", remainingBeats);
+      remainingBeats.getEgyptianFractions(2)
           .forEachOrdered(
               duration -> builder.append(", ").append(REST_NOTE)
                   .append(reference.getDurationLabel(duration)).append("/r"));
@@ -114,22 +122,26 @@ public class EasyScoreCompositionBuilder {
     Object value = event.getValue();
     if (value instanceof Note) {
       Note note = (Note) value;
-      if (noteWritten) {
+      if (noteWrittenInVoice) {
         builder.append(", ");
       }
-      currentMeasurePosition = currentMeasurePosition.plus(note.getDuration()).toRational();
+      currentVoicePosition = currentVoicePosition.plus(note.getDuration()).toRational();
+
+      LOG.debug("Current measure position {} ; note duration {}",
+          currentVoicePosition.plus(note.getDuration()),
+          note.getDuration());
       builder.append(calculateNoteNotation(note));
-      if (lastNoteDuration == null || !note.getDuration().equals(lastNoteDuration)) {
+      if (!note.getDuration().equals(lastNoteDurationInVoice)) {
         if (note.getDuration() instanceof Rational) {
           Rational rationalNoteDuration = (Rational) note.getDuration();
           builder.append(reference.getDurationLabel(rationalNoteDuration));
-          lastNoteDuration = rationalNoteDuration;
+          lastNoteDurationInVoice = rationalNoteDuration;
         } else {
           throw new OdinRuntimeException(
               "Note duration is not a rational number : " + note.getDuration());
         }
       }
-      noteWritten = true;
+      noteWrittenInVoice = true;
     } else {
       throw new OdinRuntimeException("Can only create EasyScore notation for note events");
     }

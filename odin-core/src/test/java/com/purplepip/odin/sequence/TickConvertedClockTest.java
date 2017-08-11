@@ -19,7 +19,7 @@ import static com.purplepip.odin.sequence.tick.Ticks.QUARTER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
@@ -36,7 +36,7 @@ public class TickConvertedClockTest {
   public void testDuration() {
     BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
-    assertEquals(Real.valueOf(4), clock.getDuration(1000000));
-    assertEquals(Real.valueOf(4), clock.getDuration(1000000, Real.valueOf(10)));
+    assertEquals(Whole.valueOf(4), clock.getDuration(1000000));
+    assertEquals(Whole.valueOf(4), clock.getDuration(1000000, Whole.valueOf(10)));
   }
 }

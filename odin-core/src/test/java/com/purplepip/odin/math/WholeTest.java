@@ -1,6 +1,8 @@
 package com.purplepip.odin.math;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -20,23 +22,55 @@ import org.junit.Test;
  */
 public class WholeTest {
   @Test
+  public void testPlus() {
+    assertEquals(Rational.valueOf(5,2), Wholes.TWO.plus(Rationals.HALF));
+  }
+
+  @Test
   public void testFloor() {
-    assertEquals(3, Real.valueOf(3).floor());
+    assertEquals(3, Whole.valueOf(3).floor());
     assertEquals(2, Real.valueOf(2.1).floor());
   }
 
   @Test
   public void testModulo() {
-    assertEquals(Real.valueOf(2), Real.valueOf(10).modulo(Real.valueOf(4)));
+    assertEquals(Whole.valueOf(2), Whole.valueOf(10).modulo(Whole.valueOf(4)));
   }
 
   @Test
   public void testFloorWithRadix() {
-    assertEquals(Real.valueOf(8), Real.valueOf(10).floor(Real.valueOf(4)));
+    assertEquals(Whole.valueOf(8), Whole.valueOf(10).floor(Whole.valueOf(4)));
   }
 
   @Test
   public void testEquals() {
-    assertEquals(Real.valueOf(1), new Whole(1));
+    assertEquals(Whole.valueOf(1), new Whole(1));
   }
+
+  @Test
+  public void testToString() {
+    assertEquals("-1", new Whole(-1).toString());
+  }
+
+  @Test
+  public void testIsNegative() {
+    assertFalse(Whole.valueOf(1).isNegative());
+    assertFalse(Whole.valueOf(0).isNegative());
+    assertTrue(Whole.valueOf(-1).isNegative());
+  }
+
+  @Test
+  public void testNegative() {
+    assertEquals(Whole.valueOf(1), Whole.valueOf(-1).negative());
+    assertEquals(Whole.valueOf(-1), Whole.valueOf(1).negative());
+    assertEquals(Wholes.ZERO, Wholes.ZERO);
+  }
+
+  @Test
+  public void testAbsolute() {
+    assertEquals(Whole.valueOf(1), Whole.valueOf(1).absolute());
+    assertEquals(Whole.valueOf(1), Whole.valueOf(-1).absolute());
+    assertEquals(Whole.valueOf(0), Whole.valueOf(0).absolute());
+  }
+
 }

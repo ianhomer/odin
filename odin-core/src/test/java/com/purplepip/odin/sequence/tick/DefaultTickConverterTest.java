@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
@@ -45,7 +45,7 @@ public class DefaultTickConverterTest {
   public void testMicrosecondToMillisecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> MILLISECOND, () -> MICROSECOND, () -> 0L);
-    assertEquals(Real.valueOf(1000), converter.convert(Wholes.ONE));
+    assertEquals(Whole.valueOf(1000), converter.convert(Wholes.ONE));
   }
 
   @Test
@@ -66,14 +66,14 @@ public class DefaultTickConverterTest {
   public void testMillisecondToBeat() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> MILLISECOND, () -> BEAT, () -> 0L);
-    assertEquals(Real.valueOf(200), converter.convert(Real.valueOf(100000)));
+    assertEquals(Whole.valueOf(200), converter.convert(Whole.valueOf(100000)));
   }
 
   @Test
   public void testMillisecondToBeatWithOffset() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> MILLISECOND, () -> BEAT, () -> 5000L);
-    assertEquals(Real.valueOf(18), converter.convert(Real.valueOf(4000)));
+    assertEquals(Whole.valueOf(18), converter.convert(Whole.valueOf(4000)));
   }
 
   @Test(expected = OdinRuntimeException.class)
@@ -87,7 +87,7 @@ public class DefaultTickConverterTest {
   public void testBeatToMicrosecond() {
     DefaultTickConverter converter = new DefaultTickConverter(clock,
         () -> BEAT, () -> MICROSECOND, () -> 0L);
-    assertEquals(Real.valueOf(500000), converter.convert(Wholes.ONE));
+    assertEquals(Whole.valueOf(500000), converter.convert(Wholes.ONE));
   }
 
   @Test(expected = OdinRuntimeException.class)

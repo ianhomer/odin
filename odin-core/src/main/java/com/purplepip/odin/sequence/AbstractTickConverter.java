@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.Observable;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -74,12 +75,12 @@ public abstract class AbstractTickConverter implements TickConverter {
 
   @Override
   public Real convert(Real time) {
-    return convertTimeUnit(forwards, Real.valueOf(getSourceOffset()).plus(time));
+    return convertTimeUnit(forwards, Whole.valueOf(getSourceOffset()).plus(time));
   }
 
   @Override
   public Real convertBack(Real time) {
-    return convertTimeUnit(backwards, time).minus(Real.valueOf(getSourceOffset()));
+    return convertTimeUnit(backwards, time).minus(Whole.valueOf(getSourceOffset()));
   }
 
   @Override
