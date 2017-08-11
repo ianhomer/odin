@@ -123,16 +123,25 @@ class Score extends React.Component{
         var staff = measure.staves[j];
 
         // TODO : Support more than one voice per staff
-        system.addStave({
+        var systemStaff = system.addStave({
           voices: [
             voice([
               notes(staff.voices[0].notation)
             ].reduce(concat))
           ]
         })
-          .addClef(staff.clef)
-          .addKeySignature(measure.key)
-          .addTimeSignature(measure.time);
+
+        if (i == 0 || composition.measures[i-1].staves[j].clef != staff.clef) {
+          systemStaff.addClef(staff.clef);
+        }
+
+        if (i == 0 || composition.measures[i-1].key != measure.key) {
+          systemStaff.addKeySignature(measure.key);
+        }
+
+        if (i == 0 || composition.measures[i-1].time != measure.time) {
+          systemStaff.addTimeSignature(measure.time);
+        }
       }
     }
 

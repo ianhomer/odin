@@ -43,9 +43,9 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
     if (projectContainer.isEmpty()) {
       new PersistableProjectBuilder(projectContainer)
           .addLayer("groove")
-          .withChannel(1).changeProgramTo("bird")
+          .withChannel(1).changeProgramTo("aahs")
           .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
-          .withChannel(2).changeProgramTo("aahs")
+          .withChannel(2).changeProgramTo("rock")
           .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
           .withChannel(9).changeProgramTo("TR-909")
           .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
