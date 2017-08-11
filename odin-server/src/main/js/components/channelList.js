@@ -45,7 +45,6 @@ class ChannelList extends React.Component{
 
     return (
       <div>
-        <Trace scope="channelList"/>
         <div className="container">
           <div className="row">
             <div className="col-2">Number</div>

@@ -105,7 +105,7 @@ class EditEntity extends React.Component{
     } else {
       return (
         <div className={cellClassName} key={key}>
-          <input type="text" placeholder={key} ref={key} className="field"
+          <input type="text" placeholder={key} ref={key} className="form-control"
             defaultValue={defaultValue}
             onKeyPress={this.handleKeyPress}
             size={size}
@@ -154,7 +154,7 @@ class EditEntity extends React.Component{
                 value={this.props.entity._links.self.href} />
             </div>
           }
-          <button onClick={this.handleApply}>{label}</button>
+          <button type="submit" className="btn btn-primary" onClick={this.handleApply}>{label}</button>
         </div>
       </div>
     );

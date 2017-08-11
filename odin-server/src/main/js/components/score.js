@@ -166,7 +166,7 @@ class Score extends React.Component{
         <div>
           <span>
             <input type="text" placeholder={this.props.componentKey}
-              ref={this.props.componentRef} className="field"
+              ref={this.props.componentRef} className="form-control"
               defaultValue={this.state.notation}
               onKeyPress={this.props.onKeyPress}
               onChange={this.handleChange}

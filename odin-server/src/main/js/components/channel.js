@@ -32,7 +32,7 @@ class Channel extends React.Component{
         <div className="col-2">{this.props.entity.number}</div>
         <div className="col-3">{this.props.entity.programName}</div>
         <div className="col-1">
-          <button onClick={this.handleDelete}>Delete</button>
+          <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
         </div>
       </div>
     );

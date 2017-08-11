@@ -84,7 +84,7 @@ class Notation extends React.Component{
             {sequence.flowName}
           </div>
           <div className="col-1">
-            <button onClick={this.handleDelete}>Delete</button>
+            <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
           </div>
         </div>
       );
