@@ -101,9 +101,9 @@ Notation.defaultProps = {
     'tick' : {
       cellWidth : 2,
       fields : {
-        'numerator' : {defaultValue : 1},
-        'denominator' : {defaultValue : 1},
-        'timeUnit' : {defaultValue : 'BEAT'},
+        'numerator' : {defaultValue : 1, cellWidth : 4},
+        'denominator' : {defaultValue : 1, cellWidth : 4},
+        'timeUnit' : {defaultValue : 'BEAT', cellWidth : 4},
       }
     },
     'notation' : {

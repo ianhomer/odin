@@ -98,24 +98,24 @@ class Pattern extends React.Component{
 Pattern.defaultProps = {
   path: 'patterns',
   fields: {
-    'channel' : { defaultValue : 1},
-    'offset' : { defaultValue : 0},
-    'length' : {defaultValue : -1},
+    'channel' : { defaultValue : 1 },
+    'offset' : { defaultValue : 0 },
+    'length' : { defaultValue : -1 },
     'tick' : {
       cellWidth : 2,
       fields : {
-        'numerator' : {defaultValue : 1},
-        'denominator' : {defaultValue : 1},
-        'timeUnit' : {defaultValue : 'BEAT'},
+        'numerator' : {defaultValue : 1, cellWidth : 4},
+        'denominator' : {defaultValue : 1, cellWidth : 4},
+        'timeUnit' : {defaultValue : 'BEAT', cellWidth : 4},
       }
     },
     'bits' : {defaultValue : 1},
     'note' : {
       cellWidth : 2,
       fields : {
-        'number' : {defaultValue : 60},
-        'velocity' : {defaultValue : 100},
-        'numerator' : {defaultValue : 1}
+        'number' : {defaultValue : 60, cellWidth : 4},
+        'velocity' : {defaultValue : 100, cellWidth : 4},
+        'numerator' : {defaultValue : 1, cellWidth : 4}
       }
     },
     'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.PatternFlow'}
