@@ -58,6 +58,7 @@ public class TrackProcessorExecutor implements Runnable {
     try {
       doJob();
     } catch (RuntimeException e) {
+      e.fillInStackTrace();
       LOG.error("Error whilst executing sequence processing", e);
     }
   }

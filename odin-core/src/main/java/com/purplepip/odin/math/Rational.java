@@ -194,10 +194,14 @@ public class Rational extends Real {
   public Real times(Real real) {
     if (real instanceof Rational) {
       Rational rational = (Rational) real;
-      return Rational.valueOf(numerator * rational.getNumerator(),
-          denominator * rational.getDenominator());
+      return times(rational);
     }
     return super.times(real);
+  }
+
+  public Rational times(Rational rational) {
+    return Rational.valueOf(numerator * rational.getNumerator(),
+        denominator * rational.getDenominator());
   }
 
   /**
@@ -207,10 +211,14 @@ public class Rational extends Real {
   public Real divide(Real real) {
     if (real instanceof Rational) {
       Rational rational = (Rational) real;
-      return Rational.valueOf(numerator * rational.getDenominator(),
-          denominator * rational.getNumerator());
+      return divide(rational);
     }
     return super.divide(real);
+  }
+
+  public Rational divide(Rational rational) {
+    return Rational.valueOf(numerator * rational.getDenominator(),
+        denominator * rational.getNumerator());
   }
 
   /**
