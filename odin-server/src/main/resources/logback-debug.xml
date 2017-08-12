@@ -6,7 +6,17 @@
     </encoder>
   </appender>
 
-  <logger name="com.purplepip" level="DEBUG"/>
+  <!--
+      Log messages for spring bean creation and access.
+      -->
+  <logger name="org.springframework.beans" level="INFO"/>
+  <!--
+      Log messages for spring application context caching.  Spring tests use multiple application
+      contexts using caching to share contexts where appropriate.  These messages can help
+      understand how this logic is taking place.
+      -->
+  <logger name="org.springframework.test.context.cache" level="DEBUG"/>
+  <logger name="com.purplepip" level="INFO"/>
 
   <root level="WARN">
     <appender-ref ref="STDOUT"/>

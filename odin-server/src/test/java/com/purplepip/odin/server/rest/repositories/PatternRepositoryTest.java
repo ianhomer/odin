@@ -24,8 +24,8 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Pattern repository test.
  */
 @RunWith(SpringRunner.class)
-@DataJpaTest(showSql = false)
 @ContextConfiguration
+@DataJpaTest(showSql = false)
 @Slf4j
 public class PatternRepositoryTest {
   @Autowired
