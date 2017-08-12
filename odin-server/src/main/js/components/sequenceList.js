@@ -72,7 +72,11 @@ class SequenceList extends React.Component{
             <div className="col-3">Flow Name</div>
           </div>
 
+          {entities}
+
           {/* Render edit entities for each sequence type */}
+
+          <hr/>
 
           {Object.keys(Sequences).map(path => {
             var Sequence = Sequences[path];
@@ -87,9 +91,6 @@ class SequenceList extends React.Component{
             }
           })}
 
-          <hr/>
-
-          {entities}
         </div>
       </div>
     );

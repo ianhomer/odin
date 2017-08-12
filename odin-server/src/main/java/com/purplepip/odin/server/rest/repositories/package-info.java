@@ -14,6 +14,6 @@
  */
 
 /**
- * Repositories to access the project persisted model.
+ * Rest repositories to access the project persisted model.
  */
 package com.purplepip.odin.server.rest.repositories;

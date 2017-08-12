@@ -13,10 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest.domain;
+package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.Pattern;
+import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.sequence.tick.Tick;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,23 +27,24 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Persistable pattern.
+ * Persistable notation.
  */
 @Data
-@Entity(name = "Pattern")
-@Table(name = "Pattern")
+@Entity(name = "Notation")
+@Table(name = "Notation")
 @EqualsAndHashCode(callSuper = true)
-public class PersistablePattern extends AbstractPersistableSequence implements Pattern {
-  private int bits;
+public class PersistableNotation extends AbstractPersistableSequence implements Notation {
   private int channel;
   @Column(name = "o")
   private long offset;
   private long length;
-  @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
-  private Note note;
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL)
   @NotNull
   private Tick tick;
   @NotNull
   private String flowName;
+  @NotNull
+  private String format;
+  @NotNull
+  private String notation;
 }

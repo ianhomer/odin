@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CompositionController {
   private NaturalScoreCompositionFactory factory = new NaturalScoreCompositionFactory();
 
-  @RequestMapping("/service/composition")
+  @RequestMapping("/services/composition")
   public Composition createCompositionFromNotation(
       @RequestParam(value = "notation", defaultValue = "C") String notation) {
     return new EasyScoreCompositionBuilder(factory.create(notation)).build();

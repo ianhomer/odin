@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server;
+package com.purplepip.odin.server.rest.event;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.ProjectLoadListener;
 import com.purplepip.odin.project.ProjectSaveListener;
-import com.purplepip.odin.server.rest.domain.PersistableProject;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
+import com.purplepip.odin.store.domain.PersistableProject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

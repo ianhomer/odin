@@ -16,7 +16,7 @@
 package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.server.rest.domain.PersistablePattern;
+import com.purplepip.odin.store.domain.PersistablePattern;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

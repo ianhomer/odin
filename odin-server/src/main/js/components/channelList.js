@@ -18,7 +18,6 @@ const React = require('react');
 
 const crud = require('./../crud');
 
-const Trace = require('./trace');
 const Channel = require('./channel');
 const EditEntity = require('./editEntity');
 

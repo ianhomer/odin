@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest;
+package com.purplepip.odin.store;
 
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
@@ -24,13 +24,13 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.sequencer.ProjectBuilder;
-import com.purplepip.odin.server.rest.domain.PersistableChannel;
-import com.purplepip.odin.server.rest.domain.PersistableLayer;
-import com.purplepip.odin.server.rest.domain.PersistableMetronome;
-import com.purplepip.odin.server.rest.domain.PersistableNotation;
-import com.purplepip.odin.server.rest.domain.PersistableNote;
-import com.purplepip.odin.server.rest.domain.PersistablePattern;
-import com.purplepip.odin.server.rest.domain.PersistableTick;
+import com.purplepip.odin.store.domain.PersistableChannel;
+import com.purplepip.odin.store.domain.PersistableLayer;
+import com.purplepip.odin.store.domain.PersistableMetronome;
+import com.purplepip.odin.store.domain.PersistableNotation;
+import com.purplepip.odin.store.domain.PersistableNote;
+import com.purplepip.odin.store.domain.PersistablePattern;
+import com.purplepip.odin.store.domain.PersistableTick;
 
 /**
  * Sequence builder that updates the project with persistable domain objects.

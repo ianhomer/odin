@@ -76,7 +76,7 @@ class Score extends React.Component{
     // Resolve composition structure from this notation
     client({
       method: 'GET',
-      path: '/service/composition',
+      path: '/services/composition',
       params: {'notation' : notation},
       headers: {'Accept': 'application/json'}
     }).then(response => {
@@ -84,6 +84,17 @@ class Score extends React.Component{
     }).catch(reason => {
       console.error(reason);
     });
+  }
+
+  // Remove previous score canvas that might have been drawn
+  removePreviousCanvases() {
+    var element = document.getElementById(this.getElementId());
+    if (element) {
+      var canvases = element.getElementsByTagName('svg');
+      for (var i = 0; i < canvases.length ; i++) {
+        element.removeChild(canvases[i]);
+      }
+    }
   }
 
   renderComposition(composition, dryRun = false) {
@@ -96,14 +107,7 @@ class Score extends React.Component{
       selector = this.getElementId();
     }
 
-    // Remove previous score canvas that might have been drawn
-    var element = document.getElementById(this.getElementId());
-    if (element) {
-      var canvases = element.getElementsByTagName("svg");
-      for (var i = 0; i < canvases.length ; i++) {
-        element.removeChild(canvases[i]);
-      }
-    }
+    this.removePreviousCanvases();
 
     var vf = new Vex.Flow.Factory({
       renderer: {selector: selector, width: 500, height: 100}

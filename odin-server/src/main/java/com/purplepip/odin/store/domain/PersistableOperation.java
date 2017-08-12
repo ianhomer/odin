@@ -13,48 +13,41 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest.domain;
+package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequencer.Channel;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
- * Persistable channel.
+ * Persistable operation used currently for auditing purposes, but in the future it could be
+ * used for replay.
  */
 @Data
-@Entity(name = "Channel")
-@Table(name = "Channel")
-@EqualsAndHashCode(exclude = {"project", "id"})
-@ToString(exclude = "project")
-public class PersistableChannel implements Channel {
+@Entity(name = "Operation")
+@Table(name = "Operation")
+public class PersistableOperation {
   @Id
   @GeneratedValue
   private long id;
+
+  @Temporal(TemporalType.DATE)
+  private Date dateCreated;
+
+  private String message;
+  private long time;
+  private int channel;
   private int number;
-  private String programName;
-  private int program;
-  @ManyToOne(targetEntity = PersistableProject.class)
-  @JoinColumn(name = "PROJECT_ID", nullable = false)
-  private Project project;
+  private int velocity;
 
   @PrePersist
-  public void addToProject() {
-    project.addChannel(this);
-  }
-
-  @PreRemove
-  public void removeFromProject() {
-    project.removeChannel(this);
+  protected void onPrePersist() {
+    dateCreated = new Date();
   }
 }

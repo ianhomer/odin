@@ -127,3 +127,12 @@ Generate site, including javadocs with
     
     mvn site
     
+# Debug
+
+  cd odin-server
+  mvn install -P quick
+  java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 \
+    -Dlogback.debug=true -Dlogback.configurationFile=src/main/resources/logback-debug.xml \   
+    -jar odin-server/target/odin-server-1.0-SNAPSHOT.jar
+    
+    

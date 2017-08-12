@@ -16,4 +16,4 @@
 /**
  * Persistable implementation for the sequencer project model.
  */
-package com.purplepip.odin.server.rest.domain;
+package com.purplepip.odin.store.domain;

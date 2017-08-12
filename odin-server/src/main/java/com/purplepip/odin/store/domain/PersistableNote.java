@@ -13,41 +13,51 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest.domain;
+package com.purplepip.odin.store.domain;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.music.notes.Note;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import lombok.Data;
 
 /**
- * Persistable operation used currently for auditing purposes, but in the future it could be
- * used for replay.
+ * Persistable note.
  */
 @Data
-@Entity(name = "Operation")
-@Table(name = "Operation")
-public class PersistableOperation {
+@Entity(name = "Note")
+@Table(name = "Note")
+public class PersistableNote implements Note {
   @Id
   @GeneratedValue
   private long id;
-
-  @Temporal(TemporalType.DATE)
-  private Date dateCreated;
-
-  private String message;
-  private long time;
-  private int channel;
-  private int number;
   private int velocity;
+  private int number;
+  private long numerator;
+  private long denominator;
 
-  @PrePersist
-  protected void onPrePersist() {
-    dateCreated = new Date();
+  @Transient
+  @JsonIgnore
+  private Rational rational;
+
+  @Override
+  @JsonIgnore
+  public Rational getDuration() {
+    return rational;
   }
+
+  @PostLoad
+  public void afterLoad() {
+    initialise();
+  }
+
+  private void initialise() {
+    rational = new Rational(numerator, denominator);
+  }
+
 }

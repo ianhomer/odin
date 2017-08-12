@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest.domain;
+package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.Layer;

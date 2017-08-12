@@ -13,75 +13,48 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest.domain;
+package com.purplepip.odin.store.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.Layer;
-import com.purplepip.odin.sequence.MutableSequence;
-import java.util.Set;
-import javax.persistence.CascadeType;
+import com.purplepip.odin.sequencer.Channel;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Persistable sequence.
+ * Persistable channel.
  */
-@Entity(name = "Sequence")
-@Table(name = "Sequence")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
-@EqualsAndHashCode(exclude = "project")
+@Entity(name = "Channel")
+@Table(name = "Channel")
+@EqualsAndHashCode(exclude = {"project", "id"})
 @ToString(exclude = "project")
-public abstract class AbstractPersistableSequence implements MutableSequence {
+public class PersistableChannel implements Channel {
   @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  public long id;
-
-  @Version
-  @JsonIgnore
-  private Long version;
-
+  @GeneratedValue
+  private long id;
+  private int number;
+  private String programName;
+  private int program;
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
 
-  @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private Set<Layer> layers;
-
-  @Override
-  public void removeLayer(Layer layer) {
-    layers.remove(layer);
-  }
-
-  @Override
-  public void addLayer(Layer layer) {
-    layers.add(layer);
-  }
-
   @PrePersist
   public void addToProject() {
-    project.addSequence(this);
+    project.addChannel(this);
   }
 
   @PreRemove
   public void removeFromProject() {
-    project.removeSequence(this);
+    project.removeChannel(this);
   }
 }

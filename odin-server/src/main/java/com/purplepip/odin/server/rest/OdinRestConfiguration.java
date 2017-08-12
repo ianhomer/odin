@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
-import com.purplepip.odin.server.rest.domain.PersistableNote;
-import com.purplepip.odin.server.rest.domain.PersistableTick;
+import com.purplepip.odin.store.domain.PersistableNote;
+import com.purplepip.odin.store.domain.PersistableTick;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 

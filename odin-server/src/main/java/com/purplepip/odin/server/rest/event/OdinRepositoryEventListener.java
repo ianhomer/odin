@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest.repositories;
+package com.purplepip.odin.server.rest.event;
 
 import com.purplepip.odin.project.ProjectContainer;
 import lombok.extern.slf4j.Slf4j;

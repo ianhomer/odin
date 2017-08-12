@@ -27,7 +27,7 @@ public class CompositionControllerTest {
 
   @Test
   public void testEndPoints() throws Exception {
-    MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/service/composition")
+    MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/services/composition")
         .param("notation", "C D E F")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())

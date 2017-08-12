@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.server.rest.domain.PersistableMetronome;
+import com.purplepip.odin.store.domain.PersistableMetronome;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

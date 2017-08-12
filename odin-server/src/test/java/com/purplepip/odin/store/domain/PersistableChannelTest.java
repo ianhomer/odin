@@ -1,4 +1,4 @@
-package com.purplepip.odin.server.rest.domain;
+package com.purplepip.odin.store.domain;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -6,7 +6,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequencer.Channel;
-import com.purplepip.odin.server.rest.PersistableProjectBuilder;
+import com.purplepip.odin.store.PersistableProjectBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;

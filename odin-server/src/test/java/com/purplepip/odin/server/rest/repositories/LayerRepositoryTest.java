@@ -6,8 +6,8 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Layer;
-import com.purplepip.odin.server.rest.PersistableProjectBuilder;
-import com.purplepip.odin.server.rest.domain.PersistableProject;
+import com.purplepip.odin.store.PersistableProjectBuilder;
+import com.purplepip.odin.store.domain.PersistableProject;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -24,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
+@ContextConfiguration
 @Slf4j
 public class LayerRepositoryTest {
   @Autowired

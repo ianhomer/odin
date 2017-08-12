@@ -16,7 +16,7 @@
 package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.sequence.Layer;
-import com.purplepip.odin.server.rest.domain.PersistableLayer;
+import com.purplepip.odin.store.domain.PersistableLayer;
 import java.util.List;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.Description;

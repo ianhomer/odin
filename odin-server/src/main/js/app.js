@@ -52,15 +52,15 @@ class App extends React.Component {
         }
         <ProjectList projects={this.state.projects}/>
         {this.state.project &&
+          <div>
+            <SequenceList project={this.state.project}/>
+          </div>
+        }
+        {this.state.project &&
           <LayerList project={this.state.project}/>
         }
         {this.state.project &&
           <ChannelList project={this.state.project}/>
-        }
-        {this.state.project &&
-          <div>
-            <SequenceList project={this.state.project}/>
-          </div>
         }
       </div>
     );

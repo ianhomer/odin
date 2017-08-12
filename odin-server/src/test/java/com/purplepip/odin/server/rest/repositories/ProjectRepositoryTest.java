@@ -5,14 +5,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.server.rest.PersistableProjectBuilder;
-import com.purplepip.odin.server.rest.domain.PersistableProject;
+import com.purplepip.odin.store.PersistableProjectBuilder;
+import com.purplepip.odin.store.domain.PersistableProject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -20,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
+@ContextConfiguration
 public class ProjectRepositoryTest {
   @Autowired
   private TestEntityManager entityManager;

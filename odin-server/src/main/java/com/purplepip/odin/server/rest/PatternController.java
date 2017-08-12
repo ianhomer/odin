@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 /**
  * Pattern controller.
  */
+// TODO : Why is this here?  Can we delete it?
 @Controller
 public class PatternController {
 

@@ -16,7 +16,7 @@
 package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.server.rest.domain.PersistableProject;
+import com.purplepip.odin.store.domain.PersistableProject;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

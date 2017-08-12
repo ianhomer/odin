@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.server.rest.domain.PersistableOperation;
+import com.purplepip.odin.store.domain.PersistableOperation;
 import java.util.Date;
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;

@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest.domain;
+package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.tick.Tick;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,13 +28,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * Persistable notation.
+ * Persistable metronome.
  */
 @Data
-@Entity(name = "Notation")
-@Table(name = "Notation")
+@Entity(name = "Metronome")
+@Table(name = "Metronome")
 @EqualsAndHashCode(callSuper = true)
-public class PersistableNotation extends AbstractPersistableSequence implements Notation {
+public class PersistableMetronome extends AbstractPersistableSequence implements Metronome {
   private int channel;
   @Column(name = "o")
   private long offset;
@@ -41,10 +42,10 @@ public class PersistableNotation extends AbstractPersistableSequence implements 
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL)
   @NotNull
   private Tick tick;
+  @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
+  private Note noteBarStart;
+  @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
+  private Note noteBarMid;
   @NotNull
   private String flowName;
-  @NotNull
-  private String format;
-  @NotNull
-  private String notation;
 }
