@@ -33,9 +33,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -82,9 +82,7 @@ public class Application {
    * @param args arguments
    */
   public static void main(String[] args) {
-    SpringApplicationBuilder builder = new SpringApplicationBuilder()
-        .parent(Application.class);
-    builder.run(args);
+    SpringApplication.run(Application.class, args);
   }
 
   /**
