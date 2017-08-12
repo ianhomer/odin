@@ -18,6 +18,7 @@ package com.purplepip.odin.server.rest.repositories;
 import com.purplepip.odin.store.domain.PersistableOperation;
 import java.util.Date;
 import javax.transaction.Transactional;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -28,6 +29,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     collectionResourceRel = "operations",
     collectionResourceDescription = @Description("operations"),
     itemResourceRel = "operation", itemResourceDescription = @Description("operation"))
+@Profile("!noStore")
 public interface OperationRepository
     extends PagingAndSortingRepository<PersistableOperation, Long> {
 

@@ -35,7 +35,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -47,7 +46,6 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
  * Odin Application.
  */
 @SpringBootApplication
-@EntityScan("com.purplepip.odin.store.domain")
 @ComponentScan({"com.purplepip.odin.server"})
 public class Application {
   private static final Logger LOG = LoggerFactory.getLogger(Application.class);

@@ -16,6 +16,7 @@
 package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.store.domain.AbstractPersistableSequence;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -24,6 +25,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(path = "sequences", collectionResourceRel = "sequences",
     itemResourceRel = "sequence")
+@Profile("!noStore")
 public interface SequenceRepository extends
     PagingAndSortingRepository<AbstractPersistableSequence, Long> {
 }

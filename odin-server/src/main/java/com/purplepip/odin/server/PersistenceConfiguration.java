@@ -13,20 +13,14 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.rest.repositories;
+package com.purplepip.odin.server;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.store.domain.PersistableProject;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-/**
- * Project repository.
- */
-@RepositoryRestResource(path = "projects", collectionResourceRel = "projects",
-    itemResourceRel = "project")
+@Configuration
+@EntityScan("com.purplepip.odin.store.domain")
 @Profile("!noStore")
-public interface ProjectRepository extends CrudRepository<PersistableProject, Long> {
-  Project findByName(String name);
+public class PersistenceConfiguration {
 }

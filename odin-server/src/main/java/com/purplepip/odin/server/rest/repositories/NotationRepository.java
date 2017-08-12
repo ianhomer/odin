@@ -16,6 +16,7 @@
 package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.store.domain.PersistableNotation;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -24,5 +25,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(path = "notations", collectionResourceRel = "notations",
     itemResourceRel = "notation")
+@Profile("!noStore")
 public interface NotationRepository extends CrudRepository<PersistableNotation, Long> {
 }

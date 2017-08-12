@@ -15,40 +15,38 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.server.rest.repositories.ProjectRepository;
-import com.purplepip.odin.store.domain.PersistableProject;
-import lombok.extern.slf4j.Slf4j;
+import com.purplepip.odin.project.TransientProject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
-@Component
-@Profile("!noStore")
-@Order(1)
-@Slf4j
-public class DefaultProjectCreater implements ApplicationRunner {
-  private static final String DEFAULT_PROJECT_NAME = "defaultProject";
-
-  @Autowired
-  private ProjectRepository projectRepository;
-
+/**
+ * Configuration to disable storage configuration.
+ */
+@Configuration
+@EnableAutoConfiguration(
+    exclude = {
+        DataSourceAutoConfiguration.class,
+        DataSourceTransactionManagerAutoConfiguration.class,
+        HibernateJpaAutoConfiguration.class}
+)
+@Profile("noStore")
+public class OdinNoStoreConfiguration implements ApplicationRunner {
   @Autowired
   private ProjectContainer projectContainer;
 
   @Override
   public void run(ApplicationArguments applicationArguments) throws Exception {
-    Project project = projectRepository.findByName(DEFAULT_PROJECT_NAME);
-    if (project == null) {
-      project = new PersistableProject();
-      ((PersistableProject) project).setName(DEFAULT_PROJECT_NAME);
-      projectRepository.save((PersistableProject) project);
-      LOG.info("Created default project");
-    }
-    projectContainer.setProject(project);
+    /*
+     * Use a transient project for this no store profile.
+     */
+    projectContainer.setProject(new TransientProject());
   }
 }

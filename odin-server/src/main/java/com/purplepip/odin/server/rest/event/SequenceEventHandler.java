@@ -19,6 +19,7 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Sequence;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleAfterDelete;
 import org.springframework.data.rest.core.annotation.HandleAfterSave;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RepositoryEventHandler
+@Profile("!noStore")
 @Slf4j
 public class SequenceEventHandler {
   @Autowired

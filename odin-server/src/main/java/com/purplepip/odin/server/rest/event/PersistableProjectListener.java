@@ -24,12 +24,14 @@ import com.purplepip.odin.store.domain.PersistableProject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
  * Project container that contains a persistable project.
  */
 @Component
+@Profile("!noStore")
 @Slf4j
 public class PersistableProjectListener implements
     ProjectSaveListener, ProjectLoadListener, InitializingBean {

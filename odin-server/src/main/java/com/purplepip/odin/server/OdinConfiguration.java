@@ -26,7 +26,10 @@ import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +41,8 @@ import org.springframework.context.annotation.Configuration;
 public class OdinConfiguration {
   private static final int FOUR_FOUR_TIME = 4;
 
-  @Autowired
-  private AuditingOperationReceiver auditingOperationReceiver;
+  @Autowired(required = false)
+  private OperationReceiver auditingOperationReceiver;
 
   @Bean
   public MidiDeviceWrapper midiDeviceWrapper() {
@@ -75,13 +78,17 @@ public class OdinConfiguration {
                                      MidiDeviceWrapper midiDeviceWrapper,
                                      ProjectContainer projectContainer)
       throws OdinException {
+    List<OperationReceiver> operationReceivers = new ArrayList<>();
+    operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
+    if (auditingOperationReceiver != null) {
+      operationReceivers.add(auditingOperationReceiver);
+    }
+
     OdinSequencer odinSequencer = new OdinSequencer(
         new DefaultOdinSequencerConfiguration()
             .setBeatsPerMinute(new StaticBeatsPerMinute(120))
             .setMeasureProvider(measureProvider)
-            .setOperationReceiver(new OperationReceiverCollection(
-                new MidiOperationReceiver(midiDeviceWrapper),
-                auditingOperationReceiver))
+            .setOperationReceiver(new OperationReceiverCollection(operationReceivers))
             .setMicrosecondPositionProvider(
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
     projectContainer.addApplyListener(odinSequencer);

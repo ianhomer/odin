@@ -16,6 +16,7 @@
 package com.purplepip.odin.server.rest.repositories;
 
 import com.purplepip.odin.store.domain.PersistableMetronome;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -27,5 +28,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     collectionResourceRel = "metronomes",
     collectionResourceDescription = @Description("metronomes"),
     itemResourceRel = "metronome", itemResourceDescription = @Description("metronome"))
+@Profile("!noStore")
 public interface MetronomeRepository extends CrudRepository<PersistableMetronome, Long> {
 }

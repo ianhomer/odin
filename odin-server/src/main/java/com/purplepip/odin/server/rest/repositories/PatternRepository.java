@@ -18,6 +18,7 @@ package com.purplepip.odin.server.rest.repositories;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.store.domain.PersistablePattern;
 import java.util.List;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -26,6 +27,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(path = "patterns", collectionResourceRel = "patterns",
     itemResourceRel = "pattern")
+@Profile("!noStore")
 public interface PatternRepository extends CrudRepository<PersistablePattern, Long> {
   List<Pattern> findByChannel(int channel);
 }

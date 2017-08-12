@@ -18,10 +18,12 @@ package com.purplepip.odin.server.rest.event;
 import com.purplepip.odin.project.ProjectContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("!noStore")
 @Slf4j
 public class OdinRepositoryEventListener extends AbstractRepositoryEventListener {
   @Autowired

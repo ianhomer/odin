@@ -29,9 +29,11 @@ import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("!noStore")
 @Slf4j
 public class AuditingOperationReceiver implements OperationReceiver, InitializingBean {
   private static final long CLEAN_PERIOD = 30;

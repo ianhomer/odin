@@ -18,6 +18,7 @@ package com.purplepip.odin.server.rest.repositories;
 import com.purplepip.odin.sequence.Layer;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import java.util.List;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -28,6 +29,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(path = "layers",
     collectionResourceRel = "layers", collectionResourceDescription = @Description("layers"),
     itemResourceRel = "layer", itemResourceDescription = @Description("layer"))
+@Profile("!noStore")
 public interface LayerRepository extends PagingAndSortingRepository<PersistableLayer, Long> {
   List<Layer> findByName(String name);
 }
