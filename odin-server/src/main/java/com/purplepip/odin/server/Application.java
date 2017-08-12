@@ -17,7 +17,6 @@ package com.purplepip.odin.server;
 
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
 import com.purplepip.odin.music.notation.easy.composition.EasyMeasure;
 import com.purplepip.odin.music.notation.easy.composition.EasyStaff;
@@ -97,14 +96,6 @@ public class Application {
   @Bean
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
-      SynthesizerHelper synthesizerHelper = null;
-      if (midiDeviceWrapper.isSynthesizer()) {
-        synthesizerHelper =
-            new SynthesizerHelper(midiDeviceWrapper.getSynthesizer());
-        synthesizerHelper.loadGervillSoundBank(
-            "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
-      }
-
       sequencer.start();
       container.apply();
 

@@ -15,27 +15,34 @@
 
 package com.purplepip.odin.server;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.logcapture.LogCaptor;
+import com.purplepip.logcapture.LogCapture;
+import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.midix.SynthesizerHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * Synthesizer configuration test.
+ */
 @RunWith(SpringRunner.class)
-@DataJpaTest(showSql = false)
-public class DefaultRuntimeProjectLoaderTest {
+@SpringBootTest
+public class SynthesizerConfigurationTest {
   @Autowired
-  private ProjectContainer projectContainer;
+  private MidiDeviceWrapper midiDeviceWrapper;
 
   @Test
-  public void testDefaultRuntimeProjectLoader() throws Exception {
-    assertThat(projectContainer.getChannels()).isEmpty();
-    DefaultRuntimeProjectLoader loader =
-        new DefaultRuntimeProjectLoader(projectContainer);
-    loader.run(null);
-    assertThat(projectContainer.getChannels()).isNotEmpty();
+  public void testRun() throws Exception {
+    SynthesizerConfiguration loader =
+        new SynthesizerConfiguration(midiDeviceWrapper);
+    try (LogCaptor captor = new LogCapture().info().from(SynthesizerHelper.class).start()) {
+      loader.run(null);
+      assertEquals(1, captor.size());
+    }
   }
 }
