@@ -48,7 +48,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
  */
 @SpringBootApplication
 @EntityScan("com.purplepip.odin.store.domain")
-@ComponentScan({"com.purplepip.odin"})
+@ComponentScan({"com.purplepip.odin.server"})
 public class Application {
   private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
