@@ -30,7 +30,7 @@ class Tick extends React.Component{
         }</div>
         <div className="col-md-1">{this.props.denominator > 1 &&
               <span className="denominator">/{this.props.denominator}</span>
-        }</div>
+        }&nbsp;</div>
       </div>
     );
   }
