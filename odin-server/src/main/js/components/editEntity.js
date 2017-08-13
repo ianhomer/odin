@@ -41,6 +41,7 @@ class EditEntity extends React.Component{
     }
   }
 
+  // Render a group of inputs for the specified fields.
   renderInputFieldGroup(fields, schema, parentKey) {
     if (!fields) {
       console.warn('Fields not defined');
@@ -57,6 +58,7 @@ class EditEntity extends React.Component{
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + '.' + fieldName : fieldName;
       if (fields[fieldName].fields) {
+        // Given field is a group of child fields
         var cellWidth = fields[fieldName].cellWidth || 1;
         var cellClassName = 'component col-' + cellWidth;
         return (
@@ -81,7 +83,7 @@ class EditEntity extends React.Component{
         size = 3;
       }
     } else {
-      console.warn('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(schema.properties));
+      console.error('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(schema.properties));
     }
     var field = fields[fieldName];
     var cellWidth = field.cellWidth || 1;

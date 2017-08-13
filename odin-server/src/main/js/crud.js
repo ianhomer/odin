@@ -29,27 +29,26 @@ const root = '/api';
 const ajv = new Ajv({extendRefs : true});
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
 
-function setFieldValue(entity, schema, refs, name, key) {
-  var value = getFieldValue(schema, refs, name, key);
+function setFieldValue(entity, schemaId, schema, refs, name, key) {
+  var value = getFieldValue(schemaId, schema, refs, name, key);
   if (value) {
     objectPath.set(entity, name, value);
   }
 }
 
 // Get value of field from from fields, e.g. after form submit.
-function getFieldValue(schema, refs, name, key, required = true) {
+function getFieldValue(schemaId, schema, refs, name, key, required = true) {
   var _key = key ? key : name;
   var value;
   if (schema && schema.properties[name] && schema.properties[name]['$ref']) {
 
     // Navigate through object definition to find property names.
-
-    // TODO : Why does this read 'patterns', shouldn't we get the appropriate schema dynamically
-    var fieldSchema = getSchema('patterns', schema.properties[name]['$ref']);
+    var refSchemaId = getRefSchemaId(schemaId, schema.properties[name]['$ref'])
+    var fieldSchema = getSchema(refSchemaId);
     var property = {};
     Object.keys(fieldSchema.properties).map(function(propertyName) {
       var propertyKey = _key + '.' + propertyName;
-      property[propertyName] = getFieldValue(fieldSchema, refs, propertyName, propertyKey);
+      property[propertyName] = getFieldValue(refSchemaId, fieldSchema, refs, propertyName, propertyKey);
     });
     value = property;
   } else {
@@ -68,22 +67,26 @@ function getFieldValue(schema, refs, name, key, required = true) {
   return value;
 }
 
-// Get schema for the given ID and ref combination.
+// Get schema ID for the given ID and ref combination.
 //
-// e.g. getSchema('patterns','#/definitions/tick')
+// e.g. getRefSchemaId('patterns','#/definitions/tick')
 
-function getSchema(id, ref = '') {
-  var internalSchema = ajv.getSchema(id + ref);
+function getRefSchemaId(id, ref = '') {
+  return id + ref;
+}
+
+function getSchema(id) {
+  var internalSchema = ajv.getSchema(id);
   if (internalSchema) {
-    return ajv.getSchema(id + ref).schema;
+    return ajv.getSchema(id).schema;
   } else {
-    console.error('Cannot get schema for ' + id + ref);
+    console.error('Cannot get schema for ' + id);
     return [];
   }
 }
 
-function isSchemaLoaded(id, ref = '') {
-  return ajv.getSchema(id + ref) != null;
+function isSchemaLoaded(id) {
+  return ajv.getSchema(id) != null;
 }
 
 
@@ -109,17 +112,17 @@ module.exports = {
 
   getSchemaDefinition : function(name) {
     var schema = getSchema(this.props.path);
-    return getSchema(this.props.path, schema.properties[name]['$ref']);
+    return getSchema(getRefSchemaId(this.props.path, schema.properties[name]['$ref']));
   },
 
   // Exported method for get schema
 
   getSchema : function(id = this.props.path, ref = '') {
-    return getSchema(id, ref);
+    return getSchema(getRefSchemaId(id, ref));
   },
 
   isSchemaLoaded : function(id = this.props.path, ref = '') {
-    return isSchemaLoaded(id, ref);
+    return isSchemaLoaded(getRefSchemaId(id, ref));
   },
 
   // load multiple schemas
@@ -192,13 +195,14 @@ module.exports = {
   handleApply(e) {
     e.preventDefault();
     var entity = {};
-    var schema = getSchema(this.props.path);
+    var schemaId = this.props.path;
+    var schema = getSchema(schemaId);
     Object.keys(schema.properties).map(function(name) {
-      setFieldValue(entity, schema, this.refs, name);
+      setFieldValue(entity, schemaId, schema, this.refs, name);
     }, this);
     // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
-    setFieldValue(entity, null, this.refs, '_links.self.href');
-    var path = getFieldValue(schema, this.refs, 'path', false);
+    setFieldValue(entity, schemaId, null, this.refs, '_links.self.href');
+    var path = getFieldValue(schemaId, schema, this.refs, 'path', false);
     if (path) {
       this.props.onApply(entity, path);
     } else {
