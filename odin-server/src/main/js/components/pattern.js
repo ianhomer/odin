@@ -76,14 +76,14 @@ class Pattern extends React.Component{
               : <div className="warn">NULL tick</div>
             }</div>
           <div className="col-1">{sequence.bits}</div>
-          <div className="col-2">{sequence.note ?
+          <div className="col-3">{sequence.note ?
             <Note
               number={sequence.note.number}
               velocity={sequence.note.velocity}
               duration={sequence.note.duration}/>
             : <div className="warn">NULL note</div>
           }</div>
-          <div className="col-3">
+          <div className="col-2">
             {sequence.flowName}
           </div>
           <div className="col-1">
@@ -106,20 +106,24 @@ Pattern.defaultProps = {
       fields : {
         'numerator' : {defaultValue : 1, cellWidth : 4},
         'denominator' : {defaultValue : 1, cellWidth : 4},
-        'timeUnit' : {defaultValue : 'BEAT', cellWidth : 4},
+        'timeUnit' : {defaultValue : 'BEAT', hidden : true},
       }
     },
     'bits' : {defaultValue : 1},
     'note' : {
-      cellWidth : 2,
+      cellWidth : 3,
       fields : {
-        'number' : {defaultValue : 60, cellWidth : 4},
-        'velocity' : {defaultValue : 100, cellWidth : 4},
-        'numerator' : {defaultValue : 1, cellWidth : 4},
-        'denominator' : {defaultValue : 1, cellWidth : 4}
+        'number' : {defaultValue : 60, cellWidth : 3},
+        'velocity' : {defaultValue : 100, cellWidth : 3},
+        'numerator' : {defaultValue : 1, cellWidth : 3},
+        'denominator' : {defaultValue : 1, hidden : true}
       }
     },
-    'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.PatternFlow'}
+    'flowName' : {
+      cellWidth : 2,
+      defaultValue : 'PatternFlow',
+      readOnly : true
+    }
   },
 };
 

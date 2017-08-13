@@ -83,18 +83,19 @@ class EditEntity extends React.Component{
     } else {
       console.warn('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(schema.properties));
     }
-    var cellWidth = fields[fieldName].cellWidth || 1;
+    var field = fields[fieldName];
+    var cellWidth = field.cellWidth || 1;
     var cellClassName = 'col-' + cellWidth;
-    var defaultValue;
+    var value;
     if (this.props.entity) {
-      defaultValue = objectPath.get(this.props.entity, key);
+      value = objectPath.get(this.props.entity, key);
     } else {
-      defaultValue = fields[fieldName].defaultValue;
+      value = field.defaultValue;
     }
     if (fieldName == 'notation') {
       var scoreEntity = this.props.entity ?
         this.props.entity :
-        { notation : defaultValue };
+        { notation : value };
       return (
         <div className={cellClassName} key={key}>
           <Score entity={scoreEntity} editor="true"
@@ -103,10 +104,19 @@ class EditEntity extends React.Component{
         </div>
       );
     } else {
+      if (field.hidden || field.readOnly) {
+        // If field is hidden or read only then we maintain value in hidden field
+        return (
+          <div className={cellClassName} key={key}>
+            {!field.hidden && <span>{value}</span>}
+            <input type="hidden" name={key} ref={key} value={value} />
+          </div>
+        );
+      }
       return (
         <div className={cellClassName} key={key}>
           <input type="text" placeholder={key} ref={key} className="form-control"
-            defaultValue={defaultValue}
+            defaultValue={value}
             onKeyPress={this.handleKeyPress}
             size={size}
           />

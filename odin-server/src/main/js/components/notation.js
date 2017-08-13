@@ -74,13 +74,10 @@ class Notation extends React.Component{
                 timeUnit={sequence.tick.timeUnit}/>
               : <div className="warn">NULL tick</div>
             }</div>
-          <div className="col-2">
+          <div className="col-4">
             <Score entity={sequence} displayText="true"/>
           </div>
-          <div className="col-1">
-            {sequence.format}
-          </div>
-          <div className="col-3">
+          <div className="col-2">
             {sequence.flowName}
           </div>
           <div className="col-1">
@@ -103,18 +100,23 @@ Notation.defaultProps = {
       fields : {
         'numerator' : {defaultValue : 1, cellWidth : 4},
         'denominator' : {defaultValue : 1, cellWidth : 4},
-        'timeUnit' : {defaultValue : 'BEAT', cellWidth : 4},
+        'timeUnit' : {defaultValue : 'BEAT', hidden : true},
       }
     },
     'notation' : {
-      cellWidth : 2,
+      cellWidth : 3,
       defaultValue : 'C#5/q, B4, A4, G#4',
     },
     'format' : {
       cellWidth : 1,
       defaultValue : 'natural',
+      hidden : true
     },
-    'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.NotationFlow'}
+    'flowName' : {
+      cellWidth : 2,
+      defaultValue : 'com.purplepip.odin.music.flow.NotationFlow',
+      readOnly : true
+    }
   },
 };
 

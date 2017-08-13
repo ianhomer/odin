@@ -26,9 +26,7 @@ class Note extends React.Component{
       <div className="component row">
         <div className="col-1">{this.props.number}</div>
         <div className="col-1">{this.props.velocity}</div>
-        <div className="col-1">{this.props.numerator}{
-          (this.props.denominator > 1) && <span>/{this.props.denominator}</span>
-        }</div>
+        <div className="col-1">{this.props.numerator}</div>
       </div>
     );
   }
