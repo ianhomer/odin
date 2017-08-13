@@ -64,17 +64,6 @@ class Pattern extends React.Component{
         // View entity
 
         <div className="row" onClick={this.toggleEditing}>
-          <div className="col-1">{sequence.channel}</div>
-          <div className="col-1">{sequence.offset}</div>
-          <div className="col-1">{sequence.length}</div>
-          <div className="col-2 component">
-            {sequence.tick ?
-              <Tick
-                numerator={sequence.tick.numerator}
-                denominator={sequence.tick.denominator}
-                timeUnit={sequence.tick.timeUnit}/>
-              : <div className="warn">NULL tick</div>
-            }</div>
           <div className="col-1">{sequence.bits}</div>
           <div className="col-2 component">{sequence.note ?
             <Note
@@ -83,6 +72,18 @@ class Pattern extends React.Component{
               numerator={sequence.note.numerator}/>
             : <div className="warn">NULL note</div>
           }</div>
+          <div className="col-2 component">
+            {sequence.tick ?
+              <Tick
+                numerator={sequence.tick.numerator}
+                denominator={sequence.tick.denominator}
+                timeUnit={sequence.tick.timeUnit}/>
+              : <div className="warn">NULL tick</div>
+            }
+          </div>
+          <div className="col-1">{sequence.offset}</div>
+          <div className="col-1">{sequence.length}</div>
+          <div className="col-1">{sequence.channel}</div>
           <div className="col-2">
             {sequence.flowName}
           </div>
@@ -98,17 +99,6 @@ class Pattern extends React.Component{
 Pattern.defaultProps = {
   path: 'patterns',
   fields: {
-    'channel' : { defaultValue : 1 },
-    'offset' : { defaultValue : 0 },
-    'length' : { defaultValue : -1 },
-    'tick' : {
-      cellWidth : 2,
-      fields : {
-        'numerator' : {defaultValue : 1, cellWidth : 6},
-        'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
-        'timeUnit' : {defaultValue : 'BEAT', hidden : true},
-      }
-    },
     'bits' : {defaultValue : 1},
     'note' : {
       cellWidth : 2,
@@ -119,6 +109,17 @@ Pattern.defaultProps = {
         'denominator' : {defaultValue : 1, hidden : true}
       }
     },
+    'tick' : {
+      cellWidth : 2,
+      fields : {
+        'numerator' : {defaultValue : 1, cellWidth : 6},
+        'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
+        'timeUnit' : {defaultValue : 'BEAT', hidden : true},
+      }
+    },
+    'offset' : { defaultValue : 0 },
+    'length' : { defaultValue : -1 },
+    'channel' : { defaultValue : 1 },
     'flowName' : {
       cellWidth : 2,
       defaultValue : 'Pattern',

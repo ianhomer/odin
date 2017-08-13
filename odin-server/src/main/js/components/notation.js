@@ -63,9 +63,9 @@ class Notation extends React.Component{
         // View entity
 
         <div className="row" onClick={this.toggleEditing}>
-          <div className="col-1">{sequence.channel}</div>
-          <div className="col-1">{sequence.offset}</div>
-          <div className="col-1">{sequence.length}</div>
+          <div className="col-3">
+            <Score entity={sequence} displayText="true"/>
+          </div>
           <div className="col-2 component">
             {sequence.tick ?
               <Tick
@@ -73,10 +73,11 @@ class Notation extends React.Component{
                 denominator={sequence.tick.denominator}
                 timeUnit={sequence.tick.timeUnit}/>
               : <div className="warn">NULL tick</div>
-            }</div>
-          <div className="col-3">
-            <Score entity={sequence} displayText="true"/>
+            }
           </div>
+          <div className="col-1">{sequence.offset}</div>
+          <div className="col-1">{sequence.length}</div>
+          <div className="col-1">{sequence.channel}</div>
           <div className="col-2">
             {sequence.flowName}
           </div>
@@ -92,9 +93,15 @@ class Notation extends React.Component{
 Notation.defaultProps = {
   path: 'notations',
   fields: {
-    'channel' : { defaultValue : 1},
-    'offset' : { defaultValue : 0},
-    'length' : {defaultValue : -1},
+    'format' : {
+      cellWidth : 1,
+      defaultValue : 'natural',
+      hidden : true
+    },
+    'notation' : {
+      cellWidth : 3,
+      defaultValue : 'C#5/q, B4, A4, G#4',
+    },
     'tick' : {
       cellWidth : 2,
       fields : {
@@ -103,15 +110,9 @@ Notation.defaultProps = {
         'timeUnit' : {defaultValue : 'BEAT', hidden : true},
       }
     },
-    'notation' : {
-      cellWidth : 3,
-      defaultValue : 'C#5/q, B4, A4, G#4',
-    },
-    'format' : {
-      cellWidth : 1,
-      defaultValue : 'natural',
-      hidden : true
-    },
+    'offset' : { defaultValue : 0},
+    'length' : {defaultValue : -1},
+    'channel' : { defaultValue : 1},
     'flowName' : {
       cellWidth : 2,
       defaultValue : 'Notation',

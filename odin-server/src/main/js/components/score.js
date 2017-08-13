@@ -35,7 +35,7 @@ class Score extends React.Component{
       // Store dimensions of score element as state.  Note that at some point the server
       // may suggest alternative dimensions and when it does this style in the state should
       // be updated.
-      style: {height : 100, width : 500}
+      style: {height : 100, width : 800}
     };
 
     this.handleChange = this.handleChange.bind(this);
