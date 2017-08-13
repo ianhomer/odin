@@ -25,6 +25,7 @@ import javax.persistence.Id;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -40,7 +41,9 @@ public class PersistableTick implements Tick {
   @GeneratedValue
   private long id;
   private TimeUnit timeUnit;
+  @Min(1)
   private long numerator;
+  @Min(1)
   private long denominator;
 
   @Transient

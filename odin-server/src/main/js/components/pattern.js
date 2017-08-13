@@ -115,7 +115,8 @@ Pattern.defaultProps = {
       fields : {
         'number' : {defaultValue : 60, cellWidth : 4},
         'velocity' : {defaultValue : 100, cellWidth : 4},
-        'numerator' : {defaultValue : 1, cellWidth : 4}
+        'numerator' : {defaultValue : 1, cellWidth : 4},
+        'denominator' : {defaultValue : 1, cellWidth : 4}
       }
     },
     'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.PatternFlow'}

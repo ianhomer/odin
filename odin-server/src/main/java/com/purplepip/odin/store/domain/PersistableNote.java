@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
 import lombok.Data;
 
 /**
@@ -38,7 +39,9 @@ public class PersistableNote implements Note {
   private long id;
   private int velocity;
   private int number;
+  @Min(1)
   private long numerator;
+  @Min(1)
   private long denominator;
 
   @Transient
@@ -59,5 +62,4 @@ public class PersistableNote implements Note {
   private void initialise() {
     rational = new Rational(numerator, denominator);
   }
-
 }
