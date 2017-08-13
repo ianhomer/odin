@@ -16,20 +16,20 @@
 package com.purplepip.odin.music.notes;
 
 /**
- * Note number, based on MIDI standard.
+ * Note number, based on MIDI standard.   C4 is middle C, A4 is 440 Hz,
  */
 public class NoteNumber {
   private int value;
 
   /**
-   * Create a note number
+   * Create a note number.
    *
    * @param letter note letter
    * @param intonation e.g. sharp or flat
    * @param octave octave, 0 to 10
    */
   public NoteNumber(Letter letter, int intonation, int octave) {
-    value = octave * 12 + letter.getValue() + intonation;
+    value = (octave + 1) * 12 + letter.getValue() + intonation;
   }
 
   public int getValue() {

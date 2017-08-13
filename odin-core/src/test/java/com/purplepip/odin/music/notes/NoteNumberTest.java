@@ -28,19 +28,19 @@ import org.junit.Test;
 public class NoteNumberTest {
   @Test
   public void testNumbers() {
-    assertEquals(0, new NoteNumber(C, 0, 0).getValue());
-    assertEquals(60, new NoteNumber(C, 0, 5).getValue());
-    assertEquals(61, new NoteNumber(C, 1, 5).getValue());
-    assertEquals(62, new NoteNumber(D, 0, 5).getValue());
-    assertEquals(63, new NoteNumber(D, 1, 5).getValue());
-    assertEquals(63, new NoteNumber(E, -1, 5).getValue());
-    assertEquals(64, new NoteNumber(E, 0, 5).getValue());
-    assertEquals(65, new NoteNumber(F, 0, 5).getValue());
-    assertEquals(66, new NoteNumber(F, 1, 5).getValue());
-    assertEquals(67, new NoteNumber(G, 0, 5).getValue());
-    assertEquals(68, new NoteNumber(G, 1, 5).getValue());
-    assertEquals(69, new NoteNumber(A, 0, 5).getValue());
-    assertEquals(70, new NoteNumber(A, 1, 5).getValue());
-    assertEquals(71, new NoteNumber(B, 0, 5).getValue());
+    assertEquals(12, new NoteNumber(C, 0, 0).getValue());
+    assertEquals(72, new NoteNumber(C, 0, 5).getValue());
+    assertEquals(73, new NoteNumber(C, 1, 5).getValue());
+    assertEquals(74, new NoteNumber(D, 0, 5).getValue());
+    assertEquals(75, new NoteNumber(D, 1, 5).getValue());
+    assertEquals(75, new NoteNumber(E, -1, 5).getValue());
+    assertEquals(76, new NoteNumber(E, 0, 5).getValue());
+    assertEquals(77, new NoteNumber(F, 0, 5).getValue());
+    assertEquals(78, new NoteNumber(F, 1, 5).getValue());
+    assertEquals(79, new NoteNumber(G, 0, 5).getValue());
+    assertEquals(80, new NoteNumber(G, 1, 5).getValue());
+    assertEquals(81, new NoteNumber(A, 0, 5).getValue());
+    assertEquals(82, new NoteNumber(A, 1, 5).getValue());
+    assertEquals(83, new NoteNumber(B, 0, 5).getValue());
   }
 }

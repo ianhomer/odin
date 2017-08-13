@@ -60,7 +60,7 @@ public class NotationFlowTest {
     Event<Note> event = flow
         .getNextEvent(new MovableTock(Ticks.BEAT, Rationals.MINUS_ONE));
     assertEquals(Wholes.ZERO, event.getTime());
-    assertEquals(71, event.getValue().getNumber());
+    assertEquals(83, event.getValue().getNumber());
   }
 
   @Test
@@ -76,7 +76,7 @@ public class NotationFlowTest {
       previousEventTime = event.getTime();
     }
 
-    assertEquals("0=71--½;½=71--½;1=64--;2=67--;3=60--;4=71--½;4½=71--½;5=64--;6=67--;7=60--;",
+    assertEquals("0=83--½;½=83--½;1=76--;2=79--;3=72--;4=83--½;4½=83--½;5=76--;6=79--;7=72--;",
         new EventsListStringifier(events).toString());
   }
 }

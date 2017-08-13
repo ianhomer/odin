@@ -23,15 +23,17 @@ public class NoteNameCacheTest {
   @Test
   public void testName() {
     NoteNameCache cache = new NoteNameCache();
-    assertEquals("C0", cache.getName(0));
-    assertEquals("C0", cache.getName(0, false));
-    assertEquals("D#4", cache.getName(51));
-    assertEquals("D#4", cache.getName(51, true));
-    assertEquals("Eb4", cache.getName(51, false));
-    assertEquals("F6", cache.getName(77, false));
-    assertEquals("F6", cache.getName(77));
-    assertEquals("F6", cache.getName(77, false));
-    assertEquals("G10", cache.getName(127));
-    assertEquals("G10", cache.getName(127, false));
+    assertEquals("C-1", cache.getName(0));
+    assertEquals("C-1", cache.getName(0, false));
+    assertEquals("C0", cache.getName(12));
+    assertEquals("C0", cache.getName(12, false));
+    assertEquals("D#4", cache.getName(63));
+    assertEquals("D#4", cache.getName(63, true));
+    assertEquals("Eb4", cache.getName(63, false));
+    assertEquals("F6", cache.getName(89, false));
+    assertEquals("F6", cache.getName(89));
+    assertEquals("F6", cache.getName(89, false));
+    assertEquals("G9", cache.getName(127));
+    assertEquals("G9", cache.getName(127, false));
   }
 }

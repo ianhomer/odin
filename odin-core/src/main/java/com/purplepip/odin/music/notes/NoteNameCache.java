@@ -46,7 +46,7 @@ public class NoteNameCache {
 
   static {
     for (Letter letter : Letter.values()) {
-      for (int octave = 0 ; octave < 11 ; octave ++) {
+      for (int octave = -1 ; octave < 10 ; octave ++) {
         cache(letter, 0, octave);
         switch (letter) {
           case A:

@@ -54,27 +54,27 @@ public class NaturalScoreParserTest {
     Map<String, String> notations = new LinkedHashMap<>();
 
     notations.put("C#5/q, B4, A4, G#4",
-        "0.1-61 1.1-59 2.1-57 3.1-56 ");
+        "0.1-73 1.1-71 2.1-69 3.1-68 ");
     notations.put("C5/q, B4, A4, G#4",
-        "0.1-60 1.1-59 2.1-57 3.1-56 ");
+        "0.1-72 1.1-71 2.1-69 3.1-68 ");
     notations.put("C5/q, Bb4, A4, G#4",
-        "0.1-60 1.1-58 2.1-57 3.1-56 ");
+        "0.1-72 1.1-70 2.1-69 3.1-68 ");
     assertCompositionsOk(notations);
   }
 
   @Test
   public void testBeatVariations() {
     Map<String, String> notations = new LinkedHashMap<>();
-    notations.put("C5/h, C5, C5, C5", "0.2-60 2.2-60 4.2-60 6.2-60 ");
-    notations.put("C5/8, C5, C5, C5", "0.½-60 ½.½-60 1.½-60 1½.½-60 ");
-    notations.put("C5/8, C5, C5/q, C5", "0.½-60 ½.½-60 1.1-60 2.1-60 ");
+    notations.put("C5/h, C5, C5, C5", "0.2-72 2.2-72 4.2-72 6.2-72 ");
+    notations.put("C5/8, C5, C5, C5", "0.½-72 ½.½-72 1.½-72 1½.½-72 ");
+    notations.put("C5/8, C5, C5/q, C5", "0.½-72 ½.½-72 1.1-72 2.1-72 ");
     assertCompositionsOk(notations);
   }
 
   @Test
   public void testIncompleteMeasures() {
     Map<String, String> notations = new LinkedHashMap<>();
-    notations.put("C5/q, C, C/8", "0.1-60 1.1-60 2.½-60 ");
+    notations.put("C5/q, C, C/8", "0.1-72 1.1-72 2.½-72 ");
     assertCompositionsOk(notations);
   }
 
