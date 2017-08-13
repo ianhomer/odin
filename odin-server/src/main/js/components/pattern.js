@@ -80,7 +80,7 @@ class Pattern extends React.Component{
             <Note
               number={sequence.note.number}
               velocity={sequence.note.velocity}
-              duration={sequence.note.duration}/>
+              numerator={sequence.note.numerator}/>
             : <div className="warn">NULL note</div>
           }</div>
           <div className="col-2">
