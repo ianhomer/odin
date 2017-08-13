@@ -43,7 +43,7 @@ function getFieldValue(schemaId, schema, refs, name, key, required = true) {
   if (schema && schema.properties[name] && schema.properties[name]['$ref']) {
 
     // Navigate through object definition to find property names.
-    var refSchemaId = getRefSchemaId(schemaId, schema.properties[name]['$ref'])
+    var refSchemaId = getRefSchemaId(schemaId, schema.properties[name]['$ref']);
     var fieldSchema = getSchema(refSchemaId);
     var property = {};
     Object.keys(fieldSchema.properties).map(function(propertyName) {
@@ -202,7 +202,7 @@ module.exports = {
     }, this);
     // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
     setFieldValue(entity, schemaId, null, this.refs, '_links.self.href');
-    var path = getFieldValue(schemaId, schema, this.refs, 'path', false);
+    var path = getFieldValue(schemaId, schema, this.refs, 'path', null, false);
     if (path) {
       this.props.onApply(entity, path);
     } else {
