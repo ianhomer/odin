@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("!noStore")
+@Profile("!noAuditing")
 @Slf4j
 public class AuditingOperationReceiver implements OperationReceiver, InitializingBean {
   private static final long CLEAN_PERIOD = 30;

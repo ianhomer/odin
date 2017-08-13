@@ -28,6 +28,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Persistable channel.
@@ -37,6 +38,7 @@ import lombok.ToString;
 @Table(name = "Channel")
 @EqualsAndHashCode(exclude = {"project", "id"})
 @ToString(exclude = "project")
+@Slf4j
 public class PersistableChannel implements Channel {
   @Id
   @GeneratedValue
@@ -50,11 +52,13 @@ public class PersistableChannel implements Channel {
 
   @PrePersist
   public void addToProject() {
+    LOG.info("Adding channel to project");
     project.addChannel(this);
   }
 
   @PreRemove
   public void removeFromProject() {
+    LOG.info("Removing channel from project");
     project.removeChannel(this);
   }
 }

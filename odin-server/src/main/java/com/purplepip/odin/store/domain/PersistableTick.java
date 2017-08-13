@@ -27,6 +27,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -36,6 +37,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity(name = "Tick")
 @Table(name = "Tick")
+@EqualsAndHashCode(exclude = {"factor", "id"})
 public class PersistableTick implements Tick {
   @Id
   @GeneratedValue

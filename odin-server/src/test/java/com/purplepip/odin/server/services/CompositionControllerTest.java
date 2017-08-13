@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @ContextConfiguration
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles({"test", "noStore"})
+@ActiveProfiles({"test", "noStore", "noAuditing"})
 @Slf4j
 public class CompositionControllerTest {
 

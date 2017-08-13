@@ -117,10 +117,6 @@ Notation.defaultProps = {
       cellWidth : 2,
       defaultValue : 'Notation',
       readOnly : true
-    },
-    'layers' : {
-      defaultValue : '',
-      hidden : true
     }
   },
 };

@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles({"test", "noStore"})
+@ActiveProfiles({"test", "noStore", "noAuditing"})
 public class SystemControllerTest {
 
   @Autowired

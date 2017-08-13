@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.Layer;
 import com.purplepip.odin.sequence.MutableLayer;
@@ -29,7 +30,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Persistable project.
@@ -37,17 +40,21 @@ import lombok.Data;
 @Data
 @Entity(name = "Project")
 @Table(name = "Project")
+@Slf4j
 public class PersistableProject implements Project {
   @Id
   @GeneratedValue
   private long id;
   private String name;
+
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Channel> channels = new HashSet<>();
-  @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
+
+  @JsonIgnore
+  @Transient
   private Set<Layer> layers = new HashSet<>();
+
   @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Sequence> sequences = new HashSet<>();
@@ -63,29 +70,54 @@ public class PersistableProject implements Project {
   }
 
   @Override
-  public void removeLayer(Layer layer) {
-    layers.remove(layer);
-  }
-
-  @Override
-  public void addLayer(MutableLayer layer) {
-    layer.setProject(this);
-    layers.add(layer);
-  }
-
-  @Override
   public void removeChannel(Channel channel) {
-    channels.remove(channel);
+    boolean result = channels.remove(channel);
+    if (!result) {
+      LOG.warn("Could not remove channel {} from project", channel);
+    } else {
+      LOG.debug("Removed channel from project");
+    }
   }
 
   @Override
   public void addSequence(Sequence sequence) {
     sequence.setProject(this);
-    sequences.add(sequence);
+    boolean result = sequences.add(sequence);
+    if (!result) {
+      LOG.warn("Could not add sequence {} to project", sequence);
+    } else {
+      LOG.debug("Added sequence to project");
+    }
   }
 
   @Override
   public void removeSequence(Sequence sequence) {
-    sequences.remove(sequence);
+    boolean result = sequences.remove(sequence);
+    if (!result) {
+      LOG.warn("Could not remove sequence {} from project", sequence);
+    } else {
+      LOG.debug("Removed sequence from project");
+    }
+  }
+
+  @Override
+  public void addLayer(MutableLayer layer) {
+    layer.setProject(this);
+    boolean result = layers.add(layer);
+    if (!result) {
+      LOG.warn("Could not add layer {} to project", layer);
+    } else {
+      LOG.debug("Added layer to project");
+    }
+  }
+
+  @Override
+  public void removeLayer(Layer layer) {
+    boolean result = layers.remove(layer);
+    if (!result) {
+      LOG.warn("Could not remove layer {} from project", layer);
+    } else {
+      LOG.debug("Removed layer from project");
+    }
   }
 }

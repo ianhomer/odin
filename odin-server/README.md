@@ -12,14 +12,19 @@ Test some tests with debug logging on and use a specific log configuration file 
 spring context
 
     mvn test -Dtest=MainControllerTest,SystemControllerTest,CompositionControllerTest \
-      -Dlogging.config=src/main/resources/logback-debug.xml
-
-
+      -Dlogging.config=src/main/resources/logback-debug.xml \
       -Dlogback.configurationFile=src/main/resources/logback-debug.xml
 
 
+Run with no auditing and debug logging
+
+     mvn install -P quick && java -Dlogging.config=src/main/resources/logback-debug.xml \
+      -Dlogback.debug=true -Dlogback.configurationFile=src/main/resources/logback-debug.xml \
+      -Dspring.profiles.active=noAuditing \
+      -jar target/odin-server-1.0-SNAPSHOT.jar
+
 Enable debugger with debug logging
 
-    java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 \
-      -Dlogback.debug=true -Dlogback.configurationFile=src/main/resources/logback-debug.xml \   
-      -jar odin-server/target/odin-server-1.0-SNAPSHOT.jar
+    mvn install -P quick && java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 \
+      -Dlogback.debug=true -Dlogback.configurationFile=src/main/resources/logback-debug.xml \
+      -jar target/odin-server-1.0-SNAPSHOT.jar

@@ -124,10 +124,6 @@ Pattern.defaultProps = {
       cellWidth : 2,
       defaultValue : 'Pattern',
       readOnly : true
-    },
-    'layers' : {
-      defaultValue : '',
-      hidden : true
     }
   },
 };

@@ -38,7 +38,7 @@ public class PersistableNotation extends AbstractPersistableSequence implements 
   @Column(name = "o")
   private long offset;
   private long length;
-  @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL)
+  @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
   @NotNull
   private Tick tick;
   @NotNull

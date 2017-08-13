@@ -26,6 +26,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Persistable note.
@@ -33,6 +34,7 @@ import lombok.Data;
 @Data
 @Entity(name = "Note")
 @Table(name = "Note")
+@EqualsAndHashCode(exclude = {"id", "duration"})
 public class PersistableNote implements Note {
   @Id
   @GeneratedValue
@@ -46,12 +48,12 @@ public class PersistableNote implements Note {
 
   @Transient
   @JsonIgnore
-  private Rational rational;
+  private Rational duration;
 
   @Override
   @JsonIgnore
   public Rational getDuration() {
-    return rational;
+    return duration;
   }
 
   @PostLoad
@@ -60,6 +62,6 @@ public class PersistableNote implements Note {
   }
 
   private void initialise() {
-    rational = new Rational(numerator, denominator);
+    duration = new Rational(numerator, denominator);
   }
 }
