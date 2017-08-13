@@ -18,6 +18,7 @@ const React = require('react');
 const Vex = require('vexflow');
 
 const client = require('../client');
+const VALIDATE_FIRST = false;
 
 function concat(a, b) {
   return a.concat(b);
@@ -28,8 +29,16 @@ class Score extends React.Component{
   constructor(props) {
     super(props);
 
+    this.state = {
+      notation: this.props.entity.notation,
+      count: 1,
+      // Store dimensions of score element as state.  Note that at some point the server
+      // may suggest alternative dimensions and when it does this style in the state should
+      // be updated.
+      style: {height : 100, width : 500}
+    };
+
     this.handleChange = this.handleChange.bind(this);
-    this.state = {notation: this.props.entity.notation, count: 1};
   }
 
   componentDidMount() {
@@ -44,12 +53,11 @@ class Score extends React.Component{
     }
   }
 
-  componentWillMount() {
-  }
-
   handleChange(event) {
     try {
-      this.renderNotation(event.target.value, true);
+      if (VALIDATE_FIRST) {
+        this.renderNotation(event.target.value, true);
+      }
       this.setState( {notation: event.target.value, count: this.state.count + 1} );
     } catch (error) {
       console.warn('Cannot draw score so not updating state : ' + error.message);
@@ -87,8 +95,8 @@ class Score extends React.Component{
   }
 
   // Remove previous score canvas that might have been drawn
-  removePreviousCanvases() {
-    var element = document.getElementById(this.getElementId());
+  removePreviousCanvases(elementId) {
+    var element = document.getElementById(elementId);
     if (element) {
       var canvases = element.getElementsByTagName('svg');
       for (var i = 0; i < canvases.length ; i++) {
@@ -107,10 +115,10 @@ class Score extends React.Component{
       selector = this.getElementId();
     }
 
-    this.removePreviousCanvases();
+    this.removePreviousCanvases(selector);
 
     var vf = new Vex.Flow.Factory({
-      renderer: {selector: selector, width: 500, height: 100}
+      renderer: {selector: selector, width: this.state.style.width, height: this.state.style.height}
     });
 
     vf.reset();
@@ -177,8 +185,10 @@ class Score extends React.Component{
               size={this.props.size}
             />
           </span>
-          <div key={this.getElementId()} id={this.getElementId()}/>
-          <div id={this.getElementId('hidden')} className="hidden"/>
+          <div key={this.getElementId()} id={this.getElementId()} style={this.state.style}/>
+          {VALIDATE_FIRST &&
+            <div id={this.getElementId('hidden')} className="hidden"/>
+          }
         </div>
       );
     } else {

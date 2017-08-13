@@ -55,7 +55,7 @@ function getFieldValue(schema, refs, name, key) {
   } else {
     var node = ReactDOM.findDOMNode(refs[_key]);
     if (node === null) {
-      console.warn('Cannot find field ' + _key);
+      console.error('Cannot find field ' + _key);
       value = '';
     } else {
       value = node.value.trim();
@@ -73,7 +73,7 @@ function getSchema(id, ref = '') {
   if (internalSchema) {
     return ajv.getSchema(id + ref).schema;
   } else {
-    console.warn('Cannot get schema for ' + id + ref);
+    console.error('Cannot get schema for ' + id + ref);
     return [];
   }
 }
