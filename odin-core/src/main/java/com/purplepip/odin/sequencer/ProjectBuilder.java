@@ -94,7 +94,7 @@ public class ProjectBuilder {
 
   private Metronome withDefaults(Metronome metronome) {
     metronome.setTick(createTick(Ticks.HALF));
-    metronome.setFlowName(MetronomeFlow.class.getName());
+    metronome.setFlowName(MetronomeFlow.class.getSimpleName());
     metronome.setNoteBarStart(createNote(DEFAULT_NOTE, DEFAULT_VELOCITY, DEFAULT_DURATION));
     metronome.setNoteBarMid(createNote(64, metronome.getNoteBarStart().getVelocity() / 2,
         DEFAULT_DURATION));
@@ -102,12 +102,12 @@ public class ProjectBuilder {
   }
 
   private static Pattern withDefaults(Pattern pattern) {
-    pattern.setFlowName(PatternFlow.class.getName());
+    pattern.setFlowName(PatternFlow.class.getSimpleName());
     return pattern;
   }
 
   private static Notation withDefaults(Notation notation) {
-    notation.setFlowName(NotationFlow.class.getName());
+    notation.setFlowName(NotationFlow.class.getSimpleName());
     return notation;
   }
 

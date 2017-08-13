@@ -52,7 +52,11 @@ public class FlowFactory<A> {
   }
 
   private static void register(Class<? extends MutableFlow> clazz) {
-    FLOWS.put(clazz.getName(), clazz);
+    /*
+     * Lookup up on simple name, in long term we might have risk of name clashes, however
+     * this is a long way off and we can address when necessary.
+     */
+    FLOWS.put(clazz.getSimpleName(), clazz);
   }
 
   /**
