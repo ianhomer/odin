@@ -22,6 +22,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.PostLoad;
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
@@ -56,7 +58,9 @@ public class PersistableNote implements Note {
     return duration;
   }
 
+  @PostPersist
   @PostLoad
+  @PostUpdate
   public void afterLoad() {
     initialise();
   }
