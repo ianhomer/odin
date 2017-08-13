@@ -77,15 +77,19 @@ class EditEntity extends React.Component{
   }
 
   renderInputField(fields, schema, fieldName, key) {
-    var size = 0;
-    if (schema.properties[fieldName]) {
-      if (schema.properties[fieldName].type == 'integer') {
-        size = 3;
-      }
-    } else {
-      console.error('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(schema.properties));
-    }
     var field = fields[fieldName];
+    var size = 0;
+    if (field.size) {
+      size = field.size;
+    } else {
+      if (schema.properties[fieldName]) {
+        if (schema.properties[fieldName].type == 'integer') {
+          size = 3;
+        }
+      } else {
+        console.error('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(schema.properties));
+      }
+    }
     var cellWidth = field.cellWidth || 1;
     var cellClassName = 'col-' + cellWidth;
     var value;
@@ -117,12 +121,14 @@ class EditEntity extends React.Component{
           </div>
         );
       }
+      var maxLength = field.maxLength || 1024;
       return (
         <div className={cellClassName} key={key}>
-          <input type="text" placeholder={key} ref={key} className="form-control"
+          {field.label && <span>{field.label}</span>}
+          <input type="text" placeholder={key} ref={key} className="inline"
             defaultValue={value}
             onKeyPress={this.handleKeyPress}
-            size={size}
+            size={size} maxLength={maxLength}
           />
         </div>
       );

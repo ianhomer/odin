@@ -1,3 +1,7 @@
+body, input {
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
 body {
   padding-top: 65px;
   font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -63,7 +67,6 @@ table {
 
 div.component {
   border-left : 1px solid #999;
-  height: 100%;
 }
 
 .debug {
@@ -84,4 +87,23 @@ div.component {
 
 .hidden {
   display : none;
+}
+
+input.inline {
+  padding: 0rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #483D8B;
+  background-color: #fff;
+  background-image: none;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border-width : 0px 0px 1px 0px;
+  border-style : dotted;
+  border-color : rgba(0,0,0,.15);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 }

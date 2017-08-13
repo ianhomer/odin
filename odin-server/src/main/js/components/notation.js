@@ -66,7 +66,7 @@ class Notation extends React.Component{
           <div className="col-1">{sequence.channel}</div>
           <div className="col-1">{sequence.offset}</div>
           <div className="col-1">{sequence.length}</div>
-          <div className="col-2">
+          <div className="col-2 component">
             {sequence.tick ?
               <Tick
                 numerator={sequence.tick.numerator}
@@ -98,8 +98,8 @@ Notation.defaultProps = {
     'tick' : {
       cellWidth : 2,
       fields : {
-        'numerator' : {defaultValue : 1, cellWidth : 4},
-        'denominator' : {defaultValue : 1, cellWidth : 4},
+        'numerator' : {defaultValue : 1, cellWidth : 6},
+        'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
         'timeUnit' : {defaultValue : 'BEAT', hidden : true},
       }
     },

@@ -23,10 +23,10 @@ class Note extends React.Component{
 
   render() {
     return (
-      <div className="component row">
-        <div className="col-1">{this.props.number}</div>
-        <div className="col-1">{this.props.velocity}</div>
-        <div className="col-1">{this.props.numerator}</div>
+      <div className="row">
+        <div className="col-4">{this.props.number}</div>
+        <div className="col-4">{this.props.velocity}</div>
+        <div className="col-4">{this.props.numerator}</div>
       </div>
     );
   }

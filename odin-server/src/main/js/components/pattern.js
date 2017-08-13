@@ -67,7 +67,7 @@ class Pattern extends React.Component{
           <div className="col-1">{sequence.channel}</div>
           <div className="col-1">{sequence.offset}</div>
           <div className="col-1">{sequence.length}</div>
-          <div className="col-2">
+          <div className="col-2 component">
             {sequence.tick ?
               <Tick
                 numerator={sequence.tick.numerator}
@@ -76,7 +76,7 @@ class Pattern extends React.Component{
               : <div className="warn">NULL tick</div>
             }</div>
           <div className="col-1">{sequence.bits}</div>
-          <div className="col-3">{sequence.note ?
+          <div className="col-2 component">{sequence.note ?
             <Note
               number={sequence.note.number}
               velocity={sequence.note.velocity}
@@ -104,18 +104,18 @@ Pattern.defaultProps = {
     'tick' : {
       cellWidth : 2,
       fields : {
-        'numerator' : {defaultValue : 1, cellWidth : 4},
-        'denominator' : {defaultValue : 1, cellWidth : 4},
+        'numerator' : {defaultValue : 1, cellWidth : 6},
+        'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
         'timeUnit' : {defaultValue : 'BEAT', hidden : true},
       }
     },
     'bits' : {defaultValue : 1},
     'note' : {
-      cellWidth : 3,
+      cellWidth : 2,
       fields : {
-        'number' : {defaultValue : 60, cellWidth : 3},
-        'velocity' : {defaultValue : 100, cellWidth : 3},
-        'numerator' : {defaultValue : 1, cellWidth : 3},
+        'number' : {defaultValue : 60, cellWidth : 4, maxLength : 3},
+        'velocity' : {defaultValue : 100, cellWidth : 4, maxLength : 3},
+        'numerator' : {defaultValue : 1, cellWidth : 4},
         'denominator' : {defaultValue : 1, hidden : true}
       }
     },

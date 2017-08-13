@@ -24,11 +24,11 @@ class Tick extends React.Component{
 
   render() {
     return (
-      <div className="component row">
-        <div className="col-md-1">{(this.props.denominator > 1 || this.props.numerator > 1) &&
+      <div className="row">
+        <div className="col-md-6">{(this.props.denominator > 1 || this.props.numerator > 1) &&
               <span className="numerator">{this.props.numerator}</span>
         }</div>
-        <div className="col-md-1">{this.props.denominator > 1 &&
+        <div className="col-md-6">{this.props.denominator > 1 &&
               <span className="denominator">/{this.props.denominator}</span>
         }&nbsp;</div>
       </div>
