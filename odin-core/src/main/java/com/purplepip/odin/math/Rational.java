@@ -117,6 +117,8 @@ public class Rational extends Real {
   }
 
   private void simplify() {
+    // TODO : This is an expensive operation for large denominators, flow should be using double
+    // once converted to seconds
     for (long i = 2; i <= denominator / i; i++) {
       while (denominator % i == 0 && numerator % i == 0) {
         denominator /= i;

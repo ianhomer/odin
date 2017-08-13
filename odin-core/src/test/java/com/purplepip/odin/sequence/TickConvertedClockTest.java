@@ -28,7 +28,7 @@ public class TickConvertedClockTest {
   public void testCount() {
     BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
-    assertTrue(clock.getCount().gt(Wholes.MINUS_ONE));
+    assertTrue(clock.getPosition().gt(Wholes.MINUS_ONE));
     assertEquals(QUARTER, clock.getTick());
   }
 
@@ -38,5 +38,34 @@ public class TickConvertedClockTest {
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
     assertEquals(Whole.valueOf(4), clock.getDuration(1000000));
     assertEquals(Whole.valueOf(4), clock.getDuration(1000000, Whole.valueOf(10)));
+  }
+
+  @Test
+  public void testMovingClock() {
+    MovableMicrosecondPositionProvider microsecondPositionProvider =
+        new MovableMicrosecondPositionProvider();
+    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60), microsecondPositionProvider);
+    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
+    assertEquals(Wholes.ZERO, beatClock.getPosition());
+    assertEquals(Wholes.ZERO, clock.getPosition());
+    assertEquals(Whole.valueOf(10), beatClock.getPosition(10_000_000));
+    assertEquals(Whole.valueOf(40), clock.getPosition(10_000_000));
+    /*
+     * Move 60 seconds into the future
+     */
+    microsecondPositionProvider.setMicroseconds(60_000_000);
+    assertEquals(Whole.valueOf(70), beatClock.getPosition(70_000_000));
+    assertEquals(Whole.valueOf(280), clock.getPosition(70_000_000));
+    assertEquals(Whole.valueOf(60), beatClock.getPosition());
+    assertEquals(Whole.valueOf(240), clock.getPosition());
+    /*
+     * Fast forward sequence to 30 seconds in
+     */
+    beatClock.setMicroseconds(30_000_000);
+    assertEquals(Whole.valueOf(40), beatClock.getPosition(70_000_000));
+    assertEquals(Whole.valueOf(160), clock.getPosition(70_000_000));
+    assertEquals(60_000_000, beatClock.getMicroseconds());
+    assertEquals(Whole.valueOf(30), beatClock.getPosition());
+    assertEquals(Whole.valueOf(120), clock.getPosition());
   }
 }

@@ -15,21 +15,13 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.math.Real;
+import static org.junit.Assert.assertTrue;
 
-public abstract class AbstractClock implements Clock {
-  @Override
-  public final Real getDuration(long microseconds) {
-    return getDurationFromMicroseconds(microseconds, getMicroseconds());
-  }
+import org.junit.Test;
 
-  @Override
-  public final Real getDuration(long microseconds, Real count) {
-    return getDurationFromMicroseconds(microseconds, getMicroseconds(count));
-  }
-
-  private Real getDurationFromMicroseconds(long microsecondsDuration, long microsecondsPosition) {
-    return getPosition(microsecondsPosition + microsecondsDuration)
-        .minus(getPosition(microsecondsPosition));
+public class DefaultMicrosecondPositionProviderTest {
+  @Test
+  public void testGetMicroseconds() {
+    assertTrue(new DefaultMicrosecondPositionProvider().getMicroseconds() > 0);
   }
 }

@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.Property;
@@ -56,6 +57,14 @@ public class TickConvertedRoll implements Roll<Note> {
   }
 
   @Override
+  public void setTock(Whole tock) {
+    /*
+     * Convert the tock into units of the underlying roll before setting it.
+     */
+    roll.setTock(tickConverter.convertBack(tock).floorToWhole());
+  }
+
+  @Override
   public Property<Tick> getTick() {
     return tickConverter::getTargetTick;
   }
@@ -68,7 +77,7 @@ public class TickConvertedRoll implements Roll<Note> {
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
         tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
     long time = tickConverter.convert(event.getTime()).floor();
-    LOG.trace("Converted event {} to note {} at time {}", event, note, time);
+    LOG.debug("Converted event {} to note {} to time {}", event, note, time);
     return new DefaultEvent<>(note, time);
   }
 }

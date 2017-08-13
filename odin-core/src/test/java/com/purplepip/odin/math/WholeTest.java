@@ -35,6 +35,7 @@ public class WholeTest {
   @Test
   public void testModulo() {
     assertEquals(Whole.valueOf(2), Whole.valueOf(10).modulo(Whole.valueOf(4)));
+    assertEquals(Whole.valueOf(0), Whole.valueOf(10).modulo(Whole.valueOf(1)));
   }
 
   @Test

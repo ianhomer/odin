@@ -15,35 +15,18 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.properties.Property;
-import com.purplepip.odin.sequence.tick.Tick;
+public class MovableMicrosecondPositionProvider implements MicrosecondPositionProvider {
+  private long microseconds = 0;
 
-public class UnmodifiableRoll<A> implements Roll<A> {
-  private Roll<A> underlyingRoll;
+  public MovableMicrosecondPositionProvider() {
+  }
 
-  public UnmodifiableRoll(Roll<A> roll) {
-    this.underlyingRoll = roll;
+  public void setMicroseconds(long microseconds) {
+    this.microseconds = microseconds;
   }
 
   @Override
-  public Event<A> peek() {
-    return underlyingRoll.peek();
-  }
-
-  @Override
-  public Event<A> pop() {
-    return underlyingRoll.pop();
-  }
-
-  @Override
-  public void setTock(Whole tock) {
-    underlyingRoll.setTock(tock);
-  }
-
-  @Override
-  public Property<Tick> getTick() {
-    return underlyingRoll.getTick();
+  public long getMicroseconds() {
+    return microseconds;
   }
 }

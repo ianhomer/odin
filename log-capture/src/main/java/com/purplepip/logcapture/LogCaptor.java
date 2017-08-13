@@ -42,14 +42,16 @@ public class LogCaptor implements AutoCloseable {
   }
 
   private void start() {
-    /*
-     * Remove all appenders.
-     */
-    for (Logger logger : context.getLoggerList()) {
-      for (Appender<ILoggingEvent> appender :
-          ImmutableList.copyOf(logger.iteratorForAppenders())) {
-        logger.detachAppender(appender);
-        removedAppenders.put(logger.getName(), appender);
+    if (!configuration.getPassThrough()) {
+      /*
+       * Remove all appenders.
+       */
+      for (Logger logger : context.getLoggerList()) {
+        for (Appender<ILoggingEvent> appender :
+            ImmutableList.copyOf(logger.iteratorForAppenders())) {
+          logger.detachAppender(appender);
+          removedAppenders.put(logger.getName(), appender);
+        }
       }
     }
 
@@ -68,12 +70,14 @@ public class LogCaptor implements AutoCloseable {
   public void close() {
     detachCapturingAppender();
 
-    /*
-     * Restore previous appenders.
-     */
-    for (Map.Entry<String, Appender<ILoggingEvent>> entry : removedAppenders.entrySet()) {
-      Logger logger = context.getLogger(entry.getKey());
-      logger.addAppender(entry.getValue());
+    if (!configuration.getPassThrough()) {
+      /*
+       * Restore previous appenders.
+       */
+      for (Map.Entry<String, Appender<ILoggingEvent>> entry : removedAppenders.entrySet()) {
+        Logger logger = context.getLogger(entry.getKey());
+        logger.addAppender(entry.getValue());
+      }
     }
   }
 
@@ -92,6 +96,10 @@ public class LogCaptor implements AutoCloseable {
   }
 
   public String getMessage(int index) {
-    return capturingAppender.list.get(index).getMessage();
+    return capturingAppender.list.get(index).getFormattedMessage();
+  }
+
+  public boolean hasMessages() {
+    return size() > 0;
   }
 }

@@ -58,35 +58,30 @@ public class TrackProcessorExecutor implements Runnable {
     try {
       doJob();
     } catch (RuntimeException e) {
-      e.fillInStackTrace();
       LOG.error("Error whilst executing sequence processing", e);
     }
   }
 
   private void doJob() {
+    int noteCountThisBuffer = 0;
+    for (Track track : tracks) {
+      LOG.trace("Processing roll {} for device at position {}", track.getRoll());
+      if (noteCountThisBuffer > maxNotesPerBuffer) {
+        LOG.warn("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
+        break;
+      }
+      noteCountThisBuffer += process(track);
+    }
+    LOG.debug("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
+  }
+
+  private int process(Track track) {
     /*
      * Use a constant microsecond position for the whole loop to make it easier to debug
      * loop processing.  In this loop it is only used for setting forward scan windows and does
      * not need the precise microsecond positioning at the time of instruction execution.
      */
     long microsecondPosition = clock.getMicroseconds();
-    int noteCountThisBuffer = 0;
-    for (Track track : tracks) {
-      LOG.trace("Processing roll {} for device at position {}",
-          track.getRoll(),
-          microsecondPosition);
-      if (noteCountThisBuffer > maxNotesPerBuffer) {
-        LOG.warn("Too many notes in this buffer {} > {} ", noteCountThisBuffer,
-            maxNotesPerBuffer);
-        break;
-      }
-      noteCountThisBuffer += process(track, microsecondPosition);
-    }
-    LOG.debug("Processed {} notes in {} tracks : {}",
-        noteCountThisBuffer, tracks.size(), clock);
-  }
-
-  private int process(Track track, long microsecondPosition) {
     int noteCount = 0;
     Roll<Note> roll = track.getRoll();
     Event<Note> nextEvent = roll.peek();
@@ -118,7 +113,8 @@ public class TrackProcessorExecutor implements Runnable {
       if (nextEvent == null) {
         LOG.debug("No more events on sequence runtime");
       } else {
-        LOG.debug("Next event {} is beyond horizon {}", nextEvent, maxMicrosecondPosition);
+        LOG.debug("Next event {} is beyond horizon {} : clock {}",
+            nextEvent, maxMicrosecondPosition, clock);
       }
     } else {
       LOG.debug("No event on roll");

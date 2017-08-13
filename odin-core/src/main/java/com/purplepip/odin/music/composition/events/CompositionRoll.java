@@ -18,7 +18,8 @@ package com.purplepip.odin.music.composition.events;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SequentialEventComparator;
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.notes.Note;
@@ -37,7 +38,7 @@ public class CompositionRoll implements Roll<Note> {
   private Composition composition;
   private List<Event<Note>> events = new ArrayList<>();
   private Event<Note> currentEvent;
-  private Real currentLoopStart = Wholes.ZERO;
+  private Rational currentLoopStart = Wholes.ZERO;
   private int position;
 
   /**
@@ -62,6 +63,30 @@ public class CompositionRoll implements Roll<Note> {
     Event<Note> thisEvent = getCurrentEvent();
     increment();
     return thisEvent;
+  }
+
+  @Override
+  public void setTock(Whole tock) {
+    currentLoopStart = tock.floor(composition.getNumberOfBeats());
+    position = 0;
+    boolean foundNextEvent = false;
+    for (; position < events.size() ; position++) {
+      if (events.get(position).getTime().gt(tock)) {
+        foundNextEvent = true;
+        break;
+      }
+    }
+
+    if (!foundNextEvent) {
+      /*
+       * Roll over to the next loop.
+       */
+      currentLoopStart = currentLoopStart.plus(Wholes.ONE);
+      position = 0;
+    }
+    calculateCurrentEvent();
+    LOG.debug("Composition roll position event index {} in loop starting at {} {} to match tock {}",
+        position, currentLoopStart, getTick().get(), tock);
   }
 
   private Event<Note> getCurrentEvent() {

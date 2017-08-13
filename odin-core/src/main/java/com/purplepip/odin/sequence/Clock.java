@@ -47,10 +47,10 @@ public interface Clock extends MicrosecondPositionProvider {
   /**
    * Get the tick count for the current position.
    */
-  Real getCount();
+  Real getPosition();
 
   /**
    * Get the tick count for the given microsecond position.
    */
-  Real getCount(long microseconds);
+  Real getPosition(long microseconds);
 }

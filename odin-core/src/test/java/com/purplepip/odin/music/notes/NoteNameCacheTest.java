@@ -27,6 +27,7 @@ public class NoteNameCacheTest {
     assertEquals("C-1", cache.getName(0, false));
     assertEquals("C0", cache.getName(12));
     assertEquals("C0", cache.getName(12, false));
+    assertEquals("C4", cache.getName(60));
     assertEquals("D#4", cache.getName(63));
     assertEquals("D#4", cache.getName(63, true));
     assertEquals("Eb4", cache.getName(63, false));

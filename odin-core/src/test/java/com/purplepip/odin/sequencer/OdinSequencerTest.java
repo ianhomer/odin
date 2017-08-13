@@ -39,7 +39,7 @@ public class OdinSequencerTest {
     }
 
     assertEquals("Not enough events fired", 0, lock.getCount());
-    Real currentBeat = environment.getSequencer().getClock().getCount();
+    Real currentBeat = environment.getSequencer().getClock().getPosition();
     assertTrue(currentBeat
         + " beats should not have past", currentBeat.lt(Whole.valueOf(OFFSET + LENGTH)));
   }

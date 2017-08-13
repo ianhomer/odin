@@ -53,6 +53,11 @@ public class LogCapture {
     return this;
   }
 
+  public LogCapture withPassThrough() {
+    configuration.setPassThrough(true);
+    return this;
+  }
+
   public LogCaptor start() {
     return new LogCaptor(configuration);
   }

@@ -18,6 +18,7 @@ package com.purplepip.odin.music.flow;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.events.CompositionRoll;
 import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
@@ -46,13 +47,21 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
     Real compositionTock  = tickConverter.convertBack(tock.getPosition());
     Event<Note> nextCompositionEvent = compositionRoll.pop();
     int i = 0;
-    while (nextCompositionEvent.getTime().le(compositionTock)) {
+    /*
+     * If next composition event is in the past then scan the roll forward.
+     */
+    if (nextCompositionEvent.getTime().le(compositionTock)) {
+      compositionRoll.setTock(compositionTock.floorToWhole().plus(Wholes.ONE));
+      nextCompositionEvent = compositionRoll.pop();
+    }
+
+    while (nextCompositionEvent.getTime().lt(compositionTock)) {
       i++;
       if (i > MAX_EVENT_SCAN) {
         LOG.warn("Max composition scan reached");
         break;
       }
-      LOG.warn("Composition event too late : {} <= {}",
+      LOG.warn("Composition event too late : {} < {}",
           nextCompositionEvent.getTime(), compositionTock);
       nextCompositionEvent = compositionRoll.pop();
     }

@@ -159,6 +159,15 @@ public class Real {
   }
 
   /**
+   * Calculate the nearest whole number less than this real number.
+   *
+   * @return floored value
+   */
+  public Whole floorToWhole() {
+    return Whole.valueOf(floor());
+  }
+
+  /**
    * Calculate the absolute of this number.
    *
    * @return absolute of this number

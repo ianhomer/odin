@@ -199,15 +199,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       tockCountStart = 0;
     }
     LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
-    tock = new MovableTock(getSequence().getTick(), Whole.valueOf(tockCountStart));
-    sealedTock = new SealedTock(tock);
+    setTock(Whole.valueOf(tockCountStart));
 
     clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
     tickDirty = false;
-    /*
-     * Force next event to be taken from sequence flow.
-     */
-    nextEvent = null;
     LOG.debug("afterTickChange executed");
     /*
      * After a tick change the flow is dirty.
@@ -217,7 +212,16 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * ... and we can refresh the flow
      */
     refreshFlow();
+  }
 
+  @Override
+  public void setTock(Whole tockToSet) {
+    tock = new MovableTock(getSequence().getTick(), tockToSet);
+    sealedTock = new SealedTock(tock);
+    /*
+     * Force next event to be taken from sequence flow.
+     */
+    nextEvent = null;
   }
 
   private void refreshFlow() {

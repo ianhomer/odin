@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 
@@ -28,6 +29,13 @@ public interface Roll<A> {
   Event<A> peek();
 
   Event<A> pop();
+
+  /**
+   * Move the roll to the specified tock position.
+   *
+   * @param tock tock position to set
+   */
+  void setTock(Whole tock);
 
   /**
    * Tick as a property.

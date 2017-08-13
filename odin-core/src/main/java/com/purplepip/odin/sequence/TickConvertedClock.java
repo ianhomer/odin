@@ -59,12 +59,12 @@ public class TickConvertedClock extends AbstractClock {
   }
 
   @Override
-  public Real getCount() {
-    return tickToBeatConverter.convertBack(beatClock.getCount());
+  public Real getPosition() {
+    return tickToBeatConverter.convertBack(beatClock.getPosition());
   }
 
   @Override
-  public Real getCount(long microseconds) {
-    return tickToBeatConverter.convertBack(beatClock.getCount(microseconds));
+  public Real getPosition(long microseconds) {
+    return tickToBeatConverter.convertBack(beatClock.getPosition(microseconds));
   }
 }

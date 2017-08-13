@@ -43,6 +43,12 @@ public class RealTest {
   }
 
   @Test
+  public void testFloorToWhole() {
+    assertEquals(Whole.valueOf(10), Real.valueOf(10.4).floorToWhole());
+    assertEquals(Whole.valueOf(-10), Real.valueOf(-10.4).floorToWhole());
+  }
+
+  @Test
   public void testFloorToRadix() {
     assertEquals(Whole.valueOf(8), Real.valueOf(9.3).floor(Whole.valueOf(4)));
   }

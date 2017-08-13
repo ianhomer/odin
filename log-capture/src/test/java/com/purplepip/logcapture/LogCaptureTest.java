@@ -23,10 +23,22 @@ public class LogCaptureTest {
   }
 
   @Test
+  public void testCaptureWithPassthrough() {
+    try (LogCaptor captor = new LogCapture().withPassThrough().start()) {
+      LOG.info("testCaptureDefault: Test info message");
+      assertEquals(1, captor.size());
+      LOG.debug("testCaptureDefault: Test debug message");
+      assertEquals(1, captor.size());
+    }
+  }
+
+  @Test
   public void testCapture() {
     try (LogCaptor captor = new LogCapture().debug().from(LogCaptureTest.class).start()) {
-      LOG.info("testCapture : Test info message");
+      LOG.info("testCapture : Test info message : {}", "parameter-value");
       assertEquals(1, captor.size());
+      assertEquals("testCapture : Test info message : parameter-value",
+          captor.getMessage(0));
       LOG.debug("testCapture : Test debug message");
       assertEquals(2, captor.size());
     }
