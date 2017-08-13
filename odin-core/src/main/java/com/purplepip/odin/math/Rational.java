@@ -70,6 +70,9 @@ public class Rational extends Real {
   public Rational(long numerator, long denominator, boolean simplify) {
     this.numerator = numerator;
     this.denominator = denominator;
+    if (denominator == 0) {
+      throw new OdinRuntimeException("A rational number MUST has a non-zero denominator");
+    }
     if (simplify) {
       simplify();
     }
@@ -99,7 +102,7 @@ public class Rational extends Real {
   public static Rational valueOf(long numerator, long denominator, boolean simplified) {
     if (numerator == 0) {
       return new Whole(0);
-    } else if (numerator % denominator == 0) {
+    } else if (denominator != 0 && numerator % denominator == 0) {
       return new Whole(numerator / denominator);
     }
     return new Rational(numerator, denominator, simplified);

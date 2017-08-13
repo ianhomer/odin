@@ -175,4 +175,9 @@ public class RationalTest {
     assertEquals(Rational.valueOf(1,2), Rational.valueOf(1,-2).absolute());
     assertEquals(Rational.valueOf(1,2), Rational.valueOf(-1,-2).absolute());
   }
+
+  @Test(expected = OdinRuntimeException.class)
+  public void testZeroDenominator() {
+    Rational.valueOf(1,0);
+  }
 }

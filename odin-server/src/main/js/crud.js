@@ -37,7 +37,7 @@ function setFieldValue(entity, schema, refs, name, key) {
 }
 
 // Get value of field from from fields, e.g. after form submit.
-function getFieldValue(schema, refs, name, key) {
+function getFieldValue(schema, refs, name, key, required = true) {
   var _key = key ? key : name;
   var value;
   if (schema && schema.properties[name] && schema.properties[name]['$ref']) {
@@ -55,8 +55,12 @@ function getFieldValue(schema, refs, name, key) {
   } else {
     var node = ReactDOM.findDOMNode(refs[_key]);
     if (node === null) {
-      console.error('Cannot find field ' + _key);
-      value = '';
+      if (required) {
+        console.error('Cannot find field ' + _key + ' in DOM');
+        value = '';
+      } else {
+        value = null;
+      }
     } else {
       value = node.value.trim();
     }
@@ -194,7 +198,7 @@ module.exports = {
     }, this);
     // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
     setFieldValue(entity, null, this.refs, '_links.self.href');
-    var path = getFieldValue(schema, this.refs, 'path');
+    var path = getFieldValue(schema, this.refs, 'path', false);
     if (path) {
       this.props.onApply(entity, path);
     } else {
