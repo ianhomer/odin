@@ -42,21 +42,17 @@ public class FlowFactory<A> {
    */
 
   static {
-    register(MetronomeFlow.class);
-    register(NotationFlow.class);
-    register(PatternFlow.class);
+    register(MetronomeFlow.NAME, MetronomeFlow.class);
+    register(NotationFlow.NAME, NotationFlow.class);
+    register(PatternFlow.NAME, PatternFlow.class);
   }
 
   public FlowFactory(FlowConfiguration flowConfiguration) {
     this.flowConfiguration = flowConfiguration;
   }
 
-  private static void register(Class<? extends MutableFlow> clazz) {
-    /*
-     * Lookup up on simple name, in long term we might have risk of name clashes, however
-     * this is a long way off and we can address when necessary.
-     */
-    FLOWS.put(clazz.getSimpleName(), clazz);
+  private static void register(String name, Class<? extends MutableFlow> clazz) {
+    FLOWS.put(name, clazz);
   }
 
   /**

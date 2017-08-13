@@ -121,7 +121,7 @@ Pattern.defaultProps = {
     },
     'flowName' : {
       cellWidth : 2,
-      defaultValue : 'PatternFlow',
+      defaultValue : 'Pattern',
       readOnly : true
     }
   },

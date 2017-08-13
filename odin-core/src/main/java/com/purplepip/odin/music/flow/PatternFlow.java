@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PatternFlow extends AbstractFlow<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternFlow.class);
+  public static final String NAME = "Pattern";
 
   @Override
   public Event<Note> getNextEvent(Tock tock) {

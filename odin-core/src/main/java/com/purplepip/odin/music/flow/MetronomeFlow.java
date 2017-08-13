@@ -30,6 +30,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
+  public static final String NAME = "Metronome";
+
   @Override
   public Event<Note> getNextEvent(Tock tock) {
     /*

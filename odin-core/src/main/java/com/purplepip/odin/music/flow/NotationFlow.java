@@ -35,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class NotationFlow extends AbstractFlow<Notation, Note> {
+  public static final String NAME = "Notation";
   private static final int MAX_EVENT_SCAN = 1000;
   private CompositionRoll compositionRoll;
   private TickConverter tickConverter;

@@ -114,7 +114,7 @@ Notation.defaultProps = {
     },
     'flowName' : {
       cellWidth : 2,
-      defaultValue : 'com.purplepip.odin.music.flow.NotationFlow',
+      defaultValue : 'Notation',
       readOnly : true
     }
   },
