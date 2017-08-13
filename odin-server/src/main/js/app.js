@@ -21,7 +21,6 @@ const crud = require('./crud');
 
 const ChannelList = require('./components/channelList');
 const LayerList = require('./components/layerList');
-const ProjectList = require('./components/projectList');
 const SequenceList = require('./components/sequenceList');
 
 class App extends React.Component {
@@ -50,7 +49,6 @@ class App extends React.Component {
         {this.state.entities &&
           <div className="warn">WARNING : Entities store in app state {JSON.stringify(this.state.entities)}</div>
         }
-        <ProjectList projects={this.state.projects}/>
         {this.state.project &&
           <div>
             <SequenceList project={this.state.project}/>
