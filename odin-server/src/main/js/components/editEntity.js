@@ -106,11 +106,13 @@ class EditEntity extends React.Component{
         </div>
       );
     } else {
-      if (field.hidden || field.readOnly) {
-        // If field is hidden or read only then we maintain value in hidden field
+      // If field is hidden or read only then we maintain value in hidden field
+      if (field.hidden) {
+        return (<input type="hidden" key={key} name={key} ref={key} value={value} />);
+      } else if (field.readOnly) {
         return (
           <div className={cellClassName} key={key}>
-            {!field.hidden && <span>{value}</span>}
+            <span>{value}</span>
             <input type="hidden" name={key} ref={key} value={value} />
           </div>
         );
