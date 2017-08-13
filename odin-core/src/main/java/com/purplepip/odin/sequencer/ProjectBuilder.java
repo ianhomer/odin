@@ -54,7 +54,7 @@ public class ProjectBuilder {
   private static final int DEFAULT_NOTE = 60;
   public static final int DEFAULT_VELOCITY = 40;
   public static final Rational DEFAULT_DURATION = Wholes.ONE;
-  private static final String DEFAULT_NOTATION_FORMAT = "VexTab";
+  private static final String DEFAULT_NOTATION_FORMAT = "natural";
 
   private ProjectContainer projectContainer;
   private int channel;

@@ -34,15 +34,4 @@ public class MainController {
   public String index(Model model) {
     return "index";
   }
-
-  /**
-   * Composer page.
-   *
-   * @param model model
-   * @return template to render
-   */
-  @RequestMapping("/composer")
-  public String composer(Model model) {
-    return "composer";
-  }
 }

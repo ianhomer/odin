@@ -112,7 +112,7 @@ Notation.defaultProps = {
     },
     'format' : {
       cellWidth : 1,
-      defaultValue : 'VexTab',
+      defaultValue : 'natural',
     },
     'flowName' : {defaultValue : 'com.purplepip.odin.music.flow.NotationFlow'}
   },
