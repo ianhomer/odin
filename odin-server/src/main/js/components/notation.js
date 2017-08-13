@@ -104,7 +104,7 @@ Notation.defaultProps = {
       }
     },
     'notation' : {
-      cellWidth : 3,
+      cellWidth : 4,
       defaultValue : 'C#5/q, B4, A4, G#4',
     },
     'format' : {
