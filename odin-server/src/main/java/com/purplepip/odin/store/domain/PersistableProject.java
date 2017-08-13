@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.Layer;
 import com.purplepip.odin.sequence.MutableLayer;
@@ -30,7 +29,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,8 +49,8 @@ public class PersistableProject implements Project {
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Channel> channels = new HashSet<>();
 
-  @JsonIgnore
-  @Transient
+  @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
+      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Layer> layers = new HashSet<>();
 
   @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
