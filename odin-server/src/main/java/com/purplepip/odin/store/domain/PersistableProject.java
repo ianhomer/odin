@@ -16,9 +16,9 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
-import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashSet;
 import java.util.Set;

@@ -18,7 +18,10 @@ package com.purplepip.odin.store.domain;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
+import com.purplepip.odin.sequence.tick.Tick;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,7 +29,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -51,4 +56,11 @@ public class PersistableLayer implements MutableLayer {
 
   @OneToMany(targetEntity = PersistableLayer.class, fetch = FetchType.EAGER)
   private Set<Layer> parents;
+
+  @Column(name = "o")
+  private long offset;
+  private long length;
+  @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
+  @NotNull
+  private Tick tick;
 }

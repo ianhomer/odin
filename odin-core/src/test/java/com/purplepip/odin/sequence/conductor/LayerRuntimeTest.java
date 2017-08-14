@@ -13,19 +13,19 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.layer;
+package com.purplepip.odin.sequence.conductor;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.Tick;
+import static org.junit.Assert.assertEquals;
 
-public interface MutableLayer extends Layer {
-  void setProject(Project project);
+import com.purplepip.odin.sequence.layer.DefaultLayer;
+import com.purplepip.odin.sequence.layer.Layer;
+import org.junit.Test;
 
-  void setName(String name);
-
-  void setTick(Tick tick);
-
-  void setOffset(long offset);
-
-  void setLength(long offset);
+public class LayerRuntimeTest {
+  @Test
+  public void testLayerRuntime() {
+    Layer layer = new DefaultLayer("test");
+    DefaultConductor conductor = new DefaultConductor(layer);
+    assertEquals(layer, conductor.getLayer());
+  }
 }

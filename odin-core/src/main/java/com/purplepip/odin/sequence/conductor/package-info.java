@@ -13,16 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.layer;
-
-public class LayerRuntime {
-  private Layer layer;
-
-  public LayerRuntime(Layer layer) {
-    this.layer = layer;
-  }
-
-  public Layer getLayer() {
-    return layer;
-  }
-}
+/**
+ * Conductor logic.  A Conductor is responsible for conducting tracks, for example turning
+ * them on and applying filters.
+ */
+package com.purplepip.odin.sequence.conductor;

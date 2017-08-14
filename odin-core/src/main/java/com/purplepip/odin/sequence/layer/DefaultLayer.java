@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.tick.Tick;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.ToString;
@@ -27,6 +28,10 @@ import lombok.ToString;
 public class DefaultLayer implements MutableLayer {
   private Project project;
   private String name;
+  private Tick tick;
+  private long length;
+  private long offset;
+
   private Set<Layer> parents = new HashSet<>();
 
   public DefaultLayer() {
@@ -59,5 +64,36 @@ public class DefaultLayer implements MutableLayer {
   @Override
   public Project getProject() {
     return project;
+  }
+
+  @Override
+  public void setTick(Tick tick) {
+    this.tick = tick;
+  }
+
+  @Override
+  public Tick getTick() {
+    return tick;
+  }
+
+  @Override
+  public void setLength(long length) {
+    this.length = length;
+  }
+
+  @Override
+  public long getLength() {
+    return length;
+  }
+
+
+  @Override
+  public void setOffset(long offset) {
+    this.offset = offset;
+  }
+
+  @Override
+  public long getOffset() {
+    return offset;
   }
 }

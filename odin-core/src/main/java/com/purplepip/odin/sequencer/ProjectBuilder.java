@@ -115,7 +115,8 @@ public class ProjectBuilder {
     return tick;
   }
 
-  private static MutableLayer withDefaults(MutableLayer layer) {
+  private MutableLayer withDefaults(MutableLayer layer) {
+    layer.setTick(createTick(Ticks.BEAT));
     return layer;
   }
 

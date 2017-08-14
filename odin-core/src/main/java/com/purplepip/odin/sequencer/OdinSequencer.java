@@ -22,6 +22,9 @@ import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.conductor.Conductors;
+import com.purplepip.odin.sequence.conductor.MutableConductors;
+import com.purplepip.odin.sequence.conductor.UnmodifiableConductors;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
@@ -39,6 +42,8 @@ public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
   private MutableTracks tracks = new MutableTracks();
   private Tracks immutableTracks = new UnmodifiableTracks(tracks);
+  private MutableConductors conductors = new MutableConductors();
+  private Conductors immutableConductors = new UnmodifiableConductors(conductors);
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
@@ -87,6 +92,7 @@ public class OdinSequencer implements ProjectApplyListener {
    * Refresh sequencer trackSet from the project configuration.
    */
   private void refreshTracks(Project project) {
+    refreshLayers(project);
     refreshChannels(project);
     refreshSequences(project);
 
@@ -99,6 +105,12 @@ public class OdinSequencer implements ProjectApplyListener {
     if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
       sequenceProcessor.processOnce();
     }
+  }
+
+  private void refreshLayers(Project project) {
+    project.getLayers().forEach(layer -> {
+
+    });
   }
 
   private void refreshChannels(Project project) {

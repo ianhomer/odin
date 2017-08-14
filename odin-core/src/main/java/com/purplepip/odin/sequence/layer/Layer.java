@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.tick.Tick;
 import java.util.Set;
 
 /**
@@ -44,4 +45,26 @@ public interface Layer {
    * @return project
    */
   Project getProject();
+
+  /**
+   * Units for 1 tick of this sequence.
+   *
+   * @return tick units.
+   */
+  Tick getTick();
+
+  /**
+   * Length of this layer in ticks from the offset point.  Note that layer will stop
+   * at offset + length ticks.
+   *
+   * @return length
+   */
+  long getLength();
+
+  /**
+   * Offset for the start of this layer.
+   *
+   * @return offset
+   */
+  long getOffset();
 }

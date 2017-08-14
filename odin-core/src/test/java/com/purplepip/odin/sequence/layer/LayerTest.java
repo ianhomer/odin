@@ -15,17 +15,14 @@
 
 package com.purplepip.odin.sequence.layer;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.Tick;
+import static org.junit.Assert.assertEquals;
 
-public interface MutableLayer extends Layer {
-  void setProject(Project project);
+import org.junit.Test;
 
-  void setName(String name);
-
-  void setTick(Tick tick);
-
-  void setOffset(long offset);
-
-  void setLength(long offset);
+public class LayerTest {
+  @Test
+  public void testLaye() {
+    Layer layer = new DefaultLayer("test");
+    assertEquals("test", layer.getName());
+  }
 }

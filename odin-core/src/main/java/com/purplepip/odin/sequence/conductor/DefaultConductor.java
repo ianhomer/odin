@@ -13,19 +13,23 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.layer;
+package com.purplepip.odin.sequence.conductor;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.layer.Layer;
 
-public interface MutableLayer extends Layer {
-  void setProject(Project project);
+public class DefaultConductor implements Conductor {
+  private Layer layer;
 
-  void setName(String name);
+  public DefaultConductor(Layer layer) {
+    this.layer = layer;
+  }
 
-  void setTick(Tick tick);
+  public Layer getLayer() {
+    return layer;
+  }
 
-  void setOffset(long offset);
-
-  void setLength(long offset);
+  @Override
+  public boolean getActive() {
+    return true;
+  }
 }

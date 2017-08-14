@@ -13,19 +13,22 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.layer;
+package com.purplepip.odin.sequence.conductor;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.Tick;
+import java.util.stream.Stream;
 
-public interface MutableLayer extends Layer {
-  void setProject(Project project);
+public interface Conductors extends Iterable<Conductor> {
+  /**
+   * Stream of conductors.
+   *
+   * @return stream of conductors.
+   */
+  Stream<Conductor> stream();
 
-  void setName(String name);
-
-  void setTick(Tick tick);
-
-  void setOffset(long offset);
-
-  void setLength(long offset);
+  /**
+   * Number of tracks.
+   *
+   * @return size
+   */
+  int size();
 }

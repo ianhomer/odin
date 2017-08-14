@@ -1,5 +1,6 @@
 package com.purplepip.odin.sequencer;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
@@ -40,6 +41,8 @@ public class ProjectBuilderTest {
     Sequence sequence1 = builder.getSequenceByOrder(0);
     Sequence sequence2 = builder.getSequenceByOrder(1);
 
+    assertThat("Sequence 1 : " + sequence1,sequence1.getLayers().stream().findFirst()
+        .orElse(null).getTick(), equalTo(Ticks.BEAT));
     assertThat("Sequence 1 : " + sequence1,
         sequence1.getLayers().stream().map(Layer::getName).collect(Collectors.toSet()),
         containsInAnyOrder("layer1"));

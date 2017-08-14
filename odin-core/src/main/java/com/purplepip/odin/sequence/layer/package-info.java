@@ -13,17 +13,8 @@
  * limitations under the License.
  */
 
+/**
+ * Layer model which controls how sequences are organised.  Conductors are responsible for picking
+ * up a layer and conducting all the related sequences.
+ */
 package com.purplepip.odin.sequence.layer;
-
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
-public class LayerRuntimeTest {
-  @Test
-  public void testLayerRuntime() {
-    Layer layer = new DefaultLayer("test");
-    LayerRuntime runtime = new LayerRuntime(layer);
-    assertEquals(layer, runtime.getLayer());
-  }
-}
