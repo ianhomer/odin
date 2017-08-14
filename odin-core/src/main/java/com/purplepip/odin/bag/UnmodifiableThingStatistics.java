@@ -15,36 +15,25 @@
 
 package com.purplepip.odin.bag;
 
-import java.util.Iterator;
-import java.util.stream.Stream;
+public class UnmodifiableThingStatistics implements ThingStatistics {
+  private ThingStatistics thingStatistics;
 
-public abstract class UnmodifiableThings<T extends Thing> implements Things<T> {
-  private Things<T> underlyingThings;
-
-  public UnmodifiableThings(Things<T> things) {
-    this.underlyingThings = things;
+  public UnmodifiableThingStatistics(ThingStatistics thingStatistics) {
+    this.thingStatistics = thingStatistics;
   }
-
-  public abstract T unmodifiable(T t);
-
+  
   @Override
-  public Iterator<T> iterator() {
-    return stream().iterator();
+  public int getAddedCount() {
+    return thingStatistics.getAddedCount();
   }
 
   @Override
-  public int size() {
-    return underlyingThings.size();
+  public int getRemovedCount() {
+    return thingStatistics.getRemovedCount();
   }
 
   @Override
-  public Stream<T> stream() {
-    return underlyingThings.stream().map(this::unmodifiable);
+  public int getUpdatedCount() {
+    return thingStatistics.getUpdatedCount();
   }
-
-  @Override
-  public ThingStatistics getStatistics() {
-    return underlyingThings.getStatistics();
-  }
-
 }

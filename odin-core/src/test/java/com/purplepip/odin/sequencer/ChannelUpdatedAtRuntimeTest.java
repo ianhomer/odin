@@ -100,8 +100,11 @@ public class ChannelUpdatedAtRuntimeTest {
     }
 
     OdinSequencerStatistics statistics = environment.getSequencer().getStatistics();
-    assertEquals("Number of program changes not correct", 4, statistics.getProgramChangeCount());
-    assertEquals("Number of added tracks not correct", 3, statistics.getTrackAddedCount());
-    assertEquals("Number of removed tracks not correct", 1, statistics.getTrackRemovedCount());
+    assertEquals("Number of program changes not correct", 4,
+        statistics.getProgramChangeCount());
+    assertEquals("Number of added tracks not correct", 3,
+        statistics.getTrackStatistics().getAddedCount());
+    assertEquals("Number of removed tracks not correct", 1,
+        statistics.getTrackStatistics().getRemovedCount());
   }
 }

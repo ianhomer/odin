@@ -15,12 +15,10 @@
 
 package com.purplepip.odin.sequencer.statistics;
 
+import com.purplepip.odin.bag.ThingStatistics;
+
 public interface OdinSequencerStatistics extends SequenceProcessorStatistics {
-  int getTrackAddedCount();
-
-  int getTrackRemovedCount();
-
-  int getTrackUpdatedCount();
+  ThingStatistics getTrackStatistics();
 
   int getProgramChangeCount();
 }

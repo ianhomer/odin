@@ -50,7 +50,8 @@ public class OdinSequencer implements ProjectApplyListener {
   private OperationProcessor operationProcessor;
   private BeatClock clock;
   private boolean started;
-  private MutableOdinSequencerStatistics statistics = new DefaultOdinSequencerStatistics();
+  private MutableOdinSequencerStatistics statistics =
+      new DefaultOdinSequencerStatistics(tracks.getStatistics());
 
   /**
    * Create an odin sequencer.
@@ -133,24 +134,8 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   private void refreshSequences(Project project) {
-    /*
-     * Remove any track for which the sequence in the project has been removed.
-     */
-    int sizeBefore = tracks.size();
-
-    boolean result = tracks.removeIf(track -> project.getSequences().stream()
-        .noneMatch(
-            sequence -> track instanceof SequenceTrack
-                && sequence.getId() == ((SequenceTrack) track).getSequence().getId()
-        ));
-    if (result) {
-      int removalCount = sizeBefore - tracks.size();
-      LOG.debug("Removed {} tracks, ", removalCount);
-      statistics.incrementTrackRemovedCount(removalCount);
-    } else {
-      LOG.debug("No sequence track detected for removal {} / {}", tracks.size(),
-          project.getSequences().size());
-    }
+    tracks.removeIf(track -> project.getSequences().stream()
+        .noneMatch(sequence -> sequence.getId() == track.getId()));
 
     for (Sequence sequence : project.getSequences()) {
       /*
@@ -168,11 +153,10 @@ public class OdinSequencer implements ProjectApplyListener {
           LOG.debug("Sequence {} already added and unchanged", sequence);
         } else {
           LOG.debug("Updating track for {}", sequence);
-          statistics.incrementTrackUpdatedCount();
+          tracks.incrementUpdatedCount();
           sequenceTrack = existingTrack.get();
         }
       } else {
-        statistics.incrementTrackAddedCount();
         LOG.debug("Creating new track for {}", sequence);
         sequenceTrack = new SequenceTrack(clock,
             new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),

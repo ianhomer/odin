@@ -69,8 +69,11 @@ public class SequenceTickUpdatedAtRuntimeTest {
     // TODO : Get this skipped count down to 0, as if it's non-zero then it's indicative something
     // is odd.
     assertTrue("No events should have been skipped", statistics.getEventTooLateCount() < 3);
-    assertEquals("Number of added tracks not correct", 1, statistics.getTrackAddedCount());
-    assertEquals("Number of updated tracks not correct", 1, statistics.getTrackUpdatedCount());
-    assertEquals("Number of removed tracks not correct", 0, statistics.getTrackRemovedCount());
+    assertEquals("Number of added tracks not correct", 1,
+        statistics.getTrackStatistics().getAddedCount());
+    assertEquals("Number of updated tracks not correct", 1,
+        statistics.getTrackStatistics().getUpdatedCount());
+    assertEquals("Number of removed tracks not correct", 0,
+        statistics.getTrackStatistics().getRemovedCount());
   }
 }

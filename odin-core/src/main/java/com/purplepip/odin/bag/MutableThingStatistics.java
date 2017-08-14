@@ -15,25 +15,10 @@
 
 package com.purplepip.odin.bag;
 
-import java.util.stream.Stream;
+public interface MutableThingStatistics extends ThingStatistics {
+  void incrementAddedCount();
 
-public interface Things<T extends Thing> extends Iterable<T> {
-  /**
-   * Stream of tracks.
-   *
-   * @return stream of tracks.
-   */
-  Stream<T> stream();
+  void incrementRemovedCount(int removedCount);
 
-  /**
-   * Number of tracks.
-   *
-   * @return size
-   */
-  int size();
-
-  /**
-   * Statistics.
-   */
-  ThingStatistics getStatistics();
+  void incrementUpdatedCount();
 }

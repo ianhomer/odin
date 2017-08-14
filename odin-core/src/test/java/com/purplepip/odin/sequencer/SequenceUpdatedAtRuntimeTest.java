@@ -64,8 +64,11 @@ public class SequenceUpdatedAtRuntimeTest {
       environment.stop();
     }
 
-    assertEquals("Number of added tracks not correct", 1, statistics.getTrackAddedCount());
-    assertEquals("Number of updated tracks not correct", 1, statistics.getTrackUpdatedCount());
-    assertEquals("Number of removed tracks not correct", 0, statistics.getTrackRemovedCount());
+    assertEquals("Number of added tracks not correct", 1,
+        statistics.getTrackStatistics().getAddedCount());
+    assertEquals("Number of updated tracks not correct", 1,
+        statistics.getTrackStatistics().getUpdatedCount());
+    assertEquals("Number of removed tracks not correct", 0,
+        statistics.getTrackStatistics().getRemovedCount());
   }
 }

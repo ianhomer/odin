@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer.statistics;
 
+import com.purplepip.odin.bag.ThingStatistics;
 import lombok.ToString;
 
 @ToString
@@ -26,18 +27,8 @@ public class UnmodifiableOdinSequencerStatistics implements OdinSequencerStatist
   }
 
   @Override
-  public int getTrackAddedCount() {
-    return statistics.getTrackAddedCount();
-  }
-
-  @Override
-  public int getTrackRemovedCount() {
-    return statistics.getTrackRemovedCount();
-  }
-
-  @Override
-  public int getTrackUpdatedCount() {
-    return statistics.getTrackUpdatedCount();
+  public ThingStatistics getTrackStatistics() {
+    return statistics.getTrackStatistics();
   }
 
   @Override

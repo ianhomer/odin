@@ -15,51 +15,29 @@
 
 package com.purplepip.odin.sequencer.statistics;
 
+import com.purplepip.odin.bag.ThingStatistics;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.ToString;
 
 @ToString
 public class DefaultOdinSequencerStatistics
     implements MutableOdinSequencerStatistics {
+  private ThingStatistics trackStatistics;
   private AtomicInteger programChangeCount = new AtomicInteger();
-  private AtomicInteger trackAddedCount = new AtomicInteger();
-  private AtomicInteger trackUpdatedCount = new AtomicInteger();
-  private AtomicInteger trackRemovedCount = new AtomicInteger();
   private AtomicInteger eventTooLateCount = new AtomicInteger();
 
-  @Override
-  public void incrementTrackAddedCount() {
-    trackAddedCount.incrementAndGet();
-  }
-
-  @Override
-  public int getTrackAddedCount() {
-    return trackAddedCount.get();
-  }
-
-  @Override
-  public void incrementTrackRemovedCount(int removedCount) {
-    trackRemovedCount.addAndGet(removedCount);
-  }
-
-  @Override
-  public int getTrackRemovedCount() {
-    return trackRemovedCount.get();
-  }
-
-  @Override
-  public void incrementTrackUpdatedCount() {
-    trackUpdatedCount.incrementAndGet();
-  }
-
-  @Override
-  public int getTrackUpdatedCount() {
-    return trackUpdatedCount.get();
+  public DefaultOdinSequencerStatistics(ThingStatistics trackStatistics) {
+    this.trackStatistics = trackStatistics;
   }
 
   @Override
   public void incrementProgramChangeCount() {
     programChangeCount.incrementAndGet();
+  }
+
+  @Override
+  public ThingStatistics getTrackStatistics() {
+    return trackStatistics;
   }
 
   @Override

@@ -17,11 +17,5 @@ package com.purplepip.odin.sequencer.statistics;
 
 public interface MutableOdinSequencerStatistics extends OdinSequencerStatistics,
     MutableSequenceProcessorStatistics {
-  void incrementTrackAddedCount();
-
-  void incrementTrackRemovedCount(int removedCount);
-
-  void incrementTrackUpdatedCount();
-
   void incrementProgramChangeCount();
 }
