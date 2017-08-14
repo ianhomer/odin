@@ -155,6 +155,15 @@ public class ProjectContainer {
   }
 
   /**
+   * Get sequence stream.
+   *
+   * @return sequence stream
+   */
+  public Stream<Sequence> getSequenceStream() {
+    return getProject().getSequences().stream();
+  }
+
+  /**
    * Add a sequence to the project.
    *
    * @param sequence sequence

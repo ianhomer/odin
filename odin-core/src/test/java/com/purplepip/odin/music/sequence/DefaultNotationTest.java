@@ -17,6 +17,7 @@ package com.purplepip.odin.music.sequence;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.sequence.layer.DefaultLayer;
 import org.junit.Test;
 
 public class DefaultNotationTest {
@@ -25,8 +26,10 @@ public class DefaultNotationTest {
     Notation notation = new DefaultNotation();
     notation.setFormat("test-format");
     notation.setNotation("test-notation");
+    notation.addLayer(new DefaultLayer("test-layer"));
     Notation notationCopy = (Notation) notation.copy();
     assertEquals("test-format", notationCopy.getFormat());
     assertEquals("test-notation", notationCopy.getNotation());
+    assertEquals("test-layer", notationCopy.getLayers().iterator().next().getName());
   }
 }

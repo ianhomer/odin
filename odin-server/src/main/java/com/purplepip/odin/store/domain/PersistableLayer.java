@@ -30,6 +30,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -63,4 +65,15 @@ public class PersistableLayer implements MutableLayer {
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
   @NotNull
   private Tick tick;
+
+  @PrePersist
+  public void addToProject() {
+    project.addLayer(this);
+  }
+
+  @PreRemove
+  public void removeFromProject() {
+    project.removeLayer(this);
+  }
+
 }

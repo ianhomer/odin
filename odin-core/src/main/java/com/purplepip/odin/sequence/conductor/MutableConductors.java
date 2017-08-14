@@ -53,18 +53,13 @@ public class MutableConductors extends MutableThings<Conductor>  {
           LOG.debug("Updating conductor for {}", layer);
           incrementUpdatedCount();
           conductor = existing.get();
+          conductor.setLayer(layer);
         }
       } else {
         LOG.debug("Creating new conductor for {}", layer);
         conductor = conductorSupplier.get();
-        add(conductor);
-      }
-
-      if (conductor != null) {
-        /*
-         * Update layer in new or modified conductor.
-         */
         conductor.setLayer(layer);
+        add(conductor);
       }
     });
   }

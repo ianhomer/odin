@@ -32,7 +32,7 @@ import org.springframework.stereotype.Component;
 @Order(1)
 @Slf4j
 public class DefaultProjectCreater implements ApplicationRunner {
-  private static final String DEFAULT_PROJECT_NAME = "defaultProject";
+  public static final String DEFAULT_PROJECT_NAME = "defaultProject";
 
   @Autowired
   private ProjectRepository projectRepository;

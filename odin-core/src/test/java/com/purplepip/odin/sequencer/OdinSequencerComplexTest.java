@@ -26,6 +26,7 @@ public class OdinSequencerComplexTest {
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
     new ProjectBuilder(environment.getContainer())
+        .addLayer("groove").withLayers("groove")
         .addMetronome()
         .withChannel(1).withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
         .withChannel(2).withVelocity(70).withNote(62).addPattern(Ticks.BEAT, 2)

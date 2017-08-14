@@ -95,8 +95,6 @@ public class Application {
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
       sequencer.start();
-      container.load();
-      container.apply();
 
       LOG.info("Odin Started.");
     };

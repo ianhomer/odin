@@ -117,6 +117,8 @@ public class ProjectBuilder {
 
   private MutableLayer withDefaults(MutableLayer layer) {
     layer.setTick(createTick(Ticks.BEAT));
+    layer.setLength(length);
+    layer.setOffset(offset);
     return layer;
   }
 

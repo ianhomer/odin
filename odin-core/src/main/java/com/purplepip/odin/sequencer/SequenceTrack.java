@@ -29,10 +29,12 @@ import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Track in the sequencer.
  */
+@Slf4j
 public class SequenceTrack implements Track {
   @Override
   public long getId() {
@@ -66,12 +68,29 @@ public class SequenceTrack implements Track {
 
   @Override
   public Event<Note> peek() {
-    return roll.peek();
+    return filter(roll.peek());
   }
 
   @Override
   public Event<Note> pop() {
-    return roll.pop();
+    return filter(roll.pop());
+  }
+
+  private Event<Note> filter(Event<Note> event) {
+    if (event == null) {
+      return event;
+    }
+    boolean active = false;
+    for (Conductor conductor : conductors) {
+      if (conductor.isActive(event.getTime().floor())) {
+        active = true;
+      }
+    }
+    if (active) {
+      return event;
+    }
+    LOG.debug("Event filtered out through conductors : {}", conductors);
+    return null;
   }
 
   @Override
@@ -97,10 +116,12 @@ public class SequenceTrack implements Track {
   }
 
   public void unbindConductors() {
+    LOG.debug("Unbinding conductors from {}", this);
     conductors.clear();
   }
 
   public void bindConductor(Conductor conductor) {
+    LOG.debug("Binding conductor {} to {}", conductor, this);
     conductors.add(conductor);
   }
 

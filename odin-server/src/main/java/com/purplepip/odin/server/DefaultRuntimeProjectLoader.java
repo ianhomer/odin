@@ -42,7 +42,7 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
   public void run(ApplicationArguments applicationArguments) throws Exception {
     if (projectContainer.isEmpty()) {
       new PersistableProjectBuilder(projectContainer)
-          .addLayer("groove")
+          .addLayer("groove").withLayers("groove")
           .withChannel(1).changeProgramTo("aahs")
           .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
           .withChannel(2).changeProgramTo("rock")
@@ -54,6 +54,9 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
           .withChannel(2)
           .addNotation(Ticks.BEAT, "C#5/q, B4, A4, G#4");
       projectContainer.save();
+      LOG.info("Default sequences loaded");
+      projectContainer.apply();
+      projectContainer.getSequenceStream().forEach(sequence -> LOG.info("{}", sequence));
       LOG.info("Default project populated");
     } else {
       LOG.warn("Default project has already been loaded");

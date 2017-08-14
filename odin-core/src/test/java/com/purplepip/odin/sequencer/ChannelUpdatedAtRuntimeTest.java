@@ -52,6 +52,7 @@ public class ChannelUpdatedAtRuntimeTest {
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
     ProjectBuilder builder = new ProjectBuilder(environment.getContainer())
+        .addLayer("groove").withLayers("groove")
         .changeProgramTo("violin")
         .withOffset(OFFSET)
         .withLength(LENGTH)

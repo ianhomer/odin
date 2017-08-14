@@ -34,7 +34,7 @@ public interface Pattern extends MutableSequence {
     copy.setOffset(this.getOffset());
     copy.setProject(this.getProject());
     copy.setTick(this.getTick());
-    copy.getLayers().forEach(this::addLayer);
+    this.getLayers().forEach(copy::addLayer);
     return copy;
   }
 

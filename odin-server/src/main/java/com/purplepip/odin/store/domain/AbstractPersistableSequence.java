@@ -20,6 +20,7 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.tick.Tick;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -78,7 +79,7 @@ public abstract class AbstractPersistableSequence implements MutableSequence {
 
   @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private Set<Layer> layers;
+  private Set<Layer> layers = new HashSet<>(0);
 
   @Override
   public void removeLayer(Layer layer) {

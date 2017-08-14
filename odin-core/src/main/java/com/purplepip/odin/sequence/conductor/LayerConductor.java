@@ -15,12 +15,21 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.DefaultTickConverter;
+import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.layer.Layer;
+import com.purplepip.odin.sequence.tick.Ticks;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class LayerConductor implements Conductor {
   private Layer layer;
   private BeatClock clock;
+  private TickConverter tickConverter;
 
   public LayerConductor(BeatClock clock) {
     this.clock = clock;
@@ -35,13 +44,24 @@ public class LayerConductor implements Conductor {
     return layer;
   }
 
+  /**
+   * Set layer for the layer conductor.
+   *
+   * @param layer layer
+   */
   public void setLayer(Layer layer) {
     this.layer = layer;
+    tickConverter = new DefaultTickConverter(clock,
+        () -> Ticks.MICROSECOND, layer::getTick, layer::getOffset);
+
   }
 
   @Override
-  public boolean getActive() {
-    return true;
+  public boolean isActive(long microseconds) {
+    Real tock = tickConverter.convert(Whole.valueOf(microseconds));
+    boolean result = tock.gt(Wholes.ZERO)
+        && (layer.getLength() <= 0 || tock.lt(Whole.valueOf(layer.getLength())));
+    LOG.debug("isActive : {}, {}, {}, {}", result, tock, microseconds, layer.getLength());
+    return result;
   }
-
 }

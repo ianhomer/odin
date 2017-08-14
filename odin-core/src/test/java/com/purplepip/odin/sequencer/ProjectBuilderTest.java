@@ -1,5 +1,6 @@
 package com.purplepip.odin.sequencer;
 
+import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,7 +12,6 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
-import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
@@ -37,12 +37,13 @@ public class ProjectBuilderTest {
     builder
         .addLayer("layer1").addLayer("layer2").addLayer("layer3")
         .withChannel(1).withLayers("layer1").addMetronome()
-        .withChannel(2).withLayers("layer2", "layer3").addMetronome();
+        .withChannel(2).withLayers("layer2", "layer3").addMetronome()
+        .withChannel(3).addNotation(BEAT, "C");
     Sequence sequence1 = builder.getSequenceByOrder(0);
     Sequence sequence2 = builder.getSequenceByOrder(1);
 
     assertThat("Sequence 1 : " + sequence1,sequence1.getLayers().stream().findFirst()
-        .orElse(null).getTick(), equalTo(Ticks.BEAT));
+        .orElse(null).getTick(), equalTo(BEAT));
     assertThat("Sequence 1 : " + sequence1,
         sequence1.getLayers().stream().map(Layer::getName).collect(Collectors.toSet()),
         containsInAnyOrder("layer1"));
@@ -52,13 +53,17 @@ public class ProjectBuilderTest {
     assertThat("Sequence 2 : " + sequence2,
         sequence2.getLayers().stream().map(Layer::getName).collect(Collectors.toSet()),
         not(containsInAnyOrder("layer1")));
+    Sequence sequence3 = builder.getSequenceByOrder(2);
+    assertThat("Sequence 2 : " + sequence2,
+        sequence3.getLayers().stream().map(Layer::getName).collect(Collectors.toSet()),
+        containsInAnyOrder("layer2", "layer3"));
   }
 
   @Test
   public void testAddNotation() {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
-    builder.addNotation(Ticks.BEAT, "a");
+    builder.addNotation(BEAT, "a");
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     assertEquals("a", notation.getNotation());
   }

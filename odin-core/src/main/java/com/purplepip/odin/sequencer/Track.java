@@ -31,7 +31,7 @@ public interface Track extends Thing {
   /**
    * Look at the next event from this track.
    *
-   * @return next event
+   * @return next event with microsecond time units
    */
   Event<Note> peek();
 
@@ -39,7 +39,7 @@ public interface Track extends Thing {
    * Take next event of this track, with subsequent call to peek or pop getting the subsequent one.
    * one
    *
-   * @return next event
+   * @return next event with microsecond time units
    */
   Event<Note> pop();
 
@@ -47,6 +47,9 @@ public interface Track extends Thing {
    * Runtime tick for the track.
    *
    * @return runtime tick.
+   */
+  /*
+   * TODO : Track should only use microseconds as the unit, why do we need to expose the tick here?
    */
   Tick getTick();
 }

@@ -15,9 +15,14 @@
 
 package com.purplepip.odin.server;
 
+import static com.purplepip.odin.server.DefaultProjectCreater.DEFAULT_PROJECT_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.server.rest.repositories.ProjectRepository;
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +35,33 @@ public class DefaultRuntimeProjectLoaderTest {
   @Autowired
   private ProjectContainer projectContainer;
 
+  @Autowired
+  private ProjectRepository projectRepository;
+
+  @Autowired
+  private MidiDeviceWrapper midiDeviceWrapper;
+
   @Test
   public void testDefaultRuntimeProjectLoader() throws Exception {
     assertThat(projectContainer.getChannels()).isEmpty();
+    new SynthesizerConfiguration(midiDeviceWrapper).run(null);
     DefaultRuntimeProjectLoader loader =
         new DefaultRuntimeProjectLoader(projectContainer);
     loader.run(null);
-    assertThat(projectContainer.getChannels()).isNotEmpty();
+    projectContainer.save();
+
+    ProjectContainer reloadedContainer =
+        new ProjectContainer(projectRepository.findByName(DEFAULT_PROJECT_NAME));
+    assertThat(reloadedContainer.getChannels()).isNotEmpty();
+    assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(0);
+    assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(0);
+    reloadedContainer.getSequenceStream().forEach(sequence ->
+        assertThat(sequence.getLayers().size()).isEqualTo(1)
+    );
+    Optional<Notation> firstNotation = reloadedContainer.getSequenceStream()
+        .filter(s -> s instanceof Notation).map(s -> (Notation) s).findFirst();
+    assertThat(firstNotation.isPresent()).isTrue();
+    assertThat(firstNotation.get().getLayers().size()).isEqualTo(1);
+
   }
 }

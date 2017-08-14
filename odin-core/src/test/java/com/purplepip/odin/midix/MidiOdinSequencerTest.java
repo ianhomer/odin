@@ -50,7 +50,9 @@ public class MidiOdinSequencerTest {
 
       ProjectContainer container = new ProjectContainer(new TransientProject());
       container.addApplyListener(sequencer);
-      new ProjectBuilder(container).withLength(16).addMetronome();
+      new ProjectBuilder(container)
+          .addLayer("groove").withLayers("groove")
+          .withLength(16).addMetronome();
       container.apply();
       sequencer.start();
 

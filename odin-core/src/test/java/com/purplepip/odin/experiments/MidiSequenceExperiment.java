@@ -76,17 +76,24 @@ public class MidiSequenceExperiment {
       }
       ProjectContainer container = new ProjectContainer(new TransientProject());
       new ProjectBuilder(container)
-          .addMetronome()
           .addLayer("groove")
-          .withChannel(1).withLayers("groove").changeProgramTo("rock")
+          .withOffset(0).withLength(12).addLayer("start")
+          .withOffset(8).withLength(8).addLayer("mid")
+          .withLayers("groove")
+          .withLength(-1).withOffset(0)
+          .addMetronome()
+          .withChannel(1).changeProgramTo("rock")
           .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
+          .withLayers("start")
           .withChannel(2).changeProgramTo("aahs")
           .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
+          .withLayers("groove")
           .withChannel(9).changeProgramTo("TR-909")
           .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
           .withVelocity(50).addPattern(Ticks.EIGHTH, 127)
           .withNote(46).addPattern(Ticks.TWO_THIRDS, 7)
           .withChannel(3).changeProgramTo("bass")
+          .withLayers("mid")
           .withVelocity(100).addNotation(Ticks.BEAT, "B4/8, B4, E4/q, G4, C4");
 
       container.addApplyListener(sequencer);

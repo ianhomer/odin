@@ -28,8 +28,7 @@ public class UnmodifiableConductor implements Conductor {
   }
 
   @Override
-  public boolean getActive() {
-    return underlyingConductor.getActive();
+  public boolean isActive(long microseconds) {
+    return underlyingConductor.isActive(microseconds);
   }
-
 }

@@ -16,15 +16,12 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.sequence.tick.Tick;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Persistable notation.
@@ -32,6 +29,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity(name = "Notation")
 @Table(name = "Notation")
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class PersistableNotation extends AbstractPersistableSequence implements Notation {
   private int channel;

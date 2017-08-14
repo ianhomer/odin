@@ -45,6 +45,7 @@ public class SequenceTickUpdatedAtRuntimeTest {
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
     new ProjectBuilder(environment.getContainer())
+        .addLayer("groove").withLayers("groove")
         .withNote(60)
         .addPattern(Ticks.EIGHTH, 1);
     environment.start();

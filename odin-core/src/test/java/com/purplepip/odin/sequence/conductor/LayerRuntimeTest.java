@@ -20,13 +20,14 @@ import static org.mockito.Mockito.mock;
 
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
-import com.purplepip.odin.sequence.layer.Layer;
+import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Test;
 
 public class LayerRuntimeTest {
   @Test
   public void testLayerRuntime() {
-    Layer layer = new DefaultLayer("test");
+    DefaultLayer layer = new DefaultLayer("test");
+    layer.setTick(Ticks.BEAT);
     LayerConductor conductor = new LayerConductor(mock(BeatClock.class));
     conductor.setLayer(layer);
     assertEquals(layer, conductor.getLayer());
