@@ -17,7 +17,7 @@ package com.purplepip.odin.store.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.Layer;
+import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.MutableSequence;
 import java.util.Set;
 import javax.persistence.CascadeType;

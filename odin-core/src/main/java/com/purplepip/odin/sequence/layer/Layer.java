@@ -13,44 +13,35 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
-import java.util.HashSet;
 import java.util.Set;
-import lombok.ToString;
 
 /**
- * Default layer implementation.
+ * A layer applies behaviour to sequences and child layers.  This include default properties
+ * and filters (which will come soon).  Filters will adjust the sequence - for example
+ * add variability to velocity, duration, note (transpose) or switch on / off (e.g. chorus / verse).
  */
-@ToString(exclude = "project")
-public class DefaultLayer implements MutableLayer {
-  private Project project;
-  private String name;
-  private Set<Layer> parents = new HashSet<>();
+public interface Layer {
+  /**
+   * Layer name.
+   *
+   * @return layer
+   */
+  String getName();
 
-  @Override
-  public void setProject(Project project) {
-    this.project = project;
-  }
+  /**
+   * Parent layer.
+   *
+   * @return parent layers
+   */
+  Set<Layer> getParents();
 
-  @Override
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public Set<Layer> getParents() {
-    return parents;
-  }
-
-  @Override
-  public Project getProject() {
-    return project;
-  }
+  /**
+   * The project that this layer belongs to.
+   *
+   * @return project
+   */
+  Project getProject();
 }

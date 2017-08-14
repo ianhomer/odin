@@ -77,7 +77,8 @@ public class MidiSequenceExperiment {
       ProjectContainer container = new ProjectContainer(new TransientProject());
       new ProjectBuilder(container)
           .addMetronome()
-          .withChannel(1).changeProgramTo("bird")
+          .addLayer("groove")
+          .withChannel(1).withLayers("groove").changeProgramTo("rock")
           .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
           .withChannel(2).changeProgramTo("aahs")
           .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)

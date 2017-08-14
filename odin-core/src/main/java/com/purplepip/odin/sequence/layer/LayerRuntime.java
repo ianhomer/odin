@@ -13,26 +13,16 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.layer;
 
-import com.purplepip.odin.sequence.layer.Layer;
-import com.purplepip.odin.sequence.tick.Tick;
+public class LayerRuntime {
+  private Layer layer;
 
-/**
- * Mutable sequence.
- */
-public interface MutableSequence extends Sequence {
-  void setTick(Tick tick);
+  public LayerRuntime(Layer layer) {
+    this.layer = layer;
+  }
 
-  void setLength(long length);
-
-  void setOffset(long offset);
-
-  void setChannel(int channel);
-
-  void setFlowName(String flowName);
-
-  void addLayer(Layer layer);
-
-  void removeLayer(Layer layer);
+  public Layer getLayer() {
+    return layer;
+  }
 }

@@ -13,26 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.layer;
 
-import com.purplepip.odin.sequence.layer.Layer;
-import com.purplepip.odin.sequence.tick.Tick;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Mutable sequence.
- */
-public interface MutableSequence extends Sequence {
-  void setTick(Tick tick);
+import org.junit.Test;
 
-  void setLength(long length);
-
-  void setOffset(long offset);
-
-  void setChannel(int channel);
-
-  void setFlowName(String flowName);
-
-  void addLayer(Layer layer);
-
-  void removeLayer(Layer layer);
+public class LayerRuntimeTest {
+  @Test
+  public void testLayerRuntime() {
+    Layer layer = new DefaultLayer("test");
+    LayerRuntime runtime = new LayerRuntime(layer);
+    assertEquals(layer, runtime.getLayer());
+  }
 }

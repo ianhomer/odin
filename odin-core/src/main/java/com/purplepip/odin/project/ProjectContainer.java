@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.project;
 
-import com.purplepip.odin.sequence.Layer;
-import com.purplepip.odin.sequence.MutableLayer;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.layer.Layer;
+import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -5,7 +5,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.Layer;
+import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.store.PersistableProjectBuilder;
 import com.purplepip.odin.store.domain.PersistableProject;
 import java.util.List;

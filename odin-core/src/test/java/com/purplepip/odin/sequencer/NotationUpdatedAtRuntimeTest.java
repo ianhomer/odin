@@ -62,7 +62,8 @@ public class NotationUpdatedAtRuntimeTest {
        */
       try (LogCaptor captor = new LogCapture().warn().from(NotationFlow.class)
           .withPassThrough().start()) {
-        // TODO : Increase the forward scan of the clock, since system should be robust to this.
+        // TODO : Increase the forward scan (setMicroseconds) of the clock, since system
+        // should be robust to this.
         environment.getSequencer().getClock().setMicroseconds(1000);
         environment.getContainer().apply();
         note61Events.await(2000, TimeUnit.MILLISECONDS);
