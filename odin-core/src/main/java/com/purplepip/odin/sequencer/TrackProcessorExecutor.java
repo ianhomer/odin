@@ -23,7 +23,6 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,7 +65,7 @@ public class TrackProcessorExecutor implements Runnable {
   private void doJob() {
     int noteCountThisBuffer = 0;
     for (Track track : tracks) {
-      LOG.trace("Processing roll {} for device at position {}", track.getRoll());
+      LOG.trace("Processing track {}", track);
       if (noteCountThisBuffer > maxNotesPerBuffer) {
         LOG.warn("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
         break;
@@ -84,10 +83,7 @@ public class TrackProcessorExecutor implements Runnable {
      */
     long microsecondPosition = clock.getMicroseconds();
     int noteCount = 0;
-    // TODO : We should move peek and pop onto track so that track processor is not aware of
-    // roll implementation
-    Roll<Note> roll = track.getRoll();
-    Event<Note> nextEvent = roll.peek();
+    Event<Note> nextEvent = track.peek();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     if (nextEvent != null) {
       while (nextEvent != null
@@ -100,7 +96,7 @@ public class TrackProcessorExecutor implements Runnable {
         /*
          * Pop event to get it off the buffer.
          */
-        nextEvent = roll.pop();
+        nextEvent = track.pop();
         LOG.debug("Processing Event {}", nextEvent);
         if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
           statistics.incrementEventTooLateCount();
@@ -110,7 +106,7 @@ public class TrackProcessorExecutor implements Runnable {
           sendToProcessor(nextEvent.getValue(), nextEvent, track);
         }
         noteCount++;
-        nextEvent = roll.peek();
+        nextEvent = track.peek();
         LOG.trace("Next event {}", nextEvent);
       }
       if (nextEvent == null) {

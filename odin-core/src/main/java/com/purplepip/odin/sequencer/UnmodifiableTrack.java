@@ -15,9 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.Roll;
-import com.purplepip.odin.sequence.UnmodifiableRoll;
 import com.purplepip.odin.sequence.tick.Tick;
 
 public class UnmodifiableTrack implements Track {
@@ -38,8 +37,13 @@ public class UnmodifiableTrack implements Track {
   }
 
   @Override
-  public Roll<Note> getRoll() {
-    return new UnmodifiableRoll<>(underlyingTrack.getRoll());
+  public Event<Note> peek() {
+    return underlyingTrack.peek();
+  }
+
+  @Override
+  public Event<Note> pop() {
+    return underlyingTrack.pop();
   }
 
   @Override

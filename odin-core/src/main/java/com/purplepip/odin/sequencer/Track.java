@@ -16,8 +16,8 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.bag.Thing;
+import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.tick.Tick;
 
 public interface Track extends Thing {
@@ -29,11 +29,19 @@ public interface Track extends Thing {
   int getChannel();
 
   /**
-   * Roll for the track.
+   * Look at the next event from this track.
    *
-   * @return roll
+   * @return next event
    */
-  Roll<Note> getRoll();
+  Event<Note> peek();
+
+  /**
+   * Take next event of this track, with subsequent call to peek or pop getting the subsequent one.
+   * one
+   *
+   * @return next event
+   */
+  Event<Note> pop();
 
   /**
    * Runtime tick for the track.

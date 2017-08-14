@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
@@ -63,14 +64,14 @@ public class SequenceTrack implements Track {
     return getSequence().getChannel();
   }
 
-  /**
-   * Get end of pipe line sequence runtime, after any post processing.
-   *
-   * @return sequence runtime.
-   */
   @Override
-  public Roll<Note> getRoll() {
-    return roll;
+  public Event<Note> peek() {
+    return roll.peek();
+  }
+
+  @Override
+  public Event<Note> pop() {
+    return roll.pop();
   }
 
   @Override
