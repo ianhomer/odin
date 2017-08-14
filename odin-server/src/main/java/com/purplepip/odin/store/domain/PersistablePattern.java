@@ -17,9 +17,7 @@ package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequence.tick.Tick;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -37,14 +35,10 @@ import lombok.EqualsAndHashCode;
 public class PersistablePattern extends AbstractPersistableSequence implements Pattern {
   private int bits;
   private int channel;
-  @Column(name = "o")
-  private long offset;
-  private long length;
+
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
   private Note note;
-  @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL)
-  @NotNull
-  private Tick tick;
+
   @NotNull
   private String flowName;
 }

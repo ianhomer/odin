@@ -17,9 +17,7 @@ package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
-import com.purplepip.odin.sequence.tick.Tick;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,12 +34,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class PersistableMetronome extends AbstractPersistableSequence implements Metronome {
   private int channel;
-  @Column(name = "o")
-  private long offset;
-  private long length;
-  @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL)
-  @NotNull
-  private Tick tick;
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
   private Note noteBarStart;
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
