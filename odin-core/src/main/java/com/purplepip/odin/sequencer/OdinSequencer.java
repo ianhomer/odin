@@ -23,7 +23,6 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
-import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.conductor.UnmodifiableConductors;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
@@ -31,7 +30,6 @@ import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.UnmodifiableOdinSequencerStatistics;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
-  private MutableThings<Track> tracks = new MutableThings<>();
+  private MutableTracks tracks = new MutableTracks();
   private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
   private MutableThings<Conductor> conductors = new MutableThings<>();
   private Things<Conductor> immutableConductors = new UnmodifiableConductors(conductors);
@@ -96,7 +94,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private void refreshTracks(Project project) {
     refreshLayers(project);
     refreshChannels(project);
-    refreshSequences(project);
+    tracks.refresh(() -> project.getSequences().stream(), this::createSequenceTrack);
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 
@@ -133,44 +131,10 @@ public class OdinSequencer implements ProjectApplyListener {
     }
   }
 
-  private void refreshSequences(Project project) {
-    tracks.removeIf(track -> project.getSequences().stream()
-        .noneMatch(sequence -> sequence.getId() == track.getId()));
-
-    for (Sequence sequence : project.getSequences()) {
-      /*
-       * Add sequence if not present in tracks.
-       */
-      Optional<SequenceTrack> existingTrack =
-          tracks.stream()
-              .filter(o -> o instanceof SequenceTrack)
-              .map(o -> (SequenceTrack) o)
-              .filter(track -> sequence.getId() == track.getSequence().getId()).findFirst();
-
-      SequenceTrack sequenceTrack = null;
-      if (existingTrack.isPresent()) {
-        if (existingTrack.get().getSequence().equals(sequence)) {
-          LOG.debug("Sequence {} already added and unchanged", sequence);
-        } else {
-          LOG.debug("Updating track for {}", sequence);
-          tracks.incrementUpdatedCount();
-          sequenceTrack = existingTrack.get();
-        }
-      } else {
-        LOG.debug("Creating new track for {}", sequence);
-        sequenceTrack = new SequenceTrack(clock,
-            new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
-                configuration.getMeasureProvider()));
-        tracks.add(sequenceTrack);
-      }
-
-      if (sequenceTrack != null) {
-        /*
-         * Update sequence in new or modified track.
-         */
-        sequenceTrack.getSequenceRoll().setSequence(sequence.copy());
-      }
-    }
+  SequenceTrack createSequenceTrack() {
+    return new SequenceTrack(clock,
+        new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
+            configuration.getMeasureProvider()));
   }
 
   /**
