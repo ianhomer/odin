@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.ClockListener;
 import com.purplepip.odin.sequence.ListenerPriority;
@@ -46,7 +47,7 @@ public class TrackProcessor implements ClockListener {
    * @param operationProcessor operation processor
    */
   TrackProcessor(BeatClock clock,
-                 Tracks tracks,
+                 Things<Track> tracks,
                  OperationProcessor operationProcessor,
                  MutableSequenceProcessorStatistics statistics) {
     scheduledPool = Executors.newScheduledThreadPool(1);

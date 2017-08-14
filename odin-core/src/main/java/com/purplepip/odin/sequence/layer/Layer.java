@@ -26,6 +26,13 @@ import java.util.Set;
  */
 public interface Layer {
   /**
+   * Unique layer ID.
+   *
+   * @return layer ID
+   */
+  long getId();
+
+  /**
    * Layer name.
    *
    * @return layer

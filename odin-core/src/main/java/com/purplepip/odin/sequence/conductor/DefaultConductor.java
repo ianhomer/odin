@@ -24,6 +24,11 @@ public class DefaultConductor implements Conductor {
     this.layer = layer;
   }
 
+  @Override
+  public long getId() {
+    return layer.getId();
+  }
+
   public Layer getLayer() {
     return layer;
   }
@@ -32,4 +37,5 @@ public class DefaultConductor implements Conductor {
   public boolean getActive() {
     return true;
   }
+
 }

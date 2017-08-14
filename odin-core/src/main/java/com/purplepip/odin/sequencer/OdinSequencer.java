@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.bag.MutableThings;
+import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
@@ -22,8 +24,7 @@ import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.conductor.Conductors;
-import com.purplepip.odin.sequence.conductor.MutableConductors;
+import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.conductor.UnmodifiableConductors;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
@@ -40,10 +41,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
-  private MutableTracks tracks = new MutableTracks();
-  private Tracks immutableTracks = new UnmodifiableTracks(tracks);
-  private MutableConductors conductors = new MutableConductors();
-  private Conductors immutableConductors = new UnmodifiableConductors(conductors);
+  private MutableThings<Track> tracks = new MutableThings<>();
+  private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
+  private MutableThings<Conductor> conductors = new MutableThings<>();
+  private Things<Conductor> immutableConductors = new UnmodifiableConductors(conductors);
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;

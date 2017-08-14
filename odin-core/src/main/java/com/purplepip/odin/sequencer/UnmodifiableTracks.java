@@ -15,31 +15,19 @@
 
 package com.purplepip.odin.sequencer;
 
-import java.util.Iterator;
-import java.util.stream.Stream;
+import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.bag.UnmodifiableThings;
 
 /**
  * Unmodifiable tracks.
  */
-public class UnmodifiableTracks implements Tracks {
-  private Tracks underlyingTracks;
-
-  UnmodifiableTracks(Tracks tracks) {
-    this.underlyingTracks = tracks;
+public class UnmodifiableTracks extends UnmodifiableThings<Track> implements Tracks {
+  public UnmodifiableTracks(Things<Track> things) {
+    super(things);
   }
 
   @Override
-  public Iterator<Track> iterator() {
-    return stream().iterator();
-  }
-
-  @Override
-  public int size() {
-    return underlyingTracks.size();
-  }
-
-  @Override
-  public Stream<Track> stream() {
-    return underlyingTracks.stream().map(UnmodifiableTrack::new);
+  public Track unmodifiable(Track track) {
+    return new UnmodifiableTrack(track);
   }
 }

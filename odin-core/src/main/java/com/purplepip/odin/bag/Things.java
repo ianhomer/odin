@@ -13,17 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.conductor;
+package com.purplepip.odin.bag;
 
 import java.util.stream.Stream;
 
-public interface Conductors extends Iterable<Conductor> {
+public interface Things<T extends Thing> extends Iterable<T> {
   /**
-   * Stream of conductors.
+   * Stream of tracks.
    *
-   * @return stream of conductors.
+   * @return stream of tracks.
    */
-  Stream<Conductor> stream();
+  Stream<T> stream();
 
   /**
    * Number of tracks.

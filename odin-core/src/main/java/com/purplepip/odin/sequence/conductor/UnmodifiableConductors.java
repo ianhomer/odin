@@ -15,31 +15,19 @@
 
 package com.purplepip.odin.sequence.conductor;
 
-import java.util.Iterator;
-import java.util.stream.Stream;
+import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.bag.UnmodifiableThings;
 
 /**
  * Unmodifiable conductors.
  */
-public class UnmodifiableConductors implements Conductors {
-  private Conductors underlyingConductors;
-
-  public UnmodifiableConductors(Conductors conductors) {
-    this.underlyingConductors = conductors;
+public class UnmodifiableConductors extends UnmodifiableThings<Conductor> {
+  public UnmodifiableConductors(Things<Conductor> things) {
+    super(things);
   }
 
   @Override
-  public Iterator<Conductor> iterator() {
-    return stream().iterator();
-  }
-
-  @Override
-  public int size() {
-    return underlyingConductors.size();
-  }
-
-  @Override
-  public Stream<Conductor> stream() {
-    return underlyingConductors.stream().map(UnmodifiableConductor::new);
+  public Conductor unmodifiable(Conductor conductor) {
+    return new UnmodifiableConductor(conductor);
   }
 }

@@ -18,15 +18,17 @@ package com.purplepip.odin.sequence.conductor;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.odin.bag.MutableThings;
+import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
 import org.junit.Test;
 
 public class UnmodifiableConductorTest {
   @Test
   public void getActive() throws Exception {
-    MutableConductors mutableConductors = new MutableConductors();
+    MutableThings<Conductor> mutableConductors = new MutableThings<>();
     mutableConductors.add(new DefaultConductor(new DefaultLayer("test")));
-    Conductors conductors = new UnmodifiableConductors(mutableConductors);
+    Things<Conductor> conductors = new UnmodifiableConductors(mutableConductors);
     Conductor conductor = conductors.stream().findFirst().orElse(null);
     assertNotNull(conductor);
     assertTrue(conductor instanceof UnmodifiableConductor);

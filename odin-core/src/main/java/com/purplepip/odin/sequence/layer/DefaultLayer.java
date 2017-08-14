@@ -19,6 +19,7 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.ToString;
 
 /**
@@ -26,6 +27,14 @@ import lombok.ToString;
  */
 @ToString(exclude = "project")
 public class DefaultLayer implements MutableLayer {
+  /*
+   * Cheap ID generator for default layers.  Note that persistence implementation used for
+   * the runtime has a more robust ID generation mechanism, however for the transient usage,
+   * this cheap generator is good enough.
+   */
+  private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
+  protected long id = LAST_PATTERN_ID.incrementAndGet();
+
   private Project project;
   private String name;
   private Tick tick;
@@ -39,6 +48,11 @@ public class DefaultLayer implements MutableLayer {
 
   public DefaultLayer(String name) {
     this.name = name;
+  }
+
+  @Override
+  public long getId() {
+    return id;
   }
 
   @Override

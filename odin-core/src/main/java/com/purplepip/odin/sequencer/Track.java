@@ -15,11 +15,12 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.Roll;
 import com.purplepip.odin.sequence.tick.Tick;
 
-public interface Track {
+public interface Track extends Thing {
   /**
    * Channel for the track.
    *

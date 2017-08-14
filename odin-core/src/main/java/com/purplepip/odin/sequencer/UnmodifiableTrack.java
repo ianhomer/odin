@@ -28,6 +28,11 @@ public class UnmodifiableTrack implements Track {
   }
 
   @Override
+  public long getId() {
+    return underlyingTrack.getId();
+  }
+
+  @Override
   public int getChannel() {
     return underlyingTrack.getChannel();
   }
@@ -41,4 +46,5 @@ public class UnmodifiableTrack implements Track {
   public Tick getTick() {
     return underlyingTrack.getTick();
   }
+
 }

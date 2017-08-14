@@ -15,23 +15,11 @@
 
 package com.purplepip.odin.sequencer;
 
-import java.util.stream.Stream;
+import com.purplepip.odin.bag.Things;
 
 /**
- * Tracks in the current runtime used by the sequencer.
+ * @deprecated class has no value now, just use generic instead.
  */
-public interface Tracks extends Iterable<Track> {
-  /**
-   * Stream of tracks.
-   *
-   * @return stream of tracks.
-   */
-  Stream<Track> stream();
-
-  /**
-   * Number of tracks.
-   *
-   * @return size
-   */
-  int size();
+@Deprecated
+public interface Tracks extends Things<Track> {
 }

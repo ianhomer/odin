@@ -13,37 +13,32 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.bag;
 
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class MutableTracks implements Tracks {
-  private Set<Track> tracks = new HashSet<>();
+public abstract class UnmodifiableThings<T extends Thing> implements Things<T> {
+  private Things<T> underlyingThings;
 
-  boolean add(Track track) {
-    return tracks.add(track);
+  public UnmodifiableThings(Things<T> things) {
+    this.underlyingThings = things;
+  }
+
+  public abstract T unmodifiable(T t);
+
+  @Override
+  public Iterator<T> iterator() {
+    return stream().iterator();
   }
 
   @Override
   public int size() {
-    return tracks.size();
-  }
-
-  boolean removeIf(Predicate<Track> filter) {
-    return tracks.removeIf(filter);
+    return underlyingThings.size();
   }
 
   @Override
-  public Stream<Track> stream() {
-    return tracks.stream();
-  }
-
-  @Override
-  public Iterator<Track> iterator() {
-    return tracks.iterator();
+  public Stream<T> stream() {
+    return underlyingThings.stream().map(this::unmodifiable);
   }
 }

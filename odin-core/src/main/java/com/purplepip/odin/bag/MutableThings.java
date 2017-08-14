@@ -13,39 +13,37 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.conductor;
+package com.purplepip.odin.bag;
 
-import com.purplepip.odin.sequencer.Track;
-import com.purplepip.odin.sequencer.Tracks;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class MutableConductors implements Conductors {
-  private Set<Conductor> conductors = new HashSet<>();
+public class MutableThings<T extends Thing> implements Things<T> {
+  private Set<T> things = new HashSet<>();
 
-  boolean add(Conductor conductor) {
-    return conductors.add(conductor);
+  public boolean add(T thing) {
+    return things.add(thing);
   }
 
   @Override
   public int size() {
-    return conductors.size();
+    return things.size();
   }
 
-  boolean removeIf(Predicate<Conductor> filter) {
-    return conductors.removeIf(filter);
-  }
-
-  @Override
-  public Stream<Conductor> stream() {
-    return conductors.stream();
+  public boolean removeIf(Predicate<Thing> filter) {
+    return things.removeIf(filter);
   }
 
   @Override
-  public Iterator<Conductor> iterator() {
-    return conductors.iterator();
+  public Stream<T> stream() {
+    return things.stream();
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return things.iterator();
   }
 }

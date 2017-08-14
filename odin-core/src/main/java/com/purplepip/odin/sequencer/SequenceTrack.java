@@ -30,6 +30,11 @@ import com.purplepip.odin.sequence.tick.Ticks;
  * Track in the sequencer.
  */
 public class SequenceTrack implements Track {
+  @Override
+  public long getId() {
+    return getSequence().getId();
+  }
+
   private SequenceRoll<Note> sequenceRoll;
   private TickConverter tickConverter;
   private Roll<Note> roll;

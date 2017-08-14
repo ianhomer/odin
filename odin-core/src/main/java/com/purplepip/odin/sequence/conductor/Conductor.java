@@ -15,10 +15,12 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+import com.purplepip.odin.bag.Thing;
+
 /**
  * A conductor is responsible for conducting a collection of sequences.
  */
-public interface Conductor {
+public interface Conductor extends Thing {
   /**
    * Is the conductor actively conducting sequences that it conducts.  If a given track
    * has no active conductors conducting it then the track will not fire any events.

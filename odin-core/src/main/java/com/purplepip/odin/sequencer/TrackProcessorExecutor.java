@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TrackProcessorExecutor implements Runnable {
-  private final Tracks tracks;
+  private final Things<Track> tracks;
   private final BeatClock clock;
   private final OperationProcessor operationProcessor;
   private long timeBufferInMicroSeconds;
@@ -36,7 +37,7 @@ public class TrackProcessorExecutor implements Runnable {
   private MutableSequenceProcessorStatistics statistics;
 
   TrackProcessorExecutor(BeatClock clock,
-                         Tracks tracks,
+                         Things<Track> tracks,
                          OperationProcessor operationProcessor,
                          long refreshPeriod,
                          MutableSequenceProcessorStatistics statistics) {

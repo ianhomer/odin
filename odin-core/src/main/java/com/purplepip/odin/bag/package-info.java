@@ -13,23 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.conductor;
-
-public class UnmodifiableConductor implements Conductor {
-  private Conductor underlyingConductor;
-
-  public UnmodifiableConductor(Conductor conductor) {
-    this.underlyingConductor = conductor;
-  }
-
-  @Override
-  public long getId() {
-    return underlyingConductor.getId();
-  }
-
-  @Override
-  public boolean getActive() {
-    return underlyingConductor.getActive();
-  }
-
-}
+/**
+ * A bag of things.
+ */
+package com.purplepip.odin.bag;
