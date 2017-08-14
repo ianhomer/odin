@@ -23,8 +23,11 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.TickConvertedRoll;
 import com.purplepip.odin.sequence.TickConverter;
+import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Track in the sequencer.
@@ -38,6 +41,7 @@ public class SequenceTrack implements Track {
   private SequenceRoll<Note> sequenceRoll;
   private TickConverter tickConverter;
   private Roll<Note> roll;
+  private Set<Conductor> conductors = new HashSet<>();
 
   /**
    * Create new track.
@@ -89,5 +93,17 @@ public class SequenceTrack implements Track {
 
   public TickConverter getTickConverter() {
     return tickConverter;
+  }
+
+  public void unbindConductors() {
+    conductors.clear();
+  }
+
+  public void bindConductor(Conductor conductor) {
+    conductors.add(conductor);
+  }
+
+  public void setCopyOfSequence(Sequence sequence) {
+    getSequenceRoll().setSequence(sequence.copy());
   }
 }

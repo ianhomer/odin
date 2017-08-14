@@ -84,6 +84,8 @@ public class TrackProcessorExecutor implements Runnable {
      */
     long microsecondPosition = clock.getMicroseconds();
     int noteCount = 0;
+    // TODO : We should move peek and pop onto track so that track processor is not aware of
+    // roll implementation
     Roll<Note> roll = track.getRoll();
     Event<Note> nextEvent = roll.peek();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;

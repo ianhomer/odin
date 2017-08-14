@@ -17,9 +17,11 @@ package com.purplepip.odin.sequence.conductor;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
 import org.junit.Test;
 
@@ -27,7 +29,9 @@ public class UnmodifiableConductorTest {
   @Test
   public void getActive() throws Exception {
     MutableThings<Conductor> mutableConductors = new MutableThings<>();
-    mutableConductors.add(new DefaultConductor(new DefaultLayer("test")));
+    LayerConductor newConductor = new LayerConductor(mock(BeatClock.class));
+    newConductor.setLayer(new DefaultLayer("test"));
+    mutableConductors.add(newConductor);
     Things<Conductor> conductors = new UnmodifiableConductors(mutableConductors);
     Conductor conductor = conductors.stream().findFirst().orElse(null);
     assertNotNull(conductor);

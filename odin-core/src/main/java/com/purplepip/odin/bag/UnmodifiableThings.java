@@ -47,4 +47,8 @@ public abstract class UnmodifiableThings<T extends Thing> implements Things<T> {
     return underlyingThings.getStatistics();
   }
 
+  @Override
+  public T findById(long id) {
+    return unmodifiable(underlyingThings.findById(id));
+  }
 }

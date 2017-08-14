@@ -16,7 +16,9 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.bag.MutableThings;
+import com.purplepip.odin.bag.UnmodifiableThings;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.conductor.Conductor;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -24,9 +26,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 class MutableTracks extends MutableThings<Track> {
-  void refresh(Supplier<Stream<Sequence>> sequenceStream, Supplier<SequenceTrack> trackSupplier) {
+  void refresh(Supplier<Stream<Sequence>> sequenceStream, Supplier<SequenceTrack> trackSupplier,
+               UnmodifiableThings<Conductor> conductors) {
     removeIf(track -> sequenceStream.get()
-        .noneMatch(sequence -> sequence.getId() == track.getId()));
+        .noneMatch(sequence -> sequence.getId() == track.getValue().getId()));
 
     sequenceStream.get().forEach(sequence -> {
       /*
@@ -46,19 +49,28 @@ class MutableTracks extends MutableThings<Track> {
           LOG.debug("Updating track for {}", sequence);
           incrementUpdatedCount();
           sequenceTrack = existingTrack.get();
+          sequenceTrack.setCopyOfSequence(sequence);
         }
       } else {
         LOG.debug("Creating new track for {}", sequence);
         sequenceTrack = trackSupplier.get();
+        sequenceTrack.setCopyOfSequence(sequence);
         add(sequenceTrack);
       }
-
-      if (sequenceTrack != null) {
-        /*
-         * Update sequence in new or modified track.
-         */
-        sequenceTrack.getSequenceRoll().setSequence(sequence.copy());
-      }
     });
+
+    /*
+     * Binding conductors to tracks.
+     * // TODO : This binding is a cheap implementaion for now just remove all bindings and
+     * // rebind.  It should be done more efficiently.
+     */
+    stream()
+        .filter(o -> o instanceof SequenceTrack)
+        .map(o -> (SequenceTrack) o).forEach(sequenceTrack -> {
+          sequenceTrack.unbindConductors();
+          sequenceTrack.getSequence().getLayers().stream().forEach(layer ->
+              sequenceTrack.bindConductor(conductors.findById(layer.getId()))
+          );
+        });
   }
 }

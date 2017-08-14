@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.bag;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
@@ -27,16 +27,28 @@ public class MutableThings<T extends Thing> implements Things<T> {
   private MutableThingStatistics mutableStatistics = new DefaultThingStatistics();
   private UnmodifiableThingStatistics statistics =
       new UnmodifiableThingStatistics(mutableStatistics);
-  private Set<T> things = new HashSet<>();
+  private Map<Long, T> things = new HashMap<>();
 
+  /**
+   * Add a thing to this mutable bag of things.
+   *
+   * @param thing thing to add
+   * @return true if added AOK
+   */
   public boolean add(T thing) {
     mutableStatistics.incrementAddedCount();
-    return things.add(thing);
+    things.put(thing.getId(), thing);
+    return true;
   }
 
   @Override
   public int size() {
     return things.size();
+  }
+
+  @Override
+  public T findById(long id) {
+    return things.get(id);
   }
 
   @Override
@@ -54,12 +66,12 @@ public class MutableThings<T extends Thing> implements Things<T> {
    * @param filter filter
    * @return true if anything removed
    */
-  public boolean removeIf(Predicate<Thing> filter) {
+  public boolean removeIf(Predicate<Map.Entry<Long, T>> filter) {
     /*
      * Remove any track for which the sequence in the project has been removed.
      */
     int sizeBefore = size();
-    boolean result = things.removeIf(filter);
+    boolean result = things.entrySet().removeIf(filter);
     if (result) {
       int removalCount = sizeBefore - size();
       LOG.debug("Removed {} tracks, ", removalCount);
@@ -73,11 +85,12 @@ public class MutableThings<T extends Thing> implements Things<T> {
 
   @Override
   public Stream<T> stream() {
-    return things.stream();
+    return things.values().stream();
   }
 
+  // TODO : Why do we need iterator?
   @Override
   public Iterator<T> iterator() {
-    return things.iterator();
+    return things.values().iterator();
   }
 }

@@ -16,7 +16,9 @@
 package com.purplepip.odin.sequence.conductor;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
 import com.purplepip.odin.sequence.layer.Layer;
 import org.junit.Test;
@@ -25,7 +27,8 @@ public class LayerRuntimeTest {
   @Test
   public void testLayerRuntime() {
     Layer layer = new DefaultLayer("test");
-    DefaultConductor conductor = new DefaultConductor(layer);
+    LayerConductor conductor = new LayerConductor(mock(BeatClock.class));
+    conductor.setLayer(layer);
     assertEquals(layer, conductor.getLayer());
   }
 }

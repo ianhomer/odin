@@ -15,13 +15,15 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.layer.Layer;
 
-public class DefaultConductor implements Conductor {
+public class LayerConductor implements Conductor {
   private Layer layer;
+  private BeatClock clock;
 
-  public DefaultConductor(Layer layer) {
-    this.layer = layer;
+  public LayerConductor(BeatClock clock) {
+    this.clock = clock;
   }
 
   @Override
@@ -31,6 +33,10 @@ public class DefaultConductor implements Conductor {
 
   public Layer getLayer() {
     return layer;
+  }
+
+  public void setLayer(Layer layer) {
+    this.layer = layer;
   }
 
   @Override

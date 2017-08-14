@@ -19,21 +19,28 @@ import java.util.stream.Stream;
 
 public interface Things<T extends Thing> extends Iterable<T> {
   /**
-   * Stream of tracks.
+   * Stream of things.
    *
-   * @return stream of tracks.
+   * @return stream of things.
    */
   Stream<T> stream();
 
   /**
-   * Number of tracks.
+   * Number of things.
    *
    * @return size
    */
   int size();
 
   /**
-   * Statistics.
+   * Find thing by ID.
+   *
+   * @return thing
+   */
+  T findById(long id);
+
+  /**
+   * Access statistics.
    */
   ThingStatistics getStatistics();
 }

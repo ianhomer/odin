@@ -298,8 +298,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       LOG.trace("is Active false : not started");
       return false;
     }
-    LOG.trace("isActive {} : {} < {}", getLength(), tock.getPosition(), getLength());
-    return getLength() < 0 || tock.getPosition().lt(Whole.valueOf(getLength()));
+    boolean result = getLength() < 0 || tock.getPosition().lt(Whole.valueOf(getLength()));
+    LOG.trace("isActive {} : {} < {}", result, tock.getPosition(), getLength());
+    return result;
   }
 
   private Event<A> getNextEventInternal(MovableTock tock) {
