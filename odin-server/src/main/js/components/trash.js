@@ -19,8 +19,8 @@ import { ItemTypes } from '../constants';
 import { DropTarget } from 'react-dnd';
 
 const sequenceInLayerTarget = {
-  drop() {
-    console.error('TODO : Implement drop');
+  drop(props) {
+    return { action : 'remove' }
   }
 };
 

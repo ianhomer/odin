@@ -19,9 +19,9 @@ const SequenceInLayer = require('./sequenceInLayer');
 
 class Layer extends React.Component{
   render() {
-    var sequenceNames = this.props.sequenceNames.map(sequenceName =>
-      <SequenceInLayer key={'layer-' + this.props.entity.name + '-' + sequenceName}
-        name={sequenceName}/>
+    var sequenceNames = this.props.sequenceNames.map(entry =>
+      <SequenceInLayer key={'layer-' + this.props.entity.name + '-' + entry.name}
+        name={entry.name} layerIndex={entry.index} href={entry.href}/>
     );
     return (
       <div className="layer card">

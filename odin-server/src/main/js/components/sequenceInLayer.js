@@ -24,9 +24,22 @@ import { ItemTypes } from '../constants.js';
  * Implements the drag source contract.
  */
 const cardSource = {
-  beginDrag() {
+  beginDrag(props) {
     return {
+      name : props.name,
+      layerIndex : props.layerIndex,
+      href : props.href
     };
+  },
+
+  endDrag(props, monitor, component) {
+    if (monitor.didDrop()) {
+      // REST call to remove
+      // test value still up to date and then remove it by the index value
+      // curl --request PATCH http://localhost:8080/api/patterns/2 --data '[{ "op": "test", "path": "/layers/0", "value":"groove" }, { "op": "remove", "path": "/layers/0" }]' -H "Content-Type: application/json-patch+json"
+      // to do this we need the sequence URI, index number and name for the layer
+      console.error('Dropped AOK : ' + JSON.stringify(props) + JSON.stringify(monitor.getDropResult()));
+    }
   }
 };
 
@@ -41,6 +54,9 @@ function collect(connect, monitor) {
 }
 
 const propTypes = {
+  name: PropTypes.string.isRequired,
+  layerIndex: PropTypes.number.isRequired,
+  href: PropTypes.string.isRequired,
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,
   connectDragSource: PropTypes.func.isRequired
@@ -50,11 +66,11 @@ const propTypes = {
 // Sequence in layer.
 class SequenceInLayer extends React.Component{
   render() {
-    const { isDragging, connectDragSource } = this.props;
+    const { isDragging, connectDragSource, name, layerIndex } = this.props;
     return connectDragSource(
       // View card
       <div className="sequenceInLayer" style={{ opacity: isDragging ? 0.5 : 1 }}>
-        {this.props.name}
+        {name} ({layerIndex})
       </div>
     );
   }

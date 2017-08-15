@@ -40,8 +40,15 @@ class LayerList extends React.Component{
       var sequenceNamesInLayer = [];
       for (var i = 0 ; i < sequences.length ; i ++) {
         var sequence = sequences[i];
-        if (sequence.layers.includes(entity.name)) {
-          sequenceNamesInLayer.push(sequence.name);
+        for (var j = 0 ; j < sequence.layers.length ; j++) {
+          var layerName = sequence.layers[j];
+          if (layerName == entity.name) {
+            sequenceNamesInLayer.push({
+              name : sequence.name,
+              index : j,
+              href : entity._links.self.href
+            });
+          }
         }
       }
 
