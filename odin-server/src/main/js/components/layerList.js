@@ -36,8 +36,17 @@ class LayerList extends React.Component{
 
   render() {
     var entities = this.state.entities.map(entity => {
+      var sequences = this.props.sequences;
+      var sequenceNamesInLayer = [];
+      for (var i = 0 ; i < sequences.length ; i ++) {
+        var sequence = sequences[i];
+        if (sequence.layers.includes(entity.name)) {
+          sequenceNamesInLayer.push(sequence.name);
+        }
+      }
+
       return (
-        <Layer entity={entity}
+        <Layer entity={entity} sequenceNames={sequenceNamesInLayer}
           key={entity._links.self.href} onDelete={this.onDelete}/>
       );
     });

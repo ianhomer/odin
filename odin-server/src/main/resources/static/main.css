@@ -125,6 +125,12 @@ div.card .content {
   text-align : center;
 }
 
+div.card.layer ul{
+  font-size : 0.6em;
+  list-style: none;
+  color : white;
+}
+
 div.card.sequence {
   background-color : #DDA0DD;
 }

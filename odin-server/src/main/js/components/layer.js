@@ -18,9 +18,13 @@ const React = require('react');
 
 class Layer extends React.Component{
   render() {
+    var sequenceNames = this.props.sequenceNames.map(sequenceName =>
+      <li>{sequenceName}</li>
+    );
     return (
       <div className="layer card">
         {this.props.entity.name}
+        <ul className="sequences">{sequenceNames}</ul>
       </div>
     );
   }
