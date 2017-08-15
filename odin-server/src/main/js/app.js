@@ -22,7 +22,6 @@ const client = require('./client');
 const crud = require('./crud');
 
 const ChannelList = require('./components/channelList');
-const LayerList = require('./components/layerList');
 const SequenceList = require('./components/sequenceList');
 const SequenceCards = require('./components/sequenceCards');
 
@@ -72,11 +71,7 @@ class App extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <div>
-            <LayerList project={this.state.project}/>
-            <div className="break">&nbsp;</div>
             <SequenceCards project={this.state.project}/>
-          </div>
         }
       </div>
     );

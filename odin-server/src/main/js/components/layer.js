@@ -19,7 +19,9 @@ const React = require('react');
 class Layer extends React.Component{
   render() {
     return (
-      <div className="layer card">{this.props.entity.name}</div>
+      <div className="layer card">
+        {this.props.entity.name}
+      </div>
     );
   }
 }

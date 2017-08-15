@@ -18,6 +18,7 @@ const React = require('react');
 
 const crud = require('./../crud');
 
+const LayerList = require('./layerList');
 const NotationCard = require('./notationCard');
 const PatternCard = require('./patternCard');
 const Sequences = {
@@ -61,9 +62,11 @@ class SequenceCards extends React.Component{
     });
 
     return (
-      // View sequence cards.
+      // Display layer list and sequence cards
       <div>
-        {entities}
+        <LayerList project={this.state.project} sequences={this.state.entities}/>
+        <div className="break">&nbsp;</div>
+        <div>{entities}</div>
       </div>
     );
   }
