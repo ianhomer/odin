@@ -24,7 +24,7 @@ import { ItemTypes } from '../constants.js';
  * Implements the drag source contract.
  */
 const cardSource = {
-  beginDrag(props) {
+  beginDrag() {
     return {
     };
   }
