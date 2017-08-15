@@ -108,7 +108,7 @@ input.inline {
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 }
 
-div.card {
+div.card, div.trash {
   display : inline-block;
   float : left;
   border : 2px solid black;

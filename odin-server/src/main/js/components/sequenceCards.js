@@ -21,6 +21,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 const crud = require('./../crud');
 
 const LayerList = require('./layerList');
+const Trash = require('./trash');
 const NotationCard = require('./notationCard');
 const PatternCard = require('./patternCard');
 const Sequences = {
@@ -67,6 +68,8 @@ class SequenceCards extends React.Component{
       // Display layer list and sequence cards
       <div>
         <LayerList project={this.state.project} sequences={this.state.entities}/>
+        <div className="break">&nbsp;</div>
+        <Trash/>
         <div className="break">&nbsp;</div>
         <div>{entities}</div>
       </div>
