@@ -33,8 +33,9 @@ class NotationCard extends React.Component{
     return (
       // View card
       <div className="sequence card">
-        <Score entity={this.state.entity}/>
-        <CardLayers entity={this.state.entity}/>
+        <header>{this.state.entity.name}</header>
+        <div className="content"><Score entity={this.state.entity}/></div>
+        <footer><CardLayers entity={this.state.entity}/></footer>
       </div>
     );
   }

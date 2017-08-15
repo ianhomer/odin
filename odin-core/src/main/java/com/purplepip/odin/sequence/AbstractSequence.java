@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +36,7 @@ public abstract class AbstractSequence implements MutableSequence {
    */
   private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
   protected long id = LAST_PATTERN_ID.incrementAndGet();
+  private String name;
 
   private Tick tick;
   private long length = -1;
@@ -44,7 +44,7 @@ public abstract class AbstractSequence implements MutableSequence {
   private int channel;
   private String flowName;
   private Project project;
-  private Set<Layer> layers = new HashSet<>();
+  private Set<String> layers = new HashSet<>();
 
   /**
    * ID auto generated.
@@ -57,7 +57,7 @@ public abstract class AbstractSequence implements MutableSequence {
    * ID taken from constructor.
    */
   public AbstractSequence(long id) {
-    this.id = id;
+    setId(id);
   }
 
   @Override
@@ -67,6 +67,21 @@ public abstract class AbstractSequence implements MutableSequence {
 
   protected void setId(long id) {
     this.id = id;
+    /*
+     * Auto generate name if one has not been provided.
+     */
+    if (name == null) {
+      setName(String.valueOf(id));
+    }
+  }
+
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   @Override
@@ -135,18 +150,18 @@ public abstract class AbstractSequence implements MutableSequence {
   }
 
   @Override
-  public Set<Layer> getLayers() {
+  public Set<String> getLayers() {
     return layers;
   }
 
   @Override
-  public void addLayer(Layer layer) {
+  public void addLayer(String layer) {
     LOG.debug("Adding layer : {}", layer);
     layers.add(layer);
   }
 
   @Override
-  public void removeLayer(Layer layer) {
+  public void removeLayer(String layer) {
     layers.remove(layer);
   }
 }

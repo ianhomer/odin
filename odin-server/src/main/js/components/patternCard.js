@@ -31,8 +31,9 @@ class PatternCard extends React.Component{
     return (
       // View card
       <div className="sequence card">
-        <div >{this.state.entity.bits}</div>
-        <CardLayers entity={this.state.entity}/>
+        <header>{this.state.entity.name}</header>
+        <div className="content">{this.state.entity.bits}</div>
+        <footer><CardLayers entity={this.state.entity}/></footer>
       </div>
     );
   }

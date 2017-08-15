@@ -41,6 +41,11 @@ public class SequenceTrack implements Track {
     return getSequence().getId();
   }
 
+  @Override
+  public String getName() {
+    return getSequence().getName();
+  }
+
   private SequenceRoll<Note> sequenceRoll;
   private TickConverter tickConverter;
   private Roll<Note> roll;

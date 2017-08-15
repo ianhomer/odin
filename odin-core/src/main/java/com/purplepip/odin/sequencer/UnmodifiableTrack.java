@@ -32,6 +32,11 @@ public class UnmodifiableTrack implements Track {
   }
 
   @Override
+  public String getName() {
+    return underlyingTrack.getName();
+  }
+
+  @Override
   public int getChannel() {
     return underlyingTrack.getChannel();
   }

@@ -44,15 +44,15 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
       new PersistableProjectBuilder(projectContainer)
           .addLayer("groove").withLayers("groove")
           .withChannel(1).changeProgramTo("aahs")
-          .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
+          .withName("aahs").withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
           .withChannel(2).changeProgramTo("rock")
-          .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
+          .withName("rock").withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
           .withChannel(9).changeProgramTo("TR-909")
-          .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
-          .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
-          .withNote(46).addPattern(Ticks.TWO_THIRDS, 7)
+          .withName("loud").withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
+          .withName("eighths").withVelocity(40).addPattern(Ticks.EIGHTH, 127)
+          .withName("thirds").withNote(46).addPattern(Ticks.TWO_THIRDS, 7)
           .withChannel(2)
-          .addNotation(Ticks.BEAT, "C#5/q, B4, A4, G#4");
+          .withName("notes").addNotation(Ticks.BEAT, "C#5/q, B4, A4, G#4");
       projectContainer.save();
       LOG.info("Default sequences loaded");
       projectContainer.apply();

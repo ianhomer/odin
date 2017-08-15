@@ -18,14 +18,13 @@ package com.purplepip.odin.store.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.MutableSequence;
-import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +32,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
@@ -60,6 +58,8 @@ public abstract class AbstractPersistableSequence implements MutableSequence {
   @GeneratedValue(strategy = GenerationType.TABLE)
   public long id;
 
+  private String name;
+
   @Version
   @JsonIgnore
   private Long version;
@@ -77,17 +77,16 @@ public abstract class AbstractPersistableSequence implements MutableSequence {
   @NotNull
   private Tick tick;
 
-  @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private Set<Layer> layers = new HashSet<>(0);
+  @ElementCollection
+  private Set<String> layers = new HashSet<>(0);
 
   @Override
-  public void removeLayer(Layer layer) {
+  public void removeLayer(String layer) {
     layers.remove(layer);
   }
 
   @Override
-  public void addLayer(Layer layer) {
+  public void addLayer(String layer) {
     layers.add(layer);
   }
 

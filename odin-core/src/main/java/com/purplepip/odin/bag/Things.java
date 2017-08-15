@@ -40,6 +40,13 @@ public interface Things<T extends Thing> extends Iterable<T> {
   T findById(long id);
 
   /**
+   * Find thing by name.
+   *
+   * @return thing
+   */
+  T findByName(String name);
+
+  /**
    * Access statistics.
    */
   ThingStatistics getStatistics();

@@ -64,6 +64,7 @@ class Pattern extends React.Component{
         // View entity
 
         <div className="row" onClick={this.toggleEditing}>
+          <div className="col-1">{sequence.name}</div>
           <div className="col-1">{sequence.bits}</div>
           <div className="col-2 component">{sequence.note ?
             <Note
@@ -88,9 +89,6 @@ class Pattern extends React.Component{
             {sequence.flowName}
           </div>
           <div className="col-1">
-            {sequence.layers}
-          </div>
-          <div className="col-1">
             <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
           </div>
         </div>
@@ -102,7 +100,8 @@ class Pattern extends React.Component{
 Pattern.defaultProps = {
   path: 'patterns',
   fields: {
-    'bits' : {defaultValue : 1},
+    'name' : {maxLength : 8},
+    'bits' : { defaultValue : 1 },
     'note' : {
       cellWidth : 2,
       fields : {

@@ -40,6 +40,11 @@ public class LayerConductor implements Conductor {
     return layer.getId();
   }
 
+  @Override
+  public String getName() {
+    return layer.getName();
+  }
+
   public Layer getLayer() {
     return layer;
   }

@@ -28,6 +28,7 @@ public class MutableThings<T extends Thing> implements Things<T> {
   private UnmodifiableThingStatistics statistics =
       new UnmodifiableThingStatistics(mutableStatistics);
   private Map<Long, T> things = new HashMap<>();
+  private Map<String, T> thingsByName = new HashMap<>();
 
   /**
    * Add a thing to this mutable bag of things.
@@ -38,6 +39,7 @@ public class MutableThings<T extends Thing> implements Things<T> {
   public boolean add(T thing) {
     mutableStatistics.incrementAddedCount();
     things.put(thing.getId(), thing);
+    thingsByName.put(thing.getName(), thing);
     return true;
   }
 
@@ -49,6 +51,15 @@ public class MutableThings<T extends Thing> implements Things<T> {
   @Override
   public T findById(long id) {
     return things.get(id);
+  }
+
+  @Override
+  public T findByName(String name) {
+    T thing = thingsByName.get(name);
+    if (thing == null) {
+      LOG.warn("Cannot find thing with name {}", name);
+    }
+    return thing;
   }
 
   @Override

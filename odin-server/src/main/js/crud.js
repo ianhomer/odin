@@ -29,9 +29,27 @@ const root = '/api';
 const ajv = new Ajv({extendRefs : true});
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
 
+const VERIFY_IGNORE_PROPERTIES = ['_links.self.href'];
+
 function setFieldValue(entity, schemaId, schema, refs, name, key) {
   var value = getFieldValue(schemaId, schema, refs, name, key);
   if (value) {
+    /*
+     * Split array properties.
+     */
+    var definition = schema.properties[name];
+    if (definition == null) {
+      if (!VERIFY_IGNORE_PROPERTIES.includes(name)) {
+        console.error('Why is definition null?  Trying to set property ' + name + ' in ' + entity);
+      }
+    } else {
+      if (definition.type == 'array') {
+        value = value.split(',');
+      }
+    }
+    /*
+     * Set the property in the entity.
+     */
     objectPath.set(entity, name, value);
   }
 }
@@ -201,7 +219,7 @@ module.exports = {
       setFieldValue(entity, schemaId, schema, this.refs, name);
     }, this);
     // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
-    setFieldValue(entity, schemaId, null, this.refs, '_links.self.href');
+    setFieldValue(entity, schemaId, schema, this.refs, '_links.self.href');
     var path = getFieldValue(schemaId, schema, this.refs, 'path', null, false);
     if (path) {
       this.props.onApply(entity, path);

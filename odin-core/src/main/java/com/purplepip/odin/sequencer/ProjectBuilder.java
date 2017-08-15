@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Wholes;
@@ -57,12 +56,13 @@ public class ProjectBuilder {
   private static final String DEFAULT_NOTATION_FORMAT = "natural";
 
   private ProjectContainer projectContainer;
+  private String name;
   private int channel;
   private int note = DEFAULT_NOTE;
   private int velocity = DEFAULT_VELOCITY;
   private int length = -1;
   private int offset;
-  private Set<Layer> layersToAdd = new HashSet<>();
+  private Set<String> layerNamesToAdd = new HashSet<>();
   private List<Long> sequenceIds = new ArrayList<>();
   private List<Long> channelIds = new ArrayList<>();
 
@@ -216,6 +216,11 @@ public class ProjectBuilder {
     return this;
   }
 
+  public ProjectBuilder withName(String name) {
+    this.name = name;
+    return this;
+  }
+
   public ProjectBuilder withChannel(int channel) {
     this.channel = channel;
     return this;
@@ -238,17 +243,14 @@ public class ProjectBuilder {
   }
 
   /**
-   * Specify which layers to plus to the sequence.
+   * Specify which layers to add to the sequence.
    *
-   * @param layers layers to plus to the sequence.
+   * @param layers layers to add to the sequence.
    * @return project builder
    */
   public ProjectBuilder withLayers(String... layers) {
-    List<String> layerNamesToAdd = Lists.newArrayList(layers);
-    this.layersToAdd = Sets.newHashSet(
-        projectContainer.getLayerStream()
-            .filter(l -> layerNamesToAdd.contains(l.getName())).iterator());
-    LOG.debug("Layers to plus : {}", layersToAdd);
+    layerNamesToAdd = Sets.newHashSet(layers);
+    LOG.debug("Layers to add : {}", layerNamesToAdd);
     return this;
   }
 
@@ -351,11 +353,12 @@ public class ProjectBuilder {
   }
 
   private Sequence applyParameters(MutableSequence sequence) {
+    sequence.setName(name);
     sequence.setOffset(0);
     sequence.setChannel(channel);
     sequence.setLength(length);
     sequence.setOffset(offset);
-    layersToAdd.forEach(sequence::addLayer);
+    layerNamesToAdd.forEach(sequence::addLayer);
     return sequence;
   }
 }

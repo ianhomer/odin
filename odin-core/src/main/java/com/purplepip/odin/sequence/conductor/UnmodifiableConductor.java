@@ -28,6 +28,11 @@ public class UnmodifiableConductor implements Conductor {
   }
 
   @Override
+  public String getName() {
+    return underlyingConductor.getName();
+  }
+
+  @Override
   public boolean isActive(long microseconds) {
     return underlyingConductor.isActive(microseconds);
   }

@@ -121,12 +121,27 @@ div.card {
   border-radius: 1em;
 }
 
+div.card .content {
+  text-align : center;
+}
+
 div.card.sequence {
   background-color : #DDA0DD;
 }
 
 div.card.layer {
   background-color : #D8BFD8;
+}
+
+div.card header {
+  font-weight : bold;
+  font-size : 0.6em;
+}
+
+div.card footer {
+  font-size : 0.6em;
+  text-align : right;
+  color : white;
 }
 
 div.break {

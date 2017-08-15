@@ -69,7 +69,7 @@ class MutableTracks extends MutableThings<Track> {
         .map(o -> (SequenceTrack) o).forEach(sequenceTrack -> {
           sequenceTrack.unbindConductors();
           sequenceTrack.getSequence().getLayers().stream().forEach(layer ->
-              sequenceTrack.bindConductor(conductors.findById(layer.getId()))
+              sequenceTrack.bindConductor(conductors.findByName(layer))
           );
         });
   }

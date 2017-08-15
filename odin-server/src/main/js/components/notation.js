@@ -63,6 +63,7 @@ class Notation extends React.Component{
         // View entity
 
         <div className="row" onClick={this.toggleEditing}>
+          <div className="col-1">{sequence.name}</div>
           <div className="col-3">
             <Score entity={sequence} displayText="true"/>
           </div>
@@ -82,9 +83,6 @@ class Notation extends React.Component{
             {sequence.flowName}
           </div>
           <div className="col-1">
-            {sequence.layers}
-          </div>
-          <div className="col-1">
             <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
           </div>
         </div>
@@ -96,6 +94,7 @@ class Notation extends React.Component{
 Notation.defaultProps = {
   path: 'notations',
   fields: {
+    'name' : {maxLength : 8},
     'format' : {
       cellWidth : 1,
       defaultValue : 'natural',

@@ -51,4 +51,9 @@ public abstract class UnmodifiableThings<T extends Thing> implements Things<T> {
   public T findById(long id) {
     return unmodifiable(underlyingThings.findById(id));
   }
+
+  @Override
+  public T findByName(String name) {
+    return unmodifiable(underlyingThings.findByName(name));
+  }
 }

@@ -17,7 +17,6 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.Set;
 
@@ -26,11 +25,16 @@ import java.util.Set;
  */
 public interface Sequence extends Copyable<Sequence> {
   /**
-   * Unique sequence ID.
+   * Unique system generated sequence ID.
    *
    * @return sequence ID
    */
   long getId();
+
+  /**
+   * User generated name which should be unique within the context of use, e.g. project
+   */
+  String getName();
 
   /**
    * Units for 1 tick of this sequence.
@@ -84,7 +88,7 @@ public interface Sequence extends Copyable<Sequence> {
   void setProject(Project project);
 
   /**
-   * Get the sequence layers.
+   * Get the sequence layer names.
    */
-  Set<Layer> getLayers();
+  Set<String> getLayers();
 }

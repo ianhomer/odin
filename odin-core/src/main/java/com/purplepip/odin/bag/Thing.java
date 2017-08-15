@@ -16,5 +16,17 @@
 package com.purplepip.odin.bag;
 
 public interface Thing {
+  /**
+   * Get ID for the thing.
+   *
+   * @return id
+   */
   long getId();
+
+  /**
+   * Get the name for the thing.
+   *
+   * @return name
+   */
+  String getName();
 }
