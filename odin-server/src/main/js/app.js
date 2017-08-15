@@ -16,6 +16,8 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 const client = require('./client');
 const crud = require('./crud');
 
@@ -28,8 +30,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sequences: [], projects: [],  project: null, pageSize: 10,
+      projects: [],  project: null, pageSize: 10,
     };
+
+    this.renderSequenceList = this.renderSequenceList.bind(this);
+    this.renderChannelList = this.renderChannelList.bind(this);
+    this.renderLayerList = this.renderLayerList.bind(this);
   }
 
   componentDidMount() {
@@ -37,30 +43,49 @@ class App extends React.Component {
     client({method: 'GET', path: '/api/projects'}).done(response => {
       var projects = response.entity._embedded.projects;
       this.setState({projects: projects, project: projects[0]});
-
       crud.loadSchema('channels');
     });
   }
 
-  render() {
-    // TODO : Switch to generic sequence list to configure more than just patterns
+  renderSequenceList() {
     return (
       <div>
-        {this.state.entities &&
-          <div className="warn">WARNING : Entities store in app state {JSON.stringify(this.state.entities)}</div>
-        }
         {this.state.project &&
-          <div>
-            <SequenceList project={this.state.project}/>
-          </div>
+          <SequenceList project={this.state.project}/>
         }
-        {this.state.project &&
-          <LayerList project={this.state.project}/>
-        }
+      </div>
+    );
+  }
+
+  renderChannelList() {
+    return (
+      <div>
         {this.state.project &&
           <ChannelList project={this.state.project}/>
         }
       </div>
+    );
+  }
+
+  renderLayerList() {
+    return (
+      <div>
+        {this.state.project &&
+          <LayerList project={this.state.project}/>
+        }
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route exact path="/app" component={this.renderLayerList}/>
+          <Route exact path="/app/sequences" component={this.renderSequenceList}/>
+          <Route exact path="/app/channels" component={this.renderChannelList}/>
+        </div>
+      </Router>
     );
   }
 }

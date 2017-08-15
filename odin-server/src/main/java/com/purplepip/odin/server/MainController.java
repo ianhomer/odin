@@ -16,22 +16,30 @@
 package com.purplepip.odin.server;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Odin Main Controller.
+ * Odin App Controller.
  */
 @Controller
 public class MainController {
   /**
    * Index page.
    *
-   * @param model model
-   * @return template to render
+   * @return redirect reference
    */
   @RequestMapping("/")
-  public String index(Model model) {
+  public String index() {
+    return "redirect:/app";
+  }
+
+  /**
+   * Index page.
+   *
+   * @return template to render
+   */
+  @RequestMapping("/app/**")
+  public String app() {
     return "index";
   }
 }
