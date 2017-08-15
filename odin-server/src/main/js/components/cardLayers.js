@@ -16,12 +16,19 @@
 
 const React = require('react');
 
-class Layer extends React.Component{
+// CardLayers component.
+class CardLayers extends React.Component{
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
-      <div className="layer card">{this.props.entity.name}</div>
+      <div>
+        Layers : {this.props.entity.layers}
+      </div>
     );
   }
 }
 
-module.exports = Layer;
+module.exports = CardLayers;

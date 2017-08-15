@@ -15,13 +15,27 @@
 'use strict';
 
 const React = require('react');
+const CardLayers = require('./cardLayers');
 
-class Layer extends React.Component{
+// Pattern card.
+class PatternCard extends React.Component{
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      entity: this.props.entity
+    };
+  }
+
   render() {
     return (
-      <div className="layer card">{this.props.entity.name}</div>
+      // View card
+      <div className="sequence card">
+        <div >{this.state.entity.bits}</div>
+        <CardLayers entity={this.state.entity}/>
+      </div>
     );
   }
 }
 
-module.exports = Layer;
+module.exports = PatternCard;

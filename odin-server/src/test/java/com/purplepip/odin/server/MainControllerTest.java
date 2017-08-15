@@ -26,7 +26,7 @@ public class MainControllerTest {
 
   @Test
   public void testHello() throws Exception {
-    mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+    mvc.perform(MockMvcRequestBuilders.get("/app").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(content().string(CoreMatchers.containsString("odin")));
   }

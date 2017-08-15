@@ -11,30 +11,30 @@
       Categories for this code base.
       -->
   <logger name="com.purplepip" level="INFO"/>
-  <logger name="com.purplepip.odin.store" level="DEBUG"/>
+  <logger name="com.purplepip.odin.store" level="INFO"/>
 
   <!--
       Log messages for spring bean creation and access.
       -->
-  <logger name="org.springframework" level="DEBUG"/>
-  <logger name="org.springframework.beans" level="INFO"/>
+  <logger name="org.springframework" level="ERROR"/>
+  <logger name="org.springframework.beans" level="ERROR"/>
 
   <!--
       Log messages for spring application context caching.  Spring tests use multiple application
       contexts using caching to share contexts where appropriate.  These messages can help
       understand how this logic is taking place.
       -->
-  <logger name="org.springframework.test.context.cache" level="DEBUG"/>
+  <logger name="org.springframework.test.context.cache" level="ERROR"/>
 
   <!--
       Hibernate logging.
       -->
-  <logger name="org.hibernate" level="INFO"/>
-  <logger name="org.hibernate.SQL" level="DEBUG"/>
-  <logger name="org.hibernate.event.internal" level="DEBUG"/>
-  <logger name="org.hibernate.engine.internal" level="DEBUG"/>
-  <logger name="org.hibernate.internal.util" level="INFO"/>
-  <logger name="org.hibernate.hql.internal.ast.AST" level="INFo"/>
+  <logger name="org.hibernate" level="ERROR"/>
+  <logger name="org.hibernate.SQL" level="ERROR"/>
+  <logger name="org.hibernate.event.internal" level="ERROR"/>
+  <logger name="org.hibernate.engine.internal" level="ERROR"/>
+  <logger name="org.hibernate.internal.util" level="ERROR"/>
+  <logger name="org.hibernate.hql.internal.ast.AST" level="ERROR"/>
 
   <root level="WARN">
     <appender-ref ref="STDOUT"/>

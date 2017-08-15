@@ -16,12 +16,28 @@
 
 const React = require('react');
 
-class Layer extends React.Component{
+const Score = require('./score');
+const CardLayers = require('./cardLayers');
+
+// Notation card.
+class NotationCard extends React.Component{
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      entity: this.props.entity
+    };
+  }
+
   render() {
     return (
-      <div className="layer card">{this.props.entity.name}</div>
+      // View card
+      <div className="sequence card">
+        <Score entity={this.state.entity}/>
+        <CardLayers entity={this.state.entity}/>
+      </div>
     );
   }
 }
 
-module.exports = Layer;
+module.exports = NotationCard;

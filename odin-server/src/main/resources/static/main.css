@@ -107,3 +107,28 @@ input.inline {
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 }
+
+div.card {
+  display : inline-block;
+  float : left;
+  border : 2px solid black;
+  margin: 1em;
+  padding: 1em;
+  min-height: 5em;
+  min-width: 5em;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+}
+
+div.card.sequence {
+  background-color : #DDA0DD;
+}
+
+div.card.layer {
+  background-color : #D8BFD8;
+}
+
+div.break {
+  clear : left;
+}

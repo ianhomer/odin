@@ -27,7 +27,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("!test")
+@Profile({"!test"})
 @Order(2)
 @Slf4j
 public class DefaultRuntimeProjectLoader implements ApplicationRunner {
@@ -56,7 +56,6 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
       projectContainer.save();
       LOG.info("Default sequences loaded");
       projectContainer.apply();
-      projectContainer.getSequenceStream().forEach(sequence -> LOG.info("{}", sequence));
       LOG.info("Default project populated");
     } else {
       LOG.warn("Default project has already been loaded");
