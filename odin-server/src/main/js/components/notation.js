@@ -94,7 +94,7 @@ class Notation extends React.Component{
 Notation.defaultProps = {
   path: 'notations',
   fields: {
-    'name' : {maxLength : 8},
+    'name' : { size : 8, maxLength : 8},
     'format' : {
       cellWidth : 1,
       defaultValue : 'natural',

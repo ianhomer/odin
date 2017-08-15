@@ -135,6 +135,8 @@ div.card.layer div.sequenceInLayer {
   border-radius: 1em;
   text-align : center;
   margin : 0.1em;
+  padding-left : 1em;
+  padding-right : 1em;
 }
 
 div.card.sequence {
