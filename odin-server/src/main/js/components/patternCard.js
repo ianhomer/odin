@@ -17,6 +17,36 @@
 const React = require('react');
 const CardLayers = require('./cardLayers');
 
+import PropTypes from 'prop-types';
+import { DragSource } from 'react-dnd';
+import { ItemTypes } from '../constants.js';
+
+/**
+ * Implements the drag source contract.
+ */
+const cardSource = {
+  beginDrag(props) {
+    return {
+    };
+  }
+};
+
+/**
+ * Specifies the props to inject into your component.
+ */
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
+
+const propTypes = {
+  // Injected by React DnD:
+  isDragging: PropTypes.bool.isRequired,
+  connectDragSource: PropTypes.func.isRequired
+};
+
 // Pattern card.
 class PatternCard extends React.Component{
   constructor(props) {
@@ -28,9 +58,10 @@ class PatternCard extends React.Component{
   }
 
   render() {
-    return (
+    const { isDragging, connectDragSource } = this.props;
+    return connectDragSource(
       // View card
-      <div className="sequence card">
+      <div className="sequence card" style={{ opacity: isDragging ? 0.5 : 1 }}>
         <header>{this.state.entity.name}</header>
         <div className="content">{this.state.entity.bits}</div>
         <footer><CardLayers entity={this.state.entity}/></footer>
@@ -39,4 +70,6 @@ class PatternCard extends React.Component{
   }
 }
 
-module.exports = PatternCard;
+PatternCard.propTypes = propTypes;
+
+module.exports = DragSource(ItemTypes.SEQUENCE, cardSource, collect)(PatternCard);

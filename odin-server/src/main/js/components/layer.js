@@ -19,7 +19,7 @@ const React = require('react');
 class Layer extends React.Component{
   render() {
     var sequenceNames = this.props.sequenceNames.map(sequenceName =>
-      <li>{sequenceName}</li>
+      <li key={'layer-' + this.props.entity.name + '-' + sequenceName}>{sequenceName}</li>
     );
     return (
       <div className="layer card">

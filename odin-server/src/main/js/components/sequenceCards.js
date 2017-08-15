@@ -15,6 +15,8 @@
 'use strict';
 
 const React = require('react');
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 const crud = require('./../crud');
 
@@ -76,4 +78,4 @@ SequenceCards.defaultProps = {
   path: 'sequences'
 };
 
-module.exports = SequenceCards;
+module.exports = DragDropContext(HTML5Backend)(SequenceCards);

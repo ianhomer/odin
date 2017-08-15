@@ -19,6 +19,37 @@ const React = require('react');
 const Score = require('./score');
 const CardLayers = require('./cardLayers');
 
+import PropTypes from 'prop-types';
+import { DragSource } from 'react-dnd';
+import { ItemTypes } from '../constants.js';
+
+/**
+ * Implements the drag source contract.
+ */
+const cardSource = {
+  beginDrag(props) {
+    return {
+    };
+  }
+};
+
+/**
+ * Specifies the props to inject into your component.
+ */
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
+
+const propTypes = {
+  // Injected by React DnD:
+  isDragging: PropTypes.bool.isRequired,
+  connectDragSource: PropTypes.func.isRequired
+};
+
+
 // Notation card.
 class NotationCard extends React.Component{
   constructor(props) {
@@ -30,9 +61,10 @@ class NotationCard extends React.Component{
   }
 
   render() {
-    return (
+    const { isDragging, connectDragSource } = this.props;
+    return connectDragSource(
       // View card
-      <div className="sequence card">
+      <div className="sequence card" style={{ opacity: isDragging ? 0.5 : 1 }}>
         <header>{this.state.entity.name}</header>
         <div className="content"><Score entity={this.state.entity}/></div>
         <footer><CardLayers entity={this.state.entity}/></footer>
@@ -41,4 +73,7 @@ class NotationCard extends React.Component{
   }
 }
 
-module.exports = NotationCard;
+NotationCard.propTypes = propTypes;
+
+// Export the wrapped component:
+module.exports = DragSource(ItemTypes.SEQUENCE, cardSource, collect)(NotationCard);
