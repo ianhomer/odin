@@ -68,7 +68,6 @@ class SequenceCards extends React.Component{
       // Display layer list and sequence cards
       <div>
         <LayerList project={this.state.project} sequences={this.state.entities}/>
-        <div className="break">&nbsp;</div>
         <Trash/>
         <div className="break">&nbsp;</div>
         <div>{entities}</div>

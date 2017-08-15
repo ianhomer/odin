@@ -15,6 +15,22 @@
 'use strict';
 
 const React = require('react');
+import PropTypes from 'prop-types';
+import { ItemTypes } from '../constants';
+import { DropTarget } from 'react-dnd';
+
+const sequenceInLayerTarget = {
+  drop(props, monitor) {
+    console.error('TODO : Implement drop');
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
 
 // Trash component.
 class Trash extends React.Component{
@@ -23,10 +39,11 @@ class Trash extends React.Component{
   }
 
   render() {
-    return (
-      <div className="trash">trash</div>
+    const { connectDropTarget, isOver } = this.props;
+    return connectDropTarget(
+      <div className="trash">remove</div>
     );
   }
 }
 
-module.exports = Trash;
+module.exports = DropTarget(ItemTypes.SEQUENCE_IN_LAYER, sequenceInLayerTarget, collect)(Trash);
