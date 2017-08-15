@@ -15,16 +15,18 @@
 'use strict';
 
 const React = require('react');
+const SequenceInLayer = require('./sequenceInLayer');
 
 class Layer extends React.Component{
   render() {
     var sequenceNames = this.props.sequenceNames.map(sequenceName =>
-      <li key={'layer-' + this.props.entity.name + '-' + sequenceName}>{sequenceName}</li>
+      <SequenceInLayer key={'layer-' + this.props.entity.name + '-' + sequenceName}
+        name={sequenceName}/>
     );
     return (
       <div className="layer card">
         {this.props.entity.name}
-        <ul className="sequences">{sequenceNames}</ul>
+        <div className="sequences">{sequenceNames}</div>
       </div>
     );
   }

@@ -125,10 +125,16 @@ div.card .content {
   text-align : center;
 }
 
-div.card.layer ul{
+div.card.layer div.sequenceInLayer {
+  border : 2px solid black;
+  background-color : #DDA0DD;
   font-size : 0.6em;
-  list-style: none;
   color : white;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+  text-align : center;
+  margin : 0.1em;
 }
 
 div.card.sequence {
