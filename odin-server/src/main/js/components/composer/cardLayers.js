@@ -25,7 +25,7 @@ class CardLayers extends React.Component{
   render() {
     return (
       <div>
-        {this.props.entity.layers}
+        {this.props.entity.layers.map(layer => <div>{layer}</div>)}
       </div>
     );
   }

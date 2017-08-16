@@ -243,7 +243,7 @@ module.exports = {
   },
 
   // Patch entity via REST API.
-  onPatch : function(href, patch) {
+  onPatch : function(href, patch, callback) {
     client({
       method: 'PATCH',
       path: href,
@@ -255,6 +255,9 @@ module.exports = {
         //'If-Match': entity.headers.Etag
       }
     }).done(_response => {
+      if (callback) {
+        callback();
+      }
       // this.loadFromServer();
     }, response => {
       if (response.status && response.status.code === 400) {

@@ -31,7 +31,7 @@ class EditEntity extends React.Component{
       this.onApply = crud.onCreate.bind(this);
     }
     this.getSchemaDefinition = crud.getSchemaDefinition.bind(this);
-    this.getschema = crud.getschema.bind(this);
+    this.getSchema = crud.getSchema.bind(this);
     this.handleKeyPress = this._handleKeyPress.bind(this);
   }
 

@@ -31,10 +31,16 @@ class LayerList extends React.Component{
     };
 
     crud.bindMe(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyPress = this._handleKeyPress.bind(this);
     this.handleNewLayer = this.handleNewLayer.bind(this);
     this.onCreate = this.onCreate.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+  }
+
+  handleDelete(entity) {
+    this.onDelete(entity);
   }
 
   handleChange() {
@@ -85,7 +91,7 @@ class LayerList extends React.Component{
       return (
         <Layer entity={entity} sequences={sequencesInLayer}
           key={entity._links.self.href} onDelete={this.onDelete}
-          onChange={this.handleChange}/>
+          onChange={this.handleChange} onDelete={this.handleDelete}/>
       );
     });
     return (
@@ -94,7 +100,7 @@ class LayerList extends React.Component{
         <Trash/>
         <div className="break">&nbsp;</div>
         <div>
-          create new layer :
+          create new layer :&nbsp;
           <input key="new-layer-name" type="text" className="inline"
             onKeyPress={this.handleKeyPress}
             size="8" maxLength="8"

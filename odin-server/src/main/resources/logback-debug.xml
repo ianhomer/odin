@@ -29,12 +29,12 @@
   <!--
       Hibernate logging.
       -->
-  <logger name="org.hibernate" level="ERROR"/>
-  <logger name="org.hibernate.SQL" level="ERROR"/>
-  <logger name="org.hibernate.event.internal" level="ERROR"/>
-  <logger name="org.hibernate.engine.internal" level="ERROR"/>
-  <logger name="org.hibernate.internal.util" level="ERROR"/>
-  <logger name="org.hibernate.hql.internal.ast.AST" level="ERROR"/>
+  <logger name="org.hibernate" level="INFO"/>
+  <logger name="org.hibernate.SQL" level="INFO"/>
+  <logger name="org.hibernate.event.internal" level="INFO"/>
+  <logger name="org.hibernate.engine.internal" level="INFO"/>
+  <logger name="org.hibernate.internal.util" level="INFO"/>
+  <logger name="org.hibernate.hql.internal.ast.AST" level="INFO"/>
 
   <root level="WARN">
     <appender-ref ref="STDOUT"/>

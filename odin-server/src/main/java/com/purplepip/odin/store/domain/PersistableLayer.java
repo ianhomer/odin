@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.layer.Layer;
@@ -34,6 +35,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,12 +47,17 @@ import lombok.ToString;
 @Data
 @Entity(name = "Layer")
 @Table(name = "Layer")
-@EqualsAndHashCode(exclude = "project")
+@EqualsAndHashCode(of = "name")
 @ToString(exclude = "project")
 public class PersistableLayer implements MutableLayer {
+  @Version
+  @JsonIgnore
+  private Long version;
+
   @Id
   @GeneratedValue
   private long id;
+
   private String name;
 
   @ManyToOne(targetEntity = PersistableProject.class)
@@ -73,11 +80,14 @@ public class PersistableLayer implements MutableLayer {
     setDefaults();
   }
 
-  public void addToProject() {
+  private void addToProject() {
     project.addLayer(this);
   }
 
-  public void setDefaults() {
+  /**
+   * Set default values.
+   */
+  private void setDefaults() {
     if (tick == null) {
       PersistableTick newTick = new PersistableTick();
       newTick.setTimeUnit(TimeUnit.BEAT);

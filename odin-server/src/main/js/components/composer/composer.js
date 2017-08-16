@@ -58,9 +58,7 @@ class Composer extends React.Component{
     this.onPatch(destination._links.self.href,
       [
         { op: 'add', path: '/layers/-', value: layer.name }
-      ]
-    );
-    this.handleChange();
+      ], this.handleChange);
   }
 
   render() {

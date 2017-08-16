@@ -65,6 +65,7 @@ public class ProjectBuilder {
   private Set<String> layerNamesToAdd = new HashSet<>();
   private List<Long> sequenceIds = new ArrayList<>();
   private List<Long> channelIds = new ArrayList<>();
+  private List<Long> layerIds = new ArrayList<>();
 
   public ProjectBuilder(ProjectContainer projectContainer) {
     this.projectContainer = projectContainer;
@@ -89,6 +90,13 @@ public class ProjectBuilder {
    */
   public Channel getChannelByOrder(int id) {
     return projectContainer.getChannel(channelIds.get(id));
+  }
+
+  /*
+   * As per getSequenceByOrder logic.
+   */
+  public Layer getLayerByOrder(int id) {
+    return projectContainer.getLayer(layerIds.get(id));
   }
 
 
@@ -212,6 +220,7 @@ public class ProjectBuilder {
   public ProjectBuilder addLayer(String name) {
     MutableLayer layer = withDefaults(createLayer());
     layer.setName(name);
+    layerIds.add(layer.getId());
     projectContainer.addLayer(layer);
     return this;
   }

@@ -68,7 +68,7 @@ class SequenceInLayer extends React.Component{
     return connectDragSource(
       // View card
       <div className="sequenceInLayer" style={{ opacity: isDragging ? 0.5 : 1 }}>
-        {name} ({layerIndex})
+        {name}
       </div>
     );
   }

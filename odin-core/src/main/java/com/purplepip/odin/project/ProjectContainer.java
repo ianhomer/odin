@@ -208,6 +208,17 @@ public class ProjectContainer {
   }
 
   /**
+   * Get layer by ID.
+   *
+   * @param id layer ID
+   * @return layer for the given ID.
+   */
+  public Layer getLayer(long id) {
+    return getProject().getLayers().stream().filter(s -> s.getId() == id)
+        .findFirst().orElse(null);
+  }
+
+  /**
    * Layer stream.
    *
    * @return layer stream

@@ -18,11 +18,34 @@ const React = require('react');
 import PropTypes from 'prop-types';
 
 import { ItemTypes } from '../../constants';
-import { DropTarget } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 
 const crud = require('../../crud');
 
 const SequenceInLayer = require('./sequenceInLayer');
+
+/**
+ * Implements the drag source contract.
+ */
+const dragSource = {
+  beginDrag(props) {
+    return {
+      onChange : props.onChange,
+      entity : props.entity
+    };
+  },
+
+  endDrag(props, monitor) {
+    if (monitor.didDrop()) {
+      var action = monitor.getDropResult().action;
+      if (action == 'remove') {
+        props.onDelete(props.entity);
+      } else {
+        console.error('Only remove action has been implemented for layers');
+      }
+    }
+  }
+};
 
 const dropTarget = {
   drop(props) {
@@ -44,7 +67,14 @@ const dropTarget = {
   }
 };
 
-function collect(connect, monitor) {
+function collectDrag(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
+
+function collectDrop(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
@@ -54,6 +84,7 @@ function collect(connect, monitor) {
 const propTypes = {
   entity: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   sequences: PropTypes.array.isRequired
 };
 
@@ -80,20 +111,21 @@ class Layer extends React.Component{
 
   render() {
     var sequenceNames = this.props.sequences.map(entry =>
-      <SequenceInLayer key={'layer-' + this.props.entity.name + '-' + entry.name}
+      <SequenceInLayer key={entry.name + '-' + this.props.entity._links.self.href}
         name={entry.name} layerIndex={entry.index} href={entry.href}
         onChange={this.handleChange}/>
     );
-    const { connectDropTarget } = this.props;
-    return connectDropTarget(
+    const { connectDropTarget, connectDragSource } = this.props;
+    return connectDragSource(connectDropTarget(
       <div className="layer card">
         {this.props.entity.name}
         <div className="sequences">{sequenceNames}</div>
       </div>
-    );
+    ));
   }
 }
 
 Layer.propTypes = propTypes;
 
-module.exports = DropTarget(ItemTypes.SEQUENCE, dropTarget, collect)(Layer);
+module.exports = DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
+  DropTarget(ItemTypes.SEQUENCE, dropTarget, collectDrop)(Layer));

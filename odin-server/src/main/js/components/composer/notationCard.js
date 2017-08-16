@@ -26,7 +26,7 @@ const CardLayers = require('./cardLayers');
 /**
  * Implements the drag source contract.
  */
-const dropSource = {
+const dragSource = {
   beginDrag(props) {
     return {
       onChange : props.onChange,
@@ -85,4 +85,4 @@ class NotationCard extends React.Component{
 NotationCard.propTypes = propTypes;
 
 // Export the wrapped component:
-module.exports = DragSource(ItemTypes.SEQUENCE, dropSource, collect)(NotationCard);
+module.exports = DragSource(ItemTypes.SEQUENCE, dragSource, collect)(NotationCard);

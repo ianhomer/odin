@@ -38,4 +38,9 @@ public class OdinRepositoryEventListener extends AbstractRepositoryEventListener
   public void onAfterCreate(Object entity) {
     LOG.info("onAfterCreate {}", entity);
   }
+
+  @Override
+  public void onAfterDelete(Object entity) {
+    LOG.info("onAfterDelete {}", entity);
+  }
 }

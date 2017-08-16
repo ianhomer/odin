@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.music.sequence.Notation;
@@ -42,6 +43,8 @@ public class ProjectBuilderTest {
         .withChannel(2).withLayers("layer2", "layer3").addMetronome()
         .withChannel(3).addNotation(BEAT, "C");
     Sequence sequence1 = builder.getSequenceByOrder(0);
+    assertNotNull(builder.getLayerByOrder(0));
+
 
     Optional<String> firstLayerName = sequence1.getLayers().stream().findFirst();
     assertTrue(firstLayerName.isPresent());

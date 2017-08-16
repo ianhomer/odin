@@ -22,6 +22,7 @@ import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -113,7 +114,22 @@ public class PersistableProject implements Project {
   public void removeLayer(Layer layer) {
     boolean result = layers.remove(layer);
     if (!result) {
-      LOG.warn("Could not remove layer {} from project", layer);
+      LOG.warn("Could not remove layer {} from project with layers {}", layer, getLayers());
+        /*
+         * TODO : What's up these layers in the hash set?  is equals and hashcode implemented
+         * OK?  For now we're during a brute force clean, but this needs to be fixed ;)
+         */
+      Set<Layer> nonMatchingLayers = getLayers().stream()
+          .filter(existingLayer -> !existingLayer.equals(layer))
+          .collect(Collectors.toSet());
+      int matchCount = layers.size() - nonMatchingLayers.size();
+      if (matchCount > 0) {
+        LOG.warn("Found {} matches out of {} - removing by brute force", matchCount,
+            layers.size());
+        layers.clear();
+        layers.addAll(nonMatchingLayers);
+        LOG.warn("Layers remaining : {}", layers.size());
+      }
     } else {
       LOG.debug("Removed layer from project");
     }

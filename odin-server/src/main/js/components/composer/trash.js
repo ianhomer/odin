@@ -45,4 +45,6 @@ class Trash extends React.Component{
   }
 }
 
-module.exports = DropTarget(ItemTypes.SEQUENCE_IN_LAYER, dropTarget, collect)(Trash);
+module.exports = DropTarget(
+  [ ItemTypes.SEQUENCE_IN_LAYER, ItemTypes.LAYER ],
+  dropTarget, collect)(Trash);

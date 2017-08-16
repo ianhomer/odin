@@ -54,7 +54,7 @@ public class LayerRepositoryTest {
     assertThat(0, equalTo(layers.size()));
 
     builder.addLayer("test");
-    for (Layer layer : project.getLayers()) {
+    for (Layer layer : Lists.newArrayList(project.getLayers())) {
       LOG.debug("Persisting {}", layer);
       entityManager.persist(layer);
     }

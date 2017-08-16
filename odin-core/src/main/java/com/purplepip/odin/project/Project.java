@@ -42,7 +42,7 @@ public interface Project {
   Set<Channel> getChannels();
 
   /**
-   * Get set of the layers stored in this project.
+   * Get list of the layers stored in this project.
    *
    * @return set of layers
    */
