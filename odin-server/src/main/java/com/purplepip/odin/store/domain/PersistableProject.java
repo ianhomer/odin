@@ -116,8 +116,8 @@ public class PersistableProject implements Project {
         LOG.debug("Added layer {} to project which now has {} layers", layer, layers.size());
       }
     } else {
-      LOG.debug("Since it already exists in project, " +
-          "not adding layer {} to project which now has {} layers", layer, layers.size());
+      LOG.debug("Since it already exists in project, "
+          + "not adding layer {} to project which now has {} layers", layer, layers.size());
     }
   }
 

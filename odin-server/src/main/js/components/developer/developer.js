@@ -43,6 +43,18 @@ class Developer extends React.Component{
       level = 'DEBUG';
       category = value;
     }
+
+    // Find a matching category if one exists
+    var existingCategories = Object.keys(this.state.loggers);
+    if (!existingCategories.includes(category)) {
+      for (var existingCategory in this.state.loggers) {
+        if (existingCategory.endsWith(category) || existingCategory.startsWith(category)) {
+          category = existingCategory;
+          break;
+        }
+      }
+    }
+
     client({
       method: 'POST',
       path: '/loggers/' + category,
