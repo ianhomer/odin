@@ -257,8 +257,10 @@ module.exports = {
     }).done(_response => {
       // this.loadFromServer();
     }, response => {
-      if (response.status.code === 400) {
-        alert('DENIED: Unable to update ' + href + '. Perhaps client state is stale.');
+      if (response.status && response.status.code === 400) {
+        console.error('DENIED: Unable to patch ' + href + '. Perhaps client state is stale.');
+      } else {
+        console.error('Unable to patch ' + href + ' : ' + response);
       }
     });
   },
@@ -283,7 +285,7 @@ module.exports = {
       // this.loadFromServer();
     }, response => {
       if (response.status.code === 412) {
-        alert('DENIED: Unable to update ' +
+        console.error('DENIED: Unable to update ' +
           entity.entity._links.self.href + '. Your copy is stale.');
       }
     });

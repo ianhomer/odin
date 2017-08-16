@@ -39,6 +39,8 @@ class Composer extends React.Component{
 
     crud.bindMe(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleAddLayer = this.handleAddLayer.bind(this);
+    this.onPatch = crud.onPatch.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +55,15 @@ class Composer extends React.Component{
     this.loadFromServer();
   }
 
+  handleAddLayer(layer, destination) {
+    this.onPatch(destination._links.self.href,
+      [
+        { op: "add", path: "/layers/-", value: layer.name }
+      ]
+    );
+    this.handleChange();
+  }
+
   render() {
     var entities = this.state.entities.map(entity => {
       var SequenceCard = Sequences[entity.path];
@@ -65,6 +76,7 @@ class Composer extends React.Component{
             <SequenceCard entity={entity} key={entity._links.self.href}
               project={this.props.project}
               path={entity.path}
+              onAddLayer={this.handleAddLayer}
             />
           </div>
         );

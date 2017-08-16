@@ -15,8 +15,47 @@
 'use strict';
 
 const React = require('react');
-const SequenceInLayer = require('./sequenceInLayer');
+import PropTypes from 'prop-types';
+
+import { ItemTypes } from '../../constants';
+import { DropTarget } from 'react-dnd';
+
 const crud = require('../../crud');
+
+const SequenceInLayer = require('./sequenceInLayer');
+
+const dropTarget = {
+  drop(props) {
+    return {
+      action : 'add',
+      entity : props.entity,
+      sequences : props.sequences
+    };
+  },
+
+  canDrop(props, monitor) {
+    for (var i =0 ; i < props.sequences.length ; i++) {
+      // Sequence is already in layer
+      if (props.sequences[i].name == monitor.getItem().entity.name) {
+        return false;
+      }
+    }
+    return true;
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
+
+const propTypes = {
+  entity: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  sequences: PropTypes.array.isRequired
+};
 
 class Layer extends React.Component{
   constructor(props) {
@@ -45,7 +84,8 @@ class Layer extends React.Component{
         name={entry.name} layerIndex={entry.index} href={entry.href}
         onChange={this.handleChange}/>
     );
-    return (
+    const { connectDropTarget } = this.props;
+    return connectDropTarget(
       <div className="layer card">
         {this.props.entity.name}
         <div className="sequences">{sequenceNames}</div>
@@ -54,4 +94,4 @@ class Layer extends React.Component{
   }
 }
 
-module.exports = Layer;
+module.exports = DropTarget(ItemTypes.SEQUENCE, dropTarget, collect)(Layer);

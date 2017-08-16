@@ -18,7 +18,7 @@ const React = require('react');
 import { ItemTypes } from '../../constants';
 import { DropTarget } from 'react-dnd';
 
-const sequenceInLayerTarget = {
+const dropTarget = {
   drop() {
     return { action : 'remove' };
   }
@@ -45,4 +45,4 @@ class Trash extends React.Component{
   }
 }
 
-module.exports = DropTarget(ItemTypes.SEQUENCE_IN_LAYER, sequenceInLayerTarget, collect)(Trash);
+module.exports = DropTarget(ItemTypes.SEQUENCE_IN_LAYER, dropTarget, collect)(Trash);
