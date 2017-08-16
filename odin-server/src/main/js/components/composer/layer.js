@@ -16,12 +16,38 @@
 
 const React = require('react');
 const SequenceInLayer = require('./sequenceInLayer');
+const crud = require('../../crud');
 
 class Layer extends React.Component{
+  constructor(props) {
+    super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.onPatch = crud.onPatch.bind(this);
+  }
+
+  handleChange(props) {
+    var layerPath = '/layers/' + props.layerIndex;
+    this.onPatch(props.href,
+      [
+        // Test layer at given index in array is the as expected on server
+        { op: 'test', path: layerPath, value: this.props.entity.name },
+        // ... then remove it.
+        { op: 'remove', path: layerPath  }
+      ]
+      // REST call to remove
+      // test value still up to date and then remove it by the index value
+      // curl --request PATCH http://localhost:8080/api/patterns/2 --data '' -H "Content-Type: application/json-patch+json"
+      // to do this we need the sequence URI, index number and name for the layer
+    );
+    this.props.onChange();
+  }
+
   render() {
-    var sequenceNames = this.props.sequenceNames.map(entry =>
+    var sequenceNames = this.props.sequences.map(entry =>
       <SequenceInLayer key={'layer-' + this.props.entity.name + '-' + entry.name}
-        name={entry.name} layerIndex={entry.index} href={entry.href}/>
+        name={entry.name} layerIndex={entry.index} href={entry.href}
+        onChange={this.handleChange}/>
     );
     return (
       <div className="layer card">

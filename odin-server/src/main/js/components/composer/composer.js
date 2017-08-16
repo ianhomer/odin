@@ -38,12 +38,17 @@ class Composer extends React.Component{
     };
 
     crud.bindMe(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     crud.loadSchemas(['notations', 'patterns']).then(() => {
       this.loadFromServer();
     });
+  }
+
+  handleChange() {
+    this.loadFromServer();
   }
 
   render() {
@@ -67,7 +72,8 @@ class Composer extends React.Component{
     return (
       // Display layer list and sequence cards
       <div>
-        <LayerList project={this.state.project} sequences={this.state.entities}/>
+        <LayerList project={this.state.project} sequences={this.state.entities}
+          onChange={this.handleChange}/>
         <Trash/>
         <div className="break">&nbsp;</div>
         <div>{entities}</div>

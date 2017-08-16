@@ -28,17 +28,15 @@ const cardSource = {
     return {
       name : props.name,
       layerIndex : props.layerIndex,
-      href : props.href
+      href : props.href,
+      // One day we might use Redux to manage application state, for now we'll pass in onChange functions
+      onChange : props.onChange
     };
   },
 
-  endDrag(props, monitor, component) {
+  endDrag(props, monitor) {
     if (monitor.didDrop()) {
-      // REST call to remove
-      // test value still up to date and then remove it by the index value
-      // curl --request PATCH http://localhost:8080/api/patterns/2 --data '[{ "op": "test", "path": "/layers/0", "value":"groove" }, { "op": "remove", "path": "/layers/0" }]' -H "Content-Type: application/json-patch+json"
-      // to do this we need the sequence URI, index number and name for the layer
-      console.error('Dropped AOK : ' + JSON.stringify(props) + JSON.stringify(monitor.getDropResult()));
+      props.onChange(props);
     }
   }
 };
@@ -57,11 +55,11 @@ const propTypes = {
   name: PropTypes.string.isRequired,
   layerIndex: PropTypes.number.isRequired,
   href: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,
   connectDragSource: PropTypes.func.isRequired
 };
-
 
 // Sequence in layer.
 class SequenceInLayer extends React.Component{

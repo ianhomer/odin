@@ -23,11 +23,18 @@ const Layer = require('./layer');
 class LayerList extends React.Component{
   constructor(props) {
     super(props);
+
     this.state = {
+      // TODO : Can we remove links?
       schema: [], entities: [], links: []
     };
 
     crud.bindMe(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange() {
+    this.props.onChange();
   }
 
   componentDidMount() {
@@ -37,24 +44,26 @@ class LayerList extends React.Component{
   render() {
     var entities = this.state.entities.map(entity => {
       var sequences = this.props.sequences;
-      var sequenceNamesInLayer = [];
+      var sequencesInLayer = [];
       for (var i = 0 ; i < sequences.length ; i ++) {
         var sequence = sequences[i];
         for (var j = 0 ; j < sequence.layers.length ; j++) {
           var layerName = sequence.layers[j];
           if (layerName == entity.name) {
-            sequenceNamesInLayer.push({
+            // Push a sequence object onto the array with enough information to handle change
+            sequencesInLayer.push({
               name : sequence.name,
               index : j,
-              href : entity._links.self.href
+              href : sequence._links.self.href
             });
           }
         }
       }
 
       return (
-        <Layer entity={entity} sequenceNames={sequenceNamesInLayer}
-          key={entity._links.self.href} onDelete={this.onDelete}/>
+        <Layer entity={entity} sequences={sequencesInLayer}
+          key={entity._links.self.href} onDelete={this.onDelete}
+          onChange={this.handleChange}/>
       );
     });
     return (

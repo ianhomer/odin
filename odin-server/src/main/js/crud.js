@@ -255,15 +255,10 @@ module.exports = {
         //'If-Match': entity.headers.Etag
       }
     }).done(_response => {
-      this.setState({
-        entity: entity,
-        editing: null
-      });
       // this.loadFromServer();
     }, response => {
-      if (response.status.code === 412) {
-        alert('DENIED: Unable to update ' +
-          entity.entity._links.self.href + '. Your copy is stale.');
+      if (response.status.code === 400) {
+        alert('DENIED: Unable to update ' + href + '. Perhaps client state is stale.');
       }
     });
   },
