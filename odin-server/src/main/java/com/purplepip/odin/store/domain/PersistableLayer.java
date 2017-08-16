@@ -16,6 +16,7 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -67,13 +68,27 @@ public class PersistableLayer implements MutableLayer {
   private Tick tick;
 
   @PrePersist
+  public void prePesist() {
+    addToProject();
+    setDefaults();
+  }
+
   public void addToProject() {
     project.addLayer(this);
+  }
+
+  public void setDefaults() {
+    if (tick == null) {
+      PersistableTick newTick = new PersistableTick();
+      newTick.setTimeUnit(TimeUnit.BEAT);
+      newTick.setNumerator(1);
+      newTick.setDenominator(1);
+      tick = newTick;
+    }
   }
 
   @PreRemove
   public void removeFromProject() {
     project.removeLayer(this);
   }
-
 }

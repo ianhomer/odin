@@ -94,4 +94,6 @@ class Layer extends React.Component{
   }
 }
 
+Layer.propTypes = propTypes;
+
 module.exports = DropTarget(ItemTypes.SEQUENCE, dropTarget, collect)(Layer);

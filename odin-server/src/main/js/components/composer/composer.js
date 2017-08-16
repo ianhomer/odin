@@ -21,7 +21,6 @@ import HTML5Backend from 'react-dnd-html5-backend';
 const crud = require('../../crud');
 
 const LayerList = require('./layerList');
-const Trash = require('./trash');
 const NotationCard = require('./notationCard');
 const PatternCard = require('./patternCard');
 const Sequences = {
@@ -58,7 +57,7 @@ class Composer extends React.Component{
   handleAddLayer(layer, destination) {
     this.onPatch(destination._links.self.href,
       [
-        { op: "add", path: "/layers/-", value: layer.name }
+        { op: 'add', path: '/layers/-', value: layer.name }
       ]
     );
     this.handleChange();
@@ -86,9 +85,8 @@ class Composer extends React.Component{
     return (
       // Display layer list and sequence cards
       <div>
-        <LayerList project={this.state.project} sequences={this.state.entities}
+        <LayerList project={this.props.project} sequences={this.state.entities}
           onChange={this.handleChange}/>
-        <Trash/>
         <div className="break">&nbsp;</div>
         <div>{entities}</div>
       </div>

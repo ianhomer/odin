@@ -71,7 +71,7 @@ class App extends React.Component {
     return (
       <div>
         {this.state.project &&
-            <Composer project={this.state.project}/>
+          <Composer project={this.state.project}/>
         }
       </div>
     );

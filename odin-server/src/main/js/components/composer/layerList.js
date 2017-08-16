@@ -18,6 +18,7 @@ const React = require('react');
 
 const crud = require('../../crud');
 
+const Trash = require('./trash');
 const Layer = require('./layer');
 
 class LayerList extends React.Component{
@@ -31,10 +32,29 @@ class LayerList extends React.Component{
 
     crud.bindMe(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleKeyPress = this._handleKeyPress.bind(this);
+    this.handleNewLayer = this.handleNewLayer.bind(this);
+    this.onCreate = this.onCreate.bind(this);
   }
 
   handleChange() {
     this.props.onChange();
+  }
+
+  // Create new layer
+  handleNewLayer(e) {
+    e.preventDefault();
+    var value = e.target.value.trim();
+    this.onCreate({
+      name: value,
+      project: this.props.project._links.self.href
+    }, 'layers');
+  }
+
+  _handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.handleNewLayer(e);
+    }
   }
 
   componentDidMount() {
@@ -71,6 +91,15 @@ class LayerList extends React.Component{
     return (
       <div>
         <div>{entities}</div>
+        <Trash/>
+        <div className="break">&nbsp;</div>
+        <div>
+          create new layer :
+          <input key="new-layer-name" type="text" className="inline"
+            onKeyPress={this.handleKeyPress}
+            size="8" maxLength="8"
+          />
+        </div>
       </div>
     );
   }
