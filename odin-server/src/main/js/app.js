@@ -23,7 +23,7 @@ const crud = require('./crud');
 
 const ChannelList = require('./components/channelList');
 const SequenceList = require('./components/sequenceList');
-const SequenceCards = require('./components/sequenceCards');
+const Composer = require('./components/composer/composer');
 
 class App extends React.Component {
 
@@ -71,7 +71,7 @@ class App extends React.Component {
     return (
       <div>
         {this.state.project &&
-            <SequenceCards project={this.state.project}/>
+            <Composer project={this.state.project}/>
         }
       </div>
     );

@@ -16,7 +16,7 @@
 
 const React = require('react');
 
-const crud = require('./../crud');
+const crud = require('../../crud');
 
 const Layer = require('./layer');
 

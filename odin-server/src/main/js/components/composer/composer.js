@@ -18,7 +18,7 @@ const React = require('react');
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-const crud = require('./../crud');
+const crud = require('../../crud');
 
 const LayerList = require('./layerList');
 const Trash = require('./trash');
@@ -29,8 +29,8 @@ const Sequences = {
   'patterns'  : PatternCard
 };
 
-// Rendering of generic sequence list
-class SequenceCards extends React.Component{
+// Rendering of composer
+class Composer extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -76,8 +76,8 @@ class SequenceCards extends React.Component{
   }
 }
 
-SequenceCards.defaultProps = {
+Composer.defaultProps = {
   path: 'sequences'
 };
 
-module.exports = DragDropContext(HTML5Backend)(SequenceCards);
+module.exports = DragDropContext(HTML5Backend)(Composer);

@@ -15,7 +15,7 @@
 'use strict';
 
 const React = require('react');
-import { ItemTypes } from '../constants';
+import { ItemTypes } from '../../constants';
 import { DropTarget } from 'react-dnd';
 
 const sequenceInLayerTarget = {

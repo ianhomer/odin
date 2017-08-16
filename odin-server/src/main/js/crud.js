@@ -242,6 +242,32 @@ module.exports = {
     });
   },
 
+  // Patch entity via REST API.
+  onPatch : function(href, patch) {
+    client({
+      method: 'PATCH',
+      path: href,
+      entity: patch,
+      headers: {
+        'Content-Type': 'application/json-patch+json'
+        // TODO : Etag support, note that entity needs to be loaded from server prior to
+        // editing to populate Etag
+        //'If-Match': entity.headers.Etag
+      }
+    }).done(_response => {
+      this.setState({
+        entity: entity,
+        editing: null
+      });
+      // this.loadFromServer();
+    }, response => {
+      if (response.status.code === 412) {
+        alert('DENIED: Unable to update ' +
+          entity.entity._links.self.href + '. Your copy is stale.');
+      }
+    });
+  },
+
   // Update entity via REST API.
   onUpdate : function(entity) {
     client({

@@ -15,13 +15,11 @@
 'use strict';
 
 const React = require('react');
-
-const Score = require('./score');
 const CardLayers = require('./cardLayers');
 
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
-import { ItemTypes } from '../constants.js';
+import { ItemTypes } from '../../constants.js';
 
 /**
  * Implements the drag source contract.
@@ -49,9 +47,8 @@ const propTypes = {
   connectDragSource: PropTypes.func.isRequired
 };
 
-
-// Notation card.
-class NotationCard extends React.Component{
+// Pattern card.
+class PatternCard extends React.Component{
   constructor(props) {
     super(props);
 
@@ -66,14 +63,13 @@ class NotationCard extends React.Component{
       // View card
       <div className="sequence card" style={{ opacity: isDragging ? 0.5 : 1 }}>
         <header>{this.state.entity.name}</header>
-        <div className="content"><Score entity={this.state.entity}/></div>
+        <div className="content">{this.state.entity.bits}</div>
         <footer><CardLayers entity={this.state.entity}/></footer>
       </div>
     );
   }
 }
 
-NotationCard.propTypes = propTypes;
+PatternCard.propTypes = propTypes;
 
-// Export the wrapped component:
-module.exports = DragSource(ItemTypes.SEQUENCE, cardSource, collect)(NotationCard);
+module.exports = DragSource(ItemTypes.SEQUENCE, cardSource, collect)(PatternCard);
