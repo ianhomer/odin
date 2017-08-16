@@ -113,10 +113,10 @@ public class PersistableProject implements Project {
       if (!result) {
         LOG.warn("Could not add layer {} to project", layer);
       } else {
-        LOG.info("Added layer {} to project which now has {} layers", layer, layers.size());
+        LOG.debug("Added layer {} to project which now has {} layers", layer, layers.size());
       }
     } else {
-      LOG.info("Since it already exists in project, " +
+      LOG.debug("Since it already exists in project, " +
           "not adding layer {} to project which now has {} layers", layer, layers.size());
     }
   }
@@ -135,14 +135,14 @@ public class PersistableProject implements Project {
           .collect(Collectors.toSet());
       int matchCount = layers.size() - nonMatchingLayers.size();
       if (matchCount > 0) {
-        LOG.warn("Found {} matches out of {} - removing by brute force", matchCount,
+        LOG.info("Found {} matches out of {} - removing by brute force", matchCount,
             layers.size());
         layers.clear();
         layers.addAll(nonMatchingLayers);
-        LOG.warn("Layers remaining : {}", layers.size());
+        LOG.debug("Layers remaining : {}", layers.size());
       }
     } else {
-      LOG.info("Removed layer {} from project which now has layers = {}  ", layer, getLayers());
+      LOG.debug("Removed layer {} from project which now has layers = {}  ", layer, getLayers());
     }
   }
 }

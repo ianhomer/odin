@@ -51,9 +51,7 @@ class Developer extends React.Component{
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    }).then(response => {
-      this.loadFromServer();
-    }).catch(reason => {
+    }).then(this.loadFromServer).catch(reason => {
       console.error(reason);
     });
   }
@@ -84,7 +82,7 @@ class Developer extends React.Component{
     return (
       <section key={'logging-' + matchLevel}>
         <input key={matchLevel + '-logging-level'} type="text" className="inline"
-          defaultValue={matchLevel + ' : '} size='60'
+          defaultValue={matchLevel + ' : '} size="60"
           onKeyPress={this.handleKeyPress}
         />
         {Object.keys(this.state.loggers).map((name) => {
@@ -99,19 +97,19 @@ class Developer extends React.Component{
           }
         })}
       </section>
-    )
+    );
   }
 
   render() {
     return (
       // Display developer console
-      <div className="logging">
+      <div className='logging'>
         <p>Set logging level to view more logging.</p>
-        {this.renderLoggersAtLevel("TRACE")}
-        {this.renderLoggersAtLevel("DEBUG")}
-        {this.renderLoggersAtLevel("INFO")}
-        {this.renderLoggersAtLevel("WARN")}
-        {this.renderLoggersAtLevel("ERROR")}
+        {this.renderLoggersAtLevel('TRACE')}
+        {this.renderLoggersAtLevel('DEBUG')}
+        {this.renderLoggersAtLevel('INFO')}
+        {this.renderLoggersAtLevel('WARN')}
+        {this.renderLoggersAtLevel('ERROR')}
       </div>
     );
   }
