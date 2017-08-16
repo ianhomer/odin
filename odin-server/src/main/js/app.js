@@ -24,6 +24,7 @@ const crud = require('./crud');
 const ChannelList = require('./components/channelList');
 const SequenceList = require('./components/sequenceList');
 const Composer = require('./components/composer/composer');
+const Developer = require('./components/developer/developer');
 
 class App extends React.Component {
 
@@ -35,7 +36,8 @@ class App extends React.Component {
 
     this.renderSequenceList = this.renderSequenceList.bind(this);
     this.renderChannelList = this.renderChannelList.bind(this);
-    this.renderLayerList = this.renderLayerList.bind(this);
+    this.renderComposer = this.renderComposer.bind(this);
+    this.renderDeveloper = this.renderDeveloper.bind(this);
   }
 
   componentDidMount() {
@@ -67,7 +69,7 @@ class App extends React.Component {
     );
   }
 
-  renderLayerList() {
+  renderComposer() {
     return (
       <div>
         {this.state.project &&
@@ -77,13 +79,24 @@ class App extends React.Component {
     );
   }
 
+  renderDeveloper() {
+    return (
+      <div>
+        {this.state.project &&
+          <Developer project={this.state.project}/>
+        }
+      </div>
+    );
+  }
+
   render() {
     return (
       <Router>
         <div>
-          <Route exact path="/app" component={this.renderLayerList}/>
+          <Route exact path="/app" component={this.renderComposer}/>
           <Route exact path="/app/sequences" component={this.renderSequenceList}/>
           <Route exact path="/app/channels" component={this.renderChannelList}/>
+          <Route exact path="/app/developer" component={this.renderDeveloper}/>
         </div>
       </Router>
     );

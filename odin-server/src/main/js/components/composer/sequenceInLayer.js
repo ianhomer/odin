@@ -64,7 +64,7 @@ const propTypes = {
 // Sequence in layer.
 class SequenceInLayer extends React.Component{
   render() {
-    const { isDragging, connectDragSource, name, layerIndex } = this.props;
+    const { isDragging, connectDragSource, name } = this.props;
     return connectDragSource(
       // View card
       <div className="sequenceInLayer" style={{ opacity: isDragging ? 0.5 : 1 }}>

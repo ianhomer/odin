@@ -33,7 +33,6 @@ public class PersistableLayoutTest {
   @Test
   public void testLayoutEquality() throws OdinException {
     builder.addLayer("test-layer");
-    Layer layer1 = builder.getLayerByOrder(0);
     PersistableLayer layer2 = new PersistableLayer();
     layer2.setName("test-layer");
     layer2.setLength(-1);
@@ -42,6 +41,7 @@ public class PersistableLayoutTest {
     tick.setNumerator(1);
     tick.setTimeUnit(TimeUnit.BEAT);
     layer2.setTick(tick);
+    Layer layer1 = builder.getLayerByOrder(0);
     assertEquals(layer1, layer2);
   }
 }

@@ -13,33 +13,29 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services;
+package com.purplepip.odin.server.services.composition;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.purplepip.odin.music.composition.events.EventsComposition;
-import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
+import com.purplepip.odin.music.notation.easy.composition.EasyVoice;
 import java.io.IOException;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class CompositionSerializer extends StdSerializer<EasyComposition> {
-  public CompositionSerializer() {
-    super(EasyComposition.class);
+public class VoiceSerializer extends StdSerializer<EasyVoice> {
+  public VoiceSerializer() {
+    super(EasyVoice.class);
   }
 
   @Override
-  public void serialize(EasyComposition composition,
+  public void serialize(EasyVoice voice,
                         JsonGenerator jsonGenerator,
                         SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartObject();
-    jsonGenerator.writeObjectField("numberOfBeats", composition.getNumberOfBeats());
-    jsonGenerator.writeObjectField("measures",
-        composition.stream().collect(Collectors.toList()));
+    jsonGenerator.writeObjectField("notation", voice.getNotation());
     jsonGenerator.writeEndObject();
   }
 }

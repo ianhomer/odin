@@ -13,29 +13,33 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services;
+package com.purplepip.odin.server.services.composition;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.purplepip.odin.music.notation.easy.composition.EasyVoice;
+import com.purplepip.odin.music.notation.easy.composition.EasyMeasure;
 import java.io.IOException;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class VoiceSerializer extends StdSerializer<EasyVoice> {
-  public VoiceSerializer() {
-    super(EasyVoice.class);
+public class MeasureSerializer extends StdSerializer<EasyMeasure> {
+  public MeasureSerializer() {
+    super(EasyMeasure.class);
   }
 
   @Override
-  public void serialize(EasyVoice voice,
+  public void serialize(EasyMeasure measure,
                         JsonGenerator jsonGenerator,
                         SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartObject();
-    jsonGenerator.writeObjectField("notation", voice.getNotation());
+    jsonGenerator.writeObjectField("time", measure.getTime().toString());
+    jsonGenerator.writeObjectField("key", measure.getKey());
+    jsonGenerator.writeObjectField("staves",
+        measure.stream().collect(Collectors.toList()));
     jsonGenerator.writeEndObject();
   }
 }

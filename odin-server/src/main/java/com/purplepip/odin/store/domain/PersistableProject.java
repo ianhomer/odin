@@ -20,7 +20,9 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequencer.Channel;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
@@ -31,6 +33,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Entity(name = "Project")
 @Table(name = "Project")
+@EqualsAndHashCode(of = "name")
 @Slf4j
 public class PersistableProject implements Project {
   @Id
@@ -52,7 +56,7 @@ public class PersistableProject implements Project {
 
   @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private Set<Layer> layers = new HashSet<>();
+  private List<Layer> layers = new ArrayList<>();
 
   @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
@@ -101,24 +105,31 @@ public class PersistableProject implements Project {
 
   @Override
   public void addLayer(MutableLayer layer) {
-    layer.setProject(this);
-    boolean result = layers.add(layer);
-    if (!result) {
-      LOG.warn("Could not add layer {} to project", layer);
+    if (!this.equals(layer.getProject())) {
+      layer.setProject(this);
+    }
+    if (!layers.contains(layer)) {
+      boolean result = layers.add(layer);
+      if (!result) {
+        LOG.warn("Could not add layer {} to project", layer);
+      } else {
+        LOG.info("Added layer {} to project which now has {} layers", layer, layers.size());
+      }
     } else {
-      LOG.debug("Added layer to project");
+      LOG.info("Since it already exists in project, " +
+          "not adding layer {} to project which now has {} layers", layer, layers.size());
     }
   }
 
   @Override
   public void removeLayer(Layer layer) {
-    boolean result = layers.remove(layer);
+    boolean result = layers.removeIf(existingLayer -> existingLayer.equals(layer));
     if (!result) {
       LOG.warn("Could not remove layer {} from project with layers {}", layer, getLayers());
-        /*
-         * TODO : What's up these layers in the hash set?  is equals and hashcode implemented
-         * OK?  For now we're during a brute force clean, but this needs to be fixed ;)
-         */
+      /*
+       * TODO : What's up these layers in the hash set?  is equals and hashcode implemented
+       * OK?  For now we're during a brute force clean, but this needs to be fixed ;)
+       */
       Set<Layer> nonMatchingLayers = getLayers().stream()
           .filter(existingLayer -> !existingLayer.equals(layer))
           .collect(Collectors.toSet());
@@ -131,7 +142,7 @@ public class PersistableProject implements Project {
         LOG.warn("Layers remaining : {}", layers.size());
       }
     } else {
-      LOG.debug("Removed layer from project");
+      LOG.info("Removed layer {} from project which now has layers = {}  ", layer, getLayers());
     }
   }
 }

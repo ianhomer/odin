@@ -13,28 +13,32 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services;
+package com.purplepip.odin.server.services.composition;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
 import java.io.IOException;
+import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RationalSerializer extends StdSerializer<Rational> {
-  public RationalSerializer() {
-    super(Rational.class);
+@Slf4j
+public class CompositionSerializer extends StdSerializer<EasyComposition> {
+  public CompositionSerializer() {
+    super(EasyComposition.class);
   }
 
   @Override
-  public void serialize(Rational rational,
+  public void serialize(EasyComposition composition,
                         JsonGenerator jsonGenerator,
                         SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartObject();
-    jsonGenerator.writeObjectField("numerator", rational.getNumerator());
-    jsonGenerator.writeObjectField("denominator", rational.getNumerator());
+    jsonGenerator.writeObjectField("numberOfBeats", composition.getNumberOfBeats());
+    jsonGenerator.writeObjectField("measures",
+        composition.stream().collect(Collectors.toList()));
     jsonGenerator.writeEndObject();
   }
 }

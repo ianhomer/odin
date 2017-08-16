@@ -1,4 +1,4 @@
-package com.purplepip.odin.server.services;
+package com.purplepip.odin.server.services.composition;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

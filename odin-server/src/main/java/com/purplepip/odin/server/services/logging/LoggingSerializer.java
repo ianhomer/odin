@@ -13,12 +13,11 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services;
+package com.purplepip.odin.server.services.logging;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.purplepip.odin.music.notation.easy.composition.EasyStaff;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -26,19 +25,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class StaffSerializer extends StdSerializer<EasyStaff> {
-  public StaffSerializer() {
-    super(EasyStaff.class);
+public class LoggingSerializer extends StdSerializer<Logging> {
+  public LoggingSerializer() {
+    super(Logging.class);
   }
 
   @Override
-  public void serialize(EasyStaff staff,
+  public void serialize(Logging logging,
                         JsonGenerator jsonGenerator,
                         SerializerProvider serializerProvider) throws IOException {
     jsonGenerator.writeStartObject();
-    jsonGenerator.writeObjectField("clef", staff.getClef());
-    jsonGenerator.writeObjectField("voices",
-        staff.stream().collect(Collectors.toList()));
+    jsonGenerator.writeObjectField("loggers",
+        logging.getLoggerStream().collect(Collectors.toList()));
     jsonGenerator.writeEndObject();
   }
 }

@@ -161,3 +161,8 @@ div.card footer {
 div.break {
   clear : left;
 }
+
+div.logging section h1 {
+  font-size : 1em;
+  text-align : right;
+}

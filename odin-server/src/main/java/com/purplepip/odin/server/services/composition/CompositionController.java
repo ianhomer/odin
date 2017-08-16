@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services;
+package com.purplepip.odin.server.services.composition;
 
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.notation.easy.EasyScoreCompositionBuilder;
