@@ -44,6 +44,8 @@ class LayerList extends React.Component{
   render() {
     var entities = this.state.entities.map(entity => {
       var sequences = this.props.sequences;
+
+      // Lookup the sequences that are in this layer and pass this array into the layer component
       var sequencesInLayer = [];
       for (var i = 0 ; i < sequences.length ; i ++) {
         var sequence = sequences[i];

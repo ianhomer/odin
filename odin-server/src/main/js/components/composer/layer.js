@@ -35,10 +35,6 @@ class Layer extends React.Component{
         // ... then remove it.
         { op: 'remove', path: layerPath  }
       ]
-      // REST call to remove
-      // test value still up to date and then remove it by the index value
-      // curl --request PATCH http://localhost:8080/api/patterns/2 --data '' -H "Content-Type: application/json-patch+json"
-      // to do this we need the sequence URI, index number and name for the layer
     );
     this.props.onChange();
   }

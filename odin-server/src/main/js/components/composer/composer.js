@@ -48,6 +48,8 @@ class Composer extends React.Component{
   }
 
   handleChange() {
+    // TODO : Look into Redux for state management, currently we're reloading the whole
+    // view each time.
     this.loadFromServer();
   }
 
