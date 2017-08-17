@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
 @Profile("!noStore")
 @Order(1)
 @Slf4j
-public class DefaultProjectCreater implements ApplicationRunner {
+public class DefaultProjectCreator implements ApplicationRunner {
   public static final String DEFAULT_PROJECT_NAME = "defaultProject";
 
   @Autowired
@@ -50,5 +50,6 @@ public class DefaultProjectCreater implements ApplicationRunner {
       LOG.info("Created default project");
     }
     projectContainer.setProject(project);
+    projectContainer.save();
   }
 }

@@ -250,6 +250,38 @@ public class ProjectContainer {
   }
 
   public boolean isEmpty() {
-    return project.getChannels().isEmpty() && project.getSequences().isEmpty();
+    return !hasChannels() && !hasSequences() && !hasLayers();
   }
+
+  /**
+   * Whether this project have any channels.
+   *
+   * @return whether project has any channels
+   */
+  public boolean hasChannels() {
+    /*
+     * Null safety since channels collection might not have initialised yet in the persistent
+     * domain.
+     */
+    return project.getChannels() != null && !project.getChannels().isEmpty();
+  }
+
+  /**
+   * Whether this project have any sequences.
+   *
+   * @return whether project has any sequences
+   */
+  public boolean hasSequences() {
+    return project.getSequences() != null && !project.getSequences().isEmpty();
+  }
+
+  /**
+   * Whether this project have any layers.
+   *
+   * @return whether project has any layers
+   */
+  public boolean hasLayers() {
+    return project.getLayers() != null && !project.getLayers().isEmpty();
+  }
+
 }

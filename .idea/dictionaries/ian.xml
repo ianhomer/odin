@@ -5,6 +5,7 @@
       <w>ableton</w>
       <w>antlr</w>
       <w>appenders</w>
+      <w>autowired</w>
       <w>coveredratio</w>
       <w>diachenko</w>
       <w>dlogback</w>
@@ -22,6 +23,7 @@
       <w>missedcount</w>
       <w>navbar</w>
       <w>nord</w>
+      <w>persistables</w>
       <w>phantomjs</w>
       <w>pian</w>
       <w>purplepip</w>

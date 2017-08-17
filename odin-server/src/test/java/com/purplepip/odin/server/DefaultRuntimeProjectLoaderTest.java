@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server;
 
-import static com.purplepip.odin.server.DefaultProjectCreater.DEFAULT_PROJECT_NAME;
+import static com.purplepip.odin.server.DefaultProjectCreator.DEFAULT_PROJECT_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.midix.MidiDeviceWrapper;
@@ -27,10 +27,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
+@ActiveProfiles({"noAuditing"})
 public class DefaultRuntimeProjectLoaderTest {
   @Autowired
   private ProjectContainer projectContainer;
@@ -41,15 +43,11 @@ public class DefaultRuntimeProjectLoaderTest {
   @Autowired
   private MidiDeviceWrapper midiDeviceWrapper;
 
+  @Autowired
+  private DefaultRuntimeProjectLoader loader;
+
   @Test
   public void testDefaultRuntimeProjectLoader() throws Exception {
-    assertThat(projectContainer.getChannels()).isEmpty();
-    new SynthesizerConfiguration(midiDeviceWrapper).run(null);
-    DefaultRuntimeProjectLoader loader =
-        new DefaultRuntimeProjectLoader(projectContainer);
-    loader.run(null);
-    projectContainer.save();
-
     ProjectContainer reloadedContainer =
         new ProjectContainer(projectRepository.findByName(DEFAULT_PROJECT_NAME));
     assertThat(reloadedContainer.getChannels()).isNotEmpty();

@@ -31,12 +31,15 @@ import org.springframework.stereotype.Component;
 @Order(2)
 @Slf4j
 public class DefaultRuntimeProjectLoader implements ApplicationRunner {
+  @Autowired
   private ProjectContainer projectContainer;
 
+  /*
+   * Default project creator must have been loaded before loading the runtime project, hence
+   * this is autowired, but NOT used.
+   */
   @Autowired
-  public DefaultRuntimeProjectLoader(ProjectContainer projectContainer) {
-    this.projectContainer = projectContainer;
-  }
+  private DefaultProjectCreator defaultProjectCreator;
 
   @Override
   public void run(ApplicationArguments applicationArguments) throws Exception {
@@ -61,4 +64,6 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
       LOG.warn("Default project has already been loaded");
     }
   }
+
+
 }
