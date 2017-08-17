@@ -28,4 +28,6 @@ public interface MutableLayer extends Layer {
   void setOffset(long offset);
 
   void setLength(long offset);
+
+  void addLayer(String layerName);
 }

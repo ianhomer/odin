@@ -45,7 +45,11 @@ public class DefaultRuntimeProjectLoader implements ApplicationRunner {
   public void run(ApplicationArguments applicationArguments) throws Exception {
     if (projectContainer.isEmpty()) {
       new PersistableProjectBuilder(projectContainer)
-          .addLayer("groove").withLayers("groove")
+          .addLayer("overlay")
+          .addLayer("intro").addLayer("break")
+          .addLayer("a").addLayer("b").withLayers("a", "b").addLayer("verse")
+          .withLayers("intro","verse","break").addLayer("groove")
+          .withLayers("groove")
           .withChannel(1).changeProgramTo("aahs")
           .withName("aahs").withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
           .withChannel(2).changeProgramTo("rock")

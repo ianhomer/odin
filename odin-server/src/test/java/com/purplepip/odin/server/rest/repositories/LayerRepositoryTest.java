@@ -77,9 +77,7 @@ public class LayerRepositoryTest {
     PersistableProject project = new PersistableProject();
     project.setName("test-project");
     projectRepository.save(project);
-    PersistableLayer layer = newLayer("test-layer");
-    project.addLayer(layer);
-    layerRepository.save(layer);
+    layerRepository.save(newLayer(project,"test-layer"));
     Assertions.assertThat(project.getLayers().size()).isEqualTo(1);
     projectRepository.save(project);
 
@@ -89,5 +87,19 @@ public class LayerRepositoryTest {
 
     existingProject = projectRepository.findByName("test-project");
     Assertions.assertThat(existingProject.getLayers().size()).isEqualTo(0);
+  }
+
+  @Test
+  public void testCreateMultipleLayers() throws OdinException {
+    PersistableProject project = new PersistableProject();
+    project.setName("test-project");
+    projectRepository.save(project);
+    layerRepository.save(newLayer(project,"test-layer1"));
+    layerRepository.save(newLayer(project,"test-layer2"));
+    Assertions.assertThat(project.getLayers().size()).isEqualTo(2);
+    projectRepository.save(project);
+
+    Project existingProject = projectRepository.findByName("test-project");
+    Assertions.assertThat(existingProject.getLayers().size()).isEqualTo(2);
   }
 }

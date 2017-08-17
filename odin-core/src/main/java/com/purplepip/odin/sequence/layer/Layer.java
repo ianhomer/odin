@@ -17,7 +17,7 @@ package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
-import java.util.Set;
+import java.util.List;
 
 /**
  * A layer applies behaviour to sequences and child layers.  This include default properties
@@ -40,11 +40,11 @@ public interface Layer {
   String getName();
 
   /**
-   * Parent layer.
+   * Contained layers.
    *
-   * @return parent layers
+   * @return container layers
    */
-  Set<Layer> getParents();
+  List<String> getLayers();
 
   /**
    * The project that this layer belongs to.

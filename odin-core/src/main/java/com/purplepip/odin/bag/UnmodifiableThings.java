@@ -49,11 +49,15 @@ public abstract class UnmodifiableThings<T extends Thing> implements Things<T> {
 
   @Override
   public T findById(long id) {
-    return unmodifiable(underlyingThings.findById(id));
+    return nullOrUnmodifiable(underlyingThings.findById(id));
   }
 
   @Override
   public T findByName(String name) {
-    return unmodifiable(underlyingThings.findByName(name));
+    return nullOrUnmodifiable(underlyingThings.findByName(name));
+  }
+
+  private T nullOrUnmodifiable(T thing) {
+    return thing == null ? null : unmodifiable(thing);
   }
 }

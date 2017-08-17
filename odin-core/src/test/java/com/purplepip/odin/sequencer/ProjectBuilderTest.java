@@ -5,6 +5,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -38,20 +41,32 @@ public class ProjectBuilderTest {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder
-        .addLayer("layer1").addLayer("layer2").addLayer("layer3")
+        .addLayer("layer4").addLayer("layer3")
+        .withLayers("layer3", "layer4").addLayer("layer2")
+        .withLayers("layer2").addLayer("layer1")
         .withChannel(1).withLayers("layer1").addMetronome()
         .withChannel(2).withLayers("layer2", "layer3").addMetronome()
         .withChannel(3).addNotation(BEAT, "C");
     Sequence sequence1 = builder.getSequenceByOrder(0);
     assertNotNull(builder.getLayerByOrder(0));
 
-
     Optional<String> firstLayerName = sequence1.getLayers().stream().findFirst();
     assertTrue(firstLayerName.isPresent());
-    Optional<Layer> firstLayer = project.getLayers()
-        .stream().filter(l -> l.getName().equals(firstLayerName.get())).findFirst();
-    assertTrue(firstLayer.isPresent());
-    assertThat("Sequence 1", firstLayer.get().getTick(), equalTo(BEAT));
+
+    Layer layer1 = project.getLayers()
+        .stream().filter(l -> l.getName().equals("layer1")).findFirst().orElse(null);
+    assertThat(layer1, is(notNullValue()));
+    assertThat(layer1.getName(), equalTo("layer1"));
+    assertThat("Layer 1", layer1.getTick(), equalTo(BEAT));
+    assertThat(layer1.getLayers(), containsInAnyOrder("layer2"));
+
+    Layer layer2 = builder.getLayer("layer2");
+    assertThat(layer2, is(notNullValue()));
+    assertThat(layer2.getName(), equalTo("layer2"));
+    assertThat("Layer 2", layer2.getTick(), equalTo(BEAT));
+    assertThat(layer2.getLayers(), contains("layer3", "layer4"));
+
+
     assertThat("Sequence 1 : " + sequence1,
         new HashSet<>(sequence1.getLayers()),
         containsInAnyOrder("layer1"));

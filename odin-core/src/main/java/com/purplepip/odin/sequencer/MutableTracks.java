@@ -61,16 +61,22 @@ class MutableTracks extends MutableThings<Track> {
 
     /*
      * Binding conductors to tracks.
-     * // TODO : This binding is a cheap implementaion for now just remove all bindings and
+     * // TODO : This binding is a cheap implementation for now just remove all bindings and
      * // rebind.  It should be done more efficiently.
      */
     stream()
         .filter(o -> o instanceof SequenceTrack)
         .map(o -> (SequenceTrack) o).forEach(sequenceTrack -> {
           sequenceTrack.unbindConductors();
-          sequenceTrack.getSequence().getLayers().stream().forEach(layer ->
-              sequenceTrack.bindConductor(conductors.findByName(layer))
-          );
+          sequenceTrack.getSequence().getLayers().stream().forEach(layer -> {
+            Conductor conductor = conductors.findByName(layer);
+            if (conductor == null) {
+              LOG.warn("Cannot find conductor {} to bind to track {}", layer,
+                  sequenceTrack.getName());
+            } else {
+              sequenceTrack.bindConductor(conductors.findByName(layer));
+            }
+          });
         });
   }
 }

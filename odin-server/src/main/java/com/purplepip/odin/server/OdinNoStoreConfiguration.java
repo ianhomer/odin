@@ -17,13 +17,11 @@ package com.purplepip.odin.server;
 
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
@@ -38,15 +36,16 @@ import org.springframework.context.annotation.Profile;
         HibernateJpaAutoConfiguration.class}
 )
 @Profile("noStore")
-public class OdinNoStoreConfiguration implements ApplicationRunner {
-  @Autowired
-  private ProjectContainer projectContainer;
-
-  @Override
-  public void run(ApplicationArguments applicationArguments) throws Exception {
-    /*
-     * Use a transient project for this no store profile.
-     */
+public class OdinNoStoreConfiguration {
+  /**
+   * Create project container bean NOT backed by a persistent store.
+   *
+   * @return project container
+   */
+  @Bean
+  public ProjectContainer projectContainer() {
+    ProjectContainer projectContainer = new ProjectContainer();
     projectContainer.setProject(new TransientProject());
+    return projectContainer;
   }
 }

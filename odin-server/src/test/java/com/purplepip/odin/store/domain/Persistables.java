@@ -30,4 +30,17 @@ public final class Persistables {
     layer.setName(name);
     return layer;
   }
+
+  /**
+   * Create new persistable layer added to the given project.
+   *
+   * @param name layer name
+   * @return new layer
+   */
+  public static PersistableLayer newLayer(PersistableProject project, String name) {
+    PersistableLayer layer = newLayer(name);
+    project.addLayer(layer);
+    return layer;
+  }
+
 }

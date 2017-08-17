@@ -27,7 +27,8 @@ public class OdinSequencerTest {
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
     new ProjectBuilder(environment.getContainer())
-        .addLayer("groove").withLayers("groove")
+        .addLayer("groove")
+        .withLayers("groove")
         .withOffset(OFFSET)
         .withLength(LENGTH)
         .addMetronome();

@@ -60,5 +60,7 @@ public class DefaultRuntimeProjectLoaderTest {
         .filter(s -> s instanceof Notation).map(s -> (Notation) s).findFirst();
     assertThat(firstNotation.isPresent()).isTrue();
     assertThat(firstNotation.get().getLayers().size()).isEqualTo(1);
+
+    assertThat(reloadedContainer.getLayerStream().count()).isEqualTo(7);
   }
 }

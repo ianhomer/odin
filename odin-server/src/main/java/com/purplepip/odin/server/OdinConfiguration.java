@@ -59,11 +59,6 @@ public class OdinConfiguration {
     return new MidiSystemWrapper();
   }
 
-  @Bean
-  public ProjectContainer projectContainer() {
-    return new ProjectContainer();
-  }
-
   /**
    * Create Odin sequencer.
    *

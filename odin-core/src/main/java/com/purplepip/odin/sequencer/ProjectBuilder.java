@@ -220,6 +220,7 @@ public class ProjectBuilder {
   public ProjectBuilder addLayer(String name) {
     MutableLayer layer = withDefaults(createLayer());
     layer.setName(name);
+    applyParameters(layer);
     layerIds.add(layer.getId());
     projectContainer.addLayer(layer);
     return this;
@@ -369,5 +370,10 @@ public class ProjectBuilder {
     sequence.setOffset(offset);
     layerNamesToAdd.forEach(sequence::addLayer);
     return sequence;
+  }
+
+  private Layer applyParameters(MutableLayer layer) {
+    layerNamesToAdd.forEach(layer::addLayer);
+    return layer;
   }
 }
