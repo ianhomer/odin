@@ -12,6 +12,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.logcapture.LogCaptor;
+import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
@@ -91,5 +93,18 @@ public class ProjectBuilderTest {
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     assertEquals("a", notation.getNotation());
     assertEquals("notes", notation.getName());
+  }
+
+  @Test
+  public void testWithLayerDuplicationWarning() {
+    try (LogCaptor captor = new LogCapture().from(ProjectBuilder.class).warn().start()) {
+      TransientProject project = new TransientProject();
+      ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+      builder.withLayers("layer1", "layer2", "layer2", "layer3", "layer3", "layer3", "layer4");
+      assertEquals(1, captor.size());
+      assertEquals("Creating entity with layers [layer1, layer2, layer2, layer3, "
+          + "layer3, layer3, layer4] that have duplicates [layer3, layer2]", captor.getMessage(0));
+
+    }
   }
 }

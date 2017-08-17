@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.flow.MetronomeFlow;
@@ -39,10 +39,11 @@ import com.purplepip.odin.sequence.tick.DefaultTick;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -62,7 +63,7 @@ public class ProjectBuilder {
   private int velocity = DEFAULT_VELOCITY;
   private int length = -1;
   private int offset;
-  private Set<String> layerNamesToAdd = new HashSet<>();
+  private List<String> layerNamesToAdd = new ArrayList<>();
   private List<Long> sequenceIds = new ArrayList<>();
   private List<Long> channelIds = new ArrayList<>();
   private List<Long> layerIds = new ArrayList<>();
@@ -259,7 +260,13 @@ public class ProjectBuilder {
    * @return project builder
    */
   public ProjectBuilder withLayers(String... layers) {
-    layerNamesToAdd = Sets.newHashSet(layers);
+    layerNamesToAdd = Lists.newArrayList(layers);
+    Set<String> duplicates = layerNamesToAdd.stream()
+        .filter(layer -> Collections.frequency(layerNamesToAdd, layer) >1)
+        .collect(Collectors.toSet());
+     if (duplicates.size() > 0) {
+       LOG.warn("Creating entity with layers {} that have duplicates {}", layers, duplicates);
+     }
     LOG.debug("Layers to add : {}", layerNamesToAdd);
     return this;
   }
