@@ -85,7 +85,8 @@ const propTypes = {
   entity: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  sequences: PropTypes.array.isRequired
+  sequences: PropTypes.object.isRequired,
+  layers: PropTypes.object.isRequired
 };
 
 class Layer extends React.Component{
@@ -110,22 +111,64 @@ class Layer extends React.Component{
   }
 
   render() {
-    var sequenceNames = this.props.sequences.map(entry =>
+    var sequences = this.props.sequences;
+    var layers = this.props.layers;
+
+    // Lookup the sequences that are in this layer and pass this array into the layer component
+    var sequencesInLayer = [];
+    for (var sequenceName in sequences) {
+      var sequence = sequences[sequenceName];
+      for (var j = 0 ; j < sequence.layers.length ; j++) {
+        var layerName = sequence.layers[j];
+        if (layerName == this.props.entity.name) {
+          // Push a sequence object onto the array with enough information to handle change
+          sequencesInLayer.push({
+            name : sequence.name,
+            index : j,
+            href : sequence._links.self.href
+          });
+        }
+      }
+    }
+
+    var sequenceNames = sequencesInLayer.map(entry =>
       <SequenceInLayer key={entry.name + '-' + this.props.entity._links.self.href}
         name={entry.name} layerIndex={entry.index} href={entry.href}
         onChange={this.handleChange}/>
     );
+    var childLayers = this.props.entity.layers.map(layerName => {
+      var layer = layers[layerName];
+      if (layer) {
+        return (<Layer entity={layer} layers={layers} sequences={sequences}
+          key={layerName} onDelete={this.onDelete}
+          onChange={this.handleChange} onDelete={this.props.onDelete}/>
+        );
+      } else {
+        return (<div key={layerName}>{layerName}</div>);
+      }
+    });
+
     const { connectDropTarget, connectDragSource } = this.props;
-    return connectDragSource(connectDropTarget(
-      <div className="layer card">
-        {this.props.entity.name}
-        <div className="sequences">{sequenceNames}</div>
-      </div>
-    ));
+    if (connectDragSource && connectDropTarget) {
+      return connectDragSource(connectDropTarget(
+        <div className="layer card">
+          {this.props.entity.name}
+          {childLayers}
+          <div className="sequences">{sequenceNames}</div>
+        </div>
+      ));
+    } else {
+      return (
+        <div className="layer card">
+          ! {this.props.entity.name} !
+          <div className="sequences">{sequenceNames}</div>
+        </div>
+      );
+    }
   }
 }
 
 Layer.propTypes = propTypes;
 
 module.exports = DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
-  DropTarget(ItemTypes.SEQUENCE, dropTarget, collectDrop)(Layer));
+  DropTarget([ ItemTypes.SEQUENCE, ItemTypes.LAYER], dropTarget, collectDrop)(Layer));

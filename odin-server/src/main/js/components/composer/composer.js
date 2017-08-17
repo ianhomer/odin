@@ -83,8 +83,10 @@ class Composer extends React.Component{
     return (
       // Display layer list and sequence cards
       <div>
-        <LayerList project={this.props.project} sequences={this.state.entities}
-          onChange={this.handleChange}/>
+        {this.state.entities.length > 0 &&
+          <LayerList project={this.props.project} sequences={this.state.entities}
+            onChange={this.handleChange}/>
+        }
         <div className="break">&nbsp;</div>
         <div>{entities}</div>
       </div>

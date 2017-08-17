@@ -25,7 +25,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -78,7 +77,7 @@ public abstract class AbstractPersistableSequence implements MutableSequence {
   @NotNull
   private Tick tick;
 
-  @ElementCollection(fetch = FetchType.EAGER)
+  @ElementCollection
   private Set<String> layers = new LinkedHashSet<>(0);
 
   @Override

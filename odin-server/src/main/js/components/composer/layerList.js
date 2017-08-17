@@ -67,36 +67,38 @@ class LayerList extends React.Component{
     this.loadFromServer();
   }
 
+
+  findRootLayers(layers) {
+    // Create array of layer names
+    var layerNames = Object.keys(layers);
+    var childNames = [];
+    this.state.entities.forEach(entity => {
+      // ... and remove any that are children
+      entity.layers.forEach(layerName => childNames.push(layerName));
+    });
+    var rootLayerNames = layerNames.filter(name => !childNames.includes(name));
+    // Then collect the remaining layers as the root layers
+    var rootLayers = [];
+    rootLayerNames.forEach(layerName => rootLayers.push(layers[layerName]));
+    return rootLayers;
+  }
+
   render() {
-    var entities = this.state.entities.map(entity => {
-      var sequences = this.props.sequences;
+    var layers = {};
+    this.state.entities.forEach(layer => layers[layer.name] = layer);
+    var sequences = {};
+    this.props.sequences.forEach(sequence => sequences[sequence.name] = sequence);
 
-      // Lookup the sequences that are in this layer and pass this array into the layer component
-      var sequencesInLayer = [];
-      for (var i = 0 ; i < sequences.length ; i ++) {
-        var sequence = sequences[i];
-        for (var j = 0 ; j < sequence.layers.length ; j++) {
-          var layerName = sequence.layers[j];
-          if (layerName == entity.name) {
-            // Push a sequence object onto the array with enough information to handle change
-            sequencesInLayer.push({
-              name : sequence.name,
-              index : j,
-              href : sequence._links.self.href
-            });
-          }
-        }
-      }
-
+    var rootLayers = this.findRootLayers(layers).map(entity => {
       return (
-        <Layer entity={entity} sequences={sequencesInLayer}
+        <Layer entity={entity} layers={layers} sequences={sequences}
           key={entity._links.self.href} onDelete={this.onDelete}
           onChange={this.handleChange} onDelete={this.handleDelete}/>
       );
     });
     return (
       <div>
-        <div>{entities}</div>
+        <div>{rootLayers}</div>
         <Trash/>
         <div className="break">&nbsp;</div>
         <div>

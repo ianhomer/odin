@@ -21,7 +21,6 @@ import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -54,7 +53,7 @@ public class PersistableProject implements Project {
 
   @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private Set<Layer> layers = new LinkedHashSet<>();
+  private Set<Layer> layers = new HashSet<>();
 
   @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
