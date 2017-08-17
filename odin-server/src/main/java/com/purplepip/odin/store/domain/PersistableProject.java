@@ -20,9 +20,7 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequencer.Channel;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
@@ -56,7 +54,7 @@ public class PersistableProject implements Project {
 
   @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private List<Layer> layers = new ArrayList<>();
+  private Set<Layer> layers = new HashSet<>();
 
   @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)

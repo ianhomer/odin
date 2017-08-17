@@ -19,9 +19,7 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequencer.Channel;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import lombok.ToString;
 
@@ -36,7 +34,7 @@ public class TransientProject implements Project {
 
   private Set<Channel> channels = new HashSet<>();
 
-  private List<Layer> layers = new ArrayList<>();
+  private Set<Layer> layers = new HashSet<>();
 
   @Override
   public String getName() {
@@ -54,7 +52,7 @@ public class TransientProject implements Project {
   }
 
   @Override
-  public List<Layer> getLayers() {
+  public Set<Layer> getLayers() {
     return layers;
   }
 

@@ -19,7 +19,6 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequencer.Channel;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,11 +42,11 @@ public interface Project {
   Set<Channel> getChannels();
 
   /**
-   * Get list of the layers stored in this project.
+   * Get set of the layers stored in this project.
    *
    * @return set of layers
    */
-  List<Layer> getLayers();
+  Set<Layer> getLayers();
 
   /**
    * Add channel.
