@@ -87,7 +87,8 @@ class LayerList extends React.Component{
     return (
       <Layer entity={layer} layers={layers} sequences={sequences}
         key={layer.name} onDelete={this.onDelete}
-        onChange={this.handleChange} onDelete={this.handleDelete}>
+        onChange={this.handleChange} onDelete={this.handleDelete}
+        onAddLayer={this.props.onAddLayer}>
         {layer.layers.map(layerName =>
           this.renderLayer(layers[layerName], layers, sequences)
         )}

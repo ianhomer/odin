@@ -36,7 +36,7 @@ const dragSource = {
 
   endDrag(props, monitor) {
     if (monitor.didDrop()) {
-      props.onAddLayer(monitor.getDropResult().entity, props.entity);
+      props.onAddLayer(props.entity, monitor.getDropResult().entity);
     }
   }
 };

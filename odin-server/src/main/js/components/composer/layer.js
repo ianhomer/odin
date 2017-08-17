@@ -40,8 +40,11 @@ const dragSource = {
       var action = monitor.getDropResult().action;
       if (action == 'remove') {
         props.onDelete(props.entity);
+      } else if (action == 'add') {
+        props.onAddLayer(props.entity, monitor.getDropResult().entity);
       } else {
-        console.error('Only remove action has been implemented for layers');
+        console.error('Only remove and add action have been implemented for layers : result = ' +
+          JSON.stringify(monitor.getDropResult()));
       }
     }
   }

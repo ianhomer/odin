@@ -54,7 +54,7 @@ class Composer extends React.Component{
     this.loadFromServer();
   }
 
-  handleAddLayer(layer, destination) {
+  handleAddLayer(destination, layer) {
     this.onPatch(destination._links.self.href,
       [
         { op: 'add', path: '/layers/-', value: layer.name }
@@ -85,7 +85,7 @@ class Composer extends React.Component{
       <div>
         {this.state.entities.length > 0 &&
           <LayerList project={this.props.project} sequences={this.state.entities}
-            onChange={this.handleChange}/>
+            onChange={this.handleChange} onAddLayer={this.handleAddLayer}/>
         }
         <div className="break">&nbsp;</div>
         <div>{entities}</div>
