@@ -41,7 +41,7 @@ const dragSource = {
       if (action == 'remove') {
         props.onDelete(props.entity);
       } else if (action == 'add') {
-        props.onAddLayer(props.entity, monitor.getDropResult().entity);
+        props.onAddLayer(monitor.getDropResult().entity, props.entity, props.onChange);
       } else {
         console.error('Only remove and add action have been implemented for layers : result = ' +
           JSON.stringify(monitor.getDropResult()));
@@ -116,7 +116,6 @@ class Layer extends React.Component{
 
   render() {
     var sequences = this.props.sequences;
-    var layers = this.props.layers;
 
     // Lookup the sequences that are in this layer and pass this array into the layer component
     var sequencesInLayer = [];

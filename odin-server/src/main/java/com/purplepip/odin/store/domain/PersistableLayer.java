@@ -20,13 +20,12 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.tick.Tick;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -34,6 +33,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -67,8 +67,8 @@ public class PersistableLayer implements MutableLayer {
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
 
-  @ElementCollection(fetch = FetchType.EAGER)
-  private Set<String> layers = new LinkedHashSet<>(0);
+  @ElementCollection
+  private List<String> layers = new ArrayList<>(0);
 
   @Column(name = "o")
   private long offset;
@@ -81,6 +81,11 @@ public class PersistableLayer implements MutableLayer {
   public void prePesist() {
     setDefaults();
     addToProject();
+  }
+
+  @PreUpdate
+  public void preUpdate() {
+    PersistableHelper.removeDuplicates(layers);
   }
 
   private void addToProject() {

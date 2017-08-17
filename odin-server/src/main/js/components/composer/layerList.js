@@ -44,6 +44,7 @@ class LayerList extends React.Component{
   }
 
   handleChange() {
+    this.loadFromServer();
     this.props.onChange();
   }
 
@@ -102,13 +103,13 @@ class LayerList extends React.Component{
     var sequences = {};
     this.props.sequences.forEach(sequence => sequences[sequence.name] = sequence);
 
-    var layers = this.findRootLayers(layers).map(entity =>
+    var renderedLayers = this.findRootLayers(layers).map(entity =>
       this.renderLayer(entity, layers, sequences)
     );
 
     return (
       <div>
-        <div>{layers}</div>
+        <div>{renderedLayers}</div>
         <Trash/>
         <div className="break">&nbsp;</div>
         <div>

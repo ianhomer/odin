@@ -54,11 +54,11 @@ class Composer extends React.Component{
     this.loadFromServer();
   }
 
-  handleAddLayer(destination, layer) {
+  handleAddLayer(destination, layer, callback = this.handleChange) {
     this.onPatch(destination._links.self.href,
       [
         { op: 'add', path: '/layers/-', value: layer.name }
-      ], this.handleChange);
+      ], callback);
   }
 
   render() {

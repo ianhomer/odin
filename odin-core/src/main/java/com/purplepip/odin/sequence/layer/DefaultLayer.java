@@ -17,8 +17,8 @@ package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.ToString;
 
@@ -41,7 +41,7 @@ public class DefaultLayer implements MutableLayer {
   private long length;
   private long offset;
 
-  private Set<String> layers = new LinkedHashSet<>();
+  private List<String> layers = new ArrayList<>();
 
   public DefaultLayer() {
   }
@@ -71,7 +71,7 @@ public class DefaultLayer implements MutableLayer {
   }
 
   @Override
-  public Set<String> getLayers() {
+  public List<String> getLayers() {
     return layers;
   }
 
