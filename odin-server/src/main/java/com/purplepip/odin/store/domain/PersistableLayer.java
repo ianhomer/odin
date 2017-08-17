@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.store.domain;
 
+import static com.purplepip.odin.store.domain.HibernateCanEqualMethodProvider.canEqualHibernateEntity;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.TimeUnit;
@@ -47,7 +49,7 @@ import lombok.ToString;
 @Data
 @Entity(name = "Layer")
 @Table(name = "Layer")
-@EqualsAndHashCode(of = "name")
+@EqualsAndHashCode( of = "name")
 @ToString(exclude = "project")
 public class PersistableLayer implements MutableLayer {
   @Version
@@ -100,5 +102,9 @@ public class PersistableLayer implements MutableLayer {
   @PreRemove
   public void removeFromProject() {
     project.removeLayer(this);
+  }
+
+  protected boolean canEqual(Object other) {
+    return canEqualHibernateEntity(this, other);
   }
 }

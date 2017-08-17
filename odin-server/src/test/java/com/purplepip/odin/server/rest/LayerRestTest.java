@@ -1,5 +1,8 @@
 package com.purplepip.odin.server.rest;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,9 +28,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @ContextConfiguration
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles({"noAuditing"})
+@ActiveProfiles({"test", "noAuditing"})
 @Slf4j
-public class LayoutRestTest {
+public class LayerRestTest {
   @Autowired
   private MockMvc mvc;
 
@@ -35,25 +38,45 @@ public class LayoutRestTest {
   private ObjectMapper objectMapper;
 
   @Test
-  public void testCreateNewLayer() throws Exception {
-    MvcResult result = mvc.perform(MockMvcRequestBuilders.get(
-        "/api/projects"))
-        .andExpect(status().isOk())
-        .andReturn();
-    DocumentContext context = JsonPath.parse(result.getResponse().getContentAsString());
+  public void testCreateAndDeleteLayer() throws Exception {
+    DocumentContext context = JsonPath.parse(
+        mvc.perform(get("/api/projects")).andReturn().getResponse().getContentAsString()
+    );
     String projectUri = context.read("$._embedded.projects[0]._links.self.href");
+
+    /*
+     * Add layer
+     */
     Map<String, String> layer = new HashMap<>();
     layer.put("name", "new-layer-name");
     layer.put("project", projectUri);
     String newLayerJson = objectMapper.writeValueAsString(layer);
     LOG.info(newLayerJson);
-    result = mvc.perform(MockMvcRequestBuilders.post(
+    MvcResult result = mvc.perform(MockMvcRequestBuilders.post(
           "/api/layers")
         .contentType(MediaType.APPLICATION_JSON)
         .content(newLayerJson))
         .andExpect(status().isCreated())
         .andReturn();
-    String json = result.getResponse().getContentAsString();
-    LOG.info("JSON = {}", json);
+
+    String layoutUri = result.getResponse().getRedirectedUrl();
+
+    mvc.perform(get(projectUri + "/layers"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.layers", hasSize(1)));
+
+    /*
+     * Delete layer
+     */
+    mvc.perform(MockMvcRequestBuilders.delete(layoutUri)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNoContent());
+
+    /*
+     * Test project has no layers
+     */
+    mvc.perform(get(projectUri + "/layers"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.layers", hasSize(0)));
   }
 }

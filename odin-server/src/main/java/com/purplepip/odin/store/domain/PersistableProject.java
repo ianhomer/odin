@@ -121,7 +121,7 @@ public class PersistableProject implements Project {
 
   @Override
   public void removeLayer(Layer layer) {
-    boolean result = layers.removeIf(existingLayer -> existingLayer.equals(layer));
+    boolean result = layers.remove(layer);
     if (!result) {
       LOG.warn("Could not remove layer {} from project with layers {}", layer, getLayers());
       /*

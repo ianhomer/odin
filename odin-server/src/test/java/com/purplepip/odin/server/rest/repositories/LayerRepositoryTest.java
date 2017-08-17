@@ -13,9 +13,6 @@ import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistableProject;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
@@ -77,32 +74,20 @@ public class LayerRepositoryTest {
 
   @Test
   public void testLayoutRemove() throws OdinException, ExecutionException, InterruptedException {
-    ExecutorService executor = Executors.newFixedThreadPool(1);
+    PersistableProject project = new PersistableProject();
+    project.setName("test-project");
+    projectRepository.save(project);
+    PersistableLayer layer = newLayer("test-layer");
+    project.addLayer(layer);
+    layerRepository.save(layer);
+    Assertions.assertThat(project.getLayers().size()).isEqualTo(1);
+    projectRepository.save(project);
 
-    Future future = executor.submit(() -> {
-      PersistableProject project = new PersistableProject();
-      project.setName("test-project");
-      projectRepository.save(project);
-      PersistableLayer layer = newLayer("test-layer");
-      project.addLayer(layer);
-      layerRepository.save(layer);
-      Assertions.assertThat(project.getLayers().size()).isEqualTo(1);
-      projectRepository.save(project);
-    });
-    future.get();
+    Project existingProject = projectRepository.findByName("test-project");
+    Assertions.assertThat(existingProject.getLayers().size()).isEqualTo(1);
+    layerRepository.delete((PersistableLayer) existingProject.getLayers().iterator().next());
 
-    future = executor.submit(() -> {
-      Project project = projectRepository.findByName("test-project");
-      Assertions.assertThat(project.getLayers().size()).isEqualTo(1);
-      layerRepository.delete((PersistableLayer) project.getLayers().iterator().next());
-    });
-    future.get();
-
-    future = executor.submit(() -> {
-      Project project = projectRepository.findByName("test-project");
-      Assertions.assertThat(project.getLayers().size()).isEqualTo(0);
-    });
-    future.get();
-
+    existingProject = projectRepository.findByName("test-project");
+    Assertions.assertThat(existingProject.getLayers().size()).isEqualTo(0);
   }
 }

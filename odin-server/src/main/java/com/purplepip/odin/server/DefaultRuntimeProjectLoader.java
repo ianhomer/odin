@@ -27,7 +27,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile({"!test"})
+@Profile("!test")
 @Order(2)
 @Slf4j
 public class DefaultRuntimeProjectLoader implements ApplicationRunner {
