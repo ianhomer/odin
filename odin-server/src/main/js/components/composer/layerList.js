@@ -83,22 +83,31 @@ class LayerList extends React.Component{
     return rootLayers;
   }
 
+  renderLayer(layer, layers, sequences) {
+    return (
+      <Layer entity={layer} layers={layers} sequences={sequences}
+        key={layer.name} onDelete={this.onDelete}
+        onChange={this.handleChange} onDelete={this.handleDelete}>
+        {layer.layers.map(layerName =>
+          this.renderLayer(layers[layerName], layers, sequences)
+        )}
+      </Layer>
+    );
+  }
+
   render() {
     var layers = {};
     this.state.entities.forEach(layer => layers[layer.name] = layer);
     var sequences = {};
     this.props.sequences.forEach(sequence => sequences[sequence.name] = sequence);
 
-    var rootLayers = this.findRootLayers(layers).map(entity => {
-      return (
-        <Layer entity={entity} layers={layers} sequences={sequences}
-          key={entity._links.self.href} onDelete={this.onDelete}
-          onChange={this.handleChange} onDelete={this.handleDelete}/>
-      );
-    });
+    var layers = this.findRootLayers(layers).map(entity =>
+      this.renderLayer(entity, layers, sequences)
+    );
+
     return (
       <div>
-        <div>{rootLayers}</div>
+        <div>{layers}</div>
         <Trash/>
         <div className="break">&nbsp;</div>
         <div>

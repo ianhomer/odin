@@ -86,7 +86,8 @@ const propTypes = {
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   sequences: PropTypes.object.isRequired,
-  layers: PropTypes.object.isRequired
+  layers: PropTypes.object.isRequired,
+  children: PropTypes.node
 };
 
 class Layer extends React.Component{
@@ -136,24 +137,13 @@ class Layer extends React.Component{
         name={entry.name} layerIndex={entry.index} href={entry.href}
         onChange={this.handleChange}/>
     );
-    var childLayers = this.props.entity.layers.map(layerName => {
-      var layer = layers[layerName];
-      if (layer) {
-        return (<Layer entity={layer} layers={layers} sequences={sequences}
-          key={layerName} onDelete={this.onDelete}
-          onChange={this.handleChange} onDelete={this.props.onDelete}/>
-        );
-      } else {
-        return (<div key={layerName}>{layerName}</div>);
-      }
-    });
 
     const { connectDropTarget, connectDragSource } = this.props;
     if (connectDragSource && connectDropTarget) {
       return connectDragSource(connectDropTarget(
         <div className="layer card">
           {this.props.entity.name}
-          {childLayers}
+          {this.props.children}
           <div className="sequences">{sequenceNames}</div>
         </div>
       ));
