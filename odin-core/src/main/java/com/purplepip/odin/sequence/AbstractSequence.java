@@ -17,8 +17,8 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public abstract class AbstractSequence implements MutableSequence {
   private int channel;
   private String flowName;
   private Project project;
-  private List<String> layers = new ArrayList<>();
+  private Set<String> layers = new LinkedHashSet<>();
 
   /**
    * ID auto generated.
@@ -150,7 +150,7 @@ public abstract class AbstractSequence implements MutableSequence {
   }
 
   @Override
-  public List<String> getLayers() {
+  public Set<String> getLayers() {
     return layers;
   }
 

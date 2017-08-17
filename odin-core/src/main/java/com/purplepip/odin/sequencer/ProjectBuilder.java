@@ -262,11 +262,11 @@ public class ProjectBuilder {
   public ProjectBuilder withLayers(String... layers) {
     layerNamesToAdd = Lists.newArrayList(layers);
     Set<String> duplicates = layerNamesToAdd.stream()
-        .filter(layer -> Collections.frequency(layerNamesToAdd, layer) >1)
+        .filter(layer -> Collections.frequency(layerNamesToAdd, layer) > 1)
         .collect(Collectors.toSet());
-     if (duplicates.size() > 0) {
-       LOG.warn("Creating entity with layers {} that have duplicates {}", layers, duplicates);
-     }
+    if (duplicates.size() > 0) {
+      LOG.warn("Creating entity with layers {} that have duplicates {}", layers, duplicates);
+    }
     LOG.debug("Layers to add : {}", layerNamesToAdd);
     return this;
   }

@@ -18,7 +18,7 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Sequence configuration.
@@ -90,5 +90,5 @@ public interface Sequence extends Copyable<Sequence> {
   /**
    * Get the sequence layer names.
    */
-  List<String> getLayers();
+  Set<String> getLayers();
 }

@@ -20,8 +20,8 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.tick.Tick;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -40,6 +40,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Persistable layer.
@@ -49,6 +50,7 @@ import lombok.ToString;
 @Table(name = "Layer")
 @ToString(exclude = "project")
 @EqualsAndHashCode(of = {"id"})
+@Slf4j
 public class PersistableLayer implements MutableLayer {
   @Version
   @JsonIgnore
@@ -66,7 +68,7 @@ public class PersistableLayer implements MutableLayer {
   private Project project;
 
   @ElementCollection(fetch = FetchType.EAGER)
-  private List<String> layers = new ArrayList<>(0);
+  private Set<String> layers = new LinkedHashSet<>(0);
 
   @Column(name = "o")
   private long offset;
@@ -105,6 +107,7 @@ public class PersistableLayer implements MutableLayer {
 
   @Override
   public void addLayer(String layer) {
+    LOG.debug("Adding layer {} to {}", layer, this);
     layers.add(layer);
   }
 }

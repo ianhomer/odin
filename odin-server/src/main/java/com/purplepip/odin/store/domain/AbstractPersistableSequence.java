@@ -19,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.tick.Tick;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -79,15 +79,17 @@ public abstract class AbstractPersistableSequence implements MutableSequence {
   private Tick tick;
 
   @ElementCollection(fetch = FetchType.EAGER)
-  private List<String> layers = new ArrayList<>(0);
+  private Set<String> layers = new LinkedHashSet<>(0);
 
   @Override
   public void removeLayer(String layer) {
+    LOG.debug("Removing layer {} from {}", layer, this);
     layers.remove(layer);
   }
 
   @Override
   public void addLayer(String layer) {
+    LOG.debug("Adding layer {} to {}", layer, this);
     layers.add(layer);
   }
 
