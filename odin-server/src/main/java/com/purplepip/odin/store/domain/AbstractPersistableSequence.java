@@ -16,11 +16,15 @@
 package com.purplepip.odin.store.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Sets;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -35,6 +39,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -91,6 +96,25 @@ public abstract class AbstractPersistableSequence implements MutableSequence {
     LOG.debug("Adding layer {} to {}", layer, this);
     layers.add(layer);
   }
+
+  @PreUpdate
+  /*
+   * TODO : Can we find a better of way of making sure duplicates do not appear in this list.
+   * I believe we need a list because a) JSON patching wants list not set and b) logically
+   * order of layers will useful domain logic to based order that layers are applied.
+   */
+  public void removeDuplicatesFromLayers() {
+    Set<String> duplicateLayers =
+        getLayers().stream().filter(i -> Collections.frequency(getLayers(), i) > 1)
+        .collect(Collectors.toSet());
+    if (duplicateLayers.size() > 0) {
+      LOG.warn("Removing duplicates layers {} in {}", duplicateLayers, this);
+      Set<String> layers = Sets.newHashSet(getLayers());
+      getLayers().clear();
+      getLayers().addAll(layers);
+    }
+  }
+
 
   @PrePersist
   public void addToProject() {
