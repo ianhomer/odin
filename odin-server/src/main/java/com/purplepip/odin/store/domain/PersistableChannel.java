@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Entity(name = "Channel")
 @Table(name = "Channel")
-@EqualsAndHashCode(exclude = {"project", "id"})
+@EqualsAndHashCode(of = "id")
 @ToString(exclude = "project")
 @Slf4j
 public class PersistableChannel implements Channel {

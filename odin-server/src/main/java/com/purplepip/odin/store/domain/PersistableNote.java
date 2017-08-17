@@ -36,7 +36,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity(name = "Note")
 @Table(name = "Note")
-@EqualsAndHashCode(exclude = {"id", "duration"})
+@EqualsAndHashCode(of = "id")
 public class PersistableNote implements Note {
   @Id
   @GeneratedValue

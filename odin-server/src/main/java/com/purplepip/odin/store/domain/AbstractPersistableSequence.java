@@ -50,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 @Table(name = "Sequence")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
-@EqualsAndHashCode(exclude = {"id", "version", "project"})
+@EqualsAndHashCode(of = "id")
 @ToString(exclude = "project")
 @Slf4j
 public abstract class AbstractPersistableSequence implements MutableSequence {

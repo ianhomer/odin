@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Persistable operation used currently for auditing purposes, but in the future it could be
@@ -32,6 +33,7 @@ import lombok.Data;
 @Data
 @Entity(name = "Operation")
 @Table(name = "Operation")
+@EqualsAndHashCode(of = "id")
 public class PersistableOperation {
   @Id
   @GeneratedValue

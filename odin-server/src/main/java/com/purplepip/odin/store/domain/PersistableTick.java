@@ -39,7 +39,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity(name = "Tick")
 @Table(name = "Tick")
-@EqualsAndHashCode(exclude = {"factor", "id"})
+@EqualsAndHashCode(of = "id")
 public class PersistableTick implements Tick {
   @Id
   @GeneratedValue

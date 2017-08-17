@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Entity(name = "Project")
 @Table(name = "Project")
-@EqualsAndHashCode(of = "name")
+@EqualsAndHashCode(of = "id")
 @Slf4j
 public class PersistableProject implements Project {
   @Id
@@ -103,19 +103,12 @@ public class PersistableProject implements Project {
 
   @Override
   public void addLayer(MutableLayer layer) {
-    if (!this.equals(layer.getProject())) {
-      layer.setProject(this);
-    }
-    if (!layers.contains(layer)) {
-      boolean result = layers.add(layer);
-      if (!result) {
-        LOG.warn("Could not add layer {} to project", layer);
-      } else {
-        LOG.debug("Added layer {} to project which now has {} layers", layer, layers.size());
-      }
+    layer.setProject(this);
+    boolean result = layers.add(layer);
+    if (!result) {
+      LOG.warn("Could not add layer {} to project", layer);
     } else {
-      LOG.debug("Since it already exists in project, "
-          + "not adding layer {} to project which now has {} layers", layer, layers.size());
+      LOG.debug("Added layer to project");
     }
   }
 
