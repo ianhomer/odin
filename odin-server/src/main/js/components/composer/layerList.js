@@ -108,7 +108,7 @@ class LayerList extends React.Component{
           if (layer == null) {
             return (<div key={layerName}>?{layerName}?</div>);
           } else {
-            this.renderLayer(layers[layerName], layer, layers, sequences, stack)
+            return this.renderLayer(layers[layerName], layer, layers, sequences, stack)
           }
         })}
       </Layer>
