@@ -49,7 +49,7 @@ public class SequenceRestTest {
     result = mvc.perform(MockMvcRequestBuilders.get(uri))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.offset", is(0)))
-        .andExpect(jsonPath("$.notation", is("C#5/q, B4, A4, G#4")))
+        .andExpect(jsonPath("$.notation", is("A/q G/8 A/q E")))
         .andReturn();
     json = result.getResponse().getContentAsString();
 

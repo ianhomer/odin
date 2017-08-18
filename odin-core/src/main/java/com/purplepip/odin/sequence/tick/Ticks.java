@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.math.Rationals;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.sequence.TimeUnit;
 
 /**
@@ -26,6 +27,7 @@ public final class Ticks {
   public static final Tick MILLISECOND = new DefaultTick(TimeUnit.MICROSECOND, 1_000);
   public static final Tick MICROSECOND = new DefaultTick(TimeUnit.MICROSECOND);
   public static final Tick BEAT = new DefaultTick(TimeUnit.BEAT);
+  public static final Tick TWO_BEAT = new DefaultTick(TimeUnit.BEAT, Wholes.TWO);
   public static final Tick HALF = new DefaultTick(TimeUnit.BEAT, Rationals.HALF);
   public static final Tick THIRD = new DefaultTick(TimeUnit.BEAT, Rationals.THIRD);
   public static final Tick TWO_THIRDS = new DefaultTick(TimeUnit.BEAT, Rationals.TWO_THIRDS);
