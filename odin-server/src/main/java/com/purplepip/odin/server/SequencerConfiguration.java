@@ -15,30 +15,23 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.midix.SynthesizerHelper;
+import com.purplepip.odin.sequencer.OdinSequencer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("!test")
-@Order(3)
-public class SynthesizerConfiguration implements CommandLineRunner {
-  private MidiDeviceWrapper midiDeviceWrapper;
-
-  public SynthesizerConfiguration(@Autowired MidiDeviceWrapper midiDeviceWrapper) {
-    this.midiDeviceWrapper = midiDeviceWrapper;
-  }
+@Order(1)
+@Slf4j
+public class SequencerConfiguration implements CommandLineRunner {
+  @Autowired
+  private OdinSequencer sequencer;
 
   @Override
   public void run(String... args) throws Exception {
-    if (midiDeviceWrapper.isSynthesizer()) {
-      new SynthesizerHelper(midiDeviceWrapper.getSynthesizer())
-          .loadGervillSoundBank(
-              "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
-    }
+    sequencer.start();
+    LOG.info("Sequencer started");
   }
 }

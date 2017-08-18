@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.events.SwallowedEvent;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
@@ -95,7 +96,7 @@ public class SequenceTrack implements Track {
       return event;
     }
     LOG.debug("Event filtered out through conductors : {}", conductors);
-    return null;
+    return new SwallowedEvent<>(event.getTime());
   }
 
   @Override

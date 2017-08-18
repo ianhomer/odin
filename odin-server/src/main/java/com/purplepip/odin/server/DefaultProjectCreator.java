@@ -21,17 +21,16 @@ import com.purplepip.odin.server.rest.repositories.ProjectRepository;
 import com.purplepip.odin.store.domain.PersistableProject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Profile("!noStore")
-@Order(1)
 @Slf4j
-public class DefaultProjectCreator implements ApplicationRunner {
+@Order(1)
+public class DefaultProjectCreator implements CommandLineRunner {
   public static final String DEFAULT_PROJECT_NAME = "defaultProject";
 
   @Autowired
@@ -41,7 +40,7 @@ public class DefaultProjectCreator implements ApplicationRunner {
   private ProjectContainer projectContainer;
 
   @Override
-  public void run(ApplicationArguments applicationArguments) throws Exception {
+  public void run(String... args) throws Exception {
     Project project = projectRepository.findByName(DEFAULT_PROJECT_NAME);
     if (project == null) {
       project = new PersistableProject();

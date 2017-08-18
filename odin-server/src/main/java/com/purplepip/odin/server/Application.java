@@ -28,6 +28,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.annotation.Order;
 
 /**
  * Odin Application.
@@ -65,10 +66,9 @@ public class Application {
    * @return command line runner
    */
   @Bean
+  @Order(2)
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> {
-      sequencer.start();
-
       LOG.info("Odin Started.");
     };
   }

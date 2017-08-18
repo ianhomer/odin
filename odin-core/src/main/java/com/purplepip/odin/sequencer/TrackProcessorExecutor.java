@@ -18,6 +18,7 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.events.NullValueEvent;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
@@ -103,7 +104,13 @@ public class TrackProcessorExecutor implements Runnable {
           LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
               microsecondPosition);
         } else {
-          sendToProcessor(nextEvent.getValue(), nextEvent, track);
+          /*
+           * Conductors can swallow up events and such events should not be sent to the
+           * processor.
+           */
+          if (!(nextEvent instanceof NullValueEvent)) {
+            sendToProcessor(nextEvent.getValue(), nextEvent, track);
+          }
         }
         noteCount++;
         nextEvent = track.peek();
