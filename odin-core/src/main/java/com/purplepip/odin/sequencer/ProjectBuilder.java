@@ -73,6 +73,10 @@ public class ProjectBuilder {
     reset();
   }
 
+  /**
+   * Clear the project builder so that it can be used again.  Note that the underlying project is
+   * NOT cleared.
+   */
   public void reset() {
     name = null;
     channel = 0;
@@ -229,7 +233,7 @@ public class ProjectBuilder {
   /**
    * Add layers with the given names.
    *
-   * @param name names of layer
+   * @param names names of layers
    * @return this project builder
    */
   public ProjectBuilder addLayer(String... names) {

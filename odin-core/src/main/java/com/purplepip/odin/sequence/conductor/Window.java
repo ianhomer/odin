@@ -15,17 +15,31 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+/**
+ * Window of activity for a conductor.
+ */
 public class Window {
   private long start;
   private long length;
   private long end;
 
+  /**
+   * Create a window.
+   *
+   * @param start start position
+   * @param length length of window
+   */
   public Window(long start, long length) {
     this.start = start;
     this.length = length;
     this.end = start + length;
   }
 
+  /**
+   * Get length of window.
+   *
+   * @return length
+   */
   public long getLength() {
     return length;
   }

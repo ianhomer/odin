@@ -36,7 +36,7 @@ public interface Conductor extends Thing {
   Conductor getParent();
 
   /**
-   * Stream of child conductors
+   * Stream of child conductors.
    *
    * @return child conductors
    */

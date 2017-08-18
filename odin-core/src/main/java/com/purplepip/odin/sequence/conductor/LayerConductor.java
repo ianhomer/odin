@@ -100,6 +100,11 @@ public class LayerConductor implements Conductor {
   }
 
 
+  /**
+   * Add child conductor.
+   *
+   * @param conductor child conductor to add
+   */
   public void addChild(Conductor conductor) {
     children.put(conductor.getName(), conductor);
     if (conductor instanceof LayerConductor) {
@@ -117,12 +122,18 @@ public class LayerConductor implements Conductor {
     return children.values().stream();
   }
 
+  /**
+   * Find child conductor by name.
+   *
+   * @param name conductor name
+   * @return child conductor
+   */
   @Override
   public Conductor findByName(String name) {
     return children.get(name);
   }
 
-  public void afterChildrenAdded() {
+  void afterChildrenAdded() {
     /*
      * Calculate windows of activity for each conductor.  Note that the individual conductor might
      * have an offset which will be added to this start point to give the point when the conductor
@@ -143,6 +154,12 @@ public class LayerConductor implements Conductor {
     loopLength = Whole.valueOf(position);
   }
 
+  /**
+   * Whether the conductor is active.
+   *
+   * @param microseconds microsecond position to test whether conductor is active
+   * @return true if conductor is active
+   */
   @Override
   public boolean isActive(long microseconds) {
     if (getParent() != null) {
@@ -161,6 +178,12 @@ public class LayerConductor implements Conductor {
     return result;
   }
 
+  /**
+   * Get tock position, relative to start of conductor, for the given microsecond position.
+   *
+   * @param microseconds microsecond position
+   * @return tock position
+   */
   public Real getPosition(long microseconds) {
     if (parent == null) {
       Real absolutePosition = tickConverter.convert(Whole.valueOf(microseconds));

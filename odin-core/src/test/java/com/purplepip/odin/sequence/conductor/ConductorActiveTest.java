@@ -68,6 +68,9 @@ public class ConductorActiveTest {
   private ProjectBuilder builder;
 
 
+  /**
+   * Set up the test.
+   */
   @Before
   public void setUp() {
     microsecondPositionProvider = new MovableMicrosecondPositionProvider();
@@ -79,7 +82,9 @@ public class ConductorActiveTest {
 
   @Test
   public void testSingleLayer() {
-    if (refresh(() -> builder.addLayer(LAYER1))) assertActive(LAYER1, ALWAYS);
+    if (refresh(() -> builder.addLayer(LAYER1))) {
+      assertActive(LAYER1, ALWAYS);
+    }
     if (refresh(() -> builder.withLength(1).addLayer(LAYER1))) {
       assertActive(LAYER1, BEFORE_ONE_SECOND);
       assertNotActive(LAYER1, AFTER_ONE_SECOND);
