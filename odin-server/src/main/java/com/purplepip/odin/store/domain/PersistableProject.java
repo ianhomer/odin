@@ -66,7 +66,11 @@ public class PersistableProject implements Project {
      * Replace any existing channel for same channel number.
      */
     channels.removeIf(c -> c.getNumber() == channel.getNumber());
-    channels.add(channel);
+    boolean result = channels.add(channel);
+    if (!result) {
+      LOG.warn("Cannot add channel {}", channel);
+    }
+
   }
 
   @Override

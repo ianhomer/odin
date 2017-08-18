@@ -129,6 +129,8 @@ public class OdinSequencer implements ProjectApplyListener {
           LOG.debug("Sending channel operation : {}", channel);
           sendProgramChangeOperation(programChangeOperation);
           statistics.incrementProgramChangeCount();
+        } else  {
+          LOG.debug("Channel operation already sent : {}", channel);
         }
       } catch (OdinException e) {
         LOG.warn("Cannot send operation", e);

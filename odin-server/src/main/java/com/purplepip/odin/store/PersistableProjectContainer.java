@@ -16,8 +16,14 @@
 package com.purplepip.odin.store;
 
 import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.MutableLayer;
+import com.purplepip.odin.sequencer.Channel;
+import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.LayerRepository;
+import com.purplepip.odin.server.rest.repositories.SequenceRepository;
+import com.purplepip.odin.store.domain.AbstractPersistableSequence;
+import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +32,30 @@ import org.springframework.stereotype.Component;
 public class PersistableProjectContainer extends ProjectContainer {
   @Autowired
   private LayerRepository layerRepository;
+
+  @Autowired
+  private ChannelRepository channelRepository;
+
+  @Autowired
+  private SequenceRepository sequenceRepository;
+
+  @Override
+  public void addChannel(Channel channel) {
+    if (channel instanceof PersistableChannel) {
+      channel.setProject(getProject());
+      channelRepository.save((PersistableChannel) channel);
+    }
+    super.addChannel(channel);
+  }
+
+  @Override
+  public void addSequence(Sequence sequence) {
+    if (sequence instanceof AbstractPersistableSequence) {
+      sequence.setProject(getProject());
+      sequenceRepository.save((AbstractPersistableSequence) sequence);
+    }
+    super.addSequence(sequence);
+  }
 
   @Override
   public void addLayer(MutableLayer layer) {

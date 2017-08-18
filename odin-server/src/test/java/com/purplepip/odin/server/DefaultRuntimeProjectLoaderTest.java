@@ -51,16 +51,14 @@ public class DefaultRuntimeProjectLoaderTest {
     ProjectContainer reloadedContainer =
         new ProjectContainer(projectRepository.findByName(DEFAULT_PROJECT_NAME));
     assertThat(reloadedContainer.getChannels()).isNotEmpty();
-    assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(0);
-    assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(0);
-    reloadedContainer.getSequenceStream().forEach(sequence ->
-        assertThat(sequence.getLayers().size()).isEqualTo(1)
-    );
+    assertThat(reloadedContainer.getChannelStream().count()).isGreaterThan(3);
+    assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(4);
+    assertThat(reloadedContainer.getSequenceStream().count()).isGreaterThan(4);
     Optional<Notation> firstNotation = reloadedContainer.getSequenceStream()
         .filter(s -> s instanceof Notation).map(s -> (Notation) s).findFirst();
     assertThat(firstNotation.isPresent()).isTrue();
     assertThat(firstNotation.get().getLayers().size()).isEqualTo(1);
 
-    assertThat(reloadedContainer.getLayerStream().count()).isEqualTo(7);
+    assertThat(reloadedContainer.getLayerStream().count()).isEqualTo(8);
   }
 }
