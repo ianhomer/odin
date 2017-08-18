@@ -104,11 +104,11 @@ class LayerList extends React.Component{
         onMoveLayer={this.props.onMoveLayer}
         onAddLayer={this.props.onAddLayer}>
         {layer.layers.map(layerName => {
-          var layer = layers[layerName];
-          if (layer == null) {
+          var childLayer = layers[layerName];
+          if (childLayer == null) {
             return (<div key={layerName}>?{layerName}?</div>);
           } else {
-            return this.renderLayer(layers[layerName], layer, layers, sequences, stack)
+            return this.renderLayer(childLayer, layer, layers, sequences, stack);
           }
         })}
       </Layer>
