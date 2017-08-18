@@ -22,6 +22,7 @@ import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
+import com.purplepip.odin.store.domain.PersistablePattern;
 import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,6 +60,8 @@ public class DefaultRuntimeProjectLoaderTest {
     assertThat(firstNotation.isPresent()).isTrue();
     assertThat(firstNotation.get().getLayers().size()).isEqualTo(1);
 
-    assertThat(reloadedContainer.getLayerStream().count()).isEqualTo(8);
+    assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(9);
+    assertThat(reloadedContainer.getSequenceStream()
+        .filter(sequence -> sequence instanceof PersistablePattern).count()).isGreaterThan(5);
   }
 }
