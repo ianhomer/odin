@@ -55,18 +55,22 @@ const dropTarget = {
     return {
       action : 'add',
       entity : props.entity,
-      sequences : props.sequences
+      sequences : props.sequences,
+      isOverCurrent : props.isOverCurrent
     };
   },
 
   canDrop(props, monitor) {
+    // TODO : Differentiate between dropping a sequence and dropping a layout (currently it's
+    // just on name).
+    var isOverCurrent = monitor.isOver({ shallow: true })
     for (var i =0 ; i < props.sequences.length ; i++) {
       // Sequence is already in layer
       if (props.sequences[i].name == monitor.getItem().entity.name) {
         return false;
       }
     }
-    return true;
+    return isOverCurrent;
   }
 };
 
@@ -80,7 +84,8 @@ function collectDrag(connect, monitor) {
 function collectDrop(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver(),
+    isOverCurrent: monitor.isOver({ shallow: true })
   };
 }
 
@@ -90,7 +95,9 @@ const propTypes = {
   onDelete: PropTypes.func.isRequired,
   sequences: PropTypes.object.isRequired,
   layers: PropTypes.object.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
+  // Injected by React DnD:
+  isOverCurrent: PropTypes.bool.isRequired,
 };
 
 class Layer extends React.Component{
@@ -140,18 +147,26 @@ class Layer extends React.Component{
         onChange={this.handleChange}/>
     );
 
-    const { connectDropTarget, connectDragSource } = this.props;
+
+    const { connectDropTarget, connectDragSource, isOverCurrent } = this.props;
+
+    var style = {};
+    if (isOverCurrent) {
+      style['backgroundColor'] = 'darkgreen';
+    }
+
     if (connectDragSource && connectDropTarget) {
       return connectDragSource(connectDropTarget(
-        <div className="layer card">
+        <div className="layer card" style={style}>
           {this.props.entity.name}
           {this.props.children}
           <div className="sequences">{sequenceNames}</div>
         </div>
       ));
     } else {
+      // TODO : We can probably remove this block now, since nesting mostly OK.
       return (
-        <div className="layer card">
+        <div className="layer card" style={style}>
           ! {this.props.entity.name} !
           <div className="sequences">{sequenceNames}</div>
         </div>

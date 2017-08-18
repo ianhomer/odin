@@ -84,17 +84,23 @@ class LayerList extends React.Component{
     return rootLayers;
   }
 
-  renderLayer(layer, layers, sequences) {
-    return (
+  renderLayer(layer, layers, sequences, stack) {
+    if (stack.includes(layer.name)) {
+      return (<div key={layer.name}>(recursive : {layer.name})</div>);
+    }
+    stack.push(layer.name);
+    var component = (
       <Layer entity={layer} layers={layers} sequences={sequences}
         key={layer.name} onDelete={this.onDelete}
         onChange={this.handleChange} onDelete={this.handleDelete}
         onAddLayer={this.props.onAddLayer}>
         {layer.layers.map(layerName =>
-          this.renderLayer(layers[layerName], layers, sequences)
+          this.renderLayer(layers[layerName], layers, sequences, stack)
         )}
       </Layer>
     );
+    stack.pop();
+    return component;
   }
 
   render() {
@@ -103,8 +109,9 @@ class LayerList extends React.Component{
     var sequences = {};
     this.props.sequences.forEach(sequence => sequences[sequence.name] = sequence);
 
+    var stack = [];
     var renderedLayers = this.findRootLayers(layers).map(entity =>
-      this.renderLayer(entity, layers, sequences)
+      this.renderLayer(entity, layers, sequences, stack)
     );
 
     return (
