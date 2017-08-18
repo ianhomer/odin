@@ -66,7 +66,7 @@ const dropTarget = {
 
   canDrop(props, monitor) {
     var isOverCurrent = monitor.isOver({ shallow: true });
-    if (props.type == ItemTypes.SEQUENCE) {
+    if (monitor.getItem().type == ItemTypes.SEQUENCE) {
       // can drop sequence
       for (var i =0 ; i < props.sequences.length ; i++) {
         // Sequence is already in layer

@@ -80,7 +80,14 @@ class LayerList extends React.Component{
     var rootLayerNames = layerNames.filter(name => !childNames.includes(name));
     // Then collect the remaining layers as the root layers
     var rootLayers = [];
-    rootLayerNames.forEach(layerName => rootLayers.push(layers[layerName]));
+    rootLayerNames.forEach(layerName => {
+      var layer = layers[layerName];
+      if (layer == null) {
+        console.warn('Cannot find layer ' + layerName + ' as root layer');
+      } else {
+        rootLayers.push(layer);
+      }
+    });
     return rootLayers;
   }
 
@@ -96,9 +103,14 @@ class LayerList extends React.Component{
         onChange={this.handleChange} onDelete={this.handleDelete}
         onMoveLayer={this.props.onMoveLayer}
         onAddLayer={this.props.onAddLayer}>
-        {layer.layers.map(layerName =>
-          this.renderLayer(layers[layerName], layer, layers, sequences, stack)
-        )}
+        {layer.layers.map(layerName => {
+          var layer = layers[layerName];
+          if (layer == null) {
+            return (<div key={layerName}>?{layerName}?</div>);
+          } else {
+            this.renderLayer(layers[layerName], layer, layers, sequences, stack)
+          }
+        })}
       </Layer>
     );
     stack.pop();
