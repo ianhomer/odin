@@ -45,7 +45,7 @@ public class MutableConductors extends MutableThings<Conductor>  {
               .map(o -> (LayerConductor) o)
               .filter(conductor -> conductor.getId() == layer.getId()).findFirst();
 
-      LayerConductor conductor = null;
+      LayerConductor conductor;
       if (existing.isPresent()) {
         if (existing.get().getLayer().equals(layer)) {
           LOG.debug("Layer {} already added and unchanged", layer);
@@ -62,5 +62,26 @@ public class MutableConductors extends MutableThings<Conductor>  {
         add(conductor);
       }
     });
+
+    /*
+     * Wire up parent and children.
+     */
+
+    stream().forEach(conductor -> {
+      if (conductor instanceof LayerConductor) {
+        LayerConductor layerConductor = (LayerConductor) conductor;
+        layerConductor.getLayer().getLayers().forEach(layerName -> {
+          Conductor child = findByName(layerName);
+          if (child == null) {
+            LOG.warn("Cannot find conductor named {} to wire into children of {}", layerName, this);
+          } else {
+            layerConductor.addChild(child);
+          }
+        });
+        layerConductor.afterChildrenAdded();
+      }
+    });
+
+
   }
 }

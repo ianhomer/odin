@@ -192,6 +192,10 @@ public class Real {
     return getValue() < 0;
   }
 
+  public boolean isPositive() {
+    return getValue() > 0;
+  }
+
   /**
    * Convert this to a rational number.
    *

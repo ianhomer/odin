@@ -78,4 +78,12 @@ public interface Project {
    */
   void removeSequence(Sequence sequence);
 
+  /**
+   * Clear the project's content.
+   */
+  default void clear() {
+    getLayers().clear();
+    getSequences().clear();
+    getChannels().clear();
+  }
 }

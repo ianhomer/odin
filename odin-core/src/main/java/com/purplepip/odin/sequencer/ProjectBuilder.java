@@ -59,9 +59,9 @@ public class ProjectBuilder {
   private ProjectContainer projectContainer;
   private String name;
   private int channel;
-  private int note = DEFAULT_NOTE;
-  private int velocity = DEFAULT_VELOCITY;
-  private int length = -1;
+  private int note;
+  private int velocity;
+  private int length;
   private int offset;
   private List<String> layerNamesToAdd = new ArrayList<>();
   private List<Long> sequenceIds = new ArrayList<>();
@@ -70,6 +70,20 @@ public class ProjectBuilder {
 
   public ProjectBuilder(ProjectContainer projectContainer) {
     this.projectContainer = projectContainer;
+    reset();
+  }
+
+  public void reset() {
+    name = null;
+    channel = 0;
+    note = DEFAULT_NOTE;
+    velocity = DEFAULT_VELOCITY;
+    length = -1;
+    offset = 0;
+    layerNamesToAdd.clear();
+    sequenceIds.clear();
+    channelIds.clear();
+    layerIds.clear();
   }
 
   public Layer getLayer(String name) {
@@ -213,17 +227,19 @@ public class ProjectBuilder {
   }
 
   /**
-   * Add layer with the given name.
+   * Add layers with the given names.
    *
-   * @param name name of layer
+   * @param name names of layer
    * @return this project builder
    */
-  public ProjectBuilder addLayer(String name) {
-    MutableLayer layer = withDefaults(createLayer());
-    layer.setName(name);
-    applyParameters(layer);
-    layerIds.add(layer.getId());
-    projectContainer.addLayer(layer);
+  public ProjectBuilder addLayer(String... names) {
+    for (String name : names) {
+      MutableLayer layer = withDefaults(createLayer());
+      layer.setName(name);
+      applyParameters(layer);
+      layerIds.add(layer.getId());
+      projectContainer.addLayer(layer);
+    }
     return this;
   }
 

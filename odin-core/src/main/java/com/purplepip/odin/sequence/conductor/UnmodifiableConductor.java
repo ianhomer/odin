@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+import com.purplepip.odin.math.Real;
+import java.util.stream.Stream;
+
 public class UnmodifiableConductor implements Conductor {
   private Conductor underlyingConductor;
 
@@ -30,6 +33,42 @@ public class UnmodifiableConductor implements Conductor {
   @Override
   public String getName() {
     return underlyingConductor.getName();
+  }
+
+  @Override
+  public Conductor getParent() {
+    return underlyingConductor.getParent();
+  }
+
+  @Override
+  // TODO : Wrap children up as unmodifiable
+  public Stream<Conductor> getChildren() {
+    return underlyingConductor.getChildren();
+  }
+
+  @Override
+  public Conductor findByName(String name) {
+    return underlyingConductor.findByName(name);
+  }
+
+  @Override
+  public long getLength() {
+    return underlyingConductor.getLength();
+  }
+
+  @Override
+  public long getOffset() {
+    return underlyingConductor.getOffset();
+  }
+
+  @Override
+  public Real getPosition(long microseconds) {
+    return underlyingConductor.getPosition(microseconds);
+  }
+
+  @Override
+  public Real getPosition(String name, long microseconds) {
+    return underlyingConductor.getPosition(name, microseconds);
   }
 
   @Override
