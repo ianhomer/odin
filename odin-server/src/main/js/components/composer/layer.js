@@ -31,7 +31,9 @@ const dragSource = {
   beginDrag(props) {
     return {
       onChange : props.onChange,
-      entity : props.entity
+      entity : props.entity,
+      parent : props.parent,
+      type : ItemTypes.LAYER
     };
   },
 
@@ -42,8 +44,10 @@ const dragSource = {
         props.onDelete(props.entity);
       } else if (action == 'add') {
         props.onAddLayer(monitor.getDropResult().entity, props.entity, props.onChange);
+      } else if (action == 'move') {
+        props.onMoveLayer(monitor.getDropResult().entity, props.parent, props.entity, props.onChange);
       } else {
-        console.error('Only remove and add action have been implemented for layers : result = ' +
+        console.error('Action ' + action + ' has not been implemented for layers : result = ' +
           JSON.stringify(monitor.getDropResult()));
       }
     }
@@ -53,7 +57,7 @@ const dragSource = {
 const dropTarget = {
   drop(props) {
     return {
-      action : 'add',
+      action : 'move',
       entity : props.entity,
       sequences : props.sequences,
       isOverCurrent : props.isOverCurrent
@@ -61,12 +65,18 @@ const dropTarget = {
   },
 
   canDrop(props, monitor) {
-    // TODO : Differentiate between dropping a sequence and dropping a layout (currently it's
-    // just on name).
-    var isOverCurrent = monitor.isOver({ shallow: true })
-    for (var i =0 ; i < props.sequences.length ; i++) {
-      // Sequence is already in layer
-      if (props.sequences[i].name == monitor.getItem().entity.name) {
+    var isOverCurrent = monitor.isOver({ shallow: true });
+    if (props.type == ItemTypes.SEQUENCE) {
+      // can drop sequence
+      for (var i =0 ; i < props.sequences.length ; i++) {
+        // Sequence is already in layer
+        if (props.sequences[i].name == monitor.getItem().entity.name) {
+          return false;
+        }
+      }
+    } else {
+      // can drop layer
+      if (props.entity.name == monitor.getItem().entity.name) {
         return false;
       }
     }
@@ -85,7 +95,8 @@ function collectDrop(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({ shallow: true })
+    isOverCurrent: monitor.isOver({ shallow: true }),
+    canDrop: monitor.canDrop()
   };
 }
 
@@ -98,6 +109,7 @@ const propTypes = {
   children: PropTypes.node,
   // Injected by React DnD:
   isOverCurrent: PropTypes.bool.isRequired,
+  canDrop: PropTypes.bool.isRequired
 };
 
 class Layer extends React.Component{
@@ -148,10 +160,10 @@ class Layer extends React.Component{
     );
 
 
-    const { connectDropTarget, connectDragSource, isOverCurrent } = this.props;
+    const { connectDropTarget, connectDragSource, isOverCurrent, canDrop } = this.props;
 
     var style = {};
-    if (isOverCurrent) {
+    if (isOverCurrent && canDrop) {
       style['backgroundColor'] = 'darkgreen';
     }
 

@@ -30,7 +30,8 @@ const dragSource = {
   beginDrag(props) {
     return {
       onChange : props.onChange,
-      entity : props.entity
+      entity : props.entity,
+      type : ItemTypes.SEQUENCE
     };
   },
 

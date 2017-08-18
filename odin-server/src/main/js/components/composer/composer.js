@@ -39,6 +39,7 @@ class Composer extends React.Component{
     crud.bindMe(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleAddLayer = this.handleAddLayer.bind(this);
+    this.handleMoveLayer = this.handleMoveLayer.bind(this);
     this.onPatch = crud.onPatch.bind(this);
   }
 
@@ -59,6 +60,36 @@ class Composer extends React.Component{
       [
         { op: 'add', path: '/layers/-', value: layer.name }
       ], callback);
+  }
+
+  handleRemoveLayer(destination, layer, callback = this.handleChange) {
+    // TODO : destination is null when when layer comes from a root layer.  Checking for null
+    // like this is NOT robust since there might be other reasons for null that we end up
+    // swallowing.  We should address this shortcoming.
+    if (destination != null) {
+      var layerIndex = destination.layers.indexOf(layer.name);
+      if (layerIndex > -1) {
+        var layerPath = '/layers/' + layerIndex;
+        this.onPatch(destination._links.self.href,
+          [
+            // Test layer at given index in array is the as expected on server
+            { op: 'test', path: layerPath, value: layer.name },
+            // ... then remove it.
+            { op: 'remove', path: layerPath  }
+          ], callback);
+      } else {
+        console.warn('Cannot find ' + JSON.stringify(layer) + ' in '
+          + JSON.stringify(destination) + ' to remove it');
+      }
+    } else {
+      callback();
+    }
+  }
+
+  handleMoveLayer(destination, from, layer, callback = this.handleChange) {
+    this.handleRemoveLayer(from, layer, () => {
+      this.handleAddLayer(destination, layer, callback);
+    });
   }
 
   render() {
@@ -85,7 +116,10 @@ class Composer extends React.Component{
       <div>
         {this.state.entities.length > 0 &&
           <LayerList project={this.props.project} sequences={this.state.entities}
-            onChange={this.handleChange} onAddLayer={this.handleAddLayer}/>
+            onChange={this.handleChange}
+            onAddLayer={this.handleAddLayer}
+            onMoveLayer={this.handleMoveLayer}
+          />
         }
         <div className="break">&nbsp;</div>
         <div>{entities}</div>
