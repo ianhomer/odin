@@ -86,7 +86,7 @@ public class DefaultRuntimeProjectLoader implements CommandLineRunner {
           .withChannel(4)
           .withLayers("a").withName("aahs-a").addNotation(Ticks.BEAT, "C A C5/h C5/8")
           .withLayers("c").withName("aahs-c").addNotation(Ticks.TWO_BEAT, "C5/h A4 G4 E C")
-          .withLayers("break").withName("aahs-c").addNotation(Ticks.BEAT, "C5/h A4 G4 E C")
+          .withLayers("break").withName("aahs-br").addNotation(Ticks.BEAT, "C5/h A4 G4 E C")
           .withChannel(9)
           .withLayers("overlay").withName("shake").withNote(69).addPattern(Ticks.BEAT, 15)
           .withLayers("a", "b").withName("kick1").withNote(33).addPattern(Ticks.HALF, 13)
