@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.server.rest.event;
 
+import static com.purplepip.odin.store.Persistables.toThingString;
+
 import com.purplepip.odin.project.ProjectContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,8 @@ public class OdinRepositoryEventListener extends AbstractRepositoryEventListener
 
   @Override
   public void onAfterDelete(Object entity) {
-    LOG.info("onAfterDelete {}", entity);
+    if (LOG.isInfoEnabled()) {
+      LOG.info("onAfterDelete {}", toThingString(entity));
+    }
   }
 }

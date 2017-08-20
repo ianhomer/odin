@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.layer.MutableLayer;
@@ -26,8 +25,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -35,12 +32,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.collection.internal.AbstractPersistentCollection;
 
 /**
  * Persistable layer.
@@ -48,27 +44,28 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Entity(name = "Layer")
 @Table(name = "Layer")
-@ToString(exclude = "project")
-@EqualsAndHashCode(of = {"id"})
+@ToString(exclude = "project", callSuper = true)
 @Slf4j
-public class PersistableLayer implements MutableLayer {
-  @Version
-  @JsonIgnore
-  private Long version;
-
-  @Id
-  @GeneratedValue
-  private long id;
-
-  @NotNull
-  private String name;
-
+public class PersistableLayer extends PersistableThing implements MutableLayer {
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
 
   @ElementCollection
   private List<String> layers = new ArrayList<>(0);
+
+  public List<String> getSafeLayers() {
+    List<String> _layers = getLayers();
+    if (_layers instanceof AbstractPersistentCollection) {
+      AbstractPersistentCollection safeLayers = (AbstractPersistentCollection) _layers;
+      if (safeLayers.wasInitialized() || safeLayers.getSession().isOpen() ) {
+        return _layers;
+      }
+      LOG.debug("layers cannot be initialised because session is unavailable");
+      return null;
+    }
+    return _layers;
+  }
 
   @Column(name = "o")
   private long offset;
