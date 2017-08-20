@@ -1,58 +1,80 @@
 package com.purplepip.odin.server.rest;
 
+import static com.purplepip.odin.server.rest.Rests.sendingJson;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import java.nio.charset.Charset;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles({"noAuditing"})
+@ActiveProfiles({"test", "noAuditing"})
 @Slf4j
 public class SequenceRestTest {
-  private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-      MediaType.APPLICATION_JSON.getSubtype(),
-      Charset.forName("utf8"));
-
   @Autowired
   private MockMvc mvc;
 
-  @Test
-  public void testGetSequences() throws Exception {
-    MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/notations"))
-        .andExpect(status().isOk())
-        .andReturn();
-    String json = result.getResponse().getContentAsString();
-    LOG.debug("JSON = {}", json);
-    DocumentContext context = JsonPath.parse(json);
-    String uri = context.read("$._embedded.notations[0]._links.self.href");
-    LOG.debug("Getting notation from {}", uri);
+  @Autowired
+  private ObjectMapper objectMapper;
 
-    result = mvc.perform(MockMvcRequestBuilders.get(uri))
+  @Test
+  public void testCreateAndDeleteSequence() throws Exception {
+    String projectUri = new Rest(mvc).getFirstHref("projects");
+
+    /*
+     * Add Sequence
+     */
+    String entityUri = mvc
+        .perform(sendingJson(post("/api/notations")).content(
+            new Json(objectMapper)
+                .put("name", "new-notations-name")
+                .put("project", projectUri)
+                .put("notation", "A B C D")
+                .put("flowName", "Notation")
+                .put("format", "natural")
+                .toString()
+        ))
+        .andExpect(status().isCreated())
+        .andReturn()
+        .getResponse().getRedirectedUrl();
+
+    /*
+     * Check entity has been created
+     */
+    mvc.perform(sendingJson(get(projectUri + "/sequences")))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.notations", hasSize(1)));
+
+    /*
+     * Get the entity
+     */
+
+    mvc.perform(sendingJson(get(entityUri)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.offset", is(0)))
-        .andExpect(jsonPath("$.notation", is("A/q G/8 A/q E")))
-        .andReturn();
-    json = result.getResponse().getContentAsString();
+        .andExpect(jsonPath("$.notation", is("A B C D")));
 
-    LOG.debug("JSON = {}", json);
+    /*
+     * Delete entity
+     */
+    mvc.perform(sendingJson(delete(entityUri)))
+        .andExpect(status().isNoContent());
   }
 }

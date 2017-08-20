@@ -35,36 +35,36 @@ public class LayerRestTest {
 
   @Test
   public void testCreateAndDeleteLayer() throws Exception {
-    String projectUri = new Rest(mvc).getFirstProjectUri();
+    String projectUri = new Rest(mvc).getFirstHref("projects");
 
     /*
      * Add layer
      */
-    String layoutUri = mvc
+    String entityUri = mvc
         .perform(sendingJson(post("/api/layers")).content(
             new Json(objectMapper)
                 .put("name", "new-layer-name")
-                .put("project", projectUri).asString()
+                .put("project", projectUri).toString()
         ))
         .andExpect(status().isCreated())
         .andReturn()
         .getResponse().getRedirectedUrl();
 
     /*
-     * Check layer has been created
+     * Check entity has been created
      */
     mvc.perform(sendingJson(get(projectUri + "/layers")))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$._embedded.layers", hasSize(1)));
 
     /*
-     * Delete layer
+     * Delete entity
      */
-    mvc.perform(sendingJson(delete(layoutUri)))
+    mvc.perform(sendingJson(delete(entityUri)))
         .andExpect(status().isNoContent());
 
     /*
-     * Test project has no layers
+     * Test project has no layouts
      */
     mvc.perform(sendingJson(get(projectUri + "/layers")))
         .andExpect(status().isOk())

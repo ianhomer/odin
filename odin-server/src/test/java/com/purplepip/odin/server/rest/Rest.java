@@ -15,16 +15,19 @@
 
 package com.purplepip.odin.server.rest;
 
+import static com.purplepip.odin.server.rest.Rests.createHrefJsonPath;
 import static com.purplepip.odin.server.rest.Rests.sendingJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.jayway.jsonpath.JsonPath;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * REST utilities for test cases to simplify boiler plate code
+ * REST utilities for test cases to simplify boiler plate code.
  */
+@Slf4j
 public class Rest {
   private MockMvc mvc;
 
@@ -32,12 +35,32 @@ public class Rest {
     this.mvc = mvc;
   }
 
-  public String getFirstProjectUri() throws Exception {
-    return JsonPath.parse(
-        mvc.perform(sendingJson(get("/api/projects")))
+  /**
+   * Get the href of the first entity in the given collection.
+   *
+   * @param entitiesName entities name, e.g. projects
+   * @return href for the first entity
+   * @throws Exception exception
+   */
+  public String getFirstHref(String entitiesName) throws Exception {
+    return getHref(entitiesName, 0);
+  }
+
+  /**
+   * Get the href of the entity with the given index in the given collection.
+   *
+   * @param entitiesName entities name, e.g. projects
+   * @return href for the entity with the given index
+   * @throws Exception exception
+   */
+  public String getHref(String entitiesName, int index) throws Exception {
+    String href = JsonPath.parse(
+        mvc.perform(sendingJson(get("/api/" + entitiesName)))
             .andExpect(status().isOk())
             .andReturn()
             .getResponse().getContentAsString()
-    ).read("$._embedded.projects[0]._links.self.href");
+    ).read(createHrefJsonPath(entitiesName, index));
+    LOG.debug("href for {}[{}] = {}", entitiesName, index, href);
+    return href;
   }
 }

@@ -15,17 +15,28 @@
 
 package com.purplepip.odin.server.rest;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-
+import java.nio.charset.Charset;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 /**
  * Static helper for REST tests.
  */
 public class Rests {
+  private static MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+      MediaType.APPLICATION_JSON.getSubtype(),
+      Charset.forName("utf8"));
+
   public static MockHttpServletRequestBuilder
       sendingJson(MockHttpServletRequestBuilder requestBuilder) {
-    requestBuilder.contentType(APPLICATION_JSON);
+    requestBuilder.contentType(contentType);
     return requestBuilder;
+  }
+
+  /*
+   * For example get value $._embedded.notations[0]._links.self.href
+   */
+  public static String createHrefJsonPath(String entitiesName, int index) {
+    return "$._embedded." + entitiesName + "[" + index + "]._links.self.href";
   }
 }

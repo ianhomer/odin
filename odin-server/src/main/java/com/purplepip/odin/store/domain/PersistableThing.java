@@ -44,6 +44,11 @@ public class PersistableThing {
   @NotNull
   private String name;
 
+  /**
+   * Generate string of just the core thing properties.
+   *
+   * @return string
+   */
   public String toThingString() {
     return "PersistableThing(version=" + this.getVersion()
         + ", id=" + this.getId()

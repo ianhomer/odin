@@ -16,13 +16,14 @@
 package com.purplepip.odin.server.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.HashMap;
 import java.util.Map;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * JSON utilities for test cases to simplify boiler plate code
+ * JSON utilities for test cases to simplify boiler plate code.
  */
 @Slf4j
 public class Json {
@@ -38,8 +39,14 @@ public class Json {
     return this;
   }
 
-  public String asString() throws JsonProcessingException {
-    String string = objectMapper.writeValueAsString(object);
+  @Override
+  public String toString() {
+    String string;
+    try {
+      string = objectMapper.writeValueAsString(object);
+    } catch (JsonProcessingException e) {
+      throw new OdinRuntimeException("Cannot write object to string : " + object, e);
+    }
     LOG.debug("JSON = {}", string);
     return string;
   }

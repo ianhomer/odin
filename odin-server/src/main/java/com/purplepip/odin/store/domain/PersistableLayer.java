@@ -36,7 +36,6 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.collection.internal.AbstractPersistentCollection;
 
 /**
  * Persistable layer.
@@ -53,19 +52,6 @@ public class PersistableLayer extends PersistableThing implements MutableLayer {
 
   @ElementCollection
   private List<String> layers = new ArrayList<>(0);
-
-  public List<String> getSafeLayers() {
-    List<String> _layers = getLayers();
-    if (_layers instanceof AbstractPersistentCollection) {
-      AbstractPersistentCollection safeLayers = (AbstractPersistentCollection) _layers;
-      if (safeLayers.wasInitialized() || safeLayers.getSession().isOpen() ) {
-        return _layers;
-      }
-      LOG.debug("layers cannot be initialised because session is unavailable");
-      return null;
-    }
-    return _layers;
-  }
 
   @Column(name = "o")
   private long offset;
