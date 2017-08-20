@@ -19,6 +19,10 @@ package com.purplepip.odin.common;
  * Odin MIDI exceptions.
  */
 public class OdinException extends Exception {
+  public OdinException() {
+    super();
+  }
+
   public OdinException(String message) {
     super(message);
   }

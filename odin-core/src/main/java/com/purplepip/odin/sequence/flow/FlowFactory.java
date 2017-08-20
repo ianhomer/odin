@@ -15,23 +15,19 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.DefaultSequence;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
-import jodd.bean.BeanCopy;
-import jodd.bean.BeanException;
-import jodd.bean.BeanUtil;
-import jodd.typeconverter.TypeConverterManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -47,6 +43,7 @@ public class FlowFactory<A> {
   private static final Class FAIL_OVER_FLOW_CLASS = FailOverFlow.class;
 
   private FlowConfiguration flowConfiguration;
+  private SequenceFactory sequenceFactory = new SequenceFactory();
 
   /*
    * Statically register known flows.  In the future we may design a plugin architecture, but
@@ -57,9 +54,6 @@ public class FlowFactory<A> {
     register(MetronomeFlow.class);
     register(NotationFlow.class);
     register(PatternFlow.class);
-
-    TypeConverterManager.register(Real.class, new RealTypeConverter());
-    TypeConverterManager.register(Rational.class, new RationalTypeConverter());
   }
 
   public FlowFactory(FlowConfiguration flowConfiguration) {
@@ -88,9 +82,8 @@ public class FlowFactory<A> {
   @SuppressWarnings("unchecked")
   public MutableFlow<Sequence, A> createFlow(Sequence sequence, Clock clock,
                                              MeasureProvider measureProvider) {
-    Class<? extends MutableFlow<Sequence, A>> flowClass;
-    flowClass = (Class<? extends MutableFlow<Sequence, A>>)
-          FLOWS.get(sequence.getFlowName());
+
+    Class<? extends MutableFlow> flowClass = FLOWS.get(sequence.getFlowName());
     if (flowClass == null) {
       LOG.error("Flow class " + sequence.getFlowName() + " not registered");
       flowClass = (Class<? extends MutableFlow<Sequence, A>>) FAIL_OVER_FLOW_CLASS;
@@ -102,7 +95,7 @@ public class FlowFactory<A> {
       LOG.error("Cannot create instance of " + flowClass, e);
       flow = (MutableFlow<Sequence, A>) new FailOverFlow();
     }
-    setSequence(flow, sequence);
+    flow.setSequence(copyFrom(sequence));
     flow.setClock(clock);
     flow.setMeasureProvider(measureProvider);
     flow.setConfiguration(flowConfiguration);
@@ -114,51 +107,30 @@ public class FlowFactory<A> {
   /**
    * Set sequence in the flow with a copy or a down cast to the required sequence type.
    *
-   * @param flow flow to set the sequence in
    * @param sequence sequence to use as a template for the one that is set
    */
-  public void setSequence(MutableFlow<Sequence, A> flow, final Sequence sequence) {
-    Class<? extends Sequence> expectedSequenceType = SEQUENCES.get(sequence.getFlowName());
-    Class<? extends Sequence> defaultSequenceClass = DEFAULT_SEQUENCES.get(sequence.getFlowName());
-    Sequence newSequence;
-    if (expectedSequenceType == null || defaultSequenceClass == null) {
-      if (expectedSequenceType == null) {
-        LOG.warn("Expected sequence type for {} is not set", sequence.getFlowName());
-      }
-      if (defaultSequenceClass == null) {
-        LOG.warn("Expected sequence type for {} is not set", sequence.getFlowName());
-      }
+  public Sequence copyFrom(Sequence sequence) {
+    if (FLOWS.get(sequence.getFlowName()) == null) {
       /*
-       * We'll just create copy then.
+       * If flow was not defined then we have to resort to a straight sequence copy
        */
-      newSequence = sequence.copy();
-    } else {
-      if (expectedSequenceType.isAssignableFrom(sequence.getClass())) {
-        newSequence = sequence.copy();
-        LOG.debug("Starting flow with flow copy", newSequence);
-      } else {
-        try {
-          newSequence = defaultSequenceClass.newInstance();
-          final MutableSequence mutableSequence = (MutableSequence) newSequence;
-          // TODO : BeanCopy doesn't seem to copy list of layers so we'll do this manually
-          mutableSequence.getLayers().addAll(sequence.getLayers());
-          BeanCopy.from(sequence).to(mutableSequence).copy();
-          sequence.getPropertyNames()
-              .forEach(name -> {
-                mutableSequence.setProperty(name, sequence.getProperty(name));
-                try {
-                  BeanUtil.declared.setProperty(mutableSequence, name, sequence.getProperty(name));
-                } catch (BeanException exception) {
-                  LOG.warn("Whilst creating sequence {}", exception.getMessage());
-                }
-              });
-          LOG.debug("Starting flow with flow down case {}", newSequence);
-        } catch (InstantiationException | IllegalAccessException e) {
-          LOG.error("Cannot create new instance of " + defaultSequenceClass, e);
-          newSequence = sequence.copy();
-        }
-      }
+      return sequence.copy();
     }
-    flow.setSequence(newSequence);
+    Class<? extends Sequence> expectedType = SEQUENCES.get(sequence.getFlowName());
+    Class<? extends MutableSequence> newClassType = DEFAULT_SEQUENCES.get(sequence.getFlowName());
+    return sequenceFactory.createCopy(expectedType, newClassType, sequence);
+  }
+
+  /**
+   * For test cases where timing is important it may be necessary to warm the factory up
+   * so the first time it is used performance does not cause inconsistencies.  First hit of
+   * sequence factory create copy can take 20ms or so.
+   */
+  public void warmUp() {
+    FLOWS.keySet().stream().forEach(name -> {
+      MutableSequence sequence = new DefaultSequence();
+      sequence.setFlowName(name);
+      copyFrom(sequence);
+    });
   }
 }

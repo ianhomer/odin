@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.DefaultMicrosecondPositionProvider;
@@ -31,6 +32,8 @@ public class TestSequencerEnvironment {
 
   private OdinSequencer sequencer;
 
+  private FlowFactory<Note> flowFactory;
+
   public TestSequencerEnvironment(OperationReceiver operationReceiver) throws OdinException {
     initialiseSequencer(operationReceiver);
   }
@@ -39,15 +42,18 @@ public class TestSequencerEnvironment {
     DefaultFlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
     flowConfiguration.setMaxForwardScan(1000000);
 
+    flowFactory = new FlowFactory<>(flowConfiguration);
+    flowFactory.warmUp();
     sequencer = new OdinSequencer(
         new DefaultOdinSequencerConfiguration()
-            .setFlowFactory(new FlowFactory<>(flowConfiguration))
+            .setFlowFactory(flowFactory)
             .setMeasureProvider(new StaticBeatMeasureProvider(4))
             .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
             .setClockStartOffset(10000)
             .setClockStartRoundingFactor(1000)
+            .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
             .setOperationReceiver(operationReceiver)
-            .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider()));
+    );
     container.addApplyListener(sequencer);
   }
 
@@ -57,6 +63,10 @@ public class TestSequencerEnvironment {
 
   public ProjectContainer getContainer() {
     return container;
+  }
+
+  public FlowFactory getFlowFactory() {
+    return flowFactory;
   }
 
   /**

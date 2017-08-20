@@ -237,9 +237,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
         LOG.debug("Waiting until clock is set to create flow");
       }
     } else {
-      flowFactory.setSequence(getFlow(), sequence);
+      getFlow().setSequence(flowFactory.copyFrom(sequence));
     }
-
   }
 
   /**

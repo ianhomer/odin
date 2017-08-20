@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import jodd.typeconverter.TypeConverter;
 
