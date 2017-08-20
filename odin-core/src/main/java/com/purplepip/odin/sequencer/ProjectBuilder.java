@@ -23,15 +23,15 @@ import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.DefaultPattern;
-import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.sequence.DefaultSequence;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.flow.Flows;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
@@ -122,23 +122,25 @@ public class ProjectBuilder {
     return projectContainer.getLayer(layerIds.get(id));
   }
 
-
-  private Metronome withDefaults(Metronome metronome) {
+  private MutableSequence withDefaultsForMetronome(MutableSequence metronome) {
     metronome.setTick(createTick(Ticks.HALF));
-    metronome.setFlowName(MetronomeFlow.NAME);
-    metronome.setNoteBarStart(createNote(DEFAULT_NOTE, DEFAULT_VELOCITY, DEFAULT_DURATION));
-    metronome.setNoteBarMid(createNote(64, metronome.getNoteBarStart().getVelocity() / 2,
-        DEFAULT_DURATION));
+    metronome.setFlowName(Flows.getFlowName(MetronomeFlow.class));
+    metronome.setProperty("noteBarStart.number", DEFAULT_NOTE);
+    metronome.setProperty("noteBarStart.velocity", DEFAULT_VELOCITY);
+    metronome.setProperty("noteBarStart.duration", DEFAULT_DURATION);
+    metronome.setProperty("noteBarMid.number", 64);
+    metronome.setProperty("noteBarMid.velocity", DEFAULT_VELOCITY / 2);
+    metronome.setProperty("noteBarMid.duration", DEFAULT_DURATION);
     return metronome;
   }
 
   private static Pattern withDefaults(Pattern pattern) {
-    pattern.setFlowName(PatternFlow.NAME);
+    pattern.setFlowName(Flows.getFlowName(PatternFlow.class));
     return pattern;
   }
 
   private static Notation withDefaults(Notation notation) {
-    notation.setFlowName(NotationFlow.NAME);
+    notation.setFlowName(Flows.getFlowName(NotationFlow.class));
     return notation;
   }
 
@@ -169,8 +171,8 @@ public class ProjectBuilder {
    *
    * @return metronome
    */
-  protected Metronome createMetronome() {
-    return new DefaultMetronome();
+  protected MutableSequence createMetronome() {
+    return new DefaultSequence();
   }
 
   /**
@@ -229,7 +231,7 @@ public class ProjectBuilder {
    * @return this sequence builder
    */
   public ProjectBuilder addMetronome() {
-    Metronome metronome = withDefaults(createMetronome());
+    MutableSequence metronome = withDefaultsForMetronome(createMetronome());
     addSequence(applyParameters(metronome));
     return this;
   }

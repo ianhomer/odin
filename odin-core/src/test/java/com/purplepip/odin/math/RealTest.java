@@ -36,6 +36,13 @@ public class RealTest {
   }
 
   @Test
+  public void testValueOfString() {
+    assertEquals(Wholes.ZERO, Real.valueOf("0"));
+    assertEquals(Real.valueOf(0.2), Real.valueOf("0.2"));
+  }
+
+
+  @Test
   public void testPlus() {
     assertEquals(Wholes.TWO, Whole.valueOf(1).plus(Whole.valueOf(1)));
     assertEquals(Real.valueOf(2.1), Real.valueOf(1.1).plus(Whole.valueOf(1)));

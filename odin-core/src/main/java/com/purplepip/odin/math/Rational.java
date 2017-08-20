@@ -108,6 +108,28 @@ public class Rational extends Real {
     return new Rational(numerator, denominator, simplified);
   }
 
+  /**
+   * Create rational number from a string.
+   *
+   * @param value rational value as a string
+   * @return rational number
+   */
+  public static Rational valueOf(String value) {
+    if (value == null || value.length() == 0) {
+      return Wholes.ZERO;
+    }
+    int indexOfSeparator = value.indexOf('/');
+    if (indexOfSeparator == 0) {
+      return Wholes.ZERO;
+    } else if (indexOfSeparator > 0 && indexOfSeparator < value.length() - 1) {
+      String firstPart = value.substring(0, indexOfSeparator);
+      String secondPart = value.substring(indexOfSeparator + 1);
+      return Rational.valueOf(Long.parseLong(firstPart),
+          Long.parseLong(secondPart));
+    }
+    return Whole.valueOf(Long.parseLong(value));
+  }
+
   public long getNumerator() {
     return numerator;
   }

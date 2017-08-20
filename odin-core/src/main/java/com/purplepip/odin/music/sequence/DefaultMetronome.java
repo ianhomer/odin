@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.music.sequence;
 
+import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.DefaultSequence;
 import lombok.ToString;
@@ -24,8 +25,8 @@ import lombok.ToString;
  */
 @ToString(callSuper = true)
 public class DefaultMetronome extends DefaultSequence implements Metronome {
-  private Note noteBarStart;
-  private Note noteBarMid;
+  private Note noteBarStart = new DefaultNote();
+  private Note noteBarMid = new DefaultNote();
 
   public DefaultMetronome() {
     super();

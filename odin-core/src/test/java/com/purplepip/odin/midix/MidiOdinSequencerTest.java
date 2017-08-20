@@ -52,7 +52,7 @@ public class MidiOdinSequencerTest {
       container.addApplyListener(sequencer);
       new ProjectBuilder(container)
           .addLayer("groove").withLayers("groove")
-          .withLength(16).addMetronome();
+          .withOffset(16).withLength(16).addMetronome();
       container.apply();
       sequencer.start();
 

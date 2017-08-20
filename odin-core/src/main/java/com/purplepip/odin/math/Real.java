@@ -65,6 +65,19 @@ public class Real {
     return new Real(value);
   }
 
+  /**
+   * Calculate real value from string.
+   *
+   * @param value real as string
+   * @return real value
+   */
+  public static Real valueOf(String value) {
+    if (value == null || value.indexOf('.') < 0) {
+      return Rational.valueOf(value);
+    }
+    return valueOf(Double.valueOf(value));
+  }
+
   public double calculateValue() {
     return value;
   }

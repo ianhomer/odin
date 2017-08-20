@@ -30,6 +30,9 @@ public class DefaultNote implements Note {
   private int velocity;
   private Real duration;
 
+  public DefaultNote() {
+  }
+
   /**
    * Create a default note.
    *

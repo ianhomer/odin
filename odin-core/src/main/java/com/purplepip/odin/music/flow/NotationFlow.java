@@ -23,10 +23,12 @@ import com.purplepip.odin.music.composition.events.CompositionRoll;
 import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
 import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
+import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,8 +37,9 @@ import lombok.extern.slf4j.Slf4j;
  * make this implementation simpler and I don't think restrictive in anyway.
  */
 @Slf4j
+@FlowDefinition(name = "Notation", sequence = Notation.class,
+    defaultSequence = DefaultNotation.class)
 public class NotationFlow extends AbstractFlow<Notation, Note> {
-  public static final String NAME = "Notation";
   private static final int MAX_EVENT_SCAN = 1000;
   private CompositionRoll compositionRoll;
   private TickConverter tickConverter;

@@ -1,8 +1,9 @@
 package com.purplepip.odin.project;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import com.purplepip.odin.music.sequence.DefaultMetronome;
+import com.purplepip.odin.sequence.DefaultSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
@@ -19,15 +20,17 @@ public class TransientProjectTest {
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();
     int count = 0;
-    Sequence sequence1 = null;
+    Sequence firstSequence = null;
     for (Sequence sequence : project.getSequences()) {
       if (count == 0) {
-        sequence1 = sequence;
+        firstSequence = sequence;
       }
       count++;
     }
     assertEquals("Expected sequence count not correct", EXPECTED_SEQUENCE_COUNT, count);
-    assertEquals("First sequence not as expected", DefaultMetronome.class, sequence1.getClass());
+    assertNotNull(firstSequence);
+    assertEquals("First sequence not as expected", DefaultSequence.class,
+        firstSequence.getClass());
   }
 
   @Test

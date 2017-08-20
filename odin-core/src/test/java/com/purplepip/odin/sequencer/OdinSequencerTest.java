@@ -14,7 +14,11 @@ import org.junit.Test;
  * Test odin sequencer.
  */
 public class OdinSequencerTest {
-  private static final int OFFSET = 0;
+  // TODO : After doing dynamic sequence bean creation in FlowFactory, start up slowed
+  // down by about 20 ms, I changed OFFSET from 0 to 16 to give a window for this to occur
+  // it'd be good to make this more robust, perhaps setting all environment up before starting
+  // clock.
+  private static final int OFFSET = 16;
   private static final int LENGTH = 16;
 
   @Test

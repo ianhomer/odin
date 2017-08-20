@@ -180,4 +180,12 @@ public class RationalTest {
   public void testZeroDenominator() {
     Rational.valueOf(1,0);
   }
+
+  @Test
+  public void testValueOfString() {
+    assertEquals(Wholes.ONE, Rational.valueOf("1"));
+    assertEquals(Rationals.HALF, Rational.valueOf("1/2"));
+    assertEquals(Wholes.ZERO, Rational.valueOf(null));
+    assertEquals(Wholes.ZERO, Rational.valueOf(""));
+  }
 }

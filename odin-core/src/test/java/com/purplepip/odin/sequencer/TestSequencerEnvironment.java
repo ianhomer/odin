@@ -23,7 +23,9 @@ import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class TestSequencerEnvironment {
   private ProjectContainer container = new ProjectContainer(new TransientProject());
 
@@ -57,11 +59,19 @@ public class TestSequencerEnvironment {
     return container;
   }
 
+  /**
+   * Start the environment.
+   */
   public void start() {
+    LOG.debug("Test environment starting");
     container.apply();
     sequencer.start();
+    LOG.debug("... test environment started");
   }
 
+  /**
+   * Stop the environment.
+   */
   public void stop() {
     sequencer.stop();
   }
