@@ -44,13 +44,13 @@ public class ProjectRepositoryTest {
     Iterable<PersistableProject> projects = repository.findAll();
     assertThat(projects.iterator().hasNext()).isTrue();
     assertThat(projects.iterator().next().getChannels()).isEmpty();
-    builder.changeProgramTo("newProgram").addMetronome();
+    builder.changeProgramTo("new-program").withName("new-metronome").addMetronome();
     repository.save(project);
-    project.setName("newProject");
-    Project reloadedProject = repository.findByName("newProject");
+    project.setName("new-project");
+    Project reloadedProject = repository.findByName("new-project");
     assertThat(reloadedProject).isNotNull();
     assertThat(reloadedProject.getChannels().iterator().next().getProgramName())
-        .isEqualTo("newProgram");
+        .isEqualTo("new-program");
     assertThat(reloadedProject.getSequences().iterator()
         .next().getTick().getFactor().getDenominator())
         .isEqualTo(2);
