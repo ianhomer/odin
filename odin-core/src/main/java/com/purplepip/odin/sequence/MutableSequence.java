@@ -36,4 +36,6 @@ public interface MutableSequence extends Sequence {
   void addLayer(String layerName);
 
   void removeLayer(String layerName);
+
+  void setProperty(String name, String value);
 }

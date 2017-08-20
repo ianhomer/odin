@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.sequence.AbstractSequence;
+import com.purplepip.odin.sequence.DefaultSequence;
 
-public class DefaultNotation extends AbstractSequence implements Notation {
+public class DefaultNotation extends DefaultSequence implements Notation {
   private String format;
   private String notation;
 

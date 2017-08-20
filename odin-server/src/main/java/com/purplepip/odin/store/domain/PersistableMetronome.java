@@ -21,7 +21,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -34,12 +33,9 @@ import lombok.ToString;
 @Table(name = "Metronome")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class PersistableMetronome extends AbstractPersistableSequence implements Metronome {
-  private int channel;
+public class PersistableMetronome extends PersistableSequence implements Metronome {
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
   private Note noteBarStart;
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
   private Note noteBarMid;
-  @NotNull
-  private String flowName;
 }

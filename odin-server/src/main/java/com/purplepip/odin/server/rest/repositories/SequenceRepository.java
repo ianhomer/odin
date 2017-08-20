@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.store.domain.AbstractPersistableSequence;
+import com.purplepip.odin.store.domain.PersistableSequence;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -27,5 +27,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     itemResourceRel = "sequence")
 @Profile("!noStore")
 public interface SequenceRepository extends
-    CrudRepository<AbstractPersistableSequence, Long> {
+    CrudRepository<PersistableSequence, Long> {
 }

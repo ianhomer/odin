@@ -22,9 +22,9 @@ import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.LayerRepository;
 import com.purplepip.odin.server.rest.repositories.SequenceRepository;
-import com.purplepip.odin.store.domain.AbstractPersistableSequence;
 import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistableLayer;
+import com.purplepip.odin.store.domain.PersistableSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,9 +50,9 @@ public class PersistableProjectContainer extends ProjectContainer {
 
   @Override
   public void addSequence(Sequence sequence) {
-    if (sequence instanceof AbstractPersistableSequence) {
+    if (sequence instanceof PersistableSequence) {
       sequence.setProject(getProject());
-      sequenceRepository.save((AbstractPersistableSequence) sequence);
+      sequenceRepository.save((PersistableSequence) sequence);
     }
     super.addSequence(sequence);
   }

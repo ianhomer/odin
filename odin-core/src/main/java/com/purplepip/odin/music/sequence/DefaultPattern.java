@@ -16,14 +16,14 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.AbstractSequence;
+import com.purplepip.odin.sequence.DefaultSequence;
 import lombok.ToString;
 
 /**
  * Default implementation of pattern.
  */
 @ToString(callSuper = true)
-public class DefaultPattern extends AbstractSequence implements Pattern {
+public class DefaultPattern extends DefaultSequence implements Pattern {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */

@@ -55,7 +55,7 @@ public class PersistableProject implements Project {
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Layer> layers = new HashSet<>();
 
-  @OneToMany(targetEntity = AbstractPersistableSequence.class, cascade = CascadeType.ALL,
+  @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Sequence> sequences = new HashSet<>();
 

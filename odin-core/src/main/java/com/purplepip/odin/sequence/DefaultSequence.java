@@ -18,8 +18,11 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(exclude = "project")
 @Slf4j
-public abstract class AbstractSequence implements MutableSequence {
+public class DefaultSequence implements MutableSequence {
   /*
    * Cheap ID generator for default patterns.  Note that persistence implementation used for
    * the runtime has a more robust ID generation mechanism, however for the transient usage,
@@ -45,18 +48,19 @@ public abstract class AbstractSequence implements MutableSequence {
   private String flowName;
   private Project project;
   private List<String> layers = new ArrayList<>();
+  private Map<String, String> values = new HashMap<>();
 
   /**
    * ID auto generated.
    */
-  public AbstractSequence() {
+  public DefaultSequence() {
     id = LAST_PATTERN_ID.incrementAndGet();
   }
 
   /**
    * ID taken from constructor.
    */
-  public AbstractSequence(long id) {
+  public DefaultSequence(long id) {
     setId(id);
   }
 
@@ -82,6 +86,21 @@ public abstract class AbstractSequence implements MutableSequence {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  @Override
+  public String getProperty(String propertyName) {
+    return values.get(propertyName);
+  }
+
+  @Override
+  public Stream<String> getPropertyNames() {
+    return values.keySet().stream();
+  }
+
+  @Override
+  public void setProperty(String propertyName, String value) {
+    values.put(propertyName, value);
   }
 
   @Override

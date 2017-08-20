@@ -21,7 +21,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -34,13 +33,9 @@ import lombok.ToString;
 @Table(name = "Pattern")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class PersistablePattern extends AbstractPersistableSequence implements Pattern {
+public class PersistablePattern extends PersistableSequence implements Pattern {
   private int bits;
-  private int channel;
 
   @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
   private Note note;
-
-  @NotNull
-  private String flowName;
 }

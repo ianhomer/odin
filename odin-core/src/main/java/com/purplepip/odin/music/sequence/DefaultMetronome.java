@@ -16,14 +16,14 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.AbstractSequence;
+import com.purplepip.odin.sequence.DefaultSequence;
 import lombok.ToString;
 
 /**
  * Default implementation of the Metronome.
  */
 @ToString(callSuper = true)
-public class DefaultMetronome extends AbstractSequence implements Metronome {
+public class DefaultMetronome extends DefaultSequence implements Metronome {
   private Note noteBarStart;
   private Note noteBarMid;
 

@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.series;
 
-import com.purplepip.odin.sequence.AbstractSequence;
+import com.purplepip.odin.sequence.DefaultSequence;
 import com.purplepip.odin.sequence.Sequence;
 
-public class HeartBeatSequence extends AbstractSequence {
+public class HeartBeatSequence extends DefaultSequence {
   public HeartBeatSequence(long id) {
     super(id);
   }

@@ -31,10 +31,7 @@ import lombok.ToString;
 @Table(name = "Notation")
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class PersistableNotation extends AbstractPersistableSequence implements Notation {
-  private int channel;
-  @NotNull
-  private String flowName;
+public class PersistableNotation extends PersistableSequence implements Notation {
   @NotNull
   private String format;
   @NotNull

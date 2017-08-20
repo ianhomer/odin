@@ -17,19 +17,16 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.Sequences;
 
 public interface Notation extends MutableSequence {
   @Override
   default Sequence copy() {
     Notation copy = new DefaultNotation(this.getId());
+    Sequences.copyCoreValues(this, copy);
+
     copy.setNotation(this.getNotation());
     copy.setFormat(this.getFormat());
-    copy.setChannel(this.getChannel());
-    copy.setFlowName(this.getFlowName());
-    copy.setLength(this.getLength());
-    copy.setOffset(this.getOffset());
-    copy.setProject(this.getProject());
-    copy.setTick(this.getTick());
     this.getLayers().forEach(copy::addLayer);
     return copy;
   }

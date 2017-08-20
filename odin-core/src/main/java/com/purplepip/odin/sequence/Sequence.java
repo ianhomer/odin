@@ -19,11 +19,24 @@ import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Sequence configuration.
  */
 public interface Sequence extends Copyable<Sequence> {
+  /**
+   * Create a copy of this sequence.
+   *
+   * @return copy
+   */
+  @Override
+  default Sequence copy() {
+    MutableSequence copy = new DefaultSequence(this.getId());
+    Sequences.copyCoreValues(this, copy);
+    return copy;
+  }
+
   /**
    * Unique system generated sequence ID.
    *
@@ -32,7 +45,7 @@ public interface Sequence extends Copyable<Sequence> {
   long getId();
 
   /**
-   * User generated name which should be unique within the context of use, e.g. project
+   * User generated name which should be unique within the context of use, e.g. project.
    */
   String getName();
 
@@ -91,4 +104,16 @@ public interface Sequence extends Copyable<Sequence> {
    * Get the sequence layer names.
    */
   List<String> getLayers();
+
+  /**
+   * Get sequence property value.
+   */
+  String getProperty(String name);
+
+  /**
+   * Names of properties set for this sequence.
+   *
+   * @return names of properties
+   */
+  Stream<String> getPropertyNames();
 }

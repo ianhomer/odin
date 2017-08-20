@@ -20,7 +20,10 @@ import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -50,11 +53,16 @@ import lombok.extern.slf4j.Slf4j;
 @ToString(exclude = "project", callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
-public abstract class AbstractPersistableSequence
+public class PersistableSequence
     extends PersistableThing implements MutableSequence {
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
+
+  @NotNull
+  private String flowName;
+
+  private int channel;
 
   @Column(name = "o")
   private long offset;
@@ -66,12 +74,20 @@ public abstract class AbstractPersistableSequence
   private Tick tick;
 
   @ElementCollection
+  private Map<String, String> properties = new HashMap<>(0);
+
+  @ElementCollection
   private List<String> layers = new ArrayList<>(0);
 
   @Override
   public void removeLayer(String layer) {
     LOG.debug("Removing layer {} from {}", layer, this);
     layers.remove(layer);
+  }
+
+  @Override
+  public void setProperty(String name, String value) {
+    properties.put(name, value);
   }
 
   @Override
@@ -112,5 +128,15 @@ public abstract class AbstractPersistableSequence
   @PreRemove
   public void removeFromProject() {
     project.removeSequence(this);
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return properties.get(name);
+  }
+
+  @Override
+  public Stream<String> getPropertyNames() {
+    return properties.keySet().stream();
   }
 }
