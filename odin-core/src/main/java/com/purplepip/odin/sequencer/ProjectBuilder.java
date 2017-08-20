@@ -40,10 +40,13 @@ import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import jodd.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -67,6 +70,7 @@ public class ProjectBuilder {
   private List<Long> sequenceIds = new ArrayList<>();
   private List<Long> channelIds = new ArrayList<>();
   private List<Long> layerIds = new ArrayList<>();
+  private Map<String, String> properties = new HashMap<>();
 
   public ProjectBuilder(ProjectContainer projectContainer) {
     this.projectContainer = projectContainer;
@@ -252,6 +256,17 @@ public class ProjectBuilder {
     return this;
   }
 
+  public ProjectBuilder withProperty(String name, String value) {
+    properties.put(name, value);
+    return this;
+  }
+
+  public ProjectBuilder withProperty(String name, long value) {
+    properties.put(name, String.valueOf(value));
+    return this;
+  }
+
+
   public ProjectBuilder withChannel(int channel) {
     this.channel = channel;
     return this;
@@ -396,6 +411,13 @@ public class ProjectBuilder {
     sequence.setLength(length);
     sequence.setOffset(offset);
     layerNamesToAdd.forEach(sequence::addLayer);
+    properties.entrySet().forEach(entry -> sequence.setProperty(entry.getKey(), entry.getValue()));
+    /*
+     * Set the bean properties based on the properties map
+     */
+    properties.keySet().forEach(name -> {
+      BeanUtil.declared.setProperty(sequence, name, properties.get(name));
+    });
     return sequence;
   }
 

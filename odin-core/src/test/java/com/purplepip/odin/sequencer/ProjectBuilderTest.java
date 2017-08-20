@@ -15,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
@@ -93,6 +94,28 @@ public class ProjectBuilderTest {
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     assertEquals("a", notation.getNotation());
     assertEquals("notes", notation.getName());
+  }
+
+  @Test
+  public void testAddPattern() {
+    TransientProject project = new TransientProject();
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    builder.addPattern(BEAT, 1);
+    Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
+    assertEquals(1, pattern.getBits());
+    assertEquals(60, pattern.getNote().getNumber());
+  }
+
+  @Test
+  public void testAddPatternUsingProperties() {
+    TransientProject project = new TransientProject();
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    builder.withProperty("bits", 7);
+    builder.withProperty("note.number", "58");
+    builder.addPattern(BEAT, 1);
+    Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
+    assertEquals(7, pattern.getBits());
+    assertEquals(58, pattern.getNote().getNumber());
   }
 
   @Test

@@ -49,6 +49,7 @@
     <hamcrest.version>2.0.0.0</hamcrest.version>
     <jacoco.version>0.7.9</jacoco.version>
     <jacoco.covered.ratio>0.80</jacoco.covered.ratio>
+    <jodd.version>3.8.6</jodd.version>
     <junit.version>4.12</junit.version>
     <guava.version>21.0</guava.version>
     <logback.version>1.2.3</logback.version>
@@ -93,6 +94,11 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jodd</groupId>
+        <artifactId>jodd-bean</artifactId>
+        <version>${jodd.version}</version>
       </dependency>
       <dependency>
         <groupId>org.hamcrest</groupId>

@@ -53,7 +53,11 @@ public class PatternRepositoryTest {
     List<Pattern> patterns = repository.findByChannel(0);
     assertThat(patterns.size()).isEqualTo(0);
 
-    builder.withName("test-pattern").addPattern(Ticks.BEAT, 9876);
+    builder
+        .withName("test-pattern")
+        .withProperty("offset", "4")
+        .withProperty("note.number", "58")
+        .addPattern(Ticks.BEAT, 9876);
     for (Sequence sequence : project.getSequences()) {
       LOG.debug("Persisting {}", sequence);
       entityManager.persist(sequence);
@@ -62,7 +66,11 @@ public class PatternRepositoryTest {
     assertThat(patterns.size()).isEqualTo(1);
     Pattern pattern = patterns.get(0);
     assertThat(pattern.getBits()).isEqualTo(9876);
+    assertThat(pattern.getOffset()).isEqualTo(4);
     assertThat(pattern.getTick().getTimeUnit()).isEqualTo(Ticks.BEAT.getTimeUnit());
     assertThat(pattern.getTick().getFactor().getDenominator()).isEqualTo(1);
+    assertThat(pattern.getNote().getNumber()).isEqualTo(58);
+    assertThat(pattern.getProperty("offset")).isEqualTo("4");
+    assertThat(pattern.getProperty("note.number")).isEqualTo("58");
   }
 }
