@@ -32,13 +32,11 @@ import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
 
-/*
- * TODO : Should we force flow tock to equal composition tock to equal a beat?  This will
- * make this implementation simpler and I don't think restrictive in anyway.
+/**
+ * Notation flow.
  */
 @Slf4j
-@FlowDefinition(name = "Notation", sequence = Notation.class,
-    defaultSequence = DefaultNotation.class)
+@FlowDefinition(name = "Notation", sequence = DefaultNotation.class)
 public class NotationFlow extends AbstractFlow<Notation, Note> {
   private static final int MAX_EVENT_SCAN = 1000;
   private CompositionRoll compositionRoll;

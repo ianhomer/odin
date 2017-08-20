@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.flow;
 
+import com.google.common.reflect.TypeToken;
 import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.NotationFlow;
@@ -65,8 +66,13 @@ public class FlowFactory<A> {
     if (clazz.isAnnotationPresent(FlowDefinition.class)) {
       FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
       FLOWS.put(definition.name(), clazz);
-      SEQUENCES.put(definition.name(), definition.sequence());
-      DEFAULT_SEQUENCES.put(definition.name(), definition.defaultSequence());
+      try {
+        TypeToken token = TypeToken.of(clazz.newInstance().getClass());
+        SEQUENCES.put(definition.name(), token.getRawType());
+      } catch (IllegalAccessException | InstantiationException e) {
+        LOG.error("Cannot determine sequence interface", e);
+      }
+      DEFAULT_SEQUENCES.put(definition.name(), definition.sequence());
     } else {
       Annotation[] annotations = clazz.getAnnotations();
       LOG.warn("Class {} MUST have a @FlowDefinition annotation, it has {}", clazz, annotations);
