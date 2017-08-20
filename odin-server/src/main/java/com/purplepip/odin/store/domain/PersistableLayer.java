@@ -34,6 +34,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 @Entity(name = "Layer")
 @Table(name = "Layer")
 @ToString(exclude = "project", callSuper = true)
+@EqualsAndHashCode(exclude = {"project", "layers", "offset", "length", "tick"}, callSuper = true)
 @Slf4j
 public class PersistableLayer extends PersistableThing implements MutableLayer {
   @ManyToOne(targetEntity = PersistableProject.class)

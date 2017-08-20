@@ -36,6 +36,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,6 +48,7 @@ import lombok.extern.slf4j.Slf4j;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
 @ToString(exclude = "project", callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Slf4j
 public abstract class AbstractPersistableSequence
     extends PersistableThing implements MutableSequence {

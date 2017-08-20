@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @Slf4j
-public class PersistableLayoutTest {
+public class PersistableLayerTest {
   private PersistableProjectBuilder builder;
 
   /**
@@ -31,7 +31,7 @@ public class PersistableLayoutTest {
   }
 
   @Test
-  public void testLayoutEquality() throws OdinException {
+  public void testLayerEquality() throws OdinException {
     builder.addLayer("test-layer");
     PersistableLayer layer2 = new PersistableLayer();
     layer2.setName("test-layer");

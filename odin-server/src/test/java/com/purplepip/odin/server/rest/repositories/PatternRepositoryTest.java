@@ -53,7 +53,7 @@ public class PatternRepositoryTest {
     List<Pattern> patterns = repository.findByChannel(0);
     assertThat(patterns.size()).isEqualTo(0);
 
-    builder.addPattern(Ticks.BEAT, 9876);
+    builder.withName("test-pattern").addPattern(Ticks.BEAT, 9876);
     for (Sequence sequence : project.getSequences()) {
       LOG.debug("Persisting {}", sequence);
       entityManager.persist(sequence);
