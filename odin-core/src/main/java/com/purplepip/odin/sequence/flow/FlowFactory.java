@@ -123,8 +123,9 @@ public class FlowFactory<A> {
 
   /**
    * For test cases where timing is important it may be necessary to warm the factory up
-   * so the first time it is used performance does not cause inconsistencies.  First hit of
-   * sequence factory create copy can take 20ms or so.
+   * so the first time it is used performance does not cause inconsistencies.  This warm up
+   * time is pretty small (around 20ms on a dev machine), but enough to throw a sequencer
+   * test that is expecting sequence to start immediately.
    */
   public void warmUp() {
     FLOWS.keySet().stream().forEach(name -> {
