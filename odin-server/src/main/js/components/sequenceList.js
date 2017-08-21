@@ -22,9 +22,11 @@ const EditEntity = require('./editEntity');
 
 const Notation = require('./notation');
 const Pattern = require('./pattern');
+const Sequence = require('./sequence');
 const Sequences = {
   'notations' : Notation,
-  'patterns'  : Pattern
+  'patterns'  : Pattern,
+  'sequences' : Sequence
 };
 
 // Rendering of generic sequence list
@@ -40,7 +42,7 @@ class SequenceList extends React.Component{
   }
 
   componentDidMount() {
-    crud.loadSchemas(['notations', 'patterns']).then(() => {
+    crud.loadSchemas(['sequences', 'notations', 'patterns']).then(() => {
       this.loadFromServer();
     });
   }

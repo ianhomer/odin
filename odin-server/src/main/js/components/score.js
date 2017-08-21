@@ -117,6 +117,11 @@ class Score extends React.Component{
 
     this.removePreviousCanvases(selector);
 
+    var element = document.getElementById(selector);
+    if (!element) {
+      console.warn('Cannot find selector ' + selector);
+      return;
+    }
     var vf = new Vex.Flow.Factory({
       renderer: {selector: selector, width: this.state.style.width, height: this.state.style.height}
     });

@@ -69,6 +69,14 @@ function getFieldValue(schemaId, schema, refs, name, key, required = true) {
       property[propertyName] = getFieldValue(refSchemaId, fieldSchema, refs, propertyName, propertyKey);
     });
     value = property;
+  } else if (schema && schema.properties[name] && schema.properties[name].type == 'object') {
+    // TODO : Handle better than just JSON to object
+    var node = ReactDOM.findDOMNode(refs[_key]);
+    if (node === null) {
+      value = null;
+    } else {
+      value = JSON.parse(node.value.trim());
+    }
   } else {
     var node = ReactDOM.findDOMNode(refs[_key]);
     if (node === null) {
