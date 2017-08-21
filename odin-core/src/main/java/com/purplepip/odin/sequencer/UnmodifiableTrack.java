@@ -56,4 +56,9 @@ public class UnmodifiableTrack implements Track {
     return underlyingTrack.getTick();
   }
 
+  @Override
+  public boolean isEmpty() {
+    return underlyingTrack.isEmpty();
+  }
+
 }

@@ -80,4 +80,10 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
     tickConverter =
         new SameTimeUnitTickConverter(composition::getTick, getClock()::getTick);
   }
+
+  @Override
+  public boolean isEmpty() {
+    return compositionRoll.isEmpty();
+  }
+
 }

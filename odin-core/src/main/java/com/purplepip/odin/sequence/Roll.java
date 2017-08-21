@@ -43,4 +43,11 @@ public interface Roll<A> {
    * @return tick as a property
    */
   Property<Tick> getTick();
+
+  /**
+   * Whether this roll is empty.
+   *
+   * @return true if the roll is empty
+   */
+  boolean isEmpty();
 }

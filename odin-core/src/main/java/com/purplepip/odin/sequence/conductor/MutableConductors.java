@@ -75,6 +75,8 @@ public class MutableConductors extends MutableThings<Conductor>  {
           if (child == null) {
             LOG.warn("Cannot find conductor named {} to wire into children of {}", layerName, this);
           } else {
+            LOG.debug("Adding child layer {} to parent {}",
+                child.getName(), layerConductor.getName());
             layerConductor.addChild(child);
           }
         });

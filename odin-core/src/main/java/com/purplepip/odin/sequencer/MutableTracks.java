@@ -60,6 +60,11 @@ class MutableTracks extends MutableThings<Track> {
     });
 
     /*
+     * Remove empty tracks, i.e. tracks that do not output any events.
+     */
+    removeIf(track -> track.getValue().isEmpty());
+
+    /*
      * Binding conductors to tracks.
      * // TODO : This binding is a cheap implementation for now just remove all bindings and
      * // rebind.  It should be done more efficiently.

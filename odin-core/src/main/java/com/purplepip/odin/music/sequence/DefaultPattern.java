@@ -66,4 +66,9 @@ public class DefaultPattern extends DefaultSequence implements Pattern {
   public Note getNote() {
     return note;
   }
+
+  @Override
+  public boolean isEmpty() {
+    return bits == 0 || super.isEmpty();
+  }
 }

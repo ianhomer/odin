@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
+
 import com.google.common.collect.Lists;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.flow.MetronomeFlow;
@@ -46,6 +48,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,14 +58,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProjectBuilder {
   private static final String DEFAULT_NOTATION_FORMAT = "natural";
+  private static final String DEFAULT_FLOW_NAME = "Pattern";
 
   private ProjectContainer projectContainer;
   private String name;
+  private String flowName = DEFAULT_FLOW_NAME;
   private int channel;
   private int noteNumber;
   private int velocity;
   private int length;
   private int offset;
+  private Tick tick = BEAT;
   private List<String> layerNamesToAdd = new ArrayList<>();
   private List<Long> sequenceIds = new ArrayList<>();
   private List<Long> channelIds = new ArrayList<>();
@@ -131,6 +137,10 @@ public class ProjectBuilder {
     return metronome;
   }
 
+  private static MutableSequence withDefaults(MutableSequence sequence) {
+    return sequence;
+  }
+
   private static Pattern withDefaults(Pattern pattern) {
     pattern.setFlowName(Flows.getFlowName(PatternFlow.class));
     return pattern;
@@ -146,7 +156,7 @@ public class ProjectBuilder {
   }
 
   private MutableLayer withDefaults(MutableLayer layer) {
-    layer.setTick(createTick(Ticks.BEAT));
+    layer.setTick(createTick(BEAT));
     layer.setLength(length);
     layer.setOffset(offset);
     return layer;
@@ -169,6 +179,16 @@ public class ProjectBuilder {
    * @return metronome
    */
   protected MutableSequence createMetronome() {
+    return new DefaultSequence();
+  }
+
+  /**
+   * Create sequence.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return sequence
+   */
+  protected MutableSequence createSequence() {
     return new DefaultSequence();
   }
 
@@ -217,7 +237,7 @@ public class ProjectBuilder {
     }
   }
 
-  private void addSequence(Sequence sequence) {
+  private void addSequenceToContainer(Sequence sequence) {
     sequenceIds.add(sequence.getId());
     projectContainer.addSequence(sequence);
   }
@@ -229,7 +249,7 @@ public class ProjectBuilder {
    */
   public ProjectBuilder addMetronome() {
     MutableSequence metronome = withDefaultsForMetronome(createMetronome());
-    addSequence(applyParameters(metronome));
+    addSequenceToContainer(applyParameters(metronome));
     return this;
   }
 
@@ -252,6 +272,16 @@ public class ProjectBuilder {
 
   public ProjectBuilder withName(String name) {
     this.name = name;
+    return this;
+  }
+
+  public ProjectBuilder withTick(Tick tick) {
+    this.tick = tick;
+    return this;
+  }
+
+  public ProjectBuilder withFlowName(String flowName) {
+    this.flowName = flowName;
     return this;
   }
 
@@ -356,6 +386,17 @@ public class ProjectBuilder {
   }
 
   /**
+   * Add generic sequence.
+   *
+   * @return sequence builder
+   */
+  public ProjectBuilder addSequence() {
+    MutableSequence sequence = withDefaults(createSequence());
+    addSequenceToContainer(applyParameters(sequence));
+    return this;
+  }
+
+  /**
    * Add pattern.
    *
    * @param tick tick
@@ -380,7 +421,7 @@ public class ProjectBuilder {
     sequence.setTick(withDefaults(createTick(tick)));
     sequence.setNote(note);
 
-    addSequence(applyParameters(sequence));
+    addSequenceToContainer(applyParameters(sequence));
     return this;
   }
 
@@ -394,7 +435,7 @@ public class ProjectBuilder {
     sequence.setFormat(format);
     sequence.setNotation(notation);
 
-    addSequence(applyParameters(sequence));
+    addSequenceToContainer(applyParameters(sequence));
     return this;
   }
 
@@ -409,14 +450,29 @@ public class ProjectBuilder {
     sequence.setChannel(channel);
     sequence.setLength(length);
     sequence.setOffset(offset);
+    if (sequence.getTick() == null) {
+      sequence.setTick(tick);
+    }
+    if (sequence.getFlowName() == null) {
+      sequence.setFlowName(flowName);
+    }
     layerNamesToAdd.forEach(sequence::addLayer);
     properties.entrySet().forEach(entry -> sequence.setProperty(entry.getKey(), entry.getValue()));
-    /*
-     * Set the bean properties based on the properties map
-     */
-    properties.keySet().forEach(name -> {
-      BeanUtil.declared.setProperty(sequence, name, properties.get(name));
-    });
+
+
+    if (sequence.isSpecialised()) {
+      /*
+       * Set the bean properties based on the properties map
+       */
+      properties.keySet().forEach(name -> {
+        try {
+          BeanUtil.declared.setProperty(sequence, name, properties.get(name));
+        } catch (BeanException e) {
+          LOG.warn("Ignoring non-valid sequence property {} = {} for {}",
+              name, properties.get(name), sequence);
+        }
+      });
+    }
     return sequence;
   }
 

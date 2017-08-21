@@ -35,4 +35,9 @@ public class HeartBeat implements Roll<Boolean> {
   private Event<Boolean> getNext() {
     return new DefaultEvent<>(Boolean.TRUE, ((System.currentTimeMillis() + 999) / 1000) * 1000);
   }
+
+  @Override
+  public boolean isEmpty() {
+    return false;
+  }
 }

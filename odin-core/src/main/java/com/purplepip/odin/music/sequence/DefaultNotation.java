@@ -16,7 +16,9 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.sequence.DefaultSequence;
+import lombok.ToString;
 
+@ToString(callSuper = true)
 public class DefaultNotation extends DefaultSequence implements Notation {
   private String format;
   private String notation;
@@ -47,5 +49,10 @@ public class DefaultNotation extends DefaultSequence implements Notation {
   @Override
   public String getNotation() {
     return notation;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return notation == null || notation.length() == 0 || super.isEmpty();
   }
 }

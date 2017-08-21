@@ -69,6 +69,11 @@ public class TickConvertedRoll implements Roll<Note> {
     return tickConverter::getTargetTick;
   }
 
+  @Override
+  public boolean isEmpty() {
+    return roll.isEmpty();
+  }
+
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
       LOG.debug("No event on roll {} to convert", roll);

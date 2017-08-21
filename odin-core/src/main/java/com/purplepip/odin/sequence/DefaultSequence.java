@@ -183,4 +183,9 @@ public class DefaultSequence implements MutableSequence {
   public void removeLayer(String layer) {
     layers.remove(layer);
   }
+
+  @Override
+  public boolean isEmpty() {
+    return layers.isEmpty();
+  }
 }

@@ -67,7 +67,7 @@ public class MutableThings<T extends Thing> implements Things<T> {
     return statistics;
   }
 
-  public void incrementUpdatedCount() {
+  protected void incrementUpdatedCount() {
     mutableStatistics.incrementUpdatedCount();
   }
 
@@ -77,7 +77,7 @@ public class MutableThings<T extends Thing> implements Things<T> {
    * @param filter filter
    * @return true if anything removed
    */
-  public boolean removeIf(Predicate<Map.Entry<Long, T>> filter) {
+  protected boolean removeIf(Predicate<Map.Entry<Long, T>> filter) {
     /*
      * Remove any track for which the sequence in the project has been removed.
      */

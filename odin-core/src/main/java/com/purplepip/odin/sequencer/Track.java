@@ -52,4 +52,11 @@ public interface Track extends Thing {
    * TODO : Track should only use microseconds as the unit, why do we need to expose the tick here?
    */
   Tick getTick();
+
+  /**
+   * Whether the track is empty.
+   *
+   * @return is empty.
+   */
+  boolean isEmpty();
 }

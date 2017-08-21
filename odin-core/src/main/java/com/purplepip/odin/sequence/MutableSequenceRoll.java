@@ -333,4 +333,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     }
     return thisEvent;
   }
+
+  @Override
+  public boolean isEmpty() {
+    return sequence.isEmpty() || (flow != null && flow.isEmpty());
+  }
 }

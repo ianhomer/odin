@@ -134,4 +134,8 @@ public class SequenceTrack implements Track {
   public void setCopyOfSequence(Sequence sequence) {
     getSequenceRoll().setSequence(sequence.copy());
   }
+
+  public boolean isEmpty() {
+    return sequenceRoll.isEmpty();
+  }
 }

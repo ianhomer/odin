@@ -50,7 +50,14 @@ public class CompositionRoll implements Roll<Note> {
     this.composition = composition;
     composition.eventStream().forEach(e -> events.add(e));
     events.sort(new SequentialEventComparator());
-    currentEvent = calculateCurrentEvent();
+    if (!isEmpty()) {
+      currentEvent = calculateCurrentEvent();
+    }
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return events.isEmpty();
   }
 
   @Override

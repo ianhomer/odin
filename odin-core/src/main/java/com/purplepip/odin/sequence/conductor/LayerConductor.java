@@ -164,7 +164,8 @@ public class LayerConductor implements Conductor {
   public boolean isActive(long microseconds) {
     if (getParent() != null) {
       if (!getParent().isActive(microseconds)) {
-        LOG.debug("parent {} is not active : {}", getParent().getName(), microseconds);
+        LOG.debug("parent {} of {} is not active : {}", getParent().getName(),
+            getName(), microseconds);
         return false;
       }
     }

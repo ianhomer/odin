@@ -35,5 +35,9 @@ public interface Flow<S extends Sequence, A> {
 
   FlowConfiguration getConfiguration();
 
+  default boolean isEmpty() {
+    return false;
+  }
+
   default void afterPropertiesSet() {}
 }

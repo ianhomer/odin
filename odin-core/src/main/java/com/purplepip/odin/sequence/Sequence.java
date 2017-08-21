@@ -38,6 +38,17 @@ public interface Sequence extends Copyable<Sequence> {
   }
 
   /**
+   * Whether this class is a specialised sequence.
+   *
+   * @return true if it is a specialised sequence.
+   */
+  // TODO : NOT particulary robust default implementation, a better one will be provided
+  default boolean isSpecialised() {
+    return getClass().getInterfaces().length > 1
+        || getClass().getInterfaces()[0] != MutableSequence.class;
+  }
+
+  /**
    * Unique system generated sequence ID.
    *
    * @return sequence ID
@@ -116,4 +127,11 @@ public interface Sequence extends Copyable<Sequence> {
    * @return names of properties
    */
   Stream<String> getPropertyNames();
+
+  /**
+   * Whether the sequence will never generate any events.
+   *
+   * @return is empty
+   */
+  boolean isEmpty();
 }
