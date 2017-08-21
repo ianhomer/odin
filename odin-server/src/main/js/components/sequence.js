@@ -104,8 +104,7 @@ Sequence.defaultProps = {
     'channel' : { defaultValue : 1 },
     'flowName' : {
       cellWidth : 2,
-      defaultValue : 'Pattern',
-      readOnly : true
+      defaultValue : 'Pattern'
     },
     'layers' : {
       defaultValue : '',

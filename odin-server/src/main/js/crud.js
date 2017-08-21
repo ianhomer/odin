@@ -76,7 +76,10 @@ function getFieldValue(schemaId, schema, refs, name, key, required = true) {
     if (node === null) {
       value = null;
     } else {
-      value = JSON.parse(node.value.trim());
+      value = node.value.trim();
+      if (value) {
+        value = JSON.parse(value);
+      }
     }
   } else {
     node = ReactDOM.findDOMNode(refs[_key]);

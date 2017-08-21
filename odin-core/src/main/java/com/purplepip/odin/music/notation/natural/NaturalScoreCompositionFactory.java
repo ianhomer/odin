@@ -16,8 +16,10 @@
 package com.purplepip.odin.music.notation.natural;
 
 import com.purplepip.odin.music.composition.events.EventsComposition;
+import com.purplepip.odin.music.composition.events.EventsCompositionBuilder;
 import com.purplepip.odin.music.notation.NaturalScoreLexer;
 import com.purplepip.odin.music.notation.NaturalScoreParser;
+import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
@@ -26,6 +28,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 /**
  * Composition factory.
  */
+@Slf4j
 public class NaturalScoreCompositionFactory {
   /**
    * Create composition from the given notation.
@@ -34,6 +37,11 @@ public class NaturalScoreCompositionFactory {
    * @return composition
    */
   public EventsComposition create(String notation) {
+    if (notation == null || notation.trim().length() == 0) {
+      LOG.warn("Notation is empty, defaulting to an empty measure");
+      return new EventsCompositionBuilder().withMinimumMeasures(
+          NaturalScoreCompositionListener.MINIMUM_MEASURES).create();
+    }
     Lexer lexer = new NaturalScoreLexer(CharStreams.fromString(notation));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     NaturalScoreParser parser = new NaturalScoreParser(tokens);

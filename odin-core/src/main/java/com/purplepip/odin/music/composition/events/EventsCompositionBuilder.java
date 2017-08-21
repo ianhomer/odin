@@ -37,10 +37,11 @@ public class EventsCompositionBuilder {
   private EventsVoice currentVoice;
   private Rational positionInComposition = Wholes.ZERO;
   private Rational positionInMeasure;
+  private int minimumMeasures;
 
   private void beforeAddNote() {
     if (currentMeasure == null) {
-      startMeasure(DEFAULT_TIME, DEFAULT_KEY);
+      startMeasure();
     } else {
       /*
        * Start new measure if we've come to the end of the previous one
@@ -61,7 +62,15 @@ public class EventsCompositionBuilder {
     }
   }
 
+  /**
+   * Start measure.
+   *
+   * @return this
+   */
   public EventsCompositionBuilder startMeasure() {
+    if (currentMeasure == null) {
+      return startMeasure(DEFAULT_TIME, DEFAULT_KEY);
+    }
     return startMeasure(currentMeasure.getTime(), currentMeasure.getKey());
   }
 
@@ -116,8 +125,22 @@ public class EventsCompositionBuilder {
     return this;
   }
 
+  /**
+   * Create composition.
+   *
+   * @return composition
+   */
   public EventsComposition create() {
+    for (int i = measures.size() ; i < minimumMeasures ; i++) {
+      LOG.debug("Auto creating measure to reach minimum of {}", i);
+      startMeasure();
+    }
     LOG.debug("Creating composition with {} measures", measures.size());
     return new EventsComposition(measures);
+  }
+
+  public EventsCompositionBuilder withMinimumMeasures(int minimumMeasures) {
+    this.minimumMeasures = minimumMeasures;
+    return this;
   }
 }

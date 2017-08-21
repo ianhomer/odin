@@ -28,7 +28,8 @@ import com.purplepip.odin.music.notes.Notes;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Natural score composition listener for natural score notation parsing.
+ * Natural score composition listener for natural score notation parsing.  The creation
+ * composition is guaranteed to always be at least one measure long.
  */
 /*
  * //TODO Handle key signature
@@ -36,7 +37,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
   private static final int DEFAULT_OCTAVE = 4;
-  private EventsCompositionBuilder builder = new EventsCompositionBuilder();
+  static final int MINIMUM_MEASURES = 1;
+  private EventsCompositionBuilder builder = new EventsCompositionBuilder()
+      .withMinimumMeasures(MINIMUM_MEASURES);
   private EventsComposition composition;
   private Reference reference = new NaturalScoreReference();
 
