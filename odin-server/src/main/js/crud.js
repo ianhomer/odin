@@ -58,6 +58,7 @@ function setFieldValue(entity, schemaId, schema, refs, name, key) {
 function getFieldValue(schemaId, schema, refs, name, key, required = true) {
   var _key = key ? key : name;
   var value;
+  var node;
   if (schema && schema.properties[name] && schema.properties[name]['$ref']) {
 
     // Navigate through object definition to find property names.
@@ -71,14 +72,14 @@ function getFieldValue(schemaId, schema, refs, name, key, required = true) {
     value = property;
   } else if (schema && schema.properties[name] && schema.properties[name].type == 'object') {
     // TODO : Handle better than just JSON to object
-    var node = ReactDOM.findDOMNode(refs[_key]);
+    node = ReactDOM.findDOMNode(refs[_key]);
     if (node === null) {
       value = null;
     } else {
       value = JSON.parse(node.value.trim());
     }
   } else {
-    var node = ReactDOM.findDOMNode(refs[_key]);
+    node = ReactDOM.findDOMNode(refs[_key]);
     if (node === null) {
       if (required) {
         console.error('Cannot find field ' + _key + ' in DOM');

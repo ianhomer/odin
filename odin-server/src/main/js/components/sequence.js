@@ -57,30 +57,30 @@ class Sequence extends React.Component{
       );
     } else {
       return (
-          // View entity
+        // View sequence
 
-          <div className="row" onClick={this.toggleEditing}>
-            <div className="col-1">{sequence.name}</div>
-            <div className="col-3">{JSON.stringify(sequence.properties)}</div>
-            <div className="col-2 component">
-              {sequence.tick ?
-                <Tick
-                  numerator={sequence.tick.numerator}
-                  denominator={sequence.tick.denominator}
-                  timeUnit={sequence.tick.timeUnit}/>
-                : <div className="warn">NULL tick</div>
-              }
-            </div>
-            <div className="col-1">{sequence.offset}</div>
-            <div className="col-1">{sequence.length}</div>
-            <div className="col-1">{sequence.channel}</div>
-            <div className="col-2">
-              {sequence.flowName}
-            </div>
-            <div className="col-1">
-              <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
-            </div>
+        <div className="row" onClick={this.toggleEditing}>
+          <div className="col-1">{sequence.name}</div>
+          <div className="col-3">{JSON.stringify(sequence.properties)}</div>
+          <div className="col-2 component">
+            {sequence.tick ?
+              <Tick
+                numerator={sequence.tick.numerator}
+                denominator={sequence.tick.denominator}
+                timeUnit={sequence.tick.timeUnit}/>
+              : <div className="warn">NULL tick</div>
+            }
           </div>
+          <div className="col-1">{sequence.offset}</div>
+          <div className="col-1">{sequence.length}</div>
+          <div className="col-1">{sequence.channel}</div>
+          <div className="col-2">
+            {sequence.flowName}
+          </div>
+          <div className="col-1">
+            <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
+          </div>
+        </div>
       );
     }
   }

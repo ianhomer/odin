@@ -79,25 +79,37 @@ class EditEntity extends React.Component{
   renderInputField(fields, schema, fieldName, key) {
     var field = fields[fieldName];
     var size = 0;
+    var definition = schema.properties[fieldName];
+    var type;
+    if (definition) {
+      type = definition.type;
+    } else {
+      type = 'string';
+      console.error('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(schema.properties));
+    }
+
     if (field.size) {
       size = field.size;
     } else {
-      if (schema.properties[fieldName]) {
-        if (schema.properties[fieldName].type == 'integer') {
-          size = 3;
-        }
-      } else {
-        console.error('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(schema.properties));
+      if (type == 'integer') {
+        size = 3;
       }
     }
+
     var cellWidth = field.cellWidth || 1;
     var cellClassName = 'col-' + cellWidth;
     var value;
     if (this.props.entity) {
       value = objectPath.get(this.props.entity, key);
+      if (type == 'object') {
+        // TODO : Handle objects better than string serialisation
+        value = JSON.stringify(value);
+      }
     } else {
       value = field.defaultValue;
     }
+
+    // TODO : Do notation by field type NOT field name
     if (fieldName == 'notation') {
       var scoreEntity = this.props.entity ?
         this.props.entity :

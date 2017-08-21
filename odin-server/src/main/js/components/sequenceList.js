@@ -66,6 +66,7 @@ class SequenceList extends React.Component{
       <div>
         <div className="container">
           <div className="row">
+            <div className="col-1">Name</div>
             <div className="col-3">&nbsp;</div>
             <div className="col-2">Tick</div>
             <div className="col-1">Offset</div>

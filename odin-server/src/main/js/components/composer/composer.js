@@ -23,9 +23,11 @@ const crud = require('../../crud');
 const LayerList = require('./layerList');
 const NotationCard = require('./notationCard');
 const PatternCard = require('./patternCard');
+const SequenceCard = require('./sequenceCard');
 const Sequences = {
   'notations' : NotationCard,
-  'patterns'  : PatternCard
+  'patterns'  : PatternCard,
+  'sequences' : SequenceCard
 };
 
 // Rendering of composer

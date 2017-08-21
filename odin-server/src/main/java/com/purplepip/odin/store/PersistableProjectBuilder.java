@@ -16,6 +16,7 @@
 package com.purplepip.odin.store;
 
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
@@ -56,10 +57,16 @@ public class PersistableProjectBuilder extends ProjectBuilder {
    * @return note
    */
   @Override
-  protected Note createNote(int number, int velocity, Rational duration) {
+  protected Note createNote(int number, int velocity, Real duration) {
     PersistableNote persistableNote = new PersistableNote();
-    persistableNote.setNumerator(duration.getNumerator());
-    persistableNote.setDenominator(duration.getDenominator());
+    if (duration instanceof Rational) {
+      persistableNote.setNumerator(((Rational) duration).getNumerator());
+      persistableNote.setDenominator(((Rational) duration).getDenominator());
+    } else {
+      // A good enough approximation, given that we'll mostly be dealing with rationals.
+      persistableNote.setNumerator(duration.floor());
+      persistableNote.setDenominator(1);
+    }
     persistableNote.setVelocity(velocity);
     persistableNote.setNumber(number);
     persistableNote.afterLoad();
