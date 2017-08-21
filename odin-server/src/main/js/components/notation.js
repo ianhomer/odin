@@ -117,7 +117,7 @@ Notation.defaultProps = {
     'channel' : { defaultValue : 1},
     'flowName' : {
       cellWidth : 2,
-      defaultValue : 'Notation',
+      defaultValue : 'notation',
       readOnly : true
     },
     'layers' : {

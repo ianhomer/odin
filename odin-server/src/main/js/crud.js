@@ -232,14 +232,17 @@ module.exports = {
     var schemaId = this.props.path;
     var schema = getSchema(schemaId);
     Object.keys(schema.properties).map(function(name) {
-      setFieldValue(entity, schemaId, schema, this.refs, name);
+      var definition = schema.properties[name];
+      if (!definition.readOnly) {
+        setFieldValue(entity, schemaId, schema, this.refs, name);
+      }
     }, this);
-    // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
-    setFieldValue(entity, schemaId, schema, this.refs, '_links.self.href');
     var path = getFieldValue(schemaId, schema, this.refs, 'path', null, false);
     if (path) {
       this.props.onApply(entity, path);
     } else {
+      // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
+      setFieldValue(entity, schemaId, schema, this.refs, '_links.self.href');
       this.props.onApply(entity);
     }
   },

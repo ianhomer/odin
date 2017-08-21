@@ -124,7 +124,7 @@ Pattern.defaultProps = {
     'channel' : { defaultValue : 1 },
     'flowName' : {
       cellWidth : 2,
-      defaultValue : 'Pattern',
+      defaultValue : 'pattern',
       readOnly : true
     },
     'layers' : {

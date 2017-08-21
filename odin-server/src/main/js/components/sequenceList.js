@@ -82,12 +82,12 @@ class SequenceList extends React.Component{
           <hr/>
 
           {Object.keys(Sequences).map(path => {
-            var Sequence = Sequences[path];
+            var SequenceComponent = Sequences[path];
             if (this.isSchemaLoaded(path)) {
               return (
                 <EditEntity key={'create-' + path}
                   project={this.props.project}
-                  path={Sequence.defaultProps.path} fields={Sequence.defaultProps.fields}
+                  path={SequenceComponent.defaultProps.path} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.onCreate}
                 />
               );

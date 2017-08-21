@@ -67,12 +67,16 @@ ChannelList.defaultProps = {
   path: 'channel',
   fields: {
     'number' : {
-      defaultValue : '1',
+      defaultValue : 1,
       cellWidth : 2
     },
     'programName' : {
       defaultValue : 'piano',
       cellWidth : 3
+    },
+    'program' : {
+      defaultValue : 0,
+      hidden : true
     }
   }
 };
