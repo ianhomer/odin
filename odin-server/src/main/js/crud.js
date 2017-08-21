@@ -142,7 +142,11 @@ module.exports = {
 
   getSchemaDefinition : function(name) {
     var schema = getSchema(this.props.path);
-    return getSchema(getRefSchemaId(this.props.path, schema.properties[name]['$ref']));
+    var definition = schema.properties[name]
+    if (definition == null) {
+      throw 'Cannot get schema definition for ' + name;
+    }
+    return getSchema(getRefSchemaId(this.props.path, definition['$ref']));
   },
 
   // Exported method for get schema

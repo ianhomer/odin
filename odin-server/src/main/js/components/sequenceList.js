@@ -24,10 +24,10 @@ const Notation = require('./notation');
 const Pattern = require('./pattern');
 const Sequence = require('./sequence');
 const Sequences = {
-  'notations' : Notation,
-  'patterns'  : Pattern,
-  'sequences' : Sequence
+  'Notation' : Notation,
+  'Pattern'  : Pattern,
 };
+const DefaultSequence = Sequence
 
 // Rendering of generic sequence list
 class SequenceList extends React.Component{
@@ -49,12 +49,12 @@ class SequenceList extends React.Component{
 
   render() {
     var entities = this.state.entities.map(entity => {
-      var Sequence = Sequences[entity.path];
+      var SequenceComponent = Sequences[entity.flowName] || DefaultSequence;
       return (
         <div key={'div-' + entity._links.self.href}>
-          <Sequence entity={entity} key={entity._links.self.href}
+          <SequenceComponent entity={entity} key={entity._links.self.href}
             project={this.props.project}
-            path={entity.path} fields={Sequence.defaultProps.fields}
+            path={entity.path} fields={SequenceComponent.defaultProps.fields}
             onDelete={this.onDelete} onUpdate={this.onUpdate}
           />
         </div>

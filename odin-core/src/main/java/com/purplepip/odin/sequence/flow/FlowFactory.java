@@ -15,20 +15,13 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.google.common.reflect.TypeToken;
 import com.purplepip.odin.music.flow.FailOverFlow;
-import com.purplepip.odin.music.flow.MetronomeFlow;
-import com.purplepip.odin.music.flow.NotationFlow;
-import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.DefaultSequence;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import java.lang.annotation.Annotation;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -36,47 +29,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class FlowFactory<A> {
-  private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
-  private static final Map<String, Class<? extends MutableSequence>>
-      DEFAULT_SEQUENCES = new HashMap<>();
-  private static final Map<String, Class<? extends Sequence>>
-      SEQUENCES = new HashMap<>();
-  private static final Class FAIL_OVER_FLOW_CLASS = FailOverFlow.class;
 
   private FlowConfiguration flowConfiguration;
   private SequenceFactory sequenceFactory = new SequenceFactory();
 
-  /*
-   * Statically register known flows.  In the future we may design a plugin architecture, but
-   * for now it is kept tight by only allowing registered classes.
-   */
-
-  static {
-    register(MetronomeFlow.class);
-    register(NotationFlow.class);
-    register(PatternFlow.class);
-  }
-
   public FlowFactory(FlowConfiguration flowConfiguration) {
     this.flowConfiguration = flowConfiguration;
-  }
-
-  @SuppressWarnings("unchecked")
-  private static void register(Class<? extends MutableFlow> clazz) {
-    if (clazz.isAnnotationPresent(FlowDefinition.class)) {
-      FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
-      FLOWS.put(definition.name(), clazz);
-      try {
-        TypeToken token = TypeToken.of(clazz.newInstance().getClass());
-        SEQUENCES.put(definition.name(), token.getRawType());
-      } catch (IllegalAccessException | InstantiationException e) {
-        LOG.error("Cannot determine sequence interface", e);
-      }
-      DEFAULT_SEQUENCES.put(definition.name(), definition.sequence());
-    } else {
-      Annotation[] annotations = clazz.getAnnotations();
-      LOG.warn("Class {} MUST have a @FlowDefinition annotation, it has {}", clazz, annotations);
-    }
   }
 
   /**
@@ -89,10 +47,10 @@ public class FlowFactory<A> {
   public MutableFlow<Sequence, A> createFlow(Sequence sequence, Clock clock,
                                              MeasureProvider measureProvider) {
 
-    Class<? extends MutableFlow> flowClass = FLOWS.get(sequence.getFlowName());
+    Class<? extends MutableFlow> flowClass = sequenceFactory.getFlowClass(sequence.getFlowName());
     if (flowClass == null) {
       LOG.error("Flow class " + sequence.getFlowName() + " not registered");
-      flowClass = (Class<? extends MutableFlow<Sequence, A>>) FAIL_OVER_FLOW_CLASS;
+      flowClass = sequenceFactory.getFailOverFlowClass();;
     }
     MutableFlow<Sequence, A> flow;
     try {
@@ -116,14 +74,16 @@ public class FlowFactory<A> {
    * @param sequence sequence to use as a template for the one that is set
    */
   public Sequence copyFrom(Sequence sequence) {
-    if (FLOWS.get(sequence.getFlowName()) == null) {
+    if (sequenceFactory.getFlowClass(sequence.getFlowName()) == null) {
       /*
        * If flow was not defined then we have to resort to a straight sequence copy
        */
       return sequence.copy();
     }
-    Class<? extends Sequence> expectedType = SEQUENCES.get(sequence.getFlowName());
-    Class<? extends MutableSequence> newClassType = DEFAULT_SEQUENCES.get(sequence.getFlowName());
+    Class<? extends Sequence> expectedType =
+        sequenceFactory.getSequenceClass(sequence.getFlowName());
+    Class<? extends MutableSequence> newClassType =
+        sequenceFactory.getDefaultSequenceClass(sequence.getFlowName());
     return sequenceFactory.createCopy(expectedType, newClassType, sequence);
   }
 
@@ -134,7 +94,7 @@ public class FlowFactory<A> {
    * test that is expecting sequence to start immediately.
    */
   public void warmUp() {
-    FLOWS.keySet().stream().forEach(name -> {
+    sequenceFactory.getSequenceNames().forEach(name -> {
       MutableSequence sequence = new DefaultSequence();
       sequence.setFlowName(name);
       copyFrom(sequence);

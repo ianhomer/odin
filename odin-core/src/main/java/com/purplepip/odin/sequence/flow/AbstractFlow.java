@@ -19,11 +19,24 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import java.lang.reflect.ParameterizedType;
 
 /**
  * Abstract logic class.
  */
 public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow<S, A> {
+  private Class<S> sequenceClass;
+
+  @SuppressWarnings("unchecked")
+  public AbstractFlow() {
+    this.sequenceClass = (Class<S>) ((ParameterizedType) getClass()
+        .getGenericSuperclass()).getActualTypeArguments()[0];
+  }
+
+  public Class<S> getSequenceClass() {
+    return sequenceClass;
+  }
+
   private S sequence;
   private Clock clock;
   private MeasureProvider measureProvider;

@@ -18,8 +18,18 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.music.flow.FailOverFlow;
+import com.purplepip.odin.music.flow.MetronomeFlow;
+import com.purplepip.odin.music.flow.NotationFlow;
+import com.purplepip.odin.music.flow.PatternFlow;
+import com.purplepip.odin.sequence.flow.FlowDefinition;
+import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
+import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 import jodd.bean.BeanCopy;
 import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
@@ -31,6 +41,41 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class SequenceFactory {
+  private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
+  private static final Map<String, Class<? extends MutableSequence>>
+      DEFAULT_SEQUENCES = new HashMap<>();
+  private static final Map<String, Class<? extends Sequence>>
+      SEQUENCES = new HashMap<>();
+  private static final Class<? extends MutableFlow> FAIL_OVER_FLOW_CLASS = FailOverFlow.class;
+
+  /*
+   * Statically register known flows.  In the future we may design a plugin architecture, but
+   * for now it is kept tight by only allowing registered classes.
+   */
+  static {
+    register(MetronomeFlow.class);
+    register(NotationFlow.class);
+    register(PatternFlow.class);
+  }
+
+  @SuppressWarnings("unchecked")
+  private static void register(Class<? extends MutableFlow> clazz) {
+    if (clazz.isAnnotationPresent(FlowDefinition.class)) {
+      FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
+      FLOWS.put(definition.name(), clazz);
+      try {
+        Class<? extends Sequence> sequenceClass = clazz.newInstance().getSequenceClass();
+        SEQUENCES.put(definition.name(), sequenceClass);
+      } catch (IllegalAccessException | InstantiationException e) {
+        LOG.error("Cannot determine sequence interface", e);
+      }
+      DEFAULT_SEQUENCES.put(definition.name(), definition.sequence());
+    } else {
+      Annotation[] annotations = clazz.getAnnotations();
+      LOG.warn("Class {} MUST have a @FlowDefinition annotation, it has {}", clazz, annotations);
+    }
+  }
+
   static {
     TypeConverterManager.register(Real.class, new RealTypeConverter());
     TypeConverterManager.register(Rational.class, new RationalTypeConverter());
@@ -44,8 +89,8 @@ public class SequenceFactory {
 
   @SuppressWarnings("unchecked")
   public <S extends Sequence> S createTypedCopy(Class<? extends S> expectedType,
-                             Class<? extends S> newClassType,
-                             Sequence original) {
+                                                Class<? extends S> newClassType,
+                                                Sequence original) {
     return (S) createCopy(expectedType, newClassType, original);
   }
 
@@ -54,12 +99,12 @@ public class SequenceFactory {
    *
    * @param expectedType expected type of the returned sequence
    * @param newClassType class to use for new instance if original not of expected type
-   * @param original original sequence to copy values from
+   * @param original     original sequence to copy values from
    * @return sequence of expected type
    */
   public Sequence createCopy(Class<? extends Sequence> expectedType,
-                                  Class<? extends Sequence> newClassType,
-                                  Sequence original) {
+                             Class<? extends Sequence> newClassType,
+                             Sequence original) {
 
     Sequence newSequence;
     if (expectedType == null || newClassType == null) {
@@ -68,7 +113,7 @@ public class SequenceFactory {
             + original.getFlowName() + " is not set");
       }
       throw new OdinRuntimeException("Expected sequence type for " + original.getFlowName()
-        + " is not set");
+          + " is not set");
     } else {
       if (expectedType.isAssignableFrom(original.getClass())) {
         /*
@@ -103,4 +148,25 @@ public class SequenceFactory {
     }
     return newSequence;
   }
+
+  public Class<? extends MutableFlow> getFlowClass(String name) {
+    return FLOWS.get(name);
+  }
+
+  public Class<? extends MutableFlow> getFailOverFlowClass() {
+    return FAIL_OVER_FLOW_CLASS;
+  }
+
+  public Class<? extends Sequence> getSequenceClass(String name) {
+    return SEQUENCES.get(name);
+  }
+
+  public Class<? extends MutableSequence> getDefaultSequenceClass(String name) {
+    return DEFAULT_SEQUENCES.get(name);
+  }
+
+  public Stream<String> getSequenceNames() {
+    return FLOWS.keySet().stream();
+  }
+
 }
