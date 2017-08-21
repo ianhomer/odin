@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Pattern flow.
  */
-@FlowDefinition(name = "Pattern", sequence = DefaultPattern.class)
+@FlowDefinition(name = "pattern", sequence = DefaultPattern.class)
 public class PatternFlow extends AbstractFlow<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternFlow.class);
 

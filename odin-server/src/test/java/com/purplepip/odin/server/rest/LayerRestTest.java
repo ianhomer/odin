@@ -35,13 +35,13 @@ public class LayerRestTest {
 
   @Test
   public void testCreateAndDeleteLayer() throws Exception {
-    String projectUri = new Rest(mvc).getFirstHref("projects");
+    String projectUri = new Rest(mvc).getFirstHref("project");
 
     /*
      * Add layer
      */
     String entityUri = mvc
-        .perform(sendingJson(post("/api/layers")).content(
+        .perform(sendingJson(post("/api/layer")).content(
             new Json(objectMapper)
                 .property("name", "new-layer-name")
                 .property("project", projectUri).toString()
@@ -55,7 +55,7 @@ public class LayerRestTest {
      */
     mvc.perform(sendingJson(get(projectUri + "/layers")))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.layers", hasSize(1)));
+        .andExpect(jsonPath("$._embedded.layer", hasSize(1)));
 
     /*
      * Delete entity
@@ -68,6 +68,6 @@ public class LayerRestTest {
      */
     mvc.perform(sendingJson(get(projectUri + "/layers")))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.layers", hasSize(0)));
+        .andExpect(jsonPath("$._embedded.layer", hasSize(0)));
   }
 }

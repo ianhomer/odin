@@ -25,9 +25,9 @@ const NotationCard = require('./notationCard');
 const PatternCard = require('./patternCard');
 const SequenceCard = require('./sequenceCard');
 const Sequences = {
-  'notations' : NotationCard,
-  'patterns'  : PatternCard,
-  'sequences' : SequenceCard
+  'notation' : NotationCard,
+  'pattern'  : PatternCard,
+  'sequence' : SequenceCard
 };
 
 // Rendering of composer
@@ -46,7 +46,7 @@ class Composer extends React.Component{
   }
 
   componentDidMount() {
-    crud.loadSchemas(['notations', 'patterns']).then(() => {
+    crud.loadSchemas(['notation', 'pattern']).then(() => {
       this.loadFromServer();
     });
   }
@@ -131,7 +131,7 @@ class Composer extends React.Component{
 }
 
 Composer.defaultProps = {
-  path: 'sequences'
+  path: 'sequence'
 };
 
 module.exports = DragDropContext(HTML5Backend)(Composer);

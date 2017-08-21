@@ -24,8 +24,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Channel repository.
  */
-@RepositoryRestResource(path = "channels",
-    collectionResourceRel = "channels", collectionResourceDescription = @Description("channels"),
+@RepositoryRestResource(path = "channel",
+    collectionResourceRel = "channel", collectionResourceDescription = @Description("channel"),
     itemResourceRel = "channel", itemResourceDescription = @Description("channel"))
 @Profile("!noStore")
 public interface ChannelRepository extends CrudRepository<PersistableChannel, Long> {

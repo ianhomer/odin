@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  * Metronome flow.
  */
 @Slf4j
-@FlowDefinition(name = "Metronome", sequence = DefaultMetronome.class)
+@FlowDefinition(name = "metronome", sequence = DefaultMetronome.class)
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
   @Override
   public Event<Note> getNextEvent(Tock tock) {

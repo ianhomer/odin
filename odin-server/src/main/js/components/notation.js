@@ -53,7 +53,7 @@ class Notation extends React.Component{
         // Edit entity
         <EditEntity entity={sequence}
           project={this.props.project}
-          path={this.props.path} fields={defaultProps}
+          path={this.props.path} fields={Notation.defaultProps.fields}
           onApply={this.onUpdate}
         />
       );
@@ -92,7 +92,7 @@ class Notation extends React.Component{
 }
 
 Notation.defaultProps = {
-  path: 'notations',
+  path: 'notation',
   fields: {
     'name' : { size : 8, maxLength : 8},
     'format' : {

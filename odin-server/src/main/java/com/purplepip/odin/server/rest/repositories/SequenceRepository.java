@@ -23,7 +23,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Sequence repository.
  */
-@RepositoryRestResource(path = "sequences", collectionResourceRel = "sequences",
+@RepositoryRestResource(path = "sequence", collectionResourceRel = "sequence",
     itemResourceRel = "sequence")
 @Profile("!noStore")
 public interface SequenceRepository extends

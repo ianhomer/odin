@@ -87,7 +87,7 @@ class Sequence extends React.Component{
 }
 
 Sequence.defaultProps = {
-  path: 'sequences',
+  path: 'sequence',
   fields: {
     'name' : { size : 8, maxLength : 8},
     'properties' : { cellWidth : 3 },

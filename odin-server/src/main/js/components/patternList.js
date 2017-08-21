@@ -72,7 +72,7 @@ class PatternList extends React.Component{
 }
 
 PatternList.defaultProps = {
-  path: 'patterns'
+  path: 'pattern'
 };
 
 module.exports = PatternList;

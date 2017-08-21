@@ -25,7 +25,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Pattern repository.
  */
-@RepositoryRestResource(path = "patterns", collectionResourceRel = "patterns",
+@RepositoryRestResource(path = "pattern", collectionResourceRel = "pattern",
     itemResourceRel = "pattern")
 @Profile("!noStore")
 public interface PatternRepository extends CrudRepository<PersistablePattern, Long> {

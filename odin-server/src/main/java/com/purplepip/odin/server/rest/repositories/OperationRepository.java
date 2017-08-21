@@ -25,9 +25,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RepositoryRestResource(path = "operations",
-    collectionResourceRel = "operations",
-    collectionResourceDescription = @Description("operations"),
+@RepositoryRestResource(path = "operation",
+    collectionResourceRel = "operation",
+    collectionResourceDescription = @Description("operation"),
     itemResourceRel = "operation", itemResourceDescription = @Description("operation"))
 @Profile("!noStore")
 public interface OperationRepository

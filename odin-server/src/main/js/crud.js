@@ -142,7 +142,7 @@ module.exports = {
 
   getSchemaDefinition : function(name) {
     var schema = getSchema(this.props.path);
-    var definition = schema.properties[name]
+    var definition = schema.properties[name];
     if (definition == null) {
       throw 'Cannot get schema definition for ' + name;
     }

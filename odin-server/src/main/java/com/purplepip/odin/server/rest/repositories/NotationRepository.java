@@ -23,7 +23,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Pattern repository.
  */
-@RepositoryRestResource(path = "notations", collectionResourceRel = "notations",
+@RepositoryRestResource(path = "notation", collectionResourceRel = "notation",
     itemResourceRel = "notation")
 @Profile("!noStore")
 public interface NotationRepository extends CrudRepository<PersistableNotation, Long> {

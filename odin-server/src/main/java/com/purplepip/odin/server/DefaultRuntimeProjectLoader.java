@@ -102,6 +102,5 @@ public class DefaultRuntimeProjectLoader implements CommandLineRunner {
     } else {
       LOG.warn("Default project has already been loaded");
     }
-
   }
 }

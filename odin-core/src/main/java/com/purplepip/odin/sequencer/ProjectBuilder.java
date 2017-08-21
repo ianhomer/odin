@@ -58,7 +58,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProjectBuilder {
   private static final String DEFAULT_NOTATION_FORMAT = "natural";
-  private static final String DEFAULT_FLOW_NAME = "Pattern";
+  private static final String DEFAULT_FLOW_NAME = "pattern";
 
   private ProjectContainer projectContainer;
   private String name;

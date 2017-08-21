@@ -53,14 +53,14 @@ public class MutableTracksTest {
     new ProjectBuilder(container)
         .addLayer("layer").withLayers("layer")
         .withProperty("notation", "C")
-        .withFlowName("Notation").addSequence();
+        .withFlowName("notation").addSequence();
     refresh();
     SequenceTrack track = tracks.stream()
         .filter(t -> t instanceof SequenceTrack).map(t -> (SequenceTrack) t)
         .findFirst()
         .orElseThrow(OdinException::new);
 
-    assertEquals("Notation", track.getSequence().getFlowName());
+    assertEquals("notation", track.getSequence().getFlowName());
     assertEquals("DefaultSequence", track.getSequence().getClass().getSimpleName());
     assertEquals("DefaultNotation",
         track.getSequenceRoll().getFlow().getSequence().getClass().getSimpleName());
@@ -72,7 +72,7 @@ public class MutableTracksTest {
     clock.start();
     new ProjectBuilder(container)
         .withProperty("notation", "")
-        .withFlowName("Notation").addSequence();
+        .withFlowName("notation").addSequence();
     refresh();
     assertFalse("Notation track should not have been added since it is empty", tracks.stream()
         .filter(t -> t instanceof SequenceTrack).map(t -> (SequenceTrack) t)

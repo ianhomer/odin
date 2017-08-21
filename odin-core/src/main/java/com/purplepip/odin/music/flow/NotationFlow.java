@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
  * Notation flow.
  */
 @Slf4j
-@FlowDefinition(name = "Notation", sequence = DefaultNotation.class)
+@FlowDefinition(name = "notation", sequence = DefaultNotation.class)
 public class NotationFlow extends AbstractFlow<Notation, Note> {
   private static final int MAX_EVENT_SCAN = 1000;
   private CompositionRoll compositionRoll;

@@ -33,7 +33,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
-@ActiveProfiles({"noAuditing"})
+@ActiveProfiles({"noServices", "noAuditing"})
 public class DefaultRuntimeProjectLoaderTest {
   @Autowired
   private ProjectContainer projectContainer;

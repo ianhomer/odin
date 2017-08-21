@@ -24,9 +24,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Metronome repository.
  */
-@RepositoryRestResource(path = "metronomes",
-    collectionResourceRel = "metronomes",
-    collectionResourceDescription = @Description("metronomes"),
+@RepositoryRestResource(path = "metronome",
+    collectionResourceRel = "metronome",
+    collectionResourceDescription = @Description("metronome"),
     itemResourceRel = "metronome", itemResourceDescription = @Description("metronome"))
 @Profile("!noStore")
 public interface MetronomeRepository extends CrudRepository<PersistableMetronome, Long> {

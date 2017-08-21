@@ -55,25 +55,25 @@ public class SequenceFactoryTest {
 
   @Test
   public void testGetFlowClass() {
-    assertEquals(NotationFlow.class, sequenceFactory.getFlowClass("Notation"));
-    assertEquals(MetronomeFlow.class, sequenceFactory.getFlowClass("Metronome"));
-    assertEquals(PatternFlow.class, sequenceFactory.getFlowClass("Pattern"));
+    assertEquals(NotationFlow.class, sequenceFactory.getFlowClass("notation"));
+    assertEquals(MetronomeFlow.class, sequenceFactory.getFlowClass("metronome"));
+    assertEquals(PatternFlow.class, sequenceFactory.getFlowClass("pattern"));
   }
 
   @Test
   public void testGetSequenceClass() {
-    assertEquals(Notation.class, sequenceFactory.getSequenceClass("Notation"));
-    assertEquals(Metronome.class, sequenceFactory.getSequenceClass("Metronome"));
-    assertEquals(Pattern.class, sequenceFactory.getSequenceClass("Pattern"));
+    assertEquals(Notation.class, sequenceFactory.getSequenceClass("notation"));
+    assertEquals(Metronome.class, sequenceFactory.getSequenceClass("metronome"));
+    assertEquals(Pattern.class, sequenceFactory.getSequenceClass("pattern"));
   }
 
   @Test
   public void testGetDefaultSequenceClass() {
     assertEquals(DefaultNotation.class,
-        sequenceFactory.getDefaultSequenceClass("Notation"));
+        sequenceFactory.getDefaultSequenceClass("notation"));
     assertEquals(DefaultMetronome.class,
-        sequenceFactory.getDefaultSequenceClass("Metronome"));
+        sequenceFactory.getDefaultSequenceClass("metronome"));
     assertEquals(DefaultPattern.class,
-        sequenceFactory.getDefaultSequenceClass("Pattern"));
+        sequenceFactory.getDefaultSequenceClass("pattern"));
   }
 }

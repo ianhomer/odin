@@ -98,7 +98,7 @@ class Pattern extends React.Component{
 }
 
 Pattern.defaultProps = {
-  path: 'patterns',
+  path: 'pattern',
   fields: {
     'name' : { size : 8, maxLength : 8},
     'bits' : { defaultValue : 1 },

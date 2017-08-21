@@ -24,18 +24,28 @@ import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Profile("!noServices")
 @Slf4j
 public class SchemaController {
   private SequenceFactory factory = new SequenceFactory();
 
   @Autowired
-  ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
+  /**
+   * Get schema for given sequence name.
+   *
+   * @param name sequence name
+   * @return json schema
+   * @throws JsonMappingException exception
+   * @throws OdinException exception
+   */
   @RequestMapping("/services/schema/{name}")
   public JsonSchema getSchema(
       @PathVariable(value = "name") String name)

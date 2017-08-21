@@ -55,7 +55,7 @@ class LayerList extends React.Component{
     this.onCreate({
       name: value,
       project: this.props.project._links.self.href
-    }, 'layers');
+    }, 'layer');
   }
 
   _handleKeyPress(e) {
@@ -146,7 +146,7 @@ class LayerList extends React.Component{
 }
 
 LayerList.defaultProps = {
-  path: 'layers'
+  path: 'layer'
 };
 
 module.exports = LayerList;

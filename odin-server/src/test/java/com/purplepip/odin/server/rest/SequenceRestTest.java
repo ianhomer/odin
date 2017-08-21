@@ -36,17 +36,17 @@ public class SequenceRestTest {
 
   @Test
   public void testCreateAndDeleteSequence() throws Exception {
-    String projectUri = new Rest(mvc).getFirstHref("projects");
+    String projectUri = new Rest(mvc).getFirstHref("project");
 
     /*
      * Add Sequence
      */
     String entityUri = mvc
-        .perform(sendingJson(post("/api/sequences")).content(
+        .perform(sendingJson(post("/api/sequence")).content(
             new Json(objectMapper)
                 .property("name", "new-notations-name")
                 .property("project", projectUri)
-                .property("flowName", "Notation")
+                .property("flowName", "notation")
                 .properties()
                 .property("notation", "A B C D")
                 .property("format", "natural")
@@ -61,7 +61,7 @@ public class SequenceRestTest {
      */
     mvc.perform(sendingJson(get(projectUri + "/sequences")))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.sequences", hasSize(1)));
+        .andExpect(jsonPath("$._embedded.sequence", hasSize(1)));
 
     /*
      * Get the entity

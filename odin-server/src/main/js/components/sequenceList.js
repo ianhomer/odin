@@ -24,10 +24,10 @@ const Notation = require('./notation');
 const Pattern = require('./pattern');
 const Sequence = require('./sequence');
 const Sequences = {
-  'Notation' : Notation,
-  'Pattern'  : Pattern,
+  'notation' : Notation,
+  'pattern'  : Pattern,
 };
-const DefaultSequence = Sequence
+const DefaultSequence = Sequence;
 
 // Rendering of generic sequence list
 class SequenceList extends React.Component{
@@ -42,7 +42,7 @@ class SequenceList extends React.Component{
   }
 
   componentDidMount() {
-    crud.loadSchemas(['sequences', 'notations', 'patterns']).then(() => {
+    crud.loadSchemas(['sequence', 'notation', 'pattern']).then(() => {
       this.loadFromServer();
     });
   }
@@ -101,7 +101,7 @@ class SequenceList extends React.Component{
 }
 
 SequenceList.defaultProps = {
-  path: 'sequences'
+  path: 'sequence'
 };
 
 module.exports = SequenceList;
