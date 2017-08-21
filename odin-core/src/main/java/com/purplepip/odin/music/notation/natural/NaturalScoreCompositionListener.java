@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.music.notation.natural;
 
-import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.composition.events.EventsCompositionBuilder;
 import com.purplepip.odin.music.notation.NaturalScoreBaseListener;
@@ -24,7 +24,7 @@ import com.purplepip.odin.music.notation.Reference;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Letter;
 import com.purplepip.odin.music.notes.NoteNumber;
-import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.music.notes.Notes;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -42,9 +42,9 @@ public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
 
   private Letter letter;
   private int intonation;
-  private Rational duration = ProjectBuilder.DEFAULT_DURATION;
+  private Real duration = Notes.DEFAULT.getDuration();
   private int octave = DEFAULT_OCTAVE;
-  private int velocity = ProjectBuilder.DEFAULT_VELOCITY;
+  private int velocity = Notes.DEFAULT.getVelocity();
 
   public EventsComposition getComposition() {
     return composition;

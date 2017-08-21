@@ -16,19 +16,22 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.sequence.DefaultSequence;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Default implementation of pattern.
  */
 @ToString(callSuper = true)
+@Slf4j
 public class DefaultPattern extends DefaultSequence implements Pattern {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */
   private int bits;
-  private Note note;
+  private Note note = Notes.DEFAULT;
 
   public DefaultPattern() {
     super();
@@ -50,7 +53,13 @@ public class DefaultPattern extends DefaultSequence implements Pattern {
 
   @Override
   public void setNote(Note note) {
-    this.note = note;
+    if (note == null) {
+      LOG.warn("Why has note been set to null?  It will be set to the default note {}",
+          Notes.DEFAULT);
+      this.note = Notes.DEFAULT;
+    } else {
+      this.note = note;
+    }
   }
 
   @Override

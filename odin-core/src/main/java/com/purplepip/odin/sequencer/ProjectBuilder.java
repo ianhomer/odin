@@ -16,13 +16,13 @@
 package com.purplepip.odin.sequencer;
 
 import com.google.common.collect.Lists;
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Notation;
@@ -54,15 +54,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ProjectBuilder {
-  private static final int DEFAULT_NOTE = 60;
-  public static final int DEFAULT_VELOCITY = 40;
-  public static final Rational DEFAULT_DURATION = Wholes.ONE;
   private static final String DEFAULT_NOTATION_FORMAT = "natural";
 
   private ProjectContainer projectContainer;
   private String name;
   private int channel;
-  private int note;
+  private int noteNumber;
   private int velocity;
   private int length;
   private int offset;
@@ -84,8 +81,8 @@ public class ProjectBuilder {
   public void reset() {
     name = null;
     channel = 0;
-    note = DEFAULT_NOTE;
-    velocity = DEFAULT_VELOCITY;
+    noteNumber = Notes.DEFAULT.getNumber();
+    velocity = Notes.DEFAULT.getVelocity();
     length = -1;
     offset = 0;
     layerNamesToAdd.clear();
@@ -125,12 +122,12 @@ public class ProjectBuilder {
   private MutableSequence withDefaultsForMetronome(MutableSequence metronome) {
     metronome.setTick(createTick(Ticks.HALF));
     metronome.setFlowName(Flows.getFlowName(MetronomeFlow.class));
-    metronome.setProperty("noteBarStart.number", DEFAULT_NOTE);
-    metronome.setProperty("noteBarStart.velocity", DEFAULT_VELOCITY);
-    metronome.setProperty("noteBarStart.duration", DEFAULT_DURATION);
+    metronome.setProperty("noteBarStart.number", Notes.DEFAULT.getNumber());
+    metronome.setProperty("noteBarStart.velocity", Notes.DEFAULT.getVelocity());
+    metronome.setProperty("noteBarStart.duration", Notes.DEFAULT.getDuration().toString());
     metronome.setProperty("noteBarMid.number", 64);
-    metronome.setProperty("noteBarMid.velocity", DEFAULT_VELOCITY / 2);
-    metronome.setProperty("noteBarMid.duration", DEFAULT_DURATION);
+    metronome.setProperty("noteBarMid.velocity", Notes.DEFAULT.getVelocity() / 2);
+    metronome.setProperty("noteBarMid.duration",  Notes.DEFAULT.getDuration().toString());
     return metronome;
   }
 
@@ -194,7 +191,7 @@ public class ProjectBuilder {
    * @param duration duration
    * @return note
    */
-  protected Note createNote(int number, int velocity, Rational duration) {
+  protected Note createNote(int number, int velocity, Real duration) {
     return new DefaultNote(number, velocity, duration);
   }
 
@@ -275,8 +272,8 @@ public class ProjectBuilder {
   }
 
 
-  public ProjectBuilder withNote(int note) {
-    this.note = note;
+  public ProjectBuilder withNote(int noteNumber) {
+    this.noteNumber = noteNumber;
     return this;
   }
 
@@ -366,8 +363,8 @@ public class ProjectBuilder {
    * @return sequence builder
    */
   public ProjectBuilder addPattern(Tick tick, int pattern) {
-    return addPattern(tick, pattern, createNote(note, velocity,
-        DEFAULT_DURATION));
+    return addPattern(tick, pattern, createNote(noteNumber, velocity,
+        Notes.DEFAULT.getDuration()));
   }
 
   /**

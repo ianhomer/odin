@@ -16,7 +16,7 @@
 package com.purplepip.odin.events;
 
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.music.notes.Notes;
 import java.util.List;
 
 /**
@@ -43,11 +43,11 @@ public class EventsListStringifier {
       Note note = (Note) o;
       StringBuilder builder = new StringBuilder(128);
       builder.append(note.getNumber()).append('-');
-      if (note.getVelocity() != ProjectBuilder.DEFAULT_VELOCITY) {
+      if (note.getVelocity() != Notes.DEFAULT.getVelocity()) {
         builder.append(note.getVelocity());
       }
       builder.append('-');
-      if (!note.getDuration().equals(ProjectBuilder.DEFAULT_DURATION)) {
+      if (!note.getDuration().equals(Notes.DEFAULT.getDuration())) {
         builder.append(note.getDuration());
       }
       return builder.toString();
