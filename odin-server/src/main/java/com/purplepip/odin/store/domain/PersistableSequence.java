@@ -139,4 +139,9 @@ public class PersistableSequence
   public Stream<String> getPropertyNames() {
     return properties.keySet().stream();
   }
+
+  @Override
+  public boolean isEmpty() {
+    return getLayers().isEmpty();
+  }
 }
