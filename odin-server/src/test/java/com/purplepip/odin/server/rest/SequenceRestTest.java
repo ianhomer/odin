@@ -42,13 +42,14 @@ public class SequenceRestTest {
      * Add Sequence
      */
     String entityUri = mvc
-        .perform(sendingJson(post("/api/notations")).content(
+        .perform(sendingJson(post("/api/sequences")).content(
             new Json(objectMapper)
-                .put("name", "new-notations-name")
-                .put("project", projectUri)
-                .put("notation", "A B C D")
-                .put("flowName", "Notation")
-                .put("format", "natural")
+                .property("name", "new-notations-name")
+                .property("project", projectUri)
+                .property("flowName", "Notation")
+                .properties()
+                .property("notation", "A B C D")
+                .property("format", "natural")
                 .toString()
         ))
         .andExpect(status().isCreated())
@@ -60,7 +61,7 @@ public class SequenceRestTest {
      */
     mvc.perform(sendingJson(get(projectUri + "/sequences")))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.notations", hasSize(1)));
+        .andExpect(jsonPath("$._embedded.sequences", hasSize(1)));
 
     /*
      * Get the entity
@@ -69,7 +70,7 @@ public class SequenceRestTest {
     mvc.perform(sendingJson(get(entityUri)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.offset", is(0)))
-        .andExpect(jsonPath("$.notation", is("A B C D")));
+        .andExpect(jsonPath("$.properties.notation", is("A B C D")));
 
     /*
      * Delete entity

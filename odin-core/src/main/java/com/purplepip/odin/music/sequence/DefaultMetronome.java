@@ -22,6 +22,16 @@ import lombok.ToString;
 
 /**
  * Default implementation of the Metronome.
+ *
+ */
+/*
+ * TODO : When persistable sequences are all PersistableSequences and we don't store specific types with
+ * specific entities, then we probably can remove the Metronome interface, rename DefaultMetronome
+ * to Metronome, use that as generic type in Metronome flow, and remove from flow definition.  This
+ * can also be done with notation and pattern.  This will simply the work required to add another
+ * flow to 1) create flow logic class and 2) create domain class to store configuration.  If
+ * desired we could even store the domain class as an inner class of the logic class to keep
+ * it all as one.  This will make plugability a lot easier in the future :)
  */
 @ToString(callSuper = true)
 public class DefaultMetronome extends DefaultSequence implements Metronome {

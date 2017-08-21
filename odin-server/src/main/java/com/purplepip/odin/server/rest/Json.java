@@ -17,9 +17,13 @@ package com.purplepip.odin.server.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.purplepip.odin.common.OdinRuntimeException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -27,16 +31,70 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Json {
-  private Map<String, String> object = new HashMap<>();
+  private Map<String, Object> object = new HashMap<>();
   private ObjectMapper objectMapper;
+  private Deque<Json> stack = new ArrayDeque<>();
+
+  /**
+   * Enrich an object mapper with a module to serialise these Json objects.
+   *
+   * @param mapper mapper to enrich
+   * @return the enriched mapper
+   */
+  public static ObjectMapper withJsonModule(ObjectMapper mapper) {
+    SimpleModule module = new SimpleModule();
+    module.addSerializer(Json.class, new JsonSerializer());
+    mapper.registerModule(module);
+    return mapper;
+  }
 
   public Json(ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
+    stack.push(this);
   }
 
-  public Json put(String name, String value) {
-    object.put(name, value);
+  public Json property(String name, Object value) {
+    stack.peek().put(name, value);
     return this;
+  }
+
+  public Object getProperty(String name) {
+    return object.get(name);
+  }
+
+  public Json properties() {
+    return  start("properties");
+  }
+
+  /**
+   * Start object.
+   *
+   * @param name name of object to start
+   * @return this
+   */
+  public Json start(String name) {
+    Json child = new Json(objectMapper);
+    put(name, child);
+    stack.push(child);
+    return this;
+  }
+
+  /**
+   * End object.
+   *
+   * @return this
+   */
+  public Json end() {
+    stack.pop();
+    return this;
+  }
+
+  private void put(String name, Object value) {
+    object.put(name, value);
+  }
+
+  public Stream<String> getPropertyNames() {
+    return object.keySet().stream();
   }
 
   @Override

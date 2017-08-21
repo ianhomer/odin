@@ -2,6 +2,7 @@ package com.purplepip.odin.server.rest;
 
 import static com.purplepip.odin.server.rest.Rests.sendingJson;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -26,7 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @ActiveProfiles({"test", "noAuditing"})
 @Slf4j
-public class LayerRestTest {
+public class NotationRestTest {
   @Autowired
   private MockMvc mvc;
 
@@ -34,17 +35,21 @@ public class LayerRestTest {
   private ObjectMapper objectMapper;
 
   @Test
-  public void testCreateAndDeleteLayer() throws Exception {
+  public void testCreateAndDeleteSequence() throws Exception {
     String projectUri = new Rest(mvc).getFirstHref("projects");
 
     /*
-     * Add layer
+     * Add Sequence
      */
     String entityUri = mvc
-        .perform(sendingJson(post("/api/layers")).content(
+        .perform(sendingJson(post("/api/notations")).content(
             new Json(objectMapper)
-                .property("name", "new-layer-name")
-                .property("project", projectUri).toString()
+                .property("name", "new-notations-name")
+                .property("project", projectUri)
+                .property("notation", "A B C D")
+                .property("flowName", "Notation")
+                .property("format", "natural")
+                .toString()
         ))
         .andExpect(status().isCreated())
         .andReturn()
@@ -53,21 +58,23 @@ public class LayerRestTest {
     /*
      * Check entity has been created
      */
-    mvc.perform(sendingJson(get(projectUri + "/layers")))
+    mvc.perform(sendingJson(get(projectUri + "/sequences")))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.layers", hasSize(1)));
+        .andExpect(jsonPath("$._embedded.notations", hasSize(1)));
+
+    /*
+     * Get the entity
+     */
+
+    mvc.perform(sendingJson(get(entityUri)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.offset", is(0)))
+        .andExpect(jsonPath("$.notation", is("A B C D")));
 
     /*
      * Delete entity
      */
     mvc.perform(sendingJson(delete(entityUri)))
         .andExpect(status().isNoContent());
-
-    /*
-     * Test project has no layouts
-     */
-    mvc.perform(sendingJson(get(projectUri + "/layers")))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.layers", hasSize(0)));
   }
 }

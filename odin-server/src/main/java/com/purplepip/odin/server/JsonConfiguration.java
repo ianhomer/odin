@@ -13,13 +13,20 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services.composition;
+package com.purplepip.odin.server;
 
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
 import com.purplepip.odin.music.notation.easy.composition.EasyMeasure;
 import com.purplepip.odin.music.notation.easy.composition.EasyStaff;
 import com.purplepip.odin.music.notation.easy.composition.EasyVoice;
+import com.purplepip.odin.server.rest.Json;
+import com.purplepip.odin.server.rest.JsonSerializer;
+import com.purplepip.odin.server.services.composition.CompositionSerializer;
+import com.purplepip.odin.server.services.composition.MeasureSerializer;
+import com.purplepip.odin.server.services.composition.RationalSerializer;
+import com.purplepip.odin.server.services.composition.StaffSerializer;
+import com.purplepip.odin.server.services.composition.VoiceSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 @Configuration
-public class CompositionConfiguration {
+public class JsonConfiguration {
   @Autowired
   private CompositionSerializer compositionSerializer;
 
@@ -43,6 +50,9 @@ public class CompositionConfiguration {
   @Autowired
   private RationalSerializer rationalSerializer;
 
+  @Autowired
+  private JsonSerializer jsonSerializer;
+
   /**
    * Customize the JSON output from composition service.
    *
@@ -54,10 +64,11 @@ public class CompositionConfiguration {
       @Override
       public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
         jacksonObjectMapperBuilder.serializerByType(EasyComposition.class,  compositionSerializer);
+        jacksonObjectMapperBuilder.serializerByType(Json.class,  jsonSerializer);
         jacksonObjectMapperBuilder.serializerByType(EasyMeasure.class,  measureSerializer);
+        jacksonObjectMapperBuilder.serializerByType(Rational.class,  rationalSerializer);
         jacksonObjectMapperBuilder.serializerByType(EasyStaff.class, staffSerializer);
         jacksonObjectMapperBuilder.serializerByType(EasyVoice.class, voiceSerializer);
-        jacksonObjectMapperBuilder.serializerByType(Rational.class,  rationalSerializer);
       }
     };
   }
