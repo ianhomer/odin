@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
@@ -124,19 +125,19 @@ public interface Sequence extends Copyable<Sequence> {
    */
   String getProperty(String name);
 
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   /**
    * Names of properties set for this sequence.
    *
    * @return names of properties
    */
+  @JsonIgnore
   Stream<String> getPropertyNames();
 
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   /**
    * Whether the sequence will never generate any events.
    *
    * @return is empty
    */
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   boolean isEmpty();
 }
