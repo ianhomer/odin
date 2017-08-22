@@ -23,6 +23,7 @@ import com.purplepip.odin.sequence.tick.Tick;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Sequence configuration.
@@ -62,6 +63,7 @@ public interface Sequence extends Copyable<Sequence> {
   /**
    * User generated name which should be unique within the context of use, e.g. project.
    */
+  @NotNull
   String getName();
 
   /**
@@ -69,6 +71,7 @@ public interface Sequence extends Copyable<Sequence> {
    *
    * @return tick units.
    */
+  @NotNull
   Tick getTick();
 
   /**
@@ -100,6 +103,7 @@ public interface Sequence extends Copyable<Sequence> {
    *
    * @return flow name.
    */
+  @NotNull
   String getFlowName();
 
   /**
@@ -119,6 +123,7 @@ public interface Sequence extends Copyable<Sequence> {
   /**
    * Get the sequence layer names.
    */
+  @NotNull
   List<String> getLayers();
 
   /**

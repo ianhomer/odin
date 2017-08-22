@@ -19,6 +19,8 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Pattern sequence configuration.
@@ -36,9 +38,11 @@ public interface Pattern extends MutableSequence {
 
   void setBits(int bits);
 
+  @Min(0)
   int getBits();
 
   void setNote(Note note);
 
+  @NotNull
   Note getNote();
 }
