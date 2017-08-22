@@ -29,7 +29,7 @@ import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -77,20 +77,24 @@ public class ProjectSchema {
     flows.put(flowName, schema.getId());
   }
 
-  public Stream<String> getFlowNames() {
-    return flows.keySet().stream();
+  public Set<String> getFlowNames() {
+    return flows.keySet();
   }
 
   public Map<String, JsonSchema> getTypes() {
     return types;
   }
 
-  public JsonSchema getFlowSchema(String name) {
-    return types.get(flows.get(name));
+  public String getFlowTypeRef(String name) {
+    return flows.get(name);
   }
 
-  public Stream<String> getTypeNames() {
-    return types.keySet().stream();
+  public JsonSchema getFlowSchema(String name) {
+    return types.get(getFlowTypeRef(name));
+  }
+
+  public Set<String> getTypeRefs() {
+    return types.keySet();
   }
 
   public JsonSchema getType(String name) {
