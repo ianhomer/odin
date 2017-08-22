@@ -19,8 +19,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
-import com.fasterxml.jackson.module.jsonSchema.customProperties.TitleSchemaFactoryWrapper;
-import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.layer.Layer;
@@ -36,57 +37,63 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ProjectSchema {
   private SequenceFactory factory = new SequenceFactory();
-  private Map<String, JsonSchema> flows = new HashMap<>();
-  private Map<String, JsonSchema> foundations = new HashMap<>();
+  private Map<String, JsonSchema> types = new HashMap<>();
+  private Map<String, String> flows = new HashMap<>();
 
   /**
    * Create the project schema.
    */
   public ProjectSchema() {
     ObjectMapper mapper = new ObjectMapper();
-    //SchemaFactoryWrapper visitor = new HyperSchemaFactoryWrapper();
-    SchemaFactoryWrapper visitor = new TitleSchemaFactoryWrapper();
+    OdinSchemaFactoryWrapper visitor = new OdinSchemaFactoryWrapper();
 
     JsonSchemaGenerator schemaGenerator = new JsonSchemaGenerator(mapper, visitor);
     try {
-      foundations.put("note", schemaGenerator.generateSchema(Note.class));
-      foundations.put("tick", schemaGenerator.generateSchema(Tick.class));
-      foundations.put("channel", schemaGenerator.generateSchema(Channel.class));
-      foundations.put("layer", schemaGenerator.generateSchema(Layer.class));
+      registerType(schemaGenerator.generateSchema(Real.class));
+      registerType(schemaGenerator.generateSchema(Rational.class));
+      registerType(schemaGenerator.generateSchema(Whole.class));
+      registerType(schemaGenerator.generateSchema(Note.class));
+      registerType(schemaGenerator.generateSchema(Tick.class));
+      registerType(schemaGenerator.generateSchema(Channel.class));
+      registerType(schemaGenerator.generateSchema(Layer.class));
     } catch (JsonMappingException e) {
       LOG.error("Could not load schema for core objects", e);
     }
     factory.getSequenceNames().forEach(name -> {
       try {
-        JsonSchema schema = schemaGenerator.generateSchema(factory.getSequenceClass(name));
-        flows.put(name, schema);
+        registerFlow(name, schemaGenerator.generateSchema(factory.getSequenceClass(name)));
       } catch (JsonMappingException e) {
         LOG.error("Could not load schema for flow " + name, e);
       }
     });
   }
 
+  private void registerType(JsonSchema schema) {
+    types.put(schema.getId(), schema);
+  }
+
+  private void registerFlow(String flowName, JsonSchema schema) {
+    registerType(schema);
+    flows.put(flowName, schema.getId());
+  }
+
   public Stream<String> getFlowNames() {
     return flows.keySet().stream();
   }
 
-  public Map<String, JsonSchema> getFlows() {
-    return flows;
+  public Map<String, JsonSchema> getTypes() {
+    return types;
   }
 
   public JsonSchema getFlowSchema(String name) {
-    return flows.get(name);
+    return types.get(flows.get(name));
   }
 
-  public Stream<String> getFoundationName() {
-    return foundations.keySet().stream();
+  public Stream<String> getTypeNames() {
+    return types.keySet().stream();
   }
 
-  public Map<String, JsonSchema> getFoundations() {
-    return foundations;
-  }
-
-  public JsonSchema getFoundationSchema(String name) {
-    return flows.get(name);
+  public JsonSchema getType(String name) {
+    return types.get(name);
   }
 }

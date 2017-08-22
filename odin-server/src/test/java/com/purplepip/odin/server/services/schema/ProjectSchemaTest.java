@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -30,29 +31,36 @@ import org.junit.Test;
 @Slf4j
 public class ProjectSchemaTest {
   @Test
-  public void testProjectSchema() {
-    ProjectSchema schema = new ProjectSchema();
-    assertEquals(3, schema.getFlowNames().count());
-    JsonSchema notationSchema = schema.getFlowSchema("notation");
-    logObjectAsJson(notationSchema);
-    JsonSchema notationFormatSchema =
-        notationSchema.asObjectSchema().getProperties().get("format");
-    assertNotNull(notationFormatSchema);
-    logObjectAsJson(notationFormatSchema);
-    //Boolean readOnly = notationFormatSchema.getReadonly();
-    //assertNotNull("Readonly flag should be set", readOnly);
-    //assertTrue(readOnly);
+  public void testCore() {
+    ProjectSchema project = new ProjectSchema();
+    JsonSchema schema = project.getType("urn:jsonschema:com:purplepip:odin:math:Rational");
+    Map<String, JsonSchema> properties = schema.asObjectSchema().getProperties();
+    Boolean readOnly = properties.get("simplified").asBooleanSchema().getReadonly();
+    assertNotNull("Read only should be set", readOnly);
   }
 
-  private void logObjectAsJson(JsonSchema object) {
+  @Test
+  public void testFlows() {
+    ProjectSchema schema = new ProjectSchema();
+    logObjectAsJson(schema);
+    assertEquals(3, schema.getFlowNames().count());
+    JsonSchema notationSchema = schema.getFlowSchema("notation");
+    assertEquals("Notation", notationSchema.asObjectSchema().getTitle());
+    logObjectAsJson(notationSchema);
+    Map<String, JsonSchema> properties = notationSchema.asObjectSchema().getProperties();
+    assertEquals("string", properties.get("format").getType().value());
+    // TODO : enable Min validation
+    // assertEquals(Double.valueOf(0.0), properties.get("length").asNumberSchema().getMinimum());
+  }
+
+  private void logObjectAsJson(Object object) {
     if (LOG.isInfoEnabled()) {
       try {
         LOG.info("Schema : {}",
             new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object));
       } catch (JsonProcessingException e) {
-        LOG.error("Cannot log schema as string");
+        LOG.error("Cannot log schema as string", e);
       }
     }
-
   }
 }

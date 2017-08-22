@@ -44,13 +44,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
-
     <antlr.version>4.7</antlr.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
     <jacoco.version>0.7.9</jacoco.version>
     <jacoco.covered.ratio>0.80</jacoco.covered.ratio>
     <jodd.version>3.8.6</jodd.version>
     <jackson.version>2.9.0</jackson.version>
+    <javax.validation>2.0.0.Final</javax.validation>
     <junit.version>4.12</junit.version>
     <guava.version>21.0</guava.version>
     <logback.version>1.2.3</logback.version>
@@ -100,6 +100,11 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>${javax.validation}</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>

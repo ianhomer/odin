@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.math;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,6 +158,7 @@ public class Rational extends Real {
     simplified = true;
   }
 
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   public boolean isSimplified() {
     return simplified;
   }

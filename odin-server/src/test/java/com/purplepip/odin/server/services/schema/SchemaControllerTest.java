@@ -44,13 +44,18 @@ public class SchemaControllerTest {
         .andExpect(status().isOk())
         .andExpect(content().string(containsString(
                 "urn:jsonschema:com:purplepip:odin:music:sequence:Pattern")))
-        .andExpect(jsonPath("$.flows.notation.type", is("object")))
-        .andExpect(jsonPath("$.flows.notation.properties.notation.type",
+        .andExpect(jsonPath(
+            "$.types.urn:jsonschema:com:purplepip:odin:music:sequence:Notation.type",
+            is("object")))
+        .andExpect(jsonPath(
+            "$.types.urn:jsonschema:com:purplepip:odin:music:sequence:Notation"
+                + ".properties.notation.type",
             is("string")))
-        .andExpect(jsonPath("$.flows.notation.properties.offset.type",
+        .andExpect(jsonPath(
+            "$.types.urn:jsonschema:com:purplepip:odin:music:sequence:Notation"
+                + ".properties.offset.type",
             is("integer")))
         .andReturn().getResponse().getContentAsString();
     LOG.info("JSON = {}", json);
   }
-
 }
