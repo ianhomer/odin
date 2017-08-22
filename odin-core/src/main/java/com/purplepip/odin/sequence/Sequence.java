@@ -22,6 +22,7 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.List;
 import java.util.stream.Stream;
+import javax.validation.constraints.Min;
 
 /**
  * Sequence configuration.
@@ -76,7 +77,7 @@ public interface Sequence extends Copyable<Sequence> {
    *
    * @return length
    */
-  // TODO : Enable bean validation @Min(0)
+  @Min(-1)
   long getLength();
 
   /**

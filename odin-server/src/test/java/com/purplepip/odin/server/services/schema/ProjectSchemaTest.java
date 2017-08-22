@@ -49,8 +49,7 @@ public class ProjectSchemaTest {
     logObjectAsJson(notationSchema);
     Map<String, JsonSchema> properties = notationSchema.asObjectSchema().getProperties();
     assertEquals("string", properties.get("format").getType().value());
-    // TODO : enable Min validation
-    // assertEquals(Double.valueOf(0.0), properties.get("length").asNumberSchema().getMinimum());
+    assertEquals(Double.valueOf(-1.0), properties.get("length").asNumberSchema().getMinimum());
   }
 
   private void logObjectAsJson(Object object) {
