@@ -17,6 +17,7 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
     <orderEntry type="module" module-name="common-test-logging" scope="TEST" />
     <orderEntry type="module" module-name="log-capture" scope="TEST" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-bean:3.8.6" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-core:3.8.6" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7" level="project" />

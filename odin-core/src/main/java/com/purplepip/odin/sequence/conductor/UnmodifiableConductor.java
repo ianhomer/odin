@@ -17,7 +17,9 @@ package com.purplepip.odin.sequence.conductor;
 
 import com.purplepip.odin.math.Real;
 import java.util.stream.Stream;
+import lombok.ToString;
 
+@ToString
 public class UnmodifiableConductor implements Conductor {
   private Conductor underlyingConductor;
 

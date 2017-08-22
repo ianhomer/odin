@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -42,6 +43,7 @@ public interface Sequence extends Copyable<Sequence> {
    *
    * @return true if it is a specialised sequence.
    */
+  @JsonIgnore
   // TODO : NOT particulary robust default implementation, a better one will be provided
   default boolean isSpecialised() {
     return getClass().getInterfaces().length > 1
@@ -121,6 +123,7 @@ public interface Sequence extends Copyable<Sequence> {
    */
   String getProperty(String name);
 
+  @JsonIgnore
   /**
    * Names of properties set for this sequence.
    *
@@ -128,6 +131,7 @@ public interface Sequence extends Copyable<Sequence> {
    */
   Stream<String> getPropertyNames();
 
+  @JsonIgnore
   /**
    * Whether the sequence will never generate any events.
    *

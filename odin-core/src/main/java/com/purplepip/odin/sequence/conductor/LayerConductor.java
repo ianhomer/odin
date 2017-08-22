@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -37,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
  * would be good to relax this constraint one day.
  */
 @Slf4j
+@ToString(exclude = {"clock"})
 public class LayerConductor implements Conductor {
   private Layer layer;
   private BeatClock clock;

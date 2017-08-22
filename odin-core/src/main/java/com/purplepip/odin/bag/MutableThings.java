@@ -20,9 +20,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@ToString
 public class MutableThings<T extends Thing> implements Things<T> {
   private MutableThingStatistics mutableStatistics = new DefaultThingStatistics();
   private UnmodifiableThingStatistics statistics =

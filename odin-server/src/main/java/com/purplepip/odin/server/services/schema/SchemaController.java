@@ -15,13 +15,7 @@
 
 package com.purplepip.odin.server.services.schema;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
-import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.SequenceFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -33,29 +27,26 @@ import org.springframework.web.bind.annotation.RestController;
 @Profile("!noServices")
 @Slf4j
 public class SchemaController {
-  private SequenceFactory factory = new SequenceFactory();
-
   @Autowired
-  private ObjectMapper objectMapper;
+  private ProjectSchema projectSchema;
+
+  /**
+   * Get full project schema.
+   *
+   * @return project json schema
+   */
+  @RequestMapping("/services/schema")
+  public ProjectSchema getProjectSchema() {
+    return projectSchema;
+  }
 
   /**
    * Get schema for given sequence name.
    *
-   * @param name sequence name
-   * @return json schema
-   * @throws JsonMappingException exception
-   * @throws OdinException exception
+   * @return flow json schema
    */
-  @RequestMapping("/services/schema/{name}")
-  public JsonSchema getSchema(
-      @PathVariable(value = "name") String name)
-      throws JsonMappingException, OdinException {
-    LOG.debug("Requesting schema for {}", name);
-    JsonSchemaGenerator  schemaGenerator = new JsonSchemaGenerator(objectMapper);
-    Class<? extends Sequence> clazz = factory.getSequenceClass(name);
-    if (clazz == null) {
-      throw new OdinException("Cannot find registered sequence class " + name);
-    }
-    return schemaGenerator.generateSchema(factory.getSequenceClass(name));
+  @RequestMapping("/services/schema/flows/{name}")
+  public JsonSchema getFlowSchema(@PathVariable("name") String name) {
+    return projectSchema.getFlowSchema(name);
   }
 }

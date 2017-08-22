@@ -16,10 +16,12 @@
 package com.purplepip.odin.events;
 
 import com.purplepip.odin.math.Real;
+import lombok.ToString;
 
 /**
  * An event whose value has been swallowed and as such the event should be ignored.
  */
+@ToString
 public class SwallowedEvent<A> implements NullValueEvent<A> {
   private Real time;
 

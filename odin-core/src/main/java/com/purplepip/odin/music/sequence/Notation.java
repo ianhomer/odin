@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.music.sequence;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
@@ -33,6 +34,7 @@ public interface Notation extends MutableSequence {
 
   void setFormat(String format);
 
+  @JsonProperty(defaultValue = "natural")
   String getFormat();
 
   void setNotation(String notation);
