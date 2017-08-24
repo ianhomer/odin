@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Generic reference lookups that can be used by any specific notation reference lookup.
  */
-public abstract class Reference {
+public abstract class AbstractReference {
   private static final Map<String, Integer> accidentals = new HashMap<>();
   private static final Map<String, Rational> durations = new HashMap<>();
   private static final Map<Rational, String> durationsReverse = new HashMap<>();

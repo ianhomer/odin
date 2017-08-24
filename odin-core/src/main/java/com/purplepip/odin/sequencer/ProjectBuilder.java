@@ -328,7 +328,7 @@ public class ProjectBuilder {
     Set<String> duplicates = layerNamesToAdd.stream()
         .filter(layer -> Collections.frequency(layerNamesToAdd, layer) > 1)
         .collect(Collectors.toSet());
-    if (duplicates.size() > 0) {
+    if (!duplicates.isEmpty()) {
       LOG.warn("Creating entity with layers {} that have duplicates {}", layers, duplicates);
     }
     LOG.debug("Layers to add : {}", layerNamesToAdd);
@@ -468,6 +468,7 @@ public class ProjectBuilder {
         try {
           BeanUtil.declared.setProperty(sequence, name, properties.get(name));
         } catch (BeanException e) {
+          LOG.debug("Ignoring non-valid sequence property (full stack)", e);
           LOG.warn("Ignoring non-valid sequence property {} = {} for {}",
               name, properties.get(name), sequence);
         }

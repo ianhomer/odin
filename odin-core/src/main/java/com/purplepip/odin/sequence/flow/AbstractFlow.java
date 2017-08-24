@@ -33,6 +33,7 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
         .getGenericSuperclass()).getActualTypeArguments()[0];
   }
 
+  @Override
   public Class<S> getSequenceClass() {
     return sequenceClass;
   }

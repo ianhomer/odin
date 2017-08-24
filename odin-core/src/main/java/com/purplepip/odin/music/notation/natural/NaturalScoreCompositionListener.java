@@ -18,9 +18,9 @@ package com.purplepip.odin.music.notation.natural;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.composition.events.EventsCompositionBuilder;
+import com.purplepip.odin.music.notation.AbstractReference;
 import com.purplepip.odin.music.notation.NaturalScoreBaseListener;
 import com.purplepip.odin.music.notation.NaturalScoreParser;
-import com.purplepip.odin.music.notation.Reference;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Letter;
 import com.purplepip.odin.music.notes.NoteNumber;
@@ -36,12 +36,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
+  protected static final int MINIMUM_MEASURES = 1;
   private static final int DEFAULT_OCTAVE = 4;
-  static final int MINIMUM_MEASURES = 1;
   private EventsCompositionBuilder builder = new EventsCompositionBuilder()
       .withMinimumMeasures(MINIMUM_MEASURES);
   private EventsComposition composition;
-  private Reference reference = new NaturalScoreReference();
+  private AbstractReference reference = new NaturalScoreReference();
 
   private Letter letter;
   private int intonation;

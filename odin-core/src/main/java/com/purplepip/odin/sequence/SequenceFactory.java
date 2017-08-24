@@ -139,8 +139,9 @@ public class SequenceFactory {
               mutableSequence.setProperty(name, original.getProperty(name));
               try {
                 BeanUtil.declared.setProperty(mutableSequence, name, original.getProperty(name));
-              } catch (BeanException exception) {
-                LOG.warn("Whilst creating sequence {}", exception.getMessage());
+              } catch (BeanException e) {
+                LOG.debug("Whilst creating sequence {} (full stack)", e);
+                LOG.warn("Whilst creating sequence {}", e.getMessage());
               }
             });
         LOG.debug("Starting flow with typed copy {}", newSequence);

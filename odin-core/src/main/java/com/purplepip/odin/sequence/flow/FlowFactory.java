@@ -50,7 +50,7 @@ public class FlowFactory<A> {
     Class<? extends MutableFlow> flowClass = sequenceFactory.getFlowClass(sequence.getFlowName());
     if (flowClass == null) {
       LOG.error("Flow class " + sequence.getFlowName() + " not registered");
-      flowClass = sequenceFactory.getFailOverFlowClass();;
+      flowClass = sequenceFactory.getFailOverFlowClass();
     }
     MutableFlow<Sequence, A> flow;
     try {

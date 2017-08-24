@@ -33,7 +33,7 @@ final class PersistableHelper {
     Set<String> duplicateLayers =
         list.stream().filter(i -> Collections.frequency(list, i) > 1)
             .collect(Collectors.toSet());
-    if (duplicateLayers.size() > 0) {
+    if (!duplicateLayers.isEmpty()) {
       LOG.warn("Removing duplicates layers {}", duplicateLayers);
       Set<String> layers = Sets.newHashSet(list);
       list.clear();

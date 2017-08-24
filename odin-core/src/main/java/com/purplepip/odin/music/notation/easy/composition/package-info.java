@@ -13,17 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.notation.easy;
-
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.music.notation.AbstractReference;
-
 /**
- * Reference lookups for EasyScore.
+ * Composition classes based on easy composition.
  */
-class EasyScoreReference extends AbstractReference {
-  @Override
-  public String getDurationLabel(Rational length) {
-    return "/" + super.getDurationLabel(length);
-  }
-}
+package com.purplepip.odin.music.notation.easy.composition;
