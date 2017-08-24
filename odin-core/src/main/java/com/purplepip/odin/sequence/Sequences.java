@@ -19,6 +19,9 @@ package com.purplepip.odin.sequence;
  * Sequences utility methods.
  */
 public final class Sequences {
+  private Sequences() {
+  }
+
   /**
    * Copy core values from one sequence to another.
    *
@@ -35,8 +38,5 @@ public final class Sequences {
     to.setTick(from.getTick());
     from.getLayers().forEach(to::addLayer);
     from.getPropertyNames().forEach(name -> to.setProperty(name, from.getProperty(name)));
-  }
-
-  private Sequences() {
   }
 }

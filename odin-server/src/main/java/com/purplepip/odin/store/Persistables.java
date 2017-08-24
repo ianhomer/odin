@@ -21,6 +21,9 @@ import com.purplepip.odin.store.domain.PersistableThing;
  * Persistable utility functions.
  */
 public final class Persistables {
+  private Persistables() {
+  }
+
   /**
    * Sometimes toSting() method on an entity is not safe, since the entity might have lazy
    * collections that have not been initialised.  An example of this situation is trying to
@@ -44,8 +47,5 @@ public final class Persistables {
       string = object.toString();
     }
     return string;
-  }
-
-  private Persistables() {
   }
 }

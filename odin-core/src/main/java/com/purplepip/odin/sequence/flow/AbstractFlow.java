@@ -25,6 +25,10 @@ import java.lang.reflect.ParameterizedType;
  * Abstract logic class.
  */
 public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow<S, A> {
+  private FlowConfiguration configuration;
+  private Clock clock;
+  private MeasureProvider measureProvider;
+  private S sequence;
   private Class<S> sequenceClass;
 
   @SuppressWarnings("unchecked")
@@ -37,11 +41,6 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
   public Class<S> getSequenceClass() {
     return sequenceClass;
   }
-
-  private S sequence;
-  private Clock clock;
-  private MeasureProvider measureProvider;
-  private FlowConfiguration configuration;
 
   @Override
   public void setSequence(S sequence) {

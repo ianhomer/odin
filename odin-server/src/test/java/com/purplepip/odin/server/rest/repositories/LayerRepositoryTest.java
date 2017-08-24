@@ -1,6 +1,6 @@
 package com.purplepip.odin.server.rest.repositories;
 
-import static com.purplepip.odin.store.domain.Persistables.newLayer;
+import static com.purplepip.odin.store.domain.TestPersistables.newLayer;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 

@@ -37,20 +37,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class SequenceTrack implements Track {
-  @Override
-  public long getId() {
-    return getSequence().getId();
-  }
-
-  @Override
-  public String getName() {
-    return getSequence().getName();
-  }
-
+  private Set<Conductor> conductors = new HashSet<>();
+  private Roll<Note> roll;
   private SequenceRoll<Note> sequenceRoll;
   private TickConverter tickConverter;
-  private Roll<Note> roll;
-  private Set<Conductor> conductors = new HashSet<>();
 
   /**
    * Create new track.
@@ -68,6 +58,16 @@ public class SequenceTrack implements Track {
   }
 
   @Override
+  public long getId() {
+    return getSequence().getId();
+  }
+
+  @Override
+  public String getName() {
+    return getSequence().getName();
+  }
+
+  @Override
   public int getChannel() {
     return getSequence().getChannel();
   }
@@ -80,23 +80,6 @@ public class SequenceTrack implements Track {
   @Override
   public Event<Note> pop() {
     return filter(roll.pop());
-  }
-
-  private Event<Note> filter(Event<Note> event) {
-    if (event == null) {
-      return event;
-    }
-    boolean active = false;
-    for (Conductor conductor : conductors) {
-      if (conductor.isActive(event.getTime().floor())) {
-        active = true;
-      }
-    }
-    if (active) {
-      return event;
-    }
-    LOG.debug("Event filtered out through conductors : {}", conductors);
-    return new SwallowedEvent<>(event.getTime());
   }
 
   @Override
@@ -121,21 +104,39 @@ public class SequenceTrack implements Track {
     return tickConverter;
   }
 
-  public void unbindConductors() {
+  void unbindConductors() {
     LOG.debug("Unbinding conductors from {}", this);
     conductors.clear();
   }
 
-  public void bindConductor(Conductor conductor) {
+  void bindConductor(Conductor conductor) {
     LOG.debug("Binding conductor {} to {}", conductor, this);
     conductors.add(conductor);
   }
 
-  public void setCopyOfSequence(Sequence sequence) {
+  void setCopyOfSequence(Sequence sequence) {
     getSequenceRoll().setSequence(sequence.copy());
   }
 
+  @Override
   public boolean isEmpty() {
     return sequenceRoll.isEmpty();
+  }
+
+  private Event<Note> filter(Event<Note> event) {
+    if (event == null) {
+      return event;
+    }
+    boolean active = false;
+    for (Conductor conductor : conductors) {
+      if (conductor.isActive(event.getTime().floor())) {
+        active = true;
+      }
+    }
+    if (active) {
+      return event;
+    }
+    LOG.debug("Event filtered out through conductors : {}", conductors);
+    return new SwallowedEvent<>(event.getTime());
   }
 }

@@ -35,22 +35,22 @@ public class Json {
   private ObjectMapper objectMapper;
   private Deque<Json> stack = new ArrayDeque<>();
 
+  public Json(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+    stack.push(this);
+  }
+
   /**
    * Enrich an object mapper with a module to serialise these Json objects.
    *
    * @param mapper mapper to enrich
    * @return the enriched mapper
    */
-  public static ObjectMapper withJsonModule(ObjectMapper mapper) {
+  static ObjectMapper withJsonModule(ObjectMapper mapper) {
     SimpleModule module = new SimpleModule();
     module.addSerializer(Json.class, new JsonSerializer());
     mapper.registerModule(module);
     return mapper;
-  }
-
-  public Json(ObjectMapper objectMapper) {
-    this.objectMapper = objectMapper;
-    stack.push(this);
   }
 
   public Json property(String name, Object value) {

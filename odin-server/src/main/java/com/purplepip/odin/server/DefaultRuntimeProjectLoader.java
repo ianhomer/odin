@@ -30,6 +30,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Order(4)
 public class DefaultRuntimeProjectLoader implements CommandLineRunner {
+  private static String BREAK = "break";
+  private static String VERSE = "verse";
+
   @Autowired
   private ProjectContainer projectContainer;
 
@@ -51,12 +54,12 @@ public class DefaultRuntimeProjectLoader implements CommandLineRunner {
           .withChannel(5).changeProgramTo("bass")
           .withChannel(9).changeProgramTo("Power Drums")
           .addLayer("overlay")
-          .withLength(16).addLayer("intro").addLayer("break")
+          .withLength(16).addLayer("intro").addLayer(BREAK)
           .withLength(4).addLayer("out").addLayer("in")
           .withLength(4).addLayer("a").addLayer("b")
           .withLength(8).addLayer("c")
-          .withLength(48).withLayers("a", "b", "c").addLayer("verse")
-          .withLength(-1).withLayers("in", "intro", "verse", "break", "out").addLayer("groove")
+          .withLength(48).withLayers("a", "b", "c").addLayer(VERSE)
+          .withLength(-1).withLayers("in", "intro", VERSE, BREAK, "out").addLayer("groove")
           .withChannel(1)
           .withLayers("a", "c")
           .withName("piano-a").addNotation(Ticks.BEAT, "A/q G/8 A/q E")
@@ -72,12 +75,12 @@ public class DefaultRuntimeProjectLoader implements CommandLineRunner {
           .withName("piano-g3").addNotation(Ticks.BEAT, "G3 G G/8 A C/q G2 G G3/8 G G/q")
           .withLayers("a").withName("notes-c5").addNotation(Ticks.BEAT, "C5/h C/q")
           .withLayers("b").withName("notes-c4").addNotation(Ticks.BEAT, "C4/h C/q")
-          .withLayers("break").withName("notes")
+          .withLayers(BREAK).withName("notes")
           .addNotation(Ticks.BEAT, "C5/h C/q C6 A5 A5/8 C5/8 A5")
           .withChannel(3)
           .withLayers("intro").withName("strings-c5").addNotation(Ticks.BEAT, "C5/h C/q")
           .withLayers("intro").withName("strings-c4").addNotation(Ticks.BEAT, "C4/h C/q")
-          .withLayers("break").withName("strings").addNotation(Ticks.BEAT, "C5/h C/q C6 A5")
+          .withLayers(BREAK).withName("strings").addNotation(Ticks.BEAT, "C5/h C/q C6 A5")
           .withChannel(2)
           .withLayers("a", "in").withName("organ-a").addNotation(Ticks.BEAT, "A5/8")
           .withLayers("b").withName("organ-b").addNotation(Ticks.BEAT, "G5/q")
@@ -86,13 +89,13 @@ public class DefaultRuntimeProjectLoader implements CommandLineRunner {
           .withChannel(4)
           .withLayers("a").withName("aahs-a").addNotation(Ticks.BEAT, "C A C5/h C5/8")
           .withLayers("c").withName("aahs-c").addNotation(Ticks.TWO_BEAT, "C5/h A4 G4 E C")
-          .withLayers("break").withName("aahs-br").addNotation(Ticks.BEAT, "C5/h A4 G4 E C")
+          .withLayers(BREAK).withName("aahs-br").addNotation(Ticks.BEAT, "C5/h A4 G4 E C")
           .withChannel(9)
           .withLayers("overlay").withName("shake").withNote(69).addPattern(Ticks.BEAT, 15)
           .withLayers("a", "b").withName("kick1").withNote(33).addPattern(Ticks.HALF, 13)
           .withLayers("c").withName("kick2").withNote(33).addPattern(Ticks.QUARTER, 65)
-          .withLayers("break").withName("kick3").withNote(33).addPattern(Ticks.QUARTER, 87)
-          .withLayers("verse").withName("hi").withNote(42).addPattern(Ticks.HALF, 15)
+          .withLayers(BREAK).withName("kick3").withNote(33).addPattern(Ticks.QUARTER, 87)
+          .withLayers(VERSE).withName("hi").withNote(42).addPattern(Ticks.HALF, 15)
           .withLayers("c").withName("crash").withNote(46).addPattern(Ticks.HALF, 87);
       projectContainer.save();
       LOG.info("Default sequences loaded");

@@ -18,7 +18,7 @@ package com.purplepip.odin.store.domain;
 /**
  * Test utility to create persistable domain objects in one line.
  */
-public final class Persistables {
+public final class TestPersistables {
   /**
    * Create new persistable layer.
    *

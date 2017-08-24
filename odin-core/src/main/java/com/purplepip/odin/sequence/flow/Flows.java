@@ -21,6 +21,9 @@ import com.purplepip.odin.common.OdinRuntimeException;
  * Flows utility class.
  */
 public final class Flows {
+  private Flows() {
+  }
+
   /**
    * Get flow name for the given flow class.
    *
@@ -34,8 +37,5 @@ public final class Flows {
     } else {
       throw new OdinRuntimeException("Cannot find flow name for " + flowClass);
     }
-  }
-
-  private Flows() {
   }
 }
