@@ -63,6 +63,7 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
     return nextEvent;
   }
 
+  @Override
   public boolean isEmpty() {
     return getSequence().getBits() == 0;
   }

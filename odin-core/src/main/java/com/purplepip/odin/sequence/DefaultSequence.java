@@ -84,6 +84,7 @@ public class DefaultSequence implements MutableSequence {
     return name;
   }
 
+  @Override
   public void setName(String name) {
     this.name = name;
   }

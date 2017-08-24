@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.bag.AbstractUnmodifiableThings;
 import com.purplepip.odin.bag.Things;
-import com.purplepip.odin.bag.UnmodifiableThings;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
@@ -44,7 +44,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private MutableTracks tracks = new MutableTracks();
   private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
   private MutableConductors conductors = new MutableConductors();
-  private UnmodifiableThings<Conductor> immutableConductors =
+  private AbstractUnmodifiableThings<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private TrackProcessor sequenceProcessor;

@@ -18,10 +18,10 @@ package com.purplepip.odin.bag;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-public abstract class UnmodifiableThings<T extends Thing> implements Things<T> {
+public abstract class AbstractUnmodifiableThings<T extends Thing> implements Things<T> {
   private Things<T> underlyingThings;
 
-  public UnmodifiableThings(Things<T> things) {
+  public AbstractUnmodifiableThings(Things<T> things) {
     this.underlyingThings = things;
   }
 

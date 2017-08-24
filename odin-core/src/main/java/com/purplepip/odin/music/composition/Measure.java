@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class Measure<S extends Staff> {
+public class Measure<S extends Staff> {
   private List<S> staves = new ArrayList<>();
   private Rational time;
   private Rational numberOfBeats;

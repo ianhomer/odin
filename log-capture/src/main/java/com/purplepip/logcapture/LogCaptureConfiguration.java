@@ -23,7 +23,7 @@ import ch.qos.logback.classic.Level;
 public class LogCaptureConfiguration {
   private Level level = Level.INFO;
   private String category = "ROOT";
-  private boolean passThrough = false;
+  private boolean passThrough;
 
   public Level getLevel() {
     return level;

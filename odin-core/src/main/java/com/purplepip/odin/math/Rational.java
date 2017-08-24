@@ -388,7 +388,7 @@ public class Rational extends Real {
     return builder.toString();
   }
 
-  private void addEgyptianFractionPart(List<Rational> egyptianFractions,
+  private static void addEgyptianFractionPart(List<Rational> egyptianFractions,
                                        Rational part, boolean isNegative) {
     if (isNegative) {
       egyptianFractions.add(part.negative());

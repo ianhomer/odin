@@ -18,7 +18,7 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import com.purplepip.odin.bag.UnmodifiableThings;
+import com.purplepip.odin.bag.AbstractUnmodifiableThings;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
@@ -38,7 +38,7 @@ import org.junit.Test;
 
 public class MutableTracksTest {
   private MutableConductors conductors = new MutableConductors();
-  private UnmodifiableThings<Conductor> immutableConductors =
+  private AbstractUnmodifiableThings<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
 
   private ProjectContainer container = new ProjectContainer(new TransientProject());

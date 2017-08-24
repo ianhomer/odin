@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+import com.purplepip.odin.bag.AbstractUnmodifiableThings;
 import com.purplepip.odin.bag.Things;
-import com.purplepip.odin.bag.UnmodifiableThings;
 
 /**
  * Unmodifiable conductors.
  */
-public class UnmodifiableConductors extends UnmodifiableThings<Conductor> {
+public class UnmodifiableConductors extends AbstractUnmodifiableThings<Conductor> {
   public UnmodifiableConductors(Things<Conductor> things) {
     super(things);
   }

@@ -15,5 +15,5 @@
 
 package com.purplepip.odin.music.composition;
 
-public abstract class Voice {
+public interface Voice {
 }

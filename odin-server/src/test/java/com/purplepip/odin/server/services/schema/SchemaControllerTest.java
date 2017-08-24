@@ -35,7 +35,7 @@ public class SchemaControllerTest {
     String json = mvc.perform(sendingJson(get("/services/schema/flows/notation")))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
-    LOG.info("JSON = {}", json);
+    LOG.debug("JSON = {}", json);
   }
 
   @Test
@@ -56,6 +56,6 @@ public class SchemaControllerTest {
                 + ".properties.offset.type",
             is("integer")))
         .andReturn().getResponse().getContentAsString();
-    LOG.info("JSON = {}", json);
+    LOG.debug("JSON = {}", json);
   }
 }

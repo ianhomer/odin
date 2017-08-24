@@ -55,7 +55,7 @@ public class ProjectSchemaTest {
   private void logObjectAsJson(Object object) {
     if (LOG.isInfoEnabled()) {
       try {
-        LOG.info("Schema : {}",
+        LOG.debug("Schema : {}",
             new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object));
       } catch (JsonProcessingException e) {
         LOG.error("Cannot log schema as string", e);

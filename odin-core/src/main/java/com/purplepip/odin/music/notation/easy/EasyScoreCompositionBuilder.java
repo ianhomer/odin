@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2017 Ian Homer. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +46,7 @@ public class EasyScoreCompositionBuilder {
   private List<EasyMeasure> easyMeasures = new ArrayList<>();
   private StringBuilder builder;
   private NoteNameCache noteNameCache = new NoteNameCache();
-  private boolean noteWrittenInVoice = false;
+  private boolean noteWrittenInVoice;
   private Reference reference = new EasyScoreReference();
 
   private EasyMeasure currentMeasure;
@@ -74,7 +73,7 @@ public class EasyScoreCompositionBuilder {
     easyMeasures.add(measure);
   }
 
-  private EasyMeasure createEasyMeasure(EventsMeasure measure) {
+  private static EasyMeasure createEasyMeasure(EventsMeasure measure) {
     return new EasyMeasure(measure.getTime(), measure.getKey());
   }
 
@@ -83,7 +82,7 @@ public class EasyScoreCompositionBuilder {
     currentMeasure.addStaff(staff);
   }
 
-  private EasyStaff createEasyStaff(EventsStaff staff) {
+  private static EasyStaff createEasyStaff(EventsStaff staff) {
     return new EasyStaff(staff.getClef());
   }
 

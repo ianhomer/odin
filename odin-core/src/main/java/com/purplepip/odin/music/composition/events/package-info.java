@@ -13,21 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
-
-import com.purplepip.odin.bag.AbstractUnmodifiableThings;
-import com.purplepip.odin.bag.Things;
-
 /**
- * Unmodifiable tracks.
+ * Composition classes based on events.
  */
-public class UnmodifiableTracks extends AbstractUnmodifiableThings<Track> implements Tracks {
-  public UnmodifiableTracks(Things<Track> things) {
-    super(things);
-  }
-
-  @Override
-  public Track unmodifiable(Track track) {
-    return new UnmodifiableTrack(track);
-  }
-}
+package com.purplepip.odin.music.composition.events;
