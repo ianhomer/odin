@@ -44,35 +44,47 @@ public class NoteNameCache {
     }
   }
 
+  private static void cacheWithFlat(Letter letter, int octave) {
+    cache(letter, -1, octave);
+  }
+
+  private static void cacheWithSharp(Letter letter, int octave) {
+    cache(letter, 1, octave);
+  }
+
+  private static void cacheWithFlatAndSharp(Letter letter, int octave) {
+    cacheWithFlat(letter, octave);
+    cacheWithSharp(letter, octave);
+  }
+
+
   static {
     for (Letter letter : Letter.values()) {
       for (int octave = -1 ; octave < 10 ; octave ++) {
         cache(letter, 0, octave);
         switch (letter) {
           case A:
-            cache(letter, -1, octave);
-            cache(letter, 1, octave);
+            cacheWithFlatAndSharp(letter, octave);
             break;
           case B:
-            cache(letter, -1, octave);
+            cacheWithFlat(letter, octave);
             break;
           case C:
-            cache(letter, 1, octave);
+            cacheWithSharp(letter, octave);
             break;
           case D:
-            cache(letter, -1, octave);
-            cache(letter, 1, octave);
+            cacheWithFlatAndSharp(letter, octave);
             break;
           case E:
-            cache(letter, -1, octave);
+            cacheWithFlat(letter, octave);
             break;
           case F:
-            cache(letter, 1, octave);
+            cacheWithSharp(letter, octave);
             break;
           case G:
-            cache(letter, -1, octave);
+            cacheWithFlat(letter, octave);
             if (octave < 10) {
-              cache(letter, 1, octave);
+              cacheWithSharp(letter, octave);
             }
             break;
           default:
