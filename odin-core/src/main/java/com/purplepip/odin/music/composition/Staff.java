@@ -19,11 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class Staff<V extends Voice> {
+public class Staff<V extends Voice> {
   private String clef;
   private List<V> voices = new ArrayList<>();
 
-  public Staff(String clef) {
+  private Staff() {
+  }
+
+  protected Staff(String clef) {
     this.clef = clef;
   }
 
