@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
  * can also be done with notation and pattern.  This will simply the work required to add another
  * flow to 1) create flow logic class and 2) create domain class to store configuration.  If
  * desired we could even store the domain class as an inner class of the logic class to keep
- * it all as one.  This will make plugability a lot easier in the future :)
+ * it all as one.  This will make implementing plugins a lot easier in the future :)
  */
 @ToString(callSuper = true)
 @Slf4j

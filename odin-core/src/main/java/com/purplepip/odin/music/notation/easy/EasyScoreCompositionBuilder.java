@@ -24,7 +24,7 @@ import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.composition.events.EventsMeasure;
 import com.purplepip.odin.music.composition.events.EventsStaff;
 import com.purplepip.odin.music.composition.events.EventsVoice;
-import com.purplepip.odin.music.notation.AbstractReference;
+import com.purplepip.odin.music.notation.Reference;
 import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
 import com.purplepip.odin.music.notation.easy.composition.EasyMeasure;
 import com.purplepip.odin.music.notation.easy.composition.EasyStaff;
@@ -47,7 +47,7 @@ public class EasyScoreCompositionBuilder {
   private StringBuilder builder;
   private NoteNameCache noteNameCache = new NoteNameCache();
   private boolean noteWrittenInVoice;
-  private AbstractReference reference = new EasyScoreReference();
+  private Reference reference = new EasyScoreReference();
 
   private EasyMeasure currentMeasure;
   private EasyStaff currentStaff;

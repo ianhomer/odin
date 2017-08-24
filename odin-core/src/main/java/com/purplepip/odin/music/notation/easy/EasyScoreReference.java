@@ -16,12 +16,12 @@
 package com.purplepip.odin.music.notation.easy;
 
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.music.notation.AbstractReference;
+import com.purplepip.odin.music.notation.Reference;
 
 /**
  * Reference lookups for EasyScore.
  */
-class EasyScoreReference extends AbstractReference {
+class EasyScoreReference extends Reference {
   @Override
   public String getDurationLabel(Rational length) {
     return "/" + super.getDurationLabel(length);

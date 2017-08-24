@@ -16,12 +16,12 @@
 package com.purplepip.odin.music.notation.natural;
 
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.music.notation.AbstractReference;
+import com.purplepip.odin.music.notation.Reference;
 
 /**
  * Reference lookups for NaturalScore.
  */
-class NaturalScoreReference extends AbstractReference {
+class NaturalScoreReference extends Reference {
   @Override
   public String getDurationLabel(Rational length) {
     return "/" + super.getDurationLabel(length);
