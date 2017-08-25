@@ -68,9 +68,7 @@ public class Application {
   @Bean
   @Order(2)
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-    return args -> {
-      LOG.info("Odin Started.");
-    };
+    return args -> LOG.info("Odin Started.");
   }
 }
 

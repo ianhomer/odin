@@ -84,7 +84,7 @@ public class ProjectBuilder {
    * Clear the project builder so that it can be used again.  Note that the underlying project is
    * NOT cleared.
    */
-  public void reset() {
+  public final void reset() {
     name = null;
     channel = 0;
     noteNumber = Notes.DEFAULT_NUMBER;

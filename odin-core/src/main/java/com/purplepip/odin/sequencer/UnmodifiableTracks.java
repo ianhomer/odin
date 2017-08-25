@@ -21,7 +21,7 @@ import com.purplepip.odin.bag.Things;
 /**
  * Unmodifiable tracks.
  */
-public class UnmodifiableTracks extends AbstractUnmodifiableThings<Track> implements Tracks {
+public class UnmodifiableTracks extends AbstractUnmodifiableThings<Track> implements Things<Track> {
   public UnmodifiableTracks(Things<Track> things) {
     super(things);
   }

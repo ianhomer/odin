@@ -43,7 +43,13 @@ public class DefaultLayer implements MutableLayer {
 
   private List<String> layers = new ArrayList<>();
 
+  /**
+   * Create empty un-named default layer.
+   */
   public DefaultLayer() {
+    /*
+     * Nothing needs to be done for an empty layer.
+     */
   }
 
   public DefaultLayer(String name) {
