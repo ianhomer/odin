@@ -31,7 +31,7 @@ public class DefaultPattern extends DefaultSequence implements Pattern {
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */
   private int bits;
-  private Note note = Notes.DEFAULT;
+  private Note note = Notes.newDefault();
 
   public DefaultPattern() {
     super();
@@ -55,8 +55,8 @@ public class DefaultPattern extends DefaultSequence implements Pattern {
   public void setNote(Note note) {
     if (note == null) {
       LOG.warn("Why has note been set to null?  It will be set to the default note {}",
-          Notes.DEFAULT);
-      this.note = Notes.DEFAULT;
+          Notes.newDefault());
+      this.note = Notes.newDefault();
     } else {
       this.note = note;
     }

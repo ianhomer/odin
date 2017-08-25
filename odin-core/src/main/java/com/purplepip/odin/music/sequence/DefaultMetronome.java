@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.music.notes.DefaultNote;
+import static com.purplepip.odin.music.notes.Notes.newDefault;
+
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.sequence.DefaultSequence;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -39,8 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 @ToString(callSuper = true)
 @Slf4j
 public class DefaultMetronome extends DefaultSequence implements Metronome {
-  private Note noteBarStart = new DefaultNote();
-  private Note noteBarMid = new DefaultNote();
+  private Note noteBarStart = newDefault();
+  private Note noteBarMid = newDefault();
 
   public DefaultMetronome() {
     super();
@@ -69,8 +69,8 @@ public class DefaultMetronome extends DefaultSequence implements Metronome {
   public void setNoteBarStart(Note note) {
     if (note == null) {
       LOG.warn("Why has note bar start been set to null?  It will be set to the default note {}",
-          Notes.DEFAULT);
-      noteBarStart = Notes.DEFAULT;
+          newDefault());
+      noteBarStart = newDefault();
     } else {
       noteBarStart = note;
     }
@@ -95,8 +95,8 @@ public class DefaultMetronome extends DefaultSequence implements Metronome {
   public void setNoteBarMid(Note note) {
     if (note == null) {
       LOG.warn("Why has note bar mid been set to null?  It will be set to the default note {}",
-          Notes.DEFAULT);
-      noteBarMid = Notes.DEFAULT;
+          newDefault());
+      noteBarMid = newDefault();
     } else {
       noteBarMid = note;
     }

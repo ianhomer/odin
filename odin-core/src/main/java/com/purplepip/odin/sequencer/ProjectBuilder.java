@@ -87,8 +87,8 @@ public class ProjectBuilder {
   public void reset() {
     name = null;
     channel = 0;
-    noteNumber = Notes.DEFAULT.getNumber();
-    velocity = Notes.DEFAULT.getVelocity();
+    noteNumber = Notes.DEFAULT_NUMBER;
+    velocity = Notes.DEFAULT_VELOCITY;
     length = -1;
     offset = 0;
     layerNamesToAdd.clear();
@@ -128,12 +128,12 @@ public class ProjectBuilder {
   private MutableSequence withDefaultsForMetronome(MutableSequence metronome) {
     metronome.setTick(createTick(Ticks.HALF));
     metronome.setFlowName(Flows.getFlowName(MetronomeFlow.class));
-    metronome.setProperty("noteBarStart.number", Notes.DEFAULT.getNumber());
-    metronome.setProperty("noteBarStart.velocity", Notes.DEFAULT.getVelocity());
-    metronome.setProperty("noteBarStart.duration", Notes.DEFAULT.getDuration().toString());
+    metronome.setProperty("noteBarStart.number", Notes.DEFAULT_NUMBER);
+    metronome.setProperty("noteBarStart.velocity", Notes.DEFAULT_VELOCITY);
+    metronome.setProperty("noteBarStart.duration", Notes.DEFAULT_DURATION);
     metronome.setProperty("noteBarMid.number", 64);
-    metronome.setProperty("noteBarMid.velocity", Notes.DEFAULT.getVelocity() / 2);
-    metronome.setProperty("noteBarMid.duration",  Notes.DEFAULT.getDuration().toString());
+    metronome.setProperty("noteBarMid.velocity", Notes.DEFAULT_VELOCITY / 2);
+    metronome.setProperty("noteBarMid.duration",  Notes.DEFAULT_DURATION);
     return metronome;
   }
 
@@ -405,7 +405,7 @@ public class ProjectBuilder {
    */
   public ProjectBuilder addPattern(Tick tick, int pattern) {
     return addPattern(tick, pattern, createNote(noteNumber, velocity,
-        Notes.DEFAULT.getDuration()));
+        Notes.DEFAULT_DURATION));
   }
 
   /**

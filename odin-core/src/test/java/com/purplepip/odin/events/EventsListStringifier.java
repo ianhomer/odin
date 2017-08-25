@@ -43,11 +43,11 @@ public class EventsListStringifier {
       Note note = (Note) o;
       StringBuilder builder = new StringBuilder(128);
       builder.append(note.getNumber()).append('-');
-      if (note.getVelocity() != Notes.DEFAULT.getVelocity()) {
+      if (note.getVelocity() != Notes.DEFAULT_VELOCITY) {
         builder.append(note.getVelocity());
       }
       builder.append('-');
-      if (!note.getDuration().equals(Notes.DEFAULT.getDuration())) {
+      if (!note.getDuration().equals(Notes.DEFAULT_DURATION)) {
         builder.append(note.getDuration());
       }
       return builder.toString();

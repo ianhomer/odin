@@ -26,12 +26,9 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class DefaultNote implements Note {
-  private int number;
-  private int velocity;
-  private Real duration;
-
-  public DefaultNote() {
-  }
+  private final int number;
+  private final int velocity;
+  private final Real duration;
 
   /**
    * Create a default note.

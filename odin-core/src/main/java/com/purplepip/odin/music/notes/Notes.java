@@ -22,12 +22,13 @@ import com.purplepip.odin.math.Wholes;
  * Notes utility classes.
  */
 public final class Notes {
-  private static final int DEFAULT_NUMBER = 60;
-  private static final int DEFAULT_VELOCITY = 40;
-  private static final Rational DEFAULT_DURATION = Wholes.ONE;
+  public static final int DEFAULT_NUMBER = 60;
+  public static final int DEFAULT_VELOCITY = 40;
+  public static final Rational DEFAULT_DURATION = Wholes.ONE;
 
-  public static final Note DEFAULT =
-      new DefaultNote(DEFAULT_NUMBER, DEFAULT_VELOCITY, DEFAULT_DURATION);
+  public static DefaultNote newDefault() {
+    return new DefaultNote(DEFAULT_NUMBER, DEFAULT_VELOCITY, DEFAULT_DURATION);
+  }
 
   private Notes() {
   }
