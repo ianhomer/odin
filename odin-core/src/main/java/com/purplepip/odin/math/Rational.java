@@ -120,15 +120,17 @@ public class Rational extends Real {
       return Wholes.ZERO;
     }
     int indexOfSeparator = value.indexOf('/');
-    if (indexOfSeparator == 0) {
-      return Wholes.ZERO;
-    } else if (indexOfSeparator > 0 && indexOfSeparator < value.length() - 1) {
-      String firstPart = value.substring(0, indexOfSeparator);
-      String secondPart = value.substring(indexOfSeparator + 1);
-      return Rational.valueOf(Long.parseLong(firstPart),
-          Long.parseLong(secondPart));
+    try {
+      if (indexOfSeparator > -1) {
+        String firstPart = value.substring(0, indexOfSeparator).trim();
+        String secondPart = value.substring(indexOfSeparator + 1).trim();
+        return Rational.valueOf(Long.parseLong(firstPart),
+            Long.parseLong(secondPart));
+      }
+      return Whole.valueOf(Long.parseLong(value));
+    } catch (NumberFormatException e) {
+      throw new OdinRuntimeException("Cannot get value of " + value, e);
     }
-    return Whole.valueOf(Long.parseLong(value));
   }
 
   public long getNumerator() {

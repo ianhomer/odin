@@ -30,8 +30,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Order(4)
 public class DefaultRuntimeProjectLoader implements CommandLineRunner {
-  private static String BREAK = "break";
-  private static String VERSE = "verse";
+  private static final String BREAK = "break";
+  private static final String VERSE = "verse";
 
   @Autowired
   private ProjectContainer projectContainer;

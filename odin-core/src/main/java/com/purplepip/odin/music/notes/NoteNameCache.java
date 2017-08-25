@@ -57,39 +57,37 @@ public class NoteNameCache {
     cacheWithSharp(letter, octave);
   }
 
+  private static void cacheIntonations(Letter letter, int octave) {
+    switch (letter) {
+      case A:
+      case D:
+        cacheWithFlatAndSharp(letter, octave);
+        break;
+      case B:
+      case E:
+        cacheWithFlat(letter, octave);
+        break;
+      case C:
+      case F:
+        cacheWithSharp(letter, octave);
+        break;
+      case G:
+        cacheWithFlat(letter, octave);
+        if (octave < 10) {
+          cacheWithSharp(letter, octave);
+        }
+        break;
+      default:
+        throw new OdinRuntimeException("Letter not recognised : " + letter);
+    }
+  }
+
 
   static {
     for (Letter letter : Letter.values()) {
       for (int octave = -1 ; octave < 10 ; octave ++) {
         cache(letter, 0, octave);
-        switch (letter) {
-          case A:
-            cacheWithFlatAndSharp(letter, octave);
-            break;
-          case B:
-            cacheWithFlat(letter, octave);
-            break;
-          case C:
-            cacheWithSharp(letter, octave);
-            break;
-          case D:
-            cacheWithFlatAndSharp(letter, octave);
-            break;
-          case E:
-            cacheWithFlat(letter, octave);
-            break;
-          case F:
-            cacheWithSharp(letter, octave);
-            break;
-          case G:
-            cacheWithFlat(letter, octave);
-            if (octave < 10) {
-              cacheWithSharp(letter, octave);
-            }
-            break;
-          default:
-            throw new OdinRuntimeException("Letter not recognised : " + letter);
-        }
+        cacheIntonations(letter, octave);
       }
     }
   }

@@ -187,6 +187,7 @@ public class LayerConductor implements Conductor {
    * @param microseconds microsecond position
    * @return tock position
    */
+  @Override
   public Real getPosition(long microseconds) {
     if (parent == null) {
       Real absolutePosition = tickConverter.convert(Whole.valueOf(microseconds));

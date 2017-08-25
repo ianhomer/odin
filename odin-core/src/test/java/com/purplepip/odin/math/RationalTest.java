@@ -185,7 +185,13 @@ public class RationalTest {
   public void testValueOfString() {
     assertEquals(Wholes.ONE, Rational.valueOf("1"));
     assertEquals(Rationals.HALF, Rational.valueOf("1/2"));
+    assertEquals(Rationals.HALF, Rational.valueOf("1 / 2"));
     assertEquals(Wholes.ZERO, Rational.valueOf(null));
     assertEquals(Wholes.ZERO, Rational.valueOf(""));
+  }
+
+  @Test(expected = OdinRuntimeException.class)
+  public void testValueOfStringFail() {
+    assertEquals(Wholes.ZERO, Rational.valueOf("/2"));
   }
 }

@@ -26,10 +26,10 @@ public final class Notes {
   public static final int DEFAULT_VELOCITY = 40;
   public static final Rational DEFAULT_DURATION = Wholes.ONE;
 
-  public static DefaultNote newDefault() {
-    return new DefaultNote(DEFAULT_NUMBER, DEFAULT_VELOCITY, DEFAULT_DURATION);
+  private Notes() {
   }
 
-  private Notes() {
+  public static DefaultNote newDefault() {
+    return new DefaultNote(DEFAULT_NUMBER, DEFAULT_VELOCITY, DEFAULT_DURATION);
   }
 }
