@@ -95,7 +95,6 @@ public class OdinSequencer implements ProjectApplyListener {
    * Refresh sequencer trackSet from the project configuration.
    */
   private void refreshTracks(Project project) {
-    refreshLayers(project);
     refreshChannels(project);
     conductors.refresh(() -> project.getLayers().stream(), this::createConductor);
     tracks.refresh(() -> project.getSequences().stream(), this::createSequenceTrack,
@@ -110,12 +109,6 @@ public class OdinSequencer implements ProjectApplyListener {
     if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
       sequenceProcessor.processOnce();
     }
-  }
-
-  private void refreshLayers(Project project) {
-    project.getLayers().forEach(layer -> {
-
-    });
   }
 
   private void refreshChannels(Project project) {

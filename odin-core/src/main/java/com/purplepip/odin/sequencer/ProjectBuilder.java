@@ -260,9 +260,9 @@ public class ProjectBuilder {
    * @return this project builder
    */
   public ProjectBuilder addLayer(String... names) {
-    for (String name : names) {
+    for (String layerName : names) {
       MutableLayer layer = withDefaults(createLayer());
-      layer.setName(name);
+      layer.setName(layerName);
       applyParameters(layer);
       layerIds.add(layer.getId());
       projectContainer.addLayer(layer);
@@ -457,20 +457,19 @@ public class ProjectBuilder {
       sequence.setFlowName(flowName);
     }
     layerNamesToAdd.forEach(sequence::addLayer);
-    properties.entrySet().forEach(entry -> sequence.setProperty(entry.getKey(), entry.getValue()));
-
+    properties.forEach(sequence::setProperty);
 
     if (sequence.isSpecialised()) {
       /*
        * Set the bean properties based on the properties map
        */
-      properties.keySet().forEach(name -> {
+      properties.keySet().forEach(sequenceName -> {
         try {
-          BeanUtil.declared.setProperty(sequence, name, properties.get(name));
+          BeanUtil.declared.setProperty(sequence, sequenceName, properties.get(sequenceName));
         } catch (BeanException e) {
           LOG.debug("Ignoring non-valid sequence property (full stack)", e);
           LOG.warn("Ignoring non-valid sequence property {} = {} for {}",
-              name, properties.get(name), sequence);
+              sequenceName, properties.get(sequenceName), sequence);
         }
       });
     }
