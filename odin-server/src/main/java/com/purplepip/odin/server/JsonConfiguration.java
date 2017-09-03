@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 @Configuration
 public class JsonConfiguration {
@@ -60,16 +59,13 @@ public class JsonConfiguration {
    */
   @Bean
   public Jackson2ObjectMapperBuilderCustomizer customizeJson() {
-    return new Jackson2ObjectMapperBuilderCustomizer() {
-      @Override
-      public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
-        jacksonObjectMapperBuilder.serializerByType(EasyComposition.class,  compositionSerializer);
-        jacksonObjectMapperBuilder.serializerByType(Json.class,  jsonSerializer);
-        jacksonObjectMapperBuilder.serializerByType(EasyMeasure.class,  measureSerializer);
-        jacksonObjectMapperBuilder.serializerByType(Rational.class,  rationalSerializer);
-        jacksonObjectMapperBuilder.serializerByType(EasyStaff.class, staffSerializer);
-        jacksonObjectMapperBuilder.serializerByType(EasyVoice.class, voiceSerializer);
-      }
+    return jacksonObjectMapperBuilder -> {
+      jacksonObjectMapperBuilder.serializerByType(EasyComposition.class,  compositionSerializer);
+      jacksonObjectMapperBuilder.serializerByType(Json.class,  jsonSerializer);
+      jacksonObjectMapperBuilder.serializerByType(EasyMeasure.class,  measureSerializer);
+      jacksonObjectMapperBuilder.serializerByType(Rational.class,  rationalSerializer);
+      jacksonObjectMapperBuilder.serializerByType(EasyStaff.class, staffSerializer);
+      jacksonObjectMapperBuilder.serializerByType(EasyVoice.class, voiceSerializer);
     };
   }
 }

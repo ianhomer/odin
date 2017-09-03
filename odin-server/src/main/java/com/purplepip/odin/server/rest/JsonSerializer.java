@@ -25,6 +25,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class JsonSerializer extends StdSerializer<Json> {
+  private static final long serialVersionUID = 1;
+
   public JsonSerializer() {
     super(Json.class);
   }

@@ -86,45 +86,49 @@ public class TrackProcessorExecutor implements Runnable {
     int noteCount = 0;
     Event<Note> nextEvent = track.peek();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
-    if (nextEvent != null) {
-      while (nextEvent != null
-          && nextEvent.getTime().lt(Whole.valueOf(maxMicrosecondPosition))) {
-        if (noteCount > maxNotesPerBuffer) {
-          LOG.warn("Too many notes in this buffer {} > {} ", noteCount,
-              maxNotesPerBuffer);
-          return noteCount;
-        }
-        /*
-         * Pop event to get it off the buffer.
-         */
-        nextEvent = track.pop();
-        LOG.debug("Processing Event {}", nextEvent);
-        if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
-          statistics.incrementEventTooLateCount();
-          LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
-              microsecondPosition);
-        } else {
-          /*
-           * Conductors can swallow up events and such events should not be sent to the
-           * processor.
-           */
-          if (!(nextEvent instanceof NullValueEvent)) {
-            sendToProcessor(nextEvent.getValue(), nextEvent, track);
-          }
-        }
-        noteCount++;
-        nextEvent = track.peek();
-        LOG.trace("Next event {}", nextEvent);
-      }
-      if (nextEvent == null) {
-        LOG.debug("No more events on sequence runtime");
-      } else {
-        LOG.debug("Next event {} is beyond horizon {} : clock {}",
-            nextEvent, maxMicrosecondPosition, clock);
-      }
-    } else {
+
+    if (nextEvent == null) {
       LOG.debug("No event on roll");
+      return noteCount;
     }
+
+    while (nextEvent != null
+        && nextEvent.getTime().lt(Whole.valueOf(maxMicrosecondPosition))) {
+      if (noteCount > maxNotesPerBuffer) {
+        LOG.warn("Too many notes in this buffer {} > {} ", noteCount,
+            maxNotesPerBuffer);
+        return noteCount;
+      }
+      /*
+       * Pop event to get it off the buffer.
+       */
+      nextEvent = track.pop();
+      LOG.debug("Processing Event {}", nextEvent);
+      if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
+        statistics.incrementEventTooLateCount();
+        LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
+            microsecondPosition);
+      } else if (nextEvent instanceof NullValueEvent) {
+        /*
+         * NullValueEvent check since conductors can swallow up events and such events should not
+         * be sent to the processor.
+         */
+        LOG.trace("NullValueEvent ignored : {}", nextEvent);
+      } else {
+        sendToProcessor(nextEvent.getValue(), nextEvent, track);
+      }
+      noteCount++;
+      nextEvent = track.peek();
+      LOG.trace("Next event {}", nextEvent);
+    }
+
+    if (nextEvent == null) {
+      LOG.debug("No more events on sequence runtime");
+    } else {
+      LOG.debug("Next event {} is beyond horizon {} : clock {}",
+          nextEvent, maxMicrosecondPosition, clock);
+    }
+
     return noteCount;
   }
 
