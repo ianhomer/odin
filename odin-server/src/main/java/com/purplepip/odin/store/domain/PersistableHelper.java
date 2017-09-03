@@ -24,6 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 final class PersistableHelper {
+  private PersistableHelper() {
+  }
+
   /*
    * TODO : Can we find a better of way of making sure duplicates do not appear in this list.
    * I believe we need a list because a) JSON patching wants list not set and b) logically

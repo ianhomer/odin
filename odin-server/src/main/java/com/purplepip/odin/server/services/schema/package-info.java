@@ -14,6 +14,6 @@
  */
 
 /**
- * Logging web service.
+ * Schema web service which describes structure of the odin project.
  */
-package com.purplepip.odin.server.services.composition;
+package com.purplepip.odin.server.services.schema;

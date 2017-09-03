@@ -27,6 +27,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class StaffSerializer extends StdSerializer<EasyStaff> {
+  private static final long serialVersionUID = 1;
+
   public StaffSerializer() {
     super(EasyStaff.class);
   }

@@ -82,7 +82,7 @@ public class SequenceFactory {
   }
 
   <S extends Sequence> S createTypedCopy(Class<? extends S> newClassType,
-                                                S original) {
+                                                Sequence original) {
     return createCopy(newClassType, newClassType, original);
   }
 
@@ -97,7 +97,7 @@ public class SequenceFactory {
   @SuppressWarnings("unchecked")
   public <S extends Sequence> S createCopy(Class<? extends S> expectedType,
                              Class<? extends S> newClassType,
-                             S original) {
+                             Sequence original) {
 
     S newSequence;
     if (expectedType == null || newClassType == null) {

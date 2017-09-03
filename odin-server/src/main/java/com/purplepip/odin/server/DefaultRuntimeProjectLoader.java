@@ -31,6 +31,7 @@ import org.springframework.stereotype.Component;
 @Order(4)
 public class DefaultRuntimeProjectLoader implements CommandLineRunner {
   private static final String BREAK = "break";
+  private static final String INTRO = "intro";
   private static final String VERSE = "verse";
 
   @Autowired
@@ -54,12 +55,12 @@ public class DefaultRuntimeProjectLoader implements CommandLineRunner {
           .withChannel(5).changeProgramTo("bass")
           .withChannel(9).changeProgramTo("Power Drums")
           .addLayer("overlay")
-          .withLength(16).addLayer("intro").addLayer(BREAK)
+          .withLength(16).addLayer(INTRO).addLayer(BREAK)
           .withLength(4).addLayer("out").addLayer("in")
           .withLength(4).addLayer("a").addLayer("b")
           .withLength(8).addLayer("c")
           .withLength(48).withLayers("a", "b", "c").addLayer(VERSE)
-          .withLength(-1).withLayers("in", "intro", VERSE, BREAK, "out").addLayer("groove")
+          .withLength(-1).withLayers("in", INTRO, VERSE, BREAK, "out").addLayer("groove")
           .withChannel(1)
           .withLayers("a", "c")
           .withName("piano-a").addNotation(Ticks.BEAT, "A/q G/8 A/q E")
@@ -78,8 +79,8 @@ public class DefaultRuntimeProjectLoader implements CommandLineRunner {
           .withLayers(BREAK).withName("notes")
           .addNotation(Ticks.BEAT, "C5/h C/q C6 A5 A5/8 C5/8 A5")
           .withChannel(3)
-          .withLayers("intro").withName("strings-c5").addNotation(Ticks.BEAT, "C5/h C/q")
-          .withLayers("intro").withName("strings-c4").addNotation(Ticks.BEAT, "C4/h C/q")
+          .withLayers(INTRO).withName("strings-c5").addNotation(Ticks.BEAT, "C5/h C/q")
+          .withLayers(INTRO).withName("strings-c4").addNotation(Ticks.BEAT, "C4/h C/q")
           .withLayers(BREAK).withName("strings").addNotation(Ticks.BEAT, "C5/h C/q C6 A5")
           .withChannel(2)
           .withLayers("a", "in").withName("organ-a").addNotation(Ticks.BEAT, "A5/8")

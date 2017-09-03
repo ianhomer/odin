@@ -14,6 +14,6 @@
  */
 
 /**
- * Logging web service.
+ * Odin store implementation for the sequencer project model.
  */
-package com.purplepip.odin.server.services.composition;
+package com.purplepip.odin.store;

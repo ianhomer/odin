@@ -27,6 +27,11 @@ public class DefaultSequenceTest {
     assertSequenceOk(createSequence());
   }
 
+  @Test
+  public void testCopySequence() {
+    assertSequenceOk(createSequence().copy());
+  }
+
   private void assertSequenceOk(Sequence sequence) {
     assertEquals("test-sequence", sequence.getName());
     assertEquals("my.property-value", sequence.getProperty("my.property"));
@@ -39,10 +44,5 @@ public class DefaultSequenceTest {
     sequence.setProperty("my.property","my.property-value");
     sequence.setFlowName("test-flow-name");
     return sequence;
-  }
-
-  @Test
-  public void testCopySequence() {
-    assertSequenceOk(createSequence().copy());
   }
 }

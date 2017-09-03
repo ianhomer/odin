@@ -164,12 +164,10 @@ public class LayerConductor implements Conductor {
    */
   @Override
   public boolean isActive(long microseconds) {
-    if (getParent() != null) {
-      if (!getParent().isActive(microseconds)) {
-        LOG.debug("parent {} of {} is not active : {}", getParent().getName(),
-            getName(), microseconds);
-        return false;
-      }
+    if (getParent() != null && !getParent().isActive(microseconds)) {
+      LOG.debug("parent {} of {} is not active : {}", getParent().getName(),
+          getName(), microseconds);
+      return false;
     }
     long position = getPosition(microseconds).floor();
     boolean result = position >= getOffset()

@@ -27,6 +27,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class MeasureSerializer extends StdSerializer<EasyMeasure> {
+  private static final long serialVersionUID = 1;
+
   public MeasureSerializer() {
     super(EasyMeasure.class);
   }

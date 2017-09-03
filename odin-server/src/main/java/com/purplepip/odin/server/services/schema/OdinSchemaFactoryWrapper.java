@@ -106,19 +106,19 @@ public class OdinSchemaFactoryWrapper extends SchemaFactoryWrapper {
 
   @Override
   public JsonObjectFormatVisitor expectObjectFormat(JavaType convertedType) {
-    ObjectVisitor visitor = ((ObjectVisitor) super.expectObjectFormat(convertedType));
+    ObjectVisitor visitor = (ObjectVisitor) super.expectObjectFormat(convertedType);
     addTitle(visitor.getSchema(), convertedType);
     return new WrapperAwareObjectVisitorDecorator(visitor, this);
   }
 
   @Override
   public JsonArrayFormatVisitor expectArrayFormat(JavaType convertedType) {
-    ArrayVisitor visitor = ((ArrayVisitor) super.expectArrayFormat(convertedType));
+    ArrayVisitor visitor = (ArrayVisitor) super.expectArrayFormat(convertedType);
     addTitle(visitor.getSchema(), convertedType);
     return visitor;
   }
 
-  private void addTitle(JsonSchema schema, JavaType type) {
+  private static void addTitle(JsonSchema schema, JavaType type) {
     if (!schema.isSimpleTypeSchema()) {
       throw new OdinRuntimeException("Not simple type schema " + schema.getType());
     }

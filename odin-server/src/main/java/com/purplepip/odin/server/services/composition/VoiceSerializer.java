@@ -26,6 +26,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class VoiceSerializer extends StdSerializer<EasyVoice> {
+  private static final long serialVersionUID = 1;
+
   public VoiceSerializer() {
     super(EasyVoice.class);
   }

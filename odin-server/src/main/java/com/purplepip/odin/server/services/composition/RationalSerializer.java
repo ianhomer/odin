@@ -24,6 +24,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RationalSerializer extends StdSerializer<Rational> {
+  private static final long serialVersionUID = 1;
+
   public RationalSerializer() {
     super(Rational.class);
   }
