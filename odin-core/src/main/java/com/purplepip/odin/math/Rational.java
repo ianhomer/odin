@@ -424,16 +424,13 @@ public class Rational extends Real {
       isNegative = true;
     }
 
-    int count = 0;
-
     /*
      * Split the integer part into multiple integers less than or equal to the max integer.
      */
     Whole maxWholePart = Whole.valueOf(maxIntegerPart);
-    while (count < MAX_EGYPTIAN_FRACTIONS && remainder.ge(maxWholePart)) {
+    while (egyptianFractions.size() < MAX_EGYPTIAN_FRACTIONS && remainder.ge(maxWholePart)) {
       remainder = remainder.minus(maxWholePart);
       addEgyptianFractionPart(egyptianFractions, maxWholePart, isNegative);
-      count++;
     }
 
     /*
@@ -442,14 +439,7 @@ public class Rational extends Real {
     if (remainder.gt(Wholes.ONE)) {
       Rational part = remainder.floor(Wholes.ONE);
       remainder = remainder.minus(part);
-      count++;
       addEgyptianFractionPart(egyptianFractions, part, isNegative);
-    }
-
-    if (count >= MAX_EGYPTIAN_FRACTIONS) {
-      throw new OdinRuntimeException(
-          "Overflow of " + count
-              + " when splitting out integer parts for " + this + ".  Remainder = " + remainder);
     }
 
     /*
@@ -457,7 +447,8 @@ public class Rational extends Real {
      */
     int lastDenominator = 0;
 
-    while (count < MAX_EGYPTIAN_FRACTIONS && remainder.gt(Wholes.ZERO)) {
+    int count = egyptianFractions.size();
+    while (count <= MAX_EGYPTIAN_FRACTIONS && remainder.gt(Wholes.ZERO)) {
       count++;
       lastDenominator++;
       if (remainder.getDenominator() % lastDenominator == 0) {
@@ -468,15 +459,13 @@ public class Rational extends Real {
          * Add the splits unless it takes us over the max number of egyptian fractions allowed
          */
         count = count + (int) floor.getNumerator() - 1;
-        if (count < MAX_EGYPTIAN_FRACTIONS) {
-          for (int i = 1; i <= floor.getNumerator(); i++) {
-            Rational unitOfFloor = Rational.valueOf(1, floor.getDenominator());
-            addEgyptianFractionPart(egyptianFractions, unitOfFloor, isNegative);
-          }
+        for (int i = 1; i <= floor.getNumerator() && count <= MAX_EGYPTIAN_FRACTIONS; i++) {
+          Rational unitOfFloor = Rational.valueOf(1, floor.getDenominator());
+          addEgyptianFractionPart(egyptianFractions, unitOfFloor, isNegative);
         }
       }
     }
-    if (count >= MAX_EGYPTIAN_FRACTIONS) {
+    if (count > MAX_EGYPTIAN_FRACTIONS) {
       throw new OdinRuntimeException(
           "Overflow of " + count
               + " when creating egyptian fractions for " + this + ".  Remainder = " + remainder);

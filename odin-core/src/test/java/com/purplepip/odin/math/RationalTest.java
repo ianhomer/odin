@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.Test;
 
 public class RationalTest {
@@ -124,11 +125,18 @@ public class RationalTest {
         .floor(new Rational(3, 2)).toString());
     assertEquals("3", new Rational(4, 1)
         .floor(new Rational(3, 2)).toString());
+
+    assertEquals("2.0", new Rational(3, 1)
+        .floor(Real.valueOf(2.0)).toString());
+    assertEquals("2", new Rational(3, 1)
+        .floor(Real.valueOf("2")).toString());
   }
 
   @Test
   public void testEgyptianFractions() {
+    assertEquals("1+⅓", getEgyptianFractionsAsString(4,3));
     assertEquals("1+⅓", getEgyptianFractionsAsString(4,3, 1));
+    assertEquals("⅕+⅕", getEgyptianFractionsAsString(2, 5));
     assertEquals("⅕+⅕", getEgyptianFractionsAsString(2, 5,1));
     assertEquals("1+½+¼", getEgyptianFractionsAsString(7, 4, 1));
     assertEquals("2+1+½+¼", getEgyptianFractionsAsString(15, 4, 2));
@@ -140,15 +148,23 @@ public class RationalTest {
 
   @Test(expected = OdinRuntimeException.class)
   public void testEgyptianFractionsOverflow() {
-    getEgyptianFractionsAsString(20, 1, 1);
+    getEgyptianFractionsAsString(21, 1, 1);
+  }
+
+  private String getEgyptianFractionsAsString(long numerator, long denominator) {
+    Rational rational = Rational.valueOf(numerator, denominator);
+    return join(rational.getEgyptianFractions(), rational.isNegative());
   }
 
   private String getEgyptianFractionsAsString(
       long numerator, long denominator, int maxIntegerPart) {
     Rational rational = Rational.valueOf(numerator, denominator);
-    String delimiter = rational.isNegative() ? "" : "+";
-    return Rational.valueOf(numerator, denominator)
-        .getEgyptianFractions(maxIntegerPart).map(Rational::toString)
+    return join(rational.getEgyptianFractions(maxIntegerPart), rational.isNegative());
+  }
+
+  private String join(Stream<Rational> parts, boolean isNegative) {
+    String delimiter = isNegative ? "" : "+";
+    return parts.map(Rational::toString)
         .collect(Collectors.joining(delimiter));
   }
 

@@ -28,7 +28,7 @@ import org.junit.Test;
 
 public class UnmodifiableConductorTest {
   @Test
-  public void getActive() throws Exception {
+  public void testGetActive() throws Exception {
     MutableThings<Conductor> mutableConductors = new MutableThings<>();
     LayerConductor newConductor = new LayerConductor(new BeatClock(new StaticBeatsPerMinute(60)));
     DefaultLayer layer = new DefaultLayer("test");

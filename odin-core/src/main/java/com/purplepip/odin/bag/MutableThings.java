@@ -101,7 +101,11 @@ public class MutableThings<T extends Thing> implements Things<T> {
     return things.values().stream();
   }
 
-  // TODO : Why do we need iterator?
+  /**
+   * Iterator for the things so that we can use things in for each loops.
+   *
+   * @return iterator
+   */
   @Override
   public Iterator<T> iterator() {
     return things.values().iterator();

@@ -27,6 +27,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class CompositionSerializer extends StdSerializer<EasyComposition> {
+  private static final long serialVersionUID = 1;
+
   public CompositionSerializer() {
     super(EasyComposition.class);
   }

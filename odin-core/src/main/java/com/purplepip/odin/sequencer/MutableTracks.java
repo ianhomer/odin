@@ -35,25 +35,21 @@ class MutableTracks extends MutableThings<Track> {
       /*
        * Add sequence if not present in tracks.
        */
-      Optional<SequenceTrack> existingTrack =
-          stream()
-              .filter(o -> o instanceof SequenceTrack)
-              .map(o -> (SequenceTrack) o)
+      Optional<SequenceTrack> existingTrack = stream()
+              .filter(o -> o instanceof SequenceTrack).map(o -> (SequenceTrack) o)
               .filter(track -> sequence.getId() == track.getSequence().getId()).findFirst();
 
-      SequenceTrack sequenceTrack = null;
       if (existingTrack.isPresent()) {
         if (existingTrack.get().getSequence().equals(sequence)) {
           LOG.debug("Sequence {} already added and unchanged", sequence);
         } else {
           LOG.debug("Updating track for {}", sequence);
           incrementUpdatedCount();
-          sequenceTrack = existingTrack.get();
-          sequenceTrack.setCopyOfSequence(sequence);
+          existingTrack.get().setCopyOfSequence(sequence);
         }
       } else {
         LOG.debug("Creating new track for {}", sequence);
-        sequenceTrack = trackSupplier.get();
+        SequenceTrack sequenceTrack = trackSupplier.get();
         sequenceTrack.setCopyOfSequence(sequence);
         add(sequenceTrack);
       }

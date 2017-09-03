@@ -43,9 +43,8 @@ public class UnmodifiableConductor implements Conductor {
   }
 
   @Override
-  // TODO : Wrap children up as unmodifiable
   public Stream<Conductor> getChildren() {
-    return underlyingConductor.getChildren();
+    return underlyingConductor.getChildren().map(UnmodifiableConductor::new);
   }
 
   @Override
