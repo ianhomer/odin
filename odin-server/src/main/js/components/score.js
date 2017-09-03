@@ -123,7 +123,7 @@ class Score extends React.Component{
       return;
     }
     var vf = new Vex.Flow.Factory({
-      renderer: {selector: selector, width: this.state.style.width, height: this.state.style.height}
+      renderer: {elementId: selector, width: this.state.style.width, height: this.state.style.height}
     });
 
     vf.reset();
