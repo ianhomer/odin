@@ -19,11 +19,8 @@ const ReactDOM = require('react-dom');
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const client = require('./client');
-const crud = require('./crud');
 
-const ChannelList = require('./components/channelList');
-const SequenceList = require('./components/sequenceList');
-const Composer = require('./components/composer/composer');
+const Project = require('./components/project');
 const Developer = require('./components/developer/developer');
 
 class App extends React.Component {
@@ -31,49 +28,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: [],  project: null, pageSize: 10,
+      schema : null
     };
 
-    this.renderSequenceList = this.renderSequenceList.bind(this);
-    this.renderChannelList = this.renderChannelList.bind(this);
-    this.renderComposer = this.renderComposer.bind(this);
+    this.renderProject = this.renderProject.bind(this);
     this.renderDeveloper = this.renderDeveloper.bind(this);
   }
 
   componentDidMount() {
-    // Load projects
-    client({method: 'GET', path: '/api/project'}).done(response => {
-      var projects = response.entity._embedded.project;
-      this.setState({projects: projects, project: projects[0]});
-      crud.loadSchema('channel');
+    client({method: 'GET', path: '/services/schema'}).done(response => {
+      this.setState({schema: response});
     });
   }
 
-  renderSequenceList() {
+  renderProject() {
     return (
       <div>
-        {this.state.project &&
-          <SequenceList project={this.state.project}/>
-        }
-      </div>
-    );
-  }
-
-  renderChannelList() {
-    return (
-      <div>
-        {this.state.project &&
-          <ChannelList project={this.state.project}/>
-        }
-      </div>
-    );
-  }
-
-  renderComposer() {
-    return (
-      <div>
-        {this.state.project &&
-          <Composer project={this.state.project}/>
+        {this.state.schema &&
+          <Project/>
         }
       </div>
     );
@@ -82,7 +54,7 @@ class App extends React.Component {
   renderDeveloper() {
     return (
       <div>
-        {this.state.project &&
+        {this.state.schema &&
           <Developer project={this.state.project}/>
         }
       </div>
@@ -93,10 +65,8 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Route exact path="/app" component={this.renderComposer}/>
-          <Route exact path="/app/sequences" component={this.renderSequenceList}/>
-          <Route exact path="/app/channels" component={this.renderChannelList}/>
           <Route exact path="/app/developer" component={this.renderDeveloper}/>
+          <Route path="/app" component={this.renderProject}/>
         </div>
       </Router>
     );
