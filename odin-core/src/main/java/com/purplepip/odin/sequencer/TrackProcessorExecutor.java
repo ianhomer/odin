@@ -85,13 +85,13 @@ public class TrackProcessorExecutor implements Runnable {
     long microsecondPosition = clock.getMicroseconds();
     int noteCount = 0;
     Event<Note> nextEvent = track.peek();
-    long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
 
     if (nextEvent == null) {
       LOG.debug("No event on roll");
       return noteCount;
     }
 
+    long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     while (nextEvent != null
         && nextEvent.getTime().lt(Whole.valueOf(maxMicrosecondPosition))) {
       if (noteCount > maxNotesPerBuffer) {
