@@ -81,17 +81,9 @@ public class SequenceFactory {
     TypeConverterManager.register(Rational.class, new RationalTypeConverter());
   }
 
-  @SuppressWarnings("unchecked")
-  public <S extends Sequence> S createTypedCopy(Class<? extends S> newClassType,
-                                                Sequence original) {
-    return (S) createCopy(newClassType, newClassType, original);
-  }
-
-  @SuppressWarnings("unchecked")
-  public <S extends Sequence> S createTypedCopy(Class<? extends S> expectedType,
-                                                Class<? extends S> newClassType,
-                                                Sequence original) {
-    return (S) createCopy(expectedType, newClassType, original);
+  <S extends Sequence> S createTypedCopy(Class<? extends S> newClassType,
+                                                S original) {
+    return createCopy(newClassType, newClassType, original);
   }
 
   /**
@@ -102,11 +94,12 @@ public class SequenceFactory {
    * @param original     original sequence to copy values from
    * @return sequence of expected type
    */
-  public Sequence createCopy(Class<? extends Sequence> expectedType,
-                             Class<? extends Sequence> newClassType,
-                             Sequence original) {
+  @SuppressWarnings("unchecked")
+  public <S extends Sequence> S createCopy(Class<? extends S> expectedType,
+                             Class<? extends S> newClassType,
+                             S original) {
 
-    Sequence newSequence;
+    S newSequence;
     if (expectedType == null || newClassType == null) {
       if (expectedType == null) {
         throw new OdinRuntimeException("Expected sequence type for "
@@ -119,7 +112,7 @@ public class SequenceFactory {
         /*
          * If the original is of the correct type then we can simply take a copy
          */
-        newSequence = original.copy();
+        newSequence = (S) original.copy();
         LOG.debug("Starting flow with sequence copy {}", newSequence);
       } else {
         LOG.debug("Creating new instance of {}", newClassType);

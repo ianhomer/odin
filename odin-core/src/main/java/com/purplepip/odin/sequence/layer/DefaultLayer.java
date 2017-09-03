@@ -17,10 +17,8 @@ package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.AbstractTimeThing;
-import com.purplepip.odin.sequence.tick.Tick;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import lombok.ToString;
 
 /**

@@ -17,18 +17,9 @@ package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.MutableTimeThing;
-import com.purplepip.odin.sequence.tick.Tick;
 
 public interface MutableLayer extends Layer, MutableTimeThing {
   void setProject(Project project);
-
-  void setName(String name);
-
-  void setTick(Tick tick);
-
-  void setOffset(long offset);
-
-  void setLength(long offset);
 
   void addLayer(String layerName);
 }
