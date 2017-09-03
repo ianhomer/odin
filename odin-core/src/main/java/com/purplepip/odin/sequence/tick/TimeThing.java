@@ -13,22 +13,34 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.layer;
+package com.purplepip.odin.sequence.tick;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.MutableTimeThing;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.bag.Thing;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-public interface MutableLayer extends Layer, MutableTimeThing {
-  void setProject(Project project);
+public interface TimeThing extends Thing {
+  /**
+   * Units for 1 tick of this thing.
+   *
+   * @return tick units.
+   */
+  @NotNull
+  Tick getTick();
 
-  void setName(String name);
+  /**
+   * Length of this thin in ticks from the offset point.  Note that thing will stop
+   * at offset + length ticks.
+   *
+   * @return length
+   */
+  @Min(-1)
+  long getLength();
 
-  void setTick(Tick tick);
-
-  void setOffset(long offset);
-
-  void setLength(long offset);
-
-  void addLayer(String layerName);
+  /**
+   * Offset for the start of this thing.
+   *
+   * @return offset
+   */
+  long getOffset();
 }

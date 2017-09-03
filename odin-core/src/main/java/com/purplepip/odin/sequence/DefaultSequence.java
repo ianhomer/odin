@@ -16,12 +16,11 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.AbstractTimeThing;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -31,62 +30,23 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(exclude = "project")
 @Slf4j
-public class DefaultSequence implements MutableSequence {
-  /*
-   * Cheap ID generator for default patterns.  Note that persistence implementation used for
-   * the runtime has a more robust ID generation mechanism, however for the transient usage,
-   * this cheap generator is good enough.
-   */
-  private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
-  protected long id = LAST_PATTERN_ID.incrementAndGet();
-  private String name;
-
-  private Tick tick;
-  private long length = -1;
-  private long offset;
+public class DefaultSequence extends AbstractTimeThing implements MutableSequence {
   private int channel;
   private String flowName;
   private Project project;
   private List<String> layers = new ArrayList<>();
   private Map<String, String> values = new HashMap<>();
 
-  /**
-   * ID auto generated.
-   */
   public DefaultSequence() {
-    id = LAST_PATTERN_ID.incrementAndGet();
+    super();
   }
 
-  /**
-   * ID taken from constructor.
-   */
+  public DefaultSequence(String name) {
+    super(name);
+  }
+
   public DefaultSequence(long id) {
-    setId(id);
-  }
-
-  @Override
-  public long getId() {
-    return id;
-  }
-
-  protected void setId(long id) {
-    this.id = id;
-    /*
-     * Auto generate name if one has not been provided.
-     */
-    if (name == null) {
-      setName(String.valueOf(id));
-    }
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public void setName(String name) {
-    this.name = name;
+    super(id);
   }
 
   @Override
@@ -102,41 +62,6 @@ public class DefaultSequence implements MutableSequence {
   @Override
   public void setProperty(String propertyName, String value) {
     values.put(propertyName, value);
-  }
-
-  @Override
-  public void setTick(Tick tick) {
-    this.tick = tick;
-  }
-
-  @Override
-  public Tick getTick() {
-    return tick;
-  }
-
-  /**
-   * Set the length of the series in ticks.
-   *
-   * @param length length of series in ticks
-   */
-  @Override
-  public void setLength(long length) {
-    this.length = length;
-  }
-
-  @Override
-  public long getLength() {
-    return length;
-  }
-
-  @Override
-  public void setOffset(long offset) {
-    this.offset = offset;
-  }
-
-  @Override
-  public long getOffset() {
-    return offset;
   }
 
   @Override

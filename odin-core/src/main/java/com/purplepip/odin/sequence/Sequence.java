@@ -19,16 +19,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.TimeThing;
 import java.util.List;
 import java.util.stream.Stream;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
  * Sequence configuration.
  */
-public interface Sequence extends Copyable<Sequence> {
+public interface Sequence extends Copyable<Sequence>, TimeThing {
   /**
    * Create a copy of this sequence.
    *
@@ -52,43 +51,6 @@ public interface Sequence extends Copyable<Sequence> {
     return getClass().getInterfaces().length > 1
         || getClass().getInterfaces()[0] != MutableSequence.class;
   }
-
-  /**
-   * Unique system generated sequence ID.
-   *
-   * @return sequence ID
-   */
-  long getId();
-
-  /**
-   * User generated name which should be unique within the context of use, e.g. project.
-   */
-  @NotNull
-  String getName();
-
-  /**
-   * Units for 1 tick of this sequence.
-   *
-   * @return tick units.
-   */
-  @NotNull
-  Tick getTick();
-
-  /**
-   * Length of this sequence in ticks from the offset point.  Note that sequence will stop
-   * at offset + length ticks.
-   *
-   * @return length
-   */
-  @Min(-1)
-  long getLength();
-
-  /**
-   * Offset for the start of this sequence.
-   *
-   * @return offset
-   */
-  long getOffset();
 
   /**
    * Channel number for this sequence.

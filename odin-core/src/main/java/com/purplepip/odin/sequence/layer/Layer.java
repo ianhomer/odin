@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.TimeThing;
 import java.util.List;
 
 /**
@@ -24,21 +24,7 @@ import java.util.List;
  * and filters (which will come soon).  Filters will adjust the sequence - for example
  * add variability to velocity, duration, note (transpose) or switch on / off (e.g. chorus / verse).
  */
-public interface Layer {
-  /**
-   * Unique layer ID.
-   *
-   * @return layer ID
-   */
-  long getId();
-
-  /**
-   * Layer name.
-   *
-   * @return layer
-   */
-  String getName();
-
+public interface Layer extends TimeThing {
   /**
    * Contained layers.
    *
@@ -52,26 +38,4 @@ public interface Layer {
    * @return project
    */
   Project getProject();
-
-  /**
-   * Units for 1 tick of this sequence.
-   *
-   * @return tick units.
-   */
-  Tick getTick();
-
-  /**
-   * Length of this layer in ticks from the offset point.  Note that layer will stop
-   * at offset + length ticks.
-   *
-   * @return length
-   */
-  long getLength();
-
-  /**
-   * Offset for the start of this layer.
-   *
-   * @return offset
-   */
-  long getOffset();
 }

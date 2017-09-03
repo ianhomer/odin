@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence.layer;
 
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.tick.AbstractTimeThing;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,20 +27,8 @@ import lombok.ToString;
  * Default layer implementation.
  */
 @ToString(exclude = "project")
-public class DefaultLayer implements MutableLayer {
-  /*
-   * Cheap ID generator for default layers.  Note that persistence implementation used for
-   * the runtime has a more robust ID generation mechanism, however for the transient usage,
-   * this cheap generator is good enough.
-   */
-  private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
-  protected long id = LAST_PATTERN_ID.incrementAndGet();
-
+public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
   private Project project;
-  private String name;
-  private Tick tick;
-  private long length;
-  private long offset;
 
   private List<String> layers = new ArrayList<>();
 
@@ -53,27 +42,12 @@ public class DefaultLayer implements MutableLayer {
   }
 
   public DefaultLayer(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public long getId() {
-    return id;
+    super(name);
   }
 
   @Override
   public void setProject(Project project) {
     this.project = project;
-  }
-
-  @Override
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  @Override
-  public String getName() {
-    return name;
   }
 
   @Override
@@ -87,38 +61,7 @@ public class DefaultLayer implements MutableLayer {
   }
 
   @Override
-  public void setTick(Tick tick) {
-    this.tick = tick;
-  }
-
-  @Override
-  public Tick getTick() {
-    return tick;
-  }
-
-  @Override
-  public void setLength(long length) {
-    this.length = length;
-  }
-
-  @Override
   public void addLayer(String layerName) {
     layers.add(layerName);
-  }
-
-  @Override
-  public long getLength() {
-    return length;
-  }
-
-
-  @Override
-  public void setOffset(long offset) {
-    this.offset = offset;
-  }
-
-  @Override
-  public long getOffset() {
-    return offset;
   }
 }

@@ -13,22 +13,14 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.layer;
+package com.purplepip.odin.sequence.tick;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.tick.MutableTimeThing;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.bag.MutableThing;
 
-public interface MutableLayer extends Layer, MutableTimeThing {
-  void setProject(Project project);
-
-  void setName(String name);
-
+public interface MutableTimeThing extends MutableThing, TimeThing {
   void setTick(Tick tick);
 
+  void setLength(long length);
+
   void setOffset(long offset);
-
-  void setLength(long offset);
-
-  void addLayer(String layerName);
 }

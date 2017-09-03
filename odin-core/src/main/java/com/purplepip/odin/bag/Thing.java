@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.bag;
 
+import javax.validation.constraints.NotNull;
+
 public interface Thing {
   /**
    * Get ID for the thing.
@@ -28,5 +30,6 @@ public interface Thing {
    *
    * @return name
    */
+  @NotNull
   String getName();
 }

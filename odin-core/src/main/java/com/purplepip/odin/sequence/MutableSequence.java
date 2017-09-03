@@ -16,20 +16,12 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.MutableTimeThing;
 
 /**
  * Mutable sequence.
  */
-public interface MutableSequence extends Sequence {
-  void setName(String name);
-
-  void setTick(Tick tick);
-
-  void setLength(long length);
-
-  void setOffset(long offset);
-
+public interface MutableSequence extends Sequence, MutableTimeThing {
   void setChannel(int channel);
 
   void setFlowName(String flowName);
