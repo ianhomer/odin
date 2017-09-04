@@ -15,6 +15,7 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const client = require('./../client');
@@ -87,5 +88,9 @@ class Project extends React.Component {
     );
   }
 }
+
+Project.contextTypes = {
+  schema: PropTypes.object
+};
 
 module.exports = Project;

@@ -15,6 +15,7 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 const objectPath = require('object-path');
 const crud = require('./../crud');
 const Score = require('./score');
@@ -51,6 +52,7 @@ class EditEntity extends React.Component{
       console.warn('Schema not defined');
       return (<div/>);
     }
+    var projectSchema = this.context.schema;
     if (!schema.properties) {
       console.warn('Schema does not have properties');
       return (<div>{JSON.stringify(schema)}</div>);
@@ -192,5 +194,9 @@ class EditEntity extends React.Component{
     );
   }
 }
+
+EditEntity.contextTypes = {
+  schema: PropTypes.object
+};
 
 module.exports = EditEntity;

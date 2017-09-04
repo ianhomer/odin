@@ -16,6 +16,7 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
+const PropTypes = require('prop-types');
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const client = require('./client');
@@ -25,7 +26,6 @@ const Project = require('./components/project');
 const Developer = require('./components/developer/developer');
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -36,11 +36,13 @@ class App extends React.Component {
     this.renderDeveloper = this.renderDeveloper.bind(this);
   }
 
+  getChildContext() {
+    return {schema: this.state.schema};
+  }
+
   componentDidMount() {
     client({method: 'GET', path: '/services/schema'}).done(response => {
-      crud.registerProjectSchema(response);
-      this.setState({schema: response});
-
+      this.setState({schema: response.entity});
     });
   }
 
@@ -75,6 +77,10 @@ class App extends React.Component {
     );
   }
 }
+
+App.childContextTypes = {
+  schema: PropTypes.object
+};
 
 ReactDOM.render(
   <App />,

@@ -193,10 +193,6 @@ module.exports = {
     });
   },
 
-  registerProjectSchema : function(schema) {
-    console.warn(schema);
-  },
-
   loadFromServer : function() {
     this.loadSchema().then(() => {
       follow(client, root, [{rel: this.props.path}]).done(collection => {
