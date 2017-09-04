@@ -18,25 +18,21 @@ package com.purplepip.odin.store;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.Metronome;
-import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.Channel;
-import com.purplepip.odin.sequencer.ProjectBuilder;
 import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistableLayer;
-import com.purplepip.odin.store.domain.PersistableMetronome;
-import com.purplepip.odin.store.domain.PersistableNotation;
 import com.purplepip.odin.store.domain.PersistableNote;
-import com.purplepip.odin.store.domain.PersistablePattern;
+import com.purplepip.odin.store.domain.PersistableSequence;
 import com.purplepip.odin.store.domain.PersistableTick;
 
 /**
  * Sequence builder that updates the project with persistable domain objects.
  */
-public class PersistableProjectBuilder extends ProjectBuilder {
+public class PersistableProjectBuilder extends BeanyProjectBuilder {
   public PersistableProjectBuilder(ProjectContainer projectContainer) {
     super(projectContainer);
   }
@@ -47,8 +43,8 @@ public class PersistableProjectBuilder extends ProjectBuilder {
   }
 
   @Override
-  protected Metronome createMetronome() {
-    return new PersistableMetronome();
+  protected MutableSequence createSequence() {
+    return new PersistableSequence();
   }
 
   /**
@@ -71,21 +67,6 @@ public class PersistableProjectBuilder extends ProjectBuilder {
     persistableNote.setNumber(number);
     persistableNote.afterLoad();
     return persistableNote;
-  }
-
-  /**
-   * Create a persistable pattern.
-   *
-   * @return pattern
-   */
-  @Override
-  protected Pattern createPattern() {
-    return new PersistablePattern();
-  }
-
-  @Override
-  protected Notation createNotation() {
-    return new PersistableNotation();
   }
 
   @Override

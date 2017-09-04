@@ -3,7 +3,6 @@ package com.purplepip.odin.server.rest.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.tick.Ticks;
@@ -27,12 +26,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DataJpaTest(showSql = false)
 @ActiveProfiles({"test", "noServices"})
 @Slf4j
-public class PatternRepositoryTest {
+public class SequenceRepositoryTest {
   @Autowired
   private TestEntityManager entityManager;
 
   @Autowired
-  private PatternRepository repository;
+  private SequenceRepository repository;
 
   @Autowired
   private ProjectRepository projectRepository;
@@ -51,27 +50,25 @@ public class PatternRepositoryTest {
   }
 
   @Test
-  public void testPattern() throws OdinException {
-    List<Pattern> patterns = repository.findByChannel(0);
-    assertThat(patterns.size()).isEqualTo(0);
+  public void testSequence() throws OdinException {
+    List<Sequence> sequences = repository.findByChannel(0);
+    assertThat(sequences.size()).isEqualTo(0);
 
     builder
         .withName("test-pattern")
-        .withNote(58)
-        .withProperty("offset", "4")
+        .withNote(58).withOffset(4)
         .addPattern(Ticks.BEAT, 9876);
     for (Sequence sequence : project.getSequences()) {
       LOG.debug("Persisting {}", sequence);
       entityManager.persist(sequence);
     }
-    patterns = repository.findByChannel(0);
-    assertThat(patterns.size()).isEqualTo(1);
-    Pattern pattern = patterns.get(0);
-    assertThat(pattern.getBits()).isEqualTo(9876);
+    sequences = repository.findByChannel(0);
+    assertThat(sequences.size()).isEqualTo(1);
+    Sequence pattern = sequences.get(0);
+    assertThat(pattern.getProperty("bits")).isEqualTo("9876");
     assertThat(pattern.getOffset()).isEqualTo(4);
     assertThat(pattern.getTick().getTimeUnit()).isEqualTo(Ticks.BEAT.getTimeUnit());
     assertThat(pattern.getTick().getFactor().getDenominator()).isEqualTo(1);
-    assertThat(pattern.getNote().getNumber()).isEqualTo(58);
-    assertThat(pattern.getProperty("offset")).isEqualTo("4");
+    assertThat(pattern.getProperty("note.number")).isEqualTo("58");
   }
 }

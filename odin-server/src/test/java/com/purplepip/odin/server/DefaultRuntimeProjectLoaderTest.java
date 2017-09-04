@@ -22,7 +22,7 @@ import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
-import com.purplepip.odin.store.domain.PersistablePattern;
+import com.purplepip.odin.store.domain.PersistableSequence;
 import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,6 +62,6 @@ public class DefaultRuntimeProjectLoaderTest {
 
     assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(9);
     assertThat(reloadedContainer.getSequenceStream()
-        .filter(sequence -> sequence instanceof PersistablePattern).count()).isGreaterThan(5);
+        .filter(sequence -> sequence instanceof PersistableSequence).count()).isGreaterThan(5);
   }
 }
