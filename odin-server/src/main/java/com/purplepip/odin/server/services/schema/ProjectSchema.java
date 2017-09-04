@@ -23,6 +23,8 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.tick.Tick;
@@ -54,8 +56,14 @@ public class ProjectSchema {
       registerType(schemaGenerator.generateSchema(Whole.class));
       registerType(schemaGenerator.generateSchema(Note.class));
       registerType(schemaGenerator.generateSchema(Tick.class));
+      registerType(schemaGenerator.generateSchema(Project.class));
+      registerType(schemaGenerator.generateSchema(Sequence.class));
       registerType(schemaGenerator.generateSchema(Channel.class));
       registerType(schemaGenerator.generateSchema(Layer.class));
+      /*
+       * Re-register project so that it now references types instead of inlining them.
+       */
+      registerType(schemaGenerator.generateSchema(Project.class));
     } catch (JsonMappingException e) {
       LOG.error("Could not load schema for core objects", e);
     }
@@ -77,8 +85,8 @@ public class ProjectSchema {
     flows.put(flowName, schema.getId());
   }
 
-  public Set<String> getFlowNames() {
-    return flows.keySet();
+  public Map<String, String> getFlows() {
+    return flows;
   }
 
   public Map<String, JsonSchema> getTypes() {

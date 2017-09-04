@@ -19,6 +19,7 @@ const ReactDOM = require('react-dom');
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const client = require('./client');
+const crud = require('./crud');
 
 const Project = require('./components/project');
 const Developer = require('./components/developer/developer');
@@ -37,7 +38,9 @@ class App extends React.Component {
 
   componentDidMount() {
     client({method: 'GET', path: '/services/schema'}).done(response => {
+      crud.registerProjectSchema(response);
       this.setState({schema: response});
+
     });
   }
 

@@ -29,7 +29,7 @@ class Score extends React.Component{
   constructor(props) {
     super(props);
 
-    var properties = this.props.entity.properties
+    var properties = this.props.entity.properties;
     this.state = {
       notation: properties && properties.notation,
       count: 1,

@@ -48,6 +48,7 @@ class Sequence extends React.Component{
       return (
 
         // Edit entity
+        // TODO : remove schema from component properties if redundant
 
         <EditEntity entity={sequence}
           project={this.props.project}

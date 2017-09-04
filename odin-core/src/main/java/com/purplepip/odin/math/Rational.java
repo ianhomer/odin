@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.math;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.ArrayList;
@@ -404,6 +405,7 @@ public class Rational extends Real {
    *
    * @return egyptian fractions
    */
+  @JsonIgnore
   public Stream<Rational> getEgyptianFractions() {
     return getEgyptianFractions(1);
   }

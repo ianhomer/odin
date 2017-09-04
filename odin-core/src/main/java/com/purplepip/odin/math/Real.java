@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.math;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -201,10 +202,12 @@ public class Real {
     return Real.valueOf(-getValue());
   }
 
+  @JsonIgnore
   public boolean isNegative() {
     return getValue() < 0;
   }
 
+  @JsonIgnore
   public boolean isPositive() {
     return getValue() > 0;
   }

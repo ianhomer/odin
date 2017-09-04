@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,6 +57,8 @@ public class SchemaControllerTest {
                 + ".properties.offset.type",
             is("integer")))
         .andReturn().getResponse().getContentAsString();
-    LOG.debug("JSON = {}", json);
+    ObjectMapper mapper = new ObjectMapper();
+    LOG.debug("JSON = {}",
+        mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(json)));
   }
 }
