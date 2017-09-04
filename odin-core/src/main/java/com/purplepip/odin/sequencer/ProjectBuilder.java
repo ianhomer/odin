@@ -25,14 +25,15 @@ import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
+import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.DefaultPattern;
-import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.DefaultSequence;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.Setter;
+import com.purplepip.odin.sequence.flow.Flow;
 import com.purplepip.odin.sequence.flow.Flows;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
 import com.purplepip.odin.sequence.layer.Layer;
@@ -48,8 +49,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import jodd.bean.BeanException;
-import jodd.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -125,30 +124,32 @@ public class ProjectBuilder {
     return projectContainer.getLayer(layerIds.get(id));
   }
 
-  private MutableSequence withDefaultsForMetronome(MutableSequence metronome) {
-    metronome.setTick(createTick(Ticks.HALF));
-    metronome.setFlowName(Flows.getFlowName(MetronomeFlow.class));
-    metronome.setProperty("noteBarStart.number", Notes.DEFAULT_NUMBER);
-    metronome.setProperty("noteBarStart.velocity", Notes.DEFAULT_VELOCITY);
-    metronome.setProperty("noteBarStart.duration", Notes.DEFAULT_DURATION);
-    metronome.setProperty("noteBarMid.number", 64);
-    metronome.setProperty("noteBarMid.velocity", Notes.DEFAULT_VELOCITY / 2);
-    metronome.setProperty("noteBarMid.duration",  Notes.DEFAULT_DURATION);
-    return metronome;
-  }
-
-  private static MutableSequence withDefaults(MutableSequence sequence) {
+  private MutableSequence withFlow(MutableSequence sequence, Class<? extends Flow> clazz) {
+    sequence.setFlowName(Flows.getFlowName(clazz));
     return sequence;
   }
 
-  private static Pattern withDefaults(Pattern pattern) {
-    pattern.setFlowName(Flows.getFlowName(PatternFlow.class));
-    return pattern;
+  private MutableSequence withDefaultsForMetronome(MutableSequence sequence) {
+    sequence.setTick(createTick(Ticks.HALF));
+    withFlow(sequence, MetronomeFlow.class);
+    new Setter(sequence)
+        .set("noteBarStart", Notes.newDefault())
+        .set("noteBarMid", new DefaultNote(64,Notes.DEFAULT_VELOCITY / 2,
+            Notes.DEFAULT_DURATION));
+    return sequence;
   }
 
-  private static Notation withDefaults(Notation notation) {
-    notation.setFlowName(Flows.getFlowName(NotationFlow.class));
-    return notation;
+  private MutableSequence withDefaultsForPattern(MutableSequence sequence) {
+    return withFlow(withDefaults(sequence), PatternFlow.class);
+  }
+
+  private MutableSequence withDefaultsForNotation(MutableSequence sequence) {
+    return withFlow(withDefaults(sequence), NotationFlow.class);
+  }
+
+  private MutableSequence withDefaults(MutableSequence sequence) {
+    sequence.setTick(withDefaults(createTick(tick)));
+    return sequence;
   }
 
   private static Tick withDefaults(Tick tick) {
@@ -173,16 +174,6 @@ public class ProjectBuilder {
   }
 
   /**
-   * Create Metronome.  This method can be overridden by another sequence builder that
-   * uses a different model implementation.
-   *
-   * @return metronome
-   */
-  protected MutableSequence createMetronome() {
-    return new DefaultSequence();
-  }
-
-  /**
    * Create sequence.  This method can be overridden by another sequence builder that
    * uses a different model implementation.
    *
@@ -193,13 +184,33 @@ public class ProjectBuilder {
   }
 
   /**
+   * Create Metronome.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return metronome
+   */
+  protected MutableSequence createMetronome() {
+    return new DefaultMetronome();
+  }
+
+  /**
    * Create Notation.  This method can be overridden by another sequence builder that
    * uses a different model implementation.
    *
    * @return notation
    */
-  protected Notation createNotation() {
+  protected MutableSequence createNotation() {
     return new DefaultNotation();
+  }
+
+  /**
+   * Create Pattern.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return pattern
+   */
+  protected MutableSequence createPattern() {
+    return new DefaultPattern();
   }
 
   /**
@@ -213,16 +224,6 @@ public class ProjectBuilder {
    */
   protected Note createNote(int number, int velocity, Real duration) {
     return new DefaultNote(number, velocity, duration);
-  }
-
-  /**
-   * Create Pattern.  This method can be overridden by another sequence builder that
-   * uses a different model implementation.
-   *
-   * @return pattern
-   */
-  protected Pattern createPattern() {
-    return new DefaultPattern();
   }
 
   protected Channel createChannel() {
@@ -416,10 +417,11 @@ public class ProjectBuilder {
    * @return sequence builder
    */
   private ProjectBuilder addPattern(Tick tick, int pattern, Note note) {
-    Pattern sequence = withDefaults(createPattern());
-    sequence.setBits(pattern);
-    sequence.setTick(withDefaults(createTick(tick)));
-    sequence.setNote(note);
+    this.tick = tick;
+    MutableSequence sequence = withDefaultsForPattern(createPattern());
+    new Setter(sequence)
+        .set("bits", pattern)
+        .set("note", note);
 
     addSequenceToContainer(applyParameters(sequence));
     return this;
@@ -430,10 +432,11 @@ public class ProjectBuilder {
   }
 
   private ProjectBuilder addNotation(Tick tick, String notation, String format) {
-    Notation sequence = withDefaults(createNotation());
-    sequence.setTick(withDefaults(createTick(tick)));
-    sequence.setFormat(format);
-    sequence.setNotation(notation);
+    this.tick = tick;
+    MutableSequence sequence = withDefaultsForNotation(createNotation());
+    new Setter(sequence)
+        .set("format", format)
+        .set("notation", notation);
 
     addSequenceToContainer(applyParameters(sequence));
     return this;
@@ -463,15 +466,8 @@ public class ProjectBuilder {
       /*
        * Set the bean properties based on the properties map
        */
-      properties.keySet().forEach(sequenceName -> {
-        try {
-          BeanUtil.declared.setProperty(sequence, sequenceName, properties.get(sequenceName));
-        } catch (BeanException e) {
-          LOG.debug("Ignoring non-valid sequence property (full stack)", e);
-          LOG.warn("Ignoring non-valid sequence property {} = {} for {}",
-              sequenceName, properties.get(sequenceName), sequence);
-        }
-      });
+      Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
+      properties.keySet().forEach(name -> setter.set(name, properties.get(name)));
     }
     return sequence;
   }

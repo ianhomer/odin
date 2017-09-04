@@ -11,11 +11,11 @@ import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
-import com.purplepip.odin.sequencer.ProjectBuilder;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
@@ -75,7 +75,7 @@ public class MidiSequenceExperiment {
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
       ProjectContainer container = new ProjectContainer(new TransientProject());
-      new ProjectBuilder(container)
+      new BeanyProjectBuilder(container)
           .addLayer("groove")
           .withOffset(0).withLength(12).addLayer("start")
           .withOffset(8).withLength(8).addLayer("mid")

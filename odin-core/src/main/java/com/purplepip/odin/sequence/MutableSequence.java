@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.sequence.tick.MutableTimeThing;
 
 /**
@@ -31,12 +30,4 @@ public interface MutableSequence extends Sequence, MutableTimeThing {
   void removeLayer(String layerName);
 
   void setProperty(String name, String value);
-
-  default void setProperty(String name, long value) {
-    setProperty(name, String.valueOf(value));
-  }
-
-  default void setProperty(String name, Rational value) {
-    setProperty(name, value.toString());
-  }
 }

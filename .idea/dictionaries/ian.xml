@@ -6,6 +6,7 @@
       <w>antlr</w>
       <w>appenders</w>
       <w>autowired</w>
+      <w>beany</w>
       <w>coveredratio</w>
       <w>diachenko</w>
       <w>dlogback</w>

@@ -3,7 +3,7 @@ package com.purplepip.odin.project;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.purplepip.odin.sequence.DefaultSequence;
+import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class TransientProjectTest {
     }
     assertEquals("Expected sequence count not correct", EXPECTED_SEQUENCE_COUNT, count);
     assertNotNull(firstSequence);
-    assertEquals("First sequence not as expected", DefaultSequence.class,
+    assertEquals("First sequence not as expected", DefaultMetronome.class,
         firstSequence.getClass());
   }
 

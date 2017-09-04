@@ -25,7 +25,7 @@ public class OdinSequencerComplexTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    new ProjectBuilder(environment.getContainer())
+    new BeanyProjectBuilder(environment.getContainer())
         .addLayer("verse").addLayer("chorus")
         .withLayers("verse", "chorus").addLayer("groove").withLayers("groove")
         .addMetronome()
