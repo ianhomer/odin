@@ -29,13 +29,14 @@ class Score extends React.Component{
   constructor(props) {
     super(props);
 
+    var properties = this.props.entity.properties
     this.state = {
-      notation: this.props.entity.notation,
+      notation: properties && properties.notation,
       count: 1,
       // Store dimensions of score element as state.  Note that at some point the server
       // may suggest alternative dimensions and when it does this style in the state should
       // be updated.
-      style: {height : 100, width : 200}
+      style: {height : 120, width : 200}
     };
 
     this.handleChange = this.handleChange.bind(this);

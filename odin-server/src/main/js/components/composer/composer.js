@@ -27,8 +27,8 @@ const SequenceCard = require('./sequenceCard');
 const Sequences = {
   'notation' : NotationCard,
   'pattern'  : PatternCard,
-  'sequence' : SequenceCard
 };
+const DefaultSequence = SequenceCard;
 
 // Rendering of composer
 class Composer extends React.Component{
@@ -96,14 +96,14 @@ class Composer extends React.Component{
 
   render() {
     var entities = this.state.entities.map(entity => {
-      var SequenceCard = Sequences[entity.path];
+      var SequenceComponent = Sequences[entity.flowName] || DefaultSequence;
       if (!entity.path) {
         console.error('Entity path not defined for ' + entity);
         return (<div/>);
       } else {
         return (
           <div key={'div-' + entity._links.self.href}>
-            <SequenceCard entity={entity} key={entity._links.self.href}
+            <SequenceComponent entity={entity} key={entity._links.self.href}
               project={this.props.project}
               path={entity.path}
               onAddLayer={this.handleAddLayer}

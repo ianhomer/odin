@@ -65,12 +65,12 @@ class Pattern extends React.Component{
 
         <div className="row" onClick={this.toggleEditing}>
           <div className="col-1">{sequence.name}</div>
-          <div className="col-1">{sequence.bits}</div>
-          <div className="col-2 component">{sequence.note ?
+          <div className="col-1">{sequence.properties.bits}</div>
+          <div className="col-2 component">{sequence.properties ?
             <Note
-              number={sequence.note.number}
-              velocity={sequence.note.velocity}
-              numerator={sequence.note.numerator}/>
+              number={sequence.properties['note.number']}
+              velocity={sequence.properties['note.velocity']}
+              numerator={sequence.properties['note.numerator']}/>
             : <div className="warn">NULL note</div>
           }</div>
           <div className="col-2 component">
