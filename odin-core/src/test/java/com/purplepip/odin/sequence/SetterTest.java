@@ -89,4 +89,15 @@ public class SetterTest {
     assertEquals(22, sequence.getNote().getVelocity());
     assertEquals(Whole.valueOf(33), sequence.getNote().getDuration());
   }
+
+  @Test
+  public void testSetNotePropertyOnGeneric() {
+    Sequence sequence = new DefaultSequence();
+    Setter setter = new Setter(sequence);
+    setter.set("note", new DefaultNote(11,22,33));
+    assertEquals("11", sequence.getProperty("note.number"));
+    assertEquals("22", sequence.getProperty("note.velocity"));
+    assertEquals("33", sequence.getProperty("note.duration"));
+  }
+
 }

@@ -133,9 +133,9 @@ public class ProjectBuilder {
     sequence.setTick(createTick(Ticks.HALF));
     withFlow(sequence, MetronomeFlow.class);
     new Setter(sequence)
-        .set("noteBarStart", Notes.newDefault())
-        .set("noteBarMid", new DefaultNote(64,Notes.DEFAULT_VELOCITY / 2,
-            Notes.DEFAULT_DURATION));
+        .set("noteBarStart", createNote(Notes.newDefault()))
+        .set("noteBarMid", createNote(new DefaultNote(64,Notes.DEFAULT_VELOCITY / 2,
+            Notes.DEFAULT_DURATION)));
     return sequence;
   }
 
@@ -224,6 +224,10 @@ public class ProjectBuilder {
    */
   protected Note createNote(int number, int velocity, Real duration) {
     return new DefaultNote(number, velocity, duration);
+  }
+
+  private Note createNote(Note note) {
+    return createNote(note.getNumber(), note.getVelocity(), note.getDuration());
   }
 
   protected Channel createChannel() {

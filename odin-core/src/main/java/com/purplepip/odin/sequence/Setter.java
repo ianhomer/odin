@@ -54,19 +54,6 @@ public class Setter {
   }
 
   /**
-   * Set a note property.
-   *
-   * @param name property name
-   * @param note note value
-   * @return this
-   */
-  public Setter set(String name, Note note) {
-    set(name + ".number", note.getNumber());
-    set(name + ".velocity", note.getVelocity());
-    return set(name + ".duration", note.getDuration());
-  }
-
-  /**
    * Set a int property.
    *
    * @param name property name
@@ -93,7 +80,7 @@ public class Setter {
         if (BeanUtil.declared.hasProperty(sequence, name)) {
           setDeclared(name, value);
         } else {
-          sequence.setProperty(name, value.toString());
+          setProperty(name, value);
         }
         break;
       default:
@@ -109,6 +96,17 @@ public class Setter {
       LOG.debug("Ignoring non-valid sequence property (full stack)", e);
       LOG.warn("Ignoring non-valid sequence property {} = {} for {}",
           name, value, sequence);
+    }
+  }
+
+  private void setProperty(String name, Object value) {
+    if (value instanceof Note) {
+      Note note = (Note) value;
+      sequence.setProperty(name + ".number", note.getNumber());
+      sequence.setProperty(name + ".velocity", note.getVelocity());
+      sequence.setProperty(name + ".duration", note.getDuration());
+    } else {
+      sequence.setProperty(name, value.toString());
     }
   }
 

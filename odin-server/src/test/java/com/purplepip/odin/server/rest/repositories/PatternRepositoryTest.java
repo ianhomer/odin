@@ -57,8 +57,8 @@ public class PatternRepositoryTest {
 
     builder
         .withName("test-pattern")
+        .withNote(58)
         .withProperty("offset", "4")
-        .withProperty("note.number", "58")
         .addPattern(Ticks.BEAT, 9876);
     for (Sequence sequence : project.getSequences()) {
       LOG.debug("Persisting {}", sequence);
@@ -73,6 +73,5 @@ public class PatternRepositoryTest {
     assertThat(pattern.getTick().getFactor().getDenominator()).isEqualTo(1);
     assertThat(pattern.getNote().getNumber()).isEqualTo(58);
     assertThat(pattern.getProperty("offset")).isEqualTo("4");
-    assertThat(pattern.getProperty("note.number")).isEqualTo("58");
   }
 }
