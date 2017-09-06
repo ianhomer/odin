@@ -16,7 +16,6 @@
 
 const React = require('react');
 const PropTypes = require('prop-types');
-const objectPath = require('object-path');
 const crud = require('./../crud');
 const Score = require('./score');
 
@@ -99,7 +98,7 @@ class EditEntity extends React.Component{
     var cellClassName = 'col-' + cellWidth;
     var value;
     if (this.props.entity) {
-      value = objectPath.get(this.props.entity, key);
+      value = clazz.getEntityValue(this.props.entity, key);
       if (type == 'object') {
         // TODO : Handle objects better than string serialisation
         value = JSON.stringify(value);

@@ -18,7 +18,7 @@ const ReactDOM = require('react-dom');
 
 const objectPath = require('object-path');
 
-const VERIFY_IGNORE_PROPERTIES = ['_links.self.href'];
+const IMPLICIT_PROPERTIES = ['_links.self.href'];
 
 export class Clazz {
   constructor(getClazz, id, frontEndSchema, backEndSchema = frontEndSchema) {
@@ -32,12 +32,10 @@ export class Clazz {
   setFieldValue(entity, refs, name, key) {
     var value = this.getFieldValue(refs, name, key);
     if (value) {
-      /*
-       * Split array properties.
-       */
+      // Split array properties.
       var definition = this.properties[name];
       if (definition == null) {
-        if (!VERIFY_IGNORE_PROPERTIES.includes(name)) {
+        if (!IMPLICIT_PROPERTIES.includes(name)) {
           console.error('Why is definition null?  Trying to set property ' + name + ' in ' + entity);
         }
       } else {
@@ -45,11 +43,38 @@ export class Clazz {
           value = value.split(',');
         }
       }
-      /*
-       * Set the property in the entity.
-       */
-      objectPath.set(entity, name, value);
+      if (name in this.backEndSchema.properties || IMPLICIT_PROPERTIES.includes(name)) {
+        // Set the property in the entity if property is defined in back end schema.
+        objectPath.set(entity, name, value);
+      } else {
+        // Otherwise set property in generic properties map and let the back end handle it
+        // through the generic properties mechanism.
+        if (!entity.properties) {
+          entity.properties = {};
+        }
+        this.setProperty(entity.properties, name, value)
+      }
     }
+  }
+
+  // Flatten value into multiple property values, e.g. if value is a note which has a few
+  // properties it self like number, velocity and duration then this will be written as
+  // 3 properties, note.number, note.velocity and note.duration
+  setProperty(properties, name, value) {
+    if (value == null) {
+      console.warn('Why is property ' + name + ' null?');
+    }
+    if (typeof value === 'object') {
+      for (var childName in value) {
+        this.setProperty(properties, name + '.' + childName, value[childName])
+      }
+    } else {
+      properties[name] = value;
+    }
+  }
+
+  getEntityValue(entity, name) {
+    return objectPath.get(entity, name) || entity.properties[name];
   }
 
   // Get value of field from from fields, e.g. after form submit.
