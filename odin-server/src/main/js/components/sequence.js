@@ -90,7 +90,7 @@ class Sequence extends React.Component{
 
 Sequence.propTypes = {
   clazz: PropTypes.object.isRequired
-}
+};
 
 Sequence.defaultProps = {
   path: 'sequence',

@@ -85,7 +85,7 @@ class SequenceList extends React.Component{
           {Object.keys(Sequences).map(path => {
             var SequenceComponent = Sequences[path];
             if (this.context.schema.isClazzLoaded(path)) {
-              var clazz = this.context.schema.getClazz(SequenceComponent.defaultProps.path)
+              var clazz = this.context.schema.getClazz(SequenceComponent.defaultProps.path);
               return (
                 <EditEntity key={'create-' + path}
                   project={this.props.project}

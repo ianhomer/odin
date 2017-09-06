@@ -100,7 +100,7 @@ class Pattern extends React.Component{
 
 Pattern.propTypes = {
   clazz: PropTypes.object.isRequired
-}
+};
 
 Pattern.defaultProps = {
   path: 'pattern',

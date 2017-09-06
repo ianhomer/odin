@@ -16,12 +16,10 @@
 package com.purplepip.odin.server.services.schema;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -33,10 +31,10 @@ public class ProjectSchemaTest {
   @Test
   public void testCore() {
     ProjectSchema project = new ProjectSchema();
-    JsonSchema schema = project.getType("urn:jsonschema:com:purplepip:odin:math:Rational");
-    Map<String, JsonSchema> properties = schema.asObjectSchema().getProperties();
-    Boolean readOnly = properties.get("simplified").asBooleanSchema().getReadonly();
-    assertNotNull("Read only should be set", readOnly);
+    JsonNode schema = project.getType("urn:jsonschema:com:purplepip:odin:math:Rational");
+    JsonNode properties = schema.get("properties");
+    String type = properties.get("numerator").get("type").asText();
+    assertEquals("integer", type);
   }
 
   @Test
@@ -44,12 +42,12 @@ public class ProjectSchemaTest {
     ProjectSchema schema = new ProjectSchema();
     logObjectAsJson(schema);
     assertEquals(3, schema.getFlows().size());
-    JsonSchema notationSchema = schema.getFlowSchema("notation");
-    assertEquals("Notation", notationSchema.asObjectSchema().getTitle());
+    JsonNode notationSchema = schema.getFlowSchema("notation");
+    assertEquals("Notation", notationSchema.get("title").asText());
     logObjectAsJson(notationSchema);
-    Map<String, JsonSchema> properties = notationSchema.asObjectSchema().getProperties();
-    assertEquals("string", properties.get("format").getType().value());
-    assertEquals(Double.valueOf(-1.0), properties.get("length").asNumberSchema().getMinimum());
+    JsonNode properties = notationSchema.get("properties");
+    assertEquals("string", properties.get("format").get("type").asText());
+    assertEquals(-1, properties.get("length").get("minimum").asInt());
   }
 
   private void logObjectAsJson(Object object) {

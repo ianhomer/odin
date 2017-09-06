@@ -28,6 +28,9 @@ export class Schema {
   constructor(schema) {
     this.schema = schema;
     this.clazzes = {};
+    for (var urn in schema.types) {
+      ajv.addSchema(schema.types[urn], urn);
+    }
   }
 
   getFlowClazz(flowName) {

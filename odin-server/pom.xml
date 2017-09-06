@@ -39,6 +39,11 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
+      <groupId>com.kjetland</groupId>
+      <artifactId>mbknor-jackson-jsonschema_2.12</artifactId>
+      <version>1.0.24</version>
+    </dependency>
+    <dependency>
       <groupId>com.purplepip</groupId>
       <artifactId>odin-core</artifactId>
     </dependency>
@@ -51,10 +56,6 @@
       <groupId>com.purplepip</groupId>
       <artifactId>log-capture</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-jsonSchema</artifactId>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>

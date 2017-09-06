@@ -57,7 +57,7 @@ export class Clazz {
         if (!entity.properties) {
           entity.properties = {};
         }
-        this.setProperty(entity.properties, name, value)
+        this.setProperty(entity.properties, name, value);
       }
     }
   }
@@ -71,7 +71,7 @@ export class Clazz {
     }
     if (typeof value === 'object') {
       for (var childName in value) {
-        this.setProperty(properties, name + '.' + childName, value[childName])
+        this.setProperty(properties, name + '.' + childName, value[childName]);
       }
     } else {
       properties[name] = value;

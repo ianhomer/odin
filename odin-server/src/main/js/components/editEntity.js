@@ -199,6 +199,6 @@ EditEntity.contextTypes = {
 
 EditEntity.propTypes = {
   clazz: PropTypes.object.isRequired
-}
+};
 
 module.exports = EditEntity;

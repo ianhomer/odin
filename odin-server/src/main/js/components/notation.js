@@ -94,7 +94,7 @@ class Notation extends React.Component{
 
 Notation.propTypes = {
   clazz: PropTypes.object.isRequired
-}
+};
 
 Notation.defaultProps = {
   path: 'notation',

@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.services.schema;
 
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -46,7 +46,7 @@ public class SchemaController {
    * @return flow json schema
    */
   @RequestMapping("/services/schema/flows/{name}")
-  public JsonSchema getFlowSchema(@PathVariable("name") String name) {
+  public JsonNode getFlowSchema(@PathVariable("name") String name) {
     return projectSchema.getFlowSchema(name);
   }
 }

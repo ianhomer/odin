@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.server.services.schema;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
+import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ProjectSchema {
   private SequenceFactory factory = new SequenceFactory();
-  private Map<String, JsonSchema> types = new HashMap<>();
+  private Map<String, JsonNode> types = new HashMap<>();
   private Map<String, String> flows = new HashMap<>();
 
   /**
@@ -47,49 +47,46 @@ public class ProjectSchema {
    */
   public ProjectSchema() {
     ObjectMapper mapper = new ObjectMapper();
-    OdinSchemaFactoryWrapper visitor = new OdinSchemaFactoryWrapper();
+    mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
 
-    JsonSchemaGenerator schemaGenerator = new JsonSchemaGenerator(mapper, visitor);
-    try {
-      registerType(schemaGenerator.generateSchema(Real.class));
-      registerType(schemaGenerator.generateSchema(Rational.class));
-      registerType(schemaGenerator.generateSchema(Whole.class));
-      registerType(schemaGenerator.generateSchema(Note.class));
-      registerType(schemaGenerator.generateSchema(Tick.class));
-      registerType(schemaGenerator.generateSchema(Project.class));
-      registerType(schemaGenerator.generateSchema(Sequence.class));
-      registerType(schemaGenerator.generateSchema(Channel.class));
-      registerType(schemaGenerator.generateSchema(Layer.class));
-      /*
-       * Re-register project so that it now references types instead of inlining them.
-       */
-      registerType(schemaGenerator.generateSchema(Project.class));
-    } catch (JsonMappingException e) {
-      LOG.error("Could not load schema for core objects", e);
-    }
+    JsonSchemaGenerator schemaGenerator = new JsonSchemaGenerator(mapper);
+    registerType(schemaGenerator, Real.class);
+    registerType(schemaGenerator, Rational.class);
+    registerType(schemaGenerator, Whole.class);
+    registerType(schemaGenerator, Note.class);
+    registerType(schemaGenerator, Tick.class);
+    registerType(schemaGenerator, Project.class);
+    registerType(schemaGenerator, Sequence.class);
+    registerType(schemaGenerator, Channel.class);
+    registerType(schemaGenerator, Layer.class);
+    /*
+     * Re-register project so that it now references types instead of inlining them.
+     */
+    registerType(schemaGenerator, Project.class);
     factory.getSequenceNames().forEach(name -> {
-      try {
-        registerFlow(name, schemaGenerator.generateSchema(factory.getSequenceClass(name)));
-      } catch (JsonMappingException e) {
-        LOG.error("Could not load schema for flow " + name, e);
-      }
+      registerFlow(schemaGenerator, name, factory.getSequenceClass(name));
     });
   }
 
-  private void registerType(JsonSchema schema) {
-    types.put(schema.getId(), schema);
+  private void registerType(JsonSchemaGenerator schemaGenerator, Class<?> clazz) {
+    JsonNode schema = schemaGenerator.generateJsonSchema(clazz);
+    types.put(getSchemaReference(clazz), schema);
   }
 
-  private void registerFlow(String flowName, JsonSchema schema) {
-    registerType(schema);
-    flows.put(flowName, schema.getId());
+  private String getSchemaReference(Class clazz) {
+    return "urn:jsonschema:" + clazz.getName().replace('.',':');
+  }
+
+  private void registerFlow(JsonSchemaGenerator schemaGenerator, String flowName, Class clazz) {
+    registerType(schemaGenerator, clazz);
+    flows.put(flowName, getSchemaReference(clazz));
   }
 
   public Map<String, String> getFlows() {
     return flows;
   }
 
-  public Map<String, JsonSchema> getTypes() {
+  public Map<String, JsonNode> getTypes() {
     return types;
   }
 
@@ -97,7 +94,7 @@ public class ProjectSchema {
     return flows.get(name);
   }
 
-  public JsonSchema getFlowSchema(String name) {
+  public JsonNode getFlowSchema(String name) {
     return types.get(getFlowTypeRef(name));
   }
 
@@ -105,7 +102,7 @@ public class ProjectSchema {
     return types.keySet();
   }
 
-  public JsonSchema getType(String name) {
+  public JsonNode getType(String name) {
     return types.get(name);
   }
 }
