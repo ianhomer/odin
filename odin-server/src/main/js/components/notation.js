@@ -102,7 +102,7 @@ Notation.defaultProps = {
     },
     'notation' : {
       cellWidth : 3,
-      defaultValue : 'C#5/q, B4, A4, G#4',
+      defaultValue : 'C',
     },
     'tick' : {
       cellWidth : 2,

@@ -55,7 +55,6 @@ class SequenceList extends React.Component{
         <div key={'div-' + entity._links.self.href}>
           <SequenceComponent entity={entity} key={entity._links.self.href}
             project={this.props.project}
-            path={entity.path} fields={SequenceComponent.defaultProps.fields}
             onDelete={this.onDelete} onUpdate={this.onUpdate}
           />
         </div>

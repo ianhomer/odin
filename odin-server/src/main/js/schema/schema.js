@@ -23,12 +23,15 @@ ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
 
 const client = require('../client');
 
+import { Clazz } from './clazz';
+
 const VERIFY_IGNORE_PROPERTIES = ['_links.self.href'];
 const root = '/api';
 
 export class Schema {
   constructor(schema) {
-    this.schema = schema
+    this.schema = schema;
+    this.clazzes = {};
   }
 
   getFlowClazz(flowName) {
@@ -50,7 +53,25 @@ export class Schema {
   // Exported method for get schema
 
   getClazz(id, ref = '') {
-    return this.getClazzFromId(this.getRefClazzId(id, ref));
+    var id = this.getRefClazzId(id, ref);
+    var clazz = this.clazzes[id];
+    if (clazz == null) {
+      clazz = this.getClazzFromId(id);
+      if (clazz == null) {
+        throw 'Cannot get clazz from ID ' + id;
+      }
+      this.clazzes[id] = clazz;
+    }
+    return clazz;
+  }
+
+  getClazzFromId(id) {
+    var internalSchema = ajv.getSchema(id);
+    if (internalSchema) {
+      return new Clazz(id, ajv.getSchema(id).schema);
+    } else {
+      throw 'Cannot get schema for ' + id;
+    }
   }
 
   isClazzLoaded(id, ref = '') {
@@ -165,21 +186,10 @@ export class Schema {
     return id + ref;
   }
 
-  getClazzFromId(id) {
-    var internalSchema = ajv.getSchema(id);
-    if (internalSchema) {
-      return ajv.getSchema(id).schema;
-    } else {
-      console.error('Cannot get schema for ' + id);
-      return [];
-    }
-  }
-
   // Handle creation or update an entity.
-  handleApply(e, refs, path, onApply) {
+  handleApply(e, refs, clazzId, onApply) {
     e.preventDefault();
     var entity = {};
-    var clazzId = path;
     var clazz = this.getClazz(clazzId);
     Object.keys(clazz.properties).map(function(name) {
       var definition = clazz.properties[name];

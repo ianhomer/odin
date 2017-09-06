@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Type schema class
+// Clazz schema class
 
-class Type {
-  constructor(schema) {
-    this.schema = schema
+export class Clazz {
+  constructor(id, schema) {
+    this.id = id;
+    this.schema = schema;
+    this.properties = schema.properties;
   }
 }

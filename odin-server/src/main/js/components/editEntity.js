@@ -148,10 +148,6 @@ class EditEntity extends React.Component{
 
   render() {
     var clazz = this.context.schema.getClazz(this.props.path);
-    if (!Object.keys(clazz).length) {
-      console.warn('Schema not defined for ' + clazz + ', cannot create entity create row.');
-      return (<div/>);
-    }
     if (!this.props.project) {
       console.warn('Project not defined ' + this.props.path + ', cannot create entity create row.');
       return (<div/>);
