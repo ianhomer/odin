@@ -64,7 +64,7 @@ class EditEntity extends React.Component{
             <div className="row">
               {this.renderInputFieldGroup(
                 fields[fieldName].fields,
-                this.context.schema.getClazzDefinition(this.props.path, fieldName), key)}
+                this.context.schema.getFieldClazz(this.props.path, fieldName), key)}
             </div>
           </div>
         );

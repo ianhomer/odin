@@ -21,10 +21,11 @@ const objectPath = require('object-path');
 const VERIFY_IGNORE_PROPERTIES = ['_links.self.href'];
 
 export class Clazz {
-  constructor(id, clazzSchema, getClazz) {
+  constructor(getClazz, id, frontEndSchema, backEndSchema = frontEndSchema) {
     this.id = id;
-    this.clazzSchema = clazzSchema;
-    this.properties = clazzSchema.properties;
+    this.frontEndSchema = frontEndSchema;
+    this.backEndSchema = backEndSchema;
+    this.properties = frontEndSchema.properties;
     this.getClazz = getClazz;
   }
 

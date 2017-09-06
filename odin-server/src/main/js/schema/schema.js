@@ -37,7 +37,7 @@ export class Schema {
 
   // Get the schema definition for a given field name.
 
-  getClazzDefinition(path, name) {
+  getFieldClazz(path, name) {
     var clazz = this.getClazz(path);
     var definition = clazz.properties[name];
     if (definition == null) {
@@ -64,11 +64,26 @@ export class Schema {
   getClazzFromId(id) {
     var internalSchema = ajv.getSchema(id);
     if (internalSchema) {
-      return new Clazz(id, ajv.getSchema(id).schema, this.getClazz.bind(this));
+      return new Clazz(this.getClazz.bind(this), id,
+        this.getClazzSchema(id), this.getBackEndClazzSchema(id));
     } else {
       throw 'Cannot get schema for ' + id;
     }
   }
+
+  // Get the schema for the clazz stored on the back end
+  getBackEndClazzSchema(id) {
+    if (id in this.schema.flows) {
+      return this.getClazzSchema('sequence');
+    } else {
+      return this.getClazzSchema(id);
+    }
+  }
+
+  getClazzSchema(id) {
+    return ajv.getSchema(id).schema;
+  }
+
 
   isClazzLoaded(id, ref = '') {
     return ajv.getSchema(this.getRefClazzId(id, ref)) != null;
