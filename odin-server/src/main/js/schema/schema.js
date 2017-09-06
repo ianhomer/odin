@@ -14,9 +14,6 @@
 
 // System schema class
 
-const ReactDOM = require('react-dom');
-
-const objectPath = require('object-path');
 const Ajv = require('ajv');
 const ajv = new Ajv({extendRefs : true});
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
@@ -25,7 +22,6 @@ const client = require('../client');
 
 import { Clazz } from './clazz';
 
-const VERIFY_IGNORE_PROPERTIES = ['_links.self.href'];
 const root = '/api';
 
 export class Schema {
@@ -68,7 +64,7 @@ export class Schema {
   getClazzFromId(id) {
     var internalSchema = ajv.getSchema(id);
     if (internalSchema) {
-      return new Clazz(id, ajv.getSchema(id).schema);
+      return new Clazz(id, ajv.getSchema(id).schema, this.getClazz.bind(this));
     } else {
       throw 'Cannot get schema for ' + id;
     }
@@ -112,72 +108,6 @@ export class Schema {
     });
   }
 
-  setFieldValue(entity, clazzId, clazz, refs, name, key) {
-    var value = this.getFieldValue(clazzId, clazz, refs, name, key);
-    if (value) {
-      /*
-       * Split array properties.
-       */
-      var definition = clazz.properties[name];
-      if (definition == null) {
-        if (!VERIFY_IGNORE_PROPERTIES.includes(name)) {
-          console.error('Why is definition null?  Trying to set property ' + name + ' in ' + entity);
-        }
-      } else {
-        if (definition.type == 'array') {
-          value = value.split(',');
-        }
-      }
-      /*
-       * Set the property in the entity.
-       */
-      objectPath.set(entity, name, value);
-    }
-  }
-
-  // Get value of field from from fields, e.g. after form submit.
-  getFieldValue(clazzId, clazz, refs, name, key, required = true) {
-    var _key = key ? key : name;
-    var value;
-    var node;
-    if (clazz && clazz.properties[name] && clazz.properties[name]['$ref']) {
-
-      // Navigate through object definition to find property names.
-      var refClazzId = this.getRefClazzId(clazzId, clazz.properties[name]['$ref']);
-      var fieldClazz = this.getClazz(refClazzId);
-      var property = {};
-      for (var propertyName in fieldClazz.properties) {
-        var propertyKey = _key + '.' + propertyName;
-        property[propertyName] = this.getFieldValue(refClazzId, fieldClazz, refs, propertyName, propertyKey);
-      }
-      value = property;
-    } else if (clazz && clazz.properties[name] && clazz.properties[name].type == 'object') {
-      // TODO : Handle better than just JSON to object
-      node = ReactDOM.findDOMNode(refs[_key]);
-      if (node === null) {
-        value = null;
-      } else {
-        value = node.value.trim();
-        if (value) {
-          value = JSON.parse(value);
-        }
-      }
-    } else {
-      node = ReactDOM.findDOMNode(refs[_key]);
-      if (node === null) {
-        if (required) {
-          console.error('Cannot find field ' + _key + ' in DOM');
-          value = '';
-        } else {
-          value = null;
-        }
-      } else {
-        value = node.value.trim();
-      }
-    }
-    return value;
-  }
-
   // Get schema ID for the given ID and ref combination.
   //
   // e.g. getRefClazzId('patterns','#/definitions/tick')
@@ -194,15 +124,15 @@ export class Schema {
     Object.keys(clazz.properties).map(function(name) {
       var definition = clazz.properties[name];
       if (!definition.readOnly) {
-        this.setFieldValue(entity, clazzId, clazz, refs, name);
+        clazz.setFieldValue(entity, refs, name);
       }
     }, this);
-    var path = this.getFieldValue(clazzId, clazz, refs, 'path', null, false);
+    var path = clazz.getFieldValue(refs, 'path', null, false);
     if (path) {
       onApply(entity, path);
     } else {
       // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
-      this.setFieldValue(entity, clazzId, clazz, refs, '_links.self.href');
+      clazz.setFieldValue(entity, refs, '_links.self.href');
       onApply(entity);
     }
   }
