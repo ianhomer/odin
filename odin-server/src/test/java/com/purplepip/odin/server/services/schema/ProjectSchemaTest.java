@@ -31,10 +31,10 @@ public class ProjectSchemaTest {
   @Test
   public void testCore() {
     ProjectSchema project = new ProjectSchema();
-    JsonNode schema = project.getType("urn:jsonschema:com:purplepip:odin:math:Rational");
+    JsonNode schema = project.getType("urn:jsonschema:com:purplepip:odin:project:Project");
     JsonNode properties = schema.get("properties");
-    String type = properties.get("numerator").get("type").asText();
-    assertEquals("integer", type);
+    String type = properties.get("layers").get("type").asText();
+    assertEquals("array", type);
   }
 
   @Test

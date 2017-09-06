@@ -18,19 +18,14 @@ package com.purplepip.odin.server.services.schema;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kjetland.jackson.jsonSchema.JsonSchemaConfig;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceFactory;
-import com.purplepip.odin.sequence.layer.Layer;
-import com.purplepip.odin.sequence.tick.Tick;
-import com.purplepip.odin.sequencer.Channel;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -50,22 +45,40 @@ public class ProjectSchema {
     mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
 
     JsonSchemaGenerator schemaGenerator = new JsonSchemaGenerator(mapper);
-    registerType(schemaGenerator, Real.class);
-    registerType(schemaGenerator, Rational.class);
-    registerType(schemaGenerator, Whole.class);
-    registerType(schemaGenerator, Note.class);
-    registerType(schemaGenerator, Tick.class);
-    registerType(schemaGenerator, Project.class);
-    registerType(schemaGenerator, Sequence.class);
-    registerType(schemaGenerator, Channel.class);
-    registerType(schemaGenerator, Layer.class);
     /*
      * Re-register project so that it now references types instead of inlining them.
      */
     registerType(schemaGenerator, Project.class);
-    factory.getSequenceNames().forEach(name -> {
-      registerFlow(schemaGenerator, name, factory.getSequenceClass(name));
-    });
+    /*
+     * Register sequence flows project referenced.
+     */
+    Map<String, String> customType2FormatMapping = new HashMap<>();
+    customType2FormatMapping.put(Project.class.getName(), getSchemaReference(Project.class));
+
+    Map<Class<?>, Class<?>> classTypeMapping = new HashMap<>();
+    classTypeMapping.put(Project.class, String.class);
+
+    Optional<String> none = Optional.of("None");
+    JsonSchemaConfig config = JsonSchemaConfig.create(
+        false,
+        none,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        customType2FormatMapping,
+        false,
+        new HashSet<>(),
+        classTypeMapping,
+        new HashMap<>()
+    );
+    JsonSchemaGenerator flowSchemaGenerator = new JsonSchemaGenerator(mapper, config);
+    factory.getSequenceNames().forEach(name ->
+      registerFlow(flowSchemaGenerator, name, factory.getSequenceClass(name))
+    );
   }
 
   private void registerType(JsonSchemaGenerator schemaGenerator, Class<?> clazz) {
