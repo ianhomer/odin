@@ -17,108 +17,10 @@
 
 // Functions to create, read, update and delete entities
 
-const ReactDOM = require('react-dom');
-const Ajv = require('ajv');
-const objectPath = require('object-path');
-
 const client = require('./client');
 const follow = require('./follow');
 
 const root = '/api';
-
-const ajv = new Ajv({extendRefs : true});
-ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
-
-const VERIFY_IGNORE_PROPERTIES = ['_links.self.href'];
-
-function setFieldValue(entity, schemaId, schema, refs, name, key) {
-  var value = getFieldValue(schemaId, schema, refs, name, key);
-  if (value) {
-    /*
-     * Split array properties.
-     */
-    var definition = schema.properties[name];
-    if (definition == null) {
-      if (!VERIFY_IGNORE_PROPERTIES.includes(name)) {
-        console.error('Why is definition null?  Trying to set property ' + name + ' in ' + entity);
-      }
-    } else {
-      if (definition.type == 'array') {
-        value = value.split(',');
-      }
-    }
-    /*
-     * Set the property in the entity.
-     */
-    objectPath.set(entity, name, value);
-  }
-}
-
-// Get value of field from from fields, e.g. after form submit.
-function getFieldValue(schemaId, schema, refs, name, key, required = true) {
-  var _key = key ? key : name;
-  var value;
-  var node;
-  if (schema && schema.properties[name] && schema.properties[name]['$ref']) {
-
-    // Navigate through object definition to find property names.
-    var refSchemaId = getRefSchemaId(schemaId, schema.properties[name]['$ref']);
-    var fieldSchema = getSchema(refSchemaId);
-    var property = {};
-    Object.keys(fieldSchema.properties).map(function(propertyName) {
-      var propertyKey = _key + '.' + propertyName;
-      property[propertyName] = getFieldValue(refSchemaId, fieldSchema, refs, propertyName, propertyKey);
-    });
-    value = property;
-  } else if (schema && schema.properties[name] && schema.properties[name].type == 'object') {
-    // TODO : Handle better than just JSON to object
-    node = ReactDOM.findDOMNode(refs[_key]);
-    if (node === null) {
-      value = null;
-    } else {
-      value = node.value.trim();
-      if (value) {
-        value = JSON.parse(value);
-      }
-    }
-  } else {
-    node = ReactDOM.findDOMNode(refs[_key]);
-    if (node === null) {
-      if (required) {
-        console.error('Cannot find field ' + _key + ' in DOM');
-        value = '';
-      } else {
-        value = null;
-      }
-    } else {
-      value = node.value.trim();
-    }
-  }
-  return value;
-}
-
-// Get schema ID for the given ID and ref combination.
-//
-// e.g. getRefSchemaId('patterns','#/definitions/tick')
-
-function getRefSchemaId(id, ref = '') {
-  return id + ref;
-}
-
-function getSchema(id) {
-  var internalSchema = ajv.getSchema(id);
-  if (internalSchema) {
-    return ajv.getSchema(id).schema;
-  } else {
-    console.error('Cannot get schema for ' + id);
-    return [];
-  }
-}
-
-function isSchemaLoaded(id) {
-  return ajv.getSchema(id) != null;
-}
-
 
 // Load entities from the server.
 //
@@ -131,70 +33,13 @@ function isSchemaLoaded(id) {
 module.exports = {
   bindMe : function(that) {
     that.loadFromServer = this.loadFromServer.bind(that);
-    that.loadSchema = this.loadSchema.bind(that);
-    that.isSchemaLoaded = this.isSchemaLoaded.bind(that);
     that.onDelete = this.onDelete.bind(that);
     that.onCreate = this.onCreate.bind(that);
     that.onUpdate = this.onUpdate.bind(that);
   },
 
-  // Get the schema definition for a given field name.
-
-  getSchemaDefinition : function(name) {
-    var schema = getSchema(this.props.path);
-    var definition = schema.properties[name];
-    if (definition == null) {
-      throw 'Cannot get schema definition for ' + name;
-    }
-    return getSchema(getRefSchemaId(this.props.path, definition['$ref']));
-  },
-
-  // Exported method for get schema
-
-  getSchema : function(id = this.props.path, ref = '') {
-    return getSchema(getRefSchemaId(id, ref));
-  },
-
-  isSchemaLoaded : function(id = this.props.path, ref = '') {
-    return isSchemaLoaded(getRefSchemaId(id, ref));
-  },
-
-  // load multiple schemas
-
-  loadSchemas : function(paths) {
-    var promises = [];
-    paths.forEach(path => {
-      promises.concat(this.loadSchema(path));
-    });
-    return Promise.all(promises);
-  },
-
-  // Load schema if it has not already been loaded
-
-  loadSchema : function(path = this.props.path) {
-    return new Promise((resolve, reject) => {
-      var schema = ajv.getSchema(path);
-      if (!schema) {
-        client({
-          method: 'GET',
-          path: root + '/profile/' + path,
-          headers: {'Accept': 'application/schema+json'}
-        }).then(response => {
-          if (!ajv.getSchema(path)) {
-            ajv.addSchema(response.entity, path);
-          }
-          resolve(response.entity);
-        }).catch(reason => {
-          reject(reason);
-        });
-      } else {
-        resolve(schema);
-      }
-    });
-  },
-
   loadFromServer : function() {
-    this.loadSchema().then(() => {
+    this.context.schema.loadSchema(this.props.path).then(() => {
       follow(client, root, [{rel: this.props.path}]).done(collection => {
         var entities = [];
 
@@ -223,28 +68,6 @@ module.exports = {
         });
       });
     });
-  },
-
-  // Handle creation or update an entity.
-  handleApply(e) {
-    e.preventDefault();
-    var entity = {};
-    var schemaId = this.props.path;
-    var schema = getSchema(schemaId);
-    Object.keys(schema.properties).map(function(name) {
-      var definition = schema.properties[name];
-      if (!definition.readOnly) {
-        setFieldValue(entity, schemaId, schema, this.refs, name);
-      }
-    }, this);
-    var path = getFieldValue(schemaId, schema, this.refs, 'path', null, false);
-    if (path) {
-      this.props.onApply(entity, path);
-    } else {
-      // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
-      setFieldValue(entity, schemaId, schema, this.refs, '_links.self.href');
-      this.props.onApply(entity);
-    }
   },
 
   // Create entity via REST API.

@@ -15,6 +15,7 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const crud = require('./../crud');
 
@@ -49,7 +50,7 @@ class ChannelList extends React.Component{
             <div className="col-2">Number</div>
             <div className="col-3">Program</div>
           </div>
-          {this.isSchemaLoaded() &&
+          {this.context.schema.isSchemaLoaded(this.props.path) &&
             <EditEntity
               project={this.props.project}
               path={this.props.path} fields={this.props.fields}
@@ -79,6 +80,10 @@ ChannelList.defaultProps = {
       hidden : true
     }
   }
+};
+
+ChannelList.contextTypes = {
+  schema: PropTypes.object
 };
 
 module.exports = ChannelList;

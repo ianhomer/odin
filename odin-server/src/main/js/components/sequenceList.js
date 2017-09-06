@@ -15,6 +15,7 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const crud = require('../crud');
 
@@ -43,7 +44,7 @@ class SequenceList extends React.Component{
   }
 
   componentDidMount() {
-    crud.loadSchemas(['sequence', 'notation', 'pattern']).then(() => {
+    this.context.schema.loadSchemas(['sequence', 'notation', 'pattern']).then(() => {
       this.loadFromServer();
     });
   }
@@ -84,7 +85,7 @@ class SequenceList extends React.Component{
 
           {Object.keys(Sequences).map(path => {
             var SequenceComponent = Sequences[path];
-            if (this.isSchemaLoaded(path)) {
+            if (this.context.schema.isSchemaLoaded(path)) {
               return (
                 <EditEntity key={'create-' + path}
                   project={this.props.project}
@@ -103,6 +104,10 @@ class SequenceList extends React.Component{
 
 SequenceList.defaultProps = {
   path: 'sequence'
+};
+
+SequenceList.contextTypes = {
+  schema: PropTypes.object
 };
 
 module.exports = SequenceList;

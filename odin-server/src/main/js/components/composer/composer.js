@@ -17,6 +17,7 @@
 const React = require('react');
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+const PropTypes = require('prop-types');
 
 const crud = require('../../crud');
 
@@ -34,6 +35,7 @@ const DefaultSequence = SequenceCard;
 class Composer extends React.Component{
   constructor(props) {
     super(props);
+    // TODO : Remove schema and links if redundant
     this.state = {
       schema: [], entities: [], links: []
     };
@@ -46,7 +48,7 @@ class Composer extends React.Component{
   }
 
   componentDidMount() {
-    crud.loadSchemas(['notation', 'pattern']).then(() => {
+    this.context.schema.loadSchemas(['notation', 'pattern']).then(() => {
       this.loadFromServer();
     });
   }
@@ -132,6 +134,10 @@ class Composer extends React.Component{
 
 Composer.defaultProps = {
   path: 'sequence'
+};
+
+Composer.contextTypes = {
+  schema: PropTypes.object
 };
 
 module.exports = DragDropContext(HTML5Backend)(Composer);

@@ -17,7 +17,9 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const PropTypes = require('prop-types');
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Schema } from './schema/schema';
 
 const client = require('./client');
 const crud = require('./crud');
@@ -42,7 +44,7 @@ class App extends React.Component {
 
   componentDidMount() {
     client({method: 'GET', path: '/services/schema'}).done(response => {
-      this.setState({schema: response.entity});
+      this.setState({schema: new Schema(response.entity)});
     });
   }
 

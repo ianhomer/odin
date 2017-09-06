@@ -42,7 +42,7 @@ class Project extends React.Component {
     client({method: 'GET', path: '/api/project'}).done(response => {
       var projects = response.entity._embedded.project;
       this.setState({project: projects[0]});
-      crud.loadSchema('channel');
+      this.context.schema.loadSchema('channel');
     });
   }
 

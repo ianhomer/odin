@@ -15,6 +15,7 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const crud = require('../../crud');
 
@@ -26,7 +27,7 @@ class LayerList extends React.Component{
     super(props);
 
     this.state = {
-      // TODO : Can we remove links?
+      // TODO : Can we remove schema and links?
       schema: [], entities: [], links: []
     };
 
@@ -147,6 +148,10 @@ class LayerList extends React.Component{
 
 LayerList.defaultProps = {
   path: 'layer'
+};
+
+LayerList.contextTypes = {
+  schema: PropTypes.object
 };
 
 module.exports = LayerList;
