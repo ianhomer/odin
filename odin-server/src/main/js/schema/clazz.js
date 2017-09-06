@@ -21,10 +21,15 @@ const objectPath = require('object-path');
 const IMPLICIT_PROPERTIES = ['_links.self.href'];
 
 export class Clazz {
-  constructor(getClazz, id, frontEndSchema, backEndSchema = frontEndSchema) {
+  constructor(getClazz, id, frontEndSchema, backEndClazz) {
     this.id = id;
     this.frontEndSchema = frontEndSchema;
-    this.backEndSchema = backEndSchema;
+    if (backEndClazz) {
+      this.backEndClazz = backEndClazz;
+    } else {
+      this.backEndClazz = this;
+    }
+    this.path = backEndClazz ? backEndClazz.id : id;
     this.properties = frontEndSchema.properties;
     this.getClazz = getClazz;
   }
@@ -43,7 +48,7 @@ export class Clazz {
           value = value.split(',');
         }
       }
-      if (name in this.backEndSchema.properties || IMPLICIT_PROPERTIES.includes(name)) {
+      if (name in this.backEndClazz.properties || IMPLICIT_PROPERTIES.includes(name)) {
         // Set the property in the entity if property is defined in back end schema.
         objectPath.set(entity, name, value);
       } else {

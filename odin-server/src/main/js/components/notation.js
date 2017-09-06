@@ -15,6 +15,7 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const crud = require('./../crud');
 
@@ -53,7 +54,7 @@ class Notation extends React.Component{
         // Edit entity
         <EditEntity entity={sequence}
           project={this.props.project}
-          path={this.props.path} fields={Notation.defaultProps.fields}
+          clazz={this.props.clazz} fields={Notation.defaultProps.fields}
           onApply={this.onUpdate}
         />
       );
@@ -89,6 +90,10 @@ class Notation extends React.Component{
       );
     }
   }
+}
+
+Notation.propTypes = {
+  clazz: PropTypes.object.isRequired
 }
 
 Notation.defaultProps = {

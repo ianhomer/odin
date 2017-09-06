@@ -15,6 +15,7 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const crud = require('./../crud');
 
@@ -54,7 +55,7 @@ class Pattern extends React.Component{
 
         <EditEntity entity={sequence}
           project={this.props.project}
-          path={this.props.path} fields={this.props.fields} schema={this.props.schema}
+          clazz={this.props.clazz} fields={this.props.fields} schema={this.props.schema}
           onApply={this.onUpdate}
         />
       );
@@ -95,6 +96,10 @@ class Pattern extends React.Component{
       );
     }
   }
+}
+
+Pattern.propTypes = {
+  clazz: PropTypes.object.isRequired
 }
 
 Pattern.defaultProps = {

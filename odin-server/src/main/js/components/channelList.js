@@ -53,7 +53,7 @@ class ChannelList extends React.Component{
           {this.context.schema.isClazzLoaded(this.props.path) &&
             <EditEntity
               project={this.props.project}
-              path={this.props.path} fields={this.props.fields}
+              clazz={this.context.schema.getClazz(this.props.path)} fields={this.props.fields}
               onApply={this.onCreate}
             />
           }

@@ -15,6 +15,7 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
 
 const crud = require('./../crud');
 const EditEntity = require('./editEntity');
@@ -85,6 +86,10 @@ class Sequence extends React.Component{
       );
     }
   }
+}
+
+Sequence.propTypes = {
+  clazz: PropTypes.object.isRequired
 }
 
 Sequence.defaultProps = {

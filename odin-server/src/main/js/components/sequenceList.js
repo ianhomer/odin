@@ -42,7 +42,7 @@ class SequenceList extends React.Component{
     crud.bindMe(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.context.schema.loadClazzes(['sequence', 'notation', 'pattern']).then(() => {
       this.loadFromServer();
     });
@@ -54,6 +54,7 @@ class SequenceList extends React.Component{
       return (
         <div key={'div-' + entity._links.self.href}>
           <SequenceComponent entity={entity} key={entity._links.self.href}
+            clazz={this.context.schema.getClazz(entity.flowName)}
             project={this.props.project}
             onDelete={this.onDelete} onUpdate={this.onUpdate}
           />
@@ -84,10 +85,11 @@ class SequenceList extends React.Component{
           {Object.keys(Sequences).map(path => {
             var SequenceComponent = Sequences[path];
             if (this.context.schema.isClazzLoaded(path)) {
+              var clazz = this.context.schema.getClazz(SequenceComponent.defaultProps.path)
               return (
                 <EditEntity key={'create-' + path}
                   project={this.props.project}
-                  path={SequenceComponent.defaultProps.path} fields={SequenceComponent.defaultProps.fields}
+                  clazz={clazz} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.onCreate}
                 />
               );

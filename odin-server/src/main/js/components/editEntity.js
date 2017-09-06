@@ -30,16 +30,21 @@ class EditEntity extends React.Component{
       this.onApply = crud.onCreate.bind(this);
     }
     this.handleKeyPress = this._handleKeyPress.bind(this);
+    this.handleApply = this.handleApply.bind(this);
+  }
+
+  handleApply(e) {
+    this.context.schema.handleApply(e, this.refs, this.props.clazz.id, this.props.onApply);
   }
 
   _handleKeyPress(e) {
     if (e.key === 'Enter') {
-      this.context.schema.handleApply(e, this.refs, this.props.path, this.props.onApply);
+      this.handleApply(e);
     }
   }
 
   // Render a group of inputs for the specified fields.
-  renderInputFieldGroup(fields, clazz, parentKey) {
+  renderInputFieldGroup(clazz, fields, parentKey) {
     if (!fields) {
       console.warn('Fields not defined');
       return (<div/>);
@@ -62,19 +67,19 @@ class EditEntity extends React.Component{
           <div className={cellClassName} key={key}>
             <div className="row">
               {this.renderInputFieldGroup(
-                fields[fieldName].fields,
-                this.context.schema.getFieldClazz(this.props.path, fieldName), key)}
+                this.context.schema.getFieldClazz(clazz.id, fieldName), fields[fieldName].fields,
+                key)}
             </div>
           </div>
         );
       } else {
-        return this.renderInputField(fields, clazz, fieldName, key);
+        return this.renderInputField(clazz, fields, fieldName, key);
       }
     }, this);
     return renderedFields;
   }
 
-  renderInputField(fields, clazz, fieldName, key) {
+  renderInputField(clazz, fields, fieldName, key) {
     var field = fields[fieldName];
     var size = 0;
     var definition = clazz.properties[fieldName];
@@ -83,7 +88,8 @@ class EditEntity extends React.Component{
       type = definition.type;
     } else {
       type = 'string';
-      console.error('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(clazz.properties));
+      console.error('Cannot find attribute : ' + fieldName + ' in ' +
+        JSON.stringify(clazz.properties));
     }
 
     if (field.size) {
@@ -146,13 +152,12 @@ class EditEntity extends React.Component{
   }
 
   render() {
-    var clazz = this.context.schema.getClazz(this.props.path);
     if (!this.props.project) {
-      console.warn('Project not defined ' + this.props.path + ', cannot create entity create row.');
+      console.warn('Project not defined ' + this.props.clazz.id + ', cannot create entity create row.');
       return (<div/>);
     }
 
-    var renderedFields = this.renderInputFieldGroup(this.props.fields, clazz);
+    var renderedFields = this.renderInputFieldGroup(this.props.clazz, this.props.fields);
     var label = this.props.entity ? 'Update' : 'Create';
 
     // TODO : Etag support
@@ -170,7 +175,7 @@ class EditEntity extends React.Component{
 
           {!this.props.entity &&
             <input type="hidden" name="path" ref="path"
-              value={this.props.path} />
+              value={this.props.clazz.path} />
           }
 
           {/* Provide self href for update flow so we know what to update. */}
@@ -191,5 +196,9 @@ class EditEntity extends React.Component{
 EditEntity.contextTypes = {
   schema: PropTypes.object
 };
+
+EditEntity.propTypes = {
+  clazz: PropTypes.object.isRequired
+}
 
 module.exports = EditEntity;
