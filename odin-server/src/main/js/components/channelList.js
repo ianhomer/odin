@@ -50,7 +50,7 @@ class ChannelList extends React.Component{
             <div className="col-2">Number</div>
             <div className="col-3">Program</div>
           </div>
-          {this.context.schema.isSchemaLoaded(this.props.path) &&
+          {this.context.schema.isClazzLoaded(this.props.path) &&
             <EditEntity
               project={this.props.project}
               path={this.props.path} fields={this.props.fields}

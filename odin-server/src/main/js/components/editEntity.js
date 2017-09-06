@@ -40,18 +40,18 @@ class EditEntity extends React.Component{
   }
 
   // Render a group of inputs for the specified fields.
-  renderInputFieldGroup(fields, type, parentKey) {
+  renderInputFieldGroup(fields, clazz, parentKey) {
     if (!fields) {
       console.warn('Fields not defined');
       return (<div/>);
     }
-    if (!type) {
-      console.warn('Type not defined');
+    if (!clazz) {
+      console.warn('Clazz not defined');
       return (<div/>);
     }
-    if (!type.properties) {
-      console.warn('Type does not have properties');
-      return (<div>{JSON.stringify(type)}</div>);
+    if (!clazz.properties) {
+      console.warn('Clazz does not have properties');
+      return (<div>{JSON.stringify(clazz)}</div>);
     }
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + '.' + fieldName : fieldName;
@@ -64,27 +64,27 @@ class EditEntity extends React.Component{
             <div className="row">
               {this.renderInputFieldGroup(
                 fields[fieldName].fields,
-                this.context.schema.getSchemaDefinition(this.props.path, fieldName), key)}
+                this.context.schema.getClazzDefinition(this.props.path, fieldName), key)}
             </div>
           </div>
         );
       } else {
-        return this.renderInputField(fields, type, fieldName, key);
+        return this.renderInputField(fields, clazz, fieldName, key);
       }
     }, this);
     return renderedFields;
   }
 
-  renderInputField(fields, type, fieldName, key) {
+  renderInputField(fields, clazz, fieldName, key) {
     var field = fields[fieldName];
     var size = 0;
-    var definition = type.properties[fieldName];
+    var definition = clazz.properties[fieldName];
     var type;
     if (definition) {
       type = definition.type;
     } else {
       type = 'string';
-      console.error('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(type.properties));
+      console.error('Cannot find attribute : ' + fieldName + ' in ' + JSON.stringify(clazz.properties));
     }
 
     if (field.size) {
@@ -147,9 +147,9 @@ class EditEntity extends React.Component{
   }
 
   render() {
-    var type = this.context.schema.getSchema(this.props.path);
-    if (!Object.keys(type).length) {
-      console.warn('Schema not defined for ' + type + ', cannot create entity create row.');
+    var clazz = this.context.schema.getClazz(this.props.path);
+    if (!Object.keys(clazz).length) {
+      console.warn('Schema not defined for ' + clazz + ', cannot create entity create row.');
       return (<div/>);
     }
     if (!this.props.project) {
@@ -157,7 +157,7 @@ class EditEntity extends React.Component{
       return (<div/>);
     }
 
-    var renderedFields = this.renderInputFieldGroup(this.props.fields, type);
+    var renderedFields = this.renderInputFieldGroup(this.props.fields, clazz);
     var label = this.props.entity ? 'Update' : 'Create';
 
     // TODO : Etag support

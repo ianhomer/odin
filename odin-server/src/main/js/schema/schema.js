@@ -31,45 +31,45 @@ export class Schema {
     this.schema = schema
   }
 
-  getFlowSchema(flowName) {
+  getFlowClazz(flowName) {
     var urn = schema.flows[flowName];
     return schema.types[urn];
   }
 
   // Get the schema definition for a given field name.
 
-  getSchemaDefinition(path, name) {
-    var schema = this.getSchema(path);
-    var definition = schema.properties[name];
+  getClazzDefinition(path, name) {
+    var clazz = this.getClazz(path);
+    var definition = clazz.properties[name];
     if (definition == null) {
-      throw 'Cannot get schema definition for ' + name;
+      throw 'Cannot get clazz definition for ' + name;
     }
-    return this.getSchema(this.getRefSchemaId(path, definition['$ref']));
+    return this.getClazz(this.getRefClazzId(path, definition['$ref']));
   }
 
   // Exported method for get schema
 
-  getSchema(id, ref = '') {
-    return this.getSchemaFromId(this.getRefSchemaId(id, ref));
+  getClazz(id, ref = '') {
+    return this.getClazzFromId(this.getRefClazzId(id, ref));
   }
 
-  isSchemaLoaded(id, ref = '') {
-    return ajv.getSchema(this.getRefSchemaId(id, ref)) != null;
+  isClazzLoaded(id, ref = '') {
+    return ajv.getSchema(this.getRefClazzId(id, ref)) != null;
   }
 
   // load multiple schemas
 
-  loadSchemas(paths) {
+  loadClazzes(paths) {
     var promises = [];
     paths.forEach(path => {
-      promises.concat(this.loadSchema(path));
+      promises.concat(this.loadClazz(path));
     });
     return Promise.all(promises);
   }
 
   // Load schema if it has not already been loaded
 
-  loadSchema(path) {
+  loadClazz(path) {
     return new Promise((resolve, reject) => {
       var schema = ajv.getSchema(path);
       if (!schema) {
@@ -91,13 +91,13 @@ export class Schema {
     });
   }
 
-  setFieldValue(entity, schemaId, schema, refs, name, key) {
-    var value = this.getFieldValue(schemaId, schema, refs, name, key);
+  setFieldValue(entity, clazzId, clazz, refs, name, key) {
+    var value = this.getFieldValue(clazzId, clazz, refs, name, key);
     if (value) {
       /*
        * Split array properties.
        */
-      var definition = schema.properties[name];
+      var definition = clazz.properties[name];
       if (definition == null) {
         if (!VERIFY_IGNORE_PROPERTIES.includes(name)) {
           console.error('Why is definition null?  Trying to set property ' + name + ' in ' + entity);
@@ -115,22 +115,22 @@ export class Schema {
   }
 
   // Get value of field from from fields, e.g. after form submit.
-  getFieldValue(schemaId, schema, refs, name, key, required = true) {
+  getFieldValue(clazzId, clazz, refs, name, key, required = true) {
     var _key = key ? key : name;
     var value;
     var node;
-    if (schema && schema.properties[name] && schema.properties[name]['$ref']) {
+    if (clazz && clazz.properties[name] && clazz.properties[name]['$ref']) {
 
       // Navigate through object definition to find property names.
-      var refSchemaId = this.getRefSchemaId(schemaId, schema.properties[name]['$ref']);
-      var fieldSchema = this.getSchema(refSchemaId);
+      var refClazzId = this.getRefClazzId(clazzId, clazz.properties[name]['$ref']);
+      var fieldClazz = this.getClazz(refClazzId);
       var property = {};
-      for (var propertyName in fieldSchema.properties) {
+      for (var propertyName in fieldClazz.properties) {
         var propertyKey = _key + '.' + propertyName;
-        property[propertyName] = this.getFieldValue(refSchemaId, fieldSchema, refs, propertyName, propertyKey);
+        property[propertyName] = this.getFieldValue(refClazzId, fieldClazz, refs, propertyName, propertyKey);
       }
       value = property;
-    } else if (schema && schema.properties[name] && schema.properties[name].type == 'object') {
+    } else if (clazz && clazz.properties[name] && clazz.properties[name].type == 'object') {
       // TODO : Handle better than just JSON to object
       node = ReactDOM.findDOMNode(refs[_key]);
       if (node === null) {
@@ -159,13 +159,13 @@ export class Schema {
 
   // Get schema ID for the given ID and ref combination.
   //
-  // e.g. getRefSchemaId('patterns','#/definitions/tick')
+  // e.g. getRefClazzId('patterns','#/definitions/tick')
 
-  getRefSchemaId(id, ref = '') {
+  getRefClazzId(id, ref = '') {
     return id + ref;
   }
 
-  getSchemaFromId(id) {
+  getClazzFromId(id) {
     var internalSchema = ajv.getSchema(id);
     if (internalSchema) {
       return ajv.getSchema(id).schema;
@@ -179,20 +179,20 @@ export class Schema {
   handleApply(e, refs, path, onApply) {
     e.preventDefault();
     var entity = {};
-    var schemaId = path;
-    var schema = this.getSchema(schemaId);
-    Object.keys(schema.properties).map(function(name) {
-      var definition = schema.properties[name];
+    var clazzId = path;
+    var clazz = this.getClazz(clazzId);
+    Object.keys(clazz.properties).map(function(name) {
+      var definition = clazz.properties[name];
       if (!definition.readOnly) {
-        this.setFieldValue(entity, schemaId, schema, refs, name);
+        this.setFieldValue(entity, clazzId, clazz, refs, name);
       }
     }, this);
-    var path = this.getFieldValue(schemaId, schema, refs, 'path', null, false);
+    var path = this.getFieldValue(clazzId, clazz, refs, 'path', null, false);
     if (path) {
       onApply(entity, path);
     } else {
       // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
-      this.setFieldValue(entity, schemaId, schema, refs, '_links.self.href');
+      this.setFieldValue(entity, clazzId, clazz, refs, '_links.self.href');
       onApply(entity);
     }
   }

@@ -40,11 +40,10 @@ class SequenceList extends React.Component{
     };
 
     crud.bindMe(this);
-
   }
 
   componentDidMount() {
-    this.context.schema.loadSchemas(['sequence', 'notation', 'pattern']).then(() => {
+    this.context.schema.loadClazzes(['sequence', 'notation', 'pattern']).then(() => {
       this.loadFromServer();
     });
   }
@@ -85,7 +84,7 @@ class SequenceList extends React.Component{
 
           {Object.keys(Sequences).map(path => {
             var SequenceComponent = Sequences[path];
-            if (this.context.schema.isSchemaLoaded(path)) {
+            if (this.context.schema.isClazzLoaded(path)) {
               return (
                 <EditEntity key={'create-' + path}
                   project={this.props.project}

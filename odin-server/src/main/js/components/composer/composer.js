@@ -48,7 +48,7 @@ class Composer extends React.Component{
   }
 
   componentDidMount() {
-    this.context.schema.loadSchemas(['notation', 'pattern']).then(() => {
+    this.context.schema.loadClazzes(['notation', 'pattern']).then(() => {
       this.loadFromServer();
     });
   }
