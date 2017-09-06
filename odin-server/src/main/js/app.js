@@ -22,7 +22,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Schema } from './schema/schema';
 
 const client = require('./client');
-const crud = require('./crud');
 
 const Project = require('./components/project');
 const Developer = require('./components/developer/developer');

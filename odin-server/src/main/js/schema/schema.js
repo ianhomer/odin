@@ -31,8 +31,8 @@ export class Schema {
   }
 
   getFlowClazz(flowName) {
-    var urn = schema.flows[flowName];
-    return schema.types[urn];
+    var urn = this.schema.flows[flowName];
+    return this.schema.types[urn];
   }
 
   // Get the schema definition for a given field name.
@@ -49,14 +49,14 @@ export class Schema {
   // Exported method for get schema
 
   getClazz(id, ref = '') {
-    var id = this.getRefClazzId(id, ref);
-    var clazz = this.clazzes[id];
+    var fullId = this.getRefClazzId(id, ref);
+    var clazz = this.clazzes[fullId];
     if (clazz == null) {
-      clazz = this.getClazzFromId(id);
+      clazz = this.getClazzFromId(fullId);
       if (clazz == null) {
-        throw 'Cannot get clazz from ID ' + id;
+        throw 'Cannot get clazz from ID ' + fullId;
       }
-      this.clazzes[id] = clazz;
+      this.clazzes[fullId] = clazz;
     }
     return clazz;
   }

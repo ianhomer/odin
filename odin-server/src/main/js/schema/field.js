@@ -14,8 +14,8 @@
 
 // Type schema class
 
-class Field {
-  constructor(schema) {
-    this.schema = schema
-  }
-}
+//class Field {
+//  constructor(schema) {
+//    this.schema = schema;
+//  }
+//}

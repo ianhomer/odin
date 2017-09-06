@@ -19,7 +19,6 @@ const PropTypes = require('prop-types');
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const client = require('./../client');
-const crud = require('./../crud');
 
 const ChannelList = require('./channelList');
 const SequenceList = require('./sequenceList');
