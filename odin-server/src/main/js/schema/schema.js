@@ -35,7 +35,7 @@ export class Schema {
 
   getFlowClazz(flowName) {
     var urn = this.schema.flows[flowName];
-    return this.schema.types[urn];
+    return this.getClazz(urn);
   }
 
   // Get the schema definition for a given field name.
@@ -55,7 +55,7 @@ export class Schema {
     var fullId = this.getRefClazzId(id, ref);
     var clazz = this.clazzes[fullId];
     if (clazz == null) {
-      clazz = this.getClazzFromId(fullId);
+      clazz = this.createClazzFromId(fullId);
       if (clazz == null) {
         throw 'Cannot get clazz from ID ' + fullId;
       }
@@ -64,20 +64,20 @@ export class Schema {
     return clazz;
   }
 
-  getClazzFromId(id) {
+  createClazzFromId(id) {
     var internalSchema = ajv.getSchema(id);
     if (internalSchema) {
       return new Clazz(this.getClazz.bind(this), id,
         this.getClazzSchema(id), this.getBackEndClazz(id));
     } else {
-      throw 'Cannot get schema for ' + id;
+      throw 'Cannot create clazz for ' + id;
     }
   }
 
   // Get the schema for the clazz stored on the back end
   getBackEndClazz(id) {
     if (id in this.schema.flows && id != 'sequence') {
-      return this.getClazzFromId('sequence');
+      return this.createClazzFromId('sequence');
     }
   }
 
@@ -86,6 +86,7 @@ export class Schema {
   }
 
 
+  // TODO : Change to isSchemaLoaded
   isClazzLoaded(id, ref = '') {
     return ajv.getSchema(this.getRefClazzId(id, ref)) != null;
   }

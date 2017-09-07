@@ -52,6 +52,7 @@ class SequenceList extends React.Component{
     var entities = this.state.entities.map(entity => {
       var SequenceComponent = Sequences[entity.flowName] || DefaultSequence;
       return (
+        // TODO - change key to simply entity.name
         <div key={'div-' + entity._links.self.href}>
           <SequenceComponent entity={entity} key={entity._links.self.href}
             clazz={this.context.schema.getClazz(entity.flowName)}
@@ -82,12 +83,12 @@ class SequenceList extends React.Component{
 
           <hr/>
 
-          {Object.keys(Sequences).map(path => {
-            var SequenceComponent = Sequences[path];
-            if (this.context.schema.isClazzLoaded(path)) {
-              var clazz = this.context.schema.getClazz(SequenceComponent.defaultProps.path);
+          {Object.keys(Sequences).map(flowName => {
+            var SequenceComponent = Sequences[flowName];
+            if (this.context.schema.isClazzLoaded(flowName)) {
+              var clazz = this.context.schema.getClazz(flowName);
               return (
-                <EditEntity key={'create-' + path}
+                <EditEntity key={'create-' + flowName}
                   project={this.props.project}
                   clazz={clazz} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.onCreate}

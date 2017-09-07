@@ -53,15 +53,14 @@ public class ProjectSchema {
      * Register sequence flows project referenced.
      */
     Map<String, String> customType2FormatMapping = new HashMap<>();
-    customType2FormatMapping.put(Project.class.getName(), getSchemaReference(Project.class));
+    customType2FormatMapping.put(Project.class.getName(), "uri");
 
     Map<Class<?>, Class<?>> classTypeMapping = new HashMap<>();
     classTypeMapping.put(Project.class, String.class);
 
-    Optional<String> none = Optional.of("None");
     JsonSchemaConfig config = JsonSchemaConfig.create(
         false,
-        none,
+        Optional.empty(),
         false,
         false,
         false,
