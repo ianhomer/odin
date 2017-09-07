@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.TimeThing;
@@ -45,7 +44,7 @@ public interface Sequence extends Copyable<Sequence>, TimeThing {
    *
    * @return true if it is a specialised sequence.
    */
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  @JsonIgnore
   // TODO : NOT particulary robust default implementation, a better one will be provided
   default boolean isSpecialised() {
     return getClass().getInterfaces().length > 1
@@ -106,6 +105,6 @@ public interface Sequence extends Copyable<Sequence>, TimeThing {
    *
    * @return is empty
    */
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  @JsonIgnore
   boolean isEmpty();
 }

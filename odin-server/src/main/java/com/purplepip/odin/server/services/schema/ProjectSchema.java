@@ -82,7 +82,7 @@ public class ProjectSchema {
     );
     JsonSchemaGenerator flowSchemaGenerator = new JsonSchemaGenerator(mapper, config);
     factory.getSequenceNames().forEach(name ->
-      registerFlow(flowSchemaGenerator, name, factory.getSequenceClass(name))
+        registerFlow(flowSchemaGenerator, name, factory.getSequenceClass(name))
     );
   }
 

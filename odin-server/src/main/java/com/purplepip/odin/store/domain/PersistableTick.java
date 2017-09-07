@@ -41,6 +41,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Tick")
 @EqualsAndHashCode(of = "id")
 public class PersistableTick implements Tick {
+  @JsonIgnore
   @Id
   @GeneratedValue
   private long id;

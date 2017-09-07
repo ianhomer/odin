@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.bag;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
 
 public interface Thing {
@@ -23,6 +24,7 @@ public interface Thing {
    *
    * @return id
    */
+  @JsonIgnore
   long getId();
 
   /**

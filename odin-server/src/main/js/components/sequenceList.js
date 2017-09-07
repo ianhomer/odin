@@ -43,7 +43,7 @@ class SequenceList extends React.Component{
   }
 
   componentWillMount() {
-    this.context.schema.loadClazzes(['sequence', 'notation', 'pattern']).then(() => {
+    this.context.schema.loadClazzes(['sequence', 'pattern']).then(() => {
       this.loadFromServer();
     });
   }

@@ -44,16 +44,16 @@ public class SchemaControllerTest {
     String json = mvc.perform(sendingJson(get("/services/schema")))
         .andExpect(status().isOk())
         .andExpect(content().string(containsString(
-                "urn:jsonschema:com:purplepip:odin:music:sequence:Pattern")))
+                "flow-pattern")))
         .andExpect(jsonPath(
-            "$.types.urn:jsonschema:com:purplepip:odin:music:sequence:Notation.type",
+            "$.types.flow-notation.type",
             is("object")))
         .andExpect(jsonPath(
-            "$.types.urn:jsonschema:com:purplepip:odin:music:sequence:Notation"
+            "$.types.flow-notation"
                 + ".properties.notation.type",
             is("string")))
         .andExpect(jsonPath(
-            "$.types.urn:jsonschema:com:purplepip:odin:music:sequence:Notation"
+            "$.types.flow-notation"
                 + ".properties.offset.type",
             is("integer")))
         .andReturn().getResponse().getContentAsString();
