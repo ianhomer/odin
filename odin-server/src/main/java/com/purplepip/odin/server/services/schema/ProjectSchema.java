@@ -20,8 +20,12 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaConfig;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.SequenceFactory;
+import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.store.domain.PersistableNote;
+import com.purplepip.odin.store.domain.PersistableTick;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -48,7 +52,7 @@ public class ProjectSchema {
     /*
      * Re-register project so that it now references types instead of inlining them.
      */
-    registerType(schemaGenerator, Project.class);
+    registerType(schemaGenerator, Project.class, getSchemaReference(Project.class));
     /*
      * Register sequence flows project referenced.
      */
@@ -57,9 +61,11 @@ public class ProjectSchema {
 
     Map<Class<?>, Class<?>> classTypeMapping = new HashMap<>();
     classTypeMapping.put(Project.class, String.class);
+    classTypeMapping.put(Tick.class, PersistableTick.class);
+    classTypeMapping.put(Note.class, PersistableNote.class);
 
     JsonSchemaConfig config = JsonSchemaConfig.create(
-        false,
+        true,
         Optional.empty(),
         false,
         false,
@@ -80,18 +86,29 @@ public class ProjectSchema {
     );
   }
 
-  private void registerType(JsonSchemaGenerator schemaGenerator, Class<?> clazz) {
+  private void registerType(JsonSchemaGenerator schemaGenerator, Class<?> clazz, String id) {
     JsonNode schema = schemaGenerator.generateJsonSchema(clazz);
-    types.put(getSchemaReference(clazz), schema);
+    types.put(id, schema);
   }
 
   private String getSchemaReference(Class clazz) {
     return "urn:jsonschema:" + clazz.getName().replace('.',':');
   }
 
+  /*
+   * TODO : AJV module in front end doesn't seem to work for referenced properties on IDs
+   * in urn format, e.g. the following is not found
+   * urn:jsonschema:com:purplepip:odin:music:sequence:Notation#/definitions/PersistableTick
+   * ... not sure, when end to OK we should confirm if this urn is not valid accorinding to
+   * spec or if this is AJV limitation.
+   */
+  private String getFlowSchemaReference(Class clazz) {
+    return "flow-" + clazz.getSimpleName().toLowerCase();
+  }
+
   private void registerFlow(JsonSchemaGenerator schemaGenerator, String flowName, Class clazz) {
-    registerType(schemaGenerator, clazz);
-    flows.put(flowName, getSchemaReference(clazz));
+    registerType(schemaGenerator, clazz, getFlowSchemaReference(clazz));
+    flows.put(flowName, getFlowSchemaReference(clazz));
   }
 
   public Map<String, String> getFlows() {
