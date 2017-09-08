@@ -150,8 +150,8 @@ LayerList.defaultProps = {
   path: 'layer'
 };
 
-LayerList.contextTypes = {
-  schema: PropTypes.object
+LayerList.propTypes = {
+  schema: PropTypes.object.isRequired
 };
 
 module.exports = LayerList;

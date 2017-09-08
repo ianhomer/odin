@@ -43,7 +43,7 @@ class SequenceList extends React.Component{
   }
 
   componentWillMount() {
-    this.context.schema.loadClazzes(['sequence', 'pattern']).then(() => {
+    this.props.schema.loadClazzes(['sequence', 'pattern']).then(() => {
       this.loadFromServer();
     });
   }
@@ -55,8 +55,8 @@ class SequenceList extends React.Component{
         // TODO - change key to simply entity.name
         <div key={'div-' + entity._links.self.href}>
           <SequenceComponent entity={entity} key={entity._links.self.href}
-            clazz={this.context.schema.getFlowClazz(entity.flowName)}
-            project={this.props.project}
+            schema={this.props.schema} project={this.props.project}
+            clazz={this.props.schema.getFlowClazz(entity.flowName)}
             onDelete={this.onDelete} onUpdate={this.onUpdate}
           />
         </div>
@@ -85,15 +85,17 @@ class SequenceList extends React.Component{
 
           {Object.keys(Sequences).map(flowName => {
             var SequenceComponent = Sequences[flowName];
-            if (this.context.schema.isClazzLoaded(flowName)) {
-              var clazz = this.context.schema.getFlowClazz(flowName);
+            if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + flowName])) {
+              var clazz = this.props.schema.getFlowClazz(flowName);
               return (
                 <EditEntity key={'create-' + flowName}
-                  project={this.props.project}
+                  schema={this.props.schema} project={this.props.project}
                   clazz={clazz} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.onCreate}
                 />
               );
+            } else {
+              return (<div key={'create-' + flowName}>{flowName} class not loaded</div>);
             }
           })}
 
@@ -107,8 +109,8 @@ SequenceList.defaultProps = {
   path: 'sequence'
 };
 
-SequenceList.contextTypes = {
-  schema: PropTypes.object
+SequenceList.propTypes = {
+  schema: PropTypes.object.isRequired
 };
 
 module.exports = SequenceList;

@@ -50,10 +50,10 @@ class ChannelList extends React.Component{
             <div className="col-2">Number</div>
             <div className="col-3">Program</div>
           </div>
-          {this.context.schema.isClazzLoaded(this.props.path) &&
+          {this.props.schema.isClazzLoaded(this.props.path) &&
             <EditEntity
-              project={this.props.project}
-              clazz={this.context.schema.getClazz(this.props.path)} fields={this.props.fields}
+              schema={this.props.schema} project={this.props.project}
+              clazz={this.props.schema.getClazz(this.props.path)} fields={this.props.fields}
               onApply={this.onCreate}
             />
           }
@@ -82,8 +82,8 @@ ChannelList.defaultProps = {
   }
 };
 
-ChannelList.contextTypes = {
-  schema: PropTypes.object
+ChannelList.propTypes = {
+  schema: PropTypes.object.isRequired
 };
 
 module.exports = ChannelList;

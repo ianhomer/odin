@@ -70,7 +70,7 @@ export class Schema {
       return new Clazz(this.getClazz.bind(this), id,
         this.getClazzSchema(id), this.getBackEndClazz(id));
     } else {
-      throw 'Cannot create clazz for ' + id;
+      throw 'Cannot create clazz for ' + id + ' schema has not been loaded';
     }
   }
 
@@ -89,6 +89,16 @@ export class Schema {
   // TODO : Change to isSchemaLoaded
   isClazzLoaded(id, ref = '') {
     return ajv.getSchema(this.getRefClazzId(id, ref)) != null;
+  }
+
+  areSchemasLoaded(ids) {
+    for (var i = 0 ; i < ids.length ; i++) {
+      if (!this.isClazzLoaded(ids[i])) {
+        console.warn(ids[i] + ' not loaded');
+        return false;
+      }
+    }
+    return true;
   }
 
   // load multiple schemas

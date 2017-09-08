@@ -40,6 +40,7 @@ import lombok.EqualsAndHashCode;
 public class PersistableNote implements Note {
   @Id
   @GeneratedValue
+  @JsonIgnore
   private long id;
   private int velocity;
   private int number;

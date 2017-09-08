@@ -53,7 +53,7 @@ class Notation extends React.Component{
 
         // Edit entity
         <EditEntity entity={sequence}
-          project={this.props.project}
+          schema={this.props.schema} project={this.props.project}
           clazz={this.props.clazz} fields={Notation.defaultProps.fields}
           onApply={this.onUpdate}
         />
@@ -93,7 +93,8 @@ class Notation extends React.Component{
 }
 
 Notation.propTypes = {
-  clazz: PropTypes.object.isRequired
+  clazz: PropTypes.object.isRequired,
+  schema: PropTypes.object.isRequired
 };
 
 Notation.defaultProps = {

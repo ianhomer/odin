@@ -37,10 +37,6 @@ class App extends React.Component {
     this.renderDeveloper = this.renderDeveloper.bind(this);
   }
 
-  getChildContext() {
-    return {schema: this.state.schema};
-  }
-
   componentDidMount() {
     client({method: 'GET', path: '/services/schema'}).done(response => {
       this.setState({schema: new Schema(response.entity)});
@@ -51,7 +47,7 @@ class App extends React.Component {
     return (
       <div>
         {this.state.schema &&
-          <Project/>
+          <Project schema={this.state.schema}/>
         }
       </div>
     );
@@ -78,10 +74,6 @@ class App extends React.Component {
     );
   }
 }
-
-App.childContextTypes = {
-  schema: PropTypes.object
-};
 
 ReactDOM.render(
   <App />,

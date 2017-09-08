@@ -39,7 +39,7 @@ module.exports = {
   },
 
   loadFromServer : function() {
-    this.context.schema.loadClazz(this.props.path).then(() => {
+    this.props.schema.loadClazz(this.props.path).then(() => {
       follow(client, root, [{rel: this.props.path}]).done(collection => {
         var entities = [];
 

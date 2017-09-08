@@ -48,7 +48,7 @@ class Composer extends React.Component{
   }
 
   componentDidMount() {
-    this.context.schema.loadClazzes(['pattern']).then(() => {
+    this.props.schema.loadClazzes(['pattern']).then(() => {
       this.loadFromServer();
     });
   }
@@ -106,7 +106,7 @@ class Composer extends React.Component{
         return (
           <div key={'div-' + entity._links.self.href}>
             <SequenceComponent entity={entity} key={entity._links.self.href}
-              project={this.props.project}
+              schema={this.props.schema} project={this.props.project}
               path={entity.path}
               onAddLayer={this.handleAddLayer}
             />
@@ -119,7 +119,9 @@ class Composer extends React.Component{
       // Display layer list and sequence cards
       <div>
         {this.state.entities.length > 0 &&
-          <LayerList project={this.props.project} sequences={this.state.entities}
+          <LayerList
+            schema={this.props.schema} project={this.props.project}
+            sequences={this.state.entities}
             onChange={this.handleChange}
             onAddLayer={this.handleAddLayer}
             onMoveLayer={this.handleMoveLayer}
@@ -136,8 +138,8 @@ Composer.defaultProps = {
   path: 'sequence'
 };
 
-Composer.contextTypes = {
-  schema: PropTypes.object
+Composer.propTypes = {
+  schema: PropTypes.object.isRequired
 };
 
 module.exports = DragDropContext(HTML5Backend)(Composer);

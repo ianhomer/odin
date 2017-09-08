@@ -41,7 +41,7 @@ class Project extends React.Component {
     client({method: 'GET', path: '/api/project'}).done(response => {
       var projects = response.entity._embedded.project;
       this.setState({project: projects[0]});
-      this.context.schema.loadClazz('channel');
+      this.props.schema.loadClazz('channel');
     });
   }
 
@@ -49,7 +49,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <ChannelList project={this.state.project}/>
+          <ChannelList schema={this.props.schema} project={this.state.project}/>
         }
       </div>
     );
@@ -59,7 +59,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <Composer project={this.state.project}/>
+          <Composer schema={this.props.schema} project={this.state.project}/>
         }
       </div>
     );
@@ -69,7 +69,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <SequenceList project={this.state.project}/>
+          <SequenceList schema={this.props.schema} project={this.state.project}/>
         }
       </div>
     );
@@ -88,8 +88,8 @@ class Project extends React.Component {
   }
 }
 
-Project.contextTypes = {
-  schema: PropTypes.object
+Project.propTypes = {
+  schema: PropTypes.object.isRequired
 };
 
 module.exports = Project;

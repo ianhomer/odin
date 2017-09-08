@@ -34,7 +34,7 @@ class EditEntity extends React.Component{
   }
 
   handleApply(e) {
-    this.context.schema.handleApply(e, this.refs, this.props.clazz.id, this.props.onApply);
+    this.props.schema.handleApply(e, this.refs, this.props.clazz.id, this.props.onApply);
   }
 
   _handleKeyPress(e) {
@@ -67,7 +67,7 @@ class EditEntity extends React.Component{
           <div className={cellClassName} key={key}>
             <div className="row">
               {this.renderInputFieldGroup(
-                this.context.schema.getFieldClazz(clazz.id, fieldName), fields[fieldName].fields,
+                this.props.schema.getFieldClazz(clazz.id, fieldName), fields[fieldName].fields,
                 key)}
             </div>
           </div>
@@ -193,12 +193,9 @@ class EditEntity extends React.Component{
   }
 }
 
-EditEntity.contextTypes = {
-  schema: PropTypes.object
-};
-
 EditEntity.propTypes = {
-  clazz: PropTypes.object.isRequired
+  clazz: PropTypes.object.isRequired,
+  schema: PropTypes.object.isRequired
 };
 
 module.exports = EditEntity;
