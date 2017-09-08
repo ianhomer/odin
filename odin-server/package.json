@@ -34,7 +34,8 @@
     "webpack": "^1.12.2"
   },
   "scripts": {
-    "watch": "webpack --watch -d"
+    "watch": "webpack --watch -d",
+    "test": "jest"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -49,6 +50,7 @@
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
     "jasmine-core": "^2.6.4",
+    "jest": "^21.0.1",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
