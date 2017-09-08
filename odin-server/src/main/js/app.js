@@ -16,7 +16,6 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
-const PropTypes = require('prop-types');
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Schema } from './schema/schema';
