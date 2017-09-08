@@ -19,6 +19,11 @@
     "url": "https://github.com/ianhomer/odin/issues"
   },
   "homepage": "https://github.com/ianhomer/odin",
+  "jest": {
+    "moduleNameMapper": {
+      "components/(.*)": "<rootDir>/src/main/js/components/$1"
+    }
+  },
   "dependencies": {
     "ajv": "^5.2.2",
     "coffee-script": "^1.12.7",
@@ -39,10 +44,11 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-jest": "^21.0.0",
     "babel-loader": "^6.4.1",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
     "coffee-loader": "^0.7.3",
     "eslint": "^4.1.0",
@@ -60,6 +66,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-sinon-chai": "^1.3.1",
     "mocha": "^3.4.2",
+    "react-test-renderer": "^15.6.1",
     "sinon": "^2.3.5",
     "sinon-chai": "^2.11.0"
   }
