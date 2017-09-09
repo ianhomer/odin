@@ -65,10 +65,6 @@ table {
   width : 100%;
 }
 
-div.component {
-  border-left : 1px solid #999;
-}
-
 .debug {
   border: 1px solid blue;
   padding: 2px;

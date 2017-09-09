@@ -122,6 +122,7 @@ class EditEntity extends React.Component{
         <div className={cellClassName} key={key}>
           <Score entity={scoreEntity} editor="true"
             size={size} componentKey={key} componentRef={el => this.refs[key] = el}
+            width="800"
             onKeyPress={this.handleKeyPress}/>
         </div>
       );

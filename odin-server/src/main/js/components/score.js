@@ -36,7 +36,7 @@ class Score extends React.Component{
       // Store dimensions of score element as state.  Note that at some point the server
       // may suggest alternative dimensions and when it does this style in the state should
       // be updated.
-      style: {height : 120, width : 200}
+      style: {height : this.props.height, width : this.props.width}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -208,6 +208,11 @@ class Score extends React.Component{
       );
     }
   }
+}
+
+Score.defaultProps = {
+  height: 120,
+  width: 200,
 }
 
 module.exports = Score;

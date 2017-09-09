@@ -66,7 +66,7 @@ class Notation extends React.Component{
         <div className="row" onClick={this.toggleEditing}>
           <div className="col-1">{sequence.name}</div>
           <div className="col-3">
-            <Score entity={sequence} displayText="true"/>
+            <Score entity={sequence} displayText="true" width="800"/>
           </div>
           <div className="col-2 component">
             {sequence.tick ?
