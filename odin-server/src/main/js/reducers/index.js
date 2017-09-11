@@ -2,9 +2,9 @@ import { combineReducers } from 'redux'
 import sequences from './sequences'
 import channels from './channels'
 
-const combinedReducers = combineReducers({
+const reducers = combineReducers({
   channels,
   sequences
 })
 
-export default combinedReducers
+export default reducers
