@@ -14,8 +14,7 @@
 
 'use strict';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Schema } from './schema/schema';
@@ -74,7 +73,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('react')
-);
+module.exports = App;

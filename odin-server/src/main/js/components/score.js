@@ -213,6 +213,6 @@ class Score extends React.Component{
 Score.defaultProps = {
   height: 120,
   width: 200,
-}
+};
 
 module.exports = Score;
