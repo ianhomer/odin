@@ -22,7 +22,8 @@
   "jest": {
     "moduleNameMapper": {
       "components/(.*)": "<rootDir>/src/main/js/components/$1"
-    }
+    },
+    "testURL" : "http://localhost:8080"
   },
   "dependencies": {
     "ajv": "^5.2.2",
