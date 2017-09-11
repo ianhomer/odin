@@ -1,3 +1,5 @@
+// Provider component requires React import even though not explicitly referenced
+/* eslint no-unused-vars: "off" */
 import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
