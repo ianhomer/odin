@@ -2,9 +2,9 @@ import { createStore } from 'redux'
 import reducers  from 'reducers/index.js'
 import { addChannel } from 'actions/index.js'
 
-let store = createStore(reducers)
-
 test('Actions OK', () => {
+  let store = createStore(reducers)
+
   console.log(store.getState())
 
   // Every time the state changes, log it
@@ -21,4 +21,6 @@ test('Actions OK', () => {
       }
     )
   )
+
+  unsubscribe()
 })
