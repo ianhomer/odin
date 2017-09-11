@@ -12,37 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-const PropTypes = require('prop-types');
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+const React = require('react')
+const PropTypes = require('prop-types')
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-const client = require('./../client');
+const client = require('./../client')
 
-const ChannelList = require('./channelList');
-const SequenceList = require('./sequenceList');
-const Composer = require('./composer/composer');
+const ChannelList = require('./channelList')
+const SequenceList = require('./sequenceList')
+const Composer = require('./composer/composer')
 
 class Project extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       project: null
-    };
+    }
 
-    this.renderSequenceList = this.renderSequenceList.bind(this);
-    this.renderChannelList = this.renderChannelList.bind(this);
-    this.renderComposer = this.renderComposer.bind(this);
+    this.renderSequenceList = this.renderSequenceList.bind(this)
+    this.renderChannelList = this.renderChannelList.bind(this)
+    this.renderComposer = this.renderComposer.bind(this)
   }
 
   componentDidMount() {
     // Load first project (only one project supported for now)
     client({method: 'GET', path: '/api/project'}).done(response => {
-      var projects = response.entity._embedded.project;
-      this.setState({project: projects[0]});
-      this.props.schema.loadClazz('channel');
-    });
+      var projects = response.entity._embedded.project
+      this.setState({project: projects[0]})
+      this.props.schema.loadClazz('channel')
+    })
   }
 
   renderChannelList() {
@@ -52,7 +52,7 @@ class Project extends React.Component {
           <ChannelList schema={this.props.schema} project={this.state.project}/>
         }
       </div>
-    );
+    )
   }
 
   renderComposer() {
@@ -62,7 +62,7 @@ class Project extends React.Component {
           <Composer schema={this.props.schema} project={this.state.project}/>
         }
       </div>
-    );
+    )
   }
 
   renderSequenceList() {
@@ -72,7 +72,7 @@ class Project extends React.Component {
           <SequenceList schema={this.props.schema} project={this.state.project}/>
         }
       </div>
-    );
+    )
   }
 
   render() {
@@ -84,12 +84,12 @@ class Project extends React.Component {
           <Route exact path="/app/channels" component={this.renderChannelList}/>
         </div>
       </Router>
-    );
+    )
   }
 }
 
 Project.propTypes = {
   schema: PropTypes.object.isRequired
-};
+}
 
-module.exports = Project;
+module.exports = Project

@@ -12,33 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-import React from 'react';
+import React from 'react'
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Schema } from './schema/schema';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Schema } from './schema/schema'
 
-const client = require('./client');
+const client = require('./client')
 
-const Project = require('./components/project');
-const Developer = require('./components/developer/developer');
+const Project = require('./components/project')
+const Developer = require('./components/developer/developer')
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       schema : null
-    };
+    }
 
-    this.renderProject = this.renderProject.bind(this);
-    this.renderDeveloper = this.renderDeveloper.bind(this);
+    this.renderProject = this.renderProject.bind(this)
+    this.renderDeveloper = this.renderDeveloper.bind(this)
   }
 
   componentDidMount() {
     client({method: 'GET', path: '/services/schema'}).done(response => {
-      this.setState({schema: new Schema(response.entity)});
-    });
+      this.setState({schema: new Schema(response.entity)})
+    })
   }
 
   renderProject() {
@@ -48,7 +48,7 @@ class App extends React.Component {
           <Project schema={this.state.schema}/>
         }
       </div>
-    );
+    )
   }
 
   renderDeveloper() {
@@ -58,7 +58,7 @@ class App extends React.Component {
           <Developer project={this.state.project}/>
         }
       </div>
-    );
+    )
   }
 
   render() {
@@ -69,8 +69,8 @@ class App extends React.Component {
           <Route path="/app" component={this.renderProject}/>
         </div>
       </Router>
-    );
+    )
   }
 }
 
-module.exports = App;
+module.exports = App

@@ -12,45 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-const PropTypes = require('prop-types');
+const React = require('react')
+const PropTypes = require('prop-types')
 
-const crud = require('../crud');
+const crud = require('../crud')
 
-const EditEntity = require('./editEntity');
+const EditEntity = require('./editEntity')
 
-const Notation = require('./notation');
-const Pattern = require('./pattern');
-const Sequence = require('./sequence');
+const Notation = require('./notation')
+const Pattern = require('./pattern')
+const Sequence = require('./sequence')
 const Sequences = {
   'notation' : Notation,
   'pattern'  : Pattern,
-};
-const DefaultSequence = Sequence;
+}
+const DefaultSequence = Sequence
 
 // Rendering of generic sequence list
 class SequenceList extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
     // TODO : remove schema and links from this state if redundant
     this.state = {
       schema: [], entities: [], links: []
-    };
+    }
 
-    crud.bindMe(this);
+    crud.bindMe(this)
   }
 
   componentWillMount() {
     this.props.schema.loadClazzes(['sequence', 'pattern']).then(() => {
-      this.loadFromServer();
-    });
+      this.loadFromServer()
+    })
   }
 
   render() {
     var entities = this.state.entities.map(entity => {
-      var SequenceComponent = Sequences[entity.flowName] || DefaultSequence;
+      var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
       return (
         // TODO - change key to simply entity.name
         <div key={'div-' + entity._links.self.href}>
@@ -60,8 +60,8 @@ class SequenceList extends React.Component{
             onDelete={this.onDelete} onUpdate={this.onUpdate}
           />
         </div>
-      );
-    });
+      )
+    })
 
     return (
       // View sequence list.
@@ -84,33 +84,33 @@ class SequenceList extends React.Component{
           <hr/>
 
           {Object.keys(Sequences).map(flowName => {
-            var SequenceComponent = Sequences[flowName];
+            var SequenceComponent = Sequences[flowName]
             if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + flowName])) {
-              var clazz = this.props.schema.getFlowClazz(flowName);
+              var clazz = this.props.schema.getFlowClazz(flowName)
               return (
                 <EditEntity key={'create-' + flowName}
                   schema={this.props.schema} project={this.props.project}
                   clazz={clazz} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.onCreate}
                 />
-              );
+              )
             } else {
-              return (<div key={'create-' + flowName}>{flowName} class not loaded</div>);
+              return (<div key={'create-' + flowName}>{flowName} class not loaded</div>)
             }
           })}
 
         </div>
       </div>
-    );
+    )
   }
 }
 
 SequenceList.defaultProps = {
   path: 'sequence'
-};
+}
 
 SequenceList.propTypes = {
   schema: PropTypes.object.isRequired
-};
+}
 
-module.exports = SequenceList;
+module.exports = SequenceList

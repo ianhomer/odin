@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
+const React = require('react')
 
 class Channel extends React.Component{
   constructor(props) {
-    super(props);
-    this.handleDelete = this.handleDelete.bind(this);
+    super(props)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleDelete() {
-    this.props.onDelete(this.props.entity);
+    this.props.onDelete(this.props.entity)
   }
 
   render() {
@@ -35,8 +35,8 @@ class Channel extends React.Component{
           <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
         </div>
       </div>
-    );
+    )
   }
 }
 
-module.exports = Channel;
+module.exports = Channel

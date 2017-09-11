@@ -12,39 +12,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-import { ItemTypes } from '../../constants';
-import { DropTarget } from 'react-dnd';
+const React = require('react')
+import { ItemTypes } from '../../constants'
+import { DropTarget } from 'react-dnd'
 
 const dropTarget = {
   drop() {
-    return { action : 'remove' };
+    return { action : 'remove' }
   }
-};
+}
 
 function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
-  };
+  }
 }
 
 // Trash component.
 class Trash extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
-    const { connectDropTarget } = this.props;
+    const { connectDropTarget } = this.props
     return connectDropTarget(
       <div className="trash">remove</div>
-    );
+    )
   }
 }
 
 module.exports = DropTarget(
   [ ItemTypes.SEQUENCE_IN_LAYER, ItemTypes.LAYER ],
-  dropTarget, collect)(Trash);
+  dropTarget, collect)(Trash)

@@ -12,29 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
+const React = require('react')
 
-const crud = require('./../crud');
+const crud = require('./../crud')
 
-const Pattern = require('./pattern');
-const EditEntity = require('./editEntity');
+const Pattern = require('./pattern')
+const EditEntity = require('./editEntity')
 
 // Pattern list component.
 class PatternList extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       schema: [], entities: [], links: []
-    };
+    }
 
-    crud.bindMe(this);
+    crud.bindMe(this)
   }
 
   componentDidMount() {
-    this.loadSchema();
-    this.loadFromServer();
+    this.loadSchema()
+    this.loadFromServer()
   }
 
   // Render patterns.  Note that as per bootstrap requirement element sizes in a row MUST not
@@ -44,7 +44,7 @@ class PatternList extends React.Component{
         project={this.props.project}
         onDelete={this.onDelete} onUpdate={this.onUpdate}
       />
-    );
+    )
     return (
       <div>
         <div className="container">
@@ -67,12 +67,12 @@ class PatternList extends React.Component{
           {entities}
         </div>
       </div>
-    );
+    )
   }
 }
 
 PatternList.defaultProps = {
   path: 'pattern'
-};
+}
 
-module.exports = PatternList;
+module.exports = PatternList

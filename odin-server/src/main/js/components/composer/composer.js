@@ -12,58 +12,58 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-const PropTypes = require('prop-types');
+const React = require('react')
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+const PropTypes = require('prop-types')
 
-const crud = require('../../crud');
+const crud = require('../../crud')
 
-const LayerList = require('./layerList');
-const NotationCard = require('./notationCard');
-const PatternCard = require('./patternCard');
-const SequenceCard = require('./sequenceCard');
+const LayerList = require('./layerList')
+const NotationCard = require('./notationCard')
+const PatternCard = require('./patternCard')
+const SequenceCard = require('./sequenceCard')
 const Sequences = {
   'notation' : NotationCard,
   'pattern'  : PatternCard,
-};
-const DefaultSequence = SequenceCard;
+}
+const DefaultSequence = SequenceCard
 
 // Rendering of composer
 class Composer extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
     // TODO : Remove schema and links if redundant
     this.state = {
       schema: [], entities: [], links: []
-    };
+    }
 
-    crud.bindMe(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleAddLayer = this.handleAddLayer.bind(this);
-    this.handleMoveLayer = this.handleMoveLayer.bind(this);
-    this.onPatch = crud.onPatch.bind(this);
+    crud.bindMe(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleAddLayer = this.handleAddLayer.bind(this)
+    this.handleMoveLayer = this.handleMoveLayer.bind(this)
+    this.onPatch = crud.onPatch.bind(this)
   }
 
   componentDidMount() {
     this.props.schema.loadClazzes(['pattern']).then(() => {
-      this.loadFromServer();
-    });
+      this.loadFromServer()
+    })
   }
 
   handleChange() {
     // TODO : Look into Redux for state management, currently we're reloading the whole
     // view each time.
-    this.loadFromServer();
+    this.loadFromServer()
   }
 
   handleAddLayer(destination, layer, callback = this.handleChange) {
     this.onPatch(destination._links.self.href,
       [
         { op: 'add', path: '/layers/-', value: layer.name }
-      ], callback);
+      ], callback)
   }
 
   handleRemoveLayer(destination, layer, callback = this.handleChange) {
@@ -71,37 +71,37 @@ class Composer extends React.Component{
     // like this is NOT robust since there might be other reasons for null that we end up
     // swallowing.  We should address this shortcoming.
     if (destination != null) {
-      var layerIndex = destination.layers.indexOf(layer.name);
+      var layerIndex = destination.layers.indexOf(layer.name)
       if (layerIndex > -1) {
-        var layerPath = '/layers/' + layerIndex;
+        var layerPath = '/layers/' + layerIndex
         this.onPatch(destination._links.self.href,
           [
             // Test layer at given index in array is the as expected on server
             { op: 'test', path: layerPath, value: layer.name },
             // ... then remove it.
             { op: 'remove', path: layerPath  }
-          ], callback);
+          ], callback)
       } else {
         console.warn('Cannot find ' + JSON.stringify(layer) + ' in '
-          + JSON.stringify(destination) + ' to remove it');
+          + JSON.stringify(destination) + ' to remove it')
       }
     } else {
-      callback();
+      callback()
     }
   }
 
   handleMoveLayer(destination, from, layer, callback = this.handleChange) {
     this.handleRemoveLayer(from, layer, () => {
-      this.handleAddLayer(destination, layer, callback);
-    });
+      this.handleAddLayer(destination, layer, callback)
+    })
   }
 
   render() {
     var entities = this.state.entities.map(entity => {
-      var SequenceComponent = Sequences[entity.flowName] || DefaultSequence;
+      var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
       if (!entity.path) {
-        console.error('Entity path not defined for ' + entity);
-        return (<div/>);
+        console.error('Entity path not defined for ' + entity)
+        return (<div/>)
       } else {
         return (
           <div key={'div-' + entity._links.self.href}>
@@ -111,9 +111,9 @@ class Composer extends React.Component{
               onAddLayer={this.handleAddLayer}
             />
           </div>
-        );
+        )
       }
-    });
+    })
 
     return (
       // Display layer list and sequence cards
@@ -130,16 +130,16 @@ class Composer extends React.Component{
         <div className="break">&nbsp;</div>
         <div>{entities}</div>
       </div>
-    );
+    )
   }
 }
 
 Composer.defaultProps = {
   path: 'sequence'
-};
+}
 
 Composer.propTypes = {
   schema: PropTypes.object.isRequired
-};
+}
 
-module.exports = DragDropContext(HTML5Backend)(Composer);
+module.exports = DragDropContext(HTML5Backend)(Composer)

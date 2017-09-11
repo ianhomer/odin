@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
+const React = require('react')
 
 // Trace component to handle information for development support.
 class Trace extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
     return (
       <div className="debug time"><span className="scope">{this.props.scope}</span>{new Date().toLocaleTimeString()}</div>
-    );
+    )
   }
 }
 
-module.exports = Trace;
+module.exports = Trace

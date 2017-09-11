@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-import PropTypes from 'prop-types';
+const React = require('react')
+import PropTypes from 'prop-types'
 
-import { ItemTypes } from '../../constants';
-import { DragSource, DropTarget } from 'react-dnd';
+import { ItemTypes } from '../../constants'
+import { DragSource, DropTarget } from 'react-dnd'
 
-const crud = require('../../crud');
+const crud = require('../../crud')
 
-const SequenceInLayer = require('./sequenceInLayer');
+const SequenceInLayer = require('./sequenceInLayer')
 
 /**
  * Implements the drag source contract.
@@ -34,25 +34,25 @@ const dragSource = {
       entity : props.entity,
       parent : props.parent,
       type : ItemTypes.LAYER
-    };
+    }
   },
 
   endDrag(props, monitor) {
     if (monitor.didDrop()) {
-      var action = monitor.getDropResult().action;
+      var action = monitor.getDropResult().action
       if (action == 'remove') {
-        props.onDelete(props.entity);
+        props.onDelete(props.entity)
       } else if (action == 'add') {
-        props.onAddLayer(monitor.getDropResult().entity, props.entity, props.onChange);
+        props.onAddLayer(monitor.getDropResult().entity, props.entity, props.onChange)
       } else if (action == 'move') {
-        props.onMoveLayer(monitor.getDropResult().entity, props.parent, props.entity, props.onChange);
+        props.onMoveLayer(monitor.getDropResult().entity, props.parent, props.entity, props.onChange)
       } else {
         console.error('Action ' + action + ' has not been implemented for layers : result = ' +
-          JSON.stringify(monitor.getDropResult()));
+          JSON.stringify(monitor.getDropResult()))
       }
     }
   }
-};
+}
 
 const dropTarget = {
   drop(props) {
@@ -61,34 +61,34 @@ const dropTarget = {
       entity : props.entity,
       sequences : props.sequences,
       isOverCurrent : props.isOverCurrent
-    };
+    }
   },
 
   canDrop(props, monitor) {
-    var isOverCurrent = monitor.isOver({ shallow: true });
+    var isOverCurrent = monitor.isOver({ shallow: true })
     if (monitor.getItem().type == ItemTypes.SEQUENCE) {
       // can drop sequence
       for (var i =0 ; i < props.sequences.length ; i++) {
         // Sequence is already in layer
         if (props.sequences[i].name == monitor.getItem().entity.name) {
-          return false;
+          return false
         }
       }
     } else {
       // can drop layer
       if (props.entity.name == monitor.getItem().entity.name) {
-        return false;
+        return false
       }
     }
-    return isOverCurrent;
+    return isOverCurrent
   }
-};
+}
 
 function collectDrag(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
-  };
+  }
 }
 
 function collectDrop(connect, monitor) {
@@ -97,7 +97,7 @@ function collectDrop(connect, monitor) {
     isOver: monitor.isOver(),
     isOverCurrent: monitor.isOver({ shallow: true }),
     canDrop: monitor.canDrop()
-  };
+  }
 }
 
 const propTypes = {
@@ -110,18 +110,18 @@ const propTypes = {
   // Injected by React DnD:
   isOverCurrent: PropTypes.bool.isRequired,
   canDrop: PropTypes.bool.isRequired
-};
+}
 
 class Layer extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.handleChange = this.handleChange.bind(this);
-    this.onPatch = crud.onPatch.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.onPatch = crud.onPatch.bind(this)
   }
 
   handleChange(props) {
-    var layerPath = '/layers/' + props.layerIndex;
+    var layerPath = '/layers/' + props.layerIndex
     this.onPatch(props.href,
       [
         // Test layer at given index in array is the as expected on server
@@ -129,26 +129,26 @@ class Layer extends React.Component{
         // ... then remove it.
         { op: 'remove', path: layerPath  }
       ]
-    );
-    this.props.onChange();
+    )
+    this.props.onChange()
   }
 
   render() {
-    var sequences = this.props.sequences;
+    var sequences = this.props.sequences
 
     // Lookup the sequences that are in this layer and pass this array into the layer component
-    var sequencesInLayer = [];
+    var sequencesInLayer = []
     for (var sequenceName in sequences) {
-      var sequence = sequences[sequenceName];
+      var sequence = sequences[sequenceName]
       for (var j = 0 ; j < sequence.layers.length ; j++) {
-        var layerName = sequence.layers[j];
+        var layerName = sequence.layers[j]
         if (layerName == this.props.entity.name) {
           // Push a sequence object onto the array with enough information to handle change
           sequencesInLayer.push({
             name : sequence.name,
             index : j,
             href : sequence._links.self.href
-          });
+          })
         }
       }
     }
@@ -157,14 +157,14 @@ class Layer extends React.Component{
       <SequenceInLayer key={entry.name + '-' + this.props.entity._links.self.href}
         name={entry.name} layerIndex={entry.index} href={entry.href}
         onChange={this.handleChange}/>
-    );
+    )
 
 
-    const { connectDropTarget, connectDragSource, isOverCurrent, canDrop } = this.props;
+    const { connectDropTarget, connectDragSource, isOverCurrent, canDrop } = this.props
 
-    var style = {};
+    var style = {}
     if (isOverCurrent && canDrop) {
-      style['backgroundColor'] = 'darkgreen';
+      style['backgroundColor'] = 'darkgreen'
     }
 
     if (connectDragSource && connectDropTarget) {
@@ -174,7 +174,7 @@ class Layer extends React.Component{
           {this.props.children}
           <div className="sequences">{sequenceNames}</div>
         </div>
-      ));
+      ))
     } else {
       // TODO : We can probably remove this block now, since nesting mostly OK.
       return (
@@ -182,12 +182,12 @@ class Layer extends React.Component{
           ! {this.props.entity.name} !
           <div className="sequences">{sequenceNames}</div>
         </div>
-      );
+      )
     }
   }
 }
 
-Layer.propTypes = propTypes;
+Layer.propTypes = propTypes
 
 module.exports = DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
-  DropTarget([ ItemTypes.SEQUENCE, ItemTypes.LAYER], dropTarget, collectDrop)(Layer));
+  DropTarget([ ItemTypes.SEQUENCE, ItemTypes.LAYER], dropTarget, collectDrop)(Layer))

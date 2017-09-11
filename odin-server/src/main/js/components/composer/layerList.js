@@ -12,91 +12,91 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-const PropTypes = require('prop-types');
+const React = require('react')
+const PropTypes = require('prop-types')
 
-const crud = require('../../crud');
+const crud = require('../../crud')
 
-const Trash = require('./trash');
-const Layer = require('./layer');
+const Trash = require('./trash')
+const Layer = require('./layer')
 
 class LayerList extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       // TODO : Can we remove schema and links?
       schema: [], entities: [], links: []
-    };
+    }
 
-    crud.bindMe(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyPress = this._handleKeyPress.bind(this);
-    this.handleNewLayer = this.handleNewLayer.bind(this);
-    this.onCreate = this.onCreate.bind(this);
-    this.onDelete = this.onDelete.bind(this);
+    crud.bindMe(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleKeyPress = this._handleKeyPress.bind(this)
+    this.handleNewLayer = this.handleNewLayer.bind(this)
+    this.onCreate = this.onCreate.bind(this)
+    this.onDelete = this.onDelete.bind(this)
   }
 
   handleDelete(entity) {
-    this.onDelete(entity);
+    this.onDelete(entity)
   }
 
   handleChange() {
-    this.loadFromServer();
-    this.props.onChange();
+    this.loadFromServer()
+    this.props.onChange()
   }
 
   // Create new layer
   handleNewLayer(e) {
-    e.preventDefault();
-    var value = e.target.value.trim();
+    e.preventDefault()
+    var value = e.target.value.trim()
     this.onCreate({
       name: value,
       project: this.props.project._links.self.href
-    }, 'layer');
+    }, 'layer')
   }
 
   _handleKeyPress(e) {
     if (e.key === 'Enter') {
-      this.handleNewLayer(e);
+      this.handleNewLayer(e)
     }
   }
 
   componentDidMount() {
-    this.loadFromServer();
+    this.loadFromServer()
   }
 
 
   findRootLayers(layers) {
     // Create array of layer names
-    var layerNames = Object.keys(layers);
-    var childNames = [];
+    var layerNames = Object.keys(layers)
+    var childNames = []
     this.state.entities.forEach(entity => {
       // ... and remove any that are children
-      entity.layers.forEach(layerName => childNames.push(layerName));
-    });
-    var rootLayerNames = layerNames.filter(name => !childNames.includes(name));
+      entity.layers.forEach(layerName => childNames.push(layerName))
+    })
+    var rootLayerNames = layerNames.filter(name => !childNames.includes(name))
     // Then collect the remaining layers as the root layers
-    var rootLayers = [];
+    var rootLayers = []
     rootLayerNames.forEach(layerName => {
-      var layer = layers[layerName];
+      var layer = layers[layerName]
       if (layer == null) {
-        console.warn('Cannot find layer ' + layerName + ' as root layer');
+        console.warn('Cannot find layer ' + layerName + ' as root layer')
       } else {
-        rootLayers.push(layer);
+        rootLayers.push(layer)
       }
-    });
-    return rootLayers;
+    })
+    return rootLayers
   }
 
   renderLayer(layer, parentLayer, layers, sequences, stack) {
     if (stack.includes(layer.name)) {
-      return (<div key={layer.name}>(recursive : {layer.name})</div>);
+      return (<div key={layer.name}>(recursive : {layer.name})</div>)
     }
-    stack.push(layer.name);
+    stack.push(layer.name)
     var component = (
       <Layer entity={layer} layers={layers} sequences={sequences}
         parent={parentLayer}
@@ -105,29 +105,29 @@ class LayerList extends React.Component{
         onMoveLayer={this.props.onMoveLayer}
         onAddLayer={this.props.onAddLayer}>
         {layer.layers.map(layerName => {
-          var childLayer = layers[layerName];
+          var childLayer = layers[layerName]
           if (childLayer == null) {
-            return (<div key={layerName}>?{layerName}?</div>);
+            return (<div key={layerName}>?{layerName}?</div>)
           } else {
-            return this.renderLayer(childLayer, layer, layers, sequences, stack);
+            return this.renderLayer(childLayer, layer, layers, sequences, stack)
           }
         })}
       </Layer>
-    );
-    stack.pop();
-    return component;
+    )
+    stack.pop()
+    return component
   }
 
   render() {
-    var layers = {};
-    this.state.entities.forEach(layer => layers[layer.name] = layer);
-    var sequences = {};
-    this.props.sequences.forEach(sequence => sequences[sequence.name] = sequence);
+    var layers = {}
+    this.state.entities.forEach(layer => layers[layer.name] = layer)
+    var sequences = {}
+    this.props.sequences.forEach(sequence => sequences[sequence.name] = sequence)
 
-    var stack = [];
+    var stack = []
     var renderedLayers = this.findRootLayers(layers).map(entity =>
       this.renderLayer(entity, null, layers, sequences, stack)
-    );
+    )
 
     return (
       <div>
@@ -142,16 +142,16 @@ class LayerList extends React.Component{
           />
         </div>
       </div>
-    );
+    )
   }
 }
 
 LayerList.defaultProps = {
   path: 'layer'
-};
+}
 
 LayerList.propTypes = {
   schema: PropTypes.object.isRequired
-};
+}
 
-module.exports = LayerList;
+module.exports = LayerList

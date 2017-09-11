@@ -12,42 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-const PropTypes = require('prop-types');
+const React = require('react')
+const PropTypes = require('prop-types')
 
-const crud = require('./../crud');
+const crud = require('./../crud')
 
-const EditEntity = require('./editEntity');
-const Tick = require('./tick');
-const Score = require('./score');
+const EditEntity = require('./editEntity')
+const Tick = require('./tick')
+const Score = require('./score')
 
 // Notation component.
 class Notation extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       entity: this.props.entity, editing: null
-    };
+    }
 
-    this.handleDelete = this.handleDelete.bind(this);
-    this.toggleEditing = this._toggleEditing.bind(this);
-    this.onUpdate = crud.onUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
+    this.toggleEditing = this._toggleEditing.bind(this)
+    this.onUpdate = crud.onUpdate.bind(this)
   }
 
   _toggleEditing() {
-    this.setState({editing : this.state.entity._links.self.href});
+    this.setState({editing : this.state.entity._links.self.href})
   }
 
   handleDelete(event) {
-    event.stopPropagation();
-    this.props.onDelete(this.props.entity);
+    event.stopPropagation()
+    this.props.onDelete(this.props.entity)
   }
 
   render() {
-    var sequence = this.state.entity;
+    var sequence = this.state.entity
     if (this.state.editing) {
       return (
 
@@ -57,7 +57,7 @@ class Notation extends React.Component{
           clazz={this.props.clazz} fields={Notation.defaultProps.fields}
           onApply={this.onUpdate}
         />
-      );
+      )
     } else {
       return (
 
@@ -87,7 +87,7 @@ class Notation extends React.Component{
             <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
           </div>
         </div>
-      );
+      )
     }
   }
 }
@@ -95,7 +95,7 @@ class Notation extends React.Component{
 Notation.propTypes = {
   clazz: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
-};
+}
 
 Notation.defaultProps = {
   path: 'notation',
@@ -131,6 +131,6 @@ Notation.defaultProps = {
       hidden : true
     }
   },
-};
+}
 
-module.exports = Notation;
+module.exports = Notation

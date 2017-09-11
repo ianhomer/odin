@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
+const React = require('react')
 
 // Tick component.
 class Tick extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
@@ -32,8 +32,8 @@ class Tick extends React.Component{
               <span className="denominator">/{this.props.denominator}</span>
         }&nbsp;</div>
       </div>
-    );
+    )
   }
 }
 
-module.exports = Tick;
+module.exports = Tick

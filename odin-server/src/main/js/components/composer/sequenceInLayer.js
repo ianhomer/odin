@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
+const React = require('react')
 
-import PropTypes from 'prop-types';
-import { DragSource } from 'react-dnd';
-import { ItemTypes } from '../../constants.js';
+import PropTypes from 'prop-types'
+import { DragSource } from 'react-dnd'
+import { ItemTypes } from '../../constants.js'
 
 /**
  * Implements the drag source contract.
@@ -31,15 +31,15 @@ const cardSource = {
       href : props.href,
       // One day we might use Redux to manage application state, for now we'll pass in onChange functions
       onChange : props.onChange
-    };
+    }
   },
 
   endDrag(props, monitor) {
     if (monitor.didDrop()) {
-      props.onChange(props);
+      props.onChange(props)
     }
   }
-};
+}
 
 /**
  * Specifies the props to inject into your component.
@@ -48,7 +48,7 @@ function collect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
-  };
+  }
 }
 
 const propTypes = {
@@ -59,22 +59,22 @@ const propTypes = {
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,
   connectDragSource: PropTypes.func.isRequired
-};
+}
 
 // Sequence in layer.
 class SequenceInLayer extends React.Component{
   render() {
-    const { isDragging, connectDragSource, name } = this.props;
+    const { isDragging, connectDragSource, name } = this.props
     return connectDragSource(
       // View card
       <div className="sequenceInLayer" style={{ opacity: isDragging ? 0.5 : 1 }}>
         {name}
       </div>
-    );
+    )
   }
 }
 
-SequenceInLayer.propTypes = propTypes;
+SequenceInLayer.propTypes = propTypes
 
 // Export the wrapped component:
-module.exports = DragSource(ItemTypes.SEQUENCE_IN_LAYER, cardSource, collect)(SequenceInLayer);
+module.exports = DragSource(ItemTypes.SEQUENCE_IN_LAYER, cardSource, collect)(SequenceInLayer)

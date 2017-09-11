@@ -12,28 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-const PropTypes = require('prop-types');
+const React = require('react')
+const PropTypes = require('prop-types')
 
-const crud = require('./../crud');
+const crud = require('./../crud')
 
-const Channel = require('./channel');
-const EditEntity = require('./editEntity');
+const Channel = require('./channel')
+const EditEntity = require('./editEntity')
 
 class ChannelList extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       entities: [], links: [], loaded: false
-    };
+    }
 
-    crud.bindMe(this);
+    crud.bindMe(this)
   }
 
   componentDidMount() {
-    this.loadFromServer();
+    this.loadFromServer()
   }
 
   render() {
@@ -41,7 +41,7 @@ class ChannelList extends React.Component{
       <Channel entity={entity} key={entity._links.self.href}
         path={this.props.path}
         onDelete={this.onDelete}/>
-    );
+    )
 
     return (
       <div>
@@ -60,7 +60,7 @@ class ChannelList extends React.Component{
           {entities}
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -80,10 +80,10 @@ ChannelList.defaultProps = {
       hidden : true
     }
   }
-};
+}
 
 ChannelList.propTypes = {
   schema: PropTypes.object.isRequired
-};
+}
 
-module.exports = ChannelList;
+module.exports = ChannelList

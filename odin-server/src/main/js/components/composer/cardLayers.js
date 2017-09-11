@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
+const React = require('react')
 
 // CardLayers component.
 class CardLayers extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
@@ -27,8 +27,8 @@ class CardLayers extends React.Component{
       <div>
         {this.props.entity.layers.map(layer => <div key={layer}>{layer}</div>)}
       </div>
-    );
+    )
   }
 }
 
-module.exports = CardLayers;
+module.exports = CardLayers

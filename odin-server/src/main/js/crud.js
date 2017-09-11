@@ -13,14 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
 // Functions to create, read, update and delete entities
 
-const client = require('./client');
-const follow = require('./follow');
+const client = require('./client')
+const follow = require('./follow')
 
-const root = '/api';
+const root = '/api'
 
 // Load entities from the server.
 //
@@ -32,42 +32,42 @@ const root = '/api';
 
 module.exports = {
   bindMe : function(that) {
-    that.loadFromServer = this.loadFromServer.bind(that);
-    that.onDelete = this.onDelete.bind(that);
-    that.onCreate = this.onCreate.bind(that);
-    that.onUpdate = this.onUpdate.bind(that);
+    that.loadFromServer = this.loadFromServer.bind(that)
+    that.onDelete = this.onDelete.bind(that)
+    that.onCreate = this.onCreate.bind(that)
+    that.onUpdate = this.onUpdate.bind(that)
   },
 
   loadFromServer : function() {
     this.props.schema.loadClazz(this.props.path).then(() => {
       follow(client, root, [{rel: this.props.path}]).done(collection => {
-        var entities = [];
+        var entities = []
 
         // Load all the entities by concatenating all embedded entities.
 
         for (var path in collection.entity._embedded) {
-          var embeddedEntities = collection.entity._embedded[path];
+          var embeddedEntities = collection.entity._embedded[path]
 
           // Set the path value in the entity so that the front end knows what type of entity
           // this is.
 
           if (Array.isArray(embeddedEntities)) {
             for (var key in embeddedEntities) {
-              embeddedEntities[key].path = path;
+              embeddedEntities[key].path = path
             }
           } else {
-            embeddedEntities.path = path;
+            embeddedEntities.path = path
           }
-          entities = entities.concat(embeddedEntities);
+          entities = entities.concat(embeddedEntities)
         }
 
         // Set the state.
 
         this.setState({
           entities: entities
-        });
-      });
-    });
+        })
+      })
+    })
   },
 
   // Create entity via REST API.
@@ -78,10 +78,10 @@ module.exports = {
         path: entities.entity._links.self.href,
         entity: entity,
         headers: {'Content-Type': 'application/json'}
-      });
+      })
     }).done(_response => {
-      this.loadFromServer();
-    });
+      this.loadFromServer()
+    })
   },
 
   // Patch entity via REST API.
@@ -98,16 +98,16 @@ module.exports = {
       }
     }).done(_response => {
       if (callback) {
-        callback();
+        callback()
       }
       // this.loadFromServer();
     }, response => {
       if (response.status && response.status.code === 400) {
-        console.error('DENIED: Unable to patch ' + href + '. Perhaps client state is stale.');
+        console.error('DENIED: Unable to patch ' + href + '. Perhaps client state is stale.')
       } else {
-        console.error('Unable to patch ' + href + ' : ' + response);
+        console.error('Unable to patch ' + href + ' : ' + response)
       }
-    });
+    })
   },
 
   // Update entity via REST API.
@@ -126,19 +126,19 @@ module.exports = {
       this.setState({
         entity: entity,
         editing: null
-      });
+      })
       // this.loadFromServer();
     }, response => {
       if (response.status.code === 412) {
         console.error('DENIED: Unable to update ' +
-          entity.entity._links.self.href + '. Your copy is stale.');
+          entity.entity._links.self.href + '. Your copy is stale.')
       }
-    });
+    })
   },
 
   onDelete : function(entity) {
     client({method: 'DELETE', path: entity._links.self.href}).done(_response => {
-      this.loadFromServer();
-    });
+      this.loadFromServer()
+    })
   }
-};
+}

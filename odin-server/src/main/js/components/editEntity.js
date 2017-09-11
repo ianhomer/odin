@@ -12,57 +12,57 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const crud = require('./../crud');
-const Score = require('./score');
+const React = require('react')
+const PropTypes = require('prop-types')
+const crud = require('./../crud')
+const Score = require('./score')
 
 // Edit an entity.
 class EditEntity extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
 
     if (this.props.entity) {
-      this.onApply = crud.onUpdate.bind(this);
+      this.onApply = crud.onUpdate.bind(this)
     } else {
-      this.onApply = crud.onCreate.bind(this);
+      this.onApply = crud.onCreate.bind(this)
     }
-    this.handleKeyPress = this._handleKeyPress.bind(this);
-    this.handleApply = this.handleApply.bind(this);
+    this.handleKeyPress = this._handleKeyPress.bind(this)
+    this.handleApply = this.handleApply.bind(this)
   }
 
   handleApply(e) {
-    this.props.schema.handleApply(e, this.refs, this.props.clazz.id, this.props.onApply);
+    this.props.schema.handleApply(e, this.refs, this.props.clazz.id, this.props.onApply)
   }
 
   _handleKeyPress(e) {
     if (e.key === 'Enter') {
-      this.handleApply(e);
+      this.handleApply(e)
     }
   }
 
   // Render a group of inputs for the specified fields.
   renderInputFieldGroup(clazz, fields, parentKey) {
     if (!fields) {
-      console.warn('Fields not defined');
-      return (<div/>);
+      console.warn('Fields not defined')
+      return (<div/>)
     }
     if (!clazz) {
-      console.warn('Clazz not defined');
-      return (<div/>);
+      console.warn('Clazz not defined')
+      return (<div/>)
     }
     if (!clazz.properties) {
-      console.warn('Clazz does not have properties');
-      return (<div>{JSON.stringify(clazz)}</div>);
+      console.warn('Clazz does not have properties')
+      return (<div>{JSON.stringify(clazz)}</div>)
     }
     var renderedFields = Object.keys(fields).map(function(fieldName) {
-      var key = parentKey ? parentKey + '.' + fieldName : fieldName;
+      var key = parentKey ? parentKey + '.' + fieldName : fieldName
       if (fields[fieldName].fields) {
         // Given field is a group of child fields
-        var cellWidth = fields[fieldName].cellWidth || 1;
-        var cellClassName = 'component col-' + cellWidth;
+        var cellWidth = fields[fieldName].cellWidth || 1
+        var cellClassName = 'component col-' + cellWidth
         return (
           <div className={cellClassName} key={key}>
             <div className="row">
@@ -71,53 +71,53 @@ class EditEntity extends React.Component{
                 key)}
             </div>
           </div>
-        );
+        )
       } else {
-        return this.renderInputField(clazz, fields, fieldName, key);
+        return this.renderInputField(clazz, fields, fieldName, key)
       }
-    }, this);
-    return renderedFields;
+    }, this)
+    return renderedFields
   }
 
   renderInputField(clazz, fields, fieldName, key) {
-    var field = fields[fieldName];
-    var size = 0;
-    var definition = clazz.properties[fieldName];
-    var type;
+    var field = fields[fieldName]
+    var size = 0
+    var definition = clazz.properties[fieldName]
+    var type
     if (definition) {
-      type = definition.type;
+      type = definition.type
     } else {
-      type = 'string';
+      type = 'string'
       console.error('Cannot find attribute : ' + fieldName + ' in ' +
-        JSON.stringify(clazz.properties));
+        JSON.stringify(clazz.properties))
     }
 
     if (field.size) {
-      size = field.size;
+      size = field.size
     } else {
       if (type == 'integer') {
-        size = 3;
+        size = 3
       }
     }
 
-    var cellWidth = field.cellWidth || 1;
-    var cellClassName = 'col-' + cellWidth;
-    var value;
+    var cellWidth = field.cellWidth || 1
+    var cellClassName = 'col-' + cellWidth
+    var value
     if (this.props.entity) {
-      value = clazz.getEntityValue(this.props.entity, key);
+      value = clazz.getEntityValue(this.props.entity, key)
       if (type == 'object') {
         // TODO : Handle objects better than string serialisation
-        value = JSON.stringify(value);
+        value = JSON.stringify(value)
       }
     } else {
-      value = field.defaultValue;
+      value = field.defaultValue
     }
 
     // TODO : Do notation by field type NOT field name
     if (fieldName == 'notation') {
       var scoreEntity = this.props.entity ?
         this.props.entity :
-        { notation : value };
+        { notation : value }
       return (
         <div className={cellClassName} key={key}>
           <Score entity={scoreEntity} editor="true"
@@ -125,20 +125,20 @@ class EditEntity extends React.Component{
             width="800"
             onKeyPress={this.handleKeyPress}/>
         </div>
-      );
+      )
     } else {
       // If field is hidden or read only then we maintain value in hidden field
       if (field.hidden) {
-        return (<input type="hidden" key={key} name={key} ref={key} value={value} />);
+        return (<input type="hidden" key={key} name={key} ref={key} value={value} />)
       } else if (field.readOnly) {
         return (
           <div className={cellClassName} key={key}>
             <span>{value}</span>
             <input type="hidden" name={key} ref={key} value={value} />
           </div>
-        );
+        )
       }
-      var maxLength = field.maxLength || 1024;
+      var maxLength = field.maxLength || 1024
       return (
         <div className={cellClassName} key={key}>
           {field.label && <span>{field.label}</span>}
@@ -148,18 +148,18 @@ class EditEntity extends React.Component{
             size={size} maxLength={maxLength}
           />
         </div>
-      );
+      )
     }
   }
 
   render() {
     if (!this.props.project) {
-      console.warn('Project not defined ' + this.props.clazz.id + ', cannot create entity create row.');
-      return (<div/>);
+      console.warn('Project not defined ' + this.props.clazz.id + ', cannot create entity create row.')
+      return (<div/>)
     }
 
-    var renderedFields = this.renderInputFieldGroup(this.props.clazz, this.props.fields);
-    var label = this.props.entity ? 'Update' : 'Create';
+    var renderedFields = this.renderInputFieldGroup(this.props.clazz, this.props.fields)
+    var label = this.props.entity ? 'Update' : 'Create'
 
     // TODO : Etag support
     //          <input type="hidden" name="headers.Etag" ref="headers.Etag"
@@ -190,13 +190,13 @@ class EditEntity extends React.Component{
           <button type="submit" className="btn btn-primary" onClick={this.handleApply}>{label}</button>
         </div>
       </div>
-    );
+    )
   }
 }
 
 EditEntity.propTypes = {
   clazz: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
-};
+}
 
-module.exports = EditEntity;
+module.exports = EditEntity

@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
+const React = require('react')
 
 class Note extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
@@ -28,11 +28,11 @@ class Note extends React.Component{
         <div className="col-4">{this.props.velocity}</div>
         <div className="col-4">{this.props.numerator}</div>
       </div>
-    );
+    )
   }
 }
 
-module.exports = Note;
+module.exports = Note
 
 
 

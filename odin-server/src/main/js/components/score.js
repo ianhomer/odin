@@ -12,24 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-const Vex = require('vexflow');
+const React = require('react')
+const Vex = require('vexflow')
 
-const client = require('../client');
-const VALIDATE_FIRST = false;
+const client = require('../client')
+const VALIDATE_FIRST = false
 
 function concat(a, b) {
-  return a.concat(b);
+  return a.concat(b)
 }
 
 // Musical score component.
 class Score extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
 
-    var properties = this.props.entity.properties;
+    var properties = this.props.entity.properties
     this.state = {
       notation: properties && properties.notation,
       count: 1,
@@ -37,31 +37,31 @@ class Score extends React.Component{
       // may suggest alternative dimensions and when it does this style in the state should
       // be updated.
       style: {height : this.props.height, width : this.props.width}
-    };
+    }
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
-    this.componentDidUpdate();
+    this.componentDidUpdate()
   }
 
   componentDidUpdate() {
     try {
-      this.renderNotation();
+      this.renderNotation()
     } catch (error) {
-      console.error(error, 'Cannot draw score');
+      console.error(error, 'Cannot draw score')
     }
   }
 
   handleChange(event) {
     try {
       if (VALIDATE_FIRST) {
-        this.renderNotation(event.target.value, true);
+        this.renderNotation(event.target.value, true)
       }
-      this.setState( {notation: event.target.value, count: this.state.count + 1} );
+      this.setState( {notation: event.target.value, count: this.state.count + 1} )
     } catch (error) {
-      console.warn('Cannot draw score so not updating state : ' + error.message);
+      console.warn('Cannot draw score so not updating state : ' + error.message)
     }
   }
 
@@ -70,14 +70,14 @@ class Score extends React.Component{
     // set to this changing value, React will force a reload of the element, otherwise React is
     // not aware that the element is changing (via the VexFlow API) and so VexFlow draw keeps
     // appending further scores instead of replacing.
-    var ending = '-notation-' + this.state.count;
+    var ending = '-notation-' + this.state.count
     if (extra != '') {
-      ending += '-' + extra;
+      ending += '-' + extra
     }
     if (this.props.entity && this.props.entity._links) {
-      return this.props.entity._links.self.href + ending;
+      return this.props.entity._links.self.href + ending
     } else {
-      return this.props.elementKey + ending;
+      return this.props.elementKey + ending
     }
   }
 
@@ -89,68 +89,68 @@ class Score extends React.Component{
       params: {'notation' : notation},
       headers: {'Accept': 'application/json'}
     }).then(response => {
-      this.renderComposition(response.entity, dryRun);
+      this.renderComposition(response.entity, dryRun)
     }).catch(reason => {
-      console.error(reason);
-    });
+      console.error(reason)
+    })
   }
 
   // Remove previous score canvas that might have been drawn
   removePreviousCanvases(elementId) {
-    var element = document.getElementById(elementId);
+    var element = document.getElementById(elementId)
     if (element) {
-      var canvases = element.getElementsByTagName('svg');
+      var canvases = element.getElementsByTagName('svg')
       for (var i = 0; i < canvases.length ; i++) {
-        element.removeChild(canvases[i]);
+        element.removeChild(canvases[i])
       }
     }
   }
 
   renderComposition(composition, dryRun = false) {
-    var selector;
+    var selector
     if (dryRun) {
       // For dry run we render score in a hidden element so that we that end user does not
       // see a blank canvas on error.
-      selector = this.getElementId('hidden');
+      selector = this.getElementId('hidden')
     } else {
-      selector = this.getElementId();
+      selector = this.getElementId()
     }
 
-    this.removePreviousCanvases(selector);
+    this.removePreviousCanvases(selector)
 
-    var element = document.getElementById(selector);
+    var element = document.getElementById(selector)
     if (!element) {
-      console.warn('Cannot find selector ' + selector);
-      return;
+      console.warn('Cannot find selector ' + selector)
+      return
     }
     var vf = new Vex.Flow.Factory({
       renderer: {elementId: selector, width: this.state.style.width, height: this.state.style.height}
-    });
+    })
 
-    vf.reset();
-    vf.getContext().clear();
+    vf.reset()
+    vf.getContext().clear()
 
-    var score = vf.EasyScore();
+    var score = vf.EasyScore()
 
-    var voice = score.voice.bind(score);
-    var notes = score.notes.bind(score);
+    var voice = score.voice.bind(score)
+    var notes = score.notes.bind(score)
 
-    var x = 0;
-    var y = 0;
+    var x = 0
+    var y = 0
 
     // Render composition
     for (var i = 0 ; i < composition.measures.length ; i++) {
 
       // Render measure
-      var measure = composition.measures[i];
+      var measure = composition.measures[i]
 
-      var width = 200;
-      var system = vf.System({ x: x, y: y, width: width, spaceBetweenStaves: 10 });
-      x += width;
+      var width = 200
+      var system = vf.System({ x: x, y: y, width: width, spaceBetweenStaves: 10 })
+      x += width
 
       // Render stave
       for (var j = 0 ; j < measure.staves.length ; j++) {
-        var staff = measure.staves[j];
+        var staff = measure.staves[j]
 
         // TODO : Support more than one voice per staff
         var systemStaff = system.addStave({
@@ -159,23 +159,23 @@ class Score extends React.Component{
               notes(staff.voices[0].notation)
             ].reduce(concat))
           ]
-        });
+        })
 
         if (i == 0 || composition.measures[i-1].staves[j].clef != staff.clef) {
-          systemStaff.addClef(staff.clef);
+          systemStaff.addClef(staff.clef)
         }
 
         if (i == 0 || composition.measures[i-1].key != measure.key) {
-          systemStaff.addKeySignature(measure.key);
+          systemStaff.addKeySignature(measure.key)
         }
 
         if (i == 0 || composition.measures[i-1].time != measure.time) {
-          systemStaff.addTimeSignature(measure.time);
+          systemStaff.addTimeSignature(measure.time)
         }
       }
     }
 
-    vf.draw();
+    vf.draw()
   }
 
   render() {
@@ -196,7 +196,7 @@ class Score extends React.Component{
             <div id={this.getElementId('hidden')} className="hidden"/>
           }
         </div>
-      );
+      )
     } else {
       return (
         <div>
@@ -205,7 +205,7 @@ class Score extends React.Component{
           }
           <span id={this.getElementId()}/>
         </div>
-      );
+      )
     }
   }
 }
@@ -213,6 +213,6 @@ class Score extends React.Component{
 Score.defaultProps = {
   height: 120,
   width: 200,
-};
+}
 
-module.exports = Score;
+module.exports = Score

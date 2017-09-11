@@ -14,108 +14,108 @@
 
 // System schema class
 
-const Ajv = require('ajv');
-const ajv = new Ajv({extendRefs : true});
-ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
+const Ajv = require('ajv')
+const ajv = new Ajv({extendRefs : true})
+ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
 
-const client = require('../client');
+const client = require('../client')
 
-import { Clazz } from './clazz';
+import { Clazz } from './clazz'
 
-const root = '/api';
+const root = '/api'
 
 export class Schema {
   constructor(schema) {
-    this.schema = schema;
-    this.clazzes = {};
+    this.schema = schema
+    this.clazzes = {}
     for (var urn in schema.types) {
-      ajv.addSchema(schema.types[urn], urn);
+      ajv.addSchema(schema.types[urn], urn)
     }
   }
 
   getFlowClazz(flowName) {
-    var urn = this.schema.flows[flowName];
-    return this.getClazz(urn);
+    var urn = this.schema.flows[flowName]
+    return this.getClazz(urn)
   }
 
   // Get the schema definition for a given field name.
 
   getFieldClazz(path, name) {
-    var clazz = this.getClazz(path);
-    var definition = clazz.properties[name];
+    var clazz = this.getClazz(path)
+    var definition = clazz.properties[name]
     if (definition == null) {
-      throw 'Cannot get clazz definition for ' + name;
+      throw 'Cannot get clazz definition for ' + name
     }
-    return this.getClazz(this.getRefClazzId(path, definition['$ref']));
+    return this.getClazz(this.getRefClazzId(path, definition['$ref']))
   }
 
   // Exported method for get schema
 
   getClazz(id, ref = '') {
-    var fullId = this.getRefClazzId(id, ref);
-    var clazz = this.clazzes[fullId];
+    var fullId = this.getRefClazzId(id, ref)
+    var clazz = this.clazzes[fullId]
     if (clazz == null) {
-      clazz = this.createClazzFromId(fullId);
+      clazz = this.createClazzFromId(fullId)
       if (clazz == null) {
-        throw 'Cannot get clazz from ID ' + fullId;
+        throw 'Cannot get clazz from ID ' + fullId
       }
-      this.clazzes[fullId] = clazz;
+      this.clazzes[fullId] = clazz
     }
-    return clazz;
+    return clazz
   }
 
   createClazzFromId(id) {
-    var internalSchema = ajv.getSchema(id);
+    var internalSchema = ajv.getSchema(id)
     if (internalSchema) {
       return new Clazz(this.getClazz.bind(this), id,
-        this.getClazzSchema(id), this.getBackEndClazz(id));
+        this.getClazzSchema(id), this.getBackEndClazz(id))
     } else {
-      throw 'Cannot create clazz for ' + id + ' schema has not been loaded';
+      throw 'Cannot create clazz for ' + id + ' schema has not been loaded'
     }
   }
 
   // Get the schema for the clazz stored on the back end
   getBackEndClazz(id) {
     if (Object.values(this.schema.flows).includes(id) && id != 'sequence') {
-      return this.createClazzFromId('sequence');
+      return this.createClazzFromId('sequence')
     }
   }
 
   getClazzSchema(id) {
-    return ajv.getSchema(id).schema;
+    return ajv.getSchema(id).schema
   }
 
 
   // TODO : Change to isSchemaLoaded
   isClazzLoaded(id, ref = '') {
-    return ajv.getSchema(this.getRefClazzId(id, ref)) != null;
+    return ajv.getSchema(this.getRefClazzId(id, ref)) != null
   }
 
   areSchemasLoaded(ids) {
     for (var i = 0 ; i < ids.length ; i++) {
       if (!this.isClazzLoaded(ids[i])) {
-        console.warn(ids[i] + ' not loaded');
-        return false;
+        console.warn(ids[i] + ' not loaded')
+        return false
       }
     }
-    return true;
+    return true
   }
 
   // load multiple schemas
 
   loadClazzes(paths) {
-    var promises = [];
+    var promises = []
     paths.forEach(path => {
-      promises.concat(this.loadClazz(path));
-    });
-    return Promise.all(promises);
+      promises.concat(this.loadClazz(path))
+    })
+    return Promise.all(promises)
   }
 
   // Load schema if it has not already been loaded
 
   loadClazz(path) {
     return new Promise((resolve, reject) => {
-      var schema = ajv.getSchema(path);
+      var schema = ajv.getSchema(path)
       if (!schema) {
         client({
           method: 'GET',
@@ -123,16 +123,16 @@ export class Schema {
           headers: {'Accept': 'application/schema+json'}
         }).then(response => {
           if (!ajv.getSchema(path)) {
-            ajv.addSchema(response.entity, path);
+            ajv.addSchema(response.entity, path)
           }
-          resolve(response.entity);
+          resolve(response.entity)
         }).catch(reason => {
-          reject(reason);
-        });
+          reject(reason)
+        })
       } else {
-        resolve(schema);
+        resolve(schema)
       }
-    });
+    })
   }
 
   // Get schema ID for the given ID and ref combination.
@@ -140,27 +140,27 @@ export class Schema {
   // e.g. getRefClazzId('patterns','#/definitions/tick')
 
   getRefClazzId(id, ref = '') {
-    return id + ref;
+    return id + ref
   }
 
   // Handle creation or update an entity.
   handleApply(e, refs, clazzId, onApply) {
-    e.preventDefault();
-    var entity = {};
-    var clazz = this.getClazz(clazzId);
+    e.preventDefault()
+    var entity = {}
+    var clazz = this.getClazz(clazzId)
     Object.keys(clazz.properties).map(function(name) {
-      var definition = clazz.properties[name];
+      var definition = clazz.properties[name]
       if (!definition.readOnly) {
-        clazz.setFieldValue(entity, refs, name);
+        clazz.setFieldValue(entity, refs, name)
       }
-    }, this);
-    var path = clazz.getFieldValue(refs, 'path', null, false);
+    }, this)
+    var path = clazz.getFieldValue(refs, 'path', null, false)
     if (path) {
-      onApply(entity, path);
+      onApply(entity, path)
     } else {
       // TODO : https://facebook.github.io/react/docs/refs-and-the-dom.html => string refs are now legacy
-      clazz.setFieldValue(entity, refs, '_links.self.href');
-      onApply(entity);
+      clazz.setFieldValue(entity, refs, '_links.self.href')
+      onApply(entity)
     }
   }
 }

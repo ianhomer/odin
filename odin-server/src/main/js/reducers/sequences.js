@@ -7,10 +7,10 @@ const sequences = (state = [], action) => {
         name : 'test-name',
         flowName : 'notation'
       }
-    ];
+    ]
   default:
-    return state;
+    return state
   }
-};
+}
 
-export default sequences;
+export default sequences

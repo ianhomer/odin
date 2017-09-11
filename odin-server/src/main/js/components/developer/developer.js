@@ -12,45 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict';
+'use strict'
 
-const React = require('react');
-const client = require('../../client');
+const React = require('react')
+const client = require('../../client')
 
 // Rendering of developer console
 class Developer extends React.Component{
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       loggers: [],
-    };
+    }
 
-    this.handleKeyPress = this._handleKeyPress.bind(this);
-    this.handleLoggingLevelChange = this.handleLoggingLevelChange.bind(this);
-    this.loadFromServer = this.loadFromServer.bind(this);
+    this.handleKeyPress = this._handleKeyPress.bind(this)
+    this.handleLoggingLevelChange = this.handleLoggingLevelChange.bind(this)
+    this.loadFromServer = this.loadFromServer.bind(this)
   }
 
   // Handle logging level change
   handleLoggingLevelChange(e) {
-    e.preventDefault();
-    var value = e.target.value.trim();
-    var parts = value.split(':');
-    var level, category;
+    e.preventDefault()
+    var value = e.target.value.trim()
+    var parts = value.split(':')
+    var level, category
     if (parts.length == 2) {
-      level = parts[0].trim();
-      category = parts[1].trim();
+      level = parts[0].trim()
+      category = parts[1].trim()
     } else {
-      level = 'DEBUG';
-      category = value;
+      level = 'DEBUG'
+      category = value
     }
 
     // Find a matching category if one exists
-    var existingCategories = Object.keys(this.state.loggers);
+    var existingCategories = Object.keys(this.state.loggers)
     if (!existingCategories.includes(category)) {
       for (var existingCategory in this.state.loggers) {
         if (existingCategory.endsWith(category) || existingCategory.startsWith(category)) {
-          category = existingCategory;
-          break;
+          category = existingCategory
+          break
         }
       }
     }
@@ -64,18 +64,18 @@ class Developer extends React.Component{
         'Content-Type': 'application/json'
       }
     }).then(this.loadFromServer).catch(reason => {
-      console.error(reason);
-    });
+      console.error(reason)
+    })
   }
 
   _handleKeyPress(e) {
     if (e.key === 'Enter') {
-      this.handleLoggingLevelChange(e);
+      this.handleLoggingLevelChange(e)
     }
   }
 
   componentDidMount() {
-    this.loadFromServer();
+    this.loadFromServer()
   }
 
   loadFromServer() {
@@ -84,10 +84,10 @@ class Developer extends React.Component{
       path: '/loggers',
       headers: {'Accept': 'application/json'}
     }).then(response => {
-      this.setState( { loggers : response.entity.loggers } );
+      this.setState( { loggers : response.entity.loggers } )
     }).catch(reason => {
-      console.error(reason);
-    });
+      console.error(reason)
+    })
   }
 
   renderLoggersAtLevel(matchLevel) {
@@ -98,18 +98,18 @@ class Developer extends React.Component{
           onKeyPress={this.handleKeyPress}
         />
         {Object.keys(this.state.loggers).map((name) => {
-          var level = this.state.loggers[name].configuredLevel;
+          var level = this.state.loggers[name].configuredLevel
           if (level == matchLevel) {
             return (
               <div className="row" key={'logging-' + name}>
                 <div className="col-2">&nbsp;</div>
                 <div className="col-6">{name}</div>
               </div>
-            );
+            )
           }
         })}
       </section>
-    );
+    )
   }
 
   render() {
@@ -123,8 +123,8 @@ class Developer extends React.Component{
         {this.renderLoggersAtLevel('WARN')}
         {this.renderLoggersAtLevel('ERROR')}
       </div>
-    );
+    )
   }
 }
 
-module.exports = Developer;
+module.exports = Developer

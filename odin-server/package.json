@@ -57,6 +57,7 @@
     "eslint-plugin-react": "^7.1.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
+    "gulp-if": "^2.0.2",
     "jasmine-core": "^2.6.4",
     "jest": "^21.0.1",
     "karma": "^1.7.0",

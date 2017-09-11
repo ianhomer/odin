@@ -1,4 +1,4 @@
-import { ADD_CHANNEL } from '../actionTypes';
+import { ADD_CHANNEL } from '../actionTypes'
 
 const channels = (state = [], action) => {
   switch (action.type) {
@@ -9,10 +9,10 @@ const channels = (state = [], action) => {
         name : 'piano',
         channel : 1
       }
-    ];
+    ]
   default:
-    return state;
+    return state
   }
-};
+}
 
-export default channels;
+export default channels
