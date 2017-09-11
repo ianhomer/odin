@@ -94,7 +94,6 @@ export class Schema {
   areSchemasLoaded(ids) {
     for (var i = 0 ; i < ids.length ; i++) {
       if (!this.isClazzLoaded(ids[i])) {
-        console.warn(ids[i] + ' not loaded')
         return false
       }
     }

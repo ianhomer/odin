@@ -36,7 +36,7 @@ class Score extends React.Component{
       // Store dimensions of score element as state.  Note that at some point the server
       // may suggest alternative dimensions and when it does this style in the state should
       // be updated.
-      style: {height : this.props.height, width : this.props.width}
+      style: {height : this.props.height + 'px', width : this.props.width + 'px'}
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -124,7 +124,7 @@ class Score extends React.Component{
       return
     }
     var vf = new Vex.Flow.Factory({
-      renderer: {elementId: selector, width: this.state.style.width, height: this.state.style.height}
+      renderer: {elementId: selector, width: this.props.width, height: this.props.height}
     })
 
     vf.reset()
