@@ -3,6 +3,7 @@
         "amd": true,
         "browser": true,
         "es6": true,
+        "jest/globals": true,
         "node": true
     },
     "extends": "eslint:recommended",
@@ -14,13 +15,18 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "jest"
     ],
     "rules": {
         "indent": [
             "error",
             2
         ],
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/valid-expect": "error",
         "linebreak-style": [
             "error",
             "unix"
@@ -35,6 +41,7 @@
             "error",
             "single"
         ],
+        "react/jsx-uses-react": 2,
         "react/jsx-uses-vars": [
             "error"
         ],
