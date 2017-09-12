@@ -17,8 +17,6 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
-const crud = require('../crud')
-
 const EditEntity = require('./editEntity')
 
 const Notation = require('./notation')
@@ -39,7 +37,8 @@ class SequenceList extends React.Component{
       schema: [], entities: [], links: []
     }
 
-    crud.bindMe(this)
+    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
+    this.onCreate = this.props.flux.onCreate.bind(this)
   }
 
   componentWillMount() {

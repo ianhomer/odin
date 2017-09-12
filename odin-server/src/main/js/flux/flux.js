@@ -22,7 +22,9 @@ export class Flux {
   constructor() {
     this.client = client
     this.loadFromServer = crud.loadFromServer
+    this.loadSchema = crud.loadSchema
     this.onUpdate = crud.onUpdate
     this.onCreate = crud.onCreate
+    this.onPatch = crud.onPatch
   }
 }

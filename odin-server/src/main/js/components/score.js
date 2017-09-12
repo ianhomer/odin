@@ -15,9 +15,9 @@
 'use strict'
 
 const React = require('react')
+const PropTypes = require('prop-types')
 const Vex = require('vexflow')
 
-const client = require('../client')
 const VALIDATE_FIRST = false
 
 function concat(a, b) {
@@ -83,7 +83,7 @@ class Score extends React.Component{
 
   renderNotation(notation = this.state.notation, dryRun = false) {
     // Resolve composition structure from this notation
-    client({
+    this.props.flux.client({
       method: 'GET',
       path: '/services/composition',
       params: {'notation' : notation},
@@ -213,6 +213,10 @@ class Score extends React.Component{
 Score.defaultProps = {
   height: 120,
   width: 200,
+}
+
+Score.propTypes = {
+  flux: PropTypes.object.isRequired
 }
 
 module.exports = Score

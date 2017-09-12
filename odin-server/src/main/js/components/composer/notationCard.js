@@ -54,6 +54,7 @@ function collect(connect, monitor) {
 
 const propTypes = {
   entity: PropTypes.object.isRequired,
+  flux: PropTypes.object.isRequired,
   onAddLayer: PropTypes.func.isRequired,
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,
@@ -76,7 +77,7 @@ class NotationCard extends React.Component{
       // View card
       <div className="sequence card" style={{ opacity: isDragging ? 0.5 : 1 }}>
         <header>{this.state.entity.name}</header>
-        <div className="content"><Score entity={this.state.entity}/></div>
+        <div className="content"><Score entity={this.state.entity} flux={this.props.flux}/></div>
         <footer><CardLayers entity={this.state.entity}/></footer>
       </div>
     )

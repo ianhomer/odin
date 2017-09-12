@@ -23,6 +23,7 @@ class EditEntity extends React.Component{
   constructor(props) {
     super(props)
 
+    // TODO : Remove this.onApply if redundant
     if (this.props.entity) {
       this.onApply = this.props.flux.onUpdate.bind(this)
     } else {
@@ -120,7 +121,7 @@ class EditEntity extends React.Component{
         { notation : value }
       return (
         <div className={cellClassName} key={key}>
-          <Score entity={scoreEntity} editor="true"
+          <Score flux={this.props.flux} entity={scoreEntity} editor="true"
             size={size} componentKey={key} componentRef={el => this.refs[key] = el}
             width="800"
             onKeyPress={this.handleKeyPress}/>

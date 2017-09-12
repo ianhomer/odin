@@ -17,8 +17,6 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
-const crud = require('./../crud')
-
 const EditEntity = require('./editEntity')
 const Tick = require('./tick')
 const Score = require('./score')
@@ -34,7 +32,7 @@ class Notation extends React.Component{
 
     this.handleDelete = this.handleDelete.bind(this)
     this.toggleEditing = this._toggleEditing.bind(this)
-    this.onUpdate = crud.onUpdate.bind(this)
+    this.onUpdate = this.props.flux.onUpdate.bind(this)
   }
 
   _toggleEditing() {
@@ -66,7 +64,7 @@ class Notation extends React.Component{
         <div className="row" onClick={this.toggleEditing}>
           <div className="col-1">{sequence.name}</div>
           <div className="col-3">
-            <Score entity={sequence} displayText="true" width="800"/>
+            <Score entity={sequence} displayText="true" width="800" flux={this.props.flux}/>
           </div>
           <div className="col-2 component">
             {sequence.tick ?

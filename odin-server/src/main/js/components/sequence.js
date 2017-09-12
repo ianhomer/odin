@@ -17,7 +17,6 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
-const crud = require('./../crud')
 const EditEntity = require('./editEntity')
 const Tick = require('./tick')
 
@@ -31,7 +30,7 @@ class Sequence extends React.Component{
 
     this.handleDelete = this.handleDelete.bind(this)
     this.toggleEditing = this._toggleEditing.bind(this)
-    this.onUpdate = crud.onUpdate.bind(this)
+    this.onUpdate = this.props.flux.onUpdate.bind(this)
   }
 
   _toggleEditing() {
@@ -52,7 +51,7 @@ class Sequence extends React.Component{
         // TODO : remove schema from component properties if redundant
 
         <EditEntity entity={sequence}
-          schema={this.props.schema} project={this.props.project}
+          schema={this.props.schema} project={this.props.project} flux={this.props.flux}
           path={this.props.path} fields={this.props.fields} schema={this.props.schema}
           onApply={this.onUpdate}
         />
@@ -90,6 +89,7 @@ class Sequence extends React.Component{
 
 Sequence.propTypes = {
   clazz: PropTypes.object.isRequired,
+  flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

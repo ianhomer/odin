@@ -19,8 +19,6 @@ import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 const PropTypes = require('prop-types')
 
-const crud = require('../../crud')
-
 const LayerList = require('./layerList')
 const NotationCard = require('./notationCard')
 const PatternCard = require('./patternCard')
@@ -40,11 +38,11 @@ class Composer extends React.Component{
       schema: [], entities: [], links: []
     }
 
-    crud.bindMe(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleAddLayer = this.handleAddLayer.bind(this)
     this.handleMoveLayer = this.handleMoveLayer.bind(this)
-    this.onPatch = crud.onPatch.bind(this)
+    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
+    this.onPatch = this.props.flux.onPatch.bind(this)
   }
 
   componentDidMount() {
@@ -106,7 +104,7 @@ class Composer extends React.Component{
         return (
           <div key={'div-' + entity._links.self.href}>
             <SequenceComponent entity={entity} key={entity._links.self.href}
-              schema={this.props.schema} project={this.props.project}
+              schema={this.props.schema} project={this.props.project} flux={this.props.flux}
               path={entity.path}
               onAddLayer={this.handleAddLayer}
             />
@@ -120,7 +118,7 @@ class Composer extends React.Component{
       <div>
         {this.state.entities.length > 0 &&
           <LayerList
-            schema={this.props.schema} project={this.props.project}
+            schema={this.props.schema} project={this.props.project} flux={this.props.flux}
             sequences={this.state.entities}
             onChange={this.handleChange}
             onAddLayer={this.handleAddLayer}

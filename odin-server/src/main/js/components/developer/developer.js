@@ -15,7 +15,7 @@
 'use strict'
 
 const React = require('react')
-const client = require('../../client')
+const PropTypes = require('prop-types')
 
 // Rendering of developer console
 class Developer extends React.Component{
@@ -125,6 +125,10 @@ class Developer extends React.Component{
       </div>
     )
   }
+}
+
+Developer.propTypes = {
+  flux: PropTypes.object.isRequired,
 }
 
 module.exports = Developer

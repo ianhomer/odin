@@ -151,6 +151,7 @@ LayerList.defaultProps = {
 }
 
 LayerList.propTypes = {
+  flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

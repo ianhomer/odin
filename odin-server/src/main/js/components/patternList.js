@@ -15,8 +15,7 @@
 'use strict'
 
 const React = require('react')
-
-const crud = require('./../crud')
+const PropTypes = require('prop-types')
 
 const Pattern = require('./pattern')
 const EditEntity = require('./editEntity')
@@ -29,7 +28,8 @@ class PatternList extends React.Component{
       schema: [], entities: [], links: []
     }
 
-    crud.bindMe(this)
+    this.loadSchema = this.props.flux.loadSchema.bind(this)
+    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
   }
 
   componentDidMount() {
@@ -41,7 +41,7 @@ class PatternList extends React.Component{
   render() {
     var entities = this.state.entities.map(entity =>
       <Pattern entity={entity} key={entity._links.self.href}
-        project={this.props.project}
+        project={this.props.project} flux={this.props.flux}
         onDelete={this.onDelete} onUpdate={this.onUpdate}
       />
     )
@@ -59,7 +59,7 @@ class PatternList extends React.Component{
           </div>
           {this.isSchemaLoaded() &&
             <EditEntity
-              project={this.props.project}
+              project={this.props.project} flux={this.props.flux}
               path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields}
               onApply={this.onCreate}
             />
@@ -73,6 +73,10 @@ class PatternList extends React.Component{
 
 PatternList.defaultProps = {
   path: 'pattern'
+}
+
+PatternList.propTypes = {
+  flux: PropTypes.object.isRequired,
 }
 
 module.exports = PatternList

@@ -18,8 +18,6 @@ const React = require('react')
 const PropTypes = require('prop-types')
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-const client = require('./../client')
-
 const ChannelList = require('./channelList')
 const SequenceList = require('./sequenceList')
 const Composer = require('./composer/composer')
@@ -38,7 +36,7 @@ class Project extends React.Component {
 
   componentDidMount() {
     // Load first project (only one project supported for now)
-    client({method: 'GET', path: '/api/project'}).done(response => {
+    this.props.flux.client({method: 'GET', path: '/api/project'}).done(response => {
       var projects = response.entity._embedded.project
       this.setState({project: projects[0]})
       this.props.schema.loadClazz('channel')
