@@ -1,15 +1,14 @@
-import { ADD_CHANNEL } from '../actionTypes'
+import { ADD_CHANNEL, DELETE_CHANNEL } from '../actionTypes'
 
 const channels = (state = [], action) => {
   switch (action.type) {
   case ADD_CHANNEL:
     return [
       ...state,
-      {
-        name : 'piano',
-        channel : 1
-      }
+      action.channel
     ]
+  case DELETE_CHANNEL:
+    return state.filter( entity => entity.name !== action.channel.name )
   default:
     return state
   }
