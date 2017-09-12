@@ -16,7 +16,6 @@
 
 const React = require('react')
 const PropTypes = require('prop-types')
-const crud = require('./../crud')
 const Score = require('./score')
 
 // Edit an entity.
@@ -25,10 +24,11 @@ class EditEntity extends React.Component{
     super(props)
 
     if (this.props.entity) {
-      this.onApply = crud.onUpdate.bind(this)
+      this.onApply = this.props.flux.onUpdate.bind(this)
     } else {
-      this.onApply = crud.onCreate.bind(this)
+      this.onApply = this.props.flux.onCreate.bind(this)
     }
+
     this.handleKeyPress = this._handleKeyPress.bind(this)
     this.handleApply = this.handleApply.bind(this)
   }
@@ -196,6 +196,7 @@ class EditEntity extends React.Component{
 
 EditEntity.propTypes = {
   clazz: PropTypes.object.isRequired,
+  flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

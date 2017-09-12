@@ -17,8 +17,6 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
-const crud = require('./../crud')
-
 const Channel = require('./channel')
 const EditEntity = require('./editEntity')
 
@@ -29,7 +27,8 @@ class ChannelList extends React.Component{
       entities: [], links: [], loaded: false
     }
 
-    crud.bindMe(this)
+    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
+    this.onCreate = this.props.flux.onCreate.bind(this)
   }
 
   componentDidMount() {
@@ -38,7 +37,8 @@ class ChannelList extends React.Component{
 
   render() {
     var entities = this.state.entities.map(entity =>
-      <Channel entity={entity} key={entity._links.self.href}
+      <Channel flux={this.props.flux}
+        entity={entity} key={entity._links.self.href}
         path={this.props.path}
         onDelete={this.onDelete}/>
     )
@@ -52,7 +52,7 @@ class ChannelList extends React.Component{
           </div>
           {this.props.schema.isClazzLoaded(this.props.path) &&
             <EditEntity
-              schema={this.props.schema} project={this.props.project}
+              schema={this.props.schema} project={this.props.project} flux={this.props.flux}
               clazz={this.props.schema.getClazz(this.props.path)} fields={this.props.fields}
               onApply={this.onCreate}
             />
@@ -83,6 +83,7 @@ ChannelList.defaultProps = {
 }
 
 ChannelList.propTypes = {
+  flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

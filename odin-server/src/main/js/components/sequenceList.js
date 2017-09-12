@@ -55,7 +55,7 @@ class SequenceList extends React.Component{
         // TODO - change key to simply entity.name
         <div key={'div-' + entity._links.self.href}>
           <SequenceComponent entity={entity} key={entity._links.self.href}
-            schema={this.props.schema} project={this.props.project}
+            schema={this.props.schema} project={this.props.project} flux={this.props.flux}
             clazz={this.props.schema.getFlowClazz(entity.flowName)}
             onDelete={this.onDelete} onUpdate={this.onUpdate}
           />
@@ -89,7 +89,7 @@ class SequenceList extends React.Component{
               var clazz = this.props.schema.getFlowClazz(flowName)
               return (
                 <EditEntity key={'create-' + flowName}
-                  schema={this.props.schema} project={this.props.project}
+                  schema={this.props.schema} project={this.props.project} flux={this.props.flux}
                   clazz={clazz} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.onCreate}
                 />
@@ -110,6 +110,7 @@ SequenceList.defaultProps = {
 }
 
 SequenceList.propTypes = {
+  flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

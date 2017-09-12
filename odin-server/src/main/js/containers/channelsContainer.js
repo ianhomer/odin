@@ -1,15 +1,13 @@
 import { connect } from 'react-redux'
-import { toggleTodo } from '../actions'
+import { deleteChannel } from '../actions'
 import ChannelList from '../components/channelList'
 
 const mapStateToProps = (state) => ({
   channels: state.channels
 })
 
-const mapDispatchToProps = {
-  onDelete: entity => {
-    dispatch(addChannel(entity))
-  }
+const mapDispatchToProps = dispatch => {
+  entity => { dispatch(deleteChannel(entity)) }
 }
 
 const ChannelsContainer = connect(

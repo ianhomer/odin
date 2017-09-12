@@ -49,7 +49,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <ChannelList schema={this.props.schema} project={this.state.project}/>
+          <ChannelList schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
         }
       </div>
     )
@@ -59,7 +59,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <Composer schema={this.props.schema} project={this.state.project}/>
+          <Composer schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
         }
       </div>
     )
@@ -69,7 +69,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <SequenceList schema={this.props.schema} project={this.state.project}/>
+          <SequenceList schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
         }
       </div>
     )

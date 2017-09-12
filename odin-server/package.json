@@ -21,9 +21,10 @@
   "homepage": "https://github.com/ianhomer/odin",
   "jest": {
     "moduleNameMapper": {
-      "actions/(.*)": "<rootDir>/src/main/js/actions/$1",
-      "components/(.*)": "<rootDir>/src/main/js/components/$1",
-      "reducers/(.*)": "<rootDir>/src/main/js/reducers/$1"
+      "odin/actions/(.*)": "<rootDir>/src/main/js/actions/$1",
+      "odin/components/(.*)": "<rootDir>/src/main/js/components/$1",
+      "odin/containers/(.*)": "<rootDir>/src/main/js/containers/$1",
+      "odin/reducers/(.*)": "<rootDir>/src/main/js/reducers/$1"
     },
     "testURL": "http://localhost:8080"
   },

@@ -19,8 +19,6 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Schema } from './schema/schema'
 
-const client = require('./client')
-
 const Project = require('./components/project')
 const Developer = require('./components/developer/developer')
 
@@ -36,7 +34,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    client({method: 'GET', path: '/services/schema'}).done(response => {
+    this.props.flux.client({method: 'GET', path: '/services/schema'}).done(response => {
       this.setState({schema: new Schema(response.entity)})
     })
   }
@@ -45,7 +43,7 @@ class App extends React.Component {
     return (
       <div>
         {this.state.schema &&
-          <Project schema={this.state.schema}/>
+          <Project schema={this.state.schema} flux={this.props.flux}/>
         }
       </div>
     )
