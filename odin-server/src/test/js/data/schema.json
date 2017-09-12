@@ -1,0 +1,559 @@
+{
+  "types": {
+    "urn:jsonschema:com:purplepip:odin:project:Project": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Project",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sequences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Sequence"
+          }
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Channel"
+          }
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Layer"
+          }
+        }
+      },
+      "definitions": {
+        "Sequence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "channel": {
+              "type": "integer"
+            },
+            "project": {
+              "$ref": "#/definitions/Project"
+            },
+            "layers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "flowName": {
+              "type": "string"
+            },
+            "length": {
+              "type": "integer",
+              "minimum": -1
+            },
+            "offset": {
+              "type": "integer"
+            },
+            "tick": {
+              "$ref": "#/definitions/Tick"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel",
+            "layers",
+            "flowName",
+            "length",
+            "offset",
+            "tick",
+            "name"
+          ]
+        },
+        "Project": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "sequences": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sequence"
+              }
+            },
+            "channels": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Channel"
+              }
+            },
+            "layers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Layer"
+              }
+            }
+          }
+        },
+        "Channel": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "number": {
+              "type": "integer"
+            },
+            "program": {
+              "type": "integer"
+            },
+            "project": {
+              "$ref": "#/definitions/Project"
+            },
+            "programName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "number",
+            "program"
+          ]
+        },
+        "Layer": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "project": {
+              "$ref": "#/definitions/Project"
+            },
+            "layers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "length": {
+              "type": "integer",
+              "minimum": -1
+            },
+            "offset": {
+              "type": "integer"
+            },
+            "tick": {
+              "$ref": "#/definitions/Tick"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "length",
+            "offset",
+            "tick",
+            "name"
+          ]
+        },
+        "Tick": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "factor": {
+              "$ref": "#/definitions/Rational"
+            },
+            "timeUnit": {
+              "type": "string",
+              "enum": [
+                "BEAT",
+                "MICROSECOND",
+                "MEASURE"
+              ]
+            }
+          }
+        },
+        "Rational": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "numerator": {
+              "type": "integer"
+            },
+            "denominator": {
+              "type": "integer"
+            },
+            "simplified": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "value",
+            "numerator",
+            "denominator",
+            "simplified"
+          ]
+        }
+      }
+    },
+    "flow-pattern": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Pattern",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/PersistableNote",
+          "title": "Note"
+        },
+        "bits": {
+          "type": "integer",
+          "minimum": 0,
+          "title": "Bits"
+        },
+        "channel": {
+          "type": "integer",
+          "title": "Channel"
+        },
+        "flowName": {
+          "type": "string",
+          "title": "Flow Name"
+        },
+        "project": {
+          "type": "string",
+          "format": "uri",
+          "title": "Project"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Layers"
+        },
+        "length": {
+          "type": "integer",
+          "minimum": -1,
+          "title": "Length"
+        },
+        "offset": {
+          "type": "integer",
+          "title": "Offset"
+        },
+        "tick": {
+          "$ref": "#/definitions/PersistableTick",
+          "title": "Tick"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name"
+        }
+      },
+      "required": [
+        "note",
+        "bits",
+        "channel",
+        "flowName",
+        "layers",
+        "length",
+        "offset",
+        "tick",
+        "name"
+      ],
+      "definitions": {
+        "PersistableNote": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "velocity": {
+              "type": "integer",
+              "title": "Velocity"
+            },
+            "number": {
+              "type": "integer",
+              "title": "Number"
+            },
+            "numerator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Numerator"
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Denominator"
+            }
+          },
+          "required": [
+            "velocity",
+            "number",
+            "numerator",
+            "denominator"
+          ]
+        },
+        "PersistableTick": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "timeUnit": {
+              "type": "string",
+              "enum": [
+                "BEAT",
+                "MICROSECOND",
+                "MEASURE"
+              ],
+              "title": "Time Unit"
+            },
+            "numerator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Numerator"
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Denominator"
+            }
+          },
+          "required": [
+            "numerator",
+            "denominator"
+          ]
+        }
+      }
+    },
+    "flow-metronome": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Metronome",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "noteBarStart": {
+          "$ref": "#/definitions/PersistableNote",
+          "title": "Note Bar Start"
+        },
+        "noteBarMid": {
+          "$ref": "#/definitions/PersistableNote",
+          "title": "Note Bar Mid"
+        },
+        "channel": {
+          "type": "integer",
+          "title": "Channel"
+        },
+        "flowName": {
+          "type": "string",
+          "title": "Flow Name"
+        },
+        "project": {
+          "type": "string",
+          "format": "uri",
+          "title": "Project"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Layers"
+        },
+        "length": {
+          "type": "integer",
+          "minimum": -1,
+          "title": "Length"
+        },
+        "offset": {
+          "type": "integer",
+          "title": "Offset"
+        },
+        "tick": {
+          "$ref": "#/definitions/PersistableTick",
+          "title": "Tick"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name"
+        }
+      },
+      "required": [
+        "channel",
+        "flowName",
+        "layers",
+        "length",
+        "offset",
+        "tick",
+        "name"
+      ],
+      "definitions": {
+        "PersistableNote": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "velocity": {
+              "type": "integer",
+              "title": "Velocity"
+            },
+            "number": {
+              "type": "integer",
+              "title": "Number"
+            },
+            "numerator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Numerator"
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Denominator"
+            }
+          },
+          "required": [
+            "velocity",
+            "number",
+            "numerator",
+            "denominator"
+          ]
+        },
+        "PersistableTick": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "timeUnit": {
+              "type": "string",
+              "enum": [
+                "BEAT",
+                "MICROSECOND",
+                "MEASURE"
+              ],
+              "title": "Time Unit"
+            },
+            "numerator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Numerator"
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Denominator"
+            }
+          },
+          "required": [
+            "numerator",
+            "denominator"
+          ]
+        }
+      }
+    },
+    "flow-notation": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Notation",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notation": {
+          "type": "string",
+          "title": "Notation"
+        },
+        "format": {
+          "type": "string",
+          "title": "Format"
+        },
+        "channel": {
+          "type": "integer",
+          "title": "Channel"
+        },
+        "flowName": {
+          "type": "string",
+          "title": "Flow Name"
+        },
+        "project": {
+          "type": "string",
+          "format": "uri",
+          "title": "Project"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Layers"
+        },
+        "length": {
+          "type": "integer",
+          "minimum": -1,
+          "title": "Length"
+        },
+        "offset": {
+          "type": "integer",
+          "title": "Offset"
+        },
+        "tick": {
+          "$ref": "#/definitions/PersistableTick",
+          "title": "Tick"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name"
+        }
+      },
+      "required": [
+        "channel",
+        "flowName",
+        "layers",
+        "length",
+        "offset",
+        "tick",
+        "name"
+      ],
+      "definitions": {
+        "PersistableTick": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "timeUnit": {
+              "type": "string",
+              "enum": [
+                "BEAT",
+                "MICROSECOND",
+                "MEASURE"
+              ],
+              "title": "Time Unit"
+            },
+            "numerator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Numerator"
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Denominator"
+            }
+          },
+          "required": [
+            "numerator",
+            "denominator"
+          ]
+        }
+      }
+    }
+  },
+  "flows": {
+    "notation": "flow-notation",
+    "metronome": "flow-metronome",
+    "pattern": "flow-pattern"
+  },
+  "typeRefs": [
+    "urn:jsonschema:com:purplepip:odin:project:Project",
+    "flow-pattern",
+    "flow-metronome",
+    "flow-notation"
+  ]
+}

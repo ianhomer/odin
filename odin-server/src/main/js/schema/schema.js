@@ -121,7 +121,7 @@ export class Schema {
           headers: {'Accept': 'application/schema+json'}
         }).then(response => {
           if (!ajv.getSchema(path)) {
-            ajv.addSchema(response.entity, path)
+            this.addSchemaForClazz(response.entity, path)
           }
           resolve(response.entity)
         }).catch(reason => {
@@ -131,6 +131,10 @@ export class Schema {
         resolve(schema)
       }
     })
+  }
+
+  addSchemaForClazz(schema, path) {
+    ajv.addSchema(schema, path)
   }
 
   // Get schema ID for the given ID and ref combination.
