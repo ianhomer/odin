@@ -5,12 +5,6 @@ import { addChannel, deleteChannel } from 'odin/actions/index.js'
 test('Actions OK', () => {
   let store = createStore(reducers)
 
-  // Every time the state changes, log it
-  // Note that subscribe() returns a function for unregistering the listener
-  let unsubscribe = store.subscribe(() =>
-    console.warn(store.getState())
-  )
-
   expect(store.getState().channels.length).toBe(0)
   store.dispatch(
     addChannel({
@@ -35,6 +29,4 @@ test('Actions OK', () => {
     })
   )
   expect(store.getState().channels.length).toBe(1)
-
-  unsubscribe()
 })
