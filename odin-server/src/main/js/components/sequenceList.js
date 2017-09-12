@@ -39,6 +39,7 @@ class SequenceList extends React.Component{
 
     this.loadFromServer = this.props.flux.loadFromServer.bind(this)
     this.onCreate = this.props.flux.onCreate.bind(this)
+    this.onDelete = this.props.flux.onDelete.bind(this)
   }
 
   componentWillMount() {

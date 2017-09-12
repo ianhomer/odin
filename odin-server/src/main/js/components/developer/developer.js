@@ -55,7 +55,7 @@ class Developer extends React.Component{
       }
     }
 
-    client({
+    this.props.flux.client({
       method: 'POST',
       path: '/loggers/' + category,
       entity: { configuredLevel : level },
@@ -79,7 +79,7 @@ class Developer extends React.Component{
   }
 
   loadFromServer() {
-    client({
+    this.props.flux.client({
       method: 'GET',
       path: '/loggers',
       headers: {'Accept': 'application/json'}

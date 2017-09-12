@@ -12,22 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Class to dispatch server communications
-// This class is temporary and will be removed when redux is correctly set up
+// Mock flux
 
-const client = require('../client')
-const crud = require('../crud')
+const emptyFunction = function() {
+}
 
-export class Flux {
+export class MockFlux {
   constructor() {
-    this.client = client
-    this.loadFromServer = crud.loadFromServer
-    this.loadSchema = crud.loadSchema
-    this.onCreate = crud.onCreate
-    this.onDelete = crud.onDelete
-    this.onPatch = crud.onPatch
-    this.onUpdate = crud.onUpdate
+    this.client = emptyFunction
+    this.loadFromServer = emptyFunction
+    this.loadSchema = emptyFunction
+    this.onUpdate = emptyFunction
+    this.onCreate = emptyFunction
+    this.onPatch = emptyFunction
   }
-
-
 }

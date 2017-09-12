@@ -35,7 +35,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.props.flux.client({method: 'GET', path: '/services/schema'}).done(response => {
-      this.setState({schema: new Schema(response.entity)})
+      this.setState({schema: new Schema(response.entity, this.props.flux)})
     })
   }
 

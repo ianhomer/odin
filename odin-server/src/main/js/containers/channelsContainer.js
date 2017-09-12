@@ -6,8 +6,8 @@ const mapStateToProps = (state) => ({
   channels: state.channels
 })
 
-const mapDispatchToProps = dispatch => {
-  entity => { dispatch(deleteChannel(entity)) }
+const mapDispatchToProps = {
+  deleteChannel : function(dispatch, entity) { dispatch(deleteChannel(entity)) }
 }
 
 const ChannelsContainer = connect(

@@ -18,15 +18,14 @@ const Ajv = require('ajv')
 const ajv = new Ajv({extendRefs : true})
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
 
-const client = require('../client')
-
 import { Clazz } from './clazz'
 
 const root = '/api'
 
 export class Schema {
-  constructor(schema) {
+  constructor(schema, flux) {
     this.schema = schema
+    this.flux = flux
     this.clazzes = {}
     for (var urn in schema.types) {
       ajv.addSchema(schema.types[urn], urn)
@@ -116,7 +115,7 @@ export class Schema {
     return new Promise((resolve, reject) => {
       var schema = ajv.getSchema(path)
       if (!schema) {
-        client({
+        this.flux.client({
           method: 'GET',
           path: root + '/profile/' + path,
           headers: {'Accept': 'application/schema+json'}

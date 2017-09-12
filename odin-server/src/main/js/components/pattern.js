@@ -17,8 +17,6 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
-const crud = require('./../crud')
-
 const EditEntity = require('./editEntity')
 const Note = require('./note')
 const Tick = require('./tick')
@@ -34,7 +32,7 @@ class Pattern extends React.Component{
 
     this.handleDelete = this.handleDelete.bind(this)
     this.toggleEditing = this._toggleEditing.bind(this)
-    this.onUpdate = crud.onUpdate.bind(this)
+    this.onUpdate = this.props.flux.onUpdate.bind(this)
   }
 
   _toggleEditing() {
