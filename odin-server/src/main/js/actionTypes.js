@@ -1,2 +1,0 @@
-export const ADD_CHANNEL = 'ADD_CHANNEL'
-export const DELETE_CHANNEL = 'DELETE_CHANNEL'

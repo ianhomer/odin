@@ -1,4 +1,4 @@
-import { ADD_CHANNEL, DELETE_CHANNEL } from '../actionTypes'
+import { ADD_CHANNEL, DELETE_CHANNEL } from '../actions'
 
 const channels = (state = [], action) => {
   switch (action.type) {
