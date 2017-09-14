@@ -16,11 +16,14 @@
 
 const React = require('react')
 const PropTypes = require('prop-types')
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-const ChannelList = require('./channelList')
-const SequenceList = require('./sequenceList')
-const Composer = require('./composer/composer')
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { fetchEntities } from '../actions/fetch.js'
+const ChannelList = require('../components/channelList')
+const SequenceList = require('../components/sequenceList')
+const Composer = require('../components/composer/composer')
 
 class Project extends React.Component {
   constructor(props) {
@@ -40,6 +43,7 @@ class Project extends React.Component {
       var projects = response.entity._embedded.project
       this.setState({project: projects[0]})
       this.props.schema.loadClazz('channel')
+      this.props.dispatch(fetchEntities('channel', this.props.schema))
     })
   }
 
@@ -87,7 +91,16 @@ class Project extends React.Component {
 }
 
 Project.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   schema: PropTypes.object.isRequired
 }
 
-module.exports = Project
+function mapStateToProps(state) {
+  const { channels } = state
+
+  return {
+    channels,
+  }
+}
+
+export default connect(mapStateToProps)(Project)

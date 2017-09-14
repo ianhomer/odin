@@ -4,9 +4,8 @@ import { render } from 'react-dom'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
 
-import App from './containers/app'
+import App from './components/app'
 import reducer from './reducers'
 import { Flux } from './flux/flux'
 
@@ -19,8 +18,6 @@ const store = createStore(
 )
 
 render(
-  <Provider store={store}>
-    <App flux={new Flux()}/>
-  </Provider>,
+  <App store={store} flux={new Flux()}/>,
   document.getElementById('root')
 )

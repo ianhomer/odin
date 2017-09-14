@@ -18,13 +18,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { Provider } from 'react-redux'
 
 import { Schema } from '../schema/schema'
-import { fetchEntities } from '../actions/fetch.js'
 
-const Project = require('../components/project')
-const Developer = require('../components/developer/developer')
+import Project from '../containers/project'
+const Developer = require('./developer/developer')
 
 class App extends React.Component {
   constructor(props) {
@@ -39,9 +38,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.props.flux.client({method: 'GET', path: '/services/schema'}).done(response => {
-      var schema = new Schema(response.entity, this.props.flux)
-      this.setState({schema: schema})
-      this.props.dispatch(fetchEntities('channel', schema))
+      this.setState({schema: new Schema(response.entity, this.props.flux)})
     })
   }
 
@@ -67,26 +64,20 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <div>
-          <Route exact path="/app/developer" component={this.renderDeveloper}/>
-          <Route path="/app" component={this.renderProject}/>
-        </div>
-      </Router>
+      <Provider store={this.props.store}>
+        <Router>
+          <div>
+            <Route exact path="/app/developer" component={this.renderDeveloper}/>
+            <Route path="/app" component={this.renderProject}/>
+          </div>
+        </Router>
+      </Provider>
     )
   }
 }
 
-function mapStateToProps(state) {
-  const { channels } = state
-
-  return {
-    channels,
-  }
-}
-
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  store: PropTypes.object.isRequired
 }
 
-export default connect(mapStateToProps)(App)
+export default App
