@@ -43,7 +43,6 @@ class Project extends React.Component {
       var projects = response.entity._embedded.project
       this.setState({project: projects[0]})
       this.props.schema.loadClazz('channel')
-      this.props.dispatch(fetchEntities('channel', this.props.schema))
     })
   }
 

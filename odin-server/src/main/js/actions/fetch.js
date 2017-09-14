@@ -34,9 +34,15 @@ function receiveEntities(path, schema, entities) {
   }
 }
 
+function shouldFetchEntities(state, path) {
+  return !state[path]
+}
+
 export function fetchEntities(path, schema) {
-  return function (dispatch) {
-    dispatch(requestEntities(path))
-    return crud.loadFromServer(path, schema, (entities) => { dispatch(receiveEntities(path, entities)) } )
+  return function (dispatch, getState) {
+    if (shouldFetchEntities(getState(), path)) {
+      dispatch(requestEntities(path))
+      return crud.loadFromServer(path, schema, (entities) => { dispatch(receiveEntities(path, entities)) } )
+    }
   }
 }
