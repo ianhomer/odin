@@ -8,8 +8,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeleteChannel: entity=> {
-      dispatch(deleteChannel(id))
+    onDeleteChannel: entity => {
+      dispatch(deleteChannel(entity))
     }
   }
 }

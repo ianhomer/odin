@@ -38,9 +38,10 @@ module.exports = {
     that.onUpdate = this.onUpdate.bind(that)
   },
 
-  loadFromServer : function() {
-    this.props.schema.loadClazz(this.props.path).then(() => {
-      follow(client, root, [{rel: this.props.path}]).done(collection => {
+  loadFromServer : function(path = this.props.path, schema = this.props.schema,
+    onLoaded = (entities) => { this.setState({entities: entities}) }) {
+    schema.loadClazz(path).then(() => {
+      follow(client, root, [{rel: path}]).done(collection => {
         var entities = []
 
         // Load all the entities by concatenating all embedded entities.
@@ -61,11 +62,7 @@ module.exports = {
           entities = entities.concat(embeddedEntities)
         }
 
-        // Set the state.
-
-        this.setState({
-          entities: entities
-        })
+        onLoaded(entities)
       })
     })
   },
