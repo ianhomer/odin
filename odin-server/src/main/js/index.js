@@ -6,7 +6,7 @@ import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
-import App from './app'
+import App from './containers/app'
 import reducer from './reducers'
 import { Flux } from './flux/flux'
 
@@ -20,7 +20,7 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <App flux={new Flux()} dispatch={store.dispatch}/>
+    <App flux={new Flux()}/>
   </Provider>,
   document.getElementById('root')
 )

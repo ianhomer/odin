@@ -15,13 +15,16 @@
 'use strict'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Schema } from './schema/schema'
-import { fetchEntities } from './actions/fetch.js'
+import { connect } from 'react-redux'
 
-const Project = require('./components/project')
-const Developer = require('./components/developer/developer')
+import { Schema } from '../schema/schema'
+import { fetchEntities } from '../actions/fetch.js'
+
+const Project = require('../components/project')
+const Developer = require('../components/developer/developer')
 
 class App extends React.Component {
   constructor(props) {
@@ -74,4 +77,16 @@ class App extends React.Component {
   }
 }
 
-module.exports = App
+function mapStateToProps(state) {
+  const { channels } = state
+
+  return {
+    channels,
+  }
+}
+
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired
+}
+
+export default connect(mapStateToProps)(App)
