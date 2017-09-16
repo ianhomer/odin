@@ -19,7 +19,7 @@ const PropTypes = require('prop-types')
 
 import { connect } from 'react-redux'
 
-import { createEntity, deleteChannel } from '../actions'
+import { createEntityRequested, deleteChannel } from '../actions'
 import { fetchEntities } from '../actions/flux.js'
 
 import ChannelList from '../components/channelList'
@@ -59,7 +59,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
   return {
     onCreate : (entity, path) => {
-      dispatch(createEntity(entity, path))
+      dispatch(createEntityRequested(entity, path))
     },
     onDeleteChannel: entity => {
       dispatch(deleteChannel(entity))

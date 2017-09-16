@@ -20,11 +20,14 @@ export function receiveEntities(path, entities) {
   }
 }
 
-export const CREATE_ENTITY = 'CREATE_ENTITY'
-export function createEntity(entity, path) {
+export const CREATE_ENTITY_REQUESTED = 'CREATE_ENTITY_REQUESTED'
+export function createEntityRequested(entity, path) {
   return {
-    type: CREATE_ENTITY,
-    entity,
-    path
+    type: CREATE_ENTITY_REQUESTED,
+    path,
+    entity : entity
   }
 }
+
+export const CREATE_ENTITY_SUCCEEDED = 'CREATE_ENTITY_SUCCEEDED'
+export const CREATE_ENTITY_FAILED = 'CREATE_ENTITY_FAILED'

@@ -68,7 +68,7 @@ module.exports = {
   },
 
   // Create entity via REST API.
-  onCreate : function(entity, path) {
+  onCreate : function(entity, path, onSuccess = () => { this.loadFromServer() }) {
     follow(client, root, [path]).then(entities => {
       return client({
         method: 'POST',
@@ -77,7 +77,7 @@ module.exports = {
         headers: {'Content-Type': 'application/json'}
       })
     }).done(_response => {
-      this.loadFromServer()
+      onSuccess(_response)
     })
   },
 
