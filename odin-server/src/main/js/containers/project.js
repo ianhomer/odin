@@ -20,8 +20,7 @@ const PropTypes = require('prop-types')
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { fetchEntities } from '../actions/fetch.js'
-const ChannelList = require('../components/channelList')
+import ChannelsContainer from '../containers/channelsContainer'
 const SequenceList = require('../components/sequenceList')
 const Composer = require('../components/composer/composer')
 
@@ -47,10 +46,12 @@ class Project extends React.Component {
   }
 
   renderChannelList() {
+    // TODO : Remove dispatch property if redundant
     return (
       <div>
         {this.state.project &&
-          <ChannelList schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
+          <ChannelsContainer schema={this.props.schema} project={this.state.project} flux={this.props.flux}
+            dispatch={this.props.dispatch} />
         }
       </div>
     )

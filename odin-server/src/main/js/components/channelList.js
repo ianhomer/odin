@@ -26,19 +26,12 @@ class ChannelList extends React.Component{
     this.state = {
       entities: [], links: [], loaded: false
     }
-
-    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
-    this.onCreate = this.props.flux.onCreate.bind(this)
-  }
-
-  componentDidMount() {
-    this.loadFromServer()
   }
 
   render() {
-    var entities = this.state.entities.map(entity =>
+    var entities = this.props.entities.map(entity =>
       <Channel flux={this.props.flux}
-        entity={entity} key={entity._links.self.href}
+        entity={entity} key={entity.number}
         path={this.props.path}
         onDelete={this.onDelete}/>
     )
@@ -54,7 +47,7 @@ class ChannelList extends React.Component{
             <EditEntity
               schema={this.props.schema} project={this.props.project} flux={this.props.flux}
               clazz={this.props.schema.getClazz(this.props.path)} fields={this.props.fields}
-              onApply={this.onCreate}
+              onApply={this.props.onCreate}
             />
           }
           {entities}
@@ -83,7 +76,9 @@ ChannelList.defaultProps = {
 }
 
 ChannelList.propTypes = {
+  entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
+  onCreate: PropTypes.func.isRequired,
   schema: PropTypes.object.isRequired
 }
 

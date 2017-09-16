@@ -7,7 +7,7 @@ import { createStore, applyMiddleware } from 'redux'
 
 import App from './components/app'
 import reducer from './reducers'
-import { Flux } from './flux/flux'
+import { Flux } from './legacy/flux'
 
 const store = createStore(
   reducer,

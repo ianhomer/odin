@@ -15,24 +15,7 @@
 // Fetch entities actions
 
 const crud = require('../crud')
-
-export const REQUEST_ENTITIES = 'REQUEST_ENTITIES'
-function requestEntities(path) {
-  return {
-    type: REQUEST_ENTITIES,
-    path
-  }
-}
-
-export const RECEIVE_ENTITIES = 'RECEIVE_ENTITIES'
-function receiveEntities(path, schema, entities) {
-  return {
-    type: RECEIVE_ENTITIES,
-    path,
-    channels: entities,
-    receivedAt: Date.now()
-  }
-}
+import { receiveEntities } from './index.js'
 
 function shouldFetchEntities(state, path) {
   return !state[path]
@@ -41,7 +24,6 @@ function shouldFetchEntities(state, path) {
 export function fetchEntities(path, schema) {
   return function (dispatch, getState) {
     if (shouldFetchEntities(getState(), path)) {
-      dispatch(requestEntities(path))
       return crud.loadFromServer(path, schema, (entities) => { dispatch(receiveEntities(path, entities)) } )
     }
   }
