@@ -1,3 +1,5 @@
+'use strict'
+
 export const ADD_CHANNEL = 'ADD_CHANNEL'
 export const addChannel = (channel) => ({
   type: ADD_CHANNEL,
@@ -9,6 +11,18 @@ export const deleteChannel = (channel) => ({
   type: DELETE_CHANNEL,
   channel
 })
+
+export const LOAD_ENTITIES_REQUESTED = 'LOAD_ENTITIES_REQUESTED'
+export function loadEntitiesRequested(path, schema) {
+  return {
+    type: LOAD_ENTITIES_REQUESTED,
+    path,
+    schema: schema
+  }
+}
+
+export const LOAD_ENTITIES_SUCCEEDED = 'LOAD_ENTITIES_SUCCEEDED'
+export const LOAD_ENTITIES_FAILED = 'LOAD_ENTITIES_FAILED'
 
 export const RECEIVE_ENTITIES = 'RECEIVE_ENTITIES'
 export function receiveEntities(path, entities) {

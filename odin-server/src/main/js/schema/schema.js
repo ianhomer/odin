@@ -112,29 +112,31 @@ export class Schema {
   // Load schema if it has not already been loaded
 
   loadClazz(path) {
-    return new Promise((resolve, reject) => {
-      var schema = ajv.getSchema(path)
-      if (!schema) {
-        this.flux.client({
-          method: 'GET',
-          path: root + '/profile/' + path,
-          headers: {'Accept': 'application/schema+json'}
-        }).then(response => {
-          if (!ajv.getSchema(path)) {
+    if (!ajv.getSchema(path)) {
+      return new Promise((resolve, reject) => {
+        var schema = ajv.getSchema(path)
+        if (!schema) {
+          this.flux.client({
+            method: 'GET',
+            path: root + '/profile/' + path,
+            headers: {'Accept': 'application/schema+json'}
+          }).then(response => {
             this.addSchemaForClazz(response.entity, path)
-          }
-          resolve(response.entity)
-        }).catch(reason => {
-          reject(reason)
-        })
-      } else {
-        resolve(schema)
-      }
-    })
+            resolve(response.entity)
+          }).catch(reason => {
+            reject(reason)
+          })
+        } else {
+          resolve(schema)
+        }
+      })
+    }
   }
 
   addSchemaForClazz(schema, path) {
-    ajv.addSchema(schema, path)
+    if (!ajv.getSchema(path)) {
+      ajv.addSchema(schema, path)
+    }
   }
 
   // Get schema ID for the given ID and ref combination.

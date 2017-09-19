@@ -19,8 +19,7 @@ const PropTypes = require('prop-types')
 
 import { connect } from 'react-redux'
 
-import { createEntityRequested, deleteChannel } from '../actions'
-import { fetchEntities } from '../actions/flux.js'
+import { createEntityRequested, deleteChannel, loadEntitiesRequested } from '../actions'
 
 import ChannelList from '../components/channelList'
 
@@ -30,7 +29,7 @@ class ChannelsContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchEntities('channel', this.props.schema))
+    this.props.dispatch(loadEntitiesRequested('channel', this.props.schema))
   }
 
   render() {

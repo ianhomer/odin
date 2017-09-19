@@ -1,8 +1,8 @@
-import { CREATE_ENTITY_SUCCEEDED, RECEIVE_ENTITIES } from '../actions'
+import { CREATE_ENTITY_SUCCEEDED, LOAD_ENTITIES_SUCCEEDED } from '../actions'
 
 function entitiesAtPath(state = { entities: [] }, action) {
   switch (action.type) {
-  case RECEIVE_ENTITIES:
+  case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {
       entities: action.entities,
     })
@@ -18,7 +18,7 @@ function entitiesAtPath(state = { entities: [] }, action) {
 function entities(state = [], action) {
   switch (action.type) {
   case CREATE_ENTITY_SUCCEEDED:
-  case RECEIVE_ENTITIES:
+  case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {
       [action.path]: entitiesAtPath(state[action.path], action)
     })
