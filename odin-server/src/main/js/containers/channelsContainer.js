@@ -29,7 +29,7 @@ class ChannelsContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(loadEntitiesRequested('channel', this.props.schema))
+    this.props.onLoadEntities(this.props.schema)
   }
 
   render() {
@@ -62,12 +62,14 @@ const mapDispatchToProps = dispatch => {
     },
     onDeleteChannel: entity => {
       dispatch(deleteChannel(entity))
+    },
+    onLoadEntities : (schema) => {
+      dispatch(loadEntitiesRequested('channel', schema))
     }
   }
 }
 
 ChannelsContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,

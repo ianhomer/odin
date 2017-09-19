@@ -28,3 +28,11 @@ Enable debugger with debug logging
     mvn install -P quick && java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 \
       -Dlogback.debug=true -Dlogback.configurationFile=src/main/resources/logback-debug.xml \
       -jar target/odin-server-1.0-SNAPSHOT.jar
+
+Run JS tests
+
+    npm test
+    
+Run a single JS test
+
+    npm test -- channelsContainer.test.js
