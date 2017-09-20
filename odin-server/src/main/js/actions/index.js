@@ -14,12 +14,6 @@
 
 'use strict'
 
-export const DELETE_CHANNEL = 'DELETE_CHANNEL'
-export const deleteChannel = (channel) => ({
-  type: DELETE_CHANNEL,
-  channel
-})
-
 export const LOAD_ENTITIES_REQUESTED = 'LOAD_ENTITIES_REQUESTED'
 export function loadEntitiesRequested(path, schema) {
   return {
@@ -53,3 +47,9 @@ export function createEntityRequested(entity, path) {
 
 export const CREATE_ENTITY_SUCCEEDED = 'CREATE_ENTITY_SUCCEEDED'
 export const CREATE_ENTITY_FAILED = 'CREATE_ENTITY_FAILED'
+
+export const DELETE_ENTITY_REQUESTED = 'DELETE_ENTITY_REQUESTED'
+export const deleteEntityRequested = (entity) => ({
+  type: DELETE_ENTITY_REQUESTED,
+  entity
+})

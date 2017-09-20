@@ -19,7 +19,7 @@ const PropTypes = require('prop-types')
 
 import { connect } from 'react-redux'
 
-import { createEntityRequested, deleteChannel, loadEntitiesRequested } from '../actions'
+import { createEntityRequested, deleteEntityRequested, loadEntitiesRequested } from '../actions'
 
 import ChannelList from '../components/channelList'
 
@@ -38,7 +38,7 @@ class ChannelsContainer extends React.Component {
       <div>
         {entities &&
           <ChannelList schema={this.props.schema} project={this.props.project}
-            onCreate={this.props.onCreate}
+            onCreate={this.props.onCreate} onDelete={this.props.onDelete}
             flux={this.props.flux}
             entities={entities}/>
         }
@@ -60,8 +60,8 @@ const mapDispatchToProps = dispatch => {
     onCreate : (entity, path) => {
       dispatch(createEntityRequested(entity, path))
     },
-    onDeleteChannel: entity => {
-      dispatch(deleteChannel(entity))
+    onDelete: entity => {
+      dispatch(deleteEntityRequested(entity))
     },
     onLoadEntities : (schema) => {
       dispatch(loadEntitiesRequested('channel', schema))

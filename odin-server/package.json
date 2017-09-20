@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ianhomer/odin",
   "jest": {
+    "bail": true,
     "moduleNameMapper": {
       "odin/actions/(.*)": "<rootDir>/src/main/js/actions/$1",
       "odin/components/(.*)": "<rootDir>/src/main/js/components/$1",
@@ -27,7 +28,8 @@
       "odin/reducers/(.*)": "<rootDir>/src/main/js/reducers/$1",
       "odin/schema/(.*)": "<rootDir>/src/main/js/schema/$1"
     },
-    "testURL": "http://localhost:8080"
+    "testURL": "http://localhost:8080",
+    "silent": true
   },
   "dependencies": {
     "ajv": "^5.2.2",

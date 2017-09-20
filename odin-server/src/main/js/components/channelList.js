@@ -33,7 +33,7 @@ class ChannelList extends React.Component{
       <Channel flux={this.props.flux}
         entity={entity} key={entity.number}
         path={this.props.path}
-        onDelete={this.onDelete}/>
+        onDelete={this.props.onDelete}/>
     )
 
     return (

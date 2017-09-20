@@ -730,7 +730,7 @@ exports[`Channels container renders OK 1`] = `
         }
       }
       onCreate={[Function]}
-      onDeleteChannel={[Function]}
+      onDelete={[Function]}
       onLoadEntities={[Function]}
       project={
         Object {
@@ -1456,6 +1456,7 @@ exports[`Channels container renders OK 1`] = `
             }
           }
           onCreate={[Function]}
+          onDelete={[Function]}
           path="channel"
           project={
             Object {
@@ -2100,6 +2101,7 @@ exports[`Channels container renders OK 1`] = `
                   }
                 }
                 key="2"
+                onDelete={[Function]}
                 path="channel"
               >
                 <div
@@ -2158,6 +2160,7 @@ exports[`Channels container renders OK 1`] = `
                   }
                 }
                 key="3"
+                onDelete={[Function]}
                 path="channel"
               >
                 <div
@@ -2216,6 +2219,7 @@ exports[`Channels container renders OK 1`] = `
                   }
                 }
                 key="4"
+                onDelete={[Function]}
                 path="channel"
               >
                 <div
@@ -2274,6 +2278,7 @@ exports[`Channels container renders OK 1`] = `
                   }
                 }
                 key="5"
+                onDelete={[Function]}
                 path="channel"
               >
                 <div
@@ -2332,6 +2337,7 @@ exports[`Channels container renders OK 1`] = `
                   }
                 }
                 key="9"
+                onDelete={[Function]}
                 path="channel"
               >
                 <div
@@ -2390,6 +2396,7 @@ exports[`Channels container renders OK 1`] = `
                   }
                 }
                 key="1"
+                onDelete={[Function]}
                 path="channel"
               >
                 <div
