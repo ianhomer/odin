@@ -32,7 +32,6 @@ class ChannelList extends React.Component{
     var entities = this.props.entities.map(entity =>
       <Channel flux={this.props.flux}
         entity={entity} key={entity.number}
-        path={this.props.path}
         onDelete={this.props.onDelete}/>
     )
 
