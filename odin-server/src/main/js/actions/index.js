@@ -19,7 +19,7 @@ export function loadEntitiesRequested(path, schema) {
   return {
     type: LOAD_ENTITIES_REQUESTED,
     path,
-    schema: schema
+    schema
   }
 }
 
@@ -31,7 +31,7 @@ export function receiveEntities(path, entities) {
   return {
     type: RECEIVE_ENTITIES,
     path,
-    entities: entities,
+    entities,
     receivedAt: Date.now()
   }
 }
@@ -41,7 +41,7 @@ export function createEntityRequested(entity, path) {
   return {
     type: CREATE_ENTITY_REQUESTED,
     path,
-    entity : entity
+    entity
   }
 }
 
@@ -57,7 +57,7 @@ export function deleteEntityRequested(entity) {
   return {
     type: DELETE_ENTITY_REQUESTED,
     path : getPathFromEntity(entity),
-    entity : entity
+    entity
   }
 }
 
