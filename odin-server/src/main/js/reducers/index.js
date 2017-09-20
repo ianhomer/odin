@@ -20,4 +20,6 @@ const reducers = {
   sequences
 }
 
+// Note that we return array of reducers instead of combined reducers since the test layer
+// injects an additional reducer.
 export default reducers
