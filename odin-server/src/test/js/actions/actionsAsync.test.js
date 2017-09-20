@@ -8,7 +8,7 @@ describe('async actions', () => {
     expect(store.getState().entities['channel']).toBeUndefined()
   })
 
-  test('Create Channel 1', (done) => {
+  test('Create Channel 1', done => {
     dispatchAndExpect(store, done, 'CREATE_ENTITY_SUCCEEDED', () => {
       return createEntityRequested({
         name : 'test-name-1',
@@ -20,7 +20,7 @@ describe('async actions', () => {
     })
   })
 
-  test('Create Channel 2', (done) => {
+  test('Create Channel 2', done => {
     dispatchAndExpect(store, done, 'CREATE_ENTITY_SUCCEEDED', () => {
       return createEntityRequested({
         name : 'test-name-2',
@@ -32,7 +32,7 @@ describe('async actions', () => {
     })
   })
 
-  test('Delete Channel 1', (done) => {
+  test('Delete Channel 1', done => {
     dispatchAndExpect(store, done, 'DELETE_ENTITY_SUCCEEDED', () => {
       return deleteEntityRequested({
         name : 'test-name-1',
