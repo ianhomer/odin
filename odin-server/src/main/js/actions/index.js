@@ -49,7 +49,13 @@ export const CREATE_ENTITY_SUCCEEDED = 'CREATE_ENTITY_SUCCEEDED'
 export const CREATE_ENTITY_FAILED = 'CREATE_ENTITY_FAILED'
 
 export const DELETE_ENTITY_REQUESTED = 'DELETE_ENTITY_REQUESTED'
-export const deleteEntityRequested = (entity) => ({
-  type: DELETE_ENTITY_REQUESTED,
-  entity
-})
+export function deleteEntityRequested(entity,path) {
+  return {
+    type: DELETE_ENTITY_REQUESTED,
+    path,
+    entity : entity
+  }
+}
+
+export const DELETE_ENTITY_SUCCEEDED = 'DELETE_ENTITY_SUCCEEDED'
+export const DELETE_ENTITY_FAILED = 'DELETE_ENTITY_FAILED'

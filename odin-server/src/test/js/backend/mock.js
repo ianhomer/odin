@@ -3,6 +3,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED,
+  DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED
 } from 'odin/actions/index.js'
 
@@ -15,6 +16,15 @@ function createEntityApi(entity) {
 function* createEntity(action) {
   const entity = yield call(createEntityApi, action.entity)
   yield put({type: CREATE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
+}
+
+function deleteEntityApi(entity) {
+  return entity
+}
+
+function* deleteEntity(action) {
+  const entity = yield call(deleteEntityApi, action.entity)
+  yield put({type: DELETE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
 }
 
 function loadJsonForPath(path) {
@@ -38,5 +48,6 @@ function* loadEntities(action) {
 
 export default function* backend() {
   yield takeEvery(CREATE_ENTITY_REQUESTED, createEntity)
+  yield takeEvery(DELETE_ENTITY_REQUESTED, deleteEntity)
   yield takeEvery(LOAD_ENTITIES_REQUESTED, loadEntities)
 }

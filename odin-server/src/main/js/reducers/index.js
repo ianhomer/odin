@@ -12,15 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { combineReducers } from 'redux'
 import sequences from './sequences'
-import channels from './channels'
 import entities from './entities'
 
-const reducers = combineReducers({
-  channels,
+const reducers = {
   entities,
   sequences
-})
+}
 
 export default reducers

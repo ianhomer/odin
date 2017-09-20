@@ -1,18 +1,25 @@
-import { createStore, applyMiddleware } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import thunkMiddleware from 'redux-thunk'
 
 import backend from './backend/mock.js'
-import reducer from 'odin/reducers/index.js'
+import reducers from 'odin/reducers/index.js'
 import { createLogger } from 'redux-logger'
+
+function lastAction(state = null, action) {
+  return action
+}
+
+reducers.lastAction = lastAction
+const combinedReducers = combineReducers(reducers)
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
-  reducer,
+  combinedReducers,
   applyMiddleware(
     thunkMiddleware,
     sagaMiddleware,
-    createLogger({colors : {action : false}})
+    createLogger({collapsed : false, timestamp : true, colors : {action : false}})
   )
 )
 
