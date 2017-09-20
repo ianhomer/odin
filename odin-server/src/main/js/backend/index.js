@@ -14,56 +14,83 @@
 
 'use strict'
 
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery, getContext } from 'redux-saga/effects'
 import fetch from 'isomorphic-fetch'
 import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED, CREATE_ENTITY_FAILED,
+  DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED, DELETE_ENTITY_FAILED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED
 } from '../actions'
 
 const root = '/api'
 
-function createEntityApi(entity, path) {
-  return fetch(root + '/' + path, {
-    method : 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }, body : JSON.stringify(entity)
-  })
-    .then(response => response.json() )
-}
-
-function* createEntity(action) {
-  try {
-    const entity = yield call(createEntityApi, action.entity, action.path)
-    yield put({type: CREATE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
-  } catch (e) {
-    yield put({type: CREATE_ENTITY_FAILED, message: e.message})
+export class Backend {
+  createEntityApi(entity, path) {
+    return fetch(root + '/' + path, {
+      method : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }, body : JSON.stringify(entity)
+    })
+      .then(response => response.json() )
   }
-}
 
-function loadEntitiesApi(path, schema) {
-  schema.loadClazz(path).then(() => {})
-  return fetch(root + '/' + path, {
-    method : 'GET',
-    headers: {
-      'Content-Type': 'application/json'
+  * createEntity(action) {
+    try {
+      const backend = yield getContext('backend')
+      const entity = yield call(backend.createEntityApi, action.entity, action.path)
+      yield put({type: CREATE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
+    } catch (e) {
+      yield put({type: CREATE_ENTITY_FAILED, message: e.message})
     }
-  })
-    .then(response => response.json())
-    .then(json => json._embedded.channel)
-}
-
-function* loadEntities(action) {
-  try {
-    const entities = yield call(loadEntitiesApi, action.path, action.schema)
-    yield put({type: LOAD_ENTITIES_SUCCEEDED, entities: entities, path: action.path})
-  } catch (e) {
-    yield put({type: LOAD_ENTITIES_FAILED, message: e.message})
   }
-}
 
-export default function* backend() {
-  yield takeEvery(CREATE_ENTITY_REQUESTED, createEntity)
-  yield takeEvery(LOAD_ENTITIES_REQUESTED, loadEntities)
+  deleteEntityApi(entity) {
+    return fetch(entity._links.self.href, {
+      method : 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(() => entity)
+  }
+
+  * deleteEntity(action) {
+    try {
+      const backend = yield getContext('backend')
+      const entity = yield call(backend.deleteEntityApi, action.entity)
+      yield put({type: DELETE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
+    } catch (e) {
+      yield put({type: DELETE_ENTITY_FAILED, message: e.message})
+    }
+  }
+
+  loadEntitiesApi(path, schema) {
+    schema.loadClazz(path).then(() => {})
+    return fetch(root + '/' + path, {
+      method : 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => json._embedded.channel)
+  }
+
+  * loadEntities(action) {
+    try {
+      const backend = yield getContext('backend')
+      const entities = yield call(backend.loadEntitiesApi, action.path, action.schema)
+      yield put({type: LOAD_ENTITIES_SUCCEEDED, entities: entities, path: action.path})
+    } catch (e) {
+      yield put({type: LOAD_ENTITIES_FAILED, message: e.message})
+    }
+  }
+
+  * saga() {
+    var backend = yield getContext('backend')
+    yield takeEvery(CREATE_ENTITY_REQUESTED, backend.createEntity)
+    yield takeEvery(DELETE_ENTITY_REQUESTED, backend.deleteEntity)
+    yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
+  }
 }

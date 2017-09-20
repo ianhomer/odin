@@ -48,11 +48,15 @@ export function createEntityRequested(entity, path) {
 export const CREATE_ENTITY_SUCCEEDED = 'CREATE_ENTITY_SUCCEEDED'
 export const CREATE_ENTITY_FAILED = 'CREATE_ENTITY_FAILED'
 
+function getPathFromEntity(entity) {
+  return entity._links.self.href.match('/api/([^/]*)')[1]
+}
+
 export const DELETE_ENTITY_REQUESTED = 'DELETE_ENTITY_REQUESTED'
-export function deleteEntityRequested(entity,path) {
+export function deleteEntityRequested(entity) {
   return {
     type: DELETE_ENTITY_REQUESTED,
-    path,
+    path : getPathFromEntity(entity),
     entity : entity
   }
 }

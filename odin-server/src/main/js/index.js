@@ -24,10 +24,16 @@ import createSagaMiddleware from 'redux-saga'
 import App from './components/app'
 import reducers from './reducers'
 import { Flux } from './legacy/flux'
-import backend from './backend'
+import { Backend } from './backend'
 
-// Create saga middleware for handling of calls to backend
-const sagaMiddleware = createSagaMiddleware()
+// Create the backend integration layer
+const backend = new Backend()
+
+// Create saga middleware for handling of calls to backend.  Note that the backend is
+// passed in as context for the saga middleware so that we can inject the backend API calls in.
+// Injecting backend API calls in is required for switching in different backends as required
+// for test cases which need a mock backend.
+const sagaMiddleware = createSagaMiddleware({context: {backend : backend}})
 
 // Create the application store
 const store = createStore(
@@ -40,7 +46,7 @@ const store = createStore(
 )
 
 // Hook in back end API calls
-sagaMiddleware.run(backend)
+sagaMiddleware.run(backend.saga)
 
 // Render application
 render(
