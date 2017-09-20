@@ -17,12 +17,12 @@ import { render } from 'react-dom'
 
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import { createStore, applyMiddleware } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 import 'babel-polyfill'
 import createSagaMiddleware from 'redux-saga'
 
 import App from './components/app'
-import reducer from './reducers'
+import reducers from './reducers'
 import { Flux } from './legacy/flux'
 import backend from './backend'
 
@@ -31,7 +31,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 // Create the application store
 const store = createStore(
-  reducer,
+  combineReducers(reducers),
   applyMiddleware(
     thunkMiddleware,
     sagaMiddleware,
