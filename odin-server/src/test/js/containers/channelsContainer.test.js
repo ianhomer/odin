@@ -16,4 +16,7 @@ test('Channels container renders OK', () => {
   expect(toJson(component)).toMatchSnapshot()
   expect(component.find('button')).toHaveLength(6)
   component.find('button').at(0).simulate('click')
+  expect(component.find('button')).toHaveLength(5)
+  component.find('button').at(0).simulate('click')
+  expect(component.find('button')).toHaveLength(4)
 })
