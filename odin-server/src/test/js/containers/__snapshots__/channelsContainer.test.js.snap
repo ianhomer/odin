@@ -1,176 +1,2428 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Channels container renders OK 1`] = `
-<div>
-  <div>
-    <div
-      className="container"
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(ChannelsContainer)
+    flux={
+      MockFlux {
+        "client": [Function],
+        "loadFromServer": [Function],
+        "loadSchema": [Function],
+        "onCreate": [Function],
+        "onPatch": [Function],
+        "onUpdate": [Function],
+      }
+    }
+    project={
+      Object {
+        "_links": Object {
+          "channels": Object {
+            "href": "http://localhost:8080/api/project/1/channels",
+          },
+          "layers": Object {
+            "href": "http://localhost:8080/api/project/1/layers",
+          },
+          "project": Object {
+            "href": "http://localhost:8080/api/project/1",
+          },
+          "self": Object {
+            "href": "http://localhost:8080/api/project/1",
+          },
+          "sequences": Object {
+            "href": "http://localhost:8080/api/project/1/sequences",
+          },
+        },
+        "name": "defaultProject",
+      }
+    }
+    schema={
+      Schema {
+        "clazzes": Object {},
+        "flux": MockFlux {
+          "client": [Function],
+          "loadFromServer": [Function],
+          "loadSchema": [Function],
+          "onCreate": [Function],
+          "onPatch": [Function],
+          "onUpdate": [Function],
+        },
+        "schema": Object {
+          "flows": Object {
+            "metronome": "flow-metronome",
+            "notation": "flow-notation",
+            "pattern": "flow-pattern",
+          },
+          "typeRefs": Array [
+            "urn:jsonschema:com:purplepip:odin:project:Project",
+            "flow-pattern",
+            "flow-metronome",
+            "flow-notation",
+          ],
+          "types": Object {
+            "flow-metronome": Object {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "additionalProperties": false,
+              "definitions": Object {
+                "PersistableNote": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "denominator": Object {
+                      "minimum": 1,
+                      "title": "Denominator",
+                      "type": "integer",
+                    },
+                    "number": Object {
+                      "title": "Number",
+                      "type": "integer",
+                    },
+                    "numerator": Object {
+                      "minimum": 1,
+                      "title": "Numerator",
+                      "type": "integer",
+                    },
+                    "velocity": Object {
+                      "title": "Velocity",
+                      "type": "integer",
+                    },
+                  },
+                  "required": Array [
+                    "velocity",
+                    "number",
+                    "numerator",
+                    "denominator",
+                  ],
+                  "type": "object",
+                },
+                "PersistableTick": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "denominator": Object {
+                      "minimum": 1,
+                      "title": "Denominator",
+                      "type": "integer",
+                    },
+                    "numerator": Object {
+                      "minimum": 1,
+                      "title": "Numerator",
+                      "type": "integer",
+                    },
+                    "timeUnit": Object {
+                      "enum": Array [
+                        "BEAT",
+                        "MICROSECOND",
+                        "MEASURE",
+                      ],
+                      "title": "Time Unit",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "numerator",
+                    "denominator",
+                  ],
+                  "type": "object",
+                },
+              },
+              "properties": Object {
+                "channel": Object {
+                  "title": "Channel",
+                  "type": "integer",
+                },
+                "flowName": Object {
+                  "title": "Flow Name",
+                  "type": "string",
+                },
+                "layers": Object {
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "title": "Layers",
+                  "type": "array",
+                },
+                "length": Object {
+                  "minimum": -1,
+                  "title": "Length",
+                  "type": "integer",
+                },
+                "name": Object {
+                  "title": "Name",
+                  "type": "string",
+                },
+                "noteBarMid": Object {
+                  "$ref": "#/definitions/PersistableNote",
+                  "title": "Note Bar Mid",
+                },
+                "noteBarStart": Object {
+                  "$ref": "#/definitions/PersistableNote",
+                  "title": "Note Bar Start",
+                },
+                "offset": Object {
+                  "title": "Offset",
+                  "type": "integer",
+                },
+                "project": Object {
+                  "format": "uri",
+                  "title": "Project",
+                  "type": "string",
+                },
+                "tick": Object {
+                  "$ref": "#/definitions/PersistableTick",
+                  "title": "Tick",
+                },
+              },
+              "required": Array [
+                "channel",
+                "flowName",
+                "layers",
+                "length",
+                "offset",
+                "tick",
+                "name",
+              ],
+              "title": "Metronome",
+              "type": "object",
+            },
+            "flow-notation": Object {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "additionalProperties": false,
+              "definitions": Object {
+                "PersistableTick": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "denominator": Object {
+                      "minimum": 1,
+                      "title": "Denominator",
+                      "type": "integer",
+                    },
+                    "numerator": Object {
+                      "minimum": 1,
+                      "title": "Numerator",
+                      "type": "integer",
+                    },
+                    "timeUnit": Object {
+                      "enum": Array [
+                        "BEAT",
+                        "MICROSECOND",
+                        "MEASURE",
+                      ],
+                      "title": "Time Unit",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "numerator",
+                    "denominator",
+                  ],
+                  "type": "object",
+                },
+              },
+              "properties": Object {
+                "channel": Object {
+                  "title": "Channel",
+                  "type": "integer",
+                },
+                "flowName": Object {
+                  "title": "Flow Name",
+                  "type": "string",
+                },
+                "format": Object {
+                  "title": "Format",
+                  "type": "string",
+                },
+                "layers": Object {
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "title": "Layers",
+                  "type": "array",
+                },
+                "length": Object {
+                  "minimum": -1,
+                  "title": "Length",
+                  "type": "integer",
+                },
+                "name": Object {
+                  "title": "Name",
+                  "type": "string",
+                },
+                "notation": Object {
+                  "title": "Notation",
+                  "type": "string",
+                },
+                "offset": Object {
+                  "title": "Offset",
+                  "type": "integer",
+                },
+                "project": Object {
+                  "format": "uri",
+                  "title": "Project",
+                  "type": "string",
+                },
+                "tick": Object {
+                  "$ref": "#/definitions/PersistableTick",
+                  "title": "Tick",
+                },
+              },
+              "required": Array [
+                "channel",
+                "flowName",
+                "layers",
+                "length",
+                "offset",
+                "tick",
+                "name",
+              ],
+              "title": "Notation",
+              "type": "object",
+            },
+            "flow-pattern": Object {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "additionalProperties": false,
+              "definitions": Object {
+                "PersistableNote": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "denominator": Object {
+                      "minimum": 1,
+                      "title": "Denominator",
+                      "type": "integer",
+                    },
+                    "number": Object {
+                      "title": "Number",
+                      "type": "integer",
+                    },
+                    "numerator": Object {
+                      "minimum": 1,
+                      "title": "Numerator",
+                      "type": "integer",
+                    },
+                    "velocity": Object {
+                      "title": "Velocity",
+                      "type": "integer",
+                    },
+                  },
+                  "required": Array [
+                    "velocity",
+                    "number",
+                    "numerator",
+                    "denominator",
+                  ],
+                  "type": "object",
+                },
+                "PersistableTick": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "denominator": Object {
+                      "minimum": 1,
+                      "title": "Denominator",
+                      "type": "integer",
+                    },
+                    "numerator": Object {
+                      "minimum": 1,
+                      "title": "Numerator",
+                      "type": "integer",
+                    },
+                    "timeUnit": Object {
+                      "enum": Array [
+                        "BEAT",
+                        "MICROSECOND",
+                        "MEASURE",
+                      ],
+                      "title": "Time Unit",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "numerator",
+                    "denominator",
+                  ],
+                  "type": "object",
+                },
+              },
+              "properties": Object {
+                "bits": Object {
+                  "minimum": 0,
+                  "title": "Bits",
+                  "type": "integer",
+                },
+                "channel": Object {
+                  "title": "Channel",
+                  "type": "integer",
+                },
+                "flowName": Object {
+                  "title": "Flow Name",
+                  "type": "string",
+                },
+                "layers": Object {
+                  "items": Object {
+                    "type": "string",
+                  },
+                  "title": "Layers",
+                  "type": "array",
+                },
+                "length": Object {
+                  "minimum": -1,
+                  "title": "Length",
+                  "type": "integer",
+                },
+                "name": Object {
+                  "title": "Name",
+                  "type": "string",
+                },
+                "note": Object {
+                  "$ref": "#/definitions/PersistableNote",
+                  "title": "Note",
+                },
+                "offset": Object {
+                  "title": "Offset",
+                  "type": "integer",
+                },
+                "project": Object {
+                  "format": "uri",
+                  "title": "Project",
+                  "type": "string",
+                },
+                "tick": Object {
+                  "$ref": "#/definitions/PersistableTick",
+                  "title": "Tick",
+                },
+              },
+              "required": Array [
+                "note",
+                "bits",
+                "channel",
+                "flowName",
+                "layers",
+                "length",
+                "offset",
+                "tick",
+                "name",
+              ],
+              "title": "Pattern",
+              "type": "object",
+            },
+            "urn:jsonschema:com:purplepip:odin:project:Project": Object {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "additionalProperties": false,
+              "definitions": Object {
+                "Channel": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "id": Object {
+                      "type": "integer",
+                    },
+                    "number": Object {
+                      "type": "integer",
+                    },
+                    "program": Object {
+                      "type": "integer",
+                    },
+                    "programName": Object {
+                      "type": "string",
+                    },
+                    "project": Object {
+                      "$ref": "#/definitions/Project",
+                    },
+                  },
+                  "required": Array [
+                    "id",
+                    "number",
+                    "program",
+                  ],
+                  "type": "object",
+                },
+                "Layer": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "layers": Object {
+                      "items": Object {
+                        "type": "string",
+                      },
+                      "type": "array",
+                    },
+                    "length": Object {
+                      "minimum": -1,
+                      "type": "integer",
+                    },
+                    "name": Object {
+                      "type": "string",
+                    },
+                    "offset": Object {
+                      "type": "integer",
+                    },
+                    "project": Object {
+                      "$ref": "#/definitions/Project",
+                    },
+                    "tick": Object {
+                      "$ref": "#/definitions/Tick",
+                    },
+                  },
+                  "required": Array [
+                    "length",
+                    "offset",
+                    "tick",
+                    "name",
+                  ],
+                  "type": "object",
+                },
+                "Project": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "channels": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Channel",
+                      },
+                      "type": "array",
+                    },
+                    "layers": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Layer",
+                      },
+                      "type": "array",
+                    },
+                    "name": Object {
+                      "type": "string",
+                    },
+                    "sequences": Object {
+                      "items": Object {
+                        "$ref": "#/definitions/Sequence",
+                      },
+                      "type": "array",
+                    },
+                  },
+                  "type": "object",
+                },
+                "Rational": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "denominator": Object {
+                      "type": "integer",
+                    },
+                    "numerator": Object {
+                      "type": "integer",
+                    },
+                    "simplified": Object {
+                      "type": "boolean",
+                    },
+                    "value": Object {
+                      "type": "number",
+                    },
+                  },
+                  "required": Array [
+                    "value",
+                    "numerator",
+                    "denominator",
+                    "simplified",
+                  ],
+                  "type": "object",
+                },
+                "Sequence": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "channel": Object {
+                      "type": "integer",
+                    },
+                    "flowName": Object {
+                      "type": "string",
+                    },
+                    "layers": Object {
+                      "items": Object {
+                        "type": "string",
+                      },
+                      "type": "array",
+                    },
+                    "length": Object {
+                      "minimum": -1,
+                      "type": "integer",
+                    },
+                    "name": Object {
+                      "type": "string",
+                    },
+                    "offset": Object {
+                      "type": "integer",
+                    },
+                    "project": Object {
+                      "$ref": "#/definitions/Project",
+                    },
+                    "tick": Object {
+                      "$ref": "#/definitions/Tick",
+                    },
+                  },
+                  "required": Array [
+                    "channel",
+                    "layers",
+                    "flowName",
+                    "length",
+                    "offset",
+                    "tick",
+                    "name",
+                  ],
+                  "type": "object",
+                },
+                "Tick": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "factor": Object {
+                      "$ref": "#/definitions/Rational",
+                    },
+                    "timeUnit": Object {
+                      "enum": Array [
+                        "BEAT",
+                        "MICROSECOND",
+                        "MEASURE",
+                      ],
+                      "type": "string",
+                    },
+                  },
+                  "type": "object",
+                },
+              },
+              "properties": Object {
+                "channels": Object {
+                  "items": Object {
+                    "$ref": "#/definitions/Channel",
+                  },
+                  "type": "array",
+                },
+                "layers": Object {
+                  "items": Object {
+                    "$ref": "#/definitions/Layer",
+                  },
+                  "type": "array",
+                },
+                "name": Object {
+                  "type": "string",
+                },
+                "sequences": Object {
+                  "items": Object {
+                    "$ref": "#/definitions/Sequence",
+                  },
+                  "type": "array",
+                },
+              },
+              "title": "Project",
+              "type": "object",
+            },
+          },
+        },
+      }
+    }
+  >
+    <ChannelsContainer
+      entities={
+        Array [
+          Object {
+            "_links": Object {
+              "channel": Object {
+                "href": "http://localhost:8080/api/channel/3",
+              },
+              "project": Object {
+                "href": "http://localhost:8080/api/channel/3/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/channel/3",
+              },
+            },
+            "number": 2,
+            "program": 0,
+            "programName": "rock",
+          },
+          Object {
+            "_links": Object {
+              "channel": Object {
+                "href": "http://localhost:8080/api/channel/4",
+              },
+              "project": Object {
+                "href": "http://localhost:8080/api/channel/4/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/channel/4",
+              },
+            },
+            "number": 3,
+            "program": 0,
+            "programName": "strings",
+          },
+          Object {
+            "_links": Object {
+              "channel": Object {
+                "href": "http://localhost:8080/api/channel/5",
+              },
+              "project": Object {
+                "href": "http://localhost:8080/api/channel/5/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/channel/5",
+              },
+            },
+            "number": 4,
+            "program": 0,
+            "programName": "aahs",
+          },
+          Object {
+            "_links": Object {
+              "channel": Object {
+                "href": "http://localhost:8080/api/channel/6",
+              },
+              "project": Object {
+                "href": "http://localhost:8080/api/channel/6/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/channel/6",
+              },
+            },
+            "number": 5,
+            "program": 0,
+            "programName": "bass",
+          },
+          Object {
+            "_links": Object {
+              "channel": Object {
+                "href": "http://localhost:8080/api/channel/7",
+              },
+              "project": Object {
+                "href": "http://localhost:8080/api/channel/7/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/channel/7",
+              },
+            },
+            "number": 9,
+            "program": 0,
+            "programName": "Power Drums",
+          },
+          Object {
+            "_links": Object {
+              "channel": Object {
+                "href": "http://localhost:8080/api/channel/4392",
+              },
+              "project": Object {
+                "href": "http://localhost:8080/api/channel/4392/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/channel/4392",
+              },
+            },
+            "number": 1,
+            "program": 0,
+            "programName": "pianoZ",
+          },
+        ]
+      }
+      flux={
+        MockFlux {
+          "client": [Function],
+          "loadFromServer": [Function],
+          "loadSchema": [Function],
+          "onCreate": [Function],
+          "onPatch": [Function],
+          "onUpdate": [Function],
+        }
+      }
+      onCreate={[Function]}
+      onDeleteChannel={[Function]}
+      onLoadEntities={[Function]}
+      project={
+        Object {
+          "_links": Object {
+            "channels": Object {
+              "href": "http://localhost:8080/api/project/1/channels",
+            },
+            "layers": Object {
+              "href": "http://localhost:8080/api/project/1/layers",
+            },
+            "project": Object {
+              "href": "http://localhost:8080/api/project/1",
+            },
+            "self": Object {
+              "href": "http://localhost:8080/api/project/1",
+            },
+            "sequences": Object {
+              "href": "http://localhost:8080/api/project/1/sequences",
+            },
+          },
+          "name": "defaultProject",
+        }
+      }
+      schema={
+        Schema {
+          "clazzes": Object {},
+          "flux": MockFlux {
+            "client": [Function],
+            "loadFromServer": [Function],
+            "loadSchema": [Function],
+            "onCreate": [Function],
+            "onPatch": [Function],
+            "onUpdate": [Function],
+          },
+          "schema": Object {
+            "flows": Object {
+              "metronome": "flow-metronome",
+              "notation": "flow-notation",
+              "pattern": "flow-pattern",
+            },
+            "typeRefs": Array [
+              "urn:jsonschema:com:purplepip:odin:project:Project",
+              "flow-pattern",
+              "flow-metronome",
+              "flow-notation",
+            ],
+            "types": Object {
+              "flow-metronome": Object {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "additionalProperties": false,
+                "definitions": Object {
+                  "PersistableNote": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "denominator": Object {
+                        "minimum": 1,
+                        "title": "Denominator",
+                        "type": "integer",
+                      },
+                      "number": Object {
+                        "title": "Number",
+                        "type": "integer",
+                      },
+                      "numerator": Object {
+                        "minimum": 1,
+                        "title": "Numerator",
+                        "type": "integer",
+                      },
+                      "velocity": Object {
+                        "title": "Velocity",
+                        "type": "integer",
+                      },
+                    },
+                    "required": Array [
+                      "velocity",
+                      "number",
+                      "numerator",
+                      "denominator",
+                    ],
+                    "type": "object",
+                  },
+                  "PersistableTick": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "denominator": Object {
+                        "minimum": 1,
+                        "title": "Denominator",
+                        "type": "integer",
+                      },
+                      "numerator": Object {
+                        "minimum": 1,
+                        "title": "Numerator",
+                        "type": "integer",
+                      },
+                      "timeUnit": Object {
+                        "enum": Array [
+                          "BEAT",
+                          "MICROSECOND",
+                          "MEASURE",
+                        ],
+                        "title": "Time Unit",
+                        "type": "string",
+                      },
+                    },
+                    "required": Array [
+                      "numerator",
+                      "denominator",
+                    ],
+                    "type": "object",
+                  },
+                },
+                "properties": Object {
+                  "channel": Object {
+                    "title": "Channel",
+                    "type": "integer",
+                  },
+                  "flowName": Object {
+                    "title": "Flow Name",
+                    "type": "string",
+                  },
+                  "layers": Object {
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "title": "Layers",
+                    "type": "array",
+                  },
+                  "length": Object {
+                    "minimum": -1,
+                    "title": "Length",
+                    "type": "integer",
+                  },
+                  "name": Object {
+                    "title": "Name",
+                    "type": "string",
+                  },
+                  "noteBarMid": Object {
+                    "$ref": "#/definitions/PersistableNote",
+                    "title": "Note Bar Mid",
+                  },
+                  "noteBarStart": Object {
+                    "$ref": "#/definitions/PersistableNote",
+                    "title": "Note Bar Start",
+                  },
+                  "offset": Object {
+                    "title": "Offset",
+                    "type": "integer",
+                  },
+                  "project": Object {
+                    "format": "uri",
+                    "title": "Project",
+                    "type": "string",
+                  },
+                  "tick": Object {
+                    "$ref": "#/definitions/PersistableTick",
+                    "title": "Tick",
+                  },
+                },
+                "required": Array [
+                  "channel",
+                  "flowName",
+                  "layers",
+                  "length",
+                  "offset",
+                  "tick",
+                  "name",
+                ],
+                "title": "Metronome",
+                "type": "object",
+              },
+              "flow-notation": Object {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "additionalProperties": false,
+                "definitions": Object {
+                  "PersistableTick": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "denominator": Object {
+                        "minimum": 1,
+                        "title": "Denominator",
+                        "type": "integer",
+                      },
+                      "numerator": Object {
+                        "minimum": 1,
+                        "title": "Numerator",
+                        "type": "integer",
+                      },
+                      "timeUnit": Object {
+                        "enum": Array [
+                          "BEAT",
+                          "MICROSECOND",
+                          "MEASURE",
+                        ],
+                        "title": "Time Unit",
+                        "type": "string",
+                      },
+                    },
+                    "required": Array [
+                      "numerator",
+                      "denominator",
+                    ],
+                    "type": "object",
+                  },
+                },
+                "properties": Object {
+                  "channel": Object {
+                    "title": "Channel",
+                    "type": "integer",
+                  },
+                  "flowName": Object {
+                    "title": "Flow Name",
+                    "type": "string",
+                  },
+                  "format": Object {
+                    "title": "Format",
+                    "type": "string",
+                  },
+                  "layers": Object {
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "title": "Layers",
+                    "type": "array",
+                  },
+                  "length": Object {
+                    "minimum": -1,
+                    "title": "Length",
+                    "type": "integer",
+                  },
+                  "name": Object {
+                    "title": "Name",
+                    "type": "string",
+                  },
+                  "notation": Object {
+                    "title": "Notation",
+                    "type": "string",
+                  },
+                  "offset": Object {
+                    "title": "Offset",
+                    "type": "integer",
+                  },
+                  "project": Object {
+                    "format": "uri",
+                    "title": "Project",
+                    "type": "string",
+                  },
+                  "tick": Object {
+                    "$ref": "#/definitions/PersistableTick",
+                    "title": "Tick",
+                  },
+                },
+                "required": Array [
+                  "channel",
+                  "flowName",
+                  "layers",
+                  "length",
+                  "offset",
+                  "tick",
+                  "name",
+                ],
+                "title": "Notation",
+                "type": "object",
+              },
+              "flow-pattern": Object {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "additionalProperties": false,
+                "definitions": Object {
+                  "PersistableNote": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "denominator": Object {
+                        "minimum": 1,
+                        "title": "Denominator",
+                        "type": "integer",
+                      },
+                      "number": Object {
+                        "title": "Number",
+                        "type": "integer",
+                      },
+                      "numerator": Object {
+                        "minimum": 1,
+                        "title": "Numerator",
+                        "type": "integer",
+                      },
+                      "velocity": Object {
+                        "title": "Velocity",
+                        "type": "integer",
+                      },
+                    },
+                    "required": Array [
+                      "velocity",
+                      "number",
+                      "numerator",
+                      "denominator",
+                    ],
+                    "type": "object",
+                  },
+                  "PersistableTick": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "denominator": Object {
+                        "minimum": 1,
+                        "title": "Denominator",
+                        "type": "integer",
+                      },
+                      "numerator": Object {
+                        "minimum": 1,
+                        "title": "Numerator",
+                        "type": "integer",
+                      },
+                      "timeUnit": Object {
+                        "enum": Array [
+                          "BEAT",
+                          "MICROSECOND",
+                          "MEASURE",
+                        ],
+                        "title": "Time Unit",
+                        "type": "string",
+                      },
+                    },
+                    "required": Array [
+                      "numerator",
+                      "denominator",
+                    ],
+                    "type": "object",
+                  },
+                },
+                "properties": Object {
+                  "bits": Object {
+                    "minimum": 0,
+                    "title": "Bits",
+                    "type": "integer",
+                  },
+                  "channel": Object {
+                    "title": "Channel",
+                    "type": "integer",
+                  },
+                  "flowName": Object {
+                    "title": "Flow Name",
+                    "type": "string",
+                  },
+                  "layers": Object {
+                    "items": Object {
+                      "type": "string",
+                    },
+                    "title": "Layers",
+                    "type": "array",
+                  },
+                  "length": Object {
+                    "minimum": -1,
+                    "title": "Length",
+                    "type": "integer",
+                  },
+                  "name": Object {
+                    "title": "Name",
+                    "type": "string",
+                  },
+                  "note": Object {
+                    "$ref": "#/definitions/PersistableNote",
+                    "title": "Note",
+                  },
+                  "offset": Object {
+                    "title": "Offset",
+                    "type": "integer",
+                  },
+                  "project": Object {
+                    "format": "uri",
+                    "title": "Project",
+                    "type": "string",
+                  },
+                  "tick": Object {
+                    "$ref": "#/definitions/PersistableTick",
+                    "title": "Tick",
+                  },
+                },
+                "required": Array [
+                  "note",
+                  "bits",
+                  "channel",
+                  "flowName",
+                  "layers",
+                  "length",
+                  "offset",
+                  "tick",
+                  "name",
+                ],
+                "title": "Pattern",
+                "type": "object",
+              },
+              "urn:jsonschema:com:purplepip:odin:project:Project": Object {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "additionalProperties": false,
+                "definitions": Object {
+                  "Channel": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "id": Object {
+                        "type": "integer",
+                      },
+                      "number": Object {
+                        "type": "integer",
+                      },
+                      "program": Object {
+                        "type": "integer",
+                      },
+                      "programName": Object {
+                        "type": "string",
+                      },
+                      "project": Object {
+                        "$ref": "#/definitions/Project",
+                      },
+                    },
+                    "required": Array [
+                      "id",
+                      "number",
+                      "program",
+                    ],
+                    "type": "object",
+                  },
+                  "Layer": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "layers": Object {
+                        "items": Object {
+                          "type": "string",
+                        },
+                        "type": "array",
+                      },
+                      "length": Object {
+                        "minimum": -1,
+                        "type": "integer",
+                      },
+                      "name": Object {
+                        "type": "string",
+                      },
+                      "offset": Object {
+                        "type": "integer",
+                      },
+                      "project": Object {
+                        "$ref": "#/definitions/Project",
+                      },
+                      "tick": Object {
+                        "$ref": "#/definitions/Tick",
+                      },
+                    },
+                    "required": Array [
+                      "length",
+                      "offset",
+                      "tick",
+                      "name",
+                    ],
+                    "type": "object",
+                  },
+                  "Project": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "channels": Object {
+                        "items": Object {
+                          "$ref": "#/definitions/Channel",
+                        },
+                        "type": "array",
+                      },
+                      "layers": Object {
+                        "items": Object {
+                          "$ref": "#/definitions/Layer",
+                        },
+                        "type": "array",
+                      },
+                      "name": Object {
+                        "type": "string",
+                      },
+                      "sequences": Object {
+                        "items": Object {
+                          "$ref": "#/definitions/Sequence",
+                        },
+                        "type": "array",
+                      },
+                    },
+                    "type": "object",
+                  },
+                  "Rational": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "denominator": Object {
+                        "type": "integer",
+                      },
+                      "numerator": Object {
+                        "type": "integer",
+                      },
+                      "simplified": Object {
+                        "type": "boolean",
+                      },
+                      "value": Object {
+                        "type": "number",
+                      },
+                    },
+                    "required": Array [
+                      "value",
+                      "numerator",
+                      "denominator",
+                      "simplified",
+                    ],
+                    "type": "object",
+                  },
+                  "Sequence": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "channel": Object {
+                        "type": "integer",
+                      },
+                      "flowName": Object {
+                        "type": "string",
+                      },
+                      "layers": Object {
+                        "items": Object {
+                          "type": "string",
+                        },
+                        "type": "array",
+                      },
+                      "length": Object {
+                        "minimum": -1,
+                        "type": "integer",
+                      },
+                      "name": Object {
+                        "type": "string",
+                      },
+                      "offset": Object {
+                        "type": "integer",
+                      },
+                      "project": Object {
+                        "$ref": "#/definitions/Project",
+                      },
+                      "tick": Object {
+                        "$ref": "#/definitions/Tick",
+                      },
+                    },
+                    "required": Array [
+                      "channel",
+                      "layers",
+                      "flowName",
+                      "length",
+                      "offset",
+                      "tick",
+                      "name",
+                    ],
+                    "type": "object",
+                  },
+                  "Tick": Object {
+                    "additionalProperties": false,
+                    "properties": Object {
+                      "factor": Object {
+                        "$ref": "#/definitions/Rational",
+                      },
+                      "timeUnit": Object {
+                        "enum": Array [
+                          "BEAT",
+                          "MICROSECOND",
+                          "MEASURE",
+                        ],
+                        "type": "string",
+                      },
+                    },
+                    "type": "object",
+                  },
+                },
+                "properties": Object {
+                  "channels": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Channel",
+                    },
+                    "type": "array",
+                  },
+                  "layers": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Layer",
+                    },
+                    "type": "array",
+                  },
+                  "name": Object {
+                    "type": "string",
+                  },
+                  "sequences": Object {
+                    "items": Object {
+                      "$ref": "#/definitions/Sequence",
+                    },
+                    "type": "array",
+                  },
+                },
+                "title": "Project",
+                "type": "object",
+              },
+            },
+          },
+        }
+      }
     >
-      <div
-        className="row"
-      >
-        <div
-          className="col-2"
+      <div>
+        <ChannelList
+          entities={
+            Array [
+              Object {
+                "_links": Object {
+                  "channel": Object {
+                    "href": "http://localhost:8080/api/channel/3",
+                  },
+                  "project": Object {
+                    "href": "http://localhost:8080/api/channel/3/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/channel/3",
+                  },
+                },
+                "number": 2,
+                "program": 0,
+                "programName": "rock",
+              },
+              Object {
+                "_links": Object {
+                  "channel": Object {
+                    "href": "http://localhost:8080/api/channel/4",
+                  },
+                  "project": Object {
+                    "href": "http://localhost:8080/api/channel/4/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/channel/4",
+                  },
+                },
+                "number": 3,
+                "program": 0,
+                "programName": "strings",
+              },
+              Object {
+                "_links": Object {
+                  "channel": Object {
+                    "href": "http://localhost:8080/api/channel/5",
+                  },
+                  "project": Object {
+                    "href": "http://localhost:8080/api/channel/5/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/channel/5",
+                  },
+                },
+                "number": 4,
+                "program": 0,
+                "programName": "aahs",
+              },
+              Object {
+                "_links": Object {
+                  "channel": Object {
+                    "href": "http://localhost:8080/api/channel/6",
+                  },
+                  "project": Object {
+                    "href": "http://localhost:8080/api/channel/6/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/channel/6",
+                  },
+                },
+                "number": 5,
+                "program": 0,
+                "programName": "bass",
+              },
+              Object {
+                "_links": Object {
+                  "channel": Object {
+                    "href": "http://localhost:8080/api/channel/7",
+                  },
+                  "project": Object {
+                    "href": "http://localhost:8080/api/channel/7/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/channel/7",
+                  },
+                },
+                "number": 9,
+                "program": 0,
+                "programName": "Power Drums",
+              },
+              Object {
+                "_links": Object {
+                  "channel": Object {
+                    "href": "http://localhost:8080/api/channel/4392",
+                  },
+                  "project": Object {
+                    "href": "http://localhost:8080/api/channel/4392/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/channel/4392",
+                  },
+                },
+                "number": 1,
+                "program": 0,
+                "programName": "pianoZ",
+              },
+            ]
+          }
+          fields={
+            Object {
+              "number": Object {
+                "cellWidth": 2,
+                "defaultValue": 1,
+              },
+              "program": Object {
+                "defaultValue": 0,
+                "hidden": true,
+              },
+              "programName": Object {
+                "cellWidth": 3,
+                "defaultValue": "piano",
+              },
+            }
+          }
+          flux={
+            MockFlux {
+              "client": [Function],
+              "loadFromServer": [Function],
+              "loadSchema": [Function],
+              "onCreate": [Function],
+              "onPatch": [Function],
+              "onUpdate": [Function],
+            }
+          }
+          onCreate={[Function]}
+          path="channel"
+          project={
+            Object {
+              "_links": Object {
+                "channels": Object {
+                  "href": "http://localhost:8080/api/project/1/channels",
+                },
+                "layers": Object {
+                  "href": "http://localhost:8080/api/project/1/layers",
+                },
+                "project": Object {
+                  "href": "http://localhost:8080/api/project/1",
+                },
+                "self": Object {
+                  "href": "http://localhost:8080/api/project/1",
+                },
+                "sequences": Object {
+                  "href": "http://localhost:8080/api/project/1/sequences",
+                },
+              },
+              "name": "defaultProject",
+            }
+          }
+          schema={
+            Schema {
+              "clazzes": Object {},
+              "flux": MockFlux {
+                "client": [Function],
+                "loadFromServer": [Function],
+                "loadSchema": [Function],
+                "onCreate": [Function],
+                "onPatch": [Function],
+                "onUpdate": [Function],
+              },
+              "schema": Object {
+                "flows": Object {
+                  "metronome": "flow-metronome",
+                  "notation": "flow-notation",
+                  "pattern": "flow-pattern",
+                },
+                "typeRefs": Array [
+                  "urn:jsonschema:com:purplepip:odin:project:Project",
+                  "flow-pattern",
+                  "flow-metronome",
+                  "flow-notation",
+                ],
+                "types": Object {
+                  "flow-metronome": Object {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "additionalProperties": false,
+                    "definitions": Object {
+                      "PersistableNote": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "denominator": Object {
+                            "minimum": 1,
+                            "title": "Denominator",
+                            "type": "integer",
+                          },
+                          "number": Object {
+                            "title": "Number",
+                            "type": "integer",
+                          },
+                          "numerator": Object {
+                            "minimum": 1,
+                            "title": "Numerator",
+                            "type": "integer",
+                          },
+                          "velocity": Object {
+                            "title": "Velocity",
+                            "type": "integer",
+                          },
+                        },
+                        "required": Array [
+                          "velocity",
+                          "number",
+                          "numerator",
+                          "denominator",
+                        ],
+                        "type": "object",
+                      },
+                      "PersistableTick": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "denominator": Object {
+                            "minimum": 1,
+                            "title": "Denominator",
+                            "type": "integer",
+                          },
+                          "numerator": Object {
+                            "minimum": 1,
+                            "title": "Numerator",
+                            "type": "integer",
+                          },
+                          "timeUnit": Object {
+                            "enum": Array [
+                              "BEAT",
+                              "MICROSECOND",
+                              "MEASURE",
+                            ],
+                            "title": "Time Unit",
+                            "type": "string",
+                          },
+                        },
+                        "required": Array [
+                          "numerator",
+                          "denominator",
+                        ],
+                        "type": "object",
+                      },
+                    },
+                    "properties": Object {
+                      "channel": Object {
+                        "title": "Channel",
+                        "type": "integer",
+                      },
+                      "flowName": Object {
+                        "title": "Flow Name",
+                        "type": "string",
+                      },
+                      "layers": Object {
+                        "items": Object {
+                          "type": "string",
+                        },
+                        "title": "Layers",
+                        "type": "array",
+                      },
+                      "length": Object {
+                        "minimum": -1,
+                        "title": "Length",
+                        "type": "integer",
+                      },
+                      "name": Object {
+                        "title": "Name",
+                        "type": "string",
+                      },
+                      "noteBarMid": Object {
+                        "$ref": "#/definitions/PersistableNote",
+                        "title": "Note Bar Mid",
+                      },
+                      "noteBarStart": Object {
+                        "$ref": "#/definitions/PersistableNote",
+                        "title": "Note Bar Start",
+                      },
+                      "offset": Object {
+                        "title": "Offset",
+                        "type": "integer",
+                      },
+                      "project": Object {
+                        "format": "uri",
+                        "title": "Project",
+                        "type": "string",
+                      },
+                      "tick": Object {
+                        "$ref": "#/definitions/PersistableTick",
+                        "title": "Tick",
+                      },
+                    },
+                    "required": Array [
+                      "channel",
+                      "flowName",
+                      "layers",
+                      "length",
+                      "offset",
+                      "tick",
+                      "name",
+                    ],
+                    "title": "Metronome",
+                    "type": "object",
+                  },
+                  "flow-notation": Object {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "additionalProperties": false,
+                    "definitions": Object {
+                      "PersistableTick": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "denominator": Object {
+                            "minimum": 1,
+                            "title": "Denominator",
+                            "type": "integer",
+                          },
+                          "numerator": Object {
+                            "minimum": 1,
+                            "title": "Numerator",
+                            "type": "integer",
+                          },
+                          "timeUnit": Object {
+                            "enum": Array [
+                              "BEAT",
+                              "MICROSECOND",
+                              "MEASURE",
+                            ],
+                            "title": "Time Unit",
+                            "type": "string",
+                          },
+                        },
+                        "required": Array [
+                          "numerator",
+                          "denominator",
+                        ],
+                        "type": "object",
+                      },
+                    },
+                    "properties": Object {
+                      "channel": Object {
+                        "title": "Channel",
+                        "type": "integer",
+                      },
+                      "flowName": Object {
+                        "title": "Flow Name",
+                        "type": "string",
+                      },
+                      "format": Object {
+                        "title": "Format",
+                        "type": "string",
+                      },
+                      "layers": Object {
+                        "items": Object {
+                          "type": "string",
+                        },
+                        "title": "Layers",
+                        "type": "array",
+                      },
+                      "length": Object {
+                        "minimum": -1,
+                        "title": "Length",
+                        "type": "integer",
+                      },
+                      "name": Object {
+                        "title": "Name",
+                        "type": "string",
+                      },
+                      "notation": Object {
+                        "title": "Notation",
+                        "type": "string",
+                      },
+                      "offset": Object {
+                        "title": "Offset",
+                        "type": "integer",
+                      },
+                      "project": Object {
+                        "format": "uri",
+                        "title": "Project",
+                        "type": "string",
+                      },
+                      "tick": Object {
+                        "$ref": "#/definitions/PersistableTick",
+                        "title": "Tick",
+                      },
+                    },
+                    "required": Array [
+                      "channel",
+                      "flowName",
+                      "layers",
+                      "length",
+                      "offset",
+                      "tick",
+                      "name",
+                    ],
+                    "title": "Notation",
+                    "type": "object",
+                  },
+                  "flow-pattern": Object {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "additionalProperties": false,
+                    "definitions": Object {
+                      "PersistableNote": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "denominator": Object {
+                            "minimum": 1,
+                            "title": "Denominator",
+                            "type": "integer",
+                          },
+                          "number": Object {
+                            "title": "Number",
+                            "type": "integer",
+                          },
+                          "numerator": Object {
+                            "minimum": 1,
+                            "title": "Numerator",
+                            "type": "integer",
+                          },
+                          "velocity": Object {
+                            "title": "Velocity",
+                            "type": "integer",
+                          },
+                        },
+                        "required": Array [
+                          "velocity",
+                          "number",
+                          "numerator",
+                          "denominator",
+                        ],
+                        "type": "object",
+                      },
+                      "PersistableTick": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "denominator": Object {
+                            "minimum": 1,
+                            "title": "Denominator",
+                            "type": "integer",
+                          },
+                          "numerator": Object {
+                            "minimum": 1,
+                            "title": "Numerator",
+                            "type": "integer",
+                          },
+                          "timeUnit": Object {
+                            "enum": Array [
+                              "BEAT",
+                              "MICROSECOND",
+                              "MEASURE",
+                            ],
+                            "title": "Time Unit",
+                            "type": "string",
+                          },
+                        },
+                        "required": Array [
+                          "numerator",
+                          "denominator",
+                        ],
+                        "type": "object",
+                      },
+                    },
+                    "properties": Object {
+                      "bits": Object {
+                        "minimum": 0,
+                        "title": "Bits",
+                        "type": "integer",
+                      },
+                      "channel": Object {
+                        "title": "Channel",
+                        "type": "integer",
+                      },
+                      "flowName": Object {
+                        "title": "Flow Name",
+                        "type": "string",
+                      },
+                      "layers": Object {
+                        "items": Object {
+                          "type": "string",
+                        },
+                        "title": "Layers",
+                        "type": "array",
+                      },
+                      "length": Object {
+                        "minimum": -1,
+                        "title": "Length",
+                        "type": "integer",
+                      },
+                      "name": Object {
+                        "title": "Name",
+                        "type": "string",
+                      },
+                      "note": Object {
+                        "$ref": "#/definitions/PersistableNote",
+                        "title": "Note",
+                      },
+                      "offset": Object {
+                        "title": "Offset",
+                        "type": "integer",
+                      },
+                      "project": Object {
+                        "format": "uri",
+                        "title": "Project",
+                        "type": "string",
+                      },
+                      "tick": Object {
+                        "$ref": "#/definitions/PersistableTick",
+                        "title": "Tick",
+                      },
+                    },
+                    "required": Array [
+                      "note",
+                      "bits",
+                      "channel",
+                      "flowName",
+                      "layers",
+                      "length",
+                      "offset",
+                      "tick",
+                      "name",
+                    ],
+                    "title": "Pattern",
+                    "type": "object",
+                  },
+                  "urn:jsonschema:com:purplepip:odin:project:Project": Object {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "additionalProperties": false,
+                    "definitions": Object {
+                      "Channel": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "id": Object {
+                            "type": "integer",
+                          },
+                          "number": Object {
+                            "type": "integer",
+                          },
+                          "program": Object {
+                            "type": "integer",
+                          },
+                          "programName": Object {
+                            "type": "string",
+                          },
+                          "project": Object {
+                            "$ref": "#/definitions/Project",
+                          },
+                        },
+                        "required": Array [
+                          "id",
+                          "number",
+                          "program",
+                        ],
+                        "type": "object",
+                      },
+                      "Layer": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "layers": Object {
+                            "items": Object {
+                              "type": "string",
+                            },
+                            "type": "array",
+                          },
+                          "length": Object {
+                            "minimum": -1,
+                            "type": "integer",
+                          },
+                          "name": Object {
+                            "type": "string",
+                          },
+                          "offset": Object {
+                            "type": "integer",
+                          },
+                          "project": Object {
+                            "$ref": "#/definitions/Project",
+                          },
+                          "tick": Object {
+                            "$ref": "#/definitions/Tick",
+                          },
+                        },
+                        "required": Array [
+                          "length",
+                          "offset",
+                          "tick",
+                          "name",
+                        ],
+                        "type": "object",
+                      },
+                      "Project": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "channels": Object {
+                            "items": Object {
+                              "$ref": "#/definitions/Channel",
+                            },
+                            "type": "array",
+                          },
+                          "layers": Object {
+                            "items": Object {
+                              "$ref": "#/definitions/Layer",
+                            },
+                            "type": "array",
+                          },
+                          "name": Object {
+                            "type": "string",
+                          },
+                          "sequences": Object {
+                            "items": Object {
+                              "$ref": "#/definitions/Sequence",
+                            },
+                            "type": "array",
+                          },
+                        },
+                        "type": "object",
+                      },
+                      "Rational": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "denominator": Object {
+                            "type": "integer",
+                          },
+                          "numerator": Object {
+                            "type": "integer",
+                          },
+                          "simplified": Object {
+                            "type": "boolean",
+                          },
+                          "value": Object {
+                            "type": "number",
+                          },
+                        },
+                        "required": Array [
+                          "value",
+                          "numerator",
+                          "denominator",
+                          "simplified",
+                        ],
+                        "type": "object",
+                      },
+                      "Sequence": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "channel": Object {
+                            "type": "integer",
+                          },
+                          "flowName": Object {
+                            "type": "string",
+                          },
+                          "layers": Object {
+                            "items": Object {
+                              "type": "string",
+                            },
+                            "type": "array",
+                          },
+                          "length": Object {
+                            "minimum": -1,
+                            "type": "integer",
+                          },
+                          "name": Object {
+                            "type": "string",
+                          },
+                          "offset": Object {
+                            "type": "integer",
+                          },
+                          "project": Object {
+                            "$ref": "#/definitions/Project",
+                          },
+                          "tick": Object {
+                            "$ref": "#/definitions/Tick",
+                          },
+                        },
+                        "required": Array [
+                          "channel",
+                          "layers",
+                          "flowName",
+                          "length",
+                          "offset",
+                          "tick",
+                          "name",
+                        ],
+                        "type": "object",
+                      },
+                      "Tick": Object {
+                        "additionalProperties": false,
+                        "properties": Object {
+                          "factor": Object {
+                            "$ref": "#/definitions/Rational",
+                          },
+                          "timeUnit": Object {
+                            "enum": Array [
+                              "BEAT",
+                              "MICROSECOND",
+                              "MEASURE",
+                            ],
+                            "type": "string",
+                          },
+                        },
+                        "type": "object",
+                      },
+                    },
+                    "properties": Object {
+                      "channels": Object {
+                        "items": Object {
+                          "$ref": "#/definitions/Channel",
+                        },
+                        "type": "array",
+                      },
+                      "layers": Object {
+                        "items": Object {
+                          "$ref": "#/definitions/Layer",
+                        },
+                        "type": "array",
+                      },
+                      "name": Object {
+                        "type": "string",
+                      },
+                      "sequences": Object {
+                        "items": Object {
+                          "$ref": "#/definitions/Sequence",
+                        },
+                        "type": "array",
+                      },
+                    },
+                    "title": "Project",
+                    "type": "object",
+                  },
+                },
+              },
+            }
+          }
         >
-          Number
-        </div>
-        <div
-          className="col-3"
-        >
-          Program
-        </div>
+          <div>
+            <div
+              className="container"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-2"
+                >
+                  Number
+                </div>
+                <div
+                  className="col-3"
+                >
+                  Program
+                </div>
+              </div>
+              <Channel
+                entity={
+                  Object {
+                    "_links": Object {
+                      "channel": Object {
+                        "href": "http://localhost:8080/api/channel/3",
+                      },
+                      "project": Object {
+                        "href": "http://localhost:8080/api/channel/3/project",
+                      },
+                      "self": Object {
+                        "href": "http://localhost:8080/api/channel/3",
+                      },
+                    },
+                    "number": 2,
+                    "program": 0,
+                    "programName": "rock",
+                  }
+                }
+                flux={
+                  MockFlux {
+                    "client": [Function],
+                    "loadFromServer": [Function],
+                    "loadSchema": [Function],
+                    "onCreate": [Function],
+                    "onPatch": [Function],
+                    "onUpdate": [Function],
+                  }
+                }
+                key="2"
+                path="channel"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-2"
+                  >
+                    2
+                  </div>
+                  <div
+                    className="col-3"
+                  >
+                    rock
+                  </div>
+                  <div
+                    className="col-1"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Channel>
+              <Channel
+                entity={
+                  Object {
+                    "_links": Object {
+                      "channel": Object {
+                        "href": "http://localhost:8080/api/channel/4",
+                      },
+                      "project": Object {
+                        "href": "http://localhost:8080/api/channel/4/project",
+                      },
+                      "self": Object {
+                        "href": "http://localhost:8080/api/channel/4",
+                      },
+                    },
+                    "number": 3,
+                    "program": 0,
+                    "programName": "strings",
+                  }
+                }
+                flux={
+                  MockFlux {
+                    "client": [Function],
+                    "loadFromServer": [Function],
+                    "loadSchema": [Function],
+                    "onCreate": [Function],
+                    "onPatch": [Function],
+                    "onUpdate": [Function],
+                  }
+                }
+                key="3"
+                path="channel"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-2"
+                  >
+                    3
+                  </div>
+                  <div
+                    className="col-3"
+                  >
+                    strings
+                  </div>
+                  <div
+                    className="col-1"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Channel>
+              <Channel
+                entity={
+                  Object {
+                    "_links": Object {
+                      "channel": Object {
+                        "href": "http://localhost:8080/api/channel/5",
+                      },
+                      "project": Object {
+                        "href": "http://localhost:8080/api/channel/5/project",
+                      },
+                      "self": Object {
+                        "href": "http://localhost:8080/api/channel/5",
+                      },
+                    },
+                    "number": 4,
+                    "program": 0,
+                    "programName": "aahs",
+                  }
+                }
+                flux={
+                  MockFlux {
+                    "client": [Function],
+                    "loadFromServer": [Function],
+                    "loadSchema": [Function],
+                    "onCreate": [Function],
+                    "onPatch": [Function],
+                    "onUpdate": [Function],
+                  }
+                }
+                key="4"
+                path="channel"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-2"
+                  >
+                    4
+                  </div>
+                  <div
+                    className="col-3"
+                  >
+                    aahs
+                  </div>
+                  <div
+                    className="col-1"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Channel>
+              <Channel
+                entity={
+                  Object {
+                    "_links": Object {
+                      "channel": Object {
+                        "href": "http://localhost:8080/api/channel/6",
+                      },
+                      "project": Object {
+                        "href": "http://localhost:8080/api/channel/6/project",
+                      },
+                      "self": Object {
+                        "href": "http://localhost:8080/api/channel/6",
+                      },
+                    },
+                    "number": 5,
+                    "program": 0,
+                    "programName": "bass",
+                  }
+                }
+                flux={
+                  MockFlux {
+                    "client": [Function],
+                    "loadFromServer": [Function],
+                    "loadSchema": [Function],
+                    "onCreate": [Function],
+                    "onPatch": [Function],
+                    "onUpdate": [Function],
+                  }
+                }
+                key="5"
+                path="channel"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-2"
+                  >
+                    5
+                  </div>
+                  <div
+                    className="col-3"
+                  >
+                    bass
+                  </div>
+                  <div
+                    className="col-1"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Channel>
+              <Channel
+                entity={
+                  Object {
+                    "_links": Object {
+                      "channel": Object {
+                        "href": "http://localhost:8080/api/channel/7",
+                      },
+                      "project": Object {
+                        "href": "http://localhost:8080/api/channel/7/project",
+                      },
+                      "self": Object {
+                        "href": "http://localhost:8080/api/channel/7",
+                      },
+                    },
+                    "number": 9,
+                    "program": 0,
+                    "programName": "Power Drums",
+                  }
+                }
+                flux={
+                  MockFlux {
+                    "client": [Function],
+                    "loadFromServer": [Function],
+                    "loadSchema": [Function],
+                    "onCreate": [Function],
+                    "onPatch": [Function],
+                    "onUpdate": [Function],
+                  }
+                }
+                key="9"
+                path="channel"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-2"
+                  >
+                    9
+                  </div>
+                  <div
+                    className="col-3"
+                  >
+                    Power Drums
+                  </div>
+                  <div
+                    className="col-1"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Channel>
+              <Channel
+                entity={
+                  Object {
+                    "_links": Object {
+                      "channel": Object {
+                        "href": "http://localhost:8080/api/channel/4392",
+                      },
+                      "project": Object {
+                        "href": "http://localhost:8080/api/channel/4392/project",
+                      },
+                      "self": Object {
+                        "href": "http://localhost:8080/api/channel/4392",
+                      },
+                    },
+                    "number": 1,
+                    "program": 0,
+                    "programName": "pianoZ",
+                  }
+                }
+                flux={
+                  MockFlux {
+                    "client": [Function],
+                    "loadFromServer": [Function],
+                    "loadSchema": [Function],
+                    "onCreate": [Function],
+                    "onPatch": [Function],
+                    "onUpdate": [Function],
+                  }
+                }
+                key="1"
+                path="channel"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-2"
+                  >
+                    1
+                  </div>
+                  <div
+                    className="col-3"
+                  >
+                    pianoZ
+                  </div>
+                  <div
+                    className="col-1"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Channel>
+            </div>
+          </div>
+        </ChannelList>
       </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-2"
-        >
-          2
-        </div>
-        <div
-          className="col-3"
-        >
-          rock
-        </div>
-        <div
-          className="col-1"
-        >
-          <button
-            className="btn btn-primary"
-            onClick={[Function]}
-            type="submit"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-2"
-        >
-          3
-        </div>
-        <div
-          className="col-3"
-        >
-          strings
-        </div>
-        <div
-          className="col-1"
-        >
-          <button
-            className="btn btn-primary"
-            onClick={[Function]}
-            type="submit"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-2"
-        >
-          4
-        </div>
-        <div
-          className="col-3"
-        >
-          aahs
-        </div>
-        <div
-          className="col-1"
-        >
-          <button
-            className="btn btn-primary"
-            onClick={[Function]}
-            type="submit"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-2"
-        >
-          5
-        </div>
-        <div
-          className="col-3"
-        >
-          bass
-        </div>
-        <div
-          className="col-1"
-        >
-          <button
-            className="btn btn-primary"
-            onClick={[Function]}
-            type="submit"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-2"
-        >
-          9
-        </div>
-        <div
-          className="col-3"
-        >
-          Power Drums
-        </div>
-        <div
-          className="col-1"
-        >
-          <button
-            className="btn btn-primary"
-            onClick={[Function]}
-            type="submit"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-2"
-        >
-          1
-        </div>
-        <div
-          className="col-3"
-        >
-          pianoZ
-        </div>
-        <div
-          className="col-1"
-        >
-          <button
-            className="btn btn-primary"
-            onClick={[Function]}
-            type="submit"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    </ChannelsContainer>
+  </Connect(ChannelsContainer)>
+</Provider>
 `;

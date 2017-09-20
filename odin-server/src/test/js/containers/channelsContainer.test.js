@@ -1,33 +1,20 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ChannelsContainer from 'odin/containers/channelsContainer.js'
-
-import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import createSagaMiddleware from 'redux-saga'
+import { mount } from 'enzyme'
+import toJson from 'enzyme-to-json';
 
-import reducer from 'odin/reducers/index.js'
 import { mockFlux, testProject, testSchema } from '../testData.js'
-import backend from '../backend/mock.js'
-
-const sagaMiddleware = createSagaMiddleware()
-const store = createStore(
-  reducer,
-  applyMiddleware(
-    thunkMiddleware,
-    sagaMiddleware
-  )
-)
-
-sagaMiddleware.run(backend)
+import store from '../store'
 
 test('Channels container renders OK', () => {
-  const component = renderer.create(
+  const component = mount(
     <Provider store={store}>
       <ChannelsContainer schema={testSchema} project={testProject} flux={mockFlux}/>
     </Provider>
   )
-  let tree = component.toJSON()
-  expect(tree).toMatchSnapshot()
+  expect(toJson(component)).toMatchSnapshot()
+  expect(component.find('button')).toHaveLength(6)
+  //component.find('button').at(0).simulate('click')
 })
