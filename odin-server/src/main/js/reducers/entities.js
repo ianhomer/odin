@@ -17,7 +17,7 @@ import { CREATE_ENTITY_SUCCEEDED, DELETE_ENTITY_REQUESTED, LOAD_ENTITIES_SUCCEED
 function getEntityFilter(action) {
   if (action.path === 'channel') {
     // Channels merge based on the number
-    return (item) => { console.log(item.number != action.entity.number) ; return item.number != action.entity.number }
+    return (item) => { return item.number != action.entity.number }
   } else {
     return () => { true }
   }

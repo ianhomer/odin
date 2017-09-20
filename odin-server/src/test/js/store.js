@@ -6,7 +6,7 @@ import backend from './backend/mock.js'
 import reducers from 'odin/reducers/index.js'
 import { createLogger } from 'redux-logger'
 
-function lastAction(state = null, action) {
+function lastAction(state = null, action) {  // eslint-disable-line no-unused-vars
   return action
 }
 

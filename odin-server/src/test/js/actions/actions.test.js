@@ -2,21 +2,16 @@ import { createEntityRequested, deleteEntityRequested } from 'odin/actions/index
 
 import store from '../store'
 
-function dispatchAndExpect(done, waitForActionType, action, assertion, message = '') {
+function dispatchAndExpect(done, waitForActionType, action, assertion) {
   // TODO : Switch this invalid subscribe assertion to promise then
-  console.log('dispatchAndExpect : ' + message)
   var unsubscriber = {}
   unsubscriber.unsubscribe = store.subscribe(() => {
     if (store.getState().lastAction.type === waitForActionType) {
       try {
-        console.log(store.getState().entities.channel)
-        console.log('dispatchAndExpect : assertion : ' + store.getState().lastAction.type + ':' + message)
         assertion()
-        console.log('dispatchAndExpect : assertion OK : ' + message)
         unsubscriber.unsubscribe()
         done()
       } catch(e) {
-        console.log('dispatchAndExpect : assertion NOK : ' + message)
         console.error(e)
       }
     }
@@ -40,7 +35,7 @@ describe('async actions', () => {
       )
     }, () => {
       expect(store.getState().entities['channel'].entities.length).toBe(1)
-    }, 'Create Channel 1')
+    })
   })
 
   test('Create Channel 2', (done) => {
@@ -51,7 +46,7 @@ describe('async actions', () => {
       }, 'channel')
     }, () => {
       expect(store.getState().entities['channel'].entities.length).toBe(2)
-    }, 'Create Channel 2')
+    })
   })
 
   test('Delete Channel 1', (done) => {
@@ -62,6 +57,6 @@ describe('async actions', () => {
       }, 'channel')
     }, () => {
       expect(store.getState().entities['channel'].entities.length).toBe(1)
-    }, 'Delete Channel 1')
+    })
   })
 })
