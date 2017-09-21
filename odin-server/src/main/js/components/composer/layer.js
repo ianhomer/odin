@@ -20,8 +20,6 @@ import PropTypes from 'prop-types'
 import { ItemTypes } from '../../constants'
 import { DragSource, DropTarget } from 'react-dnd'
 
-const crud = require('../../crud')
-
 const SequenceInLayer = require('./sequenceInLayer')
 
 /**
@@ -100,24 +98,12 @@ function collectDrop(connect, monitor) {
   }
 }
 
-const propTypes = {
-  entity: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  sequences: PropTypes.object.isRequired,
-  layers: PropTypes.object.isRequired,
-  children: PropTypes.node,
-  // Injected by React DnD:
-  isOverCurrent: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool.isRequired
-}
-
 class Layer extends React.Component{
   constructor(props) {
     super(props)
 
     this.handleChange = this.handleChange.bind(this)
-    this.onPatch = crud.onPatch.bind(this)
+    this.onPatch = this.props.flux.onPatch.bind(this)
   }
 
   handleChange(props) {
@@ -187,7 +173,19 @@ class Layer extends React.Component{
   }
 }
 
-Layer.propTypes = propTypes
+Layer.propTypes = {
+  children: PropTypes.node,
+  entity: PropTypes.object.isRequired,
+  flux: PropTypes.object.isRequired,
+  layers: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  sequences: PropTypes.object.isRequired,
+
+  // Injected by React DnD:
+  isOverCurrent: PropTypes.bool.isRequired,
+  canDrop: PropTypes.bool.isRequired
+}
 
 module.exports = DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
   DropTarget([ ItemTypes.SEQUENCE, ItemTypes.LAYER], dropTarget, collectDrop)(Layer))

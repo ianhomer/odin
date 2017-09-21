@@ -18,12 +18,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import { connect, Provider } from 'react-redux'
 
 import { Schema } from '../schema/schema'
 
-import Project from '../containers/project'
-const Developer = require('./developer/developer')
+import Project from './project'
+const Developer = require('../components/developer/developer')
 
 class App extends React.Component {
   constructor(props) {
@@ -76,8 +76,16 @@ class App extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  const schema = state.schema
+
+  return {
+    schema,
+  }
+}
+
 App.propTypes = {
   store: PropTypes.object.isRequired
 }
 
-export default App
+export default connect(mapStateToProps)(App)

@@ -14,4 +14,4 @@
 
 'use strict'
 
-export * from './entities.js';
+export * from './entities.js'

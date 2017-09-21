@@ -21,7 +21,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux'
 import 'babel-polyfill'
 import createSagaMiddleware from 'redux-saga'
 
-import App from './components/app'
+import App from './containers/app'
 import reducers from './reducers'
 import { Flux } from './legacy/flux'
 import { Backend } from './backend'

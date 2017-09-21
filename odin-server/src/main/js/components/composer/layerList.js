@@ -17,8 +17,6 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
-const crud = require('../../crud')
-
 const Trash = require('./trash')
 const Layer = require('./layer')
 
@@ -31,7 +29,6 @@ class LayerList extends React.Component{
       schema: [], entities: [], links: []
     }
 
-    crud.bindMe(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this._handleKeyPress.bind(this)
