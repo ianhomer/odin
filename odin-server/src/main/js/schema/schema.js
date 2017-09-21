@@ -15,8 +15,6 @@
 // System schema class
 
 const Ajv = require('ajv')
-const ajv = new Ajv({extendRefs : true})
-ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
 
 import { Clazz } from './clazz'
 
@@ -24,11 +22,13 @@ const root = '/api'
 
 export class Schema {
   constructor(schema, flux) {
+    this.ajv = new Ajv({extendRefs : true})
+    this.ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
     this.schema = schema
     this.flux = flux
     this.clazzes = {}
     for (var urn in schema.types) {
-      ajv.addSchema(schema.types[urn], urn)
+      this.ajv.addSchema(schema.types[urn], urn)
     }
   }
 
@@ -64,7 +64,7 @@ export class Schema {
   }
 
   createClazzFromId(id) {
-    var internalSchema = ajv.getSchema(id)
+    var internalSchema = this.ajv.getSchema(id)
     if (internalSchema) {
       return new Clazz(this.getClazz.bind(this), id,
         this.getClazzSchema(id), this.getBackEndClazz(id))
@@ -81,13 +81,13 @@ export class Schema {
   }
 
   getClazzSchema(id) {
-    return ajv.getSchema(id).schema
+    return this.ajv.getSchema(id).schema
   }
 
 
   // TODO : Change to isSchemaLoaded
   isClazzLoaded(id, ref = '') {
-    return ajv.getSchema(this.getRefClazzId(id, ref)) != null
+    return this.ajv.getSchema(this.getRefClazzId(id, ref)) != null
   }
 
   areSchemasLoaded(ids) {
@@ -113,7 +113,7 @@ export class Schema {
 
   loadClazz(path) {
     return new Promise((resolve, reject) => {
-      var schema = ajv.getSchema(path)
+      var schema = this.ajv.getSchema(path)
       if (!schema) {
         this.flux.client({
           method: 'GET',
@@ -132,8 +132,8 @@ export class Schema {
   }
 
   addSchemaForClazz(schema, path) {
-    if (!ajv.getSchema(path)) {
-      ajv.addSchema(schema, path)
+    if (!this.ajv.getSchema(path)) {
+      this.ajv.addSchema(schema, path)
     }
   }
 

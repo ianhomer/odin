@@ -88,7 +88,7 @@ export class Backend {
     }
   }
 
-  loadSchemaApi(entity, path) {
+  loadSchemaApi() {
     return fetch('/services/schema', {
       method : 'GET',
       headers: {
