@@ -12,7 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict'
+import { LOAD_SCHEMA_SUCCEEDED } from '../actions'
 
-export * from './entities.js'
-export * from './schema.js'
+function schema(state = {}, action) {
+  switch (action.type) {
+  case LOAD_SCHEMA_SUCCEEDED:
+    return Object.assign({}, state, {
+      schema: action.schema
+    })
+  default:
+    return state
+  }
+}
+
+export default schema

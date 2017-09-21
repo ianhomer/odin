@@ -29,6 +29,7 @@ function entitiesAtPath(state = { entities: [] }, action) {
     return Object.assign({}, state, {
       entities: action.entities,
     })
+  // TODO : Shouldn't this be DELETE_ENTITY_SUCCEEDED?
   case DELETE_ENTITY_REQUESTED:
     return Object.assign({}, state, {
       entities: [ ...state.entities.filter(getEntityFilter(action)) ]

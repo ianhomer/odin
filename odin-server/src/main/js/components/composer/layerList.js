@@ -33,8 +33,9 @@ class LayerList extends React.Component{
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this._handleKeyPress.bind(this)
     this.handleNewLayer = this.handleNewLayer.bind(this)
-    this.onCreate = this.onCreate.bind(this)
-    this.onDelete = this.onDelete.bind(this)
+    this.onCreate = this.props.flux.onCreate.bind(this)
+    this.onDelete = this.props.flux.onDelete.bind(this)
+    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
   }
 
   handleDelete(entity) {
@@ -96,7 +97,7 @@ class LayerList extends React.Component{
     stack.push(layer.name)
     var component = (
       <Layer entity={layer} layers={layers} sequences={sequences}
-        parent={parentLayer}
+        parent={parentLayer} flux={this.props.flux}
         key={layer.name} onDelete={this.onDelete}
         onChange={this.handleChange} onDelete={this.handleDelete}
         onMoveLayer={this.props.onMoveLayer}

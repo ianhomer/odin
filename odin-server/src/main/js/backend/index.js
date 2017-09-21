@@ -19,7 +19,8 @@ import fetch from 'isomorphic-fetch'
 import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED, CREATE_ENTITY_FAILED,
   DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED, DELETE_ENTITY_FAILED,
-  LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED
+  LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED,
+  LOAD_SCHEMA_REQUESTED, LOAD_SCHEMA_SUCCEEDED, LOAD_SCHEMA_FAILED,
 } from '../actions'
 
 const root = '/api'
@@ -87,10 +88,31 @@ export class Backend {
     }
   }
 
+  loadSchemaApi(entity, path) {
+    return fetch('/services/schema', {
+      method : 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json() )
+  }
+
+  * loadSchema(action) {
+    try {
+      const backend = yield getContext('backend')
+      const schema = yield call(backend.loadSchemaApi, action.entity, action.path)
+      yield put({type: LOAD_SCHEMA_SUCCEEDED, schema: schema})
+    } catch (e) {
+      yield put({type: LOAD_SCHEMA_FAILED, message: e.message})
+    }
+  }
+
   * saga() {
     var backend = yield getContext('backend')
     yield takeEvery(CREATE_ENTITY_REQUESTED, backend.createEntity)
     yield takeEvery(DELETE_ENTITY_REQUESTED, backend.deleteEntity)
     yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
+    yield takeEvery(LOAD_SCHEMA_REQUESTED, backend.loadSchema)
   }
 }

@@ -29,17 +29,21 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      schema : null
+      schema : this.createNewSchema(props)
     }
 
     this.renderProject = this.renderProject.bind(this)
     this.renderDeveloper = this.renderDeveloper.bind(this)
   }
 
-  componentDidMount() {
-    this.props.flux.client({method: 'GET', path: '/services/schema'}).done(response => {
-      this.setState({schema: new Schema(response.entity, this.props.flux)})
-    })
+  createNewSchema(props) {
+    return props.schema.schema ? new Schema(props.schema.schema, props.flux) : null
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.schema != this.props.schema) {
+      this.setState({schema: this.createNewSchema(newProps)})
+    }
   }
 
   renderProject() {
@@ -63,16 +67,20 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <Provider store={this.props.store}>
-        <Router>
-          <div>
-            <Route exact path="/app/developer" component={this.renderDeveloper}/>
-            <Route path="/app" component={this.renderProject}/>
-          </div>
-        </Router>
-      </Provider>
-    )
+    if (this.state.schema) {
+      return (
+        <Provider store={this.props.store}>
+          <Router>
+            <div>
+              <Route exact path="/app/developer" component={this.renderDeveloper}/>
+              <Route path="/app" component={this.renderProject}/>
+            </div>
+          </Router>
+        </Provider>
+      )
+    } else {
+      return (<div>Loading schema ...</div>)
+    }
   }
 }
 

@@ -17,6 +17,7 @@
 'use strict'
 
 import testChannels from '../data/channel.json'
+import testSchema from '../data/schema.json'
 import { Backend } from 'odin/backend/index.js'
 
 export class MockBackend extends Backend {
@@ -41,5 +42,9 @@ export class MockBackend extends Backend {
     // TODO : Load schema for path
 
     return json._embedded.channel
+  }
+
+  loadSchemaApi(entity, path) {
+    return testSchema
   }
 }

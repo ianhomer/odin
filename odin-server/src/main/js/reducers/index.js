@@ -12,11 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import sequences from './sequences'
 import entities from './entities'
+import schema from './schema'
+import sequences from './sequences'
 
 const reducers = {
   entities,
+  schema,
   sequences
 }
 
