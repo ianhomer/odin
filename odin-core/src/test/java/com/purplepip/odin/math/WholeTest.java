@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
