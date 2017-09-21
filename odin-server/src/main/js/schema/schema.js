@@ -19,21 +19,33 @@ const Ajv = require('ajv')
 import { Clazz } from './clazz'
 
 const root = '/api'
+const _ajv = new WeakMap()
+const _schema = new WeakMap()
 
 export class Schema {
   constructor(schema, flux) {
-    this.ajv = new Ajv({extendRefs : true})
-    this.ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
-    this.schema = schema
+    // ajv is a private property
+    _ajv.set(this, new Ajv({extendRefs : true}))
+    this.getAjv().addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
+    // schema is a private property
+    _schema.set(this, schema)
     this.flux = flux
     this.clazzes = {}
     for (var urn in schema.types) {
-      this.ajv.addSchema(schema.types[urn], urn)
+      this.getAjv().addSchema(schema.types[urn], urn)
     }
   }
 
+  getAjv() {
+    return _ajv.get(this)
+  }
+
+  getSchema() {
+    return _schema.get(this)
+  }
+
   getFlowClazz(flowName) {
-    var urn = this.schema.flows[flowName]
+    var urn = this.getSchema().flows[flowName]
     return this.getClazz(urn)
   }
 
@@ -64,7 +76,7 @@ export class Schema {
   }
 
   createClazzFromId(id) {
-    var internalSchema = this.ajv.getSchema(id)
+    var internalSchema = this.getAjv().getSchema(id)
     if (internalSchema) {
       return new Clazz(this.getClazz.bind(this), id,
         this.getClazzSchema(id), this.getBackEndClazz(id))
@@ -75,19 +87,19 @@ export class Schema {
 
   // Get the schema for the clazz stored on the back end
   getBackEndClazz(id) {
-    if (Object.values(this.schema.flows).includes(id) && id != 'sequence') {
+    if (Object.values(this.getSchema().flows).includes(id) && id != 'sequence') {
       return this.createClazzFromId('sequence')
     }
   }
 
   getClazzSchema(id) {
-    return this.ajv.getSchema(id).schema
+    return this.getAjv().getSchema(id).schema
   }
 
 
   // TODO : Change to isSchemaLoaded
   isClazzLoaded(id, ref = '') {
-    return this.ajv.getSchema(this.getRefClazzId(id, ref)) != null
+    return this.getAjv().getSchema(this.getRefClazzId(id, ref)) != null
   }
 
   areSchemasLoaded(ids) {
@@ -113,7 +125,7 @@ export class Schema {
 
   loadClazz(path) {
     return new Promise((resolve, reject) => {
-      var schema = this.ajv.getSchema(path)
+      var schema = this.getAjv().getSchema(path)
       if (!schema) {
         this.flux.client({
           method: 'GET',
@@ -132,8 +144,8 @@ export class Schema {
   }
 
   addSchemaForClazz(schema, path) {
-    if (!this.ajv.getSchema(path)) {
-      this.ajv.addSchema(schema, path)
+    if (!this.getAjv().getSchema(path)) {
+      this.getAjv().addSchema(schema, path)
     }
   }
 

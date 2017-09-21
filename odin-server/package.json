@@ -25,7 +25,10 @@
       "odin/(.*)": "<rootDir>/src/main/js/$1"
     },
     "testURL": "http://localhost:8080",
-    "silent": true
+    "silent": true,
+    "snapshotSerializers": [
+      "jest-serializer-enzyme"
+    ]
   },
   "dependencies": {
     "ajv": "^5.2.2",
@@ -69,6 +72,7 @@
     "gulp-if": "^2.0.2",
     "jasmine-core": "^2.6.4",
     "jest": "^21.1.0",
+    "jest-serializer-enzyme": "^1.0.0",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
