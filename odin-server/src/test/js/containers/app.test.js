@@ -6,9 +6,19 @@ import { loadSchemaRequested } from 'odin/actions/index.js'
 
 import { mockFlux } from '../testData.js'
 import store from '../store'
+import { dispatchAndExpect } from '../utils/dispatchAndExpect'
 
-test('App renders OK', () => {
-  store.dispatch(loadSchemaRequested())
-  const app = shallow(<App store={store} flux={mockFlux} />).dive()
-  expect(app).toMatchSnapshot()
+describe('async actions', () => {
+  var app = <App store={store} flux={mockFlux} />
+
+  test('App before schema loaded OK', () => {
+    expect(shallow(app).dive()).toMatchSnapshot()
+  })
+
+  test('App after schema loaded OK', done => {
+    dispatchAndExpect(store, done, 'LOAD_SCHEMA_SUCCEEDED',
+      () => loadSchemaRequested(),
+      () => expect(shallow(app).dive()).toMatchSnapshot()
+    )
+  })
 })
