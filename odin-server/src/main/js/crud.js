@@ -38,33 +38,31 @@ module.exports = {
     that.onUpdate = this.onUpdate.bind(that)
   },
 
-  loadFromServer : function(path = this.props.path, schema = this.props.schema,
-              onLoaded = (entities) => { this.setState({entities: entities}) }) {
-    //schema.loadClazz(path).then(() => {
-      follow(client, root, [{rel: path}]).done(collection => {
-        var entities = []
+  loadFromServer : function(path = this.props.path,
+    onLoaded = (entities) => { this.setState({entities: entities}) }) {
+    follow(client, root, [{rel: path}]).done(collection => {
+      var entities = []
 
-        // Load all the entities by concatenating all embedded entities.
+      // Load all the entities by concatenating all embedded entities.
 
-        for (var path in collection.entity._embedded) {
-          var embeddedEntities = collection.entity._embedded[path]
+      for (var path in collection.entity._embedded) {
+        var embeddedEntities = collection.entity._embedded[path]
 
-          // Set the path value in the entity so that the front end knows what type of entity
-          // this is.
+        // Set the path value in the entity so that the front end knows what type of entity
+        // this is.
 
-          if (Array.isArray(embeddedEntities)) {
-            for (var key in embeddedEntities) {
-              embeddedEntities[key].path = path
-            }
-          } else {
-            embeddedEntities.path = path
+        if (Array.isArray(embeddedEntities)) {
+          for (var key in embeddedEntities) {
+            embeddedEntities[key].path = path
           }
-          entities = entities.concat(embeddedEntities)
+        } else {
+          embeddedEntities.path = path
         }
+        entities = entities.concat(embeddedEntities)
+      }
 
-        onLoaded(entities)
-      })
-    //})
+      onLoaded(entities)
+    })
   },
 
   // Create entity via REST API.

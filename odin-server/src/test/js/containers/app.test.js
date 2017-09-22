@@ -21,15 +21,15 @@ describe('async actions', () => {
 
   test('App after schema loaded OK', done => {
     var shallowApp = shallow(app)
-    const spyReceiveProps = sinon.spy(App.prototype, "componentWillReceiveProps");
+    const spyReceiveProps = sinon.spy(App.prototype, 'componentWillReceiveProps')
     dispatchAndExpect(store, done, LOAD_PROJECT_SCHEMA_SUCCEEDED,
       () => loadProjectSchemaRequested(),
       () => {
         expect(shallowApp.dive()).toMatchSnapshot()
-        expect(spyReceiveProps.calledOnce).toBe(false);
+        expect(spyReceiveProps.calledOnce).toBe(false)
         shallowApp.setProps(Object.assign({}, props, {schema: store.getState().schema}))
         expect(shallowApp.dive()).toMatchSnapshot()
-        expect(spyReceiveProps.calledOnce).toBe(true);
+        expect(spyReceiveProps.calledOnce).toBe(true)
       }
     )
   })

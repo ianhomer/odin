@@ -41,7 +41,6 @@ class Project extends React.Component {
     this.props.flux.client({method: 'GET', path: '/api/project'}).done(response => {
       var projects = response.entity._embedded.project
       this.setState({project: projects[0]})
-      this.props.schema.loadClazz('channel')
     })
   }
 

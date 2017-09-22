@@ -67,8 +67,7 @@ export class Backend {
     }
   }
 
-  loadEntitiesApi(path, schema) {
-    schema.loadClazz(path).then(() => {})
+  loadEntitiesApi(path) {
     return fetch(root + '/' + path, {
       method : 'GET',
       headers: {
@@ -99,7 +98,7 @@ export class Backend {
       .then(response => response.json() )
   }
 
-  * loadProjectSchema(action) {
+  * loadProjectSchema() {
     try {
       const backend = yield getContext('backend')
       const schema = yield call(backend.loadProjectSchemaApi)

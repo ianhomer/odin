@@ -51,7 +51,7 @@ sagaMiddleware.run(backend.saga)
 
 store.dispatch(loadProjectSchemaRequested())
 store.dispatch(loadProfileSchemaRequested('sequence'))
-store.dispatch(loadProfileSchemaRequested('pattern'))
+store.dispatch(loadProfileSchemaRequested('channel'))
 
 // Render application
 render(
