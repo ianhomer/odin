@@ -28,4 +28,15 @@ describe('Schema validation', () => {
       }
     )
   })
+
+  test('Load two profile schema OK', done => {
+    dispatchAndExpect(store, done, LOAD_PROFILE_SCHEMA_SUCCEEDED,
+      () => loadProfileSchemaRequested('channel'),
+      () => {
+        const schema = new Schema(store.getState().schema)
+        expect(schema.getClazzSchema('sequence').title).toBe('Persistable sequence')
+        expect(schema.getClazzSchema('channel').title).toBe('Persistable channel')
+      }
+    )
+  })
 })

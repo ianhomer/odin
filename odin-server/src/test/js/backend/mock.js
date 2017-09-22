@@ -19,6 +19,7 @@
 import testChannels from '../data/channel.json'
 import testSchema from '../data/schema.json'
 import testProfileSequence from '../data/profile/sequence.json'
+import testProfileChannel from '../data/profile/channel.json'
 import { Backend } from 'odin/backend/index.js'
 
 export class MockBackend extends Backend {
@@ -54,6 +55,8 @@ export class MockBackend extends Backend {
       switch (path) {
       case 'sequence':
         return testProfileSequence
+      case 'channel':
+        return testProfileChannel
       default:
         throw new Error('No test data available for path ' + path)
       }

@@ -56,6 +56,7 @@ exports[`Channels container renders OK 1`] = `
           "onPatch": [Function],
           "onUpdate": [Function],
         },
+        "revision": undefined,
       }
     }
   >
@@ -207,6 +208,7 @@ exports[`Channels container renders OK 1`] = `
             "onPatch": [Function],
             "onUpdate": [Function],
           },
+          "revision": undefined,
         }
       }
     >
@@ -374,6 +376,7 @@ exports[`Channels container renders OK 1`] = `
                 "onPatch": [Function],
                 "onUpdate": [Function],
               },
+              "revision": undefined,
             }
           }
         >

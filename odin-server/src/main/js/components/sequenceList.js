@@ -50,16 +50,20 @@ class SequenceList extends React.Component{
   render() {
     var entities = this.state.entities.map(entity => {
       var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
-      return (
-        // TODO - change key to simply entity.name
-        <div key={'div-' + entity._links.self.href}>
-          <SequenceComponent entity={entity} key={entity._links.self.href}
-            schema={this.props.schema} project={this.props.project} flux={this.props.flux}
-            clazz={this.props.schema.getFlowClazz(entity.flowName)}
-            onDelete={this.onDelete} onUpdate={this.onUpdate}
-          />
-        </div>
-      )
+      if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + entity.flowName])) {
+        return (
+          // TODO - change key to simply entity.name
+          <div key={entity._links.self.href}>
+            <SequenceComponent entity={entity} key={entity._links.self.href}
+              schema={this.props.schema} project={this.props.project} flux={this.props.flux}
+              clazz={this.props.schema.getFlowClazz(entity.flowName)}
+              onDelete={this.onDelete} onUpdate={this.onUpdate}
+            />
+          </div>
+        )
+      } else {
+        return (<div key={entity._links.self.href}>{entity.flowName} or sequence class not loaded</div>)
+      }
     })
 
     return (
@@ -94,7 +98,7 @@ class SequenceList extends React.Component{
                 />
               )
             } else {
-              return (<div key={'create-' + flowName}>{flowName} class not loaded</div>)
+              return (<div key={'create-' + flowName}>{flowName} or sequence class not loaded</div>)
             }
           })}
 

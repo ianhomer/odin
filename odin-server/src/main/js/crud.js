@@ -39,8 +39,8 @@ module.exports = {
   },
 
   loadFromServer : function(path = this.props.path, schema = this.props.schema,
-    onLoaded = (entities) => { this.setState({entities: entities}) }) {
-    schema.loadClazz(path).then(() => {
+              onLoaded = (entities) => { this.setState({entities: entities}) }) {
+    //schema.loadClazz(path).then(() => {
       follow(client, root, [{rel: path}]).done(collection => {
         var entities = []
 
@@ -64,7 +64,7 @@ module.exports = {
 
         onLoaded(entities)
       })
-    })
+    //})
   },
 
   // Create entity via REST API.

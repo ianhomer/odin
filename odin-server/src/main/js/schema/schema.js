@@ -31,6 +31,7 @@ export class Schema {
     _schema.set(this, schema)
     this.flux = flux
     this.clazzes = {}
+    this.revision = schema.revision
     // Initialise from project schema, i.e. project schema from Odin schema service
     if (schema.project) {
       for (var urn in schema.project.types) {
@@ -90,7 +91,9 @@ export class Schema {
       return new Clazz(this.getClazz.bind(this), id,
         this.getClazzSchema(id), this.getBackEndClazz(id))
     } else {
-      throw 'Cannot create clazz for ' + id + ', schema has not been loaded'
+      var message = 'Cannot create clazz for ' + id + ', schema has not been loaded'
+      console.error(message)
+      throw message
     }
   }
 
@@ -102,9 +105,12 @@ export class Schema {
   }
 
   getClazzSchema(id) {
-    return this.getAjv().getSchema(id).schema
+    var internalSchema = this.getAjv().getSchema(id)
+    if (!internalSchema) {
+      throw 'Schema for ' + id + ' has not been loaded'
+    }
+    return internalSchema.schema
   }
-
 
   // TODO : Change to isSchemaLoaded
   isClazzLoaded(id, ref = '') {
@@ -136,6 +142,7 @@ export class Schema {
     return new Promise((resolve, reject) => {
       var schema = this.getAjv().getSchema(path)
       if (!schema) {
+        console.warn('loadClazz(' + path + ') should not be called anymore')
         this.flux.client({
           method: 'GET',
           path: root + '/profile/' + path,

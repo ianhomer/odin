@@ -113,7 +113,7 @@ export class Backend {
     return fetch(root + '/profile/' + path, {
       method : 'GET',
       headers: {
-        'Content-Type': 'application/schema+json'
+        'Accept': 'application/schema+json'
       }
     })
       .then(response => response.json() )

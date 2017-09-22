@@ -1,0 +1,29 @@
+{
+  "title" : "Persistable channel",
+  "properties" : {
+    "number" : {
+      "title" : "Number",
+      "readOnly" : false,
+      "type" : "integer"
+    },
+    "programName" : {
+      "title" : "Program name",
+      "readOnly" : false,
+      "type" : "string"
+    },
+    "project" : {
+      "title" : "Project",
+      "readOnly" : false,
+      "type" : "string",
+      "format" : "uri"
+    },
+    "program" : {
+      "title" : "Program",
+      "readOnly" : false,
+      "type" : "integer"
+    }
+  },
+  "definitions" : { },
+  "type" : "object",
+  "$schema" : "http://json-schema.org/draft-04/schema#"
+}

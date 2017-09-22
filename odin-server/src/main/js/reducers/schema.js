@@ -14,7 +14,7 @@
 
 import { LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_SUCCEEDED } from '../actions'
 
-function profileAtPath(state = { }, action) {
+function profiles(state = {}, action) {
   switch (action.type) {
   case LOAD_PROFILE_SCHEMA_SUCCEEDED:
     return Object.assign({}, state, {
@@ -35,7 +35,7 @@ function schema(state = { revision : 0 }, action) {
   case LOAD_PROFILE_SCHEMA_SUCCEEDED:
     return Object.assign({}, state, {
       revision: state.revision + 1,
-      profiles: profileAtPath(state[action.path], action)
+      profiles: profiles(state.profiles, action)
     })
   default:
     return state
