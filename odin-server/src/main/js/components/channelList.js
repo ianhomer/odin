@@ -78,6 +78,7 @@ ChannelList.propTypes = {
   entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
+  path : PropTypes.string.isRequired,
   schema: PropTypes.object.isRequired
 }
 

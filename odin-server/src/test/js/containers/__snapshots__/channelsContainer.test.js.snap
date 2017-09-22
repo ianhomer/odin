@@ -173,6 +173,7 @@ exports[`Channels container renders OK 1`] = `
       onCreate={[Function]}
       onDelete={[Function]}
       onLoadEntities={[Function]}
+      path="channel"
       project={
         Object {
           "_links": Object {

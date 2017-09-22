@@ -15,65 +15,20 @@
 'use strict'
 
 const React = require('react')
-const PropTypes = require('prop-types')
 
-import { connect } from 'react-redux'
-
-import { createEntityRequested, deleteEntityRequested, loadEntitiesRequested } from '../actions'
-
+import EntitiesContainer from './entitiesContainer'
 import ChannelList from '../components/channelList'
+import connectEntities from './connectEntities'
 
-class ChannelsContainer extends React.Component {
+class ChannelsContainer extends EntitiesContainer {
   constructor(props) {
     super(props)
-  }
-
-  componentDidMount() {
-    this.props.onLoadEntities(this.props.schema)
-  }
-
-  render() {
-    var entities = this.props.entities
-    return (
-      <div>
-        {entities &&
-          <ChannelList schema={this.props.schema} project={this.props.project}
-            onCreate={this.props.onCreate} onDelete={this.props.onDelete}
-            flux={this.props.flux}
-            entities={entities}/>
-        }
-      </div>
-    )
+    this.component = ChannelList
   }
 }
 
-function mapStateToProps(state) {
-  const entities = state.entities.channel ? state.entities.channel.entities : []
-
-  return {
-    entities,
-  }
+ChannelsContainer.defaultProps = {
+  path: 'channel'
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onCreate : (entity, path) => {
-      dispatch(createEntityRequested(entity, path))
-    },
-    onDelete: entity => {
-      dispatch(deleteEntityRequested(entity))
-    },
-    onLoadEntities : (schema) => {
-      dispatch(loadEntitiesRequested('channel', schema))
-    }
-  }
-}
-
-ChannelsContainer.propTypes = {
-  entities: PropTypes.array.isRequired,
-  flux: PropTypes.object.isRequired,
-  onCreate: PropTypes.func.isRequired,
-  schema: PropTypes.object.isRequired
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelsContainer)
+export default connectEntities(ChannelsContainer.defaultProps.path, ChannelsContainer)
