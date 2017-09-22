@@ -14,8 +14,6 @@
 
 // Clazz schema class
 
-const ReactDOM = require('react-dom')
-
 const objectPath = require('object-path')
 
 const IMPLICIT_PROPERTIES = ['_links.self.href']
@@ -34,8 +32,8 @@ export class Clazz {
     this.getClazz = getClazz
   }
 
-  setFieldValue(entity, refs, name, key) {
-    var value = this.getFieldValue(refs, name, key)
+  setFieldValue(entity, nodes, name, key) {
+    var value = this.getFieldValue(nodes, name, key)
     if (value) {
       // Split array properties.
       var definition = this.properties[name]
@@ -83,42 +81,54 @@ export class Clazz {
   }
 
   // Get value of field from from fields, e.g. after form submit.
-  getFieldValue(refs, name, key, required = true) {
+  getFieldValue(nodes, name, key, required = true) {
     var _key = key ? key : name
     var value
     var node
     if (this.properties[name] && this.properties[name]['$ref']) {
-
       // Navigate through object definition to find property names.
       var fieldClazz = this.getClazz(this.id, this.properties[name]['$ref'])
       var property = {}
       for (var propertyName in fieldClazz.properties) {
         var propertyKey = _key + '.' + propertyName
-        property[propertyName] = fieldClazz.getFieldValue(refs, propertyName, propertyKey)
+        property[propertyName] = fieldClazz.getFieldValue(nodes, propertyName, propertyKey)
       }
       value = property
+    // TODO : Reduce duplicated blocks of code below
     } else if (this.properties[name] && this.properties[name].type == 'object') {
       // TODO : Handle better than just JSON to object
-      node = ReactDOM.findDOMNode(refs[_key])
-      if (node === null) {
-        value = null
-      } else {
+      node = nodes[_key]
+      if (node) {
         value = node.value.trim()
         if (value) {
           value = JSON.parse(value)
         }
+      } else {
+        value = null
       }
-    } else {
-      node = ReactDOM.findDOMNode(refs[_key])
-      if (node === null) {
+    } else if (this.properties[name] && this.properties[name].type == 'integer') {
+      node = nodes[_key]
+      if (node) {
+        value = parseInt(node.value.trim())
+      } else {
         if (required) {
           console.error('Cannot find field ' + _key + ' in DOM')
           value = ''
         } else {
           value = null
         }
-      } else {
+      }
+    } else {
+      node = nodes[_key]
+      if (node) {
         value = node.value.trim()
+      } else {
+        if (required) {
+          console.error('Cannot find field ' + _key + ' in DOM')
+          value = ''
+        } else {
+          value = null
+        }
       }
     }
     return value

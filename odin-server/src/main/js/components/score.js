@@ -229,7 +229,12 @@ Score.propTypes = {
   height: PropTypes.number.isRequired,
   flux: PropTypes.object.isRequired,
   size: PropTypes.number,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
+  // TODO : Confirm following necessary
+  componentKey: PropTypes.string,
+  componentRef: PropTypes.func,
+  elementKey: PropTypes.string,
+  onKeyPress: PropTypes.func
 }
 
 module.exports = Score

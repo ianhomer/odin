@@ -1,2 +1,80 @@
 {
+  "title" : "Persistable sequence",
+  "properties" : {
+    "offset" : {
+      "title" : "Offset",
+      "readOnly" : false,
+      "type" : "integer"
+    },
+    "name" : {
+      "title" : "Name",
+      "readOnly" : false,
+      "type" : "string"
+    },
+    "channel" : {
+      "title" : "Channel",
+      "readOnly" : false,
+      "type" : "integer"
+    },
+    "length" : {
+      "title" : "Length",
+      "readOnly" : false,
+      "type" : "integer"
+    },
+    "layers" : {
+      "title" : "Layers",
+      "readOnly" : false,
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      }
+    },
+    "project" : {
+      "title" : "Project",
+      "readOnly" : false,
+      "type" : "string",
+      "format" : "uri"
+    },
+    "tick" : {
+      "title" : "Tick",
+      "readOnly" : false,
+      "type" : "object",
+      "$ref" : "#/definitions/tick"
+    },
+    "flowName" : {
+      "title" : "Flow name",
+      "readOnly" : false,
+      "type" : "string"
+    },
+    "properties" : {
+      "title" : "Properties",
+      "readOnly" : false,
+      "type" : "object"
+    }
+  },
+  "definitions" : {
+    "tick" : {
+      "type" : "object",
+      "properties" : {
+        "timeUnit" : {
+          "title" : "Time unit",
+          "readOnly" : false,
+          "type" : "string",
+          "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ]
+        },
+        "numerator" : {
+          "title" : "Numerator",
+          "readOnly" : false,
+          "type" : "integer"
+        },
+        "denominator" : {
+          "title" : "Denominator",
+          "readOnly" : false,
+          "type" : "integer"
+        }
+      }
+    }
+  },
+  "type" : "object",
+  "$schema" : "http://json-schema.org/draft-04/schema#"
 }

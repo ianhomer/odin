@@ -1,55 +1,65 @@
 {
-    "env": {
-        "amd": true,
-        "browser": true,
-        "es6": true,
-        "jest/globals": true,
-        "node": true
+  "env": {
+    "amd": true,
+    "browser": true,
+    "es6": true,
+    "jest/globals": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
     },
-    "extends": [
-        "eslint:recommended"
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "jest"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      2
     ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "experimentalObjectRestSpread": true,
-            "jsx": true
-        },
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "jest"
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/valid-expect": "error",
+    "linebreak-style": [
+      "error",
+      "unix"
     ],
-    "rules": {
-        "indent": [
-            "error",
-            2
-        ],
-        "jest/no-disabled-tests": "warn",
-        "jest/no-focused-tests": "error",
-        "jest/no-identical-title": "error",
-        "jest/valid-expect": "error",
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "no-console" : [
-            "error", { "allow": ["warn", "error"] }
-        ],
-        "no-unused-vars" : [
-            "error", { "argsIgnorePattern": "^_" }
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "react/jsx-uses-react": 2,
-        "react/jsx-uses-vars": [
-            "error"
-        ],
-        "semi": [
-            "error",
-            "never"
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error"
         ]
-    }
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": [
+      "error"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ]
+  }
 }

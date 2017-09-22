@@ -30,18 +30,23 @@ class EditEntity extends React.Component{
       this.onApply = this.props.flux.onCreate.bind(this)
     }
 
+    this.nodes = {}
     this.handleKeyPress = this._handleKeyPress.bind(this)
     this.handleApply = this.handleApply.bind(this)
   }
 
   handleApply(e) {
-    this.props.schema.handleApply(e, this.refs, this.props.clazz.id, this.props.onApply)
+    this.props.schema.handleApply(e, this.nodes, this.props.clazz.id, this.props.onApply)
   }
 
   _handleKeyPress(e) {
     if (e.key === 'Enter') {
       this.handleApply(e)
     }
+  }
+
+  registerNode(key) {
+    return node => this.nodes[key] = node
   }
 
   // Render a group of inputs for the specified fields.
@@ -122,7 +127,7 @@ class EditEntity extends React.Component{
       return (
         <div className={cellClassName} key={key}>
           <Score flux={this.props.flux} entity={scoreEntity} editor={true}
-            size={size} componentKey={key} componentRef={el => this.refs[key] = el}
+            size={size} componentKey={key} componentRef={this.registerNode(key)}
             width={800}
             onKeyPress={this.handleKeyPress}/>
         </div>
@@ -130,12 +135,13 @@ class EditEntity extends React.Component{
     } else {
       // If field is hidden or read only then we maintain value in hidden field
       if (field.hidden) {
-        return (<input type="hidden" key={key} name={key} ref={key} value={value} />)
+        return (<input type="hidden" key={key} name={key} ref={this.registerNode(key)}
+          value={value} />)
       } else if (field.readOnly) {
         return (
           <div className={cellClassName} key={key}>
             <span>{value}</span>
-            <input type="hidden" name={key} ref={key} value={value} />
+            <input type="hidden" name={key} ref={this.registerNode(key)} value={value} />
           </div>
         )
       }
@@ -143,7 +149,7 @@ class EditEntity extends React.Component{
       return (
         <div className={cellClassName} key={key}>
           {field.label && <span>{field.label}</span>}
-          <input type="text" placeholder={key} ref={key} className="inline"
+          <input type="text" placeholder={key} ref={this.registerNode(key)} className="inline"
             defaultValue={value}
             onKeyPress={this.handleKeyPress}
             size={size} maxLength={maxLength}
@@ -170,13 +176,13 @@ class EditEntity extends React.Component{
       <div className="entityCreate row">
         {renderedFields}
         <div className="col-1">
-          <input type="hidden" name="project" ref="project"
+          <input type="hidden" name="project" ref={this.registerNode('project')}
             value={this.props.project._links.self.href} />
 
           {/* Provide path value for create flow so we know what type of object we are creating. */}
 
           {!this.props.entity &&
-            <input type="hidden" name="path" ref="path"
+            <input type="hidden" name="path" ref={this.registerNode('path')}
               value={this.props.clazz.path} />
           }
 
@@ -184,7 +190,7 @@ class EditEntity extends React.Component{
 
           {this.props.entity &&
             <div>
-              <input type="hidden" name="_links.self.href" ref="_links.self.href"
+              <input type="hidden" name="_links.self.href" ref={this.registerNode('_links.self.href')}
                 value={this.props.entity._links.self.href} />
             </div>
           }
