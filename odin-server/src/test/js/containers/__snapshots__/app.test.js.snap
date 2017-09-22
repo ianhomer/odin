@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`async actions App after schema loaded OK 1`] = `
+<div>
+  Loading schema ...
+</div>
+`;
+
+exports[`async actions App after schema loaded OK 2`] = `
 <Provider
   store={
     Object {
