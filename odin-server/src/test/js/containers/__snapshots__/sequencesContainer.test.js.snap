@@ -53,7 +53,682 @@ exports[`Sequences container renders OK 1`] = `
     }
   >
     <SequencesContainer
-      entities={Array []}
+      entities={
+        Array [
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/28/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/28",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/28",
+              },
+            },
+            "channel": 1,
+            "flowName": "notation",
+            "layers": Array [
+              "a",
+              "c",
+            ],
+            "length": -1,
+            "name": "piano-a",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "A/q G/8 A/q G",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/32/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/32",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/32",
+              },
+            },
+            "channel": 1,
+            "flowName": "notation",
+            "layers": Array [
+              "a",
+            ],
+            "length": -1,
+            "name": "piano-a3",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "A3 A A/8 A A/q",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/38/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/38",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/38",
+              },
+            },
+            "channel": 1,
+            "flowName": "notation",
+            "layers": Array [
+              "c",
+            ],
+            "length": -1,
+            "name": "piano-g3",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "G3 G G/8 A C/q G2 G G3/8 G G/q",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/40/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/40",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/40",
+              },
+            },
+            "channel": 1,
+            "flowName": "notation",
+            "layers": Array [
+              "a",
+            ],
+            "length": -1,
+            "name": "notes-c5",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C5/h C/q",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/42/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/42",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/42",
+              },
+            },
+            "channel": 1,
+            "flowName": "notation",
+            "layers": Array [
+              "b",
+            ],
+            "length": -1,
+            "name": "notes-c4",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C4/h C/q",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/44/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/44",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/44",
+              },
+            },
+            "channel": 1,
+            "flowName": "notation",
+            "layers": Array [
+              "break",
+            ],
+            "length": -1,
+            "name": "notes",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C5/h C/q C6 A5 A5/8 C5/8 A5",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/46/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/46",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/46",
+              },
+            },
+            "channel": 3,
+            "flowName": "notation",
+            "layers": Array [
+              "intro",
+            ],
+            "length": -1,
+            "name": "strings-c5",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C5/h C/q",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/48/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/48",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/48",
+              },
+            },
+            "channel": 3,
+            "flowName": "notation",
+            "layers": Array [
+              "intro",
+            ],
+            "length": -1,
+            "name": "strings-c4",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C4/h C/q",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/50/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/50",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/50",
+              },
+            },
+            "channel": 3,
+            "flowName": "notation",
+            "layers": Array [
+              "break",
+            ],
+            "length": -1,
+            "name": "strings",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C5/h C/q C6 A5",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/52/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/52",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/52",
+              },
+            },
+            "channel": 2,
+            "flowName": "notation",
+            "layers": Array [
+              "a",
+              "in",
+            ],
+            "length": -1,
+            "name": "organ-a",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "A5/8",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/54/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/54",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/54",
+              },
+            },
+            "channel": 2,
+            "flowName": "notation",
+            "layers": Array [
+              "b",
+            ],
+            "length": -1,
+            "name": "organ-b",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "G5/q",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/56/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/56",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/56",
+              },
+            },
+            "channel": 2,
+            "flowName": "notation",
+            "layers": Array [
+              "c",
+            ],
+            "length": -1,
+            "name": "organ-c",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "G/q C C/8 A/8 G/q C D/8 A/8",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/58/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/58",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/58",
+              },
+            },
+            "channel": 4,
+            "flowName": "notation",
+            "layers": Array [
+              "a",
+            ],
+            "length": -1,
+            "name": "aahs-a",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C A C5/h C5/8",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/60/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/60",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/60",
+              },
+            },
+            "channel": 4,
+            "flowName": "notation",
+            "layers": Array [
+              "c",
+            ],
+            "length": -1,
+            "name": "aahs-c",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C5/h A4 G4 E C",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 2,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/62/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/62",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/62",
+              },
+            },
+            "channel": 4,
+            "flowName": "notation",
+            "layers": Array [
+              "break",
+            ],
+            "length": -1,
+            "name": "aahs-br",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C5/h A4 G4 E C",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/64/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/64",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/64",
+              },
+            },
+            "channel": 9,
+            "flowName": "pattern",
+            "layers": Array [
+              "overlay",
+            ],
+            "length": -1,
+            "name": "shake",
+            "offset": 0,
+            "properties": Object {
+              "bits": "15",
+              "note.duration": "1",
+              "note.number": "69",
+              "note.velocity": "40",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/66/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/66",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/66",
+              },
+            },
+            "channel": 9,
+            "flowName": "pattern",
+            "layers": Array [
+              "a",
+              "b",
+            ],
+            "length": -1,
+            "name": "kick1",
+            "offset": 0,
+            "properties": Object {
+              "bits": "13",
+              "note.duration": "1",
+              "note.number": "33",
+              "note.velocity": "40",
+            },
+            "tick": Object {
+              "denominator": 2,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/68/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/68",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/68",
+              },
+            },
+            "channel": 9,
+            "flowName": "pattern",
+            "layers": Array [
+              "c",
+            ],
+            "length": -1,
+            "name": "kick2",
+            "offset": 0,
+            "properties": Object {
+              "bits": "65",
+              "note.duration": "1",
+              "note.number": "33",
+              "note.velocity": "40",
+            },
+            "tick": Object {
+              "denominator": 4,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/70/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/70",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/70",
+              },
+            },
+            "channel": 9,
+            "flowName": "pattern",
+            "layers": Array [
+              "break",
+            ],
+            "length": -1,
+            "name": "kick3",
+            "offset": 0,
+            "properties": Object {
+              "bits": "87",
+              "note.duration": "1",
+              "note.number": "33",
+              "note.velocity": "40",
+            },
+            "tick": Object {
+              "denominator": 4,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/72/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/72",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/72",
+              },
+            },
+            "channel": 9,
+            "flowName": "pattern",
+            "layers": Array [
+              "verse",
+            ],
+            "length": -1,
+            "name": "hi",
+            "offset": 0,
+            "properties": Object {
+              "bits": "15",
+              "note.duration": "1",
+              "note.number": "42",
+              "note.velocity": "40",
+            },
+            "tick": Object {
+              "denominator": 2,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/74/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/74",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/74",
+              },
+            },
+            "channel": 9,
+            "flowName": "pattern",
+            "layers": Array [
+              "c",
+            ],
+            "length": -1,
+            "name": "crash",
+            "offset": 0,
+            "properties": Object {
+              "bits": "87",
+              "note.duration": "1",
+              "note.number": "46",
+              "note.velocity": "40",
+            },
+            "tick": Object {
+              "denominator": 2,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/5537/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/5537",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/5537",
+              },
+            },
+            "channel": 1,
+            "flowName": "notation",
+            "layers": Array [],
+            "length": -1,
+            "name": "test",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          },
+        ]
+      }
       flux={
         MockFlux {
           "client": [Function],
@@ -100,7 +775,682 @@ exports[`Sequences container renders OK 1`] = `
     >
       <div>
         <SequenceList
-          entities={Array []}
+          entities={
+            Array [
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/28/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/28",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/28",
+                  },
+                },
+                "channel": 1,
+                "flowName": "notation",
+                "layers": Array [
+                  "a",
+                  "c",
+                ],
+                "length": -1,
+                "name": "piano-a",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "A/q G/8 A/q G",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/32/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/32",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/32",
+                  },
+                },
+                "channel": 1,
+                "flowName": "notation",
+                "layers": Array [
+                  "a",
+                ],
+                "length": -1,
+                "name": "piano-a3",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "A3 A A/8 A A/q",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/38/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/38",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/38",
+                  },
+                },
+                "channel": 1,
+                "flowName": "notation",
+                "layers": Array [
+                  "c",
+                ],
+                "length": -1,
+                "name": "piano-g3",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "G3 G G/8 A C/q G2 G G3/8 G G/q",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/40/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/40",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/40",
+                  },
+                },
+                "channel": 1,
+                "flowName": "notation",
+                "layers": Array [
+                  "a",
+                ],
+                "length": -1,
+                "name": "notes-c5",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C5/h C/q",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/42/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/42",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/42",
+                  },
+                },
+                "channel": 1,
+                "flowName": "notation",
+                "layers": Array [
+                  "b",
+                ],
+                "length": -1,
+                "name": "notes-c4",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C4/h C/q",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/44/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/44",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/44",
+                  },
+                },
+                "channel": 1,
+                "flowName": "notation",
+                "layers": Array [
+                  "break",
+                ],
+                "length": -1,
+                "name": "notes",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C5/h C/q C6 A5 A5/8 C5/8 A5",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/46/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/46",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/46",
+                  },
+                },
+                "channel": 3,
+                "flowName": "notation",
+                "layers": Array [
+                  "intro",
+                ],
+                "length": -1,
+                "name": "strings-c5",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C5/h C/q",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/48/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/48",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/48",
+                  },
+                },
+                "channel": 3,
+                "flowName": "notation",
+                "layers": Array [
+                  "intro",
+                ],
+                "length": -1,
+                "name": "strings-c4",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C4/h C/q",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/50/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/50",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/50",
+                  },
+                },
+                "channel": 3,
+                "flowName": "notation",
+                "layers": Array [
+                  "break",
+                ],
+                "length": -1,
+                "name": "strings",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C5/h C/q C6 A5",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/52/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/52",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/52",
+                  },
+                },
+                "channel": 2,
+                "flowName": "notation",
+                "layers": Array [
+                  "a",
+                  "in",
+                ],
+                "length": -1,
+                "name": "organ-a",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "A5/8",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/54/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/54",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/54",
+                  },
+                },
+                "channel": 2,
+                "flowName": "notation",
+                "layers": Array [
+                  "b",
+                ],
+                "length": -1,
+                "name": "organ-b",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "G5/q",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/56/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/56",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/56",
+                  },
+                },
+                "channel": 2,
+                "flowName": "notation",
+                "layers": Array [
+                  "c",
+                ],
+                "length": -1,
+                "name": "organ-c",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "G/q C C/8 A/8 G/q C D/8 A/8",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/58/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/58",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/58",
+                  },
+                },
+                "channel": 4,
+                "flowName": "notation",
+                "layers": Array [
+                  "a",
+                ],
+                "length": -1,
+                "name": "aahs-a",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C A C5/h C5/8",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/60/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/60",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/60",
+                  },
+                },
+                "channel": 4,
+                "flowName": "notation",
+                "layers": Array [
+                  "c",
+                ],
+                "length": -1,
+                "name": "aahs-c",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C5/h A4 G4 E C",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 2,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/62/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/62",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/62",
+                  },
+                },
+                "channel": 4,
+                "flowName": "notation",
+                "layers": Array [
+                  "break",
+                ],
+                "length": -1,
+                "name": "aahs-br",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                  "notation": "C5/h A4 G4 E C",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/64/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/64",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/64",
+                  },
+                },
+                "channel": 9,
+                "flowName": "pattern",
+                "layers": Array [
+                  "overlay",
+                ],
+                "length": -1,
+                "name": "shake",
+                "offset": 0,
+                "properties": Object {
+                  "bits": "15",
+                  "note.duration": "1",
+                  "note.number": "69",
+                  "note.velocity": "40",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/66/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/66",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/66",
+                  },
+                },
+                "channel": 9,
+                "flowName": "pattern",
+                "layers": Array [
+                  "a",
+                  "b",
+                ],
+                "length": -1,
+                "name": "kick1",
+                "offset": 0,
+                "properties": Object {
+                  "bits": "13",
+                  "note.duration": "1",
+                  "note.number": "33",
+                  "note.velocity": "40",
+                },
+                "tick": Object {
+                  "denominator": 2,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/68/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/68",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/68",
+                  },
+                },
+                "channel": 9,
+                "flowName": "pattern",
+                "layers": Array [
+                  "c",
+                ],
+                "length": -1,
+                "name": "kick2",
+                "offset": 0,
+                "properties": Object {
+                  "bits": "65",
+                  "note.duration": "1",
+                  "note.number": "33",
+                  "note.velocity": "40",
+                },
+                "tick": Object {
+                  "denominator": 4,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/70/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/70",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/70",
+                  },
+                },
+                "channel": 9,
+                "flowName": "pattern",
+                "layers": Array [
+                  "break",
+                ],
+                "length": -1,
+                "name": "kick3",
+                "offset": 0,
+                "properties": Object {
+                  "bits": "87",
+                  "note.duration": "1",
+                  "note.number": "33",
+                  "note.velocity": "40",
+                },
+                "tick": Object {
+                  "denominator": 4,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/72/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/72",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/72",
+                  },
+                },
+                "channel": 9,
+                "flowName": "pattern",
+                "layers": Array [
+                  "verse",
+                ],
+                "length": -1,
+                "name": "hi",
+                "offset": 0,
+                "properties": Object {
+                  "bits": "15",
+                  "note.duration": "1",
+                  "note.number": "42",
+                  "note.velocity": "40",
+                },
+                "tick": Object {
+                  "denominator": 2,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/74/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/74",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/74",
+                  },
+                },
+                "channel": 9,
+                "flowName": "pattern",
+                "layers": Array [
+                  "c",
+                ],
+                "length": -1,
+                "name": "crash",
+                "offset": 0,
+                "properties": Object {
+                  "bits": "87",
+                  "note.duration": "1",
+                  "note.number": "46",
+                  "note.velocity": "40",
+                },
+                "tick": Object {
+                  "denominator": 2,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+              Object {
+                "_links": Object {
+                  "project": Object {
+                    "href": "http://localhost:8080/api/sequence/5537/project",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/sequence/5537",
+                  },
+                  "sequence": Object {
+                    "href": "http://localhost:8080/api/sequence/5537",
+                  },
+                },
+                "channel": 1,
+                "flowName": "notation",
+                "layers": Array [],
+                "length": -1,
+                "name": "test",
+                "offset": 0,
+                "properties": Object {
+                  "format": "natural",
+                },
+                "tick": Object {
+                  "denominator": 1,
+                  "numerator": 1,
+                  "timeUnit": "BEAT",
+                },
+              },
+            ]
+          }
           flux={
             MockFlux {
               "client": [Function],

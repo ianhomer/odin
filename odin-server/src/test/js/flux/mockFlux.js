@@ -19,7 +19,16 @@ const emptyFunction = function() {
 
 export class MockFlux {
   constructor() {
-    this.client = emptyFunction
+    this.client = request => {
+      return new Promise((resolve, reject) => {
+        const path = '../data/' + request.path + '.json'
+        try {
+          resolve(require(path))
+        } catch (e) {
+          reject(e)
+        }
+      })
+    }
     this.loadFromServer = emptyFunction
     this.loadSchema = emptyFunction
     this.onUpdate = emptyFunction

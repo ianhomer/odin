@@ -16,10 +16,7 @@
 
 'use strict'
 
-import testChannels from '../data/channel.json'
 import testSchema from '../data/schema.json'
-import testProfileSequence from '../data/profile/sequence.json'
-import testProfileChannel from '../data/profile/channel.json'
 import { Backend } from 'odin/backend/index.js'
 
 export class MockBackend extends Backend {
@@ -37,17 +34,16 @@ export class MockBackend extends Backend {
 
   // Load entities from JSON imported from file
   loadEntitiesApi(path) {
-    var json = ((path) => {
-      switch (path) {
-      case 'channel':
-        return testChannels
-      default:
-        throw new Error('No test data available for path ' + path)
+    var json = (path => {
+      const fullPath = '../data/entities/' + path + '.json'
+      try {
+        return require(fullPath)
+      } catch (e) {
+        console.error(e)
+        throw new Error('No test entities data available for path ' + path)
       }
     })(path)
-    // TODO : Load schema for path
-
-    return json._embedded.channel
+    return json._embedded[path]
   }
 
   loadProjectSchemaApi() {
@@ -56,13 +52,12 @@ export class MockBackend extends Backend {
 
   loadProfileSchemaApi(path) {
     return (path => {
-      switch (path) {
-      case 'sequence':
-        return testProfileSequence
-      case 'channel':
-        return testProfileChannel
-      default:
-        throw new Error('No test data available for path ' + path)
+      const fullPath = '../data/profile/' + path + '.json'
+      try {
+        return require(fullPath)
+      } catch (e) {
+        console.error(e)
+        throw new Error('No test profile data available for path ' + path)
       }
     })(path)
   }
