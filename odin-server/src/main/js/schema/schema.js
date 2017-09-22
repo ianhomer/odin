@@ -23,7 +23,7 @@ const _ajv = new WeakMap()
 const _schema = new WeakMap()
 
 export class Schema {
-  constructor(schema, flux) {
+  constructor(schema, flux = {}) {
     // ajv is a private property
     _ajv.set(this, new Ajv({extendRefs : true}))
     this.getAjv().addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
@@ -31,8 +31,17 @@ export class Schema {
     _schema.set(this, schema)
     this.flux = flux
     this.clazzes = {}
-    for (var urn in schema.types) {
-      this.getAjv().addSchema(schema.types[urn], urn)
+    // Initialise from project schema, i.e. project schema from Odin schema service
+    if (schema.project) {
+      for (var urn in schema.project.types) {
+        this.getAjv().addSchema(schema.project.types[urn], urn)
+      }
+    }
+    // Initialise from profile schemas, i.e. REST endpoint profiles
+    if (schema.profiles) {
+      for (var key in schema.profiles) {
+        this.addSchemaForClazz(schema.profiles[key], key)
+      }
     }
   }
 
@@ -45,7 +54,7 @@ export class Schema {
   }
 
   getFlowClazz(flowName) {
-    var urn = this.getSchema().flows[flowName]
+    var urn = this.getSchema().project.flows[flowName]
     return this.getClazz(urn)
   }
 
@@ -81,13 +90,13 @@ export class Schema {
       return new Clazz(this.getClazz.bind(this), id,
         this.getClazzSchema(id), this.getBackEndClazz(id))
     } else {
-      throw 'Cannot create clazz for ' + id + ' schema has not been loaded'
+      throw 'Cannot create clazz for ' + id + ', schema has not been loaded'
     }
   }
 
   // Get the schema for the clazz stored on the back end
   getBackEndClazz(id) {
-    if (Object.values(this.getSchema().flows).includes(id) && id != 'sequence') {
+    if (Object.values(this.getSchema().project.flows).includes(id) && id != 'sequence') {
       return this.createClazzFromId('sequence')
     }
   }

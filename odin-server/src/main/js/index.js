@@ -25,7 +25,7 @@ import App from './containers/app'
 import reducers from './reducers'
 import { Flux } from './legacy/flux'
 import { Backend } from './backend'
-import { loadProjectSchemaRequested } from './actions'
+import { loadProfileSchemaRequested, loadProjectSchemaRequested } from './actions'
 
 // Create the backend integration layer
 const backend = new Backend()
@@ -50,6 +50,8 @@ const store = createStore(
 sagaMiddleware.run(backend.saga)
 
 store.dispatch(loadProjectSchemaRequested())
+store.dispatch(loadProfileSchemaRequested('sequence'))
+store.dispatch(loadProfileSchemaRequested('pattern'))
 
 // Render application
 render(

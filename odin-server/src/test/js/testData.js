@@ -7,8 +7,13 @@ import testSequenceProfileSchemaJson from './data/profile/sequence.json'
 
 export const mockFlux = new MockFlux()
 export const testSchema = function() {
-  var schema = new Schema(testSchemaJson, mockFlux)
-  schema.addSchemaForClazz(testSequenceProfileSchemaJson, 'sequence')
+  var schema = new Schema(
+    {
+      project: testSchemaJson,
+      profiles: {
+        sequence: testSequenceProfileSchemaJson
+      }
+    }, mockFlux)
   return schema
 }()
 export const testProject = testProjectJson

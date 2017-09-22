@@ -12,13 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { LOAD_PROJECT_SCHEMA_SUCCEEDED } from '../actions'
+import { LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_SUCCEEDED } from '../actions'
+
+function profileAtPath(state = { }, action) {
+  switch (action.type) {
+  case LOAD_PROFILE_SCHEMA_SUCCEEDED:
+    return Object.assign({}, state, {
+      [action.path]: action.schema,
+    })
+  default:
+    return state
+  }
+}
 
 function schema(state = {}, action) {
   switch (action.type) {
   case LOAD_PROJECT_SCHEMA_SUCCEEDED:
     return Object.assign({}, state, {
-      schema: action.schema
+      project: action.schema
+    })
+  case LOAD_PROFILE_SCHEMA_SUCCEEDED:
+    return Object.assign({}, state, {
+      profiles: profileAtPath(state[action.path], action)
     })
   default:
     return state

@@ -6,7 +6,6 @@ import { shallow } from 'enzyme'
 import App from 'odin/containers/app.js'
 import { LOAD_PROJECT_SCHEMA_SUCCEEDED, loadProjectSchemaRequested } from 'odin/actions/index.js'
 
-
 import { mockFlux } from '../testData.js'
 import store from '../store'
 import { dispatchAndExpect } from '../utils/dispatchAndExpect'

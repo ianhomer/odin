@@ -37,7 +37,8 @@ class App extends React.Component {
   }
 
   createNewSchema(props) {
-    return props.schema.schema ? new Schema(props.schema.schema, props.flux) : null
+    // Only create schema when we have the project schema
+    return props.schema.project ? new Schema(props.schema, props.flux) : null
   }
 
   componentWillReceiveProps(newProps) {

@@ -21,6 +21,7 @@ import {
   DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED, DELETE_ENTITY_FAILED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED,
   LOAD_PROJECT_SCHEMA_REQUESTED, LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_FAILED,
+  LOAD_PROFILE_SCHEMA_REQUESTED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_FAILED
 } from '../actions'
 
 const root = '/api'
@@ -101,10 +102,30 @@ export class Backend {
   * loadProjectSchema(action) {
     try {
       const backend = yield getContext('backend')
-      const schema = yield call(backend.loadProjectSchemaApi, action.entity, action.path)
+      const schema = yield call(backend.loadProjectSchemaApi)
       yield put({type: LOAD_PROJECT_SCHEMA_SUCCEEDED, schema: schema})
     } catch (e) {
       yield put({type: LOAD_PROJECT_SCHEMA_FAILED, message: e.message})
+    }
+  }
+
+  loadProfileSchemaApi(path) {
+    return fetch(root + '/profile/' + path, {
+      method : 'GET',
+      headers: {
+        'Content-Type': 'application/schema+json'
+      }
+    })
+      .then(response => response.json() )
+  }
+
+  * loadProfileSchema(action) {
+    try {
+      const backend = yield getContext('backend')
+      const schema = yield call(backend.loadProfileSchemaApi, action.path)
+      yield put({type: LOAD_PROFILE_SCHEMA_SUCCEEDED, schema: schema, path: action.path})
+    } catch (e) {
+      yield put({type: LOAD_PROFILE_SCHEMA_FAILED, message: e.message})
     }
   }
 
@@ -114,5 +135,6 @@ export class Backend {
     yield takeEvery(DELETE_ENTITY_REQUESTED, backend.deleteEntity)
     yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
     yield takeEvery(LOAD_PROJECT_SCHEMA_REQUESTED, backend.loadProjectSchema)
+    yield takeEvery(LOAD_PROFILE_SCHEMA_REQUESTED, backend.loadProfileSchema)
   }
 }

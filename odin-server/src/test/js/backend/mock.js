@@ -18,6 +18,7 @@
 
 import testChannels from '../data/channel.json'
 import testSchema from '../data/schema.json'
+import testProfileSequence from '../data/profile/sequence.json'
 import { Backend } from 'odin/backend/index.js'
 
 export class MockBackend extends Backend {
@@ -46,5 +47,16 @@ export class MockBackend extends Backend {
 
   loadProjectSchemaApi() {
     return testSchema
+  }
+
+  loadProfileSchemaApi(path) {
+    return (path => {
+      switch (path) {
+      case 'sequence':
+        return testProfileSequence
+      default:
+        throw new Error('No test data available for path ' + path)
+      }
+    })(path)
   }
 }
