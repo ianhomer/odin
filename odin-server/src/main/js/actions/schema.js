@@ -18,3 +18,9 @@ export function loadProfileSchemaRequested(path) {
 
 export const LOAD_PROFILE_SCHEMA_SUCCEEDED = 'LOAD_PROFILE_SCHEMA_SUCCEEDED'
 export const LOAD_PROFILE_SCHEMA_FAILED = 'LOAD_PROFILE_SCHEMA_FAILED'
+
+export const loadSchemaActions = [
+  loadProjectSchemaRequested(),
+  loadProfileSchemaRequested('sequence'),
+  loadProfileSchemaRequested('channel')
+]

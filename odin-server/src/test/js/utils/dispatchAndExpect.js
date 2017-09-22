@@ -13,5 +13,12 @@ export function dispatchAndExpect(store, done, waitForActionType, action, assert
       }
     }
   })
-  store.dispatch(action())
+  var request = action()
+  if (request.constructor === Array) {
+    for (var i = 0; i < request.length ; i++) {
+      store.dispatch(request[i])
+    }
+  } else {
+    store.dispatch(request)
+  }
 }
