@@ -20,7 +20,7 @@ import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED, CREATE_ENTITY_FAILED,
   DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED, DELETE_ENTITY_FAILED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED,
-  LOAD_SCHEMA_REQUESTED, LOAD_SCHEMA_SUCCEEDED, LOAD_SCHEMA_FAILED,
+  LOAD_PROJECT_SCHEMA_REQUESTED, LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_FAILED,
 } from '../actions'
 
 const root = '/api'
@@ -88,7 +88,7 @@ export class Backend {
     }
   }
 
-  loadSchemaApi() {
+  loadProjectSchemaApi() {
     return fetch('/services/schema', {
       method : 'GET',
       headers: {
@@ -98,13 +98,13 @@ export class Backend {
       .then(response => response.json() )
   }
 
-  * loadSchema(action) {
+  * loadProjectSchema(action) {
     try {
       const backend = yield getContext('backend')
-      const schema = yield call(backend.loadSchemaApi, action.entity, action.path)
-      yield put({type: LOAD_SCHEMA_SUCCEEDED, schema: schema})
+      const schema = yield call(backend.loadProjectSchemaApi, action.entity, action.path)
+      yield put({type: LOAD_PROJECT_SCHEMA_SUCCEEDED, schema: schema})
     } catch (e) {
-      yield put({type: LOAD_SCHEMA_FAILED, message: e.message})
+      yield put({type: LOAD_PROJECT_SCHEMA_FAILED, message: e.message})
     }
   }
 
@@ -113,6 +113,6 @@ export class Backend {
     yield takeEvery(CREATE_ENTITY_REQUESTED, backend.createEntity)
     yield takeEvery(DELETE_ENTITY_REQUESTED, backend.deleteEntity)
     yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
-    yield takeEvery(LOAD_SCHEMA_REQUESTED, backend.loadSchema)
+    yield takeEvery(LOAD_PROJECT_SCHEMA_REQUESTED, backend.loadProjectSchema)
   }
 }

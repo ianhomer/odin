@@ -14,24 +14,19 @@
 
 'use strict'
 
-const React = require('react')
-const PropTypes = require('prop-types')
+import EntitiesContainer from './entitiesContainer'
+import SequenceList from '../components/sequenceList'
+import connectEntities from './connectEntities'
 
-// Trace component to handle information for development support.
-class Trace extends React.Component{
+class SequencesContainer extends EntitiesContainer {
   constructor(props) {
     super(props)
-  }
-
-  render() {
-    return (
-      <div className="debug time"><span className="scope">{this.props.scope}</span>{new Date().toLocaleTimeString()}</div>
-    )
+    this.component = SequenceList
   }
 }
 
-Trace.propTypes = {
-  scope: PropTypes.string.isRequired
+SequencesContainer.defaultProps = {
+  path: 'sequence'
 }
 
-module.exports = Trace
+export default connectEntities(SequencesContainer.defaultProps.path, SequencesContainer)

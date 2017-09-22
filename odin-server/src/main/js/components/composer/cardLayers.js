@@ -15,6 +15,7 @@
 'use strict'
 
 const React = require('react')
+const PropTypes = require('prop-types')
 
 // CardLayers component.
 class CardLayers extends React.Component{
@@ -29,6 +30,12 @@ class CardLayers extends React.Component{
       </div>
     )
   }
+}
+
+CardLayers.propTypes = {
+  entity: PropTypes.shape({
+    layers: PropTypes.array.isRequired
+  })
 }
 
 module.exports = CardLayers

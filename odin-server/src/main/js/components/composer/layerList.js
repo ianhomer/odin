@@ -98,7 +98,7 @@ class LayerList extends React.Component{
     var component = (
       <Layer entity={layer} layers={layers} sequences={sequences}
         parent={parentLayer} flux={this.props.flux}
-        key={layer.name} onDelete={this.onDelete}
+        key={layer.name}
         onChange={this.handleChange} onDelete={this.handleDelete}
         onMoveLayer={this.props.onMoveLayer}
         onAddLayer={this.props.onAddLayer}>
@@ -150,6 +150,17 @@ LayerList.defaultProps = {
 
 LayerList.propTypes = {
   flux: PropTypes.object.isRequired,
+  onAddLayer: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onMoveLayer: PropTypes.func.isRequired,
+  project: PropTypes.shape({
+    _links: PropTypes.shape({
+      self: PropTypes.shape({
+        href: PropTypes.string.isRequired
+      })
+    })
+  }),
+  sequences: PropTypes.array.isRequired,
   schema: PropTypes.object.isRequired
 }
 

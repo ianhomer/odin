@@ -92,6 +92,9 @@ class Project extends React.Component {
 
 Project.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  flux: PropTypes.shape({
+    client: PropTypes.func.isRequired
+  }),
   schema: PropTypes.object.isRequired
 }
 

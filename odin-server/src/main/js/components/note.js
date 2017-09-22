@@ -15,6 +15,7 @@
 'use strict'
 
 const React = require('react')
+const PropTypes = require('prop-types')
 
 class Note extends React.Component{
   constructor(props) {
@@ -30,6 +31,14 @@ class Note extends React.Component{
       </div>
     )
   }
+}
+
+// TODO : Should numerator be required?
+// TODO : Should number, velocity be a number?
+Note.propTypes = {
+  number: PropTypes.string.isRequired,
+  numerator: PropTypes.number,
+  velocity: PropTypes.string.isRequired
 }
 
 module.exports = Note

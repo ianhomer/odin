@@ -14,8 +14,7 @@
 
 'use strict'
 
-const React = require('react')
-
+//import React from 'react'
 import EntitiesContainer from './entitiesContainer'
 import ChannelList from '../components/channelList'
 import connectEntities from './connectEntities'

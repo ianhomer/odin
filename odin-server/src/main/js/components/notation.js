@@ -64,7 +64,7 @@ class Notation extends React.Component{
         <div className="row" onClick={this.toggleEditing}>
           <div className="col-1">{sequence.name}</div>
           <div className="col-3">
-            <Score entity={sequence} displayText="true" width="800" flux={this.props.flux}/>
+            <Score entity={sequence} displayText={true} width={800} flux={this.props.flux}/>
           </div>
           <div className="col-2 component">
             {sequence.tick ?
@@ -92,6 +92,9 @@ class Notation extends React.Component{
 
 Notation.propTypes = {
   clazz: PropTypes.object.isRequired,
+  entity: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
   flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }

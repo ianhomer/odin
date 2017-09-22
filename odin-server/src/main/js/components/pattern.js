@@ -53,7 +53,7 @@ class Pattern extends React.Component{
 
         <EditEntity entity={sequence}
           schema={this.props.schema} project={this.props.project}
-          clazz={this.props.clazz} fields={this.props.fields} schema={this.props.schema}
+          clazz={this.props.clazz} fields={this.props.fields}
           onApply={this.onUpdate}
         />
       )
@@ -98,6 +98,11 @@ class Pattern extends React.Component{
 
 Pattern.propTypes = {
   clazz: PropTypes.object.isRequired,
+  entity: PropTypes.object.isRequired,
+  fields: PropTypes.object.isRequired,
+  flux: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

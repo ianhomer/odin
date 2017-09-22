@@ -44,7 +44,7 @@ export class MockBackend extends Backend {
     return json._embedded.channel
   }
 
-  loadSchemaApi() {
+  loadProjectSchemaApi() {
     return testSchema
   }
 }

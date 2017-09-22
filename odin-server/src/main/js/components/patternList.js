@@ -77,6 +77,7 @@ PatternList.defaultProps = {
 
 PatternList.propTypes = {
   flux: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired
 }
 
 module.exports = PatternList

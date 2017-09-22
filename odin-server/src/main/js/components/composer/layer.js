@@ -184,7 +184,9 @@ Layer.propTypes = {
 
   // Injected by React DnD:
   isOverCurrent: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool.isRequired
+  canDrop: PropTypes.bool.isRequired,
+  connectDropTarget: PropTypes.func.isRequired,
+  connectDragSource: PropTypes.func.isRequired
 }
 
 module.exports = DragSource(ItemTypes.LAYER, dragSource, collectDrag)(

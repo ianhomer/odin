@@ -138,6 +138,7 @@ Composer.defaultProps = {
 
 Composer.propTypes = {
   flux: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

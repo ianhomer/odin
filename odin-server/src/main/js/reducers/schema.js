@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { LOAD_SCHEMA_SUCCEEDED } from '../actions'
+import { LOAD_PROJECT_SCHEMA_SUCCEEDED } from '../actions'
 
 function schema(state = {}, action) {
   switch (action.type) {
-  case LOAD_SCHEMA_SUCCEEDED:
+  case LOAD_PROJECT_SCHEMA_SUCCEEDED:
     return Object.assign({}, state, {
       schema: action.schema
     })

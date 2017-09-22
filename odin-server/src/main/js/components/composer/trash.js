@@ -15,6 +15,7 @@
 'use strict'
 
 const React = require('react')
+import PropTypes from 'prop-types'
 import { ItemTypes } from '../../constants'
 import { DropTarget } from 'react-dnd'
 
@@ -43,6 +44,11 @@ class Trash extends React.Component{
       <div className="trash">remove</div>
     )
   }
+}
+
+Trash.propTypes = {
+  // Injected by React DnD:
+  connectDropTarget: PropTypes.func.isRequired
 }
 
 module.exports = DropTarget(

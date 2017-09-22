@@ -121,9 +121,9 @@ class EditEntity extends React.Component{
         { notation : value }
       return (
         <div className={cellClassName} key={key}>
-          <Score flux={this.props.flux} entity={scoreEntity} editor="true"
+          <Score flux={this.props.flux} entity={scoreEntity} editor={true}
             size={size} componentKey={key} componentRef={el => this.refs[key] = el}
-            width="800"
+            width={800}
             onKeyPress={this.handleKeyPress}/>
         </div>
       )
@@ -197,6 +197,22 @@ class EditEntity extends React.Component{
 
 EditEntity.propTypes = {
   clazz: PropTypes.object.isRequired,
+  entity: PropTypes.shape({
+    _links: PropTypes.shape({
+      self: PropTypes.shape({
+        href: PropTypes.string.isRequired
+      })
+    }),
+  }),
+  onApply: PropTypes.func.isRequired,
+  project: PropTypes.shape({
+    _links: PropTypes.shape({
+      self: PropTypes.shape({
+        href: PropTypes.string.isRequired
+      })
+    }),
+  }),
+  fields: PropTypes.object.isRequired,
   flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }

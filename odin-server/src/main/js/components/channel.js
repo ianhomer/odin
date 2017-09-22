@@ -15,6 +15,7 @@
 'use strict'
 
 const React = require('react')
+const PropTypes = require('prop-types')
 
 class Channel extends React.Component{
   constructor(props) {
@@ -37,6 +38,14 @@ class Channel extends React.Component{
       </div>
     )
   }
+}
+
+Channel.propTypes = {
+  entity: PropTypes.shape({
+    number: PropTypes.number.isRequired,
+    programName: PropTypes.string.isRequired
+  }),
+  onDelete: PropTypes.func.isRequired
 }
 
 module.exports = Channel

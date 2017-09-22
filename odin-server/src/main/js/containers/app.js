@@ -93,6 +93,8 @@ function mapStateToProps(state) {
 }
 
 App.propTypes = {
+  flux: PropTypes.object.isRequired,
+  schema: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired
 }
 

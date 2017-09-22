@@ -15,6 +15,7 @@
 'use strict'
 
 const React = require('react')
+const PropTypes = require('prop-types')
 
 // Tick component.
 class Tick extends React.Component{
@@ -34,6 +35,11 @@ class Tick extends React.Component{
       </div>
     )
   }
+}
+
+Tick.propTypes = {
+  denominator: PropTypes.number.isRequired,
+  numerator: PropTypes.number.isRequired
 }
 
 module.exports = Tick

@@ -32,6 +32,7 @@ const DefaultSequence = Sequence
 class SequenceList extends React.Component{
   constructor(props) {
     super(props)
+
     // TODO : remove schema and links from this state if redundant
     this.state = {
       schema: [], entities: [], links: []
@@ -111,6 +112,7 @@ SequenceList.defaultProps = {
 
 SequenceList.propTypes = {
   flux: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

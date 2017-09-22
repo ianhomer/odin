@@ -216,7 +216,20 @@ Score.defaultProps = {
 }
 
 Score.propTypes = {
-  flux: PropTypes.object.isRequired
+  entity: PropTypes.shape({
+    properties: PropTypes.object,
+    _links: PropTypes.shape({
+      self: PropTypes.shape({
+        href: PropTypes.string.isRequired
+      })
+    })
+  }),
+  displayText: PropTypes.bool,
+  editor: PropTypes.bool,
+  height: PropTypes.number.isRequired,
+  flux: PropTypes.object.isRequired,
+  size: PropTypes.number,
+  width: PropTypes.number.isRequired
 }
 
 module.exports = Score

@@ -52,7 +52,7 @@ class Sequence extends React.Component{
 
         <EditEntity entity={sequence}
           schema={this.props.schema} project={this.props.project} flux={this.props.flux}
-          path={this.props.path} fields={this.props.fields} schema={this.props.schema}
+          path={this.props.path} fields={this.props.fields}
           onApply={this.onUpdate}
         />
       )
@@ -89,7 +89,12 @@ class Sequence extends React.Component{
 
 Sequence.propTypes = {
   clazz: PropTypes.object.isRequired,
+  entity: PropTypes.object.isRequired,
   flux: PropTypes.object.isRequired,
+  fields: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
+  project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

@@ -76,9 +76,12 @@ ChannelList.defaultProps = {
 
 ChannelList.propTypes = {
   entities: PropTypes.array.isRequired,
+  fields: PropTypes.object.isRequired,
   flux: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   path : PropTypes.string.isRequired,
+  project : PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

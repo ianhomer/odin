@@ -6,7 +6,9 @@
         "jest/globals": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended"
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
