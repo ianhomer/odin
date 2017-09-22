@@ -27,6 +27,10 @@ export class MockBackend extends Backend {
     return entity
   }
 
+  updateEntityApi(entity) {
+    return entity
+  }
+
   deleteEntityApi(entity) {
     return entity
   }

@@ -18,18 +18,29 @@ const objectPath = require('object-path')
 
 const IMPLICIT_PROPERTIES = ['_links.self.href']
 
+const _backEndClazz = new WeakMap()
+const _frontEndSchema = new WeakMap()
+
 export class Clazz {
   constructor(getClazz, id, frontEndSchema, backEndClazz) {
     this.id = id
-    this.frontEndSchema = frontEndSchema
+    _frontEndSchema.set(this, frontEndSchema)
     if (backEndClazz) {
-      this.backEndClazz = backEndClazz
+      _backEndClazz.set(this, backEndClazz)
     } else {
-      this.backEndClazz = this
+      _backEndClazz.set(this, this)
     }
     this.path = backEndClazz ? backEndClazz.id : id
     this.properties = frontEndSchema.properties
     this.getClazz = getClazz
+  }
+
+  getBackEndClazz() {
+    return _backEndClazz.get(this)
+  }
+
+  getFrontEndSchema() {
+    return _frontEndSchema.get(this)
   }
 
   setFieldValue(entity, nodes, name, key) {
@@ -46,7 +57,7 @@ export class Clazz {
           value = value.split(',')
         }
       }
-      if (name in this.backEndClazz.properties || IMPLICIT_PROPERTIES.includes(name)) {
+      if (name in this.getBackEndClazz().properties || IMPLICIT_PROPERTIES.includes(name)) {
         // Set the property in the entity if property is defined in back end schema.
         objectPath.set(entity, name, value)
       } else {

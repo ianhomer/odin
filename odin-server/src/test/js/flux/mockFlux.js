@@ -24,6 +24,7 @@ export class MockFlux {
     this.loadSchema = emptyFunction
     this.onUpdate = emptyFunction
     this.onCreate = emptyFunction
+    this.onDelete = emptyFunction
     this.onPatch = emptyFunction
   }
 }

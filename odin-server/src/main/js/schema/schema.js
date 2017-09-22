@@ -20,6 +20,8 @@ import { Clazz } from './clazz'
 
 const root = '/api'
 const _ajv = new WeakMap()
+const _clazzes = new WeakMap()
+const _flux = new WeakMap()
 const _schema = new WeakMap()
 
 export class Schema {
@@ -29,8 +31,8 @@ export class Schema {
     this.getAjv().addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
     // schema is a private property
     _schema.set(this, schema)
-    this.flux = flux
-    this.clazzes = {}
+    _flux.set(this, flux)
+    _clazzes.set(this, {})
     this.revision = schema.revision
     // Initialise from project schema, i.e. project schema from Odin schema service
     if (schema.project) {
@@ -48,6 +50,14 @@ export class Schema {
 
   getAjv() {
     return _ajv.get(this)
+  }
+
+  getClazzes() {
+    return _clazzes.get(this)
+  }
+
+  getFlux() {
+    return _flux.get(this)
   }
 
   getSchema() {
@@ -74,13 +84,13 @@ export class Schema {
 
   getClazz(id, ref = '') {
     var fullId = this.getRefClazzId(id, ref)
-    var clazz = this.clazzes[fullId]
+    var clazz = this.getClazzes()[fullId]
     if (clazz == null) {
       clazz = this.createClazzFromId(fullId)
       if (clazz == null) {
         throw 'Cannot get clazz from ID ' + fullId
       }
-      this.clazzes[fullId] = clazz
+      this.getClazzes()[fullId] = clazz
     }
     return clazz
   }
@@ -143,7 +153,7 @@ export class Schema {
       var schema = this.getAjv().getSchema(path)
       if (!schema) {
         console.warn('loadClazz(' + path + ') should not be called anymore')
-        this.flux.client({
+        this.getFlux().client({
           method: 'GET',
           path: root + '/profile/' + path,
           headers: {'Accept': 'application/schema+json'}

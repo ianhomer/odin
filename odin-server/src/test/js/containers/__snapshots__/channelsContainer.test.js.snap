@@ -19,6 +19,7 @@ exports[`Channels container renders OK 1`] = `
         "loadFromServer": [Function],
         "loadSchema": [Function],
         "onCreate": [Function],
+        "onDelete": [Function],
         "onPatch": [Function],
         "onUpdate": [Function],
       }
@@ -47,15 +48,6 @@ exports[`Channels container renders OK 1`] = `
     }
     schema={
       Schema {
-        "clazzes": Object {},
-        "flux": MockFlux {
-          "client": [Function],
-          "loadFromServer": [Function],
-          "loadSchema": [Function],
-          "onCreate": [Function],
-          "onPatch": [Function],
-          "onUpdate": [Function],
-        },
         "revision": undefined,
       }
     }
@@ -167,6 +159,7 @@ exports[`Channels container renders OK 1`] = `
           "loadFromServer": [Function],
           "loadSchema": [Function],
           "onCreate": [Function],
+          "onDelete": [Function],
           "onPatch": [Function],
           "onUpdate": [Function],
         }
@@ -174,6 +167,7 @@ exports[`Channels container renders OK 1`] = `
       onCreate={[Function]}
       onDelete={[Function]}
       onLoadEntities={[Function]}
+      onUpdate={[Function]}
       path="channel"
       project={
         Object {
@@ -199,15 +193,6 @@ exports[`Channels container renders OK 1`] = `
       }
       schema={
         Schema {
-          "clazzes": Object {},
-          "flux": MockFlux {
-            "client": [Function],
-            "loadFromServer": [Function],
-            "loadSchema": [Function],
-            "onCreate": [Function],
-            "onPatch": [Function],
-            "onUpdate": [Function],
-          },
           "revision": undefined,
         }
       }
@@ -336,6 +321,7 @@ exports[`Channels container renders OK 1`] = `
               "loadFromServer": [Function],
               "loadSchema": [Function],
               "onCreate": [Function],
+              "onDelete": [Function],
               "onPatch": [Function],
               "onUpdate": [Function],
             }
@@ -367,15 +353,6 @@ exports[`Channels container renders OK 1`] = `
           }
           schema={
             Schema {
-              "clazzes": Object {},
-              "flux": MockFlux {
-                "client": [Function],
-                "loadFromServer": [Function],
-                "loadSchema": [Function],
-                "onCreate": [Function],
-                "onPatch": [Function],
-                "onUpdate": [Function],
-              },
               "revision": undefined,
             }
           }
@@ -423,6 +400,7 @@ exports[`Channels container renders OK 1`] = `
                     "loadFromServer": [Function],
                     "loadSchema": [Function],
                     "onCreate": [Function],
+                    "onDelete": [Function],
                     "onPatch": [Function],
                     "onUpdate": [Function],
                   }
@@ -480,6 +458,7 @@ exports[`Channels container renders OK 1`] = `
                     "loadFromServer": [Function],
                     "loadSchema": [Function],
                     "onCreate": [Function],
+                    "onDelete": [Function],
                     "onPatch": [Function],
                     "onUpdate": [Function],
                   }
@@ -537,6 +516,7 @@ exports[`Channels container renders OK 1`] = `
                     "loadFromServer": [Function],
                     "loadSchema": [Function],
                     "onCreate": [Function],
+                    "onDelete": [Function],
                     "onPatch": [Function],
                     "onUpdate": [Function],
                   }
@@ -594,6 +574,7 @@ exports[`Channels container renders OK 1`] = `
                     "loadFromServer": [Function],
                     "loadSchema": [Function],
                     "onCreate": [Function],
+                    "onDelete": [Function],
                     "onPatch": [Function],
                     "onUpdate": [Function],
                   }
@@ -651,6 +632,7 @@ exports[`Channels container renders OK 1`] = `
                     "loadFromServer": [Function],
                     "loadSchema": [Function],
                     "onCreate": [Function],
+                    "onDelete": [Function],
                     "onPatch": [Function],
                     "onUpdate": [Function],
                   }
@@ -708,6 +690,7 @@ exports[`Channels container renders OK 1`] = `
                     "loadFromServer": [Function],
                     "loadSchema": [Function],
                     "onCreate": [Function],
+                    "onDelete": [Function],
                     "onPatch": [Function],
                     "onUpdate": [Function],
                   }

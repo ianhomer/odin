@@ -24,7 +24,7 @@ describe('Schema validation', () => {
         const schema = new Schema(store.getState().schema)
         expect(schema.getClazzSchema('sequence').title).toBe('Persistable sequence')
         const notationFlowClass = schema.getFlowClazz('notation')
-        expect(notationFlowClass.backEndClazz.id).toBe('sequence')
+        expect(notationFlowClass.getBackEndClazz().id).toBe('sequence')
       }
     )
   })

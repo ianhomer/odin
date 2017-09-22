@@ -18,6 +18,7 @@ import { call, put, takeEvery, getContext } from 'redux-saga/effects'
 import fetch from 'isomorphic-fetch'
 import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED, CREATE_ENTITY_FAILED,
+  UPDATE_ENTITY_REQUESTED, UPDATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_FAILED,
   DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED, DELETE_ENTITY_FAILED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED,
   LOAD_PROJECT_SCHEMA_REQUESTED, LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_FAILED,
@@ -44,6 +45,26 @@ export class Backend {
       yield put({type: CREATE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
     } catch (e) {
       yield put({type: CREATE_ENTITY_FAILED, message: e.message})
+    }
+  }
+
+  updateEntityApi(entity) {
+    return fetch(entity._links.self.href, {
+      method : 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      }, body : JSON.stringify(entity)
+    })
+      .then(response => response.json() )
+  }
+
+  * updateEntity(action) {
+    try {
+      const backend = yield getContext('backend')
+      const entity = yield call(backend.updateEntityApi, action.entity)
+      yield put({type: UPDATE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
+    } catch (e) {
+      yield put({type: UPDATE_ENTITY_FAILED, message: e.message})
     }
   }
 
@@ -131,6 +152,7 @@ export class Backend {
   * saga() {
     var backend = yield getContext('backend')
     yield takeEvery(CREATE_ENTITY_REQUESTED, backend.createEntity)
+    yield takeEvery(UPDATE_ENTITY_REQUESTED, backend.updateEntity)
     yield takeEvery(DELETE_ENTITY_REQUESTED, backend.deleteEntity)
     yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
     yield takeEvery(LOAD_PROJECT_SCHEMA_REQUESTED, backend.loadProjectSchema)

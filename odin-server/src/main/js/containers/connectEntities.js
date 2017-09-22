@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import { createEntityRequested, deleteEntityRequested, loadEntitiesRequested } from '../actions'
+import { createEntityRequested, deleteEntityRequested,
+  updateEntityRequested, loadEntitiesRequested } from '../actions'
 
 // Curry mapStateToProps with path value
 function mapStateToProps(path) {
@@ -19,6 +20,9 @@ function mapDispatchToProps(dispatch) {
     },
     onDelete: entity => {
       dispatch(deleteEntityRequested(entity))
+    },
+    onUpdate: entity => {
+      dispatch(updateEntityRequested(entity))
     },
     onLoadEntities : (path, schema) => {
       dispatch(loadEntitiesRequested(path, schema))

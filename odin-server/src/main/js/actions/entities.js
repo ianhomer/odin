@@ -52,7 +52,18 @@ function getPathFromEntity(entity) {
   return entity._links.self.href.match('/api/([^/]*)')[1]
 }
 
-export const DELETE_ENTITY_REQUESTED = 'DELETE_ENTITY_REQUESTED'
+export const UPDATE_ENTITY_REQUESTED = 'CREATE_ENTITY_REQUESTED'
+export function updateEntityRequested(entity) {
+  return {
+    type: UPDATE_ENTITY_REQUESTED,
+    entity
+  }
+}
+
+export const UPDATE_ENTITY_SUCCEEDED = 'UPDATE_ENTITY_SUCCEEDED'
+export const UPDATE_ENTITY_FAILED = 'UPDATE_ENTITY_FAILED'
+
+export const DELETE_ENTITY_REQUESTED = 'UPDATE_ENTITY_REQUESTED'
 export function deleteEntityRequested(entity) {
   return {
     type: DELETE_ENTITY_REQUESTED,
