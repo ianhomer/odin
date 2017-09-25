@@ -21,4 +21,10 @@ test('Sequences container renders OK', done => {
       expect(mountToDeepJson(mount(component))).toMatchSnapshot()
     }
   )
+
+  const mounted = mount(component)
+  expect(mounted.find('button')).toHaveLength(24)
+  mounted.find('button').at(0).simulate('click')
+  expect(mounted.find('button')).toHaveLength(23)
+
 })
