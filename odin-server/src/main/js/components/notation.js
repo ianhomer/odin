@@ -15,89 +15,22 @@
 'use strict'
 
 const React = require('react')
-const PropTypes = require('prop-types')
 
-const EditEntity = require('./editEntity')
-const Tick = require('./tick')
-const Score = require('./score')
+import Sequence from './sequence'
+import Score from './score'
 
 // Notation component.
-class Notation extends React.Component{
+class Notation extends Sequence {
   constructor(props) {
     super(props)
-
-    this.state = {
-      entity: this.props.entity, editing: null
-    }
-
-    this.handleDelete = this.handleDelete.bind(this)
-    this.toggleEditing = this._toggleEditing.bind(this)
   }
 
-  _toggleEditing() {
-    this.setState({editing : this.state.entity._links.self.href})
-  }
-
-  handleDelete(event) {
-    event.stopPropagation()
-    this.props.onDelete(this.props.entity)
-  }
-
-  render() {
-    var sequence = this.state.entity
-    if (this.state.editing) {
-      return (
-
-        // Edit entity
-        <EditEntity entity={sequence}
-          schema={this.props.schema} project={this.props.project} flux={this.props.flux}
-          clazz={this.props.clazz} fields={Notation.defaultProps.fields}
-          onApply={this.props.onUpdate}
-        />
-      )
-    } else {
-      return (
-
-        // View entity
-
-        <div className="row" onClick={this.toggleEditing}>
-          <div className="col-1">{sequence.name}</div>
-          <div className="col-3">
-            <Score entity={sequence} displayText={true} width={800} flux={this.props.flux}/>
-          </div>
-          <div className="col-2 component">
-            {sequence.tick ?
-              <Tick
-                numerator={sequence.tick.numerator}
-                denominator={sequence.tick.denominator}
-                timeUnit={sequence.tick.timeUnit}/>
-              : <div className="warn">NULL tick</div>
-            }
-          </div>
-          <div className="col-1">{sequence.offset}</div>
-          <div className="col-1">{sequence.length}</div>
-          <div className="col-1">{sequence.channel}</div>
-          <div className="col-2">
-            {sequence.flowName}
-          </div>
-          <div className="col-1">
-            <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
-          </div>
-        </div>
-      )
-    }
+  renderProperties(sequence) {
+    return (<Score entity={sequence} displayText={true} width={800} flux={this.props.flux}/>)
   }
 }
 
-Notation.propTypes = {
-  clazz: PropTypes.object.isRequired,
-  entity: PropTypes.object.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  project: PropTypes.object.isRequired,
-  flux: PropTypes.object.isRequired,
-  schema: PropTypes.object.isRequired
-}
+Notation.propTypes = Sequence.propTypes
 
 Notation.defaultProps = {
   path: 'notation',

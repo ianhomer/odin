@@ -283,12 +283,7 @@ exports[`Sequences container renders OK 1`] = `
             crash
           </div>
           <div
-            className="col-1"
-          >
-            87
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -296,16 +291,29 @@ exports[`Sequences container renders OK 1`] = `
               <div
                 className="col-4"
               >
-                46
+                87
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    46
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -382,12 +390,7 @@ exports[`Sequences container renders OK 1`] = `
             hi
           </div>
           <div
-            className="col-1"
-          >
-            15
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -395,16 +398,29 @@ exports[`Sequences container renders OK 1`] = `
               <div
                 className="col-4"
               >
-                42
+                15
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    42
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -481,12 +497,7 @@ exports[`Sequences container renders OK 1`] = `
             kick1
           </div>
           <div
-            className="col-1"
-          >
-            13
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -494,16 +505,29 @@ exports[`Sequences container renders OK 1`] = `
               <div
                 className="col-4"
               >
-                33
+                13
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    33
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -580,12 +604,7 @@ exports[`Sequences container renders OK 1`] = `
             kick2
           </div>
           <div
-            className="col-1"
-          >
-            65
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -593,16 +612,29 @@ exports[`Sequences container renders OK 1`] = `
               <div
                 className="col-4"
               >
-                33
+                65
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    33
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -679,12 +711,7 @@ exports[`Sequences container renders OK 1`] = `
             kick3
           </div>
           <div
-            className="col-1"
-          >
-            87
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -692,16 +719,29 @@ exports[`Sequences container renders OK 1`] = `
               <div
                 className="col-4"
               >
-                33
+                87
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    33
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -1435,12 +1475,7 @@ exports[`Sequences container renders OK 1`] = `
             shake
           </div>
           <div
-            className="col-1"
-          >
-            15
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -1448,16 +1483,29 @@ exports[`Sequences container renders OK 1`] = `
               <div
                 className="col-4"
               >
-                69
+                15
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    69
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -2485,12 +2533,7 @@ exports[`Sequences container renders OK 2`] = `
             crash
           </div>
           <div
-            className="col-1"
-          >
-            87
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -2498,16 +2541,29 @@ exports[`Sequences container renders OK 2`] = `
               <div
                 className="col-4"
               >
-                46
+                87
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    46
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -2584,12 +2640,7 @@ exports[`Sequences container renders OK 2`] = `
             hi
           </div>
           <div
-            className="col-1"
-          >
-            15
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -2597,16 +2648,29 @@ exports[`Sequences container renders OK 2`] = `
               <div
                 className="col-4"
               >
-                42
+                15
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    42
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -2683,12 +2747,7 @@ exports[`Sequences container renders OK 2`] = `
             kick1
           </div>
           <div
-            className="col-1"
-          >
-            13
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -2696,16 +2755,29 @@ exports[`Sequences container renders OK 2`] = `
               <div
                 className="col-4"
               >
-                33
+                13
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    33
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -2782,12 +2854,7 @@ exports[`Sequences container renders OK 2`] = `
             kick2
           </div>
           <div
-            className="col-1"
-          >
-            65
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -2795,16 +2862,29 @@ exports[`Sequences container renders OK 2`] = `
               <div
                 className="col-4"
               >
-                33
+                65
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    33
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -2881,12 +2961,7 @@ exports[`Sequences container renders OK 2`] = `
             kick3
           </div>
           <div
-            className="col-1"
-          >
-            87
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -2894,16 +2969,29 @@ exports[`Sequences container renders OK 2`] = `
               <div
                 className="col-4"
               >
-                33
+                87
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    33
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div
@@ -3637,12 +3725,7 @@ exports[`Sequences container renders OK 2`] = `
             shake
           </div>
           <div
-            className="col-1"
-          >
-            15
-          </div>
-          <div
-            className="col-2 component"
+            className="col-3"
           >
             <div
               className="row"
@@ -3650,16 +3733,29 @@ exports[`Sequences container renders OK 2`] = `
               <div
                 className="col-4"
               >
-                69
+                15
               </div>
               <div
-                className="col-4"
+                className="col-8 component"
               >
-                40
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-4"
+                  >
+                    69
+                  </div>
+                  <div
+                    className="col-4"
+                  >
+                    40
+                  </div>
+                  <div
+                    className="col-4"
+                  />
+                </div>
               </div>
-              <div
-                className="col-4"
-              />
             </div>
           </div>
           <div

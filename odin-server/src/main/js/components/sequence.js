@@ -20,7 +20,7 @@ const PropTypes = require('prop-types')
 const EditEntity = require('./editEntity')
 const Tick = require('./tick')
 
-class Sequence extends React.Component{
+class Sequence extends React.Component {
   constructor(props) {
     super(props)
 
@@ -41,8 +41,12 @@ class Sequence extends React.Component{
     this.props.onDelete(this.props.entity)
   }
 
+  renderProperties(sequence) {
+    return (<div>{JSON.stringify(sequence.properties)}</div>)
+  }
+
   render() {
-    var sequence = this.state.entity
+    var sequence = this.props.entity
     if (this.state.editing) {
       return (
 
@@ -51,7 +55,7 @@ class Sequence extends React.Component{
 
         <EditEntity entity={sequence}
           schema={this.props.schema} project={this.props.project} flux={this.props.flux}
-          path={this.props.path} fields={this.props.fields}
+          clazz={this.props.clazz} fields={this.props.fields}
           onApply={this.props.onUpdate}
         />
       )
@@ -61,7 +65,7 @@ class Sequence extends React.Component{
 
         <div className="row" onClick={this.toggleEditing}>
           <div className="col-1">{sequence.name}</div>
-          <div className="col-3">{JSON.stringify(sequence.properties)}</div>
+          <div className="col-3">{this.renderProperties(sequence)}</div>
           <div className="col-2 component">
             {sequence.tick ?
               <Tick
@@ -89,8 +93,8 @@ class Sequence extends React.Component{
 Sequence.propTypes = {
   clazz: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,
+  fields: PropTypes.object.isRequired,
   flux: PropTypes.object.isRequired,
-  fields: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
