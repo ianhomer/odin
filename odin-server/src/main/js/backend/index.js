@@ -96,7 +96,7 @@ export class Backend {
       }
     })
       .then(response => response.json())
-      .then(json => json._embedded.channel)
+      .then(json => json._embedded[path])
   }
 
   * loadEntities(action) {

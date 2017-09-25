@@ -43,12 +43,8 @@ class SequenceList extends React.Component{
     this.onDelete = this.props.flux.onDelete.bind(this)
   }
 
-  componentWillMount() {
-    this.loadFromServer()
-  }
-
   render() {
-    var entities = this.state.entities.map(entity => {
+    var entities = this.props.entities.map(entity => {
       var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
       if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + entity.flowName])) {
         return (
@@ -113,6 +109,7 @@ SequenceList.defaultProps = {
 }
 
 SequenceList.propTypes = {
+  entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
   project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired

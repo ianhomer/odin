@@ -21,7 +21,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import ChannelsContainer from '../containers/channelsContainer'
-const SequenceList = require('../components/sequenceList')
+import SequencesContainer from '../containers/sequencesContainer'
 const Composer = require('../components/composer/composer')
 
 class Project extends React.Component {
@@ -70,7 +70,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <SequenceList schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
+          <SequencesContainer schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
         }
       </div>
     )

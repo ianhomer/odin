@@ -3,6 +3,7 @@ import SequencesContainer from 'odin/containers/sequencesContainer.js'
 import { LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
   loadSchemaActions } from 'odin/actions/index.js'
 import { mount } from 'enzyme'
+import { mountToDeepJson } from 'enzyme-to-json'
 
 import { dispatchAndExpect } from '../utils/dispatchAndExpect'
 import { mockFlux, testProject, testSchema } from '../testData.js'
@@ -11,13 +12,13 @@ import store from '../store'
 test('Sequences container renders OK', done => {
   const component =
     <SequencesContainer store={store} schema={testSchema} project={testProject} flux={mockFlux}/>
-  expect(mount(component)).toMatchSnapshot()
+  expect(mountToDeepJson(mount(component))).toMatchSnapshot()
 
   dispatchAndExpect(store, done,
     [LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED],
     () => loadSchemaActions,
     () => {
-      expect(mount(component)).toMatchSnapshot()
+      expect(mountToDeepJson(mount(component))).toMatchSnapshot()
     }
   )
 })
