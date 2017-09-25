@@ -24,17 +24,26 @@ class Sequence extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      entity: this.props.entity, editing: null
-    }
+    this.state = {editing: null}
 
     this.handleDelete = this.handleDelete.bind(this)
     this.toggleEditing = this._toggleEditing.bind(this)
+    this.onApply = this._onApply.bind(this)
   }
 
   _toggleEditing() {
-    this.setState({editing : this.state.entity._links.self.href})
+    this.setState({editing : this.props.entity._links.self.href})
   }
+
+  _toggleEditingOff() {
+    this.setState({editing : null})
+  }
+
+  _onApply(entity) {
+    this.props.onUpdate(entity)
+    this._toggleEditingOff()
+  }
+
 
   handleDelete(event) {
     event.stopPropagation()
@@ -56,7 +65,7 @@ class Sequence extends React.Component {
         <EditEntity entity={sequence}
           schema={this.props.schema} project={this.props.project} flux={this.props.flux}
           clazz={this.props.clazz} fields={this.props.fields}
-          onApply={this.props.onUpdate}
+          onApply={this.onApply}
         />
       )
     } else {

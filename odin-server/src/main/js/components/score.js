@@ -31,7 +31,6 @@ class Score extends React.Component{
 
     var properties = this.props.entity.properties
     this.state = {
-      notation: properties && properties.notation,
       count: 1,
       // Store dimensions of score element as state.  Note that at some point the server
       // may suggest alternative dimensions and when it does this style in the state should
@@ -59,7 +58,7 @@ class Score extends React.Component{
       if (VALIDATE_FIRST) {
         this.renderNotation(event.target.value, true)
       }
-      this.setState( {notation: event.target.value, count: this.state.count + 1} )
+      this.setState({notation: event.target.value, count: this.state.count + 1})
     } catch (error) {
       console.warn('Cannot draw score so not updating state : ' + error.message)
     }
@@ -81,7 +80,20 @@ class Score extends React.Component{
     }
   }
 
-  renderNotation(notation = this.state.notation, dryRun = false) {
+  getNotation() {
+    if (this.state.notation) {
+      // Return changed but unsaved notation if it has been set
+      return this.state.notation
+    }
+    // Otherwise the value provided by component's parent
+    return this.props.entity.properties && this.props.entity.properties.notation
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({notation:null})
+  }
+
+  renderNotation(notation = this.getNotation(), dryRun = false) {
     // Resolve composition structure from this notation
     this.props.flux.client({
       method: 'GET',
@@ -185,7 +197,7 @@ class Score extends React.Component{
           <span>
             <input type="text" placeholder={this.props.componentKey}
               ref={this.props.componentRef} className="inline"
-              defaultValue={this.state.notation}
+              defaultValue={this.getNotation()}
               onKeyPress={this.props.onKeyPress}
               onChange={this.handleChange}
               size={this.props.size}
@@ -201,7 +213,7 @@ class Score extends React.Component{
       return (
         <div>
           {this.props.displayText &&
-            <span>{this.state.notation}</span>
+            <span>{this.getNotation()}</span>
           }
           <span id={this.getElementId()}/>
         </div>
