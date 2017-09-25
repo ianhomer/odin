@@ -101,6 +101,7 @@ Pattern.propTypes = {
   fields: PropTypes.object.isRequired,
   flux: PropTypes.object.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }

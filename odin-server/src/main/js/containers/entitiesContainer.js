@@ -45,6 +45,7 @@ EntitiesContainer.propTypes = {
   entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onLoadEntities: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,

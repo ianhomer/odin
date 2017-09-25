@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -34,7 +33,6 @@ import lombok.ToString;
 @ToString()
 public class PersistableThing {
   @Version
-  @JsonIgnore
   private Long version;
 
   @Id

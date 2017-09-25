@@ -46,882 +46,6 @@ exports[`Sequences container renders OK 1`] = `
         </div>
       </div>
       <div
-        key="http://localhost:8080/api/sequence/28"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            piano-a
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                A/q G/8 A/q G
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/28-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/32"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            piano-a3
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                A3 A A/8 A A/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/32-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/38"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            piano-g3
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                G3 G G/8 A C/q G2 G G3/8 G G/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/38-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/40"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            notes-c5
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h C/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/40-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/42"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            notes-c4
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C4/h C/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/42-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/44"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            notes
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h C/q C6 A5 A5/8 C5/8 A5
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/44-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/46"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            strings-c5
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h C/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/46-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            3
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/48"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            strings-c4
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C4/h C/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/48-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            3
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/50"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            strings
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h C/q C6 A5
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/50-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            3
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/52"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            organ-a
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                A5/8
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/52-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            2
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/54"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            organ-b
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                G5/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/54-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            2
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/56"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            organ-c
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                G/q C C/8 A/8 G/q C D/8 A/8
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/56-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            2
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
         key="http://localhost:8080/api/sequence/58"
       >
         <div
@@ -942,6 +66,79 @@ exports[`Sequences container renders OK 1`] = `
               </span>
               <span
                 id="http://localhost:8080/api/sequence/58-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            4
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/62"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            aahs-br
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C5/h A4 G4 E C
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/62-notation-1"
               />
             </div>
           </div>
@@ -1074,7 +271,7 @@ exports[`Sequences container renders OK 1`] = `
         </div>
       </div>
       <div
-        key="http://localhost:8080/api/sequence/62"
+        key="http://localhost:8080/api/sequence/74"
       >
         <div
           className="row"
@@ -1083,85 +280,12 @@ exports[`Sequences container renders OK 1`] = `
           <div
             className="col-1"
           >
-            aahs-br
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h A4 G4 E C
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/62-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
+            crash
           </div>
           <div
             className="col-1"
           >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            4
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/64"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            shake
-          </div>
-          <div
-            className="col-1"
-          >
-            15
+            87
           </div>
           <div
             className="col-2 component"
@@ -1172,7 +296,7 @@ exports[`Sequences container renders OK 1`] = `
               <div
                 className="col-4"
               >
-                69
+                46
               </div>
               <div
                 className="col-4"
@@ -1192,10 +316,121 @@ exports[`Sequences container renders OK 1`] = `
             >
               <div
                 className="col-md-6"
-              />
+              >
+                <span
+                  className="numerator"
+                >
+                  1
+                </span>
+              </div>
               <div
                 className="col-md-6"
               >
+                <span
+                  className="denominator"
+                >
+                  /
+                  2
+                </span>
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            9
+          </div>
+          <div
+            className="col-2"
+          >
+            pattern
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/72"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            hi
+          </div>
+          <div
+            className="col-1"
+          >
+            15
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-4"
+              >
+                42
+              </div>
+              <div
+                className="col-4"
+              >
+                40
+              </div>
+              <div
+                className="col-4"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              >
+                <span
+                  className="numerator"
+                >
+                  1
+                </span>
+              </div>
+              <div
+                className="col-md-6"
+              >
+                <span
+                  className="denominator"
+                >
+                  /
+                  2
+                </span>
                  
               </div>
             </div>
@@ -1531,7 +766,7 @@ exports[`Sequences container renders OK 1`] = `
         </div>
       </div>
       <div
-        key="http://localhost:8080/api/sequence/72"
+        key="http://localhost:8080/api/sequence/44"
       >
         <div
           className="row"
@@ -1540,7 +775,664 @@ exports[`Sequences container renders OK 1`] = `
           <div
             className="col-1"
           >
-            hi
+            notes
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C5/h C/q C6 A5 A5/8 C5/8 A5
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/44-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/42"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            notes-c4
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C4/h C/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/42-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/40"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            notes-c5
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C5/h C/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/40-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/52"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            organ-a
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                A5/8
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/52-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            2
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/54"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            organ-b
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                G5/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/54-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            2
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/56"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            organ-c
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                G/q C C/8 A/8 G/q C D/8 A/8
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/56-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            2
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/28"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            piano-a
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                A/q G/8 A/q G
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/28-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/32"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            piano-a3
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                A3 A A/8 A A/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/32-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/38"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            piano-g3
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                G3 G G/8 A C/q G2 G G3/8 G G/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/38-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/64"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            shake
           </div>
           <div
             className="col-1"
@@ -1556,7 +1448,7 @@ exports[`Sequences container renders OK 1`] = `
               <div
                 className="col-4"
               >
-                42
+                69
               </div>
               <div
                 className="col-4"
@@ -1576,22 +1468,10 @@ exports[`Sequences container renders OK 1`] = `
             >
               <div
                 className="col-md-6"
-              >
-                <span
-                  className="numerator"
-                >
-                  1
-                </span>
-              </div>
+              />
               <div
                 className="col-md-6"
               >
-                <span
-                  className="denominator"
-                >
-                  /
-                  2
-                </span>
                  
               </div>
             </div>
@@ -1630,7 +1510,7 @@ exports[`Sequences container renders OK 1`] = `
         </div>
       </div>
       <div
-        key="http://localhost:8080/api/sequence/74"
+        key="http://localhost:8080/api/sequence/50"
       >
         <div
           className="row"
@@ -1639,31 +1519,17 @@ exports[`Sequences container renders OK 1`] = `
           <div
             className="col-1"
           >
-            crash
+            strings
           </div>
           <div
-            className="col-1"
+            className="col-3"
           >
-            87
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-4"
-              >
-                46
-              </div>
-              <div
-                className="col-4"
-              >
-                40
-              </div>
-              <div
-                className="col-4"
+            <div>
+              <span>
+                C5/h C/q C6 A5
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/50-notation-1"
               />
             </div>
           </div>
@@ -1675,22 +1541,10 @@ exports[`Sequences container renders OK 1`] = `
             >
               <div
                 className="col-md-6"
-              >
-                <span
-                  className="numerator"
-                >
-                  1
-                </span>
-              </div>
+              />
               <div
                 className="col-md-6"
               >
-                <span
-                  className="denominator"
-                >
-                  /
-                  2
-                </span>
                  
               </div>
             </div>
@@ -1708,12 +1562,158 @@ exports[`Sequences container renders OK 1`] = `
           <div
             className="col-1"
           >
-            9
+            3
           </div>
           <div
             className="col-2"
           >
-            pattern
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/48"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            strings-c4
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C4/h C/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/48-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            3
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/46"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            strings-c5
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C5/h C/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/46-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            3
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
           </div>
           <div
             className="col-1"
@@ -2248,882 +2248,6 @@ exports[`Sequences container renders OK 2`] = `
         </div>
       </div>
       <div
-        key="http://localhost:8080/api/sequence/28"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            piano-a
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                A/q G/8 A/q G
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/28-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/32"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            piano-a3
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                A3 A A/8 A A/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/32-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/38"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            piano-g3
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                G3 G G/8 A C/q G2 G G3/8 G G/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/38-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/40"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            notes-c5
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h C/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/40-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/42"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            notes-c4
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C4/h C/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/42-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/44"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            notes
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h C/q C6 A5 A5/8 C5/8 A5
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/44-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            1
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/46"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            strings-c5
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h C/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/46-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            3
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/48"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            strings-c4
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C4/h C/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/48-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            3
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/50"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            strings
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h C/q C6 A5
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/50-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            3
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/52"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            organ-a
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                A5/8
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/52-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            2
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/54"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            organ-b
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                G5/q
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/54-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            2
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/56"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            organ-c
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                G/q C C/8 A/8 G/q C D/8 A/8
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/56-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-1"
-          >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            2
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
         key="http://localhost:8080/api/sequence/58"
       >
         <div
@@ -3144,6 +2268,79 @@ exports[`Sequences container renders OK 2`] = `
               </span>
               <span
                 id="http://localhost:8080/api/sequence/58-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            4
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/62"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            aahs-br
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C5/h A4 G4 E C
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/62-notation-1"
               />
             </div>
           </div>
@@ -3276,7 +2473,7 @@ exports[`Sequences container renders OK 2`] = `
         </div>
       </div>
       <div
-        key="http://localhost:8080/api/sequence/62"
+        key="http://localhost:8080/api/sequence/74"
       >
         <div
           className="row"
@@ -3285,85 +2482,12 @@ exports[`Sequences container renders OK 2`] = `
           <div
             className="col-1"
           >
-            aahs-br
-          </div>
-          <div
-            className="col-3"
-          >
-            <div>
-              <span>
-                C5/h A4 G4 E C
-              </span>
-              <span
-                id="http://localhost:8080/api/sequence/62-notation-1"
-              />
-            </div>
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-md-6"
-              />
-              <div
-                className="col-md-6"
-              >
-                 
-              </div>
-            </div>
+            crash
           </div>
           <div
             className="col-1"
           >
-            0
-          </div>
-          <div
-            className="col-1"
-          >
-            -1
-          </div>
-          <div
-            className="col-1"
-          >
-            4
-          </div>
-          <div
-            className="col-2"
-          >
-            notation
-          </div>
-          <div
-            className="col-1"
-          >
-            <button
-              className="btn btn-primary"
-              onClick={[Function]}
-              type="submit"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        key="http://localhost:8080/api/sequence/64"
-      >
-        <div
-          className="row"
-          onClick={[Function]}
-        >
-          <div
-            className="col-1"
-          >
-            shake
-          </div>
-          <div
-            className="col-1"
-          >
-            15
+            87
           </div>
           <div
             className="col-2 component"
@@ -3374,7 +2498,7 @@ exports[`Sequences container renders OK 2`] = `
               <div
                 className="col-4"
               >
-                69
+                46
               </div>
               <div
                 className="col-4"
@@ -3394,10 +2518,121 @@ exports[`Sequences container renders OK 2`] = `
             >
               <div
                 className="col-md-6"
-              />
+              >
+                <span
+                  className="numerator"
+                >
+                  1
+                </span>
+              </div>
               <div
                 className="col-md-6"
               >
+                <span
+                  className="denominator"
+                >
+                  /
+                  2
+                </span>
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            9
+          </div>
+          <div
+            className="col-2"
+          >
+            pattern
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/72"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            hi
+          </div>
+          <div
+            className="col-1"
+          >
+            15
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-4"
+              >
+                42
+              </div>
+              <div
+                className="col-4"
+              >
+                40
+              </div>
+              <div
+                className="col-4"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              >
+                <span
+                  className="numerator"
+                >
+                  1
+                </span>
+              </div>
+              <div
+                className="col-md-6"
+              >
+                <span
+                  className="denominator"
+                >
+                  /
+                  2
+                </span>
                  
               </div>
             </div>
@@ -3733,7 +2968,7 @@ exports[`Sequences container renders OK 2`] = `
         </div>
       </div>
       <div
-        key="http://localhost:8080/api/sequence/72"
+        key="http://localhost:8080/api/sequence/44"
       >
         <div
           className="row"
@@ -3742,7 +2977,664 @@ exports[`Sequences container renders OK 2`] = `
           <div
             className="col-1"
           >
-            hi
+            notes
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C5/h C/q C6 A5 A5/8 C5/8 A5
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/44-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/42"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            notes-c4
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C4/h C/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/42-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/40"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            notes-c5
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C5/h C/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/40-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/52"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            organ-a
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                A5/8
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/52-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            2
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/54"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            organ-b
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                G5/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/54-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            2
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/56"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            organ-c
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                G/q C C/8 A/8 G/q C D/8 A/8
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/56-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            2
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/28"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            piano-a
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                A/q G/8 A/q G
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/28-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/32"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            piano-a3
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                A3 A A/8 A A/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/32-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/38"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            piano-g3
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                G3 G G/8 A C/q G2 G G3/8 G G/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/38-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            1
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/64"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            shake
           </div>
           <div
             className="col-1"
@@ -3758,7 +3650,7 @@ exports[`Sequences container renders OK 2`] = `
               <div
                 className="col-4"
               >
-                42
+                69
               </div>
               <div
                 className="col-4"
@@ -3778,22 +3670,10 @@ exports[`Sequences container renders OK 2`] = `
             >
               <div
                 className="col-md-6"
-              >
-                <span
-                  className="numerator"
-                >
-                  1
-                </span>
-              </div>
+              />
               <div
                 className="col-md-6"
               >
-                <span
-                  className="denominator"
-                >
-                  /
-                  2
-                </span>
                  
               </div>
             </div>
@@ -3832,7 +3712,7 @@ exports[`Sequences container renders OK 2`] = `
         </div>
       </div>
       <div
-        key="http://localhost:8080/api/sequence/74"
+        key="http://localhost:8080/api/sequence/50"
       >
         <div
           className="row"
@@ -3841,31 +3721,17 @@ exports[`Sequences container renders OK 2`] = `
           <div
             className="col-1"
           >
-            crash
+            strings
           </div>
           <div
-            className="col-1"
+            className="col-3"
           >
-            87
-          </div>
-          <div
-            className="col-2 component"
-          >
-            <div
-              className="row"
-            >
-              <div
-                className="col-4"
-              >
-                46
-              </div>
-              <div
-                className="col-4"
-              >
-                40
-              </div>
-              <div
-                className="col-4"
+            <div>
+              <span>
+                C5/h C/q C6 A5
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/50-notation-1"
               />
             </div>
           </div>
@@ -3877,22 +3743,10 @@ exports[`Sequences container renders OK 2`] = `
             >
               <div
                 className="col-md-6"
-              >
-                <span
-                  className="numerator"
-                >
-                  1
-                </span>
-              </div>
+              />
               <div
                 className="col-md-6"
               >
-                <span
-                  className="denominator"
-                >
-                  /
-                  2
-                </span>
                  
               </div>
             </div>
@@ -3910,12 +3764,158 @@ exports[`Sequences container renders OK 2`] = `
           <div
             className="col-1"
           >
-            9
+            3
           </div>
           <div
             className="col-2"
           >
-            pattern
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/48"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            strings-c4
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C4/h C/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/48-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            3
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
+          </div>
+          <div
+            className="col-1"
+          >
+            <button
+              className="btn btn-primary"
+              onClick={[Function]}
+              type="submit"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        key="http://localhost:8080/api/sequence/46"
+      >
+        <div
+          className="row"
+          onClick={[Function]}
+        >
+          <div
+            className="col-1"
+          >
+            strings-c5
+          </div>
+          <div
+            className="col-3"
+          >
+            <div>
+              <span>
+                C5/h C/q
+              </span>
+              <span
+                id="http://localhost:8080/api/sequence/46-notation-1"
+              />
+            </div>
+          </div>
+          <div
+            className="col-2 component"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-6"
+              />
+              <div
+                className="col-md-6"
+              >
+                 
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-1"
+          >
+            0
+          </div>
+          <div
+            className="col-1"
+          >
+            -1
+          </div>
+          <div
+            className="col-1"
+          >
+            3
+          </div>
+          <div
+            className="col-2"
+          >
+            notation
           </div>
           <div
             className="col-1"

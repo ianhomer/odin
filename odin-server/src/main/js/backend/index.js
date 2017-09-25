@@ -35,7 +35,7 @@ export class Backend {
         'Content-Type': 'application/json'
       }, body : JSON.stringify(entity)
     })
-      .then(response => response.json() )
+      .then(response => response.json())
   }
 
   * createEntity(action) {
@@ -55,7 +55,7 @@ export class Backend {
         'Content-Type': 'application/json'
       }, body : JSON.stringify(entity)
     })
-      .then(response => response.json() )
+      .then(response => response.json())
   }
 
   * updateEntity(action) {

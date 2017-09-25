@@ -102,6 +102,7 @@ SequenceList.defaultProps = {
 SequenceList.propTypes = {
   entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
+  onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
