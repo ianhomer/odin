@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sequences container renders OK 1`] = `
+<Notation
+  clazz={
+    Clazz {
+      "getClazz": [Function],
+      "id": "flow-notation",
+      "path": "sequence",
+      "properties": Object {
+        "channel": Object {
+          "title": "Channel",
+          "type": "integer",
+        },
+        "flowName": Object {
+          "title": "Flow Name",
+          "type": "string",
+        },
+        "format": Object {
+          "title": "Format",
+          "type": "string",
+        },
+        "layers": Object {
+          "items": Object {
+            "type": "string",
+          },
+          "title": "Layers",
+          "type": "array",
+        },
+        "length": Object {
+          "minimum": -1,
+          "title": "Length",
+          "type": "integer",
+        },
+        "name": Object {
+          "title": "Name",
+          "type": "string",
+        },
+        "notation": Object {
+          "title": "Notation",
+          "type": "string",
+        },
+        "offset": Object {
+          "title": "Offset",
+          "type": "integer",
+        },
+        "project": Object {
+          "format": "uri",
+          "title": "Project",
+          "type": "string",
+        },
+        "tick": Object {
+          "$ref": "#/definitions/PersistableTick",
+          "title": "Tick",
+        },
+      },
+    }
+  }
+  entity={
+    Object {
+      "_links": Object {
+        "project": Object {
+          "href": "http://localhost:8080/api/sequence/58/project",
+        },
+        "self": Object {
+          "href": "http://localhost:8080/api/sequence/58",
+        },
+        "sequence": Object {
+          "href": "http://localhost:8080/api/sequence/58",
+        },
+      },
+      "channel": 4,
+      "flowName": "notation",
+      "layers": Array [
+        "a",
+      ],
+      "length": -1,
+      "name": "aahs-a",
+      "offset": 0,
+      "properties": Object {
+        "format": "natural",
+        "notation": "C A C5/h C5/8",
+      },
+      "tick": Object {
+        "denominator": 1,
+        "numerator": 1,
+        "timeUnit": "BEAT",
+      },
+    }
+  }
+  fields={
+    Object {
+      "channel": Object {
+        "defaultValue": 1,
+      },
+      "flowName": Object {
+        "cellWidth": 2,
+        "defaultValue": "notation",
+        "readOnly": true,
+      },
+      "format": Object {
+        "cellWidth": 1,
+        "defaultValue": "natural",
+        "hidden": true,
+      },
+      "layers": Object {
+        "defaultValue": "",
+        "hidden": true,
+      },
+      "length": Object {
+        "defaultValue": -1,
+      },
+      "name": Object {
+        "maxLength": 8,
+        "size": 8,
+      },
+      "notation": Object {
+        "cellWidth": 3,
+        "defaultValue": "C",
+      },
+      "offset": Object {
+        "defaultValue": 0,
+      },
+      "tick": Object {
+        "cellWidth": 2,
+        "fields": Object {
+          "denominator": Object {
+            "cellWidth": 6,
+            "defaultValue": 1,
+            "label": "/",
+          },
+          "numerator": Object {
+            "cellWidth": 6,
+            "defaultValue": 1,
+          },
+          "timeUnit": Object {
+            "defaultValue": "BEAT",
+            "hidden": true,
+          },
+        },
+      },
+    }
+  }
+  flux={
+    MockFlux {
+      "client": [Function],
+      "loadFromServer": [Function],
+      "loadSchema": [Function],
+      "onCreate": [Function],
+      "onDelete": [Function],
+      "onPatch": [Function],
+      "onUpdate": [Function],
+    }
+  }
+  onDelete={[Function]}
+  onUpdate={[Function]}
+  path="notation"
+  project={
+    Object {
+      "_links": Object {
+        "channels": Object {
+          "href": "http://localhost:8080/api/project/1/channels",
+        },
+        "layers": Object {
+          "href": "http://localhost:8080/api/project/1/layers",
+        },
+        "project": Object {
+          "href": "http://localhost:8080/api/project/1",
+        },
+        "self": Object {
+          "href": "http://localhost:8080/api/project/1",
+        },
+        "sequences": Object {
+          "href": "http://localhost:8080/api/project/1/sequences",
+        },
+      },
+      "name": "defaultProject",
+    }
+  }
+  schema={
+    Schema {
+      "revision": undefined,
+    }
+  }
+>
+  <div
+    className="row"
+    onClick={[Function]}
+  >
+    <div
+      className="col-1"
+    >
+      aahs-a
+    </div>
+    <div
+      className="col-3"
+    >
+      <Score
+        displayText={true}
+        entity={
+          Object {
+            "_links": Object {
+              "project": Object {
+                "href": "http://localhost:8080/api/sequence/58/project",
+              },
+              "self": Object {
+                "href": "http://localhost:8080/api/sequence/58",
+              },
+              "sequence": Object {
+                "href": "http://localhost:8080/api/sequence/58",
+              },
+            },
+            "channel": 4,
+            "flowName": "notation",
+            "layers": Array [
+              "a",
+            ],
+            "length": -1,
+            "name": "aahs-a",
+            "offset": 0,
+            "properties": Object {
+              "format": "natural",
+              "notation": "C A C5/h C5/8",
+            },
+            "tick": Object {
+              "denominator": 1,
+              "numerator": 1,
+              "timeUnit": "BEAT",
+            },
+          }
+        }
+        flux={
+          MockFlux {
+            "client": [Function],
+            "loadFromServer": [Function],
+            "loadSchema": [Function],
+            "onCreate": [Function],
+            "onDelete": [Function],
+            "onPatch": [Function],
+            "onUpdate": [Function],
+          }
+        }
+        height={120}
+        width={800}
+      >
+        <div>
+          <span>
+            C A C5/h C5/8
+          </span>
+          <span
+            id="http://localhost:8080/api/sequence/58-notation-1"
+          />
+        </div>
+      </Score>
+    </div>
+    <div
+      className="col-2 component"
+    >
+      <Tick
+        denominator={1}
+        numerator={1}
+        timeUnit="BEAT"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          />
+          <div
+            className="col-md-6"
+          >
+             
+          </div>
+        </div>
+      </Tick>
+    </div>
+    <div
+      className="col-1"
+    >
+      0
+    </div>
+    <div
+      className="col-1"
+    >
+      -1
+    </div>
+    <div
+      className="col-1"
+    >
+      4
+    </div>
+    <div
+      className="col-2"
+    >
+      notation
+    </div>
+    <div
+      className="col-1"
+    >
+      <button
+        className="btn btn-primary"
+        onClick={[Function]}
+        type="submit"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</Notation>
+`;

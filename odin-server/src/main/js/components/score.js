@@ -29,7 +29,6 @@ class Score extends React.Component{
   constructor(props) {
     super(props)
 
-    var properties = this.props.entity.properties
     this.state = {
       count: 1,
       // Store dimensions of score element as state.  Note that at some point the server
@@ -89,7 +88,7 @@ class Score extends React.Component{
     return this.props.entity.properties && this.props.entity.properties.notation
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     this.setState({notation:null})
   }
 
