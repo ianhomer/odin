@@ -30,7 +30,6 @@ class Sequence extends React.Component{
 
     this.handleDelete = this.handleDelete.bind(this)
     this.toggleEditing = this._toggleEditing.bind(this)
-    this.onUpdate = this.props.flux.onUpdate.bind(this)
   }
 
   _toggleEditing() {
@@ -53,7 +52,7 @@ class Sequence extends React.Component{
         <EditEntity entity={sequence}
           schema={this.props.schema} project={this.props.project} flux={this.props.flux}
           path={this.props.path} fields={this.props.fields}
-          onApply={this.onUpdate}
+          onApply={this.props.onUpdate}
         />
       )
     } else {
@@ -93,6 +92,7 @@ Sequence.propTypes = {
   flux: PropTypes.object.isRequired,
   fields: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
   project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired

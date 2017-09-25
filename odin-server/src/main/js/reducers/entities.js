@@ -12,31 +12,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { CREATE_ENTITY_SUCCEEDED, DELETE_ENTITY_REQUESTED, LOAD_ENTITIES_SUCCEEDED } from '../actions'
+import { CREATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_SUCCEEDED,
+  DELETE_ENTITY_REQUESTED, LOAD_ENTITIES_SUCCEEDED } from '../actions'
 
 function getEntityFilter(action) {
   if (action.path === 'channel') {
     // Channels merge based on the channel number
-    return (item) => { return item.number != action.entity.number }
+    return item => { return item.number != action.entity.number }
   } else {
-    return () => { true }
+    return item => { return item.name != action.entity.name }
   }
+}
+
+function comparator(a, b) {
+  if (a.name < b.name) {
+    return -1
+  }
+  return a.name > b.name ? 1 : 0
 }
 
 function entitiesAtPath(state = { entities: [] }, action) {
   switch (action.type) {
   case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {
-      entities: action.entities,
+      entities: action.entities.sort(comparator),
     })
   // TODO : Shouldn't this be DELETE_ENTITY_SUCCEEDED?
   case DELETE_ENTITY_REQUESTED:
     return Object.assign({}, state, {
-      entities: [ ...state.entities.filter(getEntityFilter(action)) ]
+      entities: [ ...state.entities.filter(getEntityFilter(action)) ].sort(comparator)
     })
   case CREATE_ENTITY_SUCCEEDED:
+  case UPDATE_ENTITY_SUCCEEDED:
     return Object.assign({}, state, {
-      entities: [ ...state.entities.filter(getEntityFilter(action)), action.entity ]
+      entities: [ ...state.entities.filter(getEntityFilter(action)), action.entity ].sort(comparator)
     })
   default:
     return state
@@ -46,6 +55,7 @@ function entitiesAtPath(state = { entities: [] }, action) {
 function entities(state = [], action) {
   switch (action.type) {
   case CREATE_ENTITY_SUCCEEDED:
+  case UPDATE_ENTITY_SUCCEEDED:
   case DELETE_ENTITY_REQUESTED:
   case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {

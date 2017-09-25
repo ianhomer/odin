@@ -32,6 +32,7 @@ class EntitiesContainer extends React.Component {
         {this.props.entities &&
           <this.component schema={this.props.schema} project={this.props.project}
             onCreate={this.props.onCreate} onDelete={this.props.onDelete}
+            onUpdate={this.props.onUpdate}
             flux={this.props.flux} path={this.path}
             entities={this.props.entities}/>
         }

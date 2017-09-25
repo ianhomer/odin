@@ -23,13 +23,6 @@ class EditEntity extends React.Component{
   constructor(props) {
     super(props)
 
-    // TODO : Remove this.onApply if redundant
-    if (this.props.entity) {
-      this.onApply = this.props.flux.onUpdate.bind(this)
-    } else {
-      this.onApply = this.props.flux.onCreate.bind(this)
-    }
-
     this.nodes = {}
     this.handleKeyPress = this._handleKeyPress.bind(this)
     this.handleApply = this.handleApply.bind(this)

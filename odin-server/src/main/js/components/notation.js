@@ -32,7 +32,6 @@ class Notation extends React.Component{
 
     this.handleDelete = this.handleDelete.bind(this)
     this.toggleEditing = this._toggleEditing.bind(this)
-    this.onUpdate = this.props.flux.onUpdate.bind(this)
   }
 
   _toggleEditing() {
@@ -53,7 +52,7 @@ class Notation extends React.Component{
         <EditEntity entity={sequence}
           schema={this.props.schema} project={this.props.project} flux={this.props.flux}
           clazz={this.props.clazz} fields={Notation.defaultProps.fields}
-          onApply={this.onUpdate}
+          onApply={this.props.onUpdate}
         />
       )
     } else {
@@ -94,6 +93,7 @@ Notation.propTypes = {
   clazz: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
   flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired

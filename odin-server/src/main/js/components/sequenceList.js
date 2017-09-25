@@ -32,15 +32,6 @@ const DefaultSequence = Sequence
 class SequenceList extends React.Component{
   constructor(props) {
     super(props)
-
-    // TODO : remove schema and links from this state if redundant
-    this.state = {
-      schema: [], entities: [], links: []
-    }
-
-    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
-    this.onCreate = this.props.flux.onCreate.bind(this)
-    this.onDelete = this.props.flux.onDelete.bind(this)
   }
 
   render() {
@@ -53,7 +44,7 @@ class SequenceList extends React.Component{
             <SequenceComponent entity={entity} key={entity._links.self.href}
               schema={this.props.schema} project={this.props.project} flux={this.props.flux}
               clazz={this.props.schema.getFlowClazz(entity.flowName)}
-              onDelete={this.onDelete} onUpdate={this.onUpdate}
+              onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}
             />
           </div>
         )
@@ -90,7 +81,7 @@ class SequenceList extends React.Component{
                 <EditEntity key={'create-' + flowName}
                   schema={this.props.schema} project={this.props.project} flux={this.props.flux}
                   clazz={clazz} fields={SequenceComponent.defaultProps.fields}
-                  onApply={this.onCreate}
+                  onApply={this.props.onCreate}
                 />
               )
             } else {
@@ -111,6 +102,8 @@ SequenceList.defaultProps = {
 SequenceList.propTypes = {
   entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }

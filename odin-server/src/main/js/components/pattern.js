@@ -27,16 +27,15 @@ class Pattern extends React.Component{
     super(props)
 
     this.state = {
-      entity: this.props.entity, editing: null
+      editing: null
     }
 
     this.handleDelete = this.handleDelete.bind(this)
     this.toggleEditing = this._toggleEditing.bind(this)
-    this.onUpdate = this.props.flux.onUpdate.bind(this)
   }
 
   _toggleEditing() {
-    this.setState({editing : this.state.entity._links.self.href})
+    this.setState({editing: this.state.entity._links.self.href})
   }
 
   handleDelete(event) {
@@ -45,7 +44,7 @@ class Pattern extends React.Component{
   }
 
   render() {
-    var sequence = this.state.entity
+    var sequence = this.props.entity
     if (this.state.editing) {
       return (
 
@@ -54,7 +53,7 @@ class Pattern extends React.Component{
         <EditEntity entity={sequence}
           schema={this.props.schema} project={this.props.project}
           clazz={this.props.clazz} fields={this.props.fields}
-          onApply={this.onUpdate}
+          onApply={this.props.onUpdate}
         />
       )
     } else {
