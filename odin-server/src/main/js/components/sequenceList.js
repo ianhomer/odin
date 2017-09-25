@@ -40,8 +40,8 @@ class SequenceList extends React.Component{
       if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + entity.flowName])) {
         return (
           // TODO - change key to simply entity.name
-          <div key={entity._links.self.href}>
-            <SequenceComponent entity={entity} key={entity._links.self.href}
+          <div key={entity.name}>
+            <SequenceComponent entity={entity} key={entity.name}
               schema={this.props.schema} project={this.props.project} flux={this.props.flux}
               clazz={this.props.schema.getFlowClazz(entity.flowName)}
               onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}
@@ -49,7 +49,7 @@ class SequenceList extends React.Component{
           </div>
         )
       } else {
-        return (<div key={entity._links.self.href}>{entity.flowName} or sequence class not loaded</div>)
+        return (<div key={entity.name}>{entity.flowName} or sequence class not loaded</div>)
       }
     })
 
