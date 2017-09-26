@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Sequences container renders OK 1`] = `
+exports[`Sequences container Sequences container initialise 1`] = `
 <div>
   <div>
     <div
@@ -2250,7 +2250,7 @@ exports[`Sequences container renders OK 1`] = `
 </div>
 `;
 
-exports[`Sequences container renders OK 2`] = `
+exports[`Sequences container Sequences container load 1`] = `
 <div>
   <div>
     <div

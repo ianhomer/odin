@@ -1,0 +1,22 @@
+{
+  "numberOfBeats": {
+    "numerator": 4,
+    "denominator": 4
+  },
+  "measures": [
+    {
+      "time": "4/4",
+      "key": "C",
+      "staves": [
+        {
+          "clef": "treble",
+          "voices": [
+            {
+              "notation": "C4/q, B4/h/r, B4/q/r"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

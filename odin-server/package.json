@@ -20,11 +20,14 @@
   },
   "homepage": "https://github.com/ianhomer/odin",
   "jest": {
-    "bail": true,
+    "bail": false,
     "moduleNameMapper": {
       "odin/(.*)": "<rootDir>/src/main/js/$1"
     },
     "testURL": "http://localhost:8080",
+    "setupFiles" : [
+      "<rootDir>/src/test/js/setup.js"
+    ],
     "silent": true,
     "snapshotSerializers": [
       "jest-serializer-enzyme"

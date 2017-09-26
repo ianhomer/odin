@@ -18,6 +18,26 @@
 
 import testSchema from '../data/schema.json'
 import { Backend } from 'odin/backend/index.js'
+import fs from 'fs';
+
+const loadTestData = function (root, path) {
+  var fullPath = __dirname + '/../data/' + root + '/' + encodeURIComponent(path) + '.json'
+  if (!fs.existsSync(fullPath)) {
+    const defaultPath = __dirname + '/../data/' + root + '/default.json'
+    console.log('trying default ' + defaultPath)
+    if (fs.existsSync(defaultPath)) {
+      fullPath = defaultPath
+    }
+  }
+
+  try {
+    return JSON.parse(fs.readFileSync(fullPath))
+  } catch (e) {
+    console.error(e)
+    throw new Error('No test profile data available for path ' + path +
+      '.  Tried loading from '+ fullPath)
+  }
+}
 
 export class MockBackend extends Backend {
   createEntityApi(entity) {
@@ -51,14 +71,10 @@ export class MockBackend extends Backend {
   }
 
   loadProfileSchemaApi(path) {
-    return (path => {
-      const fullPath = '../data/profile/' + path + '.json'
-      try {
-        return require(fullPath)
-      } catch (e) {
-        console.error(e)
-        throw new Error('No test profile data available for path ' + path)
-      }
-    })(path)
+    return loadTestData('profile', path)
+  }
+
+  fetchCompositionApi(notation) {
+    return loadTestData('compositions', notation)
   }
 }

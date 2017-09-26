@@ -68,6 +68,29 @@ export class Backend {
     }
   }
 
+  withQuery(uri, params) {
+    return uri + (uri.indexOf('?') === -1 ? '?' : '&') +
+      Object.keys(params)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+      .join('&')
+  }
+
+  fetchCompositionApi(notation) {
+    return fetch(withQuery('/services/composition', {notation}), {
+      method : 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }, body : JSON.stringify(entity)
+    })
+      .then(response => response.json())
+  }
+
+  * enrichEntity(entity) {
+    if (entity.flowName == 'notation') {
+      //entity._composition = yield call(this.fetchCompositionApi, entity.notation)
+    }
+  }
+
   deleteEntityApi(entity) {
     return fetch(entity._links.self.href, {
       method : 'DELETE',
@@ -82,6 +105,7 @@ export class Backend {
     try {
       const backend = yield getContext('backend')
       const entity = yield call(backend.deleteEntityApi, action.entity)
+      //yield call(backend.enrichEntity, entity)
       yield put({type: DELETE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
     } catch (e) {
       yield put({type: DELETE_ENTITY_FAILED, message: e.message})

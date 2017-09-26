@@ -88,22 +88,31 @@ class Score extends React.Component{
     return this.props.entity.properties && this.props.entity.properties.notation
   }
 
+  isNotationDirty() {
+    return !!this.state.notation
+  }
+
   componentWillReceiveProps() {
     this.setState({notation:null})
   }
 
   renderNotation(notation = this.getNotation(), dryRun = false) {
-    // Resolve composition structure from this notation
-    this.props.flux.client({
-      method: 'GET',
-      path: '/services/composition',
-      params: {'notation' : notation},
-      headers: {'Accept': 'application/json'}
-    }).then(response => {
-      this.renderComposition(response.entity, dryRun)
-    }).catch(reason => {
-      console.error(reason)
-    })
+    //if (this.isNotationDirty()) {
+      // Resolve composition structure from this notation
+      this.props.flux.client({
+        method: 'GET',
+        path: '/services/composition',
+        params: {'notation' : notation},
+        headers: {'Accept': 'application/json'}
+      }).then(response => {
+        this.renderComposition(response.entity, dryRun)
+      }).catch(reason => {
+        console.error(reason)
+      })
+    //} else {
+      // Use composition in store
+    //  this.renderComposition(this.props.entity._composition, dryRun)
+    //}
   }
 
   // Remove previous score canvas that might have been drawn

@@ -6,7 +6,7 @@ import { Schema } from 'odin/schema/schema'
 
 describe('Schema validation', () => {
 
-  test('Core Schema OK', done => {
+  test('Core Schema', done => {
     dispatchAndExpect(store, done, LOAD_PROJECT_SCHEMA_SUCCEEDED,
       () => loadProjectSchemaRequested(),
       () => {
@@ -17,7 +17,7 @@ describe('Schema validation', () => {
     )
   })
 
-  test('Load profile schema OK', done => {
+  test('Load profile schema', done => {
     dispatchAndExpect(store, done, LOAD_PROFILE_SCHEMA_SUCCEEDED,
       () => loadProfileSchemaRequested('sequence'),
       () => {
@@ -29,7 +29,7 @@ describe('Schema validation', () => {
     )
   })
 
-  test('Load two profile schema OK', done => {
+  test('Load two profile schema', done => {
     dispatchAndExpect(store, done, LOAD_PROFILE_SCHEMA_SUCCEEDED,
       () => loadProfileSchemaRequested('channel'),
       () => {
