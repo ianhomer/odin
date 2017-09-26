@@ -32,7 +32,7 @@ function comparator(a, b) {
   return a.name > b.name ? 1 : 0
 }
 
-function entitiesAtPath(state = { entities: [] }, action) {
+function entitiesAtPath(state = { entities: [], newEntity: {} }, action) {
   switch (action.type) {
   case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {
@@ -48,15 +48,23 @@ function entitiesAtPath(state = { entities: [] }, action) {
       entities: [ ...state.entities.filter(getEntityFilter(action)), action.entity ].sort(comparator)
     })
   case FETCH_COMPOSITION_SUCCEEDED:
-    return Object.assign({}, state, {
-      entities: [ ...state.entities.map(entity => {
-        // Add the composition object to the sequence entity
-        if (action.entityName === entity.name) {
-          entity._composition = action.composition
-        }
-        return entity
-      }) ].sort(comparator)
-    })
+    if (action.entityName === undefined) {
+      // Store composition for new entity that is being created
+      return Object.assign({}, state, {
+        entities: state.entities.sort(comparator),
+        newEntity: { _composition : action.composition }
+      })
+    } else {
+      return Object.assign({}, state, {
+        entities: [ ...state.entities.map(entity => {
+          // Add the composition object to the sequence entity
+          if (action.entityName === entity.name) {
+            entity._composition = action.composition
+          }
+          return entity
+        }) ].sort(comparator)
+      })
+    }
   default:
     return state
   }

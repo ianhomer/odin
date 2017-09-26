@@ -42,7 +42,7 @@ const store = createStore(
   applyMiddleware(
     thunkMiddleware,
     sagaMiddleware,
-    createLogger()
+    createLogger({collapsed : true})
   )
 )
 

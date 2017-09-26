@@ -186,8 +186,8 @@ class Score extends React.Component{
             <input type="text" placeholder={this.props.componentKey}
               ref={this.props.componentRef} className="inline"
               defaultValue={this.getNotation()}
-              onKeyPress={this.props.onKeyPress}
               onChange={this.handleChange}
+              onKeyPress={this.props.onKeyPress}
               size={this.props.size}
             />
           </span>
@@ -214,7 +214,7 @@ Score.defaultProps = {
 
 Score.propTypes = {
   entity: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     properties: PropTypes.shape({
       notation: PropTypes.string.isRequired
     }),
