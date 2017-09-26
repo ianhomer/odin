@@ -54,6 +54,10 @@ class Sequence extends React.Component {
     return (<div>{JSON.stringify(sequence.properties)}</div>)
   }
 
+  getExtraEditEntityArguments() {
+    return {}
+  }
+
   render() {
     var sequence = this.props.entity
     if (this.state.editing) {
@@ -66,6 +70,7 @@ class Sequence extends React.Component {
           schema={this.props.schema} project={this.props.project} flux={this.props.flux}
           clazz={this.props.clazz} fields={this.props.fields}
           onApply={this.onApply}
+          {...this.getExtraEditEntityArguments()}
         />
       )
     } else {

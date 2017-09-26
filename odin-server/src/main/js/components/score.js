@@ -53,6 +53,7 @@ class Score extends React.Component{
   handleChange(event) {
     try {
       this.setState({notation: event.target.value, count: this.state.count + 1})
+      this.props.onFetchComposition(this.props.entity.name, event.target.value)
     } catch (error) {
       console.warn('Cannot draw score so not updating state : ' + error.message)
     }
@@ -87,28 +88,17 @@ class Score extends React.Component{
     return !!this.state.notation
   }
 
-  componentWillReceiveProps() {
-    this.setState({notation:null})
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.entity.properties && nextProps.entity.properties.notation === this.state.notation) {
+      // If notation has been persisted then we can clear the state setting
+      this.setState({notation:null})
+    }
   }
 
-  renderNotation(notation = this.getNotation()) {
-    if (this.isNotationDirty()) {
-      // Resolve composition structure from this notation
-      this.props.flux.client({
-        method: 'GET',
-        path: '/services/composition',
-        params: {'notation' : notation},
-        headers: {'Accept': 'application/json'}
-      }).then(response => {
-        this.renderComposition(response.entity)
-      }).catch(reason => {
-        console.error(reason)
-      })
-    } else {
-      // Use composition in store
-      if (this.props.entity._composition) {
-        this.renderComposition(this.props.entity._composition)
-      }
+  renderNotation() {
+    // Use composition in store
+    if (this.props.entity._composition) {
+      this.renderComposition(this.props.entity._composition)
     }
   }
 
@@ -224,7 +214,10 @@ Score.defaultProps = {
 
 Score.propTypes = {
   entity: PropTypes.shape({
-    properties: PropTypes.object,
+    name: PropTypes.string.isRequired,
+    properties: PropTypes.shape({
+      notation: PropTypes.string.isRequired
+    }),
     _composition: PropTypes.object,
     _links: PropTypes.shape({
       self: PropTypes.shape({

@@ -26,6 +26,12 @@ class Notation extends Sequence {
     super(props)
   }
 
+  getExtraEditEntityArguments() {
+    return {
+      onFetchComposition: this.props.onFetchComposition
+    }
+  }
+
   renderProperties(sequence) {
     return (
       <Score onFetchComposition={this.props.onFetchComposition}
