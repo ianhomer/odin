@@ -16,7 +16,8 @@
 
 import EntitiesContainer from './entitiesContainer'
 import SequenceList from '../components/sequenceList'
-import connectEntities from './connectEntities'
+import { connectEntities, mapDispatchToProps } from './connectEntities'
+import { fetchCompositionRequested } from '../actions'
 
 class SequencesContainer extends EntitiesContainer {
   constructor(props) {
@@ -25,8 +26,17 @@ class SequencesContainer extends EntitiesContainer {
   }
 }
 
+function sequenceMapDispatchToProps(dispatch) {
+  return Object.assign({}, mapDispatchToProps(dispatch), {
+    onFetchComposition : (entityName, notation) => {
+      dispatch(fetchCompositionRequested(entityName, notation))
+    }
+  })
+}
+
 SequencesContainer.defaultProps = {
   path: 'sequence'
 }
 
-export default connectEntities(SequencesContainer.defaultProps.path, SequencesContainer)
+export default connectEntities(SequencesContainer.defaultProps.path, SequencesContainer,
+  sequenceMapDispatchToProps)

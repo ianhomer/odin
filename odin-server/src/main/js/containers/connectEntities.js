@@ -13,7 +13,7 @@ function mapStateToProps(path) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     onCreate : (entity, path) => {
       dispatch(createEntityRequested(entity, path))
@@ -31,6 +31,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default function connectEntities(path, component) {
-  return connect(mapStateToProps(path), mapDispatchToProps)(component)
+export function connectEntities(path, component, _mapDispatchToProps = mapDispatchToProps) {
+  return connect(mapStateToProps(path), _mapDispatchToProps)(component)
 }

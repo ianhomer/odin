@@ -240,7 +240,7 @@ Score.defaultProps = {
 Score.propTypes = {
   entity: PropTypes.shape({
     properties: PropTypes.object,
-    _composition: PropTypes.string,
+    _composition: PropTypes.object,
     _links: PropTypes.shape({
       self: PropTypes.shape({
         href: PropTypes.string.isRequired
