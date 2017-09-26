@@ -25,15 +25,9 @@ import {
   LOAD_PROJECT_SCHEMA_REQUESTED, LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_FAILED,
   LOAD_PROFILE_SCHEMA_REQUESTED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_FAILED
 } from '../actions'
+import { withQuery } from './withQuery'
 
 const root = '/api'
-
-const withQuery = function(uri, params) {
-  return uri + (uri.indexOf('?') === -1 ? '?' : '&') +
-    Object.keys(params)
-      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
-      .join('&')
-}
 
 export class Backend {
   createEntityApi(entity, path) {
@@ -77,8 +71,6 @@ export class Backend {
       yield put({type: UPDATE_ENTITY_FAILED, message: e.message})
     }
   }
-
-
 
   fetchCompositionApi(notation) {
     return fetch(withQuery('/services/composition', {notation}), {

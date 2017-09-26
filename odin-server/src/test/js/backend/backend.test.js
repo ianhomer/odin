@@ -1,10 +1,11 @@
 import { MockBackend } from './mock.js'
+import { withQuery } from 'odin/backend/withQuery'
 
 describe('actions', () => {
   const backend = new MockBackend()
 
   test('Create URL', () => {
-    const uri = backend.withQuery('/test', {a:1, b:2})
+    const uri = withQuery('/test', {a:1, b:2})
     expect(uri).toBe('/test?a=1&b=2')
   })
 

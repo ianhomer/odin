@@ -1,3 +1,5 @@
+import TIMEOUT from '../constants.js'
+
 import store from '../store'
 import { LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
   loadProjectSchemaRequested, loadProfileSchemaRequested } from 'odin/actions/index.js'
@@ -15,7 +17,7 @@ describe('Schema validation', () => {
         expect(flowPatternSchema.title).toBe('Pattern')
       }
     )
-  })
+  }, TIMEOUT)
 
   test('Load profile schema', done => {
     dispatchAndExpect(store, done, LOAD_PROFILE_SCHEMA_SUCCEEDED,
@@ -27,7 +29,7 @@ describe('Schema validation', () => {
         expect(notationFlowClass.getBackEndClazz().id).toBe('sequence')
       }
     )
-  })
+  }, TIMEOUT)
 
   test('Load two profile schema', done => {
     dispatchAndExpect(store, done, LOAD_PROFILE_SCHEMA_SUCCEEDED,
@@ -38,5 +40,5 @@ describe('Schema validation', () => {
         expect(schema.getClazzSchema('channel').title).toBe('Persistable channel')
       }
     )
-  })
+  }, TIMEOUT)
 })

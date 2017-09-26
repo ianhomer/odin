@@ -20,7 +20,7 @@ import testSchema from '../data/schema.json'
 import { Backend } from 'odin/backend/index.js'
 import fs from 'fs'
 
-const loadTestData = function (root, path) {
+const loadTestData = function(root, path) {
   var fullPath = __dirname + '/../data/' + root + '/' + encodeURIComponent(path) + '.json'
   if (!fs.existsSync(fullPath)) {
     const defaultPath = __dirname + '/../data/' + root + '/default.json'
@@ -38,13 +38,22 @@ const loadTestData = function (root, path) {
   }
 }
 
+const safe = function(entity) {
+  if (!entity.properties) {
+    entity.properties = {}
+  }
+  return entity
+}
+
+
 export class MockBackend extends Backend {
+
   createEntityApi(entity) {
-    return entity
+    return safe(entity)
   }
 
   updateEntityApi(entity) {
-    return entity
+    return safe(entity)
   }
 
   deleteEntityApi(entity) {
