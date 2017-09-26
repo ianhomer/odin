@@ -51,7 +51,7 @@ function entitiesAtPath(state = { entities: [] }, action) {
     return Object.assign({}, state, {
       entities: [ ...state.entities.map(entity => {
         // Add the composition object to the sequence entity
-        if (action.entity.name === entity.name) {
+        if (action.entityName === entity.name) {
           entity._composition = action.composition
         }
         return entity

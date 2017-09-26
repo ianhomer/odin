@@ -85,8 +85,8 @@ export class Backend {
   * fetchComposition(action) {
     try {
       const backend = yield getContext('backend')
-      const composition = yield call(backend.fetchCompositionApi, action.entity.properties.notation)
-      yield put({type: FETCH_COMPOSITION_SUCCEEDED, entity: action.entity, composition})
+      const composition = yield call(backend.fetchCompositionApi, action.notation)
+      yield put({type: FETCH_COMPOSITION_SUCCEEDED, entityName: action.entityName, composition})
     } catch (e) {
       yield put({type: FETCH_COMPOSITION_FAILED, message: e.message})
     }
@@ -94,7 +94,7 @@ export class Backend {
 
   * enrichEntity(entity) {
     if (entity.flowName === 'notation') {
-      yield put({type: FETCH_COMPOSITION_REQUESTED, entity})
+      yield put({type: FETCH_COMPOSITION_REQUESTED, entityName: entity.name, notation: entity.properties.notation})
     }
   }
 
