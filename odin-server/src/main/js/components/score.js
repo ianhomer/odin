@@ -18,8 +18,6 @@ const React = require('react')
 const PropTypes = require('prop-types')
 const Vex = require('vexflow')
 
-const VALIDATE_FIRST = false
-
 function concat(a, b) {
   return a.concat(b)
 }
@@ -54,9 +52,6 @@ class Score extends React.Component{
 
   handleChange(event) {
     try {
-      if (VALIDATE_FIRST) {
-        this.renderNotation(event.target.value, true)
-      }
       this.setState({notation: event.target.value, count: this.state.count + 1})
     } catch (error) {
       console.warn('Cannot draw score so not updating state : ' + error.message)
@@ -96,7 +91,7 @@ class Score extends React.Component{
     this.setState({notation:null})
   }
 
-  renderNotation(notation = this.getNotation(), dryRun = false) {
+  renderNotation(notation = this.getNotation()) {
     if (this.isNotationDirty()) {
       // Resolve composition structure from this notation
       this.props.flux.client({
@@ -105,14 +100,14 @@ class Score extends React.Component{
         params: {'notation' : notation},
         headers: {'Accept': 'application/json'}
       }).then(response => {
-        this.renderComposition(response.entity, dryRun)
+        this.renderComposition(response.entity)
       }).catch(reason => {
         console.error(reason)
       })
     } else {
       // Use composition in store
       if (this.props.entity._composition) {
-        this.renderComposition(this.props.entity._composition, dryRun)
+        this.renderComposition(this.props.entity._composition)
       }
     }
   }
@@ -128,15 +123,8 @@ class Score extends React.Component{
     }
   }
 
-  renderComposition(composition, dryRun = false) {
-    var selector
-    if (dryRun) {
-      // For dry run we render score in a hidden element so that we that end user does not
-      // see a blank canvas on error.
-      selector = this.getElementId('hidden')
-    } else {
-      selector = this.getElementId()
-    }
+  renderComposition(composition) {
+    var selector = this.getElementId()
 
     this.removePreviousCanvases(selector)
 
@@ -214,9 +202,6 @@ class Score extends React.Component{
             />
           </span>
           <div key={this.getElementId()} id={this.getElementId()} style={this.state.style}/>
-          {VALIDATE_FIRST &&
-            <div id={this.getElementId('hidden')} className="hidden"/>
-          }
         </div>
       )
     } else {
