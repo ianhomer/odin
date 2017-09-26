@@ -15,4 +15,5 @@
 'use strict'
 
 export * from './entities.js'
+export * from './compositions.js'
 export * from './schema.js'

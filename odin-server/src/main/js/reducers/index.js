@@ -14,12 +14,10 @@
 
 import entities from './entities'
 import schema from './schema'
-import sequences from './sequences'
 
 const reducers = {
   entities,
-  schema,
-  sequences
+  schema
 }
 
 // Note that we return array of reducers instead of combined reducers since the test layer

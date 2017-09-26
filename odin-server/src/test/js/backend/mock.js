@@ -18,13 +18,12 @@
 
 import testSchema from '../data/schema.json'
 import { Backend } from 'odin/backend/index.js'
-import fs from 'fs';
+import fs from 'fs'
 
 const loadTestData = function (root, path) {
   var fullPath = __dirname + '/../data/' + root + '/' + encodeURIComponent(path) + '.json'
   if (!fs.existsSync(fullPath)) {
     const defaultPath = __dirname + '/../data/' + root + '/default.json'
-    console.log('trying default ' + defaultPath)
     if (fs.existsSync(defaultPath)) {
       fullPath = defaultPath
     }

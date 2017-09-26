@@ -97,7 +97,7 @@ class Score extends React.Component{
   }
 
   renderNotation(notation = this.getNotation(), dryRun = false) {
-    //if (this.isNotationDirty()) {
+    if (this.isNotationDirty()) {
       // Resolve composition structure from this notation
       this.props.flux.client({
         method: 'GET',
@@ -109,10 +109,12 @@ class Score extends React.Component{
       }).catch(reason => {
         console.error(reason)
       })
-    //} else {
+    } else {
       // Use composition in store
-    //  this.renderComposition(this.props.entity._composition, dryRun)
-    //}
+      if (this.props.entity._composition) {
+        this.renderComposition(this.props.entity._composition, dryRun)
+      }
+    }
   }
 
   // Remove previous score canvas that might have been drawn
@@ -238,6 +240,7 @@ Score.defaultProps = {
 Score.propTypes = {
   entity: PropTypes.shape({
     properties: PropTypes.object,
+    _composition: PropTypes.string,
     _links: PropTypes.shape({
       self: PropTypes.shape({
         href: PropTypes.string.isRequired

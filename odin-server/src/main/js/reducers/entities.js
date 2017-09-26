@@ -13,7 +13,8 @@
 // limitations under the License.
 
 import { CREATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_SUCCEEDED,
-  DELETE_ENTITY_REQUESTED, LOAD_ENTITIES_SUCCEEDED } from '../actions'
+  DELETE_ENTITY_SUCCEEDED, LOAD_ENTITIES_SUCCEEDED,
+  FETCH_COMPOSITION_SUCCEEDED } from '../actions'
 
 function getEntityFilter(action) {
   if (action.path === 'channel') {
@@ -37,8 +38,7 @@ function entitiesAtPath(state = { entities: [] }, action) {
     return Object.assign({}, state, {
       entities: action.entities.sort(comparator),
     })
-  // TODO : Shouldn't this be DELETE_ENTITY_SUCCEEDED?
-  case DELETE_ENTITY_REQUESTED:
+  case DELETE_ENTITY_SUCCEEDED:
     return Object.assign({}, state, {
       entities: [ ...state.entities.filter(getEntityFilter(action)) ].sort(comparator)
     })
@@ -46,6 +46,16 @@ function entitiesAtPath(state = { entities: [] }, action) {
   case UPDATE_ENTITY_SUCCEEDED:
     return Object.assign({}, state, {
       entities: [ ...state.entities.filter(getEntityFilter(action)), action.entity ].sort(comparator)
+    })
+  case FETCH_COMPOSITION_SUCCEEDED:
+    return Object.assign({}, state, {
+      entities: [ ...state.entities.map(entity => {
+        // Add the composition object to the sequence entity
+        if (action.entity.name === entity.name) {
+          entity._composition = action.composition
+        }
+        return entity
+      }) ].sort(comparator)
     })
   default:
     return state
@@ -56,10 +66,14 @@ function entities(state = [], action) {
   switch (action.type) {
   case CREATE_ENTITY_SUCCEEDED:
   case UPDATE_ENTITY_SUCCEEDED:
-  case DELETE_ENTITY_REQUESTED:
+  case DELETE_ENTITY_SUCCEEDED:
   case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {
       [action.path]: entitiesAtPath(state[action.path], action)
+    })
+  case FETCH_COMPOSITION_SUCCEEDED:
+    return Object.assign({}, state, {
+      sequence: entitiesAtPath(state['sequence'], action)
     })
   default:
     return state

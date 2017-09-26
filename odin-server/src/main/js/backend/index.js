@@ -20,12 +20,20 @@ import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED, CREATE_ENTITY_FAILED,
   UPDATE_ENTITY_REQUESTED, UPDATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_FAILED,
   DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED, DELETE_ENTITY_FAILED,
+  FETCH_COMPOSITION_REQUESTED, FETCH_COMPOSITION_SUCCEEDED, FETCH_COMPOSITION_FAILED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED,
   LOAD_PROJECT_SCHEMA_REQUESTED, LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_FAILED,
   LOAD_PROFILE_SCHEMA_REQUESTED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_FAILED
 } from '../actions'
 
 const root = '/api'
+
+const withQuery = function(uri, params) {
+  return uri + (uri.indexOf('?') === -1 ? '?' : '&') +
+    Object.keys(params)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+      .join('&')
+}
 
 export class Backend {
   createEntityApi(entity, path) {
@@ -43,6 +51,7 @@ export class Backend {
       const backend = yield getContext('backend')
       const entity = yield call(backend.createEntityApi, action.entity, action.path)
       yield put({type: CREATE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
+      yield call(backend.enrichEntity, entity)
     } catch (e) {
       yield put({type: CREATE_ENTITY_FAILED, message: e.message})
     }
@@ -62,32 +71,38 @@ export class Backend {
     try {
       const backend = yield getContext('backend')
       const entity = yield call(backend.updateEntityApi, action.entity)
+      yield call(backend.enrichEntity, entity)
       yield put({type: UPDATE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
     } catch (e) {
       yield put({type: UPDATE_ENTITY_FAILED, message: e.message})
     }
   }
 
-  withQuery(uri, params) {
-    return uri + (uri.indexOf('?') === -1 ? '?' : '&') +
-      Object.keys(params)
-      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
-      .join('&')
-  }
+
 
   fetchCompositionApi(notation) {
     return fetch(withQuery('/services/composition', {notation}), {
       method : 'GET',
       headers: {
         'Content-Type': 'application/json'
-      }, body : JSON.stringify(entity)
+      }
     })
       .then(response => response.json())
   }
 
+  * fetchComposition(action) {
+    try {
+      const backend = yield getContext('backend')
+      const composition = yield call(backend.fetchCompositionApi, action.entity)
+      yield put({type: FETCH_COMPOSITION_SUCCEEDED, entity: action.entity, composition})
+    } catch (e) {
+      yield put({type: FETCH_COMPOSITION_FAILED, message: e.message})
+    }
+  }
+
   * enrichEntity(entity) {
-    if (entity.flowName == 'notation') {
-      //entity._composition = yield call(this.fetchCompositionApi, entity.notation)
+    if (entity.flowName === 'notation') {
+      yield put({type: FETCH_COMPOSITION_REQUESTED, entity})
     }
   }
 
@@ -105,7 +120,6 @@ export class Backend {
     try {
       const backend = yield getContext('backend')
       const entity = yield call(backend.deleteEntityApi, action.entity)
-      //yield call(backend.enrichEntity, entity)
       yield put({type: DELETE_ENTITY_SUCCEEDED, entity: entity, path: action.path})
     } catch (e) {
       yield put({type: DELETE_ENTITY_FAILED, message: e.message})
@@ -127,6 +141,7 @@ export class Backend {
     try {
       const backend = yield getContext('backend')
       const entities = yield call(backend.loadEntitiesApi, action.path, action.schema)
+      entities.forEach(entity =>  backend.enrichEntity(entity))
       yield put({type: LOAD_ENTITIES_SUCCEEDED, entities: entities, path: action.path})
     } catch (e) {
       yield put({type: LOAD_ENTITIES_FAILED, message: e.message})
@@ -178,6 +193,7 @@ export class Backend {
     yield takeEvery(CREATE_ENTITY_REQUESTED, backend.createEntity)
     yield takeEvery(UPDATE_ENTITY_REQUESTED, backend.updateEntity)
     yield takeEvery(DELETE_ENTITY_REQUESTED, backend.deleteEntity)
+    yield takeEvery(FETCH_COMPOSITION_REQUESTED, backend.fetchComposition)
     yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
     yield takeEvery(LOAD_PROJECT_SCHEMA_REQUESTED, backend.loadProjectSchema)
     yield takeEvery(LOAD_PROFILE_SCHEMA_REQUESTED, backend.loadProfileSchema)
