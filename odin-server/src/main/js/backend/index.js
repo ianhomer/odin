@@ -93,7 +93,7 @@ export class Backend {
   * fetchComposition(action) {
     try {
       const backend = yield getContext('backend')
-      const composition = yield call(backend.fetchCompositionApi, action.entity)
+      const composition = yield call(backend.fetchCompositionApi, action.entity.properties.notation)
       yield put({type: FETCH_COMPOSITION_SUCCEEDED, entity: action.entity, composition})
     } catch (e) {
       yield put({type: FETCH_COMPOSITION_FAILED, message: e.message})
@@ -141,7 +141,9 @@ export class Backend {
     try {
       const backend = yield getContext('backend')
       const entities = yield call(backend.loadEntitiesApi, action.path, action.schema)
-      entities.forEach(entity =>  backend.enrichEntity(entity))
+      for (var i = 0; i < entities.length ; i++) {
+        yield call(backend.enrichEntity, entities[i])
+      }
       yield put({type: LOAD_ENTITIES_SUCCEEDED, entities: entities, path: action.path})
     } catch (e) {
       yield put({type: LOAD_ENTITIES_FAILED, message: e.message})
