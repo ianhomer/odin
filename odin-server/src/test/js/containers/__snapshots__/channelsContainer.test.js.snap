@@ -315,17 +315,6 @@ exports[`Channels container renders OK 1`] = `
               },
             }
           }
-          flux={
-            MockFlux {
-              "client": [Function],
-              "loadFromServer": [Function],
-              "loadSchema": [Function],
-              "onCreate": [Function],
-              "onDelete": [Function],
-              "onPatch": [Function],
-              "onUpdate": [Function],
-            }
-          }
           onCreate={[Function]}
           onDelete={[Function]}
           onUpdate={[Function]}
@@ -395,17 +384,6 @@ exports[`Channels container renders OK 1`] = `
                     "programName": "rock",
                   }
                 }
-                flux={
-                  MockFlux {
-                    "client": [Function],
-                    "loadFromServer": [Function],
-                    "loadSchema": [Function],
-                    "onCreate": [Function],
-                    "onDelete": [Function],
-                    "onPatch": [Function],
-                    "onUpdate": [Function],
-                  }
-                }
                 onDelete={[Function]}
               >
                 <div
@@ -451,17 +429,6 @@ exports[`Channels container renders OK 1`] = `
                     "number": 3,
                     "program": 0,
                     "programName": "strings",
-                  }
-                }
-                flux={
-                  MockFlux {
-                    "client": [Function],
-                    "loadFromServer": [Function],
-                    "loadSchema": [Function],
-                    "onCreate": [Function],
-                    "onDelete": [Function],
-                    "onPatch": [Function],
-                    "onUpdate": [Function],
                   }
                 }
                 onDelete={[Function]}
@@ -511,17 +478,6 @@ exports[`Channels container renders OK 1`] = `
                     "programName": "aahs",
                   }
                 }
-                flux={
-                  MockFlux {
-                    "client": [Function],
-                    "loadFromServer": [Function],
-                    "loadSchema": [Function],
-                    "onCreate": [Function],
-                    "onDelete": [Function],
-                    "onPatch": [Function],
-                    "onUpdate": [Function],
-                  }
-                }
                 onDelete={[Function]}
               >
                 <div
@@ -567,17 +523,6 @@ exports[`Channels container renders OK 1`] = `
                     "number": 5,
                     "program": 0,
                     "programName": "bass",
-                  }
-                }
-                flux={
-                  MockFlux {
-                    "client": [Function],
-                    "loadFromServer": [Function],
-                    "loadSchema": [Function],
-                    "onCreate": [Function],
-                    "onDelete": [Function],
-                    "onPatch": [Function],
-                    "onUpdate": [Function],
                   }
                 }
                 onDelete={[Function]}
@@ -627,17 +572,6 @@ exports[`Channels container renders OK 1`] = `
                     "programName": "Power Drums",
                   }
                 }
-                flux={
-                  MockFlux {
-                    "client": [Function],
-                    "loadFromServer": [Function],
-                    "loadSchema": [Function],
-                    "onCreate": [Function],
-                    "onDelete": [Function],
-                    "onPatch": [Function],
-                    "onUpdate": [Function],
-                  }
-                }
                 onDelete={[Function]}
               >
                 <div
@@ -683,17 +617,6 @@ exports[`Channels container renders OK 1`] = `
                     "number": 1,
                     "program": 0,
                     "programName": "pianoZ",
-                  }
-                }
-                flux={
-                  MockFlux {
-                    "client": [Function],
-                    "loadFromServer": [Function],
-                    "loadSchema": [Function],
-                    "onCreate": [Function],
-                    "onDelete": [Function],
-                    "onPatch": [Function],
-                    "onUpdate": [Function],
                   }
                 }
                 onDelete={[Function]}

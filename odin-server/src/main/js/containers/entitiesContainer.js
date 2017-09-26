@@ -37,7 +37,7 @@ class EntitiesContainer extends React.Component {
           <this.component schema={this.props.schema} project={this.props.project}
             onCreate={this.props.onCreate} onDelete={this.props.onDelete}
             onUpdate={this.props.onUpdate}
-            flux={this.props.flux} path={this.path}
+            path={this.path}
             entities={this.props.entities}
             {...this.getExtraArguments()}/>
         }
@@ -48,7 +48,6 @@ class EntitiesContainer extends React.Component {
 
 EntitiesContainer.propTypes = {
   entities: PropTypes.array.isRequired,
-  flux: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

@@ -35,7 +35,7 @@ class Notation extends Sequence {
   renderProperties(sequence) {
     return (
       <Score onFetchComposition={this.props.onFetchComposition}
-        entity={sequence} displayText={true} width={800} flux={this.props.flux}/>
+        entity={sequence} displayText={true} width={800}/>
     )
   }
 }

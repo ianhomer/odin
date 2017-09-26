@@ -30,7 +30,7 @@ class ChannelList extends React.Component{
 
   render() {
     var entities = this.props.entities.map(entity =>
-      <Channel flux={this.props.flux}
+      <Channel
         entity={entity} key={entity.number}
         onDelete={this.props.onDelete}/>
     )
@@ -44,7 +44,7 @@ class ChannelList extends React.Component{
           </div>
           {this.props.schema.isClazzLoaded(this.props.path) &&
             <EditEntity
-              schema={this.props.schema} project={this.props.project} flux={this.props.flux}
+              schema={this.props.schema} project={this.props.project}
               clazz={this.props.schema.getClazz(this.props.path)} fields={this.props.fields}
               onApply={this.props.onCreate}
             />
@@ -77,7 +77,6 @@ ChannelList.defaultProps = {
 ChannelList.propTypes = {
   entities: PropTypes.array.isRequired,
   fields: PropTypes.object.isRequired,
-  flux: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   path : PropTypes.string.isRequired,

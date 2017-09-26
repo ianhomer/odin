@@ -228,7 +228,6 @@ Score.propTypes = {
   displayText: PropTypes.bool,
   editor: PropTypes.bool,
   height: PropTypes.number.isRequired,
-  flux: PropTypes.object.isRequired,
   size: PropTypes.number,
   width: PropTypes.number.isRequired,
   // TODO : Confirm following necessary

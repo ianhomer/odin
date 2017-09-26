@@ -67,7 +67,7 @@ class Sequence extends React.Component {
         // TODO : remove schema from component properties if redundant
 
         <EditEntity entity={sequence}
-          schema={this.props.schema} project={this.props.project} flux={this.props.flux}
+          schema={this.props.schema} project={this.props.project}
           clazz={this.props.clazz} fields={this.props.fields}
           onApply={this.onApply}
           {...this.getExtraEditEntityArguments()}
@@ -108,7 +108,6 @@ Sequence.propTypes = {
   clazz: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,
   fields: PropTypes.object.isRequired,
-  flux: PropTypes.object.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
