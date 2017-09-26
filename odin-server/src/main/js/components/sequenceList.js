@@ -38,13 +38,17 @@ class SequenceList extends React.Component{
     var entities = this.props.entities.map(entity => {
       var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
       if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + entity.flowName])) {
+        var optionalArguments = {}
+        if (entity.flowName === 'notation') {
+          optionalArguments.onFetchComposition = this.props.onFetchComposition
+        }
         return (
-          // TODO - change key to simply entity.name
           <div key={entity.name}>
             <SequenceComponent entity={entity} key={entity.name}
               schema={this.props.schema} project={this.props.project} flux={this.props.flux}
               clazz={this.props.schema.getFlowClazz(entity.flowName)}
               onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}
+              {...optionalArguments}
             />
           </div>
         )
@@ -103,6 +107,7 @@ SequenceList.propTypes = {
   entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
+  onFetchComposition: PropTypes.func.onFetchComposition,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,

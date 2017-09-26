@@ -15,6 +15,7 @@
 'use strict'
 
 const React = require('react')
+const PropTypes = require('prop-types')
 
 import Sequence from './sequence'
 import Score from './score'
@@ -26,11 +27,17 @@ class Notation extends Sequence {
   }
 
   renderProperties(sequence) {
-    return (<Score entity={sequence} displayText={true} width={800} flux={this.props.flux}/>)
+    return (
+      <Score onFetchComposition={this.props.onFetchComposition}
+        entity={sequence} displayText={true} width={800} flux={this.props.flux}/>
+    )
   }
 }
 
-Notation.propTypes = Sequence.propTypes
+Notation.propTypes = Object.assign({}, Sequence.propTypes,
+  {
+    onFetchComposition: PropTypes.func.onFetchComposition
+  })
 
 Notation.defaultProps = {
   path: 'notation',

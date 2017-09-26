@@ -257,6 +257,7 @@ Score.propTypes = {
   componentKey: PropTypes.string,
   componentRef: PropTypes.func,
   elementKey: PropTypes.string,
+  onFetchComposition: PropTypes.func.onFetchComposition,
   onKeyPress: PropTypes.func
 }
 
