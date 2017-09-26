@@ -53,105 +53,108 @@ exports[`Channels container renders OK 1`] = `
     }
   >
     <ChannelsContainer
-      entities={
-        Array [
-          Object {
-            "_links": Object {
-              "channel": Object {
-                "href": "http://localhost:8080/api/channel/3",
+      collection={
+        Object {
+          "entities": Array [
+            Object {
+              "_links": Object {
+                "channel": Object {
+                  "href": "http://localhost:8080/api/channel/3",
+                },
+                "project": Object {
+                  "href": "http://localhost:8080/api/channel/3/project",
+                },
+                "self": Object {
+                  "href": "http://localhost:8080/api/channel/3",
+                },
               },
-              "project": Object {
-                "href": "http://localhost:8080/api/channel/3/project",
-              },
-              "self": Object {
-                "href": "http://localhost:8080/api/channel/3",
-              },
+              "number": 2,
+              "program": 0,
+              "programName": "rock",
             },
-            "number": 2,
-            "program": 0,
-            "programName": "rock",
-          },
-          Object {
-            "_links": Object {
-              "channel": Object {
-                "href": "http://localhost:8080/api/channel/4",
+            Object {
+              "_links": Object {
+                "channel": Object {
+                  "href": "http://localhost:8080/api/channel/4",
+                },
+                "project": Object {
+                  "href": "http://localhost:8080/api/channel/4/project",
+                },
+                "self": Object {
+                  "href": "http://localhost:8080/api/channel/4",
+                },
               },
-              "project": Object {
-                "href": "http://localhost:8080/api/channel/4/project",
-              },
-              "self": Object {
-                "href": "http://localhost:8080/api/channel/4",
-              },
+              "number": 3,
+              "program": 0,
+              "programName": "strings",
             },
-            "number": 3,
-            "program": 0,
-            "programName": "strings",
-          },
-          Object {
-            "_links": Object {
-              "channel": Object {
-                "href": "http://localhost:8080/api/channel/5",
+            Object {
+              "_links": Object {
+                "channel": Object {
+                  "href": "http://localhost:8080/api/channel/5",
+                },
+                "project": Object {
+                  "href": "http://localhost:8080/api/channel/5/project",
+                },
+                "self": Object {
+                  "href": "http://localhost:8080/api/channel/5",
+                },
               },
-              "project": Object {
-                "href": "http://localhost:8080/api/channel/5/project",
-              },
-              "self": Object {
-                "href": "http://localhost:8080/api/channel/5",
-              },
+              "number": 4,
+              "program": 0,
+              "programName": "aahs",
             },
-            "number": 4,
-            "program": 0,
-            "programName": "aahs",
-          },
-          Object {
-            "_links": Object {
-              "channel": Object {
-                "href": "http://localhost:8080/api/channel/6",
+            Object {
+              "_links": Object {
+                "channel": Object {
+                  "href": "http://localhost:8080/api/channel/6",
+                },
+                "project": Object {
+                  "href": "http://localhost:8080/api/channel/6/project",
+                },
+                "self": Object {
+                  "href": "http://localhost:8080/api/channel/6",
+                },
               },
-              "project": Object {
-                "href": "http://localhost:8080/api/channel/6/project",
-              },
-              "self": Object {
-                "href": "http://localhost:8080/api/channel/6",
-              },
+              "number": 5,
+              "program": 0,
+              "programName": "bass",
             },
-            "number": 5,
-            "program": 0,
-            "programName": "bass",
-          },
-          Object {
-            "_links": Object {
-              "channel": Object {
-                "href": "http://localhost:8080/api/channel/7",
+            Object {
+              "_links": Object {
+                "channel": Object {
+                  "href": "http://localhost:8080/api/channel/7",
+                },
+                "project": Object {
+                  "href": "http://localhost:8080/api/channel/7/project",
+                },
+                "self": Object {
+                  "href": "http://localhost:8080/api/channel/7",
+                },
               },
-              "project": Object {
-                "href": "http://localhost:8080/api/channel/7/project",
-              },
-              "self": Object {
-                "href": "http://localhost:8080/api/channel/7",
-              },
+              "number": 9,
+              "program": 0,
+              "programName": "Power Drums",
             },
-            "number": 9,
-            "program": 0,
-            "programName": "Power Drums",
-          },
-          Object {
-            "_links": Object {
-              "channel": Object {
-                "href": "http://localhost:8080/api/channel/4392",
+            Object {
+              "_links": Object {
+                "channel": Object {
+                  "href": "http://localhost:8080/api/channel/4392",
+                },
+                "project": Object {
+                  "href": "http://localhost:8080/api/channel/4392/project",
+                },
+                "self": Object {
+                  "href": "http://localhost:8080/api/channel/4392",
+                },
               },
-              "project": Object {
-                "href": "http://localhost:8080/api/channel/4392/project",
-              },
-              "self": Object {
-                "href": "http://localhost:8080/api/channel/4392",
-              },
+              "number": 1,
+              "program": 0,
+              "programName": "pianoZ",
             },
-            "number": 1,
-            "program": 0,
-            "programName": "pianoZ",
-          },
-        ]
+          ],
+          "newEntities": Object {},
+        }
       }
       flux={
         MockFlux {
@@ -199,105 +202,108 @@ exports[`Channels container renders OK 1`] = `
     >
       <div>
         <ChannelList
-          entities={
-            Array [
-              Object {
-                "_links": Object {
-                  "channel": Object {
-                    "href": "http://localhost:8080/api/channel/3",
+          collection={
+            Object {
+              "entities": Array [
+                Object {
+                  "_links": Object {
+                    "channel": Object {
+                      "href": "http://localhost:8080/api/channel/3",
+                    },
+                    "project": Object {
+                      "href": "http://localhost:8080/api/channel/3/project",
+                    },
+                    "self": Object {
+                      "href": "http://localhost:8080/api/channel/3",
+                    },
                   },
-                  "project": Object {
-                    "href": "http://localhost:8080/api/channel/3/project",
-                  },
-                  "self": Object {
-                    "href": "http://localhost:8080/api/channel/3",
-                  },
+                  "number": 2,
+                  "program": 0,
+                  "programName": "rock",
                 },
-                "number": 2,
-                "program": 0,
-                "programName": "rock",
-              },
-              Object {
-                "_links": Object {
-                  "channel": Object {
-                    "href": "http://localhost:8080/api/channel/4",
+                Object {
+                  "_links": Object {
+                    "channel": Object {
+                      "href": "http://localhost:8080/api/channel/4",
+                    },
+                    "project": Object {
+                      "href": "http://localhost:8080/api/channel/4/project",
+                    },
+                    "self": Object {
+                      "href": "http://localhost:8080/api/channel/4",
+                    },
                   },
-                  "project": Object {
-                    "href": "http://localhost:8080/api/channel/4/project",
-                  },
-                  "self": Object {
-                    "href": "http://localhost:8080/api/channel/4",
-                  },
+                  "number": 3,
+                  "program": 0,
+                  "programName": "strings",
                 },
-                "number": 3,
-                "program": 0,
-                "programName": "strings",
-              },
-              Object {
-                "_links": Object {
-                  "channel": Object {
-                    "href": "http://localhost:8080/api/channel/5",
+                Object {
+                  "_links": Object {
+                    "channel": Object {
+                      "href": "http://localhost:8080/api/channel/5",
+                    },
+                    "project": Object {
+                      "href": "http://localhost:8080/api/channel/5/project",
+                    },
+                    "self": Object {
+                      "href": "http://localhost:8080/api/channel/5",
+                    },
                   },
-                  "project": Object {
-                    "href": "http://localhost:8080/api/channel/5/project",
-                  },
-                  "self": Object {
-                    "href": "http://localhost:8080/api/channel/5",
-                  },
+                  "number": 4,
+                  "program": 0,
+                  "programName": "aahs",
                 },
-                "number": 4,
-                "program": 0,
-                "programName": "aahs",
-              },
-              Object {
-                "_links": Object {
-                  "channel": Object {
-                    "href": "http://localhost:8080/api/channel/6",
+                Object {
+                  "_links": Object {
+                    "channel": Object {
+                      "href": "http://localhost:8080/api/channel/6",
+                    },
+                    "project": Object {
+                      "href": "http://localhost:8080/api/channel/6/project",
+                    },
+                    "self": Object {
+                      "href": "http://localhost:8080/api/channel/6",
+                    },
                   },
-                  "project": Object {
-                    "href": "http://localhost:8080/api/channel/6/project",
-                  },
-                  "self": Object {
-                    "href": "http://localhost:8080/api/channel/6",
-                  },
+                  "number": 5,
+                  "program": 0,
+                  "programName": "bass",
                 },
-                "number": 5,
-                "program": 0,
-                "programName": "bass",
-              },
-              Object {
-                "_links": Object {
-                  "channel": Object {
-                    "href": "http://localhost:8080/api/channel/7",
+                Object {
+                  "_links": Object {
+                    "channel": Object {
+                      "href": "http://localhost:8080/api/channel/7",
+                    },
+                    "project": Object {
+                      "href": "http://localhost:8080/api/channel/7/project",
+                    },
+                    "self": Object {
+                      "href": "http://localhost:8080/api/channel/7",
+                    },
                   },
-                  "project": Object {
-                    "href": "http://localhost:8080/api/channel/7/project",
-                  },
-                  "self": Object {
-                    "href": "http://localhost:8080/api/channel/7",
-                  },
+                  "number": 9,
+                  "program": 0,
+                  "programName": "Power Drums",
                 },
-                "number": 9,
-                "program": 0,
-                "programName": "Power Drums",
-              },
-              Object {
-                "_links": Object {
-                  "channel": Object {
-                    "href": "http://localhost:8080/api/channel/4392",
+                Object {
+                  "_links": Object {
+                    "channel": Object {
+                      "href": "http://localhost:8080/api/channel/4392",
+                    },
+                    "project": Object {
+                      "href": "http://localhost:8080/api/channel/4392/project",
+                    },
+                    "self": Object {
+                      "href": "http://localhost:8080/api/channel/4392",
+                    },
                   },
-                  "project": Object {
-                    "href": "http://localhost:8080/api/channel/4392/project",
-                  },
-                  "self": Object {
-                    "href": "http://localhost:8080/api/channel/4392",
-                  },
+                  "number": 1,
+                  "program": 0,
+                  "programName": "pianoZ",
                 },
-                "number": 1,
-                "program": 0,
-                "programName": "pianoZ",
-              },
-            ]
+              ],
+              "newEntities": Object {},
+            }
           }
           fields={
             Object {

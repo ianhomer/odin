@@ -29,7 +29,7 @@ class ChannelList extends React.Component{
   }
 
   render() {
-    var entities = this.props.entities.map(entity =>
+    var entities = this.props.collection.entities.map(entity =>
       <Channel
         entity={entity} key={entity.number}
         onDelete={this.props.onDelete}/>
@@ -75,7 +75,7 @@ ChannelList.defaultProps = {
 }
 
 ChannelList.propTypes = {
-  entities: PropTypes.array.isRequired,
+  collection: PropTypes.object.isRequired,
   fields: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

@@ -5,10 +5,10 @@ import { createEntityRequested, deleteEntityRequested,
 // Curry mapStateToProps with path value
 function mapStateToProps(path) {
   return function(state) {
-    const entities = state.entities[path] ? state.entities[path].entities : []
+    const collection = state.collections[path] ? state.collections[path] : { entities : [] }
 
     return {
-      entities
+      collection
     }
   }
 }

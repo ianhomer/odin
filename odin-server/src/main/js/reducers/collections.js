@@ -32,7 +32,7 @@ function comparator(a, b) {
   return a.name > b.name ? 1 : 0
 }
 
-function entitiesAtPath(state = { entities: [], newEntity: {} }, action) {
+function collectionsAtPath(state = { entities: [], newEntities: {} }, action) {
   switch (action.type) {
   case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {
@@ -52,7 +52,7 @@ function entitiesAtPath(state = { entities: [], newEntity: {} }, action) {
       // Store composition for new entity that is being created
       return Object.assign({}, state, {
         entities: state.entities.sort(comparator),
-        newEntity: { _composition : action.composition }
+        newEntities: { notation: { _composition : action.composition } }
       })
     } else {
       return Object.assign({}, state, {
@@ -70,22 +70,22 @@ function entitiesAtPath(state = { entities: [], newEntity: {} }, action) {
   }
 }
 
-function entities(state = [], action) {
+function collections(state = [], action) {
   switch (action.type) {
   case CREATE_ENTITY_SUCCEEDED:
   case UPDATE_ENTITY_SUCCEEDED:
   case DELETE_ENTITY_SUCCEEDED:
   case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {
-      [action.path]: entitiesAtPath(state[action.path], action)
+      [action.path]: collectionsAtPath(state[action.path], action)
     })
   case FETCH_COMPOSITION_SUCCEEDED:
     return Object.assign({}, state, {
-      sequence: entitiesAtPath(state['sequence'], action)
+      sequence: collectionsAtPath(state['sequence'], action)
     })
   default:
     return state
   }
 }
 
-export default entities
+export default collections
