@@ -153,6 +153,7 @@ exports[`Sequences container renders OK 1`] = `
     }
   }
   onDelete={[Function]}
+  onFetchComposition={[Function]}
   onUpdate={[Function]}
   path="notation"
   project={
@@ -241,6 +242,7 @@ exports[`Sequences container renders OK 1`] = `
           }
         }
         height={120}
+        onFetchComposition={[Function]}
         width={800}
       >
         <div>

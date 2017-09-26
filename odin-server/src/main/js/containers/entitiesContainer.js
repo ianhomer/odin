@@ -26,6 +26,10 @@ class EntitiesContainer extends React.Component {
     this.props.onLoadEntities(this.props.path, this.props.schema)
   }
 
+  getExtraArguments() {
+    return {}
+  }
+
   render() {
     return (
       <div>
@@ -34,7 +38,8 @@ class EntitiesContainer extends React.Component {
             onCreate={this.props.onCreate} onDelete={this.props.onDelete}
             onUpdate={this.props.onUpdate}
             flux={this.props.flux} path={this.path}
-            entities={this.props.entities}/>
+            entities={this.props.entities}
+            {...this.getExtraArguments()}/>
         }
       </div>
     )

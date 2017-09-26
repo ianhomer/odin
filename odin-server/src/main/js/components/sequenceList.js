@@ -34,21 +34,25 @@ class SequenceList extends React.Component{
     super(props)
   }
 
+  getExtraArguments(flowName) {
+    var optionalArguments = {}
+    if (flowName === 'notation') {
+      optionalArguments.onFetchComposition = this.props.onFetchComposition
+    }
+    return optionalArguments
+  }
+
   render() {
     var entities = this.props.entities.map(entity => {
       var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
       if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + entity.flowName])) {
-        var optionalArguments = {}
-        if (entity.flowName === 'notation') {
-          optionalArguments.onFetchComposition = this.props.onFetchComposition
-        }
         return (
           <div key={entity.name}>
             <SequenceComponent entity={entity} key={entity.name}
               schema={this.props.schema} project={this.props.project} flux={this.props.flux}
               clazz={this.props.schema.getFlowClazz(entity.flowName)}
               onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}
-              {...optionalArguments}
+              {...this.getExtraArguments(entity.flowName)}
             />
           </div>
         )
@@ -86,6 +90,7 @@ class SequenceList extends React.Component{
                   schema={this.props.schema} project={this.props.project} flux={this.props.flux}
                   clazz={clazz} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.props.onCreate}
+                  {...this.getExtraArguments(flowName)}
                 />
               )
             } else {
@@ -107,7 +112,7 @@ SequenceList.propTypes = {
   entities: PropTypes.array.isRequired,
   flux: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
-  onFetchComposition: PropTypes.func.onFetchComposition,
+  onFetchComposition: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,

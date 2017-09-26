@@ -36,7 +36,7 @@ class Notation extends Sequence {
 
 Notation.propTypes = Object.assign({}, Sequence.propTypes,
   {
-    onFetchComposition: PropTypes.func.onFetchComposition
+    onFetchComposition: PropTypes.func.isRequired
   })
 
 Notation.defaultProps = {

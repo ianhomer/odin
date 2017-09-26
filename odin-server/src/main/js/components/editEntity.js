@@ -122,6 +122,7 @@ class EditEntity extends React.Component{
           <Score flux={this.props.flux} entity={scoreEntity} editor={true}
             size={size} componentKey={key} componentRef={this.registerNode(key)}
             width={800}
+            onFetchComposition={this.props.onFetchComposition}
             onKeyPress={this.handleKeyPress}/>
         </div>
       )
@@ -204,6 +205,7 @@ EditEntity.propTypes = {
     }),
   }),
   onApply: PropTypes.func.isRequired,
+  onFetchComposition: PropTypes.func,
   project: PropTypes.shape({
     _links: PropTypes.shape({
       self: PropTypes.shape({

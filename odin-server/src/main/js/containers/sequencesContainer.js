@@ -24,6 +24,12 @@ class SequencesContainer extends EntitiesContainer {
     super(props)
     this.component = SequenceList
   }
+
+  getExtraArguments() {
+    return {
+      onFetchComposition: this.props.onFetchComposition
+    }
+  }
 }
 
 function sequenceMapDispatchToProps(dispatch) {
