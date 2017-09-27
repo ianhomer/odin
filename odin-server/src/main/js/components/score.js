@@ -51,6 +51,7 @@ class Score extends React.Component{
   }
 
   handleInputChange(event) {
+    this.props.onInputChange(event)
     try {
       this.setState({notation: event.target.value, count: this.state.count + 1})
       this.props.onFetchComposition(this.props.entity.name, event.target.value)
@@ -235,6 +236,7 @@ Score.propTypes = {
   componentRef: PropTypes.func,
   elementKey: PropTypes.string,
   onFetchComposition: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func,
   onKeyPress: PropTypes.func
 }
 

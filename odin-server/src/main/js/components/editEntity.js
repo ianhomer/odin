@@ -132,11 +132,18 @@ class EditEntity extends React.Component{
       var scoreEntity = this.props.entity ?
         this.props.entity :
         { properties: { notation : value } }
+      if (this.state.properties.notation) {
+        // Merge change notation into entity used to render score
+        scoreEntity = Object.assign({}, scoreEntity, {
+          properties : Object.assign({}, scoreEntity.properties, { notation : this.state.properties.notation})
+        })
+      }
       return (
         <div className={cellClassName} key={key}>
           <Score entity={scoreEntity} editor={true}
             size={size} componentKey={key} componentRef={this.registerNode(key)}
             width={800}
+            onInputChange={this.handleInputChange}
             onFetchComposition={this.props.onFetchComposition}
             onKeyPress={this.handleKeyPress}/>
         </div>
