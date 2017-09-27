@@ -80,7 +80,7 @@ class Score extends React.Component{
       // Return changed but unsaved notation if it has been set
       return this.state.notation
     }
-    // Otherwise the value provided by component's parent
+    // Otherwise try value provided by component's parent
     return this.props.entity.properties && this.props.entity.properties.notation
   }
 

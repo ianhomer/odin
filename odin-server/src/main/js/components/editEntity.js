@@ -116,7 +116,7 @@ class EditEntity extends React.Component{
     if (fieldName == 'notation') {
       var scoreEntity = this.props.entity ?
         this.props.entity :
-        { notation : value }
+        { properties: { notation : value } }
       return (
         <div className={cellClassName} key={key}>
           <Score entity={scoreEntity} editor={true}
@@ -130,12 +130,12 @@ class EditEntity extends React.Component{
       // If field is hidden or read only then we maintain value in hidden field
       if (field.hidden) {
         return (<input type="hidden" key={key} name={key} ref={this.registerNode(key)}
-          value={value} />)
+          defaultValue={value} />)
       } else if (field.readOnly) {
         return (
           <div className={cellClassName} key={key}>
             <span>{value}</span>
-            <input type="hidden" name={key} ref={this.registerNode(key)} value={value} />
+            <input type="hidden" name={key} ref={this.registerNode(key)} defaultValue={value} />
           </div>
         )
       }
@@ -171,21 +171,21 @@ class EditEntity extends React.Component{
         {renderedFields}
         <div className="col-1">
           <input type="hidden" name="project" ref={this.registerNode('project')}
-            value={this.props.project._links.self.href} />
+            defaultValue={this.props.project._links.self.href} />
 
           {/* Provide path value for create flow so we know what type of object we are creating. */}
 
-          {!this.props.entity &&
+          {!(this.props.entity && this.props.entity._links) &&
             <input type="hidden" name="path" ref={this.registerNode('path')}
-              value={this.props.clazz.path} />
+              defaultValue={this.props.clazz.path} />
           }
 
           {/* Provide self href for update flow so we know what to update. */}
 
-          {this.props.entity &&
+          {this.props.entity && this.props.entity._links &&
             <div>
               <input type="hidden" name="_links.self.href" ref={this.registerNode('_links.self.href')}
-                value={this.props.entity._links.self.href} />
+                defaultValue={this.props.entity._links.self.href} />
             </div>
           }
           <button type="submit" className="btn btn-primary" onClick={this.handleApply}>{label}</button>

@@ -39,7 +39,7 @@ class SequenceList extends React.Component{
     if (flowName === 'notation') {
       optionalArguments.onFetchComposition = this.props.onFetchComposition
       if (isEditEntry && this.props.collection.newEntities && this.props.collection.newEntities.notation) {
-        optionalArguments.newEntity = this.props.collection.newEntities.notation
+        optionalArguments.entity = this.props.collection.newEntities.notation
       }
     }
     return optionalArguments

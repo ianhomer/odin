@@ -86,7 +86,8 @@ export class Backend {
     try {
       const backend = yield getContext('backend')
       const composition = yield call(backend.fetchCompositionApi, action.notation)
-      yield put({type: FETCH_COMPOSITION_SUCCEEDED, entityName: action.entityName, composition})
+      yield put({type: FETCH_COMPOSITION_SUCCEEDED, entityName: action.entityName,
+        notation: action.notation, composition})
     } catch (e) {
       yield put({type: FETCH_COMPOSITION_FAILED, message: e.message})
     }

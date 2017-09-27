@@ -25,7 +25,7 @@
       "odin/(.*)": "<rootDir>/src/main/js/$1"
     },
     "testURL": "http://localhost:8080",
-    "setupFiles" : [
+    "setupFiles": [
       "<rootDir>/src/test/js/setup.js"
     ],
     "silent": true,

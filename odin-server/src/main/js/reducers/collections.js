@@ -52,7 +52,12 @@ function collectionsAtPath(state = { entities: [], newEntities: {} }, action) {
       // Store composition for new entity that is being created
       return Object.assign({}, state, {
         entities: state.entities.sort(comparator),
-        newEntities: { notation: { _composition : action.composition } }
+        newEntities: {
+          notation: {
+            properties: {notation: action.notation},
+            _composition : action.composition
+          }
+        }
       })
     } else {
       return Object.assign({}, state, {
