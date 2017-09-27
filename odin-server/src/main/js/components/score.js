@@ -184,8 +184,8 @@ class Score extends React.Component{
         <div>
           <span>
             <input type="text" placeholder={this.props.componentKey}
-              ref={this.props.componentRef} className="inline"
-              defaultValue={this.getNotation()}
+              ref={this.props.componentRef} className="inline notation"
+              value={this.getNotation()}
               onChange={this.handleChange}
               onKeyPress={this.props.onKeyPress}
               size={this.props.size}
@@ -198,7 +198,7 @@ class Score extends React.Component{
       return (
         <div>
           {this.props.displayText &&
-            <span>{this.getNotation()}</span>
+            <span className="notation">{this.getNotation()}</span>
           }
           <span id={this.getElementId()}/>
         </div>

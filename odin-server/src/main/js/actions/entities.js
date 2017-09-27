@@ -54,6 +54,7 @@ function getPathFromEntity(entity) {
 
 export const UPDATE_ENTITY_REQUESTED = 'UPDATE_ENTITY_REQUESTED'
 export function updateEntityRequested(entity) {
+  console.log(entity)
   return {
     type: UPDATE_ENTITY_REQUESTED,
     path : getPathFromEntity(entity),
