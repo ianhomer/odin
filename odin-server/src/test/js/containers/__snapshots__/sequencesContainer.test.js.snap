@@ -1866,10 +1866,10 @@ exports[`Sequences container Sequences container initialise 1`] = `
           />
         </div>
         <input
+          defaultValue="natural"
           key="format"
           name="format"
           type="hidden"
-          value="natural"
         />
         <div
           className="col-3"
@@ -1879,7 +1879,7 @@ exports[`Sequences container Sequences container initialise 1`] = `
             <span>
               <input
                 className="inline"
-                defaultValue={undefined}
+                defaultValue="C"
                 onChange={[Function]}
                 onKeyPress={[Function]}
                 placeholder="notation"
@@ -1938,10 +1938,10 @@ exports[`Sequences container Sequences container initialise 1`] = `
               />
             </div>
             <input
+              defaultValue="BEAT"
               key="tick.timeUnit"
               name="tick.timeUnit"
               type="hidden"
-              value="BEAT"
             />
           </div>
         </div>
@@ -1995,29 +1995,29 @@ exports[`Sequences container Sequences container initialise 1`] = `
             notation
           </span>
           <input
+            defaultValue="notation"
             name="flowName"
             type="hidden"
-            value="notation"
           />
         </div>
         <input
+          defaultValue=""
           key="layers"
           name="layers"
           type="hidden"
-          value=""
         />
         <div
           className="col-1"
         >
           <input
+            defaultValue="http://localhost:8080/api/project/1"
             name="project"
             type="hidden"
-            value="http://localhost:8080/api/project/1"
           />
           <input
+            defaultValue="sequence"
             name="path"
             type="hidden"
-            value="sequence"
           />
           <button
             className="btn btn-primary"
@@ -2109,10 +2109,10 @@ exports[`Sequences container Sequences container initialise 1`] = `
               />
             </div>
             <input
+              defaultValue={1}
               key="note.denominator"
               name="note.denominator"
               type="hidden"
-              value={1}
             />
           </div>
         </div>
@@ -2155,10 +2155,10 @@ exports[`Sequences container Sequences container initialise 1`] = `
               />
             </div>
             <input
+              defaultValue="BEAT"
               key="tick.timeUnit"
               name="tick.timeUnit"
               type="hidden"
-              value="BEAT"
             />
           </div>
         </div>
@@ -2212,29 +2212,29 @@ exports[`Sequences container Sequences container initialise 1`] = `
             pattern
           </span>
           <input
+            defaultValue="pattern"
             name="flowName"
             type="hidden"
-            value="pattern"
           />
         </div>
         <input
+          defaultValue=""
           key="layers"
           name="layers"
           type="hidden"
-          value=""
         />
         <div
           className="col-1"
         >
           <input
+            defaultValue="http://localhost:8080/api/project/1"
             name="project"
             type="hidden"
-            value="http://localhost:8080/api/project/1"
           />
           <input
+            defaultValue="sequence"
             name="path"
             type="hidden"
-            value="sequence"
           />
           <button
             className="btn btn-primary"
@@ -4116,10 +4116,10 @@ exports[`Sequences container Sequences container load 1`] = `
           />
         </div>
         <input
+          defaultValue="natural"
           key="format"
           name="format"
           type="hidden"
-          value="natural"
         />
         <div
           className="col-3"
@@ -4129,7 +4129,7 @@ exports[`Sequences container Sequences container load 1`] = `
             <span>
               <input
                 className="inline"
-                defaultValue={undefined}
+                defaultValue="C"
                 onChange={[Function]}
                 onKeyPress={[Function]}
                 placeholder="notation"
@@ -4188,10 +4188,10 @@ exports[`Sequences container Sequences container load 1`] = `
               />
             </div>
             <input
+              defaultValue="BEAT"
               key="tick.timeUnit"
               name="tick.timeUnit"
               type="hidden"
-              value="BEAT"
             />
           </div>
         </div>
@@ -4245,29 +4245,29 @@ exports[`Sequences container Sequences container load 1`] = `
             notation
           </span>
           <input
+            defaultValue="notation"
             name="flowName"
             type="hidden"
-            value="notation"
           />
         </div>
         <input
+          defaultValue=""
           key="layers"
           name="layers"
           type="hidden"
-          value=""
         />
         <div
           className="col-1"
         >
           <input
+            defaultValue="http://localhost:8080/api/project/1"
             name="project"
             type="hidden"
-            value="http://localhost:8080/api/project/1"
           />
           <input
+            defaultValue="sequence"
             name="path"
             type="hidden"
-            value="sequence"
           />
           <button
             className="btn btn-primary"
@@ -4359,10 +4359,10 @@ exports[`Sequences container Sequences container load 1`] = `
               />
             </div>
             <input
+              defaultValue={1}
               key="note.denominator"
               name="note.denominator"
               type="hidden"
-              value={1}
             />
           </div>
         </div>
@@ -4405,10 +4405,10 @@ exports[`Sequences container Sequences container load 1`] = `
               />
             </div>
             <input
+              defaultValue="BEAT"
               key="tick.timeUnit"
               name="tick.timeUnit"
               type="hidden"
-              value="BEAT"
             />
           </div>
         </div>
@@ -4462,29 +4462,29 @@ exports[`Sequences container Sequences container load 1`] = `
             pattern
           </span>
           <input
+            defaultValue="pattern"
             name="flowName"
             type="hidden"
-            value="pattern"
           />
         </div>
         <input
+          defaultValue=""
           key="layers"
           name="layers"
           type="hidden"
-          value=""
         />
         <div
           className="col-1"
         >
           <input
+            defaultValue="http://localhost:8080/api/project/1"
             name="project"
             type="hidden"
-            value="http://localhost:8080/api/project/1"
           />
           <input
+            defaultValue="sequence"
             name="path"
             type="hidden"
-            value="sequence"
           />
           <button
             className="btn btn-primary"
