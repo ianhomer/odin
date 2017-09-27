@@ -78,7 +78,7 @@ class Sequence extends React.Component {
         // View sequence
 
         <div className="row" onClick={this.toggleEditing}>
-          <div className="col-1">{sequence.name}</div>
+          <div className="col-1 property-name">{sequence.name}</div>
           <div className="col-3">{this.renderProperties(sequence)}</div>
           <div className="col-2 component">
             {sequence.tick ?
@@ -89,9 +89,9 @@ class Sequence extends React.Component {
               : <div className="warn">NULL tick</div>
             }
           </div>
-          <div className="col-1">{sequence.offset}</div>
-          <div className="col-1">{sequence.length}</div>
-          <div className="col-1">{sequence.channel}</div>
+          <div className="col-1 property-offset">{sequence.offset}</div>
+          <div className="col-1 property-length">{sequence.length}</div>
+          <div className="col-1 property-channel">{sequence.channel}</div>
           <div className="col-2">
             {sequence.flowName}
           </div>

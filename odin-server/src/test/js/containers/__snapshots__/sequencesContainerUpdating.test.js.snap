@@ -178,7 +178,7 @@ exports[`Sequences container renders OK 1`] = `
     onClick={[Function]}
   >
     <div
-      className="col-1"
+      className="col-1 property-name"
     >
       aahs-a
     </div>
@@ -225,7 +225,7 @@ exports[`Sequences container renders OK 1`] = `
       >
         <div>
           <span
-            className="notation"
+            className="property-notation"
           >
             C A C5/h C5/8
           </span>
@@ -258,17 +258,17 @@ exports[`Sequences container renders OK 1`] = `
       </Tick>
     </div>
     <div
-      className="col-1"
+      className="col-1 property-offset"
     >
       0
     </div>
     <div
-      className="col-1"
+      className="col-1 property-length"
     >
       -1
     </div>
     <div
-      className="col-1"
+      className="col-1 property-channel"
     >
       4
     </div>
@@ -642,13 +642,15 @@ exports[`Sequences container renders OK 2`] = `
         className="col-1"
       >
         <input
-          className="inline"
-          defaultValue="aahs-a"
+          className="inline property-name"
           maxLength={8}
+          name="name"
+          onChange={[Function]}
           onKeyPress={[Function]}
           placeholder="name"
           size={8}
           type="text"
+          value="aahs-a"
         />
       </div>
       <input
@@ -704,7 +706,8 @@ exports[`Sequences container renders OK 2`] = `
           <div>
             <span>
               <input
-                className="inline notation"
+                className="inline property-notation"
+                name="notation"
                 onChange={[Function]}
                 onKeyPress={[Function]}
                 placeholder="notation"
@@ -735,13 +738,15 @@ exports[`Sequences container renders OK 2`] = `
             className="col-6"
           >
             <input
-              className="inline"
-              defaultValue={1}
+              className="inline property-numerator"
               maxLength={1024}
+              name="tick.numerator"
+              onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="tick.numerator"
               size={3}
               type="text"
+              value={1}
             />
           </div>
           <div
@@ -751,13 +756,15 @@ exports[`Sequences container renders OK 2`] = `
               /
             </span>
             <input
-              className="inline"
-              defaultValue={1}
+              className="inline property-denominator"
               maxLength={1024}
+              name="tick.denominator"
+              onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="tick.denominator"
               size={3}
               type="text"
+              value={1}
             />
           </div>
           <input
@@ -771,8 +778,10 @@ exports[`Sequences container renders OK 2`] = `
         className="col-1"
       >
         <input
-          className="inline"
+          className="inline property-offset"
           maxLength={1024}
+          name="offset"
+          onChange={[Function]}
           onKeyPress={[Function]}
           placeholder="offset"
           size={3}
@@ -783,26 +792,30 @@ exports[`Sequences container renders OK 2`] = `
         className="col-1"
       >
         <input
-          className="inline"
-          defaultValue={-1}
+          className="inline property-length"
           maxLength={1024}
+          name="length"
+          onChange={[Function]}
           onKeyPress={[Function]}
           placeholder="length"
           size={3}
           type="text"
+          value={-1}
         />
       </div>
       <div
         className="col-1"
       >
         <input
-          className="inline"
-          defaultValue={4}
+          className="inline property-channel"
           maxLength={1024}
+          name="channel"
+          onChange={[Function]}
           onKeyPress={[Function]}
           placeholder="channel"
           size={3}
           type="text"
+          value={4}
         />
       </div>
       <div
@@ -812,6 +825,7 @@ exports[`Sequences container renders OK 2`] = `
           notation
         </span>
         <input
+          className="property-flowName"
           defaultValue="notation"
           name="flowName"
           type="hidden"
@@ -1248,13 +1262,15 @@ exports[`Sequences container renders OK 3`] = `
         className="col-1"
       >
         <input
-          className="inline"
-          defaultValue="aahs-a"
+          className="inline property-name"
           maxLength={8}
+          name="name"
+          onChange={[Function]}
           onKeyPress={[Function]}
           placeholder="name"
           size={8}
           type="text"
+          value="aahs-a"
         />
       </div>
       <input
@@ -1332,7 +1348,8 @@ exports[`Sequences container renders OK 3`] = `
           <div>
             <span>
               <input
-                className="inline notation"
+                className="inline property-notation"
+                name="notation"
                 onChange={[Function]}
                 onKeyPress={[Function]}
                 placeholder="notation"
@@ -1363,13 +1380,15 @@ exports[`Sequences container renders OK 3`] = `
             className="col-6"
           >
             <input
-              className="inline"
-              defaultValue={1}
+              className="inline property-numerator"
               maxLength={1024}
+              name="tick.numerator"
+              onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="tick.numerator"
               size={3}
               type="text"
+              value={1}
             />
           </div>
           <div
@@ -1379,13 +1398,15 @@ exports[`Sequences container renders OK 3`] = `
               /
             </span>
             <input
-              className="inline"
-              defaultValue={1}
+              className="inline property-denominator"
               maxLength={1024}
+              name="tick.denominator"
+              onChange={[Function]}
               onKeyPress={[Function]}
               placeholder="tick.denominator"
               size={3}
               type="text"
+              value={1}
             />
           </div>
           <input
@@ -1399,8 +1420,10 @@ exports[`Sequences container renders OK 3`] = `
         className="col-1"
       >
         <input
-          className="inline"
+          className="inline property-offset"
           maxLength={1024}
+          name="offset"
+          onChange={[Function]}
           onKeyPress={[Function]}
           placeholder="offset"
           size={3}
@@ -1411,26 +1434,30 @@ exports[`Sequences container renders OK 3`] = `
         className="col-1"
       >
         <input
-          className="inline"
-          defaultValue={-1}
+          className="inline property-length"
           maxLength={1024}
+          name="length"
+          onChange={[Function]}
           onKeyPress={[Function]}
           placeholder="length"
           size={3}
           type="text"
+          value={-1}
         />
       </div>
       <div
         className="col-1"
       >
         <input
-          className="inline"
-          defaultValue={4}
+          className="inline property-channel"
           maxLength={1024}
+          name="channel"
+          onChange={[Function]}
           onKeyPress={[Function]}
           placeholder="channel"
           size={3}
           type="text"
+          value={4}
         />
       </div>
       <div
@@ -1440,6 +1467,7 @@ exports[`Sequences container renders OK 3`] = `
           notation
         </span>
         <input
+          className="property-flowName"
           defaultValue="notation"
           name="flowName"
           type="hidden"
@@ -1654,7 +1682,7 @@ exports[`Sequences container renders OK 4`] = `
     onClick={[Function]}
   >
     <div
-      className="col-1"
+      className="col-1 property-name"
     >
       aahs-a
     </div>
@@ -1695,7 +1723,7 @@ exports[`Sequences container renders OK 4`] = `
       >
         <div>
           <span
-            className="notation"
+            className="property-notation"
           >
             C D E
           </span>
@@ -1728,15 +1756,15 @@ exports[`Sequences container renders OK 4`] = `
       </Tick>
     </div>
     <div
-      className="col-1"
+      className="col-1 property-offset"
     />
     <div
-      className="col-1"
+      className="col-1 property-length"
     >
       -1
     </div>
     <div
-      className="col-1"
+      className="col-1 property-channel"
     >
       4
     </div>

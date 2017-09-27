@@ -35,7 +35,7 @@ class Score extends React.Component{
       style: {height : this.props.height + 'px', width : this.props.width + 'px'}
     }
 
-    this.handleChange = this.handleChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   componentDidMount() {
@@ -50,7 +50,7 @@ class Score extends React.Component{
     }
   }
 
-  handleChange(event) {
+  handleInputChange(event) {
     try {
       this.setState({notation: event.target.value, count: this.state.count + 1})
       this.props.onFetchComposition(this.props.entity.name, event.target.value)
@@ -183,10 +183,10 @@ class Score extends React.Component{
       return (
         <div>
           <span>
-            <input type="text" placeholder={this.props.componentKey}
-              ref={this.props.componentRef} className="inline notation"
+            <input name="notation" type="text" className="inline property-notation"
+              placeholder={this.props.componentKey} ref={this.props.componentRef}
               value={this.getNotation()}
-              onChange={this.handleChange}
+              onChange={this.handleInputChange}
               onKeyPress={this.props.onKeyPress}
               size={this.props.size}
             />
@@ -198,7 +198,7 @@ class Score extends React.Component{
       return (
         <div>
           {this.props.displayText &&
-            <span className="notation">{this.getNotation()}</span>
+            <span className="property-notation">{this.getNotation()}</span>
           }
           <span id={this.getElementId()}/>
         </div>
@@ -216,7 +216,7 @@ Score.propTypes = {
   entity: PropTypes.shape({
     name: PropTypes.string,
     properties: PropTypes.shape({
-      notation: PropTypes.string.isRequired
+      notation: PropTypes.string
     }),
     _composition: PropTypes.object,
     _links: PropTypes.shape({

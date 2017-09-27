@@ -16,16 +16,28 @@
 
 const React = require('react')
 const PropTypes = require('prop-types')
+const objectPath = require('object-path')
 const Score = require('./score')
 
 // Edit an entity.
 class EditEntity extends React.Component{
   constructor(props) {
     super(props)
-
+    this.state = { properties: {}}
     this.nodes = {}
     this.handleKeyPress = this._handleKeyPress.bind(this)
     this.handleApply = this.handleApply.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+  }
+
+  handleInputChange(event) {
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const name = target.name
+    var properties = {}
+    objectPath.set(properties, name, value)
+    var newState = { properties : Object.assign({}, this.state.properties, properties)}
+    this.setState(newState)
   }
 
   handleApply(e) {
@@ -101,15 +113,18 @@ class EditEntity extends React.Component{
 
     var cellWidth = field.cellWidth || 1
     var cellClassName = 'col-' + cellWidth
-    var value
-    if (this.props.entity) {
-      value = clazz.getEntityValue(this.props.entity, key)
-      if (type == 'object') {
-        // TODO : Handle objects better than string serialisation
-        value = JSON.stringify(value)
+    var inputClassName = 'property-' + fieldName
+    var value = objectPath.get(this.state.properties, key)
+    if (value == null) {
+      if (this.props.entity) {
+        value = clazz.getEntityValue(this.props.entity, key)
+        if (type == 'object') {
+          // TODO : Handle objects better than string serialisation
+          value = JSON.stringify(value)
+        }
+      } else {
+        value = field.defaultValue
       }
-    } else {
-      value = field.defaultValue
     }
 
     // TODO : Do notation by field type NOT field name
@@ -135,7 +150,8 @@ class EditEntity extends React.Component{
         return (
           <div className={cellClassName} key={key}>
             <span>{value}</span>
-            <input type="hidden" name={key} ref={this.registerNode(key)} defaultValue={value} />
+            <input className={inputClassName}
+              type="hidden" name={key} ref={this.registerNode(key)} defaultValue={value} />
           </div>
         )
       }
@@ -143,8 +159,10 @@ class EditEntity extends React.Component{
       return (
         <div className={cellClassName} key={key}>
           {field.label && <span>{field.label}</span>}
-          <input type="text" placeholder={key} ref={this.registerNode(key)} className="inline"
-            defaultValue={value}
+          <input name={key} type="text" className={'inline ' + inputClassName}
+            placeholder={key} ref={this.registerNode(key)}
+            value={value}
+            onChange={this.handleInputChange}
             onKeyPress={this.handleKeyPress}
             size={size} maxLength={maxLength}
           />
