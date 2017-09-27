@@ -19,9 +19,10 @@ import { CREATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_SUCCEEDED,
 function getEntityFilter(action) {
   if (action.path === 'channel') {
     // Channels merge based on the channel number
-    return item => { return item.number != action.entity.number }
+    return entity => { return entity.number != action.entity.number }
   } else {
-    return item => { return item.name != action.entity.name }
+    return entity => { return entity._links.self.href != action.entity._links.self.href }
+    //return entity => { return entity.name != action.entity.name }
   }
 }
 
