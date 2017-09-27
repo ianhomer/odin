@@ -1271,7 +1271,7 @@ exports[`Sequences container renders OK 3`] = `
           placeholder="name"
           size={8}
           type="text"
-          value="aahs-a"
+          value="aahs-changed"
         />
       </div>
       <input
@@ -1581,7 +1581,7 @@ exports[`Sequences container renders OK 4`] = `
         "a",
       ],
       "length": -1,
-      "name": "aahs-a",
+      "name": "aahs-changed",
       "project": "http://localhost:8080/api/project/1",
       "properties": Object {
         "format": "natural",
@@ -1686,7 +1686,7 @@ exports[`Sequences container renders OK 4`] = `
     <div
       className="col-1 property-name"
     >
-      aahs-a
+      aahs-changed
     </div>
     <div
       className="col-3"
@@ -1706,7 +1706,7 @@ exports[`Sequences container renders OK 4`] = `
               "a",
             ],
             "length": -1,
-            "name": "aahs-a",
+            "name": "aahs-changed",
             "project": "http://localhost:8080/api/project/1",
             "properties": Object {
               "format": "natural",
