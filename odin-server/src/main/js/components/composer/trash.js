@@ -52,5 +52,5 @@ Trash.propTypes = {
 }
 
 module.exports = DropTarget(
-  [ ItemTypes.SEQUENCE_IN_LAYER, ItemTypes.LAYER ],
+  [ItemTypes.SEQUENCE_IN_LAYER, ItemTypes.LAYER],
   dropTarget, collect)(Trash)

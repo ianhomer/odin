@@ -190,4 +190,4 @@ Layer.propTypes = {
 }
 
 module.exports = DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
-  DropTarget([ ItemTypes.SEQUENCE, ItemTypes.LAYER], dropTarget, collectDrop)(Layer))
+  DropTarget([ItemTypes.SEQUENCE, ItemTypes.LAYER], dropTarget, collectDrop)(Layer))

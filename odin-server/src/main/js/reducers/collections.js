@@ -41,12 +41,12 @@ function collectionsAtPath(state = { entities: [], newEntities: {} }, action) {
     })
   case DELETE_ENTITY_SUCCEEDED:
     return Object.assign({}, state, {
-      entities: [ ...state.entities.filter(getEntityFilter(action)) ].sort(comparator)
+      entities: [...state.entities.filter(getEntityFilter(action))].sort(comparator)
     })
   case CREATE_ENTITY_SUCCEEDED:
   case UPDATE_ENTITY_SUCCEEDED:
     return Object.assign({}, state, {
-      entities: [ ...state.entities.filter(getEntityFilter(action)), action.entity ].sort(comparator)
+      entities: [...state.entities.filter(getEntityFilter(action)), action.entity].sort(comparator)
     })
   case FETCH_COMPOSITION_SUCCEEDED:
     if (action.entityName === undefined) {
@@ -62,13 +62,13 @@ function collectionsAtPath(state = { entities: [], newEntities: {} }, action) {
       })
     } else {
       return Object.assign({}, state, {
-        entities: [ ...state.entities.map(entity => {
+        entities: [...state.entities.map(entity => {
           // Add the composition object to the sequence entity
           if (action.entityName === entity.name) {
             entity._composition = action.composition
           }
           return entity
-        }) ].sort(comparator)
+        })].sort(comparator)
       })
     }
   default:
