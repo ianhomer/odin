@@ -56,7 +56,7 @@ export const UPDATE_ENTITY_REQUESTED = 'UPDATE_ENTITY_REQUESTED'
 export function updateEntityRequested(entity) {
   return {
     type: UPDATE_ENTITY_REQUESTED,
-    path : getPathFromEntity(entity),
+    path: getPathFromEntity(entity),
     entity
   }
 }
@@ -68,7 +68,7 @@ export const DELETE_ENTITY_REQUESTED = 'DELETE_ENTITY_REQUESTED'
 export function deleteEntityRequested(entity) {
   return {
     type: DELETE_ENTITY_REQUESTED,
-    path : getPathFromEntity(entity),
+    path: getPathFromEntity(entity),
     entity
   }
 }

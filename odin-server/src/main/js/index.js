@@ -34,7 +34,7 @@ const backend = new Backend()
 // passed in as context for the saga middleware so that we can inject the backend API calls in.
 // Injecting backend API calls in is required for switching in different backends as required
 // for test cases which need a mock backend.
-const sagaMiddleware = createSagaMiddleware({context: {backend : backend}})
+const sagaMiddleware = createSagaMiddleware({context: {backend: backend}})
 
 // Create the application store
 const store = createStore(
@@ -42,7 +42,7 @@ const store = createStore(
   applyMiddleware(
     thunkMiddleware,
     sagaMiddleware,
-    createLogger({collapsed : true})
+    createLogger({collapsed: true})
   )
 )
 

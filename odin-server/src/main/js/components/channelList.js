@@ -59,17 +59,17 @@ class ChannelList extends React.Component{
 ChannelList.defaultProps = {
   path: 'channel',
   fields: {
-    'number' : {
-      defaultValue : 1,
-      cellWidth : 2
+    'number': {
+      defaultValue: 1,
+      cellWidth: 2
     },
-    'programName' : {
-      defaultValue : 'piano',
-      cellWidth : 3
+    'programName': {
+      defaultValue: 'piano',
+      cellWidth: 3
     },
-    'program' : {
-      defaultValue : 0,
-      hidden : true
+    'program': {
+      defaultValue: 0,
+      hidden: true
     }
   }
 }
@@ -79,8 +79,8 @@ ChannelList.propTypes = {
   fields: PropTypes.object.isRequired,
   onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  path : PropTypes.string.isRequired,
-  project : PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
+  project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

@@ -31,14 +31,14 @@ const root = '/api'
 // 'links' are set in this.state.
 
 module.exports = {
-  bindMe : function(that) {
+  bindMe: function(that) {
     that.loadFromServer = this.loadFromServer.bind(that)
     that.onDelete = this.onDelete.bind(that)
     that.onCreate = this.onCreate.bind(that)
     that.onUpdate = this.onUpdate.bind(that)
   },
 
-  loadFromServer : function(path = this.props.path,
+  loadFromServer: function(path = this.props.path,
     onLoaded = (entities) => { this.setState({entities: entities}) }) {
     follow(client, root, [{rel: path}]).done(collection => {
       var entities = []
@@ -66,7 +66,7 @@ module.exports = {
   },
 
   // Create entity via REST API.
-  onCreate : function(entity, path, onSuccess = () => { this.loadFromServer() }) {
+  onCreate: function(entity, path, onSuccess = () => { this.loadFromServer() }) {
     follow(client, root, [path]).then(entities => {
       return client({
         method: 'POST',
@@ -80,7 +80,7 @@ module.exports = {
   },
 
   // Patch entity via REST API.
-  onPatch : function(href, patch, callback) {
+  onPatch: function(href, patch, callback) {
     client({
       method: 'PATCH',
       path: href,
@@ -106,7 +106,7 @@ module.exports = {
   },
 
   // Update entity via REST API.
-  onUpdate : function(entity) {
+  onUpdate: function(entity) {
     client({
       method: 'PUT',
       path: entity._links.self.href,
@@ -131,7 +131,7 @@ module.exports = {
     })
   },
 
-  onDelete : function(entity) {
+  onDelete: function(entity) {
     client({method: 'DELETE', path: entity._links.self.href}).done(_response => {
       this.loadFromServer()
     })

@@ -29,7 +29,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      schema : this.createNewSchema(props)
+      schema: this.createNewSchema(props)
     }
 
     this.renderProject = this.renderProject.bind(this)

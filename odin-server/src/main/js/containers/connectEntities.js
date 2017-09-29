@@ -5,7 +5,7 @@ import { createEntityRequested, deleteEntityRequested,
 // Curry mapStateToProps with path value
 function mapStateToProps(path) {
   return function(state) {
-    const collection = state.collections[path] ? state.collections[path] : { entities : [] }
+    const collection = state.collections[path] ? state.collections[path] : { entities: [] }
 
     return {
       collection
@@ -15,7 +15,7 @@ function mapStateToProps(path) {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onCreate : (entity, path) => {
+    onCreate: (entity, path) => {
       dispatch(createEntityRequested(entity, path))
     },
     onDelete: entity => {
@@ -24,7 +24,7 @@ export function mapDispatchToProps(dispatch) {
     onUpdate: entity => {
       dispatch(updateEntityRequested(entity))
     },
-    onLoadEntities : (path, schema) => {
+    onLoadEntities: (path, schema) => {
       dispatch(loadEntitiesRequested(path, schema))
     }
   }

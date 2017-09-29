@@ -32,7 +32,7 @@ class Score extends React.Component{
       // Store dimensions of score element as state.  Note that at some point the server
       // may suggest alternative dimensions and when it does this style in the state should
       // be updated.
-      style: {height : this.props.height + 'px', width : this.props.width + 'px'}
+      style: {height: this.props.height + 'px', width: this.props.width + 'px'}
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -92,7 +92,7 @@ class Score extends React.Component{
   componentWillReceiveProps(nextProps) {
     if (nextProps.entity.properties && nextProps.entity.properties.notation === this.state.notation) {
       // If notation has been persisted then we can clear the state setting
-      this.setState({notation:null})
+      this.setState({notation: null})
     }
   }
 

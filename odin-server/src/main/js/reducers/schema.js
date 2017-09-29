@@ -25,7 +25,7 @@ function profiles(state = {}, action) {
   }
 }
 
-function schema(state = { revision : 0 }, action) {
+function schema(state = { revision: 0 }, action) {
   switch (action.type) {
   case LOAD_PROJECT_SCHEMA_SUCCEEDED:
     return Object.assign({}, state, {

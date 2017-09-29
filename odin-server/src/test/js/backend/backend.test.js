@@ -5,7 +5,7 @@ describe('actions', () => {
   const backend = new MockBackend()
 
   test('Create URL', () => {
-    const uri = withQuery('/test', {a:1, b:2})
+    const uri = withQuery('/test', {a: 1, b: 2})
     expect(uri).toBe('/test?a=1&b=2')
   })
 

@@ -46,36 +46,36 @@ Pattern.propTypes = Sequence.propTypes
 Pattern.defaultProps = {
   path: 'pattern',
   fields: {
-    'name' : { size : 8, maxLength : 8},
-    'bits' : { defaultValue : 1 },
-    'note' : {
-      cellWidth : 2,
-      fields : {
-        'number' : {defaultValue : 60, cellWidth : 4, maxLength : 3},
-        'velocity' : {defaultValue : 100, cellWidth : 4, maxLength : 3},
-        'numerator' : {defaultValue : 1, cellWidth : 4},
-        'denominator' : {defaultValue : 1, hidden : true}
+    'name': { size: 8, maxLength: 8},
+    'bits': { defaultValue: 1 },
+    'note': {
+      cellWidth: 2,
+      fields: {
+        'number': {defaultValue: 60, cellWidth: 4, maxLength: 3},
+        'velocity': {defaultValue: 100, cellWidth: 4, maxLength: 3},
+        'numerator': {defaultValue: 1, cellWidth: 4},
+        'denominator': {defaultValue: 1, hidden: true}
       }
     },
-    'tick' : {
-      cellWidth : 2,
-      fields : {
-        'numerator' : {defaultValue : 1, cellWidth : 6},
-        'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
-        'timeUnit' : {defaultValue : 'BEAT', hidden : true}
+    'tick': {
+      cellWidth: 2,
+      fields: {
+        'numerator': {defaultValue: 1, cellWidth: 6},
+        'denominator': {defaultValue: 1, cellWidth: 6, label: '/'},
+        'timeUnit': {defaultValue: 'BEAT', hidden: true}
       }
     },
-    'offset' : { defaultValue : 0 },
-    'length' : { defaultValue : -1 },
-    'channel' : { defaultValue : 1 },
-    'flowName' : {
-      cellWidth : 2,
-      defaultValue : 'pattern',
-      readOnly : true
+    'offset': { defaultValue: 0 },
+    'length': { defaultValue: -1 },
+    'channel': { defaultValue: 1 },
+    'flowName': {
+      cellWidth: 2,
+      defaultValue: 'pattern',
+      readOnly: true
     },
-    'layers' : {
-      defaultValue : '',
-      hidden : true
+    'layers': {
+      defaultValue: '',
+      hidden: true
     }
   }
 }

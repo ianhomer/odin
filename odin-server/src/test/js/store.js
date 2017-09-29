@@ -15,13 +15,13 @@ function lastAction(state = null, action) {  // eslint-disable-line no-unused-va
 reducers.lastAction = lastAction
 
 const backend = new MockBackend()
-const sagaMiddleware = createSagaMiddleware({context: {backend : backend}})
+const sagaMiddleware = createSagaMiddleware({context: {backend: backend}})
 const store = createStore(
   combineReducers(reducers),
   applyMiddleware(
     thunkMiddleware,
     sagaMiddleware,
-    createLogger({collapsed : false, timestamp : true, colors : {action : false}})
+    createLogger({collapsed: false, timestamp: true, colors: {action: false}})
   )
 )
 sagaMiddleware.run(backend.saga)

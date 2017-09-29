@@ -32,11 +32,11 @@ class Sequence extends React.Component {
   }
 
   _toggleEditing() {
-    this.setState({editing : this.props.entity._links.self.href})
+    this.setState({editing: this.props.entity._links.self.href})
   }
 
   _toggleEditingOff() {
-    this.setState({editing : null})
+    this.setState({editing: null})
   }
 
   _onApply(entity) {
@@ -118,26 +118,26 @@ Sequence.propTypes = {
 Sequence.defaultProps = {
   path: 'sequence',
   fields: {
-    'name' : { size : 8, maxLength : 8},
-    'properties' : { cellWidth : 3 },
-    'tick' : {
-      cellWidth : 2,
-      fields : {
-        'numerator' : {defaultValue : 1, cellWidth : 6},
-        'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
-        'timeUnit' : {defaultValue : 'BEAT', hidden : true}
+    'name': { size: 8, maxLength: 8},
+    'properties': { cellWidth: 3 },
+    'tick': {
+      cellWidth: 2,
+      fields: {
+        'numerator': {defaultValue: 1, cellWidth: 6},
+        'denominator': {defaultValue: 1, cellWidth: 6, label: '/'},
+        'timeUnit': {defaultValue: 'BEAT', hidden: true}
       }
     },
-    'offset' : { defaultValue : 0 },
-    'length' : { defaultValue : -1 },
-    'channel' : { defaultValue : 1 },
-    'flowName' : {
-      cellWidth : 2,
-      defaultValue : 'pattern'
+    'offset': { defaultValue: 0 },
+    'length': { defaultValue: -1 },
+    'channel': { defaultValue: 1 },
+    'flowName': {
+      cellWidth: 2,
+      defaultValue: 'pattern'
     },
-    'layers' : {
-      defaultValue : '',
-      hidden : true
+    'layers': {
+      defaultValue: '',
+      hidden: true
     }
   }
 }

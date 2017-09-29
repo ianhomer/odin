@@ -1,5 +1,5 @@
 export function dispatchAndExpect(store, done, waitForActionType, action, assertion) {
-  var asserter = { executed : false }
+  var asserter = { executed: false }
   var waitForActionTypes = waitForActionType instanceof Array
     ? [...waitForActionType] : [waitForActionType]
   asserter.unsubscribe = store.subscribe(() => {

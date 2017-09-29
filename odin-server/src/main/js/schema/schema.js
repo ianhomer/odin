@@ -27,7 +27,7 @@ const _schema = new WeakMap()
 export class Schema {
   constructor(schema, flux = {}) {
     // ajv is a private property
-    _ajv.set(this, new Ajv({extendRefs : true}))
+    _ajv.set(this, new Ajv({extendRefs: true}))
     this.getAjv().addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
     // schema is a private property
     _schema.set(this, schema)

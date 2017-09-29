@@ -48,35 +48,35 @@ Notation.propTypes = Object.assign({}, Sequence.propTypes,
 Notation.defaultProps = {
   path: 'notation',
   fields: {
-    'name' : { size : 8, maxLength : 8},
-    'format' : {
-      cellWidth : 1,
-      defaultValue : 'natural',
-      hidden : true
+    'name': { size: 8, maxLength: 8},
+    'format': {
+      cellWidth: 1,
+      defaultValue: 'natural',
+      hidden: true
     },
-    'notation' : {
-      cellWidth : 3,
-      defaultValue : 'C'
+    'notation': {
+      cellWidth: 3,
+      defaultValue: 'C'
     },
-    'tick' : {
-      cellWidth : 2,
-      fields : {
-        'numerator' : {defaultValue : 1, cellWidth : 6},
-        'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
-        'timeUnit' : {defaultValue : 'BEAT', hidden : true}
+    'tick': {
+      cellWidth: 2,
+      fields: {
+        'numerator': {defaultValue: 1, cellWidth: 6},
+        'denominator': {defaultValue: 1, cellWidth: 6, label: '/'},
+        'timeUnit': {defaultValue: 'BEAT', hidden: true}
       }
     },
-    'offset' : { defaultValue : 0},
-    'length' : {defaultValue : -1},
-    'channel' : { defaultValue : 1},
-    'flowName' : {
-      cellWidth : 2,
-      defaultValue : 'notation',
-      readOnly : true
+    'offset': { defaultValue: 0},
+    'length': {defaultValue: -1},
+    'channel': { defaultValue: 1},
+    'flowName': {
+      cellWidth: 2,
+      defaultValue: 'notation',
+      readOnly: true
     },
-    'layers' : {
-      defaultValue : '',
-      hidden : true
+    'layers': {
+      defaultValue: '',
+      hidden: true
     }
   }
 }

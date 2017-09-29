@@ -28,10 +28,10 @@ const SequenceInLayer = require('./sequenceInLayer')
 const dragSource = {
   beginDrag(props) {
     return {
-      onChange : props.onChange,
-      entity : props.entity,
-      parent : props.parent,
-      type : ItemTypes.LAYER
+      onChange: props.onChange,
+      entity: props.entity,
+      parent: props.parent,
+      type: ItemTypes.LAYER
     }
   },
 
@@ -55,10 +55,10 @@ const dragSource = {
 const dropTarget = {
   drop(props) {
     return {
-      action : 'move',
-      entity : props.entity,
-      sequences : props.sequences,
-      isOverCurrent : props.isOverCurrent
+      action: 'move',
+      entity: props.entity,
+      sequences: props.sequences,
+      isOverCurrent: props.isOverCurrent
     }
   },
 
@@ -131,9 +131,9 @@ class Layer extends React.Component{
         if (layerName == this.props.entity.name) {
           // Push a sequence object onto the array with enough information to handle change
           sequencesInLayer.push({
-            name : sequence.name,
-            index : j,
-            href : sequence._links.self.href
+            name: sequence.name,
+            index: j,
+            href: sequence._links.self.href
           })
         }
       }

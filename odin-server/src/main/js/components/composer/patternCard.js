@@ -28,9 +28,9 @@ const CardLayers = require('./cardLayers')
 const dropSource = {
   beginDrag(props) {
     return {
-      onChange : props.onChange,
-      entity : props.entity,
-      type : ItemTypes.SEQUENCE
+      onChange: props.onChange,
+      entity: props.entity,
+      type: ItemTypes.SEQUENCE
     }
   },
 

@@ -56,7 +56,7 @@ function collectionsAtPath(state = { entities: [], newEntities: {} }, action) {
         newEntities: {
           notation: {
             properties: {notation: action.notation},
-            _composition : action.composition
+            _composition: action.composition
           }
         }
       })

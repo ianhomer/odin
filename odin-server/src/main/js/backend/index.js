@@ -32,10 +32,10 @@ const root = '/api'
 export class Backend {
   createEntityApi(entity, path) {
     return fetch(root + '/' + path, {
-      method : 'POST',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }, body : JSON.stringify(entity)
+      }, body: JSON.stringify(entity)
     })
       .then(response => response.json())
   }
@@ -53,10 +53,10 @@ export class Backend {
 
   updateEntityApi(entity) {
     return fetch(entity._links.self.href, {
-      method : 'PUT',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
-      }, body : JSON.stringify(entity)
+      }, body: JSON.stringify(entity)
     })
       .then(response => response.json())
   }
@@ -74,7 +74,7 @@ export class Backend {
 
   fetchCompositionApi(notation) {
     return fetch(withQuery('/services/composition', {notation}), {
-      method : 'GET',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -101,7 +101,7 @@ export class Backend {
 
   deleteEntityApi(entity) {
     return fetch(entity._links.self.href, {
-      method : 'DELETE',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -121,7 +121,7 @@ export class Backend {
 
   loadEntitiesApi(path) {
     return fetch(root + '/' + path, {
-      method : 'GET',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -145,7 +145,7 @@ export class Backend {
 
   loadProjectSchemaApi() {
     return fetch('/services/schema', {
-      method : 'GET',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -165,7 +165,7 @@ export class Backend {
 
   loadProfileSchemaApi(path) {
     return fetch(root + '/profile/' + path, {
-      method : 'GET',
+      method: 'GET',
       headers: {
         'Accept': 'application/schema+json'
       }

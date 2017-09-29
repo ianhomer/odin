@@ -34,7 +34,7 @@ class SequencesContainer extends EntitiesContainer {
 
 function sequenceMapDispatchToProps(dispatch) {
   return Object.assign({}, mapDispatchToProps(dispatch), {
-    onFetchComposition : (entityName, notation) => {
+    onFetchComposition: (entityName, notation) => {
       dispatch(fetchCompositionRequested(entityName, notation))
     }
   })

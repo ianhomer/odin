@@ -26,11 +26,11 @@ import { ItemTypes } from '../../constants.js'
 const cardSource = {
   beginDrag(props) {
     return {
-      name : props.name,
-      layerIndex : props.layerIndex,
-      href : props.href,
+      name: props.name,
+      layerIndex: props.layerIndex,
+      href: props.href,
       // One day we might use Redux to manage application state, for now we'll pass in onChange functions
-      onChange : props.onChange
+      onChange: props.onChange
     }
   },
 

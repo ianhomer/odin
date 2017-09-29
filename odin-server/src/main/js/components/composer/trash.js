@@ -21,7 +21,7 @@ import { DropTarget } from 'react-dnd'
 
 const dropTarget = {
   drop() {
-    return { action : 'remove' }
+    return { action: 'remove' }
   }
 }
 
