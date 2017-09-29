@@ -58,7 +58,7 @@ class Developer extends React.Component{
     this.props.flux.client({
       method: 'POST',
       path: '/loggers/' + category,
-      entity: { configuredLevel: level },
+      entity: {configuredLevel: level},
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ class Developer extends React.Component{
       path: '/loggers',
       headers: {'Accept': 'application/json'}
     }).then(response => {
-      this.setState( { loggers: response.entity.loggers } )
+      this.setState( {loggers: response.entity.loggers} )
     }).catch(reason => {
       console.error(reason)
     })

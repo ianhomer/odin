@@ -1,5 +1,5 @@
-import { MockFlux } from './flux/mockFlux.js'
-import { Schema } from 'odin/schema/schema'
+import {MockFlux} from './flux/mockFlux.js'
+import {Schema} from 'odin/schema/schema'
 
 import testSchemaJson from './data/schema.json'
 import testProjectJson from './data/project.json'

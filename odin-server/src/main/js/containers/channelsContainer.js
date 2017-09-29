@@ -16,7 +16,7 @@
 
 import EntitiesContainer from './entitiesContainer'
 import ChannelList from '../components/channelList'
-import { connectEntities } from './connectEntities'
+import {connectEntities} from './connectEntities'
 
 class ChannelsContainer extends EntitiesContainer {
   constructor(props) {

@@ -1,5 +1,5 @@
-import { MockBackend } from './mock.js'
-import { withQuery } from 'odin/backend/withQuery'
+import {MockBackend} from './mock.js'
+import {withQuery} from 'odin/backend/withQuery'
 
 describe('actions', () => {
   const backend = new MockBackend()

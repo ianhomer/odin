@@ -17,8 +17,8 @@
 const React = require('react')
 import PropTypes from 'prop-types'
 
-import { DragSource } from 'react-dnd'
-import { ItemTypes } from '../../constants.js'
+import {DragSource} from 'react-dnd'
+import {ItemTypes} from '../../constants.js'
 
 const CardLayers = require('./cardLayers')
 
@@ -70,10 +70,10 @@ class PatternCard extends React.Component{
   }
 
   render() {
-    const { isDragging, connectDragSource } = this.props
+    const {isDragging, connectDragSource} = this.props
     return connectDragSource(
       // View card
-      <div className="sequence card" style={{ opacity: isDragging ? 0.5 : 1 }}>
+      <div className="sequence card" style={{opacity: isDragging ? 0.5 : 1}}>
         <header>{this.state.entity.name}</header>
         <div className="content">{this.state.entity.bits}</div>
         <footer><CardLayers entity={this.state.entity}/></footer>

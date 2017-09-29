@@ -95,7 +95,7 @@ class LayerList extends React.Component{
       return <div key={layer.name}>(recursive : {layer.name})</div>
     }
     stack.push(layer.name)
-    var component = 
+    var component =
       <Layer entity={layer} layers={layers} sequences={sequences}
         parent={parentLayer} flux={this.props.flux}
         key={layer.name}
@@ -111,7 +111,7 @@ class LayerList extends React.Component{
           }
         })}
       </Layer>
-    
+
     stack.pop()
     return component
   }

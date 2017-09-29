@@ -146,7 +146,7 @@ class Score extends React.Component{
       var measure = composition.measures[i]
 
       var width = 200
-      var system = vf.System({ x: x, y: y, width: width, spaceBetweenStaves: 10 })
+      var system = vf.System({x: x, y: y, width: width, spaceBetweenStaves: 10})
       x += width
 
       // Render stave

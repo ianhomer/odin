@@ -13,19 +13,19 @@
 // limitations under the License.
 
 import React from 'react'
-import { render } from 'react-dom'
+import {render} from 'react-dom'
 
 import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger'
-import { applyMiddleware, combineReducers, createStore } from 'redux'
+import {createLogger} from 'redux-logger'
+import {applyMiddleware, combineReducers, createStore} from 'redux'
 import 'babel-polyfill'
 import createSagaMiddleware from 'redux-saga'
 
 import App from './containers/app'
 import reducers from './reducers'
-import { Flux } from './legacy/flux'
-import { Backend } from './backend'
-import { loadSchemaActions } from './actions'
+import {Flux} from './legacy/flux'
+import {Backend} from './backend'
+import {loadSchemaActions} from './actions'
 
 // Create the backend integration layer
 const backend = new Backend()

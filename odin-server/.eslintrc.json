@@ -38,6 +38,8 @@
     "no-console": [ "error", { "allow": [ "warn", "error" ] } ],
     "no-unused-expressions": "error",
     "no-unused-vars": [ "error", { "argsIgnorePattern": "^_" }],
+    "no-trailing-spaces": "error",
+    "object-curly-spacing": "error",
     "quotes": ["error", "single"],
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": "error",

@@ -23,7 +23,7 @@ const Score = require('./score')
 class EditEntity extends React.Component{
   constructor(props) {
     super(props)
-    this.state = { properties: {}}
+    this.state = {properties: {}}
     this.nodes = {}
     this.handleKeyPress = this._handleKeyPress.bind(this)
     this.handleApply = this.handleApply.bind(this)
@@ -36,7 +36,7 @@ class EditEntity extends React.Component{
     const name = target.name
     var properties = {}
     objectPath.set(properties, name, value)
-    var newState = { properties: Object.assign({}, this.state.properties, properties)}
+    var newState = {properties: Object.assign({}, this.state.properties, properties)}
     this.setState(newState)
   }
 
@@ -131,11 +131,11 @@ class EditEntity extends React.Component{
     if (fieldName == 'notation') {
       var scoreEntity = this.props.entity ?
         this.props.entity :
-        { properties: { notation: value } }
+        {properties: {notation: value}}
       if (this.state.properties.notation) {
         // Merge change notation into entity used to render score
         scoreEntity = Object.assign({}, scoreEntity, {
-          properties: Object.assign({}, scoreEntity.properties, { notation: this.state.properties.notation})
+          properties: Object.assign({}, scoreEntity.properties, {notation: this.state.properties.notation})
         })
       }
       return (

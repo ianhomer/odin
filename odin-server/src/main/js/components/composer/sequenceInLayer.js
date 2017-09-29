@@ -17,8 +17,8 @@
 const React = require('react')
 
 import PropTypes from 'prop-types'
-import { DragSource } from 'react-dnd'
-import { ItemTypes } from '../../constants.js'
+import {DragSource} from 'react-dnd'
+import {ItemTypes} from '../../constants.js'
 
 /**
  * Implements the drag source contract.
@@ -64,10 +64,10 @@ const propTypes = {
 // Sequence in layer.
 class SequenceInLayer extends React.Component{
   render() {
-    const { isDragging, connectDragSource, name } = this.props
+    const {isDragging, connectDragSource, name} = this.props
     return connectDragSource(
       // View card
-      <div className="sequenceInLayer" style={{ opacity: isDragging ? 0.5 : 1 }}>
+      <div className="sequenceInLayer" style={{opacity: isDragging ? 0.5 : 1}}>
         {name}
       </div>
     )

@@ -16,8 +16,8 @@
 
 import EntitiesContainer from './entitiesContainer'
 import SequenceList from '../components/sequenceList'
-import { connectEntities, mapDispatchToProps } from './connectEntities'
-import { fetchCompositionRequested } from '../actions'
+import {connectEntities, mapDispatchToProps} from './connectEntities'
+import {fetchCompositionRequested} from '../actions'
 
 class SequencesContainer extends EntitiesContainer {
   constructor(props) {

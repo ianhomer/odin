@@ -1,10 +1,10 @@
 import TIMEOUT from '../constants.js'
 
-import { CREATE_ENTITY_SUCCEEDED, FETCH_COMPOSITION_SUCCEEDED,
-  createEntityRequested } from 'odin/actions/index.js'
+import {CREATE_ENTITY_SUCCEEDED, FETCH_COMPOSITION_SUCCEEDED,
+  createEntityRequested} from 'odin/actions/index.js'
 
 import store from '../store'
-import { dispatchAndExpect } from '../utils/dispatchAndExpect'
+import {dispatchAndExpect} from '../utils/dispatchAndExpect'
 
 describe('async actions', () => {
   test('Initial State', () => {
@@ -13,7 +13,7 @@ describe('async actions', () => {
 
   test('Create Notation 1', done => {
     dispatchAndExpect(store, done, [CREATE_ENTITY_SUCCEEDED, FETCH_COMPOSITION_SUCCEEDED],
-      () => createEntityRequested({ name: 'notation-1', flowName: 'notation', number: 1}, 'sequence'),
+      () => createEntityRequested({name: 'notation-1', flowName: 'notation', number: 1}, 'sequence'),
       () => {
         const sequences = store.getState().collections['sequence'].entities
         expect(sequences.length).toBe(1)

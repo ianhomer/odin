@@ -1,9 +1,9 @@
 import React from 'react'
 import ChannelsContainer from 'odin/containers/channelsContainer.js'
-import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
+import {Provider} from 'react-redux'
+import {mount} from 'enzyme'
 
-import { mockFlux, testProject, testSchema } from '../testData.js'
+import {mockFlux, testProject, testSchema} from '../testData.js'
 import store from '../store'
 
 test('Channels container renders OK', () => {

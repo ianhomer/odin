@@ -118,8 +118,8 @@ Sequence.propTypes = {
 Sequence.defaultProps = {
   path: 'sequence',
   fields: {
-    'name': { size: 8, maxLength: 8},
-    'properties': { cellWidth: 3 },
+    'name': {size: 8, maxLength: 8},
+    'properties': {cellWidth: 3},
     'tick': {
       cellWidth: 2,
       fields: {
@@ -128,9 +128,9 @@ Sequence.defaultProps = {
         'timeUnit': {defaultValue: 'BEAT', hidden: true}
       }
     },
-    'offset': { defaultValue: 0 },
-    'length': { defaultValue: -1 },
-    'channel': { defaultValue: 1 },
+    'offset': {defaultValue: 0},
+    'length': {defaultValue: -1},
+    'channel': {defaultValue: 1},
     'flowName': {
       cellWidth: 2,
       defaultValue: 'pattern'

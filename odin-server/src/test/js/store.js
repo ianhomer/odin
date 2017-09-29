@@ -1,10 +1,10 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux'
+import {applyMiddleware, combineReducers, createStore} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import thunkMiddleware from 'redux-thunk'
 
-import { MockBackend } from './backend/mock.js'
+import {MockBackend} from './backend/mock.js'
 import reducers from 'odin/reducers/index.js'
-import { createLogger } from 'redux-logger'
+import {createLogger} from 'redux-logger'
 
 // Save last action in store so that dispatch and expect functionality can wait
 // the appropriate action before applying the assertion.

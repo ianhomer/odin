@@ -17,10 +17,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { connect, Provider } from 'react-redux'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {connect, Provider} from 'react-redux'
 
-import { Schema } from '../schema/schema'
+import {Schema} from '../schema/schema'
 
 import Project from './project'
 const Developer = require('../components/developer/developer')

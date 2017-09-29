@@ -14,7 +14,7 @@
 
 
 
-import { call, put, takeEvery, getContext } from 'redux-saga/effects'
+import {call, put, takeEvery, getContext} from 'redux-saga/effects'
 import fetch from 'isomorphic-fetch'
 import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED, CREATE_ENTITY_FAILED,
@@ -25,7 +25,7 @@ import {
   LOAD_PROJECT_SCHEMA_REQUESTED, LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_FAILED,
   LOAD_PROFILE_SCHEMA_REQUESTED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_FAILED
 } from '../actions'
-import { withQuery } from './withQuery'
+import {withQuery} from './withQuery'
 
 const root = '/api'
 

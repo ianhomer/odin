@@ -16,7 +16,7 @@
 
 const Ajv = require('ajv')
 
-import { Clazz } from './clazz'
+import {Clazz} from './clazz'
 
 const root = '/api'
 const _ajv = new WeakMap()

@@ -15,7 +15,7 @@
 
 
 const React = require('react')
-import { DragDropContext } from 'react-dnd'
+import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 const PropTypes = require('prop-types')
 
@@ -60,7 +60,7 @@ class Composer extends React.Component{
   handleAddLayer(destination, layer, callback = this.handleChange) {
     this.onPatch(destination._links.self.href,
       [
-        { op: 'add', path: '/layers/-', value: layer.name }
+        {op: 'add', path: '/layers/-', value: layer.name}
       ], callback)
   }
 
@@ -75,9 +75,9 @@ class Composer extends React.Component{
         this.onPatch(destination._links.self.href,
           [
             // Test layer at given index in array is the as expected on server
-            { op: 'test', path: layerPath, value: layer.name },
+            {op: 'test', path: layerPath, value: layer.name},
             // ... then remove it.
-            { op: 'remove', path: layerPath  }
+            {op: 'remove', path: layerPath}
           ], callback)
       } else {
         console.warn('Cannot find ' + JSON.stringify(layer) + ' in '

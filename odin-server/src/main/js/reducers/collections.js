@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { CREATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_SUCCEEDED,
+import {CREATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_SUCCEEDED,
   DELETE_ENTITY_SUCCEEDED, LOAD_ENTITIES_SUCCEEDED,
-  FETCH_COMPOSITION_SUCCEEDED } from '../actions'
+  FETCH_COMPOSITION_SUCCEEDED} from '../actions'
 
 function getEntityFilter(action) {
   if (action.path === 'channel') {
@@ -33,7 +33,7 @@ function comparator(a, b) {
   return a.name > b.name ? 1 : 0
 }
 
-function collectionsAtPath(state = { entities: [], newEntities: {} }, action) {
+function collectionsAtPath(state = {entities: [], newEntities: {}}, action) {
   switch (action.type) {
   case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {

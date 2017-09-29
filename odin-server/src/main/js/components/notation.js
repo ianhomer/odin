@@ -48,7 +48,7 @@ Notation.propTypes = Object.assign({}, Sequence.propTypes,
 Notation.defaultProps = {
   path: 'notation',
   fields: {
-    'name': { size: 8, maxLength: 8},
+    'name': {size: 8, maxLength: 8},
     'format': {
       cellWidth: 1,
       defaultValue: 'natural',
@@ -66,9 +66,9 @@ Notation.defaultProps = {
         'timeUnit': {defaultValue: 'BEAT', hidden: true}
       }
     },
-    'offset': { defaultValue: 0},
+    'offset': {defaultValue: 0},
     'length': {defaultValue: -1},
-    'channel': { defaultValue: 1},
+    'channel': {defaultValue: 1},
     'flowName': {
       cellWidth: 2,
       defaultValue: 'notation',

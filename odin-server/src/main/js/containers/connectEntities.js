@@ -1,11 +1,11 @@
-import { connect } from 'react-redux'
-import { createEntityRequested, deleteEntityRequested,
-  updateEntityRequested, loadEntitiesRequested } from '../actions'
+import {connect} from 'react-redux'
+import {createEntityRequested, deleteEntityRequested,
+  updateEntityRequested, loadEntitiesRequested} from '../actions'
 
 // Curry mapStateToProps with path value
 function mapStateToProps(path) {
   return function(state) {
-    const collection = state.collections[path] ? state.collections[path] : { entities: [] }
+    const collection = state.collections[path] ? state.collections[path] : {entities: []}
 
     return {
       collection

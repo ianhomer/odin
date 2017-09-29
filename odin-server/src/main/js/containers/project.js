@@ -17,8 +17,8 @@
 const React = require('react')
 const PropTypes = require('prop-types')
 
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 import ChannelsContainer from '../containers/channelsContainer'
 import SequencesContainer from '../containers/sequencesContainer'
@@ -98,7 +98,7 @@ Project.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { channels } = state
+  const {channels} = state
 
   return {
     channels

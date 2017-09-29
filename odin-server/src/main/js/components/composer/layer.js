@@ -17,8 +17,8 @@
 const React = require('react')
 import PropTypes from 'prop-types'
 
-import { ItemTypes } from '../../constants'
-import { DragSource, DropTarget } from 'react-dnd'
+import {ItemTypes} from '../../constants'
+import {DragSource, DropTarget} from 'react-dnd'
 
 const SequenceInLayer = require('./sequenceInLayer')
 
@@ -63,7 +63,7 @@ const dropTarget = {
   },
 
   canDrop(props, monitor) {
-    var isOverCurrent = monitor.isOver({ shallow: true })
+    var isOverCurrent = monitor.isOver({shallow: true})
     if (monitor.getItem().type == ItemTypes.SEQUENCE) {
       // can drop sequence
       for (var i =0 ; i < props.sequences.length ; i++) {
@@ -93,7 +93,7 @@ function collectDrop(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
-    isOverCurrent: monitor.isOver({ shallow: true }),
+    isOverCurrent: monitor.isOver({shallow: true}),
     canDrop: monitor.canDrop()
   }
 }
@@ -111,9 +111,9 @@ class Layer extends React.Component{
     this.onPatch(props.href,
       [
         // Test layer at given index in array is the as expected on server
-        { op: 'test', path: layerPath, value: this.props.entity.name },
+        {op: 'test', path: layerPath, value: this.props.entity.name},
         // ... then remove it.
-        { op: 'remove', path: layerPath  }
+        {op: 'remove', path: layerPath}
       ]
     )
     this.props.onChange()
@@ -146,7 +146,7 @@ class Layer extends React.Component{
     )
 
 
-    const { connectDropTarget, connectDragSource, isOverCurrent, canDrop } = this.props
+    const {connectDropTarget, connectDragSource, isOverCurrent, canDrop} = this.props
 
     var style = {}
     if (isOverCurrent && canDrop) {

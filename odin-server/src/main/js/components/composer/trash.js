@@ -16,12 +16,12 @@
 
 const React = require('react')
 import PropTypes from 'prop-types'
-import { ItemTypes } from '../../constants'
-import { DropTarget } from 'react-dnd'
+import {ItemTypes} from '../../constants'
+import {DropTarget} from 'react-dnd'
 
 const dropTarget = {
   drop() {
-    return { action: 'remove' }
+    return {action: 'remove'}
   }
 }
 
@@ -39,7 +39,7 @@ class Trash extends React.Component{
   }
 
   render() {
-    const { connectDropTarget } = this.props
+    const {connectDropTarget} = this.props
     return connectDropTarget(
       <div className="trash">remove</div>
     )
