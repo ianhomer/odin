@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Channels container renders OK 1`] = `
+exports[`Channels container 1`] = `
 <Provider
   store={
     Object {

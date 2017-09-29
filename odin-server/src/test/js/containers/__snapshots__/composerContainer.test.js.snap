@@ -1,0 +1,224 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sequences container Initialise 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(ComposerContainer)
+    flux={
+      MockFlux {
+        "client": [Function],
+        "loadFromServer": [Function],
+        "loadSchema": [Function],
+        "onCreate": [Function],
+        "onDelete": [Function],
+        "onPatch": [Function],
+        "onUpdate": [Function],
+      }
+    }
+    project={
+      Object {
+        "_links": Object {
+          "channels": Object {
+            "href": "http://localhost:8080/api/project/1/channels",
+          },
+          "layers": Object {
+            "href": "http://localhost:8080/api/project/1/layers",
+          },
+          "project": Object {
+            "href": "http://localhost:8080/api/project/1",
+          },
+          "self": Object {
+            "href": "http://localhost:8080/api/project/1",
+          },
+          "sequences": Object {
+            "href": "http://localhost:8080/api/project/1/sequences",
+          },
+        },
+        "name": "defaultProject",
+      }
+    }
+    schema={
+      Schema {
+        "revision": undefined,
+      }
+    }
+  >
+    <ComposerContainer
+      flux={
+        MockFlux {
+          "client": [Function],
+          "loadFromServer": [Function],
+          "loadSchema": [Function],
+          "onCreate": [Function],
+          "onDelete": [Function],
+          "onPatch": [Function],
+          "onUpdate": [Function],
+        }
+      }
+      layers={
+        Object {
+          "entities": Array [],
+        }
+      }
+      onFetchComposition={[Function]}
+      project={
+        Object {
+          "_links": Object {
+            "channels": Object {
+              "href": "http://localhost:8080/api/project/1/channels",
+            },
+            "layers": Object {
+              "href": "http://localhost:8080/api/project/1/layers",
+            },
+            "project": Object {
+              "href": "http://localhost:8080/api/project/1",
+            },
+            "self": Object {
+              "href": "http://localhost:8080/api/project/1",
+            },
+            "sequences": Object {
+              "href": "http://localhost:8080/api/project/1/sequences",
+            },
+          },
+          "name": "defaultProject",
+        }
+      }
+      schema={
+        Schema {
+          "revision": undefined,
+        }
+      }
+      sequences={
+        Object {
+          "entities": Array [],
+        }
+      }
+    >
+      <div>
+        <DragDropContext(Composer)
+          flux={
+            MockFlux {
+              "client": [Function],
+              "loadFromServer": [Function],
+              "loadSchema": [Function],
+              "onCreate": [Function],
+              "onDelete": [Function],
+              "onPatch": [Function],
+              "onUpdate": [Function],
+            }
+          }
+          layers={
+            Object {
+              "entities": Array [],
+            }
+          }
+          onFetchComposition={[Function]}
+          project={
+            Object {
+              "_links": Object {
+                "channels": Object {
+                  "href": "http://localhost:8080/api/project/1/channels",
+                },
+                "layers": Object {
+                  "href": "http://localhost:8080/api/project/1/layers",
+                },
+                "project": Object {
+                  "href": "http://localhost:8080/api/project/1",
+                },
+                "self": Object {
+                  "href": "http://localhost:8080/api/project/1",
+                },
+                "sequences": Object {
+                  "href": "http://localhost:8080/api/project/1/sequences",
+                },
+              },
+              "name": "defaultProject",
+            }
+          }
+          schema={
+            Schema {
+              "revision": undefined,
+            }
+          }
+          sequences={
+            Object {
+              "entities": Array [],
+            }
+          }
+        >
+          <Composer
+            flux={
+              MockFlux {
+                "client": [Function],
+                "loadFromServer": [Function],
+                "loadSchema": [Function],
+                "onCreate": [Function],
+                "onDelete": [Function],
+                "onPatch": [Function],
+                "onUpdate": [Function],
+              }
+            }
+            layers={
+              Object {
+                "entities": Array [],
+              }
+            }
+            onFetchComposition={[Function]}
+            path="sequence"
+            project={
+              Object {
+                "_links": Object {
+                  "channels": Object {
+                    "href": "http://localhost:8080/api/project/1/channels",
+                  },
+                  "layers": Object {
+                    "href": "http://localhost:8080/api/project/1/layers",
+                  },
+                  "project": Object {
+                    "href": "http://localhost:8080/api/project/1",
+                  },
+                  "self": Object {
+                    "href": "http://localhost:8080/api/project/1",
+                  },
+                  "sequences": Object {
+                    "href": "http://localhost:8080/api/project/1/sequences",
+                  },
+                },
+                "name": "defaultProject",
+              }
+            }
+            schema={
+              Schema {
+                "revision": undefined,
+              }
+            }
+            sequences={
+              Object {
+                "entities": Array [],
+              }
+            }
+          >
+            <div>
+              <div
+                className="break"
+              >
+                 
+              </div>
+              <div />
+            </div>
+          </Composer>
+        </DragDropContext(Composer)>
+      </div>
+    </ComposerContainer>
+  </Connect(ComposerContainer)>
+</Provider>
+`;

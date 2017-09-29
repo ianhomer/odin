@@ -79,7 +79,7 @@ export class MockBackend extends Backend {
   }
 
   loadProfileSchemaApi(path) {
-    return loadTestData('profile', path)
+    return loadTestData('api/profile', path)
   }
 
   fetchCompositionApi(notation) {

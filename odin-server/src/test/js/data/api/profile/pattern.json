@@ -1,0 +1,120 @@
+{
+  "title": "Persistable pattern",
+  "properties": {
+    "note": {
+      "title": "Note",
+      "readOnly": false,
+      "type": "object",
+      "$ref": "#/definitions/note"
+    },
+    "offset": {
+      "title": "Offset",
+      "readOnly": false,
+      "type": "integer"
+    },
+    "name": {
+      "title": "Name",
+      "readOnly": false,
+      "type": "string"
+    },
+    "channel": {
+      "title": "Channel",
+      "readOnly": false,
+      "type": "integer"
+    },
+    "length": {
+      "title": "Length",
+      "readOnly": false,
+      "type": "integer"
+    },
+    "layers": {
+      "title": "Layers",
+      "readOnly": false,
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bits": {
+      "title": "Bits",
+      "readOnly": false,
+      "type": "integer"
+    },
+    "project": {
+      "title": "Project",
+      "readOnly": false,
+      "type": "string",
+      "format": "uri"
+    },
+    "tick": {
+      "title": "Tick",
+      "readOnly": false,
+      "type": "object",
+      "$ref": "#/definitions/tick"
+    },
+    "flowName": {
+      "title": "Flow name",
+      "readOnly": false,
+      "type": "string"
+    },
+    "properties": {
+      "title": "Properties",
+      "readOnly": false,
+      "type": "object"
+    }
+  },
+  "definitions": {
+    "note": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "title": "Number",
+          "readOnly": false,
+          "type": "integer"
+        },
+        "velocity": {
+          "title": "Velocity",
+          "readOnly": false,
+          "type": "integer"
+        },
+        "numerator": {
+          "title": "Numerator",
+          "readOnly": false,
+          "type": "integer"
+        },
+        "denominator": {
+          "title": "Denominator",
+          "readOnly": false,
+          "type": "integer"
+        }
+      }
+    },
+    "tick": {
+      "type": "object",
+      "properties": {
+        "timeUnit": {
+          "title": "Time unit",
+          "readOnly": false,
+          "type": "string",
+          "enum": [
+            "BEAT",
+            "MICROSECOND",
+            "MEASURE"
+          ]
+        },
+        "numerator": {
+          "title": "Numerator",
+          "readOnly": false,
+          "type": "integer"
+        },
+        "denominator": {
+          "title": "Denominator",
+          "readOnly": false,
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema#"
+}

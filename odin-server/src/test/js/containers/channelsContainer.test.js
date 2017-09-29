@@ -6,7 +6,7 @@ import {mount} from 'enzyme'
 import {mockFlux, testProject, testSchema} from '../testData.js'
 import store from '../store'
 
-test('Channels container renders OK', () => {
+test('Channels container', () => {
   const component = mount(
     <Provider store={store}>
       <ChannelsContainer schema={testSchema} project={testProject} flux={mockFlux}/>
