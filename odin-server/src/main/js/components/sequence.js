@@ -51,7 +51,7 @@ class Sequence extends React.Component {
   }
 
   renderProperties(sequence) {
-    return (<div>{JSON.stringify(sequence.properties)}</div>)
+    return <div>{JSON.stringify(sequence.properties)}</div>
   }
 
   getExtraEditEntityArguments() {

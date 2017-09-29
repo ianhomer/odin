@@ -58,15 +58,15 @@ class EditEntity extends React.Component{
   renderInputFieldGroup(clazz, fields, parentKey) {
     if (!fields) {
       console.warn('Fields not defined')
-      return (<div/>)
+      return <div/>
     }
     if (!clazz) {
       console.warn('Clazz not defined')
-      return (<div/>)
+      return <div/>
     }
     if (!clazz.properties) {
       console.warn('Clazz does not have properties')
-      return (<div>{JSON.stringify(clazz)}</div>)
+      return <div>{JSON.stringify(clazz)}</div>
     }
     var renderedFields = Object.keys(fields).map(function(fieldName) {
       var key = parentKey ? parentKey + '.' + fieldName : fieldName
@@ -151,8 +151,8 @@ class EditEntity extends React.Component{
     } else {
       // If field is hidden or read only then we maintain value in hidden field
       if (field.hidden) {
-        return (<input type="hidden" key={key} name={key} ref={this.registerNode(key)}
-          defaultValue={value} />)
+        return <input type="hidden" key={key} name={key} ref={this.registerNode(key)}
+          defaultValue={value} />
       } else if (field.readOnly) {
         return (
           <div className={cellClassName} key={key}>
@@ -181,7 +181,7 @@ class EditEntity extends React.Component{
   render() {
     if (!this.props.project) {
       console.warn('Project not defined ' + this.props.clazz.id + ', cannot create entity create row.')
-      return (<div/>)
+      return <div/>
     }
 
     var renderedFields = this.renderInputFieldGroup(this.props.clazz, this.props.fields)

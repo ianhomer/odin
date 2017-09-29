@@ -99,7 +99,7 @@ class Composer extends React.Component{
       var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
       if (!entity.path) {
         console.error('Entity path not defined for ' + entity)
-        return (<div/>)
+        return <div/>
       } else {
         return (
           <div key={'div-' + entity._links.self.href}>

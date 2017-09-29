@@ -92,10 +92,10 @@ class LayerList extends React.Component{
 
   renderLayer(layer, parentLayer, layers, sequences, stack) {
     if (stack.includes(layer.name)) {
-      return (<div key={layer.name}>(recursive : {layer.name})</div>)
+      return <div key={layer.name}>(recursive : {layer.name})</div>
     }
     stack.push(layer.name)
-    var component = (
+    var component = 
       <Layer entity={layer} layers={layers} sequences={sequences}
         parent={parentLayer} flux={this.props.flux}
         key={layer.name}
@@ -105,13 +105,13 @@ class LayerList extends React.Component{
         {layer.layers.map(layerName => {
           var childLayer = layers[layerName]
           if (childLayer == null) {
-            return (<div key={layerName}>?{layerName}?</div>)
+            return <div key={layerName}>?{layerName}?</div>
           } else {
             return this.renderLayer(childLayer, layer, layers, sequences, stack)
           }
         })}
       </Layer>
-    )
+    
     stack.pop()
     return component
   }

@@ -60,7 +60,7 @@ class SequenceList extends React.Component{
           </div>
         )
       } else {
-        return (<div key={entity.name}>{entity.flowName} or sequence class not loaded</div>)
+        return <div key={entity.name}>{entity.flowName} or sequence class not loaded</div>
       }
     })
 
@@ -97,7 +97,7 @@ class SequenceList extends React.Component{
                 />
               )
             } else {
-              return (<div key={'create-' + flowName}>{flowName} or sequence class not loaded</div>)
+              return <div key={'create-' + flowName}>{flowName} or sequence class not loaded</div>
             }
           })}
 

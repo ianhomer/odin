@@ -80,7 +80,7 @@ class App extends React.Component {
         </Provider>
       )
     } else {
-      return (<div>Loading schema ...</div>)
+      return <div>Loading schema ...</div>
     }
   }
 }

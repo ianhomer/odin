@@ -22,18 +22,14 @@
     "jest"
   ],
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
+    "curly": "error",
+    "indent": [ "error", 2 ],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/valid-expect": "error",
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
+    "linebreak-style": [ "error", "unix" ],
+    "no-extra-parens": "error",
     "no-console": [
       "error",
       {
@@ -49,17 +45,9 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
+    "quotes": ["error", "single"],
     "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": [
-      "error"
-    ],
-    "semi": [
-      "error",
-      "never"
-    ]
+    "react/jsx-uses-vars": "error",
+    "semi": [ "error", "never"]
   }
 }
