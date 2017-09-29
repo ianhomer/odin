@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict'
+
 
 export const LOAD_ENTITIES_REQUESTED = 'LOAD_ENTITIES_REQUESTED'
 export function loadEntitiesRequested(path, schema) {

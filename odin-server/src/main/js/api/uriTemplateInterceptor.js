@@ -1,4 +1,4 @@
-'use strict'
+
 
 define(function(require) {
   var interceptor = require('rest/interceptor')

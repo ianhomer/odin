@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-'use strict'
+
 
 const React = require('react')
 import { DragDropContext } from 'react-dnd'

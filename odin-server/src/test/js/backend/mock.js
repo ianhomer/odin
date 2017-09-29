@@ -14,7 +14,7 @@
 
 // Mock Backend
 
-'use strict'
+
 
 import testSchema from '../data/schema.json'
 import { Backend } from 'odin/backend/index.js'

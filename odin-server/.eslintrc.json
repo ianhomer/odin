@@ -30,24 +30,13 @@
     "jest/valid-expect": "error",
     "linebreak-style": [ "error", "unix" ],
     "no-extra-parens": "error",
-    "no-console": [
-      "error",
-      {
-        "allow": [
-          "warn",
-          "error"
-        ]
-      }
-    ],
-    "no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "^_"
-      }
-    ],
+    "no-console": [ "error", { "allow": [ "warn", "error" ] } ],
+    "no-unused-expressions": "error",
+    "no-unused-vars": [ "error", { "argsIgnorePattern": "^_" }],
     "quotes": ["error", "single"],
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": "error",
-    "semi": [ "error", "never"]
+    "semi": [ "error", "never" ],
+    "strict" : "error"
   }
 }

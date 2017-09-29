@@ -1,4 +1,4 @@
-'use strict'
+
 
 // for rest package usage see https://www.npmjs.com/package/rest
 var rest = require('rest')
