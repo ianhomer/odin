@@ -61,6 +61,19 @@ export function updateEntityRequested(entity) {
   }
 }
 
+export const PATCH_ENTITY_SUCCEEDED = 'PATCH_ENTITY_SUCCEEDED'
+export const PATCH_ENTITY_FAILED = 'PATCH_ENTITY_FAILED'
+
+export const PATCH_ENTITY_REQUESTED = 'PATCH_ENTITY_REQUESTED'
+export function patchEntityRequested(entity, patch) {
+  return {
+    type: PATCH_ENTITY_REQUESTED,
+    path: getPathFromEntity(entity),
+    entity,
+    patch
+  }
+}
+
 export const UPDATE_ENTITY_SUCCEEDED = 'UPDATE_ENTITY_SUCCEEDED'
 export const UPDATE_ENTITY_FAILED = 'UPDATE_ENTITY_FAILED'
 

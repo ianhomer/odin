@@ -42,7 +42,7 @@ module.exports = function follow(api, rootPath, relArray) {
           params: arrayItem.params
         })
       }
-    })
+    }).catch(reason => console.error(reason))
   }
 
   function hasEmbeddedRel (entity, rel) {

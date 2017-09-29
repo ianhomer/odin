@@ -33,69 +33,18 @@ const DefaultSequence = SequenceCard
 class Composer extends React.Component{
   constructor(props) {
     super(props)
-    // TODO : Remove schema and links if redundant
-    this.state = {
-      schema: [], entities: [], links: []
+  }
+
+  getExtraArguments(flowName) {
+    var optionalArguments = {}
+    if (flowName === 'notation') {
+      optionalArguments.onFetchComposition = this.props.onFetchComposition
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleAddLayer = this.handleAddLayer.bind(this)
-    this.handleMoveLayer = this.handleMoveLayer.bind(this)
-    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
-    this.onPatch = this.props.flux.onPatch.bind(this)
-  }
-
-  componentDidMount() {
-    this.props.schema.loadClazzes(['pattern']).then(() => {
-      this.loadFromServer()
-    })
-  }
-
-  handleChange() {
-    // TODO : Look into Redux for state management, currently we're reloading the whole
-    // view each time.
-    this.loadFromServer()
-  }
-
-  handleAddLayer(destination, layer, callback = this.handleChange) {
-    this.onPatch(destination._links.self.href,
-      [
-        {op: 'add', path: '/layers/-', value: layer.name}
-      ], callback)
-  }
-
-  handleRemoveLayer(destination, layer, callback = this.handleChange) {
-    // TODO : destination is null when when layer comes from a root layer.  Checking for null
-    // like this is NOT robust since there might be other reasons for null that we end up
-    // swallowing.  We should address this shortcoming.
-    if (destination != null) {
-      var layerIndex = destination.layers.indexOf(layer.name)
-      if (layerIndex > -1) {
-        var layerPath = '/layers/' + layerIndex
-        this.onPatch(destination._links.self.href,
-          [
-            // Test layer at given index in array is the as expected on server
-            {op: 'test', path: layerPath, value: layer.name},
-            // ... then remove it.
-            {op: 'remove', path: layerPath}
-          ], callback)
-      } else {
-        console.warn('Cannot find ' + JSON.stringify(layer) + ' in '
-          + JSON.stringify(destination) + ' to remove it')
-      }
-    } else {
-      callback()
-    }
-  }
-
-  handleMoveLayer(destination, from, layer, callback = this.handleChange) {
-    this.handleRemoveLayer(from, layer, () => {
-      this.handleAddLayer(destination, layer, callback)
-    })
+    return optionalArguments
   }
 
   render() {
-    var entities = this.state.entities.map(entity => {
+    var entities = this.props.sequences.entities.map(entity => {
       var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
       if (!entity.path) {
         console.error('Entity path not defined for ' + entity)
@@ -104,9 +53,10 @@ class Composer extends React.Component{
         return (
           <div key={'div-' + entity._links.self.href}>
             <SequenceComponent entity={entity} key={entity._links.self.href}
-              schema={this.props.schema} project={this.props.project} flux={this.props.flux}
+              schema={this.props.schema} project={this.props.project}
               path={entity.path}
-              onAddLayer={this.handleAddLayer}
+              onAddLayer={this.props.onAddLayer}
+              {...this.getExtraArguments(entity.flowName)}
             />
           </div>
         )
@@ -116,13 +66,16 @@ class Composer extends React.Component{
     return (
       // Display layer list and sequence cards
       <div>
-        {this.state.entities.length > 0 &&
+        {this.props.layers.entities.length > 0 &&
           <LayerList
-            schema={this.props.schema} project={this.props.project} flux={this.props.flux}
-            sequences={this.state.entities}
-            onChange={this.handleChange}
-            onAddLayer={this.handleAddLayer}
-            onMoveLayer={this.handleMoveLayer}
+            schema={this.props.schema} project={this.props.project}
+            layers={this.props.layers}
+            sequences={this.props.sequences}
+            onCreate={this.props.onCreate}
+            onDelete={this.props.onDelete}
+            onAddLayer={this.props.onAddLayer}
+            onMoveLayer={this.props.onMoveLayer}
+            onRemoveLayer={this.props.onRemoveLayer}
           />
         }
         <div className="break">&nbsp;</div>
@@ -137,9 +90,16 @@ Composer.defaultProps = {
 }
 
 Composer.propTypes = {
-  flux: PropTypes.object.isRequired,
+  layers: PropTypes.object.isRequired,
+  onCreate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onAddLayer: PropTypes.func.isRequired,
+  onRemoveLayer: PropTypes.func.isRequired,
+  onMoveLayer: PropTypes.func.isRequired,
+  onFetchComposition: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
-  schema: PropTypes.object.isRequired
+  schema: PropTypes.object.isRequired,
+  sequences: PropTypes.object.isRequired
 }
 
 module.exports = DragDropContext(HTML5Backend)(Composer)

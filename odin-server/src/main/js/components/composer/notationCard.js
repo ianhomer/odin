@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 const React = require('react')
 import PropTypes from 'prop-types'
 
@@ -52,15 +50,6 @@ function collect(connect, monitor) {
   }
 }
 
-const propTypes = {
-  entity: PropTypes.object.isRequired,
-  flux: PropTypes.object.isRequired,
-  onAddLayer: PropTypes.func.isRequired,
-  // Injected by React DnD:
-  isDragging: PropTypes.bool.isRequired,
-  connectDragSource: PropTypes.func.isRequired
-}
-
 // Notation card.
 class NotationCard extends React.Component{
   constructor(props) {
@@ -77,14 +66,24 @@ class NotationCard extends React.Component{
       // View card
       <div className="sequence card" style={{opacity: isDragging ? 0.5 : 1}}>
         <header>{this.state.entity.name}</header>
-        <div className="content"><Score entity={this.state.entity} flux={this.props.flux}/></div>
+        <div className="content">
+          <Score onFetchComposition={this.props.onFetchComposition}
+            entity={this.state.entity}/>
+        </div>
         <footer><CardLayers entity={this.state.entity}/></footer>
       </div>
     )
   }
 }
 
-NotationCard.propTypes = propTypes
+NotationCard.propTypes = {
+  entity: PropTypes.object.isRequired,
+  onAddLayer: PropTypes.func.isRequired,
+  onFetchComposition: PropTypes.func.isRequired,
+  // Injected by React DnD:
+  isDragging: PropTypes.bool.isRequired,
+  connectDragSource: PropTypes.func.isRequired
+}
 
 // Export the wrapped component:
 module.exports = DragSource(ItemTypes.SEQUENCE, dragSource, collect)(NotationCard)

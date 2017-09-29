@@ -1,0 +1,247 @@
+{
+  "_embedded": {
+    "layer": [
+      {
+        "name": "overlay",
+        "layers": [],
+        "offset": 0,
+        "length": -1,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/8"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/8"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/8/project"
+          }
+        }
+      },
+      {
+        "name": "intro",
+        "layers": [],
+        "offset": 0,
+        "length": 16,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/10"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/10"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/10/project"
+          }
+        }
+      },
+      {
+        "name": "break",
+        "layers": [],
+        "offset": 0,
+        "length": 16,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/12"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/12"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/12/project"
+          }
+        }
+      },
+      {
+        "name": "out",
+        "layers": [],
+        "offset": 0,
+        "length": 4,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/14"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/14"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/14/project"
+          }
+        }
+      },
+      {
+        "name": "in",
+        "layers": [],
+        "offset": 0,
+        "length": 4,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/16"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/16"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/16/project"
+          }
+        }
+      },
+      {
+        "name": "a",
+        "layers": [],
+        "offset": 0,
+        "length": 4,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/18"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/18"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/18/project"
+          }
+        }
+      },
+      {
+        "name": "b",
+        "layers": [],
+        "offset": 0,
+        "length": 4,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/20"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/20"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/20/project"
+          }
+        }
+      },
+      {
+        "name": "c",
+        "layers": [],
+        "offset": 0,
+        "length": 8,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/22"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/22"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/22/project"
+          }
+        }
+      },
+      {
+        "name": "verse",
+        "layers": [
+          "a",
+          "b",
+          "c"
+        ],
+        "offset": 0,
+        "length": 48,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/24"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/24"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/24/project"
+          }
+        }
+      },
+      {
+        "name": "groove",
+        "layers": [
+          "in",
+          "intro",
+          "verse",
+          "break",
+          "out"
+        ],
+        "offset": 0,
+        "length": -1,
+        "tick": {
+          "timeUnit": "BEAT",
+          "numerator": 1,
+          "denominator": 1
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost:8080/api/layer/26"
+          },
+          "layer": {
+            "href": "http://localhost:8080/api/layer/26"
+          },
+          "project": {
+            "href": "http://localhost:8080/api/layer/26/project"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/api/layer"
+    },
+    "profile": {
+      "href": "http://localhost:8080/api/profile/layer"
+    },
+    "search": {
+      "href": "http://localhost:8080/api/layer/search"
+    }
+  }
+}

@@ -76,7 +76,7 @@ module.exports = {
       })
     }).done(_response => {
       onSuccess(_response)
-    })
+    }).catch(reason => console.error(reason))
   },
 
   // Patch entity via REST API.

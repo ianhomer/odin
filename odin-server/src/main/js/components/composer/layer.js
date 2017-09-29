@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 const React = require('react')
 import PropTypes from 'prop-types'
 
@@ -103,20 +101,10 @@ class Layer extends React.Component{
     super(props)
 
     this.handleChange = this.handleChange.bind(this)
-    this.onPatch = this.props.flux.onPatch.bind(this)
   }
 
   handleChange(props) {
-    var layerPath = '/layers/' + props.layerIndex
-    this.onPatch(props.href,
-      [
-        // Test layer at given index in array is the as expected on server
-        {op: 'test', path: layerPath, value: this.props.entity.name},
-        // ... then remove it.
-        {op: 'remove', path: layerPath}
-      ]
-    )
-    this.props.onChange()
+    this.props.onRemoveLayer(props.entity, this.props.entity)
   }
 
   render() {
@@ -130,18 +118,14 @@ class Layer extends React.Component{
         var layerName = sequence.layers[j]
         if (layerName == this.props.entity.name) {
           // Push a sequence object onto the array with enough information to handle change
-          sequencesInLayer.push({
-            name: sequence.name,
-            index: j,
-            href: sequence._links.self.href
-          })
+          sequencesInLayer.push(sequence)
         }
       }
     }
 
-    var sequenceNames = sequencesInLayer.map(entry =>
-      <SequenceInLayer key={entry.name + '-' + this.props.entity._links.self.href}
-        name={entry.name} layerIndex={entry.index} href={entry.href}
+    var sequenceNames = sequencesInLayer.map(entity =>
+      <SequenceInLayer key={entity.name + '-' + this.props.entity._links.self.href}
+        entity={entity}
         onChange={this.handleChange}/>
     )
 
@@ -176,10 +160,9 @@ class Layer extends React.Component{
 Layer.propTypes = {
   children: PropTypes.node,
   entity: PropTypes.object.isRequired,
-  flux: PropTypes.object.isRequired,
   layers: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onRemoveLayer: PropTypes.func.isRequired,
   sequences: PropTypes.object.isRequired,
 
   // Injected by React DnD:

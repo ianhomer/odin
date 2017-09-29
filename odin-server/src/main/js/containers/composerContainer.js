@@ -16,11 +16,18 @@ const React = require('react')
 const PropTypes = require('prop-types')
 import {connect} from 'react-redux'
 import Composer from '../components/composer/composer'
-import {fetchCompositionRequested} from '../actions'
+import {createEntityRequested, deleteEntityRequested,
+  addLayerToEntityRequested, moveLayerRequested, removeLayerRequested,
+  fetchCompositionRequested, loadEntitiesRequested} from '../actions'
 
 class ComposerContainer extends React.Component {
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    this.props.onLoadEntities('sequence', this.props.schema)
+    this.props.onLoadEntities('layer', this.props.schema)
   }
 
   render() {
@@ -30,18 +37,23 @@ class ComposerContainer extends React.Component {
           <Composer
             schema={this.props.schema} project={this.props.project} flux={this.props.flux}
             sequences={this.props.sequences} layers={this.props.layers}
+            onCreate={this.props.onCreate}
+            onDelete={this.props.onDelete}
+            onAddLayer={this.props.onAddLayer}
+            onMoveLayer={this.props.onMoveLayer}
+            onRemoveLayer={this.props.onRemoveLayer}
             onFetchComposition={this.props.onFetchComposition}
-            />
+          />
         }
       </div>
     )
   }
 }
 
-function mapStateToProps(path) {
+function mapStateToProps() {
   return function(state) {
-    const layers = state.collections['layers'] ? state.collections['layers'] : {entities: []}
-    const sequences = state.collections['sequences'] ? state.collections['sequences'] : {entities: []}
+    const layers = state.collections['layer'] ? state.collections['layer'] : {entities: []}
+    const sequences = state.collections['sequence'] ? state.collections['sequence'] : {entities: []}
 
     return {
       layers,
@@ -52,15 +64,40 @@ function mapStateToProps(path) {
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onAddLayer: (entity, layer) => {
+      dispatch(addLayerToEntityRequested(entity, layer))
+    },
+    onCreate: (entity, path) => {
+      dispatch(createEntityRequested(entity, path))
+    },
+    onDelete: entity => {
+      dispatch(deleteEntityRequested(entity))
+    },
+    onMoveLayer: (destination, from, layer) => {
+      dispatch(moveLayerRequested(destination, from, layer))
+    },
+    onRemoveLayer: (entity, layer) => {
+      dispatch(removeLayerRequested(entity, layer))
+    },
     onFetchComposition: (entityName, notation) => {
       dispatch(fetchCompositionRequested(entityName, notation))
+    },
+    onLoadEntities: (path, schema) => {
+      dispatch(loadEntitiesRequested(path, schema))
     }
   }
 }
 
 ComposerContainer.propTypes = {
+  flux: PropTypes.object.isRequired,
   layers: PropTypes.object.isRequired,
+  onAddLayer: PropTypes.func.isRequired,
+  onCreate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onMoveLayer: PropTypes.func.isRequired,
+  onRemoveLayer: PropTypes.func.isRequired,
   onFetchComposition: PropTypes.func.isRequired,
+  onLoadEntities: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
   sequences: PropTypes.object.isRequired

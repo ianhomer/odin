@@ -22,7 +22,7 @@ import {connect} from 'react-redux'
 
 import ChannelsContainer from '../containers/channelsContainer'
 import SequencesContainer from '../containers/sequencesContainer'
-const Composer = require('../components/composer/composer')
+import ComposerContainer from '../containers/composerContainer'
 
 class Project extends React.Component {
   constructor(props) {
@@ -60,7 +60,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <Composer schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
+          <ComposerContainer schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
         }
       </div>
     )

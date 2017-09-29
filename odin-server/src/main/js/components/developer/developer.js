@@ -65,7 +65,7 @@ class Developer extends React.Component{
       }
     }).then(this.loadFromServer).catch(reason => {
       console.error(reason)
-    })
+    }).catch(reason => console.error(reason))
   }
 
   _handleKeyPress(e) {

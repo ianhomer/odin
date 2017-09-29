@@ -26,11 +26,7 @@ import {ItemTypes} from '../../constants.js'
 const cardSource = {
   beginDrag(props) {
     return {
-      name: props.name,
-      layerIndex: props.layerIndex,
-      href: props.href,
-      // One day we might use Redux to manage application state, for now we'll pass in onChange functions
-      onChange: props.onChange
+      entity: props.entity
     }
   },
 
@@ -52,9 +48,7 @@ function collect(connect, monitor) {
 }
 
 const propTypes = {
-  name: PropTypes.string.isRequired,
-  layerIndex: PropTypes.number.isRequired,
-  href: PropTypes.string.isRequired,
+  entity: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,
@@ -64,11 +58,11 @@ const propTypes = {
 // Sequence in layer.
 class SequenceInLayer extends React.Component{
   render() {
-    const {isDragging, connectDragSource, name} = this.props
+    const {isDragging, connectDragSource, entity} = this.props
     return connectDragSource(
       // View card
       <div className="sequenceInLayer" style={{opacity: isDragging ? 0.5 : 1}}>
-        {name}
+        {entity.name}
       </div>
     )
   }

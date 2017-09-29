@@ -63,7 +63,7 @@ export class MockBackend extends Backend {
   // Load entities from JSON imported from file
   loadEntitiesApi(path) {
     var json = (path => {
-      const fullPath = '../data/entities/' + path + '.json'
+      const fullPath = '../data/api/' + path + '.json'
       try {
         return require(fullPath)
       } catch (e) {

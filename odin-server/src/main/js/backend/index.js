@@ -20,6 +20,7 @@ import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED, CREATE_ENTITY_FAILED,
   UPDATE_ENTITY_REQUESTED, UPDATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_FAILED,
   DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED, DELETE_ENTITY_FAILED,
+  PATCH_ENTITY_REQUESTED, PATCH_ENTITY_SUCCEEDED, PATCH_ENTITY_FAILED,
   FETCH_COMPOSITION_REQUESTED, FETCH_COMPOSITION_SUCCEEDED, FETCH_COMPOSITION_FAILED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED,
   LOAD_PROJECT_SCHEMA_REQUESTED, LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_FAILED,
@@ -38,6 +39,7 @@ export class Backend {
       }, body: JSON.stringify(entity)
     })
       .then(response => response.json())
+      .catch(reason => console.error(reason))
   }
 
   *createEntity(action) {
@@ -59,6 +61,7 @@ export class Backend {
       }, body: JSON.stringify(entity)
     })
       .then(response => response.json())
+      .catch(reason => console.error(reason))
   }
 
   *updateEntity(action) {
@@ -80,6 +83,7 @@ export class Backend {
       }
     })
       .then(response => response.json())
+      .catch(reason => console.error(reason))
   }
 
   *fetchComposition(action) {
@@ -107,6 +111,7 @@ export class Backend {
       }
     })
       .then(() => entity)
+      .catch(reason => console.error(reason))
   }
 
   *deleteEntity(action) {
@@ -119,6 +124,31 @@ export class Backend {
     }
   }
 
+  patchEntityApi(entity, patch) {
+    return fetch(entity._links.self.href, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+        // TODO : Etag support, note that entity needs to be loaded from server prior to
+        // editing to populate Etag
+        //'If-Match': entity.headers.Etag
+      },
+      body: JSON.stringify(patch)
+    })
+      .then(() => entity)
+      .catch(reason => console.error(reason))
+  }
+
+  *patchEntity(action) {
+    try {
+      const backend = yield getContext('backend')
+      const entity = yield call(backend.patchEntityApi, action.entity, action.patch)
+      yield put({type: PATCH_ENTITY_SUCCEEDED, entity: entity, path: action.path})
+    } catch (e) {
+      yield put({type: PATCH_ENTITY_FAILED, message: e.message})
+    }
+  }
+
   loadEntitiesApi(path) {
     return fetch(root + '/' + path, {
       method: 'GET',
@@ -128,6 +158,7 @@ export class Backend {
     })
       .then(response => response.json())
       .then(json => json._embedded[path])
+      .catch(reason => console.error(reason))
   }
 
   *loadEntities(action) {
@@ -136,6 +167,8 @@ export class Backend {
       const entities = yield call(backend.loadEntitiesApi, action.path, action.schema)
       for (var i = 0; i < entities.length ; i++) {
         yield call(backend.enrichEntity, entities[i])
+        // Set the path value in the entity so that the front end knows the type of entity.
+        entities[i].path = action.path
       }
       yield put({type: LOAD_ENTITIES_SUCCEEDED, entities: entities, path: action.path})
     } catch (e) {
@@ -151,6 +184,7 @@ export class Backend {
       }
     })
       .then(response => response.json())
+      .catch(reason => console.error(reason))
   }
 
   *loadProjectSchema() {
@@ -171,6 +205,7 @@ export class Backend {
       }
     })
       .then(response => response.json())
+      .catch(reason => console.error(reason))
   }
 
   *loadProfileSchema(action) {
@@ -188,6 +223,7 @@ export class Backend {
     yield takeEvery(CREATE_ENTITY_REQUESTED, backend.createEntity)
     yield takeEvery(UPDATE_ENTITY_REQUESTED, backend.updateEntity)
     yield takeEvery(DELETE_ENTITY_REQUESTED, backend.deleteEntity)
+    yield takeEvery(PATCH_ENTITY_REQUESTED, backend.patchEntity)
     yield takeEvery(FETCH_COMPOSITION_REQUESTED, backend.fetchComposition)
     yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
     yield takeEvery(LOAD_PROJECT_SCHEMA_REQUESTED, backend.loadProjectSchema)

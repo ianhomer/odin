@@ -24,34 +24,15 @@ class LayerList extends React.Component{
   constructor(props) {
     super(props)
 
-    this.state = {
-      // TODO : Can we remove schema and links?
-      schema: [], entities: [], links: []
-    }
-
-    this.handleDelete = this.handleDelete.bind(this)
-    this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this._handleKeyPress.bind(this)
     this.handleNewLayer = this.handleNewLayer.bind(this)
-    this.onCreate = this.props.flux.onCreate.bind(this)
-    this.onDelete = this.props.flux.onDelete.bind(this)
-    this.loadFromServer = this.props.flux.loadFromServer.bind(this)
-  }
-
-  handleDelete(entity) {
-    this.onDelete(entity)
-  }
-
-  handleChange() {
-    this.loadFromServer()
-    this.props.onChange()
   }
 
   // Create new layer
   handleNewLayer(e) {
     e.preventDefault()
     var value = e.target.value.trim()
-    this.onCreate({
+    this.props.onCreate({
       name: value,
       project: this.props.project._links.self.href
     }, 'layer')
@@ -63,16 +44,11 @@ class LayerList extends React.Component{
     }
   }
 
-  componentDidMount() {
-    this.loadFromServer()
-  }
-
-
   findRootLayers(layers) {
     // Create array of layer names
     var layerNames = Object.keys(layers)
     var childNames = []
-    this.state.entities.forEach(entity => {
+    this.props.layers.entities.forEach(entity => {
       // ... and remove any that are children
       entity.layers.forEach(layerName => childNames.push(layerName))
     })
@@ -97,9 +73,10 @@ class LayerList extends React.Component{
     stack.push(layer.name)
     var component =
       <Layer entity={layer} layers={layers} sequences={sequences}
-        parent={parentLayer} flux={this.props.flux}
+        parent={parentLayer}
         key={layer.name}
-        onChange={this.handleChange} onDelete={this.handleDelete}
+        onDelete={this.props.onDelete}
+        onRemoveLayer={this.props.onRemoveLayer}
         onMoveLayer={this.props.onMoveLayer}
         onAddLayer={this.props.onAddLayer}>
         {layer.layers.map(layerName => {
@@ -118,9 +95,9 @@ class LayerList extends React.Component{
 
   render() {
     var layers = {}
-    this.state.entities.forEach(layer => layers[layer.name] = layer)
+    this.props.layers.entities.forEach(layer => layers[layer.name] = layer)
     var sequences = {}
-    this.props.sequences.forEach(sequence => sequences[sequence.name] = sequence)
+    this.props.sequences.entities.forEach(sequence => sequences[sequence.name] = sequence)
 
     var stack = []
     var renderedLayers = this.findRootLayers(layers).map(entity =>
@@ -149,10 +126,12 @@ LayerList.defaultProps = {
 }
 
 LayerList.propTypes = {
-  flux: PropTypes.object.isRequired,
+  layers: PropTypes.object.isRequired,
   onAddLayer: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onCreate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   onMoveLayer: PropTypes.func.isRequired,
+  onRemoveLayer: PropTypes.func.isRequired,
   project: PropTypes.shape({
     _links: PropTypes.shape({
       self: PropTypes.shape({
@@ -160,7 +139,7 @@ LayerList.propTypes = {
       })
     })
   }),
-  sequences: PropTypes.array.isRequired,
+  sequences: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

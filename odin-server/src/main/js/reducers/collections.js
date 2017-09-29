@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import {CREATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_SUCCEEDED,
-  DELETE_ENTITY_SUCCEEDED, LOAD_ENTITIES_SUCCEEDED,
+  DELETE_ENTITY_SUCCEEDED, PATCH_ENTITY_SUCCEEDED, LOAD_ENTITIES_SUCCEEDED,
   FETCH_COMPOSITION_SUCCEEDED} from '../actions'
 
 function getEntityFilter(action) {
@@ -45,6 +45,7 @@ function collectionsAtPath(state = {entities: [], newEntities: {}}, action) {
     })
   case CREATE_ENTITY_SUCCEEDED:
   case UPDATE_ENTITY_SUCCEEDED:
+  case PATCH_ENTITY_SUCCEEDED:
     return Object.assign({}, state, {
       entities: [...state.entities.filter(getEntityFilter(action)), action.entity].sort(comparator)
     })
@@ -82,6 +83,7 @@ function collections(state = [], action) {
   case UPDATE_ENTITY_SUCCEEDED:
   case DELETE_ENTITY_SUCCEEDED:
   case LOAD_ENTITIES_SUCCEEDED:
+  case PATCH_ENTITY_SUCCEEDED:
     return Object.assign({}, state, {
       [action.path]: collectionsAtPath(state[action.path], action)
     })
