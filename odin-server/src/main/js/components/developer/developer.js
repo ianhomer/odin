@@ -84,7 +84,7 @@ class Developer extends React.Component{
       path: '/loggers',
       headers: {'Accept': 'application/json'}
     }).then(response => {
-      this.setState( {loggers: response.entity.loggers} )
+      this.setState({loggers: response.entity.loggers})
     }).catch(reason => {
       console.error(reason)
     })

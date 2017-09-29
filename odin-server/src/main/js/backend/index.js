@@ -40,7 +40,7 @@ export class Backend {
       .then(response => response.json())
   }
 
-  * createEntity(action) {
+  *createEntity(action) {
     try {
       const backend = yield getContext('backend')
       const entity = yield call(backend.createEntityApi, action.entity, action.path)
@@ -61,7 +61,7 @@ export class Backend {
       .then(response => response.json())
   }
 
-  * updateEntity(action) {
+  *updateEntity(action) {
     try {
       const backend = yield getContext('backend')
       const entity = yield call(backend.updateEntityApi, action.entity)
@@ -82,7 +82,7 @@ export class Backend {
       .then(response => response.json())
   }
 
-  * fetchComposition(action) {
+  *fetchComposition(action) {
     try {
       const backend = yield getContext('backend')
       const composition = yield call(backend.fetchCompositionApi, action.notation)
@@ -93,7 +93,7 @@ export class Backend {
     }
   }
 
-  * enrichEntity(entity) {
+  *enrichEntity(entity) {
     if (entity.flowName === 'notation') {
       yield put({type: FETCH_COMPOSITION_REQUESTED, entityName: entity.name, notation: entity.properties.notation})
     }
@@ -109,7 +109,7 @@ export class Backend {
       .then(() => entity)
   }
 
-  * deleteEntity(action) {
+  *deleteEntity(action) {
     try {
       const backend = yield getContext('backend')
       const entity = yield call(backend.deleteEntityApi, action.entity)
@@ -130,7 +130,7 @@ export class Backend {
       .then(json => json._embedded[path])
   }
 
-  * loadEntities(action) {
+  *loadEntities(action) {
     try {
       const backend = yield getContext('backend')
       const entities = yield call(backend.loadEntitiesApi, action.path, action.schema)
@@ -150,10 +150,10 @@ export class Backend {
         'Content-Type': 'application/json'
       }
     })
-      .then(response => response.json() )
+      .then(response => response.json())
   }
 
-  * loadProjectSchema() {
+  *loadProjectSchema() {
     try {
       const backend = yield getContext('backend')
       const schema = yield call(backend.loadProjectSchemaApi)
@@ -170,10 +170,10 @@ export class Backend {
         'Accept': 'application/schema+json'
       }
     })
-      .then(response => response.json() )
+      .then(response => response.json())
   }
 
-  * loadProfileSchema(action) {
+  *loadProfileSchema(action) {
     try {
       const backend = yield getContext('backend')
       const schema = yield call(backend.loadProfileSchemaApi, action.path)
@@ -183,7 +183,7 @@ export class Backend {
     }
   }
 
-  * saga() {
+  *saga() {
     var backend = yield getContext('backend')
     yield takeEvery(CREATE_ENTITY_REQUESTED, backend.createEntity)
     yield takeEvery(UPDATE_ENTITY_REQUESTED, backend.updateEntity)
