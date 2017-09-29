@@ -56,14 +56,14 @@ Notation.defaultProps = {
     },
     'notation' : {
       cellWidth : 3,
-      defaultValue : 'C',
+      defaultValue : 'C'
     },
     'tick' : {
       cellWidth : 2,
       fields : {
         'numerator' : {defaultValue : 1, cellWidth : 6},
         'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
-        'timeUnit' : {defaultValue : 'BEAT', hidden : true},
+        'timeUnit' : {defaultValue : 'BEAT', hidden : true}
       }
     },
     'offset' : { defaultValue : 0},
@@ -78,7 +78,7 @@ Notation.defaultProps = {
       defaultValue : '',
       hidden : true
     }
-  },
+  }
 }
 
 module.exports = Notation

@@ -227,7 +227,7 @@ EditEntity.propTypes = {
       self: PropTypes.shape({
         href: PropTypes.string.isRequired
       })
-    }),
+    })
   }),
   onApply: PropTypes.func.isRequired,
   onFetchComposition: PropTypes.func,
@@ -236,7 +236,7 @@ EditEntity.propTypes = {
       self: PropTypes.shape({
         href: PropTypes.string.isRequired
       })
-    }),
+    })
   }),
   fields: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired

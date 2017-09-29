@@ -37,7 +37,7 @@ function collectionsAtPath(state = { entities: [], newEntities: {} }, action) {
   switch (action.type) {
   case LOAD_ENTITIES_SUCCEEDED:
     return Object.assign({}, state, {
-      entities: action.entities.sort(comparator),
+      entities: action.entities.sort(comparator)
     })
   case DELETE_ENTITY_SUCCEEDED:
     return Object.assign({}, state, {

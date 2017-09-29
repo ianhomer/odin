@@ -18,7 +18,7 @@ function profiles(state = {}, action) {
   switch (action.type) {
   case LOAD_PROFILE_SCHEMA_SUCCEEDED:
     return Object.assign({}, state, {
-      [action.path]: action.schema,
+      [action.path]: action.schema
     })
   default:
     return state

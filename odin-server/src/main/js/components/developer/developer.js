@@ -22,7 +22,7 @@ class Developer extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
-      loggers: [],
+      loggers: []
     }
 
     this.handleKeyPress = this._handleKeyPress.bind(this)
@@ -128,7 +128,7 @@ class Developer extends React.Component{
 }
 
 Developer.propTypes = {
-  flux: PropTypes.object.isRequired,
+  flux: PropTypes.object.isRequired
 }
 
 module.exports = Developer

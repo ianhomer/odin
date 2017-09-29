@@ -125,7 +125,7 @@ Sequence.defaultProps = {
       fields : {
         'numerator' : {defaultValue : 1, cellWidth : 6},
         'denominator' : {defaultValue : 1, cellWidth : 6, label : '/'},
-        'timeUnit' : {defaultValue : 'BEAT', hidden : true},
+        'timeUnit' : {defaultValue : 'BEAT', hidden : true}
       }
     },
     'offset' : { defaultValue : 0 },
@@ -139,7 +139,7 @@ Sequence.defaultProps = {
       defaultValue : '',
       hidden : true
     }
-  },
+  }
 }
 
 module.exports = Sequence

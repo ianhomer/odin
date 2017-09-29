@@ -24,7 +24,7 @@ const Pattern = require('./pattern')
 const Sequence = require('./sequence')
 const Sequences = {
   'notation' : Notation,
-  'pattern'  : Pattern,
+  'pattern'  : Pattern
 }
 const DefaultSequence = Sequence
 

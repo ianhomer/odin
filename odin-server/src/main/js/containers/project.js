@@ -101,7 +101,7 @@ function mapStateToProps(state) {
   const { channels } = state
 
   return {
-    channels,
+    channels
   }
 }
 

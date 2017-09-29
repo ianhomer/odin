@@ -25,7 +25,7 @@ const PatternCard = require('./patternCard')
 const SequenceCard = require('./sequenceCard')
 const Sequences = {
   'notation' : NotationCard,
-  'pattern'  : PatternCard,
+  'pattern'  : PatternCard
 }
 const DefaultSequence = SequenceCard
 

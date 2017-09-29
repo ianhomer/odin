@@ -89,7 +89,7 @@ function mapStateToProps(state) {
   const schema = state.schema
 
   return {
-    schema,
+    schema
   }
 }
 

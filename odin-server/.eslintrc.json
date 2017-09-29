@@ -24,6 +24,7 @@
   "rules": {
     "array-bracket-spacing": "error",
     "curly": "error",
+    "comma-dangle": "error",
     "indent": [ "error", 2 ],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
