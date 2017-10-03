@@ -6930,6 +6930,7 @@ exports[`Composer container Initialise 1`] = `
                           <div
                             className="layer card"
                             style={Object {}}
+                            title="groove"
                           >
                             groove
                             <DragSource(DropTarget(Layer))
@@ -9955,6 +9956,7 @@ exports[`Composer container Initialise 1`] = `
                                   <div
                                     className="layer card"
                                     style={Object {}}
+                                    title="in"
                                   >
                                     in
                                     <div
@@ -13076,6 +13078,7 @@ exports[`Composer container Initialise 1`] = `
                                   <div
                                     className="layer card"
                                     style={Object {}}
+                                    title="intro"
                                   >
                                     intro
                                     <div
@@ -16293,6 +16296,7 @@ exports[`Composer container Initialise 1`] = `
                                   <div
                                     className="layer card"
                                     style={Object {}}
+                                    title="verse"
                                   >
                                     verse
                                     <DragSource(DropTarget(Layer))
@@ -19312,6 +19316,7 @@ exports[`Composer container Initialise 1`] = `
                                           <div
                                             className="layer card"
                                             style={Object {}}
+                                            title="a"
                                           >
                                             a
                                             <div
@@ -22865,6 +22870,7 @@ exports[`Composer container Initialise 1`] = `
                                           <div
                                             className="layer card"
                                             style={Object {}}
+                                            title="b"
                                           >
                                             b
                                             <div
@@ -26156,6 +26162,7 @@ exports[`Composer container Initialise 1`] = `
                                           <div
                                             className="layer card"
                                             style={Object {}}
+                                            title="c"
                                           >
                                             c
                                             <div
@@ -29813,6 +29820,7 @@ exports[`Composer container Initialise 1`] = `
                                   <div
                                     className="layer card"
                                     style={Object {}}
+                                    title="break"
                                   >
                                     break
                                     <div
@@ -33194,6 +33202,7 @@ exports[`Composer container Initialise 1`] = `
                                   <div
                                     className="layer card"
                                     style={Object {}}
+                                    title="out"
                                   >
                                     out
                                     <div
@@ -36143,6 +36152,7 @@ exports[`Composer container Initialise 1`] = `
                           <div
                             className="layer card"
                             style={Object {}}
+                            title="overlay"
                           >
                             overlay
                             <div

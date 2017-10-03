@@ -139,7 +139,7 @@ class Layer extends React.Component{
 
     if (connectDragSource && connectDropTarget) {
       return connectDragSource(connectDropTarget(
-        <div className="layer card" style={style}>
+        <div className="layer card" style={style} title={this.props.entity.name}>
           {this.props.entity.name}
           {this.props.children}
           <div className="sequences">{sequenceNames}</div>
