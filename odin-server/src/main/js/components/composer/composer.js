@@ -46,21 +46,15 @@ class Composer extends React.Component{
   render() {
     var entities = this.props.sequences.entities.map(entity => {
       var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
-      if (!entity.path) {
-        console.error('Entity path not defined for ' + entity)
-        return <div/>
-      } else {
-        return (
-          <div key={'div-' + entity._links.self.href}>
-            <SequenceComponent entity={entity} key={entity._links.self.href}
-              schema={this.props.schema} project={this.props.project}
-              path={entity.path}
-              onAddLayer={this.props.onAddLayer}
-              {...this.getExtraArguments(entity.flowName)}
-            />
-          </div>
-        )
-      }
+      return (
+        <div key={'div-' + entity._links.self.href}>
+          <SequenceComponent entity={entity} key={entity._links.self.href}
+            schema={this.props.schema} project={this.props.project}
+            onAddLayer={this.props.onAddLayer}
+            {...this.getExtraArguments(entity.flowName)}
+          />
+        </div>
+      )
     })
 
     return (
