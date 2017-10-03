@@ -6,16 +6,19 @@ import {mount} from 'enzyme'
 import {mockFlux, testProject, testSchema} from '../testData.js'
 import store from '../store'
 
-test('Channels container', () => {
-  const component = mount(
-    <Provider store={store}>
-      <ChannelsContainer schema={testSchema} project={testProject} flux={mockFlux}/>
-    </Provider>
-  )
-  expect(component).toMatchSnapshot()
-  expect(component.find('button')).toHaveLength(6)
-  component.find('button').at(0).simulate('click')
-  expect(component.find('button')).toHaveLength(5)
-  component.find('button').at(0).simulate('click')
-  expect(component.find('button')).toHaveLength(4)
+describe('Channels container', () => {
+
+  test('Initialise', () => {
+    const component = mount(
+      <Provider store={store}>
+        <ChannelsContainer schema={testSchema} project={testProject} flux={mockFlux}/>
+      </Provider>
+    )
+    expect(component).toMatchSnapshot()
+    expect(component.find('button')).toHaveLength(6)
+    component.find('button').at(0).simulate('click')
+    expect(component.find('button')).toHaveLength(5)
+    component.find('button').at(0).simulate('click')
+    expect(component.find('button')).toHaveLength(4)
+  })
 })
