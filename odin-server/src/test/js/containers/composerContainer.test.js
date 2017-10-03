@@ -6,7 +6,7 @@ import {mount} from 'enzyme'
 import {testProject, testSchema} from '../testData.js'
 import store from '../store'
 
-describe('Sequences container', () => {
+describe('Composer container', () => {
   test('Initialise', () => {
     const component = mount(
       <Provider store={store}>

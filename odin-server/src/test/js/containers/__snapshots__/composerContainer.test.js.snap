@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Sequences container Initialise 1`] = `
+exports[`Composer container Initialise 1`] = `
 <Provider
   store={
     Object {
