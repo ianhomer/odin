@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
-const React = require('react')
-
+import React from 'react'
 import Sequence from './sequence'
-const Note = require('./note')
+import Note from './note'
 
 // Pattern component.
 class Pattern extends Sequence {

@@ -12,18 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {connect, Provider} from 'react-redux'
-
 import {Schema} from '../schema/schema'
-
 import Project from './project'
-const Developer = require('../components/developer/developer')
+import Developer from '../components/developer/developer'
 
 class App extends React.Component {
   constructor(props) {

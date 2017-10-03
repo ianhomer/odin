@@ -12,16 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import React from 'react'
+import PropTypes from 'prop-types'
+import EditEntity from './editEntity'
+import Notation from './notation'
+import Pattern from './pattern'
+import Sequence from './sequence'
 
-
-const React = require('react')
-const PropTypes = require('prop-types')
-
-const EditEntity = require('./editEntity')
-
-const Notation = require('./notation')
-const Pattern = require('./pattern')
-const Sequence = require('./sequence')
 const Sequences = {
   'notation': Notation,
   'pattern': Pattern

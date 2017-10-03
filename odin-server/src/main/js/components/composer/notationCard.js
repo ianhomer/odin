@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const React = require('react')
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import {DragSource} from 'react-dnd'
 import {ItemTypes} from '../../constants.js'
 
-const Score = require('../score')
-const CardLayers = require('./cardLayers')
+import Score from '../score'
+import CardLayers from './cardLayers'
 
 /**
  * Implements the drag source contract.
