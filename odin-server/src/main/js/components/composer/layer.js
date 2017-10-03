@@ -163,6 +163,7 @@ Layer.propTypes = {
   layers: PropTypes.object.isRequired,
   onDelete: PropTypes.func.isRequired,
   onRemoveLayer: PropTypes.func.isRequired,
+  parent: PropTypes.object,
   sequences: PropTypes.object.isRequired,
 
   // Injected by React DnD:

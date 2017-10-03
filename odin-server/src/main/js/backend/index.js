@@ -144,6 +144,10 @@ export class Backend {
       const backend = yield getContext('backend')
       const entity = yield call(backend.patchEntityApi, action.entity, action.patch)
       yield put({type: PATCH_ENTITY_SUCCEEDED, entity: entity, path: action.path})
+      // Support chain of patches
+      if (action.nextAction) {
+        yield put(action.nextAction)
+      }
     } catch (e) {
       yield put({type: PATCH_ENTITY_FAILED, message: e.message})
     }

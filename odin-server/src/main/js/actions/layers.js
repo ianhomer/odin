@@ -33,11 +33,18 @@ export function addLayerToEntityRequested(entity, layer) {
   return patchEntityRequested(entity, getAddLayerToEntityOperations(entity, layer))
 }
 
-export function removeLayerRequested(entity, layer) {
-  return patchEntityRequested(entity, getRemoveLayerOperations(entity, layer))
+export function removeLayerRequested(entity, layer, nextAction) {
+  return patchEntityRequested(entity, getRemoveLayerOperations(entity, layer), nextAction)
 }
 
 export function moveLayerRequested(destination, from, layer) {
-  removeLayerRequested(from, layer)
-  addLayerToEntityRequested(destination, layer)
+  if (from) {
+    return removeLayerRequested(from, layer,
+      addLayerToEntityRequested(destination, layer)
+    )
+  } else {
+    // TODO : Confirm that this flow is OK, not sure if from should ever be null
+    // Moving layer from root level (i.e. no from set)
+    return addLayerToEntityRequested(destination, layer)
+  }
 }
