@@ -1,0 +1,891 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Composer container drag and drop Initialise 1`] = `
+<div
+  data-reactroot=""
+>
+  <div>
+    <div>
+      <div>
+        <div
+          class="layer card"
+          draggable="true"
+        >
+          <!-- react-text: 8 -->
+          groove
+          <!-- /react-text -->
+          <div
+            class="layer card"
+            draggable="true"
+          >
+            <!-- react-text: 10 -->
+            in
+            <!-- /react-text -->
+            <div
+              class="sequences"
+            >
+              <div
+                class="sequenceInLayer"
+                draggable="true"
+                style="opacity: 1;"
+              >
+                organ-a
+              </div>
+            </div>
+          </div>
+          <div
+            class="layer card"
+            draggable="true"
+          >
+            <!-- react-text: 14 -->
+            intro
+            <!-- /react-text -->
+            <div
+              class="sequences"
+            >
+              <div
+                class="sequenceInLayer"
+                draggable="true"
+                style="opacity: 1;"
+              >
+                strings-c4
+              </div>
+              <div
+                class="sequenceInLayer"
+                draggable="true"
+                style="opacity: 1;"
+              >
+                strings-c5
+              </div>
+            </div>
+          </div>
+          <div
+            class="layer card"
+            draggable="true"
+          >
+            <!-- react-text: 19 -->
+            verse
+            <!-- /react-text -->
+            <div
+              class="layer card"
+              draggable="true"
+            >
+              <!-- react-text: 21 -->
+              a
+              <!-- /react-text -->
+              <div
+                class="sequences"
+              >
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  aahs-a
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  kick1
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  notes-c5
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  organ-a
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  piano-a
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  piano-a3
+                </div>
+              </div>
+            </div>
+            <div
+              class="layer card"
+              draggable="true"
+            >
+              <!-- react-text: 30 -->
+              b
+              <!-- /react-text -->
+              <div
+                class="sequences"
+              >
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  kick1
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  notes-c4
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  organ-b
+                </div>
+              </div>
+            </div>
+            <div
+              class="layer card"
+              draggable="true"
+            >
+              <!-- react-text: 36 -->
+              c
+              <!-- /react-text -->
+              <div
+                class="sequences"
+              >
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  aahs-c
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  crash
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  kick2
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  organ-c
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  piano-a
+                </div>
+                <div
+                  class="sequenceInLayer"
+                  draggable="true"
+                  style="opacity: 1;"
+                >
+                  piano-g3
+                </div>
+              </div>
+            </div>
+            <div
+              class="sequences"
+            >
+              <div
+                class="sequenceInLayer"
+                draggable="true"
+                style="opacity: 1;"
+              >
+                hi
+              </div>
+            </div>
+          </div>
+          <div
+            class="layer card"
+            draggable="true"
+          >
+            <!-- react-text: 47 -->
+            break
+            <!-- /react-text -->
+            <div
+              class="sequences"
+            >
+              <div
+                class="sequenceInLayer"
+                draggable="true"
+                style="opacity: 1;"
+              >
+                aahs-br
+              </div>
+              <div
+                class="sequenceInLayer"
+                draggable="true"
+                style="opacity: 1;"
+              >
+                kick3
+              </div>
+              <div
+                class="sequenceInLayer"
+                draggable="true"
+                style="opacity: 1;"
+              >
+                notes
+              </div>
+              <div
+                class="sequenceInLayer"
+                draggable="true"
+                style="opacity: 1;"
+              >
+                strings
+              </div>
+            </div>
+          </div>
+          <div
+            class="layer card"
+            draggable="true"
+          >
+            <!-- react-text: 54 -->
+            out
+            <!-- /react-text -->
+            <div
+              class="sequences"
+            />
+          </div>
+          <div
+            class="sequences"
+          />
+        </div>
+        <div
+          class="layer card"
+          draggable="true"
+        >
+          <!-- react-text: 58 -->
+          overlay
+          <!-- /react-text -->
+          <div
+            class="sequences"
+          >
+            <div
+              class="sequenceInLayer"
+              draggable="true"
+              style="opacity: 1;"
+            >
+              shake
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="trash"
+      >
+        remove
+      </div>
+      <div
+        class="break"
+      >
+         
+      </div>
+      <div>
+        <!-- react-text: 64 -->
+        create new layer : 
+        <!-- /react-text -->
+        <input
+          class="inline"
+          maxlength="8"
+          size="8"
+          type="text"
+        />
+      </div>
+    </div>
+    <div
+      class="break"
+    >
+       
+    </div>
+    <div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            aahs-a
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/58-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                a
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            aahs-br
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/62-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                break
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            aahs-c
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/60-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                c
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            crash
+          </header>
+          <div
+            class="content"
+          />
+          <footer>
+            <div>
+              <div>
+                c
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            hi
+          </header>
+          <div
+            class="content"
+          />
+          <footer>
+            <div>
+              <div>
+                verse
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            kick1
+          </header>
+          <div
+            class="content"
+          />
+          <footer>
+            <div>
+              <div>
+                a
+              </div>
+              <div>
+                b
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            kick2
+          </header>
+          <div
+            class="content"
+          />
+          <footer>
+            <div>
+              <div>
+                c
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            kick3
+          </header>
+          <div
+            class="content"
+          />
+          <footer>
+            <div>
+              <div>
+                break
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            notes
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/44-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                break
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            notes-c4
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/42-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                b
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            notes-c5
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/40-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                a
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            organ-a
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/52-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                a
+              </div>
+              <div>
+                in
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            organ-b
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/54-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                b
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            organ-c
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/56-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                c
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            piano-a
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/28-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                a
+              </div>
+              <div>
+                c
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            piano-a3
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/32-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                a
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            piano-g3
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/38-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                c
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            shake
+          </header>
+          <div
+            class="content"
+          />
+          <footer>
+            <div>
+              <div>
+                overlay
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            strings
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/50-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                break
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            strings-c4
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/48-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                intro
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            strings-c5
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/46-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div>
+              <div>
+                intro
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <div>
+        <div
+          class="sequence card"
+          draggable="true"
+          style="opacity: 1;"
+        >
+          <header>
+            test
+          </header>
+          <div
+            class="content"
+          >
+            <div>
+              <span
+                id="http://localhost:8080/api/sequence/5537-notation-1"
+              />
+            </div>
+          </div>
+          <footer>
+            <div />
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
