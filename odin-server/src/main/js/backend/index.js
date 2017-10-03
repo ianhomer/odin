@@ -128,14 +128,14 @@ export class Backend {
     return fetch(entity._links.self.href, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json-patch+json'
         // TODO : Etag support, note that entity needs to be loaded from server prior to
         // editing to populate Etag
         //'If-Match': entity.headers.Etag
       },
       body: JSON.stringify(patch)
     })
-      .then(() => entity)
+      .then(response => response.json())
       .catch(reason => console.error(reason))
   }
 

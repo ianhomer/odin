@@ -30,14 +30,11 @@ function getRemoveLayerOperations(entity, layer) {
 }
 
 export function addLayerToEntityRequested(entity, layer) {
-  patchEntityRequested(entity, getAddLayerToEntityOperations(entity, layer))
+  return patchEntityRequested(entity, getAddLayerToEntityOperations(entity, layer))
 }
 
 export function removeLayerRequested(entity, layer) {
-  var operations = getRemoveLayerOperations(entity, layer)
-  if (operations.length > 0) {
-    patchEntityRequested(entity, operations)
-  }
+  return patchEntityRequested(entity, getRemoveLayerOperations(entity, layer))
 }
 
 export function moveLayerRequested(destination, from, layer) {
