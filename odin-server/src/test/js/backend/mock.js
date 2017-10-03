@@ -47,7 +47,6 @@ const safe = function(entity) {
 
 
 export class MockBackend extends Backend {
-
   createEntityApi(entity) {
     return safe(entity)
   }
@@ -63,9 +62,8 @@ export class MockBackend extends Backend {
   // Load entities from JSON imported from file
   loadEntitiesApi(path) {
     var json = (path => {
-      const fullPath = '../data/api/' + path + '.json'
       try {
-        return require(fullPath)
+        return loadTestData('api', path)
       } catch (e) {
         console.error(e)
         throw new Error('No test entities data available for path ' + path)

@@ -35,7 +35,7 @@ class ComposerContainer extends React.Component {
       <div>
         {this.props.sequences && this.props.layers &&
           <Composer
-            schema={this.props.schema} project={this.props.project} flux={this.props.flux}
+            schema={this.props.schema} project={this.props.project}
             sequences={this.props.sequences} layers={this.props.layers}
             onCreate={this.props.onCreate}
             onDelete={this.props.onDelete}
@@ -89,7 +89,6 @@ export function mapDispatchToProps(dispatch) {
 }
 
 ComposerContainer.propTypes = {
-  flux: PropTypes.object.isRequired,
   layers: PropTypes.object.isRequired,
   onAddLayer: PropTypes.func.isRequired,
   onCreate: PropTypes.func.isRequired,

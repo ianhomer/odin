@@ -60,7 +60,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <ComposerContainer schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
+          <ComposerContainer schema={this.props.schema} project={this.state.project}/>
         }
       </div>
     )
