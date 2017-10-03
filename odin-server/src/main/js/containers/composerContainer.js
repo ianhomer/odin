@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const React = require('react')
-const PropTypes = require('prop-types')
+import React from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Composer from '../components/composer/composer'
 import {createEntityRequested, deleteEntityRequested,

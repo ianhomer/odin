@@ -14,11 +14,11 @@
 
 
 
-const React = require('react')
-const PropTypes = require('prop-types')
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const Trash = require('./trash')
-const Layer = require('./layer')
+import Trash from './trash'
+import Layer from './layer'
 
 class LayerList extends React.Component{
   constructor(props) {

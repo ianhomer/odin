@@ -28,6 +28,7 @@
     "comma-spacing": "error",
     "func-call-spacing": "error",
     "generator-star-spacing": "error",
+    "global-require": "error",
     "indent": ["error", 2 ],
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",

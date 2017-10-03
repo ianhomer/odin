@@ -21,7 +21,7 @@ import {Backend} from 'odin/backend/index.js'
 import fs from 'fs'
 
 const loadTestData = function(root, path) {
-  var fullPath = __dirname + '/../data/' + root + '/' + encodeURIComponent(path) + '.json'
+  var fullPath = __dirname + '/../data/' + (root ? root + '/' : '') + encodeURIComponent(path) + '.json'
   if (!fs.existsSync(fullPath)) {
     const defaultPath = __dirname + '/../data/' + root + '/default.json'
     if (fs.existsSync(defaultPath)) {

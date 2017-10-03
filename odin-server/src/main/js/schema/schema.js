@@ -24,11 +24,13 @@ const _clazzes = new WeakMap()
 const _flux = new WeakMap()
 const _schema = new WeakMap()
 
+const draft04 = require('ajv/lib/refs/json-schema-draft-04.json')
+
 export class Schema {
   constructor(schema, flux = {}) {
     // ajv is a private property
     _ajv.set(this, new Ajv({extendRefs: true}))
-    this.getAjv().addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'))
+    this.getAjv().addMetaSchema(draft04)
     // schema is a private property
     _schema.set(this, schema)
     _flux.set(this, flux)

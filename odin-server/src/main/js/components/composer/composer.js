@@ -14,15 +14,15 @@
 
 
 
-const React = require('react')
+import React from 'react'
+import PropTypes from 'prop-types'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-const PropTypes = require('prop-types')
 
-const LayerList = require('./layerList')
-const NotationCard = require('./notationCard')
-const PatternCard = require('./patternCard')
-const SequenceCard = require('./sequenceCard')
+import LayerList from './layerList'
+import NotationCard from './notationCard'
+import PatternCard from './patternCard'
+import SequenceCard from './sequenceCard'
 const Sequences = {
   'notation': NotationCard,
   'pattern': PatternCard
