@@ -4,7 +4,7 @@ import {CREATE_ENTITY_SUCCEEDED, DELETE_ENTITY_SUCCEEDED,
 import store from '../store'
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
 
-describe('async actions', () => {
+describe('Channel async actions', () => {
   test('Initial State', () => {
     expect(store.getState().collections['channel']).toBeUndefined()
   })

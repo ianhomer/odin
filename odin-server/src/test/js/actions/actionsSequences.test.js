@@ -6,7 +6,7 @@ import {CREATE_ENTITY_SUCCEEDED, FETCH_COMPOSITION_SUCCEEDED,
 import store from '../store'
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
 
-describe('async actions', () => {
+describe('Sequence async actions', () => {
   test('Initial State', () => {
     expect(store.getState().collections['sequence']).toBeUndefined()
   })

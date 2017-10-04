@@ -5,7 +5,10 @@ export function dispatchAndExpect(store, done, waitForActionType, action, assert
   asserter.unsubscribe = store.subscribe(() => {
     // The test redux store has a reducer that stores the last action so that we
     // can wait for the desired action type before executing the assertion
-    waitForActionTypes = waitForActionTypes.filter(item => item !== store.getState().lastAction.type)
+    var matchIndex = waitForActionTypes.findIndex(item => item === store.getState().lastAction.type)
+    if (matchIndex > -1) {
+      waitForActionTypes.splice(matchIndex, 1)
+    }
     if (waitForActionTypes.length == 0 && !asserter.executed) {
       // Set flag indicating that the assertion has been executed so that we don't apply
       // assertion multiple times.

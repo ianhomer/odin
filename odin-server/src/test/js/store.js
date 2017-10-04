@@ -21,7 +21,12 @@ const store = createStore(
   applyMiddleware(
     thunkMiddleware,
     sagaMiddleware,
-    createLogger({collapsed: false, timestamp: true, colors: {action: false}})
+    createLogger({
+      collapsed: false,
+      colors: {action: false},
+      stateTransformer: state => JSON.stringify(state, null, '  '),
+      timestamp: true
+    })
   )
 )
 sagaMiddleware.run(backend.saga)

@@ -22,7 +22,6 @@ function getEntityFilter(action) {
     return entity => { return entity.number != action.entity.number }
   } else {
     return entity => { return entity._links.self.href != action.entity._links.self.href }
-    //return entity => { return entity.name != action.entity.name }
   }
 }
 

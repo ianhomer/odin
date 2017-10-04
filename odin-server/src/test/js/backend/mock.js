@@ -14,8 +14,6 @@
 
 // Mock Backend
 
-
-
 import testSchema from '../data/schema.json'
 import {Backend} from 'odin/backend/index.js'
 import fs from 'fs'
@@ -38,17 +36,27 @@ const loadTestData = function(root, path) {
   }
 }
 
-const safe = function(entity) {
+var counter = 0
+// TODO : Make this ID allocation threadsafe
+const createId = function() {
+  console.log(counter)
+  return counter++
+}
+
+const safe = function(entity, path) {
   if (!entity.properties) {
     entity.properties = {}
+  }
+  if (!entity._links) {
+    entity._links = {self: {href: 'http://localhost:8080/api/' + path + '/' + createId()}}
   }
   return entity
 }
 
 
 export class MockBackend extends Backend {
-  createEntityApi(entity) {
-    return safe(entity)
+  createEntityApi(entity, path) {
+    return safe(entity, path)
   }
 
   updateEntityApi(entity) {
