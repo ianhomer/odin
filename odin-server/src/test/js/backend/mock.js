@@ -72,7 +72,7 @@ export class MockBackend extends Backend {
 
   patchEntityApi(entity, patch) {
     for (var i=0 ; i< patch.length ; i++) {
-      var [matches, propertyName, index] = patch[i].path.match('/([^/]*)/([0-9]*)')
+      var [, propertyName, index] = patch[i].path.match('/([^/]*)/([0-9]*)')
       switch (patch[i].op) {
       case 'remove':
         entity[propertyName].splice(index, 1)

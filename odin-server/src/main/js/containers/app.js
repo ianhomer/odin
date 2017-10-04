@@ -56,7 +56,7 @@ class App extends React.Component {
     return (
       <div>
         {this.state.schema &&
-          <Developer project={this.state.project} flux={this.props.flux}/>
+          <Developer/>
         }
       </div>
     )

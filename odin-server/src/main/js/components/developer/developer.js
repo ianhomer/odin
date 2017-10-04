@@ -20,7 +20,7 @@ class Developer extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
-      loggers: []
+      loggers: {}
     }
 
     this.handleKeyPress = this._handleKeyPress.bind(this)
@@ -53,17 +53,15 @@ class Developer extends React.Component{
       }
     }
 
-    this.props.flux.client({
+    fetch('/loggers/' + category, {
       method: 'POST',
-      path: '/loggers/' + category,
-      entity: {configuredLevel: level},
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      }
-    }).then(this.loadFromServer).catch(reason => {
-      console.error(reason)
-    }).catch(reason => console.error(reason))
+      }, body: JSON.stringify({configuredLevel: level})
+    })
+      .then(this.loadFromServer).catch(reason => console.error(reason))
+      .catch(reason => console.error(reason))
   }
 
   _handleKeyPress(e) {
@@ -77,15 +75,13 @@ class Developer extends React.Component{
   }
 
   loadFromServer() {
-    this.props.flux.client({
+    fetch('/loggers', {
       method: 'GET',
-      path: '/loggers',
       headers: {'Accept': 'application/json'}
-    }).then(response => {
-      this.setState({loggers: response.entity.loggers})
-    }).catch(reason => {
-      console.error(reason)
     })
+      .then(response => response.json())
+      .then(json => this.setState({loggers: json.loggers}))
+      .catch(reason => console.error(reason))
   }
 
   renderLoggersAtLevel(matchLevel) {
@@ -95,7 +91,7 @@ class Developer extends React.Component{
           defaultValue={matchLevel + ' : '} size="60"
           onKeyPress={this.handleKeyPress}
         />
-        {Object.keys(this.state.loggers).map((name) => {
+        {Object.keys(this.state.loggers).map(name => {
           var level = this.state.loggers[name].configuredLevel
           if (level == matchLevel) {
             return (
@@ -126,7 +122,6 @@ class Developer extends React.Component{
 }
 
 Developer.propTypes = {
-  flux: PropTypes.object.isRequired
 }
 
 module.exports = Developer
