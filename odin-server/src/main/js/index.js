@@ -21,7 +21,7 @@ import {applyMiddleware, combineReducers, createStore} from 'redux'
 import 'babel-polyfill'
 import createSagaMiddleware from 'redux-saga'
 
-import App from './containers/app'
+import App from './containers/App'
 import reducers from './reducers'
 import {Backend} from './backend'
 import {loadSchemaActions} from './actions'

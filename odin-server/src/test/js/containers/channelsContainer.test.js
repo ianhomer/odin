@@ -1,5 +1,5 @@
 import React from 'react'
-import ChannelsContainer from 'odin/containers/channelsContainer.js'
+import ChannelsContainer from 'odin/containers/ChannelsContainer.js'
 import {Provider} from 'react-redux'
 import {mount} from 'enzyme'
 

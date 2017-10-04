@@ -3,7 +3,7 @@ import TestBackend from 'react-dnd-test-backend'
 import {DragDropContext} from 'react-dnd'
 import TestUtils from 'react-dom/test-utils'
 
-import ComposerContainer from 'odin/containers/composerContainer.js'
+import ComposerContainer from 'odin/containers/ComposerContainer.js'
 import Layer from 'odin/components/composer/Layer.js'
 import {Provider} from 'react-redux'
 

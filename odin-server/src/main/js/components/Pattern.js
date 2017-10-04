@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import React from 'react'
-import Sequence from './sequence'
-import Note from './note'
+import Sequence from './Sequence'
+import Note from './Note'
 
 // Pattern component.
 class Pattern extends Sequence {

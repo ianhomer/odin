@@ -14,8 +14,8 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Pattern from './pattern'
-import EditEntity from './editEntity'
+import Pattern from './Pattern'
+import EditEntity from './EditEntity'
 
 // Pattern list component.
 class PatternList extends React.Component{

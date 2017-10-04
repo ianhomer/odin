@@ -4,7 +4,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import sinon from 'sinon'
 
-import App from 'odin/containers/app.js'
+import App from 'odin/containers/App.js'
 import {LOAD_PROJECT_SCHEMA_SUCCEEDED, loadProjectSchemaRequested} from 'odin/actions/index.js'
 
 import store from '../store'

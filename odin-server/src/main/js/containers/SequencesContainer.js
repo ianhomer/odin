@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import EntitiesContainer from './entitiesContainer'
-import SequenceList from '../components/sequenceList'
+import EntitiesContainer from './EntitiesContainer'
+import SequenceList from '../components/SequenceList'
 import {connectEntities, mapDispatchToProps} from './connectEntities'
 import {fetchCompositionRequested} from '../actions'
 

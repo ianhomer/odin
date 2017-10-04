@@ -4,7 +4,7 @@ import store from '../store'
 import {LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
   loadProjectSchemaRequested, loadProfileSchemaRequested} from 'odin/actions/index.js'
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
-import {Schema} from 'odin/schema/schema'
+import {Schema} from 'odin/schema/Schema'
 
 describe('Schema validation', () => {
 

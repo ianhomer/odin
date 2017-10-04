@@ -1,7 +1,7 @@
 import TIMEOUT from '../constants.js'
 
 import React from 'react'
-import SequencesContainer from 'odin/containers/sequencesContainer.js'
+import SequencesContainer from 'odin/containers/SequencesContainer.js'
 import {LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
   loadSchemaActions} from 'odin/actions/index.js'
 import {mount} from 'enzyme'

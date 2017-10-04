@@ -14,8 +14,8 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import Channel from './channel'
-import EditEntity from './editEntity'
+import Channel from './Channel'
+import EditEntity from './EditEntity'
 
 class ChannelList extends React.Component{
   constructor(props) {

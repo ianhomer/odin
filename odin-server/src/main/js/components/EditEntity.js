@@ -15,7 +15,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import objectPath from 'object-path'
-import Score from './score'
+import Score from './Score'
 
 // Edit an entity.
 class EditEntity extends React.Component{

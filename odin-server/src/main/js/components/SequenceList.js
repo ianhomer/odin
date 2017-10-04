@@ -14,10 +14,10 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import EditEntity from './editEntity'
-import Notation from './notation'
-import Pattern from './pattern'
-import Sequence from './sequence'
+import EditEntity from './EditEntity'
+import Notation from './Notation'
+import Pattern from './Pattern'
+import Sequence from './Sequence'
 
 const Sequences = {
   'notation': Notation,

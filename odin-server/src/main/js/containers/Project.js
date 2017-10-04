@@ -20,9 +20,9 @@ const PropTypes = require('prop-types')
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 
-import ChannelsContainer from '../containers/channelsContainer'
-import SequencesContainer from '../containers/sequencesContainer'
-import ComposerContainer from '../containers/composerContainer'
+import ChannelsContainer from '../containers/ChannelsContainer'
+import SequencesContainer from '../containers/SequencesContainer'
+import ComposerContainer from '../containers/ComposerContainer'
 
 class Project extends React.Component {
   constructor(props) {

@@ -16,9 +16,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {connect, Provider} from 'react-redux'
-import {Schema} from '../schema/schema'
-import Project from './project'
-import Developer from '../components/developer/developer'
+import {Schema} from '../schema/Schema'
+import Project from './Project'
+import Developer from '../components/developer/Developer'
 
 class App extends React.Component {
   constructor(props) {

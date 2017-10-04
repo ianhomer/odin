@@ -15,8 +15,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Sequence from './sequence'
-import Score from './score'
+import Sequence from './Sequence'
+import Score from './Score'
 
 // Notation component.
 class Notation extends Sequence {

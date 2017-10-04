@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import EntitiesContainer from './entitiesContainer'
-import ChannelList from '../components/channelList'
+import EntitiesContainer from './EntitiesContainer'
+import ChannelList from '../components/ChannelList'
 import {connectEntities} from './connectEntities'
 
 class ChannelsContainer extends EntitiesContainer {
