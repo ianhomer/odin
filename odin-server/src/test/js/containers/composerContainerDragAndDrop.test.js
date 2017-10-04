@@ -6,7 +6,6 @@ import TestUtils from 'react-dom/test-utils'
 import ComposerContainer from 'odin/containers/composerContainer.js'
 import Layer from 'odin/components/composer/layer.js'
 import {Provider} from 'react-redux'
-import {DragSource, DropTarget} from 'react-dnd'
 
 import {testProject, testSchema} from '../testData.js'
 import store from '../store'
@@ -30,7 +29,7 @@ describe('Composer container drag and drop', () => {
         <ComposerContainer schema={testSchema} project={testProject}/>
       </ProviderInContext>
     )
-    const backend = root.getManager().getBackend()
+    //const backend = root.getManager().getBackend()
     let cardA = TestUtils.scryRenderedDOMComponentsWithClass(root, 'card').find(card => card.title == 'a')
     expect(cardA).toMatchSnapshot()
     expect(cardA.getAttribute('draggable')).toBeTruthy()
@@ -43,6 +42,7 @@ describe('Composer container drag and drop', () => {
     expect(targetId).toBeTruthy()
     // TODO : Complete test coverage of drag and drop
     // currently the following throws Invariant Violation: Expected sourceIds to be registered.
+    // see actionsLayers.test.js for examples of the dispatches that we'd expect to happen
     //backend.simulateBeginDrag([sourceId])
     //backend.simulateHover([targetId])
     //backend.simulateDrop()

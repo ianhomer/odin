@@ -39,7 +39,6 @@ const loadTestData = function(root, path) {
 var counter = 0
 // TODO : Make this ID allocation threadsafe
 const createId = function() {
-  console.log(counter)
   return counter++
 }
 
@@ -50,9 +49,13 @@ const safe = function(entity, path) {
   if (!entity._links) {
     entity._links = {self: {href: 'http://localhost:8080/api/' + path + '/' + createId()}}
   }
+  if (path === 'layer') {
+    if (!entity.layers) {
+      entity.layers = []
+    }
+  }
   return entity
 }
-
 
 export class MockBackend extends Backend {
   createEntityApi(entity, path) {
@@ -64,6 +67,40 @@ export class MockBackend extends Backend {
   }
 
   deleteEntityApi(entity) {
+    return entity
+  }
+
+  patchEntityApi(entity, patch) {
+    for (var i=0 ; i< patch.length ; i++) {
+      var propertyName
+      var matches
+      var index
+      switch (patch[i].op) {
+      case 'remove':
+        matches = patch[i].path.match('/([^/]*)/(.*)')
+        propertyName = matches[1]
+        index = matches[2]
+        entity[propertyName].splice(index, 1)
+        break
+      case 'add':
+        propertyName = patch[i].path.match('/([^/]*)/')[1]
+        if (!entity[propertyName]) {
+          entity[propertyName] = []
+        }
+        entity[propertyName].push(patch[i].value)
+        break
+      case 'test':
+        matches = patch[i].path.match('/([^/]*)/(.*)')
+        propertyName = matches[1]
+        index = matches[2]
+        if (entity[propertyName][index] !== patch[i].value) {
+          throw new Error(propertyName + ' index ' + index + ' is not ' + patch[i].value)
+        }
+        break
+      default:
+        throw new Error('Operation ' + patch[i].op + ' not supported in mock backend')
+      }
+    }
     return entity
   }
 
