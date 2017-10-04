@@ -49,8 +49,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <ChannelsContainer schema={this.props.schema} project={this.state.project} flux={this.props.flux}
-            dispatch={this.props.dispatch} />
+          <ChannelsContainer schema={this.props.schema} project={this.state.project}/>
         }
       </div>
     )
@@ -70,7 +69,7 @@ class Project extends React.Component {
     return (
       <div>
         {this.state.project &&
-          <SequencesContainer schema={this.props.schema} project={this.state.project} flux={this.props.flux}/>
+          <SequencesContainer schema={this.props.schema} project={this.state.project}/>
         }
       </div>
     )
