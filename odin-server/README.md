@@ -1,5 +1,9 @@
 # Useful Developer Commands
 
+Quick install development version of front end
+
+    mvn frontend:webpack
+
 Quick install
 
     mvn install -P quick

@@ -10,6 +10,7 @@
       <w>beany</w>
       <w>clazzes</w>
       <w>coveredratio</w>
+      <w>devtool</w>
       <w>diachenko</w>
       <w>dlogback</w>
       <w>drumkit</w>
@@ -41,11 +42,13 @@
       <w>slint</w>
       <w>sonatype</w>
       <w>soundbank</w>
+      <w>sourcemaps</w>
       <w>springframework</w>
       <w>tbody</w>
       <w>textarea</w>
       <w>tock</w>
       <w>tocks</w>
+      <w>uglify</w>
       <w>unconstructible</w>
       <w>unregistering</w>
       <w>unsubscribe</w>

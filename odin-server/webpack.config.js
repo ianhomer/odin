@@ -1,27 +1,9 @@
-var path = require('path');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 
-module.exports = {
-    entry: './src/main/js/index.js',
-    devtool: 'sourcemaps',
-    cache: true,
-    debug: true,
-    output: {
-        path: __dirname,
-        filename: './src/main/resources/static/built/bundle.js'
-    },
-    module: {
-        loaders: [
-            {
-                test: path.join(__dirname, '.'),
-                exclude: /(node_modules)/,
-                loader: 'babel',
-                query: {
-                    cacheDirectory: true,
-                    presets: ['es2015', 'react']
-                }
-            },
-            { test: /\.json$/, loader: "json-loader" },
-            { test: /\.coffee/, loader: "coffee-loader" }
-        ]
-    }
-};
+// This configuration file creates a development built.  It is used when the front end
+// is built with mvn frontend:webpack
+module.exports = merge(common, {
+  devtool: 'sourcemaps',
+  debug: true
+});
