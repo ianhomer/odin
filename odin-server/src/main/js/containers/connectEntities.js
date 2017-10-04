@@ -5,7 +5,7 @@ import {createEntityRequested, deleteEntityRequested,
 // Curry mapStateToProps with path value
 function mapStateToProps(path) {
   return function(state) {
-    const collection = state.collections[path] ? state.collections[path] : {entities: []}
+    const collection = state.rest[path] ? state.rest[path] : {entities: []}
 
     return {
       collection

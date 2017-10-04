@@ -32,7 +32,7 @@ function comparator(a, b) {
   return a.name > b.name ? 1 : 0
 }
 
-function collectionsAtPath(state = {entities: [], newEntities: {}}, action) {
+function restAtPath(state = {entities: [], newEntities: {}}, action) {
   switch (action.type) {
   case LOAD_ENTITIES_SUCCEEDED:
     return {...state,
@@ -76,7 +76,7 @@ function collectionsAtPath(state = {entities: [], newEntities: {}}, action) {
   }
 }
 
-function collections(state = [], action) {
+function rest(state = [], action) {
   switch (action.type) {
   case CREATE_ENTITY_SUCCEEDED:
   case UPDATE_ENTITY_SUCCEEDED:
@@ -84,15 +84,15 @@ function collections(state = [], action) {
   case LOAD_ENTITIES_SUCCEEDED:
   case PATCH_ENTITY_SUCCEEDED:
     return {...state,
-      [action.path]: collectionsAtPath(state[action.path], action)
+      [action.path]: restAtPath(state[action.path], action)
     }
   case FETCH_COMPOSITION_SUCCEEDED:
     return {...state,
-      sequence: collectionsAtPath(state['sequence'], action)
+      sequence: restAtPath(state['sequence'], action)
     }
   default:
     return state
   }
 }
 
-export default collections
+export default rest

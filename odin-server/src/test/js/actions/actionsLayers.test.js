@@ -9,12 +9,12 @@ import store from '../store'
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
 
 function getLayer(name) {
-  return store.getState().collections['layer'].entities.find(layer => layer.name === name)
+  return store.getState().rest.layer.entities.find(layer => layer.name === name)
 }
 
 describe('Layer async actions', () => {
   test('Initial State', () => {
-    expect(store.getState().collections['sequence']).toBeUndefined()
+    expect(store.getState().rest.sequence).toBeUndefined()
   })
 
   test('Create Layers', done => {
@@ -25,7 +25,7 @@ describe('Layer async actions', () => {
         createEntityRequested({name: 'layer-3'}, 'layer')
       ],
       () => {
-        const layers = store.getState().collections['layer'].entities
+        const layers = store.getState().rest.layer.entities
         expect(layers[0].name).toBe('layer-1')
         expect(layers.length).toBe(3)
       }

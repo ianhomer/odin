@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import collections from './collections'
+import rest from './rest'
 import schema from './schema'
 
 const reducers = {
-  collections,
+  rest,
   schema
 }
 

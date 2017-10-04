@@ -52,8 +52,8 @@ class ComposerContainer extends React.Component {
 
 function mapStateToProps() {
   return function(state) {
-    const layers = state.collections['layer'] ? state.collections['layer'] : {entities: []}
-    const sequences = state.collections['sequence'] ? state.collections['sequence'] : {entities: []}
+    const layers = state.rest.layer ? state.rest.layer : {entities: []}
+    const sequences = state.rest.sequence ? state.rest.sequence : {entities: []}
 
     return {
       layers,
