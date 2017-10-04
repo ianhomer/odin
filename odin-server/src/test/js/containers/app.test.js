@@ -7,12 +7,11 @@ import sinon from 'sinon'
 import App from 'odin/containers/app.js'
 import {LOAD_PROJECT_SCHEMA_SUCCEEDED, loadProjectSchemaRequested} from 'odin/actions/index.js'
 
-import {mockFlux} from '../testData.js'
 import store from '../store'
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
 
 describe('async actions', () => {
-  var props = {store, flux: mockFlux}
+  var props = {store}
   var app = <App {...props} />
 
   test('App before schema loaded OK', () => {

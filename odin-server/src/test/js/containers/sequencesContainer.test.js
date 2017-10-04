@@ -8,12 +8,12 @@ import {mount} from 'enzyme'
 import {mountToDeepJson} from 'enzyme-to-json'
 
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
-import {mockFlux, testProject, testSchema} from '../testData.js'
+import {testProject, testSchema} from '../testData.js'
 import store from '../store'
 
 describe('Sequences container', () => {
   const component =
-    <SequencesContainer store={store} schema={testSchema} project={testProject} flux={mockFlux}/>
+    <SequencesContainer store={store} schema={testSchema} project={testProject}/>
 
   test('Sequences container initialise', () => {
     expect(mountToDeepJson(mount(component))).toMatchSnapshot()

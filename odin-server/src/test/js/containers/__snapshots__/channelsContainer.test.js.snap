@@ -13,17 +13,6 @@ exports[`Channels container Initialise 1`] = `
   }
 >
   <Connect(ChannelsContainer)
-    flux={
-      MockFlux {
-        "client": [Function],
-        "loadFromServer": [Function],
-        "loadSchema": [Function],
-        "onCreate": [Function],
-        "onDelete": [Function],
-        "onPatch": [Function],
-        "onUpdate": [Function],
-      }
-    }
     project={
       Object {
         "_links": Object {
@@ -160,17 +149,6 @@ exports[`Channels container Initialise 1`] = `
             },
           ],
           "newEntities": Object {},
-        }
-      }
-      flux={
-        MockFlux {
-          "client": [Function],
-          "loadFromServer": [Function],
-          "loadSchema": [Function],
-          "onCreate": [Function],
-          "onDelete": [Function],
-          "onPatch": [Function],
-          "onUpdate": [Function],
         }
       }
       onCreate={[Function]}

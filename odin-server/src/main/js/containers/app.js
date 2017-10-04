@@ -46,7 +46,7 @@ class App extends React.Component {
     return (
       <div>
         {this.state.schema &&
-          <Project schema={this.state.schema} flux={this.props.flux}/>
+          <Project schema={this.state.schema}/>
         }
       </div>
     )
@@ -89,7 +89,6 @@ function mapStateToProps(state) {
 }
 
 App.propTypes = {
-  flux: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired
 }

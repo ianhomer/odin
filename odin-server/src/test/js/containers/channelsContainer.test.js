@@ -3,7 +3,7 @@ import ChannelsContainer from 'odin/containers/channelsContainer.js'
 import {Provider} from 'react-redux'
 import {mount} from 'enzyme'
 
-import {mockFlux, testProject, testSchema} from '../testData.js'
+import {testProject, testSchema} from '../testData.js'
 import store from '../store'
 
 describe('Channels container', () => {
@@ -11,7 +11,7 @@ describe('Channels container', () => {
   test('Initialise', () => {
     const component = mount(
       <Provider store={store}>
-        <ChannelsContainer schema={testSchema} project={testProject} flux={mockFlux}/>
+        <ChannelsContainer schema={testSchema} project={testProject}/>
       </Provider>
     )
     expect(component).toMatchSnapshot()

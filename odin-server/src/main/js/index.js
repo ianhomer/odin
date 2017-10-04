@@ -23,7 +23,6 @@ import createSagaMiddleware from 'redux-saga'
 
 import App from './containers/app'
 import reducers from './reducers'
-import {Flux} from './legacy/flux'
 import {Backend} from './backend'
 import {loadSchemaActions} from './actions'
 
@@ -55,6 +54,6 @@ for (var i = 0; i < loadSchemaActions.length ; i++) {
 
 // Render application
 render(
-  <App store={store} flux={new Flux()}/>,
+  <App store={store}/>,
   document.getElementById('root')
 )

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import React from 'react'
-import PropTypes from 'prop-types'
 
 // Rendering of developer console
 class Developer extends React.Component{
@@ -119,9 +118,6 @@ class Developer extends React.Component{
       </div>
     )
   }
-}
-
-Developer.propTypes = {
 }
 
 module.exports = Developer

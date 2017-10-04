@@ -7,12 +7,12 @@ import {LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
 import {mount} from 'enzyme'
 
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
-import {mockFlux, testProject, testSchema} from '../testData.js'
+import {testProject, testSchema} from '../testData.js'
 import store from '../store'
 
 test('Sequences container renders OK', done => {
   const component =
-    <SequencesContainer store={store} schema={testSchema} project={testProject} flux={mockFlux}/>
+    <SequencesContainer store={store} schema={testSchema} project={testProject}/>
 
   dispatchAndExpect(store, done,
     [LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED],

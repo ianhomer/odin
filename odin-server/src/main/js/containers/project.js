@@ -38,14 +38,13 @@ class Project extends React.Component {
 
   componentDidMount() {
     // Load first project (only one project supported for now)
-    this.props.flux.client({method: 'GET', path: '/api/project'}).done(response => {
-      var projects = response.entity._embedded.project
-      this.setState({project: projects[0]})
-    })
+    // TODO : Move this project loading over to redux
+    fetch('/api/project', {method: 'GET'})
+      .then(response => response.json())
+      .then(json => this.setState({project: json._embedded.project[0]}))
   }
 
   renderChannelList() {
-    // TODO : Remove dispatch property if redundant
     return (
       <div>
         {this.state.project &&
@@ -90,9 +89,6 @@ class Project extends React.Component {
 
 Project.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  flux: PropTypes.shape({
-    client: PropTypes.func.isRequired
-  }),
   schema: PropTypes.object.isRequired
 }
 
