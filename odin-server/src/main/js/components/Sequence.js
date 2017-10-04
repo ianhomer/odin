@@ -14,8 +14,8 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import EditEntity from './editEntity'
-import Tick from './tick'
+import EditEntity from './EditEntity'
+import Tick from './Tick'
 
 class Sequence extends React.Component {
   constructor(props) {

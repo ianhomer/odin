@@ -34,7 +34,7 @@ class EditEntity extends React.Component{
     const name = target.name
     var properties = {}
     objectPath.set(properties, name, value)
-    var newState = {properties: Object.assign({}, this.state.properties, properties)}
+    var newState = {properties: {...this.state.properties, ...properties}}
     this.setState(newState)
   }
 
@@ -132,9 +132,9 @@ class EditEntity extends React.Component{
         {properties: {notation: value}}
       if (this.state.properties.notation) {
         // Merge change notation into entity used to render score
-        scoreEntity = Object.assign({}, scoreEntity, {
-          properties: Object.assign({}, scoreEntity.properties, {notation: this.state.properties.notation})
-        })
+        scoreEntity = {...scoreEntity,
+          properties: {...scoreEntity.properties, notation: this.state.properties.notation}
+        }
       }
       return (
         <div className={cellClassName} key={key}>

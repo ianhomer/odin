@@ -35,23 +35,23 @@ function comparator(a, b) {
 function collectionsAtPath(state = {entities: [], newEntities: {}}, action) {
   switch (action.type) {
   case LOAD_ENTITIES_SUCCEEDED:
-    return Object.assign({}, state, {
+    return {...state,
       entities: action.entities.sort(comparator)
-    })
+    }
   case DELETE_ENTITY_SUCCEEDED:
-    return Object.assign({}, state, {
+    return {...state,
       entities: [...state.entities.filter(getEntityFilter(action))].sort(comparator)
-    })
+    }
   case CREATE_ENTITY_SUCCEEDED:
   case UPDATE_ENTITY_SUCCEEDED:
   case PATCH_ENTITY_SUCCEEDED:
-    return Object.assign({}, state, {
+    return {...state,
       entities: [...state.entities.filter(getEntityFilter(action)), action.entity].sort(comparator)
-    })
+    }
   case FETCH_COMPOSITION_SUCCEEDED:
     if (action.entityName === undefined) {
       // Store composition for new entity that is being created
-      return Object.assign({}, state, {
+      return {...state,
         entities: state.entities.sort(comparator),
         newEntities: {
           notation: {
@@ -59,9 +59,9 @@ function collectionsAtPath(state = {entities: [], newEntities: {}}, action) {
             _composition: action.composition
           }
         }
-      })
+      }
     } else {
-      return Object.assign({}, state, {
+      return {...state,
         entities: [...state.entities.map(entity => {
           // Add the composition object to the sequence entity
           if (action.entityName === entity.name) {
@@ -69,7 +69,7 @@ function collectionsAtPath(state = {entities: [], newEntities: {}}, action) {
           }
           return entity
         })].sort(comparator)
-      })
+      }
     }
   default:
     return state
@@ -83,13 +83,13 @@ function collections(state = [], action) {
   case DELETE_ENTITY_SUCCEEDED:
   case LOAD_ENTITIES_SUCCEEDED:
   case PATCH_ENTITY_SUCCEEDED:
-    return Object.assign({}, state, {
+    return {...state,
       [action.path]: collectionsAtPath(state[action.path], action)
-    })
+    }
   case FETCH_COMPOSITION_SUCCEEDED:
-    return Object.assign({}, state, {
+    return {...state,
       sequence: collectionsAtPath(state['sequence'], action)
-    })
+    }
   default:
     return state
   }

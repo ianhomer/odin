@@ -18,7 +18,7 @@ import PropTypes from 'prop-types'
 import {DragSource} from 'react-dnd'
 import {ItemTypes} from '../../constants.js'
 
-import Score from '../score'
+import Score from '../Score'
 import CardLayers from './CardLayers'
 
 /**
