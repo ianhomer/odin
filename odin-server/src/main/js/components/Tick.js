@@ -1,4 +1,4 @@
-// Copyright (c) 2017 the original author or authors. All Rights Reserved
+// Copyright (c) 2017 The Odin Authors. All Rights Reserved
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
