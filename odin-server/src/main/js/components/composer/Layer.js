@@ -18,7 +18,7 @@ import PropTypes from 'prop-types'
 import {ItemTypes} from '../../constants'
 import {DragSource, DropTarget} from 'react-dnd'
 
-const SequenceInLayer = require('./sequenceInLayer')
+const SequenceInLayer = require('./SequenceInLayer')
 
 /**
  * Implements the drag source contract.

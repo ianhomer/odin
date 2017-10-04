@@ -15,7 +15,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Composer from '../components/composer/composer'
+import Composer from '../components/composer/Composer'
 import {createEntityRequested, deleteEntityRequested,
   addLayerToEntityRequested, moveLayerRequested, removeLayerRequested,
   fetchCompositionRequested, loadEntitiesRequested} from '../actions'

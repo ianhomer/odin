@@ -18,7 +18,7 @@ import PropTypes from 'prop-types'
 import {DragSource} from 'react-dnd'
 import {ItemTypes} from '../../constants.js'
 
-import CardLayers from './cardLayers'
+import CardLayers from './CardLayers'
 
 /**
  * Implements the drag source contract.

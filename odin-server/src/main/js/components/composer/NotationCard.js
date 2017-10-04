@@ -19,7 +19,7 @@ import {DragSource} from 'react-dnd'
 import {ItemTypes} from '../../constants.js'
 
 import Score from '../score'
-import CardLayers from './cardLayers'
+import CardLayers from './CardLayers'
 
 /**
  * Implements the drag source contract.

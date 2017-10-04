@@ -15,8 +15,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Trash from './trash'
-import Layer from './layer'
+import Trash from './Trash'
+import Layer from './Layer'
 
 class LayerList extends React.Component{
   constructor(props) {

@@ -19,10 +19,10 @@ import PropTypes from 'prop-types'
 import {DragDropContext} from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-import LayerList from './layerList'
-import NotationCard from './notationCard'
-import PatternCard from './patternCard'
-import SequenceCard from './sequenceCard'
+import LayerList from './LayerList'
+import NotationCard from './NotationCard'
+import PatternCard from './PatternCard'
+import SequenceCard from './SequenceCard'
 const Sequences = {
   'notation': NotationCard,
   'pattern': PatternCard

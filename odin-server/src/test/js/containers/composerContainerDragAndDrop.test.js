@@ -4,7 +4,7 @@ import {DragDropContext} from 'react-dnd'
 import TestUtils from 'react-dom/test-utils'
 
 import ComposerContainer from 'odin/containers/composerContainer.js'
-import Layer from 'odin/components/composer/layer.js'
+import Layer from 'odin/components/composer/Layer.js'
 import {Provider} from 'react-redux'
 
 import {testProject, testSchema} from '../testData.js'
