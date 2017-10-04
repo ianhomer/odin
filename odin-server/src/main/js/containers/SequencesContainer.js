@@ -31,11 +31,11 @@ class SequencesContainer extends EntitiesContainer {
 }
 
 function sequenceMapDispatchToProps(dispatch) {
-  return Object.assign({}, mapDispatchToProps(dispatch), {
+  return {...mapDispatchToProps(dispatch),
     onFetchComposition: (entityName, notation) => {
       dispatch(fetchCompositionRequested(entityName, notation))
     }
-  })
+  }
 }
 
 SequencesContainer.defaultProps = {

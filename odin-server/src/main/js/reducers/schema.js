@@ -17,9 +17,9 @@ import {LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_SUCCEEDED} from '../a
 function profiles(state = {}, action) {
   switch (action.type) {
   case LOAD_PROFILE_SCHEMA_SUCCEEDED:
-    return Object.assign({}, state, {
+    return {...state,
       [action.path]: action.schema
-    })
+    }
   default:
     return state
   }
@@ -28,15 +28,15 @@ function profiles(state = {}, action) {
 function schema(state = {revision: 0}, action) {
   switch (action.type) {
   case LOAD_PROJECT_SCHEMA_SUCCEEDED:
-    return Object.assign({}, state, {
+    return {...state,
       revision: state.revision + 1,
       project: action.schema
-    })
+    }
   case LOAD_PROFILE_SCHEMA_SUCCEEDED:
-    return Object.assign({}, state, {
+    return {...state,
       revision: state.revision + 1,
       profiles: profiles(state.profiles, action)
-    })
+    }
   default:
     return state
   }
