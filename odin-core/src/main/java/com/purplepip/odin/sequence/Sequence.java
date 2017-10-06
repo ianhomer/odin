@@ -107,4 +107,11 @@ public interface Sequence extends Copyable<Sequence>, TimeThing {
    */
   @JsonIgnore
   boolean isEmpty();
+
+  /**
+   * Name of triggers that will spawn this sequence.
+   *
+   * @return trigger names
+   */
+  List<String> getTriggers();
 }

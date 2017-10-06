@@ -36,6 +36,7 @@ public class DefaultSequence extends AbstractTimeThing implements MutableSequenc
   private Project project;
   private List<String> layers = new ArrayList<>();
   private Map<String, String> values = new HashMap<>();
+  private List<String> triggers = new ArrayList<>();
 
   public DefaultSequence() {
     super();
@@ -113,5 +114,10 @@ public class DefaultSequence extends AbstractTimeThing implements MutableSequenc
   @Override
   public boolean isEmpty() {
     return layers.isEmpty();
+  }
+
+  @Override
+  public List<String> getTriggers() {
+    return triggers;
   }
 }
