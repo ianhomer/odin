@@ -19,6 +19,8 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
+import com.purplepip.odin.sequence.triggers.MutableTrigger;
+import com.purplepip.odin.sequence.triggers.Trigger;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,6 +56,10 @@ public class PersistableProject implements Project {
   @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
   private Set<Layer> layers = new HashSet<>();
+
+  @OneToMany(targetEntity = PersistableTrigger.class, cascade = CascadeType.ALL,
+      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
+  private Set<Trigger> triggers = new HashSet<>();
 
   @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
@@ -122,6 +128,28 @@ public class PersistableProject implements Project {
       LOG.warn("Could not remove layer {} from project with layers {}", layer, getLayers());
     } else {
       LOG.debug("Removed layer {} from project which now has layers = {}  ", layer, getLayers());
+    }
+  }
+
+  @Override
+  public void addTrigger(MutableTrigger trigger) {
+    trigger.setProject(this);
+    boolean result = triggers.add(trigger);
+    if (!result) {
+      LOG.warn("Could not add trigger {} to project", trigger);
+    } else {
+      LOG.debug("Added trigger to project");
+    }
+  }
+
+  @Override
+  public void removeTrigger(Trigger trigger) {
+    boolean result = layers.remove(trigger);
+    if (!result) {
+      LOG.warn("Could not remove trigger {} from project with triggers {}", trigger, getTriggers());
+    } else {
+      LOG.debug("Removed trigger {} from project which now has layers = {}  ",
+          trigger, getTriggers());
     }
   }
 }

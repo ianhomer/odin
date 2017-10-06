@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.sequence.layer.Layer;
-import com.purplepip.odin.store.domain.PersistableLayer;
+import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.store.domain.PersistableTrigger;
 import java.util.List;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;
@@ -24,12 +24,12 @@ import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
- * Layer repository.
+ * Trigger repository.
  */
-@RepositoryRestResource(path = "layer",
-    collectionResourceRel = "layer", collectionResourceDescription = @Description("layer"),
-    itemResourceRel = "layer", itemResourceDescription = @Description("layer"))
+@RepositoryRestResource(path = "trigger",
+    collectionResourceRel = "trigger", collectionResourceDescription = @Description("trigger"),
+    itemResourceRel = "trigger", itemResourceDescription = @Description("trigger"))
 @Profile("!noStore")
-public interface LayerRepository extends CrudRepository<PersistableLayer, Long> {
-  List<Layer> findByName(String name);
+public interface TriggerRepository extends CrudRepository<PersistableTrigger, Long> {
+  List<Trigger> findByName(String name);
 }

@@ -28,6 +28,9 @@ import lombok.ToString;
 /**
  * Persistable pattern.
  */
+/*
+ * TODO : Remove this class it shouldn't be used now
+ */
 @Data
 @Entity(name = "Pattern")
 @Table(name = "Pattern")

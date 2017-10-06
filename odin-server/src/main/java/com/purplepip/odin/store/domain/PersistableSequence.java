@@ -79,6 +79,9 @@ public class PersistableSequence
   @ElementCollection
   private List<String> layers = new ArrayList<>(0);
 
+  @ElementCollection
+  private List<String> triggers = new ArrayList<>(0);
+
   @Override
   public void removeLayer(String layer) {
     LOG.debug("Removing layer {} from {}", layer, this);

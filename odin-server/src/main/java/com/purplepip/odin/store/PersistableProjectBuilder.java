@@ -21,6 +21,7 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.triggers.MutableTrigger;
 import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.store.domain.PersistableChannel;
@@ -28,6 +29,7 @@ import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistableNote;
 import com.purplepip.odin.store.domain.PersistableSequence;
 import com.purplepip.odin.store.domain.PersistableTick;
+import com.purplepip.odin.store.domain.PersistableTrigger;
 
 /**
  * Sequence builder that updates the project with persistable domain objects.
@@ -72,6 +74,11 @@ public class PersistableProjectBuilder extends BeanyProjectBuilder {
   @Override
   protected Channel createChannel() {
     return new PersistableChannel();
+  }
+
+  @Override
+  protected MutableTrigger createTrigger() {
+    return new PersistableTrigger();
   }
 
   @Override

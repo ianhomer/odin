@@ -20,6 +20,7 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
+import com.purplepip.odin.sequence.triggers.NoteTrigger;
 import java.util.HashSet;
 import java.util.Optional;
 import org.junit.Test;
@@ -129,5 +130,15 @@ public class ProjectBuilderTest {
           + "layer3, layer3, layer4] that have duplicates [layer3, layer2]", captor.getMessage(0));
 
     }
+  }
+
+  @Test
+  public void testAddTrigger() {
+    TransientProject project = new TransientProject();
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    builder.withName("trigger1").withNote(60).addNoteTrigger();
+    NoteTrigger trigger = (NoteTrigger) builder.getTriggerByOrder(0);
+    assertEquals("trigger1", trigger.getName());
+    assertEquals(60, trigger.getNote());
   }
 }

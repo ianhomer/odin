@@ -41,6 +41,10 @@ import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.tick.DefaultTick;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.sequence.triggers.DefaultTrigger;
+import com.purplepip.odin.sequence.triggers.MutableTrigger;
+import com.purplepip.odin.sequence.triggers.NoteTrigger;
+import com.purplepip.odin.sequence.triggers.Trigger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -69,9 +73,11 @@ public class ProjectBuilder {
   private int offset;
   private Tick tick = BEAT;
   private List<String> layerNamesToAdd = new ArrayList<>();
+  private List<String> triggerNamesToAdd = new ArrayList<>();
   private List<Long> sequenceIds = new ArrayList<>();
   private List<Long> channelIds = new ArrayList<>();
   private List<Long> layerIds = new ArrayList<>();
+  private List<Long> triggerIds = new ArrayList<>();
   private Map<String, String> properties = new HashMap<>();
 
   public ProjectBuilder(ProjectContainer projectContainer) {
@@ -91,6 +97,7 @@ public class ProjectBuilder {
     length = -1;
     offset = 0;
     layerNamesToAdd.clear();
+    triggerNamesToAdd.clear();
     sequenceIds.clear();
     channelIds.clear();
     layerIds.clear();
@@ -98,6 +105,11 @@ public class ProjectBuilder {
 
   public Layer getLayer(String name) {
     return projectContainer.getLayerStream().filter(l -> name.equals(l.getName())).findFirst()
+        .orElse(null);
+  }
+
+  public Trigger getTrigger(String name) {
+    return projectContainer.getTriggerStream().filter(l -> name.equals(l.getName())).findFirst()
         .orElse(null);
   }
 
@@ -122,6 +134,13 @@ public class ProjectBuilder {
    */
   public Layer getLayerByOrder(int id) {
     return projectContainer.getLayer(layerIds.get(id));
+  }
+
+  /*
+ * As per getSequenceByOrder logic.
+ */
+  public Trigger getTriggerByOrder(int id) {
+    return projectContainer.getTrigger(triggerIds.get(id));
   }
 
   private MutableSequence withFlow(MutableSequence sequence, Class<? extends Flow> clazz) {
@@ -167,10 +186,30 @@ public class ProjectBuilder {
    * Create Layer.  This method can be overridden by another sequence builder that
    * uses a different model implementation.
    *
-   * @return metronome
+   * @return layer
    */
   protected MutableLayer createLayer() {
     return new DefaultLayer();
+  }
+
+  /**
+   * Create sequence.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return sequence
+   */
+  protected MutableTrigger createTrigger() {
+    return new DefaultTrigger();
+  }
+
+  /**
+   * Create trigger.  This method can be overridden by another sequence builder that
+   * uses a different model implementation.
+   *
+   * @return metronome
+   */
+  protected NoteTrigger createNoteTrigger() {
+    return new NoteTrigger();
   }
 
   /**
@@ -247,6 +286,11 @@ public class ProjectBuilder {
     projectContainer.addSequence(sequence);
   }
 
+  private void addTriggerToContainer(MutableTrigger trigger) {
+    triggerIds.add(trigger.getId());
+    projectContainer.addTrigger(trigger);
+  }
+
   /**
    * Add metronome.
    *
@@ -274,6 +318,19 @@ public class ProjectBuilder {
     }
     return this;
   }
+
+  /**
+   * Add simple message trigger.
+   *
+   * @return this sequence builder
+   */
+  public ProjectBuilder addNoteTrigger() {
+    NoteTrigger trigger = createNoteTrigger();
+    trigger.setNote(noteNumber);
+    addTriggerToContainer(applyParameters(trigger));
+    return this;
+  }
+
 
   public ProjectBuilder withName(String name) {
     this.name = name;
@@ -479,5 +536,10 @@ public class ProjectBuilder {
   private Layer applyParameters(MutableLayer layer) {
     layerNamesToAdd.forEach(layer::addLayer);
     return layer;
+  }
+
+  private MutableTrigger applyParameters(MutableTrigger trigger) {
+    trigger.setName(name);
+    return trigger;
   }
 }

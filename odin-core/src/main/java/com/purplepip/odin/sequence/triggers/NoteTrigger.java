@@ -15,14 +15,25 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.bag.Thing;
-import com.purplepip.odin.project.Project;
+import static com.purplepip.odin.midi.RawMessage.NOTE_ON;
 
-public interface Trigger extends Thing {
-  /**
-   * The project that this trigger belongs to.
-   *
-   * @return project
-   */
-  Project getProject();
+public class NoteTrigger extends DefaultTrigger implements MessageTrigger, MutableTrigger {
+  private int note;
+
+  public NoteTrigger() {
+  }
+
+  public void setNote(int note) {
+    this.note = note;
+  }
+
+  public int getNote() {
+    return note;
+  }
+
+  @Override
+  public boolean matches(byte[] messageToCompare) {
+    return messageToCompare.length >= 2
+        && messageToCompare[0] == (byte) NOTE_ON && messageToCompare[1] == note;
+  }
 }

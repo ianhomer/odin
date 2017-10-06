@@ -15,17 +15,10 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import java.util.Arrays;
+import com.purplepip.odin.project.Project;
 
-public class SingleMessageTrigger implements MessageTrigger {
-  private byte[] message;
+public interface MutableTrigger extends Trigger {
+  void setProject(Project project);
 
-  public SingleMessageTrigger(byte[] message) {
-    this.message = message;
-  }
-
-  @Override
-  public boolean matches(byte[] messageToCompare) {
-    return Arrays.equals(messageToCompare, message);
-  }
+  void setName(String name);
 }

@@ -15,30 +15,28 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.Metronome;
-import javax.persistence.CascadeType;
+import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.triggers.MutableTrigger;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Persistable metronome.
- */
-/*
- * TODO : Remove this class it shouldn't be used now
+ * Persistable trigger.
  */
 @Data
-@Entity(name = "Metronome")
-@Table(name = "Metronome")
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class PersistableMetronome extends PersistableSequence implements Metronome {
-  @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
-  private Note noteBarStart;
-  @OneToOne(targetEntity = PersistableNote.class, cascade = CascadeType.ALL)
-  private Note noteBarMid;
+@Entity(name = "Trigger")
+@Table(name = "Trigger")
+@ToString(exclude = "project", callSuper = true)
+@EqualsAndHashCode(exclude = {"project"}, callSuper = true)
+@Slf4j
+public class PersistableTrigger extends PersistableThing implements MutableTrigger {
+  @ManyToOne(targetEntity = PersistableProject.class)
+  @JoinColumn(name = "PROJECT_ID", nullable = false)
+  private Project project;
 }

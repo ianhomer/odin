@@ -30,7 +30,7 @@ public class RawMessage {
    * See https://www.midi.org/specifications/item/table-1-summary-of-midi-message
    */
   private static final int NOTE_OFF = 0x80;
-  private static final int NOTE_ON = 0x90;
+  public static final int NOTE_ON = 0x90;
   private static final int PROGRAM_CHANGE = 0xC0;
 
   private final byte[] buffer = new byte[3];

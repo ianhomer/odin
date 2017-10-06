@@ -15,17 +15,19 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.purplepip.odin.bag.AbstractThing;
+import com.purplepip.odin.project.Project;
 
-import org.junit.Test;
+public class DefaultTrigger extends AbstractThing implements MutableTrigger {
+  private Project project;
 
-public class SingleMessageTriggerTest {
-  @Test
-  public void matches() throws Exception {
-    SingleMessageTrigger messageTrigger = new SingleMessageTrigger(new byte[] { 0, 1, 2});
-    assertFalse(messageTrigger.matches(new byte[] {}));
-    assertFalse(messageTrigger.matches(new byte[] {0, 1, 3}));
-    assertTrue(messageTrigger.matches(new byte[] {0, 1, 2}));
+  @Override
+  public void setProject(Project project) {
+    this.project = project;
+  }
+
+  @Override
+  public Project getProject() {
+    return project;
   }
 }

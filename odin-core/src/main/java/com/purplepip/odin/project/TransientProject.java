@@ -18,6 +18,8 @@ package com.purplepip.odin.project;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
+import com.purplepip.odin.sequence.triggers.MutableTrigger;
+import com.purplepip.odin.sequence.triggers.Trigger;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -36,6 +38,8 @@ public class TransientProject implements Project {
   private Set<Channel> channels = new HashSet<>();
 
   private Set<Layer> layers = new LinkedHashSet<>();
+
+  private Set<Trigger> triggers = new LinkedHashSet<>();
 
   @Override
   public String getName() {
@@ -58,6 +62,11 @@ public class TransientProject implements Project {
   }
 
   @Override
+  public Set<Trigger> getTriggers() {
+    return triggers;
+  }
+
+  @Override
   public void addChannel(Channel channel) {
     channel.setProject(this);
     channels.add(channel);
@@ -77,6 +86,17 @@ public class TransientProject implements Project {
   @Override
   public void removeLayer(Layer layer) {
     layers.remove(layer);
+  }
+
+  @Override
+  public void addTrigger(MutableTrigger trigger) {
+    trigger.setProject(this);
+    triggers.add(trigger);
+  }
+
+  @Override
+  public void removeTrigger(Trigger trigger) {
+    triggers.remove(trigger);
   }
 
   @Override
