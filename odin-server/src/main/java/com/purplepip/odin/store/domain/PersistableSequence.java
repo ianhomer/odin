@@ -83,9 +83,28 @@ public class PersistableSequence
   private List<String> triggers = new ArrayList<>(0);
 
   @Override
+  public void addLayer(String layer) {
+    LOG.debug("Adding layer {} to {}", layer, this);
+    layers.add(layer);
+  }
+
+  @Override
   public void removeLayer(String layer) {
     LOG.debug("Removing layer {} from {}", layer, this);
     layers.remove(layer);
+  }
+
+  @Override
+  public void addTrigger(String trigger) {
+    LOG.debug("Adding trigger {} to {}", trigger, this);
+    triggers.add(trigger);
+
+  }
+
+  @Override
+  public void removeTrigger(String trigger) {
+    LOG.debug("Removing trigger {} from {}", trigger, this);
+    triggers.remove(trigger);
   }
 
   @Override
@@ -93,11 +112,6 @@ public class PersistableSequence
     properties.put(name, value);
   }
 
-  @Override
-  public void addLayer(String layer) {
-    LOG.debug("Adding layer {} to {}", layer, this);
-    layers.add(layer);
-  }
 
   @PreUpdate
   public void preUpdate() {

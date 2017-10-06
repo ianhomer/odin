@@ -17,6 +17,7 @@ package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
+import com.purplepip.odin.sequencer.Operation;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -39,4 +40,11 @@ public class PersistableTrigger extends PersistableThing implements MutableTrigg
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
+
+  @Override
+  public boolean isTriggeredBy(Operation operation) {
+    // TODO : Is trigger by logic needs to decouple from model so that we can persist
+    // triggers generically and trigger appropriate trigger logic.
+    return false;
+  }
 }
