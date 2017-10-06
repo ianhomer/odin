@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequence.reactors;
 
-import com.purplepip.odin.sequence.triggers.MessageTrigger;
 import com.purplepip.odin.sequence.triggers.Trigger;
 import javax.validation.constraints.NotNull;
 
@@ -40,10 +39,6 @@ public class TriggerReactor implements Reactor {
 
   public Trigger getTrigger() {
     return trigger;
-  }
-
-  public MessageTrigger getMessageTrigger() {
-    return MessageTrigger.class.cast(trigger);
   }
 
   public void setSequenceName(String name) {

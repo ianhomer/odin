@@ -17,7 +17,6 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.MutableSequence;
-import com.purplepip.odin.sequence.triggers.DefaultTrigger;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
 
 /**

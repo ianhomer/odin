@@ -398,6 +398,24 @@ public class ProjectBuilder {
   }
 
   /**
+   * Specify triggers for this sequence.
+   *
+   * @param triggers triggers for this sequence.
+   * @return project builder
+   */
+  public ProjectBuilder withTriggers(String... triggers) {
+    triggerNamesToAdd = Lists.newArrayList(triggers);
+    Set<String> duplicates = triggerNamesToAdd.stream()
+        .filter(layer -> Collections.frequency(triggerNamesToAdd, layer) > 1)
+        .collect(Collectors.toSet());
+    if (!duplicates.isEmpty()) {
+      LOG.warn("Creating entity with triggers {} that have duplicates {}", triggers, duplicates);
+    }
+    LOG.debug("Triggers to add : {}", triggerNamesToAdd);
+    return this;
+  }
+
+  /**
    * Offset to apply to the sequence.
    *
    * @param offset offset
@@ -521,6 +539,7 @@ public class ProjectBuilder {
       sequence.setFlowName(flowName);
     }
     layerNamesToAdd.forEach(sequence::addLayer);
+    triggerNamesToAdd.forEach(sequence::addTrigger);
     properties.forEach(sequence::setProperty);
 
     if (sequence.isSpecialised()) {

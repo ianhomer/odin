@@ -120,4 +120,16 @@ public class DefaultSequence extends AbstractTimeThing implements MutableSequenc
   public List<String> getTriggers() {
     return triggers;
   }
+
+  @Override
+  public void addTrigger(String trigger) {
+    LOG.debug("Adding trigger : {}", trigger);
+    triggers.add(trigger);
+  }
+
+  @Override
+  public void removeTrigger(String trigger) {
+    triggers.remove(trigger);
+  }
+
 }

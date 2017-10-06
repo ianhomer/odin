@@ -18,34 +18,27 @@ package com.purplepip.odin.sequencer;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.sequence.reactors.MutableReactors;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.Receiver;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SequencerReceiver implements Receiver {
+public class ReactorReceiver implements OperationReceiver {
   private MutableReactors reactors;
   private Meter triggered;
 
-  public SequencerReceiver(MutableReactors reactors, MetricRegistry metrics) {
+  public ReactorReceiver(MutableReactors reactors, MetricRegistry metrics) {
     this.reactors = reactors;
     triggered = metrics.meter("receiver.triggered");
   }
 
   @Override
-  public void send(final MidiMessage message, long time) {
-    LOG.debug("MIDI message received {} from {} at {}", message.getMessage(), time);
-    reactors.messageTriggerStream()
+  public void send(Operation operation, long time) {
+    LOG.debug("Operation received {} at {}", operation, time);
+    reactors.triggerStream()
         .forEach(reactor -> {
-          if (reactor.getMessageTrigger().matches(message.getMessage())) {
+          if (reactor.getTrigger().isTriggeredBy(operation)) {
             LOG.debug("Trigger {} triggered", reactor.getTrigger());
             triggered.mark();
           }
         });
-  }
-
-  @Override
-  public void close() {
-    LOG.debug("Closing {}", this);
   }
 }

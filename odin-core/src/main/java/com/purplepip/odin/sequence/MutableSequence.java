@@ -30,6 +30,10 @@ public interface MutableSequence extends Sequence, MutableTimeThing {
 
   void removeLayer(String layerName);
 
+  void addTrigger(String triggerName);
+
+  void removeTrigger(String triggerName);
+
   void setProperty(String name, String value);
 
   default void setProperty(String name, long value) {

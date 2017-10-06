@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence.triggers;
 
 import com.purplepip.odin.bag.AbstractThing;
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequencer.Operation;
 import lombok.ToString;
 
 @ToString(exclude = "project")
@@ -31,5 +32,10 @@ public class DefaultTrigger extends AbstractThing implements MutableTrigger {
   @Override
   public Project getProject() {
     return project;
+  }
+
+  @Override
+  public boolean isTriggeredBy(Operation operation) {
+    return false;
   }
 }

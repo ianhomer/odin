@@ -53,6 +53,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private BeatClock clock;
+  private ReactorReceiver sequencerReceiver;
   private boolean started;
   private MutableOdinSequencerStatistics statistics =
       new DefaultOdinSequencerStatistics(
@@ -78,6 +79,13 @@ public class OdinSequencer implements ProjectApplyListener {
         configuration.getMicrosecondPositionProvider(),
         configuration.getClockStartRoundingFactor(),
         configuration.getClockStartOffset());
+
+    /*
+     * Create the sequencer receiver.
+     */
+    // TODO : Wire this into MIDI transmitter
+    sequencerReceiver = new ReactorReceiver(reactors, configuration.getMetrics());
+
     /*
      * Create the processors early.  Note that they'll start when the clock starts.
      */

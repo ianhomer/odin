@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.odin.music.operations.NoteOnOperation;
 import org.junit.Test;
 
 public class NoteTriggerTest {
@@ -31,10 +32,9 @@ public class NoteTriggerTest {
 
   @Test
   public void testMatches() throws Exception {
-    NoteTrigger messageTrigger = new NoteTrigger();
-    messageTrigger.setNote(60);
-    assertFalse(messageTrigger.matches(new byte[] {}));
-    assertFalse(messageTrigger.matches(new byte[] { (byte) 0x90, 61, 3}));
-    assertTrue(messageTrigger.matches(new byte[] { (byte) 0x90, 60, 2}));
+    NoteTrigger trigger = new NoteTrigger();
+    trigger.setNote(60);
+    assertFalse(trigger.isTriggeredBy(new NoteOnOperation(0,61,50)));
+    assertTrue(trigger.isTriggeredBy(new NoteOnOperation(0,60,50)));
   }
 }

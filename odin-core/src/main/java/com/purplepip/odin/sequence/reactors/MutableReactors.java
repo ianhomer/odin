@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequence.reactors;
 
 import com.purplepip.odin.bag.MutableThings;
-import com.purplepip.odin.sequence.triggers.MessageTrigger;
 import com.purplepip.odin.sequence.triggers.Trigger;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MutableReactors extends MutableThings<Reactor> {
-  private Map<String, TriggerReactor> messageTriggerReactors = new HashMap<>();
+  private Map<String, TriggerReactor> triggerReactors = new HashMap<>();
 
   /**
    * Refresh the bag of reactors.
@@ -72,18 +71,17 @@ public class MutableReactors extends MutableThings<Reactor> {
   @Override
   public boolean add(Reactor reactor) {
     /*
-     * Store message trigger reactors in a separate hash map for easy access, since these
+     * Store trigger reactors in a separate hash map for easy access, since these
      * are the only one used (at the moment).
      */
-    if (reactor instanceof TriggerReactor
-        && ((TriggerReactor) reactor).getTrigger() instanceof MessageTrigger) {
-      messageTriggerReactors.put(reactor.getName(), (TriggerReactor) reactor);
+    if (reactor instanceof TriggerReactor) {
+      triggerReactors.put(reactor.getName(), (TriggerReactor) reactor);
     }
     return super.add(reactor);
   }
 
-  public Stream<TriggerReactor> messageTriggerStream() {
-    return messageTriggerReactors.values().stream();
+  public Stream<TriggerReactor> triggerStream() {
+    return triggerReactors.values().stream();
   }
 
 }

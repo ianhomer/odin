@@ -15,12 +15,12 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import static com.purplepip.odin.midi.RawMessage.NOTE_ON;
-
+import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.sequencer.Operation;
 import lombok.ToString;
 
 @ToString(exclude = "project")
-public class NoteTrigger extends DefaultTrigger implements MessageTrigger, MutableTrigger {
+public class NoteTrigger extends DefaultTrigger implements MutableTrigger {
   private int note;
 
   public NoteTrigger() {
@@ -35,8 +35,8 @@ public class NoteTrigger extends DefaultTrigger implements MessageTrigger, Mutab
   }
 
   @Override
-  public boolean matches(byte[] messageToCompare) {
-    return messageToCompare.length >= 2
-        && messageToCompare[0] == (byte) NOTE_ON && messageToCompare[1] == note;
+  public boolean isTriggeredBy(Operation operation) {
+    return (operation instanceof NoteOnOperation)
+        && ((NoteOnOperation) operation).getNumber() == note;
   }
 }

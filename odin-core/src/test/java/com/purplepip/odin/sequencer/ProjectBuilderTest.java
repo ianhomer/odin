@@ -128,7 +128,6 @@ public class ProjectBuilderTest {
       assertEquals(1, captor.size());
       assertEquals("Creating entity with layers [layer1, layer2, layer2, layer3, "
           + "layer3, layer3, layer4] that have duplicates [layer3, layer2]", captor.getMessage(0));
-
     }
   }
 
@@ -140,5 +139,8 @@ public class ProjectBuilderTest {
     NoteTrigger trigger = (NoteTrigger) builder.getTriggerByOrder(0);
     assertEquals("trigger1", trigger.getName());
     assertEquals(60, trigger.getNote());
+    builder.withTriggers("trigger1").addPattern(BEAT, 1);
+    Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
+    assertEquals("trigger1", pattern.getTriggers().get(0));
   }
 }

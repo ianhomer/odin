@@ -18,14 +18,14 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.reactors.MutableReactors;
 import com.purplepip.odin.sequence.reactors.TriggerReactor;
-import javax.sound.midi.ShortMessage;
 import org.junit.Test;
 
-public class SequencerReceiverTest {
+public class ReactorReceiverTest {
   @Test
   public void send() throws Exception {
     MutableReactors reactors = new MutableReactors();
@@ -34,8 +34,8 @@ public class SequencerReceiverTest {
     builder.withName("trigger1").withNote(60).addNoteTrigger();
     reactors.refresh(() -> project.getTriggers().stream(), TriggerReactor::new);
     MetricRegistry metricRegistry = new MetricRegistry();
-    SequencerReceiver receiver = new SequencerReceiver(reactors, metricRegistry);
-    receiver.send(new ShortMessage(144, 60, 2), -1);
+    ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
+    receiver.send(new NoteOnOperation(0,60,50), -1);
     assertEquals(1, metricRegistry
         .meter("receiver.triggered").getCount());
   }
