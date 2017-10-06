@@ -16,14 +16,12 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.common.OdinException;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.function.Function;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +50,6 @@ public class MidiSystemHelper {
    * Find a MIDI device by name.
    *
    * @param midiDeviceMatcher Matcher to match against
-   * @param exceptionOnNotFound whether to throw an exception if not found
    * @return MIDI device
    * @throws OdinException Exception
    */
@@ -89,23 +86,36 @@ public class MidiSystemHelper {
     return null;
   }
 
-  /**
-   * Get an initialised device.
-   *
-   * @return MIDI device
-   * @throws OdinException Exception
-   */
-  MidiDevice getInitialisedDevice() throws OdinException {
+  MidiDevice getTransmittingDevice() throws OdinException {
     List<String> deviceNames = new ArrayList<>();
     deviceNames.add("Scarlett");
     deviceNames.add("USB");
     deviceNames.add("MidiMock IN");
     deviceNames.add("KEYBOARD");
     deviceNames.add("CTRL");
+    return getInitialisedDevice(deviceNames, MidiDeviceTransmitterMatcher::new);
+  }
+
+  MidiDevice getReceivingDevice() throws OdinException {
+    List<String> deviceNames = new ArrayList<>();
+    deviceNames.add("Scarlett");
+    deviceNames.add("USB");
+    return getInitialisedDevice(deviceNames, MidiDeviceReceiverMatcher::new);
+  }
+
+  /**
+   * Get an initialised device.
+   *
+   * @return MIDI device
+   * @throws OdinException Exception
+   */
+  private MidiDevice getInitialisedDevice(List<String> deviceNames,
+      Function<String, MidiDeviceMatcher> midiDeviceMatcherFunction) throws OdinException {
 
     MidiDevice device = null;
     for (String deviceName : deviceNames) {
-      device = new MidiSystemHelper().findMidiDeviceByName(new MidiDeviceInMatcher(deviceName));
+      device = new MidiSystemHelper()
+          .findMidiDeviceByName(midiDeviceMatcherFunction.apply(deviceName));
       if (device != null) {
         break;
       }

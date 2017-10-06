@@ -67,7 +67,7 @@ public class MidiSequenceExperiment {
             new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper));
     try {
       sequencer = new OdinSequencer(configuration);
-      SynthesizerHelper synthesizerHelper = null;
+      SynthesizerHelper synthesizerHelper;
       if (midiDeviceWrapper.isSynthesizer()) {
         synthesizerHelper =
             new SynthesizerHelper(midiDeviceWrapper.getSynthesizer());
@@ -105,7 +105,6 @@ public class MidiSequenceExperiment {
           .convertDurationsTo(TimeUnit.MILLISECONDS)
           .build();
       reporter.start(1, TimeUnit.SECONDS);
-
       sequencer.start();
 
       try {
@@ -118,9 +117,7 @@ public class MidiSequenceExperiment {
       if (sequencer != null) {
         sequencer.stop();
       }
-      if (midiDeviceWrapper != null) {
-        midiDeviceWrapper.close();
-      }
+      midiDeviceWrapper.close();
       LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());
     }
   }

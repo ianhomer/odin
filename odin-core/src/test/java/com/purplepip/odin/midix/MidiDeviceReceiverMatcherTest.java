@@ -15,19 +15,20 @@ import org.mockito.junit.MockitoJUnitRunner;
  * MIDI device in matcher test.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class MidiDeviceInMatcherTest {
+public class MidiDeviceReceiverMatcherTest {
   @Mock
   private MidiDevice device;
 
   @Test
   public void testMatches() throws Exception {
-    MidiDeviceInMatcher matcher = new MidiDeviceInMatcher("Gervill");
+    MidiDeviceReceiverMatcher matcher = new MidiDeviceReceiverMatcher("Gervill");
     MidiDevice synthesizer = MidiSystem.getSynthesizer();
     when(device.getDeviceInfo()).thenReturn(synthesizer.getDeviceInfo());
-    when(device.getMaxTransmitters()).thenReturn(1);
+    when(device.getMaxReceivers()).thenReturn(1);
     assertTrue("Device should match", matcher.matches(device));
-    when(device.getMaxTransmitters()).thenReturn(-1);
+    when(device.getMaxReceivers()).thenReturn(-1);
+    assertTrue("Device should match", matcher.matches(device));
+    when(device.getMaxReceivers()).thenReturn(0);
     assertFalse("Device should NOT match", matcher.matches(device));
   }
-
 }

@@ -36,7 +36,8 @@ import org.slf4j.LoggerFactory;
 public class MidiDeviceWrapper implements AutoCloseable {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
-  private MidiDevice device;
+  private MidiDevice receivingDevice;
+  private MidiDevice transmittingDevice;
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
 
   public MidiDeviceWrapper() {
@@ -57,8 +58,12 @@ public class MidiDeviceWrapper implements AutoCloseable {
     }
   }
 
-  public MidiDevice getDevice() {
-    return device;
+  public MidiDevice getReceivingDevice() {
+    return receivingDevice;
+  }
+
+  public MidiDevice getTransmittingDevice() {
+    return transmittingDevice;
   }
 
   /**
@@ -66,6 +71,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
    */
   @Override
   public void close() {
+    LOG.debug("Closing device wrapper");
     scheduledPool.shutdown();
   }
 
@@ -101,7 +107,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
    */
   private void changeProgram(int channel, int bank, int program) {
     try {
-      device.getReceiver().send(
+      receivingDevice.getReceiver().send(
           new RawMidiMessage(new RawMessage(
               new ProgramChangeOperation(channel, bank, program)).getBytes()),
           -1);
@@ -140,7 +146,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
    * @return true if this is the internal Java Gervill synthesizer
    */
   public boolean isGervill() {
-    return "Gervill".equals(device.getDeviceInfo().getName());
+    return "Gervill".equals(receivingDevice.getDeviceInfo().getName());
   }
 
   /**
@@ -149,23 +155,28 @@ public class MidiDeviceWrapper implements AutoCloseable {
    * @return true if this is a local synthesizer
    */
   public boolean isSynthesizer() {
-    return device instanceof Synthesizer;
+    return receivingDevice instanceof Synthesizer;
   }
 
   public Synthesizer getSynthesizer() {
-    return (Synthesizer) device;
+    return (Synthesizer) receivingDevice;
   }
 
+  public boolean canTransmit() {
+    return transmittingDevice != null && transmittingDevice.getMaxTransmitters() != 0;
+  }
 
   class MidiDeviceScanner implements Runnable {
     private Set<MidiDevice.Info> knownMidiDevices = new HashSet<>();
+    private MidiSystemHelper helper = new MidiSystemHelper();
 
     @Override
     public void run() {
       // FIX : https://github.com/ianhomer/odin/issues/1
       LOG.debug("Scanning MIDI devices");
       Set<MidiDevice.Info> midiDevices = new MidiSystemWrapper().getMidiDeviceInfos();
-      if (!midiDevices.equals(knownMidiDevices) || device == null) {
+      if (!midiDevices.equals(knownMidiDevices)
+          || receivingDevice == null || transmittingDevice == null) {
         LOG.debug("Refreshing MIDI device");
         knownMidiDevices = midiDevices;
         findDevice();
@@ -174,9 +185,14 @@ public class MidiDeviceWrapper implements AutoCloseable {
 
     private void findDevice() {
       try {
-        device = new MidiSystemHelper().getInitialisedDevice();
+        receivingDevice = helper.getReceivingDevice();
       } catch (OdinException e) {
-        LOG.error("Cannot initialise MIDI device", e);
+        LOG.error("Cannot initialise receiving MIDI device", e);
+      }
+      try {
+        transmittingDevice = helper.getTransmittingDevice();
+      } catch (OdinException e) {
+        LOG.error("Cannot initialise transmitting MIDI device", e);
       }
     }
   }

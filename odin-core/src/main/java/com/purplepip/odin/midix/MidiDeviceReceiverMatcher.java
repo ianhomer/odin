@@ -16,25 +16,24 @@
 package com.purplepip.odin.midix;
 
 import javax.sound.midi.MidiDevice;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Matches MIDI device in.
  */
-public class MidiDeviceInMatcher extends MidiDeviceNameStartsWithMatcher {
-  private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceInMatcher.class);
+public class MidiDeviceReceiverMatcher extends MidiDeviceNameStartsWithMatcher {
+  private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceReceiverMatcher.class);
 
-  MidiDeviceInMatcher(String prefix) {
+  MidiDeviceReceiverMatcher(String prefix) {
     super(prefix);
   }
 
   @Override
   public boolean matches(MidiDevice device) {
-    LOG.debug("Device {} max transmitters {}", device.getDeviceInfo().getName(),
-        device.getMaxTransmitters());
-    boolean result = device.getMaxTransmitters() > -1;
+    LOG.debug("Device {} max receivers {}", device.getDeviceInfo().getName(),
+        device.getMaxReceivers());
+    boolean result = device.getMaxReceivers() != 0;
     LOG.debug("Device {} match {}", device.getDeviceInfo().getName(), result);
     return result && super.matches(device);
   }

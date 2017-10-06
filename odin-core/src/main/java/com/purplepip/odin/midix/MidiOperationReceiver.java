@@ -62,7 +62,7 @@ public class MidiOperationReceiver implements OperationReceiver {
       }
       MidiMessage midiMessage = createMidiMessage(resolvedOperation);
       try {
-        midiDeviceWrapper.getDevice().getReceiver().send(midiMessage, time);
+        midiDeviceWrapper.getReceivingDevice().getReceiver().send(midiMessage, time);
       } catch (MidiUnavailableException e) {
         throw new OdinException("Cannot send MIDI message for " + midiMessage, e);
       }

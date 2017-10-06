@@ -18,7 +18,7 @@ package com.purplepip.odin.midix;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 
 /**
- * Microsecond position provider taking the microsecond position from a MIDI device.
+ * Microsecond position provider taking the microsecond position from the receiving MIDI device.
  */
 public class MidiDeviceMicrosecondPositionProvider implements MicrosecondPositionProvider {
   private MidiDeviceWrapper midiDeviceWrapper;
@@ -29,6 +29,6 @@ public class MidiDeviceMicrosecondPositionProvider implements MicrosecondPositio
 
   @Override
   public long getMicroseconds() {
-    return midiDeviceWrapper.getDevice().getMicrosecondPosition();
+    return midiDeviceWrapper.getReceivingDevice().getMicrosecondPosition();
   }
 }

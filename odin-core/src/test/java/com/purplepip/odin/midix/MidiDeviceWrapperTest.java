@@ -14,7 +14,7 @@ public class MidiDeviceWrapperTest {
   @Test
   public void testMidiDeviceWrapper() {
     try (MidiDeviceWrapper wrapper = new MidiDeviceWrapper()) {
-      assertNotNull("Wrapped device should not be null", wrapper.getDevice());
+      assertNotNull("Wrapped device should not be null", wrapper.getReceivingDevice());
     }
   }
 

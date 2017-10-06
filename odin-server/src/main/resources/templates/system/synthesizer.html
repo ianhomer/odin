@@ -9,7 +9,7 @@
 <div layout:fragment="content">
   <table>
     <h1>Instruments</h1>
-    <th:block th:each="instrument : ${midiDevice.device.loadedInstruments}">
+    <th:block th:each="instrument : ${midiDevice.receivingDevice.loadedInstruments}">
       <tr>
         <td th:text="${instrument.patch.bank}"/>
         <td th:text="${instrument.patch.program}"/>
