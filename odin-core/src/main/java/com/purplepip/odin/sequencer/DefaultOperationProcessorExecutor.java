@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.codahale.metrics.Meter;
+import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequence.BeatClock;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -29,12 +31,19 @@ public class DefaultOperationProcessorExecutor implements Runnable {
   private BeatClock clock;
   private PriorityBlockingQueue<OperationEvent> queue;
   private OperationReceiver operationReceiver;
+  private Meter jobMetric;
+  private Meter sentMetric;
+  private Meter failureMetric;
 
   DefaultOperationProcessorExecutor(BeatClock clock,
                                     PriorityBlockingQueue<OperationEvent> queue,
-                                    OperationReceiver operationReceiver) {
+                                    OperationReceiver operationReceiver,
+                                    MetricRegistry metrics) {
     this.clock = clock;
     this.queue = queue;
+    jobMetric = metrics.meter("operation.job");
+    sentMetric = metrics.meter("operation.sent");
+    failureMetric = metrics.meter("operation.failure");
     this.operationReceiver = operationReceiver;
   }
 
@@ -55,6 +64,7 @@ public class DefaultOperationProcessorExecutor implements Runnable {
      * Peek at next event on queue first to see whether we are ready to process this operation.
      */
     OperationEvent nextEvent = queue.peek();
+    jobMetric.mark();
     while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
         < microsecondPosition + FORWARD_POLLING_TIME) {
       /*
@@ -63,8 +73,10 @@ public class DefaultOperationProcessorExecutor implements Runnable {
       nextEvent = queue.poll();
       try {
         operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
+        sentMetric.mark();
         count++;
       } catch (OdinException e) {
+        failureMetric.mark();
         LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
       }
       nextEvent = queue.peek();

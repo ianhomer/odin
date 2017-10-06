@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.BeatClock;
@@ -41,6 +42,7 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
       new OperationEventComparator());
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
   private DefaultOperationProcessorExecutor executor;
+  private MetricRegistry metrics;
 
   /**
    * Create an operation processor.
@@ -48,12 +50,14 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
    * @param clock clock
    * @param operationReceiver operation receiver
    */
-  DefaultOperationProcessor(BeatClock clock, OperationReceiver operationReceiver) {
+  DefaultOperationProcessor(BeatClock clock, OperationReceiver operationReceiver,
+                            MetricRegistry metrics) {
+    this.metrics = metrics;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }
     clock.addListener(this);
-    executor = new DefaultOperationProcessorExecutor(clock, queue, operationReceiver);
+    executor = new DefaultOperationProcessorExecutor(clock, queue, operationReceiver, metrics);
     LOG.debug("Created operation processor");
   }
 

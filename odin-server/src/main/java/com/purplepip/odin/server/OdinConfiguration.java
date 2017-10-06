@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.server;
 
+import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
@@ -43,6 +44,9 @@ public class OdinConfiguration {
 
   @Autowired(required = false)
   private OperationReceiver auditingOperationReceiver;
+
+  @Autowired(required = false)
+  private MetricRegistry metrics;
 
   @Bean
   public MidiDeviceWrapper midiDeviceWrapper() {
@@ -78,14 +82,22 @@ public class OdinConfiguration {
     if (auditingOperationReceiver != null) {
       operationReceivers.add(auditingOperationReceiver);
     }
+    DefaultOdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
+        .setBeatsPerMinute(new StaticBeatsPerMinute(120))
+        .setMeasureProvider(measureProvider)
+        .setOperationReceiver(new OperationReceiverCollection(operationReceivers))
+        .setMicrosecondPositionProvider(
+            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper));
 
-    OdinSequencer odinSequencer = new OdinSequencer(
-        new DefaultOdinSequencerConfiguration()
-            .setBeatsPerMinute(new StaticBeatsPerMinute(120))
-            .setMeasureProvider(measureProvider)
-            .setOperationReceiver(new OperationReceiverCollection(operationReceivers))
-            .setMicrosecondPositionProvider(
-                new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
+    /*
+     * Metrics is optional, e.g. not needed for most tests.  However even when not set
+     * metrics is enabled internally, just not using the spring loaded bean.
+     */
+    if (metrics != null) {
+      configuration.setMetrics(metrics);
+    }
+
+    OdinSequencer odinSequencer = new OdinSequencer(configuration);
     projectContainer.addApplyListener(odinSequencer);
     return odinSequencer;
   }

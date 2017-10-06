@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.server.services.composition;
 
+import com.codahale.metrics.annotation.Timed;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.notation.easy.EasyScoreCompositionBuilder;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
@@ -23,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @Profile("!noServices")
 public class CompositionController {
   private NaturalScoreCompositionFactory factory = new NaturalScoreCompositionFactory();
 
+  @Timed
   @RequestMapping("/services/composition")
   public Composition createCompositionFromNotation(
       @RequestParam(value = "notation", defaultValue = "C") String notation) {

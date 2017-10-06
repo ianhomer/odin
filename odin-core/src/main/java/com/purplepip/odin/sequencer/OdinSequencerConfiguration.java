@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
@@ -28,6 +29,8 @@ public interface OdinSequencerConfiguration {
   BeatsPerMinute getBeatsPerMinute();
 
   MeasureProvider getMeasureProvider();
+
+  MetricRegistry getMetrics();
 
   OperationReceiver getOperationReceiver();
 

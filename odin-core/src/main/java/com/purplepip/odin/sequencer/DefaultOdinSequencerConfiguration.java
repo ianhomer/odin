@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.codahale.metrics.MetricRegistry;
 import com.google.common.collect.Lists;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.BeatsPerMinute;
@@ -41,6 +42,7 @@ public class DefaultOdinSequencerConfiguration
   private long clockStartRoundingFactor;
   private long clockStartOffset;
   private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
+  private MetricRegistry metrics;
 
   /**
    * Create new configuration with defaults set.
@@ -52,6 +54,7 @@ public class DefaultOdinSequencerConfiguration
     setLoggingOperationReceiverEnabled(true);
     setClockStartRoundingFactor(1);
     setClockStartOffset(0);
+    setMetrics(new MetricRegistry());
   }
 
   public final DefaultOdinSequencerConfiguration
@@ -110,6 +113,16 @@ public class DefaultOdinSequencerConfiguration
   @Override
   public MeasureProvider getMeasureProvider() {
     return measureProvider;
+  }
+
+  @Override
+  public MetricRegistry getMetrics() {
+    return metrics;
+  }
+
+  public final DefaultOdinSequencerConfiguration setMetrics(MetricRegistry metrics) {
+    this.metrics = metrics;
+    return this;
   }
 
   @Override

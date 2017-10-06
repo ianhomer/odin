@@ -58,6 +58,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>io.dropwizard.metrics</groupId>
+      <artifactId>metrics-annotation</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>compile</scope>
@@ -151,7 +155,9 @@
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <arguments>--config webpack.prod.js</arguments>
+              <!-- TODO : Provide option to use webpack.prod.js for prod mode,
+                    although note that using webpack.prod.js makes build slower -->
+              <arguments>--config webpack.config.js</arguments>
             </configuration>
           </execution>
         </executions>

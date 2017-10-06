@@ -1,5 +1,6 @@
 package com.purplepip.odin.experiments;
 
+import com.codahale.metrics.ConsoleReporter;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
@@ -14,6 +15,7 @@ import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import java.util.concurrent.CountDownLatch;
@@ -51,22 +53,20 @@ public class MidiSequenceExperiment {
 
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
-    MidiDeviceWrapper midiDeviceWrapper = null;
+    MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
+    MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
+    OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
+        .setBeatsPerMinute(new StaticBeatsPerMinute(120))
+        .setMeasureProvider(measureProvider)
+        .setOperationReceiver(
+            new OperationReceiverCollection(
+                new MidiOperationReceiver(midiDeviceWrapper),
+                operationReceiver)
+        )
+        .setMicrosecondPositionProvider(
+            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper));
     try {
-      midiDeviceWrapper = new MidiDeviceWrapper();
-      MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
-      sequencer = new OdinSequencer(
-          new DefaultOdinSequencerConfiguration()
-              .setBeatsPerMinute(new StaticBeatsPerMinute(120))
-              .setMeasureProvider(measureProvider)
-              .setOperationReceiver(
-                  new OperationReceiverCollection(
-                      new MidiOperationReceiver(midiDeviceWrapper),
-                      operationReceiver)
-              )
-              .setMicrosecondPositionProvider(
-                  new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
-
+      sequencer = new OdinSequencer(configuration);
       SynthesizerHelper synthesizerHelper = null;
       if (midiDeviceWrapper.isSynthesizer()) {
         synthesizerHelper =
@@ -98,6 +98,14 @@ public class MidiSequenceExperiment {
 
       container.addApplyListener(sequencer);
       container.apply();
+
+      // Report metrics
+      ConsoleReporter reporter = ConsoleReporter.forRegistry(configuration.getMetrics())
+          .convertRatesTo(TimeUnit.SECONDS)
+          .convertDurationsTo(TimeUnit.MILLISECONDS)
+          .build();
+      reporter.start(1, TimeUnit.SECONDS);
+
       sequencer.start();
 
       try {
@@ -113,6 +121,7 @@ public class MidiSequenceExperiment {
       if (midiDeviceWrapper != null) {
         midiDeviceWrapper.close();
       }
+      LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());
     }
   }
 }

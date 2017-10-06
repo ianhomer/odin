@@ -77,9 +77,10 @@ public class OdinSequencer implements ProjectApplyListener {
     /*
      * Create the processors early.  Note that they'll start when the clock starts.
      */
-    operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
+    operationProcessor = new DefaultOperationProcessor(
+        clock, configuration.getOperationReceiver(), configuration.getMetrics());
     sequenceProcessor = new TrackProcessor(
-        clock, immutableTracks, operationProcessor, statistics);
+        clock, immutableTracks, operationProcessor, statistics, configuration.getMetrics());
   }
 
   public OdinSequencerStatistics getStatistics() {

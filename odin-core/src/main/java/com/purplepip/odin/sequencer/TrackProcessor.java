@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.ClockListener;
@@ -38,6 +39,7 @@ public class TrackProcessor implements ClockListener {
   private ScheduledExecutorService scheduledPool;
   private TrackProcessorExecutor executor;
   private boolean running;
+  private MetricRegistry metrics;
 
   /**
    * Create a series processor.
@@ -49,11 +51,13 @@ public class TrackProcessor implements ClockListener {
   TrackProcessor(BeatClock clock,
                  Things<Track> tracks,
                  OperationProcessor operationProcessor,
-                 MutableSequenceProcessorStatistics statistics) {
+                 MutableSequenceProcessorStatistics statistics,
+                  MetricRegistry metrics) {
     scheduledPool = Executors.newScheduledThreadPool(1);
+    this.metrics = metrics;
     executor = new TrackProcessorExecutor(
         clock, tracks, operationProcessor, refreshPeriod,
-        statistics
+        statistics, metrics
     );
     clock.addListener(this);
     LOG.debug("Created sequence processor");
