@@ -87,6 +87,4 @@ public interface Conductor extends Thing {
    * @return whether the conductor is active
    */
   boolean isActive(long microseconds);
-
-
 }

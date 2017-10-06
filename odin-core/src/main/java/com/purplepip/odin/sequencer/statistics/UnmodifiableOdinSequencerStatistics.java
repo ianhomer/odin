@@ -32,6 +32,11 @@ public class UnmodifiableOdinSequencerStatistics implements OdinSequencerStatist
   }
 
   @Override
+  public ThingStatistics getReactorStatistics() {
+    return statistics.getReactorStatistics();
+  }
+
+  @Override
   public int getProgramChangeCount() {
     return statistics.getProgramChangeCount();
   }

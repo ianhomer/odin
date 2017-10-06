@@ -13,14 +13,25 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.statistics;
+package com.purplepip.odin.sequence.reactors;
 
-import com.purplepip.odin.bag.ThingStatistics;
+import javax.validation.constraints.NotNull;
 
-public interface OdinSequencerStatistics extends SequenceProcessorStatistics {
-  ThingStatistics getTrackStatistics();
+public class UnmodifiableReactor implements Reactor {
+  private Reactor underlyingReactor;
 
-  ThingStatistics getReactorStatistics();
+  public UnmodifiableReactor(Reactor reactor) {
+    underlyingReactor = reactor;
+  }
 
-  int getProgramChangeCount();
+  @Override
+  public long getId() {
+    return underlyingReactor.getId();
+  }
+
+  @Override
+  @NotNull
+  public String getName() {
+    return underlyingReactor.getName();
+  }
 }

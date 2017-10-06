@@ -13,14 +13,21 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.statistics;
+package com.purplepip.odin.sequence.reactors;
 
-import com.purplepip.odin.bag.ThingStatistics;
+import com.purplepip.odin.bag.AbstractUnmodifiableThings;
+import com.purplepip.odin.bag.Things;
 
-public interface OdinSequencerStatistics extends SequenceProcessorStatistics {
-  ThingStatistics getTrackStatistics();
+/**
+ * Unmodifiable reactors.
+ */
+public class UnmodifiableReactors extends AbstractUnmodifiableThings<Reactor> {
+  public UnmodifiableReactors(Things<Reactor> things) {
+    super(things);
+  }
 
-  ThingStatistics getReactorStatistics();
-
-  int getProgramChangeCount();
+  @Override
+  public Reactor unmodifiable(Reactor reactor) {
+    return new UnmodifiableReactor(reactor);
+  }
 }

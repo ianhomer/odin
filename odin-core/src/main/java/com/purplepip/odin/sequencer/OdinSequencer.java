@@ -27,6 +27,8 @@ import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.conductor.LayerConductor;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
 import com.purplepip.odin.sequence.conductor.UnmodifiableConductors;
+import com.purplepip.odin.sequence.reactors.MutableReactors;
+import com.purplepip.odin.sequence.reactors.TriggerReactor;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
@@ -42,6 +44,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
   private MutableTracks tracks = new MutableTracks();
+  private MutableReactors reactors = new MutableReactors();
   private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
   private MutableConductors conductors = new MutableConductors();
   private AbstractUnmodifiableThings<Conductor> immutableConductors =
@@ -52,7 +55,8 @@ public class OdinSequencer implements ProjectApplyListener {
   private BeatClock clock;
   private boolean started;
   private MutableOdinSequencerStatistics statistics =
-      new DefaultOdinSequencerStatistics(tracks.getStatistics());
+      new DefaultOdinSequencerStatistics(
+          tracks.getStatistics(), reactors.getStatistics());
 
   /**
    * Create an odin sequencer.
@@ -100,6 +104,7 @@ public class OdinSequencer implements ProjectApplyListener {
     conductors.refresh(() -> project.getLayers().stream(), this::createConductor);
     tracks.refresh(() -> project.getSequences().stream(), this::createSequenceTrack,
         immutableConductors);
+    reactors.refresh(() -> project.getTriggers().stream(), this::createReactor);
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 
@@ -140,6 +145,10 @@ public class OdinSequencer implements ProjectApplyListener {
 
   LayerConductor createConductor() {
     return new LayerConductor(clock);
+  }
+
+  TriggerReactor createReactor() {
+    return new TriggerReactor();
   }
 
   /**

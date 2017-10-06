@@ -39,7 +39,7 @@ public class MutableConductors extends MutableThings<Conductor>  {
 
     layerStream.get().forEach(layer -> {
       /*
-       * Add layer if not present in tracks.
+       * Add conductor if not present in conductors.
        */
       Optional<LayerConductor> existing =
           stream()

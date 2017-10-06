@@ -13,14 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.statistics;
+package com.purplepip.odin.sequence.reactors;
 
-import com.purplepip.odin.bag.ThingStatistics;
+import com.purplepip.odin.bag.Thing;
 
-public interface OdinSequencerStatistics extends SequenceProcessorStatistics {
-  ThingStatistics getTrackStatistics();
-
-  ThingStatistics getReactorStatistics();
-
-  int getProgramChangeCount();
+/**
+ * A reactor handles actions based on triggers that are fired.  For example, a track that is
+ * created when a MIDI message is received.
+ */
+public interface Reactor extends Thing {
 }

@@ -17,6 +17,9 @@ package com.purplepip.odin.sequence.triggers;
 
 import static com.purplepip.odin.midi.RawMessage.NOTE_ON;
 
+import lombok.ToString;
+
+@ToString(exclude = "project")
 public class NoteTrigger extends DefaultTrigger implements MessageTrigger, MutableTrigger {
   private int note;
 

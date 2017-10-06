@@ -17,7 +17,9 @@ package com.purplepip.odin.sequence.triggers;
 
 import com.purplepip.odin.bag.AbstractThing;
 import com.purplepip.odin.project.Project;
+import lombok.ToString;
 
+@ToString(exclude = "project")
 public class DefaultTrigger extends AbstractThing implements MutableTrigger {
   private Project project;
 

@@ -16,5 +16,5 @@
 package com.purplepip.odin.sequence.triggers;
 
 public interface MessageTrigger extends Trigger {
-  public boolean matches(byte[] message);
+  boolean matches(byte[] message);
 }

@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+import javax.validation.constraints.NotNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -62,6 +63,7 @@ public class LayerConductor implements Conductor {
   }
 
   @Override
+  @NotNull
   public String getName() {
     return layer.getName();
   }
