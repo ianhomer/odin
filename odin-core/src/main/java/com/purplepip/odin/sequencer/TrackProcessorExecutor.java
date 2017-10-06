@@ -17,6 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.events.Event;
@@ -27,6 +28,8 @@ import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -37,7 +40,8 @@ public class TrackProcessorExecutor implements Runnable {
   private long timeBufferInMicroSeconds;
   private int maxNotesPerBuffer = 1000;
   private MutableSequenceProcessorStatistics statistics;
-  private Meter jobMetric;
+  private MetricRegistry metrics;
+  private Timer jobMetric;
   private Meter tracksProcessedMetric;
   private Meter noEventsMetric;
   private Meter sentMetric;
@@ -45,6 +49,7 @@ public class TrackProcessorExecutor implements Runnable {
   private Meter tooLateMetric;
   private Meter nullEventMetric;
   private Meter failureMetric;
+  private Map<String, Timer> trackTimers = new HashMap<>();
 
   TrackProcessorExecutor(BeatClock clock,
                          Things<Track> tracks,
@@ -55,12 +60,13 @@ public class TrackProcessorExecutor implements Runnable {
     this.clock = clock;
     this.tracks = tracks;
     this.operationProcessor = operationProcessor;
+    this.metrics = metrics;
     /*
      * We need to scan forward more that the interval between executions of this processor.
      */
     timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
     this.statistics = statistics;
-    jobMetric = metrics.meter("sequence.job");
+    jobMetric = metrics.timer("sequence.job");
     tracksProcessedMetric = metrics.meter("sequence.tracks");
     noEventsMetric = metrics.meter("sequence.noEvents");
     sentMetric = metrics.meter("sequence.sent");
@@ -68,6 +74,16 @@ public class TrackProcessorExecutor implements Runnable {
     tooLateMetric = metrics.meter("sequence.tooLate");
     nullEventMetric = metrics.meter("sequence.nullEvent");
     failureMetric = metrics.meter("sequence.failure");
+  }
+
+  private Timer getTrackTimer(String name) {
+    String metricName = "sequence.track." + name;
+    if (trackTimers.containsKey(metricName)) {
+      return trackTimers.get(metricName);
+    }
+    Timer timer = metrics.timer(metricName);
+    trackTimers.put(metricName, timer);
+    return timer;
   }
 
   /**
@@ -84,16 +100,26 @@ public class TrackProcessorExecutor implements Runnable {
 
   private void doJob() {
     int noteCountThisBuffer = 0;
-    jobMetric.mark();
-    for (Track track : tracks) {
-      LOG.trace("Processing track {}", track);
-      if (noteCountThisBuffer > maxNotesPerBuffer) {
-        LOG.warn("Too many notes in this buffer {} > {} ", noteCountThisBuffer, maxNotesPerBuffer);
-        break;
+    final Timer.Context jobTimerContext = jobMetric.time();
+    try {
+      for (Track track : tracks) {
+        final Timer.Context trackTimerContext = getTrackTimer(track.getName()).time();
+        try {
+          LOG.trace("Processing track {}", track);
+          if (noteCountThisBuffer > maxNotesPerBuffer) {
+            LOG.warn("Too many notes in this buffer {} > {} ",
+                noteCountThisBuffer, maxNotesPerBuffer);
+            break;
+          }
+          noteCountThisBuffer += process(track);
+        } finally {
+          trackTimerContext.stop();
+        }
       }
-      noteCountThisBuffer += process(track);
+      LOG.debug("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
+    } finally {
+      jobTimerContext.stop();
     }
-    LOG.debug("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
   }
 
   private int process(Track track) {

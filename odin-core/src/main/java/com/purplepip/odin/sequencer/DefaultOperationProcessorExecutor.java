@@ -17,6 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequence.BeatClock;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -31,7 +32,7 @@ public class DefaultOperationProcessorExecutor implements Runnable {
   private BeatClock clock;
   private PriorityBlockingQueue<OperationEvent> queue;
   private OperationReceiver operationReceiver;
-  private Meter jobMetric;
+  private Timer jobMetric;
   private Meter sentMetric;
   private Meter failureMetric;
 
@@ -41,7 +42,7 @@ public class DefaultOperationProcessorExecutor implements Runnable {
                                     MetricRegistry metrics) {
     this.clock = clock;
     this.queue = queue;
-    jobMetric = metrics.meter("operation.job");
+    jobMetric = metrics.timer("operation.job");
     sentMetric = metrics.meter("operation.sent");
     failureMetric = metrics.meter("operation.failure");
     this.operationReceiver = operationReceiver;
@@ -49,10 +50,13 @@ public class DefaultOperationProcessorExecutor implements Runnable {
 
   @Override
   public void run() {
+    final Timer.Context timerContext = jobMetric.time();
     try {
       doJob();
     } catch (RuntimeException e) {
       LOG.error("Error whilst executing sequence processing", e);
+    } finally {
+      timerContext.stop();
     }
   }
 
@@ -64,7 +68,6 @@ public class DefaultOperationProcessorExecutor implements Runnable {
      * Peek at next event on queue first to see whether we are ready to process this operation.
      */
     OperationEvent nextEvent = queue.peek();
-    jobMetric.mark();
     while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
         < microsecondPosition + FORWARD_POLLING_TIME) {
       /*
