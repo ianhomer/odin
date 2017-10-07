@@ -13,16 +13,14 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.tick;
+package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.bag.MutableThing;
-
-public interface MutableTimeThing extends MutableThing, TimeThing {
-  void setActive(boolean active);
-
-  void setTick(Tick tick);
-
-  void setLength(long length);
-
-  void setOffset(long offset);
+/**
+ * Actions that can take place when trigger fires.
+ */
+public enum Action {
+  /**
+   * Enable the object attached to this trigger.
+   */
+  ENABLE
 }

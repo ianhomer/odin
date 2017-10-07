@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.tick.MutableTimeThing;
+import com.purplepip.odin.sequence.triggers.Action;
 
 /**
  * Mutable sequence.
@@ -30,7 +31,7 @@ public interface MutableSequence extends Sequence, MutableTimeThing {
 
   void removeLayer(String layerName);
 
-  void addTrigger(String triggerName);
+  void addTrigger(String triggerName, Action action);
 
   void removeTrigger(String triggerName);
 

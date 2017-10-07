@@ -19,7 +19,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.TimeThing;
+import com.purplepip.odin.sequence.triggers.Action;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
@@ -109,9 +111,9 @@ public interface Sequence extends Copyable<Sequence>, TimeThing {
   boolean isEmpty();
 
   /**
-   * Name of triggers that will spawn this sequence.
+   * Map of triggers and corresponding action.
    *
    * @return trigger names
    */
-  List<String> getTriggers();
+  Map<String, Action> getTriggers();
 }

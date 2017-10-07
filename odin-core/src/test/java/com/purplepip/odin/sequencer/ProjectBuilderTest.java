@@ -20,6 +20,7 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.layer.Layer;
+import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
 import java.util.HashSet;
 import java.util.Optional;
@@ -105,7 +106,18 @@ public class ProjectBuilderTest {
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
     assertEquals(1, pattern.getBits());
     assertEquals(60, pattern.getNote().getNumber());
+    assertEquals(true, pattern.isActive());
   }
+
+  @Test
+  public void testAddInactivePattern() {
+    TransientProject project = new TransientProject();
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    builder.withActive(false).addPattern(BEAT, 1);
+    Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
+    assertEquals(false, pattern.isActive());
+  }
+
 
   @Test
   public void testAddPatternUsingProperties() {
@@ -139,8 +151,9 @@ public class ProjectBuilderTest {
     NoteTrigger trigger = (NoteTrigger) builder.getTriggerByOrder(0);
     assertEquals("trigger1", trigger.getName());
     assertEquals(60, trigger.getNote());
-    builder.withTriggers("trigger1").addPattern(BEAT, 1);
+    builder.withTrigger("trigger1", Action.ENABLE)
+        .withActive(false).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
-    assertEquals("trigger1", pattern.getTriggers().get(0));
+    assertEquals(Action.ENABLE, pattern.getTriggers().get("trigger1"));
   }
 }

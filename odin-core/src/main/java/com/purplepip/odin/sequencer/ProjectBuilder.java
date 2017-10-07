@@ -41,6 +41,7 @@ import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.tick.DefaultTick;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.DefaultTrigger;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
@@ -66,6 +67,7 @@ public class ProjectBuilder {
   private ProjectContainer projectContainer;
   private String name;
   private String flowName = DEFAULT_FLOW_NAME;
+  private boolean active;
   private int channel;
   private int noteNumber;
   private int velocity;
@@ -73,7 +75,7 @@ public class ProjectBuilder {
   private int offset;
   private Tick tick = BEAT;
   private List<String> layerNamesToAdd = new ArrayList<>();
-  private List<String> triggerNamesToAdd = new ArrayList<>();
+  private Map<String, Action> triggersToAdd = new HashMap<>();
   private List<Long> sequenceIds = new ArrayList<>();
   private List<Long> channelIds = new ArrayList<>();
   private List<Long> layerIds = new ArrayList<>();
@@ -90,6 +92,7 @@ public class ProjectBuilder {
    * NOT cleared.
    */
   public final void reset() {
+    active = true;
     name = null;
     channel = 0;
     noteNumber = Notes.DEFAULT_NUMBER;
@@ -97,7 +100,7 @@ public class ProjectBuilder {
     length = -1;
     offset = 0;
     layerNamesToAdd.clear();
-    triggerNamesToAdd.clear();
+    triggersToAdd.clear();
     sequenceIds.clear();
     channelIds.clear();
     layerIds.clear();
@@ -379,6 +382,11 @@ public class ProjectBuilder {
     return this;
   }
 
+  public ProjectBuilder withActive(boolean active) {
+    this.active = active;
+    return this;
+  }
+
   /**
    * Specify which layers to add to the sequence.
    *
@@ -398,20 +406,15 @@ public class ProjectBuilder {
   }
 
   /**
-   * Specify triggers for this sequence.
+   * Specify trigger action to add to subsequent objects added to this project.
    *
-   * @param triggers triggers for this sequence.
+   * @param trigger trigger for this sequence
+   * @param action action to take place when this trigger fires
    * @return project builder
    */
-  public ProjectBuilder withTriggers(String... triggers) {
-    triggerNamesToAdd = Lists.newArrayList(triggers);
-    Set<String> duplicates = triggerNamesToAdd.stream()
-        .filter(layer -> Collections.frequency(triggerNamesToAdd, layer) > 1)
-        .collect(Collectors.toSet());
-    if (!duplicates.isEmpty()) {
-      LOG.warn("Creating entity with triggers {} that have duplicates {}", triggers, duplicates);
-    }
-    LOG.debug("Triggers to add : {}", triggerNamesToAdd);
+  public ProjectBuilder withTrigger(String trigger, Action action) {
+    triggersToAdd.put(trigger, action);
+    LOG.debug("Triggers to add : {}", triggersToAdd);
     return this;
   }
 
@@ -528,6 +531,7 @@ public class ProjectBuilder {
 
   private Sequence applyParameters(MutableSequence sequence) {
     sequence.setName(name);
+    sequence.setActive(active);
     sequence.setOffset(0);
     sequence.setChannel(channel);
     sequence.setLength(length);
@@ -539,7 +543,7 @@ public class ProjectBuilder {
       sequence.setFlowName(flowName);
     }
     layerNamesToAdd.forEach(sequence::addLayer);
-    triggerNamesToAdd.forEach(sequence::addTrigger);
+    triggersToAdd.forEach(sequence::addTrigger);
     properties.forEach(sequence::setProperty);
 
     if (sequence.isSpecialised()) {

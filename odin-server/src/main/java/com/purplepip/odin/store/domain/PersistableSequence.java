@@ -17,22 +17,18 @@ package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.MutableSequence;
-import com.purplepip.odin.sequence.TimeUnit;
-import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.triggers.Action;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
@@ -54,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
 public class PersistableSequence
-    extends PersistableThing implements MutableSequence {
+    extends PersistableTimeThing implements MutableSequence {
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
@@ -64,15 +60,6 @@ public class PersistableSequence
 
   private int channel;
 
-  @Column(name = "o")
-  private long offset;
-
-  private long length;
-
-  @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
-  @NotNull
-  private Tick tick;
-
   @ElementCollection
   private Map<String, String> properties = new HashMap<>(0);
 
@@ -80,7 +67,7 @@ public class PersistableSequence
   private List<String> layers = new ArrayList<>(0);
 
   @ElementCollection
-  private List<String> triggers = new ArrayList<>(0);
+  private Map<String, Action> triggers = new HashMap<>(0);
 
   @Override
   public void addLayer(String layer) {
@@ -95,10 +82,9 @@ public class PersistableSequence
   }
 
   @Override
-  public void addTrigger(String trigger) {
+  public void addTrigger(String trigger, Action action) {
     LOG.debug("Adding trigger {} to {}", trigger, this);
-    triggers.add(trigger);
-
+    triggers.put(trigger, action);
   }
 
   @Override
@@ -123,22 +109,8 @@ public class PersistableSequence
     project.addSequence(this);
   }
 
-  /**
-   * Set default values.
-   */
-  private void setDefaults() {
-    if (tick == null) {
-      PersistableTick newTick = new PersistableTick();
-      newTick.setTimeUnit(TimeUnit.BEAT);
-      newTick.setNumerator(1);
-      newTick.setDenominator(1);
-      tick = newTick;
-    }
-  }
-
   @PrePersist
   public void prePesist() {
-    setDefaults();
     addToProject();
   }
 

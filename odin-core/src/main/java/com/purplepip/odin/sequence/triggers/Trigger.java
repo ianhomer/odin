@@ -18,6 +18,7 @@ package com.purplepip.odin.sequence.triggers;
 import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequencer.Operation;
+import javax.validation.constraints.NotNull;
 
 public interface Trigger extends Thing {
   /**
@@ -26,6 +27,14 @@ public interface Trigger extends Thing {
    * @return project
    */
   Project getProject();
+
+  /**
+   * Rule that provides the logic that fires this trigger.
+   *
+   * @return flow name.
+   */
+  @NotNull
+  String getTriggerRule();
 
   boolean isTriggeredBy(Operation operation);
 }

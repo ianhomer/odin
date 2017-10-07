@@ -16,23 +16,17 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.TimeUnit;
 import com.purplepip.odin.sequence.layer.MutableLayer;
-import com.purplepip.odin.sequence.tick.Tick;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -45,9 +39,9 @@ import lombok.extern.slf4j.Slf4j;
 @Entity(name = "Layer")
 @Table(name = "Layer")
 @ToString(exclude = "project", callSuper = true)
-@EqualsAndHashCode(exclude = {"project", "layers", "offset", "length", "tick"}, callSuper = true)
+@EqualsAndHashCode(exclude = {"project", "layers"}, callSuper = true)
 @Slf4j
-public class PersistableLayer extends PersistableThing implements MutableLayer {
+public class PersistableLayer extends PersistableTimeThing implements MutableLayer {
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
@@ -55,16 +49,8 @@ public class PersistableLayer extends PersistableThing implements MutableLayer {
   @ElementCollection
   private List<String> layers = new ArrayList<>(0);
 
-  @Column(name = "o")
-  private long offset;
-  private long length;
-  @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
-  @NotNull
-  private Tick tick;
-
   @PrePersist
   public void prePesist() {
-    setDefaults();
     addToProject();
   }
 
@@ -75,19 +61,6 @@ public class PersistableLayer extends PersistableThing implements MutableLayer {
 
   private void addToProject() {
     project.addLayer(this);
-  }
-
-  /**
-   * Set default values.
-   */
-  private void setDefaults() {
-    if (tick == null) {
-      PersistableTick newTick = new PersistableTick();
-      newTick.setTimeUnit(TimeUnit.BEAT);
-      newTick.setNumerator(1);
-      newTick.setDenominator(1);
-      tick = newTick;
-    }
   }
 
   @PreRemove

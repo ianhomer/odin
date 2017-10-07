@@ -23,6 +23,7 @@ import lombok.ToString;
 @ToString(exclude = "project")
 public class DefaultTrigger extends AbstractThing implements MutableTrigger {
   private Project project;
+  private String triggerRule;
 
   @Override
   public void setProject(Project project) {
@@ -32,6 +33,16 @@ public class DefaultTrigger extends AbstractThing implements MutableTrigger {
   @Override
   public Project getProject() {
     return project;
+  }
+
+  @Override
+  public void setTriggerRule(String triggerRule) {
+    this.triggerRule = triggerRule;
+  }
+
+  @Override
+  public String getTriggerRule() {
+    return triggerRule;
   }
 
   @Override

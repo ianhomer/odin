@@ -7,6 +7,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.sequence.triggers.Action;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;
@@ -27,15 +28,17 @@ public class OdinSequencerTriggerTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
+    // TODO : Update this test so that the trigger actually enables to the sequence.
     new BeanyProjectBuilder(environment.getContainer())
         .withName("note-60-trigger")
         .withNote(60)
         .addNoteTrigger()
         .addLayer("groove")
         .withLayers("groove")
-        .withTriggers("note-60-trigger")
+        .withTrigger("note-60-trigger", Action.ENABLE)
         .withOffset(OFFSET)
         .withLength(LENGTH)
+        .withActive(false)
         .addMetronome();
     environment.start();
     environment.getConfiguration().getOperationTransmitter().send(

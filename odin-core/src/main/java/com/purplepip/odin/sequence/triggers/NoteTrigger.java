@@ -19,7 +19,7 @@ import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequencer.Operation;
 import lombok.ToString;
 
-@ToString(exclude = "project")
+@ToString(callSuper = true)
 public class NoteTrigger extends DefaultTrigger implements MutableTrigger {
   private int note;
 

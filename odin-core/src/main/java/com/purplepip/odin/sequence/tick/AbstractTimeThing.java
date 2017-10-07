@@ -18,6 +18,7 @@ package com.purplepip.odin.sequence.tick;
 import com.purplepip.odin.bag.AbstractThing;
 
 public abstract class AbstractTimeThing extends AbstractThing implements MutableTimeThing {
+  private boolean active = false;
   private Tick tick;
   private long length = -1;
   private long offset;
@@ -67,5 +68,15 @@ public abstract class AbstractTimeThing extends AbstractThing implements Mutable
   @Override
   public long getOffset() {
     return offset;
+  }
+
+  @Override
+  public void setActive(boolean active) {
+    this.active = active;
+  }
+
+  @Override
+  public boolean isActive() {
+    return active;
   }
 }

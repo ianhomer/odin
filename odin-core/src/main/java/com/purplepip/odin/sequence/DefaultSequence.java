@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.AbstractTimeThing;
+import com.purplepip.odin.sequence.triggers.Action;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,7 @@ public class DefaultSequence extends AbstractTimeThing implements MutableSequenc
   private Project project;
   private List<String> layers = new ArrayList<>();
   private Map<String, String> values = new HashMap<>();
-  private List<String> triggers = new ArrayList<>();
+  private Map<String, Action> triggers = new HashMap<>();
 
   public DefaultSequence() {
     super();
@@ -117,14 +118,14 @@ public class DefaultSequence extends AbstractTimeThing implements MutableSequenc
   }
 
   @Override
-  public List<String> getTriggers() {
+  public Map<String, Action> getTriggers() {
     return triggers;
   }
 
   @Override
-  public void addTrigger(String trigger) {
-    LOG.debug("Adding trigger : {}", trigger);
-    triggers.add(trigger);
+  public void addTrigger(String trigger, Action action) {
+    LOG.debug("Adding trigger : {} when {} ", action, trigger);
+    triggers.put(trigger, action);
   }
 
   @Override

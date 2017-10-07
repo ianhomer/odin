@@ -21,4 +21,6 @@ public interface MutableTrigger extends Trigger {
   void setProject(Project project);
 
   void setName(String name);
+
+  void setTriggerRule(String triggerRule);
 }
