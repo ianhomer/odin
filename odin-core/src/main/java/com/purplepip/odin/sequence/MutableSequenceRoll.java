@@ -60,6 +60,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private boolean flowNameDirty;
   private boolean flowDirty;
 
+  private boolean enabled;
+
   /**
    * Create a base line mutable sequence roll onto which a sequence can be set and reset.
    *
@@ -87,9 +89,20 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    */
   @Override
   public void setSequence(Sequence sequence) {
-    if (getSequence() == null
-        || !getSequence().getFlowName().equals(sequence.getFlowName())) {
+    if (this.sequence == null
+        || !this.sequence.getFlowName().equals(sequence.getFlowName())) {
       flowNameDirty = true;
+    }
+
+    /*
+     * Set sequence roll active flag based on sequence active flag.  If the active flag for the
+     * incoming sequence has changed then we change it in the sequence roll too - this is the
+     * case where the sequence configuration was changed.  If the active flag in the incoming
+     * sequence has not change then we leave the active flag as it is - this is the case where
+     * a trigger might have changed and we don't want to loose the effect of this trigger.
+     */
+    if (this.sequence == null || this.sequence.isActive() != sequence.isActive()) {
+      enabled = sequence.isActive();
     }
 
     this.sequence = sequence;
@@ -297,6 +310,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       LOG.trace("is Active false : not started");
       return false;
     }
+    //if (!enabled) {
+    //  LOG.trace("is Active false : track not enabled");
+    //  return false;
+    //}
     boolean result = getLength() < 0 || tock.getPosition().lt(Whole.valueOf(getLength()));
     LOG.trace("isActive {} : {} < {}", result, tock.getPosition(), getLength());
     return result;
@@ -337,5 +354,15 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   @Override
   public boolean isEmpty() {
     return sequence.isEmpty() || (flow != null && flow.isEmpty());
+  }
+
+  @Override
+  public void setEnabled(boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return enabled;
   }
 }

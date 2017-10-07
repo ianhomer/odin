@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequence.triggers.Action;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -41,9 +40,9 @@ public class OdinSequencerTriggerTest {
         .withActive(false)
         .addMetronome();
     environment.start();
-    environment.getConfiguration().getOperationTransmitter().send(
-        new NoteOnOperation(0,60,5), -1
-    );
+    //environment.getConfiguration().getOperationTransmitter().send(
+    //    new NoteOnOperation(0,60,5), -1
+    //);
     try {
       lock.await(1000, TimeUnit.MILLISECONDS);
     } finally {

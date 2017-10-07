@@ -85,6 +85,7 @@ public class MutableThings<T extends Thing> implements Things<T> {
      */
     int sizeBefore = size();
     boolean result = things.entrySet().removeIf(filter);
+    // TODO : Remove from thingsByName too
     if (result) {
       int removalCount = sizeBefore - size();
       LOG.debug("Removed {} tracks, ", removalCount);

@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.bag.AbstractUnmodifiableThings;
 import com.purplepip.odin.bag.MutableThings;
+import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import java.util.Optional;
@@ -25,9 +25,9 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class MutableTracks extends MutableThings<Track> {
+public class MutableTracks extends MutableThings<Track> {
   void refresh(Supplier<Stream<Sequence>> sequenceStream, Supplier<SequenceTrack> trackSupplier,
-               AbstractUnmodifiableThings<Conductor> conductors) {
+               Things<Conductor> conductors) {
     removeIf(track -> sequenceStream.get()
         .noneMatch(sequence -> sequence.getId() == track.getValue().getId()));
 

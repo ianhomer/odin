@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.sequence.conductor.MutableConductors;
+import com.purplepip.odin.sequencer.MutableTracks;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 
@@ -29,7 +31,8 @@ public class MutableReactorsTest {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.withName("trigger1").withNote(60).addNoteTrigger();
-    reactors.refresh(() -> project.getTriggers().stream(), TriggerReactor::new);
+    reactors.refresh(() -> project.getTriggers().stream(), TriggerReactor::new,
+        new MutableConductors(), new MutableTracks());
     assertEquals(1, reactors.getStatistics().getAddedCount());
     /*
      * Verify access OK via UnmodifiableReactors

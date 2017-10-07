@@ -16,7 +16,11 @@
 package com.purplepip.odin.sequence.reactors;
 
 import com.purplepip.odin.bag.MutableThings;
+import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequencer.SequenceTrack;
+import com.purplepip.odin.sequencer.Track;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -35,7 +39,8 @@ public class MutableReactors extends MutableThings<Reactor> {
    * @param reactorSupplier supplier of new reactors
    */
   public void refresh(Supplier<Stream<Trigger>> triggerStream,
-                      Supplier<TriggerReactor> reactorSupplier) {
+                      Supplier<TriggerReactor> reactorSupplier,
+                      Things<Conductor> conductors, Things<Track> tracks) {
     removeIf(reactor -> triggerStream.get()
         .noneMatch(trigger -> trigger.getId() == reactor.getValue().getId()));
 
@@ -44,19 +49,17 @@ public class MutableReactors extends MutableThings<Reactor> {
        * Add reactor if not present in conductors.
        */
       Optional<TriggerReactor> existing =
-          stream()
-              .filter(o -> o instanceof TriggerReactor)
-              .map(o -> (TriggerReactor) o)
+          stream().filter(o -> o instanceof TriggerReactor).map(o -> (TriggerReactor) o)
               .filter(reactor -> reactor.getId() == trigger.getId()).findFirst();
 
       TriggerReactor reactor;
       if (existing.isPresent()) {
-        if (existing.get().getTrigger().equals(trigger)) {
+        reactor = existing.get();
+        if (reactor.getTrigger().equals(trigger)) {
           LOG.debug("Trigger {} already added and unchanged", trigger);
         } else {
           LOG.debug("Updating reactor for {}", trigger);
           incrementUpdatedCount();
-          reactor = existing.get();
           reactor.setTrigger(trigger);
         }
       } else {
@@ -65,6 +68,17 @@ public class MutableReactors extends MutableThings<Reactor> {
         reactor.setTrigger(trigger);
         add(reactor);
       }
+
+      /*
+       * Add all sequence actions.  We currently just clear and re-add.
+       */
+      reactor.clearTrackActions();
+      tracks.stream().filter(o -> o instanceof SequenceTrack).map(o -> (SequenceTrack) o)
+          .forEach(track ->
+          track.getSequence().getTriggers().entrySet().stream()
+            .filter(entry -> entry.getKey().equals(trigger.getName()))
+            .forEach(entry -> reactor.addTrackAction(track, entry.getValue()))
+      );
     });
   }
 

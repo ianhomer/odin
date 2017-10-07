@@ -28,6 +28,10 @@ public interface SequenceRoll<A> extends Roll<A> {
 
   Sequence getSequence();
 
+  void setEnabled(boolean enabled);
+
+  boolean isEnabled();
+
   void refresh();
 
   void setFlow(MutableFlow<Sequence, A> flow);

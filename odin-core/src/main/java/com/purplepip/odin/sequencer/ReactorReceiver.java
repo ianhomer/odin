@@ -18,6 +18,7 @@ package com.purplepip.odin.sequencer;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.sequence.reactors.MutableReactors;
+import com.purplepip.odin.sequence.triggers.Action;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -38,6 +39,17 @@ public class ReactorReceiver implements OperationReceiver {
           if (reactor.getTrigger().isTriggeredBy(operation)) {
             LOG.debug("Trigger {} triggered", reactor.getTrigger());
             triggered.mark();
+            reactor.getTracks().forEach(entry -> {
+              LOG.debug("Track {} triggered", entry.getKey());
+              Action action = entry.getValue();
+              switch (action)  {
+                case ENABLE:
+                  entry.getKey().getSequenceRoll().setEnabled(true);
+                  break;
+                default:
+                  LOG.warn("Trigger action {} not supported", action);
+              }
+            });
           }
         });
   }

@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.bag.AbstractUnmodifiableThings;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
@@ -47,7 +46,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private MutableReactors reactors = new MutableReactors();
   private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
   private MutableConductors conductors = new MutableConductors();
-  private AbstractUnmodifiableThings<Conductor> immutableConductors =
+  private Things<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private TrackProcessor sequenceProcessor;
@@ -83,7 +82,6 @@ public class OdinSequencer implements ProjectApplyListener {
     /*
      * Create the sequencer receiver.
      */
-    // TODO : Wire this into MIDI transmitter
     sequencerReceiver = new ReactorReceiver(reactors, configuration.getMetrics());
     configuration.getOperationTransmitter().addListener(sequencerReceiver);
 
@@ -113,7 +111,8 @@ public class OdinSequencer implements ProjectApplyListener {
     conductors.refresh(() -> project.getLayers().stream(), this::createConductor);
     tracks.refresh(() -> project.getSequences().stream(), this::createSequenceTrack,
         immutableConductors);
-    reactors.refresh(() -> project.getTriggers().stream(), this::createReactor);
+    reactors.refresh(() -> project.getTriggers().stream(), this::createReactor,
+        immutableConductors, immutableTracks);
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 

@@ -37,6 +37,7 @@ public final class Sequences {
     to.setProject(from.getProject());
     to.setTick(from.getTick());
     from.getLayers().forEach(to::addLayer);
+    from.getTriggers().forEach(to::addTrigger);
     from.getPropertyNames().forEach(name -> to.setProperty(name, from.getProperty(name)));
   }
 }

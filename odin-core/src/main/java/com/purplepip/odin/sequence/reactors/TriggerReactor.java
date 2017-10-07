@@ -15,12 +15,17 @@
 
 package com.purplepip.odin.sequence.reactors;
 
+import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequencer.SequenceTrack;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
 public class TriggerReactor implements Reactor {
   private Trigger trigger;
-  private String sequenceName;
+  private Map<SequenceTrack, Action> trackActions = new HashMap<>();
 
   @Override
   public long getId() {
@@ -41,7 +46,19 @@ public class TriggerReactor implements Reactor {
     return trigger;
   }
 
-  public void setSequenceName(String name) {
-    this.sequenceName = sequenceName;
+  public void addTrackAction(SequenceTrack track, Action action) {
+    trackActions.put(track, action);
+  }
+
+  public void removeTrackAction(SequenceTrack track) {
+    trackActions.remove(track);
+  }
+
+  public Stream<Map.Entry<SequenceTrack, Action>> getTracks() {
+    return trackActions.entrySet().stream();
+  }
+
+  public void clearTrackActions() {
+    trackActions.clear();
   }
 }
