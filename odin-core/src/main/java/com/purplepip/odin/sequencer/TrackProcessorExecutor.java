@@ -44,6 +44,7 @@ public class TrackProcessorExecutor implements Runnable {
   private Timer jobMetric;
   private Meter tracksProcessedMetric;
   private Meter noEventsMetric;
+  private Meter nextEventNullMetric;
   private Meter sentMetric;
   private Meter bufferMaxedMetric;
   private Meter tooLateMetric;
@@ -69,6 +70,7 @@ public class TrackProcessorExecutor implements Runnable {
     jobMetric = metrics.timer("sequence.job");
     tracksProcessedMetric = metrics.meter("sequence.tracks");
     noEventsMetric = metrics.meter("sequence.noEvents");
+    nextEventNullMetric = metrics.meter("sequence.nextEventNull");
     sentMetric = metrics.meter("sequence.sent");
     bufferMaxedMetric = metrics.meter("sequence.bufferMaxed");
     tooLateMetric = metrics.meter("sequence.tooLate");
@@ -153,7 +155,12 @@ public class TrackProcessorExecutor implements Runnable {
        */
       nextEvent = track.pop();
       LOG.debug("Processing Event {}", nextEvent);
-      if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
+      if (nextEvent == null) {
+        nextEventNullMetric.mark();
+        // TODO : Understand why this can happen, it might be that another thread has beaten
+        // this thread to it.  It occasionally happens in the tests.
+        LOG.warn("Next event gone from stack, it was null when we popped it");
+      } else if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
         statistics.incrementEventTooLateCount();
         tooLateMetric.mark();
         LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),

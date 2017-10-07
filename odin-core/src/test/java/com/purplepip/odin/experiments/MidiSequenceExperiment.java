@@ -14,10 +14,12 @@ import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
+import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
+import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
@@ -54,7 +56,10 @@ public class MidiSequenceExperiment {
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
     MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
+
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
+    OperationTransmitter transmitter = new DefaultOperationTransmitter();
+    midiDeviceWrapper.registerWithTransmitter(transmitter);
     OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))
         .setMeasureProvider(measureProvider)
@@ -63,6 +68,7 @@ public class MidiSequenceExperiment {
                 new MidiOperationReceiver(midiDeviceWrapper),
                 operationReceiver)
         )
+        .setOperationTransmitter(transmitter)
         .setMicrosecondPositionProvider(
             new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper));
     try {

@@ -62,7 +62,7 @@ public class MidiReceiverExperiment {
   }
 
   public class MidiInputReceiver implements Receiver {
-    public String name;
+    private String name;
 
     MidiInputReceiver(String name) {
       this.name = name;

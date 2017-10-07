@@ -36,6 +36,7 @@ public class DefaultOdinSequencerConfiguration
   private BeatsPerMinute beatsPerMinute;
   private MeasureProvider measureProvider;
   private OperationReceiver operationReceiver;
+  private OperationTransmitter operationTransmitter;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
   private FlowFactory<Note> flowFactory;
@@ -55,6 +56,7 @@ public class DefaultOdinSequencerConfiguration
     setClockStartRoundingFactor(1);
     setClockStartOffset(0);
     setMetrics(new MetricRegistry());
+    setOperationTransmitter(new DefaultOperationTransmitter());
   }
 
   public final DefaultOdinSequencerConfiguration
@@ -99,6 +101,16 @@ public class DefaultOdinSequencerConfiguration
     return this;
   }
 
+  /*
+   * TODO : Should transmitter and receiver implementations look the same, they are really
+   * the same just input and output so should support same functionality.
+   */
+  public DefaultOdinSequencerConfiguration setOperationTransmitter(
+      OperationTransmitter operationTransmitter) {
+    this.operationTransmitter = operationTransmitter;
+    return this;
+  }
+
   public final DefaultOdinSequencerConfiguration setMicrosecondPositionProvider(
       MicrosecondPositionProvider microsecondPositionProvider) {
     this.microsecondPositionProvider = microsecondPositionProvider;
@@ -128,6 +140,11 @@ public class DefaultOdinSequencerConfiguration
   @Override
   public OperationReceiver getOperationReceiver() {
     return operationReceiver;
+  }
+
+  @Override
+  public OperationTransmitter getOperationTransmitter() {
+    return operationTransmitter;
   }
 
   @Override

@@ -32,7 +32,24 @@ public interface OdinSequencerConfiguration {
 
   MetricRegistry getMetrics();
 
+  /**
+   * The operation receiver is how the sequencer sends operations to external devices.
+   *
+   * @return operation receiver
+   */
   OperationReceiver getOperationReceiver();
+
+  /**
+   * The operation transmitter is how the sequence receives operations in from external devices.
+   *
+   * @return operation transmitter
+   */
+  /*
+   * TODO : Should receiver and transmitter be renamed to be clearer, e.g. output and input.
+   * Receiver and transmitter is a little unclear since in each flow there is always a receiver
+   * and a transmitter depending on whether you're consider from inside or outside.
+   */
+  OperationTransmitter getOperationTransmitter();
 
   MicrosecondPositionProvider getMicrosecondPositionProvider();
 

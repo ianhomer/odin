@@ -1,0 +1,38 @@
+/*
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.purplepip.odin.midix;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import com.purplepip.odin.midi.RawMessage;
+import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.sequencer.Operation;
+import javax.sound.midi.ShortMessage;
+import org.junit.Test;
+
+public class MidiMessageConverterTest {
+  @Test
+  public void toOperation() throws Exception {
+    MidiMessageConverter converter =
+        new MidiMessageConverter(new ShortMessage(RawMessage.NOTE_ON,60,50));
+    Operation operation = converter.toOperation();
+    assertTrue(operation instanceof NoteOnOperation);
+    NoteOnOperation noteOnOperation = (NoteOnOperation) operation;
+    assertEquals(60, noteOnOperation.getNumber());
+    assertEquals(50, noteOnOperation.getVelocity());
+  }
+}

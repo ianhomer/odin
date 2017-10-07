@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TestSequencerEnvironment {
   private ProjectContainer container = new ProjectContainer(new TransientProject());
 
+  private OdinSequencerConfiguration configuration;
   private OdinSequencer sequencer;
 
   private FlowFactory<Note> flowFactory;
@@ -44,16 +45,15 @@ public class TestSequencerEnvironment {
 
     flowFactory = new FlowFactory<>(flowConfiguration);
     flowFactory.warmUp();
-    sequencer = new OdinSequencer(
-        new DefaultOdinSequencerConfiguration()
-            .setFlowFactory(flowFactory)
-            .setMeasureProvider(new StaticBeatMeasureProvider(4))
-            .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
-            .setClockStartOffset(10000)
-            .setClockStartRoundingFactor(1000)
-            .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
-            .setOperationReceiver(operationReceiver)
-    );
+    configuration = new DefaultOdinSequencerConfiguration()
+        .setFlowFactory(flowFactory)
+        .setMeasureProvider(new StaticBeatMeasureProvider(4))
+        .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
+        .setClockStartOffset(10000)
+        .setClockStartRoundingFactor(1000)
+        .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
+        .setOperationReceiver(operationReceiver);
+    sequencer = new OdinSequencer(configuration);
     container.addApplyListener(sequencer);
   }
 
@@ -63,6 +63,10 @@ public class TestSequencerEnvironment {
 
   public ProjectContainer getContainer() {
     return container;
+  }
+
+  public OdinSequencerConfiguration getConfiguration() {
+    return configuration;
   }
 
   public FlowFactory getFlowFactory() {

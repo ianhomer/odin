@@ -18,6 +18,7 @@ package com.purplepip.odin.midix;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
+import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -27,6 +28,7 @@ import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
+import javax.sound.midi.Transmitter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,12 +69,34 @@ public class MidiDeviceWrapper implements AutoCloseable {
   }
 
   /**
+   * Register this MIDI device with the operation transmitter, so that incoming MIDI messages
+   * are sent to the given transmitter.
+   *
+   * @param operationTransmitter operation transmitter to relay MIDI messages on to
+   */
+  public void registerWithTransmitter(OperationTransmitter operationTransmitter) {
+    if (canTransmit()) {
+      try {
+        try (Transmitter transmitter = getTransmittingDevice().getTransmitter()) {
+          transmitter.setReceiver(
+              new MidiInputReceiver(operationTransmitter));
+        }
+      } catch (MidiUnavailableException e) {
+        LOG.error("Cannot register receiver");
+      }
+    } else {
+      LOG.debug("Device does not support transmitting");
+    }
+  }
+
+  /**
    * Close device wrapper.
    */
   @Override
   public void close() {
     LOG.debug("Closing device wrapper");
     scheduledPool.shutdown();
+    // TODO : Close MidiInputReceivers that we have created.
   }
 
   /**

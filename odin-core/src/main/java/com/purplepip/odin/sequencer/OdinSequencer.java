@@ -85,6 +85,7 @@ public class OdinSequencer implements ProjectApplyListener {
      */
     // TODO : Wire this into MIDI transmitter
     sequencerReceiver = new ReactorReceiver(reactors, configuration.getMetrics());
+    configuration.getOperationTransmitter().addListener(sequencerReceiver);
 
     /*
      * Create the processors early.  Note that they'll start when the clock starts.
