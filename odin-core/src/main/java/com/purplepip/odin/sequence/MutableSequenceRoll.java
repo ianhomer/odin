@@ -59,7 +59,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private boolean sequenceDirty;
   private boolean flowNameDirty;
   private boolean flowDirty;
-
   private boolean enabled;
 
   /**
@@ -101,8 +100,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * sequence has not change then we leave the active flag as it is - this is the case where
      * a trigger might have changed and we don't want to loose the effect of this trigger.
      */
-    if (this.sequence == null || this.sequence.isActive() != sequence.isActive()) {
-      enabled = sequence.isActive();
+    if (this.sequence == null || this.sequence.isEnabled() != sequence.isEnabled()) {
+      enabled = sequence.isEnabled();
     }
 
     this.sequence = sequence;
@@ -299,23 +298,23 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
 
   @Override
   public Event<A> peek() {
-    if (isActive() && nextEvent == null) {
+    if (isRolling() && nextEvent == null) {
       nextEvent = getNextEventInternal(tock);
     }
     return nextEvent;
   }
 
-  private boolean isActive() {
+  private boolean isRolling() {
     if (tock == null) {
-      LOG.trace("is Active false : not started");
+      LOG.trace("is rolling false : not started");
       return false;
     }
-    //if (!enabled) {
-    //  LOG.trace("is Active false : track not enabled");
-    //  return false;
-    //}
+    if (!enabled) {
+      LOG.trace("is rolling false : track not enabled");
+      return false;
+    }
     boolean result = getLength() < 0 || tock.getPosition().lt(Whole.valueOf(getLength()));
-    LOG.trace("isActive {} : {} < {}", result, tock.getPosition(), getLength());
+    LOG.trace("isRolling {} : {} < {}", result, tock.getPosition(), getLength());
     return result;
   }
 
@@ -343,7 +342,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   @Override
   public Event<A> pop() {
     Event<A> thisEvent = nextEvent;
-    if (isActive()) {
+    if (isRolling()) {
       nextEvent = getNextEventInternal(tock);
     } else {
       nextEvent = null;

@@ -37,7 +37,7 @@ public class OdinSequencerTriggerTest {
         .withTrigger("note-60-trigger", Action.ENABLE)
         .withOffset(OFFSET)
         .withLength(LENGTH)
-        .withActive(false)
+        .withEnabled(true)
         .addMetronome();
     environment.start();
     //environment.getConfiguration().getOperationTransmitter().send(

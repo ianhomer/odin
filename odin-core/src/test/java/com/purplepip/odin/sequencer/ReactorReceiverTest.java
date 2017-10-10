@@ -63,7 +63,7 @@ public class ReactorReceiverTest {
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.withName("trigger1").withNote(60).addNoteTrigger()
       .addLayer("layer1")
-      .withName("track1").withLayers("layer1").withActive(false)
+      .withName("track1").withLayers("layer1").withEnabled(false)
       .withTrigger("trigger1", Action.ENABLE).addPattern(BEAT, 7);
     Things<Conductor> conductors = new MutableConductors();
     MutableTracks tracks = new MutableTracks();

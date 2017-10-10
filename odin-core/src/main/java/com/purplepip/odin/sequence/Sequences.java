@@ -29,6 +29,7 @@ public final class Sequences {
    * @param to where to copy values to
    */
   public static void copyCoreValues(Sequence from, MutableSequence to) {
+    to.setEnabled(from.isEnabled());
     to.setName(from.getName());
     to.setChannel(from.getChannel());
     to.setFlowName(from.getFlowName());

@@ -67,7 +67,7 @@ public class ProjectBuilder {
   private ProjectContainer projectContainer;
   private String name;
   private String flowName = DEFAULT_FLOW_NAME;
-  private boolean active;
+  private boolean enabled;
   private int channel;
   private int noteNumber;
   private int velocity;
@@ -92,7 +92,7 @@ public class ProjectBuilder {
    * NOT cleared.
    */
   public final void reset() {
-    active = true;
+    enabled = true;
     name = null;
     channel = 0;
     noteNumber = Notes.DEFAULT_NUMBER;
@@ -382,8 +382,8 @@ public class ProjectBuilder {
     return this;
   }
 
-  public ProjectBuilder withActive(boolean active) {
-    this.active = active;
+  public ProjectBuilder withEnabled(boolean enabled) {
+    this.enabled = enabled;
     return this;
   }
 
@@ -531,7 +531,7 @@ public class ProjectBuilder {
 
   private Sequence applyParameters(MutableSequence sequence) {
     sequence.setName(name);
-    sequence.setActive(active);
+    sequence.setEnabled(enabled);
     sequence.setOffset(0);
     sequence.setChannel(channel);
     sequence.setLength(length);

@@ -175,7 +175,7 @@ public class LayerConductor implements Conductor {
     boolean result = position >= getOffset()
         && (getLength() <= 0 || position < getLength());
     if (LOG.isDebugEnabled()) {
-      LOG.debug("isActive {} : {}, tock {}, µs {}, length {}, loop {}",
+      LOG.debug("isEnabled {} : {}, tock {}, µs {}, length {}, loop {}",
           getName(), result, position, microseconds, getLength(), loopLength);
     }
     return result;

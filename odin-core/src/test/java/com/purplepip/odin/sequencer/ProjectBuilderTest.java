@@ -106,18 +106,26 @@ public class ProjectBuilderTest {
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
     assertEquals(1, pattern.getBits());
     assertEquals(60, pattern.getNote().getNumber());
-    assertEquals(true, pattern.isActive());
+    assertEquals(true, pattern.isEnabled());
   }
 
   @Test
-  public void testAddInactivePattern() {
+  public void testAddDisabledPattern() {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
-    builder.withActive(false).addPattern(BEAT, 1);
+    builder.withEnabled(false).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
-    assertEquals(false, pattern.isActive());
+    assertEquals(false, pattern.isEnabled());
   }
 
+  @Test
+  public void testAddEnabledPattern() {
+    TransientProject project = new TransientProject();
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    builder.withEnabled(true).addPattern(BEAT, 1);
+    Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
+    assertEquals(true, pattern.isEnabled());
+  }
 
   @Test
   public void testAddPatternUsingProperties() {
@@ -152,7 +160,7 @@ public class ProjectBuilderTest {
     assertEquals("trigger1", trigger.getName());
     assertEquals(60, trigger.getNote());
     builder.withTrigger("trigger1", Action.ENABLE)
-        .withActive(false).addPattern(BEAT, 1);
+        .withEnabled(false).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
     assertEquals(Action.ENABLE, pattern.getTriggers().get("trigger1"));
   }

@@ -21,11 +21,11 @@ import javax.validation.constraints.NotNull;
 
 public interface TimeThing extends Thing {
   /**
-   * Whether this thing is active by default.  Note that triggers can enable the thing.
+   * Whether this thing is enabled by default.  Note that triggers can enable the thing.
    *
-   * @return whether thing is active by default
+   * @return whether thing is enabled by default
    */
-  boolean isActive();
+  boolean isEnabled();
 
   /**
    * Units for 1 tick of this thing.

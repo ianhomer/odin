@@ -36,7 +36,7 @@ import lombok.ToString;
 @EqualsAndHashCode(exclude = {"offset", "length", "tick"}, callSuper = true)
 @ToString()
 public class PersistableTimeThing extends PersistableThing implements TimeThing {
-  private boolean active;
+  private boolean enabled;
   @Column(name = "o")
   private long offset;
   private long length;

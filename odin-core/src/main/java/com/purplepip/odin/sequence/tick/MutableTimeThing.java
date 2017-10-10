@@ -18,7 +18,7 @@ package com.purplepip.odin.sequence.tick;
 import com.purplepip.odin.bag.MutableThing;
 
 public interface MutableTimeThing extends MutableThing, TimeThing {
-  void setActive(boolean active);
+  void setEnabled(boolean enabled);
 
   void setTick(Tick tick);
 
