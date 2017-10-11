@@ -13,25 +13,24 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.midix;
+package com.purplepip.odin.midi;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.midi.Status;
-import com.purplepip.odin.sequencer.OperationReceiver;
-import java.util.concurrent.atomic.AtomicInteger;
-import javax.sound.midi.ShortMessage;
 import org.junit.Test;
 
-public class MidiInputReceiverTest {
+
+public class DebugMessageTest {
   @Test
-  public void send() throws Exception {
-    final AtomicInteger count = new AtomicInteger();
-    OperationReceiver operationReceiver = ((operation, time) -> {
-      count.incrementAndGet();
-    });
-    MidiInputReceiver midiInputReceiver = new MidiInputReceiver(operationReceiver);
-    midiInputReceiver.send(new ShortMessage(Status.NOTE_ON.getValue(), 60, 50), -1);
-    assertEquals(1, count.get());
+  public void testToString() throws Exception {
+    byte[] bytes = new byte[] { -128, 60, 50};
+    assertEquals("MIDI message [-128, 60, 50] with status (-128 = 0x80 = NOTE_OFF)",
+        new DebugMessage(bytes).toString());
+  }
+
+  @Test
+  public void testGetStatusAsString() throws Exception {
+    byte[] bytes = new byte[] { -128, 60, 50};
+    assertEquals("(-128 = 0x80 = NOTE_OFF)", new DebugMessage(bytes).getStatusAsString());
   }
 }

@@ -16,10 +16,11 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.midi.RawMessage;
+import com.purplepip.odin.midi.DebugMessage;
+import com.purplepip.odin.midi.Status;
+import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequencer.Operation;
-import java.util.Arrays;
 import javax.sound.midi.MidiMessage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,20 +41,26 @@ public class MidiMessageConverter {
   public Operation toOperation() throws OdinException {
     // TODO : Implement correct mapping from MIDI message to operation.
     if (midiMessage.getLength() == 3) {
-      if (midiMessage.getMessage()[0] == (byte) RawMessage.NOTE_ON) {
-        return new NoteOnOperation(0,
-            midiMessage.getMessage()[1],
-            midiMessage.getMessage()[2]);
+      byte[] message = midiMessage.getMessage();
+      Status status = Status.getMessage(message[0]);
+      if (status == null) {
+        throw new OdinException(new DebugMessage(midiMessage.getMessage())
+            + " has unrecognised status");
       } else {
-        throw new OdinException("MIDI message " + Arrays.toString(midiMessage.getMessage())
-            + " with signal " + midiMessage.getMessage()[0]
-            + " not currently mapped to an operation");
+        switch (status) {
+          case NOTE_ON:
+            return new NoteOnOperation(0, message[1], message[2]);
+          case NOTE_OFF:
+            return new NoteOffOperation(0, message[1]);
+          default:
+            throw new OdinException(new DebugMessage(midiMessage.getMessage())
+                + " not currently mapped to an operation");
+        }
       }
     } else {
       throw new OdinException(
-          "MIDI message " + Arrays.toString(midiMessage.getMessage())
-              + " with length " + midiMessage.getLength()
-              + " not currently mapped to an operation");
+          new DebugMessage(midiMessage.getMessage())
+              + " not currently mapped to an operation since length not expected");
     }
   }
 }

@@ -25,7 +25,6 @@ public class OdinSequencerTriggerTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    // TODO : Update this test so that the trigger actually enables to the sequence.
     new BeanyProjectBuilder(environment.getContainer())
         .withName("note-60-trigger")
         .withNote(60)

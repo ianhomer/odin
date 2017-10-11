@@ -18,7 +18,8 @@ package com.purplepip.odin.midix;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.midi.RawMessage;
+import com.purplepip.odin.midi.Status;
+import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequencer.Operation;
 import javax.sound.midi.ShortMessage;
@@ -28,11 +29,23 @@ public class MidiMessageConverterTest {
   @Test
   public void toOperation() throws Exception {
     MidiMessageConverter converter =
-        new MidiMessageConverter(new ShortMessage(RawMessage.NOTE_ON,60,50));
+        new MidiMessageConverter(new ShortMessage(Status.NOTE_ON.getValue(),60,50));
     Operation operation = converter.toOperation();
     assertTrue(operation instanceof NoteOnOperation);
     NoteOnOperation noteOnOperation = (NoteOnOperation) operation;
     assertEquals(60, noteOnOperation.getNumber());
     assertEquals(50, noteOnOperation.getVelocity());
+  }
+
+  @Test
+  public void toNoteOffOperation() throws Exception {
+    MidiMessageConverter converter =
+        new MidiMessageConverter(new ShortMessage(Status.NOTE_OFF.getValue(),60,50));
+    Operation operation = converter.toOperation();
+    assertTrue(operation instanceof NoteOffOperation);
+    NoteOffOperation noteOffOperation = (NoteOffOperation) operation;
+    assertEquals(60, noteOffOperation.getNumber());
+    // Note that velocity is not used for note off operation in this system.
+    assertEquals(0, noteOffOperation.getVelocity());
   }
 }

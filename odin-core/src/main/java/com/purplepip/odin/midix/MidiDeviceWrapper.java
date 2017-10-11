@@ -19,7 +19,9 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.OperationTransmitter;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -27,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Transmitter;
 import org.slf4j.Logger;
@@ -40,6 +43,8 @@ public class MidiDeviceWrapper implements AutoCloseable {
 
   private MidiDevice receivingDevice;
   private MidiDevice transmittingDevice;
+  private List<Transmitter> transmitters = new ArrayList<>();
+  private List<Receiver> receivers = new ArrayList<>();
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
 
   public MidiDeviceWrapper() {
@@ -77,10 +82,11 @@ public class MidiDeviceWrapper implements AutoCloseable {
   public void registerWithTransmitter(OperationTransmitter operationTransmitter) {
     if (canTransmit()) {
       try {
-        try (Transmitter transmitter = getTransmittingDevice().getTransmitter()) {
-          transmitter.setReceiver(
-              new MidiInputReceiver(operationTransmitter));
-        }
+        Transmitter transmitter = getTransmittingDevice().getTransmitter();
+        transmitters.add(transmitter);
+        Receiver receiver = new MidiInputReceiver(operationTransmitter);
+        receivers.add(receiver);
+        transmitter.setReceiver(receiver);
       } catch (MidiUnavailableException e) {
         LOG.error("Cannot register receiver");
       }
@@ -96,7 +102,8 @@ public class MidiDeviceWrapper implements AutoCloseable {
   public void close() {
     LOG.debug("Closing device wrapper");
     scheduledPool.shutdown();
-    // TODO : Close MidiInputReceivers that we have created.
+    transmitters.forEach(Transmitter::close);
+    receivers.forEach(Receiver::close);
   }
 
   /**

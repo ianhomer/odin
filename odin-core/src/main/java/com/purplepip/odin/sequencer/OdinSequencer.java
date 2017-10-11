@@ -197,6 +197,8 @@ public class OdinSequencer implements ProjectApplyListener {
    * Stop the sequencer.
    */
   public void stop() {
+    // TODO : When we stop the sequencer we should play out the buffer, since there
+    // might be note off operations to complete.
     clock.stop();
     started = false;
   }

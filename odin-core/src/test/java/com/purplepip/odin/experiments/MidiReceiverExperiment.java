@@ -47,7 +47,7 @@ public class MidiReceiverExperiment {
       if (midiDeviceWrapper.canTransmit()) {
         try (Transmitter transmitter = midiDeviceWrapper.getTransmittingDevice().getTransmitter()) {
           transmitter.setReceiver(
-              new MidiInputReceiver(
+              new LoggingInputReceiver(
                   midiDeviceWrapper.getTransmittingDevice().getDeviceInfo().toString()));
           try {
             lock.await(20000, TimeUnit.MILLISECONDS);
@@ -61,10 +61,10 @@ public class MidiReceiverExperiment {
     }
   }
 
-  public class MidiInputReceiver implements Receiver {
+  public class LoggingInputReceiver implements Receiver {
     private String name;
 
-    MidiInputReceiver(String name) {
+    LoggingInputReceiver(String name) {
       this.name = name;
     }
 

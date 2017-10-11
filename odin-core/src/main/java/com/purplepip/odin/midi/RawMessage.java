@@ -26,13 +26,6 @@ import com.purplepip.odin.sequencer.ChannelOperation;
  * Midi NoteOnOperation.  Portable implementation that can be used on both PC and Android.
  */
 public class RawMessage {
-  /*
-   * See https://www.midi.org/specifications/item/table-1-summary-of-midi-message
-   */
-  private static final int NOTE_OFF = 0x80;
-  public static final int NOTE_ON = 0x90;
-  private static final int PROGRAM_CHANGE = 0xC0;
-
   private final byte[] buffer = new byte[3];
   private int length;
 
@@ -44,9 +37,9 @@ public class RawMessage {
    */
   public RawMessage(ChannelOperation operation) throws OdinException {
     if (operation instanceof NoteOnOperation) {
-      handle(NOTE_ON, (AbstractNoteVelocityOperation) operation);
+      handle(Status.NOTE_ON, (AbstractNoteVelocityOperation) operation);
     } else if (operation instanceof NoteOffOperation) {
-      handle(NOTE_OFF, (AbstractNoteVelocityOperation) operation);
+      handle(Status.NOTE_OFF, (AbstractNoteVelocityOperation) operation);
     } else if (operation instanceof ProgramChangeOperation) {
       handle((ProgramChangeOperation) operation);
     } else {
@@ -54,22 +47,22 @@ public class RawMessage {
     }
   }
 
-  private void handle(int status, AbstractNoteVelocityOperation operation) {
-    setStatus(status, operation.getChannel());
+  private void handle(Status command, AbstractNoteVelocityOperation operation) {
+    setStatus(command, operation.getChannel());
     buffer[1] = (byte) (operation.getNumber() & 0xFF);
     buffer[2] = (byte) (operation.getVelocity() & 0xFF);
     length = 3;
   }
 
   private void handle(ProgramChangeOperation operation) {
-    setStatus(PROGRAM_CHANGE, operation.getChannel());
+    setStatus(Status.PROGRAM_CHANGE, operation.getChannel());
     buffer[1] = (byte) (operation.getProgram() & 0xFF);
     buffer[2] = (byte) ((operation.getBank() >> 7) & 0xFF);
     length = 3;
   }
 
-  private void setStatus(int command, int channel) {
-    buffer[0] = (byte) (((command & 0xF0) | (channel & 0x0F)) & 0xFF);
+  private void setStatus(Status command, int channel) {
+    buffer[0] = (byte) (((command.getValue() & 0xF0) | (channel & 0x0F)) & 0xFF);
   }
 
   /**

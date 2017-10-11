@@ -12,6 +12,7 @@ import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
@@ -82,6 +83,7 @@ public class MidiSequenceExperiment {
       }
       ProjectContainer container = new ProjectContainer(new TransientProject());
       new BeanyProjectBuilder(container)
+          .withName("note-60-trigger").withNote(60).addNoteTrigger()
           .addLayer("groove")
           .withOffset(0).withLength(12).addLayer("start")
           .withOffset(8).withLength(8).addLayer("mid")
@@ -89,7 +91,9 @@ public class MidiSequenceExperiment {
           .withLength(-1).withOffset(0)
           .addMetronome()
           .withChannel(1).changeProgramTo("rock")
-          .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
+          .withTrigger("note-60-trigger", Action.ENABLE)
+          .withEnabled(false).withVelocity(50).withNote(62).addPattern(Ticks.BEAT, 7)
+          .withDefaults()
           .withLayers("start")
           .withChannel(2).changeProgramTo("aahs")
           .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
@@ -105,18 +109,19 @@ public class MidiSequenceExperiment {
       container.addApplyListener(sequencer);
       container.apply();
 
-      // Report metrics
-      ConsoleReporter reporter = ConsoleReporter.forRegistry(configuration.getMetrics())
+      try (ConsoleReporter reporter = ConsoleReporter.forRegistry(configuration.getMetrics())
           .convertRatesTo(TimeUnit.SECONDS)
           .convertDurationsTo(TimeUnit.MILLISECONDS)
-          .build();
-      reporter.start(1, TimeUnit.SECONDS);
-      sequencer.start();
+          .build()) {
+        // Report metrics
+        reporter.start(1, TimeUnit.SECONDS);
+        sequencer.start();
 
-      try {
-        lock.await(8000, TimeUnit.MILLISECONDS);
-      } finally {
-        sequencer.stop();
+        try {
+          lock.await(8000, TimeUnit.MILLISECONDS);
+        } finally {
+          sequencer.stop();
+        }
       }
       LOG.info("... stopping");
     } finally {

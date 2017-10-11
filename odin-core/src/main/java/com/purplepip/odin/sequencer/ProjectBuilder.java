@@ -92,18 +92,10 @@ public class ProjectBuilder {
    * NOT cleared.
    */
   public final void reset() {
-    enabled = true;
-    name = null;
-    channel = 0;
-    noteNumber = Notes.DEFAULT_NUMBER;
-    velocity = Notes.DEFAULT_VELOCITY;
-    length = -1;
-    offset = 0;
-    layerNamesToAdd.clear();
-    triggersToAdd.clear();
     sequenceIds.clear();
     channelIds.clear();
     layerIds.clear();
+    withDefaults();
   }
 
   public Layer getLayer(String name) {
@@ -176,6 +168,24 @@ public class ProjectBuilder {
 
   private static Tick withDefaults(Tick tick) {
     return tick;
+  }
+
+  /**
+   * Set the internal with variables to defaults.
+   *
+   * @return this
+   */
+  public ProjectBuilder withDefaults() {
+    enabled = true;
+    name = null;
+    channel = 0;
+    noteNumber = Notes.DEFAULT_NUMBER;
+    velocity = Notes.DEFAULT_VELOCITY;
+    length = -1;
+    offset = 0;
+    layerNamesToAdd.clear();
+    triggersToAdd.clear();
+    return this;
   }
 
   private MutableLayer withDefaults(MutableLayer layer) {
@@ -415,6 +425,11 @@ public class ProjectBuilder {
   public ProjectBuilder withTrigger(String trigger, Action action) {
     triggersToAdd.put(trigger, action);
     LOG.debug("Triggers to add : {}", triggersToAdd);
+    return this;
+  }
+
+  public ProjectBuilder withNoTriggers() {
+    triggersToAdd.clear();
     return this;
   }
 
