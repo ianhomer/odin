@@ -14,7 +14,7 @@
  */
 
 /**
- * Manage properties by references where the value may change and if it does change then
- * observers are notified..
+ * Manage runtime properties by references where the value may change and if it does change then
+ * observers are notified.
  */
-package com.purplepip.odin.properties;
+package com.purplepip.odin.properties.runtime;

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.properties;
+package com.purplepip.odin.properties.runtime;
 
 import java.util.HashSet;
 import java.util.Set;

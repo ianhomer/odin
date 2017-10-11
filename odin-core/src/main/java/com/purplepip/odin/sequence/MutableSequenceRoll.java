@@ -17,9 +17,9 @@ package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.properties.Mutable;
-import com.purplepip.odin.properties.ObservableProperty;
-import com.purplepip.odin.properties.Property;
+import com.purplepip.odin.properties.runtime.Mutable;
+import com.purplepip.odin.properties.runtime.ObservableProperty;
+import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.ConvertedMeasureProvider;

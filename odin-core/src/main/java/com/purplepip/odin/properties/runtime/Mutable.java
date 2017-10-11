@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.properties;
+package com.purplepip.odin.properties.runtime;
 
-@FunctionalInterface
-public interface Observer {
-  void onChange();
+public interface Mutable<T> extends Property<T> {
+  void set(T t);
 }

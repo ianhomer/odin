@@ -18,8 +18,8 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.common.OdinImplementationException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.properties.ObservableProperty;
-import com.purplepip.odin.properties.Property;
+import com.purplepip.odin.properties.runtime.ObservableProperty;
+import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.sequence.tick.Tick;
 import lombok.ToString;
 
