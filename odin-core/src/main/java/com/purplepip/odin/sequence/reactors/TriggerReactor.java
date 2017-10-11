@@ -17,7 +17,7 @@ package com.purplepip.odin.sequence.reactors;
 
 import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.Trigger;
-import com.purplepip.odin.sequencer.SequenceTrack;
+import com.purplepip.odin.sequencer.Track;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 
 public class TriggerReactor implements Reactor {
   private Trigger trigger;
-  private Map<SequenceTrack, Action> trackActions = new HashMap<>();
+  private Map<Track, Action> trackActions = new HashMap<>();
 
   @Override
   public long getId() {
@@ -46,15 +46,15 @@ public class TriggerReactor implements Reactor {
     return trigger;
   }
 
-  public void addTrackAction(SequenceTrack track, Action action) {
+  public void addTrackAction(Track track, Action action) {
     trackActions.put(track, action);
   }
 
-  public void removeTrackAction(SequenceTrack track) {
+  public void removeTrackAction(Track track) {
     trackActions.remove(track);
   }
 
-  public Stream<Map.Entry<SequenceTrack, Action>> getTracks() {
+  public Stream<Map.Entry<Track, Action>> getTracks() {
     return trackActions.entrySet().stream();
   }
 

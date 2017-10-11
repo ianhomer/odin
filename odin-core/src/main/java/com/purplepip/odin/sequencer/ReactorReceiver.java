@@ -44,7 +44,7 @@ public class ReactorReceiver implements OperationReceiver {
               Action action = entry.getValue();
               switch (action)  {
                 case ENABLE:
-                  entry.getKey().getSequenceRoll().setEnabled(true);
+                  entry.getKey().setEnabled(true);
                   break;
                 default:
                   LOG.warn("Trigger action {} not supported", action);

@@ -28,7 +28,9 @@ import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.sequence.triggers.Action;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
@@ -121,6 +123,21 @@ public class SequenceTrack implements Track {
   @Override
   public boolean isEmpty() {
     return sequenceRoll.isEmpty();
+  }
+
+  @Override
+  public Map<String, Action> getTriggers() {
+    return getSequence().getTriggers();
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return getSequenceRoll().isEnabled();
+  }
+
+  @Override
+  public void setEnabled(boolean enabled) {
+    getSequenceRoll().setEnabled(enabled);
   }
 
   private Event<Note> filter(Event<Note> event) {

@@ -19,7 +19,6 @@ import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.triggers.Trigger;
-import com.purplepip.odin.sequencer.SequenceTrack;
 import com.purplepip.odin.sequencer.Track;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,9 +72,8 @@ public class MutableReactors extends MutableThings<Reactor> {
        * Add all sequence actions.  We currently just clear and re-add.
        */
       reactor.clearTrackActions();
-      tracks.stream().filter(o -> o instanceof SequenceTrack).map(o -> (SequenceTrack) o)
-          .forEach(track ->
-          track.getSequence().getTriggers().entrySet().stream()
+      tracks.stream().forEach(track ->
+          track.getTriggers().entrySet().stream()
             .filter(entry -> entry.getKey().equals(trigger.getName()))
             .forEach(entry -> reactor.addTrackAction(track, entry.getValue()))
       );

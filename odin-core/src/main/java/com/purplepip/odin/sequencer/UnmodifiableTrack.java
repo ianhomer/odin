@@ -18,7 +18,11 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.triggers.Action;
+import java.util.Map;
+import lombok.ToString;
 
+@ToString()
 public class UnmodifiableTrack implements Track {
   private Track underlyingTrack;
 
@@ -59,6 +63,21 @@ public class UnmodifiableTrack implements Track {
   @Override
   public boolean isEmpty() {
     return underlyingTrack.isEmpty();
+  }
+
+  @Override
+  public Map<String, Action> getTriggers() {
+    return underlyingTrack.getTriggers();
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return underlyingTrack.isEnabled();
+  }
+
+  @Override
+  public void setEnabled(boolean enabled) {
+    underlyingTrack.setEnabled(enabled);
   }
 
 }

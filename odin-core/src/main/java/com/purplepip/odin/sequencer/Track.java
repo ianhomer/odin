@@ -19,6 +19,8 @@ import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.triggers.Action;
+import java.util.Map;
 
 public interface Track extends Thing {
   /**
@@ -59,4 +61,21 @@ public interface Track extends Thing {
    * @return is empty.
    */
   boolean isEmpty();
+
+  /**
+   * Triggers that this track listens for.
+   */
+  Map<String, Action> getTriggers();
+
+  /**
+   * Whether track is enabled.
+   */
+  boolean isEnabled();
+
+  /**
+   * Enable or disable track.
+   *
+   * @param enabled whether to enable or disable track.
+   */
+  void setEnabled(boolean enabled);
 }
