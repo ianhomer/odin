@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class FlowFactory<A> {
-
   private FlowConfiguration flowConfiguration;
   private SequenceFactory sequenceFactory = new SequenceFactory();
 
