@@ -18,7 +18,7 @@ package com.purplepip.odin.music.sequence;
 import static com.purplepip.odin.music.notes.Notes.newDefault;
 
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.DefaultSequence;
+import com.purplepip.odin.sequence.GenericSequence;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(callSuper = true)
 @Slf4j
-public class DefaultMetronome extends DefaultSequence implements Metronome {
+public class DefaultMetronome extends GenericSequence implements Metronome {
   private Note noteBarStart = newDefault();
   private Note noteBarMid = newDefault();
 

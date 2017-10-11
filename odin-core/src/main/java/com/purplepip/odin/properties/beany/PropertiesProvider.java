@@ -31,4 +31,17 @@ public interface PropertiesProvider {
    */
   @JsonIgnore
   Stream<String> getPropertyNames();
+
+  /**
+   * Are properties explicitly declared.  This should be true if all the properties set
+   * are declared explicitly as getters (and setters in mutable object).  This allows
+   * configuration management (e.g. persistence) to work with generic objects which then
+   * get mapped to strongly typed objects in the runtime.
+   *
+   * @return are properties explicitly declared
+   */
+  @JsonIgnore
+  default boolean arePropertiesDeclared() {
+    return false;
+  }
 }

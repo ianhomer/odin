@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(exclude = "project")
 @Slf4j
-public class DefaultSequence extends AbstractTimeThing implements MutableSequence {
+public class GenericSequence extends AbstractTimeThing implements MutableSequence {
   private int channel;
   private String flowName;
   private Project project;
@@ -39,15 +39,15 @@ public class DefaultSequence extends AbstractTimeThing implements MutableSequenc
   private Map<String, String> values = new HashMap<>();
   private Map<String, Action> triggers = new HashMap<>();
 
-  public DefaultSequence() {
+  public GenericSequence() {
     super();
   }
 
-  public DefaultSequence(String name) {
+  public GenericSequence(String name) {
     super(name);
   }
 
-  public DefaultSequence(long id) {
+  public GenericSequence(long id) {
     super(id);
   }
 

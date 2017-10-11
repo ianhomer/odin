@@ -13,30 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers;
+package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequencer.Operation;
-import lombok.ToString;
+import static org.junit.Assert.assertFalse;
 
-@ToString(callSuper = true)
-public class NoteTrigger extends GenericTrigger implements MutableTrigger {
-  private int note;
+import org.junit.Test;
 
-  public NoteTrigger() {
-  }
-
-  public void setNote(int note) {
-    this.note = note;
-  }
-
-  public int getNote() {
-    return note;
-  }
-
-  @Override
-  public boolean isTriggeredBy(Operation operation) {
-    return (operation instanceof NoteOnOperation)
-        && ((NoteOnOperation) operation).getNumber() == note;
+public class GenericSequenceTest {
+  @Test
+  public void testArePropertiesDeclared() {
+    Sequence sequence = new GenericSequence();
+    assertFalse("Generic sequence should not have properties declared",
+        sequence.arePropertiesDeclared());
   }
 }

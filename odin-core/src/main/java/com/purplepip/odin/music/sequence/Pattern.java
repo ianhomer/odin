@@ -16,16 +16,16 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
+import com.purplepip.odin.sequence.SpecialisedSequence;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
  * Pattern sequence configuration.
  */
-public interface Pattern extends MutableSequence {
+public interface Pattern extends SpecialisedSequence {
   @Override
   default Sequence copy() {
     Pattern copy = new DefaultPattern(this.getId());

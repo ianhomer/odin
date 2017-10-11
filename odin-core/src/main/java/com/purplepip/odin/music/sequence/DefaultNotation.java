@@ -15,11 +15,11 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.sequence.DefaultSequence;
+import com.purplepip.odin.sequence.GenericSequence;
 import lombok.ToString;
 
 @ToString(callSuper = true)
-public class DefaultNotation extends DefaultSequence implements Notation {
+public class DefaultNotation extends GenericSequence implements Notation {
   private String format;
   private String notation;
 

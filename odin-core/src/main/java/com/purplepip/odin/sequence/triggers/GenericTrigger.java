@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 import lombok.ToString;
 
 @ToString(exclude = "project")
-public class DefaultTrigger extends AbstractThing implements MutableTrigger {
+public class GenericTrigger extends AbstractThing implements MutableTrigger {
   private Project project;
   private String triggerRule;
 

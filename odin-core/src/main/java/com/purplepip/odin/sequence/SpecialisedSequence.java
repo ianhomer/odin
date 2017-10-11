@@ -13,30 +13,11 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers;
+package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequencer.Operation;
-import lombok.ToString;
-
-@ToString(callSuper = true)
-public class NoteTrigger extends GenericTrigger implements MutableTrigger {
-  private int note;
-
-  public NoteTrigger() {
-  }
-
-  public void setNote(int note) {
-    this.note = note;
-  }
-
-  public int getNote() {
-    return note;
-  }
-
+public interface SpecialisedSequence extends MutableSequence {
   @Override
-  public boolean isTriggeredBy(Operation operation) {
-    return (operation instanceof NoteOnOperation)
-        && ((NoteOnOperation) operation).getNumber() == note;
+  default boolean arePropertiesDeclared() {
+    return true;
   }
 }

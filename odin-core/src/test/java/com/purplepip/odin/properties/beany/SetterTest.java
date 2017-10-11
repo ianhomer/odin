@@ -28,14 +28,14 @@ import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequence.DefaultSequence;
+import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.Sequence;
 import org.junit.Test;
 
 public class SetterTest {
   @Test
   public void testSetPropertyOnGeneric() {
-    Sequence sequence = new DefaultSequence();
+    Sequence sequence = new GenericSequence();
     Setter setter = new Setter(sequence);
     setter.set("format", "test-format");
     assertEquals("test-format", sequence.getProperty("format"));
@@ -51,7 +51,7 @@ public class SetterTest {
 
   @Test
   public void testSetPropertyOnGenericWithDeclared() {
-    Sequence sequence = new DefaultSequence();
+    Sequence sequence = new GenericSequence();
     Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
     try (LogCaptor captor = new LogCapture().from(Setter.class).warn().start()) {
       setter.set("format", "test-format");
@@ -94,7 +94,7 @@ public class SetterTest {
 
   @Test
   public void testSetNotePropertyOnGeneric() {
-    Sequence sequence = new DefaultSequence();
+    Sequence sequence = new GenericSequence();
     Setter setter = new Setter(sequence);
     setter.set("note", new DefaultNote(11,22,33));
     assertEquals("11", sequence.getProperty("note.number"));

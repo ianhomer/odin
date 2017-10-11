@@ -13,30 +13,19 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers;
+package com.purplepip.odin.properties.beany;
 
-import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequencer.Operation;
-import lombok.ToString;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-@ToString(callSuper = true)
-public class NoteTrigger extends GenericTrigger implements MutableTrigger {
-  private int note;
+import org.junit.Test;
 
-  public NoteTrigger() {
-  }
-
-  public void setNote(int note) {
-    this.note = note;
-  }
-
-  public int getNote() {
-    return note;
-  }
-
-  @Override
-  public boolean isTriggeredBy(Operation operation) {
-    return (operation instanceof NoteOnOperation)
-        && ((NoteOnOperation) operation).getNumber() == note;
+public class PropertiesProviderTest {
+  @Test
+  public void testArePropertiesDeclared() throws Exception {
+    PropertiesProvider propertiesProvider = mock(PropertiesProvider.class);
+    when(propertiesProvider.arePropertiesDeclared()).thenReturn(false);
+    assertFalse(propertiesProvider.arePropertiesDeclared());
   }
 }

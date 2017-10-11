@@ -36,21 +36,9 @@ public interface Sequence extends Copyable<Sequence>, TimeThing, PropertiesProvi
    */
   @Override
   default Sequence copy() {
-    MutableSequence copy = new DefaultSequence(this.getId());
+    MutableSequence copy = new GenericSequence(this.getId());
     Sequences.copyCoreValues(this, copy);
     return copy;
-  }
-
-  /**
-   * Whether this class is a specialised sequence.
-   *
-   * @return true if it is a specialised sequence.
-   */
-  @JsonIgnore
-  // TODO : NOT particulary robust default implementation, a better one will be provided
-  default boolean isSpecialised() {
-    return getClass().getInterfaces().length > 1
-        || getClass().getInterfaces()[0] != MutableSequence.class;
   }
 
   /**

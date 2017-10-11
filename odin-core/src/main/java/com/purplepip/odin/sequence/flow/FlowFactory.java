@@ -17,7 +17,7 @@ package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.sequence.Clock;
-import com.purplepip.odin.sequence.DefaultSequence;
+import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceFactory;
@@ -95,7 +95,7 @@ public class FlowFactory<A> {
    */
   public void warmUp() {
     sequenceFactory.getSequenceNames().forEach(name -> {
-      MutableSequence sequence = new DefaultSequence();
+      MutableSequence sequence = new GenericSequence();
       sequence.setFlowName(name);
       copyFrom(sequence);
     });

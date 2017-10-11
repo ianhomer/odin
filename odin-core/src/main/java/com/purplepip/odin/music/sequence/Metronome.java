@@ -16,14 +16,14 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
+import com.purplepip.odin.sequence.SpecialisedSequence;
 
 /**
  * Metronome sequence configuration.
  */
-public interface Metronome extends MutableSequence {
+public interface Metronome extends SpecialisedSequence {
   @Override
   default Sequence copy() {
     Metronome copy = new DefaultMetronome(this.getId());

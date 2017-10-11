@@ -17,7 +17,7 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
-import com.purplepip.odin.sequence.DefaultSequence;
+import com.purplepip.odin.sequence.GenericSequence;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(callSuper = true)
 @Slf4j
-public class DefaultPattern extends DefaultSequence implements Pattern {
+public class DefaultPattern extends GenericSequence implements Pattern {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */

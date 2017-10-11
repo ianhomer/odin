@@ -16,11 +16,11 @@
 package com.purplepip.odin.music.sequence;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
+import com.purplepip.odin.sequence.SpecialisedSequence;
 
-public interface Notation extends MutableSequence {
+public interface Notation extends SpecialisedSequence {
   @Override
   default Sequence copy() {
     Notation copy = new DefaultNotation(this.getId());

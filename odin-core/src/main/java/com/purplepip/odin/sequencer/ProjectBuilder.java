@@ -30,7 +30,7 @@ import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.properties.beany.Setter;
-import com.purplepip.odin.sequence.DefaultSequence;
+import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.flow.Flow;
@@ -42,7 +42,7 @@ import com.purplepip.odin.sequence.tick.DefaultTick;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequence.triggers.Action;
-import com.purplepip.odin.sequence.triggers.DefaultTrigger;
+import com.purplepip.odin.sequence.triggers.GenericTrigger;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
 import com.purplepip.odin.sequence.triggers.Trigger;
@@ -212,7 +212,7 @@ public class ProjectBuilder {
    * @return sequence
    */
   protected MutableTrigger createTrigger() {
-    return new DefaultTrigger();
+    return new GenericTrigger();
   }
 
   /**
@@ -232,7 +232,7 @@ public class ProjectBuilder {
    * @return sequence
    */
   protected MutableSequence createSequence() {
-    return new DefaultSequence();
+    return new GenericSequence();
   }
 
   /**
@@ -561,7 +561,7 @@ public class ProjectBuilder {
     triggersToAdd.forEach(sequence::addTrigger);
     properties.forEach(sequence::setProperty);
 
-    if (sequence.isSpecialised()) {
+    if (sequence.arePropertiesDeclared()) {
       /*
        * Set the bean properties based on the properties map
        */
