@@ -46,6 +46,9 @@ public class ReactorReceiver implements OperationReceiver {
                 case ENABLE:
                   entry.getKey().setEnabled(true);
                   break;
+                case DISABLE:
+                  entry.getKey().setEnabled(false);
+                  break;
                 default:
                   LOG.warn("Trigger action {} not supported", action);
               }

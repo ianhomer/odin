@@ -22,5 +22,10 @@ public enum Action {
   /**
    * Enable the object attached to this trigger.
    */
-  ENABLE
+  ENABLE,
+
+  /*
+   * Disable the object attached to this trigger.
+   */
+  DISABLE
 }

@@ -61,10 +61,14 @@ public class ReactorReceiverTest {
     MutableReactors reactors = new MutableReactors();
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
-    builder.withName("trigger1").withNote(60).addNoteTrigger()
-      .addLayer("layer1")
-      .withName("track1").withLayers("layer1").withEnabled(false)
-      .withTrigger("trigger1", Action.ENABLE).addPattern(BEAT, 7);
+    builder
+        .withName("trigger1").withNote(60).addNoteTrigger()
+        .withName("trigger2").withNote(61).addNoteTrigger()
+        .addLayer("layer1")
+        .withName("track1").withLayers("layer1").withEnabled(false)
+        .withTrigger("trigger1", Action.ENABLE)
+        .withTrigger("trigger2", Action.DISABLE)
+        .addPattern(BEAT, 7);
     Things<Conductor> conductors = new MutableConductors();
     MutableTracks tracks = new MutableTracks();
     tracks.refresh(() -> project.getSequences().stream(),
@@ -74,10 +78,20 @@ public class ReactorReceiverTest {
     MetricRegistry metricRegistry = new MetricRegistry();
     ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
     assertFalse(((SequenceTrack) tracks.findByName("track1")).getSequenceRoll().isEnabled());
+
+    /*
+     * Send note on operation to trigger enabling track
+     */
     receiver.send(new NoteOnOperation(0,60,50), -1);
-    assertEquals(1, metricRegistry
-        .meter("receiver.triggered").getCount());
-    assertTrue(((SequenceTrack) tracks.findByName("track1")).getSequenceRoll().isEnabled());
+    assertEquals(1, metricRegistry.meter("receiver.triggered").getCount());
+    assertTrue(tracks.findByName("track1").isEnabled());
+
+    /*
+     * Send note on operation to trigger disabling track
+     */
+    receiver.send(new NoteOnOperation(0,61, 50), -1);
+    assertEquals(2, metricRegistry.meter("receiver.triggered").getCount());
+    assertFalse(tracks.findByName("track1").isEnabled());
   }
 
   private SequenceTrack createSequenceTrack() {
