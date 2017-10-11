@@ -17,7 +17,7 @@ package com.purplepip.odin.properties.beany;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.MutableSequence;
+import java.util.Map;
 import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -27,30 +27,26 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Setter {
-  private MutablePropertiesProvider propertiesProvider;
+  private MutablePropertiesProvider provider;
   private Mode mode;
 
   /**
    * Create new setter for a properties provider.
    *
-   * @param propertiesProvider sequence to set properties on
+   * @param provider sequence to set properties on
    */
-  public Setter(PropertiesProvider propertiesProvider) {
-    this(propertiesProvider, Mode.BEST);
+  public Setter(MutablePropertiesProvider provider) {
+    this(provider, Mode.BEST);
   }
 
   /**
    * Create new setter for a properties provider.
    *
-   * @param propertiesProvider sequence to set properties on
+   * @param provider sequence to set properties on
    * @param mode setting mode
    */
-  public Setter(PropertiesProvider propertiesProvider, Mode mode) {
-    if (!(propertiesProvider instanceof MutableSequence)) {
-      throw new OdinRuntimeException(
-          "Setter can only be used for mutable property providers, not " + propertiesProvider);
-    }
-    this.propertiesProvider = (MutablePropertiesProvider) propertiesProvider;
+  public Setter(MutablePropertiesProvider provider, Mode mode) {
+    this.provider = provider;
     this.mode = mode;
   }
 
@@ -78,7 +74,7 @@ public class Setter {
         setDeclared(name, value);
         break;
       case BEST:
-        if (BeanUtil.declared.hasProperty(propertiesProvider, name)) {
+        if (BeanUtil.declared.hasProperty(provider, name)) {
           setDeclared(name, value);
         } else {
           setProperty(name, value);
@@ -92,26 +88,39 @@ public class Setter {
 
   private void setDeclared(String name, Object value) {
     try {
-      BeanUtil.declared.setProperty(propertiesProvider, name, value);
+      BeanUtil.declared.setProperty(provider, name, value);
     } catch (BeanException e) {
-      LOG.debug("Ignoring non-valid sequence property (full stack)", e);
-      LOG.warn("Ignoring non-valid sequence property {} = {} for {}",
-          name, value, propertiesProvider);
+      LOG.debug("Ignoring non-valid property (full stack)", e);
+      LOG.warn("Ignoring non-valid property {} = {} for {}",
+          name, value, provider);
     }
   }
 
   private void setProperty(String name, Object value) {
     if (value instanceof Note) {
       Note note = (Note) value;
-      propertiesProvider.setProperty(name + ".number", note.getNumber());
-      propertiesProvider.setProperty(name + ".velocity", note.getVelocity());
-      propertiesProvider.setProperty(name + ".duration", note.getDuration());
+      provider.setProperty(name + ".number", note.getNumber());
+      provider.setProperty(name + ".velocity", note.getVelocity());
+      provider.setProperty(name + ".duration", note.getDuration());
     } else {
-      propertiesProvider.setProperty(name, value.toString());
+      provider.setProperty(name, value.toString());
     }
   }
 
   public enum Mode {
     DECLARED, BEST
+  }
+
+  /**
+   * Set the properties based on the properties map.  If the properties provider uses declared
+   * properties, then set the declared properties too.
+   *
+   * @param properties to apply.
+   */
+  public void applyProperties(Map<String, String> properties) {
+    properties.forEach(provider::setProperty);
+    if (provider.arePropertiesDeclared()) {
+      properties.keySet().forEach(name -> set(name, properties.get(name)));
+    }
   }
 }

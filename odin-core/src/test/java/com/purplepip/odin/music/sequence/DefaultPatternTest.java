@@ -15,21 +15,20 @@
 
 package com.purplepip.odin.music.sequence;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.properties.beany.Setter;
-import com.purplepip.odin.sequence.triggers.NoteTrigger;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
 
-public class NotationTest {
+public class DefaultPatternTest {
   @Test
-  public void testArePropertiesDeclared() {
-    Notation notation = new DefaultNotation();
-    assertTrue(notation.arePropertiesDeclared());
+  public void testSetProperties() {
+    DefaultPattern pattern = new DefaultPattern();
+    Map<String, String> properties = new HashMap<>();
+    properties.put("note.number", "60");
+    new Setter(pattern, Setter.Mode.DECLARED).applyProperties(properties);
+    assertEquals(60, pattern.getNote().getNumber());
   }
-
-
-
 }

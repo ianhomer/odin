@@ -158,7 +158,11 @@ public class ProjectBuilderTest {
     builder.withName("trigger1").withNote(60).addNoteTrigger();
     NoteTrigger trigger = (NoteTrigger) builder.getTriggerByOrder(0);
     assertEquals("trigger1", trigger.getName());
-    assertEquals(60, trigger.getNote());
+    assertEquals(60, trigger.getNote().getNumber());
+
+    /*
+     * Add pattern using this trigger.
+     */
     builder.withTrigger("trigger1", Action.ENABLE)
         .withEnabled(false).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);

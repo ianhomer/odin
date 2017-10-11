@@ -13,23 +13,11 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.sequence;
+package com.purplepip.odin.sequence.triggers;
 
-import static org.junit.Assert.assertTrue;
-
-import com.purplepip.odin.properties.beany.Setter;
-import com.purplepip.odin.sequence.triggers.NoteTrigger;
-import java.util.HashMap;
-import java.util.Map;
-import org.junit.Test;
-
-public class NotationTest {
-  @Test
-  public void testArePropertiesDeclared() {
-    Notation notation = new DefaultNotation();
-    assertTrue(notation.arePropertiesDeclared());
+public class SpecialisedTrigger extends GenericTrigger {
+  @Override
+  public boolean arePropertiesDeclared() {
+    return true;
   }
-
-
-
 }

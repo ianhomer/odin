@@ -339,7 +339,7 @@ public class ProjectBuilder {
    */
   public ProjectBuilder addNoteTrigger() {
     NoteTrigger trigger = createNoteTrigger();
-    trigger.setNote(noteNumber);
+    trigger.setNote(new DefaultNote(noteNumber, 0, 0));
     addTriggerToContainer(applyParameters(trigger));
     return this;
   }
@@ -559,15 +559,12 @@ public class ProjectBuilder {
     }
     layerNamesToAdd.forEach(sequence::addLayer);
     triggersToAdd.forEach(sequence::addTrigger);
-    properties.forEach(sequence::setProperty);
 
-    if (sequence.arePropertiesDeclared()) {
-      /*
-       * Set the bean properties based on the properties map
-       */
-      Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
-      properties.keySet().forEach(name -> setter.set(name, properties.get(name)));
-    }
+    /*
+     * Apply properties
+     */
+    new Setter(sequence, Setter.Mode.DECLARED).applyProperties(properties);
+
     return sequence;
   }
 
@@ -578,6 +575,10 @@ public class ProjectBuilder {
 
   private MutableTrigger applyParameters(MutableTrigger trigger) {
     trigger.setName(name);
+    /*
+     * Apply properties
+     */
+    new Setter(trigger, Setter.Mode.DECLARED).applyProperties(properties);
     return trigger;
   }
 }

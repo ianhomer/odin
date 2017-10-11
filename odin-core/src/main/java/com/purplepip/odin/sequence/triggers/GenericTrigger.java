@@ -28,7 +28,7 @@ public class GenericTrigger extends AbstractThing implements MutableTrigger {
   private Project project;
   private String triggerRule;
 
-  private Map<String, String> values = new HashMap<>();
+  private Map<String, String> properties = new HashMap<>();
 
   @Override
   public void setProject(Project project) {
@@ -42,17 +42,17 @@ public class GenericTrigger extends AbstractThing implements MutableTrigger {
 
   @Override
   public String getProperty(String propertyName) {
-    return values.get(propertyName);
+    return properties.get(propertyName);
   }
 
   @Override
   public Stream<String> getPropertyNames() {
-    return values.keySet().stream();
+    return properties.keySet().stream();
   }
 
   @Override
   public void setProperty(String propertyName, String value) {
-    values.put(propertyName, value);
+    properties.put(propertyName, value);
   }
 
   @Override

@@ -17,11 +17,9 @@ package com.purplepip.odin.properties.beany;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.sequence.DefaultNotation;
@@ -29,13 +27,12 @@ import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.Sequence;
 import org.junit.Test;
 
 public class SetterTest {
   @Test
   public void testSetPropertyOnGeneric() {
-    Sequence sequence = new GenericSequence();
+    MutablePropertiesProvider sequence = new GenericSequence();
     Setter setter = new Setter(sequence);
     setter.set("format", "test-format");
     assertEquals("test-format", sequence.getProperty("format"));
@@ -51,7 +48,7 @@ public class SetterTest {
 
   @Test
   public void testSetPropertyOnGenericWithDeclared() {
-    Sequence sequence = new GenericSequence();
+    MutablePropertiesProvider sequence = new GenericSequence();
     Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
     try (LogCaptor captor = new LogCapture().from(Setter.class).warn().start()) {
       setter.set("format", "test-format");
@@ -66,12 +63,6 @@ public class SetterTest {
     Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
     setter.set("format", "test-format");
     assertEquals("test-format", sequence.getFormat());
-  }
-
-  @Test(expected = OdinRuntimeException.class)
-  public void testNotMutable() {
-    Sequence sequence = mock(Sequence.class);
-    new Setter(sequence);
   }
 
   @Test
@@ -94,7 +85,7 @@ public class SetterTest {
 
   @Test
   public void testSetNotePropertyOnGeneric() {
-    Sequence sequence = new GenericSequence();
+    MutablePropertiesProvider sequence = new GenericSequence();
     Setter setter = new Setter(sequence);
     setter.set("note", new DefaultNote(11,22,33));
     assertEquals("11", sequence.getProperty("note.number"));

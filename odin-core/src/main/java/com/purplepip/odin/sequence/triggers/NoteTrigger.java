@@ -15,28 +15,30 @@
 
 package com.purplepip.odin.sequence.triggers;
 
+import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequencer.Operation;
 import lombok.ToString;
 
 @ToString(callSuper = true)
-public class NoteTrigger extends GenericTrigger implements MutableTrigger {
-  private int note;
+public class NoteTrigger extends SpecialisedTrigger {
+  private Note note = Notes.newDefault();
 
   public NoteTrigger() {
   }
 
-  public void setNote(int note) {
+  public void setNote(Note note) {
     this.note = note;
   }
 
-  public int getNote() {
+  public Note getNote() {
     return note;
   }
 
   @Override
   public boolean isTriggeredBy(Operation operation) {
     return (operation instanceof NoteOnOperation)
-        && ((NoteOnOperation) operation).getNumber() == note;
+        && ((NoteOnOperation) operation).getNumber() == note.getNumber();
   }
 }
