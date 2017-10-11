@@ -13,15 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers;
-
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
-
-public interface MutableTrigger extends Trigger, MutablePropertiesProvider {
-  void setProject(Project project);
-
-  void setName(String name);
-
-  void setTriggerRule(String triggerRule);
-}
+/**
+ * Bean properties which domain objects can support.
+ */
+package com.purplepip.odin.properties.beany;

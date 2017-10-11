@@ -18,6 +18,10 @@ package com.purplepip.odin.store.domain;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
 import com.purplepip.odin.sequencer.Operation;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -42,6 +46,9 @@ public class PersistableTrigger extends PersistableThing implements MutableTrigg
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
 
+  @ElementCollection
+  private Map<String, String> properties = new HashMap<>(0);
+
   @NotNull
   private String triggerRule;
 
@@ -51,4 +58,20 @@ public class PersistableTrigger extends PersistableThing implements MutableTrigg
     // triggers generically and trigger appropriate trigger logic.
     return false;
   }
+
+  @Override
+  public void setProperty(String name, String value) {
+    properties.put(name, value);
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return properties.get(name);
+  }
+
+  @Override
+  public Stream<String> getPropertyNames() {
+    return properties.keySet().stream();
+  }
+
 }

@@ -18,17 +18,17 @@ package com.purplepip.odin.sequence;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.properties.beany.PropertiesProvider;
 import com.purplepip.odin.sequence.tick.TimeThing;
 import com.purplepip.odin.sequence.triggers.Action;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
 /**
  * Sequence configuration.
  */
-public interface Sequence extends Copyable<Sequence>, TimeThing {
+public interface Sequence extends Copyable<Sequence>, TimeThing, PropertiesProvider {
   /**
    * Create a copy of this sequence.
    *
@@ -88,19 +88,6 @@ public interface Sequence extends Copyable<Sequence>, TimeThing {
    */
   @NotNull
   List<String> getLayers();
-
-  /**
-   * Get sequence property value.
-   */
-  String getProperty(String name);
-
-  /**
-   * Names of properties set for this sequence.
-   *
-   * @return names of properties
-   */
-  @JsonIgnore
-  Stream<String> getPropertyNames();
 
   /**
    * Whether the sequence will never generate any events.

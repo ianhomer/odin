@@ -13,15 +13,22 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers;
+package com.purplepip.odin.properties.beany;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.stream.Stream;
 
-public interface MutableTrigger extends Trigger, MutablePropertiesProvider {
-  void setProject(Project project);
+public interface PropertiesProvider {
+  /**
+   * Get sequence property value.
+   */
+  String getProperty(String name);
 
-  void setName(String name);
-
-  void setTriggerRule(String triggerRule);
+  /**
+   * Names of properties set for this sequence.
+   *
+   * @return names of properties
+   */
+  @JsonIgnore
+  Stream<String> getPropertyNames();
 }

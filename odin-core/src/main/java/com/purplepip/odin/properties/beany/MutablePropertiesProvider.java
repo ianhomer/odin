@@ -13,15 +13,18 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers;
+package com.purplepip.odin.properties.beany;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import com.purplepip.odin.math.Real;
 
-public interface MutableTrigger extends Trigger, MutablePropertiesProvider {
-  void setProject(Project project);
+public interface MutablePropertiesProvider extends PropertiesProvider {
+  void setProperty(String name, String value);
 
-  void setName(String name);
+  default void setProperty(String name, long value) {
+    setProperty(name, String.valueOf(value));
+  }
 
-  void setTriggerRule(String triggerRule);
+  default void setProperty(String name, Real value) {
+    setProperty(name, value.toString());
+  }
 }

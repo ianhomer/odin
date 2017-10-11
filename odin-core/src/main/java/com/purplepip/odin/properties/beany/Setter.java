@@ -13,43 +13,44 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.properties.beany;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.sequence.MutableSequence;
 import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Sequence property setter.
+ * Property setter for a property provider.
  */
 @Slf4j
 public class Setter {
-  private MutableSequence sequence;
+  private MutablePropertiesProvider propertiesProvider;
   private Mode mode;
 
   /**
-   * Create new setter for a sequence.
+   * Create new setter for a properties provider.
    *
-   * @param sequence sequence to set properties on
+   * @param propertiesProvider sequence to set properties on
    */
-  public Setter(Sequence sequence) {
-    this(sequence, Mode.BEST);
+  public Setter(PropertiesProvider propertiesProvider) {
+    this(propertiesProvider, Mode.BEST);
   }
 
   /**
-   * Create new setter for a sequence.
+   * Create new setter for a properties provider.
    *
-   * @param sequence sequence to set properties on
+   * @param propertiesProvider sequence to set properties on
    * @param mode setting mode
    */
-  public Setter(Sequence sequence, Mode mode) {
-    if (!(sequence instanceof MutableSequence)) {
+  public Setter(PropertiesProvider propertiesProvider, Mode mode) {
+    if (!(propertiesProvider instanceof MutableSequence)) {
       throw new OdinRuntimeException(
-          "Setter can only be used for mutable sequences, not " + sequence);
+          "Setter can only be used for mutable property providers, not " + propertiesProvider);
     }
-    this.sequence = (MutableSequence) sequence;
+    this.propertiesProvider = (MutablePropertiesProvider) propertiesProvider;
     this.mode = mode;
   }
 
@@ -77,7 +78,7 @@ public class Setter {
         setDeclared(name, value);
         break;
       case BEST:
-        if (BeanUtil.declared.hasProperty(sequence, name)) {
+        if (BeanUtil.declared.hasProperty(propertiesProvider, name)) {
           setDeclared(name, value);
         } else {
           setProperty(name, value);
@@ -91,22 +92,22 @@ public class Setter {
 
   private void setDeclared(String name, Object value) {
     try {
-      BeanUtil.declared.setProperty(sequence, name, value);
+      BeanUtil.declared.setProperty(propertiesProvider, name, value);
     } catch (BeanException e) {
       LOG.debug("Ignoring non-valid sequence property (full stack)", e);
       LOG.warn("Ignoring non-valid sequence property {} = {} for {}",
-          name, value, sequence);
+          name, value, propertiesProvider);
     }
   }
 
   private void setProperty(String name, Object value) {
     if (value instanceof Note) {
       Note note = (Note) value;
-      sequence.setProperty(name + ".number", note.getNumber());
-      sequence.setProperty(name + ".velocity", note.getVelocity());
-      sequence.setProperty(name + ".duration", note.getDuration());
+      propertiesProvider.setProperty(name + ".number", note.getNumber());
+      propertiesProvider.setProperty(name + ".velocity", note.getVelocity());
+      propertiesProvider.setProperty(name + ".duration", note.getDuration());
     } else {
-      sequence.setProperty(name, value.toString());
+      propertiesProvider.setProperty(name, value.toString());
     }
   }
 

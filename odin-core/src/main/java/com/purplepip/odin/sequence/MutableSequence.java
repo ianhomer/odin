@@ -15,14 +15,14 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.sequence.tick.MutableTimeThing;
 import com.purplepip.odin.sequence.triggers.Action;
 
 /**
  * Mutable sequence.
  */
-public interface MutableSequence extends Sequence, MutableTimeThing {
+public interface MutableSequence extends Sequence, MutableTimeThing, MutablePropertiesProvider {
   void setChannel(int channel);
 
   void setFlowName(String flowName);
@@ -34,14 +34,4 @@ public interface MutableSequence extends Sequence, MutableTimeThing {
   void addTrigger(String triggerName, Action action);
 
   void removeTrigger(String triggerName);
-
-  void setProperty(String name, String value);
-
-  default void setProperty(String name, long value) {
-    setProperty(name, String.valueOf(value));
-  }
-
-  default void setProperty(String name, Real value) {
-    setProperty(name, value.toString());
-  }
 }

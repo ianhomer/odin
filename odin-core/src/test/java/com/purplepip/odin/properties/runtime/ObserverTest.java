@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.properties;
+package com.purplepip.odin.properties.runtime;
 
 import static org.junit.Assert.assertEquals;
 

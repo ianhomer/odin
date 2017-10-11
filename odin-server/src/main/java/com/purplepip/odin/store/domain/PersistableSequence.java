@@ -93,20 +93,9 @@ public class PersistableSequence
     triggers.remove(trigger);
   }
 
-  @Override
-  public void setProperty(String name, String value) {
-    properties.put(name, value);
-  }
-
-
   @PreUpdate
   public void preUpdate() {
     PersistableHelper.removeDuplicates(layers);
-  }
-
-
-  public void addToProject() {
-    project.addSequence(this);
   }
 
   @PrePersist
@@ -114,9 +103,18 @@ public class PersistableSequence
     addToProject();
   }
 
+  public void addToProject() {
+    project.addSequence(this);
+  }
+
   @PreRemove
   public void removeFromProject() {
     project.removeSequence(this);
+  }
+
+  @Override
+  public void setProperty(String name, String value) {
+    properties.put(name, value);
   }
 
   @Override
