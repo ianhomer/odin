@@ -21,9 +21,11 @@ import static org.junit.Assert.assertFalse;
 import com.purplepip.odin.bag.AbstractUnmodifiableThings;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.conductor.Conductor;
@@ -61,9 +63,9 @@ public class MutableTracksTest {
         .orElseThrow(OdinException::new);
 
     assertEquals("notation", track.getSequence().getFlowName());
-    assertEquals("GenericSequence", track.getSequence().getClass().getSimpleName());
-    assertEquals("DefaultNotation",
-        track.getSequenceRoll().getFlow().getSequence().getClass().getSimpleName());
+    assertEquals(GenericSequence.class.getName(), track.getSequence().getClass().getName());
+    assertEquals(Notation.class.getName(),
+        track.getSequenceRoll().getFlow().getSequence().getClass().getName());
     assertEquals(0, track.getChannel());
   }
 

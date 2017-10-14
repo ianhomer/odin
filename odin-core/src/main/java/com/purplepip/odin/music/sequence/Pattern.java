@@ -16,19 +16,42 @@
 package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.notes.Notes;
+import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Pattern sequence configuration.
+ * Default implementation of pattern.
  */
-public interface Pattern extends SpecialisedSequence {
+@ToString(callSuper = true)
+@Slf4j
+public class Pattern extends GenericSequence implements SpecialisedSequence {
+  /*
+   * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
+   */
+  private int bits;
+  private Note note = Notes.newDefault();
+
+  public Pattern() {
+    super();
+  }
+
+  public Pattern(long id) {
+    super(id);
+  }
+
+  /**
+   * Create a copy of this sequence.
+   *
+   * @return copy
+   */
   @Override
-  default Sequence copy() {
-    Pattern copy = new DefaultPattern(this.getId());
+  public Sequence copy() {
+    Pattern copy = new Pattern(this.getId());
     Sequences.copyCoreValues(this, copy);
 
     copy.setBits(this.getBits());
@@ -36,13 +59,35 @@ public interface Pattern extends SpecialisedSequence {
     return copy;
   }
 
-  void setBits(int bits);
+  public void setBits(int bits) {
+    this.bits = bits;
+  }
 
-  @Min(0)
-  int getBits();
+  public int getBits() {
+    return bits;
+  }
 
-  void setNote(Note note);
+  /**
+   * Set note.
+   *
+   * @param note note
+   */
+  public void setNote(Note note) {
+    if (note == null) {
+      LOG.warn("Why has note been set to null?  It will be set to the default note {}",
+          Notes.newDefault());
+      this.note = Notes.newDefault();
+    } else {
+      this.note = note;
+    }
+  }
 
-  @NotNull
-  Note getNote();
+  public Note getNote() {
+    return note;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return bits == 0 || super.isEmpty();
+  }
 }

@@ -15,15 +15,24 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
+import lombok.ToString;
 
-public interface Notation extends SpecialisedSequence {
-  @Override
-  default Sequence copy() {
-    Notation copy = new DefaultNotation(this.getId());
+@ToString(callSuper = true)
+public class Notation extends GenericSequence implements SpecialisedSequence {
+  private String format;
+  private String notation;
+
+  /**
+   * Create a copy of this sequence.
+   *
+   * @return copy
+   */
+  public Sequence copy() {
+    Notation copy = new Notation(this.getId());
     Sequences.copyCoreValues(this, copy);
 
     copy.setNotation(this.getNotation());
@@ -32,12 +41,32 @@ public interface Notation extends SpecialisedSequence {
     return copy;
   }
 
-  void setFormat(String format);
+  public Notation() {
+    super();
+  }
 
-  @JsonProperty(defaultValue = "natural")
-  String getFormat();
+  public Notation(long id) {
+    super(id);
+  }
 
-  void setNotation(String notation);
+  public void setFormat(String format) {
+    this.format = format;
+  }
 
-  String getNotation();
+  public String getFormat() {
+    return format;
+  }
+
+  public void setNotation(String notation) {
+    this.notation = notation;
+  }
+
+  public String getNotation() {
+    return notation;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return notation == null || notation.length() == 0 || super.isEmpty();
+  }
 }

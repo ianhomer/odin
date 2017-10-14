@@ -15,18 +15,53 @@
 
 package com.purplepip.odin.music.sequence;
 
+import static com.purplepip.odin.music.notes.Notes.newDefault;
+
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Metronome sequence configuration.
+ * Default implementation of the Metronome.
+ *
  */
-public interface Metronome extends SpecialisedSequence {
+/*
+ * TODO : When persistable sequences are all PersistableSequences and we don't store specific
+ * types with
+ * specific entities, then we probably can remove the Metronome interface, rename Metronome
+ * to Metronome, and move specific (Metronome) flow logic into the Metronome class, and remove
+ * from flow definition.  This
+ * can also be done with notation and pattern.  This will simplify the work required to add another
+ * flow to 1) create flow logic class and 2) create domain class to store configuration.  If
+ * desired we could even store the domain class as an inner class of the logic class to keep
+ * it all as one.  This will make implementing plugins a lot easier in the future :)
+ */
+@ToString(callSuper = true)
+@Slf4j
+public class Metronome extends GenericSequence implements SpecialisedSequence {
+  private Note noteBarStart = newDefault();
+  private Note noteBarMid = newDefault();
+
+  public Metronome() {
+    super();
+  }
+
+  public Metronome(long id) {
+    super(id);
+  }
+
+  /**
+   * Create a copy of this sequence.
+   *
+   * @return copy
+   */
   @Override
-  default Sequence copy() {
-    Metronome copy = new DefaultMetronome(this.getId());
+  public Sequence copy() {
+    Metronome copy = new Metronome(this.getId());
     Sequences.copyCoreValues(this, copy);
 
     copy.setNoteBarMid(this.getNoteBarMid());
@@ -39,16 +74,46 @@ public interface Metronome extends SpecialisedSequence {
    *
    * @return note
    */
-  Note getNoteBarStart();
+  public Note getNoteBarStart() {
+    return noteBarStart;
+  }
 
-  void setNoteBarStart(Note note);
+  /**
+   * Set the note for the start of the bar.
+   *
+   * @param note note
+   */
+  public void setNoteBarStart(Note note) {
+    if (note == null) {
+      LOG.warn("Why has note bar start been set to null?  It will be set to the default note {}",
+          newDefault());
+      noteBarStart = newDefault();
+    } else {
+      noteBarStart = note;
+    }
+  }
 
   /**
    * Get note for mid bar.
    *
    * @return note
    */
-  Note getNoteBarMid();
+  public Note getNoteBarMid() {
+    return noteBarMid;
+  }
 
-  void setNoteBarMid(Note note);
+  /**
+   * Set note for the middle of the bar.
+   *
+   * @param note note
+   */
+  public void setNoteBarMid(Note note) {
+    if (note == null) {
+      LOG.warn("Why has note bar mid been set to null?  It will be set to the default note {}",
+          newDefault());
+      noteBarMid = newDefault();
+    } else {
+      noteBarMid = note;
+    }
+  }
 }

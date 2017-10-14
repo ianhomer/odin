@@ -23,7 +23,6 @@ import com.purplepip.odin.music.composition.events.CompositionRoll;
 import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.DefaultNotation;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
 import com.purplepip.odin.sequence.TickConverter;
@@ -36,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * Notation flow.
  */
 @Slf4j
-@FlowDefinition(name = "notation", sequence = DefaultNotation.class)
+@FlowDefinition(name = "notation", sequence = Notation.class)
 public class NotationFlow extends AbstractFlow<Notation, Note> {
   private static final int MAX_EVENT_SCAN = 1000;
   private CompositionRoll compositionRoll;

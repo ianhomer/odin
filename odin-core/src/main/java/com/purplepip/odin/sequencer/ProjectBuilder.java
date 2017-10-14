@@ -25,9 +25,9 @@ import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
-import com.purplepip.odin.music.sequence.DefaultMetronome;
-import com.purplepip.odin.music.sequence.DefaultNotation;
-import com.purplepip.odin.music.sequence.DefaultPattern;
+import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.properties.beany.Setter;
 import com.purplepip.odin.sequence.GenericSequence;
@@ -242,7 +242,7 @@ public class ProjectBuilder {
    * @return metronome
    */
   protected MutableSequence createMetronome() {
-    return new DefaultMetronome();
+    return new Metronome();
   }
 
   /**
@@ -252,7 +252,7 @@ public class ProjectBuilder {
    * @return notation
    */
   protected MutableSequence createNotation() {
-    return new DefaultNotation();
+    return new Notation();
   }
 
   /**
@@ -262,7 +262,7 @@ public class ProjectBuilder {
    * @return pattern
    */
   protected MutableSequence createPattern() {
-    return new DefaultPattern();
+    return new Pattern();
   }
 
   /**

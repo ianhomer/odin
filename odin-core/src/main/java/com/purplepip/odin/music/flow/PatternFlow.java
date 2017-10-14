@@ -18,7 +18,6 @@ package com.purplepip.odin.music.flow;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.ScanForwardEvent;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
@@ -31,7 +30,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Pattern flow.
  */
-@FlowDefinition(name = "pattern", sequence = DefaultPattern.class)
+@FlowDefinition(name = "pattern", sequence = Pattern.class)
 public class PatternFlow extends AbstractFlow<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternFlow.class);
 

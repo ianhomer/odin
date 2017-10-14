@@ -22,8 +22,6 @@ import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.DefaultNote;
-import com.purplepip.odin.music.sequence.DefaultNotation;
-import com.purplepip.odin.music.sequence.DefaultPattern;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.GenericSequence;
@@ -40,7 +38,7 @@ public class SetterTest {
 
   @Test
   public void testSetPropertyOnSpecific() {
-    Notation sequence = new DefaultNotation();
+    Notation sequence = new Notation();
     Setter setter = new Setter(sequence);
     setter.set("format", "test-format");
     assertEquals("test-format", sequence.getFormat());
@@ -59,7 +57,7 @@ public class SetterTest {
 
   @Test
   public void testSetPropertyOnSpecificWithDeclared() {
-    Notation sequence = new DefaultNotation();
+    Notation sequence = new Notation();
     Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
     setter.set("format", "test-format");
     assertEquals("test-format", sequence.getFormat());
@@ -67,7 +65,7 @@ public class SetterTest {
 
   @Test
   public void testSetIntProperty() {
-    Pattern sequence = new DefaultPattern();
+    Pattern sequence = new Pattern();
     Setter setter = new Setter(sequence);
     setter.set("bits", 1);
     assertEquals(1, sequence.getBits());
@@ -75,7 +73,7 @@ public class SetterTest {
 
   @Test
   public void testSetNoteProperty() {
-    Pattern sequence = new DefaultPattern();
+    Pattern sequence = new Pattern();
     Setter setter = new Setter(sequence);
     setter.set("note", new DefaultNote(11,22,33));
     assertEquals(11, sequence.getNote().getNumber());

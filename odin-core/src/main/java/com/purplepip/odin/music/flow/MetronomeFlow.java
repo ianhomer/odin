@@ -19,7 +19,6 @@ import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.DefaultMetronome;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
@@ -31,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
  * Metronome flow.
  */
 @Slf4j
-@FlowDefinition(name = "metronome", sequence = DefaultMetronome.class)
+@FlowDefinition(name = "metronome", sequence = Metronome.class)
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
   @Override
   public Event<Note> getNextEvent(Tock tock) {

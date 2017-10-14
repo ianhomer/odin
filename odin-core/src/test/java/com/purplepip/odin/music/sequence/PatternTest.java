@@ -16,20 +16,19 @@
 package com.purplepip.odin.music.sequence;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.music.notes.DefaultNote;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.properties.beany.Setter;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
 
-public class DefaultMetronomeTest {
+public class PatternTest {
   @Test
-  public void testCopy() {
-    DefaultMetronome metronome = new DefaultMetronome();
-    metronome.setNoteBarMid(new DefaultNote(1,2,3));
-    Sequence copy = metronome.copy();
-    assertTrue(copy instanceof Metronome);
-    Metronome metronomeCopy = (Metronome) copy;
-    assertEquals(1, metronomeCopy.getNoteBarMid().getNumber());
+  public void testSetProperties() {
+    Pattern pattern = new Pattern();
+    Map<String, String> properties = new HashMap<>();
+    properties.put("note.number", "60");
+    new Setter(pattern, Setter.Mode.DECLARED).applyProperties(properties);
+    assertEquals(60, pattern.getNote().getNumber());
   }
 }
