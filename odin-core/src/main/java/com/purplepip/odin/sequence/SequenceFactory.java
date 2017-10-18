@@ -26,7 +26,9 @@ import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -64,9 +66,12 @@ public class SequenceFactory {
       FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
       FLOWS.put(definition.name(), clazz);
       try {
-        Class<? extends Sequence> sequenceClass = clazz.newInstance().getSequenceClass();
+        Class<? extends Sequence> sequenceClass = clazz
+            .getConstructor(Clock.class, MeasureProvider.class).newInstance(null, null)
+            .getSequenceClass();
         SEQUENCES.put(definition.name(), sequenceClass);
-      } catch (IllegalAccessException | InstantiationException e) {
+      } catch (IllegalAccessException | InstantiationException
+          | NoSuchMethodException | InvocationTargetException e) {
         LOG.error("Cannot determine sequence interface", e);
       }
       DEFAULT_SEQUENCES.put(definition.name(), definition.sequence());

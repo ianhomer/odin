@@ -20,8 +20,12 @@ import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.ScanForwardEvent;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
+import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
@@ -32,20 +36,52 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @FlowDefinition(name = "metronome", sequence = Metronome.class)
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
+  public MetronomeFlow(Clock clock, MeasureProvider measureProvider) {
+    super(clock, measureProvider);
+  }
+
+  /**
+   * Get event for a given tock.  Note that in the future an event might be a collection of
+   * simultaneous events after the given tock, however for now it is simply a single event.
+   *
+   * @param context flow context
+   * @param tock tock to get events for
+   * @return event
+   */
+  public Event<Note> getEvent(FlowContext context, Tock tock) {
+    Note note;
+    if (tock.getPosition().modulo(Wholes.TWO).equals(Wholes.ZERO)) {
+      if (context.getMeasureProvider().getCount(tock.getPosition()).floor() == 0) {
+        note = getSequence().getNoteBarStart();
+      } else {
+        note = getSequence().getNoteBarMid();
+      }
+      LOG.trace("Creating metronome note {} at {}", note, tock);
+      return new DefaultEvent<>(note, tock.getPosition());
+    }
+    return null;
+  }
+
   @Override
   public Event<Note> getNextEvent(Tock tock) {
     /*
      * Create local and temporary mutable tock for this function execution.
      */
     MovableTock mutableTock = new MovableTock(tock);
-    mutableTock.increment(Wholes.TWO);
-    Note note;
-    if (getMeasureProvider().getCount(mutableTock.getPosition()).floor() == 0) {
-      note = getSequence().getNoteBarStart();
-    } else {
-      note = getSequence().getNoteBarMid();
+    int i = 0;
+    long maxScanForward = getMaxScanForward().floor();
+    Event<Note> event = null;
+    while (event == null && i < maxScanForward) {
+      mutableTock.increment();
+      event = getEvent(getContext(), mutableTock);
+      i++;
     }
-    LOG.trace("Creating metronome note {} at {}", note, mutableTock);
-    return new DefaultEvent<>(note, mutableTock.getPosition());
+
+    if (event == null) {
+      LOG.debug("No notes found in the next {} ticks after tock {} for sequence {}",
+          maxScanForward, tock, getSequence());
+      event = new ScanForwardEvent<>(mutableTock.getPosition());
+    }
+    return event;
   }
 }

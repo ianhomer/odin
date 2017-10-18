@@ -22,6 +22,7 @@ import com.purplepip.odin.sequence.MutableSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import java.lang.reflect.InvocationTargetException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -53,14 +54,14 @@ public class FlowFactory<A> {
     }
     MutableFlow<Sequence, A> flow;
     try {
-      flow = flowClass.newInstance();
-    } catch (InstantiationException | IllegalAccessException e) {
+      flow = flowClass.getConstructor(Clock.class, MeasureProvider.class)
+          .newInstance(clock, measureProvider);
+    } catch (InstantiationException | IllegalAccessException
+        | NoSuchMethodException | InvocationTargetException e) {
       LOG.error("Cannot create instance of " + flowClass, e);
-      flow = (MutableFlow<Sequence, A>) new FailOverFlow();
+      flow = (MutableFlow<Sequence, A>) new FailOverFlow(clock, measureProvider);
     }
     flow.setSequence(copyFrom(sequence));
-    flow.setClock(clock);
-    flow.setMeasureProvider(measureProvider);
     flow.setConfiguration(flowConfiguration);
     flow.afterPropertiesSet();
 

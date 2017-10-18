@@ -19,9 +19,11 @@ import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Pattern;
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.ScanForwardEvent;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.Tock;
 import org.slf4j.Logger;
@@ -33,6 +35,10 @@ import org.slf4j.LoggerFactory;
 @FlowDefinition(name = "pattern", sequence = Pattern.class)
 public class PatternFlow extends AbstractFlow<Pattern, Note> {
   private static final Logger LOG = LoggerFactory.getLogger(PatternFlow.class);
+
+  public PatternFlow(Clock clock, MeasureProvider measureProvider) {
+    super(clock, measureProvider);
+  }
 
   @Override
   public Event<Note> getNextEvent(Tock tock) {
@@ -47,7 +53,7 @@ public class PatternFlow extends AbstractFlow<Pattern, Note> {
     while (!on && i < maxScanForward) {
       mutableTock.increment();
       i++;
-      long countInMeasure = getMeasureProvider()
+      long countInMeasure = getContext().getMeasureProvider()
           .getCount(mutableTock.getPosition()).floor();
       on = getSequence().getBits() == -1 || ((getSequence().getBits() >> countInMeasure) & 1) == 1;
     }

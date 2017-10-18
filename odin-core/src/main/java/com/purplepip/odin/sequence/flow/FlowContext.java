@@ -15,33 +15,23 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.events.Event;
-import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.tick.Tock;
+import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 
-/**
- * A flow class has the intelligence to determine the next events in a sequence.
- */
-public interface Flow<S extends Sequence, A> {
-  Class<S> getSequenceClass();
+public class FlowContext {
+  private Clock clock;
+  private MeasureProvider measureProvider;
 
-  /**
-   * Get the next event after the given tock.
-   *
-   * @param tock time position after which to start scanning
-   * @return next event after the tock
-   */
-  Event<A> getNextEvent(Tock tock);
-
-  S getSequence();
-
-  FlowContext getContext();
-
-  FlowConfiguration getConfiguration();
-
-  default boolean isEmpty() {
-    return false;
+  public FlowContext(Clock clock, MeasureProvider measureProvider) {
+    this.clock = clock;
+    this.measureProvider = measureProvider;
   }
 
-  default void afterPropertiesSet() {}
+  public Clock getClock() {
+    return clock;
+  }
+
+  public MeasureProvider getMeasureProvider() {
+    return measureProvider;
+  }
 }

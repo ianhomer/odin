@@ -24,10 +24,12 @@ import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
 import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +42,10 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
   private static final int MAX_EVENT_SCAN = 1000;
   private CompositionRoll compositionRoll;
   private TickConverter tickConverter;
+
+  public NotationFlow(Clock clock, MeasureProvider measureProvider) {
+    super(clock, measureProvider);
+  }
 
   @Override
   public Event<Note> getNextEvent(Tock tock) {
@@ -76,8 +82,9 @@ public class NotationFlow extends AbstractFlow<Notation, Note> {
     EventsComposition composition = new NaturalScoreCompositionFactory()
         .create(getSequence().getNotation());
     compositionRoll = new CompositionRoll(composition);
+
     tickConverter =
-        new SameTimeUnitTickConverter(composition::getTick, getClock()::getTick);
+        new SameTimeUnitTickConverter(composition::getTick, getContext().getClock()::getTick);
   }
 
   @Override

@@ -15,19 +15,13 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
  * Mutable flow.
  */
 public interface MutableFlow<S extends Sequence, A> extends Flow<S, A> {
   void setSequence(S sequence);
-
-  void setClock(Clock clock);
-
-  void setMeasureProvider(MeasureProvider measureProvider);
 
   void setConfiguration(FlowConfiguration configuration);
 }

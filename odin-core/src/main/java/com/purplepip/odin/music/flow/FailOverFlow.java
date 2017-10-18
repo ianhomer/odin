@@ -20,14 +20,20 @@ import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tock;
 
 /**
  * Simple, but noticeable flow if there has been an error in creating a flow.
  */
 public class FailOverFlow extends AbstractFlow<Sequence, Note>  {
+  public FailOverFlow(Clock clock, MeasureProvider measureProvider) {
+    super(clock, measureProvider);
+  }
+
   @Override
   public Event<Note> getNextEvent(Tock tock) {
     Note note = new DefaultNote(100, 70,2);

@@ -26,13 +26,21 @@ import java.lang.reflect.ParameterizedType;
  */
 public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow<S, A> {
   private FlowConfiguration configuration;
-  private Clock clock;
-  private MeasureProvider measureProvider;
   private S sequence;
   private Class<S> sequenceClass;
+  private Clock clock;
+  private MeasureProvider measureProvider;
+  private FlowContext context;
 
+  /**
+   * Create flow.
+   *
+   * @param clock clock
+   * @param measureProvider measure provider
+   */
   @SuppressWarnings("unchecked")
-  public AbstractFlow() {
+  public AbstractFlow(Clock clock, MeasureProvider measureProvider) {
+    this.context = new FlowContext(clock, measureProvider);
     this.sequenceClass = (Class<S>) ((ParameterizedType) getClass()
         .getGenericSuperclass()).getActualTypeArguments()[0];
   }
@@ -52,24 +60,8 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
     return sequence;
   }
 
-  @Override
-  public void setClock(Clock clock) {
-    this.clock = clock;
-  }
-
-  @Override
-  public Clock getClock() {
-    return clock;
-  }
-
-  @Override
-  public void setMeasureProvider(MeasureProvider measureProvider) {
-    this.measureProvider = measureProvider;
-  }
-
-  @Override
-  public MeasureProvider getMeasureProvider() {
-    return measureProvider;
+  public FlowContext getContext() {
+    return context;
   }
 
   @Override
@@ -83,6 +75,6 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
   }
 
   protected Real getMaxScanForward() {
-    return getClock().getDuration(getConfiguration().getMaxForwardScan());
+    return getContext().getClock().getDuration(getConfiguration().getMaxForwardScan());
   }
 }
