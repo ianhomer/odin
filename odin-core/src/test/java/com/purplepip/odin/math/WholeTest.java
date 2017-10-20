@@ -33,6 +33,13 @@ public class WholeTest {
   }
 
   @Test
+  public void testNextFloor() {
+    assertEquals(4, Whole.valueOf(3).nextFloor());
+    assertEquals(3, Real.valueOf(2.1).nextFloor());
+  }
+
+
+  @Test
   public void testModulo() {
     assertEquals(Whole.valueOf(2), Whole.valueOf(10).modulo(Whole.valueOf(4)));
     assertEquals(Whole.valueOf(0), Whole.valueOf(10).modulo(Whole.valueOf(1)));

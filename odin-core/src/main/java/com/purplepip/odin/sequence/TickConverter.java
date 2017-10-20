@@ -19,7 +19,9 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.tick.Tick;
 
 /**
- * Tick converter.
+ * Tick converter.  A tick converter MUST be reversible such that time = convert(convertBack(time)
+ * and duration = convertDuration(time, convertDurationBack(time, duration).  A tick convert
+ * can therefore handle offsets of time series, but NOT looping of series.
  */
 public interface TickConverter {
   Tick getTargetTick();

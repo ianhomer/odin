@@ -17,17 +17,16 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.Clock;
-import com.purplepip.odin.sequence.ScanForwardEvent;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
 import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
+import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.tick.MovableTock;
-import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -40,48 +39,19 @@ public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
     super(clock, measureProvider);
   }
 
-  /**
-   * Get event for a given tock.  Note that in the future an event might be a collection of
-   * simultaneous events after the given tock, however for now it is simply a single event.
-   *
-   * @param context flow context
-   * @param tock tock to get events for
-   * @return event
-   */
-  public Event<Note> getEvent(FlowContext context, Tock tock) {
+  @Override
+  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
     Note note;
-    if (tock.getPosition().modulo(Wholes.TWO).equals(Wholes.ZERO)) {
-      if (context.getMeasureProvider().getCount(tock.getPosition()).floor() == 0) {
+    Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
+    if (nextTock.modulo(Wholes.TWO).equals(Wholes.ZERO)) {
+      if (context.getMeasureProvider().getCount(nextTock).floor() == 0) {
         note = getSequence().getNoteBarStart();
       } else {
         note = getSequence().getNoteBarMid();
       }
-      LOG.trace("Creating metronome note {} at {}", note, tock);
-      return new DefaultEvent<>(note, tock.getPosition());
+      LOG.trace("Creating metronome note {} at {}", note, loop);
+      return new DefaultEvent<>(note, nextTock);
     }
     return null;
-  }
-
-  @Override
-  public Event<Note> getNextEvent(Tock tock) {
-    /*
-     * Create local and temporary mutable tock for this function execution.
-     */
-    MovableTock mutableTock = new MovableTock(tock);
-    int i = 0;
-    long maxScanForward = getMaxScanForward().floor();
-    Event<Note> event = null;
-    while (event == null && i < maxScanForward) {
-      mutableTock.increment();
-      event = getEvent(getContext(), mutableTock);
-      i++;
-    }
-
-    if (event == null) {
-      LOG.debug("No notes found in the next {} ticks after tock {} for sequence {}",
-          maxScanForward, tock, getSequence());
-      event = new ScanForwardEvent<>(mutableTock.getPosition());
-    }
-    return event;
   }
 }

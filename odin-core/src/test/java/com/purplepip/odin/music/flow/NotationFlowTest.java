@@ -70,7 +70,8 @@ public class NotationFlowTest {
     Real previousEventTime = Rationals.MINUS_ONE;
     for (int i = 0; i < 10 ;i++) {
       Event event = flow.getNextEvent(new MovableTock(Ticks.BEAT, previousEventTime));
-      assertTrue("Event should be after previous one",
+      assertTrue("Event should be after previous one ; " + event.getTime()
+              + " is not greater than " + previousEventTime,
           event.getTime().gt(previousEventTime));
       events.add(event);
       previousEventTime = event.getTime();

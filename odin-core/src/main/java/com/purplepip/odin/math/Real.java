@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * rhythm to retain precision such as triplets through tick conversions.
  */
 @Slf4j
-public class Real {
+public class Real implements Bound {
   private double value;
   private boolean valueCalculated;
 
@@ -146,13 +146,51 @@ public class Real {
     return Real.valueOf(getValue() % real.getValue());
   }
 
+
+
+  @Override
+  public Real getLimit() {
+    return this;
+  }
+
   /**
-   * Calculate the nearest integer less than this real number.
+   * Calculate the smallest integer (closest to negative infinity) greater than or equal to this
+   * real number.
+   *
+   * @return ceiling value
+   */
+  public long ceiling() {
+    if (isNegative()) {
+      return (long) getValue();
+    } else {
+      return ((getValue() % 1 == 0) ? 0 : 1) + (long) getValue();
+    }
+  }
+
+
+  /**
+   * Calculate the smallest whole number greater than this real number.  Note that this function is
+   * NOT the standard "ceil" function since this function will return the next whole number for
+   * a whole number.
+   *
+   * @return next ceiling.
+   */
+  public long nextFloor() {
+    return floor() + 1;
+  }
+
+  /**
+   * Calculate the largest integer (closest to positive infinity) less than or equal to this
+   * real number.
    *
    * @return floored value
    */
   public long floor() {
-    return (long) getValue();
+    if (isNegative()) {
+      return (long) getValue() - 1;
+    } else {
+      return (long) getValue();
+    }
   }
 
   /**
@@ -173,12 +211,23 @@ public class Real {
   }
 
   /**
-   * Calculate the nearest whole number less than this real number.
+   * Calculate the largest whole number less than or equal to this real number.
    *
    * @return floored value
    */
-  public Whole floorToWhole() {
+  public Whole wholeFloor() {
     return Whole.valueOf(floor());
+  }
+
+  /**
+   * Calculate the smallest whole number greater than this real number.  Note that this function is
+   * NOT the standard "ceil" function since this function will return the next whole number for
+   * a whole number.
+   *
+   * @return next ceiling.
+   */
+  public Whole nextWholeFloor() {
+    return Whole.valueOf(nextFloor());
   }
 
   /**

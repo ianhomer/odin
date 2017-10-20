@@ -17,55 +17,36 @@ package com.purplepip.odin.music.flow;
 
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.Clock;
-import com.purplepip.odin.sequence.ScanForwardEvent;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
+import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
+import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.tick.MovableTock;
-import com.purplepip.odin.sequence.tick.Tock;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Pattern flow.
  */
 @FlowDefinition(name = "pattern", sequence = Pattern.class)
 public class PatternFlow extends AbstractFlow<Pattern, Note> {
-  private static final Logger LOG = LoggerFactory.getLogger(PatternFlow.class);
-
   public PatternFlow(Clock clock, MeasureProvider measureProvider) {
     super(clock, measureProvider);
   }
 
   @Override
-  public Event<Note> getNextEvent(Tock tock) {
-    /*
-     * Create local and temporary mutable tock for this function execution.
-     */
-    MovableTock mutableTock = new MovableTock(tock);
-    Event<Note> nextEvent;
-    boolean on = false;
-    int i = 0;
-    long maxScanForward = getMaxScanForward().floor();
-    while (!on && i < maxScanForward) {
-      mutableTock.increment();
-      i++;
-      long countInMeasure = getContext().getMeasureProvider()
-          .getCount(mutableTock.getPosition()).floor();
-      on = getSequence().getBits() == -1 || ((getSequence().getBits() >> countInMeasure) & 1) == 1;
+  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
+    Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
+    long countInMeasure = getContext().getMeasureProvider()
+        .getCount(nextTock).floor();
+    if (getSequence().getBits() == -1 || ((getSequence().getBits() >> countInMeasure) & 1) == 1)  {
+      return new DefaultEvent<>(getSequence().getNote(), nextTock);
     }
 
-    if (on) {
-      nextEvent = new DefaultEvent<>(getSequence().getNote(), mutableTock.getPosition());
-    } else {
-      LOG.debug("No notes found in the next {} ticks after tock {} for pattern {}",
-          maxScanForward, tock, getSequence().getBits());
-      nextEvent = new ScanForwardEvent<>(mutableTock.getPosition());
-    }
-    return nextEvent;
+    return null;
   }
 
   @Override

@@ -52,6 +52,9 @@ public class EventsListStringifier {
       }
       return builder.toString();
     }
+    if (o == null) {
+      return "null";
+    }
     return o.toString();
   }
 }

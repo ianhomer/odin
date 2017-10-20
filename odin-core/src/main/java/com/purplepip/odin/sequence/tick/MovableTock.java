@@ -32,21 +32,21 @@ public class MovableTock implements Tock {
     this.position = tock.getPosition();
   }
 
-  public MovableTock(Tick tick, Real count) {
+  public MovableTock(Tick tick, Real position) {
     this.tick = tick;
-    this.position = count;
+    this.position = position;
   }
 
-  public void setCount(Real count) {
-    this.position = count;
+  public void setPosition(Real position) {
+    this.position = position;
   }
 
   public void increment() {
-    position = position.plus(Wholes.ONE);
+    setPosition(position.wholeFloor().plus(Wholes.ONE));
   }
 
   public void increment(Real increment) {
-    position = position.plus(increment);
+    setPosition(position.plus(increment));
   }
 
   @Override

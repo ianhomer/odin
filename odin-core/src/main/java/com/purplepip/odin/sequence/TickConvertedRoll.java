@@ -61,7 +61,7 @@ public class TickConvertedRoll implements Roll<Note> {
     /*
      * Convert the tock into units of the underlying roll before setting it.
      */
-    roll.setTock(tickConverter.convertBack(tock).floorToWhole());
+    roll.setTock(tickConverter.convertBack(tock).wholeFloor());
   }
 
   @Override

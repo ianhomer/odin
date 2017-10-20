@@ -286,6 +286,8 @@ public class Rational extends Real {
     return numerator / denominator;
   }
 
+
+
   /**
    * {@inheritDoc}
    */

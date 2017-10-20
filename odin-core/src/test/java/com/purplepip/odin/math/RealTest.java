@@ -50,15 +50,42 @@ public class RealTest {
   }
 
   @Test
+  public void testFloor() {
+    assertEquals(10, Real.valueOf(10.4).floor());
+    assertEquals(-11, Real.valueOf(-10.4).floor());
+  }
+
+  @Test
   public void testFloorToWhole() {
-    assertEquals(Whole.valueOf(10), Real.valueOf(10.4).floorToWhole());
-    assertEquals(Whole.valueOf(-10), Real.valueOf(-10.4).floorToWhole());
+    assertEquals(Whole.valueOf(10), Real.valueOf(10.4).wholeFloor());
+    assertEquals(Whole.valueOf(-11), Real.valueOf(-10.4).wholeFloor());
+  }
+
+  @Test
+  public void testNextFloor() {
+    assertEquals(11, Real.valueOf(10.4).nextFloor());
+    assertEquals(-10, Real.valueOf(-10.4).nextFloor());
+  }
+
+  @Test
+  public void testNextWholeFloor() {
+    assertEquals(Whole.valueOf(11), Real.valueOf(10.4).nextWholeFloor());
+    assertEquals(Whole.valueOf(-10), Real.valueOf(-10.4).nextWholeFloor());
   }
 
   @Test
   public void testFloorToRadix() {
     assertEquals(Whole.valueOf(8), Real.valueOf(9.3).floor(Whole.valueOf(4)));
   }
+
+  @Test
+  public void testCeiling() {
+    assertEquals(10, Whole.valueOf(10).ceiling());
+    assertEquals(11, Real.valueOf(10.4).ceiling());
+    assertEquals(-12, Real.valueOf(-12.4).ceiling());
+    assertEquals(-13, Whole.valueOf(-13).ceiling());
+  }
+
 
   @Test
   public void testIsNegative() {

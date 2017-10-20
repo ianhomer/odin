@@ -104,6 +104,16 @@ public class Whole extends Rational {
     return Whole.valueOf(getNumerator() % whole.getNumerator());
   }
 
+  @Override
+  public Whole wholeFloor() {
+    return this;
+  }
+
+  @Override
+  public long floor() {
+    return getNumerator();
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -126,6 +136,11 @@ public class Whole extends Rational {
       return Whole.valueOf(-getNumerator());
     }
     return this;
+  }
+
+  @Override
+  public long nextFloor() {
+    return getNumerator() + 1;
   }
 
   @Override

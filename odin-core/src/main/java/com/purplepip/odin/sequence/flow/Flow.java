@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.tick.Tock;
 
@@ -32,6 +33,26 @@ public interface Flow<S extends Sequence, A> {
    * @return next event after the tock
    */
   Event<A> getNextEvent(Tock tock);
+
+  /**
+   * Get event after the given tock, but not more than whole number ahead.  In the future an
+   * event might be a collection of
+   * simultaneous events after the given tock, however for now it is simply a single event.
+   * This method will be moved onto sequence interface shortly.
+   *
+   * @param context flow context
+   * @param loop time position at which to get the event
+   * @return event at the given tock
+   */
+  Event<A> getNextEvent(FlowContext context, Loop loop);
+
+  /**
+   * Length of a loop of this flow.  This method will be moved onto sequence interface shortly where
+   * it can override the length provided explicitly in the domain object.
+   *
+   * @return length.
+   */
+  Real getLength();
 
   S getSequence();
 

@@ -23,6 +23,8 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
+import com.purplepip.odin.sequence.flow.FlowContext;
+import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tock;
 
@@ -38,5 +40,10 @@ public class FailOverFlow extends AbstractFlow<Sequence, Note>  {
   public Event<Note> getNextEvent(Tock tock) {
     Note note = new DefaultNote(100, 70,2);
     return new DefaultEvent<>(note, tock.getPosition().plus(Rationals.ONE));
+  }
+
+  @Override
+  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
+    return null;
   }
 }

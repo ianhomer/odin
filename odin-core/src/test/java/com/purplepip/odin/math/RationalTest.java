@@ -133,6 +133,12 @@ public class RationalTest {
   }
 
   @Test
+  public void testNextFloor() {
+    assertEquals(1, new Rational(1,2).nextFloor());
+    assertEquals(4, new Rational(10,3).nextFloor());
+  }
+
+  @Test
   public void testEgyptianFractions() {
     assertEquals("1+⅓", getEgyptianFractionsAsString(4,3));
     assertEquals("1+⅓", getEgyptianFractionsAsString(4,3, 1));

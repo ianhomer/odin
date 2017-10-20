@@ -324,7 +324,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     /*
      * Now increment internal tock to the time of the provided event
      */
-    tock.setCount(event.getTime());
+    tock.setPosition(event.getTime());
     /*
      * If the response was a scan forward signal then we return a null event since no event
      * was found and we've handled the scanning forward above.
