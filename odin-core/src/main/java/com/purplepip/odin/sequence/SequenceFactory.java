@@ -116,7 +116,7 @@ public class SequenceFactory<A> {
         /*
          * If the original is of the correct type then we can simply take a copy
          */
-        newSequence = (S) original.copy();
+        newSequence = (S) expectedType.cast(original).copy();
         LOG.debug("Starting flow with sequence copy {}", newSequence);
       } else {
         LOG.debug("Creating new instance of {}", expectedType);

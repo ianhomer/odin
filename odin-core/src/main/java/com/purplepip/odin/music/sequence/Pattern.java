@@ -22,7 +22,6 @@ import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
@@ -69,7 +68,7 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
    * @return copy
    */
   @Override
-  public SequenceConfiguration copy() {
+  public Pattern copy() {
     Pattern copy = new Pattern(this.getId());
     Sequences.copyCoreValues(this, copy);
 
