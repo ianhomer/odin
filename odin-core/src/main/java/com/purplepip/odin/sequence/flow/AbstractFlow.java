@@ -18,8 +18,8 @@ package com.purplepip.odin.sequence.flow;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.Clock;
-import com.purplepip.odin.sequence.NextEventProvidingSequence;
 import com.purplepip.odin.sequence.ScanForwardEvent;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tock;
 import java.lang.reflect.ParameterizedType;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * Abstract logic class.
  */
 @Slf4j
-public abstract class AbstractFlow<S extends NextEventProvidingSequence<A>, A>
+public abstract class AbstractFlow<S extends Sequence<A>, A>
     implements MutableFlow<S, A> {
   private FlowConfiguration configuration;
   private S sequence;
