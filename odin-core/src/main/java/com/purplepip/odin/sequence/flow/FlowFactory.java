@@ -61,7 +61,7 @@ public class FlowFactory<A> {
   public Sequence<A> copyFrom(SequenceConfiguration sequence) {
     Class<? extends Sequence> expectedType =
         sequenceFactory.getSequenceClass(sequence.getFlowName());
-    return sequenceFactory.createCopy(expectedType, expectedType, sequence);
+    return sequenceFactory.createCopy(expectedType, sequence);
   }
 
   /**

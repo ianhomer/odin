@@ -43,7 +43,7 @@ public class SequenceFactory {
       SEQUENCES = new HashMap<>();
 
   /*
-   * Statically register known flows.  In the future we may design a plugin architecture, but
+   * Statically register known sequences.  In the future we may design a plugin architecture, but
    * for now it is kept tight by only allowing registered classes.
    */
   static {
@@ -52,7 +52,6 @@ public class SequenceFactory {
     register(Pattern.class);
   }
 
-  @SuppressWarnings("unchecked")
   private static void register(Class<? extends Sequence> clazz) {
     if (clazz.isAnnotationPresent(FlowDefinition.class)) {
       FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
@@ -70,28 +69,22 @@ public class SequenceFactory {
 
   <S extends SequenceConfiguration> S createTypedCopy(Class<? extends S> newClassType,
                                                       SequenceConfiguration original) {
-    return createCopy(newClassType, newClassType, original);
+    return createCopy(newClassType, original);
   }
 
   /**
    * Create a copy of the sequence with the expected type.
    *
    * @param expectedType expected type of the returned sequence
-   * @param newClassType class to use for new instance if original not of expected type
    * @param original     original sequence to copy values from
    * @return sequence of expected type
    */
   @SuppressWarnings("unchecked")
   public <S extends SequenceConfiguration> S createCopy(Class<? extends S> expectedType,
-                                                        Class<? extends S> newClassType,
                                                         SequenceConfiguration original) {
 
     S newSequence;
-    if (expectedType == null || newClassType == null) {
-      if (expectedType == null) {
-        throw new OdinRuntimeException("Expected sequence type for "
-            + original.getFlowName() + " is not set");
-      }
+    if (expectedType == null) {
       throw new OdinRuntimeException("Expected sequence type for " + original.getFlowName()
           + " is not set");
     } else {
@@ -102,11 +95,11 @@ public class SequenceFactory {
         newSequence = (S) original.copy();
         LOG.debug("Starting flow with sequence copy {}", newSequence);
       } else {
-        LOG.debug("Creating new instance of {}", newClassType);
+        LOG.debug("Creating new instance of {}", expectedType);
         try {
-          newSequence = newClassType.newInstance();
+          newSequence = expectedType.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-          throw new OdinRuntimeException("Cannot create new instance of " + newClassType, e);
+          throw new OdinRuntimeException("Cannot create new instance of " + expectedType, e);
         }
         final MutableSequenceConfiguration mutableSequence =
             (MutableSequenceConfiguration) newSequence;
