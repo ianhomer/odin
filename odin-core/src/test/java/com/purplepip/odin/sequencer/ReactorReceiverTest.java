@@ -28,6 +28,7 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
+import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
@@ -52,7 +53,8 @@ public class ReactorReceiverTest {
   @Before
   public void setUp() {
     clock = new BeatClock(new StaticBeatsPerMinute(120));
-    flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
+    flowFactory = new FlowFactory<>(
+        new DefaultFlowConfiguration(), SequenceFactory.createNoteSequenceFactory());
     measureProvider = new StaticBeatMeasureProvider(4);
   }
 

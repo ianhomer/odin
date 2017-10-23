@@ -30,10 +30,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FlowFactory<A> {
   private FlowConfiguration flowConfiguration;
-  private SequenceFactory sequenceFactory = new SequenceFactory();
+  private SequenceFactory<A> sequenceFactory;
 
-  public FlowFactory(FlowConfiguration flowConfiguration) {
+  public FlowFactory(FlowConfiguration flowConfiguration, SequenceFactory<A> sequenceFactory) {
     this.flowConfiguration = flowConfiguration;
+    this.sequenceFactory = sequenceFactory;
   }
 
   /**
@@ -56,11 +57,10 @@ public class FlowFactory<A> {
    *
    * @param sequence sequence to use as a template for the one that is set
    */
-  @SuppressWarnings("unchecked")
   public Sequence<A> copyFrom(SequenceConfiguration sequence) {
-    Class<? extends Sequence> expectedType =
+    Class<? extends Sequence<A>> expectedType =
         sequenceFactory.getSequenceClass(sequence.getFlowName());
-    return (Sequence<A>) sequenceFactory.createCopy(expectedType, sequence);
+    return sequenceFactory.createCopy(expectedType, sequence);
   }
 
   /**

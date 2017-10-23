@@ -18,6 +18,7 @@ package com.purplepip.odin.sequence;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
@@ -27,7 +28,7 @@ import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 
 public class SequenceFactoryTest {
-  private SequenceFactory sequenceFactory = new SequenceFactory();
+  private SequenceFactory<Note> factory = SequenceFactory.createNoteSequenceFactory();
 
   @Test
   public void testCopy() throws OdinException {
@@ -40,7 +41,6 @@ public class SequenceFactoryTest {
         .addMetronome();
     SequenceConfiguration sequence = container.getSequenceStream()
         .findFirst().orElseThrow(OdinException::new);
-    SequenceFactory factory = new SequenceFactory();
     Metronome metronome = factory.createTypedCopy(Metronome.class, sequence);
     assertEquals(16, metronome.getLength());
     assertEquals(1, metronome.getLayers().size());
@@ -49,8 +49,8 @@ public class SequenceFactoryTest {
 
   @Test
   public void testGetSequenceClass() {
-    assertEquals(Notation.class, sequenceFactory.getSequenceClass("notation"));
-    assertEquals(Metronome.class, sequenceFactory.getSequenceClass("metronome"));
-    assertEquals(Pattern.class, sequenceFactory.getSequenceClass("pattern"));
+    assertEquals(Notation.class, factory.getSequenceClass("notation"));
+    assertEquals(Metronome.class, factory.getSequenceClass("metronome"));
+    assertEquals(Pattern.class, factory.getSequenceClass("pattern"));
   }
 }

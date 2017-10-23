@@ -20,6 +20,7 @@ import com.google.common.collect.Lists;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
+import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowConfiguration;
@@ -49,7 +50,8 @@ public class DefaultOdinSequencerConfiguration
    * Create new configuration with defaults set.
    */
   public DefaultOdinSequencerConfiguration() {
-    setFlowFactory(new FlowFactory<>(flowConfiguration));
+    setFlowFactory(new FlowFactory<>(flowConfiguration,
+        SequenceFactory.createNoteSequenceFactory()));
     setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);

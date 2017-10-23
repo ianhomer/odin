@@ -18,6 +18,7 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
@@ -25,7 +26,9 @@ import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 import jodd.bean.BeanCopy;
@@ -38,24 +41,41 @@ import lombok.extern.slf4j.Slf4j;
  * Factory to create sequences.
  */
 @Slf4j
-public class SequenceFactory {
-  private static final Map<String, Class<? extends Sequence>>
-      SEQUENCES = new HashMap<>();
+public class SequenceFactory<A> {
+  private final Map<String, Class<? extends Sequence<A>>> sequences = new HashMap<>();
 
-  /*
-   * Statically register known sequences.  In the future we may design a plugin architecture, but
-   * for now it is kept tight by only allowing registered classes.
+  /**
+   * Create the note sequence factory.
+   *
+   * @return a new note sequence factory
    */
-  static {
-    register(Metronome.class);
-    register(Notation.class);
-    register(Pattern.class);
+  public static SequenceFactory<Note> createNoteSequenceFactory() {
+    /*
+     * Coded registration of known sequences.  In the future we may design a plugin architecture,
+     * but for now it is kept tight by only allowing registered classes.
+     */
+    List<Class<? extends Sequence<Note>>> classes = new ArrayList<>();
+    classes.add(Metronome.class);
+    classes.add(Notation.class);
+    classes.add(Pattern.class);
+    return new SequenceFactory<>(classes);
   }
 
-  private static void register(Class<? extends Sequence> clazz) {
+  /**
+   * Create a new sequence factory.
+   *
+   * @param classes sequence classes to initialise with
+   */
+  public SequenceFactory(List<Class<? extends Sequence<A>>> classes) {
+    for (Class<? extends Sequence<A>> clazz : classes) {
+      register(clazz);
+    }
+  }
+
+  private void register(Class<? extends Sequence<A>> clazz) {
     if (clazz.isAnnotationPresent(FlowDefinition.class)) {
       FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
-      SEQUENCES.put(definition.name(), clazz);
+      sequences.put(definition.name(), clazz);
     } else {
       Annotation[] annotations = clazz.getAnnotations();
       LOG.warn("Class {} MUST have a @FlowDefinition annotation, it has {}", clazz, annotations);
@@ -67,7 +87,7 @@ public class SequenceFactory {
     TypeConverterManager.register(Rational.class, new RationalTypeConverter());
   }
 
-  <S extends SequenceConfiguration> S createTypedCopy(Class<? extends S> newClassType,
+  <S extends Sequence<A>> S createTypedCopy(Class<? extends S> newClassType,
                                                       SequenceConfiguration original) {
     return createCopy(newClassType, original);
   }
@@ -80,7 +100,7 @@ public class SequenceFactory {
    * @return sequence of expected type
    */
   @SuppressWarnings("unchecked")
-  public <S extends SequenceConfiguration> S createCopy(Class<? extends S> expectedType,
+  public <S extends Sequence<A>> S createCopy(Class<? extends S> expectedType,
                                                         SequenceConfiguration original) {
 
     S newSequence;
@@ -125,12 +145,12 @@ public class SequenceFactory {
     return newSequence;
   }
 
-  public Class<? extends Sequence> getSequenceClass(String name) {
-    return SEQUENCES.get(name);
+  public Class<? extends Sequence<A>> getSequenceClass(String name) {
+    return sequences.get(name);
   }
 
   public Stream<String> getSequenceNames() {
-    return SEQUENCES.keySet().stream();
+    return sequences.keySet().stream();
   }
 
 }

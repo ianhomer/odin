@@ -20,6 +20,7 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.DefaultMicrosecondPositionProvider;
+import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowFactory;
@@ -43,7 +44,7 @@ public class TestSequencerEnvironment {
     DefaultFlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
     flowConfiguration.setMaxForwardScan(1000000);
 
-    flowFactory = new FlowFactory<>(flowConfiguration);
+    flowFactory = new FlowFactory<>(flowConfiguration, SequenceFactory.createNoteSequenceFactory());
     flowFactory.warmUp();
     configuration = new DefaultOdinSequencerConfiguration()
         .setFlowFactory(flowFactory)

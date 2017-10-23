@@ -9,6 +9,7 @@ import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceConfiguration;
+import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
@@ -32,7 +33,8 @@ public class FlowFactoryTest {
 
   @Test
   public void testCreateFlow() throws OdinException {
-    FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
+    FlowFactory<Note> flowFactory = new FlowFactory<>(
+        new DefaultFlowConfiguration(), SequenceFactory.createNoteSequenceFactory());
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();
