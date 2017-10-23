@@ -42,8 +42,6 @@ import lombok.extern.slf4j.Slf4j;
 public class SequenceFactory {
   private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
   private static final Map<String, Class<? extends Sequence>>
-      DEFAULT_SEQUENCES = new HashMap<>();
-  private static final Map<String, Class<? extends Sequence>>
       SEQUENCES = new HashMap<>();
 
   /*
@@ -61,7 +59,6 @@ public class SequenceFactory {
     if (clazz.isAnnotationPresent(FlowDefinition.class)) {
       FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
       SEQUENCES.put(definition.name(), clazz);
-      DEFAULT_SEQUENCES.put(definition.name(), definition.sequence());
     } else {
       Annotation[] annotations = clazz.getAnnotations();
       LOG.warn("Class {} MUST have a @FlowDefinition annotation, it has {}", clazz, annotations);
@@ -143,10 +140,6 @@ public class SequenceFactory {
 
   public Class<? extends Sequence> getSequenceClass(String name) {
     return SEQUENCES.get(name);
-  }
-
-  public Class<? extends Sequence> getDefaultSequenceClass(String name) {
-    return DEFAULT_SEQUENCES.get(name);
   }
 
   public Stream<String> getSequenceNames() {

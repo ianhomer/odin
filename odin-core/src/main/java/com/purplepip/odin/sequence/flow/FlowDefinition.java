@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.sequence.Sequence;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -27,11 +26,4 @@ public @interface FlowDefinition {
    * @return name for this flow
    */
   String name();
-
-  /**
-   * Sequence implementation from which new instances should be created.
-   *
-   * @return sequence interface
-   */
-  Class<? extends Sequence> sequence();
 }

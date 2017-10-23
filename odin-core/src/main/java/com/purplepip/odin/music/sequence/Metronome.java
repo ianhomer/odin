@@ -49,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(callSuper = true)
 @Slf4j
-@FlowDefinition(name = "metronome", sequence = Metronome.class)
+@FlowDefinition(name = "metronome")
 public class Metronome extends GenericSequence implements SpecialisedSequence {
   private Note noteBarStart = newDefault();
   private Note noteBarMid = newDefault();

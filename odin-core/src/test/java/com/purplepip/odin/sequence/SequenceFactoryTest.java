@@ -53,14 +53,4 @@ public class SequenceFactoryTest {
     assertEquals(Metronome.class, sequenceFactory.getSequenceClass("metronome"));
     assertEquals(Pattern.class, sequenceFactory.getSequenceClass("pattern"));
   }
-
-  @Test
-  public void testGetDefaultSequenceClass() {
-    assertEquals(Notation.class,
-        sequenceFactory.getDefaultSequenceClass("notation"));
-    assertEquals(Metronome.class,
-        sequenceFactory.getDefaultSequenceClass("metronome"));
-    assertEquals(Pattern.class,
-        sequenceFactory.getDefaultSequenceClass("pattern"));
-  }
 }

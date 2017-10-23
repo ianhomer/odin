@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @ToString(callSuper = true)
 @Slf4j
-@FlowDefinition(name = "notation", sequence = Notation.class)
+@FlowDefinition(name = "notation")
 public class Notation extends GenericSequence implements SpecialisedSequence {
   private String format;
   private String notation;

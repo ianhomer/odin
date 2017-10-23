@@ -46,7 +46,7 @@ public class FlowFactory<A> {
   public MutableFlow<Sequence<A>, A> createFlow(
       SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
     MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
-    flow.setSequence((Sequence) copyFrom(sequence));
+    flow.setSequence(copyFrom(sequence));
     flow.setConfiguration(flowConfiguration);
     flow.afterPropertiesSet();
 
@@ -61,9 +61,7 @@ public class FlowFactory<A> {
   public Sequence<A> copyFrom(SequenceConfiguration sequence) {
     Class<? extends Sequence> expectedType =
         sequenceFactory.getSequenceClass(sequence.getFlowName());
-    Class<? extends Sequence> newClassType =
-        sequenceFactory.getDefaultSequenceClass(sequence.getFlowName());
-    return sequenceFactory.createCopy(expectedType, newClassType, sequence);
+    return sequenceFactory.createCopy(expectedType, expectedType, sequence);
   }
 
   /**
