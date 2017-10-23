@@ -43,9 +43,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SequenceFactory {
   private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
-  private static final Map<String, Class<? extends MutableSequence>>
+  private static final Map<String, Class<? extends MutableSequenceConfiguration>>
       DEFAULT_SEQUENCES = new HashMap<>();
-  private static final Map<String, Class<? extends Sequence>>
+  private static final Map<String, Class<? extends SequenceConfiguration>>
       SEQUENCES = new HashMap<>();
 
   /*
@@ -64,7 +64,7 @@ public class SequenceFactory {
       FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
       FLOWS.put(definition.name(), clazz);
       try {
-        Class<? extends Sequence> sequenceClass = clazz
+        Class<? extends SequenceConfiguration> sequenceClass = clazz
             .getConstructor(Clock.class, MeasureProvider.class).newInstance(null, null)
             .getSequenceClass();
         SEQUENCES.put(definition.name(), sequenceClass);
@@ -84,8 +84,8 @@ public class SequenceFactory {
     TypeConverterManager.register(Rational.class, new RationalTypeConverter());
   }
 
-  <S extends Sequence> S createTypedCopy(Class<? extends S> newClassType,
-                                                Sequence original) {
+  <S extends SequenceConfiguration> S createTypedCopy(Class<? extends S> newClassType,
+                                                      SequenceConfiguration original) {
     return createCopy(newClassType, newClassType, original);
   }
 
@@ -98,9 +98,9 @@ public class SequenceFactory {
    * @return sequence of expected type
    */
   @SuppressWarnings("unchecked")
-  public <S extends Sequence> S createCopy(Class<? extends S> expectedType,
-                             Class<? extends S> newClassType,
-                             Sequence original) {
+  public <S extends SequenceConfiguration> S createCopy(Class<? extends S> expectedType,
+                                                        Class<? extends S> newClassType,
+                                                        SequenceConfiguration original) {
 
     S newSequence;
     if (expectedType == null || newClassType == null) {
@@ -124,7 +124,8 @@ public class SequenceFactory {
         } catch (InstantiationException | IllegalAccessException e) {
           throw new OdinRuntimeException("Cannot create new instance of " + newClassType, e);
         }
-        final MutableSequence mutableSequence = (MutableSequence) newSequence;
+        final MutableSequenceConfiguration mutableSequence =
+            (MutableSequenceConfiguration) newSequence;
         // TODO : BeanCopy doesn't seem to copy list of layers so we'll do this manually
         mutableSequence.getLayers().addAll(original.getLayers());
         LOG.debug("Copying original object properties to copy");
@@ -151,11 +152,11 @@ public class SequenceFactory {
     return FLOWS.get(name);
   }
 
-  public Class<? extends Sequence> getSequenceClass(String name) {
+  public Class<? extends SequenceConfiguration> getSequenceClass(String name) {
     return SEQUENCES.get(name);
   }
 
-  public Class<? extends MutableSequence> getDefaultSequenceClass(String name) {
+  public Class<? extends MutableSequenceConfiguration> getDefaultSequenceClass(String name) {
     return DEFAULT_SEQUENCES.get(name);
   }
 

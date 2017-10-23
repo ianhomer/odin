@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(exclude = "project")
 @Slf4j
-public class GenericSequence extends AbstractTimeThing implements MutableSequence {
+public class GenericSequence extends AbstractTimeThing implements MutableSequenceConfiguration {
   private int channel;
   private String flowName;
   private Project project;

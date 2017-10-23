@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
   private final Mutable<Tick> tick = new ObservableProperty<>();
-  private MutableFlow<Sequence, A> flow;
+  private MutableFlow<SequenceConfiguration, A> flow;
   private BeatClock beatClock;
 
   /*
@@ -54,7 +54,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private Event<A> nextEvent;
   private MovableTock tock;
   private Tock sealedTock;
-  private Sequence sequence;
+  private SequenceConfiguration sequence;
   private FlowFactory<A> flowFactory;
   private boolean tickDirty;
   private boolean sequenceDirty;
@@ -88,7 +88,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    * @param sequence sequence configuration
    */
   @Override
-  public void setSequence(Sequence sequence) {
+  public void setSequence(SequenceConfiguration sequence) {
     if (this.sequence == null
         || !this.sequence.getFlowName().equals(sequence.getFlowName())) {
       flowNameDirty = true;
@@ -115,7 +115,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   }
 
   @Override
-  public Sequence getSequence() {
+  public SequenceConfiguration getSequence() {
     return sequence;
   }
 
@@ -138,12 +138,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   }
 
   @Override
-  public void setFlow(MutableFlow<Sequence, A> flow) {
+  public void setFlow(MutableFlow<SequenceConfiguration, A> flow) {
     this.flow = flow;
   }
 
   @Override
-  public MutableFlow<Sequence, A> getFlow() {
+  public MutableFlow<SequenceConfiguration, A> getFlow() {
     return flow;
   }
 

@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.MutableSequence;
+import com.purplepip.odin.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
 
 /**
@@ -37,7 +37,7 @@ public class BeanyProjectBuilder extends ProjectBuilder {
    *
    * @return metronome
    */
-  protected MutableSequence createMetronome() {
+  protected MutableSequenceConfiguration createMetronome() {
     return createSequence();
   }
 
@@ -47,7 +47,7 @@ public class BeanyProjectBuilder extends ProjectBuilder {
    *
    * @return notation
    */
-  protected MutableSequence createNotation() {
+  protected MutableSequenceConfiguration createNotation() {
     return createSequence();
   }
 
@@ -57,7 +57,7 @@ public class BeanyProjectBuilder extends ProjectBuilder {
    *
    * @return pattern
    */
-  protected MutableSequence createPattern() {
+  protected MutableSequenceConfiguration createPattern() {
     return createSequence();
   }
 

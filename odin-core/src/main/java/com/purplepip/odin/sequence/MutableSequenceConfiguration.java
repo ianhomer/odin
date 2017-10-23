@@ -22,7 +22,8 @@ import com.purplepip.odin.sequence.triggers.Action;
 /**
  * Mutable sequence.
  */
-public interface MutableSequence extends Sequence, MutableTimeThing, MutablePropertiesProvider {
+public interface MutableSequenceConfiguration extends SequenceConfiguration,
+    MutableTimeThing, MutablePropertiesProvider {
   void setChannel(int channel);
 
   void setFlowName(String flowName);

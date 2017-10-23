@@ -28,15 +28,16 @@ import javax.validation.constraints.NotNull;
 /**
  * Sequence configuration.
  */
-public interface Sequence extends Copyable<Sequence>, TimeThing, PropertiesProvider {
+public interface SequenceConfiguration extends
+    Copyable<SequenceConfiguration>, TimeThing, PropertiesProvider {
   /**
    * Create a copy of this sequence.
    *
    * @return copy
    */
   @Override
-  default Sequence copy() {
-    MutableSequence copy = new GenericSequence(this.getId());
+  default SequenceConfiguration copy() {
+    MutableSequenceConfiguration copy = new GenericSequence(this.getId());
     Sequences.copyCoreValues(this, copy);
     return copy;
   }

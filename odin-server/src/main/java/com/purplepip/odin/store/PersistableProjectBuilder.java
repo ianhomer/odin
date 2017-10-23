@@ -19,7 +19,7 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.MutableSequence;
+import com.purplepip.odin.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
 import com.purplepip.odin.sequencer.BeanyProjectBuilder;
@@ -45,7 +45,7 @@ public class PersistableProjectBuilder extends BeanyProjectBuilder {
   }
 
   @Override
-  protected MutableSequence createSequence() {
+  protected MutableSequenceConfiguration createSequence() {
     return new PersistableSequence();
   }
 

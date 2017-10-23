@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.project;
 
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
@@ -142,7 +142,7 @@ public class ProjectContainer {
     saveListeners.remove(listener);
   }
 
-  public Sequence getSequence(long id) {
+  public SequenceConfiguration getSequence(long id) {
     return getProject().getSequences().stream().filter(s -> s.getId() == id)
         .findFirst().orElse(null);
   }
@@ -152,7 +152,7 @@ public class ProjectContainer {
    *
    * @return iterable of sequences
    */
-  public Iterable<Sequence> getSequences() {
+  public Iterable<SequenceConfiguration> getSequences() {
     return Collections.unmodifiableSet(getProject().getSequences());
   }
 
@@ -161,7 +161,7 @@ public class ProjectContainer {
    *
    * @return sequence stream
    */
-  public Stream<Sequence> getSequenceStream() {
+  public Stream<SequenceConfiguration> getSequenceStream() {
     return getProject().getSequences().stream();
   }
 
@@ -170,12 +170,12 @@ public class ProjectContainer {
    *
    * @param sequence sequence
    */
-  public void addSequence(Sequence sequence) {
+  public void addSequence(SequenceConfiguration sequence) {
     LOG.debug("Adding sequence {}", sequence);
     project.addSequence(sequence);
   }
 
-  public void removeSequence(Sequence sequence) {
+  public void removeSequence(SequenceConfiguration sequence) {
     LOG.debug("Removing sequence {}", sequence);
     project.removeSequence(sequence);
   }

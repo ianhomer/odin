@@ -18,7 +18,7 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
@@ -52,7 +52,7 @@ public class ProjectBuilderTest {
         .withChannel(1).withLayers("layer1").addMetronome()
         .withChannel(2).withLayers("layer2", "layer3").addMetronome()
         .withChannel(3).addNotation(BEAT, "C");
-    Sequence sequence1 = builder.getSequenceByOrder(0);
+    SequenceConfiguration sequence1 = builder.getSequenceByOrder(0);
     assertNotNull(builder.getLayerByOrder(0));
 
     Optional<String> firstLayerName = sequence1.getLayers().stream().findFirst();
@@ -75,14 +75,14 @@ public class ProjectBuilderTest {
     assertThat("Sequence 1 : " + sequence1,
         new HashSet<>(sequence1.getLayers()),
         containsInAnyOrder("layer1"));
-    Sequence sequence2 = builder.getSequenceByOrder(1);
+    SequenceConfiguration sequence2 = builder.getSequenceByOrder(1);
     assertThat("Sequence 2 : " + sequence2,
         new HashSet<>(sequence2.getLayers()),
         containsInAnyOrder("layer2", "layer3"));
     assertThat("Sequence 2 : " + sequence2,
         new HashSet<>(sequence2.getLayers()),
         not(containsInAnyOrder("layer1")));
-    Sequence sequence3 = builder.getSequenceByOrder(2);
+    SequenceConfiguration sequence3 = builder.getSequenceByOrder(2);
     assertThat("Sequence 2 : " + sequence2,
         new HashSet<>(sequence3.getLayers()),
         containsInAnyOrder("layer2", "layer3"));

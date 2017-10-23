@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -59,7 +59,7 @@ public class ChannelUpdatedAtRuntimeTest {
         .addMetronome();
     LOG.debug("*** *** *** Added first metronome");
     environment.start();
-    Sequence channel0metronome = builder.getSequenceByOrder(0);
+    SequenceConfiguration channel0metronome = builder.getSequenceByOrder(0);
     Channel channel0 = builder.getChannelByOrder(0);
     assertEquals("Unexpected number of program changes", 1,
         environment.getContainer().getChannelStream().count());

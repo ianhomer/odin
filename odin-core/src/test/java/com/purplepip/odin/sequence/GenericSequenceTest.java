@@ -22,7 +22,7 @@ import org.junit.Test;
 public class GenericSequenceTest {
   @Test
   public void testArePropertiesDeclared() {
-    Sequence sequence = new GenericSequence();
+    SequenceConfiguration sequence = new GenericSequence();
     assertFalse("Generic sequence should not have properties declared",
         sequence.arePropertiesDeclared());
   }

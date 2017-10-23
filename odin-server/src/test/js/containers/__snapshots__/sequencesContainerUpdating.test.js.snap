@@ -12,6 +12,10 @@ exports[`Sequences container renders OK 1`] = `
           "title": "Channel",
           "type": "integer",
         },
+        "enabled": Object {
+          "title": "Enabled",
+          "type": "boolean",
+        },
         "flowName": Object {
           "title": "Flow Name",
           "type": "string",
@@ -28,7 +32,6 @@ exports[`Sequences container renders OK 1`] = `
           "type": "array",
         },
         "length": Object {
-          "minimum": -1,
           "title": "Length",
           "type": "integer",
         },
@@ -52,6 +55,17 @@ exports[`Sequences container renders OK 1`] = `
         "tick": Object {
           "$ref": "#/definitions/PersistableTick",
           "title": "Tick",
+        },
+        "triggers": Object {
+          "additionalProperties": Object {
+            "enum": Array [
+              "ENABLE",
+              "DISABLE",
+            ],
+            "type": "string",
+          },
+          "title": "Triggers",
+          "type": "object",
         },
       },
     }
@@ -93,6 +107,10 @@ exports[`Sequences container renders OK 1`] = `
     Object {
       "channel": Object {
         "defaultValue": 1,
+      },
+      "enabled": Object {
+        "defaultValue": true,
+        "hidden": true,
       },
       "flowName": Object {
         "cellWidth": 2,
@@ -306,6 +324,10 @@ exports[`Sequences container renders OK 2`] = `
           "title": "Channel",
           "type": "integer",
         },
+        "enabled": Object {
+          "title": "Enabled",
+          "type": "boolean",
+        },
         "flowName": Object {
           "title": "Flow Name",
           "type": "string",
@@ -322,7 +344,6 @@ exports[`Sequences container renders OK 2`] = `
           "type": "array",
         },
         "length": Object {
-          "minimum": -1,
           "title": "Length",
           "type": "integer",
         },
@@ -346,6 +367,17 @@ exports[`Sequences container renders OK 2`] = `
         "tick": Object {
           "$ref": "#/definitions/PersistableTick",
           "title": "Tick",
+        },
+        "triggers": Object {
+          "additionalProperties": Object {
+            "enum": Array [
+              "ENABLE",
+              "DISABLE",
+            ],
+            "type": "string",
+          },
+          "title": "Triggers",
+          "type": "object",
         },
       },
     }
@@ -387,6 +419,10 @@ exports[`Sequences container renders OK 2`] = `
     Object {
       "channel": Object {
         "defaultValue": 1,
+      },
+      "enabled": Object {
+        "defaultValue": true,
+        "hidden": true,
       },
       "flowName": Object {
         "cellWidth": 2,
@@ -479,6 +515,10 @@ exports[`Sequences container renders OK 2`] = `
             "title": "Channel",
             "type": "integer",
           },
+          "enabled": Object {
+            "title": "Enabled",
+            "type": "boolean",
+          },
           "flowName": Object {
             "title": "Flow Name",
             "type": "string",
@@ -495,7 +535,6 @@ exports[`Sequences container renders OK 2`] = `
             "type": "array",
           },
           "length": Object {
-            "minimum": -1,
             "title": "Length",
             "type": "integer",
           },
@@ -519,6 +558,17 @@ exports[`Sequences container renders OK 2`] = `
           "tick": Object {
             "$ref": "#/definitions/PersistableTick",
             "title": "Tick",
+          },
+          "triggers": Object {
+            "additionalProperties": Object {
+              "enum": Array [
+                "ENABLE",
+                "DISABLE",
+              ],
+              "type": "string",
+            },
+            "title": "Triggers",
+            "type": "object",
           },
         },
       }
@@ -560,6 +610,10 @@ exports[`Sequences container renders OK 2`] = `
       Object {
         "channel": Object {
           "defaultValue": 1,
+        },
+        "enabled": Object {
+          "defaultValue": true,
+          "hidden": true,
         },
         "flowName": Object {
           "cellWidth": 2,
@@ -838,6 +892,10 @@ exports[`Sequences container renders OK 2`] = `
         />
       </div>
       <input
+        name="enabled"
+        type="hidden"
+      />
+      <input
         defaultValue={
           Array [
             "a",
@@ -886,6 +944,10 @@ exports[`Sequences container renders OK 3`] = `
           "title": "Channel",
           "type": "integer",
         },
+        "enabled": Object {
+          "title": "Enabled",
+          "type": "boolean",
+        },
         "flowName": Object {
           "title": "Flow Name",
           "type": "string",
@@ -902,7 +964,6 @@ exports[`Sequences container renders OK 3`] = `
           "type": "array",
         },
         "length": Object {
-          "minimum": -1,
           "title": "Length",
           "type": "integer",
         },
@@ -926,6 +987,17 @@ exports[`Sequences container renders OK 3`] = `
         "tick": Object {
           "$ref": "#/definitions/PersistableTick",
           "title": "Tick",
+        },
+        "triggers": Object {
+          "additionalProperties": Object {
+            "enum": Array [
+              "ENABLE",
+              "DISABLE",
+            ],
+            "type": "string",
+          },
+          "title": "Triggers",
+          "type": "object",
         },
       },
     }
@@ -989,6 +1061,10 @@ exports[`Sequences container renders OK 3`] = `
     Object {
       "channel": Object {
         "defaultValue": 1,
+      },
+      "enabled": Object {
+        "defaultValue": true,
+        "hidden": true,
       },
       "flowName": Object {
         "cellWidth": 2,
@@ -1081,6 +1157,10 @@ exports[`Sequences container renders OK 3`] = `
             "title": "Channel",
             "type": "integer",
           },
+          "enabled": Object {
+            "title": "Enabled",
+            "type": "boolean",
+          },
           "flowName": Object {
             "title": "Flow Name",
             "type": "string",
@@ -1097,7 +1177,6 @@ exports[`Sequences container renders OK 3`] = `
             "type": "array",
           },
           "length": Object {
-            "minimum": -1,
             "title": "Length",
             "type": "integer",
           },
@@ -1121,6 +1200,17 @@ exports[`Sequences container renders OK 3`] = `
           "tick": Object {
             "$ref": "#/definitions/PersistableTick",
             "title": "Tick",
+          },
+          "triggers": Object {
+            "additionalProperties": Object {
+              "enum": Array [
+                "ENABLE",
+                "DISABLE",
+              ],
+              "type": "string",
+            },
+            "title": "Triggers",
+            "type": "object",
           },
         },
       }
@@ -1184,6 +1274,10 @@ exports[`Sequences container renders OK 3`] = `
       Object {
         "channel": Object {
           "defaultValue": 1,
+        },
+        "enabled": Object {
+          "defaultValue": true,
+          "hidden": true,
         },
         "flowName": Object {
           "cellWidth": 2,
@@ -1484,6 +1578,10 @@ exports[`Sequences container renders OK 3`] = `
         />
       </div>
       <input
+        name="enabled"
+        type="hidden"
+      />
+      <input
         defaultValue={
           Array [
             "a",
@@ -1532,6 +1630,10 @@ exports[`Sequences container renders OK 4`] = `
           "title": "Channel",
           "type": "integer",
         },
+        "enabled": Object {
+          "title": "Enabled",
+          "type": "boolean",
+        },
         "flowName": Object {
           "title": "Flow Name",
           "type": "string",
@@ -1548,7 +1650,6 @@ exports[`Sequences container renders OK 4`] = `
           "type": "array",
         },
         "length": Object {
-          "minimum": -1,
           "title": "Length",
           "type": "integer",
         },
@@ -1572,6 +1673,17 @@ exports[`Sequences container renders OK 4`] = `
         "tick": Object {
           "$ref": "#/definitions/PersistableTick",
           "title": "Tick",
+        },
+        "triggers": Object {
+          "additionalProperties": Object {
+            "enum": Array [
+              "ENABLE",
+              "DISABLE",
+            ],
+            "type": "string",
+          },
+          "title": "Triggers",
+          "type": "object",
         },
       },
     }
@@ -1606,6 +1718,10 @@ exports[`Sequences container renders OK 4`] = `
     Object {
       "channel": Object {
         "defaultValue": 1,
+      },
+      "enabled": Object {
+        "defaultValue": true,
+        "hidden": true,
       },
       "flowName": Object {
         "cellWidth": 2,

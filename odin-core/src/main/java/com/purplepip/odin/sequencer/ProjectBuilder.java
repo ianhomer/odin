@@ -34,8 +34,8 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.properties.beany.Setter;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.MutableSequence;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.flow.Flow;
 import com.purplepip.odin.sequence.flow.Flows;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
@@ -116,7 +116,7 @@ public class ProjectBuilder {
    * this is an ordered list in the order that they were added.  Note that sequences in a project
    * do not have a fixed ordering so we can not rely on the iteration of the project sequences.
    */
-  public Sequence getSequenceByOrder(int id) {
+  public SequenceConfiguration getSequenceByOrder(int id) {
     return projectContainer.getSequence(sequenceIds.get(id));
   }
 
@@ -141,12 +141,14 @@ public class ProjectBuilder {
     return projectContainer.getTrigger(triggerIds.get(id));
   }
 
-  private MutableSequence withFlow(MutableSequence sequence, Class<? extends Flow> clazz) {
+  private MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
+                                                Class<? extends Flow> clazz) {
     sequence.setFlowName(Flows.getFlowName(clazz));
     return sequence;
   }
 
-  private MutableSequence withDefaultsForMetronome(MutableSequence sequence) {
+  private MutableSequenceConfiguration withDefaultsForMetronome(
+      MutableSequenceConfiguration sequence) {
     sequence.setTick(createTick(Ticks.HALF));
     withFlow(sequence, MetronomeFlow.class);
     new Setter(sequence)
@@ -156,15 +158,17 @@ public class ProjectBuilder {
     return sequence;
   }
 
-  private MutableSequence withDefaultsForPattern(MutableSequence sequence) {
+  private MutableSequenceConfiguration withDefaultsForPattern(
+      MutableSequenceConfiguration sequence) {
     return withFlow(withDefaults(sequence), PatternFlow.class);
   }
 
-  private MutableSequence withDefaultsForNotation(MutableSequence sequence) {
+  private MutableSequenceConfiguration withDefaultsForNotation(
+      MutableSequenceConfiguration sequence) {
     return withFlow(withDefaults(sequence), NotationFlow.class);
   }
 
-  private MutableSequence withDefaults(MutableSequence sequence) {
+  private MutableSequenceConfiguration withDefaults(MutableSequenceConfiguration sequence) {
     sequence.setTick(withDefaults(createTick(tick)));
     return sequence;
   }
@@ -234,7 +238,7 @@ public class ProjectBuilder {
    *
    * @return sequence
    */
-  protected MutableSequence createSequence() {
+  protected MutableSequenceConfiguration createSequence() {
     return new GenericSequence();
   }
 
@@ -244,7 +248,7 @@ public class ProjectBuilder {
    *
    * @return metronome
    */
-  protected MutableSequence createMetronome() {
+  protected MutableSequenceConfiguration createMetronome() {
     return new Metronome();
   }
 
@@ -254,7 +258,7 @@ public class ProjectBuilder {
    *
    * @return notation
    */
-  protected MutableSequence createNotation() {
+  protected MutableSequenceConfiguration createNotation() {
     return new Notation();
   }
 
@@ -264,7 +268,7 @@ public class ProjectBuilder {
    *
    * @return pattern
    */
-  protected MutableSequence createPattern() {
+  protected MutableSequenceConfiguration createPattern() {
     return new Pattern();
   }
 
@@ -297,7 +301,7 @@ public class ProjectBuilder {
     }
   }
 
-  private void addSequenceToContainer(Sequence sequence) {
+  private void addSequenceToContainer(SequenceConfiguration sequence) {
     sequenceIds.add(sequence.getId());
     projectContainer.addSequence(sequence);
   }
@@ -313,7 +317,7 @@ public class ProjectBuilder {
    * @return this sequence builder
    */
   public ProjectBuilder addMetronome() {
-    MutableSequence metronome = withDefaultsForMetronome(createMetronome());
+    MutableSequenceConfiguration metronome = withDefaultsForMetronome(createMetronome());
     addSequenceToContainer(applyParameters(metronome));
     return this;
   }
@@ -492,7 +496,7 @@ public class ProjectBuilder {
    * @return sequence builder
    */
   public ProjectBuilder addSequence() {
-    MutableSequence sequence = withDefaults(createSequence());
+    MutableSequenceConfiguration sequence = withDefaults(createSequence());
     addSequenceToContainer(applyParameters(sequence));
     return this;
   }
@@ -518,7 +522,7 @@ public class ProjectBuilder {
    */
   private ProjectBuilder addPattern(Tick tick, int pattern, Note note) {
     this.tick = tick;
-    MutableSequence sequence = withDefaultsForPattern(createPattern());
+    MutableSequenceConfiguration sequence = withDefaultsForPattern(createPattern());
     new Setter(sequence)
         .set("bits", pattern)
         .set("note", note);
@@ -533,7 +537,7 @@ public class ProjectBuilder {
 
   private ProjectBuilder addNotation(Tick tick, String notation, String format) {
     this.tick = tick;
-    MutableSequence sequence = withDefaultsForNotation(createNotation());
+    MutableSequenceConfiguration sequence = withDefaultsForNotation(createNotation());
     new Setter(sequence)
         .set("format", format)
         .set("notation", notation);
@@ -542,12 +546,12 @@ public class ProjectBuilder {
     return this;
   }
 
-  public ProjectBuilder removeSequence(Sequence sequence) {
+  public ProjectBuilder removeSequence(SequenceConfiguration sequence) {
     projectContainer.removeSequence(sequence);
     return this;
   }
 
-  private Sequence applyParameters(MutableSequence sequence) {
+  private SequenceConfiguration applyParameters(MutableSequenceConfiguration sequence) {
     sequence.setName(name);
     sequence.setEnabled(enabled);
     sequence.setOffset(0);

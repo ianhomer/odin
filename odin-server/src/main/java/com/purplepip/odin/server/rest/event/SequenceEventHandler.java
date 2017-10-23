@@ -16,7 +16,7 @@
 package com.purplepip.odin.server.rest.event;
 
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -40,7 +40,7 @@ public class SequenceEventHandler {
    * @param sequence sequence saved
    */
   @HandleAfterSave
-  public void handleSequenceSave(Sequence sequence) {
+  public void handleSequenceSave(SequenceConfiguration sequence) {
     LOG.info("Sequence saved");
     projectContainer.load();
     projectContainer.apply();
@@ -52,7 +52,7 @@ public class SequenceEventHandler {
    * @param sequence sequence created
    */
   @HandleAfterCreate
-  public void handleSequenceCreate(Sequence sequence) {
+  public void handleSequenceCreate(SequenceConfiguration sequence) {
     LOG.info("Sequence created");
     projectContainer.load();
     projectContainer.apply();
@@ -64,7 +64,7 @@ public class SequenceEventHandler {
    * @param sequence sequence deleted
    */
   @HandleAfterDelete
-  public void handleSequenceDelete(Sequence sequence) {
+  public void handleSequenceDelete(SequenceConfiguration sequence) {
     LOG.info("Sequence deleted");
     projectContainer.load();
     projectContainer.apply();

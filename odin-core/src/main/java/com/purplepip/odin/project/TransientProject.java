@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.project;
 
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
@@ -33,7 +33,7 @@ import lombok.ToString;
 public class TransientProject implements Project {
   private static final String TRANSIENT_PROJECT_NAME = "transient";
 
-  private Set<Sequence> sequences = new HashSet<>();
+  private Set<SequenceConfiguration> sequences = new HashSet<>();
 
   private Set<Channel> channels = new HashSet<>();
 
@@ -47,7 +47,7 @@ public class TransientProject implements Project {
   }
 
   @Override
-  public Set<Sequence> getSequences() {
+  public Set<SequenceConfiguration> getSequences() {
     return sequences;
   }
 
@@ -100,13 +100,13 @@ public class TransientProject implements Project {
   }
 
   @Override
-  public void addSequence(Sequence sequence) {
+  public void addSequence(SequenceConfiguration sequence) {
     sequence.setProject(this);
     sequences.add(sequence);
   }
 
   @Override
-  public void removeSequence(Sequence sequence) {
+  public void removeSequence(SequenceConfiguration sequence) {
     sequences.remove(sequence);
   }
 }

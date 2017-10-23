@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.store.PersistableProjectBuilder;
 import com.purplepip.odin.store.domain.PersistableProject;
@@ -51,20 +51,20 @@ public class SequenceRepositoryTest {
 
   @Test
   public void testSequence() throws OdinException {
-    List<Sequence> sequences = repository.findByChannel(0);
+    List<SequenceConfiguration> sequences = repository.findByChannel(0);
     assertThat(sequences.size()).isEqualTo(0);
 
     builder
         .withName("test-pattern")
         .withNote(58).withOffset(4)
         .addPattern(Ticks.BEAT, 9876);
-    for (Sequence sequence : project.getSequences()) {
+    for (SequenceConfiguration sequence : project.getSequences()) {
       LOG.debug("Persisting {}", sequence);
       entityManager.persist(sequence);
     }
     sequences = repository.findByChannel(0);
     assertThat(sequences.size()).isEqualTo(1);
-    Sequence pattern = sequences.get(0);
+    SequenceConfiguration pattern = sequences.get(0);
     assertThat(pattern.getProperty("bits")).isEqualTo("9876");
     assertThat(pattern.getOffset()).isEqualTo(4);
     assertThat(pattern.getTick().getTimeUnit()).isEqualTo(Ticks.BEAT.getTimeUnit());

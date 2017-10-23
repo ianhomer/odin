@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.music.notes.DefaultNote;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import org.junit.Test;
 
 public class MetronomeTest {
@@ -27,7 +27,7 @@ public class MetronomeTest {
   public void testCopy() {
     Metronome metronome = new Metronome();
     metronome.setNoteBarMid(new DefaultNote(1,2,3));
-    Sequence copy = metronome.copy();
+    SequenceConfiguration copy = metronome.copy();
     assertTrue(copy instanceof Metronome);
     Metronome metronomeCopy = (Metronome) copy;
     assertEquals(1, metronomeCopy.getNoteBarMid().getNumber());

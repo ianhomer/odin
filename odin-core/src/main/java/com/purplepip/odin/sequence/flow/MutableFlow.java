@@ -15,12 +15,12 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 
 /**
  * Mutable flow.
  */
-public interface MutableFlow<S extends Sequence, A> extends Flow<S, A> {
+public interface MutableFlow<S extends SequenceConfiguration, A> extends Flow<S, A> {
   void setSequence(S sequence);
 
   void setConfiguration(FlowConfiguration configuration);

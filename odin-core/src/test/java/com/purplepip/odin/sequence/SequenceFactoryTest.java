@@ -41,7 +41,7 @@ public class SequenceFactoryTest {
         .withOffset(4)
         .withLength(16)
         .addMetronome();
-    Sequence sequence = container.getSequenceStream()
+    SequenceConfiguration sequence = container.getSequenceStream()
         .findFirst().orElseThrow(OdinException::new);
     SequenceFactory factory = new SequenceFactory();
     Metronome metronome = factory.createTypedCopy(Metronome.class, sequence);

@@ -16,7 +16,7 @@
 package com.purplepip.odin.store;
 
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.server.rest.repositories.ChannelRepository;
@@ -49,7 +49,7 @@ public class PersistableProjectContainer extends ProjectContainer {
   }
 
   @Override
-  public void addSequence(Sequence sequence) {
+  public void addSequence(SequenceConfiguration sequence) {
     if (sequence instanceof PersistableSequence) {
       sequence.setProject(getProject());
       sequenceRepository.save((PersistableSequence) sequence);

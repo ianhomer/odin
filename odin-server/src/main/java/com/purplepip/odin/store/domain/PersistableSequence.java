@@ -16,7 +16,7 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.MutableSequence;
+import com.purplepip.odin.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.sequence.triggers.Action;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
 public class PersistableSequence
-    extends PersistableTimeThing implements MutableSequence {
+    extends PersistableTimeThing implements MutableSequenceConfiguration {
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;

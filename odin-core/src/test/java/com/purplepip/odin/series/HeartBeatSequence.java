@@ -16,7 +16,7 @@
 package com.purplepip.odin.series;
 
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 
 public class HeartBeatSequence extends GenericSequence {
   public HeartBeatSequence(long id) {
@@ -24,7 +24,7 @@ public class HeartBeatSequence extends GenericSequence {
   }
 
   @Override
-  public Sequence copy() {
+  public SequenceConfiguration copy() {
     HeartBeatSequence copy = new HeartBeatSequence(this.getId());
     copy.setChannel(this.getChannel());
     copy.setFlowName(this.getFlowName());

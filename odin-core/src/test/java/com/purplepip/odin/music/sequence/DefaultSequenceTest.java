@@ -18,7 +18,7 @@ package com.purplepip.odin.music.sequence;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import org.junit.Test;
 
 public class DefaultSequenceTest {
@@ -32,13 +32,13 @@ public class DefaultSequenceTest {
     assertSequenceOk(createSequence().copy());
   }
 
-  private void assertSequenceOk(Sequence sequence) {
+  private void assertSequenceOk(SequenceConfiguration sequence) {
     assertEquals("test-sequence", sequence.getName());
     assertEquals("my.property-value", sequence.getProperty("my.property"));
     assertEquals("test-flow-name", sequence.getFlowName());
   }
 
-  private Sequence createSequence() {
+  private SequenceConfiguration createSequence() {
     GenericSequence sequence = new GenericSequence();
     sequence.setName("test-sequence");
     sequence.setProperty("my.property","my.property-value");

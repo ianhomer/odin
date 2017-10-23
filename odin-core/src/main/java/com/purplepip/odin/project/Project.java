@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.project;
 
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
@@ -34,7 +34,7 @@ public interface Project {
    *
    * @return set of sequences
    */
-  Set<Sequence> getSequences();
+  Set<SequenceConfiguration> getSequences();
 
   /**
    * Get set of the channels stored in this project.
@@ -90,12 +90,12 @@ public interface Project {
   /**
    * Add sequence.
    */
-  void addSequence(Sequence sequence);
+  void addSequence(SequenceConfiguration sequence);
 
   /**
    * Remove channel.
    */
-  void removeSequence(Sequence sequence);
+  void removeSequence(SequenceConfiguration sequence);
 
   /**
    * Clear the project's content.

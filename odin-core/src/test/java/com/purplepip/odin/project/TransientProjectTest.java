@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.purplepip.odin.music.sequence.Metronome;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 
@@ -20,8 +20,8 @@ public class TransientProjectTest {
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();
     int count = 0;
-    Sequence firstSequence = null;
-    for (Sequence sequence : project.getSequences()) {
+    SequenceConfiguration firstSequence = null;
+    for (SequenceConfiguration sequence : project.getSequences()) {
       if (count == 0) {
         firstSequence = sequence;
       }

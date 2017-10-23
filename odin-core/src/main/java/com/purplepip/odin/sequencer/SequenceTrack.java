@@ -21,7 +21,7 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.Roll;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.SequenceRoll;
 import com.purplepip.odin.sequence.TickConvertedRoll;
 import com.purplepip.odin.sequence.TickConverter;
@@ -98,7 +98,7 @@ public class SequenceTrack implements Track {
     return sequenceRoll;
   }
 
-  public Sequence getSequence() {
+  public SequenceConfiguration getSequence() {
     return sequenceRoll.getSequence();
   }
 
@@ -116,7 +116,7 @@ public class SequenceTrack implements Track {
     conductors.add(conductor);
   }
 
-  void setCopyOfSequence(Sequence sequence) {
+  void setCopyOfSequence(SequenceConfiguration sequence) {
     getSequenceRoll().setSequence(sequence.copy());
   }
 

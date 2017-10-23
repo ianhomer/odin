@@ -16,7 +16,7 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
 import com.purplepip.odin.sequence.triggers.MutableTrigger;
@@ -63,7 +63,7 @@ public class PersistableProject implements Project {
 
   @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
-  private Set<Sequence> sequences = new HashSet<>();
+  private Set<SequenceConfiguration> sequences = new HashSet<>();
 
   @Override
   public void addChannel(Channel channel) {
@@ -90,7 +90,7 @@ public class PersistableProject implements Project {
   }
 
   @Override
-  public void addSequence(Sequence sequence) {
+  public void addSequence(SequenceConfiguration sequence) {
     sequence.setProject(this);
     boolean result = sequences.add(sequence);
     if (!result) {
@@ -101,7 +101,7 @@ public class PersistableProject implements Project {
   }
 
   @Override
-  public void removeSequence(Sequence sequence) {
+  public void removeSequence(SequenceConfiguration sequence) {
     boolean result = sequences.remove(sequence);
     if (!result) {
       LOG.warn("Could not remove sequence {} from project", sequence);

@@ -23,7 +23,7 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
@@ -82,7 +82,7 @@ public class Metronome extends GenericSequence implements SpecialisedSequence {
    * @return copy
    */
   @Override
-  public Sequence copy() {
+  public SequenceConfiguration copy() {
     Metronome copy = new Metronome(this.getId());
     Sequences.copyCoreValues(this, copy);
 

@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
 import com.purplepip.odin.store.domain.PersistableSequence;
 import java.util.Optional;
@@ -55,7 +55,7 @@ public class DefaultRuntimeProjectLoaderTest {
     assertThat(reloadedContainer.getChannelStream().count()).isGreaterThan(3);
     assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(4);
     assertThat(reloadedContainer.getSequenceStream().count()).isGreaterThan(4);
-    Optional<Sequence> pianoSequence = reloadedContainer.getSequenceStream()
+    Optional<SequenceConfiguration> pianoSequence = reloadedContainer.getSequenceStream()
         .filter(s -> s.getName().equals("piano-a")).findFirst();
     assertThat(pianoSequence.isPresent()).isTrue();
     assertThat(pianoSequence.get().getLayers().size()).isEqualTo(2);

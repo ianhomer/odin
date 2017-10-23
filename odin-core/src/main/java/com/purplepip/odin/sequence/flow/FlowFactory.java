@@ -18,8 +18,8 @@ package com.purplepip.odin.sequence.flow;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.MutableSequence;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import java.lang.reflect.InvocationTargetException;
@@ -44,14 +44,14 @@ public class FlowFactory<A> {
    * @return flow
    */
   @SuppressWarnings("unchecked")
-  public MutableFlow<Sequence, A> createFlow(Sequence sequence, Clock clock,
-                                             MeasureProvider measureProvider) {
+  public MutableFlow<SequenceConfiguration, A> createFlow(
+      SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
 
     Class<? extends MutableFlow> flowClass = sequenceFactory.getFlowClass(sequence.getFlowName());
     if (flowClass == null) {
       throw new OdinRuntimeException("Flow class " + sequence.getFlowName() + " not registered");
     }
-    MutableFlow<Sequence, A> flow;
+    MutableFlow<SequenceConfiguration, A> flow;
     try {
       flow = flowClass.getConstructor(Clock.class, MeasureProvider.class)
           .newInstance(clock, measureProvider);
@@ -71,16 +71,16 @@ public class FlowFactory<A> {
    *
    * @param sequence sequence to use as a template for the one that is set
    */
-  public Sequence copyFrom(Sequence sequence) {
+  public SequenceConfiguration copyFrom(SequenceConfiguration sequence) {
     if (sequenceFactory.getFlowClass(sequence.getFlowName()) == null) {
       /*
        * If flow was not defined then we have to resort to a straight sequence copy
        */
       return sequence.copy();
     }
-    Class<? extends Sequence> expectedType =
+    Class<? extends SequenceConfiguration> expectedType =
         sequenceFactory.getSequenceClass(sequence.getFlowName());
-    Class<? extends MutableSequence> newClassType =
+    Class<? extends MutableSequenceConfiguration> newClassType =
         sequenceFactory.getDefaultSequenceClass(sequence.getFlowName());
     return sequenceFactory.createCopy(expectedType, newClassType, sequence);
   }
@@ -93,7 +93,7 @@ public class FlowFactory<A> {
    */
   public void warmUp() {
     sequenceFactory.getSequenceNames().forEach(name -> {
-      MutableSequence sequence = new GenericSequence();
+      MutableSequenceConfiguration sequence = new GenericSequence();
       sequence.setFlowName(name);
       copyFrom(sequence);
     });

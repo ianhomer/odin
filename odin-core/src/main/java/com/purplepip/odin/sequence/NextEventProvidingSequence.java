@@ -22,7 +22,7 @@ import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.Loop;
 
-public interface NextEventProvidingSequence<A> extends Sequence {
+public interface NextEventProvidingSequence<A> extends SequenceConfiguration {
   /**
    * Get event after the given tock, but not more than whole number ahead.  In the future an
    * event might be a collection of

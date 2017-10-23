@@ -2047,6 +2047,12 @@ exports[`Sequences container Sequences container initialise 1`] = `
           />
         </div>
         <input
+          defaultValue={true}
+          key="enabled"
+          name="enabled"
+          type="hidden"
+        />
+        <input
           defaultValue=""
           key="layers"
           name="layers"
@@ -2284,6 +2290,12 @@ exports[`Sequences container Sequences container initialise 1`] = `
             type="hidden"
           />
         </div>
+        <input
+          defaultValue={true}
+          key="enabled"
+          name="enabled"
+          type="hidden"
+        />
         <input
           defaultValue=""
           key="layers"
@@ -4364,6 +4376,12 @@ exports[`Sequences container Sequences container load 1`] = `
           />
         </div>
         <input
+          defaultValue={true}
+          key="enabled"
+          name="enabled"
+          type="hidden"
+        />
+        <input
           defaultValue=""
           key="layers"
           name="layers"
@@ -4601,6 +4619,12 @@ exports[`Sequences container Sequences container load 1`] = `
             type="hidden"
           />
         </div>
+        <input
+          defaultValue={true}
+          key="enabled"
+          name="enabled"
+          type="hidden"
+        />
         <input
           defaultValue=""
           key="layers"

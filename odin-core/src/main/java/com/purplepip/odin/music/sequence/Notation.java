@@ -25,7 +25,7 @@ import com.purplepip.odin.music.composition.events.IndexedComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
@@ -79,7 +79,7 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
    *
    * @return copy
    */
-  public Sequence copy() {
+  public SequenceConfiguration copy() {
     Notation copy = new Notation(this.getId());
     Sequences.copyCoreValues(this, copy);
 
