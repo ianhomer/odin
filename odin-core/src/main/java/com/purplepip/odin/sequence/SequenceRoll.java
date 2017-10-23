@@ -34,9 +34,9 @@ public interface SequenceRoll<A> extends Roll<A> {
 
   void refresh();
 
-  void setFlow(MutableFlow<SequenceConfiguration, A> flow);
+  void setFlow(MutableFlow<Sequence<A>, A> flow);
 
-  MutableFlow<SequenceConfiguration, A> getFlow();
+  MutableFlow<Sequence<A>, A> getFlow();
 
   Property<Long> getOffsetProperty();
 }

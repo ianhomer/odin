@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.sequence.Sequence;
 
 /**
  * Flows utility class.
@@ -25,17 +26,17 @@ public final class Flows {
   }
 
   /**
-   * Get flow name for the given flow class.
+   * Get flow name for the given sequence class.
    *
-   * @param flowClass flow class to inspect
+   * @param sequenceClass sequence class to inspect
    * @return flow name
    */
-  public static String getFlowName(Class<? extends Flow> flowClass) {
-    if (flowClass.isAnnotationPresent(FlowDefinition.class)) {
-      FlowDefinition definition = flowClass.getAnnotation(FlowDefinition.class);
+  public static String getFlowName(Class<? extends Sequence> sequenceClass) {
+    if (sequenceClass.isAnnotationPresent(FlowDefinition.class)) {
+      FlowDefinition definition = sequenceClass.getAnnotation(FlowDefinition.class);
       return definition.name();
     } else {
-      throw new OdinRuntimeException("Cannot find flow name for " + flowClass);
+      throw new OdinRuntimeException("Cannot find flow name for " + sequenceClass);
     }
   }
 }

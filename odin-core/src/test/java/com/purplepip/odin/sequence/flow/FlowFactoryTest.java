@@ -7,6 +7,7 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.ProjectBuilder;
@@ -35,8 +36,8 @@ public class FlowFactoryTest {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();
-    Flow<SequenceConfiguration, Note> flow =
+    Flow<Sequence<Note>, Note> flow =
         flowFactory.createFlow(project.getSequences().iterator().next(), clock, measureProvider);
-    assertEquals("MetronomeFlow", flow.getClass().getSimpleName());
+    assertEquals("DefaultFlow", flow.getClass().getSimpleName());
   }
 }

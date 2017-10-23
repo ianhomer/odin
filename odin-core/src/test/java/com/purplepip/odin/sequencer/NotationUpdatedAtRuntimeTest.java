@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.sequence.tick.Ticks;
@@ -61,7 +60,7 @@ public class NotationUpdatedAtRuntimeTest {
        * Move the clock a point in the future so that we can confirm that the sequencer scans
        * forward correctly
        */
-      try (LogCaptor captor = new LogCapture().warn().from(NotationFlow.class)
+      try (LogCaptor captor = new LogCapture().warn().from(Notation.class)
           .withPassThrough().start()) {
         // TODO : Increase the forward scan (setMicroseconds) of the clock, since system
         // should be robust to this.

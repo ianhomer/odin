@@ -15,14 +15,13 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import java.lang.reflect.InvocationTargetException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -44,22 +43,10 @@ public class FlowFactory<A> {
    * @return flow
    */
   @SuppressWarnings("unchecked")
-  public MutableFlow<SequenceConfiguration, A> createFlow(
+  public MutableFlow<Sequence<A>, A> createFlow(
       SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
-
-    Class<? extends MutableFlow> flowClass = sequenceFactory.getFlowClass(sequence.getFlowName());
-    if (flowClass == null) {
-      throw new OdinRuntimeException("Flow class " + sequence.getFlowName() + " not registered");
-    }
-    MutableFlow<SequenceConfiguration, A> flow;
-    try {
-      flow = flowClass.getConstructor(Clock.class, MeasureProvider.class)
-          .newInstance(clock, measureProvider);
-    } catch (InstantiationException | IllegalAccessException
-        | NoSuchMethodException | InvocationTargetException e) {
-      throw new OdinRuntimeException("Cannot create instance of " + flowClass, e);
-    }
-    flow.setSequence(copyFrom(sequence));
+    MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
+    flow.setSequence((Sequence) copyFrom(sequence));
     flow.setConfiguration(flowConfiguration);
     flow.afterPropertiesSet();
 
@@ -71,16 +58,10 @@ public class FlowFactory<A> {
    *
    * @param sequence sequence to use as a template for the one that is set
    */
-  public SequenceConfiguration copyFrom(SequenceConfiguration sequence) {
-    if (sequenceFactory.getFlowClass(sequence.getFlowName()) == null) {
-      /*
-       * If flow was not defined then we have to resort to a straight sequence copy
-       */
-      return sequence.copy();
-    }
-    Class<? extends SequenceConfiguration> expectedType =
+  public Sequence<A> copyFrom(SequenceConfiguration sequence) {
+    Class<? extends Sequence> expectedType =
         sequenceFactory.getSequenceClass(sequence.getFlowName());
-    Class<? extends MutableSequenceConfiguration> newClassType =
+    Class<? extends Sequence> newClassType =
         sequenceFactory.getDefaultSequenceClass(sequence.getFlowName());
     return sequenceFactory.createCopy(expectedType, newClassType, sequence);
   }

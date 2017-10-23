@@ -27,6 +27,7 @@ import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
+import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.flow.Loop;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(callSuper = true)
 @Slf4j
+@FlowDefinition(name = "metronome", sequence = Metronome.class)
 public class Metronome extends GenericSequence implements SpecialisedSequence {
   private Note noteBarStart = newDefault();
   private Note noteBarMid = newDefault();

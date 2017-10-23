@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.sequence.Sequence;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -33,6 +33,5 @@ public @interface FlowDefinition {
    *
    * @return sequence interface
    */
-  Class<? extends MutableSequenceConfiguration> sequence() default
-      MutableSequenceConfiguration.class;
+  Class<? extends Sequence> sequence();
 }

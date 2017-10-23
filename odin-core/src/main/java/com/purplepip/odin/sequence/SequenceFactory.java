@@ -18,16 +18,14 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.flow.MetronomeFlow;
-import com.purplepip.odin.music.flow.NotationFlow;
-import com.purplepip.odin.music.flow.PatternFlow;
+import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -43,9 +41,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SequenceFactory {
   private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
-  private static final Map<String, Class<? extends MutableSequenceConfiguration>>
+  private static final Map<String, Class<? extends Sequence>>
       DEFAULT_SEQUENCES = new HashMap<>();
-  private static final Map<String, Class<? extends SequenceConfiguration>>
+  private static final Map<String, Class<? extends Sequence>>
       SEQUENCES = new HashMap<>();
 
   /*
@@ -53,25 +51,16 @@ public class SequenceFactory {
    * for now it is kept tight by only allowing registered classes.
    */
   static {
-    register(MetronomeFlow.class);
-    register(NotationFlow.class);
-    register(PatternFlow.class);
+    register(Metronome.class);
+    register(Notation.class);
+    register(Pattern.class);
   }
 
   @SuppressWarnings("unchecked")
-  private static void register(Class<? extends MutableFlow> clazz) {
+  private static void register(Class<? extends Sequence> clazz) {
     if (clazz.isAnnotationPresent(FlowDefinition.class)) {
       FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
-      FLOWS.put(definition.name(), clazz);
-      try {
-        Class<? extends SequenceConfiguration> sequenceClass = clazz
-            .getConstructor(Clock.class, MeasureProvider.class).newInstance(null, null)
-            .getSequenceClass();
-        SEQUENCES.put(definition.name(), sequenceClass);
-      } catch (IllegalAccessException | InstantiationException
-          | NoSuchMethodException | InvocationTargetException e) {
-        LOG.error("Cannot determine sequence interface", e);
-      }
+      SEQUENCES.put(definition.name(), clazz);
       DEFAULT_SEQUENCES.put(definition.name(), definition.sequence());
     } else {
       Annotation[] annotations = clazz.getAnnotations();
@@ -152,11 +141,11 @@ public class SequenceFactory {
     return FLOWS.get(name);
   }
 
-  public Class<? extends SequenceConfiguration> getSequenceClass(String name) {
+  public Class<? extends Sequence> getSequenceClass(String name) {
     return SEQUENCES.get(name);
   }
 
-  public Class<? extends MutableSequenceConfiguration> getDefaultSequenceClass(String name) {
+  public Class<? extends Sequence> getDefaultSequenceClass(String name) {
     return DEFAULT_SEQUENCES.get(name);
   }
 

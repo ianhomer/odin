@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
   private final Mutable<Tick> tick = new ObservableProperty<>();
-  private MutableFlow<SequenceConfiguration, A> flow;
+  private MutableFlow<Sequence<A>, A> flow;
   private BeatClock beatClock;
 
   /*
@@ -138,12 +138,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   }
 
   @Override
-  public void setFlow(MutableFlow<SequenceConfiguration, A> flow) {
+  public void setFlow(MutableFlow<Sequence<A>, A> flow) {
     this.flow = flow;
   }
 
   @Override
-  public MutableFlow<SequenceConfiguration, A> getFlow() {
+  public MutableFlow<Sequence<A>, A> getFlow() {
     return flow;
   }
 

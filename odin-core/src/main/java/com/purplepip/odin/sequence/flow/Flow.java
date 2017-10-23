@@ -23,8 +23,6 @@ import com.purplepip.odin.sequence.tick.Tock;
  * A flow class has the intelligence to determine the next events in a sequence.
  */
 public interface Flow<S extends SequenceConfiguration, A> {
-  Class<S> getSequenceClass();
-
   /**
    * Get the next event after the given tock.
    *

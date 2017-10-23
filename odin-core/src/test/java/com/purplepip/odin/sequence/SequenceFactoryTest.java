@@ -18,9 +18,6 @@ package com.purplepip.odin.sequence;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.flow.MetronomeFlow;
-import com.purplepip.odin.music.flow.NotationFlow;
-import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
@@ -48,13 +45,6 @@ public class SequenceFactoryTest {
     assertEquals(16, metronome.getLength());
     assertEquals(1, metronome.getLayers().size());
     assertEquals("groove", metronome.getLayers().get(0));
-  }
-
-  @Test
-  public void testGetFlowClass() {
-    assertEquals(NotationFlow.class, sequenceFactory.getFlowClass("notation"));
-    assertEquals(MetronomeFlow.class, sequenceFactory.getFlowClass("metronome"));
-    assertEquals(PatternFlow.class, sequenceFactory.getFlowClass("pattern"));
   }
 
   @Test

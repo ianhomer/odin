@@ -28,7 +28,7 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.SequenceConfiguration;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.Flow;
@@ -43,7 +43,7 @@ import java.util.List;
 import org.junit.Test;
 
 public class NotationFlowTest {
-  private Flow<SequenceConfiguration, Note> createNotationFlow(String notationAsString) {
+  private Flow<Sequence<Note>, Note> createNotationFlow(String notationAsString) {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addNotation(Ticks.BEAT, notationAsString);
@@ -56,7 +56,7 @@ public class NotationFlowTest {
 
   @Test
   public void testGetNextEvent() {
-    Flow<SequenceConfiguration, Note> flow = createNotationFlow("B5/q, E5, G5, C5");
+    Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/q, E5, G5, C5");
     Event<Note> event = flow
         .getNextEvent(new MovableTock(Ticks.BEAT, Rationals.MINUS_ONE));
     assertEquals(Wholes.ZERO, event.getTime());
@@ -65,7 +65,7 @@ public class NotationFlowTest {
 
   @Test
   public void testGetMultipleEvents() {
-    Flow<SequenceConfiguration, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
+    Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
     List<Event> events = new ArrayList<>();
     Real previousEventTime = Rationals.MINUS_ONE;
     for (int i = 0; i < 10 ;i++) {

@@ -22,18 +22,15 @@ import com.purplepip.odin.sequence.ScanForwardEvent;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tock;
-import java.lang.reflect.ParameterizedType;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Abstract logic class.
+ * Default flow.
  */
 @Slf4j
-public abstract class AbstractFlow<S extends Sequence<A>, A>
-    implements MutableFlow<S, A> {
+public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> {
   private FlowConfiguration configuration;
   private S sequence;
-  private Class<S> sequenceClass;
   private FlowContext context;
 
   /**
@@ -43,15 +40,8 @@ public abstract class AbstractFlow<S extends Sequence<A>, A>
    * @param measureProvider measure provider
    */
   @SuppressWarnings("unchecked")
-  public AbstractFlow(Clock clock, MeasureProvider measureProvider) {
+  public DefaultFlow(Clock clock, MeasureProvider measureProvider) {
     this.context = new FlowContext(clock, measureProvider);
-    this.sequenceClass = (Class<S>) ((ParameterizedType) getClass()
-        .getGenericSuperclass()).getActualTypeArguments()[0];
-  }
-
-  @Override
-  public Class<S> getSequenceClass() {
-    return sequenceClass;
   }
 
   @Override

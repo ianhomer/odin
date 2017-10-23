@@ -22,9 +22,6 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.music.flow.MetronomeFlow;
-import com.purplepip.odin.music.flow.NotationFlow;
-import com.purplepip.odin.music.flow.PatternFlow;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
@@ -35,8 +32,8 @@ import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.properties.beany.Setter;
 import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceConfiguration;
-import com.purplepip.odin.sequence.flow.Flow;
 import com.purplepip.odin.sequence.flow.Flows;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
 import com.purplepip.odin.sequence.layer.Layer;
@@ -142,7 +139,7 @@ public class ProjectBuilder {
   }
 
   private MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
-                                                Class<? extends Flow> clazz) {
+                                                Class<? extends Sequence> clazz) {
     sequence.setFlowName(Flows.getFlowName(clazz));
     return sequence;
   }
@@ -150,7 +147,7 @@ public class ProjectBuilder {
   private MutableSequenceConfiguration withDefaultsForMetronome(
       MutableSequenceConfiguration sequence) {
     sequence.setTick(createTick(Ticks.HALF));
-    withFlow(sequence, MetronomeFlow.class);
+    withFlow(sequence, Metronome.class);
     new Setter(sequence)
         .set("noteBarStart", createNote(Notes.newDefault()))
         .set("noteBarMid", createNote(new DefaultNote(64,Notes.DEFAULT_VELOCITY / 2,
@@ -160,12 +157,12 @@ public class ProjectBuilder {
 
   private MutableSequenceConfiguration withDefaultsForPattern(
       MutableSequenceConfiguration sequence) {
-    return withFlow(withDefaults(sequence), PatternFlow.class);
+    return withFlow(withDefaults(sequence), Pattern.class);
   }
 
   private MutableSequenceConfiguration withDefaultsForNotation(
       MutableSequenceConfiguration sequence) {
-    return withFlow(withDefaults(sequence), NotationFlow.class);
+    return withFlow(withDefaults(sequence), Notation.class);
   }
 
   private MutableSequenceConfiguration withDefaults(MutableSequenceConfiguration sequence) {
