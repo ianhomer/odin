@@ -132,6 +132,10 @@ Sequence.defaultProps = {
       cellWidth: 2,
       defaultValue: 'pattern'
     },
+    'enabled': {
+      defaultValue: true,
+      hidden: true
+    },
     'layers': {
       defaultValue: '',
       hidden: true

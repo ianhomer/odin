@@ -70,6 +70,10 @@ Pattern.defaultProps = {
       defaultValue: 'pattern',
       readOnly: true
     },
+    'enabled': {
+      defaultValue: true,
+      hidden: true
+    },
     'layers': {
       defaultValue: '',
       hidden: true

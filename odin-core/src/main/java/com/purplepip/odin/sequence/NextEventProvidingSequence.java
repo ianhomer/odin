@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
@@ -34,6 +35,7 @@ public interface NextEventProvidingSequence<A> extends Sequence {
    */
   Event<A> getNextEvent(FlowContext context, Loop loop);
 
+  @JsonIgnore
   default Rational getLoopLength() {
     return Whole.valueOf(getLength());
   }
