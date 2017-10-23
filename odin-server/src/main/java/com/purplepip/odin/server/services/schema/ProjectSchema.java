@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaConfig;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.SequenceFactory;
@@ -48,14 +49,6 @@ public class ProjectSchema {
     ObjectMapper mapper = new ObjectMapper();
     mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
 
-    JsonSchemaGenerator schemaGenerator = new JsonSchemaGenerator(mapper);
-    /*
-     * Re-register project so that it now references types instead of inlining them.
-     */
-    registerType(schemaGenerator, Project.class, getSchemaReference(Project.class));
-    /*
-     * Register sequence flows project referenced.
-     */
     Map<String, String> customType2FormatMapping = new HashMap<>();
     customType2FormatMapping.put(Project.class.getName(), "uri");
 
@@ -63,6 +56,10 @@ public class ProjectSchema {
     classTypeMapping.put(Project.class, String.class);
     classTypeMapping.put(Tick.class, PersistableTick.class);
     classTypeMapping.put(Note.class, PersistableNote.class);
+    /*
+     * TODO : Treat rationals as better than integers
+     */
+    classTypeMapping.put(Rational.class, Integer.class);
 
     JsonSchemaConfig config = JsonSchemaConfig.create(
         true,
@@ -80,6 +77,16 @@ public class ProjectSchema {
         classTypeMapping,
         new HashMap<>()
     );
+
+    JsonSchemaGenerator schemaGenerator = new JsonSchemaGenerator(mapper);
+    /*
+     * Re-register project so that it now references types instead of inlining them.
+     */
+    registerType(schemaGenerator, Project.class, getSchemaReference(Project.class));
+
+    /*
+     * Register sequence flows project referenced.
+     */
     JsonSchemaGenerator flowSchemaGenerator = new JsonSchemaGenerator(mapper, config);
     factory.getSequenceNames().forEach(name ->
         registerFlow(flowSchemaGenerator, name, factory.getSequenceClass(name))

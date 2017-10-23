@@ -42,6 +42,6 @@ public class PersistableLayerTest {
     tick.setTimeUnit(TimeUnit.BEAT);
     layer2.setTick(tick);
     Layer layer1 = builder.getLayerByOrder(0);
-    assertEquals(layer1, layer2);
+    assertEquals(layer2, layer1);
   }
 }

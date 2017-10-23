@@ -17,10 +17,9 @@ package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.sequence.Clock;
+import com.purplepip.odin.sequence.NextEventProvidingSequence;
 import com.purplepip.odin.sequence.ScanForwardEvent;
-import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tock;
 import java.lang.reflect.ParameterizedType;
@@ -30,12 +29,11 @@ import lombok.extern.slf4j.Slf4j;
  * Abstract logic class.
  */
 @Slf4j
-public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow<S, A> {
+public abstract class AbstractFlow<S extends NextEventProvidingSequence<A>, A>
+    implements MutableFlow<S, A> {
   private FlowConfiguration configuration;
   private S sequence;
   private Class<S> sequenceClass;
-  private Clock clock;
-  private MeasureProvider measureProvider;
   private FlowContext context;
 
   /**
@@ -85,21 +83,16 @@ public abstract class AbstractFlow<S extends Sequence, A> implements MutableFlow
   }
 
   @Override
-  public Real getLength() {
-    return Whole.valueOf(getSequence().getLength());
-  }
-
-  @Override
   public Event<A> getNextEvent(Tock tock) {
     /*
      * Create local and temporary mutable tock for this function execution.
      */
-    Loop loop = new Loop(getLength(), tock.getPosition());
+    Loop loop = new Loop(sequence.getLoopLength(), tock.getPosition());
     int i = 0;
     long maxScanForward = getMaxScanForward().floor();
     Event<A> event = null;
     while (event == null && i < maxScanForward) {
-      event = getNextEvent(getContext(), loop);
+      event = sequence.getNextEvent(getContext(), loop);
       if (event == null) {
         LOG.debug("No event found at tock {}, incrementing loop", loop);
         loop.increment();

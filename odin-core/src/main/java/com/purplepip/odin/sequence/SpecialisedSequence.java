@@ -15,7 +15,9 @@
 
 package com.purplepip.odin.sequence;
 
-public interface SpecialisedSequence extends MutableSequence {
+import com.purplepip.odin.music.notes.Note;
+
+public interface SpecialisedSequence extends MutableSequence, NextEventProvidingSequence<Note> {
   @Override
   default boolean arePropertiesDeclared() {
     return true;

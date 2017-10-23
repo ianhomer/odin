@@ -1,12 +1,8 @@
 package com.purplepip.odin.sequence.flow;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
-import com.purplepip.logcapture.LogCaptor;
-import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
@@ -42,18 +38,5 @@ public class FlowFactoryTest {
     Flow<Sequence, Note> flow =
         flowFactory.createFlow(project.getSequences().iterator().next(), clock, measureProvider);
     assertEquals("MetronomeFlow", flow.getClass().getSimpleName());
-  }
-
-  @Test
-  public void testCreateFlowNotExists() throws OdinException {
-    FlowFactory<Note> flowFactory = new FlowFactory<>(new DefaultFlowConfiguration());
-    when(sequence.getFlowName()).thenReturn("FlowDoesNotExist");
-    try (LogCaptor captor = new LogCapture().error().from(FlowFactory.class).start()) {
-      Flow flow = flowFactory.createFlow(sequence, clock, measureProvider);
-      assertEquals(FailOverFlow.class.getName(), flow.getClass().getName());
-      assertEquals(1, captor.size());
-      assertEquals("Flow class FlowDoesNotExist not registered",
-          captor.getMessage(0));
-    }
   }
 }

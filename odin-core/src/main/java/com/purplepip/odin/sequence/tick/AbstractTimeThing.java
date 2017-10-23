@@ -16,6 +16,8 @@
 package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.bag.AbstractThing;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Wholes;
 
 public abstract class AbstractTimeThing extends AbstractThing implements MutableTimeThing {
   private boolean enabled = false;

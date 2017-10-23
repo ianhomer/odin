@@ -17,7 +17,7 @@ package com.purplepip.odin.music.composition.events;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Bound;
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class IndexedComposition {
    * Events indexed on the integer
    */
   private HashMap<Long, List<Event<Note>>> events = new HashMap<>();
-  private Real length;
+  private Rational length;
 
   /**
    * Create an indexed composition.
@@ -79,7 +79,7 @@ public class IndexedComposition {
     return events.isEmpty();
   }
 
-  public Real getLength() {
+  public Rational getLength() {
     return length;
   }
 }

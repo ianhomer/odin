@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.bag.Thing;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public interface TimeThing extends Thing {
@@ -41,13 +40,18 @@ public interface TimeThing extends Thing {
    *
    * @return length
    */
-  @Min(-1)
+  /*
+   * TODO : Change length from long to Rational
+   */
   long getLength();
 
   /**
    * Offset for the start of this thing.
    *
    * @return offset
+   */
+  /*
+   * TODO : Change offset from long to Rational
    */
   long getOffset();
 }

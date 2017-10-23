@@ -32,6 +32,10 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * JSON configuration for the system.  Note that this configuration is also used by the REST
+ * service where given class types are used.
+ */
 @Configuration
 public class JsonConfiguration {
   @Autowired

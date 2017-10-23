@@ -47,6 +47,7 @@ public class SequenceRestTest {
                 .property("name", "new-notations-name")
                 .property("project", projectUri)
                 .property("flowName", "notation")
+                .property("length", "2")
                 .properties()
                 .property("notation", "A B C D")
                 .property("format", "natural")
@@ -70,6 +71,7 @@ public class SequenceRestTest {
     mvc.perform(sendingJson(get(entityUri)))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.offset", is(0)))
+        .andExpect(jsonPath("$.length", is(2)))
         .andExpect(jsonPath("$.properties.notation", is("A B C D")));
 
     /*

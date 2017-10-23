@@ -15,13 +15,15 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+import com.purplepip.odin.math.Rational;
+
 /**
  * Window of activity for a conductor.
  */
 public class Window {
-  private long start;
-  private long length;
-  private long end;
+  private Rational start;
+  private Rational length;
+  private Rational end;
 
   /**
    * Create a window.
@@ -29,10 +31,10 @@ public class Window {
    * @param start start position
    * @param length length of window
    */
-  public Window(long start, long length) {
+  public Window(Rational start, Rational length) {
     this.start = start;
     this.length = length;
-    this.end = start + length;
+    this.end = length.plus(start);
   }
 
   /**
@@ -40,15 +42,15 @@ public class Window {
    *
    * @return length
    */
-  public long getLength() {
+  public Rational getLength() {
     return length;
   }
 
-  public long getStart() {
+  public Rational getStart() {
     return start;
   }
 
-  public long getEnd() {
+  public Rational getEnd() {
     return end;
   }
 }

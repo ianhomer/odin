@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Mutable;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
@@ -109,8 +110,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     refresh();
   }
 
-  protected long getLength() {
-    return getSequence().getLength();
+  protected Rational getLength() {
+    return Whole.valueOf(getSequence().getLength());
   }
 
   @Override
@@ -313,7 +314,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       LOG.trace("is rolling false : track not enabled");
       return false;
     }
-    boolean result = getLength() < 0 || tock.getPosition().lt(Whole.valueOf(getLength()));
+    boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
     LOG.trace("isRolling {} : {} < {}", result, tock.getPosition(), getLength());
     return result;
   }

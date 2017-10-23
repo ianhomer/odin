@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.LessThan;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import lombok.ToString;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 public class Loop {
-  private Real length;
+  private Rational length;
   private Bound position;
   private boolean isPositionReal;
 
@@ -38,7 +39,7 @@ public class Loop {
    * @param loopLength loop length
    * @param position position in the loop
    */
-  public Loop(Real loopLength, Bound position) {
+  public Loop(Rational loopLength, Bound position) {
     this.length = loopLength;
     this.position = position;
     isPositionReal = position instanceof Real;

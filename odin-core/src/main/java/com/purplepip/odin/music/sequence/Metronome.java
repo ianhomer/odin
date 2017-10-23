@@ -17,11 +17,17 @@ package com.purplepip.odin.music.sequence;
 
 import static com.purplepip.odin.music.notes.Notes.newDefault;
 
+import com.purplepip.odin.events.DefaultEvent;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
+import com.purplepip.odin.sequence.flow.FlowContext;
+import com.purplepip.odin.sequence.flow.Loop;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,6 +58,22 @@ public class Metronome extends GenericSequence implements SpecialisedSequence {
 
   public Metronome(long id) {
     super(id);
+  }
+
+  @Override
+  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
+    Note note;
+    Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
+    if (nextTock.modulo(Wholes.TWO).equals(Wholes.ZERO)) {
+      if (context.getMeasureProvider().getCount(nextTock).floor() == 0) {
+        note = getNoteBarStart();
+      } else {
+        note = getNoteBarMid();
+      }
+      LOG.trace("Creating metronome note {} at {}", note, loop);
+      return new DefaultEvent<>(note, nextTock);
+    }
+    return null;
   }
 
   /**

@@ -23,6 +23,9 @@ import java.io.IOException;
 import org.springframework.stereotype.Component;
 
 @Component
+/*
+ * TODO : Move this to generic package since this is to be used by whole REST service.
+ */
 public class RationalSerializer extends StdSerializer<Rational> {
   private static final long serialVersionUID = 1;
 

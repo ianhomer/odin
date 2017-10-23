@@ -44,4 +44,6 @@ public interface PropertiesProvider {
   default boolean arePropertiesDeclared() {
     return false;
   }
+
+  default void afterPropertiesSet() { }
 }

@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequence.conductor;
 
 import com.purplepip.odin.bag.Thing;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import java.util.stream.Stream;
 
@@ -55,7 +56,7 @@ public interface Conductor extends Thing {
    *
    * @return length
    */
-  long getLength();
+  Rational getLength();
 
   /**
    * Offset from the start for when the conductor may be active.

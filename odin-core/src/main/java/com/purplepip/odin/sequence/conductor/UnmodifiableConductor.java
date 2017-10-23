@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import java.util.stream.Stream;
 import lombok.ToString;
@@ -53,7 +54,7 @@ public class UnmodifiableConductor implements Conductor {
   }
 
   @Override
-  public long getLength() {
+  public Rational getLength() {
     return underlyingConductor.getLength();
   }
 

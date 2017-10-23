@@ -18,7 +18,10 @@ package com.purplepip.odin.sequencer;
 import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
 
 import com.google.common.collect.Lists;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
@@ -71,7 +74,7 @@ public class ProjectBuilder {
   private int channel;
   private int noteNumber;
   private int velocity;
-  private int length;
+  private Rational length;
   private int offset;
   private Tick tick = BEAT;
   private List<String> layerNamesToAdd = new ArrayList<>();
@@ -181,7 +184,7 @@ public class ProjectBuilder {
     channel = 0;
     noteNumber = Notes.DEFAULT_NUMBER;
     velocity = Notes.DEFAULT_VELOCITY;
-    length = -1;
+    length = Wholes.MINUS_ONE;
     offset = 0;
     layerNamesToAdd.clear();
     triggersToAdd.clear();
@@ -190,7 +193,7 @@ public class ProjectBuilder {
 
   private MutableLayer withDefaults(MutableLayer layer) {
     layer.setTick(createTick(BEAT));
-    layer.setLength(length);
+    layer.setLength(length.floor());
     layer.setOffset(offset);
     return layer;
   }
@@ -387,8 +390,8 @@ public class ProjectBuilder {
     return this;
   }
 
-  public ProjectBuilder withLength(int length) {
-    this.length = length;
+  public ProjectBuilder withLength(long length) {
+    this.length = Whole.valueOf(length);
     return this;
   }
 
@@ -549,7 +552,7 @@ public class ProjectBuilder {
     sequence.setEnabled(enabled);
     sequence.setOffset(0);
     sequence.setChannel(channel);
-    sequence.setLength(length);
+    sequence.setLength(length.floor());
     sequence.setOffset(offset);
     if (sequence.getTick() == null) {
       sequence.setTick(tick);

@@ -15,17 +15,11 @@
 
 package com.purplepip.odin.music.flow;
 
-import com.purplepip.odin.events.DefaultEvent;
-import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
-import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
-import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,21 +31,5 @@ import lombok.extern.slf4j.Slf4j;
 public class MetronomeFlow extends AbstractFlow<Metronome, Note> {
   public MetronomeFlow(Clock clock, MeasureProvider measureProvider) {
     super(clock, measureProvider);
-  }
-
-  @Override
-  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
-    Note note;
-    Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
-    if (nextTock.modulo(Wholes.TWO).equals(Wholes.ZERO)) {
-      if (context.getMeasureProvider().getCount(nextTock).floor() == 0) {
-        note = getSequence().getNoteBarStart();
-      } else {
-        note = getSequence().getNoteBarMid();
-      }
-      LOG.trace("Creating metronome note {} at {}", note, loop);
-      return new DefaultEvent<>(note, nextTock);
-    }
-    return null;
   }
 }

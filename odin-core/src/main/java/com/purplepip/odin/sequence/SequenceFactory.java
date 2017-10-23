@@ -18,7 +18,6 @@ package com.purplepip.odin.sequence;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.flow.FailOverFlow;
 import com.purplepip.odin.music.flow.MetronomeFlow;
 import com.purplepip.odin.music.flow.NotationFlow;
 import com.purplepip.odin.music.flow.PatternFlow;
@@ -48,7 +47,6 @@ public class SequenceFactory {
       DEFAULT_SEQUENCES = new HashMap<>();
   private static final Map<String, Class<? extends Sequence>>
       SEQUENCES = new HashMap<>();
-  private static final Class<? extends MutableFlow> FAIL_OVER_FLOW_CLASS = FailOverFlow.class;
 
   /*
    * Statically register known flows.  In the future we may design a plugin architecture, but
@@ -142,6 +140,7 @@ public class SequenceFactory {
                 LOG.warn("Whilst creating sequence {}", e.getMessage());
               }
             });
+        newSequence.afterPropertiesSet();
         LOG.debug("Starting flow with typed copy {}", newSequence);
       }
     }
@@ -150,10 +149,6 @@ public class SequenceFactory {
 
   public Class<? extends MutableFlow> getFlowClass(String name) {
     return FLOWS.get(name);
-  }
-
-  public Class<? extends MutableFlow> getFailOverFlowClass() {
-    return FAIL_OVER_FLOW_CLASS;
   }
 
   public Class<? extends Sequence> getSequenceClass(String name) {

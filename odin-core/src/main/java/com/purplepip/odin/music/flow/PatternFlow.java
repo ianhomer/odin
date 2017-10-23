@@ -15,17 +15,11 @@
 
 package com.purplepip.odin.music.flow;
 
-import com.purplepip.odin.events.DefaultEvent;
-import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.flow.AbstractFlow;
-import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
-import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 
 /**
@@ -35,22 +29,5 @@ import com.purplepip.odin.sequence.measure.MeasureProvider;
 public class PatternFlow extends AbstractFlow<Pattern, Note> {
   public PatternFlow(Clock clock, MeasureProvider measureProvider) {
     super(clock, measureProvider);
-  }
-
-  @Override
-  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
-    Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
-    long countInMeasure = getContext().getMeasureProvider()
-        .getCount(nextTock).floor();
-    if (getSequence().getBits() == -1 || ((getSequence().getBits() >> countInMeasure) & 1) == 1)  {
-      return new DefaultEvent<>(getSequence().getNote(), nextTock);
-    }
-
-    return null;
-  }
-
-  @Override
-  public boolean isEmpty() {
-    return getSequence().getBits() == 0;
   }
 }

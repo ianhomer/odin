@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequence.conductor;
 
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
@@ -94,8 +95,8 @@ public class LayerConductor implements Conductor {
 
 
   @Override
-  public long getLength() {
-    return layer.getLength();
+  public Rational getLength() {
+    return Whole.valueOf(layer.getLength());
   }
 
   @Override
@@ -143,19 +144,19 @@ public class LayerConductor implements Conductor {
      * have an offset which will be added to this start point to give the point when the conductor
      * becomes active.
      */
-    long position = 0;
+    Rational position = Wholes.ZERO;
     for (Conductor child : children.values()) {
       /*
        * Child length less than zero means it can always be active.
        */
-      if (child.getLength() > 0) {
-        long childWindowLength = child.getOffset() + child.getLength();
+      if (child.getLength().isPositive()) {
+        Rational childWindowLength = child.getLength().plus(Whole.valueOf(child.getOffset()));
         Window window = new Window(position, childWindowLength);
         position = window.getEnd();
         windows.put(child.getName(), window);
       }
     }
-    loopLength = Whole.valueOf(position);
+    loopLength = position;
   }
 
   /**
@@ -171,9 +172,9 @@ public class LayerConductor implements Conductor {
           getName(), microseconds);
       return false;
     }
-    long position = getPosition(microseconds).floor();
-    boolean result = position >= getOffset()
-        && (getLength() <= 0 || position < getLength());
+    Whole position = getPosition(microseconds).wholeFloor();
+    boolean result = position.ge(Whole.valueOf(getOffset()))
+        && (getLength().isNegative() || position.lt(getLength()));
     if (LOG.isDebugEnabled()) {
       LOG.debug("isEnabled {} : {}, tock {}, µs {}, length {}, loop {}",
           getName(), result, position, microseconds, getLength(), loopLength);
@@ -206,7 +207,7 @@ public class LayerConductor implements Conductor {
     if (window == null) {
       return position;
     } else {
-      return position.minus(Whole.valueOf(window.getStart())).modulo(loopLength);
+      return position.minus(window.getStart()).modulo(loopLength);
     }
   }
 }

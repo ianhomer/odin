@@ -16,6 +16,7 @@
 package com.purplepip.odin.server.services.schema;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -29,12 +30,18 @@ import org.junit.Test;
 @Slf4j
 public class ProjectSchemaTest {
   @Test
-  public void testCore() {
+  public void testProject() {
     ProjectSchema project = new ProjectSchema();
     JsonNode schema = project.getType("urn:jsonschema:com:purplepip:odin:project:Project");
     JsonNode properties = schema.get("properties");
     String type = properties.get("layers").get("type").asText();
     assertEquals("array", type);
+    JsonNode sequenceDefinition = schema.get("definitions").get("Sequence");
+    assertNotNull(sequenceDefinition);
+    JsonNode lengthType = sequenceDefinition.get("properties").get("length").get("type");
+    assertNotNull("length definition not correct in " + sequenceDefinition, lengthType);
+    assertEquals("integer", lengthType.asText());
+
   }
 
   @Test
@@ -47,7 +54,6 @@ public class ProjectSchemaTest {
     logObjectAsJson(notationSchema);
     JsonNode properties = notationSchema.get("properties");
     assertEquals("string", properties.get("format").get("type").asText());
-    assertEquals(-1, properties.get("length").get("minimum").asInt());
   }
 
   private void logObjectAsJson(Object object) {

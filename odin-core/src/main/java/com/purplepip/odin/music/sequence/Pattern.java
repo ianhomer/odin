@@ -15,12 +15,18 @@
 
 package com.purplepip.odin.music.sequence;
 
+import com.purplepip.odin.events.DefaultEvent;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
+import com.purplepip.odin.sequence.flow.FlowContext;
+import com.purplepip.odin.sequence.flow.Loop;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +48,17 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
 
   public Pattern(long id) {
     super(id);
+  }
+
+  @Override
+  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
+    Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
+    long countInMeasure = context.getMeasureProvider()
+        .getCount(nextTock).floor();
+    if (getBits() == -1 || ((getBits() >> countInMeasure) & 1) == 1)  {
+      return new DefaultEvent<>(getNote(), nextTock);
+    }
+    return null;
   }
 
   /**

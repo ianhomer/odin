@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.music.flow.FailOverFlow;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.MutableSequence;
@@ -49,8 +49,7 @@ public class FlowFactory<A> {
 
     Class<? extends MutableFlow> flowClass = sequenceFactory.getFlowClass(sequence.getFlowName());
     if (flowClass == null) {
-      LOG.error("Flow class " + sequence.getFlowName() + " not registered");
-      flowClass = sequenceFactory.getFailOverFlowClass();
+      throw new OdinRuntimeException("Flow class " + sequence.getFlowName() + " not registered");
     }
     MutableFlow<Sequence, A> flow;
     try {
@@ -58,8 +57,7 @@ public class FlowFactory<A> {
           .newInstance(clock, measureProvider);
     } catch (InstantiationException | IllegalAccessException
         | NoSuchMethodException | InvocationTargetException e) {
-      LOG.error("Cannot create instance of " + flowClass, e);
-      flow = (MutableFlow<Sequence, A>) new FailOverFlow(clock, measureProvider);
+      throw new OdinRuntimeException("Cannot create instance of " + flowClass, e);
     }
     flow.setSequence(copyFrom(sequence));
     flow.setConfiguration(flowConfiguration);
