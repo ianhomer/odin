@@ -87,11 +87,6 @@ public class SequenceFactory<A> {
     TypeConverterManager.register(Rational.class, new RationalTypeConverter());
   }
 
-  <S extends Sequence<A>> S createTypedCopy(Class<? extends S> newClassType,
-                                                      SequenceConfiguration original) {
-    return createCopy(newClassType, original);
-  }
-
   /**
    * Create a copy of the sequence with the expected type.
    *
@@ -100,8 +95,8 @@ public class SequenceFactory<A> {
    * @return sequence of expected type
    */
   @SuppressWarnings("unchecked")
-  public <S extends Sequence<A>> S createCopy(Class<? extends S> expectedType,
-                                                        SequenceConfiguration original) {
+  public <S extends Sequence<A>> S newSequence(Class<? extends S> expectedType,
+                                               SequenceConfiguration original) {
 
     S newSequence;
     if (expectedType == null) {

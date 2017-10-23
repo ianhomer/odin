@@ -18,6 +18,9 @@ package com.purplepip.odin.bag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
 
+/**
+ * A generic identifiable thing.
+ */
 public interface Thing {
   /**
    * Get ID for the thing.

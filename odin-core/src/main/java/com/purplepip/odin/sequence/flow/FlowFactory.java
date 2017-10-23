@@ -53,14 +53,14 @@ public class FlowFactory<A> {
   }
 
   /**
-   * Set sequence in the flow with a copy or a down cast to the required sequence type.
+   * Create a copy of the given sequence configuration and cast to the required sequence type.
    *
    * @param sequence sequence to use as a template for the one that is set
    */
   public Sequence<A> copyFrom(SequenceConfiguration sequence) {
     Class<? extends Sequence<A>> expectedType =
         sequenceFactory.getSequenceClass(sequence.getFlowName());
-    return sequenceFactory.createCopy(expectedType, sequence);
+    return sequenceFactory.newSequence(expectedType, sequence);
   }
 
   /**

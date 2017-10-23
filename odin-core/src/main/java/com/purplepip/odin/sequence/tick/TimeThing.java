@@ -18,6 +18,9 @@ package com.purplepip.odin.sequence.tick;
 import com.purplepip.odin.bag.Thing;
 import javax.validation.constraints.NotNull;
 
+/**
+ * A thing that is time dependent.
+ */
 public interface TimeThing extends Thing {
   /**
    * Whether this thing is enabled by default.  Note that triggers can enable the thing.

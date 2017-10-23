@@ -26,7 +26,8 @@ import java.util.Map;
 import javax.validation.constraints.NotNull;
 
 /**
- * Sequence configuration.
+ * Sequence configuration.   This class contains pure data that can be readily persisted.
+ * @see Sequence for interface which can include sequence logic.
  */
 public interface SequenceConfiguration extends
     Copyable<SequenceConfiguration>, TimeThing, PropertiesProvider {
