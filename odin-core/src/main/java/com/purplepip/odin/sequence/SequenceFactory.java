@@ -88,6 +88,16 @@ public class SequenceFactory<A> {
   }
 
   /**
+   * Create a copy of the given sequence configuration and cast to the required sequence type.
+   *
+   * @param sequence sequence to use as a template for the one that is set
+   */
+  public Sequence<A> newSequence(SequenceConfiguration sequence) {
+    Class<? extends Sequence<A>> expectedType = getSequenceClass(sequence.getFlowName());
+    return newSequence(sequence, expectedType);
+  }
+
+  /**
    * Create a copy of the sequence with the expected type.
    *
    * @param expectedType expected type of the returned sequence
@@ -95,9 +105,8 @@ public class SequenceFactory<A> {
    * @return sequence of expected type
    */
   @SuppressWarnings("unchecked")
-  public <S extends Sequence<A>> S newSequence(Class<? extends S> expectedType,
-                                               SequenceConfiguration original) {
-
+  public <S extends Sequence<A>> S newSequence(SequenceConfiguration original,
+                                               Class<? extends S> expectedType) {
     S newSequence;
     if (expectedType == null) {
       throw new OdinRuntimeException("Expected sequence type for " + original.getFlowName()

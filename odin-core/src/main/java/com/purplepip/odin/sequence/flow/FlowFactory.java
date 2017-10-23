@@ -41,26 +41,17 @@ public class FlowFactory<A> {
    * Create flow object for the given sequence.
    *
    * @param sequence sequence
+   * @param clock clock
+   * @param measureProvider measure provider
    * @return flow
    */
   public MutableFlow<Sequence<A>, A> createFlow(
       SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
     MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
-    flow.setSequence(copyFrom(sequence));
+    flow.setSequence(sequenceFactory.newSequence(sequence));
     flow.setConfiguration(flowConfiguration);
     flow.afterPropertiesSet();
     return flow;
-  }
-
-  /**
-   * Create a copy of the given sequence configuration and cast to the required sequence type.
-   *
-   * @param sequence sequence to use as a template for the one that is set
-   */
-  public Sequence<A> copyFrom(SequenceConfiguration sequence) {
-    Class<? extends Sequence<A>> expectedType =
-        sequenceFactory.getSequenceClass(sequence.getFlowName());
-    return sequenceFactory.newSequence(expectedType, sequence);
   }
 
   /**
@@ -73,7 +64,17 @@ public class FlowFactory<A> {
     sequenceFactory.getSequenceNames().forEach(name -> {
       MutableSequenceConfiguration sequence = new GenericSequence();
       sequence.setFlowName(name);
-      copyFrom(sequence);
+      sequenceFactory.newSequence(sequence);
     });
+  }
+
+  /**
+   * Refresh the sequence in the flow.
+   *
+   * @param flow flow to refresh
+   * @param sequence sequence to update flow with
+   */
+  public void refreshSequence(MutableFlow<Sequence<A>, A> flow, SequenceConfiguration sequence) {
+    flow.setSequence(sequenceFactory.newSequence(sequence));
   }
 }

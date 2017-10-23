@@ -41,7 +41,7 @@ public class SequenceFactoryTest {
         .addMetronome();
     SequenceConfiguration sequence = container.getSequenceStream()
         .findFirst().orElseThrow(OdinException::new);
-    Metronome metronome = factory.newSequence(Metronome.class, sequence);
+    Metronome metronome = factory.newSequence(sequence, Metronome.class);
     assertEquals(16, metronome.getLength());
     assertEquals(1, metronome.getLayers().size());
     assertEquals("groove", metronome.getLayers().get(0));
