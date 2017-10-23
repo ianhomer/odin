@@ -42,14 +42,12 @@ public class FlowFactory<A> {
    * @param sequence sequence
    * @return flow
    */
-  @SuppressWarnings("unchecked")
   public MutableFlow<Sequence<A>, A> createFlow(
       SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
     MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
     flow.setSequence(copyFrom(sequence));
     flow.setConfiguration(flowConfiguration);
     flow.afterPropertiesSet();
-
     return flow;
   }
 
@@ -58,10 +56,11 @@ public class FlowFactory<A> {
    *
    * @param sequence sequence to use as a template for the one that is set
    */
+  @SuppressWarnings("unchecked")
   public Sequence<A> copyFrom(SequenceConfiguration sequence) {
     Class<? extends Sequence> expectedType =
         sequenceFactory.getSequenceClass(sequence.getFlowName());
-    return sequenceFactory.createCopy(expectedType, sequence);
+    return (Sequence<A>) sequenceFactory.createCopy(expectedType, sequence);
   }
 
   /**

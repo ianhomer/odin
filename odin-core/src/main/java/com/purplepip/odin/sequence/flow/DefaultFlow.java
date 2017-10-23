@@ -25,7 +25,7 @@ import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Default flow.
+ * Default flow implementation.
  */
 @Slf4j
 public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> {
@@ -39,8 +39,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
    * @param clock clock
    * @param measureProvider measure provider
    */
-  @SuppressWarnings("unchecked")
-  public DefaultFlow(Clock clock, MeasureProvider measureProvider) {
+  DefaultFlow(Clock clock, MeasureProvider measureProvider) {
     this.context = new FlowContext(clock, measureProvider);
   }
 
@@ -68,7 +67,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
     return configuration;
   }
 
-  protected Real getMaxScanForward() {
+  private Real getMaxScanForward() {
     return getContext().getClock().getDuration(getConfiguration().getMaxForwardScan());
   }
 
