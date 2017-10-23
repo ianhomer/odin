@@ -22,7 +22,6 @@ import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
-import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import java.lang.annotation.Annotation;
@@ -40,7 +39,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class SequenceFactory {
-  private static final Map<String, Class<? extends MutableFlow>> FLOWS = new HashMap<>();
   private static final Map<String, Class<? extends Sequence>>
       SEQUENCES = new HashMap<>();
 
@@ -134,16 +132,12 @@ public class SequenceFactory {
     return newSequence;
   }
 
-  public Class<? extends MutableFlow> getFlowClass(String name) {
-    return FLOWS.get(name);
-  }
-
   public Class<? extends Sequence> getSequenceClass(String name) {
     return SEQUENCES.get(name);
   }
 
   public Stream<String> getSequenceNames() {
-    return FLOWS.keySet().stream();
+    return SEQUENCES.keySet().stream();
   }
 
 }
