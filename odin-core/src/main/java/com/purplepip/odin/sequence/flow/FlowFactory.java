@@ -16,8 +16,6 @@
 package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.sequence.Clock;
-import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.SequenceFactory;
@@ -52,20 +50,6 @@ public class FlowFactory<A> {
     flow.setConfiguration(flowConfiguration);
     flow.afterPropertiesSet();
     return flow;
-  }
-
-  /**
-   * For test cases where timing is important it may be necessary to warm the factory up
-   * so the first time it is used performance does not cause inconsistencies.  This warm up
-   * time is pretty small (around 20ms on a dev machine), but enough to throw a sequencer
-   * test that is expecting sequence to start immediately.
-   */
-  public void warmUp() {
-    sequenceFactory.getSequenceNames().forEach(name -> {
-      MutableSequenceConfiguration sequence = new GenericSequence();
-      sequence.setFlowName(name);
-      sequenceFactory.newSequence(sequence);
-    });
   }
 
   /**
