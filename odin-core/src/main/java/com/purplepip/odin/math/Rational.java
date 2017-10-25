@@ -415,7 +415,7 @@ public class Rational extends Real {
   /**
    * Get egyptian fractions.
    *
-   * @param maxIntegerPart Max integer pary
+   * @param maxIntegerPart Max integer part
    * @return egyptian fractions
    */
   public Stream<Rational> getEgyptianFractions(int maxIntegerPart) {

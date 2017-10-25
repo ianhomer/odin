@@ -10,8 +10,10 @@
       <w>autowired</w>
       <w>backends</w>
       <w>beany</w>
+      <w>cheppudira</w>
       <w>clazzes</w>
       <w>coveredratio</w>
+      <w>darkgreen</w>
       <w>devtool</w>
       <w>diachenko</w>
       <w>dlogback</w>
@@ -23,6 +25,7 @@
       <w>gervill</w>
       <w>ianhomer</w>
       <w>ivanov</w>
+      <w>javadocs</w>
       <w>jsonschema</w>
       <w>keypress</w>
       <w>korg</w>
@@ -31,7 +34,11 @@
       <w>middlewares</w>
       <w>midix</w>
       <w>missedcount</w>
+      <w>mohit</w>
+      <w>muthanna</w>
       <w>navbar</w>
+      <w>neue</w>
+      <w>noninfringement</w>
       <w>nord</w>
       <w>parens</w>
       <w>persistables</w>
@@ -41,6 +48,7 @@
       <w>redux</w>
       <w>ruslan</w>
       <w>scry</w>
+      <w>segoe</w>
       <w>sinon</w>
       <w>slint</w>
       <w>sonatype</w>
@@ -54,6 +62,7 @@
       <w>tocks</w>
       <w>toggler</w>
       <w>uglify</w>
+      <w>ultraq</w>
       <w>unconstructible</w>
       <w>unregistering</w>
       <w>unsubscribe</w>

@@ -58,7 +58,7 @@ public class PersistableTimeThing extends PersistableThing implements TimeThing 
   }
 
   @PrePersist
-  public void preTimeThingPesist() {
+  public void preTimeThingPersist() {
     setTimeThingDefaults();
   }
 }

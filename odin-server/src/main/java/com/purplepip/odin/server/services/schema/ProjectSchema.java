@@ -106,7 +106,7 @@ public class ProjectSchema {
    * TODO : AJV module in front end doesn't seem to work for referenced properties on IDs
    * in urn format, e.g. the following is not found
    * urn:jsonschema:com:purplepip:odin:music:sequence:Notation#/definitions/PersistableTick
-   * ... not sure, when end to OK we should confirm if this urn is not valid accorinding to
+   * ... not sure, when end to OK we should confirm if this urn is not valid according to
    * spec or if this is AJV limitation.
    */
   private String getFlowSchemaReference(Class clazz) {
