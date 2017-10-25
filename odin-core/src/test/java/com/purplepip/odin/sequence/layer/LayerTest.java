@@ -21,7 +21,7 @@ import org.junit.Test;
 
 public class LayerTest {
   @Test
-  public void testLaye() {
+  public void testLayer() {
     Layer layer = new DefaultLayer("test");
     assertEquals("test", layer.getName());
   }
