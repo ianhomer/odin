@@ -25,6 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Factory to generate flow object for given sequence.
  */
+/*
+ * TODO : Move all SequenceFactory logic into FlowFactory since SequenceFactory layer is really a
+ * redundant layer of implementation.
+ */
 @Slf4j
 public class FlowFactory<A> {
   private FlowConfiguration flowConfiguration;
