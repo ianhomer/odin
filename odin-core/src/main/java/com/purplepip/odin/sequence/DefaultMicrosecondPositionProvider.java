@@ -19,7 +19,7 @@ package com.purplepip.odin.sequence;
  * Default microsecond position provider.
  */
 public class DefaultMicrosecondPositionProvider implements MicrosecondPositionProvider {
-  private long microsecondsStart;
+  private final long microsecondsStart;
 
   public DefaultMicrosecondPositionProvider() {
     microsecondsStart = System.nanoTime() / 1000;

@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> {
   private FlowConfiguration configuration;
   private S sequence;
-  private FlowContext context;
+  private final FlowContext context;
 
   /**
    * Create flow.

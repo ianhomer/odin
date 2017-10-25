@@ -15,13 +15,8 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequencer.OdinSequencer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,18 +32,6 @@ import org.springframework.core.annotation.Order;
 @ComponentScan({"com.purplepip.odin.server"})
 public class Application {
   private static final Logger LOG = LoggerFactory.getLogger(Application.class);
-
-  @Autowired
-  private MidiDeviceWrapper midiDeviceWrapper;
-
-  @Autowired
-  private MeasureProvider measureProvider;
-
-  @Autowired
-  private OdinSequencer sequencer;
-
-  @Autowired
-  private ProjectContainer container;
 
   /**
    * Odin server start up.

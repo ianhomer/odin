@@ -23,8 +23,8 @@ import com.purplepip.odin.sequence.TickConverter;
  * sequence.
  */
 public class ConvertedMeasureProvider implements MeasureProvider {
-  private MeasureProvider underlyingMeasureProvider;
-  private TickConverter tickConverter;
+  private final MeasureProvider underlyingMeasureProvider;
+  private final TickConverter tickConverter;
 
   /**
    * Create a converted measure provider.  Note that the tick converter provider MUST convert

@@ -33,7 +33,7 @@ public class NotationTest {
     notation.setFormat("test-format");
     notation.setNotation("test-notation");
     notation.addLayer("test-layer");
-    Notation notationCopy = (Notation) notation.copy();
+    Notation notationCopy = notation.copy();
     assertEquals("test-format", notationCopy.getFormat());
     assertEquals("test-notation", notationCopy.getNotation());
     assertEquals("test-layer", notationCopy.getLayers().iterator().next());

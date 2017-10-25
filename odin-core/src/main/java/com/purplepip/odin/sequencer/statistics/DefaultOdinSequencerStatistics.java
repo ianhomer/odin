@@ -22,10 +22,10 @@ import lombok.ToString;
 @ToString
 public class DefaultOdinSequencerStatistics
     implements MutableOdinSequencerStatistics {
-  private ThingStatistics trackStatistics;
+  private final ThingStatistics trackStatistics;
   private ThingStatistics reactorStatistics;
-  private AtomicInteger programChangeCount = new AtomicInteger();
-  private AtomicInteger eventTooLateCount = new AtomicInteger();
+  private final AtomicInteger programChangeCount = new AtomicInteger();
+  private final AtomicInteger eventTooLateCount = new AtomicInteger();
 
   public DefaultOdinSequencerStatistics(ThingStatistics trackStatistics,
                                         ThingStatistics reactorStatistics) {
