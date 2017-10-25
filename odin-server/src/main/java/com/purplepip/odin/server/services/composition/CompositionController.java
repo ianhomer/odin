@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Profile("!noServices")
 public class CompositionController {
-  private NaturalScoreCompositionFactory factory = new NaturalScoreCompositionFactory();
+  private final NaturalScoreCompositionFactory factory = new NaturalScoreCompositionFactory();
 
   @Timed
   @RequestMapping("/services/composition")

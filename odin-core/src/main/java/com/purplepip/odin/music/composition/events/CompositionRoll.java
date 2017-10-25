@@ -35,8 +35,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class CompositionRoll implements Roll<Note> {
-  private Composition composition;
-  private List<Event<Note>> events = new ArrayList<>();
+  private final Composition composition;
+  private final List<Event<Note>> events = new ArrayList<>();
   private Event<Note> currentEvent;
   private Rational currentLoopStart = Wholes.ZERO;
   private int position;

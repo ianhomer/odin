@@ -42,7 +42,6 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
       new OperationEventComparator());
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
   private DefaultOperationProcessorExecutor executor;
-  private MetricRegistry metrics;
 
   /**
    * Create an operation processor.
@@ -52,7 +51,6 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
    */
   DefaultOperationProcessor(BeatClock clock, OperationReceiver operationReceiver,
                             MetricRegistry metrics) {
-    this.metrics = metrics;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }

@@ -114,9 +114,9 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   final class Direction {
-    private Tick sourceTick;
-    private Tick targetTick;
-    private Real scaleFactor;
+    private final Tick sourceTick;
+    private final Tick targetTick;
+    private final Real scaleFactor;
 
     private Direction(Tick sourceTick, Tick targetTick) {
       this.sourceTick = sourceTick;

@@ -32,13 +32,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class BeatClock extends AbstractClock {
-  private MicrosecondPositionProvider microsecondPositionProvider;
-  private Set<ClockListener> listeners = new TreeSet<>(new ClockListenerComparator());
-  private BeatsPerMinute beatsPerMinute;
+  private final MicrosecondPositionProvider microsecondPositionProvider;
+  private final Set<ClockListener> listeners = new TreeSet<>(new ClockListenerComparator());
+  private final BeatsPerMinute beatsPerMinute;
 
   private long microsecondsPositionOfFirstBeat;
   private long startRoundingFactor = 1;
-  private long startOffset;
+  private final long startOffset;
   private boolean started;
 
   public BeatClock(BeatsPerMinute beatsPerMinute) {

@@ -9,7 +9,7 @@ import java.util.List;
  * Operation receiver that captures the operations.
  */
 public class CapturingOperationReceiver implements OperationReceiver {
-  private List<OperationEvent> operationEventList = new ArrayList<>();
+  private final List<OperationEvent> operationEventList = new ArrayList<>();
 
   @Override
   public void send(Operation operation, long time) throws OdinException {

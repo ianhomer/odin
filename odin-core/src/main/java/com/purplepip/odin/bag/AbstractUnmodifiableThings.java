@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 
 public abstract class AbstractUnmodifiableThings<T extends Thing> implements Things<T> {
-  private Things<T> underlyingThings;
+  private final Things<T> underlyingThings;
 
   public AbstractUnmodifiableThings(Things<T> things) {
     this.underlyingThings = things;

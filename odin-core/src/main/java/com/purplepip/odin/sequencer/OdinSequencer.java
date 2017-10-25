@@ -52,7 +52,6 @@ public class OdinSequencer implements ProjectApplyListener {
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private BeatClock clock;
-  private ReactorReceiver sequencerReceiver;
   private boolean started;
   private MutableOdinSequencerStatistics statistics =
       new DefaultOdinSequencerStatistics(
@@ -82,7 +81,7 @@ public class OdinSequencer implements ProjectApplyListener {
     /*
      * Create the sequencer receiver.
      */
-    sequencerReceiver = new ReactorReceiver(reactors, configuration.getMetrics());
+    ReactorReceiver sequencerReceiver = new ReactorReceiver(reactors, configuration.getMetrics());
     configuration.getOperationTransmitter().addListener(sequencerReceiver);
 
     /*

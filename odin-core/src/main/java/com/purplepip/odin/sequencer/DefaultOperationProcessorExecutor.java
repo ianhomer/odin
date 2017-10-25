@@ -29,12 +29,12 @@ public class DefaultOperationProcessorExecutor implements Runnable {
   private static final long FORWARD_POLLING_TIME =
       DefaultOperationProcessor.REFRESH_PERIOD * 1000 * 5;
 
-  private BeatClock clock;
-  private PriorityBlockingQueue<OperationEvent> queue;
-  private OperationReceiver operationReceiver;
-  private Timer jobMetric;
-  private Meter sentMetric;
-  private Meter failureMetric;
+  private final BeatClock clock;
+  private final PriorityBlockingQueue<OperationEvent> queue;
+  private final OperationReceiver operationReceiver;
+  private final Timer jobMetric;
+  private final Meter sentMetric;
+  private final Meter failureMetric;
 
   DefaultOperationProcessorExecutor(BeatClock clock,
                                     PriorityBlockingQueue<OperationEvent> queue,

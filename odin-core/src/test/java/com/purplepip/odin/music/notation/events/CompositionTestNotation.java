@@ -22,7 +22,7 @@ import com.purplepip.odin.music.composition.events.EventsComposition;
  * notation is simple to serialise for comparison, but not designed for human readability.
  */
 public class CompositionTestNotation {
-  private String notation;
+  private final String notation;
 
   public CompositionTestNotation(EventsComposition composition) {
     notation = createNotation(composition);

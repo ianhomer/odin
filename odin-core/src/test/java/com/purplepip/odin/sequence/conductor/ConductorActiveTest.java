@@ -62,7 +62,6 @@ public class ConductorActiveTest {
   private static final Long[] AFTER_FOUR_SECONDS = { FOUR_SECONDS, EIGHT_SECONDS };
 
   private BeatClock clock;
-  private MicrosecondPositionProvider microsecondPositionProvider;
   private MutableConductors conductors;
   private TransientProject project;
   private ProjectBuilder builder;
@@ -73,7 +72,8 @@ public class ConductorActiveTest {
    */
   @Before
   public void setUp() {
-    microsecondPositionProvider = new MovableMicrosecondPositionProvider();
+    MicrosecondPositionProvider microsecondPositionProvider =
+        new MovableMicrosecondPositionProvider();
     clock = new BeatClock(new StaticBeatsPerMinute(60), microsecondPositionProvider);
     conductors = new MutableConductors();
     project = new TransientProject();

@@ -27,8 +27,8 @@ import java.util.stream.Stream;
  * Composition of music.  Tick unit is a beat.
  */
 public class Composition<M extends Measure> {
-  private List<M> measures = new ArrayList<>();
-  private Rational numberOfBeats;
+  private final List<M> measures = new ArrayList<>();
+  private final Rational numberOfBeats;
 
   /**
    * Create composition.

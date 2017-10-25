@@ -41,7 +41,8 @@ public class AuditingOperationReceiver implements OperationReceiver, Initializin
   @Autowired
   private OperationRepository repository;
 
-  private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
+  private final ScheduledExecutorService scheduledPool =
+      Executors.newScheduledThreadPool(1);
 
   @Override
   public void send(Operation operation, long time) throws OdinException {

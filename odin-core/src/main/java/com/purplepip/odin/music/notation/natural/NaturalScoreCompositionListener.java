@@ -47,7 +47,6 @@ public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
   private int intonation;
   private Real duration = Notes.DEFAULT_DURATION;
   private int octave = DEFAULT_OCTAVE;
-  private int velocity = Notes.DEFAULT_VELOCITY;
 
   public EventsComposition getComposition() {
     return composition;
@@ -83,7 +82,8 @@ public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
 
   @Override
   public void exitNote(NaturalScoreParser.NoteContext ctx) {
+    int velocity = Notes.DEFAULT_VELOCITY;
     builder.addNote(new DefaultNote(
-        new NoteNumber(letter, intonation, octave).getValue(),velocity, duration));
+        new NoteNumber(letter, intonation, octave).getValue(), velocity, duration));
   }
 }

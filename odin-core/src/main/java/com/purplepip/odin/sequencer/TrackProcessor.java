@@ -39,7 +39,6 @@ public class TrackProcessor implements ClockListener {
   private ScheduledExecutorService scheduledPool;
   private TrackProcessorExecutor executor;
   private boolean running;
-  private MetricRegistry metrics;
 
   /**
    * Create a series processor.
@@ -54,7 +53,6 @@ public class TrackProcessor implements ClockListener {
                  MutableSequenceProcessorStatistics statistics,
                   MetricRegistry metrics) {
     scheduledPool = Executors.newScheduledThreadPool(1);
-    this.metrics = metrics;
     executor = new TrackProcessorExecutor(
         clock, tracks, operationProcessor, refreshPeriod,
         statistics, metrics
