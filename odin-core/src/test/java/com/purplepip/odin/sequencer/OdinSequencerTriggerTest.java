@@ -20,9 +20,7 @@ public class OdinSequencerTriggerTest {
   public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(16);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
-      lock.countDown();
-    };
+    OperationReceiver operationReceiver = (operation, time) -> lock.countDown();
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
     new BeanyProjectBuilder(environment.getContainer())

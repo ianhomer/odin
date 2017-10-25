@@ -41,7 +41,7 @@ public class SynthesizerConfigurationTest {
     SynthesizerConfiguration loader =
         new SynthesizerConfiguration(midiDeviceWrapper);
     try (LogCaptor captor = new LogCapture().info().from(SynthesizerHelper.class).start()) {
-      loader.run(null);
+      loader.run();
       assertEquals(1, captor.size());
     }
   }

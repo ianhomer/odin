@@ -28,7 +28,7 @@ public class MetronomeTest {
     Metronome metronome = new Metronome();
     metronome.setNoteBarMid(new DefaultNote(1,2,3));
     SequenceConfiguration copy = metronome.copy();
-    assertTrue(copy instanceof Metronome);
+    assertTrue(copy != null);
     Metronome metronomeCopy = (Metronome) copy;
     assertEquals(1, metronomeCopy.getNoteBarMid().getNumber());
   }

@@ -142,7 +142,7 @@ public class SequenceTrack implements Track {
 
   private Event<Note> filter(Event<Note> event) {
     if (event == null) {
-      return event;
+      return null;
     }
     boolean active = false;
     for (Conductor conductor : conductors) {

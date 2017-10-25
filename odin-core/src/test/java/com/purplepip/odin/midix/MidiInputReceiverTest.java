@@ -27,9 +27,7 @@ public class MidiInputReceiverTest {
   @Test
   public void send() throws Exception {
     final AtomicInteger count = new AtomicInteger();
-    OperationReceiver operationReceiver = ((operation, time) -> {
-      count.incrementAndGet();
-    });
+    OperationReceiver operationReceiver = ((operation, time) -> count.incrementAndGet());
     MidiInputReceiver midiInputReceiver = new MidiInputReceiver(operationReceiver);
     midiInputReceiver.send(new ShortMessage(Status.NOTE_ON.getValue(), 60, 50), -1);
     assertEquals(1, count.get());
