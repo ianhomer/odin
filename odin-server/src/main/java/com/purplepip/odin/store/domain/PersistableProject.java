@@ -144,7 +144,7 @@ public class PersistableProject implements Project {
 
   @Override
   public void removeTrigger(Trigger trigger) {
-    boolean result = layers.remove(trigger);
+    boolean result = triggers.remove(trigger);
     if (!result) {
       LOG.warn("Could not remove trigger {} from project with triggers {}", trigger, getTriggers());
     } else {

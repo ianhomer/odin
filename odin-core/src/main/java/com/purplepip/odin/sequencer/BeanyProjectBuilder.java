@@ -17,7 +17,6 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.MutableSequenceConfiguration;
-import com.purplepip.odin.sequence.triggers.MutableTrigger;
 
 /**
  * Project builder which generates bean based objects instead of the specialised types.  This
@@ -59,15 +58,5 @@ public class BeanyProjectBuilder extends ProjectBuilder {
    */
   protected MutableSequenceConfiguration createPattern() {
     return createSequence();
-  }
-
-  /**
-   * Create Pattern.  This method can be overridden by another sequence builder that
-   * uses a different model implementation.
-   *
-   * @return pattern
-   */
-  protected MutableTrigger createTrigger() {
-    return createTrigger();
   }
 }
