@@ -15,9 +15,10 @@
 
 package com.purplepip.odin.sequence.tick;
 
-import com.purplepip.odin.bag.AbstractThing;
+import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 
-public abstract class AbstractTimeThing extends AbstractThing implements MutableTimeThing {
+public abstract class AbstractTimeThing extends AbstractPropertiesThing
+    implements MutableTimeThing {
   private boolean enabled = false;
   private Tick tick;
   private long length = -1;

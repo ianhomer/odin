@@ -13,26 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers.rule;
+package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.sequence.triggers.NoteTrigger;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Create trigger rules.
- */
-public class TriggerRuleFactory {
-  /**
-   * Create trigger rule.
-   *
-   * @param trigger trigger
-   * @return trigger rule
-   */
-  public NoteTriggerRule createRule(NoteTrigger trigger) {
-    /*
-     * TODO : Implement generic logic, but before that is done, review, simplify and reuse
-     * how it is done for sequences.  Perhaps this is the time to define the plugin interface
-     * and how that gets initialised.
-     */
-    return new NoteTriggerRule(trigger);
+import org.junit.Test;
+
+public class TriggerConfigurationTest {
+  @Test
+  public void testCopy() {
+    MutableTriggerConfiguration trigger = new GenericTrigger();
+    trigger.setProperty("note.number", 59);
+    assertEquals("59", trigger.copy().getProperty("note.number"));
   }
 }

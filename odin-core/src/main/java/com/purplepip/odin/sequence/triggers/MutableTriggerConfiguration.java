@@ -13,16 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers.rule;
+package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.sequence.triggers.Trigger;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.project.Project;
+import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import com.purplepip.odin.sequence.tick.MutableTimeThing;
 
-/**
- * Trigger rule.
- */
-public interface TriggerRule<T extends Trigger> {
-  boolean isTriggeredBy(Operation operation);
+public interface MutableTriggerConfiguration extends
+    TriggerConfiguration, MutablePropertiesProvider, MutableTimeThing {
+  void setProject(Project project);
 
-  T getTrigger();
+  void setName(String name);
+
+  void setTriggerRule(String triggerRule);
 }

@@ -13,20 +13,21 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers.rule;
+package com.purplepip.odin.sequence.triggers;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.music.notes.DefaultNote;
-import com.purplepip.odin.sequence.triggers.NoteTrigger;
 import org.junit.Test;
 
-public class TriggerRuleFactoryTest {
+public class TriggerFactoryTest {
   @Test
   public void testCreateRule() throws Exception {
-    NoteTrigger trigger = new NoteTrigger();
-    trigger.setNote(new DefaultNote(60,10,10));
-    NoteTriggerRule rule = new TriggerRuleFactory().createRule(trigger);
-    assertEquals(60, rule.getTrigger().getNote().getNumber());
+    MutableTriggerConfiguration triggerConfiguration = new GenericTrigger();
+    triggerConfiguration.setProperty("note.number", 60);
+    triggerConfiguration.setProperty("note.velocity", 10);
+    triggerConfiguration.setProperty("note.duration", 10);
+    NoteTrigger trigger = TriggerFactory.createTriggerFactory()
+        .newTrigger(triggerConfiguration, NoteTrigger.class);
+    assertEquals(60, trigger.getNote().getNumber());
   }
 }

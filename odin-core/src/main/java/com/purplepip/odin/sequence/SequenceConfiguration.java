@@ -31,6 +31,7 @@ import javax.validation.constraints.NotNull;
  */
 public interface SequenceConfiguration extends
     Copyable<SequenceConfiguration>, TimeThing, PropertiesProvider {
+
   /**
    * Create a copy of this sequence.
    *

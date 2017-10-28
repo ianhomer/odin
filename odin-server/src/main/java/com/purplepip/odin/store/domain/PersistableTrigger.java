@@ -16,12 +16,8 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequence.triggers.MutableTrigger;
+import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.sequencer.Operation;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,13 +37,11 @@ import lombok.extern.slf4j.Slf4j;
 @ToString(exclude = "project", callSuper = true)
 @EqualsAndHashCode(exclude = {"project"}, callSuper = true)
 @Slf4j
-public class PersistableTrigger extends PersistableThing implements MutableTrigger {
+public class PersistableTrigger extends PersistableTimeThing
+    implements MutableTriggerConfiguration {
   @ManyToOne(targetEntity = PersistableProject.class)
   @JoinColumn(name = "PROJECT_ID", nullable = false)
   private Project project;
-
-  @ElementCollection
-  private Map<String, String> properties = new HashMap<>(0);
 
   @NotNull
   private String triggerRule;
@@ -58,20 +52,4 @@ public class PersistableTrigger extends PersistableThing implements MutableTrigg
     // triggers generically and trigger appropriate trigger logic.
     return false;
   }
-
-  @Override
-  public void setProperty(String name, String value) {
-    properties.put(name, value);
-  }
-
-  @Override
-  public String getProperty(String name) {
-    return properties.get(name);
-  }
-
-  @Override
-  public Stream<String> getPropertyNames() {
-    return properties.keySet().stream();
-  }
-
 }

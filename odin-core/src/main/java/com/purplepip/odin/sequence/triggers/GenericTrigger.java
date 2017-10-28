@@ -15,18 +15,29 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.bag.AbstractThing;
 import com.purplepip.odin.project.Project;
+import com.purplepip.odin.sequence.tick.AbstractTimeThing;
 import com.purplepip.odin.sequencer.Operation;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 import lombok.ToString;
 
 @ToString(exclude = "project")
-public class GenericTrigger extends AbstractThing implements MutableTrigger {
+public class GenericTrigger extends AbstractTimeThing implements MutableTriggerConfiguration {
   private Project project;
   private String triggerRule;
+
+  public GenericTrigger() {
+    super();
+  }
+
+  public GenericTrigger(String name) {
+    super(name);
+  }
+
+  public GenericTrigger(long id) {
+    super(id);
+  }
 
   private Map<String, String> properties = new HashMap<>();
 
@@ -38,21 +49,6 @@ public class GenericTrigger extends AbstractThing implements MutableTrigger {
   @Override
   public Project getProject() {
     return project;
-  }
-
-  @Override
-  public String getProperty(String propertyName) {
-    return properties.get(propertyName);
-  }
-
-  @Override
-  public Stream<String> getPropertyNames() {
-    return properties.keySet().stream();
-  }
-
-  @Override
-  public void setProperty(String propertyName, String value) {
-    properties.put(propertyName, value);
   }
 
   @Override

@@ -21,7 +21,7 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.sequence.tick.Tick;
-import com.purplepip.odin.sequence.triggers.MutableTrigger;
+import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.store.domain.PersistableChannel;
@@ -77,7 +77,7 @@ public class PersistableProjectBuilder extends BeanyProjectBuilder {
   }
 
   @Override
-  protected MutableTrigger createTrigger() {
+  protected MutableTriggerConfiguration createTrigger() {
     return new PersistableTrigger();
   }
 

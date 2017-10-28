@@ -18,7 +18,7 @@ package com.purplepip.odin.sequence.reactors;
 import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.sequence.conductor.Conductor;
-import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import com.purplepip.odin.sequencer.Track;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +37,7 @@ public class MutableReactors extends MutableThings<Reactor> {
    * @param triggerStream   trigger stream to use to do the refresh
    * @param reactorSupplier supplier of new reactors
    */
-  public void refresh(Supplier<Stream<Trigger>> triggerStream,
+  public void refresh(Supplier<Stream<TriggerConfiguration>> triggerStream,
                       Supplier<TriggerReactor> reactorSupplier,
                       Things<Conductor> conductors, Things<Track> tracks) {
     removeIf(reactor -> triggerStream.get()

@@ -18,8 +18,8 @@ package com.purplepip.odin.project;
 import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
-import com.purplepip.odin.sequence.triggers.MutableTrigger;
-import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
+import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.Set;
 
@@ -55,7 +55,7 @@ public interface Project {
    *
    * @return set of layers
    */
-  Set<Trigger> getTriggers();
+  Set<TriggerConfiguration> getTriggers();
 
   /**
    * Add channel.
@@ -80,12 +80,12 @@ public interface Project {
   /**
    * Add trigger.
    */
-  void addTrigger(MutableTrigger trigger);
+  void addTrigger(MutableTriggerConfiguration trigger);
 
   /**
    * Remove trigger.
    */
-  void removeTrigger(Trigger trigger);
+  void removeTrigger(TriggerConfiguration trigger);
 
   /**
    * Add sequence.

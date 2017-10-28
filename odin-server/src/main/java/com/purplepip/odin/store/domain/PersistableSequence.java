@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -59,9 +58,6 @@ public class PersistableSequence
   private String flowName;
 
   private int channel;
-
-  @ElementCollection
-  private Map<String, String> properties = new HashMap<>(0);
 
   @ElementCollection
   private List<String> layers = new ArrayList<>(0);
@@ -110,21 +106,6 @@ public class PersistableSequence
   @PreRemove
   public void removeFromProject() {
     project.removeSequence(this);
-  }
-
-  @Override
-  public void setProperty(String name, String value) {
-    properties.put(name, value);
-  }
-
-  @Override
-  public String getProperty(String name) {
-    return properties.get(name);
-  }
-
-  @Override
-  public Stream<String> getPropertyNames() {
-    return properties.keySet().stream();
   }
 
   @Override

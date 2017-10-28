@@ -15,13 +15,15 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-public interface MutableTrigger extends Trigger, MutablePropertiesProvider {
-  void setProject(Project project);
-
-  void setName(String name);
-
-  void setTriggerRule(String triggerRule);
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TriggerDefinition {
+  /**
+   * Name for this trigger.
+   *
+   * @return name for this trigger
+   */
+  String name();
 }

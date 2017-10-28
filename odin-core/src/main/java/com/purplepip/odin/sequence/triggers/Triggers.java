@@ -15,11 +15,27 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.sequencer.Operation;
-
 /**
- * Trigger rule.
+ * Sequences utility methods.
  */
-public interface Trigger extends TriggerConfiguration {
-  boolean isTriggeredBy(Operation operation);
+public final class Triggers {
+  private Triggers() {
+  }
+
+  /**
+   * Copy core values from one sequence to another.
+   *
+   * @param from where to copy values from
+   * @param to where to copy values to
+   */
+  public static void copyCoreValues(TriggerConfiguration from, MutableTriggerConfiguration to) {
+    to.setEnabled(from.isEnabled());
+    to.setName(from.getName());
+    to.setTriggerRule(from.getTriggerRule());
+    to.setLength(from.getLength());
+    to.setOffset(from.getOffset());
+    to.setProject(from.getProject());
+    to.setTick(from.getTick());
+    from.getPropertyNames().forEach(name -> to.setProperty(name, from.getProperty(name)));
+  }
 }

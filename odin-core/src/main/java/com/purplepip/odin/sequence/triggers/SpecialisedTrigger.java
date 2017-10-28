@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-public class SpecialisedTrigger extends GenericTrigger {
+public interface SpecialisedTrigger extends MutableTriggerConfiguration, Trigger {
   @Override
-  public boolean arePropertiesDeclared() {
+  default boolean arePropertiesDeclared() {
     return true;
   }
 }

@@ -18,15 +18,12 @@ package com.purplepip.odin.sequence.triggers;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.sequence.GenericSequence;
+import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequencer.Operation;
-import lombok.ToString;
 
-@ToString(callSuper = true)
-public class NoteTrigger extends SpecialisedTrigger {
+public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
   private Note note = Notes.newDefault();
-
-  public NoteTrigger() {
-  }
 
   public void setNote(Note note) {
     this.note = note;
@@ -39,6 +36,6 @@ public class NoteTrigger extends SpecialisedTrigger {
   @Override
   public boolean isTriggeredBy(Operation operation) {
     return (operation instanceof NoteOnOperation)
-        && ((NoteOnOperation) operation).getNumber() == note.getNumber();
+        && ((NoteOnOperation) operation).getNumber() == getNote().getNumber();
   }
 }

@@ -18,8 +18,8 @@ package com.purplepip.odin.project;
 import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
-import com.purplepip.odin.sequence.triggers.MutableTrigger;
-import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
+import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -234,7 +234,7 @@ public class ProjectContainer {
    *
    * @param trigger to add
    */
-  public void addTrigger(MutableTrigger trigger) {
+  public void addTrigger(MutableTriggerConfiguration trigger) {
     project.addTrigger(trigger);
   }
 
@@ -244,7 +244,7 @@ public class ProjectContainer {
    * @param id layer ID
    * @return layer for the given ID.
    */
-  public Trigger getTrigger(long id) {
+  public TriggerConfiguration getTrigger(long id) {
     return getProject().getTriggers().stream().filter(s -> s.getId() == id)
         .findFirst().orElse(null);
   }
@@ -254,7 +254,7 @@ public class ProjectContainer {
    *
    * @return trigger stream
    */
-  public Stream<Trigger> getTriggerStream() {
+  public Stream<TriggerConfiguration> getTriggerStream() {
     return project.getTriggers().stream();
   }
 

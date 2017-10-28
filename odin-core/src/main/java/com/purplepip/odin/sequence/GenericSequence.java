@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +35,6 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   private String flowName;
   private Project project;
   private List<String> layers = new ArrayList<>();
-  private Map<String, String> values = new HashMap<>();
   private Map<String, Action> triggers = new HashMap<>();
 
   public GenericSequence() {
@@ -49,21 +47,6 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
 
   public GenericSequence(long id) {
     super(id);
-  }
-
-  @Override
-  public String getProperty(String propertyName) {
-    return values.get(propertyName);
-  }
-
-  @Override
-  public Stream<String> getPropertyNames() {
-    return values.keySet().stream();
-  }
-
-  @Override
-  public void setProperty(String propertyName, String value) {
-    values.put(propertyName, value);
   }
 
   @Override

@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import com.purplepip.odin.store.domain.PersistableTrigger;
 import java.util.List;
 import org.springframework.context.annotation.Profile;
@@ -31,5 +31,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     itemResourceRel = "trigger", itemResourceDescription = @Description("trigger"))
 @Profile("!noStore")
 public interface TriggerRepository extends CrudRepository<PersistableTrigger, Long> {
-  List<Trigger> findByName(String name);
+  List<TriggerConfiguration> findByName(String name);
 }

@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequence.reactors;
 
 import com.purplepip.odin.sequence.triggers.Action;
-import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import com.purplepip.odin.sequencer.Track;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
 public class TriggerReactor implements Reactor {
-  private Trigger trigger;
+  private TriggerConfiguration trigger;
   private Map<Track, Action> trackActions = new HashMap<>();
 
   @Override
@@ -38,11 +38,11 @@ public class TriggerReactor implements Reactor {
     return trigger.getName();
   }
 
-  public void setTrigger(Trigger trigger) {
+  public void setTrigger(TriggerConfiguration trigger) {
     this.trigger = trigger;
   }
 
-  public Trigger getTrigger() {
+  public TriggerConfiguration getTrigger() {
     return trigger;
   }
 

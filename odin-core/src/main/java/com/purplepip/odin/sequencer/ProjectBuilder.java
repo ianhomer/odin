@@ -43,9 +43,9 @@ import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.GenericTrigger;
-import com.purplepip.odin.sequence.triggers.MutableTrigger;
+import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
-import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -103,7 +103,7 @@ public class ProjectBuilder {
         .orElse(null);
   }
 
-  public Trigger getTrigger(String name) {
+  public TriggerConfiguration getTrigger(String name) {
     return projectContainer.getTriggerStream().filter(l -> name.equals(l.getName())).findFirst()
         .orElse(null);
   }
@@ -134,7 +134,7 @@ public class ProjectBuilder {
   /*
  * As per getSequenceByOrder logic.
  */
-  public Trigger getTriggerByOrder(int id) {
+  public TriggerConfiguration getTriggerByOrder(int id) {
     return projectContainer.getTrigger(triggerIds.get(id));
   }
 
@@ -215,7 +215,7 @@ public class ProjectBuilder {
    *
    * @return sequence
    */
-  protected MutableTrigger createTrigger() {
+  protected MutableTriggerConfiguration createTrigger() {
     return new GenericTrigger();
   }
 
@@ -303,7 +303,7 @@ public class ProjectBuilder {
     projectContainer.addSequence(sequence);
   }
 
-  private void addTriggerToContainer(MutableTrigger trigger) {
+  private void addTriggerToContainer(MutableTriggerConfiguration trigger) {
     triggerIds.add(trigger.getId());
     projectContainer.addTrigger(trigger);
   }
@@ -577,7 +577,7 @@ public class ProjectBuilder {
     return layer;
   }
 
-  private MutableTrigger applyParameters(MutableTrigger trigger) {
+  private MutableTriggerConfiguration applyParameters(MutableTriggerConfiguration trigger) {
     trigger.setName(name);
     /*
      * Apply properties
