@@ -115,9 +115,9 @@ public class ProjectSchema {
     return "flow-" + clazz.getSimpleName().toLowerCase();
   }
 
-  private void registerFlow(JsonSchemaGenerator schemaGenerator, String flowName, Class clazz) {
+  private void registerFlow(JsonSchemaGenerator schemaGenerator, String typeName, Class clazz) {
     registerType(schemaGenerator, clazz, getFlowSchemaReference(clazz));
-    flows.put(flowName, getFlowSchemaReference(clazz));
+    flows.put(typeName, getFlowSchemaReference(clazz));
   }
 
   public Map<String, String> getFlows() {

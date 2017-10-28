@@ -57,7 +57,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private SequenceFactory<A> sequenceFactory;
   private boolean tickDirty;
   private boolean sequenceDirty;
-  private boolean flowNameDirty;
+  private boolean typeNameDirty;
   private boolean flowDirty;
   private boolean enabled;
 
@@ -90,8 +90,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   @Override
   public void setSequence(SequenceConfiguration sequence) {
     if (this.sequence == null
-        || !this.sequence.getFlowName().equals(sequence.getFlowName())) {
-      flowNameDirty = true;
+        || !this.sequence.getTypeName().equals(sequence.getTypeName())) {
+      typeNameDirty = true;
     }
 
     /*
@@ -241,10 +241,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     /*
      * Only update the flow if the flow name has changed.
      */
-    if (getFlow() == null || flowDirty || flowNameDirty) {
+    if (getFlow() == null || flowDirty || typeNameDirty) {
       if (clock != null) {
         setFlow(sequenceFactory.createFlow(sequence, clock, measureProvider));
-        flowNameDirty = false;
+        typeNameDirty = false;
         flowDirty = false;
       } else {
         LOG.debug("Waiting until clock is set to create flow");

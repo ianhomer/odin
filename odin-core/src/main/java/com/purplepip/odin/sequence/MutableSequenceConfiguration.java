@@ -26,7 +26,7 @@ public interface MutableSequenceConfiguration extends SequenceConfiguration,
     MutableTimeThing, MutablePropertiesProvider {
   void setChannel(int channel);
 
-  void setFlowName(String flowName);
+  void setTypeName(String typeName);
 
   void addLayer(String layerName);
 

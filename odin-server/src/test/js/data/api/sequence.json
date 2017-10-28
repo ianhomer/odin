@@ -3,7 +3,7 @@
     "sequence": [
       {
         "name": "piano-a",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 1,
         "offset": 0,
         "length": -1,
@@ -34,7 +34,7 @@
       },
       {
         "name": "piano-a3",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 1,
         "offset": 0,
         "length": -1,
@@ -64,7 +64,7 @@
       },
       {
         "name": "piano-g3",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 1,
         "offset": 0,
         "length": -1,
@@ -94,7 +94,7 @@
       },
       {
         "name": "notes-c5",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 1,
         "offset": 0,
         "length": -1,
@@ -124,7 +124,7 @@
       },
       {
         "name": "notes-c4",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 1,
         "offset": 0,
         "length": -1,
@@ -154,7 +154,7 @@
       },
       {
         "name": "notes",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 1,
         "offset": 0,
         "length": -1,
@@ -184,7 +184,7 @@
       },
       {
         "name": "strings-c5",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 3,
         "offset": 0,
         "length": -1,
@@ -214,7 +214,7 @@
       },
       {
         "name": "strings-c4",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 3,
         "offset": 0,
         "length": -1,
@@ -244,7 +244,7 @@
       },
       {
         "name": "strings",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 3,
         "offset": 0,
         "length": -1,
@@ -274,7 +274,7 @@
       },
       {
         "name": "organ-a",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 2,
         "offset": 0,
         "length": -1,
@@ -305,7 +305,7 @@
       },
       {
         "name": "organ-b",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 2,
         "offset": 0,
         "length": -1,
@@ -335,7 +335,7 @@
       },
       {
         "name": "organ-c",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 2,
         "offset": 0,
         "length": -1,
@@ -365,7 +365,7 @@
       },
       {
         "name": "aahs-a",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 4,
         "offset": 0,
         "length": -1,
@@ -395,7 +395,7 @@
       },
       {
         "name": "aahs-c",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 4,
         "offset": 0,
         "length": -1,
@@ -425,7 +425,7 @@
       },
       {
         "name": "aahs-br",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 4,
         "offset": 0,
         "length": -1,
@@ -455,7 +455,7 @@
       },
       {
         "name": "shake",
-        "flowName": "pattern",
+        "typeName": "pattern",
         "channel": 9,
         "offset": 0,
         "length": -1,
@@ -487,7 +487,7 @@
       },
       {
         "name": "kick1",
-        "flowName": "pattern",
+        "typeName": "pattern",
         "channel": 9,
         "offset": 0,
         "length": -1,
@@ -520,7 +520,7 @@
       },
       {
         "name": "kick2",
-        "flowName": "pattern",
+        "typeName": "pattern",
         "channel": 9,
         "offset": 0,
         "length": -1,
@@ -552,7 +552,7 @@
       },
       {
         "name": "kick3",
-        "flowName": "pattern",
+        "typeName": "pattern",
         "channel": 9,
         "offset": 0,
         "length": -1,
@@ -584,7 +584,7 @@
       },
       {
         "name": "hi",
-        "flowName": "pattern",
+        "typeName": "pattern",
         "channel": 9,
         "offset": 0,
         "length": -1,
@@ -616,7 +616,7 @@
       },
       {
         "name": "crash",
-        "flowName": "pattern",
+        "typeName": "pattern",
         "channel": 9,
         "offset": 0,
         "length": -1,
@@ -648,7 +648,7 @@
       },
       {
         "name": "test",
-        "flowName": "notation",
+        "typeName": "notation",
         "channel": 1,
         "offset": 0,
         "length": -1,

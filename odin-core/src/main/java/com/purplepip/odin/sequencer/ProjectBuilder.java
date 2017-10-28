@@ -66,7 +66,7 @@ public class ProjectBuilder {
 
   private ProjectContainer projectContainer;
   private String name;
-  private String flowName = DEFAULT_FLOW_NAME;
+  private String typeName = DEFAULT_FLOW_NAME;
   private boolean enabled;
   private int channel;
   private int noteNumber;
@@ -140,7 +140,7 @@ public class ProjectBuilder {
 
   private MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
                                                 Class<? extends Sequence> clazz) {
-    sequence.setFlowName(Specifics.getName(clazz));
+    sequence.setTypeName(Specifics.getName(clazz));
     return sequence;
   }
 
@@ -344,7 +344,7 @@ public class ProjectBuilder {
   public ProjectBuilder addNoteTrigger() {
     NoteTrigger trigger = createNoteTrigger();
     trigger.setNote(new DefaultNote(noteNumber, 0, 0));
-    trigger.setTriggerRule("note");
+    trigger.setTypeName("note");
     addTriggerToContainer(applyParameters(trigger));
     return this;
   }
@@ -360,8 +360,8 @@ public class ProjectBuilder {
     return this;
   }
 
-  public ProjectBuilder withFlowName(String flowName) {
-    this.flowName = flowName;
+  public ProjectBuilder withFlowName(String typeName) {
+    this.typeName = typeName;
     return this;
   }
 
@@ -559,8 +559,8 @@ public class ProjectBuilder {
     if (sequence.getTick() == null) {
       sequence.setTick(tick);
     }
-    if (sequence.getFlowName() == null) {
-      sequence.setFlowName(flowName);
+    if (sequence.getTypeName() == null) {
+      sequence.setTypeName(typeName);
     }
     layerNamesToAdd.forEach(sequence::addLayer);
     triggersToAdd.forEach(sequence::addTrigger);

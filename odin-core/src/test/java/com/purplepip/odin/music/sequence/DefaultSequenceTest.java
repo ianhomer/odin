@@ -35,14 +35,14 @@ public class DefaultSequenceTest {
   private void assertSequenceOk(SequenceConfiguration sequence) {
     assertEquals("test-sequence", sequence.getName());
     assertEquals("my.property-value", sequence.getProperty("my.property"));
-    assertEquals("test-flow-name", sequence.getFlowName());
+    assertEquals("test-flow-name", sequence.getTypeName());
   }
 
   private SequenceConfiguration createSequence() {
     GenericSequence sequence = new GenericSequence();
     sequence.setName("test-sequence");
     sequence.setProperty("my.property","my.property-value");
-    sequence.setFlowName("test-flow-name");
+    sequence.setTypeName("test-flow-name");
     return sequence;
   }
 }

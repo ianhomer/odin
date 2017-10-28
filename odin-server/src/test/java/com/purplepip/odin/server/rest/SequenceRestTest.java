@@ -46,7 +46,7 @@ public class SequenceRestTest {
             new Json(objectMapper)
                 .property("name", "new-notations-name")
                 .property("project", projectUri)
-                .property("flowName", "notation")
+                .property("typeName", "notation")
                 .property("length", "2")
                 .properties()
                 .property("notation", "A B C D")

@@ -50,15 +50,6 @@ public interface SequenceConfiguration extends ThingConfiguration, TimeThing  {
   int getChannel();
 
   /**
-   * Flow name for this sequence.  This is currently exactly equal to the class name of flow.
-   * The flow provides logic for how the sequence progresses over time.
-   *
-   * @return flow name.
-   */
-  @NotNull
-  String getFlowName();
-
-  /**
    * Get the project.
    *
    * @return project

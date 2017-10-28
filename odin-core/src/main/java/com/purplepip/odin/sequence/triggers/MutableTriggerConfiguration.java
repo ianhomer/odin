@@ -25,5 +25,5 @@ public interface MutableTriggerConfiguration extends
 
   void setName(String name);
 
-  void setTriggerRule(String triggerRule);
+  void setTypeName(String typeName);
 }

@@ -35,9 +35,9 @@ class Composer extends React.Component{
     super(props)
   }
 
-  getExtraArguments(flowName) {
+  getExtraArguments(typeName) {
     var optionalArguments = {}
-    if (flowName === 'notation') {
+    if (typeName === 'notation') {
       optionalArguments.onFetchComposition = this.props.onFetchComposition
     }
     return optionalArguments
@@ -45,13 +45,13 @@ class Composer extends React.Component{
 
   render() {
     var entities = this.props.sequences.entities.map(entity => {
-      var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
+      var SequenceComponent = Sequences[entity.typeName] || DefaultSequence
       return (
         <div key={'div-' + entity._links.self.href}>
           <SequenceComponent entity={entity} key={entity._links.self.href}
             schema={this.props.schema} project={this.props.project}
             onAddLayer={this.props.onAddLayer}
-            {...this.getExtraArguments(entity.flowName)}
+            {...this.getExtraArguments(entity.typeName)}
           />
         </div>
       )

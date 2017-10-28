@@ -66,7 +66,7 @@ Notation.defaultProps = {
     'offset': {defaultValue: 0},
     'length': {defaultValue: -1},
     'channel': {defaultValue: 1},
-    'flowName': {
+    'typeName': {
       cellWidth: 2,
       defaultValue: 'notation',
       readOnly: true

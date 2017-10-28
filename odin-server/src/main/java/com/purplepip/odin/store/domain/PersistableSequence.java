@@ -55,7 +55,7 @@ public class PersistableSequence
   private Project project;
 
   @NotNull
-  private String flowName;
+  private String typeName;
 
   private int channel;
 

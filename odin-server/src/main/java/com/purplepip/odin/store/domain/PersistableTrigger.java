@@ -17,7 +17,6 @@ package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
-import com.purplepip.odin.sequencer.Operation;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -44,5 +43,5 @@ public class PersistableTrigger extends PersistableTimeThing
   private Project project;
 
   @NotNull
-  private String triggerRule;
+  private String typeName;
 }

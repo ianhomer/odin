@@ -90,7 +90,7 @@ class Sequence extends React.Component {
           <div className="col-1 property-length">{sequence.length}</div>
           <div className="col-1 property-channel">{sequence.channel}</div>
           <div className="col-2">
-            {sequence.flowName}
+            {sequence.typeName}
           </div>
           <div className="col-1">
             <button type="submit" className="btn btn-primary" onClick={this.handleDelete}>Delete</button>
@@ -128,7 +128,7 @@ Sequence.defaultProps = {
     'offset': {defaultValue: 0},
     'length': {defaultValue: -1},
     'channel': {defaultValue: 1},
-    'flowName': {
+    'typeName': {
       cellWidth: 2,
       defaultValue: 'pattern'
     },

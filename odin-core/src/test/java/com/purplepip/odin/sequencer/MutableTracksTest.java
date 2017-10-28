@@ -63,7 +63,7 @@ public class MutableTracksTest {
         .findFirst()
         .orElseThrow(OdinException::new);
 
-    assertEquals("notation", track.getSequence().getFlowName());
+    assertEquals("notation", track.getSequence().getTypeName());
     assertEquals(GenericSequence.class.getName(), track.getSequence().getClass().getName());
     assertEquals(Notation.class.getName(),
         track.getSequenceRoll().getFlow().getSequence().getClass().getName());

@@ -18,6 +18,14 @@ package com.purplepip.odin.specificity;
 import com.purplepip.odin.bag.Copyable;
 import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.properties.beany.PropertiesProvider;
+import javax.validation.constraints.NotNull;
 
 public interface ThingConfiguration extends Copyable, PropertiesProvider, Thing {
+  /**
+   * Type name for this configuration.
+   *
+   * @return type name.
+   */
+  @NotNull
+  String getTypeName();
 }

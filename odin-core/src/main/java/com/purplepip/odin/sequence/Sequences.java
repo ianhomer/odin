@@ -32,7 +32,7 @@ public final class Sequences {
     to.setEnabled(from.isEnabled());
     to.setName(from.getName());
     to.setChannel(from.getChannel());
-    to.setFlowName(from.getFlowName());
+    to.setTypeName(from.getTypeName());
     to.setLength(from.getLength());
     to.setOffset(from.getOffset());
     to.setProject(from.getProject());

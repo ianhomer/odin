@@ -2034,15 +2034,15 @@ exports[`Sequences container Sequences container initialise 1`] = `
         </div>
         <div
           className="col-2"
-          key="flowName"
+          key="typeName"
         >
           <span>
             notation
           </span>
           <input
-            className="property-flowName"
+            className="property-typeName"
             defaultValue="notation"
-            name="flowName"
+            name="typeName"
             type="hidden"
           />
         </div>
@@ -2278,15 +2278,15 @@ exports[`Sequences container Sequences container initialise 1`] = `
         </div>
         <div
           className="col-2"
-          key="flowName"
+          key="typeName"
         >
           <span>
             pattern
           </span>
           <input
-            className="property-flowName"
+            className="property-typeName"
             defaultValue="pattern"
-            name="flowName"
+            name="typeName"
             type="hidden"
           />
         </div>
@@ -4363,15 +4363,15 @@ exports[`Sequences container Sequences container load 1`] = `
         </div>
         <div
           className="col-2"
-          key="flowName"
+          key="typeName"
         >
           <span>
             notation
           </span>
           <input
-            className="property-flowName"
+            className="property-typeName"
             defaultValue="notation"
-            name="flowName"
+            name="typeName"
             type="hidden"
           />
         </div>
@@ -4607,15 +4607,15 @@ exports[`Sequences container Sequences container load 1`] = `
         </div>
         <div
           className="col-2"
-          key="flowName"
+          key="typeName"
         >
           <span>
             pattern
           </span>
           <input
-            className="property-flowName"
+            className="property-typeName"
             defaultValue="pattern"
-            name="flowName"
+            name="typeName"
             type="hidden"
           />
         </div>

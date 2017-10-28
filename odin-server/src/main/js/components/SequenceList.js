@@ -31,9 +31,9 @@ class SequenceList extends React.Component{
     super(props)
   }
 
-  getExtraArguments(flowName, isEditEntry = false) {
+  getExtraArguments(typeName, isEditEntry = false) {
     var optionalArguments = {}
-    if (flowName === 'notation') {
+    if (typeName === 'notation') {
       optionalArguments.onFetchComposition = this.props.onFetchComposition
       if (isEditEntry && this.props.collection.newEntities && this.props.collection.newEntities.notation) {
         optionalArguments.entity = this.props.collection.newEntities.notation
@@ -44,20 +44,20 @@ class SequenceList extends React.Component{
 
   render() {
     var entities = this.props.collection.entities.map(entity => {
-      var SequenceComponent = Sequences[entity.flowName] || DefaultSequence
-      if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + entity.flowName])) {
+      var SequenceComponent = Sequences[entity.typeName] || DefaultSequence
+      if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + entity.typeName])) {
         return (
           <div key={entity.name}>
             <SequenceComponent entity={entity} key={entity.name}
               schema={this.props.schema} project={this.props.project}
-              clazz={this.props.schema.getFlowClazz(entity.flowName)}
+              clazz={this.props.schema.getFlowClazz(entity.typeName)}
               onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}
-              {...this.getExtraArguments(entity.flowName)}
+              {...this.getExtraArguments(entity.typeName)}
             />
           </div>
         )
       } else {
-        return <div key={entity.name}>{entity.flowName} or sequence class not loaded</div>
+        return <div key={entity.name}>{entity.typeName} or sequence class not loaded</div>
       }
     })
 
@@ -81,20 +81,20 @@ class SequenceList extends React.Component{
 
           <hr/>
 
-          {Object.keys(Sequences).map(flowName => {
-            var SequenceComponent = Sequences[flowName]
-            if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + flowName])) {
-              var clazz = this.props.schema.getFlowClazz(flowName)
+          {Object.keys(Sequences).map(typeName => {
+            var SequenceComponent = Sequences[typeName]
+            if (this.props.schema.areSchemasLoaded(['sequence', 'flow-' + typeName])) {
+              var clazz = this.props.schema.getFlowClazz(typeName)
               return (
-                <EditEntity key={'create-' + flowName}
+                <EditEntity key={'create-' + typeName}
                   schema={this.props.schema} project={this.props.project}
                   clazz={clazz} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.props.onCreate}
-                  {...this.getExtraArguments(flowName, true)}
+                  {...this.getExtraArguments(typeName, true)}
                 />
               )
             } else {
-              return <div key={'create-' + flowName}>{flowName} or sequence class not loaded</div>
+              return <div key={'create-' + typeName}>{typeName} or sequence class not loaded</div>
             }
           })}
 

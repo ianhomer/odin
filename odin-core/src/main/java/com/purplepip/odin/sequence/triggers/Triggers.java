@@ -31,7 +31,7 @@ public final class Triggers {
   public static void copyCoreValues(TriggerConfiguration from, MutableTriggerConfiguration to) {
     to.setEnabled(from.isEnabled());
     to.setName(from.getName());
-    to.setTriggerRule(from.getTriggerRule());
+    to.setTypeName(from.getTypeName());
     to.setLength(from.getLength());
     to.setOffset(from.getOffset());
     to.setProject(from.getProject());
