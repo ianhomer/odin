@@ -39,7 +39,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
    * @param clock clock
    * @param measureProvider measure provider
    */
-  DefaultFlow(Clock clock, MeasureProvider measureProvider) {
+  public DefaultFlow(Clock clock, MeasureProvider measureProvider) {
     this.context = new FlowContext(clock, measureProvider);
   }
 

@@ -22,9 +22,13 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
+import com.purplepip.odin.sequence.flow.DefaultFlow;
+import com.purplepip.odin.sequence.flow.FlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowDefinition;
+import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,13 +47,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SequenceFactory<A> {
   private final Map<String, Class<? extends Sequence<A>>> sequences = new HashMap<>();
+  private FlowConfiguration flowConfiguration;
 
   /**
    * Create the note sequence factory.
    *
    * @return a new note sequence factory
    */
-  public static SequenceFactory<Note> createNoteSequenceFactory() {
+  public static SequenceFactory<Note> createNoteSequenceFactory(
+      FlowConfiguration flowConfiguration) {
     /*
      * Coded registration of known sequences.  In the future we may design a plugin architecture,
      * but for now it is kept tight by only allowing registered classes.
@@ -58,7 +64,7 @@ public class SequenceFactory<A> {
     classes.add(Metronome.class);
     classes.add(Notation.class);
     classes.add(Pattern.class);
-    SequenceFactory<Note> sequenceFactory = new SequenceFactory<>(classes);
+    SequenceFactory<Note> sequenceFactory = new SequenceFactory<>(flowConfiguration, classes);
     sequenceFactory.warmUp();
     return sequenceFactory;
   }
@@ -68,7 +74,9 @@ public class SequenceFactory<A> {
    *
    * @param classes sequence classes to initialise with
    */
-  public SequenceFactory(List<Class<? extends Sequence<A>>> classes) {
+  public SequenceFactory(FlowConfiguration flowConfiguration,
+                         List<Class<? extends Sequence<A>>> classes) {
+    this.flowConfiguration = flowConfiguration;
     for (Class<? extends Sequence<A>> clazz : classes) {
       register(clazz);
     }
@@ -149,6 +157,33 @@ public class SequenceFactory<A> {
       }
     }
     return newSequence;
+  }
+
+  /**
+   * Create flow object for the given sequence.
+   *
+   * @param sequence sequence
+   * @param clock clock
+   * @param measureProvider measure provider
+   * @return flow
+   */
+  public MutableFlow<Sequence<A>, A> createFlow(
+      SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
+    MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
+    flow.setSequence(newSequence(sequence));
+    flow.setConfiguration(flowConfiguration);
+    flow.afterPropertiesSet();
+    return flow;
+  }
+
+  /**
+   * Refresh the sequence in the flow.
+   *
+   * @param flow flow to refresh
+   * @param sequence sequence to update flow with
+   */
+  public void refreshSequence(MutableFlow<Sequence<A>, A> flow, SequenceConfiguration sequence) {
+    flow.setSequence(newSequence(sequence));
   }
 
   public Class<? extends Sequence<A>> getSequenceClass(String name) {

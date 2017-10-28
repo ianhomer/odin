@@ -146,7 +146,7 @@ public class OdinSequencer implements ProjectApplyListener {
 
   SequenceTrack createSequenceTrack() {
     return new SequenceTrack(clock,
-        new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
+        new MutableSequenceRoll<>(clock, configuration.getSequenceFactory(),
             configuration.getMeasureProvider()));
   }
 

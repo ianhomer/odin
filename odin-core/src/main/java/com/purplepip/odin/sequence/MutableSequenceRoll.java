@@ -21,7 +21,6 @@ import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Mutable;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
@@ -55,7 +54,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private MovableTock tock;
   private Tock sealedTock;
   private SequenceConfiguration sequence;
-  private FlowFactory<A> flowFactory;
+  private SequenceFactory<A> sequenceFactory;
   private boolean tickDirty;
   private boolean sequenceDirty;
   private boolean flowNameDirty;
@@ -66,15 +65,16 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    * Create a base line mutable sequence roll onto which a sequence can be set and reset.
    *
    * @param clock clock
-   * @param flowFactory flow factory
+   * @param sequenceFactory sequence factory
    * @param beatMeasureProvider beat measure provider
    */
-  public MutableSequenceRoll(BeatClock clock, FlowFactory<A> flowFactory,
+  public MutableSequenceRoll(BeatClock clock, SequenceFactory<A> sequenceFactory,
                              MeasureProvider beatMeasureProvider) {
     this.beatClock = clock;
     beatClock.addListener(this);
     this.beatMeasureProvider = beatMeasureProvider;
-    this.flowFactory = flowFactory;
+    this.sequenceFactory = sequenceFactory;
+    assert sequenceFactory != null;
   }
 
   @Override
@@ -243,14 +243,14 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      */
     if (getFlow() == null || flowDirty || flowNameDirty) {
       if (clock != null) {
-        setFlow(flowFactory.createFlow(sequence, clock, measureProvider));
+        setFlow(sequenceFactory.createFlow(sequence, clock, measureProvider));
         flowNameDirty = false;
         flowDirty = false;
       } else {
         LOG.debug("Waiting until clock is set to create flow");
       }
     } else {
-      flowFactory.refreshSequence(getFlow(), sequence);
+      sequenceFactory.refreshSequence(getFlow(), sequence);
     }
   }
 

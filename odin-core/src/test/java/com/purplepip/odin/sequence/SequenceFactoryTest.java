@@ -24,11 +24,25 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
+import com.purplepip.odin.sequence.flow.Flow;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SequenceFactoryTest {
-  private SequenceFactory<Note> factory = SequenceFactory.createNoteSequenceFactory();
+  private SequenceFactory<Note> factory = SequenceFactory
+      .createNoteSequenceFactory(new DefaultFlowConfiguration());
+
+  @Mock
+  private Clock clock;
+
+  @Mock
+  private MeasureProvider measureProvider;
 
   @Test
   public void testCopy() throws OdinException {
@@ -52,5 +66,17 @@ public class SequenceFactoryTest {
     assertEquals(Notation.class, factory.getSequenceClass("notation"));
     assertEquals(Metronome.class, factory.getSequenceClass("metronome"));
     assertEquals(Pattern.class, factory.getSequenceClass("pattern"));
+  }
+
+  @Test
+  public void testCreateFlow() throws OdinException {
+    SequenceFactory<Note> flowFactory =
+        SequenceFactory.createNoteSequenceFactory(new DefaultFlowConfiguration());
+    TransientProject project = new TransientProject();
+    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    builder.addMetronome();
+    Flow<Sequence<Note>, Note> flow =
+        flowFactory.createFlow(project.getSequences().iterator().next(), clock, measureProvider);
+    assertEquals("DefaultFlow", flow.getClass().getSimpleName());
   }
 }

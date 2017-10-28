@@ -33,7 +33,6 @@ import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.reactors.MutableReactors;
@@ -44,7 +43,7 @@ import org.junit.Test;
 
 public class ReactorReceiverTest {
   private BeatClock clock;
-  private FlowFactory<Note> flowFactory;
+  private SequenceFactory<Note> sequenceFactory;
   private MeasureProvider measureProvider;
 
   /**
@@ -53,8 +52,8 @@ public class ReactorReceiverTest {
   @Before
   public void setUp() {
     clock = new BeatClock(new StaticBeatsPerMinute(120));
-    flowFactory = new FlowFactory<>(
-        new DefaultFlowConfiguration(), SequenceFactory.createNoteSequenceFactory());
+    sequenceFactory =
+        SequenceFactory.createNoteSequenceFactory(new DefaultFlowConfiguration());
     measureProvider = new StaticBeatMeasureProvider(4);
   }
 
@@ -98,6 +97,6 @@ public class ReactorReceiverTest {
 
   private SequenceTrack createSequenceTrack() {
     return new SequenceTrack(clock,
-        new MutableSequenceRoll<>(clock, flowFactory , measureProvider));
+        new MutableSequenceRoll<>(clock, sequenceFactory , measureProvider));
   }
 }

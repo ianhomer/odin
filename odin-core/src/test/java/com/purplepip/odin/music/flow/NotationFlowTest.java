@@ -33,7 +33,6 @@ import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.Flow;
-import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.tick.MovableTock;
@@ -49,11 +48,11 @@ public class NotationFlowTest {
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addNotation(Ticks.BEAT, notationAsString);
     Notation notation = (Notation) builder.getSequenceByOrder(0);
-    FlowFactory<Note> flowFactory = new FlowFactory<>(
-        new DefaultFlowConfiguration(), SequenceFactory.createNoteSequenceFactory());
+    SequenceFactory<Note> sequenceFactory =
+        SequenceFactory.createNoteSequenceFactory(new DefaultFlowConfiguration());
     BeatClock clock = new BeatClock(new StaticBeatsPerMinute(60));
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
-    return flowFactory.createFlow(notation, clock, measureProvider);
+    return sequenceFactory.createFlow(notation, clock, measureProvider);
   }
 
   @Test

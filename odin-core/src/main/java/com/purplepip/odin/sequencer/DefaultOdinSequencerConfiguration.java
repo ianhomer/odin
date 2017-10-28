@@ -24,7 +24,6 @@ import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowConfiguration;
-import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class DefaultOdinSequencerConfiguration
   private OperationTransmitter operationTransmitter;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
-  private FlowFactory<Note> flowFactory;
+  private SequenceFactory<Note> sequenceFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
   private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
@@ -50,8 +49,8 @@ public class DefaultOdinSequencerConfiguration
    * Create new configuration with defaults set.
    */
   public DefaultOdinSequencerConfiguration() {
-    setFlowFactory(new FlowFactory<>(flowConfiguration,
-        SequenceFactory.createNoteSequenceFactory()));
+    sequenceFactory =
+        SequenceFactory.createNoteSequenceFactory(flowConfiguration);
     setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);
@@ -74,8 +73,8 @@ public class DefaultOdinSequencerConfiguration
   }
 
   public final DefaultOdinSequencerConfiguration
-      setFlowFactory(FlowFactory<Note> flowFactory) {
-    this.flowFactory = flowFactory;
+      setSequenceFactory(SequenceFactory<Note> sequenceFactory) {
+    this.sequenceFactory = sequenceFactory;
     return this;
   }
 
@@ -155,8 +154,8 @@ public class DefaultOdinSequencerConfiguration
   }
 
   @Override
-  public FlowFactory<Note> getFlowFactory() {
-    return flowFactory;
+  public SequenceFactory<Note> getSequenceFactory() {
+    return sequenceFactory;
   }
 
   @Override

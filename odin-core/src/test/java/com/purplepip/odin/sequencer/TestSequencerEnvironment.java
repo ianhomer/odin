@@ -23,7 +23,6 @@ import com.purplepip.odin.sequence.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.sequence.flow.FlowFactory;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +33,7 @@ public class TestSequencerEnvironment {
   private OdinSequencerConfiguration configuration;
   private OdinSequencer sequencer;
 
-  private FlowFactory<Note> flowFactory;
+  private SequenceFactory<Note> sequenceFactory;
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver) throws OdinException {
     initialiseSequencer(operationReceiver);
@@ -45,9 +44,9 @@ public class TestSequencerEnvironment {
     flowConfiguration.setMaxForwardScan(1000000);
 
 
-    flowFactory = new FlowFactory<>(flowConfiguration, SequenceFactory.createNoteSequenceFactory());
+    sequenceFactory = SequenceFactory.createNoteSequenceFactory(flowConfiguration);
     configuration = new DefaultOdinSequencerConfiguration()
-        .setFlowFactory(flowFactory)
+        .setSequenceFactory(sequenceFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))
         .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
         .setClockStartOffset(10000)
@@ -70,8 +69,8 @@ public class TestSequencerEnvironment {
     return configuration;
   }
 
-  public FlowFactory getFlowFactory() {
-    return flowFactory;
+  public SequenceFactory<Note> getSequenceFactory() {
+    return sequenceFactory;
   }
 
   /**

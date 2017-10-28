@@ -24,6 +24,7 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.SequenceFactory;
+import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.store.domain.PersistableNote;
 import com.purplepip.odin.store.domain.PersistableTick;
@@ -38,7 +39,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ProjectSchema {
-  private SequenceFactory<Note> factory = SequenceFactory.createNoteSequenceFactory();
+  private SequenceFactory<Note> factory = SequenceFactory
+      .createNoteSequenceFactory(new DefaultFlowConfiguration());
   private Map<String, JsonNode> types = new HashMap<>();
   private Map<String, String> flows = new HashMap<>();
 
