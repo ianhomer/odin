@@ -26,6 +26,7 @@ import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowConfiguration;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.sequence.triggers.TriggerFactory;
 import java.util.ArrayList;
 
 /**
@@ -40,6 +41,7 @@ public class DefaultOdinSequencerConfiguration
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
   private SequenceFactory<Note> sequenceFactory;
+  private TriggerFactory triggerFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
   private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
@@ -51,6 +53,8 @@ public class DefaultOdinSequencerConfiguration
   public DefaultOdinSequencerConfiguration() {
     sequenceFactory =
         SequenceFactory.createNoteSequenceFactory(flowConfiguration);
+    triggerFactory =
+        TriggerFactory.createTriggerFactory();
     setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);
@@ -156,6 +160,11 @@ public class DefaultOdinSequencerConfiguration
   @Override
   public SequenceFactory<Note> getSequenceFactory() {
     return sequenceFactory;
+  }
+
+  @Override
+  public TriggerFactory getTriggerFactory() {
+    return triggerFactory;
   }
 
   @Override

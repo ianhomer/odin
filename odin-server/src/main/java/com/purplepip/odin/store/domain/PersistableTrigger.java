@@ -45,11 +45,4 @@ public class PersistableTrigger extends PersistableTimeThing
 
   @NotNull
   private String triggerRule;
-
-  @Override
-  public boolean isTriggeredBy(Operation operation) {
-    // TODO : Is trigger by logic needs to decouple from model so that we can persist
-    // triggers generically and trigger appropriate trigger logic.
-    return false;
-  }
 }

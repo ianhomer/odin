@@ -20,18 +20,21 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
+import com.purplepip.odin.sequence.triggers.TriggerFactory;
 import com.purplepip.odin.sequencer.MutableTracks;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 
 public class MutableReactorsTest {
+  private TriggerFactory triggerFactory = TriggerFactory.createTriggerFactory();
+
   @Test
   public void testRefresh() {
     MutableReactors reactors = new MutableReactors();
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.withName("trigger1").withNote(60).addNoteTrigger();
-    reactors.refresh(() -> project.getTriggers().stream(), TriggerReactor::new,
+    reactors.refresh(() -> project.getTriggers().stream(), this::createReactor,
         new MutableConductors(), new MutableTracks());
     assertEquals(1, reactors.getStatistics().getAddedCount());
     /*
@@ -40,5 +43,9 @@ public class MutableReactorsTest {
     UnmodifiableReactors unmodifiableReactors = new UnmodifiableReactors(reactors);
     assertEquals(1, unmodifiableReactors.getStatistics().getAddedCount());
     assertEquals("trigger1", unmodifiableReactors.findByName("trigger1").getName());
+  }
+
+  private TriggerReactor createReactor() {
+    return new TriggerReactor(triggerFactory);
   }
 }

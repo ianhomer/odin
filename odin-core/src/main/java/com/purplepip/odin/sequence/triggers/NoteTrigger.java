@@ -18,12 +18,19 @@ package com.purplepip.odin.sequence.triggers;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequencer.Operation;
 
+@TriggerDefinition("note")
 public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
   private Note note = Notes.newDefault();
+
+  public NoteTrigger() {
+  }
+
+  public NoteTrigger(long id) {
+    super(id);
+  }
+
 
   public void setNote(Note note) {
     this.note = note;
@@ -31,6 +38,19 @@ public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
 
   public Note getNote() {
     return note;
+  }
+
+  /**
+   * Create a copy of this sequence.
+   *
+   * @return copy
+   */
+  @Override
+  public NoteTrigger copy() {
+    NoteTrigger copy = new NoteTrigger(this.getId());
+    Triggers.copyCoreValues(this, copy);
+    copy.setNote(this.getNote());
+    return copy;
   }
 
   @Override

@@ -21,6 +21,7 @@ import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.triggers.TriggerFactory;
 
 /**
  * Odin Sequencer configuration.
@@ -54,6 +55,8 @@ public interface OdinSequencerConfiguration {
   MicrosecondPositionProvider getMicrosecondPositionProvider();
 
   SequenceFactory<Note> getSequenceFactory();
+
+  TriggerFactory getTriggerFactory();
 
   long getClockStartRoundingFactor();
 

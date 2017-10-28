@@ -18,7 +18,6 @@ package com.purplepip.odin.sequence.triggers;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import java.lang.annotation.Annotation;
@@ -70,12 +69,12 @@ public class TriggerFactory {
   }
 
   private void register(Class<? extends Trigger> clazz) {
-    if (clazz.isAnnotationPresent(FlowDefinition.class)) {
+    if (clazz.isAnnotationPresent(TriggerDefinition.class)) {
       TriggerDefinition definition = clazz.getAnnotation(TriggerDefinition.class);
-      triggers.put(definition.name(), clazz);
+      triggers.put(definition.value(), clazz);
     } else {
       Annotation[] annotations = clazz.getAnnotations();
-      LOG.warn("Class {} MUST have a @FlowDefinition annotation, it has {}", clazz, annotations);
+      LOG.warn("Class {} MUST have a @TriggerDefinition annotation, it has {}", clazz, annotations);
     }
   }
 
@@ -109,6 +108,7 @@ public class TriggerFactory {
       throw new OdinRuntimeException("Expected trigger type for " + original.getTriggerRule()
           + " is not set");
     } else {
+      LOG.debug("Creating new trigger with class {}", expectedType.getName());
       if (expectedType.isAssignableFrom(original.getClass())) {
         /*
          * If the original is of the correct type then we can simply take a copy
@@ -138,7 +138,8 @@ public class TriggerFactory {
               }
             });
         mutableTrigger.afterPropertiesSet();
-        LOG.debug("Creating trigger with typed copy {}", mutableTrigger);
+        LOG.debug("Creating trigger with typed copy {} ; class = {}", mutableTrigger,
+            mutableTrigger.getClass().getName());
       }
     }
     return newTrigger;

@@ -115,5 +115,4 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   public void removeTrigger(String trigger) {
     triggers.remove(trigger);
   }
-
 }

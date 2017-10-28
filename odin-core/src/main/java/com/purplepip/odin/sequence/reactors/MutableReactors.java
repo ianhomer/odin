@@ -59,12 +59,12 @@ public class MutableReactors extends MutableThings<Reactor> {
         } else {
           LOG.debug("Updating reactor for {}", trigger);
           incrementUpdatedCount();
-          reactor.setTrigger(trigger);
+          reactor.setTriggerConfiguration(trigger);
         }
       } else {
         LOG.debug("Creating new reactor for {}", trigger);
         reactor = reactorSupplier.get();
-        reactor.setTrigger(trigger);
+        reactor.setTriggerConfiguration(trigger);
         add(reactor);
       }
 

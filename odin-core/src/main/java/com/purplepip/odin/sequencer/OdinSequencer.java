@@ -155,7 +155,7 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   TriggerReactor createReactor() {
-    return new TriggerReactor();
+    return new TriggerReactor(configuration.getTriggerFactory());
   }
 
   /**

@@ -25,5 +25,5 @@ public @interface TriggerDefinition {
    *
    * @return name for this trigger
    */
-  String name();
+  String value();
 }

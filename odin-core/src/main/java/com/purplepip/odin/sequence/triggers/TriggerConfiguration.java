@@ -19,7 +19,6 @@ import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.properties.beany.PropertiesProvider;
 import com.purplepip.odin.sequence.tick.TimeThing;
-import com.purplepip.odin.sequencer.Operation;
 import javax.validation.constraints.NotNull;
 
 public interface TriggerConfiguration extends
@@ -51,6 +50,4 @@ public interface TriggerConfiguration extends
    */
   @NotNull
   String getTriggerRule();
-
-  boolean isTriggeredBy(Operation operation);
 }

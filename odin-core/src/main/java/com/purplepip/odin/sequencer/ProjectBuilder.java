@@ -344,6 +344,7 @@ public class ProjectBuilder {
   public ProjectBuilder addNoteTrigger() {
     NoteTrigger trigger = createNoteTrigger();
     trigger.setNote(new DefaultNote(noteNumber, 0, 0));
+    trigger.setTriggerRule("note");
     addTriggerToContainer(applyParameters(trigger));
     return this;
   }

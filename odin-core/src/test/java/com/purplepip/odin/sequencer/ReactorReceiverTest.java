@@ -38,10 +38,12 @@ import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.reactors.MutableReactors;
 import com.purplepip.odin.sequence.reactors.TriggerReactor;
 import com.purplepip.odin.sequence.triggers.Action;
+import com.purplepip.odin.sequence.triggers.TriggerFactory;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ReactorReceiverTest {
+  private TriggerFactory triggerFactory = TriggerFactory.createTriggerFactory();
   private BeatClock clock;
   private SequenceFactory<Note> sequenceFactory;
   private MeasureProvider measureProvider;
@@ -74,7 +76,7 @@ public class ReactorReceiverTest {
     MutableTracks tracks = new MutableTracks();
     tracks.refresh(() -> project.getSequences().stream(),
         this::createSequenceTrack, conductors);
-    reactors.refresh(() -> project.getTriggers().stream(), TriggerReactor::new,
+    reactors.refresh(() -> project.getTriggers().stream(), this::createReactor,
         conductors, tracks);
     MetricRegistry metricRegistry = new MetricRegistry();
     ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
@@ -98,5 +100,9 @@ public class ReactorReceiverTest {
   private SequenceTrack createSequenceTrack() {
     return new SequenceTrack(clock,
         new MutableSequenceRoll<>(clock, sequenceFactory , measureProvider));
+  }
+
+  private TriggerReactor createReactor() {
+    return new TriggerReactor(triggerFactory);
   }
 }

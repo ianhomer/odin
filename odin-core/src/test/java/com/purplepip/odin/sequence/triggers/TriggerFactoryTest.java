@@ -17,12 +17,19 @@ package com.purplepip.odin.sequence.triggers;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import org.junit.Test;
 
 public class TriggerFactoryTest {
+  @Test(expected = OdinRuntimeException.class)
+  public void testCreateTriggerWithNoRule() throws Exception {
+    TriggerFactory.createTriggerFactory().newTrigger(new GenericTrigger());
+  }
+
   @Test
-  public void testCreateRule() throws Exception {
+  public void testCreateTrigger() throws Exception {
     MutableTriggerConfiguration triggerConfiguration = new GenericTrigger();
+    triggerConfiguration.setTriggerRule("note");
     triggerConfiguration.setProperty("note.number", 60);
     triggerConfiguration.setProperty("note.velocity", 10);
     triggerConfiguration.setProperty("note.duration", 10);

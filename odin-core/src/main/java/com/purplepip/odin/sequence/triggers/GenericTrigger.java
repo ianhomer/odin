@@ -17,7 +17,6 @@ package com.purplepip.odin.sequence.triggers;
 
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.AbstractTimeThing;
-import com.purplepip.odin.sequencer.Operation;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.ToString;
@@ -59,10 +58,5 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
   @Override
   public String getTriggerRule() {
     return triggerRule;
-  }
-
-  @Override
-  public boolean isTriggeredBy(Operation operation) {
-    return false;
   }
 }
