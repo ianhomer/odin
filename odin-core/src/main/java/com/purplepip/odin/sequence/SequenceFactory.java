@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequence;
 
-import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
@@ -25,6 +24,7 @@ import com.purplepip.odin.sequence.flow.FlowConfiguration;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
+import com.purplepip.odin.specificity.ThingConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -74,47 +74,17 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
    */
   public Sequence<A> newSequence(SequenceConfiguration sequence) {
     Class<? extends Sequence<A>> expectedType = getClass(sequence.getFlowName());
-    return newSequence(sequence, expectedType);
+    return newInstance(sequence, expectedType);
   }
 
-  /**
-   * Create a copy of the sequence with the expected type.
-   *
-   * @param expectedType expected type of the returned sequence
-   * @param original     original sequence to copy values from
-   * @return sequence of expected type
-   */
-  @SuppressWarnings("unchecked")
-  <S extends Sequence<A>> S newSequence(SequenceConfiguration original,
-                                               Class<? extends S> expectedType) {
-    S newSequence;
-    if (expectedType == null) {
-      throw new OdinRuntimeException("Expected sequence type for " + original.getFlowName()
-          + " is not set");
-    } else {
-      if (expectedType.isAssignableFrom(original.getClass())) {
-        /*
-         * If the original is of the correct type then we can simply take a copy
-         */
-        newSequence = (S) expectedType.cast(original).copy();
-        LOG.debug("Starting flow with sequence copy {}", newSequence);
-      } else {
-        LOG.debug("Creating new instance of {}", expectedType);
-        try {
-          newSequence = expectedType.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-          throw new OdinRuntimeException("Cannot create new instance of " + expectedType, e);
-        }
-        final MutableSequenceConfiguration mutableSequence =
-            (MutableSequenceConfiguration) newSequence;
-        // TODO : BeanCopy doesn't seem to copy list of layers so we'll do this manually
-        mutableSequence.getLayers().addAll(original.getLayers());
-        populate(mutableSequence, original);
-        newSequence.afterPropertiesSet();
-        LOG.debug("Starting flow with typed copy {}", newSequence);
-      }
+  @Override
+  protected void populate(Sequence<A> destination, ThingConfiguration source) {
+    if (destination instanceof MutableSequenceConfiguration
+        && source instanceof SequenceConfiguration) {
+      // TODO : BeanCopy doesn't seem to copy list of layers so we'll do this manually
+      destination.getLayers().addAll(((SequenceConfiguration) source).getLayers());
     }
-    return newSequence;
+    super.populate(destination, source);
   }
 
   /**

@@ -34,7 +34,7 @@ public class TriggerFactoryTest {
     triggerConfiguration.setProperty("note.velocity", 10);
     triggerConfiguration.setProperty("note.duration", 10);
     NoteTrigger trigger = TriggerFactory.createTriggerFactory()
-        .newTrigger(triggerConfiguration, NoteTrigger.class);
+        .newInstance(triggerConfiguration, NoteTrigger.class);
     assertEquals(60, trigger.getNote().getNumber());
   }
 }

@@ -16,11 +16,10 @@
 package com.purplepip.odin.sequence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.properties.beany.PropertiesProvider;
 import com.purplepip.odin.sequence.tick.TimeThing;
 import com.purplepip.odin.sequence.triggers.Action;
+import com.purplepip.odin.specificity.ThingConfiguration;
 import java.util.List;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
@@ -29,8 +28,7 @@ import javax.validation.constraints.NotNull;
  * Sequence configuration.   This class contains pure data that can be readily persisted.
  * @see Sequence for interface which can include sequence logic.
  */
-public interface SequenceConfiguration extends
-    Copyable<SequenceConfiguration>, TimeThing, PropertiesProvider {
+public interface SequenceConfiguration extends ThingConfiguration, TimeThing  {
 
   /**
    * Create a copy of this sequence.

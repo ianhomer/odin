@@ -15,14 +15,12 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.common.Copyable;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.properties.beany.PropertiesProvider;
 import com.purplepip.odin.sequence.tick.TimeThing;
+import com.purplepip.odin.specificity.ThingConfiguration;
 import javax.validation.constraints.NotNull;
 
-public interface TriggerConfiguration extends
-    Copyable<TriggerConfiguration>, TimeThing, PropertiesProvider {
+public interface TriggerConfiguration extends ThingConfiguration, TimeThing {
 
   /**
    * Create a copy of this trigger.

@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.specificity;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
-import com.purplepip.odin.properties.beany.PropertiesProvider;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import java.lang.annotation.Annotation;
@@ -34,12 +34,12 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Factory that allow the generation of instances for specific classes from generic configuration
- * instance.
+ * instances.
  *
  * @param <C> specific class base type
  */
 @Slf4j
-public class AbstractSpecificThingFactory<C> {
+public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
   private final Map<String, Class<? extends C>> specificClasses = new HashMap<>();
 
   static {
@@ -67,21 +67,56 @@ public class AbstractSpecificThingFactory<C> {
     specificClasses.put(name, clazz);
   }
 
-  protected void populate(MutablePropertiesProvider destination,
-                          PropertiesProvider source) {
-    LOG.debug("Copying original object properties to copy");
+  /**
+   * Create a copy of the sequence with the expected type.
+   *
+   * @param expectedType expected type of the returned sequence
+   * @param original     original sequence to copy values from
+   * @return sequence of expected type
+   */
+  @SuppressWarnings("unchecked")
+  public <S extends C> S newInstance(ThingConfiguration original,
+                                        Class<? extends S> expectedType) {
+    S newInstance;
+    if (expectedType == null) {
+      throw new OdinRuntimeException("Expected sequence type for " + original + " is not set");
+    } else {
+      if (expectedType.isAssignableFrom(original.getClass())) {
+        /*
+         * If the original is of the correct type then we can simply take a copy
+         */
+        newInstance = (S) expectedType.cast(original).copy();
+        LOG.debug("Starting flow with sequence copy {}", newInstance);
+      } else {
+        LOG.debug("Creating new instance of {}", expectedType);
+        try {
+          newInstance = expectedType.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+          throw new OdinRuntimeException("Cannot create new instance of " + expectedType, e);
+        }
+        populate(newInstance, original);
+        newInstance.afterPropertiesSet();
+        LOG.debug("Starting flow with typed copy {}", newInstance);
+      }
+    }
+    return newInstance;
+  }
+
+  protected void populate(C destination, ThingConfiguration source) {
+    LOG.debug("Populating bean properties from source");
     BeanCopy.from(source).to(destination).copy();
-    LOG.debug("Copying original properties map to copy");
-    source.getPropertyNames()
-        .forEach(name -> {
-          destination.setProperty(name, source.getProperty(name));
-          try {
-            BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
-          } catch (BeanException e) {
-            LOG.debug("Whilst populating thing {} (full stack)", e);
-            LOG.warn("Whilst populating thing {}", e.getMessage());
-          }
-        });
+    LOG.debug("Populating properties map from source");
+    if (destination instanceof MutablePropertiesProvider) {
+      source.getPropertyNames().forEach(name -> {
+        ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name));
+        try {
+          BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
+        } catch (BeanException e) {
+          LOG.debug("Whilst populating thing {} (full stack)", e);
+          LOG.warn("Whilst populating thing {}", e.getMessage());
+        }
+      });
+    }
   }
 
   public Class<? extends C> getClass(String name) {

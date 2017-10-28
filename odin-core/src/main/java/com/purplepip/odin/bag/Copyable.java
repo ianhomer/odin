@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.common;
+package com.purplepip.odin.bag;
 
 @FunctionalInterface
-public interface Copyable<C> {
-  C copy();
+public interface Copyable {
+  Copyable copy();
 }

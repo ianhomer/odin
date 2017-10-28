@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequence.triggers;
 
-import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,47 +59,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
    */
   public Trigger newTrigger(TriggerConfiguration triggerConfiguration) {
     Class<? extends Trigger> expectedType = getClass(triggerConfiguration.getTriggerRule());
-    return newTrigger(triggerConfiguration, expectedType);
-  }
-
-  /**
-   * Create a copy of the trigger with the expected type.
-   *
-   * @param expectedType expected type of the returned sequence
-   * @param original     original sequence to copy values from
-   * @return trigger of expected type
-   */
-  @SuppressWarnings("unchecked")
-  <S extends Trigger> S newTrigger(TriggerConfiguration original,
-                                        Class<? extends S> expectedType) {
-    S newTrigger;
-    if (expectedType == null) {
-      throw new OdinRuntimeException("Expected trigger type for " + original.getTriggerRule()
-          + " is not set");
-    } else {
-      LOG.debug("Creating new trigger with class {}", expectedType.getName());
-      if (expectedType.isAssignableFrom(original.getClass())) {
-        /*
-         * If the original is of the correct type then we can simply take a copy
-         */
-        newTrigger = (S) expectedType.cast(original).copy();
-        LOG.debug("Starting flow with trigger copy {}", newTrigger);
-      } else {
-        LOG.debug("Creating new instance of {}", expectedType);
-        try {
-          newTrigger = expectedType.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-          throw new OdinRuntimeException("Cannot create new instance of " + expectedType, e);
-        }
-        final MutableTriggerConfiguration mutableTrigger =
-            (MutableTriggerConfiguration) newTrigger;
-        populate(mutableTrigger, original);
-        mutableTrigger.afterPropertiesSet();
-        LOG.debug("Creating trigger with typed copy {} ; class = {}", mutableTrigger,
-            mutableTrigger.getClass().getName());
-      }
-    }
-    return newTrigger;
+    return newInstance(triggerConfiguration, expectedType);
   }
 
   /**
