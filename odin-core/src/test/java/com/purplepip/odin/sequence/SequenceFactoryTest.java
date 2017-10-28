@@ -63,9 +63,9 @@ public class SequenceFactoryTest {
 
   @Test
   public void testGetSequenceClass() {
-    assertEquals(Notation.class, factory.getSequenceClass("notation"));
-    assertEquals(Metronome.class, factory.getSequenceClass("metronome"));
-    assertEquals(Pattern.class, factory.getSequenceClass("pattern"));
+    assertEquals(Notation.class, factory.getClass("notation"));
+    assertEquals(Metronome.class, factory.getClass("metronome"));
+    assertEquals(Pattern.class, factory.getClass("pattern"));
   }
 
   @Test

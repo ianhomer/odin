@@ -20,12 +20,10 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
+import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 import jodd.bean.BeanCopy;
 import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
@@ -37,9 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 // TODO : Reuse with SequenceFactory
 @Slf4j
-public class TriggerFactory {
-  private final Map<String, Class<? extends Trigger>> triggers = new HashMap<>();
-
+public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
   /**
    * Create the note sequence factory.
    *
@@ -71,7 +67,7 @@ public class TriggerFactory {
   private void register(Class<? extends Trigger> clazz) {
     if (clazz.isAnnotationPresent(TriggerDefinition.class)) {
       TriggerDefinition definition = clazz.getAnnotation(TriggerDefinition.class);
-      triggers.put(definition.value(), clazz);
+      put(definition.value(), clazz);
     } else {
       Annotation[] annotations = clazz.getAnnotations();
       LOG.warn("Class {} MUST have a @TriggerDefinition annotation, it has {}", clazz, annotations);
@@ -89,7 +85,7 @@ public class TriggerFactory {
    * @param triggerConfiguration sequence to use as a template for the one that is set
    */
   public Trigger newTrigger(TriggerConfiguration triggerConfiguration) {
-    Class<? extends Trigger> expectedType = getTriggerClass(triggerConfiguration.getTriggerRule());
+    Class<? extends Trigger> expectedType = getClass(triggerConfiguration.getTriggerRule());
     return newTrigger(triggerConfiguration, expectedType);
   }
 
@@ -145,15 +141,6 @@ public class TriggerFactory {
     return newTrigger;
   }
 
-  public Class<? extends Trigger> getTriggerClass(String name) {
-    return triggers.get(name);
-  }
-
-  public Stream<String> getTriggerNames() {
-    return triggers.keySet().stream();
-  }
-
-
   /**
    * For test cases where timing is important it may be necessary to warm the factory up
    * so the first time it is used performance does not cause inconsistencies.  This warm up
@@ -161,7 +148,7 @@ public class TriggerFactory {
    * test that is expecting sequence to start immediately.
    */
   private void warmUp() {
-    getTriggerNames().forEach(name -> {
+    getNames().forEach(name -> {
       MutableTriggerConfiguration trigger = new GenericTrigger();
       trigger.setTriggerRule(name);
       newTrigger(trigger);

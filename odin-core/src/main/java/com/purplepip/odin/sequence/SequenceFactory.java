@@ -29,12 +29,10 @@ import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 import jodd.bean.BeanCopy;
 import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
@@ -45,8 +43,7 @@ import lombok.extern.slf4j.Slf4j;
  * Factory to create sequences.
  */
 @Slf4j
-public class SequenceFactory<A> {
-  private final Map<String, Class<? extends Sequence<A>>> sequences = new HashMap<>();
+public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>> {
   private FlowConfiguration flowConfiguration;
 
   /**
@@ -85,7 +82,7 @@ public class SequenceFactory<A> {
   private void register(Class<? extends Sequence<A>> clazz) {
     if (clazz.isAnnotationPresent(FlowDefinition.class)) {
       FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
-      sequences.put(definition.name(), clazz);
+      put(definition.name(), clazz);
     } else {
       Annotation[] annotations = clazz.getAnnotations();
       LOG.warn("Class {} MUST have a @FlowDefinition annotation, it has {}", clazz, annotations);
@@ -103,7 +100,7 @@ public class SequenceFactory<A> {
    * @param sequence sequence to use as a template for the one that is set
    */
   public Sequence<A> newSequence(SequenceConfiguration sequence) {
-    Class<? extends Sequence<A>> expectedType = getSequenceClass(sequence.getFlowName());
+    Class<? extends Sequence<A>> expectedType = getClass(sequence.getFlowName());
     return newSequence(sequence, expectedType);
   }
 
@@ -186,14 +183,6 @@ public class SequenceFactory<A> {
     flow.setSequence(newSequence(sequence));
   }
 
-  public Class<? extends Sequence<A>> getSequenceClass(String name) {
-    return sequences.get(name);
-  }
-
-  public Stream<String> getSequenceNames() {
-    return sequences.keySet().stream();
-  }
-
   /**
    * For test cases where timing is important it may be necessary to warm the factory up
    * so the first time it is used performance does not cause inconsistencies.  This warm up
@@ -201,7 +190,7 @@ public class SequenceFactory<A> {
    * test that is expecting sequence to start immediately.
    */
   private void warmUp() {
-    getSequenceNames().forEach(name -> {
+    getNames().forEach(name -> {
       MutableSequenceConfiguration sequence = new GenericSequence();
       sequence.setFlowName(name);
       newSequence(sequence);

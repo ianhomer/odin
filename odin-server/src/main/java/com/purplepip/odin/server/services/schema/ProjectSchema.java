@@ -90,8 +90,8 @@ public class ProjectSchema {
      * Register sequence flows project referenced.
      */
     JsonSchemaGenerator flowSchemaGenerator = new JsonSchemaGenerator(mapper, config);
-    factory.getSequenceNames().forEach(name ->
-        registerFlow(flowSchemaGenerator, name, factory.getSequenceClass(name))
+    factory.getNames().forEach(name ->
+        registerFlow(flowSchemaGenerator, name, factory.getClass(name))
     );
   }
 
