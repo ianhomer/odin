@@ -16,17 +16,9 @@
 package com.purplepip.odin.sequence.triggers;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.sequence.flow.RationalTypeConverter;
-import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
 import java.util.ArrayList;
 import java.util.List;
-import jodd.bean.BeanCopy;
-import jodd.bean.BeanException;
-import jodd.bean.BeanUtil;
-import jodd.typeconverter.TypeConverterManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -58,14 +50,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
    * @param classes trigger classes to initialise with
    */
   public TriggerFactory(List<Class<? extends Trigger>> classes) {
-    for (Class<? extends Trigger> clazz : classes) {
-      register(clazz);
-    }
-  }
-
-  static {
-    TypeConverterManager.register(Real.class, new RealTypeConverter());
-    TypeConverterManager.register(Rational.class, new RationalTypeConverter());
+    super(classes);
   }
 
   /**
@@ -109,19 +94,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
         }
         final MutableTriggerConfiguration mutableTrigger =
             (MutableTriggerConfiguration) newTrigger;
-        LOG.debug("Copying original object properties to copy");
-        BeanCopy.from(original).to(newTrigger).copy();
-        LOG.debug("Copying original properties map to copy");
-        original.getPropertyNames()
-            .forEach(name -> {
-              mutableTrigger.setProperty(name, original.getProperty(name));
-              try {
-                BeanUtil.declared.setProperty(mutableTrigger, name, original.getProperty(name));
-              } catch (BeanException e) {
-                LOG.debug("Whilst creating sequence {} (full stack)", e);
-                LOG.warn("Whilst creating sequence {}", e.getMessage());
-              }
-            });
+        populate(mutableTrigger, original);
         mutableTrigger.afterPropertiesSet();
         LOG.debug("Creating trigger with typed copy {} ; class = {}", mutableTrigger,
             mutableTrigger.getClass().getName());

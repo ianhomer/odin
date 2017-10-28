@@ -16,8 +16,6 @@
 package com.purplepip.odin.sequence;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
@@ -25,16 +23,10 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.flow.DefaultFlow;
 import com.purplepip.odin.sequence.flow.FlowConfiguration;
 import com.purplepip.odin.sequence.flow.MutableFlow;
-import com.purplepip.odin.sequence.flow.RationalTypeConverter;
-import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
 import java.util.ArrayList;
 import java.util.List;
-import jodd.bean.BeanCopy;
-import jodd.bean.BeanException;
-import jodd.bean.BeanUtil;
-import jodd.typeconverter.TypeConverterManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -71,15 +63,8 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
    */
   public SequenceFactory(FlowConfiguration flowConfiguration,
                          List<Class<? extends Sequence<A>>> classes) {
+    super(classes);
     this.flowConfiguration = flowConfiguration;
-    for (Class<? extends Sequence<A>> clazz : classes) {
-      register(clazz);
-    }
-  }
-
-  static {
-    TypeConverterManager.register(Real.class, new RealTypeConverter());
-    TypeConverterManager.register(Rational.class, new RationalTypeConverter());
   }
 
   /**
@@ -124,19 +109,7 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
             (MutableSequenceConfiguration) newSequence;
         // TODO : BeanCopy doesn't seem to copy list of layers so we'll do this manually
         mutableSequence.getLayers().addAll(original.getLayers());
-        LOG.debug("Copying original object properties to copy");
-        BeanCopy.from(original).to(mutableSequence).copy();
-        LOG.debug("Copying original properties map to copy");
-        original.getPropertyNames()
-            .forEach(name -> {
-              mutableSequence.setProperty(name, original.getProperty(name));
-              try {
-                BeanUtil.declared.setProperty(mutableSequence, name, original.getProperty(name));
-              } catch (BeanException e) {
-                LOG.debug("Whilst creating sequence {} (full stack)", e);
-                LOG.warn("Whilst creating sequence {}", e.getMessage());
-              }
-            });
+        populate(mutableSequence, original);
         newSequence.afterPropertiesSet();
         LOG.debug("Starting flow with typed copy {}", newSequence);
       }

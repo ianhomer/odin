@@ -15,10 +15,21 @@
 
 package com.purplepip.odin.specificity;
 
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import com.purplepip.odin.properties.beany.PropertiesProvider;
+import com.purplepip.odin.sequence.flow.RationalTypeConverter;
+import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import jodd.bean.BeanCopy;
+import jodd.bean.BeanException;
+import jodd.bean.BeanUtil;
+import jodd.typeconverter.TypeConverterManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,6 +41,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AbstractSpecificThingFactory<C> {
   private final Map<String, Class<? extends C>> specificClasses = new HashMap<>();
+
+  static {
+    TypeConverterManager.register(Real.class, new RealTypeConverter());
+    TypeConverterManager.register(Rational.class, new RationalTypeConverter());
+  }
+
+  protected AbstractSpecificThingFactory(List<Class<? extends C>> classes) {
+    for (Class<? extends C> clazz: classes) {
+      register(clazz);
+    }
+  }
 
   protected void register(Class<? extends C> clazz) {
     if (clazz.isAnnotationPresent(Name.class)) {
@@ -43,6 +65,23 @@ public class AbstractSpecificThingFactory<C> {
 
   protected void put(String name, Class<? extends C> clazz) {
     specificClasses.put(name, clazz);
+  }
+
+  protected void populate(MutablePropertiesProvider destination,
+                          PropertiesProvider source) {
+    LOG.debug("Copying original object properties to copy");
+    BeanCopy.from(source).to(destination).copy();
+    LOG.debug("Copying original properties map to copy");
+    source.getPropertyNames()
+        .forEach(name -> {
+          destination.setProperty(name, source.getProperty(name));
+          try {
+            BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
+          } catch (BeanException e) {
+            LOG.debug("Whilst populating thing {} (full stack)", e);
+            LOG.warn("Whilst populating thing {}", e.getMessage());
+          }
+        });
   }
 
   public Class<? extends C> getClass(String name) {
