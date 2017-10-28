@@ -34,7 +34,6 @@ import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.sequence.Sequence;
 import com.purplepip.odin.sequence.SequenceConfiguration;
-import com.purplepip.odin.sequence.flow.Flows;
 import com.purplepip.odin.sequence.layer.DefaultLayer;
 import com.purplepip.odin.sequence.layer.Layer;
 import com.purplepip.odin.sequence.layer.MutableLayer;
@@ -46,6 +45,7 @@ import com.purplepip.odin.sequence.triggers.GenericTrigger;
 import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
 import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
+import com.purplepip.odin.specificity.Specifics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -140,7 +140,7 @@ public class ProjectBuilder {
 
   private MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
                                                 Class<? extends Sequence> clazz) {
-    sequence.setFlowName(Flows.getFlowName(clazz));
+    sequence.setFlowName(Specifics.getName(clazz));
     return sequence;
   }
 

@@ -28,14 +28,14 @@ import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
-import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.flow.Loop;
+import com.purplepip.odin.specificity.Name;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @ToString(callSuper = true)
 @Slf4j
-@FlowDefinition(name = "notation")
+@Name("notation")
 public class Notation extends GenericSequence implements SpecialisedSequence {
   private String format;
   private String notation;

@@ -24,13 +24,11 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequence.flow.DefaultFlow;
 import com.purplepip.odin.sequence.flow.FlowConfiguration;
-import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import jodd.bean.BeanCopy;
@@ -76,16 +74,6 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
     this.flowConfiguration = flowConfiguration;
     for (Class<? extends Sequence<A>> clazz : classes) {
       register(clazz);
-    }
-  }
-
-  private void register(Class<? extends Sequence<A>> clazz) {
-    if (clazz.isAnnotationPresent(FlowDefinition.class)) {
-      FlowDefinition definition = clazz.getAnnotation(FlowDefinition.class);
-      put(definition.name(), clazz);
-    } else {
-      Annotation[] annotations = clazz.getAnnotations();
-      LOG.warn("Class {} MUST have a @FlowDefinition annotation, it has {}", clazz, annotations);
     }
   }
 

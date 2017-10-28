@@ -21,7 +21,6 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.flow.RationalTypeConverter;
 import com.purplepip.odin.sequence.flow.RealTypeConverter;
 import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import jodd.bean.BeanCopy;
@@ -61,16 +60,6 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
   public TriggerFactory(List<Class<? extends Trigger>> classes) {
     for (Class<? extends Trigger> clazz : classes) {
       register(clazz);
-    }
-  }
-
-  private void register(Class<? extends Trigger> clazz) {
-    if (clazz.isAnnotationPresent(TriggerDefinition.class)) {
-      TriggerDefinition definition = clazz.getAnnotation(TriggerDefinition.class);
-      put(definition.value(), clazz);
-    } else {
-      Annotation[] annotations = clazz.getAnnotations();
-      LOG.warn("Class {} MUST have a @TriggerDefinition annotation, it has {}", clazz, annotations);
     }
   }
 

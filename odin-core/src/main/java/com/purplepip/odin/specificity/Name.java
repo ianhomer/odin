@@ -13,17 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers;
+package com.purplepip.odin.specificity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TriggerDefinition {
+public @interface Name {
   /**
-   * Name for this trigger.
+   * Name for this thing.
    *
-   * @return name for this trigger
+   * @return name for this thing
    */
   String value();
 }

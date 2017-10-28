@@ -19,8 +19,9 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.specificity.Name;
 
-@TriggerDefinition("note")
+@Name("note")
 public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
   private Note note = Notes.newDefault();
 

@@ -15,9 +15,11 @@
 
 package com.purplepip.odin.specificity;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Factory that allow the generation of instances for specific classes from generic configuration
@@ -25,8 +27,19 @@ import java.util.stream.Stream;
  *
  * @param <C> specific class base type
  */
+@Slf4j
 public class AbstractSpecificThingFactory<C> {
   private final Map<String, Class<? extends C>> specificClasses = new HashMap<>();
+
+  protected void register(Class<? extends C> clazz) {
+    if (clazz.isAnnotationPresent(Name.class)) {
+      Name definition = clazz.getAnnotation(Name.class);
+      put(definition.value(), clazz);
+    } else {
+      Annotation[] annotations = clazz.getAnnotations();
+      LOG.warn("Class {} MUST have a @Name annotation, it has {}", clazz, annotations);
+    }
+  }
 
   protected void put(String name, Class<? extends C> clazz) {
     specificClasses.put(name, clazz);

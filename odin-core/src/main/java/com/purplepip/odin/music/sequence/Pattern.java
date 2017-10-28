@@ -25,8 +25,8 @@ import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
-import com.purplepip.odin.sequence.flow.FlowDefinition;
 import com.purplepip.odin.sequence.flow.Loop;
+import com.purplepip.odin.specificity.Name;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ToString(callSuper = true)
 @Slf4j
-@FlowDefinition(name = "pattern")
+@Name("pattern")
 public class Pattern extends GenericSequence implements SpecialisedSequence {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.

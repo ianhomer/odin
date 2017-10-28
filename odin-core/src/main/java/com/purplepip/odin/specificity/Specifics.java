@@ -13,17 +13,30 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.flow;
+package com.purplepip.odin.specificity;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import com.purplepip.odin.bag.Thing;
+import com.purplepip.odin.common.OdinRuntimeException;
 
-@Retention(RetentionPolicy.RUNTIME)
-public @interface FlowDefinition {
+/**
+ * Specifics utility class.
+ */
+public class Specifics {
+  private Specifics() {
+  }
+
   /**
-   * Name for this flow.
+   * Get name for the given class.
    *
-   * @return name for this flow
+   * @param clazz class to inspect
+   * @return flow name
    */
-  String name();
+  public static String getName(Class<? extends Thing> clazz) {
+    if (clazz.isAnnotationPresent(Name.class)) {
+      Name definition = clazz.getAnnotation(Name.class);
+      return definition.value();
+    } else {
+      throw new OdinRuntimeException("Cannot find flow name for " + clazz);
+    }
+  }
 }
