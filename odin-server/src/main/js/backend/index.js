@@ -98,7 +98,7 @@ export class Backend {
   }
 
   *enrichEntity(entity) {
-    if (entity.typeName === 'notation') {
+    if (entity.type === 'notation') {
       yield put({type: FETCH_COMPOSITION_REQUESTED, entityName: entity.name, notation: entity.properties.notation})
     }
   }

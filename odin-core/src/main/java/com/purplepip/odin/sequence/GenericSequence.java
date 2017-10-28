@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GenericSequence extends AbstractTimeThing implements MutableSequenceConfiguration {
   private int channel;
-  private String typeName;
+  private String type;
   private Project project;
   private List<String> layers = new ArrayList<>();
   private Map<String, Action> triggers = new HashMap<>();
@@ -60,13 +60,13 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   }
 
   @Override
-  public void setTypeName(String typeName) {
-    this.typeName = typeName;
+  public void setType(String type) {
+    this.type = type;
   }
 
   @Override
-  public String getTypeName() {
-    return typeName;
+  public String getType() {
+    return type;
   }
 
   @Override

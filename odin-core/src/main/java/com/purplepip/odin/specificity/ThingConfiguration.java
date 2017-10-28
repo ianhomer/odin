@@ -27,5 +27,5 @@ public interface ThingConfiguration extends Copyable, PropertiesProvider, Thing 
    * @return type name.
    */
   @NotNull
-  String getTypeName();
+  String getType();
 }

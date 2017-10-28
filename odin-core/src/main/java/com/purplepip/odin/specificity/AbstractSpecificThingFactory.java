@@ -34,7 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Factory that allow the generation of instances for specific classes from generic configuration
- * instances.
+ * instances.   This allows generic configuration objects to be serialised and persisted which
+ * then can be instantiated in the run time as a specific class of the object with appropriate
+ * business logic attached.  The type property on the the thing configuration interface allows this
+ * lookup of the specific class that should be used for instantiation of a new object.
  *
  * @param <C> specific class base type
  */
@@ -68,11 +71,11 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
   }
 
   /**
-   * Create a copy of the sequence with the expected type.
+   * Create an instance of the expected type using the given configuration object.
    *
-   * @param expectedType expected type of the returned sequence
-   * @param original     original sequence to copy values from
-   * @return sequence of expected type
+   * @param expectedType expected type of the returned instance
+   * @param original     original configuration to copy values from
+   * @return instance of expected type
    */
   @SuppressWarnings("unchecked")
   public <S extends C> S newInstance(ThingConfiguration original,
@@ -86,7 +89,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
          * If the original is of the correct type then we can simply take a copy
          */
         newInstance = (S) expectedType.cast(original).copy();
-        LOG.debug("Starting flow with sequence copy {}", newInstance);
+        LOG.debug("Creating new instance with direct copy of {}", newInstance);
       } else {
         LOG.debug("Creating new instance of {}", expectedType);
         try {
@@ -96,7 +99,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
         }
         populate(newInstance, original);
         newInstance.afterPropertiesSet();
-        LOG.debug("Starting flow with typed copy {}", newInstance);
+        LOG.debug("Creating instance with typed copy {}", newInstance);
       }
     }
     return newInstance;

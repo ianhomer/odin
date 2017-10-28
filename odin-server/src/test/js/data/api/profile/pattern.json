@@ -52,7 +52,7 @@
       "type": "object",
       "$ref": "#/definitions/tick"
     },
-    "typeName": {
+    "type": {
       "title": "Flow name",
       "readOnly": false,
       "type": "string"

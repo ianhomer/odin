@@ -2034,15 +2034,15 @@ exports[`Sequences container Sequences container initialise 1`] = `
         </div>
         <div
           className="col-2"
-          key="typeName"
+          key="type"
         >
           <span>
             notation
           </span>
           <input
-            className="property-typeName"
+            className="property-type"
             defaultValue="notation"
-            name="typeName"
+            name="type"
             type="hidden"
           />
         </div>
@@ -2278,15 +2278,15 @@ exports[`Sequences container Sequences container initialise 1`] = `
         </div>
         <div
           className="col-2"
-          key="typeName"
+          key="type"
         >
           <span>
             pattern
           </span>
           <input
-            className="property-typeName"
+            className="property-type"
             defaultValue="pattern"
-            name="typeName"
+            name="type"
             type="hidden"
           />
         </div>
@@ -4363,15 +4363,15 @@ exports[`Sequences container Sequences container load 1`] = `
         </div>
         <div
           className="col-2"
-          key="typeName"
+          key="type"
         >
           <span>
             notation
           </span>
           <input
-            className="property-typeName"
+            className="property-type"
             defaultValue="notation"
-            name="typeName"
+            name="type"
             type="hidden"
           />
         </div>
@@ -4607,15 +4607,15 @@ exports[`Sequences container Sequences container load 1`] = `
         </div>
         <div
           className="col-2"
-          key="typeName"
+          key="type"
         >
           <span>
             pattern
           </span>
           <input
-            className="property-typeName"
+            className="property-type"
             defaultValue="pattern"
-            name="typeName"
+            name="type"
             type="hidden"
           />
         </div>

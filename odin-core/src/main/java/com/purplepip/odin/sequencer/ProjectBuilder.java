@@ -140,7 +140,7 @@ public class ProjectBuilder {
 
   private MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
                                                 Class<? extends Sequence> clazz) {
-    sequence.setTypeName(Specifics.getName(clazz));
+    sequence.setType(Specifics.getName(clazz));
     return sequence;
   }
 
@@ -344,7 +344,7 @@ public class ProjectBuilder {
   public ProjectBuilder addNoteTrigger() {
     NoteTrigger trigger = createNoteTrigger();
     trigger.setNote(new DefaultNote(noteNumber, 0, 0));
-    trigger.setTypeName("note");
+    trigger.setType("note");
     addTriggerToContainer(applyParameters(trigger));
     return this;
   }
@@ -559,8 +559,8 @@ public class ProjectBuilder {
     if (sequence.getTick() == null) {
       sequence.setTick(tick);
     }
-    if (sequence.getTypeName() == null) {
-      sequence.setTypeName(typeName);
+    if (sequence.getType() == null) {
+      sequence.setType(typeName);
     }
     layerNamesToAdd.forEach(sequence::addLayer);
     triggersToAdd.forEach(sequence::addTrigger);

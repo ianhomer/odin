@@ -90,7 +90,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   @Override
   public void setSequence(SequenceConfiguration sequence) {
     if (this.sequence == null
-        || !this.sequence.getTypeName().equals(sequence.getTypeName())) {
+        || !this.sequence.getType().equals(sequence.getType())) {
       typeNameDirty = true;
     }
 

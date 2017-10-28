@@ -43,5 +43,5 @@ public class PersistableTrigger extends PersistableTimeThing
   private Project project;
 
   @NotNull
-  private String typeName;
+  private String type;
 }

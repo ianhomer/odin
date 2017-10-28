@@ -58,7 +58,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
    * @param triggerConfiguration sequence to use as a template for the one that is set
    */
   public Trigger newTrigger(TriggerConfiguration triggerConfiguration) {
-    Class<? extends Trigger> expectedType = getClass(triggerConfiguration.getTypeName());
+    Class<? extends Trigger> expectedType = getClass(triggerConfiguration.getType());
     return newInstance(triggerConfiguration, expectedType);
   }
 
@@ -71,7 +71,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
   private void warmUp() {
     getNames().forEach(name -> {
       MutableTriggerConfiguration trigger = new GenericTrigger();
-      trigger.setTypeName(name);
+      trigger.setType(name);
       newTrigger(trigger);
     });
   }

@@ -73,7 +73,7 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
    * @param sequence sequence to use as a template for the one that is set
    */
   public Sequence<A> newSequence(SequenceConfiguration sequence) {
-    Class<? extends Sequence<A>> expectedType = getClass(sequence.getTypeName());
+    Class<? extends Sequence<A>> expectedType = getClass(sequence.getType());
     return newInstance(sequence, expectedType);
   }
 
@@ -123,7 +123,7 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
   private void warmUp() {
     getNames().forEach(name -> {
       MutableSequenceConfiguration sequence = new GenericSequence();
-      sequence.setTypeName(name);
+      sequence.setType(name);
       newSequence(sequence);
     });
   }

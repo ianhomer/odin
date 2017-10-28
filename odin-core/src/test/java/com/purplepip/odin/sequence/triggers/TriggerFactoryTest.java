@@ -29,7 +29,7 @@ public class TriggerFactoryTest {
   @Test
   public void testCreateTrigger() throws Exception {
     MutableTriggerConfiguration triggerConfiguration = new GenericTrigger();
-    triggerConfiguration.setTypeName("note");
+    triggerConfiguration.setType("note");
     triggerConfiguration.setProperty("note.number", 60);
     triggerConfiguration.setProperty("note.velocity", 10);
     triggerConfiguration.setProperty("note.duration", 10);

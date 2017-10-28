@@ -24,7 +24,7 @@ import lombok.ToString;
 @ToString(exclude = "project")
 public class GenericTrigger extends AbstractTimeThing implements MutableTriggerConfiguration {
   private Project project;
-  private String typeName;
+  private String type;
 
   public GenericTrigger() {
     super();
@@ -51,12 +51,12 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
   }
 
   @Override
-  public void setTypeName(String typeName) {
-    this.typeName = typeName;
+  public void setType(String type) {
+    this.type = type;
   }
 
   @Override
-  public String getTypeName() {
-    return typeName;
+  public String getType() {
+    return type;
   }
 }

@@ -61,7 +61,7 @@
                 ]
               }
             },
-            "typeName": {
+            "type": {
               "type": "string"
             },
             "length": {
@@ -83,7 +83,7 @@
           "required": [
             "channel",
             "layers",
-            "typeName",
+            "type",
             "length",
             "offset",
             "tick",
@@ -297,7 +297,7 @@
           "type": "integer",
           "title": "Channel"
         },
-        "typeName": {
+        "type": {
           "type": "string",
           "title": "Flow Name"
         },
@@ -340,7 +340,7 @@
         "length",
         "offset",
         "channel",
-        "typeName",
+        "type",
         "layers",
         "bits"
       ],
@@ -436,7 +436,7 @@
           "type": "integer",
           "title": "Channel"
         },
-        "typeName": {
+        "type": {
           "type": "string",
           "title": "Flow Name"
         },
@@ -479,7 +479,7 @@
         "length",
         "offset",
         "channel",
-        "typeName",
+        "type",
         "layers"
       ],
       "definitions": {
@@ -574,7 +574,7 @@
           "type": "integer",
           "title": "Channel"
         },
-        "typeName": {
+        "type": {
           "type": "string",
           "title": "Flow Name"
         },
@@ -617,7 +617,7 @@
         "length",
         "offset",
         "channel",
-        "typeName",
+        "type",
         "layers"
       ],
       "definitions": {

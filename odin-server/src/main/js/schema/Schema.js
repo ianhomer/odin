@@ -66,8 +66,8 @@ export class Schema {
     return _schema.get(this)
   }
 
-  getFlowClazz(typeName) {
-    var urn = this.getSchema().project.flows[typeName]
+  getFlowClazz(type) {
+    var urn = this.getSchema().project.flows[type]
     return this.getClazz(urn)
   }
 

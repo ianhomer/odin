@@ -27,7 +27,7 @@ public class HeartBeatSequence extends GenericSequence {
   public SequenceConfiguration copy() {
     HeartBeatSequence copy = new HeartBeatSequence(this.getId());
     copy.setChannel(this.getChannel());
-    copy.setTypeName(this.getTypeName());
+    copy.setType(this.getType());
     copy.setLength(this.getLength());
     copy.setOffset(this.getOffset());
     copy.setProject(this.getProject());
