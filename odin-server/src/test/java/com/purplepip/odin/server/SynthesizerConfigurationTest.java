@@ -16,6 +16,7 @@
 package com.purplepip.odin.server;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
@@ -38,8 +39,8 @@ public class SynthesizerConfigurationTest {
 
   @Test
   public void testRun() throws Exception {
-    SynthesizerConfiguration loader =
-        new SynthesizerConfiguration(midiDeviceWrapper);
+    assumeTrue(midiDeviceWrapper.isOpenSynthesizer());
+    SynthesizerConfiguration loader = new SynthesizerConfiguration(midiDeviceWrapper);
     try (LogCaptor captor = new LogCapture().info().from(SynthesizerHelper.class).start()) {
       loader.run();
       assertEquals(1, captor.size());

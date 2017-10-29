@@ -63,6 +63,9 @@
     <!-- #4 workaround -->
     <sonar.coverage.exclusions>**/domain/*</sonar.coverage.exclusions>
     <sonar.javascript.file.suffixes>.js,.jsx</sonar.javascript.file.suffixes>
+
+    <!--odin flags-->
+    <odin.audio.enabled>true</odin.audio.enabled>
   </properties>
 
   <dependencyManagement>
@@ -272,7 +275,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <argLine>@{jacoco.argLine} ${purplepip.tests.log.jvm} -Dlogback.debug=true -Dodin.audio.disabled=true</argLine>
+          <argLine>@{jacoco.argLine} ${purplepip.tests.log.jvm} -Dlogback.debug=true -Dodin.audio.enabled=${odin.audio.enabled}</argLine>
         </configuration>
       </plugin>
       <plugin>
@@ -358,6 +361,17 @@
       </activation>
       <properties>
         <purplepip.tests.log.file>com/purplepip/common/logback-debug.xml</purplepip.tests.log.file>
+      </properties>
+    </profile>
+    <profile>
+      <id>noAudio</id>
+      <activation>
+        <property>
+          <name>test</name>
+        </property>
+      </activation>
+      <properties>
+        <odin.audio.enabled>false</odin.audio.enabled>
       </properties>
     </profile>
     <profile>

@@ -43,7 +43,11 @@ public class RawMessage {
     } else if (operation instanceof ProgramChangeOperation) {
       handle((ProgramChangeOperation) operation);
     } else {
-      throw new OdinException("Operation " + operation.getClass() + " not recognised");
+      if (operation == null) {
+        throw new OdinException("Operation is null");
+      } else {
+        throw new OdinException("Operation " + operation.getClass() + " not recognised");
+      }
     }
   }
 

@@ -19,6 +19,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.OperationTransmitter;
+import com.purplepip.odin.system.Container;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -187,6 +188,10 @@ public class MidiDeviceWrapper implements AutoCloseable {
    */
   public boolean isSynthesizer() {
     return receivingDevice instanceof Synthesizer;
+  }
+
+  public boolean isOpenSynthesizer() {
+    return isSynthesizer() && receivingDevice.isOpen() && Container.getContainer().isAudioEnabled();
   }
 
   public Synthesizer getSynthesizer() {

@@ -16,6 +16,7 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.system.Container;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -135,7 +136,7 @@ public class MidiSystemHelper {
       try {
         device.open();
       } catch (MidiUnavailableException e) {
-        new AudioSystemWrapper().dump();
+        new AudioSystemWrapper().dump(true);
         throw new OdinException("Cannot open device " + device, e);
       }
     }
@@ -143,9 +144,10 @@ public class MidiSystemHelper {
 
   private boolean canOpenWithWarnings(MidiDevice device) {
     AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
-    if (device instanceof Synthesizer && !audioSystemWrapper.hasMixers()) {
+    if (device instanceof Synthesizer && (!audioSystemWrapper.hasMixers()
+        || !Container.getContainer().isAudioEnabled())) {
       LOG.warn("Cannot open synthesizer device when no mixers are available");
-      audioSystemWrapper.dump();
+      new AudioSystemWrapper().dump(true);
       return false;
     }
     return true;

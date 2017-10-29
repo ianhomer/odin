@@ -2,6 +2,7 @@ package com.purplepip.odin.midix;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
@@ -17,16 +18,20 @@ import org.junit.Test;
  */
 public class SynthesizerHelperTest {
   private MidiDeviceWrapper wrapper;
+  private SynthesizerHelper synthesizerHelper;
 
+  /**
+   * Set up test.
+   */
   @Before
   public void setUp() {
     wrapper = new MidiDeviceWrapper();
-    assumeTrue(wrapper.isSynthesizer());
+    synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
+    assumeTrue(wrapper.isOpenSynthesizer());
   }
 
   @Test
   public void testLogInstruments() {
-    SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     try (LogCaptor captor = new LogCapture().debug().from(SynthesizerHelper.class).start()) {
       synthesizerHelper.logInstruments();
       assertTrue("Not enough messages logged", captor.size() > 10);
@@ -35,7 +40,6 @@ public class SynthesizerHelperTest {
 
   @Test
   public void testLoadSoundbank() {
-    SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     try (LogCaptor captor = new LogCapture().start()) {
       boolean result = synthesizerHelper.loadGervillSoundBank(
           "soundbank-emg.sf2");
@@ -46,7 +50,6 @@ public class SynthesizerHelperTest {
 
   @Test
   public void testLoadMissingSoundbank() {
-    SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     try (LogCaptor logCapture = new LogCapture().start()) {
       boolean result = synthesizerHelper.loadGervillSoundBank(
           "soundbank-that-is-missing.sf2");
@@ -57,26 +60,22 @@ public class SynthesizerHelperTest {
 
   @Test
   public void testFindInstrument() {
-    SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     Instrument instrument = synthesizerHelper.findInstrumentByName("tubular", false);
-    assertEquals("Cannot find Tubular Bells",
-        "Tubular Bells", instrument.getName());
+    assertNotNull(instrument);
+    assertEquals("Cannot find Tubular Bells","Tubular Bells", instrument.getName());
   }
 
   @Test
   public void testFindDrumkit() {
-    SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     Instrument instrument = synthesizerHelper.findInstrumentByName("standard kit", true);
-    assertEquals("Cannot find Standard Kit",
-        "Standard Kit", instrument.getName());
+    assertNotNull(instrument);
+    assertEquals("Cannot find Standard Kit","Standard Kit", instrument.getName());
   }
 
   @Test
   public void testFindMissingInstrument() {
-    SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     Instrument instrument = synthesizerHelper
         .findInstrumentByName("non-existing-instrument", false);
     assertNull("Cannot find Tubular Bells", instrument);
   }
-
 }

@@ -22,6 +22,7 @@ import com.purplepip.odin.sequencer.ChannelOperation;
 import com.purplepip.odin.sequencer.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import javax.sound.midi.Instrument;
+import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
 import lombok.extern.slf4j.Slf4j;
@@ -40,29 +41,37 @@ public class MidiOperationReceiver implements OperationReceiver {
   @Override
   public void send(Operation operation, long time) throws OdinException {
     if (operation instanceof ChannelOperation) {
-      ChannelOperation resolvedOperation;
+      ChannelOperation resolvedOperation = null;
       if (operation instanceof ProgramChangeOperation) {
         ProgramChangeOperation programChangeOperation = (ProgramChangeOperation) operation;
         if (programChangeOperation.isAbsolute()) {
           resolvedOperation = programChangeOperation;
         } else {
-          /*
-           * Handle program change operation by resolving string name for program.
-           */
-          Instrument instrument = midiDeviceWrapper
-              .findInstrument(programChangeOperation.getChannel(),
-                  programChangeOperation.getProgramName());
-          resolvedOperation = new ProgramChangeOperation(programChangeOperation.getChannel(),
-              instrument.getPatch().getBank(), instrument.getPatch().getProgram(),
-              programChangeOperation.getProgramName());
+          if (midiDeviceWrapper.isOpenSynthesizer()) {
+            /*
+             * Handle program change operation by resolving string name for program.
+             */
+            Instrument instrument = midiDeviceWrapper
+                .findInstrument(programChangeOperation.getChannel(),
+                    programChangeOperation.getProgramName());
+            resolvedOperation = new ProgramChangeOperation(programChangeOperation.getChannel(),
+                instrument.getPatch().getBank(), instrument.getPatch().getProgram(),
+                programChangeOperation.getProgramName());
+          } else {
+            LOG.warn("Cannot change instrument since no open synthesizer available");
+            return;
+          }
         }
-        LOG.debug("Program change operation : {}", resolvedOperation);
       } else {
         resolvedOperation = (ChannelOperation) operation;
       }
+      LOG.debug("Program change operation : {}", resolvedOperation);
       MidiMessage midiMessage = createMidiMessage(resolvedOperation);
       try {
-        midiDeviceWrapper.getReceivingDevice().getReceiver().send(midiMessage, time);
+        MidiDevice receiver = midiDeviceWrapper.getReceivingDevice();
+        if (receiver.isOpen()) {
+          midiDeviceWrapper.getReceivingDevice().getReceiver().send(midiMessage, time);
+        }
       } catch (MidiUnavailableException e) {
         throw new OdinException("Cannot send MIDI message for " + midiMessage, e);
       }

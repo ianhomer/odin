@@ -35,7 +35,7 @@ public class SynthesizerConfiguration implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    if (midiDeviceWrapper.isSynthesizer()) {
+    if (midiDeviceWrapper.isOpenSynthesizer()) {
       new SynthesizerHelper(midiDeviceWrapper.getSynthesizer())
           .loadGervillSoundBank(
               "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");

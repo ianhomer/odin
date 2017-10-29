@@ -17,6 +17,7 @@ package com.purplepip.odin.midix;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
@@ -32,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AudioSystemWrapper {
   private List<MixerWrapper> mixerWrappers;
+  private static final AtomicBoolean HAS_DUMPED = new AtomicBoolean(false);
 
   /**
    * Create a new audio system wrapper.
@@ -48,10 +50,23 @@ public class AudioSystemWrapper {
     return mixerWrappers.size() > 0;
   }
 
+  public void dump() {
+    dump(false);
+  }
+
   /**
    * Dump system audio information.
    */
-  public void dump() {
+  public void dump(boolean dumpOnlyIfNotDumpedBefore) {
+    /*
+     * Only dump information once for the runtime.
+     */
+    if (dumpOnlyIfNotDumpedBefore) {
+      if (HAS_DUMPED.get()) {
+        return;
+      }
+      HAS_DUMPED.set(true);
+    }
     StringBuilder sb = new StringBuilder();
     sb.append("\nSYSTEM AUDIO\n");
     sb.append("------------\n");
