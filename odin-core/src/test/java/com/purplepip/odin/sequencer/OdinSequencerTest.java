@@ -33,7 +33,7 @@ public class OdinSequencerTest {
     environment.start();
 
     try {
-      lock.await(1000, TimeUnit.MILLISECONDS);
+      lock.await(2000, TimeUnit.MILLISECONDS);
     } finally {
       environment.stop();
     }
