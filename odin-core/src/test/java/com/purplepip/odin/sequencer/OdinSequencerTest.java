@@ -14,7 +14,7 @@ import org.junit.Test;
  * Test odin sequencer.
  */
 public class OdinSequencerTest {
-  private static final int OFFSET = 0;
+  private static final int OFFSET = 100;
   private static final int LENGTH = 16;
 
   @Test
