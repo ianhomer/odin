@@ -17,7 +17,7 @@ import org.junit.Test;
  */
 @Slf4j
 public class ChannelUpdatedAtRuntimeTest {
-  private static final int OFFSET = 0;
+  private static final int OFFSET = 100;
   private static final int LENGTH = 16;
 
   @Test
