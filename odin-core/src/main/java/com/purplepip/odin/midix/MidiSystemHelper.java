@@ -22,8 +22,7 @@ import java.util.function.Function;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Mixer;
+import javax.sound.midi.Synthesizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,12 +59,6 @@ public class MidiSystemHelper {
     MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher);
     if (midiDevice != null) {
       LOG.debug("Found MIDI device : {} ; {}", midiDeviceMatcher, midiDevice.getClass().getName());
-      try {
-        midiDevice.open();
-      } catch (MidiUnavailableException e) {
-        dumpSystemAudioInformation();
-        throw new OdinException("Cannot open device " + midiDevice, e);
-      }
     }
     return midiDevice;
   }
@@ -129,20 +122,32 @@ public class MidiSystemHelper {
           new MidiDeviceNameStartsWithMatcher("Gervill"));
     }
 
+    if (device != null) {
+      open(device);
+    }
+
     LOG.debug("MIDI device : {}", device);
     return device;
   }
 
-  /**
-   * Dump system audio information.
-   */
-  public void dumpSystemAudioInformation() {
-    LOG.info("SYSTEM AUDIO");
-    LOG.info("------------");
-    LOG.info("Mixers");
-    Mixer.Info[] mixerInfos = AudioSystem.getMixerInfo();
-    for (int i = 0 ; i < mixerInfos.length ; i++) {
-      LOG.info("{}) {}", i, mixerInfos[i]);
+  private void open(MidiDevice device) throws OdinException {
+    if (canOpenWithWarnings(device)) {
+      try {
+        device.open();
+      } catch (MidiUnavailableException e) {
+        new AudioSystemWrapper().dump();
+        throw new OdinException("Cannot open device " + device, e);
+      }
     }
+  }
+
+  private boolean canOpenWithWarnings(MidiDevice device) {
+    AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
+    if (device instanceof Synthesizer && !audioSystemWrapper.hasMixers()) {
+      LOG.warn("Cannot open synthesizer device when no mixers are available");
+      audioSystemWrapper.dump();
+      return false;
+    }
+    return true;
   }
 }

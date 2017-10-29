@@ -1,0 +1,143 @@
+/*
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.purplepip.odin.midix;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.BooleanControl;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.CompoundControl;
+import javax.sound.sampled.Control;
+import javax.sound.sampled.EnumControl;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class AudioSystemWrapper {
+  private List<MixerWrapper> mixerWrappers;
+
+  /**
+   * Create a new audio system wrapper.
+   */
+  public AudioSystemWrapper() {
+    mixerWrappers = new ArrayList<>();
+    Mixer.Info[] mixerInfos = AudioSystem.getMixerInfo();
+    for (int i = 0 ; i < mixerInfos.length ; i++) {
+      mixerWrappers.add(new MixerWrapper(AudioSystem.getMixer(mixerInfos[i])));
+    }
+  }
+
+  public boolean hasMixers() {
+    return mixerWrappers.size() > 0;
+  }
+
+  /**
+   * Dump system audio information.
+   */
+  public void dump() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("\nSYSTEM AUDIO\n");
+    sb.append("------------\n");
+    if (mixerWrappers.size() == 0) {
+      sb.append("No audio mixers available\n");
+    } else {
+      sb.append("Mixers\n");
+      int i = 0;
+      for (MixerWrapper mixer : mixerWrappers) {
+        sb.append('\n').append(i++).append(") ").append(mixer.toString());
+      }
+    }
+    LOG.info(sb.toString());
+  }
+
+  private class MixerWrapper {
+    private Mixer mixer;
+
+    private MixerWrapper(Mixer mixer) {
+      this.mixer = mixer;
+    }
+
+    public String toString() {
+      String newLine = "\n  ";
+      StringBuilder sb = new StringBuilder();
+      sb.append(mixer.getMixerInfo().getName()).append(" : ")
+          .append(mixer.getMixerInfo().getDescription()).append(newLine);
+      for (Line.Info lineInfo : mixer.getSourceLineInfo()) {
+        try {
+          try (Line line = mixer.getLine(lineInfo)) {
+            try {
+              sb.append("source port : ").append(lineInfo).append(newLine);
+              if (line instanceof Clip) {
+                LOG.debug("Not opening Clip line");
+              } else {
+                line.open();
+                for (Control control : line.getControls()) {
+                  sb.append("  ").append(new ControlWrapper(control).toString()).append(newLine);
+                }
+              }
+            } catch (IllegalArgumentException e) {
+              LOG.info("ERROR {} : Cannot open line {}", e.getMessage(), line.getClass());
+            }
+          }
+        } catch (LineUnavailableException e) {
+          LOG.info("ERROR {} : Cannot get line {}", e.getMessage(), lineInfo);
+        }
+      }
+      return sb.toString();
+    }
+  }
+
+  private class ControlWrapper {
+    private Control control;
+    private Control.Type type;
+
+    private ControlWrapper(Control control) {
+      this.control = control;
+      type = control.getType();
+    }
+
+    public String toString() {
+      StringBuilder sb = new StringBuilder();
+      sb.append("control : ").append(type.toString()).append(' ');
+      if (control instanceof BooleanControl) {
+        sb.append("(boolean)");
+      } else if (control instanceof CompoundControl) {
+        for (Control child : ((CompoundControl) control).getMemberControls()) {
+          sb.append("child ").append(new ControlWrapper(child).toString());
+        }
+      } else if (control instanceof EnumControl) {
+        sb.append("(enum) : ");
+        for (Object value : ((EnumControl) control).getValues()) {
+          sb.append(' ').append(value);
+        }
+      } else if (control instanceof FloatControl) {
+        FloatControl floatControl = (FloatControl) control;
+        sb.append("(float)")
+            .append("max = ").append(floatControl.getMaximum())
+            .append("min = ").append(floatControl.getMinimum())
+            .append("min = ").append(floatControl.getUnits());
+      } else {
+        sb.append("unknown : ").append(control.getClass().getName()).append(' ')
+          .append(control);
+      }
+      return sb.toString();
+    }
+  }
+}

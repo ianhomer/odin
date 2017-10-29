@@ -21,11 +21,13 @@ import java.util.Set;
 
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Convenience wrapper around the MidiSystem static to expose this as a bean that can be more
  * easily accessed with direct access to statics.
  */
+@Slf4j
 public class MidiSystemWrapper {
   /**
    * Return a set of MIDI device infos.
@@ -36,5 +38,40 @@ public class MidiSystemWrapper {
     Set<MidiDevice.Info> infos = new HashSet<>();
     Collections.addAll(infos, MidiSystem.getMidiDeviceInfo());
     return infos;
+  }
+
+  /**
+   * Dump MIDI system information.
+   */
+  public void dump() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("\nSYSTEM MIDI\n");
+    sb.append("------------\n");
+    sb.append(toString());
+    sb.append('\n');
+    LOG.info(sb.toString());
+  }
+
+  /**
+   * MIDI system information to string.
+   *
+   * @return this MIDI system helper
+   */
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
+    if (infos.length == 0) {
+      sb.append("No MIDI devices available");
+    } else {
+      sb.append("Devices\n");
+      int i = 0;
+      for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
+        sb.append('\n').append(i++).append(") ");
+        sb.append(" - ").append(info.getVendor());
+        sb.append(" - ").append(info.getName());
+        sb.append(" - ").append(info.getDescription());
+      }
+    }
+    return sb.toString();
   }
 }
