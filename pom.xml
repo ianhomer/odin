@@ -272,7 +272,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <argLine>@{jacoco.argLine} ${purplepip.tests.log.jvm} -Dlogback.debug=true</argLine>
+          <argLine>@{jacoco.argLine} ${purplepip.tests.log.jvm} -Dlogback.debug=true -Dodin.audio.disabled=true</argLine>
         </configuration>
       </plugin>
       <plugin>

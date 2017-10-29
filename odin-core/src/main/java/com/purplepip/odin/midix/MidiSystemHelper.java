@@ -22,6 +22,8 @@ import java.util.function.Function;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Mixer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +63,8 @@ public class MidiSystemHelper {
       try {
         midiDevice.open();
       } catch (MidiUnavailableException e) {
-        throw new OdinException(e);
+        dumpSystemAudioInformation();
+        throw new OdinException("Cannot open device " + midiDevice, e);
       }
     }
     return midiDevice;
@@ -128,5 +131,18 @@ public class MidiSystemHelper {
 
     LOG.debug("MIDI device : {}", device);
     return device;
+  }
+
+  /**
+   * Dump system audio information.
+   */
+  public void dumpSystemAudioInformation() {
+    LOG.info("SYSTEM AUDIO");
+    LOG.info("------------");
+    LOG.info("Mixers");
+    Mixer.Info[] mixerInfos = AudioSystem.getMixerInfo();
+    for (int i = 0 ; i < mixerInfos.length ; i++) {
+      LOG.info("{}) {}", i, mixerInfos[i]);
+    }
   }
 }

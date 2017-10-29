@@ -4,19 +4,28 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import javax.sound.midi.Instrument;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Test synthesizer helper.
  */
 public class SynthesizerHelperTest {
+  private MidiDeviceWrapper wrapper;
+
+  @Before
+  public void setUp() {
+    wrapper = new MidiDeviceWrapper();
+    assumeTrue(wrapper.isSynthesizer());
+  }
+
   @Test
   public void testLogInstruments() {
-    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     try (LogCaptor captor = new LogCapture().debug().from(SynthesizerHelper.class).start()) {
       synthesizerHelper.logInstruments();
@@ -26,7 +35,6 @@ public class SynthesizerHelperTest {
 
   @Test
   public void testLoadSoundbank() {
-    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     try (LogCaptor captor = new LogCapture().start()) {
       boolean result = synthesizerHelper.loadGervillSoundBank(
@@ -38,7 +46,6 @@ public class SynthesizerHelperTest {
 
   @Test
   public void testLoadMissingSoundbank() {
-    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     try (LogCaptor logCapture = new LogCapture().start()) {
       boolean result = synthesizerHelper.loadGervillSoundBank(
@@ -50,7 +57,6 @@ public class SynthesizerHelperTest {
 
   @Test
   public void testFindInstrument() {
-    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     Instrument instrument = synthesizerHelper.findInstrumentByName("tubular", false);
     assertEquals("Cannot find Tubular Bells",
@@ -59,7 +65,6 @@ public class SynthesizerHelperTest {
 
   @Test
   public void testFindDrumkit() {
-    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     Instrument instrument = synthesizerHelper.findInstrumentByName("standard kit", true);
     assertEquals("Cannot find Standard Kit",
@@ -68,7 +73,6 @@ public class SynthesizerHelperTest {
 
   @Test
   public void testFindMissingInstrument() {
-    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     SynthesizerHelper synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     Instrument instrument = synthesizerHelper
         .findInstrumentByName("non-existing-instrument", false);
