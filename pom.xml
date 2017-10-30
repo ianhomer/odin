@@ -48,15 +48,15 @@
     <hamcrest.version>2.0.0.0</hamcrest.version>
     <jacoco.version>0.7.9</jacoco.version>
     <jacoco.covered.ratio>0.80</jacoco.covered.ratio>
-    <jodd.version>3.8.6</jodd.version>
-    <jackson.version>2.9.0</jackson.version>
+    <jodd.version>3.9.1</jodd.version>
+    <jackson.version>2.9.2</jackson.version>
     <javax.validation>2.0.0.Final</javax.validation>
     <junit.version>4.12</junit.version>
     <guava.version>21.0</guava.version>
     <logback.version>1.2.3</logback.version>
-    <lombok.version>1.16.14</lombok.version>
+    <lombok.version>1.16.18</lombok.version>
     <metrics.version>3.2.3</metrics.version>
-    <mockito.version>2.8.9</mockito.version>
+    <mockito.version>2.11.0</mockito.version>
     <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
     <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
     <slf4j.version>1.7.25</slf4j.version>
