@@ -33,6 +33,10 @@
     </license>
   </licenses>
 
+  <prerequisites>
+    <maven>3.5.0</maven>
+  </prerequisites>
+
   <scm>
     <connection>scm:git:git@github.com:ianhomer/odin.git</connection>
     <developerConnection>scm:git:git@github.com:ianhomer/odin.git</developerConnection>
@@ -67,6 +71,7 @@
     <!--odin flags-->
     <odin.audio.enabled>true</odin.audio.enabled>
   </properties>
+
 
   <dependencyManagement>
     <dependencies>
@@ -201,8 +206,23 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
+          <version>3.6.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -213,6 +233,16 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>2.9</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.6</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
