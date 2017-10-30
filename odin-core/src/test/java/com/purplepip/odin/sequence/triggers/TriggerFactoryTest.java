@@ -23,7 +23,7 @@ import org.junit.Test;
 public class TriggerFactoryTest {
   @Test(expected = OdinRuntimeException.class)
   public void testCreateTriggerWithNoRule() throws Exception {
-    TriggerFactory.createTriggerFactory().newTrigger(new GenericTrigger());
+    TriggerFactory.createTriggerFactory().newInstance(new GenericTrigger());
   }
 
   @Test

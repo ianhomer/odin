@@ -53,16 +53,6 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
   }
 
   /**
-   * Create a copy of the given sequence configuration and cast to the required sequence type.
-   *
-   * @param triggerConfiguration sequence to use as a template for the one that is set
-   */
-  public Trigger newTrigger(TriggerConfiguration triggerConfiguration) {
-    Class<? extends Trigger> expectedType = getClass(triggerConfiguration.getType());
-    return newInstance(triggerConfiguration, expectedType);
-  }
-
-  /**
    * For test cases where timing is important it may be necessary to warm the factory up
    * so the first time it is used performance does not cause inconsistencies.  This warm up
    * time is pretty small (around 20ms on a dev machine), but enough to throw a sequencer
@@ -72,7 +62,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
     getNames().forEach(name -> {
       MutableTriggerConfiguration trigger = new GenericTrigger();
       trigger.setType(name);
-      newTrigger(trigger);
+      newInstance(trigger);
     });
   }
 }

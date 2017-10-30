@@ -25,7 +25,7 @@ public class Container {
   private static Container container = new Container();
 
   /*
-   * Audio support can be disabled by setting this flag to false
+   * Audio support can be explicitly disabled by setting this system flag to false.
    */
   private static final String AUDIO_ENABLED = "odin.audio.enabled";
 

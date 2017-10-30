@@ -67,16 +67,6 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
     this.flowConfiguration = flowConfiguration;
   }
 
-  /**
-   * Create a copy of the given sequence configuration and cast to the required sequence type.
-   *
-   * @param sequence sequence to use as a template for the one that is set
-   */
-  public Sequence<A> newSequence(SequenceConfiguration sequence) {
-    Class<? extends Sequence<A>> expectedType = getClass(sequence.getType());
-    return newInstance(sequence, expectedType);
-  }
-
   @Override
   protected void populate(Sequence<A> destination, ThingConfiguration source) {
     if (destination instanceof MutableSequenceConfiguration
@@ -98,7 +88,7 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
   public MutableFlow<Sequence<A>, A> createFlow(
       SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
     MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
-    flow.setSequence(newSequence(sequence));
+    flow.setSequence(newInstance(sequence));
     flow.setConfiguration(flowConfiguration);
     flow.afterPropertiesSet();
     return flow;
@@ -111,7 +101,7 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
    * @param sequence sequence to update flow with
    */
   public void refreshSequence(MutableFlow<Sequence<A>, A> flow, SequenceConfiguration sequence) {
-    flow.setSequence(newSequence(sequence));
+    flow.setSequence(newInstance(sequence));
   }
 
   /**
@@ -124,7 +114,7 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
     getNames().forEach(name -> {
       MutableSequenceConfiguration sequence = new GenericSequence();
       sequence.setType(name);
-      newSequence(sequence);
+      newInstance(sequence);
     });
   }
 }

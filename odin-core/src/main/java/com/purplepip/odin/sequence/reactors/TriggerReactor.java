@@ -48,7 +48,7 @@ public class TriggerReactor implements Reactor {
 
   public void setTriggerConfiguration(TriggerConfiguration triggerConfiguration) {
     this.triggerConfiguration = triggerConfiguration;
-    trigger = triggerFactory.newTrigger(triggerConfiguration);
+    trigger = triggerFactory.newInstance(triggerConfiguration);
   }
 
   public TriggerConfiguration getTriggerConfiguration() {

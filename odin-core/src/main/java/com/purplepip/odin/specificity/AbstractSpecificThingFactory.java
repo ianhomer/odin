@@ -71,6 +71,16 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
   }
 
   /**
+   * Create a new instance of the sequence configuration and cast to the required sequence type.
+   *
+   * @param configuration for the new instance
+   */
+  public C newInstance(ThingConfiguration configuration) {
+    Class<? extends C> expectedType = getClass(configuration.getType());
+    return newInstance(configuration, expectedType);
+  }
+
+  /**
    * Create an instance of the expected type using the given configuration object.
    *
    * @param expectedType expected type of the returned instance
@@ -78,8 +88,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
    * @return instance of expected type
    */
   @SuppressWarnings("unchecked")
-  public <S extends C> S newInstance(ThingConfiguration original,
-                                        Class<? extends S> expectedType) {
+  public <S extends C> S newInstance(ThingConfiguration original, Class<? extends S> expectedType) {
     S newInstance;
     if (expectedType == null) {
       throw new OdinRuntimeException("Expected sequence type for " + original + " is not set");
