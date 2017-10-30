@@ -62,10 +62,10 @@ public class MidiOperationReceiver implements OperationReceiver {
             return;
           }
         }
+        LOG.debug("Program change operation : {}", resolvedOperation);
       } else {
         resolvedOperation = (ChannelOperation) operation;
       }
-      LOG.debug("Program change operation : {}", resolvedOperation);
       MidiMessage midiMessage = createMidiMessage(resolvedOperation);
       try {
         MidiDevice receiver = midiDeviceWrapper.getReceivingDevice();
