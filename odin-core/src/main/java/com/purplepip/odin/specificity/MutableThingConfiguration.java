@@ -13,16 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.triggers;
+package com.purplepip.odin.specificity;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
-import com.purplepip.odin.sequence.tick.MutableTimeThing;
-import com.purplepip.odin.specificity.MutableThingConfiguration;
-
-public interface MutableTriggerConfiguration extends
-    TriggerConfiguration, MutableThingConfiguration, MutablePropertiesProvider, MutableTimeThing {
-  void setProject(Project project);
-
-  void setName(String name);
+public interface MutableThingConfiguration extends ThingConfiguration {
+  void setType(String type);
 }

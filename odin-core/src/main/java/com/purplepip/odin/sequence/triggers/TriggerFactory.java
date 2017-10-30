@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Create trigger rules.
  */
-// TODO : Reuse with SequenceFactory
 @Slf4j
 public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
   /**
@@ -38,9 +37,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
      */
     List<Class<? extends Trigger>> classes = new ArrayList<>();
     classes.add(NoteTrigger.class);
-    TriggerFactory triggerFactory = new TriggerFactory(classes);
-    triggerFactory.warmUp();
-    return triggerFactory;
+    return new TriggerFactory(classes);
   }
 
   /**
@@ -50,19 +47,5 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
    */
   public TriggerFactory(List<Class<? extends Trigger>> classes) {
     super(classes);
-  }
-
-  /**
-   * For test cases where timing is important it may be necessary to warm the factory up
-   * so the first time it is used performance does not cause inconsistencies.  This warm up
-   * time is pretty small (around 20ms on a dev machine), but enough to throw a sequencer
-   * test that is expecting sequence to start immediately.
-   */
-  private void warmUp() {
-    getNames().forEach(name -> {
-      MutableTriggerConfiguration trigger = new GenericTrigger();
-      trigger.setType(name);
-      newInstance(trigger);
-    });
   }
 }

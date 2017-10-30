@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequence.triggers;
 
+import com.purplepip.odin.properties.Properties;
+
 /**
  * Sequences utility methods.
  */
@@ -36,6 +38,6 @@ public final class Triggers {
     to.setOffset(from.getOffset());
     to.setProject(from.getProject());
     to.setTick(from.getTick());
-    from.getPropertyNames().forEach(name -> to.setProperty(name, from.getProperty(name)));
+    Properties.copyProperties(from, to);
   }
 }

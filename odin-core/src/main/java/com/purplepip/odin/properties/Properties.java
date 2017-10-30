@@ -13,25 +13,25 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.properties;
 
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
-import com.purplepip.odin.sequence.tick.MutableTimeThing;
-import com.purplepip.odin.sequence.triggers.Action;
-import com.purplepip.odin.specificity.MutableThingConfiguration;
+import com.purplepip.odin.properties.beany.PropertiesProvider;
 
 /**
- * Mutable sequence.
+ * Properties utility methods.
  */
-public interface MutableSequenceConfiguration extends SequenceConfiguration,
-    MutableThingConfiguration, MutableTimeThing, MutablePropertiesProvider {
-  void setChannel(int channel);
+public class Properties {
+  private Properties() {
+  }
 
-  void addLayer(String layerName);
-
-  void removeLayer(String layerName);
-
-  void addTrigger(String triggerName, Action action);
-
-  void removeTrigger(String triggerName);
+  /**
+   * Copy core values from one sequence to another.
+   *
+   * @param from where to copy values from
+   * @param to where to copy values to
+   */
+  public static void copyProperties(PropertiesProvider from, MutablePropertiesProvider to) {
+    from.getPropertyNames().forEach(name -> to.setProperty(name, from.getProperty(name)));
+  }
 }

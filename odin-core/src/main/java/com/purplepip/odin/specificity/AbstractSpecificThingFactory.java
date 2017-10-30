@@ -54,6 +54,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
     for (Class<? extends C> clazz: classes) {
       register(clazz);
     }
+    warmUp();
   }
 
   protected void register(Class<? extends C> clazz) {
@@ -137,5 +138,19 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
 
   public Stream<String> getNames() {
     return specificClasses.keySet().stream();
+  }
+
+  /**
+   * For test cases where timing is important it may be necessary to warm the factory up
+   * so the first time it is used performance does not cause inconsistencies.  This warm up
+   * time is pretty small (around 20ms on a dev machine), but enough to throw a sequencer
+   * test that is expecting sequence to start immediately.
+   */
+  private void warmUp() {
+    getNames().forEach(name -> {
+      MutableThingConfiguration thingConfiguration = new GenericThingConfiguration();
+      thingConfiguration.setType(name);
+      newInstance(thingConfiguration);
+    });
   }
 }

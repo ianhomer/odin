@@ -51,9 +51,7 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
     classes.add(Metronome.class);
     classes.add(Notation.class);
     classes.add(Pattern.class);
-    SequenceFactory<Note> sequenceFactory = new SequenceFactory<>(flowConfiguration, classes);
-    sequenceFactory.warmUp();
-    return sequenceFactory;
+    return new SequenceFactory<>(flowConfiguration, classes);
   }
 
   /**
@@ -102,19 +100,5 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
    */
   public void refreshSequence(MutableFlow<Sequence<A>, A> flow, SequenceConfiguration sequence) {
     flow.setSequence(newInstance(sequence));
-  }
-
-  /**
-   * For test cases where timing is important it may be necessary to warm the factory up
-   * so the first time it is used performance does not cause inconsistencies.  This warm up
-   * time is pretty small (around 20ms on a dev machine), but enough to throw a sequencer
-   * test that is expecting sequence to start immediately.
-   */
-  private void warmUp() {
-    getNames().forEach(name -> {
-      MutableSequenceConfiguration sequence = new GenericSequence();
-      sequence.setType(name);
-      newInstance(sequence);
-    });
   }
 }

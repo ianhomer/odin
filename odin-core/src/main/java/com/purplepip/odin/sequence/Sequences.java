@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequence;
 
+import com.purplepip.odin.properties.Properties;
+
 /**
  * Sequences utility methods.
  */
@@ -39,6 +41,6 @@ public final class Sequences {
     to.setTick(from.getTick());
     from.getLayers().forEach(to::addLayer);
     from.getTriggers().forEach(to::addTrigger);
-    from.getPropertyNames().forEach(name -> to.setProperty(name, from.getProperty(name)));
+    Properties.copyProperties(from, to);
   }
 }
