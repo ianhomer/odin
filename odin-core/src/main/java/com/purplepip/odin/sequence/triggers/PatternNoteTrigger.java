@@ -37,14 +37,6 @@ public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTri
   private String patternName;
   private Pattern pattern;
 
-  public PatternNoteTrigger() {
-  }
-
-  public PatternNoteTrigger(long id) {
-    super(id);
-  }
-
-
   /**
    * Create a copy of this sequence.
    *
@@ -52,9 +44,12 @@ public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTri
    */
   @Override
   public PatternNoteTrigger copy() {
-    PatternNoteTrigger copy = new PatternNoteTrigger(this.getId());
-    Triggers.copyCoreValues(this, copy);
-    copy.setPatternName(this.getPatternName());
+    return copy(new PatternNoteTrigger(), this);
+  }
+
+  protected PatternNoteTrigger copy(PatternNoteTrigger copy, PatternNoteTrigger original) {
+    super.copy(copy, original);
+    copy.patternName = original.patternName;
     return copy;
   }
 

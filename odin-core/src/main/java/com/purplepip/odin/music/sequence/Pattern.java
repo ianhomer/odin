@@ -34,11 +34,11 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Pattern sequence.
  */
+@Slf4j
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Slf4j
-@Name("pattern")
 @Data
+@Name("pattern")
 public class Pattern extends GenericSequence implements SpecialisedSequence {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.

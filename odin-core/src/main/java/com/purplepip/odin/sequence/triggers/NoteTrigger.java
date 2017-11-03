@@ -20,26 +20,18 @@ import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequencer.Operation;
 import com.purplepip.odin.specificity.Name;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Name("note")
 public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
   private Note note = Notes.newDefault();
-
-  public NoteTrigger() {
-  }
-
-  public NoteTrigger(long id) {
-    super(id);
-  }
-
-
-  public void setNote(Note note) {
-    this.note = note;
-  }
-
-  public Note getNote() {
-    return note;
-  }
 
   /**
    * Create a copy of this sequence.
@@ -48,9 +40,12 @@ public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
    */
   @Override
   public NoteTrigger copy() {
-    NoteTrigger copy = new NoteTrigger(this.getId());
-    Triggers.copyCoreValues(this, copy);
-    copy.setNote(this.getNote());
+    return copy(new NoteTrigger(), this);
+  }
+
+  protected NoteTrigger copy(NoteTrigger copy, NoteTrigger original) {
+    super.copy(copy, original);
+    copy.note = original.note;
     return copy;
   }
 

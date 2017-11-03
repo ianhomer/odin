@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +30,10 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Abstract sequence.
  */
+@Slf4j
 @ToString(exclude = "project", callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@Slf4j
+@Data
 public class GenericSequence extends AbstractTimeThing implements MutableSequenceConfiguration {
   private int channel;
   private String type;
@@ -49,36 +51,6 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
 
   public GenericSequence(long id) {
     super(id);
-  }
-
-  @Override
-  public void setChannel(int channel) {
-    this.channel = channel;
-  }
-
-  @Override
-  public int getChannel() {
-    return channel;
-  }
-
-  @Override
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  @Override
-  public String getType() {
-    return type;
-  }
-
-  @Override
-  public Project getProject() {
-    return project;
-  }
-
-  @Override
-  public void setProject(Project project) {
-    this.project = project;
   }
 
   @Override

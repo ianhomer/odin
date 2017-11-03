@@ -22,9 +22,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString(exclude = "project")
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class GenericTrigger extends AbstractTimeThing implements MutableTriggerConfiguration {
   private Project project;
   private String type;
@@ -44,31 +48,18 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
 
   private Map<String, String> properties = new HashMap<>();
 
-  @Override
-  public void setProject(Project project) {
-    this.project = project;
-  }
-
-  @Override
-  public Project getProject() {
-    return project;
-  }
-
-  @Override
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  @Override
-  public String getType() {
-    return type;
-  }
-
   public Stream<String> dependsOn() {
     return dependsOn.stream();
   }
 
   protected void registerDependency(String dependency) {
     dependsOn.add(dependency);
+  }
+
+  protected GenericTrigger copy(GenericTrigger copy, GenericTrigger original) {
+    copy.type = original.type;
+    copy.project = original.project;
+    super.copy(copy, original);
+    return copy;
   }
 }
