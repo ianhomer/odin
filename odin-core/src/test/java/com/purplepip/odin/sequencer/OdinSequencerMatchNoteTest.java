@@ -43,7 +43,8 @@ public class OdinSequencerMatchNoteTest {
 
     environment.start();
 
-    // TODO : Change this test case to cover the match the note use case.
+    // TODO : Change this test case to cover the match the note use case.  Listen for note from
+    // random note sequence, hit that note and then expect notation sequence.
     environment.getConfiguration().getOperationTransmitter().send(
         new NoteOnOperation(0,60,5), -1
     );

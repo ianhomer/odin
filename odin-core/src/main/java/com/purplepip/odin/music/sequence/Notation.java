@@ -67,9 +67,8 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
    */
   @Override
   public void afterPropertiesSet() {
-    LOG.debug("Initialising notation flow with {}", getNotation());
-    EventsComposition composition = new NaturalScoreCompositionFactory()
-        .create(getNotation());
+    LOG.debug("Initialising notation flow with {}", notation);
+    EventsComposition composition = new NaturalScoreCompositionFactory().create(notation);
     indexedComposition = new IndexedComposition(composition);
     super.afterPropertiesSet();
   }

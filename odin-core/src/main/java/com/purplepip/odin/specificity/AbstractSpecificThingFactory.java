@@ -165,6 +165,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
    * test that is expecting sequence to start immediately.
    */
   private void warmUp() {
+    LOG.debug("Warming up {}", this);
     getNames().forEach(name -> {
       MutableThingConfiguration thingConfiguration = new GenericThingConfiguration();
       thingConfiguration.setType(name);

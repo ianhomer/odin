@@ -38,7 +38,7 @@ public class NaturalScoreCompositionFactory {
    */
   public EventsComposition create(String notation) {
     if (notation == null || notation.trim().length() == 0) {
-      LOG.warn("Notation is empty, defaulting to an empty measure");
+      LOG.debug("Notation is empty, defaulting to an empty measure");
       return new EventsCompositionBuilder().withMinimumMeasures(
           NaturalScoreCompositionListener.MINIMUM_MEASURES).create();
     }
