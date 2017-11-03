@@ -170,9 +170,10 @@ public class ProjectContainer {
    *
    * @param sequence sequence
    */
-  public void addSequence(SequenceConfiguration sequence) {
+  public ProjectContainer addSequence(SequenceConfiguration sequence) {
     LOG.debug("Adding sequence {}", sequence);
     project.addSequence(sequence);
+    return this;
   }
 
   public void removeSequence(SequenceConfiguration sequence) {
@@ -205,8 +206,9 @@ public class ProjectContainer {
    *
    * @param layer to add
    */
-  public void addLayer(MutableLayer layer) {
+  public ProjectContainer addLayer(MutableLayer layer) {
     project.addLayer(layer);
+    return this;
   }
 
   /**
@@ -234,8 +236,9 @@ public class ProjectContainer {
    *
    * @param trigger to add
    */
-  public void addTrigger(MutableTriggerConfiguration trigger) {
+  public ProjectContainer addTrigger(MutableTriggerConfiguration trigger) {
     project.addTrigger(trigger);
+    return this;
   }
 
   /**

@@ -54,7 +54,7 @@ public class RandomTest {
 
   @Test
   public void testCopy() {
-    Random sequence = ((Random) new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1));
+    Random sequence = (Random) new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1);
     sequence.setName("test-name");
     Random copy = sequence.copy();
     assertEquals(sequence, copy);

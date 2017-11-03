@@ -62,4 +62,9 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
   public void addLayer(String layerName) {
     layers.add(layerName);
   }
+
+  public DefaultLayer name(String layerName) {
+    setName(layerName);
+    return this;
+  }
 }

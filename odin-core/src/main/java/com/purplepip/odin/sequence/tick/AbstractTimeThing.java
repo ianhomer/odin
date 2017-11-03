@@ -25,7 +25,7 @@ import lombok.ToString;
 @Data
 public abstract class AbstractTimeThing extends AbstractPropertiesThing
     implements MutableTimeThing {
-  // TODO : Should enabled be set to tru by default?
+  // TODO : Should enabled be set to true by default?
   private boolean enabled = false;
   private Tick tick;
   /**
