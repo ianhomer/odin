@@ -21,7 +21,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.codahale.metrics.MetricRegistry;
-import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.project.ProjectContainer;
@@ -30,7 +29,7 @@ import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.conductor.Conductor;
+import com.purplepip.odin.sequence.conductor.LayerConductor;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
@@ -61,7 +60,6 @@ public class ReactorReceiverTest {
 
   @Test
   public void send() throws Exception {
-    MutableReactors reactors = new MutableReactors();
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder
@@ -72,11 +70,12 @@ public class ReactorReceiverTest {
         .withTrigger("trigger1", Action.ENABLE)
         .withTrigger("trigger2", Action.DISABLE)
         .addPattern(BEAT, 7);
-    Things<Conductor> conductors = new MutableConductors();
+    MutableConductors conductors = new MutableConductors();
+    conductors.refresh(() -> project.getLayers().stream(), () -> new LayerConductor(clock));
     MutableTracks tracks = new MutableTracks();
-    tracks.refresh(() -> project.getSequences().stream(),
-        this::createSequenceTrack, conductors);
-    reactors.refresh(() -> project.getTriggers().stream(), this::createReactor,
+    tracks.refresh(() -> project.getSequences().stream(), this::createSequenceTrack, conductors);
+    MutableReactors reactors = new MutableReactors();
+    reactors.refresh(() -> project.getTriggers().stream(), () -> new TriggerReactor(triggerFactory),
         conductors, tracks);
     MetricRegistry metricRegistry = new MetricRegistry();
     ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
@@ -100,9 +99,5 @@ public class ReactorReceiverTest {
   private SequenceRollTrack createSequenceTrack() {
     return new SequenceRollTrack(clock,
         new MutableSequenceRoll<>(clock, sequenceFactory , measureProvider));
-  }
-
-  private TriggerReactor createReactor() {
-    return new TriggerReactor(triggerFactory);
   }
 }

@@ -24,7 +24,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ToString
+@ToString(exclude = {"statistics", "mutableStatistics"})
 public class MutableThings<T extends Thing> implements Things<T> {
   private MutableThingStatistics mutableStatistics = new DefaultThingStatistics();
   private UnmodifiableThingStatistics statistics =

@@ -24,7 +24,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ToString
+@ToString(callSuper = true)
 public class MutableConductors extends MutableThings<Conductor>  {
   /**
    * Refresh the bag of conductors.

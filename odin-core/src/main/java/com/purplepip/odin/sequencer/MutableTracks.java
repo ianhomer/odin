@@ -73,8 +73,8 @@ public class MutableTracks extends MutableThings<Track> {
           sequenceTrack.getSequence().getLayers().forEach(layer -> {
             Conductor conductor = conductors.findByName(layer);
             if (conductor == null) {
-              LOG.warn("Cannot find conductor {} to bind to track {}", layer,
-                  sequenceTrack.getName());
+              LOG.warn("Cannot find conductor {} to bind to track {}.  All conductors are {}",
+                  layer, sequenceTrack.getName(), conductors);
             } else {
               sequenceTrack.bindConductor(conductors.findByName(layer));
             }
