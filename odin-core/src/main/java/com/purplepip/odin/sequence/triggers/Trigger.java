@@ -15,11 +15,34 @@
 
 package com.purplepip.odin.sequence.triggers;
 
+import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequencer.Operation;
+import java.util.stream.Stream;
 
 /**
  * Trigger rule.
  */
 public interface Trigger extends TriggerConfiguration {
   boolean isTriggeredBy(Operation operation);
+
+  /**
+   * Inject a sequence configuration into this trigger so that the trigger can use this
+   * sequence configuration for trigger logic.
+   *
+   * @param sequence sequence configuration to inject
+   */
+  default void inject(SequenceConfiguration sequence) {
+    throw new OdinRuntimeException("Sequences should not be injected into "
+        + this.getClass().getName());
+  }
+
+  /**
+   * Get stream of sequence names that this trigger depends on.
+   *
+   * @return stream of sequence names that this trigger depends on
+   */
+  default Stream<String> dependsOn() {
+    return Stream.empty();
+  }
 }

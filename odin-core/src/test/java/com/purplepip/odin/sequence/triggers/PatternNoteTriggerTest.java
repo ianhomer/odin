@@ -21,8 +21,6 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.properties.runtime.MutableProperty;
-import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.sequencer.Operation;
 import org.junit.Test;
 
@@ -34,8 +32,7 @@ public class PatternNoteTriggerTest {
     pattern.setNote(new DefaultNote(62, 50,1));
     PatternNoteTrigger trigger = new PatternNoteTrigger();
     trigger.setPatternName("test-pattern");
-    Property<Pattern> patternProperty = new MutableProperty<>(pattern);
-    trigger.inject(patternProperty);
+    trigger.inject(pattern);
     Operation operation = new NoteOnOperation(1, 62, 50);
     assertTrue(trigger.isTriggeredBy(operation));
     assertFalse(trigger.isTriggeredBy(new NoteOnOperation(1, 61, 50)));

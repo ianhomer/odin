@@ -14,6 +14,8 @@ import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.sequence.triggers.Action;
+import com.purplepip.odin.sequence.triggers.PatternNoteTrigger;
 import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
@@ -84,19 +86,28 @@ public class MidiSequencePlayground {
       }
       ProjectContainer container = new ProjectContainer(new TransientProject());
       new BeanyProjectBuilder(container)
-          .withChannel(1).changeProgramTo("bass")
-          .addLayer("groove");
+          .addLayer("groove")
+          .withChannel(1).changeProgramTo("piano")
+          .withLayers("groove")
+          .withEnabled(false)
+          .withTrigger("trigger", Action.ENABLE)
+          .withName("success").addNotation(Ticks.BEAT, "B4/8, C, D, E");
+
+      PatternNoteTrigger trigger = new PatternNoteTrigger();
+      trigger.setName("trigger");
+      trigger.setPatternName("random");
 
       Random random = new Random();
+      random.setName("random");
       random.setChannel(1);
       random.setNote(Notes.newDefault());
       random.setType("random");
       random.setTick(Ticks.BEAT);
-      random.addLayer("groove");
       random.setBits(1);
       random.setLowerLimit(60);
       random.setUpperLimit(72);
       random.setEnabled(true);
+      random.addLayer("groove");
       random.afterPropertiesSet();
       container.addSequence(random);
 

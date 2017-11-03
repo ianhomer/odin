@@ -15,11 +15,12 @@
 
 package com.purplepip.odin.sequence.triggers;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.properties.runtime.Property;
+import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequencer.Operation;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
@@ -34,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTrigger {
   private Note note = Notes.newDefault();
   private String patternName;
-  private Property<Pattern> pattern;
+  private Pattern pattern;
 
   public PatternNoteTrigger() {
   }
@@ -60,11 +61,21 @@ public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTri
   @Override
   public boolean isTriggeredBy(Operation operation) {
     return (operation instanceof NoteOnOperation)
-        && ((NoteOnOperation) operation).getNumber() == pattern.get().getNote().getNumber();
+        && ((NoteOnOperation) operation).getNumber() == pattern.getNote().getNumber();
   }
 
-  public void inject(Property<Pattern> pattern) {
-    this.pattern = pattern;
+  /**
+   * Inject sequence configuration into trigger.
+   *
+   * @param sequence sequence configuration to inject
+   */
+  public void inject(SequenceConfiguration sequence) {
+    if (sequence instanceof Pattern) {
+      this.pattern = (Pattern) sequence;
+    } else {
+      throw new OdinRuntimeException("Only sequences of type Pattern should be injected into a "
+          + PatternNoteTrigger.class.getName());
+    }
   }
 
   /**

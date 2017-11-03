@@ -19,8 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.properties.beany.Setter;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,4 +52,15 @@ public class NoteTriggerTest {
     assertFalse(trigger.isTriggeredBy(new NoteOnOperation(0,61,50)));
     assertTrue(trigger.isTriggeredBy(new NoteOnOperation(0,60,50)));
   }
+
+  @Test(expected = OdinRuntimeException.class)
+  public void testIsTriggeredBy() {
+    new NoteTrigger().inject(new Pattern());
+  }
+
+  @Test
+  public void testDependsOn() {
+    assertEquals(0, new NoteTrigger().dependsOn().count());
+  }
+
 }

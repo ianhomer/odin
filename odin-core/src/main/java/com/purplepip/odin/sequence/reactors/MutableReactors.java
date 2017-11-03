@@ -19,6 +19,7 @@ import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
+import com.purplepip.odin.sequencer.SequenceTrack;
 import com.purplepip.odin.sequencer.Track;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,28 +44,28 @@ public class MutableReactors extends MutableThings<Reactor> {
     removeIf(reactor -> triggerStream.get()
         .noneMatch(trigger -> trigger.getId() == reactor.getValue().getId()));
 
-    triggerStream.get().forEach(trigger -> {
+    triggerStream.get().forEach(triggerConfiguration -> {
       /*
        * Add reactor if not present in conductors.
        */
       Optional<TriggerReactor> existing =
           stream().filter(o -> o instanceof TriggerReactor).map(o -> (TriggerReactor) o)
-              .filter(reactor -> reactor.getId() == trigger.getId()).findFirst();
+              .filter(reactor -> reactor.getId() == triggerConfiguration.getId()).findFirst();
 
       TriggerReactor reactor;
       if (existing.isPresent()) {
         reactor = existing.get();
-        if (reactor.getTrigger().equals(trigger)) {
-          LOG.debug("Trigger {} already added and unchanged", trigger);
+        if (reactor.getTrigger().equals(triggerConfiguration)) {
+          LOG.debug("Trigger {} already added and unchanged", triggerConfiguration);
         } else {
-          LOG.debug("Updating reactor for {}", trigger);
+          LOG.debug("Updating reactor for {}", triggerConfiguration);
           incrementUpdatedCount();
-          reactor.setTriggerConfiguration(trigger);
+          reactor.setTriggerConfiguration(triggerConfiguration);
         }
       } else {
-        LOG.debug("Creating new reactor for {}", trigger);
+        LOG.debug("Creating new reactor for {}", triggerConfiguration);
         reactor = reactorSupplier.get();
-        reactor.setTriggerConfiguration(trigger);
+        reactor.setTriggerConfiguration(triggerConfiguration);
         add(reactor);
       }
 
@@ -74,9 +75,27 @@ public class MutableReactors extends MutableThings<Reactor> {
       reactor.clearTrackActions();
       tracks.stream().forEach(track ->
           track.getTriggers().entrySet().stream()
-            .filter(entry -> entry.getKey().equals(trigger.getName()))
+            .filter(entry -> entry.getKey().equals(triggerConfiguration.getName()))
             .forEach(entry -> reactor.addTrackAction(track, entry.getValue()))
       );
+
+      /*
+       * Inject dependent sequences into trigger.
+       */
+      reactor.getTrigger().dependsOn().forEach(sequenceName -> {
+        Track track = tracks.findByName(sequenceName);
+        if (track == null) {
+          LOG.error("Cannot find track called {} as referenced by trigger {}", sequenceName,
+              reactor.getTrigger());
+        } else {
+          if (track instanceof SequenceTrack) {
+            reactor.getTrigger().inject(((SequenceTrack) track).getSequence());
+          } else {
+            LOG.error("Referenced track {} called {} as referenced by trigger {} is not a "
+                + "sequence track", track, sequenceName, reactor.getTrigger());
+          }
+        }
+      });
     });
   }
 

@@ -92,7 +92,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
   public <S extends C> S newInstance(ThingConfiguration original, Class<? extends S> expectedType) {
     S newInstance;
     if (expectedType == null) {
-      throw new OdinRuntimeException("Expected sequence type for " + original + " is not set");
+      throw new OdinRuntimeException("Thing configuration type for " + original + " is not set");
     } else {
       if (expectedType.isAssignableFrom(original.getClass())) {
         /*
