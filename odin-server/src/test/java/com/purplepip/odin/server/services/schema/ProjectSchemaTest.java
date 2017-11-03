@@ -48,7 +48,7 @@ public class ProjectSchemaTest {
   public void testFlows() {
     ProjectSchema schema = new ProjectSchema();
     logObjectAsJson(schema);
-    assertEquals(3, schema.getFlows().size());
+    assertEquals(4, schema.getFlows().size());
     JsonNode notationSchema = schema.getFlowSchema("notation");
     assertEquals("Notation", notationSchema.get("title").asText());
     logObjectAsJson(notationSchema);
