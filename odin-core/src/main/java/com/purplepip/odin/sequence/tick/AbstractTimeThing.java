@@ -25,14 +25,13 @@ import lombok.ToString;
 @Data
 public abstract class AbstractTimeThing extends AbstractPropertiesThing
     implements MutableTimeThing {
-  // TODO : Should enabled be set to true by default?
-  private boolean enabled = false;
-  private Tick tick;
-  /**
-   * Set the length of the thing in ticks.
+  private boolean enabled = true;
+  private Tick tick = Ticks.BEAT;
+  /*
+   * Length of the thing in ticks.
    */
   private long length = -1;
-  private long offset;
+  private long offset = 0;
 
   public AbstractTimeThing() {
     super();
@@ -45,17 +44,7 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   public AbstractTimeThing(long id) {
     super(id);
   }
-
-  @Override
-  public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  @Override
-  public boolean isEnabled() {
-    return enabled;
-  }
-
+  
   protected AbstractTimeThing copy(AbstractTimeThing copy, AbstractTimeThing original) {
     copy.enabled = original.enabled;
     copy.tick = original.tick;
