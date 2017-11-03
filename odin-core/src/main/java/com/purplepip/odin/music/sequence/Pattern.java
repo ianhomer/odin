@@ -22,7 +22,6 @@ import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.Loop;
@@ -47,14 +46,6 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
   private int bits;
   private Note note = Notes.newDefault();
 
-  public Pattern() {
-    super();
-  }
-
-  public Pattern(long id) {
-    super(id);
-  }
-
   @Override
   public Event<Note> getNextEvent(FlowContext context, Loop loop) {
     Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
@@ -72,15 +63,14 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
    */
   @Override
   public Pattern copy() {
-    Pattern copy = new Pattern(this.getId());
-    copyProperties(this, copy);
-    return copy;
+    return copy(new Pattern(), this);
   }
 
-  protected void copyProperties(Pattern original, Pattern that) {
-    Sequences.copyCoreValues(original, that);
-    that.bits = original.bits;
-    that.note = original.note;
+  protected Pattern copy(Pattern copy, Pattern original) {
+    super.copy(copy, original);
+    copy.bits = original.bits;
+    copy.note = original.note;
+    return copy;
   }
 
   @Override

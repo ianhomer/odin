@@ -41,6 +41,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 @Name("metronome")
+/*
+ * TODO : Simplify constructor and copy implementation as per Pattern and Random.
+ */
 public class Metronome extends GenericSequence implements SpecialisedSequence {
   private Note noteBarStart = newDefault();
   private Note noteBarMid = newDefault();

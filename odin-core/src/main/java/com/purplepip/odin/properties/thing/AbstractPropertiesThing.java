@@ -16,16 +16,19 @@
 package com.purplepip.odin.properties.thing;
 
 import com.purplepip.odin.bag.AbstractThing;
+import com.purplepip.odin.properties.Properties;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * Abstract thing that can store properties.
  */
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class AbstractPropertiesThing extends AbstractThing implements MutablePropertiesProvider {
   private Map<String, String> properties = new HashMap<>();
 
@@ -54,5 +57,13 @@ public class AbstractPropertiesThing extends AbstractThing implements MutablePro
   @Override
   public void setProperty(String propertyName, String value) {
     properties.put(propertyName, value);
+  }
+
+  protected AbstractPropertiesThing copy(
+      AbstractPropertiesThing copy, AbstractPropertiesThing original) {
+    Properties.copyProperties(original, copy);
+    super.copy(copy, original);
+    copy.afterPropertiesSet();
+    return copy;
   }
 }

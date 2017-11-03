@@ -76,4 +76,10 @@ public abstract class AbstractThing implements MutableThing {
   public void setName(String name) {
     this.name = name;
   }
+
+  protected AbstractThing copy(AbstractThing copy, AbstractThing original) {
+    copy.id = original.id;
+    copy.name = original.name;
+    return copy;
+  }
 }

@@ -54,4 +54,20 @@ public class RandomTest {
     assertEquals("Random note shouldn't change once initialised",
         number, sequence.getNextEvent(context, new Loop(3)).getValue().getNumber());
   }
+
+  @Test
+  public void testCopy() {
+    Random sequence = new Random();
+    sequence.setName("test-name");
+    sequence.setBits(1);
+    sequence.setLowerLimit(LOWER_LIMIT);
+    sequence.setUpperLimit(UPPER_LIMIT);
+    Random copy = sequence.copy();
+    assertEquals(sequence, copy);
+    assertEquals(sequence.getId(), copy.getId());
+    assertEquals(sequence.getName(), copy.getName());
+    assertEquals(sequence.getBits(), copy.getBits());
+    assertEquals(sequence.getLowerLimit(), copy.getLowerLimit());
+    assertEquals(sequence.getUpperLimit(), copy.getUpperLimit());
+  }
 }

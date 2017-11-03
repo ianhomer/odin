@@ -16,13 +16,20 @@
 package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
 public abstract class AbstractTimeThing extends AbstractPropertiesThing
     implements MutableTimeThing {
   private boolean enabled = false;
   private Tick tick;
+  /**
+   * Set the length of the thing in ticks.
+   */
   private long length = -1;
   private long offset;
 
@@ -39,41 +46,6 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   }
 
   @Override
-  public void setTick(Tick tick) {
-    this.tick = tick;
-  }
-
-  @Override
-  public Tick getTick() {
-    return tick;
-  }
-
-  /**
-   * Set the length of the thing in ticks.
-   *
-   * @param length length of thing in ticks
-   */
-  @Override
-  public void setLength(long length) {
-    this.length = length;
-  }
-
-  @Override
-  public long getLength() {
-    return length;
-  }
-
-  @Override
-  public void setOffset(long offset) {
-    this.offset = offset;
-  }
-
-  @Override
-  public long getOffset() {
-    return offset;
-  }
-
-  @Override
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
   }
@@ -82,4 +54,14 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   public boolean isEnabled() {
     return enabled;
   }
+
+  protected AbstractTimeThing copy(AbstractTimeThing copy, AbstractTimeThing original) {
+    copy.enabled = original.enabled;
+    copy.tick = original.tick;
+    copy.length = original.length;
+    copy.offset = original.offset;
+    super.copy(copy, original);
+    return copy;
+  }
+
 }

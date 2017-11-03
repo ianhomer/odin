@@ -42,10 +42,13 @@ public class Random extends Pattern {
    */
   @Override
   public Random copy() {
-    Random copy = new Random();
-    copyProperties(this, copy);
-    copy.lowerLimit = this.lowerLimit;
-    copy.upperLimit = this.upperLimit;
+    return copy(new Random(), this);
+  }
+
+  protected Random copy(Random copy, Random original) {
+    copy.lowerLimit = original.lowerLimit;
+    copy.upperLimit = original.upperLimit;
+    super.copy(copy, original);
     return copy;
   }
 
