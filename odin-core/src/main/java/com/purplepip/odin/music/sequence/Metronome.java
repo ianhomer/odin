@@ -15,13 +15,12 @@
 
 package com.purplepip.odin.music.sequence;
 
-import static com.purplepip.odin.music.notes.Notes.newDefault;
-
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
@@ -44,8 +43,8 @@ import lombok.extern.slf4j.Slf4j;
  * TODO : Simplify constructor and copy implementation as per Pattern and Random.
  */
 public class Metronome extends GenericSequence implements SpecialisedSequence {
-  private Note noteBarStart = newDefault();
-  private Note noteBarMid = newDefault();
+  private Note noteBarStart = Notes.newNote();
+  private Note noteBarMid = Notes.newNote();
 
   @Override
   public Event<Note> getNextEvent(FlowContext context, Loop loop) {

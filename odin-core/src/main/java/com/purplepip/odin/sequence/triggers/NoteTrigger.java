@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Name("note")
 public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
-  private Note note = Notes.newDefault();
+  private Note note = Notes.newNote();
 
   /**
    * Create a copy of this sequence.

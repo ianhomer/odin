@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Name("patternNote")
 public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTrigger {
-  private Note note = Notes.newDefault();
+  private Note note = Notes.newNote();
   private String patternName;
   private Pattern pattern;
 

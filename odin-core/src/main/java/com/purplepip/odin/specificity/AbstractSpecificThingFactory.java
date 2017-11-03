@@ -59,8 +59,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
 
   protected void register(Class<? extends C> clazz) {
     if (clazz.isAnnotationPresent(Name.class)) {
-      Name definition = clazz.getAnnotation(Name.class);
-      put(definition.value(), clazz);
+      put(clazz.getAnnotation(Name.class).value(), clazz);
     } else {
       Annotation[] annotations = clazz.getAnnotations();
       LOG.warn("Class {} MUST have a @Name annotation, it has {}", clazz, annotations);
@@ -77,7 +76,26 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
    * @param configuration for the new instance
    */
   public C newInstance(ThingConfiguration configuration) {
-    Class<? extends C> expectedType = getClass(configuration.getType());
+    String type = configuration.getType();
+    Class<? extends C> expectedType;
+    if (type == null) {
+      /*
+       * Look for annotation to see if this is the class we're looking for ...
+       */
+      Class<? extends ThingConfiguration> clazz = configuration.getClass();
+      if (clazz.isAnnotationPresent(Name.class)) {
+        type = clazz.getAnnotation(Name.class).value();
+        expectedType = getClass(type);
+        if (!clazz.getName().equals(expectedType.getName())) {
+          throw new OdinRuntimeException("Annotated type '" + type + "' with class "
+              + clazz.getName() + " does not match expected " + expectedType.getName());
+        }
+      } else {
+        throw new OdinRuntimeException("No type is set on thing configuration " + configuration);
+      }
+    } else {
+      expectedType = getClass(type);
+    }
     return newInstance(configuration, expectedType);
   }
 

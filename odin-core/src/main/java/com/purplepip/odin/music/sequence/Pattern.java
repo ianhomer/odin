@@ -44,7 +44,7 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
    */
   private int bits;
-  private Note note = Notes.newDefault();
+  private Note note = Notes.newNote();
 
   @Override
   public Event<Note> getNextEvent(FlowContext context, Loop loop) {

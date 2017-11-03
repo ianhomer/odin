@@ -149,7 +149,7 @@ public class ProjectBuilder {
     sequence.setTick(createTick(Ticks.HALF));
     withFlow(sequence, Metronome.class);
     new Setter(sequence)
-        .set("noteBarStart", createNote(Notes.newDefault()))
+        .set("noteBarStart", createNote(Notes.newNote()))
         .set("noteBarMid", createNote(new DefaultNote(64,Notes.DEFAULT_VELOCITY / 2,
             Notes.DEFAULT_DURATION)));
     return sequence;

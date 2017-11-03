@@ -29,7 +29,12 @@ public final class Notes {
   private Notes() {
   }
 
-  public static DefaultNote newDefault() {
+  public static DefaultNote newNote() {
     return new DefaultNote(DEFAULT_NUMBER, DEFAULT_VELOCITY, DEFAULT_DURATION);
   }
+
+  public static DefaultNote newNote(int number) {
+    return new DefaultNote(number, DEFAULT_VELOCITY, DEFAULT_DURATION);
+  }
+
 }

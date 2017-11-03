@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.sequence.reactors;
 
+import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
@@ -31,9 +31,8 @@ public class MutableReactorsTest {
   @Test
   public void testRefresh() {
     NoteTrigger trigger = new NoteTrigger();
-    trigger.setType("note");
     trigger.setName("trigger");
-    trigger.setNote(new DefaultNote(60,50,1));
+    trigger.setNote(newNote(60));
     TransientProject project = new TransientProject();
     project.addTrigger(trigger);
     MutableReactors reactors = new MutableReactors();

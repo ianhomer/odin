@@ -100,7 +100,7 @@ public class MidiSequencePlayground {
       Random random = new Random();
       random.setName("random");
       random.setChannel(1);
-      random.setNote(Notes.newDefault());
+      random.setNote(Notes.newNote());
       random.setType("random");
       random.setTick(Ticks.BEAT);
       random.setBits(1);
