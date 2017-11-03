@@ -25,7 +25,6 @@ import com.purplepip.odin.music.composition.events.IndexedComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.Loop;
@@ -47,14 +46,6 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
   private String format;
   private String notation;
   private IndexedComposition indexedComposition;
-
-  public Notation() {
-    super();
-  }
-
-  public Notation(long id) {
-    super(id);
-  }
 
   @Override
   public Event<Note> getNextEvent(FlowContext context, Loop loop) {
@@ -80,6 +71,7 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
     EventsComposition composition = new NaturalScoreCompositionFactory()
         .create(getNotation());
     indexedComposition = new IndexedComposition(composition);
+    super.afterPropertiesSet();
   }
 
   /**
@@ -88,12 +80,13 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
    * @return copy
    */
   public Notation copy() {
-    Notation copy = new Notation(this.getId());
-    Sequences.copyCoreValues(this, copy);
+    return copy(new Notation(), this);
+  }
 
+  protected Notation copy(Notation copy, Notation original) {
     copy.notation = this.notation;
     copy.format = this.format;
-    copy.afterPropertiesSet();
+    super.copy(copy, original);
     return copy;
   }
 

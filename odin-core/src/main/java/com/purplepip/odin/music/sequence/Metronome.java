@@ -23,7 +23,6 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.Sequences;
 import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.Loop;
@@ -48,14 +47,6 @@ public class Metronome extends GenericSequence implements SpecialisedSequence {
   private Note noteBarStart = newDefault();
   private Note noteBarMid = newDefault();
 
-  public Metronome() {
-    super();
-  }
-
-  public Metronome(long id) {
-    super(id);
-  }
-
   @Override
   public Event<Note> getNextEvent(FlowContext context, Loop loop) {
     Note note;
@@ -79,11 +70,13 @@ public class Metronome extends GenericSequence implements SpecialisedSequence {
    */
   @Override
   public Metronome copy() {
-    Metronome copy = new Metronome(this.getId());
-    Sequences.copyCoreValues(this, copy);
+    return copy(new Metronome(), this);
+  }
 
-    copy.setNoteBarMid(this.getNoteBarMid());
-    copy.setNoteBarStart(this.getNoteBarStart());
+  protected Metronome copy(Metronome copy, Metronome original) {
+    super.copy(copy, original);
+    copy.noteBarStart = original.noteBarStart;
+    copy.noteBarMid = original.noteBarMid;
     return copy;
   }
 }
