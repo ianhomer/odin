@@ -13,7 +13,7 @@ import org.junit.Test;
  * Test odin sequencer.
  */
 public class OdinSequencerTriggerTest {
-  private static final int OFFSET = 0;
+  private static final int OFFSET = 100;
   private static final int LENGTH = -1;
 
   @Test

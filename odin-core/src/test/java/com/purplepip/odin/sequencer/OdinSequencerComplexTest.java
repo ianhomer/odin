@@ -15,6 +15,9 @@ import org.junit.Test;
  */
 @Slf4j
 public class OdinSequencerComplexTest {
+  private static final int OFFSET = 100;
+  private static final int LENGTH = 16;
+
   @Test
   public void testComplexSequencer() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(50);
@@ -28,6 +31,8 @@ public class OdinSequencerComplexTest {
     new BeanyProjectBuilder(environment.getContainer())
         .addLayer("verse").addLayer("chorus")
         .withLayers("verse", "chorus").addLayer("groove").withLayers("groove")
+        .withOffset(OFFSET)
+        .withLength(LENGTH)
         .addMetronome()
         .withChannel(1).withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
         .withChannel(2).withVelocity(70).withNote(62).addPattern(Ticks.BEAT, 2)
