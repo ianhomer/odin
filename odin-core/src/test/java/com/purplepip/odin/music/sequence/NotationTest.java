@@ -29,13 +29,12 @@ public class NotationTest {
 
   @Test
   public void testCopyNotation() {
-    Notation notation = new Notation();
-    notation.setFormat("test-format");
-    notation.setNotation("test-notation");
-    notation.addLayer("test-layer");
+    Notation notation = (Notation) new Notation()
+        .format("test-format").notation("ABC")
+        .layer("test-layer");
     Notation notationCopy = notation.copy();
     assertEquals("test-format", notationCopy.getFormat());
-    assertEquals("test-notation", notationCopy.getNotation());
+    assertEquals("ABC", notationCopy.getNotation());
     assertEquals("test-layer", notationCopy.getLayers().iterator().next());
   }
 }

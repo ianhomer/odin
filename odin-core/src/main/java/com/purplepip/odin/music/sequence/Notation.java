@@ -110,4 +110,9 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
     this.notation = notation;
     return this;
   }
+
+  public Notation format(String format) {
+    this.format = format;
+    return this;
+  }
 }

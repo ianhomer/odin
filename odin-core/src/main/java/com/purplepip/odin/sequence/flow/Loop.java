@@ -66,7 +66,7 @@ public class Loop {
     this.length = loopLength;
     this.position = position;
     isPositionReal = position instanceof Real;
-    LOG.debug("Created loop ; position = {}, length = {}", position, loopLength);
+    LOG.trace("Created loop ; position = {}, length = {}", position, loopLength);
   }
 
   /**

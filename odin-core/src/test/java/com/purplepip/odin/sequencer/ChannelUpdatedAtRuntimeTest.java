@@ -38,15 +38,20 @@ public class ChannelUpdatedAtRuntimeTest {
           LOG.debug("Channel 1 count : {}", channel1Events.getCount());
         } else if (channelOperation.getChannel() == 3) {
           channel3Events.countDown();
+        } else if (channelOperation.getChannel() == 2) {
+          /*
+           * Ignore channel 2 operations.
+           */
+          LOG.debug("Channel 2 operation");
         } else {
-          LOG.warn("Unexpected channel operation");
+          LOG.warn("Unexpected channel operation {}", operation);
         }
         if (operation instanceof ProgramChangeOperation) {
           programChangeEventCount.incrementAndGet();
           LOG.debug("Program change event : {} : {}", operation, programChangeEventCount.get());
         }
       } else {
-        LOG.warn("Unexpected operation");
+        LOG.warn("Unexpected operation {}", operation);
       }
     };
 
