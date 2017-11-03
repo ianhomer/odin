@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
  * Track in the sequencer.
  */
 @Slf4j
-public class SequenceTrack implements Track {
+public class SequenceRollTrack implements SequenceTrack {
   private Set<Conductor> conductors = new HashSet<>();
   private Roll<Note> roll;
   private SequenceRoll<Note> sequenceRoll;
@@ -50,7 +50,7 @@ public class SequenceTrack implements Track {
    * @param clock beat clock
    * @param sequenceRoll sequence roll to base this track on
    */
-  SequenceTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll) {
+  SequenceRollTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll) {
     this.sequenceRoll = sequenceRoll;
     this.tickConverter = new DefaultTickConverter(clock,
         this.sequenceRoll.getTick(), () -> Ticks.MICROSECOND,
@@ -98,6 +98,7 @@ public class SequenceTrack implements Track {
     return sequenceRoll;
   }
 
+  @Override
   public SequenceConfiguration getSequence() {
     return sequenceRoll.getSequence();
   }
