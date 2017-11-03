@@ -58,8 +58,8 @@ public class MutableTracksTest {
         .withProperty("notation", "C")
         .withFlowName("notation").addSequence();
     refresh();
-    SequenceTrack track = tracks.stream()
-        .filter(t -> t instanceof SequenceTrack).map(t -> (SequenceTrack) t)
+    SequenceRollTrack track = tracks.stream()
+        .filter(t -> t instanceof SequenceRollTrack).map(t -> (SequenceRollTrack) t)
         .findFirst()
         .orElseThrow(OdinException::new);
 
@@ -78,7 +78,7 @@ public class MutableTracksTest {
         .withFlowName("notation").addSequence();
     refresh();
     assertFalse("Notation track should not have been added since it is empty", tracks.stream()
-        .filter(t -> t instanceof SequenceTrack).map(t -> (SequenceTrack) t)
+        .filter(t -> t instanceof SequenceRollTrack).map(t -> (SequenceRollTrack) t)
         .findFirst().isPresent());
   }
 
@@ -92,8 +92,8 @@ public class MutableTracksTest {
     return new LayerConductor(clock);
   }
 
-  private SequenceTrack createSequenceTrack() {
-    return new SequenceTrack(clock,
+  private SequenceRollTrack createSequenceTrack() {
+    return new SequenceRollTrack(clock,
         new MutableSequenceRoll<>(clock, sequenceFactory, measureProvider));
   }
 }

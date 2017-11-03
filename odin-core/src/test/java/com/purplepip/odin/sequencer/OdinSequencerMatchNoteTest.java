@@ -41,10 +41,7 @@ public class OdinSequencerMatchNoteTest {
             .channel(1).layer("groove")
             .name("success"));
 
-    // TODO : Start environment and continue test.  Need to find a way of trigger accessing
-    // sequence configuration via Unmodifiable track
-    //environment.start();
-
+    environment.start();
 
     // TODO : Change this test case to cover the match the note use case.
     environment.getConfiguration().getOperationTransmitter().send(

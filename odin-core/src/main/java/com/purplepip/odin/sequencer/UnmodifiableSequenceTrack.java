@@ -15,23 +15,20 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.bag.AbstractUnmodifiableThings;
-import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.sequence.SequenceConfiguration;
+import lombok.ToString;
 
-/**
- * Unmodifiable tracks.
- */
-public class UnmodifiableTracks extends AbstractUnmodifiableThings<Track> implements Things<Track> {
-  public UnmodifiableTracks(Things<Track> things) {
-    super(things);
+@ToString
+public class UnmodifiableSequenceTrack extends UnmodifiableTrack implements  SequenceTrack {
+  private SequenceTrack track;
+
+  UnmodifiableSequenceTrack(SequenceTrack track) {
+    super(track);
+    this.track = track;
   }
 
   @Override
-  public Track unmodifiable(Track track) {
-    if (track instanceof SequenceTrack) {
-      return new UnmodifiableSequenceTrack((SequenceTrack) track);
-    } else {
-      return new UnmodifiableTrack(track);
-    }
+  public SequenceConfiguration getSequence() {
+    return track.getSequence();
   }
 }

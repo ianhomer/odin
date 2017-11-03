@@ -80,7 +80,7 @@ public class ReactorReceiverTest {
         conductors, tracks);
     MetricRegistry metricRegistry = new MetricRegistry();
     ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
-    assertFalse(((SequenceTrack) tracks.findByName("track1")).getSequenceRoll().isEnabled());
+    assertFalse(((SequenceRollTrack) tracks.findByName("track1")).getSequenceRoll().isEnabled());
 
     /*
      * Send note on operation to trigger enabling track
@@ -97,8 +97,8 @@ public class ReactorReceiverTest {
     assertFalse(tracks.findByName("track1").isEnabled());
   }
 
-  private SequenceTrack createSequenceTrack() {
-    return new SequenceTrack(clock,
+  private SequenceRollTrack createSequenceTrack() {
+    return new SequenceRollTrack(clock,
         new MutableSequenceRoll<>(clock, sequenceFactory , measureProvider));
   }
 

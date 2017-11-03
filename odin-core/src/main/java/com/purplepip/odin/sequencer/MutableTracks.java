@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MutableTracks extends MutableThings<Track> {
   void refresh(Supplier<Stream<SequenceConfiguration>> sequenceStream,
-               Supplier<SequenceTrack> trackSupplier,
+               Supplier<SequenceRollTrack> trackSupplier,
                Things<Conductor> conductors) {
     removeIf(track -> sequenceStream.get()
         .noneMatch(sequence -> sequence.getId() == track.getValue().getId()));
@@ -36,8 +36,8 @@ public class MutableTracks extends MutableThings<Track> {
       /*
        * Add sequence if not present in tracks.
        */
-      Optional<SequenceTrack> existingTrack = stream()
-              .filter(o -> o instanceof SequenceTrack).map(o -> (SequenceTrack) o)
+      Optional<SequenceRollTrack> existingTrack = stream()
+              .filter(o -> o instanceof SequenceRollTrack).map(o -> (SequenceRollTrack) o)
               .filter(track -> sequence.getId() == track.getSequence().getId()).findFirst();
 
       if (existingTrack.isPresent()) {
@@ -50,7 +50,7 @@ public class MutableTracks extends MutableThings<Track> {
         }
       } else {
         LOG.debug("Creating new track for {}", sequence);
-        SequenceTrack sequenceTrack = trackSupplier.get();
+        SequenceRollTrack sequenceTrack = trackSupplier.get();
         sequenceTrack.setCopyOfSequence(sequence);
         add(sequenceTrack);
       }
@@ -67,8 +67,8 @@ public class MutableTracks extends MutableThings<Track> {
      * // rebind.  It should be done more efficiently.
      */
     stream()
-        .filter(o -> o instanceof SequenceTrack)
-        .map(o -> (SequenceTrack) o).forEach(sequenceTrack -> {
+        .filter(o -> o instanceof SequenceRollTrack)
+        .map(o -> (SequenceRollTrack) o).forEach(sequenceTrack -> {
           sequenceTrack.unbindConductors();
           sequenceTrack.getSequence().getLayers().forEach(layer -> {
             Conductor conductor = conductors.findByName(layer);
