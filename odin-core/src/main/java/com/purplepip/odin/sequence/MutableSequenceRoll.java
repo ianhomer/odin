@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * Abstract sequence roll.
  */
 @ListenerPriority()
-@ToString(callSuper = true)
+@ToString
 public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
   private final Mutable<Tick> tick = new ObservableProperty<>();

@@ -21,7 +21,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ToString
+@ToString(exclude = "observers")
 public class ObservableProperty<T> implements Mutable<T>, Observable {
   private T value;
   private Set<Observer> observers = new HashSet<>();
