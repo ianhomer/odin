@@ -24,10 +24,10 @@ import com.purplepip.odin.sequence.flow.Loop;
 
 public interface Sequence<A> extends SequenceConfiguration {
   /**
-   * Get event after the given tock, but not more than whole number ahead.  In the future an
-   * event might be a collection of
-   * simultaneous events after the given tock, however for now it is simply a single event.
-   * This method will be moved onto sequence interface shortly.
+   * Get event <b>after</b> the given tock.  The sequence should not scan unnecessarily ahead since
+   * the platform will take care of scanning, in general the sequence need not scan more than
+   * whole tick number ahead.  In the future an event might be a collection of
+   * simultaneous events after the given tock.  For now, however,  it is simply a single event.
    *
    * @param context flow context
    * @param loop time position at which to get the event

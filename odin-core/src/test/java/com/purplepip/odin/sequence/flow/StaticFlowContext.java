@@ -13,18 +13,15 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.math;
+package com.purplepip.odin.sequence.flow;
 
-/**
- * Number bound.
- */
-public interface Bound {
-  boolean lt(Real real);
+import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 
-  /**
-   * Get limit of this bound.
-   *
-   * @return limit
-   */
-  Real getLimit();
+public class StaticFlowContext extends FlowContext {
+  public StaticFlowContext(int beatsPerMinute, int beatsPerMeasure) {
+    super(new BeatClock(new StaticBeatsPerMinute(60)),
+        new StaticBeatMeasureProvider(4));
+  }
 }

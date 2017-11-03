@@ -19,12 +19,13 @@ import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.LessThan;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Tock used by flow to find next event.
+ * Loop status.
  */
 @Slf4j
 @ToString
@@ -32,6 +33,28 @@ public class Loop {
   private Rational length;
   private Bound position;
   private boolean isPositionReal;
+
+  /**
+   * Default endless loop starting at the beginning.
+   */
+  public Loop() {
+    this(Wholes.MINUS_ONE, Wholes.MINUS_ONE);
+  }
+
+  /**
+   * Default endless loop with given position.
+   */
+  public Loop(int position) {
+    this(Wholes.MINUS_ONE, Whole.valueOf(position));
+  }
+
+
+  /**
+   * Default endless loop with given position.
+   */
+  public Loop(Bound position) {
+    this(Wholes.MINUS_ONE, position);
+  }
 
   /**
    * Create a loop.
@@ -56,7 +79,7 @@ public class Loop {
   }
 
   /**
-   * Get tock position relative to the start of the loop.
+   * Get tock position relative to the start of the loop.  Note that position 0 is the first beat.
    *
    * @return tock position in loop
    */
@@ -72,6 +95,10 @@ public class Loop {
       }
       return LessThan.lessThan(position.getLimit().modulo(length));
     }
+  }
+
+  public Rational getLength() {
+    return length;
   }
 
   /**

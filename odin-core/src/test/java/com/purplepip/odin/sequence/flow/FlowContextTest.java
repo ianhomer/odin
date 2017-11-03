@@ -13,18 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.math;
+package com.purplepip.odin.sequence.flow;
 
-/**
- * Number bound.
- */
-public interface Bound {
-  boolean lt(Real real);
+public class FlowContextTest {
 
-  /**
-   * Get limit of this bound.
-   *
-   * @return limit
-   */
-  Real getLimit();
 }

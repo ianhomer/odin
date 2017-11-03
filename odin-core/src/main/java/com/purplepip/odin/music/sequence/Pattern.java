@@ -31,7 +31,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Default implementation of pattern.
+ * Pattern sequence.
  */
 @ToString(callSuper = true)
 @Slf4j
@@ -54,8 +54,7 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
   @Override
   public Event<Note> getNextEvent(FlowContext context, Loop loop) {
     Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
-    long countInMeasure = context.getMeasureProvider()
-        .getCount(nextTock).floor();
+    long countInMeasure = context.getMeasureProvider().getCount(nextTock).floor();
     if (getBits() == -1 || ((getBits() >> countInMeasure) & 1) == 1)  {
       return new DefaultEvent<>(getNote(), nextTock);
     }

@@ -24,6 +24,14 @@ import org.junit.Test;
 
 public class LoopTest {
   @Test
+  public void testConstruct() throws Exception {
+    assertEquals(Wholes.MINUS_ONE, new Loop().getLength());
+    assertEquals(Wholes.MINUS_ONE, new Loop().getPosition());
+    assertEquals(Wholes.ONE, new Loop(Wholes.ONE).getPosition());
+    assertEquals(Wholes.ONE, new Loop(1).getPosition());
+  }
+
+  @Test
   public void testIncrement() throws Exception {
     Loop loop = new Loop(Whole.valueOf(4), Wholes.ONE);
     loop.increment();
