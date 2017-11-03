@@ -1,15 +1,17 @@
 package com.purplepip.odin.experiments;
 
+import static com.purplepip.odin.music.notes.Notes.newNote;
+
 import com.codahale.metrics.ConsoleReporter;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
-import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.sequence.Random;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
@@ -93,23 +95,22 @@ public class MidiSequencePlayground {
           .withTrigger("trigger", Action.ENABLE)
           .withName("success").addNotation(Ticks.BEAT, "B4/8, C, D, E");
 
-      PatternNoteTrigger trigger = new PatternNoteTrigger();
-      trigger.setName("trigger");
-      trigger.setPatternName("random");
+      container.addTrigger(
+          new PatternNoteTrigger()
+              .patternName("random")
+              .name("trigger"));
 
-      Random random = new Random();
-      random.setName("random");
-      random.setChannel(1);
-      random.setNote(Notes.newNote());
-      random.setType("random");
-      random.setTick(Ticks.BEAT);
-      random.setBits(1);
-      random.setLowerLimit(60);
-      random.setUpperLimit(72);
-      random.setEnabled(true);
-      random.addLayer("groove");
-      random.afterPropertiesSet();
-      container.addSequence(random);
+      GenericSequence sequence = new Random()
+          .lower(60).upper(72)
+          .bits(1).note(newNote())
+          .channel(1);
+
+      sequence.setName("random");
+      sequence.setTick(Ticks.BEAT);
+      sequence.setEnabled(true);
+      sequence.addLayer("groove");
+      sequence.afterPropertiesSet();
+      container.addSequence(sequence);
 
       container.addApplyListener(sequencer);
       container.apply();

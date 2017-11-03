@@ -32,8 +32,18 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Name("random")
 public class Random extends Pattern {
-  private int lowerLimit;
-  private int upperLimit;
+  private int upper;
+  private int lower;
+
+  public Random lower(int lower) {
+    this.lower = lower;
+    return this;
+  }
+
+  public Random upper(int upper) {
+    this.upper = upper;
+    return this;
+  }
 
   /**
    * Create a copy of this sequence.
@@ -46,8 +56,8 @@ public class Random extends Pattern {
   }
 
   protected Random copy(Random copy, Random original) {
-    copy.lowerLimit = original.lowerLimit;
-    copy.upperLimit = original.upperLimit;
+    copy.lower = original.lower;
+    copy.upper = original.upper;
     super.copy(copy, original);
     return copy;
   }
@@ -62,7 +72,7 @@ public class Random extends Pattern {
     /*
      * Note that nextInt treats bound as exclusive.
      */
-    int number = ThreadLocalRandom.current().nextInt(lowerLimit, upperLimit + 1);
+    int number = ThreadLocalRandom.current().nextInt(lower, upper + 1);
     setNote(new DefaultNote(number, getNote().getVelocity(), getNote().getDuration()));
   }
 }

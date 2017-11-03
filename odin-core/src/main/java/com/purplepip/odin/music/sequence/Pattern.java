@@ -46,6 +46,16 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
   private int bits;
   private Note note = Notes.newNote();
 
+  public Pattern bits(int bits) {
+    this.bits = bits;
+    return this;
+  }
+
+  public Pattern note(Note note) {
+    this.note = note;
+    return this;
+  }
+
   @Override
   public Event<Note> getNextEvent(FlowContext context, Loop loop) {
     Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);

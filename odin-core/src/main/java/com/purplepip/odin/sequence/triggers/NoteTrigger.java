@@ -33,6 +33,11 @@ import lombok.extern.slf4j.Slf4j;
 public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
   private Note note = Notes.newNote();
 
+  public NoteTrigger note(Note note) {
+    this.note = note;
+    return this;
+  }
+
   /**
    * Create a copy of this sequence.
    *

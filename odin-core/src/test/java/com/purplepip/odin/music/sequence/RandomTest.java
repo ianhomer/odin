@@ -36,10 +36,7 @@ public class RandomTest {
 
   @Test
   public void testGetNextEvent() {
-    Random sequence = new Random();
-    sequence.setBits(1);
-    sequence.setLowerLimit(LOWER_LIMIT);
-    sequence.setUpperLimit(UPPER_LIMIT);
+    Pattern sequence = new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1);
     sequence.afterPropertiesSet();
     FlowContext context = new StaticFlowContext(60, 4);
     Event<Note> nextEvent = sequence.getNextEvent(context, new Loop());
@@ -57,17 +54,14 @@ public class RandomTest {
 
   @Test
   public void testCopy() {
-    Random sequence = new Random();
+    Random sequence = ((Random) new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1));
     sequence.setName("test-name");
-    sequence.setBits(1);
-    sequence.setLowerLimit(LOWER_LIMIT);
-    sequence.setUpperLimit(UPPER_LIMIT);
     Random copy = sequence.copy();
     assertEquals(sequence, copy);
     assertEquals(sequence.getId(), copy.getId());
     assertEquals(sequence.getName(), copy.getName());
     assertEquals(sequence.getBits(), copy.getBits());
-    assertEquals(sequence.getLowerLimit(), copy.getLowerLimit());
-    assertEquals(sequence.getUpperLimit(), copy.getUpperLimit());
+    assertEquals(sequence.getLower(), copy.getLower());
+    assertEquals(sequence.getUpper(), copy.getUpper());
   }
 }

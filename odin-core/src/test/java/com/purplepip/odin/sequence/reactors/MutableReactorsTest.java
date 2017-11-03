@@ -30,14 +30,13 @@ public class MutableReactorsTest {
 
   @Test
   public void testRefresh() {
-    NoteTrigger trigger = new NoteTrigger();
-    trigger.setName("trigger");
-    trigger.setNote(newNote(60));
     TransientProject project = new TransientProject();
-    project.addTrigger(trigger);
+    project.addTrigger(new NoteTrigger().note(newNote(60)).name("trigger"));
+
     MutableReactors reactors = new MutableReactors();
     reactors.refresh(() -> project.getTriggers().stream(), this::createReactor,
         new MutableConductors(), new MutableTracks());
+
     assertEquals(1, reactors.getStatistics().getAddedCount());
     /*
      * Verify access OK via UnmodifiableReactors

@@ -37,6 +37,11 @@ public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTri
   private String patternName;
   private Pattern pattern;
 
+  public PatternNoteTrigger patternName(String patternName) {
+    this.patternName = patternName;
+    return this;
+  }
+
   /**
    * Create a copy of this sequence.
    *

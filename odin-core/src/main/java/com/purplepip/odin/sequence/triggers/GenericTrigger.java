@@ -62,4 +62,9 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
     super.copy(copy, original);
     return copy;
   }
+
+  public GenericTrigger name(String name) {
+    setName(name);
+    return this;
+  }
 }

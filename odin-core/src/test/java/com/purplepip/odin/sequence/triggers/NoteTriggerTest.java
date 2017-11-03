@@ -15,12 +15,12 @@
 
 package com.purplepip.odin.sequence.triggers;
 
+import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.properties.beany.Setter;
@@ -31,9 +31,7 @@ import org.junit.Test;
 public class NoteTriggerTest {
   @Test
   public void testGetMessage() {
-    NoteTrigger trigger = new NoteTrigger();
-    trigger.setNote(new DefaultNote(60,0,0));
-    assertEquals(60, trigger.getNote().getNumber());
+    assertEquals(60, new NoteTrigger().note(newNote(60)).getNote().getNumber());
   }
 
   @Test
@@ -48,7 +46,7 @@ public class NoteTriggerTest {
   @Test
   public void testMatches() throws Exception {
     NoteTrigger trigger = new NoteTrigger();
-    trigger.setNote(new DefaultNote(60,0,0));
+    trigger.setNote(newNote(60));
     assertFalse(trigger.isTriggeredBy(new NoteOnOperation(0,61,50)));
     assertTrue(trigger.isTriggeredBy(new NoteOnOperation(0,60,50)));
   }

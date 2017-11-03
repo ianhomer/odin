@@ -99,4 +99,14 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     super.copy(copy, original);
     return copy;
   }
+
+  public GenericSequence channel(int channel) {
+    this.channel = channel;
+    return this;
+  }
+
+  public GenericSequence type(String type) {
+    this.type = type;
+    return this;
+  }
 }
