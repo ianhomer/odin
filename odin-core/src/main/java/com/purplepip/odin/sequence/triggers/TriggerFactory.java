@@ -37,6 +37,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
      */
     List<Class<? extends Trigger>> classes = new ArrayList<>();
     classes.add(NoteTrigger.class);
+    classes.add(PatternNoteTrigger.class);
     return new TriggerFactory(classes);
   }
 

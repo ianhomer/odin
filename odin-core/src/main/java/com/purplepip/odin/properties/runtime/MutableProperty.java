@@ -15,44 +15,38 @@
 
 package com.purplepip.odin.properties.runtime;
 
-import java.util.HashSet;
-import java.util.Set;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * A property that can change.
+ *
+ * @param <T> type of property
+ */
 @Slf4j
-@ToString(exclude = "observers")
-public class ObservableProperty<T> extends MutableProperty<T> implements Observable {
-  private Set<Observer> observers = new HashSet<>();
+public class MutableProperty<T> implements Mutable<T> {
+  private T value;
 
   /**
    * Create a property without setting an initial value.
    */
-  public ObservableProperty() {
+  public MutableProperty() {
     /*
      * Empty constructor to explicitly differentiate with constructor that sets value.
      */
-    super();
   }
 
-  public ObservableProperty(T value) {
-    super(value);
-  }
-
-  @Override
-  public void addObserver(Observer observer) {
-    observers.add(observer);
+  public MutableProperty(T value) {
+    this.value = value;
   }
 
   @Override
-  public void removeObserver(Observer observer) {
-    observers.remove(observer);
+  public T get() {
+    return value;
   }
 
   @Override
   public void set(T value) {
-    super.set(value);
-    observers.forEach(Observer::onChange);
+    LOG.debug("Changing property to {}", value);
+    this.value = value;
   }
-
 }

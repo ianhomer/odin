@@ -21,6 +21,9 @@ import com.purplepip.odin.sequence.reactors.MutableReactors;
 import com.purplepip.odin.sequence.triggers.Action;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Execute triggers based on received operations.
+ */
 @Slf4j
 public class ReactorReceiver implements OperationReceiver {
   private MutableReactors reactors;

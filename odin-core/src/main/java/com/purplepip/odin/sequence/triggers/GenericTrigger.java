@@ -18,13 +18,17 @@ package com.purplepip.odin.sequence.triggers;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.AbstractTimeThing;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
 import lombok.ToString;
 
 @ToString(exclude = "project")
 public class GenericTrigger extends AbstractTimeThing implements MutableTriggerConfiguration {
   private Project project;
   private String type;
+  private Set<String> dependsOn = new HashSet<>();
 
   public GenericTrigger() {
     super();
@@ -58,5 +62,13 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
   @Override
   public String getType() {
     return type;
+  }
+
+  public Stream<String> dependsOn() {
+    return dependsOn.stream();
+  }
+
+  protected void registerDependency(String dependency) {
+    dependsOn.add(dependency);
   }
 }

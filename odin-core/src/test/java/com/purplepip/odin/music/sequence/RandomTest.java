@@ -47,8 +47,8 @@ public class RandomTest {
     assertEquals(Wholes.ZERO, nextEvent.getTime());
     int number = nextEvent.getValue().getNumber();
     LOG.debug("Random note number is {}", number);
-    assertTrue(number > LOWER_LIMIT - 1);
-    assertTrue(number < UPPER_LIMIT - 1);
+    assertTrue(number >= LOWER_LIMIT);
+    assertTrue(number <= UPPER_LIMIT);
     nextEvent = sequence.getNextEvent(context, new Loop(1));
     assertNull("Event at beat 2 should be null", nextEvent);
     assertEquals("Random note shouldn't change once initialised",
