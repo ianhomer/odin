@@ -17,6 +17,7 @@ package com.purplepip.odin.sequence.reactors;
 
 import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import com.purplepip.odin.sequencer.SequenceTrack;
@@ -91,8 +92,9 @@ public class MutableReactors extends MutableThings<Reactor> {
           if (track instanceof SequenceTrack) {
             reactor.getTrigger().inject(((SequenceTrack) track).getSequence());
           } else {
-            LOG.error("Referenced track {} called {} as referenced by trigger {} is not a "
-                + "sequence track", track, sequenceName, reactor.getTrigger());
+            throw new OdinRuntimeException(
+                "Referenced track " + track + " called " + sequenceName + " as referenced by "
+                    + reactor.getTrigger() + " is not a sequence track");
           }
         }
       });

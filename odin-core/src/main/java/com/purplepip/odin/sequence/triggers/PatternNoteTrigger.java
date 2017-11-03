@@ -53,13 +53,14 @@ public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTri
   }
 
   protected PatternNoteTrigger copy(PatternNoteTrigger copy, PatternNoteTrigger original) {
-    super.copy(copy, original);
     copy.patternName = original.patternName;
+    super.copy(copy, original);
     return copy;
   }
 
   @Override
   public boolean isTriggeredBy(Operation operation) {
+    assert pattern != null : "Pattern has not been injected";
     return (operation instanceof NoteOnOperation)
         && ((NoteOnOperation) operation).getNumber() == pattern.getNote().getNumber();
   }

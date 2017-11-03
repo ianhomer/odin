@@ -22,7 +22,7 @@ import com.purplepip.odin.sequence.triggers.Action;
 import java.util.Map;
 import lombok.ToString;
 
-@ToString()
+@ToString
 public class UnmodifiableTrack implements Track {
   private Track underlyingTrack;
 

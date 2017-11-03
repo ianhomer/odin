@@ -106,4 +106,9 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
     }
     return Whole.valueOf(super.getLength());
   }
+
+  public Notation notation(String notation) {
+    this.notation = notation;
+    return this;
+  }
 }
