@@ -16,11 +16,13 @@
 package com.purplepip.odin.bag;
 
 import java.util.concurrent.atomic.AtomicLong;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @EqualsAndHashCode(of = "id")
 @ToString
+@Data
 public abstract class AbstractThing implements MutableThing {
   /*
    * Cheap ID generator for things.  Note that persistence implementation used for
@@ -67,19 +69,14 @@ public abstract class AbstractThing implements MutableThing {
     }
   }
 
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public void setName(String name) {
-    this.name = name;
-  }
-
   protected AbstractThing copy(AbstractThing copy, AbstractThing original) {
     copy.id = original.id;
     copy.name = original.name;
     return copy;
+  }
+
+  public AbstractThing name(String name) {
+    this.name = name;
+    return this;
   }
 }

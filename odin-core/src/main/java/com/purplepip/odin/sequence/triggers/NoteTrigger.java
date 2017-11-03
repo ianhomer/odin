@@ -15,8 +15,9 @@
 
 package com.purplepip.odin.sequence.triggers;
 
+import static com.purplepip.odin.music.notes.Notes.newNote;
+
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequencer.Operation;
 import com.purplepip.odin.specificity.Name;
@@ -31,10 +32,15 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Name("note")
 public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
-  private Note note = Notes.newNote();
+  private Note note = newNote();
 
   public NoteTrigger note(Note note) {
     this.note = note;
+    return this;
+  }
+
+  public NoteTrigger note(int note) {
+    this.note = newNote(note);
     return this;
   }
 

@@ -1,10 +1,11 @@
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.music.notes.Notes.newNote;
+import static com.purplepip.odin.sequence.layer.Layers.newLayer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
 import java.util.concurrent.CountDownLatch;
@@ -25,18 +26,16 @@ public class OdinSequencerMatchNoteTest {
     OperationReceiver operationReceiver = (operation, time) -> lock.countDown();
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-
-    new BeanyProjectBuilder(environment.getContainer())
-        .addLayer("groove")
-        .withName("metronome")
-        .withLayers("groove")
-        .withTrigger("note-60-trigger", Action.ENABLE)
-        .withOffset(OFFSET)
-        .withLength(LENGTH)
-        .withEnabled(false)
-        .addMetronome();
     environment.getContainer()
-        .addTrigger(new NoteTrigger().note(newNote(60)).name("note-60-trigger"));
+        .addTrigger(new NoteTrigger().note(60).name("note-60-trigger"))
+        .addLayer(newLayer("groove"))
+        .addSequence((Metronome) new Metronome()
+            .layer("groove")
+            .trigger("note-60-trigger", Action.ENABLE)
+            .offset(OFFSET)
+            .length(LENGTH)
+            .enabled(false)
+            .name("metronome"));
 
     environment.start();
 

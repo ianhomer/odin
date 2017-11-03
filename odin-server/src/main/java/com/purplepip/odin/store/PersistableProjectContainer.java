@@ -49,20 +49,22 @@ public class PersistableProjectContainer extends ProjectContainer {
   }
 
   @Override
-  public void addSequence(SequenceConfiguration sequence) {
+  public PersistableProjectContainer addSequence(SequenceConfiguration sequence) {
     if (sequence instanceof PersistableSequence) {
       sequence.setProject(getProject());
       sequenceRepository.save((PersistableSequence) sequence);
     }
     super.addSequence(sequence);
+    return this;
   }
 
   @Override
-  public void addLayer(MutableLayer layer) {
+  public PersistableProjectContainer addLayer(MutableLayer layer) {
     if (layer instanceof PersistableLayer) {
       layer.setProject(getProject());
       layerRepository.save((PersistableLayer) layer);
     }
     super.addLayer(layer);
+    return this;
   }
 }

@@ -44,7 +44,7 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   public AbstractTimeThing(long id) {
     super(id);
   }
-  
+
   protected AbstractTimeThing copy(AbstractTimeThing copy, AbstractTimeThing original) {
     copy.enabled = original.enabled;
     copy.tick = original.tick;
@@ -54,4 +54,18 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
     return copy;
   }
 
+  public AbstractTimeThing enabled(boolean enabled) {
+    this.enabled = enabled;
+    return this;
+  }
+
+  public AbstractTimeThing length(long length) {
+    this.length = length;
+    return this;
+  }
+
+  public AbstractTimeThing offset(long offset) {
+    this.offset = offset;
+    return this;
+  }
 }

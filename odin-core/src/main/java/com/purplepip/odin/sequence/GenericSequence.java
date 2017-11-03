@@ -64,6 +64,11 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     layers.add(layer);
   }
 
+  public GenericSequence layer(String layer) {
+    addLayer(layer);
+    return this;
+  }
+
   @Override
   public void removeLayer(String layer) {
     layers.remove(layer);
@@ -83,6 +88,11 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   public void addTrigger(String trigger, Action action) {
     LOG.debug("Adding trigger : {} when {} ", action, trigger);
     triggers.put(trigger, action);
+  }
+
+  public GenericSequence trigger(String trigger, Action action) {
+    addTrigger(trigger, action);
+    return this;
   }
 
   @Override
