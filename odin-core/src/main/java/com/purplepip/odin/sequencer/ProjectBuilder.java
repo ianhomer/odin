@@ -113,22 +113,22 @@ public class ProjectBuilder {
    * this is an ordered list in the order that they were added.  Note that sequences in a project
    * do not have a fixed ordering so we can not rely on the iteration of the project sequences.
    */
-  public SequenceConfiguration getSequenceByOrder(int id) {
-    return projectContainer.getSequence(sequenceIds.get(id));
+  public SequenceConfiguration getSequenceByOrder(int position) {
+    return projectContainer.getSequence(sequenceIds.get(position));
   }
 
   /*
    * As per getSequenceByOrder logic.
    */
-  public Channel getChannelByOrder(int id) {
-    return projectContainer.getChannel(channelIds.get(id));
+  public Channel getChannelByOrder(int position) {
+    return projectContainer.getChannel(channelIds.get(position));
   }
 
   /*
    * As per getSequenceByOrder logic.
    */
-  public Layer getLayerByOrder(int id) {
-    return projectContainer.getLayer(layerIds.get(id));
+  public Layer getLayerByOrder(int position) {
+    return projectContainer.getLayer(layerIds.get(position));
   }
 
   /*

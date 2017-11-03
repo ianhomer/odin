@@ -30,11 +30,15 @@ import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.specificity.Name;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Slf4j
+@Data
 @Name("notation")
 public class Notation extends GenericSequence implements SpecialisedSequence {
   private String format;
@@ -84,27 +88,11 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
     Notation copy = new Notation(this.getId());
     Sequences.copyCoreValues(this, copy);
 
-    copy.setNotation(this.getNotation());
-    copy.setFormat(this.getFormat());
+    copy.notation = this.notation;
+    copy.format = this.format;
     this.getLayers().forEach(copy::addLayer);
     copy.afterPropertiesSet();
     return copy;
-  }
-
-  public void setFormat(String format) {
-    this.format = format;
-  }
-
-  public String getFormat() {
-    return format;
-  }
-
-  public void setNotation(String notation) {
-    this.notation = notation;
-  }
-
-  public String getNotation() {
-    return notation;
   }
 
   @Override

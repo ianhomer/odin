@@ -20,10 +20,12 @@ import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
+import lombok.ToString;
 
 /**
  * Abstract thing that can store properties.
  */
+@ToString(callSuper = true)
 public class AbstractPropertiesThing extends AbstractThing implements MutablePropertiesProvider {
   private Map<String, String> properties = new HashMap<>();
 

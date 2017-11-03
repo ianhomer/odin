@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Abstract sequence.
  */
-@ToString(exclude = "project")
+@ToString(exclude = "project", callSuper = true)
 @Slf4j
 public class GenericSequence extends AbstractTimeThing implements MutableSequenceConfiguration {
   private int channel;

@@ -52,6 +52,8 @@ public class ProjectBuilderTest {
         .withChannel(1).withLayers("layer1").addMetronome()
         .withChannel(2).withLayers("layer2", "layer3").addMetronome()
         .withChannel(3).addNotation(BEAT, "C");
+    assertEquals("3 sequences should have been created, however "
+        + project.getSequences().size() + " have", 3, project.getSequences().size());
     SequenceConfiguration sequence1 = builder.getSequenceByOrder(0);
     assertNotNull(builder.getLayerByOrder(0));
 
@@ -73,19 +75,15 @@ public class ProjectBuilderTest {
 
 
     assertThat("Sequence 1 : " + sequence1,
-        new HashSet<>(sequence1.getLayers()),
-        containsInAnyOrder("layer1"));
+        new HashSet<>(sequence1.getLayers()), containsInAnyOrder("layer1"));
     SequenceConfiguration sequence2 = builder.getSequenceByOrder(1);
     assertThat("Sequence 2 : " + sequence2,
-        new HashSet<>(sequence2.getLayers()),
-        containsInAnyOrder("layer2", "layer3"));
+        new HashSet<>(sequence2.getLayers()), containsInAnyOrder("layer2", "layer3"));
     assertThat("Sequence 2 : " + sequence2,
-        new HashSet<>(sequence2.getLayers()),
-        not(containsInAnyOrder("layer1")));
+        new HashSet<>(sequence2.getLayers()), not(containsInAnyOrder("layer1")));
     SequenceConfiguration sequence3 = builder.getSequenceByOrder(2);
     assertThat("Sequence 2 : " + sequence2,
-        new HashSet<>(sequence3.getLayers()),
-        containsInAnyOrder("layer2", "layer3"));
+        new HashSet<>(sequence3.getLayers()), containsInAnyOrder("layer2", "layer3"));
   }
 
   @Test

@@ -28,6 +28,8 @@ import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.specificity.Name;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +37,9 @@ import lombok.extern.slf4j.Slf4j;
  * Default implementation of the Metronome.
  */
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Slf4j
+@Data
 @Name("metronome")
 public class Metronome extends GenericSequence implements SpecialisedSequence {
   private Note noteBarStart = newDefault();
@@ -55,9 +59,9 @@ public class Metronome extends GenericSequence implements SpecialisedSequence {
     Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
     if (nextTock.modulo(Wholes.TWO).equals(Wholes.ZERO)) {
       if (context.getMeasureProvider().getCount(nextTock).floor() == 0) {
-        note = getNoteBarStart();
+        note = noteBarStart;
       } else {
-        note = getNoteBarMid();
+        note = noteBarMid;
       }
       LOG.trace("Creating metronome note {} at {}", note, loop);
       return new DefaultEvent<>(note, nextTock);
@@ -78,53 +82,5 @@ public class Metronome extends GenericSequence implements SpecialisedSequence {
     copy.setNoteBarMid(this.getNoteBarMid());
     copy.setNoteBarStart(this.getNoteBarStart());
     return copy;
-  }
-
-  /**
-   * Get note for the start of the bar.
-   *
-   * @return note
-   */
-  public Note getNoteBarStart() {
-    return noteBarStart;
-  }
-
-  /**
-   * Set the note for the start of the bar.
-   *
-   * @param note note
-   */
-  public void setNoteBarStart(Note note) {
-    if (note == null) {
-      LOG.warn("Why has note bar start been set to null?  It will be set to the default note {}",
-          newDefault());
-      noteBarStart = newDefault();
-    } else {
-      noteBarStart = note;
-    }
-  }
-
-  /**
-   * Get note for mid bar.
-   *
-   * @return note
-   */
-  public Note getNoteBarMid() {
-    return noteBarMid;
-  }
-
-  /**
-   * Set note for the middle of the bar.
-   *
-   * @param note note
-   */
-  public void setNoteBarMid(Note note) {
-    if (note == null) {
-      LOG.warn("Why has note bar mid been set to null?  It will be set to the default note {}",
-          newDefault());
-      noteBarMid = newDefault();
-    } else {
-      noteBarMid = note;
-    }
   }
 }

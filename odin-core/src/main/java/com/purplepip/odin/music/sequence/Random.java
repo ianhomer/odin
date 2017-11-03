@@ -19,6 +19,7 @@ import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.specificity.Name;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,12 +27,27 @@ import lombok.extern.slf4j.Slf4j;
  * Random sequence.
  */
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Slf4j
-@Name("random")
 @Data
+@Name("random")
 public class Random extends Pattern {
   private int lowerLimit;
   private int upperLimit;
+
+  /**
+   * Create a copy of this sequence.
+   *
+   * @return copy
+   */
+  @Override
+  public Random copy() {
+    Random copy = new Random();
+    copyProperties(this, copy);
+    copy.lowerLimit = this.lowerLimit;
+    copy.upperLimit = this.upperLimit;
+    return copy;
+  }
 
   /**
    * Initialisation after properties are set.

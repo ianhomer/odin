@@ -16,7 +16,9 @@
 package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
+import lombok.ToString;
 
+@ToString(callSuper = true)
 public abstract class AbstractTimeThing extends AbstractPropertiesThing
     implements MutableTimeThing {
   private boolean enabled = false;

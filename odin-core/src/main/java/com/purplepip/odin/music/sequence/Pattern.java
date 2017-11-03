@@ -27,6 +27,8 @@ import com.purplepip.odin.sequence.SpecialisedSequence;
 import com.purplepip.odin.sequence.flow.FlowContext;
 import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.specificity.Name;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,8 +36,10 @@ import lombok.extern.slf4j.Slf4j;
  * Pattern sequence.
  */
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Slf4j
 @Name("pattern")
+@Data
 public class Pattern extends GenericSequence implements SpecialisedSequence {
   /*
    * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
@@ -55,8 +59,8 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
   public Event<Note> getNextEvent(FlowContext context, Loop loop) {
     Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
     long countInMeasure = context.getMeasureProvider().getCount(nextTock).floor();
-    if (getBits() == -1 || ((getBits() >> countInMeasure) & 1) == 1)  {
-      return new DefaultEvent<>(getNote(), nextTock);
+    if (bits == -1 || ((bits >> countInMeasure) & 1) == 1)  {
+      return new DefaultEvent<>(note, nextTock);
     }
     return null;
   }
@@ -69,38 +73,14 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
   @Override
   public Pattern copy() {
     Pattern copy = new Pattern(this.getId());
-    Sequences.copyCoreValues(this, copy);
-
-    copy.setBits(this.getBits());
-    copy.setNote(this.getNote());
+    copyProperties(this, copy);
     return copy;
   }
 
-  public void setBits(int bits) {
-    this.bits = bits;
-  }
-
-  public int getBits() {
-    return bits;
-  }
-
-  /**
-   * Set note.
-   *
-   * @param note note
-   */
-  public void setNote(Note note) {
-    if (note == null) {
-      LOG.warn("Why has note been set to null?  It will be set to the default note {}",
-          Notes.newDefault());
-      this.note = Notes.newDefault();
-    } else {
-      this.note = note;
-    }
-  }
-
-  public Note getNote() {
-    return note;
+  protected void copyProperties(Pattern original, Pattern that) {
+    Sequences.copyCoreValues(original, that);
+    that.bits = original.bits;
+    that.note = original.note;
   }
 
   @Override

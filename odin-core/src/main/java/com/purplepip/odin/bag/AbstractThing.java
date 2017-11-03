@@ -16,7 +16,11 @@
 package com.purplepip.odin.bag;
 
 import java.util.concurrent.atomic.AtomicLong;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode(of = "id")
+@ToString
 public abstract class AbstractThing implements MutableThing {
   /*
    * Cheap ID generator for things.  Note that persistence implementation used for
