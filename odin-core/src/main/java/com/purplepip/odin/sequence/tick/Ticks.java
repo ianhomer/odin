@@ -17,7 +17,6 @@ package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.sequence.TimeUnit;
 
 /**
  * This class consists exclusively of static properties that utilise the Tick model.

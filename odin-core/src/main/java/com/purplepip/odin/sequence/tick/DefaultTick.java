@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.sequence.TimeUnit;
 import lombok.ToString;
 
 /**
