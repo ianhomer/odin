@@ -31,7 +31,7 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
    * Length of the thing in ticks.
    */
   private long length = -1;
-  private long offset = 0;
+  private long offset;
 
   public AbstractTimeThing() {
     super();

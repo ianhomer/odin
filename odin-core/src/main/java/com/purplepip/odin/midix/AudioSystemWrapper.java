@@ -31,33 +31,33 @@ import javax.sound.sampled.Mixer;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class AudioSystemWrapper {
+final class AudioSystemWrapper {
   private List<MixerWrapper> mixerWrappers;
   private static final AtomicBoolean HAS_DUMPED = new AtomicBoolean(false);
 
   /**
    * Create a new audio system wrapper.
    */
-  public AudioSystemWrapper() {
+  AudioSystemWrapper() {
     mixerWrappers = new ArrayList<>();
     Mixer.Info[] mixerInfos = AudioSystem.getMixerInfo();
-    for (int i = 0 ; i < mixerInfos.length ; i++) {
-      mixerWrappers.add(new MixerWrapper(AudioSystem.getMixer(mixerInfos[i])));
+    for (Mixer.Info mixerInfo : mixerInfos) {
+      mixerWrappers.add(new MixerWrapper(AudioSystem.getMixer(mixerInfo)));
     }
   }
 
-  public boolean hasMixers() {
+  boolean hasMixers() {
     return !mixerWrappers.isEmpty();
   }
 
-  public void dump() {
+  void dump() {
     dump(false);
   }
 
   /**
    * Dump system audio information.
    */
-  public void dump(boolean dumpOnlyIfNotDumpedBefore) {
+  void dump(boolean dumpOnlyIfNotDumpedBefore) {
     /*
      * Only dump information once for the runtime.
      */
@@ -96,22 +96,20 @@ public class AudioSystemWrapper {
       sb.append(mixer.getMixerInfo().getName()).append(" : ")
           .append(mixer.getMixerInfo().getDescription()).append(newLine);
       for (Line.Info lineInfo : mixer.getSourceLineInfo()) {
-        try {
-          try (Line line = mixer.getLine(lineInfo)) {
-            try {
-              sb.append("source port : ").append(lineInfo).append(newLine);
-              if (line instanceof Clip) {
-                LOG.debug("Not opening Clip line");
-              } else {
-                line.open();
-                for (Control control : line.getControls()) {
-                  sb.append("  ").append(new ControlWrapper(control).toString()).append(newLine);
-                }
+        try (Line line = mixer.getLine(lineInfo)) {
+          try {
+            sb.append("source port : ").append(lineInfo).append(newLine);
+            if (line instanceof Clip) {
+              LOG.debug("Not opening Clip line");
+            } else {
+              line.open();
+              for (Control control : line.getControls()) {
+                sb.append("  ").append(new ControlWrapper(control).toString()).append(newLine);
               }
-            } catch (IllegalArgumentException e) {
-              LOG.info("ERROR {} : Cannot open line {}", e.getMessage(), line.getClass());
-              LOG.debug("Cannot open line", e);
             }
+          } catch (IllegalArgumentException e) {
+            LOG.info("ERROR {} : Cannot open line {}", e.getMessage(), line.getClass());
+            LOG.debug("Cannot open line", e);
           }
         } catch (LineUnavailableException e) {
           LOG.info("ERROR {} : Cannot get line {}", e.getMessage(), lineInfo);

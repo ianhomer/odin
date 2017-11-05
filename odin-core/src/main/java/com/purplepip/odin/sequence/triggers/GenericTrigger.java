@@ -33,20 +33,15 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
   private Project project;
   private String type;
   private Set<String> dependsOn = new HashSet<>();
+  private Map<String, String> properties = new HashMap<>();
 
   public GenericTrigger() {
     super();
   }
 
-  public GenericTrigger(String name) {
-    super(name);
-  }
-
   public GenericTrigger(long id) {
     super(id);
   }
-
-  private Map<String, String> properties = new HashMap<>();
 
   public Stream<String> dependsOn() {
     return dependsOn.stream();

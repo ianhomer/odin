@@ -112,7 +112,7 @@ public class ProjectSchema {
    * ... not sure, when end to OK we should confirm if this urn is not valid according to
    * spec or if this is AJV limitation.
    */
-  private String getFlowSchemaReference(Class clazz) {
+  private static String getFlowSchemaReference(Class clazz) {
     return "flow-" + clazz.getSimpleName().toLowerCase(Locale.ENGLISH);
   }
 

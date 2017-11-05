@@ -39,9 +39,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 @Name("notation")
-/*
- * TODO : Simplify constructor and copy implementation as per Pattern and Random.
- */
 public class Notation extends GenericSequence implements SpecialisedSequence {
   private String format;
   private String notation;

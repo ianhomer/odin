@@ -110,7 +110,7 @@ public class DefaultOdinSequencerConfiguration
    * TODO : Should transmitter and receiver implementations look the same, they are really
    * the same just input and output so should support same functionality.
    */
-  public DefaultOdinSequencerConfiguration setOperationTransmitter(
+  public final DefaultOdinSequencerConfiguration setOperationTransmitter(
       OperationTransmitter operationTransmitter) {
     this.operationTransmitter = operationTransmitter;
     return this;

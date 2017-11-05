@@ -59,7 +59,7 @@ public class ReactorReceiverTest {
   }
 
   @Test
-  public void send() throws Exception {
+  public void testSend() throws Exception {
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder

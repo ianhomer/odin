@@ -21,7 +21,7 @@ import com.purplepip.odin.properties.beany.PropertiesProvider;
 /**
  * Properties utility methods.
  */
-public class Properties {
+public final class Properties {
   private Properties() {
   }
 

@@ -94,7 +94,7 @@ public class TrackProcessorExecutor implements Runnable {
   @Override
   public void run() {
     try {
-      doJob();
+      doJobWithTiming();
     } catch (RuntimeException e) {
       LOG.error("Error whilst executing sequence processing", e);
     }
@@ -102,23 +102,28 @@ public class TrackProcessorExecutor implements Runnable {
 
   private void doJob() {
     int noteCountThisBuffer = 0;
+    for (Track track : tracks) {
+      final Timer.Context trackTimerContext = getTrackTimer(track.getName()).time();
+      try {
+        LOG.trace("Processing track {}", track);
+        if (noteCountThisBuffer > maxNotesPerBuffer) {
+          LOG.warn("Too many notes in this buffer {} > {} ",
+              noteCountThisBuffer, maxNotesPerBuffer);
+          break;
+        }
+        noteCountThisBuffer += process(track);
+      } finally {
+        trackTimerContext.stop();
+      }
+    }
+    LOG.debug("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
+  }
+
+  // TODO : Can we use a metric annotation for this?
+  private void doJobWithTiming() {
     final Timer.Context jobTimerContext = jobMetric.time();
     try {
-      for (Track track : tracks) {
-        final Timer.Context trackTimerContext = getTrackTimer(track.getName()).time();
-        try {
-          LOG.trace("Processing track {}", track);
-          if (noteCountThisBuffer > maxNotesPerBuffer) {
-            LOG.warn("Too many notes in this buffer {} > {} ",
-                noteCountThisBuffer, maxNotesPerBuffer);
-            break;
-          }
-          noteCountThisBuffer += process(track);
-        } finally {
-          trackTimerContext.stop();
-        }
-      }
-      LOG.debug("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
+      doJob();
     } finally {
       jobTimerContext.stop();
     }
@@ -126,12 +131,6 @@ public class TrackProcessorExecutor implements Runnable {
 
   private int process(Track track) {
     tracksProcessedMetric.mark();
-    /*
-     * Use a constant microsecond position for the whole loop to make it easier to debug
-     * loop processing.  In this loop it is only used for setting forward scan windows and does
-     * not need the precise microsecond positioning at the time of instruction execution.
-     */
-    long microsecondPosition = clock.getMicroseconds();
     int noteCount = 0;
     Event<Note> nextEvent = track.peek();
 
@@ -141,6 +140,12 @@ public class TrackProcessorExecutor implements Runnable {
       return noteCount;
     }
 
+    /*
+     * Use a constant microsecond position for the whole loop to make it easier to debug
+     * loop processing.  In this loop it is only used for setting forward scan windows and does
+     * not need the precise microsecond positioning at the time of instruction execution.
+     */
+    long microsecondPosition = clock.getMicroseconds();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     while (nextEvent != null
         && nextEvent.getTime().lt(Whole.valueOf(maxMicrosecondPosition))) {

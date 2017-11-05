@@ -21,7 +21,7 @@ import com.purplepip.odin.common.OdinRuntimeException;
 /**
  * Specifics utility class.
  */
-public class Specifics {
+public final class Specifics {
   private Specifics() {
   }
 

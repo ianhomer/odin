@@ -23,13 +23,14 @@ import lombok.ToString;
 public class DefaultOdinSequencerStatistics
     implements MutableOdinSequencerStatistics {
   private final ThingStatistics trackStatistics;
-  private ThingStatistics reactorStatistics;
+  private final ThingStatistics reactorStatistics;
   private final AtomicInteger programChangeCount = new AtomicInteger();
   private final AtomicInteger eventTooLateCount = new AtomicInteger();
 
   public DefaultOdinSequencerStatistics(ThingStatistics trackStatistics,
                                         ThingStatistics reactorStatistics) {
     this.trackStatistics = trackStatistics;
+    this.reactorStatistics = reactorStatistics;
   }
 
   @Override

@@ -106,7 +106,7 @@ public class MidiSystemHelper {
    * @return MIDI device
    * @throws OdinException Exception
    */
-  private MidiDevice getInitialisedDevice(List<String> deviceNames,
+  private static MidiDevice getInitialisedDevice(List<String> deviceNames,
       Function<String, MidiDeviceMatcher> midiDeviceMatcherFunction) throws OdinException {
 
     MidiDevice device = null;

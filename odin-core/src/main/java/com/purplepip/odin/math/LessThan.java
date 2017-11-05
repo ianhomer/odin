@@ -23,15 +23,15 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode
-public class LessThan implements Bound {
+public final class LessThan implements Bound {
   private Real limit;
-
-  public static LessThan lessThan(Real limit) {
-    return new LessThan(limit);
-  }
 
   private LessThan(Real limit) {
     this.limit = limit;
+  }
+
+  public static LessThan lessThan(Real limit) {
+    return new LessThan(limit);
   }
 
   /**

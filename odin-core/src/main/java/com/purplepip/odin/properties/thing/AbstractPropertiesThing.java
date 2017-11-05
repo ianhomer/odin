@@ -29,7 +29,8 @@ import lombok.ToString;
  */
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class AbstractPropertiesThing extends AbstractThing implements MutablePropertiesProvider {
+public abstract class AbstractPropertiesThing extends AbstractThing
+    implements MutablePropertiesProvider {
   private Map<String, String> properties = new HashMap<>();
 
   public AbstractPropertiesThing() {
