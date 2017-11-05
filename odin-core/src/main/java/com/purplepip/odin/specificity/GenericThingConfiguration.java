@@ -18,7 +18,9 @@ package com.purplepip.odin.specificity;
 import com.purplepip.odin.properties.Properties;
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 import javax.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 public class GenericThingConfiguration extends AbstractPropertiesThing
     implements MutableThingConfiguration {
   private String type;

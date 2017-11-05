@@ -86,7 +86,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
       if (clazz.isAnnotationPresent(Name.class)) {
         type = clazz.getAnnotation(Name.class).value();
         expectedType = getClass(type);
-        if (!clazz.getName().equals(expectedType.getName())) {
+        if (!expectedType.isInstance(configuration)) {
           throw new OdinRuntimeException("Annotated type '" + type + "' with class "
               + clazz.getName() + " does not match expected " + expectedType.getName());
         }
