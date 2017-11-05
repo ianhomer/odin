@@ -19,12 +19,14 @@ import com.purplepip.odin.project.Project;
 import com.purplepip.odin.sequence.tick.AbstractTimeThing;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * Default layer implementation.
  */
 @ToString(exclude = "project")
+@EqualsAndHashCode(callSuper = true)
 public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
   private Project project;
 

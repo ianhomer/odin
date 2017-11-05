@@ -47,7 +47,7 @@ public class AudioSystemWrapper {
   }
 
   public boolean hasMixers() {
-    return mixerWrappers.size() > 0;
+    return !mixerWrappers.isEmpty();
   }
 
   public void dump() {
@@ -70,7 +70,7 @@ public class AudioSystemWrapper {
     StringBuilder sb = new StringBuilder();
     sb.append("\nSYSTEM AUDIO\n");
     sb.append("------------\n");
-    if (mixerWrappers.size() == 0) {
+    if (mixerWrappers.isEmpty()) {
       sb.append("No audio mixers available\n");
     } else {
       sb.append("Mixers\n");
@@ -109,17 +109,19 @@ public class AudioSystemWrapper {
               }
             } catch (IllegalArgumentException e) {
               LOG.info("ERROR {} : Cannot open line {}", e.getMessage(), line.getClass());
+              LOG.debug("Cannot open line", e);
             }
           }
         } catch (LineUnavailableException e) {
           LOG.info("ERROR {} : Cannot get line {}", e.getMessage(), lineInfo);
+          LOG.debug("Cannot get line", e);
         }
       }
       return sb.toString();
     }
   }
 
-  private class ControlWrapper {
+  private static class ControlWrapper {
     private Control control;
     private Control.Type type;
 

@@ -89,7 +89,8 @@ public class MidiDeviceWrapper implements AutoCloseable {
         receivers.add(receiver);
         transmitter.setReceiver(receiver);
       } catch (MidiUnavailableException e) {
-        LOG.error("Cannot register receiver");
+        LOG.error("Cannot register receiver : {}", e.getMessage());
+        LOG.debug("Cannot register receiver", e);
       }
     } else {
       LOG.debug("Device does not support transmitting");

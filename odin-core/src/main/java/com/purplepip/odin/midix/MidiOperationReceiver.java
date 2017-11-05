@@ -41,7 +41,7 @@ public class MidiOperationReceiver implements OperationReceiver {
   @Override
   public void send(Operation operation, long time) throws OdinException {
     if (operation instanceof ChannelOperation) {
-      ChannelOperation resolvedOperation = null;
+      ChannelOperation resolvedOperation;
       if (operation instanceof ProgramChangeOperation) {
         ProgramChangeOperation programChangeOperation = (ProgramChangeOperation) operation;
         if (programChangeOperation.isAbsolute()) {

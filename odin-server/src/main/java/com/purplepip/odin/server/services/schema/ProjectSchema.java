@@ -30,6 +30,7 @@ import com.purplepip.odin.store.domain.PersistableNote;
 import com.purplepip.odin.store.domain.PersistableTick;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -112,7 +113,7 @@ public class ProjectSchema {
    * spec or if this is AJV limitation.
    */
   private String getFlowSchemaReference(Class clazz) {
-    return "flow-" + clazz.getSimpleName().toLowerCase();
+    return "flow-" + clazz.getSimpleName().toLowerCase(Locale.ENGLISH);
   }
 
   private void registerFlow(JsonSchemaGenerator schemaGenerator, String typeName, Class clazz) {
