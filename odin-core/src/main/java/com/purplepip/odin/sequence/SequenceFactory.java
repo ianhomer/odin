@@ -38,6 +38,17 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
   private FlowConfiguration flowConfiguration;
 
   /**
+   * Create a new sequence factory.
+   *
+   * @param classes sequence classes to initialise with
+   */
+  public SequenceFactory(FlowConfiguration flowConfiguration,
+                         List<Class<? extends Sequence<A>>> classes) {
+    super(classes);
+    this.flowConfiguration = flowConfiguration;
+  }
+
+  /**
    * Create the note sequence factory.
    *
    * @return a new note sequence factory
@@ -54,17 +65,6 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
     classes.add(Pattern.class);
     classes.add(Random.class);
     return new SequenceFactory<>(flowConfiguration, classes);
-  }
-
-  /**
-   * Create a new sequence factory.
-   *
-   * @param classes sequence classes to initialise with
-   */
-  public SequenceFactory(FlowConfiguration flowConfiguration,
-                         List<Class<? extends Sequence<A>>> classes) {
-    super(classes);
-    this.flowConfiguration = flowConfiguration;
   }
 
   @Override

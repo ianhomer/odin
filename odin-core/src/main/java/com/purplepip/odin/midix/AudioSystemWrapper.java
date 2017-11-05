@@ -89,6 +89,7 @@ public class AudioSystemWrapper {
       this.mixer = mixer;
     }
 
+    @Override
     public String toString() {
       String newLine = "\n  ";
       StringBuilder sb = new StringBuilder();
@@ -121,7 +122,7 @@ public class AudioSystemWrapper {
     }
   }
 
-  private static class ControlWrapper {
+  private static final class ControlWrapper {
     private Control control;
     private Control.Type type;
 
@@ -130,6 +131,7 @@ public class AudioSystemWrapper {
       type = control.getType();
     }
 
+    @Override
     public String toString() {
       StringBuilder sb = new StringBuilder();
       sb.append("control : ").append(type.toString()).append(' ');

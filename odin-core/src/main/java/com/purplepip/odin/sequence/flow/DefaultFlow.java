@@ -53,6 +53,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
     return sequence;
   }
 
+  @Override
   public FlowContext getContext() {
     return context;
   }

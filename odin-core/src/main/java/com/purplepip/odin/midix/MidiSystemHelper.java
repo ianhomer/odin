@@ -131,7 +131,7 @@ public class MidiSystemHelper {
     return device;
   }
 
-  private void open(MidiDevice device) throws OdinException {
+  private static void open(MidiDevice device) throws OdinException {
     if (canOpenWithWarnings(device)) {
       try {
         device.open();
@@ -142,7 +142,7 @@ public class MidiSystemHelper {
     }
   }
 
-  private boolean canOpenWithWarnings(MidiDevice device) {
+  private static boolean canOpenWithWarnings(MidiDevice device) {
     AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
     if (device instanceof Synthesizer && (!audioSystemWrapper.hasMixers()
         || !Container.getContainer().isAudioEnabled())) {

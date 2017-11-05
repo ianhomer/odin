@@ -35,6 +35,7 @@ public class MidiInputReceiver implements Receiver {
    * @param message MIDI message sent
    * @param time time of message
    */
+  @Override
   public void send(MidiMessage message, long time) {
     try {
       receiver.send(new MidiMessageConverter(message).toOperation(), time);
@@ -43,6 +44,7 @@ public class MidiInputReceiver implements Receiver {
     }
   }
 
+  @Override
   public void close() {
     LOG.debug("Closing {}", this);
   }

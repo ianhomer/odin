@@ -57,6 +57,7 @@ public class MidiSystemWrapper {
    *
    * @return this MIDI system helper
    */
+  @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();

@@ -183,6 +183,7 @@ public class Whole extends Rational {
    *
    * @return ceiling value
    */
+  @Override
   public long ceiling() {
     return getNumerator();
   }

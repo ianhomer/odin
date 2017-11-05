@@ -286,6 +286,7 @@ public class Real implements Bound {
     return getValue() > real.getValue();
   }
 
+  @Override
   public boolean lt(Real real) {
     return getValue() < real.getValue();
   }

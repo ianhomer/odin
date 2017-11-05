@@ -46,6 +46,7 @@ public class LessThan implements Bound {
     return limit.le(real);
   }
 
+  @Override
   public Real getLimit() {
     return limit;
   }

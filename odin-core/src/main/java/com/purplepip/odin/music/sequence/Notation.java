@@ -78,6 +78,7 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
    *
    * @return copy
    */
+  @Override
   public Notation copy() {
     return copy(new Notation(), this);
   }
