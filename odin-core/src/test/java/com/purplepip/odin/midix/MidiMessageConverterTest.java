@@ -27,7 +27,7 @@ import org.junit.Test;
 
 public class MidiMessageConverterTest {
   @Test
-  public void toOperation() throws Exception {
+  public void testToOperation() throws Exception {
     MidiMessageConverter converter =
         new MidiMessageConverter(new ShortMessage(Status.NOTE_ON.getValue(),60,50));
     Operation operation = converter.toOperation();
@@ -38,7 +38,7 @@ public class MidiMessageConverterTest {
   }
 
   @Test
-  public void toNoteOffOperation() throws Exception {
+  public void testToNoteOffOperation() throws Exception {
     MidiMessageConverter converter =
         new MidiMessageConverter(new ShortMessage(Status.NOTE_OFF.getValue(),60,50));
     Operation operation = converter.toOperation();

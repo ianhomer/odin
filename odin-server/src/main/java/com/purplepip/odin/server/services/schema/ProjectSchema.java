@@ -101,7 +101,7 @@ public class ProjectSchema {
     types.put(id, schema);
   }
 
-  private String getSchemaReference(Class clazz) {
+  private static String getSchemaReference(Class clazz) {
     return "urn:jsonschema:" + clazz.getName().replace('.',':');
   }
 

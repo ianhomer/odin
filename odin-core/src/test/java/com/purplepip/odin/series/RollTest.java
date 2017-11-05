@@ -18,7 +18,7 @@ public class RollTest {
     Real peekedTime = heartBeat.peek().getTime();
     Real poppedTime = heartBeat.peek().getTime();
     assertTrue("Peeked time in the past : " + peekedTime + " < " + currentTime,
-        peekedTime.gt(Whole.valueOf(currentTime)));
+        peekedTime.ge(Whole.valueOf(currentTime)));
     assertTrue("Peeked time too far in the future : " + peekedTime + " > "
             + currentTime + " + 5000",
         peekedTime.lt(Whole.valueOf(currentTime + 5000)));

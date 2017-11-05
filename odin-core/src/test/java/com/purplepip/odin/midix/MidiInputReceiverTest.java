@@ -25,7 +25,7 @@ import org.junit.Test;
 
 public class MidiInputReceiverTest {
   @Test
-  public void send() throws Exception {
+  public void testSend() throws Exception {
     final AtomicInteger count = new AtomicInteger();
     OperationReceiver operationReceiver = ((operation, time) -> count.incrementAndGet());
     MidiInputReceiver midiInputReceiver = new MidiInputReceiver(operationReceiver);

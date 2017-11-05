@@ -36,6 +36,7 @@ public class BeanyProjectBuilder extends ProjectBuilder {
    *
    * @return metronome
    */
+  @Override
   protected MutableSequenceConfiguration createMetronome() {
     return createSequence();
   }
@@ -46,6 +47,7 @@ public class BeanyProjectBuilder extends ProjectBuilder {
    *
    * @return notation
    */
+  @Override
   protected MutableSequenceConfiguration createNotation() {
     return createSequence();
   }
@@ -56,6 +58,7 @@ public class BeanyProjectBuilder extends ProjectBuilder {
    *
    * @return pattern
    */
+  @Override
   protected MutableSequenceConfiguration createPattern() {
     return createSequence();
   }

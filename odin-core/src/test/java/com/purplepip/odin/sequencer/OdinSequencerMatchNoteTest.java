@@ -17,9 +17,6 @@ import org.junit.Test;
  * Test match note use case odin sequencer.
  */
 public class OdinSequencerMatchNoteTest {
-  private static final int OFFSET = 0;
-  private static final int LENGTH = -1;
-
   @Test
   public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(16);

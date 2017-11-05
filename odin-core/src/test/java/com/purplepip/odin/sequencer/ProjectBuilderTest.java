@@ -9,6 +9,7 @@ import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -104,7 +105,7 @@ public class ProjectBuilderTest {
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
     assertEquals(1, pattern.getBits());
     assertEquals(60, pattern.getNote().getNumber());
-    assertEquals(true, pattern.isEnabled());
+    assertTrue(pattern.isEnabled());
   }
 
   @Test
@@ -113,7 +114,7 @@ public class ProjectBuilderTest {
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.withEnabled(false).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
-    assertEquals(false, pattern.isEnabled());
+    assertFalse(pattern.isEnabled());
   }
 
   @Test
@@ -122,7 +123,7 @@ public class ProjectBuilderTest {
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.withEnabled(true).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
-    assertEquals(true, pattern.isEnabled());
+    assertTrue(pattern.isEnabled());
   }
 
   @Test

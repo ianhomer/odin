@@ -138,7 +138,7 @@ public class ProjectBuilder {
     return projectContainer.getTrigger(triggerIds.get(id));
   }
 
-  private MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
+  private static MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
                                                 Class<? extends Sequence> clazz) {
     sequence.setType(Specifics.getName(clazz));
     return sequence;

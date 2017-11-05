@@ -31,14 +31,15 @@ public class Container {
 
   private boolean audioEnabled;
 
-  public static Container getContainer() {
-    return container;
-  }
-
   Container() {
     audioEnabled = !"false".equals(System.getProperty(AUDIO_ENABLED));
     LOG.info("Audio Enabled : {}", audioEnabled);
   }
+
+  public static Container getContainer() {
+    return container;
+  }
+
 
   public boolean isAudioEnabled() {
     return audioEnabled;

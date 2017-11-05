@@ -23,6 +23,4 @@ import com.purplepip.odin.specificity.MutableThingConfiguration;
 public interface MutableTriggerConfiguration extends
     TriggerConfiguration, MutableThingConfiguration, MutablePropertiesProvider, MutableTimeThing {
   void setProject(Project project);
-
-  void setName(String name);
 }

@@ -13,8 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.midix;
-
-public class MidiOperationTransmitterTest {
-
-}
+/**
+ * Common logic for converting generic things into specific things.  Generic things tend to
+ * be configuration focused and specific things tend to have business logic provided.
+ */
+package com.purplepip.odin.specificity;

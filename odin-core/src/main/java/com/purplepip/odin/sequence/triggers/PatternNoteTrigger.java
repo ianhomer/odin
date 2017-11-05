@@ -70,6 +70,7 @@ public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTri
    *
    * @param sequence sequence configuration to inject
    */
+  @Override
   public void inject(SequenceConfiguration sequence) {
     if (sequence instanceof Pattern) {
       this.pattern = (Pattern) sequence;

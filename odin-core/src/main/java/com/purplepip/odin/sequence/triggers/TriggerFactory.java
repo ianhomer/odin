@@ -26,6 +26,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
   /**
+   * Create a new trigger factory.
+   *
+   * @param classes trigger classes to initialise with
+   */
+  public TriggerFactory(List<Class<? extends Trigger>> classes) {
+    super(classes);
+  }
+
+  /**
    * Create the note sequence factory.
    *
    * @return a new note sequence factory
@@ -39,14 +48,5 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
     classes.add(NoteTrigger.class);
     classes.add(PatternNoteTrigger.class);
     return new TriggerFactory(classes);
-  }
-
-  /**
-   * Create a new trigger factory.
-   *
-   * @param classes trigger classes to initialise with
-   */
-  public TriggerFactory(List<Class<? extends Trigger>> classes) {
-    super(classes);
   }
 }

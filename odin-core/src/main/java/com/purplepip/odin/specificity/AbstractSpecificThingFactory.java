@@ -57,7 +57,7 @@ public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
     warmUp();
   }
 
-  protected void register(Class<? extends C> clazz) {
+  private void register(Class<? extends C> clazz) {
     if (clazz.isAnnotationPresent(Name.class)) {
       put(clazz.getAnnotation(Name.class).value(), clazz);
     } else {

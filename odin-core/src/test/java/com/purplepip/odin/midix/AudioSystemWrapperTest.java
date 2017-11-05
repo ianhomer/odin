@@ -15,11 +15,18 @@
 
 package com.purplepip.odin.midix;
 
+import static org.junit.Assert.assertEquals;
+
+import com.purplepip.logcapture.LogCaptor;
+import com.purplepip.logcapture.LogCapture;
 import org.junit.Test;
 
 public class AudioSystemWrapperTest {
   @Test
   public void testDump() {
-    new AudioSystemWrapper().dump();
+    try (LogCaptor captor = new LogCapture().info().from(AudioSystemWrapper.class).start()) {
+      new AudioSystemWrapper().dump();
+      assertEquals(1, captor.size());
+    }
   }
 }

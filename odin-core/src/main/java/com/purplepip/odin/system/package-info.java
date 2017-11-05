@@ -13,8 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.flow;
-
-public class FlowContextTest {
-
-}
+/**
+ * Logic based on the system that this application is running in.
+ */
+package com.purplepip.odin.system;
