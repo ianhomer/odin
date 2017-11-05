@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.flow;
+package com.purplepip.odin.math.typeconverters;
 
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Rational;
 import jodd.typeconverter.TypeConverter;
 
-public class RealTypeConverter implements TypeConverter<Real> {
+public class RationalTypeConverter implements TypeConverter<Rational> {
   @Override
-  public Real convert(Object o) {
-    return Real.valueOf(o.toString());
+  public Rational convert(Object o) {
+    return Rational.valueOf(o.toString());
   }
 }
