@@ -81,4 +81,11 @@ public class WholeTest {
     assertEquals(Whole.valueOf(0), Whole.valueOf(0).absolute());
   }
 
+  @Test
+  public void testCeiling() {
+    assertEquals(10, Whole.valueOf(10).ceiling());
+    assertEquals(-13, Whole.valueOf(-13).ceiling());
+  }
+
+
 }

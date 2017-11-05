@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Real implements Bound {
+  private static final double DOUBLE_PRECISION = 0.00000000000000000000001;
   private double value;
   private boolean valueCalculated;
 
@@ -163,7 +164,7 @@ public class Real implements Bound {
     if (isNegative()) {
       return (long) getValue();
     } else {
-      return ((getValue() % 1 == 0) ? 0 : 1) + (long) getValue();
+      return ((getValue() % 1 < DOUBLE_PRECISION) ? 0 : 1) + (long) getValue();
     }
   }
 

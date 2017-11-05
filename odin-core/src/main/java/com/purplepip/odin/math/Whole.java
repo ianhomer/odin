@@ -176,4 +176,14 @@ public class Whole extends Rational {
   public int hashCode() {
     return (int) (getNumerator() ^ (getNumerator() >>> 32));
   }
+
+  /**
+   * Calculate the smallest integer (closest to negative infinity) greater than or equal to this
+   * whole number.
+   *
+   * @return ceiling value
+   */
+  public long ceiling() {
+    return getNumerator();
+  }
 }

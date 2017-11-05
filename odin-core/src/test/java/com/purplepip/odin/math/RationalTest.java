@@ -216,4 +216,13 @@ public class RationalTest {
   public void testValueOfStringFail() {
     assertEquals(Wholes.ZERO, Rational.valueOf("/2"));
   }
+
+  @Test
+  public void testCeiling() {
+    assertEquals(1, Rationals.HALF.ceiling());
+    assertEquals(0, Rationals.HALF.negative().ceiling());
+    assertEquals(2, Rationals.FOUR_THIRDS.ceiling());
+    assertEquals(-1, Rationals.FOUR_THIRDS.negative().ceiling());
+  }
+
 }

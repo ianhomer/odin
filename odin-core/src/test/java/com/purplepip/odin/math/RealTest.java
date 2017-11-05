@@ -80,10 +80,10 @@ public class RealTest {
 
   @Test
   public void testCeiling() {
-    assertEquals(10, Whole.valueOf(10).ceiling());
+    assertEquals(10, Real.valueOf(10.0).ceiling());
     assertEquals(11, Real.valueOf(10.4).ceiling());
+    assertEquals(-12, Real.valueOf(-12.0).ceiling());
     assertEquals(-12, Real.valueOf(-12.4).ceiling());
-    assertEquals(-13, Whole.valueOf(-13).ceiling());
   }
 
 
