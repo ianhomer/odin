@@ -17,8 +17,8 @@ package com.purplepip.odin.store.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.sequence.tick.TimeUnit;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.TimeUnit;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

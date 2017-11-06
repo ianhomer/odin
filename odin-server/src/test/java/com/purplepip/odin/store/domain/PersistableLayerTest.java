@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.tick.TimeUnit;
 import com.purplepip.odin.sequence.layer.Layer;
+import com.purplepip.odin.sequence.tick.TimeUnit;
 import com.purplepip.odin.store.PersistableProjectBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
