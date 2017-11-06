@@ -74,16 +74,20 @@ public class Setter {
         setDeclared(name, value);
         break;
       case BEST:
-        if (BeanUtil.declared.hasProperty(provider, name)) {
-          setDeclared(name, value);
-        } else {
-          setProperty(name, value);
-        }
+        setBest(name, value);
         break;
       default:
         throw new OdinRuntimeException("Mode " + mode + " not recognised");
     }
     return this;
+  }
+
+  private void setBest(String name, Object value) {
+    if (BeanUtil.declared.hasProperty(provider, name)) {
+      setDeclared(name, value);
+    } else {
+      setProperty(name, value);
+    }
   }
 
   private void setDeclared(String name, Object value) {

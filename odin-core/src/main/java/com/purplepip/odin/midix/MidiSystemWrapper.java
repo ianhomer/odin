@@ -67,7 +67,8 @@ public class MidiSystemWrapper {
       sb.append("Devices\n");
       int i = 0;
       for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-        sb.append('\n').append(i++).append(") ");
+        sb.append('\n').append(i).append(") ");
+        i++;
         sb.append(" - ").append(info.getVendor());
         sb.append(" - ").append(info.getName());
         sb.append(" - ").append(info.getDescription());

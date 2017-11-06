@@ -50,7 +50,8 @@ public class GenericThingConfiguration extends AbstractPropertiesThing
   }
 
   @Override
-  public @NotNull String getType() {
+  @NotNull
+  public String getType() {
     return type;
   }
 }

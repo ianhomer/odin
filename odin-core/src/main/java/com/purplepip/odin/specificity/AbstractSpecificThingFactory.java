@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
  * @param <C> specific class base type
  */
 @Slf4j
-public class AbstractSpecificThingFactory<C extends ThingConfiguration> {
+public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration> {
   private final Map<String, Class<? extends C>> specificClasses = new HashMap<>();
 
   static {
