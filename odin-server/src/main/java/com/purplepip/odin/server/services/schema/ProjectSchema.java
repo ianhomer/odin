@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ProjectSchema {
   private SequenceFactory<Note> factory = SequenceFactory
-      .createNoteSequenceFactory(new DefaultFlowConfiguration());
+      .newNoteSequenceFactory(new DefaultFlowConfiguration());
   private Map<String, JsonNode> types = new HashMap<>();
   private Map<String, String> flows = new HashMap<>();
 

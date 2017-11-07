@@ -20,6 +20,7 @@ import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.sequence.BeatsPerMinute;
 import com.purplepip.odin.sequence.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.Set;
@@ -43,6 +44,14 @@ public class BeatClock extends AbstractClock {
   private long startRoundingFactor = 1;
   private final long startOffset;
   private boolean started;
+
+  public static BeatClock newBeatClock(int staticBeatsPerMinute) {
+    return newBeatClock(new StaticBeatsPerMinute(staticBeatsPerMinute));
+  }
+
+  public static BeatClock newBeatClock(BeatsPerMinute beatsPerMinute) {
+    return new BeatClock(beatsPerMinute);
+  }
 
   public BeatClock(BeatsPerMinute beatsPerMinute) {
     this(beatsPerMinute, new DefaultMicrosecondPositionProvider());

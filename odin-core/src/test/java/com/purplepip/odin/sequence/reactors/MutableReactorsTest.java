@@ -28,7 +28,7 @@ import com.purplepip.odin.sequence.triggers.TriggerFactory;
 import org.junit.Test;
 
 public class MutableReactorsTest {
-  private TriggerFactory triggerFactory = TriggerFactory.createTriggerFactory();
+  private TriggerFactory triggerFactory = TriggerFactory.newTriggerFactory();
 
   @Test
   public void testRefresh() {

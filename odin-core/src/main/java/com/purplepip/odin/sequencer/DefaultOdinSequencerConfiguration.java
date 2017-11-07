@@ -52,9 +52,9 @@ public class DefaultOdinSequencerConfiguration
    */
   public DefaultOdinSequencerConfiguration() {
     sequenceFactory =
-        SequenceFactory.createNoteSequenceFactory(flowConfiguration);
+        SequenceFactory.newNoteSequenceFactory(flowConfiguration);
     triggerFactory =
-        TriggerFactory.createTriggerFactory();
+        TriggerFactory.newTriggerFactory();
     setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);

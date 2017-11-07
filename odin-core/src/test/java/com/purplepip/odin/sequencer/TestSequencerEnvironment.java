@@ -44,7 +44,7 @@ public class TestSequencerEnvironment {
     flowConfiguration.setMaxForwardScan(1000000);
 
 
-    sequenceFactory = SequenceFactory.createNoteSequenceFactory(flowConfiguration);
+    sequenceFactory = SequenceFactory.newNoteSequenceFactory(flowConfiguration);
     configuration = new DefaultOdinSequencerConfiguration()
         .setSequenceFactory(sequenceFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))

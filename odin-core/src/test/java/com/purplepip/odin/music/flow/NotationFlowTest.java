@@ -49,7 +49,7 @@ public class NotationFlowTest {
     builder.addNotation(Ticks.BEAT, notationAsString);
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     SequenceFactory<Note> sequenceFactory =
-        SequenceFactory.createNoteSequenceFactory(new DefaultFlowConfiguration());
+        SequenceFactory.newNoteSequenceFactory(new DefaultFlowConfiguration());
     BeatClock clock = new BeatClock(new StaticBeatsPerMinute(60));
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     return sequenceFactory.createFlow(notation, clock, measureProvider);

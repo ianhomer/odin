@@ -25,6 +25,10 @@ import com.purplepip.odin.math.Whole;
 public class StaticBeatMeasureProvider implements MeasureProvider {
   private Real beatsPerMeasure;
 
+  public static StaticBeatMeasureProvider newMeasureProvider(int staticBeatsPerMeasure) {
+    return new StaticBeatMeasureProvider(staticBeatsPerMeasure);
+  }
+
   public StaticBeatMeasureProvider(int beatsPerMeasure) {
     this.beatsPerMeasure = Whole.valueOf(beatsPerMeasure);
   }

@@ -32,6 +32,7 @@ public class MutableConductors extends MutableThings<Conductor>  {
    * @param layerStream layer stream to use to do the refresh
    * @param conductorSupplier supplier of new conductors
    */
+  // TODO : Why use Supplier<Stream<Layer>> not just Stream<Layer> for input?
   public void refresh(Supplier<Stream<Layer>> layerStream,
                       Supplier<LayerConductor> conductorSupplier) {
     removeIf(conductor -> layerStream.get()

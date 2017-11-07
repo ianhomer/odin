@@ -47,7 +47,7 @@ public class MutableTracksTest {
   private ProjectContainer container = new ProjectContainer(new TransientProject());
   private BeatClock clock = new BeatClock(new StaticBeatsPerMinute(12000));
   private SequenceFactory<Note> sequenceFactory =
-      SequenceFactory.createNoteSequenceFactory(new DefaultFlowConfiguration());
+      SequenceFactory.newNoteSequenceFactory(new DefaultFlowConfiguration());
   private MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
   private MutableTracks tracks = new MutableTracks();
 

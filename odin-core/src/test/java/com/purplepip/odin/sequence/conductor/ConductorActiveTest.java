@@ -169,7 +169,9 @@ public class ConductorActiveTest {
   }
 
   private boolean apply() {
-    conductors.refresh(() -> project.getLayers().stream(), this::createConductor);
+    conductors.refresh(
+        () -> project.getLayers().stream(),
+        () -> new LayerConductor(clock));
     return true;
   }
 
@@ -197,9 +199,5 @@ public class ConductorActiveTest {
   private void assertNotActive(String layerName, Long... positions) {
     Conductor conductor = conductors.findByName(layerName);
     Arrays.asList(positions).forEach(position -> assertFalse(conductor.isActive(position)));
-  }
-
-  private LayerConductor createConductor() {
-    return new LayerConductor(clock);
   }
 }

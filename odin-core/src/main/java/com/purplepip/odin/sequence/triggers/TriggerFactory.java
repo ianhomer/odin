@@ -39,7 +39,7 @@ public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
    *
    * @return a new note sequence factory
    */
-  public static TriggerFactory createTriggerFactory() {
+  public static TriggerFactory newTriggerFactory() {
     /*
      * Coded registration of known sequences.  In the future we may design a plugin architecture,
      * but for now it is kept tight by only allowing registered classes.

@@ -37,7 +37,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class SequenceFactoryTest {
   private SequenceFactory<Note> factory = SequenceFactory
-      .createNoteSequenceFactory(new DefaultFlowConfiguration());
+      .newNoteSequenceFactory(new DefaultFlowConfiguration());
 
   @Mock
   private Clock clock;
@@ -72,7 +72,7 @@ public class SequenceFactoryTest {
   @Test
   public void testCreateFlow() throws OdinException {
     SequenceFactory<Note> flowFactory =
-        SequenceFactory.createNoteSequenceFactory(new DefaultFlowConfiguration());
+        SequenceFactory.newNoteSequenceFactory(new DefaultFlowConfiguration());
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();

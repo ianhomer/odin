@@ -23,7 +23,7 @@ import org.junit.Test;
 public class TriggerFactoryTest {
   @Test(expected = OdinRuntimeException.class)
   public void testCreateTriggerWithNoRule() throws Exception {
-    TriggerFactory.createTriggerFactory().newInstance(new GenericTrigger());
+    TriggerFactory.newTriggerFactory().newInstance(new GenericTrigger());
   }
 
   @Test
@@ -33,7 +33,7 @@ public class TriggerFactoryTest {
     triggerConfiguration.setProperty("note.number", 60);
     triggerConfiguration.setProperty("note.velocity", 10);
     triggerConfiguration.setProperty("note.duration", 10);
-    NoteTrigger trigger = TriggerFactory.createTriggerFactory()
+    NoteTrigger trigger = TriggerFactory.newTriggerFactory()
         .newInstance(triggerConfiguration, NoteTrigger.class);
     assertEquals(60, trigger.getNote().getNumber());
   }

@@ -22,6 +22,7 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.music.sequence.Random;
 import com.purplepip.odin.sequence.clock.Clock;
 import com.purplepip.odin.sequence.flow.DefaultFlow;
+import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.FlowConfiguration;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
@@ -49,13 +50,16 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
     this.flowConfiguration = flowConfiguration;
   }
 
+  public static SequenceFactory<Note> newNoteSequenceFactory() {
+    return newNoteSequenceFactory(new DefaultFlowConfiguration());
+  }
+
   /**
    * Create the note sequence factory.
    *
    * @return a new note sequence factory
    */
-  public static SequenceFactory<Note> createNoteSequenceFactory(
-      FlowConfiguration flowConfiguration) {
+  public static SequenceFactory<Note> newNoteSequenceFactory(FlowConfiguration flowConfiguration) {
     /*
      * Coded registration of known sequences.  In the future we may design a plugin architecture,
      * but for now it is kept tight by only allowing registered classes.
