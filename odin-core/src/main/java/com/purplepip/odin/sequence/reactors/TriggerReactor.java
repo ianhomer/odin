@@ -15,11 +15,11 @@
 
 package com.purplepip.odin.sequence.reactors;
 
+import com.purplepip.odin.sequence.track.Track;
 import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.Trigger;
 import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import com.purplepip.odin.sequence.triggers.TriggerFactory;
-import com.purplepip.odin.sequencer.Track;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;

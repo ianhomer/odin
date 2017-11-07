@@ -46,6 +46,19 @@ public class Random extends Pattern {
   }
 
   /**
+   * Set lower and upper note number for random range.
+   *
+   * @param lower lower limit
+   * @param upper upper limit
+   * @return this
+   */
+  public Random range(int lower, int upper) {
+    this.upper = upper;
+    this.lower = lower;
+    return this;
+  }
+
+  /**
    * Create a copy of this sequence.
    *
    * @return copy

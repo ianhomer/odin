@@ -8,6 +8,8 @@ import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.sequence.roll.Roll;
+import com.purplepip.odin.sequence.roll.TickConvertedRoll;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Before;

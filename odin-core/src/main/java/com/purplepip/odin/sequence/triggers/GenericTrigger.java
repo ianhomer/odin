@@ -60,7 +60,7 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
 
   @Override
   public GenericTrigger name(String name) {
-    setName(name);
+    super.name(name);
     return this;
   }
 }

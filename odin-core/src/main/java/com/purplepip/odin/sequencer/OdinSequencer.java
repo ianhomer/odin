@@ -21,13 +21,16 @@ import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
 import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.conductor.LayerConductor;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
 import com.purplepip.odin.sequence.conductor.UnmodifiableConductors;
 import com.purplepip.odin.sequence.reactors.MutableReactors;
 import com.purplepip.odin.sequence.reactors.TriggerReactor;
+import com.purplepip.odin.sequence.roll.SequenceRollTrack;
+import com.purplepip.odin.sequence.track.MutableTracks;
+import com.purplepip.odin.sequence.track.Track;
+import com.purplepip.odin.sequence.track.UnmodifiableTracks;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
@@ -107,10 +110,17 @@ public class OdinSequencer implements ProjectApplyListener {
    */
   private void refreshTracks(Project project) {
     refreshChannels(project);
-    conductors.refresh(() -> project.getLayers().stream(), this::createConductor);
-    tracks.refresh(() -> project.getSequences().stream(), this::createSequenceTrack,
+    conductors.refresh(
+        () -> project.getLayers().stream(),
+        () -> new LayerConductor(clock));
+    tracks.refresh(
+        () -> project.getSequences().stream(),
+        () -> new SequenceRollTrack(clock, configuration.getMeasureProvider(),
+            configuration.getSequenceFactory()),
         immutableConductors);
-    reactors.refresh(() -> project.getTriggers().stream(), this::createReactor,
+    reactors.refresh(
+        () -> project.getTriggers().stream(),
+        () -> new TriggerReactor(configuration.getTriggerFactory()),
         immutableConductors, immutableTracks);
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
@@ -142,20 +152,6 @@ public class OdinSequencer implements ProjectApplyListener {
         LOG.warn("Cannot send operation", e);
       }
     }
-  }
-
-  SequenceRollTrack createSequenceTrack() {
-    return new SequenceRollTrack(clock,
-        new MutableSequenceRoll<>(clock, configuration.getSequenceFactory(),
-            configuration.getMeasureProvider()));
-  }
-
-  LayerConductor createConductor() {
-    return new LayerConductor(clock);
-  }
-
-  TriggerReactor createReactor() {
-    return new TriggerReactor(configuration.getTriggerFactory());
   }
 
   /**

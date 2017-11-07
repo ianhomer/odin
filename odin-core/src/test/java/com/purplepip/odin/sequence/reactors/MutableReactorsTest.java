@@ -18,11 +18,13 @@ package com.purplepip.odin.sequence.reactors;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.music.sequence.Random;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
+import com.purplepip.odin.sequence.track.MutableTracks;
 import com.purplepip.odin.sequence.triggers.NoteTrigger;
+import com.purplepip.odin.sequence.triggers.PatternNoteTrigger;
 import com.purplepip.odin.sequence.triggers.TriggerFactory;
-import com.purplepip.odin.sequencer.MutableTracks;
 import org.junit.Test;
 
 public class MutableReactorsTest {
@@ -34,7 +36,9 @@ public class MutableReactorsTest {
     project.addTrigger(new NoteTrigger().note(newNote(60)).name("trigger"));
 
     MutableReactors reactors = new MutableReactors();
-    reactors.refresh(() -> project.getTriggers().stream(), this::createReactor,
+    reactors.refresh(
+        () -> project.getTriggers().stream(),
+        () -> new TriggerReactor(triggerFactory),
         new MutableConductors(), new MutableTracks());
 
     assertEquals(1, reactors.getStatistics().getAddedCount());
@@ -48,12 +52,14 @@ public class MutableReactorsTest {
 
   @Test
   public void testInjection() {
-    MutableReactors reactors = new MutableReactors();
     TransientProject project = new TransientProject();
-    // TODO : Implement test
-  }
-
-  private TriggerReactor createReactor() {
-    return new TriggerReactor(triggerFactory);
+    project.addSequence(new Random().range(60, 72).bits(1).name("random"));
+    project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));
+    MutableReactors reactors = new MutableReactors();
+    MutableTracks tracks = new MutableTracks();
+    reactors.refresh(() -> project.getTriggers().stream(),
+        () -> new TriggerReactor(triggerFactory),
+        new MutableConductors(), tracks);
+    // TODO : Complete test.
   }
 }

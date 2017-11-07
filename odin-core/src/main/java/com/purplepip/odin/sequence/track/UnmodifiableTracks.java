@@ -13,30 +13,25 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.track;
 
-import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequence.flow.MutableFlow;
+import com.purplepip.odin.bag.AbstractUnmodifiableThings;
+import com.purplepip.odin.bag.Things;
 
 /**
- * A roll that is based on a sequence.
- *
- * @param <A> type of object controlled by this roll
+ * Unmodifiable tracks.
  */
-public interface SequenceRoll<A> extends Roll<A> {
-  void setSequence(SequenceConfiguration sequence);
+public class UnmodifiableTracks extends AbstractUnmodifiableThings<Track> implements Things<Track> {
+  public UnmodifiableTracks(Things<Track> things) {
+    super(things);
+  }
 
-  SequenceConfiguration getSequence();
-
-  void setEnabled(boolean enabled);
-
-  boolean isEnabled();
-
-  void refresh();
-
-  void setFlow(MutableFlow<Sequence<A>, A> flow);
-
-  MutableFlow<Sequence<A>, A> getFlow();
-
-  Property<Long> getOffsetProperty();
+  @Override
+  public Track unmodifiable(Track track) {
+    if (track instanceof SequenceTrack) {
+      return new UnmodifiableSequenceTrack((SequenceTrack) track);
+    } else {
+      return new UnmodifiableTrack(track);
+    }
+  }
 }

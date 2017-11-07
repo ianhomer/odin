@@ -119,4 +119,10 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     this.type = type;
     return this;
   }
+
+  @Override
+  public GenericSequence name(String name) {
+    super.name(name);
+    return this;
+  }
 }

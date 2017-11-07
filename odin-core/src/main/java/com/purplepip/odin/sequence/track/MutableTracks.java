@@ -13,20 +13,31 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.sequence.track;
 
 import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.conductor.Conductor;
+import com.purplepip.odin.sequence.roll.SequenceRollTrack;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Mutable tracks.
+ */
 @Slf4j
 public class MutableTracks extends MutableThings<Track> {
-  void refresh(Supplier<Stream<SequenceConfiguration>> sequenceStream,
+  /**
+   * Refresh tracks.
+   *
+   * @param sequenceStream sequence stream
+   * @param trackSupplier track supplier
+   * @param conductors conductors
+   */
+  public void refresh(Supplier<Stream<SequenceConfiguration>> sequenceStream,
                Supplier<SequenceRollTrack> trackSupplier,
                Things<Conductor> conductors) {
     removeIf(track -> sequenceStream.get()

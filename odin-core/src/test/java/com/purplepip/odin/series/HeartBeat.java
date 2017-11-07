@@ -4,7 +4,7 @@ import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequence.Roll;
+import com.purplepip.odin.sequence.roll.Roll;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 

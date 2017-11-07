@@ -85,7 +85,5 @@ public class MutableConductors extends MutableThings<Conductor>  {
         layerConductor.afterChildrenAdded();
       }
     });
-
-
   }
 }

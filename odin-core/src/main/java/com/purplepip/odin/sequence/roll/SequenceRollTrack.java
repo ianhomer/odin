@@ -13,21 +13,22 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.sequence.roll;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SwallowedEvent;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.DefaultTickConverter;
-import com.purplepip.odin.sequence.Roll;
+import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.SequenceConfiguration;
-import com.purplepip.odin.sequence.SequenceRoll;
-import com.purplepip.odin.sequence.TickConvertedRoll;
+import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.conductor.Conductor;
+import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.sequence.track.SequenceTrack;
 import com.purplepip.odin.sequence.triggers.Action;
 import java.util.HashSet;
 import java.util.Map;
@@ -48,9 +49,23 @@ public class SequenceRollTrack implements SequenceTrack {
    * Create new track.
    *
    * @param clock beat clock
+   * @param measureProvider measure provider
+   * @param sequenceFactory sequence factory
+   */
+  public SequenceRollTrack(BeatClock clock,
+                    MeasureProvider measureProvider,
+                    SequenceFactory<Note> sequenceFactory) {
+    this(clock,
+        new MutableSequenceRoll<>(clock, sequenceFactory, measureProvider));
+  }
+
+  /**
+   * Create new track.
+   *
+   * @param clock beat clock
    * @param sequenceRoll sequence roll to base this track on
    */
-  SequenceRollTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll) {
+  private SequenceRollTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll) {
     this.sequenceRoll = sequenceRoll;
     this.tickConverter = new DefaultTickConverter(clock,
         this.sequenceRoll.getTick(), () -> Ticks.MICROSECOND,
@@ -107,17 +122,17 @@ public class SequenceRollTrack implements SequenceTrack {
     return tickConverter;
   }
 
-  void unbindConductors() {
+  public void unbindConductors() {
     LOG.debug("Unbinding conductors from {}", this);
     conductors.clear();
   }
 
-  void bindConductor(Conductor conductor) {
+  public void bindConductor(Conductor conductor) {
     LOG.debug("Binding conductor {} to {}", conductor, this);
     conductors.add(conductor);
   }
 
-  void setCopyOfSequence(SequenceConfiguration sequence) {
+  public void setCopyOfSequence(SequenceConfiguration sequence) {
     getSequenceRoll().setSequence(sequence.copy());
   }
 

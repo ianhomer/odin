@@ -24,7 +24,7 @@ import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequence.Roll;
+import com.purplepip.odin.sequence.roll.Roll;
 import com.purplepip.odin.sequence.tick.Tick;
 import java.util.ArrayList;
 import java.util.List;

@@ -26,7 +26,6 @@ import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.MutableSequenceRoll;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
 import com.purplepip.odin.sequence.conductor.LayerConductor;
@@ -36,6 +35,8 @@ import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.reactors.MutableReactors;
 import com.purplepip.odin.sequence.reactors.TriggerReactor;
+import com.purplepip.odin.sequence.roll.SequenceRollTrack;
+import com.purplepip.odin.sequence.track.MutableTracks;
 import com.purplepip.odin.sequence.triggers.Action;
 import com.purplepip.odin.sequence.triggers.TriggerFactory;
 import org.junit.Before;
@@ -97,7 +98,6 @@ public class ReactorReceiverTest {
   }
 
   private SequenceRollTrack createSequenceTrack() {
-    return new SequenceRollTrack(clock,
-        new MutableSequenceRoll<>(clock, sequenceFactory , measureProvider));
+    return new SequenceRollTrack(clock, measureProvider, sequenceFactory);
   }
 }

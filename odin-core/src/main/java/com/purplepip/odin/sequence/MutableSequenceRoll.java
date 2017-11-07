@@ -24,6 +24,7 @@ import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
+import com.purplepip.odin.sequence.roll.SequenceRoll;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.SealedTock;
 import com.purplepip.odin.sequence.tick.Tick;

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.sequence.track;
 
 import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.events.Event;
