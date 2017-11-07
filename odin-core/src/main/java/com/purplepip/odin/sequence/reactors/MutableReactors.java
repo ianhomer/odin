@@ -25,6 +25,7 @@ import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
@@ -39,13 +40,14 @@ public class MutableReactors extends MutableThings<Reactor> {
    * @param triggerStream   trigger stream to use to do the refresh
    * @param reactorSupplier supplier of new reactors
    */
-  public void refresh(Supplier<Stream<TriggerConfiguration>> triggerStream,
+  public void refresh(Stream<TriggerConfiguration> triggerStream,
                       Supplier<TriggerReactor> reactorSupplier,
                       Things<Conductor> conductors, Things<Track> tracks) {
-    removeIf(reactor -> triggerStream.get()
-        .noneMatch(trigger -> trigger.getId() == reactor.getValue().getId()));
 
-    triggerStream.get().forEach(triggerConfiguration -> {
+    Set<Long> ids = getIds();
+    triggerStream.forEach(triggerConfiguration -> {
+      ids.remove(triggerConfiguration.getId());
+
       /*
        * Add reactor if not present in conductors.
        */
@@ -99,6 +101,11 @@ public class MutableReactors extends MutableThings<Reactor> {
         }
       });
     });
+
+    /*
+     * Remove if not found.
+     */
+    removeIf(thing -> ids.contains(thing.getKey()));
   }
 
   @Override

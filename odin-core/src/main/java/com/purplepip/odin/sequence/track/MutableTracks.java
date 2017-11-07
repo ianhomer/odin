@@ -21,6 +21,7 @@ import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.roll.SequenceRollTrack;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
@@ -37,13 +38,13 @@ public class MutableTracks extends MutableThings<Track> {
    * @param trackSupplier track supplier
    * @param conductors conductors
    */
-  public void refresh(Supplier<Stream<SequenceConfiguration>> sequenceStream,
+  public void refresh(Stream<SequenceConfiguration> sequenceStream,
                Supplier<SequenceRollTrack> trackSupplier,
                Things<Conductor> conductors) {
-    removeIf(track -> sequenceStream.get()
-        .noneMatch(sequence -> sequence.getId() == track.getValue().getId()));
+    Set<Long> ids = getIds();
+    sequenceStream.forEach(sequence -> {
+      ids.remove(sequence.getId());
 
-    sequenceStream.get().forEach(sequence -> {
       /*
        * Add sequence if not present in tracks.
        */
@@ -68,9 +69,9 @@ public class MutableTracks extends MutableThings<Track> {
     });
 
     /*
-     * Remove empty tracks, i.e. tracks that do not output any events.
+     * Remove if not found OR is empty, i.e. tracks that do not output any events.
      */
-    removeIf(track -> track.getValue().isEmpty());
+    removeIf(track -> ids.contains(track.getKey()) || track.getValue().isEmpty());
 
     /*
      * Binding conductors to tracks.

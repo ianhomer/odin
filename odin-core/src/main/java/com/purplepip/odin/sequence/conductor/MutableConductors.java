@@ -18,6 +18,7 @@ package com.purplepip.odin.sequence.conductor;
 import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.sequence.layer.Layer;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lombok.ToString;
@@ -32,20 +33,18 @@ public class MutableConductors extends MutableThings<Conductor>  {
    * @param layerStream layer stream to use to do the refresh
    * @param conductorSupplier supplier of new conductors
    */
-  // TODO : Why use Supplier<Stream<Layer>> not just Stream<Layer> for input?
-  public void refresh(Supplier<Stream<Layer>> layerStream,
+  public void refresh(Stream<Layer> layerStream,
                       Supplier<LayerConductor> conductorSupplier) {
-    removeIf(conductor -> layerStream.get()
-        .noneMatch(layer -> layer.getId() == conductor.getValue().getId()));
+    Set<Long> ids = getIds();
+    layerStream.forEach(layer -> {
+      ids.remove(layer.getId());
 
-    layerStream.get().forEach(layer -> {
       /*
        * Add conductor if not present in conductors.
        */
       Optional<LayerConductor> existing =
           stream()
-              .filter(o -> o instanceof LayerConductor)
-              .map(o -> (LayerConductor) o)
+              .filter(o -> o instanceof LayerConductor).map(o -> (LayerConductor) o)
               .filter(conductor -> conductor.getId() == layer.getId()).findFirst();
 
       LayerConductor conductor;
@@ -65,6 +64,12 @@ public class MutableConductors extends MutableThings<Conductor>  {
         add(conductor);
       }
     });
+
+    /*
+     * Remove if not found.
+     */
+    removeIf(thing -> ids.contains(thing.getKey()));
+
 
     /*
      * Wire up parent and children.

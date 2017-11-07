@@ -170,7 +170,7 @@ public class ConductorActiveTest {
 
   private boolean apply() {
     conductors.refresh(
-        () -> project.getLayers().stream(),
+        project.getLayers().stream(),
         () -> new LayerConductor(clock));
     return true;
   }

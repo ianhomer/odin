@@ -18,6 +18,8 @@ package com.purplepip.odin.bag;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import lombok.ToString;
@@ -81,7 +83,7 @@ public class MutableThings<T extends Thing> implements Things<T> {
    */
   protected boolean removeIf(Predicate<Map.Entry<Long, T>> filter) {
     /*
-     * Remove any track for which the sequence in the project has been removed.
+     * Remove any thing for which the sequence in the project has been removed.
      */
     int sizeBefore = size();
     boolean result = things.entrySet().removeIf(filter);
@@ -110,5 +112,9 @@ public class MutableThings<T extends Thing> implements Things<T> {
   @Override
   public Iterator<T> iterator() {
     return things.values().iterator();
+  }
+
+  protected Set<Long> getIds() {
+    return new TreeSet<>(things.keySet());
   }
 }

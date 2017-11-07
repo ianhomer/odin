@@ -111,15 +111,15 @@ public class OdinSequencer implements ProjectApplyListener {
   private void refreshTracks(Project project) {
     refreshChannels(project);
     conductors.refresh(
-        () -> project.getLayers().stream(),
+        project.getLayers().stream(),
         () -> new LayerConductor(clock));
     tracks.refresh(
-        () -> project.getSequences().stream(),
+        project.getSequences().stream(),
         () -> new SequenceRollTrack(clock, configuration.getMeasureProvider(),
             configuration.getSequenceFactory()),
         immutableConductors);
     reactors.refresh(
-        () -> project.getTriggers().stream(),
+        project.getTriggers().stream(),
         () -> new TriggerReactor(configuration.getTriggerFactory()),
         immutableConductors, immutableTracks);
 

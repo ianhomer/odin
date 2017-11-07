@@ -37,7 +37,7 @@ public class MutableReactorsTest {
 
     MutableReactors reactors = new MutableReactors();
     reactors.refresh(
-        () -> project.getTriggers().stream(),
+        project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory),
         new MutableConductors(), new MutableTracks());
 
@@ -57,7 +57,7 @@ public class MutableReactorsTest {
     project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));
     MutableReactors reactors = new MutableReactors();
     MutableTracks tracks = new MutableTracks();
-    reactors.refresh(() -> project.getTriggers().stream(),
+    reactors.refresh(project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory),
         new MutableConductors(), tracks);
     // TODO : Complete test.

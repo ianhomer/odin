@@ -62,16 +62,16 @@ public class ReactorReceiverTest {
         .addPattern(BEAT, 7);
     MutableConductors conductors = new MutableConductors();
     conductors.refresh(
-        () -> project.getLayers().stream(),
+        project.getLayers().stream(),
         () -> new LayerConductor(clock));
     MutableTracks tracks = new MutableTracks();
     tracks.refresh(
-        () -> project.getSequences().stream(),
+        project.getSequences().stream(),
         () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory),
         conductors);
     MutableReactors reactors = new MutableReactors();
     reactors.refresh(
-        () -> project.getTriggers().stream(),
+        project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory),
         conductors, tracks);
     MetricRegistry metricRegistry = new MetricRegistry();
