@@ -18,7 +18,7 @@ package com.purplepip.odin.sequence.roll;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.properties.runtime.Mutable;
+import com.purplepip.odin.properties.runtime.MutableProperty;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.sequence.ListenerPriority;
@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 @ToString
 public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
-  private final Mutable<Tick> tick = new ObservableProperty<>();
+  private final MutableProperty<Tick> tick = new ObservableProperty<>();
   private MutableFlow<Sequence<A>, A> flow;
   private BeatClock beatClock;
 

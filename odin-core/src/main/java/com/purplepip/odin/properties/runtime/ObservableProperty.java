@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ToString(exclude = "observers")
-public class ObservableProperty<T> extends MutableProperty<T> implements Observable {
+public class ObservableProperty<T> extends DefaultMutableProperty<T> implements Observable {
   private Set<Observer> observers = new HashSet<>();
 
   /**

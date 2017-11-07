@@ -15,38 +15,6 @@
 
 package com.purplepip.odin.properties.runtime;
 
-import lombok.extern.slf4j.Slf4j;
-
-/**
- * A property that can change.
- *
- * @param <T> type of property
- */
-@Slf4j
-public class MutableProperty<T> implements Mutable<T> {
-  private T value;
-
-  /**
-   * Create a property without setting an initial value.
-   */
-  public MutableProperty() {
-    /*
-     * Empty constructor to explicitly differentiate with constructor that sets value.
-     */
-  }
-
-  public MutableProperty(T value) {
-    this.value = value;
-  }
-
-  @Override
-  public T get() {
-    return value;
-  }
-
-  @Override
-  public void set(T value) {
-    LOG.debug("Changing property to {}", value);
-    this.value = value;
-  }
+public interface MutableProperty<T> extends Property<T> {
+  void set(T t);
 }
