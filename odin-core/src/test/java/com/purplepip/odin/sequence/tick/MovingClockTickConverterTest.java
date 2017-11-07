@@ -21,11 +21,9 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.MovableMicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.TickConverter;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -8,11 +8,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.DefaultTickConverter;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.TickConverter;
+import com.purplepip.odin.sequence.clock.BeatClock;
+import com.purplepip.odin.sequence.tick.DefaultTickConverter;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.TickConverter;
 import org.junit.Before;
 import org.junit.Test;
 

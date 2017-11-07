@@ -20,10 +20,10 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.MovableMicrosecondPositionProvider;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import java.util.Arrays;
 import java.util.List;

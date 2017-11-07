@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.roll;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
@@ -21,13 +21,23 @@ import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Mutable;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
+import com.purplepip.odin.sequence.ListenerPriority;
+import com.purplepip.odin.sequence.ScanForwardEvent;
+import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.SequenceConfiguration;
+import com.purplepip.odin.sequence.SequenceFactory;
+import com.purplepip.odin.sequence.clock.BeatClock;
+import com.purplepip.odin.sequence.clock.Clock;
+import com.purplepip.odin.sequence.clock.ClockListener;
+import com.purplepip.odin.sequence.clock.TickConvertedClock;
 import com.purplepip.odin.sequence.flow.MutableFlow;
 import com.purplepip.odin.sequence.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.roll.SequenceRoll;
+import com.purplepip.odin.sequence.tick.DefaultTickConverter;
 import com.purplepip.odin.sequence.tick.MovableTock;
 import com.purplepip.odin.sequence.tick.SealedTock;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.TickConverter;
 import com.purplepip.odin.sequence.tick.Ticks;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.ToString;

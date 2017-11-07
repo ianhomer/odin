@@ -20,7 +20,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.project.ProjectApplyListener;
-import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.conductor.LayerConductor;
 import com.purplepip.odin.sequence.conductor.MutableConductors;

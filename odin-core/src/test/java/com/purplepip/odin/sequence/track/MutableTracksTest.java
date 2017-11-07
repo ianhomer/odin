@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.sequence.track;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -24,10 +24,10 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.GenericSequence;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import com.purplepip.odin.sequence.conductor.Conductor;
 import com.purplepip.odin.sequence.conductor.LayerConductor;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
@@ -36,7 +36,7 @@ import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequence.roll.SequenceRollTrack;
-import com.purplepip.odin.sequence.track.MutableTracks;
+import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;
 
 public class MutableTracksTest {

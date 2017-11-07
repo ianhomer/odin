@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.sequence.flow;
 
-import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 
 public class StaticFlowContext extends FlowContext {
   public StaticFlowContext(int beatsPerMinute, int beatsPerMeasure) {
-    super(new BeatClock(new StaticBeatsPerMinute(60)),
-        new StaticBeatMeasureProvider(4));
+    super(new BeatClock(new StaticBeatsPerMinute(beatsPerMinute)),
+        new StaticBeatMeasureProvider(beatsPerMeasure));
   }
 }

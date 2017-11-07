@@ -1,4 +1,4 @@
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
 import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
 import static com.purplepip.odin.sequence.tick.Ticks.HALF;
@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.sequence.tick.SameTimeUnitTickConverter;
 import org.junit.Test;
 
 /**

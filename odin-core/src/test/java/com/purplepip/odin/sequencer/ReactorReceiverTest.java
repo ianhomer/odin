@@ -25,9 +25,9 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequence.BeatClock;
 import com.purplepip.odin.sequence.SequenceFactory;
 import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import com.purplepip.odin.sequence.conductor.LayerConductor;
 import com.purplepip.odin.sequence.conductor.MutableConductors;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
@@ -72,11 +72,18 @@ public class ReactorReceiverTest {
         .withTrigger("trigger2", Action.DISABLE)
         .addPattern(BEAT, 7);
     MutableConductors conductors = new MutableConductors();
-    conductors.refresh(() -> project.getLayers().stream(), () -> new LayerConductor(clock));
+    conductors.refresh(
+        () -> project.getLayers().stream(),
+        () -> new LayerConductor(clock));
     MutableTracks tracks = new MutableTracks();
-    tracks.refresh(() -> project.getSequences().stream(), this::createSequenceTrack, conductors);
+    tracks.refresh(
+        () -> project.getSequences().stream(),
+        () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory),
+        conductors);
     MutableReactors reactors = new MutableReactors();
-    reactors.refresh(() -> project.getTriggers().stream(), () -> new TriggerReactor(triggerFactory),
+    reactors.refresh(
+        () -> project.getTriggers().stream(),
+        () -> new TriggerReactor(triggerFactory),
         conductors, tracks);
     MetricRegistry metricRegistry = new MetricRegistry();
     ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
@@ -95,9 +102,5 @@ public class ReactorReceiverTest {
     receiver.send(new NoteOnOperation(0,61, 50), -1);
     assertEquals(2, metricRegistry.meter("receiver.triggered").getCount());
     assertFalse(tracks.findByName("track1").isEnabled());
-  }
-
-  private SequenceRollTrack createSequenceTrack() {
-    return new SequenceRollTrack(clock, measureProvider, sequenceFactory);
   }
 }

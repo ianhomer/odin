@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequence.measure;
 
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.sequence.TickConverter;
+import com.purplepip.odin.sequence.tick.TickConverter;
 
 /**
  * A measure provider that has been converted for a given time unit and clock offset for a

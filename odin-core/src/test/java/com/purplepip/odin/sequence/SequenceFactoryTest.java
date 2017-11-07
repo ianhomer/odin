@@ -24,6 +24,7 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.sequence.clock.Clock;
 import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.sequence.flow.Flow;
 import com.purplepip.odin.sequence.measure.MeasureProvider;

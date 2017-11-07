@@ -26,7 +26,7 @@ import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import com.purplepip.odin.sequence.track.Track;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import java.util.HashMap;

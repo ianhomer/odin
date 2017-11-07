@@ -21,8 +21,8 @@ import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequence.TickConverter;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.TickConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

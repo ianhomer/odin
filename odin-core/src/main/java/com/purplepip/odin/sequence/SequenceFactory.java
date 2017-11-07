@@ -20,6 +20,7 @@ import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.music.sequence.Random;
+import com.purplepip.odin.sequence.clock.Clock;
 import com.purplepip.odin.sequence.flow.DefaultFlow;
 import com.purplepip.odin.sequence.flow.FlowConfiguration;
 import com.purplepip.odin.sequence.flow.MutableFlow;

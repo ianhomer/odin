@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.clock;
 
 import static com.purplepip.odin.sequence.tick.Ticks.QUARTER;
 import static org.junit.Assert.assertEquals;
@@ -21,6 +21,11 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.sequence.MovableMicrosecondPositionProvider;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.clock.BeatClock;
+import com.purplepip.odin.sequence.clock.Clock;
+import com.purplepip.odin.sequence.clock.TickConvertedClock;
 import org.junit.Test;
 
 public class TickConvertedClockTest {

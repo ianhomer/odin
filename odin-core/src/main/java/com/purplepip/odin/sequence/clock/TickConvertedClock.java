@@ -13,11 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.clock;
 
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.runtime.Property;
+import com.purplepip.odin.sequence.tick.DefaultTickConverter;
 import com.purplepip.odin.sequence.tick.Tick;
+import com.purplepip.odin.sequence.tick.TickConverter;
 import com.purplepip.odin.sequence.tick.Ticks;
 
 /**

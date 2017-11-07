@@ -13,14 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Observable;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequence.tick.Tick;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 

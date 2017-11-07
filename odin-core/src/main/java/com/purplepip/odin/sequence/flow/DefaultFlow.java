@@ -17,9 +17,9 @@ package com.purplepip.odin.sequence.flow;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.sequence.Clock;
 import com.purplepip.odin.sequence.ScanForwardEvent;
 import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.sequence.clock.Clock;
 import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequence.tick.Tock;
 import lombok.extern.slf4j.Slf4j;

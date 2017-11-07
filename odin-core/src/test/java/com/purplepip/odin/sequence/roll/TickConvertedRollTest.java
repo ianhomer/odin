@@ -1,4 +1,4 @@
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.roll;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -8,8 +8,12 @@ import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.sequence.MicrosecondPositionProvider;
+import com.purplepip.odin.sequence.StaticBeatsPerMinute;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import com.purplepip.odin.sequence.roll.Roll;
 import com.purplepip.odin.sequence.roll.TickConvertedRoll;
+import com.purplepip.odin.sequence.tick.DefaultTickConverter;
 import com.purplepip.odin.sequence.tick.Tick;
 import com.purplepip.odin.sequence.tick.Ticks;
 import org.junit.Before;

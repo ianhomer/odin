@@ -19,7 +19,7 @@ import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.sequence.clock.BeatClock;
 import java.util.concurrent.PriorityBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 

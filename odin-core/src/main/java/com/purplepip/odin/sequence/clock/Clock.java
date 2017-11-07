@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.clock;
 
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.sequence.MicrosecondPositionProvider;
 import com.purplepip.odin.sequence.tick.Tick;
 
 /**

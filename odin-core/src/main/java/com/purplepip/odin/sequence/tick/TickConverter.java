@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence;
+package com.purplepip.odin.sequence.tick;
 
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.sequence.tick.Tick;
