@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.sequence.reactors;
 
+import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.sequence.triggers.Trigger;
+import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import javax.validation.constraints.NotNull;
 
 public class UnmodifiableReactor implements Reactor {
@@ -33,5 +36,20 @@ public class UnmodifiableReactor implements Reactor {
   @NotNull
   public String getName() {
     return underlyingReactor.getName();
+  }
+
+  @Override
+  public Trigger getPlugin() {
+    return underlyingReactor.getPlugin();
+  }
+
+  @Override
+  public TriggerConfiguration getConfiguration() {
+    return underlyingReactor.getConfiguration();
+  }
+
+  @Override
+  public void setConfiguration(TriggerConfiguration configuration) {
+    throw new OdinRuntimeException("Cannot set configuration for " + this);
   }
 }

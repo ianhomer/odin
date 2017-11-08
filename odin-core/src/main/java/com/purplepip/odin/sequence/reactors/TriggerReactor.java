@@ -46,16 +46,19 @@ public class TriggerReactor implements Reactor {
     return trigger.getName();
   }
 
-  public void setTriggerConfiguration(TriggerConfiguration triggerConfiguration) {
+  @Override
+  public void setConfiguration(TriggerConfiguration triggerConfiguration) {
     this.triggerConfiguration = triggerConfiguration;
     trigger = triggerFactory.newInstance(triggerConfiguration);
   }
 
-  public TriggerConfiguration getTriggerConfiguration() {
+  @Override
+  public TriggerConfiguration getConfiguration() {
     return triggerConfiguration;
   }
 
-  public Trigger getTrigger() {
+  @Override
+  public Trigger getPlugin() {
     return trigger;
   }
 

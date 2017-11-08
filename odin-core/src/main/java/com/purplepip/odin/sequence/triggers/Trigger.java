@@ -17,13 +17,14 @@ package com.purplepip.odin.sequence.triggers;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequence.SequenceConfiguration;
+import com.purplepip.odin.sequence.plugin.Plugin;
 import com.purplepip.odin.sequencer.Operation;
 import java.util.stream.Stream;
 
 /**
  * Trigger rule.
  */
-public interface Trigger extends TriggerConfiguration {
+public interface Trigger extends Plugin, TriggerConfiguration {
   boolean isTriggeredBy(Operation operation);
 
   /**

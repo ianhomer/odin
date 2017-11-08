@@ -39,8 +39,8 @@ public class ReactorReceiver implements OperationReceiver {
     LOG.debug("Operation received {} at {}", operation, time);
     reactors.triggerStream()
         .forEach(reactor -> {
-          if (reactor.getTrigger().isTriggeredBy(operation)) {
-            LOG.debug("Trigger {} triggered", reactor.getTrigger());
+          if (reactor.getPlugin().isTriggeredBy(operation)) {
+            LOG.debug("Trigger {} triggered", reactor.getPlugin());
             triggered.mark();
             reactor.getTracks().forEach(entry -> {
               LOG.debug("Track {} triggered", entry.getKey());

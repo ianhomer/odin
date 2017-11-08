@@ -13,16 +13,11 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequence.reactors;
-
-import com.purplepip.odin.bag.Thing;
-import com.purplepip.odin.sequence.aspect.Aspect;
-import com.purplepip.odin.sequence.triggers.Trigger;
-import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
+package com.purplepip.odin.sequence.plugin;
 
 /**
- * A reactor handles actions based on triggers that are fired.  For example, a track that is
- * created when a MIDI message is received.
+ * Plugin for the composition.   A plugin provides composition logic over and above pure data
+ * configuration.
  */
-public interface Reactor extends Aspect<Trigger, TriggerConfiguration>, Thing {
+public interface Plugin {
 }

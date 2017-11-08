@@ -58,17 +58,17 @@ public class MutableReactors extends MutableThings<Reactor> {
       TriggerReactor reactor;
       if (existing.isPresent()) {
         reactor = existing.get();
-        if (reactor.getTrigger().equals(triggerConfiguration)) {
+        if (reactor.getPlugin().equals(triggerConfiguration)) {
           LOG.debug("Trigger {} already added and unchanged", triggerConfiguration);
         } else {
           LOG.debug("Updating reactor for {}", triggerConfiguration);
           incrementUpdatedCount();
-          reactor.setTriggerConfiguration(triggerConfiguration);
+          reactor.setConfiguration(triggerConfiguration);
         }
       } else {
         LOG.debug("Creating new reactor for {}", triggerConfiguration);
         reactor = reactorSupplier.get();
-        reactor.setTriggerConfiguration(triggerConfiguration);
+        reactor.setConfiguration(triggerConfiguration);
         add(reactor);
       }
 
@@ -85,18 +85,18 @@ public class MutableReactors extends MutableThings<Reactor> {
       /*
        * Inject dependent sequences into trigger.
        */
-      reactor.getTrigger().dependsOn().forEach(sequenceName -> {
+      reactor.getPlugin().dependsOn().forEach(sequenceName -> {
         Track track = tracks.findByName(sequenceName);
         if (track == null) {
           LOG.error("Cannot find track called {} as referenced by trigger {}", sequenceName,
-              reactor.getTrigger());
+              reactor.getPlugin());
         } else {
           if (track instanceof SequenceTrack) {
-            reactor.getTrigger().inject(((SequenceTrack) track).getSequence());
+            reactor.getPlugin().inject(((SequenceTrack) track).getSequence());
           } else {
             throw new OdinRuntimeException(
                 "Referenced track " + track + " called " + sequenceName + " as referenced by "
-                    + reactor.getTrigger() + " is not a sequence track");
+                    + reactor.getPlugin() + " is not a sequence track");
           }
         }
       });
