@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.reactors;
 
 import com.purplepip.odin.creation.plugin.PluggableAspect;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.creation.triggers.Trigger;
@@ -29,7 +30,7 @@ import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TriggerReactor implements Reactor, PluggableAspect<Trigger, TriggerConfiguration> {
+public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfiguration> {
   private TriggerConfiguration triggerConfiguration;
   private Trigger trigger;
   private Map<Track, Action> trackActions = new HashMap<>();
@@ -61,11 +62,6 @@ public class TriggerReactor implements Reactor, PluggableAspect<Trigger, Trigger
     return triggerConfiguration;
   }
 
-  @Override
-  public Trigger getPlugin() {
-    return trigger;
-  }
-
   public void addTrackAction(Track track, Action action) {
     trackActions.put(track, action);
   }
@@ -85,7 +81,7 @@ public class TriggerReactor implements Reactor, PluggableAspect<Trigger, Trigger
   @Override
   public boolean react(Operation operation) {
     if (trigger.isTriggeredBy(operation)) {
-      LOG.debug("Trigger {} triggered", getPlugin());
+      LOG.debug("Trigger {} triggered", trigger);
       getTracks().forEach(entry -> {
         LOG.debug("Track {} triggered", entry.getKey());
         Action action = entry.getValue();
@@ -103,5 +99,18 @@ public class TriggerReactor implements Reactor, PluggableAspect<Trigger, Trigger
       return true;
     }
     return false;
+  }
+
+  /**
+   * Get stream of sequence names that this reactor depends on.
+   *
+   * @return stream of sequence names that this trigger depends on
+   */
+  public Stream<String> dependsOn() {
+    return trigger.dependsOn();
+  }
+
+  public void inject(SequenceConfiguration sequence) {
+    trigger.inject(sequence);
   }
 }

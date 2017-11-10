@@ -21,15 +21,14 @@ import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.plugin.AbstractPluggableAspects;
 import com.purplepip.odin.creation.track.SequenceTrack;
 import com.purplepip.odin.creation.track.Track;
-import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TriggerReactors extends AbstractPluggableAspects<
-    TriggerReactor, TriggerConfiguration, Trigger> {
+public class TriggerReactors extends AbstractPluggableAspects<TriggerReactor,
+    TriggerConfiguration> {
   private Things<Conductor> conductors;
   private Things<Track> tracks;
 
@@ -63,18 +62,18 @@ public class TriggerReactors extends AbstractPluggableAspects<
       /*
        * Inject dependent sequences into trigger.
        */
-      reactor.getPlugin().dependsOn().forEach(sequenceName -> {
+      reactor.dependsOn().forEach(sequenceName -> {
         Track track = tracks.findByName(sequenceName);
         if (track == null) {
-          LOG.error("Cannot find track called {} as referenced by trigger {}", sequenceName,
-              reactor.getPlugin());
+          LOG.error("Cannot find track called {} as referenced by aspect {}", sequenceName,
+              reactor);
         } else {
           if (track instanceof SequenceTrack) {
-            reactor.getPlugin().inject(((SequenceTrack) track).getSequence());
+            reactor.inject(((SequenceTrack) track).getSequence());
           } else {
             throw new OdinRuntimeException(
                 "Referenced track " + track + " called " + sequenceName + " as referenced by "
-                    + reactor.getPlugin() + " is not a sequence track");
+                    + reactor + " is not a sequence track");
           }
         }
       });

@@ -24,8 +24,8 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class AbstractPluggableAspects<A extends PluggableAspect<P, C>,
-    C extends ThingConfiguration, P extends Plugin> extends MutableThings<A> {
+public abstract class AbstractPluggableAspects<A extends PluggableAspect<C>,
+    C extends ThingConfiguration> extends MutableThings<A> {
   /**
    * Refresh the bag of aspects.
    *
@@ -48,7 +48,7 @@ public abstract class AbstractPluggableAspects<A extends PluggableAspect<P, C>,
       A aspect;
       if (existing.isPresent()) {
         aspect = existing.get();
-        if (aspect.getPlugin().equals(configuration)) {
+        if (aspect.getConfiguration().equals(configuration)) {
           LOG.debug("Aspect {} already added and unchanged", configuration);
         } else {
           LOG.debug("Updating aspect for {}", configuration);

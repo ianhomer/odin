@@ -21,12 +21,9 @@ import com.purplepip.odin.specificity.ThingConfiguration;
 /**
  * An aspect driven by a plugin.
  *
- * @param <P> type of plugin that this aspect covers.
  * @param <C> configuration for the aspect.
  */
-public interface PluggableAspect<P extends Plugin, C extends ThingConfiguration> extends Aspect {
-  P getPlugin();
-
+public interface PluggableAspect<C extends ThingConfiguration> extends Aspect {
   C getConfiguration();
 
   /**
