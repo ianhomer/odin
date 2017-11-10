@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.triggers;
 
+import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinRuntimeException;
@@ -23,7 +24,7 @@ import org.junit.Test;
 public class TriggerFactoryTest {
   @Test(expected = OdinRuntimeException.class)
   public void testCreateTriggerWithNoRule() throws Exception {
-    TriggerFactory.newTriggerFactory().newInstance(new GenericTrigger());
+    newTriggerFactory().newInstance(new GenericTrigger());
   }
 
   @Test
@@ -33,8 +34,7 @@ public class TriggerFactoryTest {
     triggerConfiguration.setProperty("note.number", 60);
     triggerConfiguration.setProperty("note.velocity", 10);
     triggerConfiguration.setProperty("note.duration", 10);
-    NoteTrigger trigger = TriggerFactory.newTriggerFactory()
-        .newInstance(triggerConfiguration, NoteTrigger.class);
+    NoteTrigger trigger = newTriggerFactory().newInstance(triggerConfiguration, NoteTrigger.class);
     assertEquals(60, trigger.getNote().getNumber());
   }
 }

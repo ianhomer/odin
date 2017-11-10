@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.sequencer;
 
+import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
+import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
+
 import com.codahale.metrics.MetricRegistry;
 import com.google.common.collect.Lists;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
@@ -51,10 +54,8 @@ public class DefaultOdinSequencerConfiguration
    * Create new configuration with defaults set.
    */
   public DefaultOdinSequencerConfiguration() {
-    sequenceFactory =
-        SequenceFactory.newNoteSequenceFactory(flowConfiguration);
-    triggerFactory =
-        TriggerFactory.newTriggerFactory();
+    sequenceFactory = newNoteSequenceFactory(flowConfiguration);
+    triggerFactory = newTriggerFactory();
     setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);

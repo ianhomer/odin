@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.sequence;
 
+import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.Clock;
@@ -36,8 +37,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SequenceFactoryTest {
-  private SequenceFactory<Note> factory = SequenceFactory
-      .newNoteSequenceFactory(new DefaultFlowConfiguration());
+  private SequenceFactory<Note> factory = newNoteSequenceFactory(new DefaultFlowConfiguration());
 
   @Mock
   private Clock clock;
@@ -71,8 +71,7 @@ public class SequenceFactoryTest {
 
   @Test
   public void testCreateFlow() throws OdinException {
-    SequenceFactory<Note> flowFactory =
-        SequenceFactory.newNoteSequenceFactory(new DefaultFlowConfiguration());
+    SequenceFactory<Note> flowFactory = newNoteSequenceFactory();
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();

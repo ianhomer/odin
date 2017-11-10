@@ -18,8 +18,8 @@ package com.purplepip.odin.sequencer;
 import static com.purplepip.odin.clock.BeatClock.newBeatClock;
 import static com.purplepip.odin.clock.measure.StaticBeatMeasureProvider.newMeasureProvider;
 import static com.purplepip.odin.clock.tick.Ticks.BEAT;
-import static com.purplepip.odin.creation.sequence.SequenceFactory.newNoteSequenceFactory;
-import static com.purplepip.odin.creation.triggers.TriggerFactory.newTriggerFactory;
+import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
+import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -74,7 +74,7 @@ public class ReactorReceiverTest {
         () -> new TriggerReactor(triggerFactory));
     MetricRegistry metricRegistry = new MetricRegistry();
     ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
-    assertFalse(((SequenceRollTrack) tracks.findByName("track1")).getSequenceRoll().isEnabled());
+    assertFalse(tracks.findByName("track1").getSequenceRoll().isEnabled());
 
     /*
      * Send note on operation to trigger enabling track

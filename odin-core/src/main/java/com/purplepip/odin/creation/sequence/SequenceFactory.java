@@ -18,17 +18,10 @@ package com.purplepip.odin.creation.sequence;
 import com.purplepip.odin.clock.Clock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.flow.DefaultFlow;
-import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.flow.MutableFlow;
-import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.music.sequence.Metronome;
-import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.music.sequence.Random;
 import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
 import com.purplepip.odin.specificity.ThingConfiguration;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,28 +41,6 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
                          List<Class<? extends Sequence<A>>> classes) {
     super(classes);
     this.flowConfiguration = flowConfiguration;
-  }
-
-  public static SequenceFactory<Note> newNoteSequenceFactory() {
-    return newNoteSequenceFactory(new DefaultFlowConfiguration());
-  }
-
-  /**
-   * Create the note sequence factory.
-   *
-   * @return a new note sequence factory
-   */
-  public static SequenceFactory<Note> newNoteSequenceFactory(FlowConfiguration flowConfiguration) {
-    /*
-     * Coded registration of known sequences.  In the future we may design a plugin architecture,
-     * but for now it is kept tight by only allowing registered classes.
-     */
-    List<Class<? extends Sequence<Note>>> classes = new ArrayList<>();
-    classes.add(Metronome.class);
-    classes.add(Notation.class);
-    classes.add(Pattern.class);
-    classes.add(Random.class);
-    return new SequenceFactory<>(flowConfiguration, classes);
   }
 
   @Override

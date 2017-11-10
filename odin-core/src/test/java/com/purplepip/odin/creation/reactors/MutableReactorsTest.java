@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.reactors;
 
+import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
@@ -28,7 +29,7 @@ import com.purplepip.odin.project.TransientProject;
 import org.junit.Test;
 
 public class MutableReactorsTest {
-  private TriggerFactory triggerFactory = TriggerFactory.newTriggerFactory();
+  private TriggerFactory triggerFactory = newTriggerFactory();
 
   @Test
   public void testRefresh() {

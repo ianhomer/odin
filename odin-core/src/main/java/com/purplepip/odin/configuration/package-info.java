@@ -13,23 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.triggers;
-
-import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-
 /**
- * Create trigger rules.
+ * Odin application configuration classes.
  */
-@Slf4j
-public class TriggerFactory extends AbstractSpecificThingFactory<Trigger> {
-  /**
-   * Create a new trigger factory.
-   *
-   * @param classes trigger classes to initialise with
-   */
-  public TriggerFactory(List<Class<? extends Trigger>> classes) {
-    super(classes);
-  }
-}
+package com.purplepip.odin.configuration;

@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.server.services.schema;
 
+import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,8 +42,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ProjectSchema {
-  private SequenceFactory<Note> factory = SequenceFactory
-      .newNoteSequenceFactory(new DefaultFlowConfiguration());
+  private SequenceFactory<Note> factory = newNoteSequenceFactory(new DefaultFlowConfiguration());
   private Map<String, JsonNode> types = new HashMap<>();
   private Map<String, String> flows = new HashMap<>();
 
