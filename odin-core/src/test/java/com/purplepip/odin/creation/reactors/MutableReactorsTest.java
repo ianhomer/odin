@@ -35,7 +35,7 @@ public class MutableReactorsTest {
     TransientProject project = new TransientProject();
     project.addTrigger(new NoteTrigger().note(newNote(60)).name("trigger"));
 
-    Reactors reactors = new Reactors(new MutableTracks(), new MutableConductors());
+    TriggerReactors reactors = new TriggerReactors(new MutableTracks(), new MutableConductors());
     reactors.refresh(
         project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory));
@@ -49,7 +49,7 @@ public class MutableReactorsTest {
     project.addSequence(new Random().range(60, 72).bits(1).name("random"));
     project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));
     MutableTracks tracks = new MutableTracks();
-    Reactors reactors = new Reactors(tracks, new MutableConductors());
+    TriggerReactors reactors = new TriggerReactors(tracks, new MutableConductors());
     reactors.refresh(project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory));
     // TODO : Complete test.

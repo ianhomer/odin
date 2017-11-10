@@ -13,10 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.aspect;
+package com.purplepip.odin.creation.plugin;
 
 import com.purplepip.odin.bag.MutableThings;
-import com.purplepip.odin.creation.plugin.Plugin;
 import com.purplepip.odin.specificity.ThingConfiguration;
 import java.util.Optional;
 import java.util.Set;
@@ -25,7 +24,7 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class AbstractAspects<A extends Aspect<P, C>,
+public abstract class AbstractPluggableAspects<A extends PluggableAspect<P, C>,
     C extends ThingConfiguration, P extends Plugin> extends MutableThings<A> {
   /**
    * Refresh the bag of aspects.

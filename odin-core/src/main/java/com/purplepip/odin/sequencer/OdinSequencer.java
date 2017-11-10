@@ -22,8 +22,8 @@ import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.MutableConductors;
 import com.purplepip.odin.creation.conductor.UnmodifiableConductors;
-import com.purplepip.odin.creation.reactors.Reactors;
 import com.purplepip.odin.creation.reactors.TriggerReactor;
+import com.purplepip.odin.creation.reactors.TriggerReactors;
 import com.purplepip.odin.creation.track.MutableTracks;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.track.UnmodifiableTracks;
@@ -50,7 +50,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private MutableConductors conductors = new MutableConductors();
   private Things<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
-  private Reactors reactors = new Reactors(immutableTracks, immutableConductors);
+  private TriggerReactors reactors = new TriggerReactors(immutableTracks, immutableConductors);
 
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private TrackProcessor sequenceProcessor;
@@ -85,7 +85,8 @@ public class OdinSequencer implements ProjectApplyListener {
     /*
      * Create the sequencer receiver.
      */
-    ReactorReceiver sequencerReceiver = new ReactorReceiver(reactors, configuration.getMetrics());
+    ReactorReceiver sequencerReceiver = new ReactorReceiver(reactors,
+        configuration.getMetrics());
     configuration.getOperationTransmitter().addListener(sequencerReceiver);
 
     /*

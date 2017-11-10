@@ -16,27 +16,11 @@
 package com.purplepip.odin.creation.aspect;
 
 import com.purplepip.odin.bag.Thing;
-import com.purplepip.odin.creation.plugin.Plugin;
-import com.purplepip.odin.specificity.ThingConfiguration;
 
 /**
  * Aspect is fundamental part of the composition.  For example it could be a track that describes
  * the events (notes) that should fire, it could be a conductor that controls another aspects
  * (e.g. enabling or disabling), or it could a reactor that responds to external inputs.
- *
- * @param <P> type of plugin that this aspect covers.
- * @param <C> configuration for the aspect.
  */
-public interface Aspect<P extends Plugin, C extends ThingConfiguration> extends Thing {
-  P getPlugin();
-
-  C getConfiguration();
-
-  /**
-   * Set the configuration for the aspect and in turn ensure that the correct plugin has been
-   * loaded.
-   *
-   * @param configuration configuration for the aspect.
-   */
-  void setConfiguration(C configuration);
+public interface Aspect extends Thing {
 }

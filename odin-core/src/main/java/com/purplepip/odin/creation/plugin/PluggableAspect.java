@@ -13,15 +13,27 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.reactors;
+package com.purplepip.odin.creation.plugin;
 
 import com.purplepip.odin.creation.aspect.Aspect;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.specificity.ThingConfiguration;
 
 /**
- * A reactor reacts to operations that are fired.  For example, a track that is
- * created when a MIDI message is received.
+ * An aspect driven by a plugin.
+ *
+ * @param <P> type of plugin that this aspect covers.
+ * @param <C> configuration for the aspect.
  */
-public interface Reactor extends Aspect {
-  boolean react(Operation operation);
+public interface PluggableAspect<P extends Plugin, C extends ThingConfiguration> extends Aspect {
+  P getPlugin();
+
+  C getConfiguration();
+
+  /**
+   * Set the configuration for the aspect and in turn ensure that the correct plugin has been
+   * loaded.
+   *
+   * @param configuration configuration for the aspect.
+   */
+  void setConfiguration(C configuration);
 }

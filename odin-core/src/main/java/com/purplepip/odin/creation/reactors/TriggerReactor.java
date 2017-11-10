@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.reactors;
 
+import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.creation.triggers.Trigger;
@@ -28,7 +29,7 @@ import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TriggerReactor implements Reactor {
+public class TriggerReactor implements Reactor, PluggableAspect<Trigger, TriggerConfiguration> {
   private TriggerConfiguration triggerConfiguration;
   private Trigger trigger;
   private Map<Track, Action> trackActions = new HashMap<>();

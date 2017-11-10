@@ -29,8 +29,8 @@ import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.MutableConductors;
-import com.purplepip.odin.creation.reactors.Reactors;
 import com.purplepip.odin.creation.reactors.TriggerReactor;
+import com.purplepip.odin.creation.reactors.TriggerReactors;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.creation.track.MutableTracks;
 import com.purplepip.odin.creation.triggers.Action;
@@ -69,7 +69,7 @@ public class ReactorReceiverTest {
         project.getSequences().stream(),
         () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory),
         conductors);
-    Reactors reactors = new Reactors(tracks, conductors);
+    TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(
         project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory));
