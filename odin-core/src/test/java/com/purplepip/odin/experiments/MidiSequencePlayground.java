@@ -4,10 +4,10 @@ import static com.purplepip.odin.music.notes.Notes.newNote;
 
 import com.codahale.metrics.ConsoleReporter;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.GenericSequence;
 import com.purplepip.odin.composition.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.composition.sequence.GenericSequence;
 import com.purplepip.odin.composition.tick.Ticks;
 import com.purplepip.odin.composition.triggers.Action;
 import com.purplepip.odin.composition.triggers.PatternNoteTrigger;

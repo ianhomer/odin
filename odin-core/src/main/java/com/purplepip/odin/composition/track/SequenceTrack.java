@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.composition.track;
 
-import com.purplepip.odin.composition.SequenceConfiguration;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 
 /**
  * Track based on a sequence.

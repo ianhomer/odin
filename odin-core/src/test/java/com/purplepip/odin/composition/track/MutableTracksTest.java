@@ -20,8 +20,6 @@ import static org.junit.Assert.assertFalse;
 
 import com.purplepip.odin.bag.AbstractUnmodifiableThings;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.GenericSequence;
-import com.purplepip.odin.composition.SequenceFactory;
 import com.purplepip.odin.composition.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.clock.BeatClock;
 import com.purplepip.odin.composition.conductor.Conductor;
@@ -32,6 +30,8 @@ import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.composition.roll.SequenceRollTrack;
+import com.purplepip.odin.composition.sequence.GenericSequence;
+import com.purplepip.odin.composition.sequence.SequenceFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;

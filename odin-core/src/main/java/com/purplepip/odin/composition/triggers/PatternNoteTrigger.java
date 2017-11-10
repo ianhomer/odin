@@ -16,7 +16,7 @@
 package com.purplepip.odin.composition.triggers;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.composition.SequenceConfiguration;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;

@@ -13,17 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.composition.sequence;
 
-import static org.junit.Assert.assertFalse;
+import com.purplepip.odin.music.notes.Note;
 
-import org.junit.Test;
-
-public class GenericSequenceTest {
-  @Test
-  public void testArePropertiesDeclared() {
-    SequenceConfiguration sequence = new GenericSequence();
-    assertFalse("Generic sequence should not have properties declared",
-        sequence.arePropertiesDeclared());
+public interface SpecialisedSequence extends MutableSequenceConfiguration, Sequence<Note> {
+  @Override
+  default boolean arePropertiesDeclared() {
+    return true;
   }
 }

@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.composition.SequenceConfiguration;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.notes.DefaultNote;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.store;
 
-import com.purplepip.odin.composition.SequenceConfiguration;
 import com.purplepip.odin.composition.layer.MutableLayer;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.server.rest.repositories.ChannelRepository;

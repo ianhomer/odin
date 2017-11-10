@@ -18,13 +18,13 @@ package com.purplepip.odin.sequencer;
 import static com.purplepip.odin.composition.tick.Ticks.BEAT;
 
 import com.google.common.collect.Lists;
-import com.purplepip.odin.composition.GenericSequence;
-import com.purplepip.odin.composition.MutableSequenceConfiguration;
-import com.purplepip.odin.composition.Sequence;
-import com.purplepip.odin.composition.SequenceConfiguration;
 import com.purplepip.odin.composition.layer.DefaultLayer;
 import com.purplepip.odin.composition.layer.Layer;
 import com.purplepip.odin.composition.layer.MutableLayer;
+import com.purplepip.odin.composition.sequence.GenericSequence;
+import com.purplepip.odin.composition.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.composition.sequence.Sequence;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.composition.tick.DefaultTick;
 import com.purplepip.odin.composition.tick.Tick;
 import com.purplepip.odin.composition.tick.Ticks;

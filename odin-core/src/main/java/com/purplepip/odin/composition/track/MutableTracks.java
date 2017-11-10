@@ -17,9 +17,9 @@ package com.purplepip.odin.composition.track;
 
 import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
-import com.purplepip.odin.composition.SequenceConfiguration;
 import com.purplepip.odin.composition.conductor.Conductor;
 import com.purplepip.odin.composition.roll.SequenceRollTrack;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;

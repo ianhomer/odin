@@ -17,8 +17,8 @@ package com.purplepip.odin.music.sequence;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.composition.GenericSequence;
-import com.purplepip.odin.composition.SequenceConfiguration;
+import com.purplepip.odin.composition.sequence.GenericSequence;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import org.junit.Test;
 
 public class DefaultSequenceTest {

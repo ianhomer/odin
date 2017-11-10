@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.composition.MutableSequenceConfiguration;
+import com.purplepip.odin.composition.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.composition.triggers.Action;
 import com.purplepip.odin.project.Project;
 import java.util.ArrayList;

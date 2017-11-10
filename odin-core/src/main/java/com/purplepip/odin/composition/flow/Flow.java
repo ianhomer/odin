@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.composition.flow;
 
-import com.purplepip.odin.composition.SequenceConfiguration;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.composition.tick.Tock;
 import com.purplepip.odin.events.Event;
 

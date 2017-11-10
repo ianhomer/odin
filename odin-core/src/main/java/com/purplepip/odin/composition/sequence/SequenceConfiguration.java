@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.composition.sequence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.composition.tick.TimeThing;

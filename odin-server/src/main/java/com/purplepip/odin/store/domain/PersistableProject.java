@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.composition.SequenceConfiguration;
 import com.purplepip.odin.composition.layer.Layer;
 import com.purplepip.odin.composition.layer.MutableLayer;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.composition.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.composition.triggers.TriggerConfiguration;
 import com.purplepip.odin.project.Project;

@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.event;
 
-import com.purplepip.odin.composition.SequenceConfiguration;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.project.ProjectContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

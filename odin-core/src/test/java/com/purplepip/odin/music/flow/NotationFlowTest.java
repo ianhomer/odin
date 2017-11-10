@@ -18,14 +18,14 @@ package com.purplepip.odin.music.flow;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.composition.Sequence;
-import com.purplepip.odin.composition.SequenceFactory;
 import com.purplepip.odin.composition.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.clock.BeatClock;
 import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.composition.flow.Flow;
 import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.composition.sequence.Sequence;
+import com.purplepip.odin.composition.sequence.SequenceFactory;
 import com.purplepip.odin.composition.tick.MovableTock;
 import com.purplepip.odin.composition.tick.Ticks;
 import com.purplepip.odin.events.Event;

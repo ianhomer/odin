@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.composition.sequence;
 
 import static org.junit.Assert.assertEquals;
 

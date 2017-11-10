@@ -14,6 +14,9 @@
  */
 
 /**
- * Sequence foundations.
+ * Classes that define the composition.  These class defines meta data and logic that together
+ * totally defines how the output should sound and react.  Note that the output is not
+ * predeterministic since a composition accepts inputs from external sources, however how
+ * the composition reacts to such input must be well defined.
  */
 package com.purplepip.odin.composition;

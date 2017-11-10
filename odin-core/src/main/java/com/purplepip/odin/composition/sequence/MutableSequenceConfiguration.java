@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.composition.sequence;
 
 import com.purplepip.odin.composition.tick.MutableTimeThing;
 import com.purplepip.odin.composition.triggers.Action;

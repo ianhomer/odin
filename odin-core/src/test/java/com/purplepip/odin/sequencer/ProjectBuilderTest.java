@@ -15,8 +15,8 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.composition.SequenceConfiguration;
 import com.purplepip.odin.composition.layer.Layer;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.composition.triggers.Action;
 import com.purplepip.odin.composition.triggers.NoteTrigger;
 import com.purplepip.odin.music.sequence.Notation;

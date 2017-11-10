@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.composition.SequenceConfiguration;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.store.domain.PersistableSequence;
 import java.util.List;
 import org.springframework.context.annotation.Profile;

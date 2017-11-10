@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.composition.roll;
 
-import com.purplepip.odin.composition.Sequence;
-import com.purplepip.odin.composition.SequenceConfiguration;
 import com.purplepip.odin.composition.flow.MutableFlow;
+import com.purplepip.odin.composition.sequence.Sequence;
+import com.purplepip.odin.composition.sequence.SequenceConfiguration;
 import com.purplepip.odin.properties.runtime.Property;
 
 /**

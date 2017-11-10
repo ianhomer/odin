@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.composition.MutableSequenceConfiguration;
+import com.purplepip.odin.composition.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.project.ProjectContainer;
 
 /**

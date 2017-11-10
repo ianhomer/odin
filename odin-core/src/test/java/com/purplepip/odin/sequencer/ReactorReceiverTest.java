@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.composition.SequenceFactory.newNoteSequenceFactory;
 import static com.purplepip.odin.composition.clock.BeatClock.newBeatClock;
 import static com.purplepip.odin.composition.measure.StaticBeatMeasureProvider.newMeasureProvider;
+import static com.purplepip.odin.composition.sequence.SequenceFactory.newNoteSequenceFactory;
 import static com.purplepip.odin.composition.tick.Ticks.BEAT;
 import static com.purplepip.odin.composition.triggers.TriggerFactory.newTriggerFactory;
 import static org.junit.Assert.assertEquals;
@@ -25,7 +25,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.codahale.metrics.MetricRegistry;
-import com.purplepip.odin.composition.SequenceFactory;
 import com.purplepip.odin.composition.clock.BeatClock;
 import com.purplepip.odin.composition.conductor.LayerConductor;
 import com.purplepip.odin.composition.conductor.MutableConductors;
@@ -33,6 +32,7 @@ import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.reactors.MutableReactors;
 import com.purplepip.odin.composition.reactors.TriggerReactor;
 import com.purplepip.odin.composition.roll.SequenceRollTrack;
+import com.purplepip.odin.composition.sequence.SequenceFactory;
 import com.purplepip.odin.composition.track.MutableTracks;
 import com.purplepip.odin.composition.triggers.Action;
 import com.purplepip.odin.composition.triggers.TriggerFactory;
