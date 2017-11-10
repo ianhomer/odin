@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.composition.tick;
 
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinImplementationException;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
 import org.junit.Test;
 
 public class LazyDefaultTickConverterTest {

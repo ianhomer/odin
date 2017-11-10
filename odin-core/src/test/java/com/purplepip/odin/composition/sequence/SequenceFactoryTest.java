@@ -17,8 +17,8 @@ package com.purplepip.odin.composition.sequence;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.clock.Clock;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.clock.Clock;
 import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.composition.flow.Flow;
 import com.purplepip.odin.composition.measure.MeasureProvider;

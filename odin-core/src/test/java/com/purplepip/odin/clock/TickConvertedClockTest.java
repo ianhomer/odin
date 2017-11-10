@@ -13,14 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition.clock;
+package com.purplepip.odin.clock;
 
 import static com.purplepip.odin.composition.tick.Ticks.QUARTER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.composition.MovableMicrosecondPositionProvider;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;

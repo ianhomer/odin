@@ -13,15 +13,15 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.clock.beats;
 
-import static org.junit.Assert.assertTrue;
+import com.purplepip.odin.math.Real;
 
-import org.junit.Test;
+/**
+ * Beats per minute provider.
+ */
+public interface BeatsPerMinute {
+  int getBeatsPerMinute();
 
-public class DefaultMicrosecondPositionProviderTest {
-  @Test
-  public void testGetMicroseconds() {
-    assertTrue(new DefaultMicrosecondPositionProvider().getMicroseconds() > 0);
-  }
+  Real getMicroSecondsPerBeat();
 }

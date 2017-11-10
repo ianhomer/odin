@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.composition.clock.BeatClock.newBeatClock;
+import static com.purplepip.odin.clock.BeatClock.newBeatClock;
 import static com.purplepip.odin.composition.measure.StaticBeatMeasureProvider.newMeasureProvider;
 import static com.purplepip.odin.composition.sequence.SequenceFactory.newNoteSequenceFactory;
 import static com.purplepip.odin.composition.tick.Ticks.BEAT;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.codahale.metrics.MetricRegistry;
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.composition.conductor.LayerConductor;
 import com.purplepip.odin.composition.conductor.MutableConductors;
 import com.purplepip.odin.composition.measure.MeasureProvider;

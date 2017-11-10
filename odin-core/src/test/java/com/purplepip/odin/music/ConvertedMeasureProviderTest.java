@@ -17,8 +17,8 @@ package com.purplepip.odin.music;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;

@@ -15,12 +15,11 @@
 
 package com.purplepip.odin.composition.roll;
 
-import com.purplepip.odin.composition.ListenerPriority;
-import com.purplepip.odin.composition.ScanForwardEvent;
-import com.purplepip.odin.composition.clock.BeatClock;
-import com.purplepip.odin.composition.clock.Clock;
-import com.purplepip.odin.composition.clock.ClockListener;
-import com.purplepip.odin.composition.clock.TickConvertedClock;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.Clock;
+import com.purplepip.odin.clock.ClockListener;
+import com.purplepip.odin.clock.TickConvertedClock;
+import com.purplepip.odin.common.ListenerPriority;
 import com.purplepip.odin.composition.flow.MutableFlow;
 import com.purplepip.odin.composition.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.composition.measure.MeasureProvider;
@@ -35,6 +34,7 @@ import com.purplepip.odin.composition.tick.TickConverter;
 import com.purplepip.odin.composition.tick.Ticks;
 import com.purplepip.odin.composition.tick.Tock;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.events.ScanForwardEvent;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.MutableProperty;

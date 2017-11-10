@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.composition.roll;
 
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.composition.conductor.Conductor;
 import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.sequence.SequenceConfiguration;

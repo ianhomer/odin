@@ -13,19 +13,29 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.events;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.purplepip.odin.math.Real;
 
-import com.purplepip.odin.math.Whole;
-import org.junit.Test;
+/**
+ * Event indicating that no value was found up to the given time that was scanned.  This
+ * event signal can be used to allow a tock of a runtime sequence to be moved forward to this
+ * point so that future scans for values start from this point.
+ */
+public class ScanForwardEvent<A> implements Event<A> {
+  private Real time;
 
-public class StaticBeatsPerMinuteTest {
-  @Test
-  public void testBeatsPerMinute() {
-    BeatsPerMinute bpm = new StaticBeatsPerMinute(60);
-    assertTrue(bpm.getMicroSecondsPerBeat() instanceof Whole);
-    assertEquals(Whole.valueOf(1000000), bpm.getMicroSecondsPerBeat());
+  public ScanForwardEvent(Real time) {
+    this.time = time;
+  }
+
+  @Override
+  public A getValue() {
+    return null;
+  }
+
+  @Override
+  public Real getTime() {
+    return time;
   }
 }

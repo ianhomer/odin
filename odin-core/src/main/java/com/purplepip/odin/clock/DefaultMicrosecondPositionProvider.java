@@ -13,23 +13,20 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition.clock;
+package com.purplepip.odin.clock;
 
-import com.purplepip.odin.math.Real;
+/**
+ * Default microsecond position provider.
+ */
+public class DefaultMicrosecondPositionProvider implements MicrosecondPositionProvider {
+  private final long microsecondsStart;
 
-public abstract class AbstractClock implements Clock {
-  @Override
-  public final Real getDuration(long microseconds) {
-    return getDurationFromMicroseconds(microseconds, getMicroseconds());
+  public DefaultMicrosecondPositionProvider() {
+    microsecondsStart = System.nanoTime() / 1000;
   }
 
   @Override
-  public final Real getDuration(long microseconds, Real count) {
-    return getDurationFromMicroseconds(microseconds, getMicroseconds(count));
-  }
-
-  private Real getDurationFromMicroseconds(long microsecondsDuration, long microsecondsPosition) {
-    return getPosition(microsecondsPosition + microsecondsDuration)
-        .minus(getPosition(microsecondsPosition));
+  public long getMicroseconds() {
+    return System.nanoTime() / 1000 - microsecondsStart;
   }
 }

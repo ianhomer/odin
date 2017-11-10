@@ -13,30 +13,23 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.clock;
 
-import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
 
-/**
- * Event indicating that no value was found up to the given time that was scanned.  This
- * event signal can be used to allow a tock of a runtime sequence to be moved forward to this
- * point so that future scans for values start from this point.
- */
-public class ScanForwardEvent<A> implements Event<A> {
-  private Real time;
-
-  public ScanForwardEvent(Real time) {
-    this.time = time;
+public abstract class AbstractClock implements Clock {
+  @Override
+  public final Real getDuration(long microseconds) {
+    return getDurationFromMicroseconds(microseconds, getMicroseconds());
   }
 
   @Override
-  public A getValue() {
-    return null;
+  public final Real getDuration(long microseconds, Real count) {
+    return getDurationFromMicroseconds(microseconds, getMicroseconds(count));
   }
 
-  @Override
-  public Real getTime() {
-    return time;
+  private Real getDurationFromMicroseconds(long microsecondsDuration, long microsecondsPosition) {
+    return getPosition(microsecondsPosition + microsecondsDuration)
+        .minus(getPosition(microsecondsPosition));
   }
 }

@@ -18,8 +18,8 @@ package com.purplepip.odin.music.flow;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.composition.flow.Flow;
 import com.purplepip.odin.composition.measure.MeasureProvider;

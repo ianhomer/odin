@@ -16,11 +16,11 @@
 package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.ClockListener;
+import com.purplepip.odin.common.ListenerPriority;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.composition.ListenerPriority;
-import com.purplepip.odin.composition.clock.BeatClock;
-import com.purplepip.odin.composition.clock.ClockListener;
 import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;

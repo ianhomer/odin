@@ -8,10 +8,10 @@ import static com.purplepip.odin.composition.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.MicrosecondPositionProvider;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.composition.MicrosecondPositionProvider;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Before;

@@ -18,8 +18,8 @@ package com.purplepip.odin.sequencer;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
+import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.clock.BeatClock;
 import java.util.concurrent.PriorityBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 

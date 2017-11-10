@@ -20,8 +20,8 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.layer.DefaultLayer;
 import com.purplepip.odin.composition.tick.Ticks;
 import org.junit.Test;

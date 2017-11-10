@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.midix;
 
-import com.purplepip.odin.composition.MicrosecondPositionProvider;
+import com.purplepip.odin.clock.MicrosecondPositionProvider;
 
 /**
  * Microsecond position provider taking the microsecond position from the receiving MIDI device.

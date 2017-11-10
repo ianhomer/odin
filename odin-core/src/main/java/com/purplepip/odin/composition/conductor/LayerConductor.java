@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.composition.conductor;
 
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.composition.layer.Layer;
 import com.purplepip.odin.composition.tick.DefaultTickConverter;
 import com.purplepip.odin.composition.tick.TickConverter;

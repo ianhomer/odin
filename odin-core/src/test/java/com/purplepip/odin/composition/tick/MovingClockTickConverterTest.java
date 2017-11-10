@@ -19,9 +19,9 @@ import static com.purplepip.odin.composition.tick.Ticks.HALF;
 import static com.purplepip.odin.composition.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.composition.MovableMicrosecondPositionProvider;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Before;

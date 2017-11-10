@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition.clock;
+package com.purplepip.odin.clock;
 
 import com.purplepip.odin.composition.tick.DefaultTickConverter;
 import com.purplepip.odin.composition.tick.Tick;

@@ -13,20 +13,15 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.clock;
 
-public class MovableMicrosecondPositionProvider implements MicrosecondPositionProvider {
-  private long microseconds = 0;
+import static org.junit.Assert.assertTrue;
 
-  public MovableMicrosecondPositionProvider() {
-  }
+import org.junit.Test;
 
-  public void setMicroseconds(long microseconds) {
-    this.microseconds = microseconds;
-  }
-
-  @Override
-  public long getMicroseconds() {
-    return microseconds;
+public class DefaultMicrosecondPositionProviderTest {
+  @Test
+  public void testGetMicroseconds() {
+    assertTrue(new DefaultMicrosecondPositionProvider().getMicroseconds() > 0);
   }
 }

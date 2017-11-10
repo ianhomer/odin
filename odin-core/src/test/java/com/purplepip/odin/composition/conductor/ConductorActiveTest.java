@@ -18,10 +18,10 @@ package com.purplepip.odin.composition.conductor;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.composition.MicrosecondPositionProvider;
-import com.purplepip.odin.composition.MovableMicrosecondPositionProvider;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.MicrosecondPositionProvider;
+import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequencer.ProjectBuilder;

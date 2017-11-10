@@ -13,15 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
-
-import com.purplepip.odin.math.Real;
+package com.purplepip.odin.clock;
 
 /**
- * Beats per minute provider.
+ * Clock listener.
  */
-public interface BeatsPerMinute {
-  int getBeatsPerMinute();
+public interface ClockListener {
+  void onClockStart();
 
-  Real getMicroSecondsPerBeat();
+  void onClockStop();
 }

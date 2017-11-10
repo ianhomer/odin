@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.composition.sequence;
 
-import com.purplepip.odin.composition.clock.Clock;
+import com.purplepip.odin.clock.Clock;
 import com.purplepip.odin.composition.flow.DefaultFlow;
 import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.composition.flow.FlowConfiguration;

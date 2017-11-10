@@ -3,8 +3,8 @@ package com.purplepip.odin.experiments;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
 import com.codahale.metrics.ConsoleReporter;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.composition.sequence.GenericSequence;

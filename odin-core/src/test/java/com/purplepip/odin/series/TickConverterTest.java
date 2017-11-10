@@ -6,8 +6,8 @@ import static com.purplepip.odin.composition.tick.Ticks.MICROSECOND;
 import static com.purplepip.odin.composition.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.tick.DefaultTickConverter;
 import com.purplepip.odin.composition.tick.Tick;
 import com.purplepip.odin.composition.tick.TickConverter;

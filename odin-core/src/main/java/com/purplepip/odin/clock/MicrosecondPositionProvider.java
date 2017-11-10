@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.clock;
 
 /**
  * Provides the microsecond position.

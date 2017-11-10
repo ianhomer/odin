@@ -18,7 +18,7 @@ package com.purplepip.odin.composition.conductor;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.composition.layer.DefaultLayer;
 import com.purplepip.odin.composition.tick.Ticks;
 import org.junit.Test;

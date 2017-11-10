@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.clock.DefaultMicrosecondPositionProvider;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.DefaultMicrosecondPositionProvider;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.composition.sequence.SequenceFactory;

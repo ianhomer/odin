@@ -16,8 +16,8 @@
 package com.purplepip.odin.server;
 
 import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;

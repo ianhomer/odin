@@ -15,12 +15,12 @@
 
 package com.purplepip.odin.composition.flow;
 
-import com.purplepip.odin.composition.ScanForwardEvent;
-import com.purplepip.odin.composition.clock.Clock;
+import com.purplepip.odin.clock.Clock;
 import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.composition.sequence.Sequence;
 import com.purplepip.odin.composition.tick.Tock;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.events.ScanForwardEvent;
 import com.purplepip.odin.math.Real;
 import lombok.extern.slf4j.Slf4j;
 

@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition.clock;
+package com.purplepip.odin.clock;
 
-import com.purplepip.odin.composition.MicrosecondPositionProvider;
 import com.purplepip.odin.composition.tick.Tick;
 import com.purplepip.odin.math.Real;
 

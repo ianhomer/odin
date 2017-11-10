@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.common;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

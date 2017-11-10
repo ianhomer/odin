@@ -13,13 +13,24 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition.clock;
+package com.purplepip.odin.events;
 
-/**
- * Clock listener.
- */
-public interface ClockListener {
-  void onClockStart();
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-  void onClockStop();
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Whole;
+import org.junit.Test;
+
+public class ScanForwardEventTest {
+  @Test
+  public void testGetValue() throws Exception {
+    assertNull(new ScanForwardEvent<>(new Whole(0)).getValue());
+  }
+
+  @Test
+  public void testGetTime() throws Exception {
+    ScanForwardEvent event = new ScanForwardEvent<>(Whole.valueOf(9));
+    assertEquals(Rational.valueOf(9,1), event.getTime());
+  }
 }

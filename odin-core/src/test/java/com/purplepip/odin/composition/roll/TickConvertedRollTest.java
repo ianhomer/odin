@@ -3,9 +3,9 @@ package com.purplepip.odin.composition.roll;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import com.purplepip.odin.composition.MicrosecondPositionProvider;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.MicrosecondPositionProvider;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.tick.DefaultTickConverter;
 import com.purplepip.odin.composition.tick.Tick;
 import com.purplepip.odin.composition.tick.Ticks;

@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition.clock;
+package com.purplepip.odin.clock;
 
-import com.purplepip.odin.composition.ListenerPriority;
+import com.purplepip.odin.common.ListenerPriority;
 import java.io.Serializable;
 import java.util.Comparator;
 

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.clock.beats;
 
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;

@@ -17,9 +17,9 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.MetricRegistry;
 import com.google.common.collect.Lists;
-import com.purplepip.odin.composition.BeatsPerMinute;
-import com.purplepip.odin.composition.MicrosecondPositionProvider;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
+import com.purplepip.odin.clock.MicrosecondPositionProvider;
+import com.purplepip.odin.clock.beats.BeatsPerMinute;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.composition.flow.FlowConfiguration;
 import com.purplepip.odin.composition.measure.MeasureProvider;

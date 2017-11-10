@@ -19,9 +19,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import com.purplepip.odin.bag.AbstractUnmodifiableThings;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.clock.BeatClock;
 import com.purplepip.odin.composition.conductor.Conductor;
 import com.purplepip.odin.composition.conductor.LayerConductor;
 import com.purplepip.odin.composition.conductor.MutableConductors;

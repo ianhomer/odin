@@ -13,20 +13,20 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.composition;
+package com.purplepip.odin.clock;
 
-/**
- * Default microsecond position provider.
- */
-public class DefaultMicrosecondPositionProvider implements MicrosecondPositionProvider {
-  private final long microsecondsStart;
+public class MovableMicrosecondPositionProvider implements MicrosecondPositionProvider {
+  private long microseconds = 0;
 
-  public DefaultMicrosecondPositionProvider() {
-    microsecondsStart = System.nanoTime() / 1000;
+  public MovableMicrosecondPositionProvider() {
+  }
+
+  public void setMicroseconds(long microseconds) {
+    this.microseconds = microseconds;
   }
 
   @Override
   public long getMicroseconds() {
-    return System.nanoTime() / 1000 - microsecondsStart;
+    return microseconds;
   }
 }
