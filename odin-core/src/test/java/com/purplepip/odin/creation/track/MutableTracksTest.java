@@ -29,7 +29,6 @@ import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.MutableConductors;
 import com.purplepip.odin.creation.conductor.UnmodifiableConductors;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.creation.roll.SequenceRollTrack;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.music.notes.Note;
@@ -37,6 +36,7 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.sequencer.roll.SequenceRollTrack;
 import org.junit.Test;
 
 public class MutableTracksTest {

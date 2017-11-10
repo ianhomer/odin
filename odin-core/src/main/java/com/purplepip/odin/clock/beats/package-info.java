@@ -14,6 +14,6 @@
  */
 
 /**
- * A measure is collection of beats.
+ * Beat foundations.
  */
-package com.purplepip.odin.clock.measure;
+package com.purplepip.odin.clock.beats;

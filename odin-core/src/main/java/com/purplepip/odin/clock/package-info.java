@@ -14,6 +14,6 @@
  */
 
 /**
- * A measure is collection of beats.
+ * Classes related to timing of a progression including beats and measures.
  */
-package com.purplepip.odin.clock.measure;
+package com.purplepip.odin.clock;

@@ -31,7 +31,6 @@ import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.MutableConductors;
 import com.purplepip.odin.creation.reactors.MutableReactors;
 import com.purplepip.odin.creation.reactors.TriggerReactor;
-import com.purplepip.odin.creation.roll.SequenceRollTrack;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.creation.track.MutableTracks;
 import com.purplepip.odin.creation.triggers.Action;
@@ -40,6 +39,7 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.sequencer.roll.SequenceRollTrack;
 import org.junit.Test;
 
 public class ReactorReceiverTest {

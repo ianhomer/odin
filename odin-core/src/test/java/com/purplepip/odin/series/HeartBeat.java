@@ -2,11 +2,11 @@ package com.purplepip.odin.series;
 
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
-import com.purplepip.odin.creation.roll.Roll;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Property;
+import com.purplepip.odin.sequencer.roll.Roll;
 
 /**
  * Roll of heartbeats every second.
