@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.creation.flow.FlowContext;
-import com.purplepip.odin.creation.flow.Loop;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SpecialisedSequence;
 import com.purplepip.odin.events.DefaultEvent;
@@ -45,7 +45,7 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
   private IndexedComposition indexedComposition;
 
   @Override
-  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
+  public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
     LOG.debug("Getting notation event at {}", loop);
     Event<Note> event = indexedComposition.getEventAfter(loop.getPosition());
     if (event != null) {

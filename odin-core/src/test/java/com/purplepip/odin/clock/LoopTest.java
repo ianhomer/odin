@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.flow;
+package com.purplepip.odin.clock;
 
 import static com.purplepip.odin.math.LessThan.lessThan;
 import static org.junit.Assert.assertEquals;

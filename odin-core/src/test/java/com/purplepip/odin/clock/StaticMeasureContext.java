@@ -13,14 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.flow;
+package com.purplepip.odin.clock;
 
-import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 
-public class StaticFlowContext extends FlowContext {
-  public StaticFlowContext(int beatsPerMinute, int beatsPerMeasure) {
+public class StaticMeasureContext extends MeasureContext {
+  public StaticMeasureContext(int beatsPerMinute, int beatsPerMeasure) {
     super(new BeatClock(new StaticBeatsPerMinute(beatsPerMinute)),
         new StaticBeatMeasureProvider(beatsPerMeasure));
   }

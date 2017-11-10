@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.flow;
+package com.purplepip.odin.clock;
 
 import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.LessThan;

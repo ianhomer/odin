@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.creation.flow.FlowContext;
-import com.purplepip.odin.creation.flow.Loop;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SpecialisedSequence;
 import com.purplepip.odin.events.DefaultEvent;
@@ -57,7 +57,7 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
   }
 
   @Override
-  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
+  public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
     Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
     long countInMeasure = context.getMeasureProvider().getCount(nextTock).floor();
     if (bits == -1 || ((bits >> countInMeasure) & 1) == 1)  {

@@ -16,6 +16,8 @@
 package com.purplepip.odin.creation.flow;
 
 import com.purplepip.odin.clock.Clock;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.tick.Tock;
 import com.purplepip.odin.creation.sequence.Sequence;
@@ -31,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> {
   private FlowConfiguration configuration;
   private S sequence;
-  private final FlowContext context;
+  private final MeasureContext context;
 
   /**
    * Create flow.
@@ -40,7 +42,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
    * @param measureProvider measure provider
    */
   public DefaultFlow(Clock clock, MeasureProvider measureProvider) {
-    this.context = new FlowContext(clock, measureProvider);
+    this.context = new MeasureContext(clock, measureProvider);
   }
 
   @Override
@@ -54,7 +56,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
   }
 
   @Override
-  public FlowContext getContext() {
+  public MeasureContext getContext() {
     return context;
   }
 

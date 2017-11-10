@@ -13,16 +13,15 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.flow;
+package com.purplepip.odin.clock;
 
-import com.purplepip.odin.clock.Clock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 
-public class FlowContext {
+public class MeasureContext {
   private Clock clock;
   private MeasureProvider measureProvider;
 
-  public FlowContext(Clock clock, MeasureProvider measureProvider) {
+  public MeasureContext(Clock clock, MeasureProvider measureProvider) {
     this.clock = clock;
     this.measureProvider = measureProvider;
   }

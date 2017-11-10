@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.flow;
 
+import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.clock.tick.Tock;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.events.Event;
@@ -33,7 +34,7 @@ public interface Flow<S extends SequenceConfiguration, A> {
 
   S getSequence();
 
-  FlowContext getContext();
+  MeasureContext getContext();
 
   FlowConfiguration getConfiguration();
 

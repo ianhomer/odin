@@ -20,9 +20,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.creation.flow.FlowContext;
-import com.purplepip.odin.creation.flow.Loop;
-import com.purplepip.odin.creation.flow.StaticFlowContext;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
+import com.purplepip.odin.clock.StaticMeasureContext;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
@@ -38,7 +38,7 @@ public class RandomTest {
   public void testGetNextEvent() {
     Pattern sequence = new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1);
     sequence.afterPropertiesSet();
-    FlowContext context = new StaticFlowContext(60, 4);
+    MeasureContext context = new StaticMeasureContext(60, 4);
     Event<Note> nextEvent = sequence.getNextEvent(context, new Loop());
     assertNotNull("Event at first beat should not be null", nextEvent);
     assertEquals(Wholes.ZERO, nextEvent.getTime());

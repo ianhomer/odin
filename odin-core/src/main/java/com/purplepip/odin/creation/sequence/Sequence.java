@@ -16,8 +16,8 @@
 package com.purplepip.odin.creation.sequence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.purplepip.odin.creation.flow.FlowContext;
-import com.purplepip.odin.creation.flow.Loop;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
@@ -33,7 +33,7 @@ public interface Sequence<A> extends SequenceConfiguration {
    * @param loop time position at which to get the event
    * @return event at the given tock
    */
-  Event<A> getNextEvent(FlowContext context, Loop loop);
+  Event<A> getNextEvent(MeasureContext context, Loop loop);
 
   @JsonIgnore
   default Rational getLoopLength() {

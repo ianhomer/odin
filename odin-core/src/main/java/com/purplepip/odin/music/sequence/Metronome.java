@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.creation.flow.FlowContext;
-import com.purplepip.odin.creation.flow.Loop;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SpecialisedSequence;
 import com.purplepip.odin.events.DefaultEvent;
@@ -44,7 +44,7 @@ public class Metronome extends GenericSequence implements SpecialisedSequence {
   private Note noteBarMid = Notes.newNote();
 
   @Override
-  public Event<Note> getNextEvent(FlowContext context, Loop loop) {
+  public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
     Note note;
     Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
     if (nextTock.modulo(Wholes.TWO).equals(Wholes.ZERO)) {
