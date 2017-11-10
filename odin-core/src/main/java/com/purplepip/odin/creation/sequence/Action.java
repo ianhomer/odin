@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.triggers;
+package com.purplepip.odin.creation.sequence;
 
 /**
- * Actions that can take place when trigger fires.
+ * Actions that can effect change on a sequence.  For example these might happen when a trigger
+ * fires.
  */
 public enum Action {
   /**

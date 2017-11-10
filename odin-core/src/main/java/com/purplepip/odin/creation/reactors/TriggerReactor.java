@@ -16,9 +16,9 @@
 package com.purplepip.odin.creation.reactors;
 
 import com.purplepip.odin.creation.plugin.PluggableAspect;
+import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.track.Track;
-import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerFactory;

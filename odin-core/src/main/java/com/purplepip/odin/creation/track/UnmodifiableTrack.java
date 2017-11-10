@@ -16,7 +16,7 @@
 package com.purplepip.odin.creation.track;
 
 import com.purplepip.odin.clock.tick.Tick;
-import com.purplepip.odin.creation.triggers.Action;
+import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
 import java.util.Map;

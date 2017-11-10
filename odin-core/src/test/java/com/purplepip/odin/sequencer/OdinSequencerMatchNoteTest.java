@@ -4,7 +4,7 @@ import static com.purplepip.odin.creation.layer.Layers.newLayer;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.triggers.Action;
+import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Notation;
