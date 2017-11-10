@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.store.domain;
 
+import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.project.Project;
-import com.purplepip.odin.sequencer.Channel;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

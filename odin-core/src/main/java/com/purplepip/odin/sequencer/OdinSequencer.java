@@ -18,6 +18,7 @@ package com.purplepip.odin.sequencer;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.LayerConductors;

@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.store;
 
+import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.LayerRepository;
 import com.purplepip.odin.server.rest.repositories.SequenceRepository;

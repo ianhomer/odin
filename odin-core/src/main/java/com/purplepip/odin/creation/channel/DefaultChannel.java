@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.creation.channel;
 
 import com.purplepip.odin.project.Project;
 import java.util.concurrent.atomic.AtomicLong;

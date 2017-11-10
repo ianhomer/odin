@@ -3,6 +3,7 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;

@@ -21,6 +21,8 @@ import com.google.common.collect.Lists;
 import com.purplepip.odin.clock.tick.DefaultTick;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
+import com.purplepip.odin.creation.channel.Channel;
+import com.purplepip.odin.creation.channel.DefaultChannel;
 import com.purplepip.odin.creation.layer.DefaultLayer;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.layer.MutableLayer;

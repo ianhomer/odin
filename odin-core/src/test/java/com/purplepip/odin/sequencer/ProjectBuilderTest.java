@@ -15,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
+import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.Action;
