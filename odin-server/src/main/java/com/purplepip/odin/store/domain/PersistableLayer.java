@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.composition.layer.MutableLayer;
+import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.project.Project;
 import java.util.ArrayList;
 import java.util.List;

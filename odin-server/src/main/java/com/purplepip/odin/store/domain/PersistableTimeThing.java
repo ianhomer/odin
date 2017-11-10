@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.composition.tick.Tick;
-import com.purplepip.odin.composition.tick.TimeThing;
-import com.purplepip.odin.composition.tick.TimeUnit;
+import com.purplepip.odin.creation.tick.Tick;
+import com.purplepip.odin.creation.tick.TimeThing;
+import com.purplepip.odin.creation.tick.TimeUnit;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;

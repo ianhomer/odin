@@ -15,24 +15,24 @@
 
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.composition.tick.Ticks.BEAT;
+import static com.purplepip.odin.creation.tick.Ticks.BEAT;
 
 import com.google.common.collect.Lists;
-import com.purplepip.odin.composition.layer.DefaultLayer;
-import com.purplepip.odin.composition.layer.Layer;
-import com.purplepip.odin.composition.layer.MutableLayer;
-import com.purplepip.odin.composition.sequence.GenericSequence;
-import com.purplepip.odin.composition.sequence.MutableSequenceConfiguration;
-import com.purplepip.odin.composition.sequence.Sequence;
-import com.purplepip.odin.composition.sequence.SequenceConfiguration;
-import com.purplepip.odin.composition.tick.DefaultTick;
-import com.purplepip.odin.composition.tick.Tick;
-import com.purplepip.odin.composition.tick.Ticks;
-import com.purplepip.odin.composition.triggers.Action;
-import com.purplepip.odin.composition.triggers.GenericTrigger;
-import com.purplepip.odin.composition.triggers.MutableTriggerConfiguration;
-import com.purplepip.odin.composition.triggers.NoteTrigger;
-import com.purplepip.odin.composition.triggers.TriggerConfiguration;
+import com.purplepip.odin.creation.layer.DefaultLayer;
+import com.purplepip.odin.creation.layer.Layer;
+import com.purplepip.odin.creation.layer.MutableLayer;
+import com.purplepip.odin.creation.sequence.GenericSequence;
+import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.creation.sequence.Sequence;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.tick.DefaultTick;
+import com.purplepip.odin.creation.tick.Tick;
+import com.purplepip.odin.creation.tick.Ticks;
+import com.purplepip.odin.creation.triggers.Action;
+import com.purplepip.odin.creation.triggers.GenericTrigger;
+import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
+import com.purplepip.odin.creation.triggers.NoteTrigger;
+import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;

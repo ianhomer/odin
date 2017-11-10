@@ -3,7 +3,7 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.tick.Ticks;
+import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;

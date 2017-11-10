@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.tick.Ticks;
+import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;

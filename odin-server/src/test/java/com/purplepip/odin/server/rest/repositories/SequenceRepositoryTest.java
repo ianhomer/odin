@@ -3,8 +3,8 @@ package com.purplepip.odin.server.rest.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.sequence.SequenceConfiguration;
-import com.purplepip.odin.composition.tick.Ticks;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.store.PersistableProjectBuilder;
 import com.purplepip.odin.store.domain.PersistableProject;

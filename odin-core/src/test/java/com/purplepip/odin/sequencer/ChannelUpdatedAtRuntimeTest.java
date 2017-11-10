@@ -3,7 +3,7 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;

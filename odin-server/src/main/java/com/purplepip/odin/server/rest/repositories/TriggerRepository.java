@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.composition.triggers.TriggerConfiguration;
+import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.store.domain.PersistableTrigger;
 import java.util.List;
 import org.springframework.context.annotation.Profile;

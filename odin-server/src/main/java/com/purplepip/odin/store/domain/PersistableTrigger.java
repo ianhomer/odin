@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.composition.triggers.MutableTriggerConfiguration;
+import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.project.Project;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

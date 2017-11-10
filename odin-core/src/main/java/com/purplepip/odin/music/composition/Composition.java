@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.music.composition;
 
-import com.purplepip.odin.composition.tick.Tick;
-import com.purplepip.odin.composition.tick.Ticks;
+import com.purplepip.odin.creation.tick.Tick;
+import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
 import java.util.ArrayList;

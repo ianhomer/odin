@@ -2,7 +2,7 @@ package com.purplepip.odin.series;
 
 import static junit.framework.TestCase.assertTrue;
 
-import com.purplepip.odin.composition.roll.Roll;
+import com.purplepip.odin.creation.roll.Roll;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import org.junit.Test;

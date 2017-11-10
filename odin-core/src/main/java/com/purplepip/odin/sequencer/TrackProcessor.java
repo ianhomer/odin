@@ -20,7 +20,7 @@ import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.ClockListener;
 import com.purplepip.odin.common.ListenerPriority;
-import com.purplepip.odin.composition.track.Track;
+import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

@@ -1,16 +1,16 @@
 package com.purplepip.odin.series;
 
-import static com.purplepip.odin.composition.tick.Ticks.BEAT;
-import static com.purplepip.odin.composition.tick.Ticks.HALF;
-import static com.purplepip.odin.composition.tick.Ticks.MICROSECOND;
-import static com.purplepip.odin.composition.tick.Ticks.MILLISECOND;
+import static com.purplepip.odin.creation.tick.Ticks.BEAT;
+import static com.purplepip.odin.creation.tick.Ticks.HALF;
+import static com.purplepip.odin.creation.tick.Ticks.MICROSECOND;
+import static com.purplepip.odin.creation.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.tick.DefaultTickConverter;
-import com.purplepip.odin.composition.tick.Tick;
-import com.purplepip.odin.composition.tick.TickConverter;
+import com.purplepip.odin.creation.tick.DefaultTickConverter;
+import com.purplepip.odin.creation.tick.Tick;
+import com.purplepip.odin.creation.tick.TickConverter;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import org.junit.Before;

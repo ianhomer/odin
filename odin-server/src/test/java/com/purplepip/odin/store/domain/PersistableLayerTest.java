@@ -3,8 +3,8 @@ package com.purplepip.odin.store.domain;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.layer.Layer;
-import com.purplepip.odin.composition.tick.TimeUnit;
+import com.purplepip.odin.creation.layer.Layer;
+import com.purplepip.odin.creation.tick.TimeUnit;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.store.PersistableProjectBuilder;
 import lombok.extern.slf4j.Slf4j;

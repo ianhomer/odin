@@ -15,11 +15,11 @@
 
 package com.purplepip.odin.project;
 
-import com.purplepip.odin.composition.layer.Layer;
-import com.purplepip.odin.composition.layer.MutableLayer;
-import com.purplepip.odin.composition.sequence.SequenceConfiguration;
-import com.purplepip.odin.composition.triggers.MutableTriggerConfiguration;
-import com.purplepip.odin.composition.triggers.TriggerConfiguration;
+import com.purplepip.odin.creation.layer.Layer;
+import com.purplepip.odin.creation.layer.MutableLayer;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
+import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.sequencer.Channel;
 import java.util.ArrayList;
 import java.util.Collections;

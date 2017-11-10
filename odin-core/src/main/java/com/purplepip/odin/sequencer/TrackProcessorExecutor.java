@@ -21,7 +21,7 @@ import com.codahale.metrics.Timer;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.composition.track.Track;
+import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.NullValueEvent;
 import com.purplepip.odin.math.Whole;

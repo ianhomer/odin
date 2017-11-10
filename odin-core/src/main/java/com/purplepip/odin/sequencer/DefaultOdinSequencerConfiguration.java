@@ -20,12 +20,12 @@ import com.google.common.collect.Lists;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
-import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.composition.flow.FlowConfiguration;
-import com.purplepip.odin.composition.measure.MeasureProvider;
-import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.composition.sequence.SequenceFactory;
-import com.purplepip.odin.composition.triggers.TriggerFactory;
+import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
+import com.purplepip.odin.creation.flow.FlowConfiguration;
+import com.purplepip.odin.creation.measure.MeasureProvider;
+import com.purplepip.odin.creation.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.creation.sequence.SequenceFactory;
+import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
 

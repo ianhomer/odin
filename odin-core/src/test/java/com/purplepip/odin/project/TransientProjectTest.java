@@ -3,7 +3,7 @@ package com.purplepip.odin.project;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.purplepip.odin.composition.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.sequencer.ProjectBuilder;
 import org.junit.Test;

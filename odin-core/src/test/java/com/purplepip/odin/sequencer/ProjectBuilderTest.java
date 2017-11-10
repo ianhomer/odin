@@ -1,6 +1,6 @@
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.composition.tick.Ticks.BEAT;
+import static com.purplepip.odin.creation.tick.Ticks.BEAT;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,10 +15,10 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.composition.layer.Layer;
-import com.purplepip.odin.composition.sequence.SequenceConfiguration;
-import com.purplepip.odin.composition.triggers.Action;
-import com.purplepip.odin.composition.triggers.NoteTrigger;
+import com.purplepip.odin.creation.layer.Layer;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.triggers.Action;
+import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;

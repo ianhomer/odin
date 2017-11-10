@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.store;
 
-import com.purplepip.odin.composition.sequence.MutableSequenceConfiguration;
-import com.purplepip.odin.composition.tick.Tick;
-import com.purplepip.odin.composition.triggers.MutableTriggerConfiguration;
+import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.creation.tick.Tick;
+import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;

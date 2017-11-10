@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.composition.flow.FlowContext;
-import com.purplepip.odin.composition.flow.Loop;
-import com.purplepip.odin.composition.sequence.GenericSequence;
-import com.purplepip.odin.composition.sequence.SpecialisedSequence;
+import com.purplepip.odin.creation.flow.FlowContext;
+import com.purplepip.odin.creation.flow.Loop;
+import com.purplepip.odin.creation.sequence.GenericSequence;
+import com.purplepip.odin.creation.sequence.SpecialisedSequence;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;

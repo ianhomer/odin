@@ -1,8 +1,8 @@
 package com.purplepip.odin.series;
 
-import com.purplepip.odin.composition.roll.Roll;
-import com.purplepip.odin.composition.tick.Tick;
-import com.purplepip.odin.composition.tick.Ticks;
+import com.purplepip.odin.creation.roll.Roll;
+import com.purplepip.odin.creation.tick.Tick;
+import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;

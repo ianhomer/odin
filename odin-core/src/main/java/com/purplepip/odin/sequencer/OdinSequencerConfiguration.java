@@ -18,9 +18,9 @@ package com.purplepip.odin.sequencer;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
-import com.purplepip.odin.composition.measure.MeasureProvider;
-import com.purplepip.odin.composition.sequence.SequenceFactory;
-import com.purplepip.odin.composition.triggers.TriggerFactory;
+import com.purplepip.odin.creation.measure.MeasureProvider;
+import com.purplepip.odin.creation.sequence.SequenceFactory;
+import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
 
 /**

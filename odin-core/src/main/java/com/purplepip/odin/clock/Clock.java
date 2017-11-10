@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.clock;
 
-import com.purplepip.odin.composition.tick.Tick;
+import com.purplepip.odin.creation.tick.Tick;
 import com.purplepip.odin.math.Real;
 
 /**
