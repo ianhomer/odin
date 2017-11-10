@@ -1,6 +1,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.operation.Operation;
 import java.util.ArrayList;
 import java.util.List;
 

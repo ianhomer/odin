@@ -18,7 +18,7 @@ package com.purplepip.odin.creation.triggers;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.creation.plugin.Plugin;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.operation.Operation;
 import java.util.stream.Stream;
 
 /**

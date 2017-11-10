@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.music.operations;
 
-import com.purplepip.odin.sequencer.AbstractChannelOperation;
+import com.purplepip.odin.operation.AbstractChannelOperation;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

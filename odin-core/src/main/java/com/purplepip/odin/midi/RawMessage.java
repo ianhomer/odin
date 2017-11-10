@@ -20,7 +20,7 @@ import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
-import com.purplepip.odin.sequencer.ChannelOperation;
+import com.purplepip.odin.operation.ChannelOperation;
 
 /**
  * Midi NoteOnOperation.  Portable implementation that can be used on both PC and Android.

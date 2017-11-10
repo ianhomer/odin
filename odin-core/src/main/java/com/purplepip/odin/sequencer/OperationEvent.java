@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.operation.Operation;
+
 /**
  * Operation event that should fire at the given time.
  */

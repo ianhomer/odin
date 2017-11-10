@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.operation.Operation;
 
 /**
  * NoteOnOperation Processor that is responsible for firing the operations when the time is right.

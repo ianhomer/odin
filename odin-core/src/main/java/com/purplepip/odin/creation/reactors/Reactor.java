@@ -16,7 +16,7 @@
 package com.purplepip.odin.creation.reactors;
 
 import com.purplepip.odin.creation.aspect.Aspect;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.operation.Operation;
 
 /**
  * A reactor reacts to operations that are fired.  For example, a track that is

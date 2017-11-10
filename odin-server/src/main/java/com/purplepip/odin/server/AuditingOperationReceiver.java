@@ -17,8 +17,8 @@ package com.purplepip.odin.server;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
-import com.purplepip.odin.sequencer.ChannelOperation;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.operation.ChannelOperation;
+import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.server.rest.repositories.OperationRepository;
 import com.purplepip.odin.store.domain.PersistableOperation;

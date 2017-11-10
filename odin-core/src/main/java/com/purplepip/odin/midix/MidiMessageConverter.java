@@ -20,7 +20,7 @@ import com.purplepip.odin.midi.DebugMessage;
 import com.purplepip.odin.midi.Status;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.operation.Operation;
 import javax.sound.midi.MidiMessage;
 import lombok.extern.slf4j.Slf4j;
 

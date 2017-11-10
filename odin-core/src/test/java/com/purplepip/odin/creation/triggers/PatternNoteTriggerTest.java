@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.operation.Operation;
 import org.junit.Test;
 
 public class PatternNoteTriggerTest {

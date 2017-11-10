@@ -21,7 +21,7 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

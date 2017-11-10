@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.operation.Operation;
 
 /**
  * Sequenced Operation Receiver.

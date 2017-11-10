@@ -13,26 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
-
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+package com.purplepip.odin.operation;
 
 /**
- * Channel operation.
+ * Operation that can be fired by sequencer.
  */
-@ToString
-@EqualsAndHashCode
-public abstract class AbstractChannelOperation implements ChannelOperation {
-  private int channel;
-
-  protected final void setChannel(int channel) {
-    this.channel = channel;
-  }
-
-  @Override
-  public int getChannel() {
-    return channel;
-  }
+public interface Operation {
 }
-

@@ -22,7 +22,7 @@ import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.operation.Operation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;

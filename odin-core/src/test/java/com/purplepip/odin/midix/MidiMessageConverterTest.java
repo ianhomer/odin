@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.midi.Status;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequencer.Operation;
+import com.purplepip.odin.operation.Operation;
 import javax.sound.midi.ShortMessage;
 import org.junit.Test;
 
