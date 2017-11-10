@@ -22,7 +22,7 @@ import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.MutableConductors;
 import com.purplepip.odin.creation.conductor.UnmodifiableConductors;
-import com.purplepip.odin.creation.reactors.MutableReactors;
+import com.purplepip.odin.creation.reactors.Reactors;
 import com.purplepip.odin.creation.reactors.TriggerReactor;
 import com.purplepip.odin.creation.track.MutableTracks;
 import com.purplepip.odin.creation.track.Track;
@@ -46,11 +46,12 @@ import lombok.extern.slf4j.Slf4j;
 public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
   private MutableTracks tracks = new MutableTracks();
-  private MutableReactors reactors = new MutableReactors();
   private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
   private MutableConductors conductors = new MutableConductors();
   private Things<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
+  private Reactors reactors = new Reactors(immutableTracks, immutableConductors);
+
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
@@ -121,7 +122,6 @@ public class OdinSequencer implements ProjectApplyListener {
     reactors.refresh(
         project.getTriggers().stream(),
         () -> new TriggerReactor(configuration.getTriggerFactory()));
-    reactors.bind(immutableConductors, immutableTracks);
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 

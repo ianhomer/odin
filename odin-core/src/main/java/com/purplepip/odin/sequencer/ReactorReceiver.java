@@ -17,7 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
-import com.purplepip.odin.creation.reactors.MutableReactors;
+import com.purplepip.odin.creation.reactors.Reactors;
 import com.purplepip.odin.creation.triggers.Action;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,10 +26,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ReactorReceiver implements OperationReceiver {
-  private MutableReactors reactors;
+  private Reactors reactors;
   private Meter triggered;
 
-  public ReactorReceiver(MutableReactors reactors, MetricRegistry metrics) {
+  public ReactorReceiver(Reactors reactors, MetricRegistry metrics) {
     this.reactors = reactors;
     triggered = metrics.meter("receiver.triggered");
   }

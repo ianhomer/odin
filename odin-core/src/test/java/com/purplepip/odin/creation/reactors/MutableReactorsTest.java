@@ -35,11 +35,10 @@ public class MutableReactorsTest {
     TransientProject project = new TransientProject();
     project.addTrigger(new NoteTrigger().note(newNote(60)).name("trigger"));
 
-    MutableReactors reactors = new MutableReactors();
+    Reactors reactors = new Reactors(new MutableTracks(), new MutableConductors());
     reactors.refresh(
         project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory));
-    reactors.bind(new MutableConductors(), new MutableTracks());
 
     assertEquals(1, reactors.getStatistics().getAddedCount());
   }
@@ -49,11 +48,10 @@ public class MutableReactorsTest {
     TransientProject project = new TransientProject();
     project.addSequence(new Random().range(60, 72).bits(1).name("random"));
     project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));
-    MutableReactors reactors = new MutableReactors();
     MutableTracks tracks = new MutableTracks();
+    Reactors reactors = new Reactors(tracks, new MutableConductors());
     reactors.refresh(project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory));
-    reactors.bind(new MutableConductors(), tracks);
     // TODO : Complete test.
   }
 }

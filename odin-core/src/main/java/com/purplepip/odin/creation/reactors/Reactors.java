@@ -17,23 +17,36 @@ package com.purplepip.odin.creation.reactors;
 
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.creation.aspect.Aspects;
+import com.purplepip.odin.creation.aspect.AbstractAspects;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.track.SequenceTrack;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MutableReactors extends Aspects<TriggerReactor, TriggerConfiguration, Trigger> {
-  /**
-   * Bind the reactors with conductors and tracks.
-   *
-   * @param conductors conductors
-   * @param tracks tracks
+public class Reactors extends AbstractAspects<TriggerReactor, TriggerConfiguration, Trigger> {
+  private Things<Conductor> conductors;
+  private Things<Track> tracks;
+
+  public Reactors(Things<Track> tracks, Things<Conductor> conductors) {
+    this.conductors = conductors;
+    this.tracks = tracks;
+  }
+
+  public void refresh(Stream<TriggerConfiguration> configurationStream,
+                      Supplier<TriggerReactor> aspectSupplier) {
+    super.refresh(configurationStream, aspectSupplier);
+    applyChanges();
+  }
+
+  /*
+   * Apply changes in the reactors with conductors and tracks.
    */
-  public void bind(Things<Conductor> conductors, Things<Track> tracks) {
+  private void applyChanges() {
     stream().forEach(reactor -> {
       /*
        * Add all sequence actions.  We currently just clear and re-add.
