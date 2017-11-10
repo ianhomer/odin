@@ -19,9 +19,9 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 
 public abstract class AbstractUnmodifiableThings<T extends Thing> implements Things<T> {
-  private final Things<T> underlyingThings;
+  private final Things<? extends T> underlyingThings;
 
-  public AbstractUnmodifiableThings(Things<T> things) {
+  public AbstractUnmodifiableThings(Things<? extends T> things) {
     this.underlyingThings = things;
   }
 

@@ -22,7 +22,7 @@ import com.purplepip.odin.bag.Things;
  * Unmodifiable conductors.
  */
 public class UnmodifiableConductors extends AbstractUnmodifiableThings<Conductor> {
-  public UnmodifiableConductors(Things<Conductor> things) {
+  public UnmodifiableConductors(Things<? extends Conductor> things) {
     super(things);
   }
 

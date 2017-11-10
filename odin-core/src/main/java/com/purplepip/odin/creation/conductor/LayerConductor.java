@@ -20,6 +20,7 @@ import com.purplepip.odin.clock.tick.DefaultTickConverter;
 import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.Layer;
+import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
@@ -41,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @ToString(exclude = {"clock"})
-public class LayerConductor implements Conductor {
+public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   private Layer layer;
   private BeatClock clock;
   private TickConverter tickConverter;
@@ -69,7 +70,8 @@ public class LayerConductor implements Conductor {
     return layer.getName();
   }
 
-  public Layer getLayer() {
+  @Override
+  public Layer getConfiguration() {
     return layer;
   }
 
@@ -78,7 +80,8 @@ public class LayerConductor implements Conductor {
    *
    * @param layer layer
    */
-  public void setLayer(Layer layer) {
+  @Override
+  public void setConfiguration(Layer layer) {
     this.layer = layer;
     tickConverter = new DefaultTickConverter(clock,
         () -> Ticks.MICROSECOND, layer::getTick, layer::getOffset);

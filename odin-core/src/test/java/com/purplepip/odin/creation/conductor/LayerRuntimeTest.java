@@ -29,7 +29,7 @@ public class LayerRuntimeTest {
     DefaultLayer layer = new DefaultLayer("test");
     layer.setTick(Ticks.BEAT);
     LayerConductor conductor = new LayerConductor(mock(BeatClock.class));
-    conductor.setLayer(layer);
-    assertEquals(layer, conductor.getLayer());
+    conductor.setConfiguration(layer);
+    assertEquals(layer, conductor.getConfiguration());
   }
 }

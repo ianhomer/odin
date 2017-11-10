@@ -28,7 +28,7 @@ import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.conductor.LayerConductor;
-import com.purplepip.odin.creation.conductor.MutableConductors;
+import com.purplepip.odin.creation.conductor.LayerConductors;
 import com.purplepip.odin.creation.reactors.TriggerReactor;
 import com.purplepip.odin.creation.reactors.TriggerReactors;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
@@ -60,7 +60,7 @@ public class ReactorReceiverTest {
         .withTrigger("trigger1", Action.ENABLE)
         .withTrigger("trigger2", Action.DISABLE)
         .addPattern(BEAT, 7);
-    MutableConductors conductors = new MutableConductors();
+    LayerConductors conductors = new LayerConductors();
     conductors.refresh(
         project.getLayers().stream(),
         () -> new LayerConductor(clock));

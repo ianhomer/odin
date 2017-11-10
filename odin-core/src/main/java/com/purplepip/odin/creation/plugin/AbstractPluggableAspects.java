@@ -16,7 +16,7 @@
 package com.purplepip.odin.creation.plugin;
 
 import com.purplepip.odin.bag.MutableThings;
-import com.purplepip.odin.specificity.ThingConfiguration;
+import com.purplepip.odin.bag.Thing;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -25,14 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class AbstractPluggableAspects<A extends PluggableAspect<C>,
-    C extends ThingConfiguration> extends MutableThings<A> {
+    C extends Thing> extends MutableThings<A> {
   /**
    * Refresh the bag of aspects.
    *
    * @param configurationStream configuration stream to use to do the refresh
    * @param aspectSupplier supplier of new aspects
    */
-  public void refresh(Stream<C> configurationStream,
+  public final void refresh(Stream<C> configurationStream,
                       Supplier<A> aspectSupplier) {
 
     Set<Long> ids = getIds();
@@ -67,5 +67,12 @@ public abstract class AbstractPluggableAspects<A extends PluggableAspect<C>,
      * Remove if not found.
      */
     removeIf(thing -> ids.contains(thing.getKey()));
+
+    afterRefresh();
   }
+
+  /**
+   * Apply changes after refresh.
+   */
+  protected abstract void afterRefresh();
 }

@@ -22,31 +22,24 @@ import com.purplepip.odin.creation.plugin.AbstractPluggableAspects;
 import com.purplepip.odin.creation.track.SequenceTrack;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TriggerReactors extends AbstractPluggableAspects<TriggerReactor,
     TriggerConfiguration> {
-  private Things<Conductor> conductors;
+  private Things<? extends Conductor> conductors;
   private Things<Track> tracks;
 
-  public TriggerReactors(Things<Track> tracks, Things<Conductor> conductors) {
+  public TriggerReactors(Things<Track> tracks, Things<? extends Conductor> conductors) {
     this.conductors = conductors;
     this.tracks = tracks;
-  }
-
-  public void refresh(Stream<TriggerConfiguration> configurationStream,
-                      Supplier<TriggerReactor> aspectSupplier) {
-    super.refresh(configurationStream, aspectSupplier);
-    applyChanges();
   }
 
   /*
    * Apply changes in the reactors with conductors and tracks.
    */
-  private void applyChanges() {
+  @Override
+  protected void afterRefresh() {
     stream().forEach(reactor -> {
 
       /*

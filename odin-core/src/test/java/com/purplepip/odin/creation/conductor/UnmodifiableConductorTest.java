@@ -33,7 +33,7 @@ public class UnmodifiableConductorTest {
     LayerConductor newConductor = new LayerConductor(new BeatClock(new StaticBeatsPerMinute(60)));
     DefaultLayer layer = new DefaultLayer("test");
     layer.setTick(Ticks.BEAT);
-    newConductor.setLayer(layer);
+    newConductor.setConfiguration(layer);
     mutableConductors.add(newConductor);
     Things<Conductor> conductors = new UnmodifiableConductors(mutableConductors);
     Conductor conductor = conductors.stream().findFirst().orElse(null);

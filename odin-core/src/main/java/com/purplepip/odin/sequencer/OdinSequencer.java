@@ -20,7 +20,7 @@ import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.conductor.LayerConductor;
-import com.purplepip.odin.creation.conductor.MutableConductors;
+import com.purplepip.odin.creation.conductor.LayerConductors;
 import com.purplepip.odin.creation.conductor.UnmodifiableConductors;
 import com.purplepip.odin.creation.reactors.TriggerReactor;
 import com.purplepip.odin.creation.reactors.TriggerReactors;
@@ -47,7 +47,7 @@ public class OdinSequencer implements ProjectApplyListener {
   private OdinSequencerConfiguration configuration;
   private MutableTracks tracks = new MutableTracks();
   private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
-  private MutableConductors conductors = new MutableConductors();
+  private LayerConductors conductors = new LayerConductors();
   private Things<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
   private TriggerReactors reactors = new TriggerReactors(immutableTracks, immutableConductors);

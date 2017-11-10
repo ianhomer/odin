@@ -40,7 +40,7 @@ public class MutableTracks extends MutableThings<Track> {
    */
   public void refresh(Stream<SequenceConfiguration> sequenceStream,
                Supplier<SequenceRollTrack> trackSupplier,
-               Things<Conductor> conductors) {
+               Things<? extends Conductor> conductors) {
     Set<Long> ids = getIds();
     sequenceStream.forEach(sequence -> {
       ids.remove(sequence.getId());

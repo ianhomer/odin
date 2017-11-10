@@ -26,7 +26,7 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.conductor.LayerConductor;
-import com.purplepip.odin.creation.conductor.MutableConductors;
+import com.purplepip.odin.creation.conductor.LayerConductors;
 import com.purplepip.odin.creation.conductor.UnmodifiableConductors;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.sequence.GenericSequence;
@@ -40,7 +40,7 @@ import com.purplepip.odin.sequencer.roll.SequenceRollTrack;
 import org.junit.Test;
 
 public class MutableTracksTest {
-  private MutableConductors conductors = new MutableConductors();
+  private LayerConductors conductors = new LayerConductors();
   private AbstractUnmodifiableThings<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
 
