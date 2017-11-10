@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.music.composition;
 
+import com.purplepip.odin.composition.tick.Tick;
+import com.purplepip.odin.composition.tick.Ticks;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.sequence.tick.Tick;
-import com.purplepip.odin.sequence.tick.Ticks;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;

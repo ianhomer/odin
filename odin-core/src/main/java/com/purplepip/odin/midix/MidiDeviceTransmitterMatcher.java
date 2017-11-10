@@ -16,7 +16,6 @@
 package com.purplepip.odin.midix;
 
 import javax.sound.midi.MidiDevice;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

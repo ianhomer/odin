@@ -17,7 +17,6 @@ package com.purplepip.odin.midix;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.util.Locale;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
@@ -25,7 +24,6 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

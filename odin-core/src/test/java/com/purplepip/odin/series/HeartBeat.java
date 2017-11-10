@@ -1,12 +1,12 @@
 package com.purplepip.odin.series;
 
+import com.purplepip.odin.composition.roll.Roll;
+import com.purplepip.odin.composition.tick.Tick;
+import com.purplepip.odin.composition.tick.Ticks;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequence.roll.Roll;
-import com.purplepip.odin.sequence.tick.Tick;
-import com.purplepip.odin.sequence.tick.Ticks;
 
 /**
  * Roll of heartbeats every second.

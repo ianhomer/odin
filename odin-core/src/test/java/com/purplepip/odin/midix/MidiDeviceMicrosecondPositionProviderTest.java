@@ -3,7 +3,7 @@ package com.purplepip.odin.midix;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
-import com.purplepip.odin.sequence.MicrosecondPositionProvider;
+import com.purplepip.odin.composition.MicrosecondPositionProvider;
 import org.junit.Test;
 
 /**

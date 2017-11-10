@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

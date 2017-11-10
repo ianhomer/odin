@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.sequence.layer.Layer;
+import com.purplepip.odin.composition.layer.Layer;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import java.util.List;
 import org.springframework.context.annotation.Profile;

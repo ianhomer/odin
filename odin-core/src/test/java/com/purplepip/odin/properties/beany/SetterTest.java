@@ -20,11 +20,11 @@ import static org.junit.Assert.assertNull;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
+import com.purplepip.odin.composition.GenericSequence;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequence.GenericSequence;
 import org.junit.Test;
 
 public class SetterTest {

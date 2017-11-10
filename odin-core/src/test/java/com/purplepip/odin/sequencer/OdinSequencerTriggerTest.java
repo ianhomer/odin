@@ -3,8 +3,8 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.composition.triggers.Action;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.sequence.triggers.Action;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;

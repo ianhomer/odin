@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.server;
 
+import com.purplepip.odin.composition.measure.MeasureProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiSystemWrapper;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

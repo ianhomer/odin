@@ -17,14 +17,14 @@ package com.purplepip.odin.server;
 
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.composition.StaticBeatsPerMinute;
+import com.purplepip.odin.composition.measure.MeasureProvider;
+import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiver;

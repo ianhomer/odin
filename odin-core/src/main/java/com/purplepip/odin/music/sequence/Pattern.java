@@ -15,16 +15,16 @@
 
 package com.purplepip.odin.music.sequence;
 
+import com.purplepip.odin.composition.GenericSequence;
+import com.purplepip.odin.composition.SpecialisedSequence;
+import com.purplepip.odin.composition.flow.FlowContext;
+import com.purplepip.odin.composition.flow.Loop;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.notes.Notes;
-import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.SpecialisedSequence;
-import com.purplepip.odin.sequence.flow.FlowContext;
-import com.purplepip.odin.sequence.flow.Loop;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

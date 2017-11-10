@@ -20,12 +20,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.odin.composition.flow.FlowContext;
+import com.purplepip.odin.composition.flow.Loop;
+import com.purplepip.odin.composition.flow.StaticFlowContext;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.flow.FlowContext;
-import com.purplepip.odin.sequence.flow.Loop;
-import com.purplepip.odin.sequence.flow.StaticFlowContext;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

@@ -16,12 +16,12 @@
 package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.composition.BeatsPerMinute;
+import com.purplepip.odin.composition.MicrosecondPositionProvider;
+import com.purplepip.odin.composition.SequenceFactory;
+import com.purplepip.odin.composition.measure.MeasureProvider;
+import com.purplepip.odin.composition.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.BeatsPerMinute;
-import com.purplepip.odin.sequence.MicrosecondPositionProvider;
-import com.purplepip.odin.sequence.SequenceFactory;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.triggers.TriggerFactory;
 
 /**
  * Odin Sequencer configuration.

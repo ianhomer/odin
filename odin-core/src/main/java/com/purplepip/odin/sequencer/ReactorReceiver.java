@@ -17,8 +17,8 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
-import com.purplepip.odin.sequence.reactors.MutableReactors;
-import com.purplepip.odin.sequence.triggers.Action;
+import com.purplepip.odin.composition.reactors.MutableReactors;
+import com.purplepip.odin.composition.triggers.Action;
 import lombok.extern.slf4j.Slf4j;
 
 /**

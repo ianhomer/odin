@@ -15,31 +15,31 @@
 
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.sequence.SequenceFactory.newNoteSequenceFactory;
-import static com.purplepip.odin.sequence.clock.BeatClock.newBeatClock;
-import static com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider.newMeasureProvider;
-import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
-import static com.purplepip.odin.sequence.triggers.TriggerFactory.newTriggerFactory;
+import static com.purplepip.odin.composition.SequenceFactory.newNoteSequenceFactory;
+import static com.purplepip.odin.composition.clock.BeatClock.newBeatClock;
+import static com.purplepip.odin.composition.measure.StaticBeatMeasureProvider.newMeasureProvider;
+import static com.purplepip.odin.composition.tick.Ticks.BEAT;
+import static com.purplepip.odin.composition.triggers.TriggerFactory.newTriggerFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.composition.SequenceFactory;
+import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.composition.conductor.LayerConductor;
+import com.purplepip.odin.composition.conductor.MutableConductors;
+import com.purplepip.odin.composition.measure.MeasureProvider;
+import com.purplepip.odin.composition.reactors.MutableReactors;
+import com.purplepip.odin.composition.reactors.TriggerReactor;
+import com.purplepip.odin.composition.roll.SequenceRollTrack;
+import com.purplepip.odin.composition.track.MutableTracks;
+import com.purplepip.odin.composition.triggers.Action;
+import com.purplepip.odin.composition.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequence.SequenceFactory;
-import com.purplepip.odin.sequence.clock.BeatClock;
-import com.purplepip.odin.sequence.conductor.LayerConductor;
-import com.purplepip.odin.sequence.conductor.MutableConductors;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.reactors.MutableReactors;
-import com.purplepip.odin.sequence.reactors.TriggerReactor;
-import com.purplepip.odin.sequence.roll.SequenceRollTrack;
-import com.purplepip.odin.sequence.track.MutableTracks;
-import com.purplepip.odin.sequence.triggers.Action;
-import com.purplepip.odin.sequence.triggers.TriggerFactory;
 import org.junit.Test;
 
 public class ReactorReceiverTest {

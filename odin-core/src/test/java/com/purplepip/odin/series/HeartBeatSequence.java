@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.series;
 
-import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.SequenceConfiguration;
+import com.purplepip.odin.composition.GenericSequence;
+import com.purplepip.odin.composition.SequenceConfiguration;
 
 public class HeartBeatSequence extends GenericSequence {
   public HeartBeatSequence(long id) {

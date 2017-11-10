@@ -17,16 +17,16 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.MetricRegistry;
 import com.google.common.collect.Lists;
+import com.purplepip.odin.composition.BeatsPerMinute;
+import com.purplepip.odin.composition.MicrosecondPositionProvider;
+import com.purplepip.odin.composition.SequenceFactory;
+import com.purplepip.odin.composition.StaticBeatsPerMinute;
+import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
+import com.purplepip.odin.composition.flow.FlowConfiguration;
+import com.purplepip.odin.composition.measure.MeasureProvider;
+import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.composition.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.sequence.BeatsPerMinute;
-import com.purplepip.odin.sequence.MicrosecondPositionProvider;
-import com.purplepip.odin.sequence.SequenceFactory;
-import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.sequence.flow.FlowConfiguration;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.sequence.triggers.TriggerFactory;
 import java.util.ArrayList;
 
 /**

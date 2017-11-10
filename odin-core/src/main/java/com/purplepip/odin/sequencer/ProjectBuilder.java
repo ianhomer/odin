@@ -15,9 +15,24 @@
 
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.sequence.tick.Ticks.BEAT;
+import static com.purplepip.odin.composition.tick.Ticks.BEAT;
 
 import com.google.common.collect.Lists;
+import com.purplepip.odin.composition.GenericSequence;
+import com.purplepip.odin.composition.MutableSequenceConfiguration;
+import com.purplepip.odin.composition.Sequence;
+import com.purplepip.odin.composition.SequenceConfiguration;
+import com.purplepip.odin.composition.layer.DefaultLayer;
+import com.purplepip.odin.composition.layer.Layer;
+import com.purplepip.odin.composition.layer.MutableLayer;
+import com.purplepip.odin.composition.tick.DefaultTick;
+import com.purplepip.odin.composition.tick.Tick;
+import com.purplepip.odin.composition.tick.Ticks;
+import com.purplepip.odin.composition.triggers.Action;
+import com.purplepip.odin.composition.triggers.GenericTrigger;
+import com.purplepip.odin.composition.triggers.MutableTriggerConfiguration;
+import com.purplepip.odin.composition.triggers.NoteTrigger;
+import com.purplepip.odin.composition.triggers.TriggerConfiguration;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
@@ -30,21 +45,6 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.properties.beany.Setter;
-import com.purplepip.odin.sequence.GenericSequence;
-import com.purplepip.odin.sequence.MutableSequenceConfiguration;
-import com.purplepip.odin.sequence.Sequence;
-import com.purplepip.odin.sequence.SequenceConfiguration;
-import com.purplepip.odin.sequence.layer.DefaultLayer;
-import com.purplepip.odin.sequence.layer.Layer;
-import com.purplepip.odin.sequence.layer.MutableLayer;
-import com.purplepip.odin.sequence.tick.DefaultTick;
-import com.purplepip.odin.sequence.tick.Tick;
-import com.purplepip.odin.sequence.tick.Ticks;
-import com.purplepip.odin.sequence.triggers.Action;
-import com.purplepip.odin.sequence.triggers.GenericTrigger;
-import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
-import com.purplepip.odin.sequence.triggers.NoteTrigger;
-import com.purplepip.odin.sequence.triggers.TriggerConfiguration;
 import com.purplepip.odin.specificity.Specifics;
 import java.util.ArrayList;
 import java.util.Collections;

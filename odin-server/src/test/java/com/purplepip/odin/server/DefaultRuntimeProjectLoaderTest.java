@@ -18,9 +18,9 @@ package com.purplepip.odin.server;
 import static com.purplepip.odin.server.DefaultProjectCreator.DEFAULT_PROJECT_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.purplepip.odin.composition.SequenceConfiguration;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.SequenceConfiguration;
 import com.purplepip.odin.server.rest.repositories.ProjectRepository;
 import com.purplepip.odin.store.domain.PersistableSequence;
 import java.util.Optional;

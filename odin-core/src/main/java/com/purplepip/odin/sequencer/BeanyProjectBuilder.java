@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.composition.MutableSequenceConfiguration;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.MutableSequenceConfiguration;
 
 /**
  * Project builder which generates bean based objects instead of the specialised types.  This

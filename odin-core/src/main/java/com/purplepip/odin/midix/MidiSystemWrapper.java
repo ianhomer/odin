@@ -18,7 +18,6 @@ package com.purplepip.odin.midix;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import lombok.extern.slf4j.Slf4j;

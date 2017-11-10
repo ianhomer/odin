@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.store;
 
+import com.purplepip.odin.composition.MutableSequenceConfiguration;
+import com.purplepip.odin.composition.tick.Tick;
+import com.purplepip.odin.composition.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequence.MutableSequenceConfiguration;
-import com.purplepip.odin.sequence.tick.Tick;
-import com.purplepip.odin.sequence.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.sequencer.BeanyProjectBuilder;
 import com.purplepip.odin.sequencer.Channel;
 import com.purplepip.odin.store.domain.PersistableChannel;

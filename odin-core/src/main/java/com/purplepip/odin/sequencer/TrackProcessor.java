@@ -17,10 +17,10 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.bag.Things;
-import com.purplepip.odin.sequence.ListenerPriority;
-import com.purplepip.odin.sequence.clock.BeatClock;
-import com.purplepip.odin.sequence.clock.ClockListener;
-import com.purplepip.odin.sequence.track.Track;
+import com.purplepip.odin.composition.ListenerPriority;
+import com.purplepip.odin.composition.clock.BeatClock;
+import com.purplepip.odin.composition.clock.ClockListener;
+import com.purplepip.odin.composition.track.Track;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

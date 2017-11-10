@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.music.composition.events;
 
+import com.purplepip.odin.composition.roll.Roll;
+import com.purplepip.odin.composition.tick.Tick;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SequentialEventComparator;
@@ -24,8 +26,6 @@ import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequence.roll.Roll;
-import com.purplepip.odin.sequence.tick.Tick;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

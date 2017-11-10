@@ -1,7 +1,6 @@
 package com.purplepip.odin.experiments;
 
 import com.purplepip.odin.midix.MidiSystemHelper;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
@@ -11,7 +10,6 @@ import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Transmitter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

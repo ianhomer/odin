@@ -17,8 +17,6 @@ package com.purplepip.odin.properties.runtime;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.properties.runtime.ObservableProperty;
-import com.purplepip.odin.properties.runtime.Observer;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
 

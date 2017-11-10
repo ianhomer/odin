@@ -1,14 +1,14 @@
 package com.purplepip.odin.sequencer;
 
+import static com.purplepip.odin.composition.layer.Layers.newLayer;
 import static com.purplepip.odin.music.notes.Notes.newNote;
-import static com.purplepip.odin.sequence.layer.Layers.newLayer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.composition.triggers.Action;
+import com.purplepip.odin.composition.triggers.PatternNoteTrigger;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Random;
-import com.purplepip.odin.sequence.triggers.Action;
-import com.purplepip.odin.sequence.triggers.PatternNoteTrigger;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;

@@ -16,14 +16,14 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.composition.DefaultMicrosecondPositionProvider;
+import com.purplepip.odin.composition.SequenceFactory;
+import com.purplepip.odin.composition.StaticBeatsPerMinute;
+import com.purplepip.odin.composition.flow.DefaultFlowConfiguration;
+import com.purplepip.odin.composition.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequence.DefaultMicrosecondPositionProvider;
-import com.purplepip.odin.sequence.SequenceFactory;
-import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
