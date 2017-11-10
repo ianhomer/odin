@@ -58,6 +58,11 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
   }
 
   @Override
+  public boolean isVoid() {
+    return false;
+  }
+
+  @Override
   public TriggerConfiguration getConfiguration() {
     return triggerConfiguration;
   }

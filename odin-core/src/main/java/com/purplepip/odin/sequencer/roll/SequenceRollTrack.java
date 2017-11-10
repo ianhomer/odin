@@ -22,6 +22,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.conductor.Conductor;
+import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.creation.track.SequenceTrack;
@@ -38,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
  * Track in the sequencer.
  */
 @Slf4j
-public class SequenceRollTrack implements SequenceTrack {
+public class SequenceRollTrack implements SequenceTrack, PluggableAspect<SequenceConfiguration> {
   private Set<Conductor> conductors = new HashSet<>();
   private Roll<Note> roll;
   private SequenceRoll<Note> sequenceRoll;
@@ -117,6 +118,11 @@ public class SequenceRollTrack implements SequenceTrack {
     return sequenceRoll.getSequence();
   }
 
+  @Override
+  public SequenceConfiguration getConfiguration() {
+    return sequenceRoll.getSequence();
+  }
+
   public TickConverter getTickConverter() {
     return tickConverter;
   }
@@ -131,12 +137,13 @@ public class SequenceRollTrack implements SequenceTrack {
     conductors.add(conductor);
   }
 
-  public void setCopyOfSequence(SequenceConfiguration sequence) {
+  @Override
+  public void setConfiguration(SequenceConfiguration sequence) {
     getSequenceRoll().setSequence(sequence.copy());
   }
 
   @Override
-  public boolean isEmpty() {
+  public boolean isVoid() {
     return sequenceRoll.isEmpty();
   }
 

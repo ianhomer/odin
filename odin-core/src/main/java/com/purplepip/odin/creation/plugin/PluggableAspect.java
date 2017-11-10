@@ -33,4 +33,11 @@ public interface PluggableAspect<C extends Thing> extends Aspect {
    * @param configuration configuration for the aspect.
    */
   void setConfiguration(C configuration);
+
+  /**
+   * Whether the aspect is void and never has any effect.
+   *
+   * @return is empty.
+   */
+  boolean isVoid();
 }

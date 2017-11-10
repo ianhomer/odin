@@ -19,7 +19,7 @@ import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.creation.conductor.LayerConductors;
-import com.purplepip.odin.creation.track.MutableTracks;
+import com.purplepip.odin.creation.track.SequenceTracks;
 import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
@@ -35,7 +35,9 @@ public class MutableReactorsTest {
     TransientProject project = new TransientProject();
     project.addTrigger(new NoteTrigger().note(newNote(60)).name("trigger"));
 
-    TriggerReactors reactors = new TriggerReactors(new MutableTracks(), new LayerConductors());
+    LayerConductors conductors = new LayerConductors();
+    TriggerReactors reactors = new TriggerReactors(new SequenceTracks(conductors),
+        new LayerConductors());
     reactors.refresh(
         project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory));
@@ -48,8 +50,9 @@ public class MutableReactorsTest {
     TransientProject project = new TransientProject();
     project.addSequence(new Random().range(60, 72).bits(1).name("random"));
     project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));
-    MutableTracks tracks = new MutableTracks();
-    TriggerReactors reactors = new TriggerReactors(tracks, new LayerConductors());
+    LayerConductors conductors = new LayerConductors();
+    SequenceTracks tracks = new SequenceTracks(conductors);
+    TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory));
     // TODO : Complete test.

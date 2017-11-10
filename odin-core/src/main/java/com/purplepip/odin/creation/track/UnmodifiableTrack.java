@@ -61,8 +61,8 @@ public class UnmodifiableTrack implements Track {
   }
 
   @Override
-  public boolean isEmpty() {
-    return underlyingTrack.isEmpty();
+  public boolean isVoid() {
+    return underlyingTrack.isVoid();
   }
 
   @Override

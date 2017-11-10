@@ -15,14 +15,14 @@
 
 package com.purplepip.odin.creation.track;
 
-import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.creation.aspect.Aspect;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
 import java.util.Map;
 
-public interface Track extends Thing {
+public interface Track extends Aspect {
   /**
    * Channel for the track.
    *
@@ -60,7 +60,7 @@ public interface Track extends Thing {
    *
    * @return is empty.
    */
-  boolean isEmpty();
+  boolean isVoid();
 
   /**
    * Triggers that this track listens for.

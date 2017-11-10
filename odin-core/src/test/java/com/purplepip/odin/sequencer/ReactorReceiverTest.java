@@ -32,7 +32,7 @@ import com.purplepip.odin.creation.conductor.LayerConductors;
 import com.purplepip.odin.creation.reactors.TriggerReactor;
 import com.purplepip.odin.creation.reactors.TriggerReactors;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
-import com.purplepip.odin.creation.track.MutableTracks;
+import com.purplepip.odin.creation.track.SequenceTracks;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
@@ -64,11 +64,10 @@ public class ReactorReceiverTest {
     conductors.refresh(
         project.getLayers().stream(),
         () -> new LayerConductor(clock));
-    MutableTracks tracks = new MutableTracks();
+    SequenceTracks tracks = new SequenceTracks(conductors);
     tracks.refresh(
         project.getSequences().stream(),
-        () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory),
-        conductors);
+        () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory));
     TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(
         project.getTriggers().stream(),

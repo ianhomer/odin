@@ -49,7 +49,7 @@ public class MutableTracksTest {
   private SequenceFactory<Note> sequenceFactory =
       SequenceFactory.newNoteSequenceFactory(new DefaultFlowConfiguration());
   private MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
-  private MutableTracks tracks = new MutableTracks();
+  private SequenceTracks tracks = new SequenceTracks(immutableConductors);
 
   @Test
   public void testRefresh() throws OdinException {
@@ -60,7 +60,6 @@ public class MutableTracksTest {
         .withFlowName("notation").addSequence();
     refresh();
     SequenceRollTrack track = tracks.stream()
-        .filter(t -> t instanceof SequenceRollTrack).map(t -> (SequenceRollTrack) t)
         .findFirst()
         .orElseThrow(OdinException::new);
 
@@ -79,7 +78,6 @@ public class MutableTracksTest {
         .withFlowName("notation").addSequence();
     refresh();
     assertFalse("Notation track should not have been added since it is empty", tracks.stream()
-        .filter(t -> t instanceof SequenceRollTrack).map(t -> (SequenceRollTrack) t)
         .findFirst().isPresent());
   }
 
@@ -89,7 +87,6 @@ public class MutableTracksTest {
         () -> new LayerConductor(clock));
     tracks.refresh(
         container.getSequenceStream(),
-        () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory),
-        immutableConductors);
+        () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory));
   }
 }

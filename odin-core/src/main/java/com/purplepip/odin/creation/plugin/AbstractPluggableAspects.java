@@ -66,7 +66,7 @@ public abstract class AbstractPluggableAspects<A extends PluggableAspect<C>,
     /*
      * Remove if not found.
      */
-    removeIf(thing -> ids.contains(thing.getKey()));
+    removeIf(entry -> ids.contains(entry.getKey()) || entry.getValue().isVoid());
 
     afterRefresh();
   }

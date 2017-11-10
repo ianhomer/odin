@@ -87,6 +87,11 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
         () -> Ticks.MICROSECOND, layer::getTick, layer::getOffset);
   }
 
+  @Override
+  public boolean isVoid() {
+    return false;
+  }
+
   public void setParent(Conductor parent) {
     this.parent = parent;
   }
