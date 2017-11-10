@@ -17,7 +17,7 @@ package com.purplepip.odin.creation.flow;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
-import com.purplepip.odin.creation.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 
 public class StaticFlowContext extends FlowContext {
   public StaticFlowContext(int beatsPerMinute, int beatsPerMeasure) {

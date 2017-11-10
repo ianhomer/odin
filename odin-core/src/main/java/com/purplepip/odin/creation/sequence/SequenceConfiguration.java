@@ -16,7 +16,7 @@
 package com.purplepip.odin.creation.sequence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.purplepip.odin.creation.tick.TimeThing;
+import com.purplepip.odin.clock.tick.TimeThing;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.project.Project;
 import com.purplepip.odin.specificity.ThingConfiguration;

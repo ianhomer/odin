@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.measure;
+package com.purplepip.odin.clock.measure;
 
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;

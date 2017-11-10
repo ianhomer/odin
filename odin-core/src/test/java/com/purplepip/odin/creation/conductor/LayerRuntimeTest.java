@@ -19,8 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.DefaultLayer;
-import com.purplepip.odin.creation.tick.Ticks;
 import org.junit.Test;
 
 public class LayerRuntimeTest {

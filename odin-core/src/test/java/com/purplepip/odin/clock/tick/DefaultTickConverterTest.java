@@ -1,10 +1,10 @@
-package com.purplepip.odin.creation.tick;
+package com.purplepip.odin.clock.tick;
 
-import static com.purplepip.odin.creation.tick.Ticks.BEAT;
-import static com.purplepip.odin.creation.tick.Ticks.HALF;
-import static com.purplepip.odin.creation.tick.Ticks.MEASURE;
-import static com.purplepip.odin.creation.tick.Ticks.MICROSECOND;
-import static com.purplepip.odin.creation.tick.Ticks.MILLISECOND;
+import static com.purplepip.odin.clock.tick.Ticks.BEAT;
+import static com.purplepip.odin.clock.tick.Ticks.HALF;
+import static com.purplepip.odin.clock.tick.Ticks.MEASURE;
+import static com.purplepip.odin.clock.tick.Ticks.MICROSECOND;
+import static com.purplepip.odin.clock.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 

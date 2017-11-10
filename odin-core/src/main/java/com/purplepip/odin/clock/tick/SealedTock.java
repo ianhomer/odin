@@ -13,17 +13,29 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.tick;
+package com.purplepip.odin.clock.tick;
 
 import com.purplepip.odin.math.Real;
+import lombok.ToString;
 
 /**
- * A positioned tick starting from a specific point in time.  Note that this point in time
- * may be offset from clock start.  The tock itself is not aware of this absolute position,
- * only the component that is using the tock does.
+ * Tock that wraps another, potentially mutable, tock, but cannot mutate the tock itself.
  */
-public interface Tock {
-  Tick getTick();
+@ToString
+public class SealedTock implements Tock {
+  private Tock tock;
 
-  Real getPosition();
+  public SealedTock(Tock tock) {
+    this.tock = tock;
+  }
+
+  @Override
+  public Tick getTick() {
+    return tock.getTick();
+  }
+
+  @Override
+  public Real getPosition() {
+    return tock.getPosition();
+  }
 }

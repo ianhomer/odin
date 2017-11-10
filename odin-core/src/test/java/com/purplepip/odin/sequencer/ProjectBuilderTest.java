@@ -1,6 +1,6 @@
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.creation.tick.Ticks.BEAT;
+import static com.purplepip.odin.clock.tick.Ticks.BEAT;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;

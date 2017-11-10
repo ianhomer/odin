@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.creation.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.sequencer.OdinSequencer;

@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.tick;
+package com.purplepip.odin.clock.tick;
 
-import static com.purplepip.odin.creation.tick.Ticks.HALF;
-import static com.purplepip.odin.creation.tick.Ticks.MILLISECOND;
+import static com.purplepip.odin.clock.tick.Ticks.HALF;
+import static com.purplepip.odin.clock.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.BeatClock;

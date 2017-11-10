@@ -13,15 +13,16 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.tick;
+package com.purplepip.odin.clock.tick;
 
-import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.bag.MutableThing;
 
-/**
- * Length of one unit in the time series.
- */
-public interface Tick {
-  TimeUnit getTimeUnit();
+public interface MutableTimeThing extends MutableThing, TimeThing {
+  void setEnabled(boolean enabled);
 
-  Rational getFactor();
+  void setTick(Tick tick);
+
+  void setLength(long length);
+
+  void setOffset(long offset);
 }

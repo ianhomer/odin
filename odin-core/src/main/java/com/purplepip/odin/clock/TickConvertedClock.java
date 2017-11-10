@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.clock;
 
-import com.purplepip.odin.creation.tick.DefaultTickConverter;
-import com.purplepip.odin.creation.tick.Tick;
-import com.purplepip.odin.creation.tick.TickConverter;
-import com.purplepip.odin.creation.tick.Ticks;
+import com.purplepip.odin.clock.tick.DefaultTickConverter;
+import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.clock.tick.TickConverter;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.runtime.Property;
 

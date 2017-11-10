@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.clock;
 
-import static com.purplepip.odin.creation.tick.Ticks.QUARTER;
+import static com.purplepip.odin.clock.tick.Ticks.QUARTER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

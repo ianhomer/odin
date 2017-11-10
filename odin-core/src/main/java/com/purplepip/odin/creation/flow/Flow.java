@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.creation.flow;
 
+import com.purplepip.odin.clock.tick.Tock;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.tick.Tock;
 import com.purplepip.odin.events.Event;
 
 /**

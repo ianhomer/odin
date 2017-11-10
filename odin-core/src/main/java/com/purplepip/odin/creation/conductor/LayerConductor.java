@@ -16,10 +16,10 @@
 package com.purplepip.odin.creation.conductor;
 
 import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.tick.DefaultTickConverter;
+import com.purplepip.odin.clock.tick.TickConverter;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.Layer;
-import com.purplepip.odin.creation.tick.DefaultTickConverter;
-import com.purplepip.odin.creation.tick.TickConverter;
-import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;

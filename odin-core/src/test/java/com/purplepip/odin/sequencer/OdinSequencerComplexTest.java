@@ -2,8 +2,8 @@ package com.purplepip.odin.sequencer;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.tick.Ticks;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;

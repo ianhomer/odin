@@ -2,10 +2,10 @@ package com.purplepip.odin.experiments;
 
 import com.codahale.metrics.ConsoleReporter;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.measure.MeasureProvider;
-import com.purplepip.odin.creation.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;

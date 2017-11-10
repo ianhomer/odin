@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.sequence;
 
-import com.purplepip.odin.creation.tick.MutableTimeThing;
+import com.purplepip.odin.clock.tick.MutableTimeThing;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.specificity.MutableThingConfiguration;

@@ -16,11 +16,11 @@
 package com.purplepip.odin.creation.sequence;
 
 import com.purplepip.odin.clock.Clock;
+import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.flow.DefaultFlow;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.flow.MutableFlow;
-import com.purplepip.odin.creation.measure.MeasureProvider;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;

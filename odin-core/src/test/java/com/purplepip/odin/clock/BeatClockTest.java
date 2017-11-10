@@ -18,7 +18,7 @@ package com.purplepip.odin.clock;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
-import com.purplepip.odin.creation.tick.Ticks;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;

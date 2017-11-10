@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.layer;
 
-import com.purplepip.odin.creation.tick.AbstractTimeThing;
+import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.project.Project;
 import java.util.ArrayList;
 import java.util.List;

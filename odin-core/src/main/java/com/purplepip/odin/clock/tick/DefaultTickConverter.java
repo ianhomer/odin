@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.tick;
+package com.purplepip.odin.clock.tick;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.common.OdinImplementationException;

@@ -16,9 +16,9 @@
 package com.purplepip.odin.creation.flow;
 
 import com.purplepip.odin.clock.Clock;
-import com.purplepip.odin.creation.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.tick.Tock;
 import com.purplepip.odin.creation.sequence.Sequence;
-import com.purplepip.odin.creation.tick.Tock;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.ScanForwardEvent;
 import com.purplepip.odin.math.Real;

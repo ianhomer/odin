@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.sequence;
 
-import com.purplepip.odin.creation.tick.AbstractTimeThing;
+import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.project.Project;
 import java.util.ArrayList;

@@ -16,7 +16,7 @@
 package com.purplepip.odin.creation.flow;
 
 import com.purplepip.odin.clock.Clock;
-import com.purplepip.odin.creation.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.MeasureProvider;
 
 public class FlowContext {
   private Clock clock;

@@ -3,9 +3,9 @@ package com.purplepip.odin.midix;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.measure.MeasureProvider;
-import com.purplepip.odin.creation.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;

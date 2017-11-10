@@ -13,16 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.tick;
+package com.purplepip.odin.clock.tick;
 
-import com.purplepip.odin.bag.MutableThing;
+import com.purplepip.odin.math.Real;
 
-public interface MutableTimeThing extends MutableThing, TimeThing {
-  void setEnabled(boolean enabled);
+/**
+ * A positioned tick starting from a specific point in time.  Note that this point in time
+ * may be offset from clock start.  The tock itself is not aware of this absolute position,
+ * only the component that is using the tock does.
+ */
+public interface Tock {
+  Tick getTick();
 
-  void setTick(Tick tick);
-
-  void setLength(long length);
-
-  void setOffset(long offset);
+  Real getPosition();
 }

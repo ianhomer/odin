@@ -13,13 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.tick;
-
 /**
- * Time units.
+ * A tick is a single unit of time for a clock.  For example, amongst other things, it could be a
+ * microsecond or a beat
  */
-public enum TimeUnit {
-  BEAT,
-  MICROSECOND,
-  MEASURE
-}
+package com.purplepip.odin.clock.tick;

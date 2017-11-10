@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.music.composition.events;
 
+import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.roll.Roll;
-import com.purplepip.odin.creation.tick.Tick;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SequentialEventComparator;

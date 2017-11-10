@@ -13,29 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.tick;
-
-import com.purplepip.odin.math.Real;
-import lombok.ToString;
+package com.purplepip.odin.clock.tick;
 
 /**
- * Tock that wraps another, potentially mutable, tock, but cannot mutate the tock itself.
+ * Time units.
  */
-@ToString
-public class SealedTock implements Tock {
-  private Tock tock;
-
-  public SealedTock(Tock tock) {
-    this.tock = tock;
-  }
-
-  @Override
-  public Tick getTick() {
-    return tock.getTick();
-  }
-
-  @Override
-  public Real getPosition() {
-    return tock.getPosition();
-  }
+public enum TimeUnit {
+  BEAT,
+  MICROSECOND,
+  MEASURE
 }

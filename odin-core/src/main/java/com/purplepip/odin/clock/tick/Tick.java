@@ -13,8 +13,15 @@
  * limitations under the License.
  */
 
+package com.purplepip.odin.clock.tick;
+
+import com.purplepip.odin.math.Rational;
+
 /**
- * A tick is a single unit of time for a clock.  For example, amongst other things, it could be a
- * microsecond or a beat
+ * Length of one unit in the time series.
  */
-package com.purplepip.odin.creation.tick;
+public interface Tick {
+  TimeUnit getTimeUnit();
+
+  Rational getFactor();
+}

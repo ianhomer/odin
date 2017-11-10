@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.tick;
+package com.purplepip.odin.clock.tick;
 
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 import lombok.Data;

@@ -15,9 +15,12 @@
 
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.creation.tick.Ticks.BEAT;
+import static com.purplepip.odin.clock.tick.Ticks.BEAT;
 
 import com.google.common.collect.Lists;
+import com.purplepip.odin.clock.tick.DefaultTick;
+import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.DefaultLayer;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.layer.MutableLayer;
@@ -25,9 +28,6 @@ import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.tick.DefaultTick;
-import com.purplepip.odin.creation.tick.Tick;
-import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.creation.triggers.GenericTrigger;
 import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;

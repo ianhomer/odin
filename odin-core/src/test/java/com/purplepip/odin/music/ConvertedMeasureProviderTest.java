@@ -19,12 +19,12 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
-import com.purplepip.odin.creation.measure.ConvertedMeasureProvider;
-import com.purplepip.odin.creation.measure.MeasureProvider;
-import com.purplepip.odin.creation.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.creation.tick.DefaultTickConverter;
-import com.purplepip.odin.creation.tick.SameTimeUnitTickConverter;
-import com.purplepip.odin.creation.tick.Ticks;
+import com.purplepip.odin.clock.measure.ConvertedMeasureProvider;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.clock.tick.DefaultTickConverter;
+import com.purplepip.odin.clock.tick.SameTimeUnitTickConverter;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Before;

@@ -16,14 +16,14 @@
 package com.purplepip.odin.creation.roll;
 
 import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.tick.DefaultTickConverter;
+import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.clock.tick.TickConverter;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.conductor.Conductor;
-import com.purplepip.odin.creation.measure.MeasureProvider;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
-import com.purplepip.odin.creation.tick.DefaultTickConverter;
-import com.purplepip.odin.creation.tick.Tick;
-import com.purplepip.odin.creation.tick.TickConverter;
-import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.creation.track.SequenceTrack;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.events.Event;

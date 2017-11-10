@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.creation.tick.Ticks;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.store.PersistableProjectBuilder;
 import lombok.extern.slf4j.Slf4j;

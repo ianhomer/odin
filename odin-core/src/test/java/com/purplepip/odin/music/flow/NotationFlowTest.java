@@ -20,14 +20,14 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.clock.tick.MovableTock;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.Flow;
-import com.purplepip.odin.creation.measure.MeasureProvider;
-import com.purplepip.odin.creation.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
-import com.purplepip.odin.creation.tick.MovableTock;
-import com.purplepip.odin.creation.tick.Ticks;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.EventsListStringifier;
 import com.purplepip.odin.math.Rationals;

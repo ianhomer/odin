@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.roll;
 
-import com.purplepip.odin.creation.tick.Tick;
+import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Property;

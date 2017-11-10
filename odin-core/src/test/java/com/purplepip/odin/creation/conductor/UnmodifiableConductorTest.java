@@ -22,8 +22,8 @@ import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.DefaultLayer;
-import com.purplepip.odin.creation.tick.Ticks;
 import org.junit.Test;
 
 public class UnmodifiableConductorTest {

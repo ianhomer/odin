@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.layer;
 
-import com.purplepip.odin.creation.tick.MutableTimeThing;
+import com.purplepip.odin.clock.tick.MutableTimeThing;
 import com.purplepip.odin.project.Project;
 
 public interface MutableLayer extends Layer, MutableTimeThing {
