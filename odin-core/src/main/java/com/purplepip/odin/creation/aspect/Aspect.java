@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.aspect;
 
+import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.creation.plugin.Plugin;
 import com.purplepip.odin.specificity.ThingConfiguration;
 
@@ -26,7 +27,7 @@ import com.purplepip.odin.specificity.ThingConfiguration;
  * @param <P> type of plugin that this aspect covers.
  * @param <C> configuration for the aspect.
  */
-public interface Aspect<P extends Plugin, C extends ThingConfiguration> {
+public interface Aspect<P extends Plugin, C extends ThingConfiguration> extends Thing {
   P getPlugin();
 
   C getConfiguration();

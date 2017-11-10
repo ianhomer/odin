@@ -37,7 +37,7 @@ public class ReactorReceiver implements OperationReceiver {
   @Override
   public void send(Operation operation, long time) {
     LOG.debug("Operation received {} at {}", operation, time);
-    reactors.triggerStream()
+    reactors.stream()
         .forEach(reactor -> {
           if (reactor.getPlugin().isTriggeredBy(operation)) {
             LOG.debug("Trigger {} triggered", reactor.getPlugin());

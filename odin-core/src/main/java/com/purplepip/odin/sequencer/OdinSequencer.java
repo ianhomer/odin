@@ -120,8 +120,8 @@ public class OdinSequencer implements ProjectApplyListener {
         immutableConductors);
     reactors.refresh(
         project.getTriggers().stream(),
-        () -> new TriggerReactor(configuration.getTriggerFactory()),
-        immutableConductors, immutableTracks);
+        () -> new TriggerReactor(configuration.getTriggerFactory()));
+    reactors.bind(immutableConductors, immutableTracks);
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 

@@ -38,16 +38,10 @@ public class MutableReactorsTest {
     MutableReactors reactors = new MutableReactors();
     reactors.refresh(
         project.getTriggers().stream(),
-        () -> new TriggerReactor(triggerFactory),
-        new MutableConductors(), new MutableTracks());
+        () -> new TriggerReactor(triggerFactory));
+    reactors.bind(new MutableConductors(), new MutableTracks());
 
     assertEquals(1, reactors.getStatistics().getAddedCount());
-    /*
-     * Verify access OK via UnmodifiableReactors
-     */
-    UnmodifiableReactors unmodifiableReactors = new UnmodifiableReactors(reactors);
-    assertEquals(1, unmodifiableReactors.getStatistics().getAddedCount());
-    assertEquals("trigger", unmodifiableReactors.findByName("trigger").getName());
   }
 
   @Test
@@ -58,8 +52,8 @@ public class MutableReactorsTest {
     MutableReactors reactors = new MutableReactors();
     MutableTracks tracks = new MutableTracks();
     reactors.refresh(project.getTriggers().stream(),
-        () -> new TriggerReactor(triggerFactory),
-        new MutableConductors(), tracks);
+        () -> new TriggerReactor(triggerFactory));
+    reactors.bind(new MutableConductors(), tracks);
     // TODO : Complete test.
   }
 }

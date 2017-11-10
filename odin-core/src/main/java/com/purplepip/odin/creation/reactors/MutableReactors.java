@@ -15,71 +15,34 @@
 
 package com.purplepip.odin.creation.reactors;
 
-import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.creation.aspect.Aspects;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.track.SequenceTrack;
 import com.purplepip.odin.creation.track.Track;
+import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MutableReactors extends MutableThings<Reactor> {
-  private Map<String, TriggerReactor> triggerReactors = new HashMap<>();
-
+public class MutableReactors extends Aspects<TriggerReactor, TriggerConfiguration, Trigger> {
   /**
-   * Refresh the bag of reactors.
+   * Bind the reactors with conductors and tracks.
    *
-   * @param triggerStream   trigger stream to use to do the refresh
-   * @param reactorSupplier supplier of new reactors
+   * @param conductors conductors
+   * @param tracks tracks
    */
-  public void refresh(Stream<TriggerConfiguration> triggerStream,
-                      Supplier<TriggerReactor> reactorSupplier,
-                      Things<Conductor> conductors, Things<Track> tracks) {
-
-    Set<Long> ids = getIds();
-    triggerStream.forEach(triggerConfiguration -> {
-      ids.remove(triggerConfiguration.getId());
-
-      /*
-       * Add reactor if not present in conductors.
-       */
-      Optional<TriggerReactor> existing =
-          stream().filter(o -> o instanceof TriggerReactor).map(o -> (TriggerReactor) o)
-              .filter(reactor -> reactor.getId() == triggerConfiguration.getId()).findFirst();
-
-      TriggerReactor reactor;
-      if (existing.isPresent()) {
-        reactor = existing.get();
-        if (reactor.getPlugin().equals(triggerConfiguration)) {
-          LOG.debug("Trigger {} already added and unchanged", triggerConfiguration);
-        } else {
-          LOG.debug("Updating reactor for {}", triggerConfiguration);
-          incrementUpdatedCount();
-          reactor.setConfiguration(triggerConfiguration);
-        }
-      } else {
-        LOG.debug("Creating new reactor for {}", triggerConfiguration);
-        reactor = reactorSupplier.get();
-        reactor.setConfiguration(triggerConfiguration);
-        add(reactor);
-      }
-
+  public void bind(Things<Conductor> conductors, Things<Track> tracks) {
+    stream().forEach(reactor -> {
       /*
        * Add all sequence actions.  We currently just clear and re-add.
        */
       reactor.clearTrackActions();
       tracks.stream().forEach(track ->
           track.getTriggers().entrySet().stream()
-            .filter(entry -> entry.getKey().equals(triggerConfiguration.getName()))
-            .forEach(entry -> reactor.addTrackAction(track, entry.getValue()))
+              .filter(entry -> entry.getKey().equals(reactor.getName()))
+              .forEach(entry -> reactor.addTrackAction(track, entry.getValue()))
       );
 
       /*
@@ -101,27 +64,5 @@ public class MutableReactors extends MutableThings<Reactor> {
         }
       });
     });
-
-    /*
-     * Remove if not found.
-     */
-    removeIf(thing -> ids.contains(thing.getKey()));
   }
-
-  @Override
-  public boolean add(Reactor reactor) {
-    /*
-     * Store trigger reactors in a separate hash map for easy access, since these
-     * are the only one used (at the moment).
-     */
-    if (reactor instanceof TriggerReactor) {
-      triggerReactors.put(reactor.getName(), (TriggerReactor) reactor);
-    }
-    return super.add(reactor);
-  }
-
-  public Stream<TriggerReactor> triggerStream() {
-    return triggerReactors.values().stream();
-  }
-
 }

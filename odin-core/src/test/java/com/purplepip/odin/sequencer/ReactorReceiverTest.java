@@ -72,8 +72,8 @@ public class ReactorReceiverTest {
     MutableReactors reactors = new MutableReactors();
     reactors.refresh(
         project.getTriggers().stream(),
-        () -> new TriggerReactor(triggerFactory),
-        conductors, tracks);
+        () -> new TriggerReactor(triggerFactory));
+    reactors.bind(conductors, tracks);
     MetricRegistry metricRegistry = new MetricRegistry();
     ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
     assertFalse(((SequenceRollTrack) tracks.findByName("track1")).getSequenceRoll().isEnabled());

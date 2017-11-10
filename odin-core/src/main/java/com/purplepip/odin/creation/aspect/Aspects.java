@@ -1,0 +1,72 @@
+/*
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.purplepip.odin.creation.aspect;
+
+import com.purplepip.odin.bag.MutableThings;
+import com.purplepip.odin.creation.plugin.Plugin;
+import com.purplepip.odin.specificity.ThingConfiguration;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class Aspects<A extends Aspect<P, C>, C extends ThingConfiguration, P extends Plugin>
+    extends MutableThings<A> {
+  /**
+   * Refresh the bag of aspects.
+   *
+   * @param configurationStream configuration stream to use to do the refresh
+   * @param aspectSupplier supplier of new aspects
+   */
+  public void refresh(Stream<C> configurationStream,
+                      Supplier<A> aspectSupplier) {
+
+    Set<Long> ids = getIds();
+    configurationStream.forEach(configuration -> {
+      ids.remove(configuration.getId());
+
+      /*
+       * Add aspect if not present in conductors.
+       */
+      Optional<A> existing = stream()
+          .filter(aspect -> aspect.getId() == configuration.getId()).findFirst();
+
+      A aspect;
+      if (existing.isPresent()) {
+        aspect = existing.get();
+        if (aspect.getPlugin().equals(configuration)) {
+          LOG.debug("Trigger {} already added and unchanged", configuration);
+        } else {
+          LOG.debug("Updating reactor for {}", configuration);
+          incrementUpdatedCount();
+          aspect.setConfiguration(configuration);
+        }
+      } else {
+        LOG.debug("Creating new reactor for {}", configuration);
+        aspect = aspectSupplier.get();
+        aspect.setConfiguration(configuration);
+        add(aspect);
+      }
+    });
+
+    /*
+     * Remove if not found.
+     */
+    removeIf(thing -> ids.contains(thing.getKey()));
+  }
+}
