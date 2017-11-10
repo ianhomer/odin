@@ -30,7 +30,6 @@ public class HeartBeatSequence extends GenericSequence {
     copy.setType(this.getType());
     copy.setLength(this.getLength());
     copy.setOffset(this.getOffset());
-    copy.setProject(this.getProject());
     copy.setTick(this.getTick());
     return copy;
   }
