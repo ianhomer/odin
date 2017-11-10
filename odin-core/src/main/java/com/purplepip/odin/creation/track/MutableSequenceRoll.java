@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.roll;
+package com.purplepip.odin.creation.track;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.Clock;

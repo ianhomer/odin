@@ -16,4 +16,4 @@
 /**
  * A roll provides an abstraction that controls how events are fired over time.
  */
-package com.purplepip.odin.sequencer.roll;
+package com.purplepip.odin.roll;

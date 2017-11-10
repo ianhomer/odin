@@ -19,7 +19,6 @@ import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.plugin.AbstractPluggableAspects;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.sequencer.roll.SequenceRollTrack;
 import lombok.extern.slf4j.Slf4j;
 
 /**

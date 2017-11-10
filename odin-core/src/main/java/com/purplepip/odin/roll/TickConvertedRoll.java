@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.roll;
+package com.purplepip.odin.roll;
 
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;

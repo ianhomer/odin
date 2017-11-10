@@ -13,12 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.roll;
+package com.purplepip.odin.creation.track;
 
 import com.purplepip.odin.creation.flow.MutableFlow;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.properties.runtime.Property;
+import com.purplepip.odin.roll.Roll;
 
 /**
  * A roll that is based on a sequence.

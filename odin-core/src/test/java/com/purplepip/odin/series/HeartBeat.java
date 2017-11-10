@@ -6,7 +6,7 @@ import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.sequencer.roll.Roll;
+import com.purplepip.odin.roll.Roll;
 
 /**
  * Roll of heartbeats every second.

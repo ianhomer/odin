@@ -36,7 +36,6 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
 import com.purplepip.odin.sequencer.ProjectBuilder;
-import com.purplepip.odin.sequencer.roll.SequenceRollTrack;
 import org.junit.Test;
 
 public class MutableTracksTest {

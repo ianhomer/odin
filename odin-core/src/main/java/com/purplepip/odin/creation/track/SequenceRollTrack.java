@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer.roll;
+package com.purplepip.odin.creation.track;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
@@ -25,11 +25,12 @@ import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
-import com.purplepip.odin.creation.track.SequenceTrack;
 import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SwallowedEvent;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.roll.Roll;
+import com.purplepip.odin.roll.TickConvertedRoll;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;

@@ -4,7 +4,7 @@ import static junit.framework.TestCase.assertTrue;
 
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.sequencer.roll.Roll;
+import com.purplepip.odin.roll.Roll;
 import org.junit.Test;
 
 /**

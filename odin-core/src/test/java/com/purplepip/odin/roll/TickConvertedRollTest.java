@@ -1,4 +1,4 @@
-package com.purplepip.odin.sequencer.roll;
+package com.purplepip.odin.roll;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
