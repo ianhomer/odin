@@ -15,15 +15,15 @@
 
 package com.purplepip.odin.creation.plugin;
 
+import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.creation.aspect.Aspect;
-import com.purplepip.odin.specificity.ThingConfiguration;
 
 /**
  * An aspect driven by a plugin.
  *
  * @param <C> configuration for the aspect.
  */
-public interface PluggableAspect<C extends ThingConfiguration> extends Aspect {
+public interface PluggableAspect<C extends Thing> extends Aspect {
   C getConfiguration();
 
   /**
