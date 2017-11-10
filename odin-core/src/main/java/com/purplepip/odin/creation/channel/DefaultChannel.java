@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.creation.channel;
 
-import com.purplepip.odin.project.Project;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -23,8 +22,8 @@ import lombok.ToString;
 /**
  * Default channel implementation.
  */
-@ToString(exclude = "project")
-@EqualsAndHashCode(exclude = "project")
+@ToString
+@EqualsAndHashCode
 public class DefaultChannel implements Channel {
   /*
    * Cheap ID generator for default channels.  Note that persistence implementation used for
@@ -37,7 +36,6 @@ public class DefaultChannel implements Channel {
   private int number;
   private String programName;
   private int program;
-  private Project project;
 
   /**
    * ID auto generated.
@@ -79,15 +77,5 @@ public class DefaultChannel implements Channel {
   @Override
   public void setProgram(int program) {
     this.program = program;
-  }
-
-  @Override
-  public Project getProject() {
-    return project;
-  }
-
-  @Override
-  public void setProject(Project project) {
-    this.project = project;
   }
 }

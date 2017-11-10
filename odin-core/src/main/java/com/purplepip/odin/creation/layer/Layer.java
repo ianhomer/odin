@@ -16,7 +16,6 @@
 package com.purplepip.odin.creation.layer;
 
 import com.purplepip.odin.clock.tick.TimeThing;
-import com.purplepip.odin.project.Project;
 import java.util.List;
 
 /**
@@ -31,11 +30,4 @@ public interface Layer extends TimeThing {
    * @return container layers
    */
   List<String> getLayers();
-
-  /**
-   * The project that this layer belongs to.
-   *
-   * @return project
-   */
-  Project getProject();
 }

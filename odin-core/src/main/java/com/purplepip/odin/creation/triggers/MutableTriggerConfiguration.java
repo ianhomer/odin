@@ -16,11 +16,9 @@
 package com.purplepip.odin.creation.triggers;
 
 import com.purplepip.odin.clock.tick.MutableTimeThing;
-import com.purplepip.odin.project.Project;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.specificity.MutableThingConfiguration;
 
 public interface MutableTriggerConfiguration extends
     TriggerConfiguration, MutableThingConfiguration, MutablePropertiesProvider, MutableTimeThing {
-  void setProject(Project project);
 }

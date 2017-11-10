@@ -37,7 +37,6 @@ public final class Sequences {
     to.setType(from.getType());
     to.setLength(from.getLength());
     to.setOffset(from.getOffset());
-    to.setProject(from.getProject());
     to.setTick(from.getTick());
     from.getLayers().forEach(to::addLayer);
     from.getTriggers().forEach(to::addTrigger);

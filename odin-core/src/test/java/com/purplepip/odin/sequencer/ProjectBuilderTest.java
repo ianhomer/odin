@@ -40,7 +40,6 @@ public class ProjectBuilderTest {
     Channel channel = project.getChannels().iterator().next();
     assertEquals("Program name not correct", "test", channel.getProgramName());
     assertEquals("Channel number not correct", 1, channel.getNumber());
-    assertEquals("Project not correct", project, channel.getProject());
   }
 
   @Test

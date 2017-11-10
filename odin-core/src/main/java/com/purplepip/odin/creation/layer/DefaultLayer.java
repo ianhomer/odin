@@ -16,7 +16,6 @@
 package com.purplepip.odin.creation.layer;
 
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
-import com.purplepip.odin.project.Project;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.EqualsAndHashCode;
@@ -28,8 +27,6 @@ import lombok.ToString;
 @ToString(exclude = "project")
 @EqualsAndHashCode(callSuper = true)
 public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
-  private Project project;
-
   private List<String> layers = new ArrayList<>();
 
   /**
@@ -46,18 +43,8 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
   }
 
   @Override
-  public void setProject(Project project) {
-    this.project = project;
-  }
-
-  @Override
   public List<String> getLayers() {
     return layers;
-  }
-
-  @Override
-  public Project getProject() {
-    return project;
   }
 
   @Override

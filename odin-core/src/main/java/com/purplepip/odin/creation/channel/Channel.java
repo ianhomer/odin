@@ -15,8 +15,6 @@
 
 package com.purplepip.odin.creation.channel;
 
-import com.purplepip.odin.project.Project;
-
 /**
  * Channel configuration.
  */
@@ -69,18 +67,4 @@ public interface Channel {
    * @param program program name
    */
   void setProgram(int program);
-
-  /**
-   * Get the project.
-   *
-   * @return project
-   */
-  Project getProject();
-
-  /**
-   * Set the project.
-   *
-   * @param project project
-   */
-  void setProject(Project project);
 }

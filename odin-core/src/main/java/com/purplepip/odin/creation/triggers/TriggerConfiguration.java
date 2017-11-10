@@ -16,11 +16,9 @@
 package com.purplepip.odin.creation.triggers;
 
 import com.purplepip.odin.clock.tick.TimeThing;
-import com.purplepip.odin.project.Project;
 import com.purplepip.odin.specificity.ThingConfiguration;
 
 public interface TriggerConfiguration extends ThingConfiguration, TimeThing {
-
   /**
    * Create a copy of this trigger.
    *
@@ -32,11 +30,4 @@ public interface TriggerConfiguration extends ThingConfiguration, TimeThing {
     Triggers.copyCoreValues(this, copy);
     return copy;
   }
-
-  /**
-   * The project that this trigger belongs to.
-   *
-   * @return project
-   */
-  Project getProject();
 }

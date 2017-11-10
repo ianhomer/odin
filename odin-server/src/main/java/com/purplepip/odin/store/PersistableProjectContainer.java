@@ -42,7 +42,7 @@ public class PersistableProjectContainer extends ProjectContainer {
   @Override
   public void addChannel(Channel channel) {
     if (channel instanceof PersistableChannel) {
-      channel.setProject(getProject());
+      ((PersistableChannel) channel).setProject(getProject());
       channelRepository.save((PersistableChannel) channel);
     }
     super.addChannel(channel);
@@ -51,7 +51,7 @@ public class PersistableProjectContainer extends ProjectContainer {
   @Override
   public PersistableProjectContainer addSequence(SequenceConfiguration sequence) {
     if (sequence instanceof PersistableSequence) {
-      sequence.setProject(getProject());
+      ((PersistableSequence) sequence).setProject(getProject());
       sequenceRepository.save((PersistableSequence) sequence);
     }
     super.addSequence(sequence);
@@ -61,10 +61,11 @@ public class PersistableProjectContainer extends ProjectContainer {
   @Override
   public PersistableProjectContainer addLayer(MutableLayer layer) {
     if (layer instanceof PersistableLayer) {
-      layer.setProject(getProject());
+      ((PersistableLayer) layer).setProject(getProject());
       layerRepository.save((PersistableLayer) layer);
     }
     super.addLayer(layer);
     return this;
   }
+  // TODO : Create addTrigger implementation
 }

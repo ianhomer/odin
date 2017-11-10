@@ -36,7 +36,6 @@ public final class Triggers {
     to.setType(from.getType());
     to.setLength(from.getLength());
     to.setOffset(from.getOffset());
-    to.setProject(from.getProject());
     to.setTick(from.getTick());
     Properties.copyProperties(from, to);
   }

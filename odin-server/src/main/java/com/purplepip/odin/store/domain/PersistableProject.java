@@ -67,7 +67,9 @@ public class PersistableProject implements Project {
 
   @Override
   public void addChannel(Channel channel) {
-    channel.setProject(this);
+    if (channel instanceof PersistableChannel) {
+      ((PersistableChannel) channel).setProject(this);
+    }
     /*
      * Replace any existing channel for same channel number.
      */
@@ -91,7 +93,9 @@ public class PersistableProject implements Project {
 
   @Override
   public void addSequence(SequenceConfiguration sequence) {
-    sequence.setProject(this);
+    if (sequence instanceof PersistableSequence) {
+      ((PersistableSequence) sequence).setProject(this);
+    }
     boolean result = sequences.add(sequence);
     if (!result) {
       LOG.warn("Could not add sequence {} to project", sequence);
@@ -112,7 +116,9 @@ public class PersistableProject implements Project {
 
   @Override
   public void addLayer(MutableLayer layer) {
-    layer.setProject(this);
+    if (layer instanceof PersistableLayer) {
+      ((PersistableLayer) layer).setProject(this);
+    }
     boolean result = layers.add(layer);
     if (!result) {
       LOG.warn("Could not add layer {} to project", layer);
@@ -133,7 +139,9 @@ public class PersistableProject implements Project {
 
   @Override
   public void addTrigger(MutableTriggerConfiguration trigger) {
-    trigger.setProject(this);
+    if (trigger instanceof PersistableTrigger) {
+      ((PersistableTrigger) trigger).setProject(this);
+    }
     boolean result = triggers.add(trigger);
     if (!result) {
       LOG.warn("Could not add trigger {} to project", trigger);

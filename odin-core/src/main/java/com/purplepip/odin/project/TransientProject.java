@@ -68,7 +68,6 @@ public class TransientProject implements Project {
 
   @Override
   public void addChannel(Channel channel) {
-    channel.setProject(this);
     channels.add(channel);
   }
 
@@ -79,7 +78,6 @@ public class TransientProject implements Project {
 
   @Override
   public void addLayer(MutableLayer layer) {
-    layer.setProject(this);
     layers.add(layer);
   }
 
@@ -90,7 +88,6 @@ public class TransientProject implements Project {
 
   @Override
   public void addTrigger(MutableTriggerConfiguration trigger) {
-    trigger.setProject(this);
     triggers.add(trigger);
   }
 
@@ -101,7 +98,6 @@ public class TransientProject implements Project {
 
   @Override
   public void addSequence(SequenceConfiguration sequence) {
-    sequence.setProject(this);
     sequences.add(sequence);
   }
 
