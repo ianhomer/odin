@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Reactors extends AbstractAspects<TriggerReactor, TriggerConfiguration, Trigger> {
+public class Reactors extends AbstractAspects<Reactor, TriggerConfiguration, Trigger> {
   private Things<Conductor> conductors;
   private Things<Track> tracks;
 
@@ -38,7 +38,7 @@ public class Reactors extends AbstractAspects<TriggerReactor, TriggerConfigurati
   }
 
   public void refresh(Stream<TriggerConfiguration> configurationStream,
-                      Supplier<TriggerReactor> aspectSupplier) {
+                      Supplier<Reactor> aspectSupplier) {
     super.refresh(configurationStream, aspectSupplier);
     applyChanges();
   }
@@ -48,15 +48,19 @@ public class Reactors extends AbstractAspects<TriggerReactor, TriggerConfigurati
    */
   private void applyChanges() {
     stream().forEach(reactor -> {
-      /*
-       * Add all sequence actions.  We currently just clear and re-add.
-       */
-      reactor.clearTrackActions();
-      tracks.stream().forEach(track ->
-          track.getTriggers().entrySet().stream()
-              .filter(entry -> entry.getKey().equals(reactor.getName()))
-              .forEach(entry -> reactor.addTrackAction(track, entry.getValue()))
-      );
+      if (reactor instanceof TriggerReactor) {
+        TriggerReactor triggerReactor = (TriggerReactor) reactor;
+
+        /*
+         * Add all sequence actions.  We currently just clear and re-add.
+         */
+        triggerReactor.clearTrackActions();
+        tracks.stream().forEach(track ->
+            track.getTriggers().entrySet().stream()
+                .filter(entry -> entry.getKey().equals(reactor.getName()))
+                .forEach(entry -> triggerReactor.addTrackAction(track, entry.getValue()))
+        );
+      }
 
       /*
        * Inject dependent sequences into trigger.

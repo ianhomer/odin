@@ -20,11 +20,14 @@ import com.purplepip.odin.creation.triggers.Action;
 import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
+import com.purplepip.odin.sequencer.Operation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class TriggerReactor implements Reactor {
   private TriggerConfiguration triggerConfiguration;
   private Trigger trigger;
@@ -76,5 +79,28 @@ public class TriggerReactor implements Reactor {
 
   public void clearTrackActions() {
     trackActions.clear();
+  }
+
+  @Override
+  public boolean react(Operation operation) {
+    if (trigger.isTriggeredBy(operation)) {
+      LOG.debug("Trigger {} triggered", getPlugin());
+      getTracks().forEach(entry -> {
+        LOG.debug("Track {} triggered", entry.getKey());
+        Action action = entry.getValue();
+        switch (action)  {
+          case ENABLE:
+            entry.getKey().setEnabled(true);
+            break;
+          case DISABLE:
+            entry.getKey().setEnabled(false);
+            break;
+          default:
+            LOG.warn("Trigger action {} not supported", action);
+        }
+      });
+      return true;
+    }
+    return false;
   }
 }

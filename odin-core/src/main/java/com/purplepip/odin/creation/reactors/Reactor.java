@@ -19,10 +19,12 @@ import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.creation.aspect.Aspect;
 import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
+import com.purplepip.odin.sequencer.Operation;
 
 /**
  * A reactor handles actions based on triggers that are fired.  For example, a track that is
  * created when a MIDI message is received.
  */
 public interface Reactor extends Aspect<Trigger, TriggerConfiguration>, Thing {
+  boolean react(Operation operation);
 }
