@@ -18,7 +18,7 @@ package com.purplepip.odin.sequencer;
 import static com.purplepip.odin.clock.BeatClock.newBeatClock;
 import static com.purplepip.odin.clock.measure.StaticBeatMeasureProvider.newMeasureProvider;
 import static com.purplepip.odin.clock.tick.Ticks.BEAT;
-import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
+import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,10 +29,10 @@ import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.LayerConductors;
+import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.reactors.TriggerReactor;
 import com.purplepip.odin.creation.reactors.TriggerReactors;
 import com.purplepip.odin.creation.sequence.Action;
-import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.creation.track.SequenceRollTrack;
 import com.purplepip.odin.creation.track.SequenceTracks;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
@@ -44,7 +44,7 @@ import org.junit.Test;
 
 public class ReactorReceiverTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
-  private SequenceFactory<Note> sequenceFactory = newNoteSequenceFactory();
+  private FlowFactory<Note> flowFactory = newNoteFlowFactory();
   private BeatClock clock = newBeatClock(120);
   private MeasureProvider measureProvider = newMeasureProvider(4);
 
@@ -67,7 +67,7 @@ public class ReactorReceiverTest {
     SequenceTracks tracks = new SequenceTracks(conductors);
     tracks.refresh(
         project.getSequences().stream(),
-        () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory));
+        () -> new SequenceRollTrack(clock, measureProvider, flowFactory));
     TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(
         project.getTriggers().stream(),

@@ -19,7 +19,7 @@ import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
-import com.purplepip.odin.creation.sequence.SequenceFactory;
+import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
 
@@ -54,7 +54,7 @@ public interface OdinSequencerConfiguration {
 
   MicrosecondPositionProvider getMicrosecondPositionProvider();
 
-  SequenceFactory<Note> getSequenceFactory();
+  FlowFactory<Note> getFlowFactory();
 
   TriggerFactory getTriggerFactory();
 

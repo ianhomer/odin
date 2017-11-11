@@ -15,8 +15,6 @@
 
 package com.purplepip.odin.configuration;
 
-import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.music.notes.Note;
@@ -28,16 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class SequenceFactories {
-  public static SequenceFactory<Note> newNoteSequenceFactory() {
-    return newNoteSequenceFactory(new DefaultFlowConfiguration());
-  }
-
   /**
    * Create the note sequence factory.
    *
    * @return a new note sequence factory
    */
-  public static SequenceFactory<Note> newNoteSequenceFactory(FlowConfiguration flowConfiguration) {
+  public static SequenceFactory<Note> newNoteSequenceFactory() {
     /*
      * Coded registration of known sequences.  In the future we may design a plugin architecture,
      * but for now it is kept tight by only allowing registered classes.
@@ -47,7 +41,7 @@ public final class SequenceFactories {
     classes.add(Notation.class);
     classes.add(Pattern.class);
     classes.add(Random.class);
-    return new SequenceFactory<>(flowConfiguration, classes);
+    return new SequenceFactory<>(classes);
   }
 
   private SequenceFactories() {

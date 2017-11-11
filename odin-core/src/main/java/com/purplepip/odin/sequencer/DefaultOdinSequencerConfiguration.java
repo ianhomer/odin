@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 
@@ -27,6 +28,7 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowConfiguration;
+import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
@@ -43,7 +45,7 @@ public class DefaultOdinSequencerConfiguration
   private OperationTransmitter operationTransmitter;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
-  private SequenceFactory<Note> sequenceFactory;
+  private FlowFactory<Note> flowFactory;
   private TriggerFactory triggerFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
@@ -54,7 +56,7 @@ public class DefaultOdinSequencerConfiguration
    * Create new configuration with defaults set.
    */
   public DefaultOdinSequencerConfiguration() {
-    sequenceFactory = newNoteSequenceFactory(flowConfiguration);
+    flowFactory = newNoteFlowFactory(flowConfiguration);
     triggerFactory = newTriggerFactory();
     setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
@@ -78,8 +80,8 @@ public class DefaultOdinSequencerConfiguration
   }
 
   public final DefaultOdinSequencerConfiguration
-      setSequenceFactory(SequenceFactory<Note> sequenceFactory) {
-    this.sequenceFactory = sequenceFactory;
+      setFlowFactory(FlowFactory<Note> flowFactory) {
+    this.flowFactory = flowFactory;
     return this;
   }
 
@@ -159,8 +161,8 @@ public class DefaultOdinSequencerConfiguration
   }
 
   @Override
-  public SequenceFactory<Note> getSequenceFactory() {
-    return sequenceFactory;
+  public FlowFactory<Note> getFlowFactory() {
+    return flowFactory;
   }
 
   @Override

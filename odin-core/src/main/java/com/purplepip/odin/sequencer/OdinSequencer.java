@@ -119,7 +119,7 @@ public class OdinSequencer implements ProjectApplyListener {
     tracks.refresh(
         project.getSequences().stream(),
         () -> new SequenceRollTrack(clock, configuration.getMeasureProvider(),
-            configuration.getSequenceFactory()));
+            configuration.getFlowFactory()));
     reactors.refresh(
         project.getTriggers().stream(),
         () -> new TriggerReactor(configuration.getTriggerFactory()));

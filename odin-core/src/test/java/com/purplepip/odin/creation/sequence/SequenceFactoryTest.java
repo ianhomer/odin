@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.sequence;
 
+import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
 import static org.junit.Assert.assertEquals;
 
@@ -23,6 +24,7 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.Flow;
+import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
@@ -37,7 +39,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SequenceFactoryTest {
-  private SequenceFactory<Note> factory = newNoteSequenceFactory(new DefaultFlowConfiguration());
+  private SequenceFactory<Note> sequenceFactory = newNoteSequenceFactory();
+  private FlowFactory<Note> flowFactory = newNoteFlowFactory(new DefaultFlowConfiguration());
 
   @Mock
   private Clock clock;
@@ -56,7 +59,7 @@ public class SequenceFactoryTest {
         .addMetronome();
     SequenceConfiguration sequence = container.getSequenceStream()
         .findFirst().orElseThrow(OdinException::new);
-    Metronome metronome = factory.newInstance(sequence, Metronome.class);
+    Metronome metronome = sequenceFactory.newInstance(sequence, Metronome.class);
     assertEquals(16, metronome.getLength());
     assertEquals(1, metronome.getLayers().size());
     assertEquals("groove", metronome.getLayers().get(0));
@@ -64,14 +67,13 @@ public class SequenceFactoryTest {
 
   @Test
   public void testGetSequenceClass() {
-    assertEquals(Notation.class, factory.getClass("notation"));
-    assertEquals(Metronome.class, factory.getClass("metronome"));
-    assertEquals(Pattern.class, factory.getClass("pattern"));
+    assertEquals(Notation.class, sequenceFactory.getClass("notation"));
+    assertEquals(Metronome.class, sequenceFactory.getClass("metronome"));
+    assertEquals(Pattern.class, sequenceFactory.getClass("pattern"));
   }
 
   @Test
   public void testCreateFlow() throws OdinException {
-    SequenceFactory<Note> flowFactory = newNoteSequenceFactory();
     TransientProject project = new TransientProject();
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addMetronome();

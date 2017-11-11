@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.track;
 
-import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
+import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -29,8 +29,8 @@ import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.LayerConductors;
 import com.purplepip.odin.creation.conductor.UnmodifiableConductors;
+import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.GenericSequence;
-import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.project.ProjectContainer;
@@ -45,7 +45,7 @@ public class MutableTracksTest {
 
   private ProjectContainer container = new ProjectContainer(new TransientProject());
   private BeatClock clock = new BeatClock(new StaticBeatsPerMinute(12000));
-  private SequenceFactory<Note> sequenceFactory = newNoteSequenceFactory();
+  private FlowFactory<Note> flowFactory = newNoteFlowFactory();
   private MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
   private SequenceTracks tracks = new SequenceTracks(immutableConductors);
 
@@ -85,6 +85,6 @@ public class MutableTracksTest {
         () -> new LayerConductor(clock));
     tracks.refresh(
         container.getSequenceStream(),
-        () -> new SequenceRollTrack(clock, measureProvider, sequenceFactory));
+        () -> new SequenceRollTrack(clock, measureProvider, flowFactory));
   }
 }

@@ -15,14 +15,14 @@
 
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
+import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 
 import com.purplepip.odin.clock.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.creation.sequence.SequenceFactory;
+import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.project.ProjectContainer;
 import com.purplepip.odin.project.TransientProject;
@@ -35,7 +35,7 @@ public class TestSequencerEnvironment {
   private OdinSequencerConfiguration configuration;
   private OdinSequencer sequencer;
 
-  private SequenceFactory<Note> sequenceFactory;
+  private FlowFactory<Note> flowFactory;
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver) throws OdinException {
     initialiseSequencer(operationReceiver);
@@ -46,9 +46,9 @@ public class TestSequencerEnvironment {
     flowConfiguration.setMaxForwardScan(1000000);
 
 
-    sequenceFactory = newNoteSequenceFactory(flowConfiguration);
+    flowFactory = newNoteFlowFactory(flowConfiguration);
     configuration = new DefaultOdinSequencerConfiguration()
-        .setSequenceFactory(sequenceFactory)
+        .setFlowFactory(flowFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))
         .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
         .setClockStartOffset(10000)
@@ -71,8 +71,8 @@ public class TestSequencerEnvironment {
     return configuration;
   }
 
-  public SequenceFactory<Note> getSequenceFactory() {
-    return sequenceFactory;
+  public FlowFactory<Note> getFlowFactory() {
+    return flowFactory;
   }
 
   /**

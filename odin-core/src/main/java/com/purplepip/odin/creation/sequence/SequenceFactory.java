@@ -15,11 +15,6 @@
 
 package com.purplepip.odin.creation.sequence;
 
-import com.purplepip.odin.clock.Clock;
-import com.purplepip.odin.clock.measure.MeasureProvider;
-import com.purplepip.odin.creation.flow.DefaultFlow;
-import com.purplepip.odin.creation.flow.FlowConfiguration;
-import com.purplepip.odin.creation.flow.MutableFlow;
 import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
 import com.purplepip.odin.specificity.ThingConfiguration;
 import java.util.List;
@@ -30,17 +25,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>> {
-  private FlowConfiguration flowConfiguration;
-
   /**
    * Create a new sequence factory.
    *
    * @param classes sequence classes to initialise with
    */
-  public SequenceFactory(FlowConfiguration flowConfiguration,
-                         List<Class<? extends Sequence<A>>> classes) {
+  public SequenceFactory(List<Class<? extends Sequence<A>>> classes) {
     super(classes);
-    this.flowConfiguration = flowConfiguration;
   }
 
   @Override
@@ -51,32 +42,5 @@ public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>
       destination.getLayers().addAll(((SequenceConfiguration) source).getLayers());
     }
     super.populate(destination, source);
-  }
-
-  /**
-   * Create flow object for the given sequence.
-   *
-   * @param sequence sequence
-   * @param clock clock
-   * @param measureProvider measure provider
-   * @return flow
-   */
-  public MutableFlow<Sequence<A>, A> createFlow(
-      SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
-    MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
-    flow.setSequence(newInstance(sequence));
-    flow.setConfiguration(flowConfiguration);
-    flow.afterPropertiesSet();
-    return flow;
-  }
-
-  /**
-   * Refresh the sequence in the flow.
-   *
-   * @param flow flow to refresh
-   * @param sequence sequence to update flow with
-   */
-  public void refreshSequence(MutableFlow<Sequence<A>, A> flow, SequenceConfiguration sequence) {
-    flow.setSequence(newInstance(sequence));
   }
 }

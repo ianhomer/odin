@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.music.flow;
 
-import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
+import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -26,8 +26,8 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.MovableTock;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.flow.Flow;
+import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.Sequence;
-import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.EventsListStringifier;
 import com.purplepip.odin.math.Rationals;
@@ -48,10 +48,10 @@ public class NotationFlowTest {
     ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
     builder.addNotation(Ticks.BEAT, notationAsString);
     Notation notation = (Notation) builder.getSequenceByOrder(0);
-    SequenceFactory<Note> sequenceFactory = newNoteSequenceFactory();
+    FlowFactory<Note> flowFactory = newNoteFlowFactory();
     BeatClock clock = new BeatClock(new StaticBeatsPerMinute(60));
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
-    return sequenceFactory.createFlow(notation, clock, measureProvider);
+    return flowFactory.createFlow(notation, clock, measureProvider);
   }
 
   @Test

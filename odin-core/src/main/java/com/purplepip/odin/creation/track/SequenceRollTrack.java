@@ -22,6 +22,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.conductor.Conductor;
+import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
@@ -51,13 +52,13 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
    *
    * @param clock beat clock
    * @param measureProvider measure provider
-   * @param sequenceFactory sequence factory
+   * @param flowFactory flow factory
    */
   public SequenceRollTrack(BeatClock clock,
                     MeasureProvider measureProvider,
-                    SequenceFactory<Note> sequenceFactory) {
+                    FlowFactory<Note> flowFactory) {
     this(clock,
-        new MutableSequenceRoll<>(clock, sequenceFactory, measureProvider));
+        new MutableSequenceRoll<>(clock, flowFactory, measureProvider));
   }
 
   /**
