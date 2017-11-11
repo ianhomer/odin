@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaConfig;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import com.purplepip.odin.clock.tick.Tick;
-import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
@@ -42,7 +41,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ProjectSchema {
-  private SequenceFactory<Note> factory = newNoteSequenceFactory(new DefaultFlowConfiguration());
+  private SequenceFactory<Note> factory = newNoteSequenceFactory();
   private Map<String, JsonNode> types = new HashMap<>();
   private Map<String, String> flows = new HashMap<>();
 
