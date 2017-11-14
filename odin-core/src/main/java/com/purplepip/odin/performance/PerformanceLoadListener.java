@@ -13,7 +13,12 @@
  * limitations under the License.
  */
 
+package com.purplepip.odin.performance;
+
 /**
- * Persistable implementation for the sequencer performance model.
+ * Performance load listener interface.
  */
-package com.purplepip.odin.store.domain;
+@FunctionalInterface
+public interface PerformanceLoadListener {
+  void onPerformanceLoad(PerformanceContainer container);
+}

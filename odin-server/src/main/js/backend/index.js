@@ -23,7 +23,7 @@ import {
   PATCH_ENTITY_REQUESTED, PATCH_ENTITY_SUCCEEDED, PATCH_ENTITY_FAILED,
   FETCH_COMPOSITION_REQUESTED, FETCH_COMPOSITION_SUCCEEDED, FETCH_COMPOSITION_FAILED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED,
-  LOAD_PROJECT_SCHEMA_REQUESTED, LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_FAILED,
+  LOAD_PERFORMANCE_SCHEMA_REQUESTED, LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PERFORMANCE_SCHEMA_FAILED,
   LOAD_PROFILE_SCHEMA_REQUESTED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_FAILED
 } from '../actions'
 import {withQuery} from './withQuery'
@@ -180,7 +180,7 @@ export class Backend {
     }
   }
 
-  loadProjectSchemaApi() {
+  loadPerformanceSchemaApi() {
     return fetch('/services/schema', {
       method: 'GET',
       headers: {
@@ -191,13 +191,13 @@ export class Backend {
       .catch(reason => console.error(reason))
   }
 
-  *loadProjectSchema() {
+  *loadPerformanceSchema() {
     try {
       const backend = yield getContext('backend')
-      const schema = yield call(backend.loadProjectSchemaApi)
-      yield put({type: LOAD_PROJECT_SCHEMA_SUCCEEDED, schema: schema})
+      const schema = yield call(backend.loadPerformanceSchemaApi)
+      yield put({type: LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, schema: schema})
     } catch (e) {
-      yield put({type: LOAD_PROJECT_SCHEMA_FAILED, message: e.message})
+      yield put({type: LOAD_PERFORMANCE_SCHEMA_FAILED, message: e.message})
     }
   }
 
@@ -230,7 +230,7 @@ export class Backend {
     yield takeEvery(PATCH_ENTITY_REQUESTED, backend.patchEntity)
     yield takeEvery(FETCH_COMPOSITION_REQUESTED, backend.fetchComposition)
     yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
-    yield takeEvery(LOAD_PROJECT_SCHEMA_REQUESTED, backend.loadProjectSchema)
+    yield takeEvery(LOAD_PERFORMANCE_SCHEMA_REQUESTED, backend.loadPerformanceSchema)
     yield takeEvery(LOAD_PROFILE_SCHEMA_REQUESTED, backend.loadProfileSchema)
   }
 }

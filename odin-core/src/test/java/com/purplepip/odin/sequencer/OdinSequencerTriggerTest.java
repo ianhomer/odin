@@ -23,7 +23,7 @@ public class OdinSequencerTriggerTest {
     OperationReceiver operationReceiver = (operation, time) -> lock.countDown();
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    new BeanyProjectBuilder(environment.getContainer())
+    new BeanyPerformanceBuilder(environment.getContainer())
         .withName("note-60-trigger")
         .withNote(60)
         .addNoteTrigger()

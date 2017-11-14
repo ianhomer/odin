@@ -26,15 +26,16 @@ public class JsonTest {
   public void testJson() {
     String json = new Json(withJsonModule(new ObjectMapper()))
         .property("name", "new-notations-name")
-        .property("project", "/api/projects/1")
+        .property("performance", "/api/performance/1")
         .property("type", "Notation")
         .properties()
         .property("notation", "A B C D")
         .property("format", "natural")
         .toString();
 
-    assertEquals("{\"name\":\"new-notations-name\""
-        + ",\"project\":\"/api/projects/1\""
+    assertEquals("{"
+        + "\"performance\":\"/api/performance/1\""
+        + ",\"name\":\"new-notations-name\""
         + ",\"type\":\"Notation\""
         + ",\"properties\":{\"notation\":\"A B C D\",\"format\""
         + ":\"natural\"}}", json);

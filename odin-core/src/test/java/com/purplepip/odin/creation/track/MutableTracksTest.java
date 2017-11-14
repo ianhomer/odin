@@ -33,9 +33,9 @@ import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
+import com.purplepip.odin.sequencer.PerformanceBuilder;
 import org.junit.Test;
 
 public class MutableTracksTest {
@@ -43,7 +43,7 @@ public class MutableTracksTest {
   private AbstractUnmodifiableThings<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
 
-  private ProjectContainer container = new ProjectContainer(new TransientProject());
+  private PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
   private BeatClock clock = new BeatClock(new StaticBeatsPerMinute(12000));
   private FlowFactory<Note> flowFactory = newNoteFlowFactory();
   private MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
@@ -52,7 +52,7 @@ public class MutableTracksTest {
   @Test
   public void testRefresh() throws OdinException {
     clock.start();
-    new ProjectBuilder(container)
+    new PerformanceBuilder(container)
         .addLayer("layer").withLayers("layer")
         .withProperty("notation", "C")
         .withFlowName("notation").addSequence();
@@ -71,7 +71,7 @@ public class MutableTracksTest {
   @Test
   public void testEmptyNotation() throws OdinException {
     clock.start();
-    new ProjectBuilder(container)
+    new PerformanceBuilder(container)
         .withProperty("notation", "")
         .withFlowName("notation").addSequence();
     refresh();

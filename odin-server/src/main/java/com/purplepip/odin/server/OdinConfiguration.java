@@ -24,7 +24,7 @@ import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.MidiSystemWrapper;
-import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiver;
@@ -68,14 +68,14 @@ public class OdinConfiguration {
    *
    * @param measureProvider   measure provider
    * @param midiDeviceWrapper MIDI device wrapper
-   * @param projectContainer  project container
+   * @param performanceContainer  performance container
    * @return Odin sequencer
    * @throws OdinException exception
    */
   @Bean
   public OdinSequencer odinSequencer(MeasureProvider measureProvider,
                                      MidiDeviceWrapper midiDeviceWrapper,
-                                     ProjectContainer projectContainer)
+                                     PerformanceContainer performanceContainer)
       throws OdinException {
     List<OperationReceiver> operationReceivers = new ArrayList<>();
     operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
@@ -98,7 +98,7 @@ public class OdinConfiguration {
     }
 
     OdinSequencer odinSequencer = new OdinSequencer(configuration);
-    projectContainer.addApplyListener(odinSequencer);
+    performanceContainer.addApplyListener(odinSequencer);
     return odinSequencer;
   }
 }

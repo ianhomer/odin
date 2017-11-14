@@ -16,7 +16,7 @@
 package com.purplepip.odin.server.rest.event;
 
 import com.purplepip.odin.creation.channel.Channel;
-import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -32,41 +32,41 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ChannelEventHandler {
   @Autowired
-  private ProjectContainer projectContainer;
+  private PerformanceContainer performanceContainer;
 
   /**
-   * Apply project after channel save.
+   * Apply performance after channel save.
    *
    * @param channel channel saved
    */
   @HandleAfterSave
   public void handleChannelSave(Channel channel) {
     LOG.info("Channel saved");
-    projectContainer.load();
-    projectContainer.apply();
+    performanceContainer.load();
+    performanceContainer.apply();
   }
 
   /**
-   * Apply project after channel create.
+   * Apply performance after channel create.
    *
    * @param channel channel created
    */
   @HandleAfterCreate
   public void handleChannelCreate(Channel channel) {
     LOG.info("Channel created");
-    projectContainer.load();
-    projectContainer.apply();
+    performanceContainer.load();
+    performanceContainer.apply();
   }
 
   /**
-   * Apply project after channel delete.
+   * Apply performance after channel delete.
    *
    * @param channel channel deleted
    */
   @HandleAfterDelete
   public void handleChannelDelete(Channel channel) {
     LOG.info("Channel deleted");
-    projectContainer.load();
-    projectContainer.apply();
+    performanceContainer.load();
+    performanceContainer.apply();
   }
 }

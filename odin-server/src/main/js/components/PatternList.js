@@ -38,7 +38,7 @@ class PatternList extends React.Component{
   render() {
     var entities = this.state.entities.map(entity =>
       <Pattern entity={entity} key={entity._links.self.href}
-        project={this.props.project} flux={this.props.flux}
+        performance={this.props.performance} flux={this.props.flux}
         onDelete={this.onDelete} onUpdate={this.onUpdate}
       />
     )
@@ -56,7 +56,7 @@ class PatternList extends React.Component{
           </div>
           {this.isSchemaLoaded() &&
             <EditEntity
-              project={this.props.project} flux={this.props.flux}
+              performance={this.props.performance} flux={this.props.flux}
               path={Pattern.defaultProps.path} fields={Pattern.defaultProps.fields}
               onApply={this.onCreate}
             />
@@ -74,7 +74,7 @@ PatternList.defaultProps = {
 
 PatternList.propTypes = {
   flux: PropTypes.object.isRequired,
-  project: PropTypes.object.isRequired
+  performance: PropTypes.object.isRequired
 }
 
 module.exports = PatternList

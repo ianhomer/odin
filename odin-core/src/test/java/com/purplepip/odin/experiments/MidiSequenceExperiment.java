@@ -11,9 +11,9 @@ import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequencer.BeanyProjectBuilder;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
+import com.purplepip.odin.sequencer.BeanyPerformanceBuilder;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
 import com.purplepip.odin.sequencer.OdinSequencer;
@@ -81,8 +81,8 @@ public class MidiSequenceExperiment {
         synthesizerHelper.loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
-      ProjectContainer container = new ProjectContainer(new TransientProject());
-      new BeanyProjectBuilder(container)
+      PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+      new BeanyPerformanceBuilder(container)
           .withName("note-60-trigger").withNote(60).addNoteTrigger()
           .addLayer("groove")
           .withOffset(0).withLength(12).addLayer("start")

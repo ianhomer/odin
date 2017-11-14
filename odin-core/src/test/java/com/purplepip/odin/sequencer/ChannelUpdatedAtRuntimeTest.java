@@ -58,7 +58,7 @@ public class ChannelUpdatedAtRuntimeTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    ProjectBuilder builder = new BeanyProjectBuilder(environment.getContainer())
+    PerformanceBuilder builder = new BeanyPerformanceBuilder(environment.getContainer())
         .addLayer("groove").withLayers("groove")
         .changeProgramTo("violin")
         .withOffset(OFFSET)

@@ -22,8 +22,8 @@ import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
 import java.util.HashSet;
 import java.util.Optional;
 import org.junit.Test;
@@ -31,11 +31,11 @@ import org.junit.Test;
 /**
  * Project builder test.
  */
-public class ProjectBuilderTest {
+public class PerformanceBuilderTest {
   @Test
   public void testAddChannel() {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance project = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.withChannel(1).changeProgramTo("test");
     Channel channel = project.getChannels().iterator().next();
     assertEquals("Program name not correct", "test", channel.getProgramName());
@@ -44,8 +44,8 @@ public class ProjectBuilderTest {
 
   @Test
   public void testAddLayer() {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance performance = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(performance));
     builder
         .addLayer("layer4").addLayer("layer3")
         .withLayers("layer3", "layer4").addLayer("layer2")
@@ -54,14 +54,14 @@ public class ProjectBuilderTest {
         .withChannel(2).withLayers("layer2", "layer3").addMetronome()
         .withChannel(3).addNotation(BEAT, "C");
     assertEquals("3 sequences should have been created, however "
-        + project.getSequences().size() + " have", 3, project.getSequences().size());
+        + performance.getSequences().size() + " have", 3, performance.getSequences().size());
     SequenceConfiguration sequence1 = builder.getSequenceByOrder(0);
     assertNotNull(builder.getLayerByOrder(0));
 
     Optional<String> firstLayerName = sequence1.getLayers().stream().findFirst();
     assertTrue(firstLayerName.isPresent());
 
-    Layer layer1 = project.getLayers()
+    Layer layer1 = performance.getLayers()
         .stream().filter(l -> l.getName().equals("layer1")).findFirst().orElse(null);
     assertThat(layer1, is(notNullValue()));
     assertThat(layer1.getName(), equalTo("layer1"));
@@ -89,8 +89,8 @@ public class ProjectBuilderTest {
 
   @Test
   public void testAddNotation() {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance performance = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(performance));
     builder.withName("notes").addNotation(BEAT, "a");
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     assertEquals("a", notation.getNotation());
@@ -99,8 +99,8 @@ public class ProjectBuilderTest {
 
   @Test
   public void testAddPattern() {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance performance = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(performance));
     builder.addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
     assertEquals(1, pattern.getBits());
@@ -110,8 +110,8 @@ public class ProjectBuilderTest {
 
   @Test
   public void testAddDisabledPattern() {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance performance = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(performance));
     builder.withEnabled(false).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
     assertFalse(pattern.isEnabled());
@@ -119,8 +119,8 @@ public class ProjectBuilderTest {
 
   @Test
   public void testAddEnabledPattern() {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance project = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.withEnabled(true).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
     assertTrue(pattern.isEnabled());
@@ -128,8 +128,8 @@ public class ProjectBuilderTest {
 
   @Test
   public void testAddPatternUsingProperties() {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance project = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.withProperty("bits", 7);
     builder.withProperty("note.number", "58");
     builder.addPattern(BEAT, 1);
@@ -140,9 +140,9 @@ public class ProjectBuilderTest {
 
   @Test
   public void testWithLayerDuplicationWarning() {
-    try (LogCaptor captor = new LogCapture().from(ProjectBuilder.class).warn().start()) {
-      TransientProject project = new TransientProject();
-      ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    try (LogCaptor captor = new LogCapture().from(PerformanceBuilder.class).warn().start()) {
+      TransientPerformance project = new TransientPerformance();
+      PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
       builder.withLayers("layer1", "layer2", "layer2", "layer3", "layer3", "layer3", "layer4");
       assertEquals(1, captor.size());
       assertEquals("Creating entity with layers [layer1, layer2, layer2, layer3, "
@@ -152,8 +152,8 @@ public class ProjectBuilderTest {
 
   @Test
   public void testAddTrigger() {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance project = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.withName("trigger1").withNote(60).addNoteTrigger();
     NoteTrigger trigger = (NoteTrigger) builder.getTriggerByOrder(0);
     assertEquals("trigger1", trigger.getName());

@@ -18,7 +18,7 @@ package com.purplepip.odin.store;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.LayerRepository;
 import com.purplepip.odin.server.rest.repositories.SequenceRepository;
@@ -29,7 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PersistableProjectContainer extends ProjectContainer {
+public class PersistablePerformanceContainer extends PerformanceContainer {
   @Autowired
   private LayerRepository layerRepository;
 
@@ -42,16 +42,16 @@ public class PersistableProjectContainer extends ProjectContainer {
   @Override
   public void addChannel(Channel channel) {
     if (channel instanceof PersistableChannel) {
-      ((PersistableChannel) channel).setProject(getProject());
+      ((PersistableChannel) channel).setPerformance(getPerformance());
       channelRepository.save((PersistableChannel) channel);
     }
     super.addChannel(channel);
   }
 
   @Override
-  public PersistableProjectContainer addSequence(SequenceConfiguration sequence) {
+  public PersistablePerformanceContainer addSequence(SequenceConfiguration sequence) {
     if (sequence instanceof PersistableSequence) {
-      ((PersistableSequence) sequence).setProject(getProject());
+      ((PersistableSequence) sequence).setPerformance(getPerformance());
       sequenceRepository.save((PersistableSequence) sequence);
     }
     super.addSequence(sequence);
@@ -59,9 +59,9 @@ public class PersistableProjectContainer extends ProjectContainer {
   }
 
   @Override
-  public PersistableProjectContainer addLayer(MutableLayer layer) {
+  public PersistablePerformanceContainer addLayer(MutableLayer layer) {
     if (layer instanceof PersistableLayer) {
-      ((PersistableLayer) layer).setProject(getProject());
+      ((PersistableLayer) layer).setPerformance(getPerformance());
       layerRepository.save((PersistableLayer) layer);
     }
     super.addLayer(layer);

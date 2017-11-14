@@ -28,7 +28,7 @@ public class OdinSequencerComplexTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    new BeanyProjectBuilder(environment.getContainer())
+    new BeanyPerformanceBuilder(environment.getContainer())
         .addLayer("verse").addLayer("chorus")
         .withLayers("verse", "chorus").addLayer("groove").withLayers("groove")
         .withOffset(OFFSET)

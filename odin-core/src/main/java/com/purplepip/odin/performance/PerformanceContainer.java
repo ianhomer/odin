@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.project;
+package com.purplepip.odin.performance;
 
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
@@ -28,132 +28,132 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Project container providing project handling logic independent of project model.
+ * Performance container providing performance handling logic independent of performance model.
  */
 @Slf4j
-public class ProjectContainer {
-  private List<ProjectApplyListener> applyListeners = new ArrayList<>();
-  private List<ProjectLoadListener> loadListeners = new ArrayList<>();
-  private List<ProjectSaveListener> saveListeners = new ArrayList<>();
+public class PerformanceContainer {
+  private List<PerformanceApplyListener> applyListeners = new ArrayList<>();
+  private List<PerformanceLoadListener> loadListeners = new ArrayList<>();
+  private List<PerformanceSaveListener> saveListeners = new ArrayList<>();
 
-  private Project project;
+  private Performance performance;
 
-  public ProjectContainer() {
+  public PerformanceContainer() {
     // Empty constructor explicitly supported.
   }
 
-  public ProjectContainer(Project project) {
-    this.project = project;
+  public PerformanceContainer(Performance performance) {
+    this.performance = performance;
   }
 
-  protected Project getProject() {
-    return project;
+  protected Performance getPerformance() {
+    return performance;
   }
 
-  public void setProject(Project project) {
-    this.project = project;
+  public void setPerformance(Performance performance) {
+    this.performance = performance;
   }
 
   public String getName() {
-    return project.getName();
+    return performance.getName();
   }
 
   /**
-   * Save project to persistent store.
+   * Save performance to persistent store.
    */
   public final void save() {
-    for (ProjectSaveListener listener : saveListeners) {
-      listener.onProjectSave(project);
+    for (PerformanceSaveListener listener : saveListeners) {
+      listener.onPerformanceSave(performance);
     }
   }
 
   /**
-   * Load project from persistent store.
+   * Load performance from persistent store.
    */
   public final void load() {
-    for (ProjectLoadListener listener : loadListeners) {
-      listener.onProjectLoad(this);
+    for (PerformanceLoadListener listener : loadListeners) {
+      listener.onPerformanceLoad(this);
     }
   }
 
   /**
-   * Apply project changes.
+   * Apply performance changes.
    */
   public final void apply() {
-    for (ProjectApplyListener listener : applyListeners) {
-      listener.onProjectApply(project);
+    for (PerformanceApplyListener listener : applyListeners) {
+      listener.onProjectApply(performance);
     }
   }
 
 
 
   /**
-   * Add project apply listener.
+   * Add performance apply listener.
    *
-   * @param listener project apply listener.
+   * @param listener performance apply listener.
    */
-  public void addApplyListener(ProjectApplyListener listener) {
+  public void addApplyListener(PerformanceApplyListener listener) {
     applyListeners.add(listener);
   }
 
   /**
-   * Add project load listener.
+   * Add performance load listener.
    *
-   * @param listener project load listener.
+   * @param listener performance load listener.
    */
-  public void addLoadListener(ProjectLoadListener listener) {
+  public void addLoadListener(PerformanceLoadListener listener) {
     loadListeners.add(listener);
   }
 
 
   /**
-   * Add project save listener.
+   * Add performance save listener.
    *
-   * @param listener project save listener.
+   * @param listener performance save listener.
    */
-  public void addSaveListener(ProjectSaveListener listener) {
+  public void addSaveListener(PerformanceSaveListener listener) {
     saveListeners.add(listener);
   }
 
   /**
-   * Remove project apply listener.
+   * Remove performance apply listener.
    *
-   * @param listener project apply listener
+   * @param listener performance apply listener
    */
-  public void removeApplyListener(ProjectApplyListener listener) {
+  public void removeApplyListener(PerformanceApplyListener listener) {
     applyListeners.remove(listener);
   }
 
   /**
-   * Remove project remove listener.
+   * Remove performance remove listener.
    *
-   * @param listener project remove listener
+   * @param listener performance remove listener
    */
-  public void removeLoadListener(ProjectLoadListener listener) {
+  public void removeLoadListener(PerformanceLoadListener listener) {
     loadListeners.remove(listener);
   }
 
   /**
-   * Remove project save listener.
+   * Remove performance save listener.
    *
-   * @param listener project save listener
+   * @param listener performance save listener
    */
-  public void removeSaveListener(ProjectSaveListener listener) {
+  public void removeSaveListener(PerformanceSaveListener listener) {
     saveListeners.remove(listener);
   }
 
   public SequenceConfiguration getSequence(long id) {
-    return getProject().getSequences().stream().filter(s -> s.getId() == id)
+    return getPerformance().getSequences().stream().filter(s -> s.getId() == id)
         .findFirst().orElse(null);
   }
 
   /**
-   * Get iterable of the sequences stored in this project.
+   * Get iterable of the sequences stored in this performance.
    *
    * @return iterable of sequences
    */
   public Iterable<SequenceConfiguration> getSequences() {
-    return Collections.unmodifiableSet(getProject().getSequences());
+    return Collections.unmodifiableSet(getPerformance().getSequences());
   }
 
   /**
@@ -162,23 +162,23 @@ public class ProjectContainer {
    * @return sequence stream
    */
   public Stream<SequenceConfiguration> getSequenceStream() {
-    return getProject().getSequences().stream();
+    return getPerformance().getSequences().stream();
   }
 
   /**
-   * Add a sequence to the project.
+   * Add a sequence to the performance.
    *
    * @param sequence sequence
    */
-  public ProjectContainer addSequence(SequenceConfiguration sequence) {
+  public PerformanceContainer addSequence(SequenceConfiguration sequence) {
     LOG.debug("Adding sequence {}", sequence);
-    project.addSequence(sequence);
+    performance.addSequence(sequence);
     return this;
   }
 
   public void removeSequence(SequenceConfiguration sequence) {
     LOG.debug("Removing sequence {}", sequence);
-    project.removeSequence(sequence);
+    performance.removeSequence(sequence);
   }
 
   /**
@@ -187,7 +187,7 @@ public class ProjectContainer {
    * @param channel configuration to add
    */
   public void addChannel(Channel channel) {
-    project.addChannel(channel);
+    performance.addChannel(channel);
   }
 
   /**
@@ -197,7 +197,7 @@ public class ProjectContainer {
    * @return channel for the given ID.
    */
   public Channel getChannel(long id) {
-    return getProject().getChannels().stream().filter(s -> s.getId() == id)
+    return getPerformance().getChannels().stream().filter(s -> s.getId() == id)
         .findFirst().orElse(null);
   }
 
@@ -206,8 +206,8 @@ public class ProjectContainer {
    *
    * @param layer to add
    */
-  public ProjectContainer addLayer(MutableLayer layer) {
-    project.addLayer(layer);
+  public PerformanceContainer addLayer(MutableLayer layer) {
+    performance.addLayer(layer);
     return this;
   }
 
@@ -218,7 +218,7 @@ public class ProjectContainer {
    * @return layer for the given ID.
    */
   public Layer getLayer(long id) {
-    return getProject().getLayers().stream().filter(s -> s.getId() == id)
+    return getPerformance().getLayers().stream().filter(s -> s.getId() == id)
         .findFirst().orElse(null);
   }
 
@@ -228,7 +228,7 @@ public class ProjectContainer {
    * @return layer stream
    */
   public Stream<Layer> getLayerStream() {
-    return project.getLayers().stream();
+    return performance.getLayers().stream();
   }
 
   /**
@@ -236,8 +236,8 @@ public class ProjectContainer {
    *
    * @param trigger to add
    */
-  public ProjectContainer addTrigger(MutableTriggerConfiguration trigger) {
-    project.addTrigger(trigger);
+  public PerformanceContainer addTrigger(MutableTriggerConfiguration trigger) {
+    performance.addTrigger(trigger);
     return this;
   }
 
@@ -248,7 +248,7 @@ public class ProjectContainer {
    * @return layer for the given ID.
    */
   public TriggerConfiguration getTrigger(long id) {
-    return getProject().getTriggers().stream().filter(s -> s.getId() == id)
+    return getPerformance().getTriggers().stream().filter(s -> s.getId() == id)
         .findFirst().orElse(null);
   }
 
@@ -258,7 +258,7 @@ public class ProjectContainer {
    * @return trigger stream
    */
   public Stream<TriggerConfiguration> getTriggerStream() {
-    return project.getTriggers().stream();
+    return performance.getTriggers().stream();
   }
 
   /**
@@ -267,11 +267,11 @@ public class ProjectContainer {
    * @param channel configuration to remove
    */
   public void removeChannel(Channel channel) {
-    project.removeChannel(channel);
+    performance.removeChannel(channel);
   }
 
   public Iterable<Channel> getChannels() {
-    return Collections.unmodifiableSet(project.getChannels());
+    return Collections.unmodifiableSet(performance.getChannels());
   }
 
   /**
@@ -280,7 +280,7 @@ public class ProjectContainer {
    * @return channel stream
    */
   public Stream<Channel> getChannelStream() {
-    return project.getChannels().stream();
+    return performance.getChannels().stream();
   }
 
   public boolean isEmpty() {
@@ -288,34 +288,34 @@ public class ProjectContainer {
   }
 
   /**
-   * Whether this project have any channels.
+   * Whether this performance have any channels.
    *
-   * @return whether project has any channels
+   * @return whether performance has any channels
    */
   public boolean hasChannels() {
     /*
      * Null safety since channels collection might not have initialised yet in the persistent
      * domain.
      */
-    return project.getChannels() != null && !project.getChannels().isEmpty();
+    return performance.getChannels() != null && !performance.getChannels().isEmpty();
   }
 
   /**
-   * Whether this project have any sequences.
+   * Whether this performance have any sequences.
    *
-   * @return whether project has any sequences
+   * @return whether performance has any sequences
    */
   public boolean hasSequences() {
-    return project.getSequences() != null && !project.getSequences().isEmpty();
+    return performance.getSequences() != null && !performance.getSequences().isEmpty();
   }
 
   /**
-   * Whether this project have any layers.
+   * Whether this performance have any layers.
    *
-   * @return whether project has any layers
+   * @return whether performance has any layers
    */
   public boolean hasLayers() {
-    return project.getLayers() != null && !project.getLayers().isEmpty();
+    return performance.getLayers() != null && !performance.getLayers().isEmpty();
   }
 
 }

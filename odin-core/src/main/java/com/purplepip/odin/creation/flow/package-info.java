@@ -14,6 +14,9 @@
  */
 
 /**
- * Sequence flow logic foundations.
+ * Sequence flow logic foundations.  The flow implementation acts a layer over and above the
+ * sequence implementation.  Sequence plugins creation needs to be easy and light weight.  The
+ * flow layer allows common logic to be centrally implemented removing overhead from sequence
+ * plugin creation.
  */
 package com.purplepip.odin.creation.flow;

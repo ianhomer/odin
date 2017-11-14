@@ -14,6 +14,6 @@
  */
 
 /**
- * Odin store implementation for the sequencer project model.
+ * Odin store implementation for the sequencer performance model.
  */
 package com.purplepip.odin.store;

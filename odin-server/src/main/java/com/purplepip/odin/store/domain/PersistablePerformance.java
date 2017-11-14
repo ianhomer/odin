@@ -21,7 +21,7 @@ import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.performance.Performance;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -36,39 +36,39 @@ import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Persistable project.
+ * Persistable performance.
  */
 @Data
-@Entity(name = "Project")
-@Table(name = "Project")
+@Entity(name = "Performance")
+@Table(name = "Performance")
 @EqualsAndHashCode(of = "id")
 @Slf4j
-public class PersistableProject implements Project {
+public class PersistablePerformance implements Performance {
   @Id
   @GeneratedValue
   private long id;
   private String name;
 
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
+      fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
   private Set<Channel> channels = new HashSet<>();
 
   @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
+      fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
   private Set<Layer> layers = new HashSet<>();
 
   @OneToMany(targetEntity = PersistableTrigger.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
+      fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
   private Set<TriggerConfiguration> triggers = new HashSet<>();
 
   @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "project", orphanRemoval = true)
+      fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
   private Set<SequenceConfiguration> sequences = new HashSet<>();
 
   @Override
   public void addChannel(Channel channel) {
     if (channel instanceof PersistableChannel) {
-      ((PersistableChannel) channel).setProject(this);
+      ((PersistableChannel) channel).setPerformance(this);
     }
     /*
      * Replace any existing channel for same channel number.
@@ -85,22 +85,22 @@ public class PersistableProject implements Project {
   public void removeChannel(Channel channel) {
     boolean result = channels.remove(channel);
     if (!result) {
-      LOG.warn("Could not remove channel {} from project", channel);
+      LOG.warn("Could not remove channel {} from performance", channel);
     } else {
-      LOG.debug("Removed channel from project");
+      LOG.debug("Removed channel from performance");
     }
   }
 
   @Override
   public void addSequence(SequenceConfiguration sequence) {
     if (sequence instanceof PersistableSequence) {
-      ((PersistableSequence) sequence).setProject(this);
+      ((PersistableSequence) sequence).setPerformance(this);
     }
     boolean result = sequences.add(sequence);
     if (!result) {
-      LOG.warn("Could not add sequence {} to project", sequence);
+      LOG.warn("Could not add sequence {} to performance", sequence);
     } else {
-      LOG.debug("Added sequence to project");
+      LOG.debug("Added sequence to performance");
     }
   }
 
@@ -108,22 +108,22 @@ public class PersistableProject implements Project {
   public void removeSequence(SequenceConfiguration sequence) {
     boolean result = sequences.remove(sequence);
     if (!result) {
-      LOG.warn("Could not remove sequence {} from project", sequence);
+      LOG.warn("Could not remove sequence {} from performance", sequence);
     } else {
-      LOG.debug("Removed sequence from project");
+      LOG.debug("Removed sequence from performance");
     }
   }
 
   @Override
   public void addLayer(MutableLayer layer) {
     if (layer instanceof PersistableLayer) {
-      ((PersistableLayer) layer).setProject(this);
+      ((PersistableLayer) layer).setPerformance(this);
     }
     boolean result = layers.add(layer);
     if (!result) {
-      LOG.warn("Could not add layer {} to project", layer);
+      LOG.warn("Could not add layer {} to performance", layer);
     } else {
-      LOG.debug("Added layer to project");
+      LOG.debug("Added layer to performance");
     }
   }
 
@@ -131,22 +131,23 @@ public class PersistableProject implements Project {
   public void removeLayer(Layer layer) {
     boolean result = layers.remove(layer);
     if (!result) {
-      LOG.warn("Could not remove layer {} from project with layers {}", layer, getLayers());
+      LOG.warn("Could not remove layer {} from performance with layers {}", layer, getLayers());
     } else {
-      LOG.debug("Removed layer {} from project which now has layers = {}  ", layer, getLayers());
+      LOG.debug("Removed layer {} from performance which now has layers = {}  ",
+          layer, getLayers());
     }
   }
 
   @Override
   public void addTrigger(MutableTriggerConfiguration trigger) {
     if (trigger instanceof PersistableTrigger) {
-      ((PersistableTrigger) trigger).setProject(this);
+      ((PersistableTrigger) trigger).setPerformance(this);
     }
     boolean result = triggers.add(trigger);
     if (!result) {
-      LOG.warn("Could not add trigger {} to project", trigger);
+      LOG.warn("Could not add trigger {} to performance", trigger);
     } else {
-      LOG.debug("Added trigger to project");
+      LOG.debug("Added trigger to performance");
     }
   }
 
@@ -154,9 +155,10 @@ public class PersistableProject implements Project {
   public void removeTrigger(TriggerConfiguration trigger) {
     boolean result = triggers.remove(trigger);
     if (!result) {
-      LOG.warn("Could not remove trigger {} from project with triggers {}", trigger, getTriggers());
+      LOG.warn("Could not remove trigger {} from performance with triggers {}",
+          trigger, getTriggers());
     } else {
-      LOG.debug("Removed trigger {} from project which now has layers = {}  ",
+      LOG.debug("Removed trigger {} from performance which now has layers = {}  ",
           trigger, getTriggers());
     }
   }

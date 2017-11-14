@@ -38,8 +38,8 @@ import com.purplepip.odin.creation.track.SequenceTracks;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
 import org.junit.Test;
 
 public class ReactorReceiverTest {
@@ -50,8 +50,8 @@ public class ReactorReceiverTest {
 
   @Test
   public void testSend() throws Exception {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance project = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder
         .withName("trigger1").withNote(60).addNoteTrigger()
         .withName("trigger2").withNote(61).addNoteTrigger()

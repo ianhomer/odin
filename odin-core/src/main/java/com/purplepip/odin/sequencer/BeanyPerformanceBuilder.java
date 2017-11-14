@@ -16,7 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
-import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
 
 /**
  * Project builder which generates bean based objects instead of the specialised types.  This
@@ -25,8 +25,8 @@ import com.purplepip.odin.project.ProjectContainer;
  * this project builder is more flexible since it allows the persistent model to be simplified
  * by only requiring one entity type and will make it easier to support plugins in the future.
  */
-public class BeanyProjectBuilder extends ProjectBuilder {
-  public BeanyProjectBuilder(ProjectContainer projectContainer) {
+public class BeanyPerformanceBuilder extends PerformanceBuilder {
+  public BeanyPerformanceBuilder(PerformanceContainer projectContainer) {
     super(projectContainer);
   }
 

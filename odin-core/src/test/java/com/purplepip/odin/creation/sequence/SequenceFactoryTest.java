@@ -29,9 +29,9 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
+import com.purplepip.odin.sequencer.PerformanceBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -50,8 +50,8 @@ public class SequenceFactoryTest {
 
   @Test
   public void testCopy() throws OdinException {
-    ProjectContainer container = new ProjectContainer(new TransientProject());
-    new ProjectBuilder(container)
+    PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+    new PerformanceBuilder(container)
         .addLayer("groove")
         .withLayers("groove")
         .withOffset(4)
@@ -74,8 +74,8 @@ public class SequenceFactoryTest {
 
   @Test
   public void testCreateFlow() throws OdinException {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance project = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.addMetronome();
     Flow<Sequence<Note>, Note> flow =
         flowFactory.createFlow(project.getSequences().iterator().next(), clock, measureProvider);

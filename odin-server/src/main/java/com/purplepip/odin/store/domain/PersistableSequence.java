@@ -17,7 +17,7 @@ package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.performance.Performance;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,14 +45,14 @@ import lombok.extern.slf4j.Slf4j;
 @Table(name = "Sequence")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
-@ToString(exclude = "project", callSuper = true)
+@ToString(exclude = "performance", callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
 public class PersistableSequence
     extends PersistableTimeThing implements MutableSequenceConfiguration {
-  @ManyToOne(targetEntity = PersistableProject.class)
-  @JoinColumn(name = "PROJECT_ID", nullable = false)
-  private Project project;
+  @ManyToOne(targetEntity = PersistablePerformance.class)
+  @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
+  private Performance performance;
 
   @NotNull
   private String type;
@@ -96,16 +96,16 @@ public class PersistableSequence
 
   @PrePersist
   public void prePesist() {
-    addToProject();
+    addToPerformance();
   }
 
-  public void addToProject() {
-    project.addSequence(this);
+  public void addToPerformance() {
+    performance.addSequence(this);
   }
 
   @PreRemove
-  public void removeFromProject() {
-    project.removeSequence(this);
+  public void removeFromPerformance() {
+    performance.removeSequence(this);
   }
 
   @Override

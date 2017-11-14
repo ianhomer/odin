@@ -33,14 +33,14 @@ public final class TestPersistables {
   }
 
   /**
-   * Create new persistable layer added to the given project.
+   * Create new persistable layer added to the given performance.
    *
    * @param name layer name
    * @return new layer
    */
-  public static PersistableLayer newLayer(PersistableProject project, String name) {
+  public static PersistableLayer newLayer(PersistablePerformance performance, String name) {
     PersistableLayer layer = newLayer(name);
-    project.addLayer(layer);
+    performance.addLayer(layer);
     return layer;
   }
 

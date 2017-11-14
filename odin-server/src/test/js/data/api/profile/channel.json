@@ -11,8 +11,8 @@
       "readOnly" : false,
       "type" : "string"
     },
-    "project" : {
-      "title" : "Project",
+    "performance" : {
+      "title" : "Performance",
       "readOnly" : false,
       "type" : "string",
       "format" : "uri"

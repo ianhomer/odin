@@ -5,7 +5,7 @@ import {shallow} from 'enzyme'
 import sinon from 'sinon'
 
 import App from 'odin/containers/App.js'
-import {LOAD_PROJECT_SCHEMA_SUCCEEDED, loadProjectSchemaRequested} from 'odin/actions/index.js'
+import {LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, loadPerformanceSchemaRequested} from 'odin/actions/index.js'
 
 import store from '../store'
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
@@ -21,8 +21,8 @@ describe('async actions', () => {
   test('App after schema loaded OK', done => {
     var shallowApp = shallow(app)
     const spyReceiveProps = sinon.spy(App.prototype, 'componentWillReceiveProps')
-    dispatchAndExpect(store, done, LOAD_PROJECT_SCHEMA_SUCCEEDED,
-      () => loadProjectSchemaRequested(),
+    dispatchAndExpect(store, done, LOAD_PERFORMANCE_SCHEMA_SUCCEEDED,
+      () => loadPerformanceSchemaRequested(),
       () => {
         expect(shallowApp.dive()).toMatchSnapshot()
         expect(spyReceiveProps.calledOnce).toBe(false)

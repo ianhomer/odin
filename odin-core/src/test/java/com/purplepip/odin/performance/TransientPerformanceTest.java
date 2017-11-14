@@ -1,27 +1,27 @@
-package com.purplepip.odin.project;
+package com.purplepip.odin.performance;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.sequence.Metronome;
-import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.sequencer.PerformanceBuilder;
 import org.junit.Test;
 
 /**
  * Test on transient project.
  */
-public class TransientProjectTest {
+public class TransientPerformanceTest {
   private static final int EXPECTED_SEQUENCE_COUNT = 1;
 
   @Test
   public void testAddSequence() {
-    Project project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    Performance performance = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(performance));
     builder.addMetronome();
     int count = 0;
     SequenceConfiguration firstSequence = null;
-    for (SequenceConfiguration sequence : project.getSequences()) {
+    for (SequenceConfiguration sequence : performance.getSequences()) {
       if (count == 0) {
         firstSequence = sequence;
       }
@@ -35,7 +35,7 @@ public class TransientProjectTest {
 
   @Test
   public void testGetName() {
-    Project project = new TransientProject();
-    assertEquals("transient", project.getName());
+    Performance performance = new TransientPerformance();
+    assertEquals("transient", performance.getName());
   }
 }

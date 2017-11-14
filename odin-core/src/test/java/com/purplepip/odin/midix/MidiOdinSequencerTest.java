@@ -6,13 +6,13 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
-import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
@@ -48,9 +48,9 @@ public class MidiOdinSequencerTest {
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper))
               );
 
-      ProjectContainer container = new ProjectContainer(new TransientProject());
+      PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
       container.addApplyListener(sequencer);
-      new ProjectBuilder(container)
+      new PerformanceBuilder(container)
           .addLayer("groove").withLayers("groove")
           .withOffset(16).withLength(16).addMetronome();
       container.apply();

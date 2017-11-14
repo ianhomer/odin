@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.clock.tick.TimeUnit;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.layer.Layer;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.store.PersistableProjectBuilder;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,20 +14,20 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Project repository test.
+ * Performance repository test.
  */
 @RunWith(SpringRunner.class)
 @Slf4j
 public class PersistableLayerTest {
-  private PersistableProjectBuilder builder;
+  private PersistablePerformanceBuilder builder;
 
   /**
    * Set up.
    */
   @Before
   public void setUp() {
-    PersistableProject project = new PersistableProject();
-    builder = new PersistableProjectBuilder(new ProjectContainer(project));
+    PersistablePerformance performance = new PersistablePerformance();
+    builder = new PersistablePerformanceBuilder(new PerformanceContainer(performance));
   }
 
   @Test

@@ -16,8 +16,8 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.clock.tick.Ticks;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.store.PersistableProjectBuilder;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,25 +29,25 @@ import org.springframework.stereotype.Component;
 @Profile("!test")
 @Slf4j
 @Order(4)
-public class DefaultRuntimeProjectLoader implements CommandLineRunner {
+public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
   private static final String BREAK = "break";
   private static final String INTRO = "intro";
   private static final String VERSE = "verse";
 
   @Autowired
-  private ProjectContainer projectContainer;
+  private PerformanceContainer performanceContainer;
 
   /*
-   * Default project creator must have been loaded before loading the runtime project, hence
+   * Default performance creator must have been loaded before loading the runtime performance, hence
    * this is autowired, but NOT used.
    */
   @Autowired
-  private DefaultProjectCreator defaultProjectCreator;
+  private DefaultPerformanceCreator defaultPerformanceCreator;
 
   @Override
   public void run(String... args) throws Exception {
-    if (projectContainer.isEmpty()) {
-      new PersistableProjectBuilder(projectContainer)
+    if (performanceContainer.isEmpty()) {
+      new PersistablePerformanceBuilder(performanceContainer)
           .withChannel(1).changeProgramTo("piano")
           .withChannel(2).changeProgramTo("rock")
           .withChannel(3).changeProgramTo("strings")
@@ -98,13 +98,13 @@ public class DefaultRuntimeProjectLoader implements CommandLineRunner {
           .withLayers(BREAK).withName("kick3").withNote(33).addPattern(Ticks.QUARTER, 87)
           .withLayers(VERSE).withName("hi").withNote(42).addPattern(Ticks.HALF, 15)
           .withLayers("c").withName("crash").withNote(46).addPattern(Ticks.HALF, 87);
-      projectContainer.save();
+      performanceContainer.save();
       LOG.info("Default sequences loaded");
-      projectContainer.apply();
-      LOG.info("Default project populated");
-      projectContainer.load();
+      performanceContainer.apply();
+      LOG.info("Default rerformance populated");
+      performanceContainer.load();
     } else {
-      LOG.warn("Default project has already been loaded");
+      LOG.warn("Default performance has already been loaded");
     }
   }
 }

@@ -2062,8 +2062,8 @@ exports[`Sequences container Sequences container initialise 1`] = `
           className="col-1"
         >
           <input
-            defaultValue="http://localhost:8080/api/project/1"
-            name="project"
+            defaultValue="http://localhost:8080/api/performance/1"
+            name="performance"
             type="hidden"
           />
           <input
@@ -2306,8 +2306,8 @@ exports[`Sequences container Sequences container initialise 1`] = `
           className="col-1"
         >
           <input
-            defaultValue="http://localhost:8080/api/project/1"
-            name="project"
+            defaultValue="http://localhost:8080/api/performance/1"
+            name="performance"
             type="hidden"
           />
           <input
@@ -4391,8 +4391,8 @@ exports[`Sequences container Sequences container load 1`] = `
           className="col-1"
         >
           <input
-            defaultValue="http://localhost:8080/api/project/1"
-            name="project"
+            defaultValue="http://localhost:8080/api/performance/1"
+            name="performance"
             type="hidden"
           />
           <input
@@ -4635,8 +4635,8 @@ exports[`Sequences container Sequences container load 1`] = `
           className="col-1"
         >
           <input
-            defaultValue="http://localhost:8080/api/project/1"
-            name="project"
+            defaultValue="http://localhost:8080/api/performance/1"
+            name="performance"
             type="hidden"
           />
           <input

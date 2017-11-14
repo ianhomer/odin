@@ -16,7 +16,7 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.creation.channel.Channel;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.performance.Performance;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @Entity(name = "Channel")
 @Table(name = "Channel")
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = "project")
+@ToString(exclude = "performance")
 @Slf4j
 public class PersistableChannel implements Channel {
   @Id
@@ -46,19 +46,19 @@ public class PersistableChannel implements Channel {
   private int number;
   private String programName;
   private int program;
-  @ManyToOne(targetEntity = PersistableProject.class)
-  @JoinColumn(name = "PROJECT_ID", nullable = false)
-  private Project project;
+  @ManyToOne(targetEntity = PersistablePerformance.class)
+  @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
+  private Performance performance;
 
   @PrePersist
-  public void addToProject() {
-    LOG.info("Adding channel to project");
-    project.addChannel(this);
+  public void addToPerformance() {
+    LOG.info("Adding channel to performance");
+    performance.addChannel(this);
   }
 
   @PreRemove
-  public void removeFromProject() {
-    LOG.info("Removing channel from project");
-    project.removeChannel(this);
+  public void removeFromPerformance() {
+    LOG.info("Removing channel from performance");
+    performance.removeChannel(this);
   }
 }

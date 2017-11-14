@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.project;
+package com.purplepip.odin.performance;
 
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
@@ -26,7 +26,7 @@ import java.util.Set;
 /**
  * An Odin Project that stores configuration and state of the given runtime.
  */
-public interface Project {
+public interface Performance {
   String getName();
 
   /**

@@ -38,7 +38,7 @@ public class Rest {
   /**
    * Get the href of the first entity in the given collection.
    *
-   * @param entitiesName entities name, e.g. projects
+   * @param entitiesName entities name, e.g. performances
    * @return href for the first entity
    * @throws Exception exception
    */
@@ -49,7 +49,7 @@ public class Rest {
   /**
    * Get the href of the entity with the given index in the given collection.
    *
-   * @param entitiesName entities name, e.g. projects
+   * @param entitiesName entities name, e.g. performances
    * @return href for the entity with the given index
    * @throws Exception exception
    */

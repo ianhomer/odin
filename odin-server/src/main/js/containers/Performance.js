@@ -24,11 +24,11 @@ import ChannelsContainer from '../containers/ChannelsContainer'
 import SequencesContainer from '../containers/SequencesContainer'
 import ComposerContainer from '../containers/ComposerContainer'
 
-class Project extends React.Component {
+class Performance extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      project: null
+      performance: null
     }
 
     this.renderSequenceList = this.renderSequenceList.bind(this)
@@ -37,18 +37,18 @@ class Project extends React.Component {
   }
 
   componentDidMount() {
-    // Load first project (only one project supported for now)
-    // TODO : Move this project loading over to redux
-    fetch('/api/project', {method: 'GET'})
+    // Load first performance (only one performance supported for now)
+    // TODO : Move this performance loading over to redux
+    fetch('/api/performance', {method: 'GET'})
       .then(response => response.json())
-      .then(json => this.setState({project: json._embedded.project[0]}))
+      .then(json => this.setState({performance: json._embedded.performance[0]}))
   }
 
   renderChannelList() {
     return (
       <div>
-        {this.state.project &&
-          <ChannelsContainer schema={this.props.schema} project={this.state.project}/>
+        {this.state.performance &&
+          <ChannelsContainer schema={this.props.schema} performance={this.state.performance}/>
         }
       </div>
     )
@@ -57,8 +57,8 @@ class Project extends React.Component {
   renderComposer() {
     return (
       <div>
-        {this.state.project &&
-          <ComposerContainer schema={this.props.schema} project={this.state.project}/>
+        {this.state.performance &&
+          <ComposerContainer schema={this.props.schema} performance={this.state.performance}/>
         }
       </div>
     )
@@ -67,8 +67,8 @@ class Project extends React.Component {
   renderSequenceList() {
     return (
       <div>
-        {this.state.project &&
-          <SequencesContainer schema={this.props.schema} project={this.state.project}/>
+        {this.state.performance &&
+          <SequencesContainer schema={this.props.schema} performance={this.state.performance}/>
         }
       </div>
     )
@@ -87,7 +87,7 @@ class Project extends React.Component {
   }
 }
 
-Project.propTypes = {
+Performance.propTypes = {
   dispatch: PropTypes.func.isRequired,
   schema: PropTypes.object.isRequired
 }
@@ -100,4 +100,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Project)
+export default connect(mapStateToProps)(Performance)

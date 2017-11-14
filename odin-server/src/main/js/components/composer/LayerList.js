@@ -32,7 +32,7 @@ class LayerList extends React.Component{
     var value = e.target.value.trim()
     this.props.onCreate({
       name: value,
-      project: this.props.project._links.self.href
+      performance: this.props.performance._links.self.href
     }, 'layer')
   }
 
@@ -130,7 +130,7 @@ LayerList.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onMoveLayer: PropTypes.func.isRequired,
   onRemoveLayer: PropTypes.func.isRequired,
-  project: PropTypes.shape({
+  performance: PropTypes.shape({
     _links: PropTypes.shape({
       self: PropTypes.shape({
         href: PropTypes.string.isRequired

@@ -16,7 +16,7 @@
 package com.purplepip.odin.server.rest.event;
 
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -32,41 +32,41 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SequenceEventHandler {
   @Autowired
-  private ProjectContainer projectContainer;
+  private PerformanceContainer performanceContainer;
 
   /**
-   * Apply project after sequence save.
+   * Apply performance after sequence save.
    *
    * @param sequence sequence saved
    */
   @HandleAfterSave
   public void handleSequenceSave(SequenceConfiguration sequence) {
     LOG.info("Sequence saved");
-    projectContainer.load();
-    projectContainer.apply();
+    performanceContainer.load();
+    performanceContainer.apply();
   }
 
   /**
-   * Apply project after sequence create.
+   * Apply performance after sequence create.
    *
    * @param sequence sequence created
    */
   @HandleAfterCreate
   public void handleSequenceCreate(SequenceConfiguration sequence) {
     LOG.info("Sequence created");
-    projectContainer.load();
-    projectContainer.apply();
+    performanceContainer.load();
+    performanceContainer.apply();
   }
 
   /**
-   * Apply project after sequence delete.
+   * Apply performance after sequence delete.
    *
    * @param sequence sequence deleted
    */
   @HandleAfterDelete
   public void handleSequenceDelete(SequenceConfiguration sequence) {
     LOG.info("Sequence deleted");
-    projectContainer.load();
-    projectContainer.apply();
+    performanceContainer.load();
+    performanceContainer.apply();
   }
 }

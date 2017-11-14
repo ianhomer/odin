@@ -5,9 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.store.PersistableProjectBuilder;
-import com.purplepip.odin.store.domain.PersistableProject;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.store.PersistablePerformanceBuilder;
+import com.purplepip.odin.store.domain.PersistablePerformance;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -34,19 +34,19 @@ public class SequenceRepositoryTest {
   private SequenceRepository repository;
 
   @Autowired
-  private ProjectRepository projectRepository;
+  private PerformanceRepository performanceRepository;
 
-  PersistableProject project;
-  private PersistableProjectBuilder builder;
+  PersistablePerformance performance;
+  private PersistablePerformanceBuilder builder;
 
   /**
    * Set up.
    */
   @Before
   public void setUp() {
-    project = new PersistableProject();
-    projectRepository.save(project);
-    builder = new PersistableProjectBuilder(new ProjectContainer(project));
+    performance = new PersistablePerformance();
+    performanceRepository.save(performance);
+    builder = new PersistablePerformanceBuilder(new PerformanceContainer(performance));
   }
 
   @Test
@@ -58,7 +58,7 @@ public class SequenceRepositoryTest {
         .withName("test-pattern")
         .withNote(58).withOffset(4)
         .addPattern(Ticks.BEAT, 9876);
-    for (SequenceConfiguration sequence : project.getSequences()) {
+    for (SequenceConfiguration sequence : performance.getSequences()) {
       LOG.debug("Persisting {}", sequence);
       entityManager.persist(sequence);
     }

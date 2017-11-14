@@ -12,8 +12,8 @@
           "channel": {
             "href": "http://localhost:8080/api/channel/3"
           },
-          "project": {
-            "href": "http://localhost:8080/api/channel/3/project"
+          "performance": {
+            "href": "http://localhost:8080/api/channel/3/performance"
           }
         }
       },
@@ -28,8 +28,8 @@
           "channel": {
             "href": "http://localhost:8080/api/channel/4"
           },
-          "project": {
-            "href": "http://localhost:8080/api/channel/4/project"
+          "performance": {
+            "href": "http://localhost:8080/api/channel/4/performance"
           }
         }
       },
@@ -44,8 +44,8 @@
           "channel": {
             "href": "http://localhost:8080/api/channel/5"
           },
-          "project": {
-            "href": "http://localhost:8080/api/channel/5/project"
+          "performance": {
+            "href": "http://localhost:8080/api/channel/5/performance"
           }
         }
       },
@@ -60,8 +60,8 @@
           "channel": {
             "href": "http://localhost:8080/api/channel/6"
           },
-          "project": {
-            "href": "http://localhost:8080/api/channel/6/project"
+          "performance": {
+            "href": "http://localhost:8080/api/channel/6/performance"
           }
         }
       },
@@ -76,8 +76,8 @@
           "channel": {
             "href": "http://localhost:8080/api/channel/7"
           },
-          "project": {
-            "href": "http://localhost:8080/api/channel/7/project"
+          "performance": {
+            "href": "http://localhost:8080/api/channel/7/performance"
           }
         }
       },
@@ -92,8 +92,8 @@
           "channel": {
             "href": "http://localhost:8080/api/channel/4392"
           },
-          "project": {
-            "href": "http://localhost:8080/api/channel/4392/project"
+          "performance": {
+            "href": "http://localhost:8080/api/channel/4392/performance"
           }
         }
       }

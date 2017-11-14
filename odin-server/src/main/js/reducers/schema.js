@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROJECT_SCHEMA_SUCCEEDED} from '../actions'
+import {LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PERFORMANCE_SCHEMA_SUCCEEDED} from '../actions'
 
 function profiles(state = {}, action) {
   switch (action.type) {
@@ -27,10 +27,10 @@ function profiles(state = {}, action) {
 
 function schema(state = {revision: 0}, action) {
   switch (action.type) {
-  case LOAD_PROJECT_SCHEMA_SUCCEEDED:
+  case LOAD_PERFORMANCE_SCHEMA_SUCCEEDED:
     return {...state,
       revision: state.revision + 1,
-      project: action.schema
+      performance: action.schema
     }
   case LOAD_PROFILE_SCHEMA_SUCCEEDED:
     return {...state,

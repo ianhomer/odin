@@ -177,8 +177,8 @@ class EditEntity extends React.Component{
   }
 
   render() {
-    if (!this.props.project) {
-      console.warn('Project not defined ' + this.props.clazz.id + ', cannot create entity create row.')
+    if (!this.props.performance) {
+      console.warn('Performance not defined ' + this.props.clazz.id + ', cannot create entity create row.')
       return <div/>
     }
 
@@ -193,8 +193,8 @@ class EditEntity extends React.Component{
       <div className="entityCreate row">
         {renderedFields}
         <div className="col-1">
-          <input type="hidden" name="project" ref={this.registerNode('project')}
-            defaultValue={this.props.project._links.self.href} />
+          <input type="hidden" name="performance" ref={this.registerNode('performance')}
+            defaultValue={this.props.performance._links.self.href} />
 
           {/* Provide path value for create flow so we know what type of object we are creating. */}
 
@@ -229,7 +229,7 @@ EditEntity.propTypes = {
   }),
   onApply: PropTypes.func.isRequired,
   onFetchComposition: PropTypes.func,
-  project: PropTypes.shape({
+  performance: PropTypes.shape({
     _links: PropTypes.shape({
       self: PropTypes.shape({
         href: PropTypes.string.isRequired

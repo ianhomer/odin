@@ -26,7 +26,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.store.domain.PersistableNote;
 import com.purplepip.odin.store.domain.PersistableTick;
 import java.util.HashMap;
@@ -40,23 +40,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class ProjectSchema {
+public class PerformanceSchema {
   private SequenceFactory<Note> factory = newNoteSequenceFactory();
   private Map<String, JsonNode> types = new HashMap<>();
   private Map<String, String> flows = new HashMap<>();
 
   /**
-   * Create the project schema.
+   * Create the performance schema.
    */
-  public ProjectSchema() {
+  public PerformanceSchema() {
     ObjectMapper mapper = new ObjectMapper();
     mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
 
     Map<String, String> customType2FormatMapping = new HashMap<>();
-    customType2FormatMapping.put(Project.class.getName(), "uri");
+    customType2FormatMapping.put(Performance.class.getName(), "uri");
 
     Map<Class<?>, Class<?>> classTypeMapping = new HashMap<>();
-    classTypeMapping.put(Project.class, String.class);
+    classTypeMapping.put(Performance.class, String.class);
     classTypeMapping.put(Tick.class, PersistableTick.class);
     classTypeMapping.put(Note.class, PersistableNote.class);
     /*
@@ -83,12 +83,12 @@ public class ProjectSchema {
 
     JsonSchemaGenerator schemaGenerator = new JsonSchemaGenerator(mapper);
     /*
-     * Re-register project so that it now references types instead of inlining them.
+     * Re-register performance so that it now references types instead of inlining them.
      */
-    registerType(schemaGenerator, Project.class, getSchemaReference(Project.class));
+    registerType(schemaGenerator, Performance.class, getSchemaReference(Performance.class));
 
     /*
-     * Register sequence flows project referenced.
+     * Register sequence flows performance referenced.
      */
     JsonSchemaGenerator flowSchemaGenerator = new JsonSchemaGenerator(mapper, config);
     factory.getNames().forEach(name ->

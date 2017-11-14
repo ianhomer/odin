@@ -13,26 +13,26 @@ exports[`Channels container Initialise 1`] = `
   }
 >
   <Connect(ChannelsContainer)
-    project={
+    performance={
       Object {
         "_links": Object {
           "channels": Object {
-            "href": "http://localhost:8080/api/project/1/channels",
+            "href": "http://localhost:8080/api/performance/1/channels",
           },
           "layers": Object {
-            "href": "http://localhost:8080/api/project/1/layers",
+            "href": "http://localhost:8080/api/performance/1/layers",
           },
-          "project": Object {
-            "href": "http://localhost:8080/api/project/1",
+          "performance": Object {
+            "href": "http://localhost:8080/api/performance/1",
           },
           "self": Object {
-            "href": "http://localhost:8080/api/project/1",
+            "href": "http://localhost:8080/api/performance/1",
           },
           "sequences": Object {
-            "href": "http://localhost:8080/api/project/1/sequences",
+            "href": "http://localhost:8080/api/performance/1/sequences",
           },
         },
-        "name": "defaultProject",
+        "name": "defaultPerformance",
       }
     }
     schema={
@@ -50,8 +50,8 @@ exports[`Channels container Initialise 1`] = `
                 "channel": Object {
                   "href": "http://localhost:8080/api/channel/3",
                 },
-                "project": Object {
-                  "href": "http://localhost:8080/api/channel/3/project",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/channel/3/performance",
                 },
                 "self": Object {
                   "href": "http://localhost:8080/api/channel/3",
@@ -67,8 +67,8 @@ exports[`Channels container Initialise 1`] = `
                 "channel": Object {
                   "href": "http://localhost:8080/api/channel/4",
                 },
-                "project": Object {
-                  "href": "http://localhost:8080/api/channel/4/project",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/channel/4/performance",
                 },
                 "self": Object {
                   "href": "http://localhost:8080/api/channel/4",
@@ -84,8 +84,8 @@ exports[`Channels container Initialise 1`] = `
                 "channel": Object {
                   "href": "http://localhost:8080/api/channel/5",
                 },
-                "project": Object {
-                  "href": "http://localhost:8080/api/channel/5/project",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/channel/5/performance",
                 },
                 "self": Object {
                   "href": "http://localhost:8080/api/channel/5",
@@ -101,8 +101,8 @@ exports[`Channels container Initialise 1`] = `
                 "channel": Object {
                   "href": "http://localhost:8080/api/channel/6",
                 },
-                "project": Object {
-                  "href": "http://localhost:8080/api/channel/6/project",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/channel/6/performance",
                 },
                 "self": Object {
                   "href": "http://localhost:8080/api/channel/6",
@@ -118,8 +118,8 @@ exports[`Channels container Initialise 1`] = `
                 "channel": Object {
                   "href": "http://localhost:8080/api/channel/7",
                 },
-                "project": Object {
-                  "href": "http://localhost:8080/api/channel/7/project",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/channel/7/performance",
                 },
                 "self": Object {
                   "href": "http://localhost:8080/api/channel/7",
@@ -135,8 +135,8 @@ exports[`Channels container Initialise 1`] = `
                 "channel": Object {
                   "href": "http://localhost:8080/api/channel/4392",
                 },
-                "project": Object {
-                  "href": "http://localhost:8080/api/channel/4392/project",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/channel/4392/performance",
                 },
                 "self": Object {
                   "href": "http://localhost:8080/api/channel/4392",
@@ -156,26 +156,26 @@ exports[`Channels container Initialise 1`] = `
       onLoadEntities={[Function]}
       onUpdate={[Function]}
       path="channel"
-      project={
+      performance={
         Object {
           "_links": Object {
             "channels": Object {
-              "href": "http://localhost:8080/api/project/1/channels",
+              "href": "http://localhost:8080/api/performance/1/channels",
             },
             "layers": Object {
-              "href": "http://localhost:8080/api/project/1/layers",
+              "href": "http://localhost:8080/api/performance/1/layers",
             },
-            "project": Object {
-              "href": "http://localhost:8080/api/project/1",
+            "performance": Object {
+              "href": "http://localhost:8080/api/performance/1",
             },
             "self": Object {
-              "href": "http://localhost:8080/api/project/1",
+              "href": "http://localhost:8080/api/performance/1",
             },
             "sequences": Object {
-              "href": "http://localhost:8080/api/project/1/sequences",
+              "href": "http://localhost:8080/api/performance/1/sequences",
             },
           },
-          "name": "defaultProject",
+          "name": "defaultPerformance",
         }
       }
       schema={
@@ -194,8 +194,8 @@ exports[`Channels container Initialise 1`] = `
                     "channel": Object {
                       "href": "http://localhost:8080/api/channel/3",
                     },
-                    "project": Object {
-                      "href": "http://localhost:8080/api/channel/3/project",
+                    "performance": Object {
+                      "href": "http://localhost:8080/api/channel/3/performance",
                     },
                     "self": Object {
                       "href": "http://localhost:8080/api/channel/3",
@@ -211,8 +211,8 @@ exports[`Channels container Initialise 1`] = `
                     "channel": Object {
                       "href": "http://localhost:8080/api/channel/4",
                     },
-                    "project": Object {
-                      "href": "http://localhost:8080/api/channel/4/project",
+                    "performance": Object {
+                      "href": "http://localhost:8080/api/channel/4/performance",
                     },
                     "self": Object {
                       "href": "http://localhost:8080/api/channel/4",
@@ -228,8 +228,8 @@ exports[`Channels container Initialise 1`] = `
                     "channel": Object {
                       "href": "http://localhost:8080/api/channel/5",
                     },
-                    "project": Object {
-                      "href": "http://localhost:8080/api/channel/5/project",
+                    "performance": Object {
+                      "href": "http://localhost:8080/api/channel/5/performance",
                     },
                     "self": Object {
                       "href": "http://localhost:8080/api/channel/5",
@@ -245,8 +245,8 @@ exports[`Channels container Initialise 1`] = `
                     "channel": Object {
                       "href": "http://localhost:8080/api/channel/6",
                     },
-                    "project": Object {
-                      "href": "http://localhost:8080/api/channel/6/project",
+                    "performance": Object {
+                      "href": "http://localhost:8080/api/channel/6/performance",
                     },
                     "self": Object {
                       "href": "http://localhost:8080/api/channel/6",
@@ -262,8 +262,8 @@ exports[`Channels container Initialise 1`] = `
                     "channel": Object {
                       "href": "http://localhost:8080/api/channel/7",
                     },
-                    "project": Object {
-                      "href": "http://localhost:8080/api/channel/7/project",
+                    "performance": Object {
+                      "href": "http://localhost:8080/api/channel/7/performance",
                     },
                     "self": Object {
                       "href": "http://localhost:8080/api/channel/7",
@@ -279,8 +279,8 @@ exports[`Channels container Initialise 1`] = `
                     "channel": Object {
                       "href": "http://localhost:8080/api/channel/4392",
                     },
-                    "project": Object {
-                      "href": "http://localhost:8080/api/channel/4392/project",
+                    "performance": Object {
+                      "href": "http://localhost:8080/api/channel/4392/performance",
                     },
                     "self": Object {
                       "href": "http://localhost:8080/api/channel/4392",
@@ -315,26 +315,26 @@ exports[`Channels container Initialise 1`] = `
           onDelete={[Function]}
           onUpdate={[Function]}
           path="channel"
-          project={
+          performance={
             Object {
               "_links": Object {
                 "channels": Object {
-                  "href": "http://localhost:8080/api/project/1/channels",
+                  "href": "http://localhost:8080/api/performance/1/channels",
                 },
                 "layers": Object {
-                  "href": "http://localhost:8080/api/project/1/layers",
+                  "href": "http://localhost:8080/api/performance/1/layers",
                 },
-                "project": Object {
-                  "href": "http://localhost:8080/api/project/1",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/performance/1",
                 },
                 "self": Object {
-                  "href": "http://localhost:8080/api/project/1",
+                  "href": "http://localhost:8080/api/performance/1",
                 },
                 "sequences": Object {
-                  "href": "http://localhost:8080/api/project/1/sequences",
+                  "href": "http://localhost:8080/api/performance/1/sequences",
                 },
               },
-              "name": "defaultProject",
+              "name": "defaultPerformance",
             }
           }
           schema={
@@ -368,8 +368,8 @@ exports[`Channels container Initialise 1`] = `
                       "channel": Object {
                         "href": "http://localhost:8080/api/channel/3",
                       },
-                      "project": Object {
-                        "href": "http://localhost:8080/api/channel/3/project",
+                      "performance": Object {
+                        "href": "http://localhost:8080/api/channel/3/performance",
                       },
                       "self": Object {
                         "href": "http://localhost:8080/api/channel/3",
@@ -416,8 +416,8 @@ exports[`Channels container Initialise 1`] = `
                       "channel": Object {
                         "href": "http://localhost:8080/api/channel/4",
                       },
-                      "project": Object {
-                        "href": "http://localhost:8080/api/channel/4/project",
+                      "performance": Object {
+                        "href": "http://localhost:8080/api/channel/4/performance",
                       },
                       "self": Object {
                         "href": "http://localhost:8080/api/channel/4",
@@ -464,8 +464,8 @@ exports[`Channels container Initialise 1`] = `
                       "channel": Object {
                         "href": "http://localhost:8080/api/channel/5",
                       },
-                      "project": Object {
-                        "href": "http://localhost:8080/api/channel/5/project",
+                      "performance": Object {
+                        "href": "http://localhost:8080/api/channel/5/performance",
                       },
                       "self": Object {
                         "href": "http://localhost:8080/api/channel/5",
@@ -512,8 +512,8 @@ exports[`Channels container Initialise 1`] = `
                       "channel": Object {
                         "href": "http://localhost:8080/api/channel/6",
                       },
-                      "project": Object {
-                        "href": "http://localhost:8080/api/channel/6/project",
+                      "performance": Object {
+                        "href": "http://localhost:8080/api/channel/6/performance",
                       },
                       "self": Object {
                         "href": "http://localhost:8080/api/channel/6",
@@ -560,8 +560,8 @@ exports[`Channels container Initialise 1`] = `
                       "channel": Object {
                         "href": "http://localhost:8080/api/channel/7",
                       },
-                      "project": Object {
-                        "href": "http://localhost:8080/api/channel/7/project",
+                      "performance": Object {
+                        "href": "http://localhost:8080/api/channel/7/performance",
                       },
                       "self": Object {
                         "href": "http://localhost:8080/api/channel/7",
@@ -608,8 +608,8 @@ exports[`Channels container Initialise 1`] = `
                       "channel": Object {
                         "href": "http://localhost:8080/api/channel/4392",
                       },
-                      "project": Object {
-                        "href": "http://localhost:8080/api/channel/4392/project",
+                      "performance": Object {
+                        "href": "http://localhost:8080/api/channel/4392/performance",
                       },
                       "self": Object {
                         "href": "http://localhost:8080/api/channel/4392",

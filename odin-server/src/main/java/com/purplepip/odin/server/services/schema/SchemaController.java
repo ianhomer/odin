@@ -28,16 +28,16 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class SchemaController {
   @Autowired
-  private ProjectSchema projectSchema;
+  private PerformanceSchema performanceSchema;
 
   /**
-   * Get full project schema.
+   * Get full performance schema.
    *
-   * @return project json schema
+   * @return performance json schema
    */
   @RequestMapping("/services/schema")
-  public ProjectSchema getProjectSchema() {
-    return projectSchema;
+  public PerformanceSchema getPerformanceSchema() {
+    return performanceSchema;
   }
 
   /**
@@ -47,6 +47,6 @@ public class SchemaController {
    */
   @RequestMapping("/services/schema/flows/{name}")
   public JsonNode getFlowSchema(@PathVariable("name") String name) {
-    return projectSchema.getFlowSchema(name);
+    return performanceSchema.getFlowSchema(name);
   }
 }

@@ -32,7 +32,7 @@ class EntitiesContainer extends React.Component {
     return (
       <div>
         {this.props.collection &&
-          <this.component schema={this.props.schema} project={this.props.project}
+          <this.component schema={this.props.schema} performance={this.props.performance}
             onCreate={this.props.onCreate} onDelete={this.props.onDelete}
             onUpdate={this.props.onUpdate}
             path={this.path}
@@ -51,7 +51,7 @@ EntitiesContainer.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onLoadEntities: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
-  project: PropTypes.object.isRequired,
+  performance: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

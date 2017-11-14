@@ -27,8 +27,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/28"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/28/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/28/performance"
           }
         }
       },
@@ -57,8 +57,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/32"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/32/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/32/performance"
           }
         }
       },
@@ -87,8 +87,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/38"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/38/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/38/performance"
           }
         }
       },
@@ -117,8 +117,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/40"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/40/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/40/performance"
           }
         }
       },
@@ -147,8 +147,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/42"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/42/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/42/performance"
           }
         }
       },
@@ -177,8 +177,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/44"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/44/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/44/performance"
           }
         }
       },
@@ -207,8 +207,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/46"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/46/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/46/performance"
           }
         }
       },
@@ -237,8 +237,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/48"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/48/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/48/performance"
           }
         }
       },
@@ -267,8 +267,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/50"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/50/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/50/performance"
           }
         }
       },
@@ -298,8 +298,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/52"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/52/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/52/performance"
           }
         }
       },
@@ -328,8 +328,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/54"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/54/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/54/performance"
           }
         }
       },
@@ -358,8 +358,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/56"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/56/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/56/performance"
           }
         }
       },
@@ -388,8 +388,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/58"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/58/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/58/performance"
           }
         }
       },
@@ -418,8 +418,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/60"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/60/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/60/performance"
           }
         }
       },
@@ -448,8 +448,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/62"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/62/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/62/performance"
           }
         }
       },
@@ -480,8 +480,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/64"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/64/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/64/performance"
           }
         }
       },
@@ -513,8 +513,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/66"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/66/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/66/performance"
           }
         }
       },
@@ -545,8 +545,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/68"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/68/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/68/performance"
           }
         }
       },
@@ -577,8 +577,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/70"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/70/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/70/performance"
           }
         }
       },
@@ -609,8 +609,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/72"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/72/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/72/performance"
           }
         }
       },
@@ -641,8 +641,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/74"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/74/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/74/performance"
           }
         }
       },
@@ -668,8 +668,8 @@
           "sequence": {
             "href": "http://localhost:8080/api/sequence/5537"
           },
-          "project": {
-            "href": "http://localhost:8080/api/sequence/5537/project"
+          "performance": {
+            "href": "http://localhost:8080/api/sequence/5537/performance"
           }
         }
       }

@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.server;
 
-import static com.purplepip.odin.server.DefaultProjectCreator.DEFAULT_PROJECT_NAME;
+import static com.purplepip.odin.server.DefaultPerformanceCreator.DEFAULT_PERFORMANCE_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.server.rest.repositories.ProjectRepository;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.store.domain.PersistableSequence;
 import java.util.Optional;
 import org.junit.Test;
@@ -34,23 +34,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
 @ActiveProfiles({"noServices", "noAuditing"})
-public class DefaultRuntimeProjectLoaderTest {
+public class DefaultRuntimePerformanceLoaderTest {
   @Autowired
-  private ProjectContainer projectContainer;
+  private PerformanceContainer performanceContainer;
 
   @Autowired
-  private ProjectRepository projectRepository;
+  private PerformanceRepository performanceRepository;
 
   @Autowired
   private MidiDeviceWrapper midiDeviceWrapper;
 
   @Autowired
-  private DefaultRuntimeProjectLoader loader;
+  private DefaultRuntimePerformanceLoader loader;
 
   @Test
-  public void testDefaultRuntimeProjectLoader() throws Exception {
-    ProjectContainer reloadedContainer =
-        new ProjectContainer(projectRepository.findByName(DEFAULT_PROJECT_NAME));
+  public void testDefaultRuntimePerformanceLoader() throws Exception {
+    PerformanceContainer reloadedContainer =
+        new PerformanceContainer(performanceRepository.findByName(DEFAULT_PERFORMANCE_NAME));
     assertThat(reloadedContainer.getChannels()).isNotEmpty();
     assertThat(reloadedContainer.getChannelStream().count()).isGreaterThan(3);
     assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(4);

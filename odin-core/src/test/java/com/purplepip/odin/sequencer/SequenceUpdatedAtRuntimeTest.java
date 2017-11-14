@@ -43,7 +43,7 @@ public class SequenceUpdatedAtRuntimeTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    new ProjectBuilder(environment.getContainer())
+    new PerformanceBuilder(environment.getContainer())
         .addLayer("groove").withLayers("groove")
         .withNote(60)
         .addPattern(Ticks.BEAT, 1);

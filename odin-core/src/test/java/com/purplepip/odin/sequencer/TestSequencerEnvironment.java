@@ -24,13 +24,13 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TestSequencerEnvironment {
-  private ProjectContainer container = new ProjectContainer(new TransientProject());
+  private PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
 
   private OdinSequencerConfiguration configuration;
   private OdinSequencer sequencer;
@@ -63,7 +63,7 @@ public class TestSequencerEnvironment {
     return sequencer;
   }
 
-  public ProjectContainer getContainer() {
+  public PerformanceContainer getContainer() {
     return container;
   }
 

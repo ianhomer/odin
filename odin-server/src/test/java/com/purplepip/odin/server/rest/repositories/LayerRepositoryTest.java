@@ -6,11 +6,11 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.layer.Layer;
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.store.PersistableProjectBuilder;
+import com.purplepip.odin.performance.Performance;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import com.purplepip.odin.store.domain.PersistableLayer;
-import com.purplepip.odin.store.domain.PersistableProject;
+import com.purplepip.odin.store.domain.PersistablePerformance;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Project repository test.
+ * Performance repository test.
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
@@ -40,31 +40,31 @@ public class LayerRepositoryTest {
   private LayerRepository repository;
 
   @Autowired
-  private ProjectRepository projectRepository;
+  private PerformanceRepository performanceRepository;
 
   @Autowired
   private LayerRepository layerRepository;
 
-  private PersistableProject project;
-  private PersistableProjectBuilder builder;
+  private PersistablePerformance performance;
+  private PersistablePerformanceBuilder builder;
 
   /**
    * Set up.
    */
   @Before
   public void setUp() {
-    project = new PersistableProject();
-    projectRepository.save(project);
-    builder = new PersistableProjectBuilder(new ProjectContainer(project));
+    performance = new PersistablePerformance();
+    performanceRepository.save(performance);
+    builder = new PersistablePerformanceBuilder(new PerformanceContainer(performance));
   }
 
   @Test
-  public void testProject() throws OdinException {
+  public void testPerformance() throws OdinException {
     List<Layer> layers = Lists.newArrayList(repository.findAll());
     assertThat(0, equalTo(layers.size()));
 
     builder.addLayer("test");
-    for (Layer layer : Lists.newArrayList(project.getLayers())) {
+    for (Layer layer : Lists.newArrayList(performance.getLayers())) {
       LOG.debug("Persisting {}", layer);
       entityManager.persist(layer);
     }
@@ -76,32 +76,32 @@ public class LayerRepositoryTest {
 
   @Test
   public void testLayoutRemove() throws OdinException, ExecutionException, InterruptedException {
-    PersistableProject project = new PersistableProject();
-    project.setName("test-project");
-    projectRepository.save(project);
-    layerRepository.save(newLayer(project,"test-layer"));
-    Assertions.assertThat(project.getLayers().size()).isEqualTo(1);
-    projectRepository.save(project);
+    PersistablePerformance performance = new PersistablePerformance();
+    performance.setName("test-performance");
+    performanceRepository.save(performance);
+    layerRepository.save(newLayer(performance,"test-layer"));
+    Assertions.assertThat(performance.getLayers().size()).isEqualTo(1);
+    performanceRepository.save(performance);
 
-    Project existingProject = projectRepository.findByName("test-project");
-    Assertions.assertThat(existingProject.getLayers().size()).isEqualTo(1);
-    layerRepository.delete((PersistableLayer) existingProject.getLayers().iterator().next());
+    Performance existingPerformance = performanceRepository.findByName("test-performance");
+    Assertions.assertThat(existingPerformance.getLayers().size()).isEqualTo(1);
+    layerRepository.delete((PersistableLayer) existingPerformance.getLayers().iterator().next());
 
-    existingProject = projectRepository.findByName("test-project");
-    Assertions.assertThat(existingProject.getLayers().size()).isEqualTo(0);
+    existingPerformance = performanceRepository.findByName("test-performance");
+    Assertions.assertThat(existingPerformance.getLayers().size()).isEqualTo(0);
   }
 
   @Test
   public void testCreateMultipleLayers() throws OdinException {
-    PersistableProject project = new PersistableProject();
-    project.setName("test-project");
-    projectRepository.save(project);
-    layerRepository.save(newLayer(project,"test-layer1"));
-    layerRepository.save(newLayer(project,"test-layer2"));
-    Assertions.assertThat(project.getLayers().size()).isEqualTo(2);
-    projectRepository.save(project);
+    PersistablePerformance performance = new PersistablePerformance();
+    performance.setName("test-performance");
+    performanceRepository.save(performance);
+    layerRepository.save(newLayer(performance,"test-layer1"));
+    layerRepository.save(newLayer(performance,"test-layer2"));
+    Assertions.assertThat(performance.getLayers().size()).isEqualTo(2);
+    performanceRepository.save(performance);
 
-    Project existingProject = projectRepository.findByName("test-project");
-    Assertions.assertThat(existingProject.getLayers().size()).isEqualTo(2);
+    Performance existingPerformance = performanceRepository.findByName("test-performance");
+    Assertions.assertThat(existingPerformance.getLayers().size()).isEqualTo(2);
   }
 }

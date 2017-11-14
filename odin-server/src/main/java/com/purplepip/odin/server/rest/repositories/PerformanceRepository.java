@@ -15,18 +15,18 @@
 
 package com.purplepip.odin.server.rest.repositories;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.store.domain.PersistableProject;
+import com.purplepip.odin.performance.Performance;
+import com.purplepip.odin.store.domain.PersistablePerformance;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
- * Project repository.
+ * Performance repository.
  */
-@RepositoryRestResource(path = "project", collectionResourceRel = "project",
-    itemResourceRel = "project")
+@RepositoryRestResource(path = "performance", collectionResourceRel = "performance",
+    itemResourceRel = "performance")
 @Profile("!noStore")
-public interface ProjectRepository extends CrudRepository<PersistableProject, Long> {
-  Project findByName(String name);
+public interface PerformanceRepository extends CrudRepository<PersistablePerformance, Long> {
+  Performance findByName(String name);
 }

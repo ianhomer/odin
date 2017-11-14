@@ -45,7 +45,7 @@ import com.purplepip.odin.music.notes.Notes;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.properties.beany.Setter;
 import com.purplepip.odin.specificity.Specifics;
 import java.util.ArrayList;
@@ -62,11 +62,11 @@ import lombok.extern.slf4j.Slf4j;
  * Convenience class for building up sequences.
  */
 @Slf4j
-public class ProjectBuilder {
+public class PerformanceBuilder {
   private static final String DEFAULT_NOTATION_FORMAT = "natural";
   private static final String DEFAULT_FLOW_NAME = "pattern";
 
-  private ProjectContainer projectContainer;
+  private PerformanceContainer projectContainer;
   private String name;
   private String typeName = DEFAULT_FLOW_NAME;
   private boolean enabled;
@@ -84,7 +84,7 @@ public class ProjectBuilder {
   private List<Long> triggerIds = new ArrayList<>();
   private Map<String, String> properties = new HashMap<>();
 
-  public ProjectBuilder(ProjectContainer projectContainer) {
+  public PerformanceBuilder(PerformanceContainer projectContainer) {
     this.projectContainer = projectContainer;
     reset();
   }
@@ -181,7 +181,7 @@ public class ProjectBuilder {
    *
    * @return this
    */
-  public ProjectBuilder withDefaults() {
+  public PerformanceBuilder withDefaults() {
     enabled = true;
     name = null;
     channel = 0;
@@ -315,7 +315,7 @@ public class ProjectBuilder {
    *
    * @return this sequence builder
    */
-  public ProjectBuilder addMetronome() {
+  public PerformanceBuilder addMetronome() {
     MutableSequenceConfiguration metronome = withDefaultsForMetronome(createMetronome());
     addSequenceToContainer(applyParameters(metronome));
     return this;
@@ -327,7 +327,7 @@ public class ProjectBuilder {
    * @param names names of layers
    * @return this project builder
    */
-  public ProjectBuilder addLayer(String... names) {
+  public PerformanceBuilder addLayer(String... names) {
     for (String layerName : names) {
       MutableLayer layer = withDefaults(createLayer());
       layer.setName(layerName);
@@ -343,7 +343,7 @@ public class ProjectBuilder {
    *
    * @return this sequence builder
    */
-  public ProjectBuilder addNoteTrigger() {
+  public PerformanceBuilder addNoteTrigger() {
     NoteTrigger trigger = createNoteTrigger();
     trigger.setNote(new DefaultNote(noteNumber, 0, 0));
     trigger.setType("note");
@@ -352,54 +352,54 @@ public class ProjectBuilder {
   }
 
 
-  public ProjectBuilder withName(String name) {
+  public PerformanceBuilder withName(String name) {
     this.name = name;
     return this;
   }
 
-  public ProjectBuilder withTick(Tick tick) {
+  public PerformanceBuilder withTick(Tick tick) {
     this.tick = tick;
     return this;
   }
 
-  public ProjectBuilder withFlowName(String typeName) {
+  public PerformanceBuilder withFlowName(String typeName) {
     this.typeName = typeName;
     return this;
   }
 
-  public ProjectBuilder withProperty(String name, String value) {
+  public PerformanceBuilder withProperty(String name, String value) {
     properties.put(name, value);
     return this;
   }
 
-  public ProjectBuilder withProperty(String name, long value) {
+  public PerformanceBuilder withProperty(String name, long value) {
     properties.put(name, String.valueOf(value));
     return this;
   }
 
 
-  public ProjectBuilder withChannel(int channel) {
+  public PerformanceBuilder withChannel(int channel) {
     this.channel = channel;
     return this;
   }
 
 
-  public ProjectBuilder withNote(int noteNumber) {
+  public PerformanceBuilder withNote(int noteNumber) {
     this.noteNumber = noteNumber;
     return this;
   }
 
-  public ProjectBuilder withVelocity(int velocity) {
+  public PerformanceBuilder withVelocity(int velocity) {
     this.velocity = velocity;
     return this;
   }
 
-  public ProjectBuilder withLength(long length) {
+  public PerformanceBuilder withLength(long length) {
     this.length = Whole.valueOf(length);
     return this;
   }
 
-  public ProjectBuilder withEnabled(boolean enabled) {
+  public PerformanceBuilder withEnabled(boolean enabled) {
     this.enabled = enabled;
     return this;
   }
@@ -410,7 +410,7 @@ public class ProjectBuilder {
    * @param layers layers to add to the sequence.
    * @return project builder
    */
-  public ProjectBuilder withLayers(String... layers) {
+  public PerformanceBuilder withLayers(String... layers) {
     layerNamesToAdd = Lists.newArrayList(layers);
     Set<String> duplicates = layerNamesToAdd.stream()
         .filter(layer -> Collections.frequency(layerNamesToAdd, layer) > 1)
@@ -429,13 +429,13 @@ public class ProjectBuilder {
    * @param action action to take place when this trigger fires
    * @return project builder
    */
-  public ProjectBuilder withTrigger(String trigger, Action action) {
+  public PerformanceBuilder withTrigger(String trigger, Action action) {
     triggersToAdd.put(trigger, action);
     LOG.debug("Triggers to add : {}", triggersToAdd);
     return this;
   }
 
-  public ProjectBuilder withNoTriggers() {
+  public PerformanceBuilder withNoTriggers() {
     triggersToAdd.clear();
     return this;
   }
@@ -446,7 +446,7 @@ public class ProjectBuilder {
    * @param offset offset
    * @return project builder
    */
-  public ProjectBuilder withOffset(int offset) {
+  public PerformanceBuilder withOffset(int offset) {
     this.offset = offset;
     return this;
   }
@@ -457,7 +457,7 @@ public class ProjectBuilder {
    * @param program program number
    * @return builder
    */
-  public ProjectBuilder changeProgramTo(int program) {
+  public PerformanceBuilder changeProgramTo(int program) {
     Channel channelConfiguration = createChannel();
     channelConfiguration.setProgram(program);
     addChannel(channelConfiguration);
@@ -470,7 +470,7 @@ public class ProjectBuilder {
    * @param programName program name to change to
    * @return builder
    */
-  public ProjectBuilder changeProgramTo(String programName) {
+  public PerformanceBuilder changeProgramTo(String programName) {
     Channel channelConfiguration = createChannel();
     channelConfiguration.setProgramName(programName);
     addChannel(channelConfiguration);
@@ -495,7 +495,7 @@ public class ProjectBuilder {
    *
    * @return sequence builder
    */
-  public ProjectBuilder addSequence() {
+  public PerformanceBuilder addSequence() {
     MutableSequenceConfiguration sequence = withDefaults(createSequence());
     addSequenceToContainer(applyParameters(sequence));
     return this;
@@ -508,7 +508,7 @@ public class ProjectBuilder {
    * @param pattern pattern
    * @return sequence builder
    */
-  public ProjectBuilder addPattern(Tick tick, int pattern) {
+  public PerformanceBuilder addPattern(Tick tick, int pattern) {
     return addPattern(tick, pattern, createNote(noteNumber, velocity,
         Notes.DEFAULT_DURATION));
   }
@@ -520,7 +520,7 @@ public class ProjectBuilder {
    * @param pattern pattern
    * @return sequence builder
    */
-  private ProjectBuilder addPattern(Tick tick, int pattern, Note note) {
+  private PerformanceBuilder addPattern(Tick tick, int pattern, Note note) {
     this.tick = tick;
     MutableSequenceConfiguration sequence = withDefaultsForPattern(createPattern());
     new Setter(sequence)
@@ -531,11 +531,11 @@ public class ProjectBuilder {
     return this;
   }
 
-  public ProjectBuilder addNotation(Tick tick, String notation) {
+  public PerformanceBuilder addNotation(Tick tick, String notation) {
     return addNotation(tick, notation, DEFAULT_NOTATION_FORMAT);
   }
 
-  private ProjectBuilder addNotation(Tick tick, String notation, String format) {
+  private PerformanceBuilder addNotation(Tick tick, String notation, String format) {
     this.tick = tick;
     MutableSequenceConfiguration sequence = withDefaultsForNotation(createNotation());
     new Setter(sequence)
@@ -546,7 +546,7 @@ public class ProjectBuilder {
     return this;
   }
 
-  public ProjectBuilder removeSequence(SequenceConfiguration sequence) {
+  public PerformanceBuilder removeSequence(SequenceConfiguration sequence) {
     projectContainer.removeSequence(sequence);
     return this;
   }

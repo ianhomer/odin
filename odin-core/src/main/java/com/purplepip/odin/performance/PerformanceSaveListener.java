@@ -13,7 +13,12 @@
  * limitations under the License.
  */
 
+package com.purplepip.odin.performance;
+
 /**
- * Project configuration.
+ * Performance save listener interface.
  */
-package com.purplepip.odin.project;
+@FunctionalInterface
+public interface PerformanceSaveListener {
+  void onPerformanceSave(Performance project);
+}

@@ -49,7 +49,7 @@ class SequenceList extends React.Component{
         return (
           <div key={entity.name}>
             <SequenceComponent entity={entity} key={entity.name}
-              schema={this.props.schema} project={this.props.project}
+              schema={this.props.schema} performance={this.props.performance}
               clazz={this.props.schema.getFlowClazz(entity.type)}
               onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}
               {...this.getExtraArguments(entity.type)}
@@ -87,7 +87,7 @@ class SequenceList extends React.Component{
               var clazz = this.props.schema.getFlowClazz(type)
               return (
                 <EditEntity key={'create-' + type}
-                  schema={this.props.schema} project={this.props.project}
+                  schema={this.props.schema} performance={this.props.performance}
                   clazz={clazz} fields={SequenceComponent.defaultProps.fields}
                   onApply={this.props.onCreate}
                   {...this.getExtraArguments(type, true)}
@@ -114,7 +114,7 @@ SequenceList.propTypes = {
   onFetchComposition: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
-  project: PropTypes.object.isRequired,
+  performance: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

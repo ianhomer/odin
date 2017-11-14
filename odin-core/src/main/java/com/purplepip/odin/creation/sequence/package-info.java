@@ -13,12 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.project;
-
 /**
- * Project save listener interface.
+ * Sequence plugin foundations.
  */
-@FunctionalInterface
-public interface ProjectSaveListener {
-  void onProjectSave(Project project);
-}
+package com.purplepip.odin.creation.sequence;

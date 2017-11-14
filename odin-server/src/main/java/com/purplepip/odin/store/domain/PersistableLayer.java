@@ -16,7 +16,7 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.creation.layer.MutableLayer;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.performance.Performance;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.ElementCollection;
@@ -38,20 +38,20 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Entity(name = "Layer")
 @Table(name = "Layer")
-@ToString(exclude = "project", callSuper = true)
-@EqualsAndHashCode(exclude = {"project", "layers"}, callSuper = true)
+@ToString(exclude = "performance", callSuper = true)
+@EqualsAndHashCode(exclude = {"performance", "layers"}, callSuper = true)
 @Slf4j
 public class PersistableLayer extends PersistableTimeThing implements MutableLayer {
-  @ManyToOne(targetEntity = PersistableProject.class)
-  @JoinColumn(name = "PROJECT_ID", nullable = false)
-  private Project project;
+  @ManyToOne(targetEntity = PersistablePerformance.class)
+  @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
+  private Performance performance;
 
   @ElementCollection
   private List<String> layers = new ArrayList<>(0);
 
   @PrePersist
   public void prePesist() {
-    addToProject();
+    addToPerformance();
   }
 
   @PreUpdate
@@ -59,13 +59,13 @@ public class PersistableLayer extends PersistableTimeThing implements MutableLay
     PersistableHelper.removeDuplicates(layers);
   }
 
-  private void addToProject() {
-    project.addLayer(this);
+  private void addToPerformance() {
+    performance.addLayer(this);
   }
 
   @PreRemove
-  public void removeFromProject() {
-    project.removeLayer(this);
+  public void removeFromPerformance() {
+    performance.removeLayer(this);
   }
 
   @Override

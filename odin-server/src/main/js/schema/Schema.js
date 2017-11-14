@@ -36,10 +36,10 @@ export class Schema {
     _flux.set(this, flux)
     _clazzes.set(this, {})
     this.revision = schema.revision
-    // Initialise from project schema, i.e. project schema from Odin schema service
-    if (schema.project) {
-      for (var urn in schema.project.types) {
-        this.getAjv().addSchema(schema.project.types[urn], urn)
+    // Initialise from performance schema, i.e. performance schema from Odin schema service
+    if (schema.performance) {
+      for (var urn in schema.performance.types) {
+        this.getAjv().addSchema(schema.performance.types[urn], urn)
       }
     }
     // Initialise from profile schemas, i.e. REST endpoint profiles
@@ -67,7 +67,7 @@ export class Schema {
   }
 
   getFlowClazz(type) {
-    var urn = this.getSchema().project.flows[type]
+    var urn = this.getSchema().performance.flows[type]
     return this.getClazz(urn)
   }
 
@@ -111,7 +111,7 @@ export class Schema {
 
   // Get the schema for the clazz stored on the back end
   getBackEndClazz(id) {
-    if (Object.values(this.getSchema().project.flows).includes(id) && id != 'sequence') {
+    if (Object.values(this.getSchema().performance.flows).includes(id) && id != 'sequence') {
       return this.createClazzFromId('sequence')
     }
   }

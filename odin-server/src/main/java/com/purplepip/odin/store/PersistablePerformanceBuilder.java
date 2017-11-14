@@ -22,8 +22,8 @@ import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.Note;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.sequencer.BeanyProjectBuilder;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.sequencer.BeanyPerformanceBuilder;
 import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistableNote;
@@ -32,11 +32,11 @@ import com.purplepip.odin.store.domain.PersistableTick;
 import com.purplepip.odin.store.domain.PersistableTrigger;
 
 /**
- * Sequence builder that updates the project with persistable domain objects.
+ * Sequence builder that updates the performance with persistable domain objects.
  */
-public class PersistableProjectBuilder extends BeanyProjectBuilder {
-  public PersistableProjectBuilder(ProjectContainer projectContainer) {
-    super(projectContainer);
+public class PersistablePerformanceBuilder extends BeanyPerformanceBuilder {
+  public PersistablePerformanceBuilder(PerformanceContainer performanceContainer) {
+    super(performanceContainer);
   }
 
   @Override

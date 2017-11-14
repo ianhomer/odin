@@ -108,7 +108,7 @@ export class MockBackend extends Backend {
     return json._embedded[path]
   }
 
-  loadProjectSchemaApi() {
+  loadPerformanceSchemaApi() {
     return testSchema
   }
 

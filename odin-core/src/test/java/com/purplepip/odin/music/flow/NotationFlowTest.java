@@ -35,17 +35,17 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
+import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
 public class NotationFlowTest {
   private Flow<Sequence<Note>, Note> createNotationFlow(String notationAsString) {
-    TransientProject project = new TransientProject();
-    ProjectBuilder builder = new ProjectBuilder(new ProjectContainer(project));
+    TransientPerformance project = new TransientPerformance();
+    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.addNotation(Ticks.BEAT, notationAsString);
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     FlowFactory<Note> flowFactory = newNoteFlowFactory();

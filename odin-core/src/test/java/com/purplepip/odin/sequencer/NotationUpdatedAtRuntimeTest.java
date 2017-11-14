@@ -43,7 +43,7 @@ public class NotationUpdatedAtRuntimeTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    new ProjectBuilder(environment.getContainer())
+    new PerformanceBuilder(environment.getContainer())
         .addLayer("groove").withLayers("groove")
         .addNotation(Ticks.BEAT, "C");
     environment.start();

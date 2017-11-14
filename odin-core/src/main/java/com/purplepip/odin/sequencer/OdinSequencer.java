@@ -30,8 +30,8 @@ import com.purplepip.odin.creation.track.SequenceTracks;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.track.UnmodifiableTracks;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.project.ProjectApplyListener;
+import com.purplepip.odin.performance.Performance;
+import com.purplepip.odin.performance.PerformanceApplyListener;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
@@ -44,7 +44,7 @@ import lombok.extern.slf4j.Slf4j;
  * Core Odin Sequencer.
  */
 @Slf4j
-public class OdinSequencer implements ProjectApplyListener {
+public class OdinSequencer implements PerformanceApplyListener {
   private OdinSequencerConfiguration configuration;
   private LayerConductors conductors = new LayerConductors();
   private Things<Conductor> immutableConductors =
@@ -104,14 +104,14 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   @Override
-  public void onProjectApply(Project project) {
+  public void onProjectApply(Performance project) {
     refreshTracks(project);
   }
 
   /**
    * Refresh sequencer trackSet from the project configuration.
    */
-  private void refreshTracks(Project project) {
+  private void refreshTracks(Performance project) {
     refreshChannels(project);
     conductors.refresh(
         project.getLayers().stream(),
@@ -135,7 +135,7 @@ public class OdinSequencer implements ProjectApplyListener {
     }
   }
 
-  private void refreshChannels(Project project) {
+  private void refreshChannels(Performance project) {
     for (Channel channel : project.getChannels()) {
       try {
         /*

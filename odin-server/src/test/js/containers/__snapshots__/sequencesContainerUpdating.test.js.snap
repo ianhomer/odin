@@ -43,9 +43,9 @@ exports[`Sequences container renders OK 1`] = `
           "title": "Offset",
           "type": "integer",
         },
-        "project": Object {
+        "performance": Object {
           "format": "uri",
-          "title": "Project",
+          "title": "Performance",
           "type": "string",
         },
         "tick": Object {
@@ -73,8 +73,8 @@ exports[`Sequences container renders OK 1`] = `
   entity={
     Object {
       "_links": Object {
-        "project": Object {
-          "href": "http://localhost:8080/api/sequence/58/project",
+        "performance": Object {
+          "href": "http://localhost:8080/api/sequence/58/performance",
         },
         "self": Object {
           "href": "http://localhost:8080/api/sequence/58",
@@ -164,26 +164,26 @@ exports[`Sequences container renders OK 1`] = `
   onFetchComposition={[Function]}
   onUpdate={[Function]}
   path="notation"
-  project={
+  performance={
     Object {
       "_links": Object {
         "channels": Object {
-          "href": "http://localhost:8080/api/project/1/channels",
+          "href": "http://localhost:8080/api/performance/1/channels",
         },
         "layers": Object {
-          "href": "http://localhost:8080/api/project/1/layers",
+          "href": "http://localhost:8080/api/performance/1/layers",
         },
-        "project": Object {
-          "href": "http://localhost:8080/api/project/1",
+        "performance": Object {
+          "href": "http://localhost:8080/api/performance/1",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/project/1",
+          "href": "http://localhost:8080/api/performance/1",
         },
         "sequences": Object {
-          "href": "http://localhost:8080/api/project/1/sequences",
+          "href": "http://localhost:8080/api/performance/1/sequences",
         },
       },
-      "name": "defaultProject",
+      "name": "defaultPerformance",
     }
   }
   schema={
@@ -209,8 +209,8 @@ exports[`Sequences container renders OK 1`] = `
         entity={
           Object {
             "_links": Object {
-              "project": Object {
-                "href": "http://localhost:8080/api/sequence/58/project",
+              "performance": Object {
+                "href": "http://localhost:8080/api/sequence/58/performance",
               },
               "self": Object {
                 "href": "http://localhost:8080/api/sequence/58",
@@ -355,9 +355,9 @@ exports[`Sequences container renders OK 2`] = `
           "title": "Offset",
           "type": "integer",
         },
-        "project": Object {
+        "performance": Object {
           "format": "uri",
-          "title": "Project",
+          "title": "Performance",
           "type": "string",
         },
         "tick": Object {
@@ -385,8 +385,8 @@ exports[`Sequences container renders OK 2`] = `
   entity={
     Object {
       "_links": Object {
-        "project": Object {
-          "href": "http://localhost:8080/api/sequence/58/project",
+        "performance": Object {
+          "href": "http://localhost:8080/api/sequence/58/performance",
         },
         "self": Object {
           "href": "http://localhost:8080/api/sequence/58",
@@ -476,26 +476,26 @@ exports[`Sequences container renders OK 2`] = `
   onFetchComposition={[Function]}
   onUpdate={[Function]}
   path="notation"
-  project={
+  performance={
     Object {
       "_links": Object {
         "channels": Object {
-          "href": "http://localhost:8080/api/project/1/channels",
+          "href": "http://localhost:8080/api/performance/1/channels",
         },
         "layers": Object {
-          "href": "http://localhost:8080/api/project/1/layers",
+          "href": "http://localhost:8080/api/performance/1/layers",
         },
-        "project": Object {
-          "href": "http://localhost:8080/api/project/1",
+        "performance": Object {
+          "href": "http://localhost:8080/api/performance/1",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/project/1",
+          "href": "http://localhost:8080/api/performance/1",
         },
         "sequences": Object {
-          "href": "http://localhost:8080/api/project/1/sequences",
+          "href": "http://localhost:8080/api/performance/1/sequences",
         },
       },
-      "name": "defaultProject",
+      "name": "defaultPerformance",
     }
   }
   schema={
@@ -546,9 +546,9 @@ exports[`Sequences container renders OK 2`] = `
             "title": "Offset",
             "type": "integer",
           },
-          "project": Object {
+          "performance": Object {
             "format": "uri",
-            "title": "Project",
+            "title": "Performance",
             "type": "string",
           },
           "tick": Object {
@@ -576,8 +576,8 @@ exports[`Sequences container renders OK 2`] = `
     entity={
       Object {
         "_links": Object {
-          "project": Object {
-            "href": "http://localhost:8080/api/sequence/58/project",
+          "performance": Object {
+            "href": "http://localhost:8080/api/sequence/58/performance",
           },
           "self": Object {
             "href": "http://localhost:8080/api/sequence/58",
@@ -665,26 +665,26 @@ exports[`Sequences container renders OK 2`] = `
     }
     onApply={[Function]}
     onFetchComposition={[Function]}
-    project={
+    performance={
       Object {
         "_links": Object {
           "channels": Object {
-            "href": "http://localhost:8080/api/project/1/channels",
+            "href": "http://localhost:8080/api/performance/1/channels",
           },
           "layers": Object {
-            "href": "http://localhost:8080/api/project/1/layers",
+            "href": "http://localhost:8080/api/performance/1/layers",
           },
-          "project": Object {
-            "href": "http://localhost:8080/api/project/1",
+          "performance": Object {
+            "href": "http://localhost:8080/api/performance/1",
           },
           "self": Object {
-            "href": "http://localhost:8080/api/project/1",
+            "href": "http://localhost:8080/api/performance/1",
           },
           "sequences": Object {
-            "href": "http://localhost:8080/api/project/1/sequences",
+            "href": "http://localhost:8080/api/performance/1/sequences",
           },
         },
-        "name": "defaultProject",
+        "name": "defaultPerformance",
       }
     }
     schema={
@@ -726,8 +726,8 @@ exports[`Sequences container renders OK 2`] = `
           entity={
             Object {
               "_links": Object {
-                "project": Object {
-                  "href": "http://localhost:8080/api/sequence/58/project",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/sequence/58/performance",
                 },
                 "self": Object {
                   "href": "http://localhost:8080/api/sequence/58",
@@ -908,8 +908,8 @@ exports[`Sequences container renders OK 2`] = `
         className="col-1"
       >
         <input
-          defaultValue="http://localhost:8080/api/project/1"
-          name="project"
+          defaultValue="http://localhost:8080/api/performance/1"
+          name="performance"
           type="hidden"
         />
         <div>
@@ -975,9 +975,9 @@ exports[`Sequences container renders OK 3`] = `
           "title": "Offset",
           "type": "integer",
         },
-        "project": Object {
+        "performance": Object {
           "format": "uri",
-          "title": "Project",
+          "title": "Performance",
           "type": "string",
         },
         "tick": Object {
@@ -1027,8 +1027,8 @@ exports[`Sequences container renders OK 3`] = `
         },
       },
       "_links": Object {
-        "project": Object {
-          "href": "http://localhost:8080/api/sequence/58/project",
+        "performance": Object {
+          "href": "http://localhost:8080/api/sequence/58/performance",
         },
         "self": Object {
           "href": "http://localhost:8080/api/sequence/58",
@@ -1118,26 +1118,26 @@ exports[`Sequences container renders OK 3`] = `
   onFetchComposition={[Function]}
   onUpdate={[Function]}
   path="notation"
-  project={
+  performance={
     Object {
       "_links": Object {
         "channels": Object {
-          "href": "http://localhost:8080/api/project/1/channels",
+          "href": "http://localhost:8080/api/performance/1/channels",
         },
         "layers": Object {
-          "href": "http://localhost:8080/api/project/1/layers",
+          "href": "http://localhost:8080/api/performance/1/layers",
         },
-        "project": Object {
-          "href": "http://localhost:8080/api/project/1",
+        "performance": Object {
+          "href": "http://localhost:8080/api/performance/1",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/project/1",
+          "href": "http://localhost:8080/api/performance/1",
         },
         "sequences": Object {
-          "href": "http://localhost:8080/api/project/1/sequences",
+          "href": "http://localhost:8080/api/performance/1/sequences",
         },
       },
-      "name": "defaultProject",
+      "name": "defaultPerformance",
     }
   }
   schema={
@@ -1188,9 +1188,9 @@ exports[`Sequences container renders OK 3`] = `
             "title": "Offset",
             "type": "integer",
           },
-          "project": Object {
+          "performance": Object {
             "format": "uri",
-            "title": "Project",
+            "title": "Performance",
             "type": "string",
           },
           "tick": Object {
@@ -1240,8 +1240,8 @@ exports[`Sequences container renders OK 3`] = `
           },
         },
         "_links": Object {
-          "project": Object {
-            "href": "http://localhost:8080/api/sequence/58/project",
+          "performance": Object {
+            "href": "http://localhost:8080/api/sequence/58/performance",
           },
           "self": Object {
             "href": "http://localhost:8080/api/sequence/58",
@@ -1329,26 +1329,26 @@ exports[`Sequences container renders OK 3`] = `
     }
     onApply={[Function]}
     onFetchComposition={[Function]}
-    project={
+    performance={
       Object {
         "_links": Object {
           "channels": Object {
-            "href": "http://localhost:8080/api/project/1/channels",
+            "href": "http://localhost:8080/api/performance/1/channels",
           },
           "layers": Object {
-            "href": "http://localhost:8080/api/project/1/layers",
+            "href": "http://localhost:8080/api/performance/1/layers",
           },
-          "project": Object {
-            "href": "http://localhost:8080/api/project/1",
+          "performance": Object {
+            "href": "http://localhost:8080/api/performance/1",
           },
           "self": Object {
-            "href": "http://localhost:8080/api/project/1",
+            "href": "http://localhost:8080/api/performance/1",
           },
           "sequences": Object {
-            "href": "http://localhost:8080/api/project/1/sequences",
+            "href": "http://localhost:8080/api/performance/1/sequences",
           },
         },
-        "name": "defaultProject",
+        "name": "defaultPerformance",
       }
     }
     schema={
@@ -1412,8 +1412,8 @@ exports[`Sequences container renders OK 3`] = `
                 },
               },
               "_links": Object {
-                "project": Object {
-                  "href": "http://localhost:8080/api/sequence/58/project",
+                "performance": Object {
+                  "href": "http://localhost:8080/api/sequence/58/performance",
                 },
                 "self": Object {
                   "href": "http://localhost:8080/api/sequence/58",
@@ -1594,8 +1594,8 @@ exports[`Sequences container renders OK 3`] = `
         className="col-1"
       >
         <input
-          defaultValue="http://localhost:8080/api/project/1"
-          name="project"
+          defaultValue="http://localhost:8080/api/performance/1"
+          name="performance"
           type="hidden"
         />
         <div>
@@ -1661,9 +1661,9 @@ exports[`Sequences container renders OK 4`] = `
           "title": "Offset",
           "type": "integer",
         },
-        "project": Object {
+        "performance": Object {
           "format": "uri",
-          "title": "Project",
+          "title": "Performance",
           "type": "string",
         },
         "tick": Object {
@@ -1701,7 +1701,7 @@ exports[`Sequences container renders OK 4`] = `
       ],
       "length": -1,
       "name": "aahs-changed",
-      "project": "http://localhost:8080/api/project/1",
+      "performance": "http://localhost:8080/api/performance/1",
       "properties": Object {
         "format": "natural",
         "notation": "C D E",
@@ -1775,26 +1775,26 @@ exports[`Sequences container renders OK 4`] = `
   onFetchComposition={[Function]}
   onUpdate={[Function]}
   path="notation"
-  project={
+  performance={
     Object {
       "_links": Object {
         "channels": Object {
-          "href": "http://localhost:8080/api/project/1/channels",
+          "href": "http://localhost:8080/api/performance/1/channels",
         },
         "layers": Object {
-          "href": "http://localhost:8080/api/project/1/layers",
+          "href": "http://localhost:8080/api/performance/1/layers",
         },
-        "project": Object {
-          "href": "http://localhost:8080/api/project/1",
+        "performance": Object {
+          "href": "http://localhost:8080/api/performance/1",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/project/1",
+          "href": "http://localhost:8080/api/performance/1",
         },
         "sequences": Object {
-          "href": "http://localhost:8080/api/project/1/sequences",
+          "href": "http://localhost:8080/api/performance/1/sequences",
         },
       },
-      "name": "defaultProject",
+      "name": "defaultPerformance",
     }
   }
   schema={
@@ -1830,7 +1830,7 @@ exports[`Sequences container renders OK 4`] = `
             ],
             "length": -1,
             "name": "aahs-changed",
-            "project": "http://localhost:8080/api/project/1",
+            "performance": "http://localhost:8080/api/performance/1",
             "properties": Object {
               "format": "natural",
               "notation": "C D E",

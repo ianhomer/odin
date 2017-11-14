@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.TransientPerformance;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -38,14 +38,14 @@ import org.springframework.context.annotation.Profile;
 @Profile("noStore")
 public class OdinNoStoreConfiguration {
   /**
-   * Create project container bean NOT backed by a persistent store.
+   * Create performance container bean NOT backed by a persistent store.
    *
-   * @return project container
+   * @return performance container
    */
   @Bean
-  public ProjectContainer projectContainer() {
-    ProjectContainer projectContainer = new ProjectContainer();
-    projectContainer.setProject(new TransientProject());
-    return projectContainer;
+  public PerformanceContainer performanceContainer() {
+    PerformanceContainer performanceContainer = new PerformanceContainer();
+    performanceContainer.setPerformance(new TransientPerformance());
+    return performanceContainer;
   }
 }

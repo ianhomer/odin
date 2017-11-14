@@ -14,6 +14,6 @@
  */
 
 /**
- * Schema web service which describes structure of the odin project.
+ * Schema web service which describes structure of the odin performance.
  */
 package com.purplepip.odin.server.services.schema;

@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.store.PersistableProjectContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.store.PersistablePerformanceContainer;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Profile;
 @Profile("!noStore")
 public class PersistenceConfiguration {
   @Bean
-  public ProjectContainer projectContainer() {
-    return new PersistableProjectContainer();
+  public PerformanceContainer performanceContainer() {
+    return new PersistablePerformanceContainer();
   }
 }

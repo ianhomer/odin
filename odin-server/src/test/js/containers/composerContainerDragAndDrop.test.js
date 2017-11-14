@@ -7,7 +7,7 @@ import ComposerContainer from 'odin/containers/ComposerContainer.js'
 import Layer from 'odin/components/composer/Layer.js'
 import {Provider} from 'react-redux'
 
-import {testProject, testSchema} from '../testData.js'
+import {testPerformance, testSchema} from '../testData.js'
 import store from '../store'
 
 
@@ -26,7 +26,7 @@ describe('Composer container drag and drop', () => {
     const ProviderInContext = wrapInTestContext(Provider)
     const root = TestUtils.renderIntoDocument(
       <ProviderInContext store={store}>
-        <ComposerContainer schema={testSchema} project={testProject}/>
+        <ComposerContainer schema={testSchema} performance={testPerformance}/>
       </ProviderInContext>
     )
     //const backend = root.getManager().getBackend()

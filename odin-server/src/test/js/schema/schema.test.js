@@ -1,16 +1,16 @@
 import TIMEOUT from '../constants.js'
 
 import store from '../store'
-import {LOAD_PROJECT_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
-  loadProjectSchemaRequested, loadProfileSchemaRequested} from 'odin/actions/index.js'
+import {LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
+  loadPerformanceSchemaRequested, loadProfileSchemaRequested} from 'odin/actions/index.js'
 import {dispatchAndExpect} from '../utils/dispatchAndExpect'
 import {Schema} from 'odin/schema/Schema'
 
 describe('Schema validation', () => {
 
   test('Core Schema', done => {
-    dispatchAndExpect(store, done, LOAD_PROJECT_SCHEMA_SUCCEEDED,
-      () => loadProjectSchemaRequested(),
+    dispatchAndExpect(store, done, LOAD_PERFORMANCE_SCHEMA_SUCCEEDED,
+      () => loadPerformanceSchemaRequested(),
       () => {
         const schema = new Schema(store.getState().schema)
         var flowPatternSchema = schema.getClazzSchema('flow-pattern')

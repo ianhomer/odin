@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.project;
+package com.purplepip.odin.performance;
 
 /**
- * Project load listener interface.
+ * Project apply listener interface.
  */
 @FunctionalInterface
-public interface ProjectLoadListener {
-  void onProjectLoad(ProjectContainer container);
+public interface PerformanceApplyListener {
+  void onProjectApply(Performance project);
 }

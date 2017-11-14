@@ -24,7 +24,7 @@ public class OdinSequencerTest {
     OperationReceiver operationReceiver = (operation, time) -> lock.countDown();
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    new BeanyProjectBuilder(environment.getContainer())
+    new BeanyPerformanceBuilder(environment.getContainer())
         .addLayer("groove")
         .withLayers("groove")
         .withOffset(OFFSET)

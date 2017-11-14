@@ -17,7 +17,7 @@ import PropTypes from 'prop-types'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {connect, Provider} from 'react-redux'
 import {Schema} from '../schema/Schema'
-import Project from './Project'
+import Performance from './Performance'
 import Developer from '../components/developer/Developer'
 
 class App extends React.Component {
@@ -27,13 +27,13 @@ class App extends React.Component {
       schema: this.createNewSchema(props)
     }
 
-    this.renderProject = this.renderProject.bind(this)
+    this.renderPerformance = this.renderPerformance.bind(this)
     this.renderDeveloper = this.renderDeveloper.bind(this)
   }
 
   createNewSchema(props) {
-    // Only create schema when we have the project schema
-    return props.schema.project ? new Schema(props.schema, props.flux) : null
+    // Only create schema when we have the performance schema
+    return props.schema.performance ? new Schema(props.schema, props.flux) : null
   }
 
   componentWillReceiveProps(newProps) {
@@ -42,11 +42,11 @@ class App extends React.Component {
     }
   }
 
-  renderProject() {
+  renderPerformance() {
     return (
       <div>
         {this.state.schema &&
-          <Project schema={this.state.schema}/>
+          <Performance schema={this.state.schema}/>
         }
       </div>
     )
@@ -69,7 +69,7 @@ class App extends React.Component {
           <Router>
             <div>
               <Route exact path="/app/developer" component={this.renderDeveloper}/>
-              <Route path="/app" component={this.renderProject}/>
+              <Route path="/app" component={this.renderPerformance}/>
             </div>
           </Router>
         </Provider>

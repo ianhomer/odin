@@ -35,7 +35,7 @@ class ComposerContainer extends React.Component {
       <div>
         {this.props.sequences && this.props.layers &&
           <Composer
-            schema={this.props.schema} project={this.props.project}
+            schema={this.props.schema} performance={this.props.performance}
             sequences={this.props.sequences} layers={this.props.layers}
             onCreate={this.props.onCreate}
             onDelete={this.props.onDelete}
@@ -97,7 +97,7 @@ ComposerContainer.propTypes = {
   onRemoveLayer: PropTypes.func.isRequired,
   onFetchComposition: PropTypes.func.isRequired,
   onLoadEntities: PropTypes.func.isRequired,
-  project: PropTypes.object.isRequired,
+  performance: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
   sequences: PropTypes.object.isRequired
 }

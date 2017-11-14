@@ -49,7 +49,7 @@ class Composer extends React.Component{
       return (
         <div key={'div-' + entity._links.self.href}>
           <SequenceComponent entity={entity} key={entity._links.self.href}
-            schema={this.props.schema} project={this.props.project}
+            schema={this.props.schema} performance={this.props.performance}
             onAddLayer={this.props.onAddLayer}
             {...this.getExtraArguments(entity.type)}
           />
@@ -62,7 +62,7 @@ class Composer extends React.Component{
       <div>
         {this.props.layers.entities.length > 0 &&
           <LayerList
-            schema={this.props.schema} project={this.props.project}
+            schema={this.props.schema} performance={this.props.performance}
             layers={this.props.layers}
             sequences={this.props.sequences}
             onCreate={this.props.onCreate}
@@ -91,7 +91,7 @@ Composer.propTypes = {
   onRemoveLayer: PropTypes.func.isRequired,
   onMoveLayer: PropTypes.func.isRequired,
   onFetchComposition: PropTypes.func.isRequired,
-  project: PropTypes.object.isRequired,
+  performance: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
   sequences: PropTypes.object.isRequired
 }

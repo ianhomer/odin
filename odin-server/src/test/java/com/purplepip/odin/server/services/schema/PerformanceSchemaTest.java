@@ -25,14 +25,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
- * Project repository test.
+ * Performance repository test.
  */
 @Slf4j
-public class ProjectSchemaTest {
+public class PerformanceSchemaTest {
   @Test
-  public void testProject() {
-    ProjectSchema project = new ProjectSchema();
-    JsonNode schema = project.getType("urn:jsonschema:com:purplepip:odin:project:Project");
+  public void testPerformance() {
+    PerformanceSchema performance = new PerformanceSchema();
+    JsonNode schema = performance.getType(
+        "urn:jsonschema:com:purplepip:odin:performance:Performance");
     JsonNode properties = schema.get("properties");
     String type = properties.get("layers").get("type").asText();
     assertEquals("array", type);
@@ -46,7 +47,7 @@ public class ProjectSchemaTest {
 
   @Test
   public void testFlows() {
-    ProjectSchema schema = new ProjectSchema();
+    PerformanceSchema schema = new PerformanceSchema();
     logObjectAsJson(schema);
     assertEquals(4, schema.getFlows().size());
     JsonNode notationSchema = schema.getFlowSchema("notation");

@@ -16,7 +16,7 @@
 package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
-import com.purplepip.odin.project.Project;
+import com.purplepip.odin.performance.Performance;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,14 +33,14 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Entity(name = "Trigger")
 @Table(name = "Trigger")
-@ToString(exclude = "project", callSuper = true)
-@EqualsAndHashCode(exclude = {"project"}, callSuper = true)
+@ToString(exclude = "performance", callSuper = true)
+@EqualsAndHashCode(exclude = {"performance"}, callSuper = true)
 @Slf4j
 public class PersistableTrigger extends PersistableTimeThing
     implements MutableTriggerConfiguration {
-  @ManyToOne(targetEntity = PersistableProject.class)
-  @JoinColumn(name = "PROJECT_ID", nullable = false)
-  private Project project;
+  @ManyToOne(targetEntity = PersistablePerformance.class)
+  @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
+  private Performance performance;
 
   @NotNull
   private String type;

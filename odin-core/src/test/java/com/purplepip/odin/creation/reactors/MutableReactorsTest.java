@@ -25,7 +25,7 @@ import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.sequence.Random;
-import com.purplepip.odin.project.TransientProject;
+import com.purplepip.odin.performance.TransientPerformance;
 import org.junit.Test;
 
 public class MutableReactorsTest {
@@ -33,7 +33,7 @@ public class MutableReactorsTest {
 
   @Test
   public void testRefresh() {
-    TransientProject project = new TransientProject();
+    TransientPerformance project = new TransientPerformance();
     project.addTrigger(new NoteTrigger().note(newNote(60)).name("trigger"));
 
     LayerConductors conductors = new LayerConductors();
@@ -48,7 +48,7 @@ public class MutableReactorsTest {
 
   @Test
   public void testInjection() {
-    TransientProject project = new TransientProject();
+    TransientPerformance project = new TransientPerformance();
     project.addSequence(new Random().range(60, 72).bits(1).name("random"));
     project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));
     LayerConductors conductors = new LayerConductors();

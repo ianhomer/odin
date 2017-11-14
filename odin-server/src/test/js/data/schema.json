@@ -1,8 +1,8 @@
 {
   "types": {
-    "urn:jsonschema:com:purplepip:odin:project:Project": {
+    "urn:jsonschema:com:purplepip:odin:performance:Performance": {
       "$schema": "http://json-schema.org/draft-04/schema#",
-      "title": "Project",
+      "title": "Performance",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -42,8 +42,8 @@
             "channel": {
               "type": "integer"
             },
-            "project": {
-              "$ref": "#/definitions/Project"
+            "performance": {
+              "$ref": "#/definitions/Performance"
             },
             "layers": {
               "type": "array",
@@ -91,7 +91,7 @@
             "name"
           ]
         },
-        "Project": {
+        "Performance": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -137,8 +137,8 @@
             "program": {
               "type": "integer"
             },
-            "project": {
-              "$ref": "#/definitions/Project"
+            "performance": {
+              "$ref": "#/definitions/Performance"
             },
             "programName": {
               "type": "string"
@@ -154,8 +154,8 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "project": {
-              "$ref": "#/definitions/Project"
+            "performance": {
+              "$ref": "#/definitions/Performance"
             },
             "layers": {
               "type": "array",
@@ -250,8 +250,8 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "project": {
-              "$ref": "#/definitions/Project"
+            "performance": {
+              "$ref": "#/definitions/Performance"
             },
             "triggerRule": {
               "type": "string"
@@ -301,10 +301,10 @@
           "type": "string",
           "title": "Flow Name"
         },
-        "project": {
+        "performance": {
           "type": "string",
           "format": "uri",
-          "title": "Project"
+          "title": "Performance"
         },
         "layers": {
           "type": "array",
@@ -440,10 +440,10 @@
           "type": "string",
           "title": "Flow Name"
         },
-        "project": {
+        "performance": {
           "type": "string",
           "format": "uri",
-          "title": "Project"
+          "title": "Performance"
         },
         "layers": {
           "type": "array",
@@ -578,10 +578,10 @@
           "type": "string",
           "title": "Flow Name"
         },
-        "project": {
+        "performance": {
           "type": "string",
           "format": "uri",
-          "title": "Project"
+          "title": "Performance"
         },
         "layers": {
           "type": "array",
@@ -659,7 +659,7 @@
     "pattern": "flow-pattern"
   },
   "typeRefs": [
-    "urn:jsonschema:com:purplepip:odin:project:Project",
+    "urn:jsonschema:com:purplepip:odin:performance:Performance",
     "flow-pattern",
     "flow-metronome",
     "flow-notation"

@@ -41,7 +41,7 @@ class ChannelList extends React.Component{
           </div>
           {this.props.schema.isClazzLoaded(this.props.path) &&
             <EditEntity
-              schema={this.props.schema} project={this.props.project}
+              schema={this.props.schema} performance={this.props.performance}
               clazz={this.props.schema.getClazz(this.props.path)} fields={this.props.fields}
               onApply={this.props.onCreate}
             />
@@ -77,7 +77,7 @@ ChannelList.propTypes = {
   onCreate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
-  project: PropTypes.object.isRequired,
+  performance: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 }
 

@@ -17,7 +17,7 @@ package com.purplepip.odin.server.rest.event;
 
 import static com.purplepip.odin.store.Persistables.toThingString;
 
-import com.purplepip.odin.project.ProjectContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class OdinRepositoryEventListener extends AbstractRepositoryEventListener {
   @Autowired
-  private ProjectContainer projectContainer;
+  private PerformanceContainer performanceContainer;
 
   @Override
   public void onAfterSave(Object entity) {

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.project;
+package com.purplepip.odin.performance;
 
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
@@ -27,11 +27,11 @@ import java.util.Set;
 import lombok.ToString;
 
 /**
- * A light weight non-persistable in memory project implementation.
+ * A light weight non-persistable in memory performance implementation.
  */
 @ToString(exclude = {"channels", "layers", "sequences"})
-public class TransientProject implements Project {
-  private static final String TRANSIENT_PROJECT_NAME = "transient";
+public class TransientPerformance implements Performance {
+  private static final String TRANSIENT_PERFORMANCE_NAME = "transient";
 
   private Set<SequenceConfiguration> sequences = new HashSet<>();
 
@@ -43,7 +43,7 @@ public class TransientProject implements Project {
 
   @Override
   public String getName() {
-    return TRANSIENT_PROJECT_NAME;
+    return TRANSIENT_PERFORMANCE_NAME;
   }
 
   @Override

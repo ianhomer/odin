@@ -40,8 +40,8 @@
       "readOnly": false,
       "type": "integer"
     },
-    "project": {
-      "title": "Project",
+    "performance": {
+      "title": "Performance",
       "readOnly": false,
       "type": "string",
       "format": "uri"

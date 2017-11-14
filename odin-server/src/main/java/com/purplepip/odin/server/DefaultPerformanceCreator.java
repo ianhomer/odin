@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.server.rest.repositories.ProjectRepository;
-import com.purplepip.odin.store.domain.PersistableProject;
+import com.purplepip.odin.performance.Performance;
+import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
+import com.purplepip.odin.store.domain.PersistablePerformance;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,25 +30,25 @@ import org.springframework.stereotype.Component;
 @Profile("!noStore")
 @Slf4j
 @Order(1)
-public class DefaultProjectCreator implements CommandLineRunner {
-  public static final String DEFAULT_PROJECT_NAME = "defaultProject";
+public class DefaultPerformanceCreator implements CommandLineRunner {
+  public static final String DEFAULT_PERFORMANCE_NAME = "defaultPerformance";
 
   @Autowired
-  private ProjectRepository projectRepository;
+  private PerformanceRepository performanceRepository;
 
   @Autowired
-  private ProjectContainer projectContainer;
+  private PerformanceContainer performanceContainer;
 
   @Override
   public void run(String... args) throws Exception {
-    Project project = projectRepository.findByName(DEFAULT_PROJECT_NAME);
-    if (project == null) {
-      project = new PersistableProject();
-      ((PersistableProject) project).setName(DEFAULT_PROJECT_NAME);
-      projectRepository.save((PersistableProject) project);
-      LOG.info("Created default project");
+    Performance performance = performanceRepository.findByName(DEFAULT_PERFORMANCE_NAME);
+    if (performance == null) {
+      performance = new PersistablePerformance();
+      ((PersistablePerformance) performance).setName(DEFAULT_PERFORMANCE_NAME);
+      performanceRepository.save((PersistablePerformance) performance);
+      LOG.info("Created default performance");
     }
-    projectContainer.setProject(project);
-    projectContainer.save();
+    performanceContainer.setPerformance(performance);
+    performanceContainer.save();
   }
 }
