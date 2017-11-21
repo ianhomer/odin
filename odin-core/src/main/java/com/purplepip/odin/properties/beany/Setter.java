@@ -50,6 +50,10 @@ public class Setter {
     this.mode = mode;
   }
 
+  protected void setProvider(MutablePropertiesProvider provider) {
+    this.provider = provider;
+  }
+
   /**
    * Set a int property.
    *

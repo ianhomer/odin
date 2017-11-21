@@ -102,6 +102,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   public void start() {
     setEnabled(true);
     // TODO : Implement this as a runtime layer that survives configuration updates
+    // Use Resetter when ready ..
     // This is just a prototype implementation for now.
     if (sequence instanceof MutablePropertiesProvider) {
       LOG.debug("current offset of sequence is {}", sequence.getOffset());
