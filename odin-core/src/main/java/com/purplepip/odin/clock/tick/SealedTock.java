@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.clock.tick;
 
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Bound;
 import lombok.ToString;
 
 /**
@@ -35,7 +35,7 @@ public class SealedTock implements Tock {
   }
 
   @Override
-  public Real getPosition() {
+  public Bound getPosition() {
     return tock.getPosition();
   }
 }

@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.clock.tick;
 
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Bound;
 
 /**
  * A positioned tick starting from a specific point in time.  Note that this point in time
@@ -25,5 +25,5 @@ import com.purplepip.odin.math.Real;
 public interface Tock {
   Tick getTick();
 
-  Real getPosition();
+  Bound getPosition();
 }

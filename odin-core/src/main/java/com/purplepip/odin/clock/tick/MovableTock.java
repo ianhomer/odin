@@ -15,8 +15,7 @@
 
 package com.purplepip.odin.clock.tick;
 
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.math.Bound;
 import lombok.ToString;
 
 /**
@@ -24,34 +23,16 @@ import lombok.ToString;
  */
 @ToString
 public class MovableTock implements Tock {
-  private Real position;
+  private Bound position;
   private Tick tick;
 
-  public MovableTock(Tock tock) {
-    this.tick = tock.getTick();
-    this.position = tock.getPosition();
-  }
-
-  public MovableTock(Tick tick) {
-    this.tick = tick;
-    this.position = Wholes.ZERO;
-  }
-
-  public MovableTock(Tick tick, Real position) {
+  public MovableTock(Tick tick, Bound position) {
     this.tick = tick;
     this.position = position;
   }
 
-  public void setPosition(Real position) {
+  public void setPosition(Bound position) {
     this.position = position;
-  }
-
-  public void increment() {
-    setPosition(position.wholeFloor().plus(Wholes.ONE));
-  }
-
-  public void increment(Real increment) {
-    setPosition(position.plus(increment));
   }
 
   @Override
@@ -60,7 +41,7 @@ public class MovableTock implements Tock {
   }
 
   @Override
-  public Real getPosition() {
+  public Bound getPosition() {
     return position;
   }
 }

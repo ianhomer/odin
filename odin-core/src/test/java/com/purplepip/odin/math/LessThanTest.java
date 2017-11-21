@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.math;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -28,4 +29,12 @@ public class LessThanTest {
     assertTrue(lessThanTwo.lt(two));
     assertFalse(lessThanTwo.lt(Wholes.ONE));
   }
+
+  @Test
+  public void testFloor() {
+    Whole two = Wholes.TWO;
+    Bound lessThanTwo = LessThan.lessThan(two);
+    assertEquals(Wholes.ONE, lessThanTwo.floor(Wholes.ONE));
+  }
+
 }

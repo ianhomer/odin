@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.creation.track;
 
+import static com.purplepip.odin.math.LessThan.lessThan;
+
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.Clock;
 import com.purplepip.odin.clock.ClockListener;
@@ -35,6 +37,7 @@ import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.ScanForwardEvent;
+import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
@@ -245,7 +248,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       tockCountStart = 0;
     }
     LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
-    setTock(Whole.valueOf(tockCountStart));
+    setTock(lessThan(Whole.valueOf(tockCountStart)));
 
     clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
     tickDirty = false;
@@ -261,7 +264,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   }
 
   @Override
-  public void setTock(Whole tockToSet) {
+  public void setTock(Bound tockToSet) {
     tock = new MovableTock(getSequence().getTick(), tockToSet);
     sealedTock = new SealedTock(tock);
     /*

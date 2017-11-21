@@ -306,6 +306,7 @@ public class Rational extends Real {
    * @param rational rational number
    * @return floored value
    */
+  @Override
   public Rational floor(Rational rational) {
     long product1 = numerator * rational.getDenominator();
     long product2 = rational.getNumerator() * denominator;

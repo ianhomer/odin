@@ -15,11 +15,15 @@
 
 package com.purplepip.odin.roll;
 
+import static com.purplepip.odin.math.LessThan.lessThan;
+
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Bound;
+import com.purplepip.odin.math.LessThan;
+import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.runtime.Property;
@@ -58,11 +62,16 @@ public class TickConvertedRoll implements Roll<Note> {
   }
 
   @Override
-  public void setTock(Whole tock) {
+  public void setTock(Bound tock) {
     /*
      * Convert the tock into units of the underlying roll before setting it.
      */
-    roll.setTock(tickConverter.convertBack(tock).wholeFloor());
+    Real convertedTock = tickConverter.convertBack(tock.getLimit()).wholeFloor();
+    if (tock instanceof LessThan) {
+      roll.setTock(lessThan(convertedTock));
+    } else {
+      roll.setTock(convertedTock);
+    }
   }
 
   @Override

@@ -4,7 +4,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.roll.Roll;
 
@@ -23,7 +23,7 @@ public class HeartBeat implements Roll<Boolean> {
   }
 
   @Override
-  public void setTock(Whole tock) {
+  public void setTock(Bound tock) {
     // No operation since the heart beat clock is locked into the system clock.
   }
 

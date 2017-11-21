@@ -47,6 +47,21 @@ public final class LessThan implements Bound {
   }
 
   @Override
+  public Rational floor(Rational radix) {
+    Rational floor = limit.floor(radix);
+    if (floor.lt(limit)) {
+      /*
+       * If underlying floor for limit is than the limit then we can use that.
+       */
+      return floor;
+    }
+    /*
+     * ... otherwise we should go down to the next floor.
+     */
+    return floor.minus(radix);
+  }
+
+  @Override
   public Real getLimit() {
     return limit;
   }

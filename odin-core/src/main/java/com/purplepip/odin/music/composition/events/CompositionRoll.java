@@ -19,8 +19,8 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SequentialEventComparator;
+import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
 import com.purplepip.odin.music.notes.Note;
@@ -73,12 +73,12 @@ public class CompositionRoll implements Roll<Note> {
   }
 
   @Override
-  public void setTock(Whole tock) {
+  public void setTock(Bound tock) {
     currentLoopStart = tock.floor(composition.getNumberOfBeats());
     position = 0;
     boolean foundNextEvent = false;
     for (; position < events.size() ; position++) {
-      if (events.get(position).getTime().gt(tock)) {
+      if (tock.lt(events.get(position).getTime())) {
         foundNextEvent = true;
         break;
       }

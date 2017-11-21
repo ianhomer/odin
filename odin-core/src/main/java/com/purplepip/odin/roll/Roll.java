@@ -17,7 +17,7 @@ package com.purplepip.odin.roll;
 
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.properties.runtime.Property;
 
 /**
@@ -35,7 +35,7 @@ public interface Roll<A> {
    *
    * @param tock tock position to set
    */
-  void setTock(Whole tock);
+  void setTock(Bound tock);
 
   /**
    * Tick as a property.

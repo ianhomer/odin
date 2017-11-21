@@ -21,6 +21,8 @@ package com.purplepip.odin.math;
 public interface Bound {
   boolean lt(Real real);
 
+  Rational floor(Rational radix);
+
   /**
    * Get limit of this bound.
    *

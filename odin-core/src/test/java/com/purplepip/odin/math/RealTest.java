@@ -74,8 +74,18 @@ public class RealTest {
   }
 
   @Test
-  public void testFloorToRadix() {
+  public void testFloorToWholeRadix() {
     assertEquals(Whole.valueOf(8), Real.valueOf(9.3).floor(Whole.valueOf(4)));
+  }
+
+  @Test
+  public void testFloorToRationalRadix() {
+    assertEquals(Rationals.HALF, Real.valueOf(0.7).floor(Rationals.HALF));
+  }
+
+  @Test
+  public void testFloorToRealRadix() {
+    assertEquals(Real.valueOf(8.2), Real.valueOf(9.3).floor(Real.valueOf(4.1)));
   }
 
   @Test

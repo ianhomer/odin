@@ -129,7 +129,7 @@ public class RationalTest {
     assertEquals("2.0", new Rational(3, 1)
         .floor(Real.valueOf(2.0)).toString());
     assertEquals("2", new Rational(3, 1)
-        .floor(Real.valueOf("2")).toString());
+        .floor(Whole.valueOf("2")).toString());
   }
 
   @Test

@@ -212,6 +212,17 @@ public class Real implements Bound {
   }
 
   /**
+   * Calculate the nearest multiple of base less than this rational number.
+   *
+   * @param radix radix
+   * @return floored value
+   */
+  public Rational floor(Rational radix) {
+    long multiples = (long) (value / radix.getValue());
+    return radix.times(Rational.valueOf(multiples));
+  }
+
+  /**
    * Calculate the largest whole number less than or equal to this real number.
    *
    * @return floored value
