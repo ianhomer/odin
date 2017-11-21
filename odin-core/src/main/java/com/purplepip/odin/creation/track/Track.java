@@ -78,4 +78,15 @@ public interface Track extends Aspect {
    * @param enabled whether to enable or disable track.
    */
   void setEnabled(boolean enabled);
+
+  /**
+   * Start the track.
+   */
+  void start();
+
+  /**
+   * Stop the track.
+   */
+  void stop();
+
 }

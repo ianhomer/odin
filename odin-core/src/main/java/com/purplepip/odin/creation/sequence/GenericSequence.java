@@ -121,4 +121,17 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     super.name(name);
     return this;
   }
+
+  @Override
+  public GenericSequence enabled(boolean enabled) {
+    super.enabled(enabled);
+    return this;
+  }
+
+  @Override
+  public GenericSequence length(long length) {
+    super.length(length);
+    return this;
+  }
+
 }

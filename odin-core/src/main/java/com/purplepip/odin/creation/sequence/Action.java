@@ -28,5 +28,16 @@ public enum Action {
   /*
    * Disable the object attached to this trigger.
    */
-  DISABLE
+  DISABLE,
+
+  /**
+   * Start the object attached to this trigger.  Start is similar to enable, however will also set
+   * the offset of the sequence to the next beat.
+   */
+  START,
+
+  /**
+   * Stop the object attached to this trigger.  Stop is currently implemented the same as disable.
+   */
+  STOP
 }

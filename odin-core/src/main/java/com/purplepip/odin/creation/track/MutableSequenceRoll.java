@@ -93,6 +93,17 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     return () -> getSequence().getOffset();
   }
 
+  @Override
+  public void start() {
+    setEnabled(true);
+    // TODO : Set offset property.
+  }
+
+  @Override
+  public void stop() {
+    setEnabled(false);
+  }
+
   /**
    * Set configuration for this sequence runtime.
    *

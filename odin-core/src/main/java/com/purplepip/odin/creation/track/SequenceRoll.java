@@ -42,4 +42,8 @@ public interface SequenceRoll<A> extends Roll<A> {
   MutableFlow<Sequence<A>, A> getFlow();
 
   Property<Long> getOffsetProperty();
+
+  void start();
+
+  void stop();
 }

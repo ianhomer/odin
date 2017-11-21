@@ -35,10 +35,10 @@ public class SequenceUpdatedAtRuntimeTest {
           note61Events.countDown();
           LOG.debug("Note 61 count : {}", note61Events.getCount());
         } else {
-          LOG.warn("Unexpected note operation");
+          LOG.warn("Unexpected note operation : {}", noteVelocityOperation);
         }
       } else {
-        LOG.warn("Unexpected operation");
+        LOG.warn("Unexpected operation : {}", operation);
       }
     };
 

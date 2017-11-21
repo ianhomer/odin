@@ -26,7 +26,6 @@ import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SwallowedEvent;
 import com.purplepip.odin.music.notes.Note;
@@ -162,6 +161,16 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
   @Override
   public void setEnabled(boolean enabled) {
     getSequenceRoll().setEnabled(enabled);
+  }
+
+  @Override
+  public void start() {
+    getSequenceRoll().start();
+  }
+
+  @Override
+  public void stop() {
+    getSequenceRoll().stop();
   }
 
   private Event<Note> filter(Event<Note> event) {

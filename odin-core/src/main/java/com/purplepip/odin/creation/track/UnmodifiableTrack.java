@@ -80,4 +80,13 @@ public class UnmodifiableTrack implements Track {
     underlyingTrack.setEnabled(enabled);
   }
 
+  @Override
+  public void start() {
+    underlyingTrack.start();
+  }
+
+  @Override
+  public void stop() {
+    underlyingTrack.stop();
+  }
 }

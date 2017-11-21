@@ -97,6 +97,12 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
           case DISABLE:
             entry.getKey().setEnabled(false);
             break;
+          case START:
+            entry.getKey().start();
+            break;
+          case STOP:
+            entry.getKey().stop();
+            break;
           default:
             LOG.warn("Trigger action {} not supported", action);
         }
