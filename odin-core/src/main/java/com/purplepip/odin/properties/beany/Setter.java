@@ -28,7 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Setter {
   private MutablePropertiesProvider provider;
-  private Mode mode;
+  private Mode mode = Mode.BEST;
+
+  Setter() {
+  }
 
   /**
    * Create new setter for a properties provider.
@@ -36,7 +39,7 @@ public class Setter {
    * @param provider sequence to set properties on
    */
   public Setter(MutablePropertiesProvider provider) {
-    this(provider, Mode.BEST);
+    this.provider = provider;
   }
 
   /**
@@ -52,6 +55,10 @@ public class Setter {
 
   protected void setProvider(MutablePropertiesProvider provider) {
     this.provider = provider;
+  }
+
+  protected boolean hasProvider() {
+    return provider != null;
   }
 
   /**

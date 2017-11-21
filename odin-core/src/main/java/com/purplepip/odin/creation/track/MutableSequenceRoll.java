@@ -41,7 +41,7 @@ import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
-import com.purplepip.odin.properties.beany.Setter;
+import com.purplepip.odin.properties.beany.Resetter;
 import com.purplepip.odin.properties.runtime.MutableProperty;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
@@ -70,6 +70,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   private MovableTock tock;
   private Tock sealedTock;
   private SequenceConfiguration sequence;
+  private Resetter resetter = new Resetter();
   private FlowFactory<A> flowFactory;
   private boolean tickDirty;
   private boolean sequenceDirty;
@@ -101,18 +102,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   @Override
   public void start() {
     setEnabled(true);
-    // TODO : Implement this as a runtime layer that survives configuration updates
-    // Use Resetter when ready ..
-    // This is just a prototype implementation for now.
-    if (sequence instanceof MutablePropertiesProvider) {
-      LOG.debug("current offset of sequence is {}", sequence.getOffset());
-      Setter setter = new Setter((MutablePropertiesProvider) sequence);
-      // Start at least a beat from now, we might reduce this lag at some point ...
-      long newOffset = clock.getPosition().ceiling() + 1;
-      setter.set("offset", newOffset);
-      LOG.debug("{} : offset of sequence set to {}", sequence.getName(), sequence.getOffset());
-      refresh();
-    }
+    LOG.debug("current offset of sequence is {}", sequence.getOffset());
+    // Start at least a beat from now, we might reduce this lag at some point ...
+    long newOffset = clock.getPosition().ceiling() + 1;
+    resetter.set("offset", newOffset);
+    LOG.debug("{} : offset of sequence set to {}", sequence.getName(), sequence.getOffset());
+    refresh();
   }
 
   @Override
@@ -144,6 +139,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     }
 
     this.sequence = sequence;
+    if (sequence instanceof MutablePropertiesProvider) {
+      resetter.reset((MutablePropertiesProvider) sequence);
+    } else {
+      resetter.reset(null);
+    }
     sequenceDirty = true;
     refresh();
   }

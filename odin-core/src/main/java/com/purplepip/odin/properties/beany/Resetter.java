@@ -17,17 +17,24 @@ package com.purplepip.odin.properties.beany;
 
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * A Resetter allows all properties that have been set to be reset.
  */
+@Slf4j
 public class Resetter extends Setter {
-  Map<String, Object> properties = new HashMap<>();
+  private Map<String, Object> properties = new HashMap<>();
 
-  public Resetter(MutablePropertiesProvider provider) {
-    super(provider);
+  public Resetter() {
   }
 
+  /**
+   * Reset the properties that have been set onto the new provider AND bind this new provider
+   * into this setter.
+   *
+   * @param provider provider to reset
+   */
   public void reset(MutablePropertiesProvider provider) {
     setProvider(provider);
     for (Map.Entry<String, Object> entry : properties.entrySet()) {
@@ -37,6 +44,10 @@ public class Resetter extends Setter {
 
   @Override
   public Setter set(String name, Object value) {
+    if (!hasProvider()) {
+      LOG.warn("Resetter does not have a provider, ignoring setting {} to {}", name, value);
+      return this;
+    }
     super.set(name, value);
     properties.put(name, value);
     return this;

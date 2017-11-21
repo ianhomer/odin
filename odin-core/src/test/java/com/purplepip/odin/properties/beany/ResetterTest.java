@@ -24,7 +24,8 @@ public class ResetterTest {
   @Test
   public void testReset() {
     GenericSequence sequence = new GenericSequence();
-    Resetter setter = new Resetter(sequence);
+    Resetter setter = new Resetter();
+    setter.reset(sequence);
     setter.set("format", "test-format");
     setter.set("offset", 9);
     assertEquals("test-format", sequence.getProperty("format"));
