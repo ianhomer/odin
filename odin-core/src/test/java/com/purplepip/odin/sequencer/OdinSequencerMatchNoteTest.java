@@ -112,7 +112,6 @@ public class OdinSequencerMatchNoteTest {
       // TODO : Assert that the success note are in the correct order
       //assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
 
-
     } finally {
       environment.stop();
     }

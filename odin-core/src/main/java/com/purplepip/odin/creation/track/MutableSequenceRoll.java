@@ -37,6 +37,8 @@ import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.ScanForwardEvent;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import com.purplepip.odin.properties.beany.Setter;
 import com.purplepip.odin.properties.runtime.MutableProperty;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
@@ -96,7 +98,16 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   @Override
   public void start() {
     setEnabled(true);
-    // TODO : Set offset property.
+    // TODO : Implement this as a runtime layer that survives configuration updates
+    // This is just a prototype implementation for now.
+    if (sequence instanceof MutablePropertiesProvider) {
+      LOG.debug("current offset of sequence is {}", sequence.getOffset());
+      Setter setter = new Setter((MutablePropertiesProvider) sequence);
+      long newOffset = clock.getPosition().ceiling();
+      setter.set("offset", newOffset);
+      LOG.debug("offset of sequence set to {}", sequence.getOffset());
+      refresh();
+    }
   }
 
   @Override
@@ -329,15 +340,15 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
 
   private boolean isRolling() {
     if (tock == null) {
-      LOG.trace("is rolling false : not started");
+      LOG.debug("is rolling false : not started");
       return false;
     }
     if (!enabled) {
-      LOG.trace("is rolling false : track not enabled");
+      LOG.debug("is rolling false : track not enabled");
       return false;
     }
     boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
-    LOG.trace("isRolling {} : {} < {}", result, tock.getPosition(), getLength());
+    LOG.debug("isRolling {} : {} < {}", result, tock.getPosition(), getLength());
     return result;
   }
 
@@ -353,24 +364,34 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * was found and we've handled the scanning forward above.
      */
     if (event instanceof ScanForwardEvent) {
+      LOG.debug("Event is a scan forward event");
       return null;
     }
     return event;
   }
 
-  protected Event<A> getNextEvent(Tock tock) {
+  private Event<A> getNextEvent(Tock tock) {
     return flow.getNextEvent(tock);
   }
 
   @Override
   public Event<A> pop() {
-    Event<A> thisEvent = nextEvent;
-    if (isRolling()) {
-      nextEvent = getNextEventInternal(tock);
-    } else {
+    /*
+     * Take event from local value since we might have peeked before we pop.
+     */
+    if (nextEvent != null) {
+      Event<A> thisEvent = nextEvent;
       nextEvent = null;
+      return thisEvent;
     }
-    return thisEvent;
+    /*
+     * Otherwise we'll get it directly.
+     */
+    if (isRolling()) {
+      return getNextEventInternal(tock);
+    } else {
+      return null;
+    }
   }
 
   @Override

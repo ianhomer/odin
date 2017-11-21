@@ -32,6 +32,11 @@ public class MovableTock implements Tock {
     this.position = tock.getPosition();
   }
 
+  public MovableTock(Tick tick) {
+    this.tick = tick;
+    this.position = Wholes.ZERO;
+  }
+
   public MovableTock(Tick tick, Real position) {
     this.tick = tick;
     this.position = position;

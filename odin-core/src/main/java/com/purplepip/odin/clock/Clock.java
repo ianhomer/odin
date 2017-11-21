@@ -40,7 +40,7 @@ public interface Clock extends MicrosecondPositionProvider {
   Real getDuration(long microseconds);
 
   /**
-   * Get tick count duration for the given number of microseconds form the given tick count.
+   * Get tick count duration for the given number of microseconds from the given tick count.
    */
   Real getDuration(long microseconds, Real count);
 

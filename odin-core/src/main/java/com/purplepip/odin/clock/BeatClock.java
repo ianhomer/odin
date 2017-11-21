@@ -51,6 +51,17 @@ public class BeatClock extends AbstractClock {
     return new BeatClock(beatsPerMinute);
   }
 
+  public static BeatClock newBeatClock(int staticBeatsPerMinute,
+                                       MicrosecondPositionProvider microsecondPositionProvider) {
+    return newBeatClock(new StaticBeatsPerMinute(staticBeatsPerMinute),
+        microsecondPositionProvider);
+  }
+
+  public static BeatClock newBeatClock(BeatsPerMinute beatsPerMinute,
+                                       MicrosecondPositionProvider microsecondPositionProvider) {
+    return new BeatClock(beatsPerMinute, microsecondPositionProvider);
+  }
+
   public BeatClock(BeatsPerMinute beatsPerMinute) {
     this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
   }
