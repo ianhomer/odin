@@ -183,8 +183,8 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
     Whole position = getPosition(microseconds).wholeFloor();
     boolean result = position.ge(Whole.valueOf(getOffset()))
         && (getLength().isNegative() || position.lt(getLength()));
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("isEnabled {} : {}, tock {}, µs {}, length {}, loop {}",
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("isEnabled {} : {}, tock {}, µs {}, length {}, loop {}",
           getName(), result, position, microseconds, getLength(), loopLength);
     }
     return result;

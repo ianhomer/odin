@@ -84,15 +84,20 @@ public class TickConvertedRoll implements Roll<Note> {
     return roll.isEmpty();
   }
 
+  @Override
+  public String getName() {
+    return roll.getName();
+  }
+
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
-      LOG.debug("No event on roll {} to convert", roll);
+      LOG.debug("No event on roll {} to convert", roll.getName());
       return null;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
         tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
     long time = tickConverter.convert(event.getTime()).floor();
-    LOG.debug("Converted event {} to note {} to time {}", event, note, time);
+    LOG.trace("Converted event {} to note {} to time {}", event, note, time);
     return new DefaultEvent<>(note, time);
   }
 }

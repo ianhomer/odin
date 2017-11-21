@@ -61,6 +61,11 @@ public class CompositionRoll implements Roll<Note> {
   }
 
   @Override
+  public String getName() {
+    return composition.toString();
+  }
+
+  @Override
   public Event<Note> peek() {
     return getCurrentEvent();
   }

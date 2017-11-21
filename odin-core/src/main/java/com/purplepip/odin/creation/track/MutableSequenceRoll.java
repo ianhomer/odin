@@ -106,9 +106,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     if (sequence instanceof MutablePropertiesProvider) {
       LOG.debug("current offset of sequence is {}", sequence.getOffset());
       Setter setter = new Setter((MutablePropertiesProvider) sequence);
-      long newOffset = clock.getPosition().ceiling();
+      // Start at least a beat from now, we might reduce this lag at some point ...
+      long newOffset = clock.getPosition().ceiling() + 1;
       setter.set("offset", newOffset);
-      LOG.debug("offset of sequence set to {}", sequence.getOffset());
+      LOG.debug("{} : offset of sequence set to {}", sequence.getName(), sequence.getOffset());
       refresh();
     }
   }
@@ -201,7 +202,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * Force next event to be taken from sequence flow.
      */
     nextEvent = null;
-    LOG.debug("afterSequenceChange executed");
+    LOG.debug("{} : afterSequenceChange executed", sequence.getName());
   }
 
   private void afterTickChange() {
@@ -351,13 +352,14 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
       return false;
     }
     boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
-    LOG.debug("isRolling {} : {} < {}", result, tock.getPosition(), getLength());
+    LOG.debug("{} : isRolling {} : {} < {}", sequence.getName(),
+        result, tock.getPosition(), getLength());
     return result;
   }
 
   private Event<A> getNextEventInternal(MovableTock tock) {
     Event<A> event = getNextEvent(sealedTock);
-    LOG.debug("Next event after {} is at {}", tock, event.getTime());
+    LOG.debug("{} : Next event after {} is at {}", sequence.getName(), tock, event.getTime());
     /*
      * Now increment internal tock to the time of the provided event
      */
@@ -400,6 +402,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   @Override
   public boolean isEmpty() {
     return sequence.isEmpty() || (flow != null && flow.isEmpty());
+  }
+
+  @Override
+  public String getName() {
+    return sequence.getName();
   }
 
   @Override

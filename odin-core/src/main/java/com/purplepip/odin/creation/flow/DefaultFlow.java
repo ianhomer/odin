@@ -86,7 +86,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
     while (event == null && i < maxScanForward) {
       event = sequence.getNextEvent(getContext(), loop);
       if (event == null) {
-        LOG.debug("No event found at tock {}, incrementing loop", loop);
+        LOG.debug("{} : No event found at tock {}, incrementing loop", sequence.getName(), loop);
         loop.increment();
         i++;
       }

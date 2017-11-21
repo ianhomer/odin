@@ -50,4 +50,6 @@ public interface Roll<A> {
    * @return true if the roll is empty
    */
   boolean isEmpty();
+
+  String getName();
 }

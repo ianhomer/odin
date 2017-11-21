@@ -40,4 +40,9 @@ public class HeartBeat implements Roll<Boolean> {
   public boolean isEmpty() {
     return false;
   }
+
+  @Override
+  public String getName() {
+    return "heart-beat";
+  }
 }

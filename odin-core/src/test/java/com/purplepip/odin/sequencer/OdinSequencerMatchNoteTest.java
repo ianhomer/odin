@@ -50,7 +50,7 @@ public class OdinSequencerMatchNoteTest {
           LOG.warn("Unexpected note operation : {}", noteOnOperation);
         }
       } else if (operation instanceof NoteOffOperation) {
-        LOG.warn("Ignoring note off operation : {}", operation);
+        LOG.trace("Ignoring note off operation : {}", operation);
       } else {
         LOG.warn("Unexpected operation : {}", operation);
       }
@@ -67,16 +67,17 @@ public class OdinSequencerMatchNoteTest {
         .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
         .addSequence(new Notation()
             .notation("C D E")
-            .trigger("random-note-trigger", Action.ENABLE)
+            .trigger("random-note-trigger", Action.START)
             .channel(2).layer("groove")
             .enabled(false)
             .name("success"));
 
     environment.start();
 
-    // TODO : Change this test case to cover the match the note use case.  Listen for note from
-    // random note sequence, hit that note and then expect notation sequence.
     try {
+      /*
+       * Wait for a random note to be pressed so that we can get the value of the random note
+       */
       randomNoteLatch.await(1000, TimeUnit.MILLISECONDS);
 
       /*
@@ -109,8 +110,7 @@ public class OdinSequencerMatchNoteTest {
        */
       assertEquals("Success notes should have fired after correct note",
           0, successEventsLatch.getCount());
-      // TODO : Assert that the success note are in the correct order
-      //assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
+      assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
 
     } finally {
       environment.stop();
