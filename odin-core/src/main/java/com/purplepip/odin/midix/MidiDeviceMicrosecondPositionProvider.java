@@ -26,6 +26,11 @@ import lombok.extern.slf4j.Slf4j;
 public class MidiDeviceMicrosecondPositionProvider implements MicrosecondPositionProvider {
   private MidiDevice midiDevice;
 
+  /**
+   * Create microsecond position provider from a MIDI device.
+   *
+   * @param midiDevice MIDI device to use to provide microsecond position
+   */
   public MidiDeviceMicrosecondPositionProvider(MidiDevice midiDevice) {
     LOG.debug("Created {} for {} with current time {}", this, midiDevice,
         midiDevice.getMicrosecondPosition());
