@@ -40,6 +40,7 @@ public class MidiMessageConverter {
    */
   public Operation toOperation() throws OdinException {
     // TODO : Implement correct mapping from MIDI message to operation.
+    // TODO : Allow mapping of channel to something other than 1
     if (midiMessage.getLength() == 3) {
       byte[] message = midiMessage.getMessage();
       Status status = Status.getMessage(message[0]);
@@ -49,9 +50,9 @@ public class MidiMessageConverter {
       } else {
         switch (status) {
           case NOTE_ON:
-            return new NoteOnOperation(0, message[1], message[2]);
+            return new NoteOnOperation(1, message[1], message[2]);
           case NOTE_OFF:
-            return new NoteOffOperation(0, message[1]);
+            return new NoteOffOperation(1, message[1]);
           default:
             throw new OdinException(new DebugMessage(midiMessage.getMessage())
                 + " not currently mapped to an operation");

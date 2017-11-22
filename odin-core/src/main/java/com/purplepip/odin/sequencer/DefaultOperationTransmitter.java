@@ -32,7 +32,14 @@ public class DefaultOperationTransmitter implements OperationTransmitter {
   public void send(Operation operation, long time) throws OdinException {
     receivers.forEach(receiver -> {
       try {
-        receiver.send(operation, time);
+        /*
+         * TODO : We currently transmit operation with NOW time, not the original time.  This is
+         * from the assumption that we want the incoming signal to always be processed and ASAP.
+         * There might be situations where signals are coming in from the future, however to
+         * support this we need to make sure the times are synchronized between source and
+          * destination devices.
+         */
+        receiver.send(operation, -1);
       } catch (OdinException e) {
         LOG.error("Cannot send operation " + operation + " at time " + time, e);
       }
