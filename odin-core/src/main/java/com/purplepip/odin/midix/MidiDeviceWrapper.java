@@ -85,9 +85,11 @@ public class MidiDeviceWrapper implements AutoCloseable {
       try {
         Transmitter transmitter = getTransmittingDevice().getTransmitter();
         transmitters.add(transmitter);
-        Receiver receiver = new MidiInputReceiver(operationTransmitter);
+        Receiver receiver = new MidiInputReceiver(operationTransmitter,
+            new MidiDeviceMicrosecondPositionProvider(getTransmittingDevice()));
         receivers.add(receiver);
         transmitter.setReceiver(receiver);
+        LOG.debug("Registered {} as receiver for {}", receiver, transmitter);
       } catch (MidiUnavailableException e) {
         LOG.error("Cannot register receiver : {}", e.getMessage());
         LOG.debug("Cannot register receiver", e);

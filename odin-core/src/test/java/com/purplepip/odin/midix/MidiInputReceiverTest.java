@@ -17,6 +17,7 @@ package com.purplepip.odin.midix;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.clock.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.midi.Status;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,7 +29,8 @@ public class MidiInputReceiverTest {
   public void testSend() throws Exception {
     final AtomicInteger count = new AtomicInteger();
     OperationReceiver operationReceiver = ((operation, time) -> count.incrementAndGet());
-    MidiInputReceiver midiInputReceiver = new MidiInputReceiver(operationReceiver);
+    MidiInputReceiver midiInputReceiver = new MidiInputReceiver(
+        operationReceiver, new DefaultMicrosecondPositionProvider());
     midiInputReceiver.send(new ShortMessage(Status.NOTE_ON.getValue(), 60, 50), -1);
     assertEquals(1, count.get());
   }

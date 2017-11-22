@@ -16,19 +16,24 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
+import javax.sound.midi.MidiDevice;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Microsecond position provider taking the microsecond position from the receiving MIDI device.
  */
+@Slf4j
 public class MidiDeviceMicrosecondPositionProvider implements MicrosecondPositionProvider {
-  private MidiDeviceWrapper midiDeviceWrapper;
+  private MidiDevice midiDevice;
 
-  public MidiDeviceMicrosecondPositionProvider(MidiDeviceWrapper midiDeviceWrapper) {
-    this.midiDeviceWrapper = midiDeviceWrapper;
+  public MidiDeviceMicrosecondPositionProvider(MidiDevice midiDevice) {
+    LOG.debug("Created {} for {} with current time {}", this, midiDevice,
+        midiDevice.getMicrosecondPosition());
+    this.midiDevice = midiDevice;
   }
 
   @Override
   public long getMicroseconds() {
-    return midiDeviceWrapper.getReceivingDevice().getMicrosecondPosition();
+    return midiDevice.getMicrosecondPosition();
   }
 }

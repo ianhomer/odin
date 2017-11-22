@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -28,6 +29,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MidiSystemWrapper {
+  private boolean extended = false;
+
+  public MidiSystemWrapper extended() {
+    extended = true;
+    return this;
+  }
+
   /**
    * Return a set of MIDI device infos.
    *
@@ -71,6 +79,14 @@ public class MidiSystemWrapper {
         sb.append(" - ").append(info.getVendor());
         sb.append(" - ").append(info.getName());
         sb.append(" - ").append(info.getDescription());
+        if (extended) {
+          try {
+            MidiDevice device = MidiSystem.getMidiDevice(info);
+            sb.append(" - microsecond position = ").append(device.getMicrosecondPosition());
+          } catch (MidiUnavailableException e) {
+            LOG.error("Cannot get device " + info, e);
+          }
+        }
       }
     }
     return sb.toString();

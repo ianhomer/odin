@@ -84,6 +84,6 @@ public class DefaultOperationProcessorExecutor implements Runnable {
       }
       nextEvent = queue.peek();
     }
-    LOG.debug("Processed {} of {} operations at {}", count, size, clock);
+    LOG.trace("Processed {} of {} operations at {}", count, size, clock);
   }
 }

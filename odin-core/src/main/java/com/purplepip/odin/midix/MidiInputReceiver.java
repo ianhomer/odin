@@ -15,7 +15,9 @@
 
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
@@ -24,9 +26,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MidiInputReceiver implements Receiver {
   private OperationReceiver receiver;
+  private MicrosecondPositionProvider microsecondPositionProvider;
 
-  public MidiInputReceiver(OperationReceiver receiver) {
+  public MidiInputReceiver(OperationReceiver receiver,
+                           MicrosecondPositionProvider microsecondPositionProvider) {
     this.receiver = receiver;
+    this.microsecondPositionProvider = microsecondPositionProvider;
   }
 
   /**
@@ -38,7 +43,10 @@ public class MidiInputReceiver implements Receiver {
   @Override
   public void send(MidiMessage message, long time) {
     try {
-      receiver.send(new MidiMessageConverter(message).toOperation(), time);
+      Operation operation = new MidiMessageConverter(message).toOperation();
+      LOG.debug("Received {} for time {} at time {}", operation, time,
+          microsecondPositionProvider.getMicroseconds());
+      receiver.send(operation, time);
     } catch (OdinException e) {
       LOG.error("Cannot relay MIDI message " + message, e);
     }

@@ -13,7 +13,8 @@ public class MidiDeviceMicrosecondPositionProviderTest {
   @Test
   public void testMicrosecondPosition() {
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
-    MicrosecondPositionProvider provider = new MidiDeviceMicrosecondPositionProvider(wrapper);
+    MicrosecondPositionProvider provider = new MidiDeviceMicrosecondPositionProvider(
+        wrapper.getReceivingDevice());
     assumeTrue(wrapper.getReceivingDevice().isOpen());
     long time = provider.getMicroseconds();
     assertTrue("Microsecond not +ve : " + time, time > -1);

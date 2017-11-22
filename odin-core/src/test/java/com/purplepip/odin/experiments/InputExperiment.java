@@ -1,15 +1,28 @@
+/*
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.purplepip.odin.experiments;
 
-import com.codahale.metrics.ConsoleReporter;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
+import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
@@ -23,38 +36,27 @@ import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.sound.midi.MidiUnavailableException;
+import lombok.extern.slf4j.Slf4j;
 
-/**
- * Midi Sequence Experiment.
- */
-public class MidiSequenceExperiment {
-  private static final Logger LOG = LoggerFactory.getLogger(MidiSequenceExperiment.class);
-
-  /**
-   * Main method.
-   *
-   * @param args arguments
-   */
-  public static void main(String[] args) throws InterruptedException {
-    MidiSequenceExperiment experiment = new MidiSequenceExperiment();
-    try {
-      experiment.doExperiment();
-    } catch (OdinException e) {
-      LOG.error("Unexpected failure", e);
-    }
+@Slf4j
+public class InputExperiment {
+  public static void main(String[] args) throws OdinException, InterruptedException,
+      MidiUnavailableException {
+    InputExperiment experiment = new InputExperiment();
+    experiment.doExperiment();
   }
 
   private void doExperiment() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(800);
+
+    new MidiSystemWrapper().extended().dump();
 
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();
       LOG.info("Received operation {}", operation);
     };
 
-    LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
     MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
 
@@ -83,45 +85,17 @@ public class MidiSequenceExperiment {
       }
       PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
       new BeanyPerformanceBuilder(container)
-          .withName("note-60-trigger").withNote(60).addNoteTrigger()
-          .addLayer("groove")
-          .withOffset(0).withLength(12).addLayer("start")
-          .withOffset(8).withLength(8).addLayer("mid")
-          .withLayers("groove")
-          .withLength(-1).withOffset(0)
-          .addMetronome()
-          .withChannel(1).changeProgramTo("rock")
-          .withTrigger("note-60-trigger", Action.ENABLE)
-          .withEnabled(false).withVelocity(50).withNote(62).addPattern(Ticks.BEAT, 7)
-          .withDefaults()
-          .withLayers("start")
-          .withChannel(2).changeProgramTo("aahs")
-          .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
-          .withLayers("groove")
-          .withChannel(9).changeProgramTo("TR-909")
-          .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
-          .withVelocity(50).addPattern(Ticks.EIGHTH, 127)
-          .withNote(46).addPattern(Ticks.TWO_THIRDS, 7)
-          .withChannel(3).changeProgramTo("bass")
-          .withLayers("mid")
-          .withVelocity(100).addNotation(Ticks.BEAT, "B4/8, B4, E4/q, G4, C4");
+          .withChannel(1).changeProgramTo("piano");
 
       container.addApplyListener(sequencer);
       container.apply();
 
-      try (ConsoleReporter reporter = ConsoleReporter.forRegistry(configuration.getMetrics())
-          .convertRatesTo(TimeUnit.SECONDS)
-          .convertDurationsTo(TimeUnit.MILLISECONDS)
-          .build()) {
-        // Report metrics
-        reporter.start(1, TimeUnit.SECONDS);
-        sequencer.start();
+      sequencer.start();
 
-        try {
-          lock.await(8000, TimeUnit.MILLISECONDS);
-        } finally {
-          sequencer.stop();
-        }
+      try {
+        lock.await(60, TimeUnit.SECONDS);
+      } finally {
+        sequencer.stop();
       }
       LOG.info("... stopping");
     } finally {

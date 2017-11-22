@@ -71,8 +71,6 @@ public class MidiOperationReceiver implements OperationReceiver {
         MidiDevice receiver = midiDeviceWrapper.getReceivingDevice();
         if (receiver.isOpen()) {
           LOG.debug("Sending MIDI signal {} for time {}", resolvedOperation, time);
-          LOG.debug("Receiver time {} ",
-              midiDeviceWrapper.getReceivingDevice().getMicrosecondPosition());
           midiDeviceWrapper.getReceivingDevice().getReceiver().send(midiMessage, time);
         }
       } catch (MidiUnavailableException e) {

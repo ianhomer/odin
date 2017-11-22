@@ -117,9 +117,9 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
          * If the original is of the correct type then we can simply take a copy
          */
         newInstance = (S) expectedType.cast(original).copy();
-        LOG.debug("Creating new instance with direct copy of {}", newInstance);
+        LOG.trace("Creating new instance with direct copy of {}", newInstance);
       } else {
-        LOG.debug("Creating new instance of {}", expectedType);
+        LOG.trace("Creating new instance of {}", expectedType);
         try {
           newInstance = expectedType.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
@@ -134,9 +134,9 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   }
 
   protected void populate(C destination, ThingConfiguration source) {
-    LOG.debug("Populating bean properties from source");
+    LOG.trace("Populating bean properties from source");
     BeanCopy.from(source).to(destination).copy();
-    LOG.debug("Populating properties map from source");
+    LOG.trace("Populating properties map from source");
     if (destination instanceof MutablePropertiesProvider) {
       source.getPropertyNames().forEach(name -> {
         ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name));

@@ -80,7 +80,7 @@ public class TriggerExperiment {
         )
         .setOperationTransmitter(transmitter)
         .setMicrosecondPositionProvider(
-            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper));
+            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
     try {
       sequencer = new OdinSequencer(configuration);
       SynthesizerHelper synthesizerHelper;

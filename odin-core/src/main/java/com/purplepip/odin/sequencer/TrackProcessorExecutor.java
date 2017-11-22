@@ -118,7 +118,7 @@ public class TrackProcessorExecutor implements Runnable {
         trackTimerContext.stop();
       }
     }
-    LOG.debug("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
+    LOG.trace("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
   }
 
   // TODO : Can we use a metric annotation for this?
@@ -137,7 +137,7 @@ public class TrackProcessorExecutor implements Runnable {
     Event<Note> nextEvent = track.peek();
 
     if (nextEvent == null) {
-      LOG.debug("No event on roll");
+      LOG.trace("No event on roll");
       noEventsMetric.mark();
       return noteCount;
     }
@@ -161,7 +161,7 @@ public class TrackProcessorExecutor implements Runnable {
        * Pop event to get it off the buffer.
        */
       nextEvent = track.pop();
-      LOG.debug("Processing Event {}", nextEvent);
+      LOG.trace("Processing Event {}", nextEvent);
       if (nextEvent == null) {
         nextEventNullMetric.mark();
         // TODO : Understand why this can happen, it might be that another thread has beaten
@@ -188,9 +188,9 @@ public class TrackProcessorExecutor implements Runnable {
     }
 
     if (nextEvent == null) {
-      LOG.debug("No more events on sequence runtime");
+      LOG.trace("No more events on sequence runtime");
     } else {
-      LOG.debug("Next event {} is beyond horizon {} : clock {}",
+      LOG.trace("Next event {} is beyond horizon {} : clock {}",
           nextEvent, maxMicrosecondPosition, clock);
     }
 
