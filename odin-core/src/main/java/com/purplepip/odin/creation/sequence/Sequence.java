@@ -39,4 +39,6 @@ public interface Sequence<A> extends SequenceConfiguration {
   default Rational getLoopLength() {
     return Whole.valueOf(getLength());
   }
+
+  default void reset() {}
 }

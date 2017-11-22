@@ -19,4 +19,17 @@ package com.purplepip.odin.operation;
  * Operation that can be fired by sequencer.
  */
 public interface Operation {
+  /**
+   * Get the operation (if any that caused this operation).  Since operations can trigger other
+   * operations it is important that we don't end up with a recursive loop.   The operation
+   * processor can put safety nets based on detecting recursion or reaching maximum depth of
+   * causation.
+   *
+   * @return operation that caused this operation.
+   */
+  Operation getCause();
+
+  boolean hasCause();
+
+  int getCauseDepth();
 }

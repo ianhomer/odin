@@ -6,7 +6,9 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.sequence.Action;
+import com.purplepip.odin.creation.sequence.SequenceStartOperation;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
+import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Notation;
@@ -33,6 +35,7 @@ public class OdinSequencerMatchNoteTest {
     final AtomicInteger randomNote = new AtomicInteger();
     final CountDownLatch successEventsLatch = new CountDownLatch(SUCCESS_NOTES.size());
     final ArrayList<Integer> successNotes = new ArrayList<>();
+    final CountDownLatch startOperationLatch = new CountDownLatch(1);
 
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
@@ -51,6 +54,8 @@ public class OdinSequencerMatchNoteTest {
         }
       } else if (operation instanceof NoteOffOperation) {
         LOG.trace("Ignoring note off operation : {}", operation);
+      } else if (operation instanceof SequenceStartOperation) {
+        startOperationLatch.countDown();
       } else {
         LOG.warn("Unexpected operation : {}", operation);
       }
@@ -62,9 +67,12 @@ public class OdinSequencerMatchNoteTest {
         .addSequence(new Random()
             .lower(60).upper(72)
             .bits(1).note(newNote())
+            .trigger("success-start-trigger", Action.RESET)
             .channel(1).layer("groove")
             .name("random"))
         .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
+        .addTrigger(new SequenceStartTrigger()
+            .sequenceName("success").name("success-start-trigger"))
         .addSequence(new Notation()
             .notation("C D E")
             .trigger("random-note-trigger", Action.START)
@@ -111,6 +119,8 @@ public class OdinSequencerMatchNoteTest {
       assertEquals("Success notes should have fired after correct note",
           0, successEventsLatch.getCount());
       assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
+
+      startOperationLatch.await(1000,TimeUnit.MILLISECONDS);
 
     } finally {
       environment.stop();

@@ -7,10 +7,12 @@ import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.roll.Roll;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Roll of heartbeats every second.
  */
+@Slf4j
 public class HeartBeat implements Roll<Boolean> {
   @Override
   public Event<Boolean> peek() {
@@ -44,5 +46,20 @@ public class HeartBeat implements Roll<Boolean> {
   @Override
   public String getName() {
     return "heart-beat";
+  }
+
+  @Override
+  public void start() {
+    LOG.warn("Redundant operation for start on {}", this);
+  }
+
+  @Override
+  public void stop() {
+    LOG.warn("Redundant operation for stop on {}", this);
+  }
+
+  @Override
+  public void reset() {
+    LOG.warn("Redundant operation for reset on {}", this);
   }
 }

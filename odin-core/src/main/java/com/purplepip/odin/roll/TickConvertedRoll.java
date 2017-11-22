@@ -89,6 +89,21 @@ public class TickConvertedRoll implements Roll<Note> {
     return roll.getName();
   }
 
+  @Override
+  public void start() {
+    LOG.warn("Redundant operation for start on {}", this);
+  }
+
+  @Override
+  public void stop() {
+    LOG.warn("Redundant operation for stop on {}", this);
+  }
+
+  @Override
+  public void reset() {
+    LOG.warn("Redundant operation for reset on {}", this);
+  }
+
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
       LOG.debug("No event on roll {} to convert", roll.getName());

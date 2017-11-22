@@ -66,6 +66,21 @@ public class CompositionRoll implements Roll<Note> {
   }
 
   @Override
+  public void start() {
+    reset();
+  }
+
+  @Override
+  public void stop() {
+    LOG.warn("Redundant operation for stop on {}", this);
+  }
+
+  @Override
+  public void reset() {
+    position = 0;
+  }
+
+  @Override
   public Event<Note> peek() {
     return getCurrentEvent();
   }

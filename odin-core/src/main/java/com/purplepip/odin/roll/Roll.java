@@ -52,4 +52,10 @@ public interface Roll<A> {
   boolean isEmpty();
 
   String getName();
+
+  void start();
+
+  void stop();
+
+  void reset();
 }

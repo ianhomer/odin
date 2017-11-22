@@ -16,8 +16,28 @@
 package com.purplepip.odin.operation;
 
 /**
- * Channel based operation.
+ * Abstract operation.
  */
-public interface ChannelOperation extends Operation {
-  int getChannel();
+public abstract class AbstractOperation implements Operation {
+  private Operation cause;
+  private int causeDepth;
+
+  public Operation getCause() {
+    return cause;
+  }
+
+  protected void setCause(Operation cause) {
+    this.cause = cause;
+    if (cause != null) {
+      causeDepth = cause.getCauseDepth() + 1;
+    }
+  }
+
+  public boolean hasCause() {
+    return cause != null;
+  }
+
+  public int getCauseDepth() {
+    return causeDepth;
+  }
 }

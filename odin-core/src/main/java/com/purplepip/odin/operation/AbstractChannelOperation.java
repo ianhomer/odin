@@ -23,7 +23,8 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode
-public abstract class AbstractChannelOperation implements ChannelOperation {
+public abstract class AbstractChannelOperation extends AbstractOperation
+    implements ChannelOperation {
   private int channel;
 
   protected final void setChannel(int channel) {

@@ -87,7 +87,7 @@ public class OdinSequencer implements PerformanceApplyListener {
      * Create the sequencer receiver.
      */
     ReactorReceiver sequencerReceiver = new ReactorReceiver(reactors,
-        configuration.getMetrics());
+        configuration.getMetrics(), configuration.getOperationTransmitter());
     configuration.getOperationTransmitter().addListener(sequencerReceiver);
 
     /*

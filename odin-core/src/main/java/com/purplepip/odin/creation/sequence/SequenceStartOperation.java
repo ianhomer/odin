@@ -13,11 +13,23 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.operation;
+package com.purplepip.odin.creation.sequence;
+
+import com.purplepip.odin.operation.AbstractOperation;
+import com.purplepip.odin.operation.Operation;
 
 /**
- * Channel based operation.
+ * Operation fired to start an operation.
  */
-public interface ChannelOperation extends Operation {
-  int getChannel();
+public class SequenceStartOperation extends AbstractOperation {
+  private String sequenceName;
+
+  public SequenceStartOperation(Operation cause, String sequenceName) {
+    setCause(cause);
+    this.sequenceName = sequenceName;
+  }
+
+  public String getSequenceName() {
+    return sequenceName;
+  }
 }

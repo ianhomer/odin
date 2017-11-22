@@ -133,5 +133,4 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     super.length(length);
     return this;
   }
-
 }

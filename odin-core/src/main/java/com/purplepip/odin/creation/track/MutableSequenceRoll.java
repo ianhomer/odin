@@ -115,6 +115,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     setEnabled(false);
   }
 
+  @Override
+  public void reset() {
+    flow.reset();
+  }
+
   /**
    * Set configuration for this sequence runtime.
    *

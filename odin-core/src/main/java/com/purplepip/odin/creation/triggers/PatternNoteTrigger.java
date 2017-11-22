@@ -24,12 +24,14 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Trigger that gets triggered when the note for the given pattern sequence is received.
  */
 @Slf4j
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Name("patternNote")
 public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTrigger {

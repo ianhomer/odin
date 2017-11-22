@@ -17,11 +17,19 @@ package com.purplepip.odin.creation.reactors;
 
 import com.purplepip.odin.creation.aspect.Aspect;
 import com.purplepip.odin.operation.Operation;
+import java.util.List;
 
 /**
  * A reactor reacts to operations that are fired.  For example, a track that is
  * created when a MIDI message is received.
  */
 public interface Reactor extends Aspect {
-  boolean react(Operation operation);
+  /**
+   * The result of the reaction may lead to other operations being sent.  If this
+   *
+   * @param operation operation to react to.
+   * @return list of resultant operations.  If null then reactor does not react to the operation.
+   *     if empty list then no resultant operations.
+   */
+  List<Operation> react(Operation operation);
 }

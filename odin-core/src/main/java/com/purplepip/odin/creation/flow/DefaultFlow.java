@@ -99,4 +99,9 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
     }
     return event;
   }
+
+  @Override
+  public void reset() {
+    sequence.reset();
+  }
 }

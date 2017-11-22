@@ -18,8 +18,10 @@ package com.purplepip.odin.sequencer;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.reactors.Reactor;
 import com.purplepip.odin.operation.Operation;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -27,11 +29,22 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ReactorReceiver implements OperationReceiver {
+  private static final int MAX_CAUSE_DEPTH = 5;
   private Things<? extends Reactor> reactors;
   private Meter triggered;
+  private OperationReceiver rippleReceiver;
 
-  public ReactorReceiver(Things<? extends Reactor> reactors, MetricRegistry metrics) {
+  /**
+   * Create a reactor receiver.
+   *
+   * @param reactors reactors to react to
+   * @param metrics metrics registry
+   * @param rippleReceiver receiver for ripple operations
+   */
+  public ReactorReceiver(Things<? extends Reactor> reactors, MetricRegistry metrics,
+                         OperationReceiver rippleReceiver) {
     this.reactors = reactors;
+    this.rippleReceiver = rippleReceiver;
     triggered = metrics.meter("receiver.triggered");
   }
 
@@ -39,8 +52,20 @@ public class ReactorReceiver implements OperationReceiver {
   public void send(Operation operation, long time) {
     LOG.debug("Operation received {} at {}", operation, time);
     reactors.stream().forEach(reactor -> {
-      if (reactor.react(operation)) {
+      List<Operation> ripples = reactor.react(operation);
+      if (ripples != null) {
         triggered.mark();
+        if (operation.getCauseDepth() > MAX_CAUSE_DEPTH) {
+          LOG.warn("Ignoring ripples from {}, max operation causation depth reached", operation);
+        } else {
+          for (Operation ripple : ripples) {
+            try {
+              rippleReceiver.send(ripple, time);
+            } catch (OdinException e) {
+              LOG.error("Cannot send reactor ripple " + operation, e);
+            }
+          }
+        }
       }
     });
   }

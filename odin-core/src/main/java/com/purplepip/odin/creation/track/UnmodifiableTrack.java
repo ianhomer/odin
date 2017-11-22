@@ -89,4 +89,9 @@ public class UnmodifiableTrack implements Track {
   public void stop() {
     underlyingTrack.stop();
   }
+
+  @Override
+  public void reset() {
+    underlyingTrack.reset();
+  }
 }

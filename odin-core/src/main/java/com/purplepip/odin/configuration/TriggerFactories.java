@@ -17,6 +17,7 @@ package com.purplepip.odin.configuration;
 
 import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
+import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
 import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public final class TriggerFactories {
     List<Class<? extends Trigger>> classes = new ArrayList<>();
     classes.add(NoteTrigger.class);
     classes.add(PatternNoteTrigger.class);
+    classes.add(SequenceStartTrigger.class);
     return new TriggerFactory(classes);
   }
 

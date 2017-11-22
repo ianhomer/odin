@@ -173,6 +173,11 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
     getSequenceRoll().stop();
   }
 
+  @Override
+  public void reset() {
+    getSequenceRoll().reset();
+  }
+
   private Event<Note> filter(Event<Note> event) {
     if (event == null) {
       return null;

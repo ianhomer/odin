@@ -18,12 +18,15 @@ package com.purplepip.odin.creation.reactors;
 import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.sequence.SequenceStartOperation;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.operation.Operation;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
@@ -84,8 +87,9 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
   }
 
   @Override
-  public boolean react(Operation operation) {
+  public List<Operation> react(Operation operation) {
     if (trigger.isTriggeredBy(operation)) {
+      List<Operation> ripples = new ArrayList<>();
       LOG.debug("Trigger {} triggered", trigger);
       getTracks().forEach(entry -> {
         LOG.debug("Track {} triggered", entry.getKey());
@@ -97,7 +101,11 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
           case DISABLE:
             entry.getKey().setEnabled(false);
             break;
+          case RESET:
+            entry.getKey().reset();
+            break;
           case START:
+            ripples.add(new SequenceStartOperation(operation, entry.getKey().getName()));
             entry.getKey().start();
             break;
           case STOP:
@@ -107,9 +115,9 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
             LOG.warn("Trigger action {} not supported", action);
         }
       });
-      return true;
+      return ripples;
     }
-    return false;
+    return null;
   }
 
   /**

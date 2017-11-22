@@ -89,4 +89,8 @@ public interface Track extends Aspect {
    */
   void stop();
 
+  /**
+   * Reset the track.
+   */
+  void reset();
 }

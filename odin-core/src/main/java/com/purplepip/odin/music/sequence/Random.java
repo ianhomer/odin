@@ -81,7 +81,11 @@ public class Random extends Pattern {
   @Override
   public void afterPropertiesSet() {
     LOG.debug("Initialising random sequence {}", this);
+    reset();
+  }
 
+  @Override
+  public void reset() {
     /*
      * Note that nextInt treats bound as exclusive.
      */

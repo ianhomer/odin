@@ -31,6 +31,11 @@ public enum Action {
   DISABLE,
 
   /**
+   * Reset the sequence.
+   */
+  RESET,
+
+  /**
    * Start the object attached to this trigger.  Start is similar to enable, however will also set
    * the offset of the sequence to the next beat.
    */

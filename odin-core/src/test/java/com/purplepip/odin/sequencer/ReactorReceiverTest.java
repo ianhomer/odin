@@ -73,7 +73,8 @@ public class ReactorReceiverTest {
         project.getTriggers().stream(),
         () -> new TriggerReactor(triggerFactory));
     MetricRegistry metricRegistry = new MetricRegistry();
-    ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry);
+    ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry,
+        new LoggingOperationReceiver());
     assertFalse(tracks.findByName("track1").getSequenceRoll().isEnabled());
 
     /*
