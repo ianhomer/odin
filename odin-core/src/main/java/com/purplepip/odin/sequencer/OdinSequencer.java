@@ -84,11 +84,20 @@ public class OdinSequencer implements PerformanceApplyListener {
         configuration.getClockStartOffset());
 
     /*
-     * Create the sequencer receiver.
+     * Create the reactor receiver.
      */
-    ReactorReceiver sequencerReceiver = new ReactorReceiver(reactors,
+    ReactorReceiver reactorReceiver = new ReactorReceiver(reactors,
         configuration.getMetrics(), configuration.getOperationTransmitter());
-    configuration.getOperationTransmitter().addListener(sequencerReceiver);
+    configuration.getOperationTransmitter().addListener(reactorReceiver);
+
+    /*
+     * Transmit signals from the transmitter onto the operation receiver used by the processor.
+     * TODO : Rename these receivers to make clearer one is used by the reactor, one is
+     * used by the operation processor.  Passing all operations onto the operation transmitter
+     * might be a little expensive since we don't necessarily want all internal operations
+     * going back on to the reactor ... one to think about.
+     */
+    configuration.getOperationTransmitter().addListener(configuration.getOperationReceiver());
 
     /*
      * Create the processors early.  Note that they'll start when the clock starts.

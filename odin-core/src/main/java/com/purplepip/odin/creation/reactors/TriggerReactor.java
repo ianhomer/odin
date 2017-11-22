@@ -17,8 +17,8 @@ package com.purplepip.odin.creation.reactors;
 
 import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.creation.sequence.Action;
+import com.purplepip.odin.creation.sequence.ActionOperation;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.sequence.SequenceStartOperation;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.triggers.Trigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
@@ -92,24 +92,25 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
       List<Operation> ripples = new ArrayList<>();
       LOG.debug("Trigger {} triggered", trigger);
       getTracks().forEach(entry -> {
-        LOG.debug("Track {} triggered", entry.getKey());
+        Track track = entry.getKey();
         Action action = entry.getValue();
+        LOG.debug("Track {} triggered with {}", track, action);
+        ripples.add(new ActionOperation(action, track.getName(), operation));
         switch (action)  {
           case ENABLE:
-            entry.getKey().setEnabled(true);
+            track.setEnabled(true);
             break;
           case DISABLE:
-            entry.getKey().setEnabled(false);
+            track.setEnabled(false);
             break;
           case RESET:
-            entry.getKey().reset();
+            track.reset();
             break;
           case START:
-            ripples.add(new SequenceStartOperation(operation, entry.getKey().getName()));
-            entry.getKey().start();
+            track.start();
             break;
           case STOP:
-            entry.getKey().stop();
+            track.stop();
             break;
           default:
             LOG.warn("Trigger action {} not supported", action);

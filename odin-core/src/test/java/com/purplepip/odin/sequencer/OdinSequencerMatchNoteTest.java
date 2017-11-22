@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.sequence.Action;
-import com.purplepip.odin.creation.sequence.SequenceStartOperation;
+import com.purplepip.odin.creation.sequence.ActionOperation;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
 import com.purplepip.odin.music.operations.NoteOffOperation;
@@ -35,7 +35,8 @@ public class OdinSequencerMatchNoteTest {
     final AtomicInteger randomNote = new AtomicInteger();
     final CountDownLatch successEventsLatch = new CountDownLatch(SUCCESS_NOTES.size());
     final ArrayList<Integer> successNotes = new ArrayList<>();
-    final CountDownLatch startOperationLatch = new CountDownLatch(1);
+    final CountDownLatch startTrackLatch = new CountDownLatch(1);
+    final CountDownLatch resetTrackLatch = new CountDownLatch(1);
 
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
@@ -54,8 +55,23 @@ public class OdinSequencerMatchNoteTest {
         }
       } else if (operation instanceof NoteOffOperation) {
         LOG.trace("Ignoring note off operation : {}", operation);
-      } else if (operation instanceof SequenceStartOperation) {
-        startOperationLatch.countDown();
+      } else if (operation instanceof ActionOperation) {
+        switch (((ActionOperation) operation).getAction()) {
+          case ENABLE:
+            break;
+          case DISABLE:
+            break;
+          case RESET:
+            resetTrackLatch.countDown();
+            break;
+          case START:
+            startTrackLatch.countDown();
+            break;
+          case STOP:
+            break;
+          default:
+            LOG.warn("Unexpected action operation : {}", operation);
+        }
       } else {
         LOG.warn("Unexpected operation : {}", operation);
       }
@@ -120,7 +136,14 @@ public class OdinSequencerMatchNoteTest {
           0, successEventsLatch.getCount());
       assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
 
-      startOperationLatch.await(1000,TimeUnit.MILLISECONDS);
+      startTrackLatch.await(1000,TimeUnit.MILLISECONDS);
+      resetTrackLatch.await(1000,TimeUnit.MILLISECONDS);
+
+      assertEquals("Start track operation not fired",
+          0, startTrackLatch.getCount());
+
+      assertEquals("Reset track operation not fired",
+          0, resetTrackLatch.getCount());
 
     } finally {
       environment.stop();

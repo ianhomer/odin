@@ -350,15 +350,15 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
 
   private boolean isRolling() {
     if (tock == null) {
-      LOG.debug("is rolling false : not started");
+      LOG.trace("is rolling false : not started");
       return false;
     }
     if (!enabled) {
-      LOG.debug("is rolling false : track not enabled");
+      LOG.trace("is rolling false : track not enabled");
       return false;
     }
     boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
-    LOG.debug("{} : isRolling {} : {} < {}", sequence.getName(),
+    LOG.trace("{} : isRolling {} : {} < {}", sequence.getName(),
         result, tock.getPosition(), getLength());
     return result;
   }

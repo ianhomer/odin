@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.triggers;
 
-import com.purplepip.odin.creation.sequence.SequenceStartOperation;
+import com.purplepip.odin.creation.sequence.ActionOperation;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
@@ -50,7 +50,7 @@ public class SequenceStartTrigger extends GenericTrigger implements SpecialisedT
 
   @Override
   public boolean isTriggeredBy(Operation operation) {
-    return (operation instanceof SequenceStartOperation)
-        && ((SequenceStartOperation) operation).getSequenceName().equals(sequenceName);
+    return (operation instanceof ActionOperation)
+        && ((ActionOperation) operation).getTrackName().equals(sequenceName);
   }
 }

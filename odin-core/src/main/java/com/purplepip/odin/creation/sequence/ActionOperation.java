@@ -21,15 +21,28 @@ import com.purplepip.odin.operation.Operation;
 /**
  * Operation fired to start an operation.
  */
-public class SequenceStartOperation extends AbstractOperation {
-  private String sequenceName;
+public class ActionOperation extends AbstractOperation {
+  private String trackName;
+  private Action action;
 
-  public SequenceStartOperation(Operation cause, String sequenceName) {
+  /**
+   * Create an action operation.
+   *
+   * @param action action
+   * @param trackName track name action is applied to
+   * @param cause operation that caused this action
+   */
+  public ActionOperation(Action action, String trackName, Operation cause) {
     setCause(cause);
-    this.sequenceName = sequenceName;
+    this.trackName = trackName;
+    this.action = action;
   }
 
-  public String getSequenceName() {
-    return sequenceName;
+  public Action getAction() {
+    return action;
+  }
+
+  public String getTrackName() {
+    return trackName;
   }
 }

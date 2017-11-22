@@ -62,15 +62,15 @@ public class IndexedComposition {
     List<Event<Note>> eventsAtIndex = events.get(floor);
     if (eventsAtIndex != null) {
       for (Event<Note> event : eventsAtIndex) {
-        LOG.debug("{} events found at tock {}", eventsAtIndex.size(), floor);
+        LOG.trace("{} events found at tock {}", eventsAtIndex.size(), floor);
         if (bound.lt(event.getTime())) {
-          LOG.debug("Returning event at {}", event.getTime());
+          LOG.trace("Returning event at {}", event.getTime());
           return event;
         }
       }
-      LOG.debug("No more events found below whole ceiling of tock {}", floor);
+      LOG.trace("No more events found below whole ceiling of tock {}", floor);
     } else {
-      LOG.debug("No events found at tock {}", floor);
+      LOG.trace("No events found at tock {}", floor);
     }
     return null;
   }
