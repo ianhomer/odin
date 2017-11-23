@@ -87,7 +87,7 @@ public class OdinConfiguration {
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(new OperationReceiverCollection(operationReceivers))
         .setMicrosecondPositionProvider(
-            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper));
+            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
 
     /*
      * Metrics is optional, e.g. not needed for most tests.  However even when not set
