@@ -64,6 +64,11 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
     return this;
   }
 
+  public AbstractTimeThing tick(Tick tick) {
+    this.tick = tick;
+    return this;
+  }
+
   public AbstractTimeThing offset(long offset) {
     this.offset = offset;
     return this;

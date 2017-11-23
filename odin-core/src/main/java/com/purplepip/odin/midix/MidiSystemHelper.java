@@ -96,6 +96,7 @@ public class MidiSystemHelper {
   MidiDevice getReceivingDevice() throws OdinException {
     List<String> deviceNames = new ArrayList<>();
     deviceNames.add("Scarlett");
+    deviceNames.add("FluidSynth");
     deviceNames.add("USB");
     return getInitialisedDevice(deviceNames, MidiDeviceReceiverMatcher::new);
   }

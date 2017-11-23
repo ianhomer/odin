@@ -17,10 +17,10 @@ package com.purplepip.odin.experiments;
 
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
-import com.codahale.metrics.ConsoleReporter;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
@@ -60,7 +60,6 @@ public class TriggerExperiment {
 
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();
-      LOG.info("Received operation {}", operation);
     };
 
     LOG.info("Creating sequence");
@@ -96,41 +95,33 @@ public class TriggerExperiment {
           .withLayers("groove")
           .withLength(-1).withOffset(0)
           .withChannel(9).changeProgramTo("TR-909")
-          .addMetronome()
           .withChannel(1).changeProgramTo("piano");
 
       container.addSequence(new Random()
-          .lower(60).upper(72)
+          .lower(60).upper(60)
           .bits(1).note(newNote())
           .trigger("success-start-trigger", Action.RESET)
           .channel(1).layer("groove")
-          .name("random"))
+          .tick(Ticks.FOUR_BEAT).name("random"))
           .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
           .addTrigger(new SequenceStartTrigger()
               .sequenceName("success").name("success-start-trigger"))
           .addSequence(new Notation()
-            .notation("C D E")
+            .notation("C D E F")
             .trigger("random-note-trigger", Action.START)
             .channel(2).layer("groove")
-            .enabled(false)
+            .enabled(false).length(3)
             .name("success"));
 
       container.addApplyListener(sequencer);
       container.apply();
 
-      try (ConsoleReporter reporter = ConsoleReporter.forRegistry(configuration.getMetrics())
-          .convertRatesTo(TimeUnit.SECONDS)
-          .convertDurationsTo(TimeUnit.MILLISECONDS)
-          .build()) {
-        // Report metrics
-        reporter.start(1, TimeUnit.SECONDS);
-        sequencer.start();
+      sequencer.start();
 
-        try {
-          lock.await(60, TimeUnit.SECONDS);
-        } finally {
-          sequencer.stop();
-        }
+      try {
+        lock.await(60, TimeUnit.SECONDS);
+      } finally {
+        sequencer.stop();
       }
       LOG.info("... stopping");
     } finally {

@@ -44,8 +44,9 @@ public class MidiInputReceiver implements Receiver {
   public void send(MidiMessage message, long time) {
     try {
       Operation operation = new MidiMessageConverter(message).toOperation();
-      LOG.debug("Received {} for time {} at time {}", operation, time,
-          microsecondPositionProvider.getMicroseconds());
+      long deviceMicrosecondPosition = microsecondPositionProvider.getMicroseconds();
+      LOG.debug("Received {} for time {} at time {} (diff = {})", operation, time,
+          deviceMicrosecondPosition, time - deviceMicrosecondPosition);
       receiver.send(operation, time);
     } catch (OdinException e) {
       LOG.error("Cannot relay MIDI message " + message, e);

@@ -23,6 +23,8 @@ public final class Wholes {
   public static final Whole ZERO = new Whole(0);
   public static final Whole ONE = new Whole(1);
   public static final Whole TWO = new Whole(2);
+  public static final Whole THREE = new Whole(3);
+  public static final Whole FOUR = new Whole(4);
 
   private Wholes() {
   }

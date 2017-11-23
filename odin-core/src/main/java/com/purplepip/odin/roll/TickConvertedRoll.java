@@ -106,7 +106,7 @@ public class TickConvertedRoll implements Roll<Note> {
 
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
-      LOG.debug("No event on roll {} to convert", roll.getName());
+      LOG.trace("No event on roll {} to convert", roll.getName());
       return null;
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),

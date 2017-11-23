@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.sequence;
 
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
+import com.purplepip.odin.clock.tick.Tick;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -133,4 +134,11 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     super.length(length);
     return this;
   }
+
+  @Override
+  public GenericSequence tick(Tick tick) {
+    super.tick(tick);
+    return this;
+  }
+
 }

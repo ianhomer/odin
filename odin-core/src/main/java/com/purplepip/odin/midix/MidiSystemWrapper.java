@@ -21,6 +21,7 @@ import java.util.Set;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Synthesizer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -83,6 +84,10 @@ public class MidiSystemWrapper {
           try {
             MidiDevice device = MidiSystem.getMidiDevice(info);
             sb.append(" - microsecond position = ").append(device.getMicrosecondPosition());
+            if (device instanceof Synthesizer) {
+              sb.append(" ; synthesizer latency = ")
+                  .append(((Synthesizer) device).getLatency() / 1000).append("ms");
+            }
           } catch (MidiUnavailableException e) {
             LOG.error("Cannot get device " + info, e);
           }
