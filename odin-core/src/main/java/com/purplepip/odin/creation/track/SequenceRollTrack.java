@@ -34,12 +34,14 @@ import com.purplepip.odin.roll.TickConvertedRoll;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Track in the sequencer.
  */
 @Slf4j
+@ToString(of = "sequenceRoll")
 public class SequenceRollTrack implements SequenceTrack, PluggableAspect<SequenceConfiguration> {
   private Set<Conductor> conductors = new HashSet<>();
   private Roll<Note> roll;

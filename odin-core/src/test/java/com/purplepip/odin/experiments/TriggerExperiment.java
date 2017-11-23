@@ -108,7 +108,8 @@ public class TriggerExperiment {
               .sequenceName("success").name("success-start-trigger"))
           .addSequence(new Notation()
             .notation("C D E F")
-            .trigger("random-note-trigger", Action.START)
+            .trigger(
+                "random-note-trigger", Action.START)
             .channel(2).layer("groove")
             .enabled(false).length(3)
             .name("success"));

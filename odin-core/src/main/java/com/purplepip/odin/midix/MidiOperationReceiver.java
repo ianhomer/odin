@@ -77,7 +77,7 @@ public class MidiOperationReceiver implements OperationReceiver {
         throw new OdinException("Cannot send MIDI message for " + midiMessage, e);
       }
     } else {
-      LOG.debug("Ignoring non channel based operation");
+      LOG.trace("Ignoring non channel based operation");
     }
   }
 

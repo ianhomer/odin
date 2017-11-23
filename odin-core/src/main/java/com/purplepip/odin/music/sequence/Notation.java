@@ -34,7 +34,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = "indexedComposition")
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
 @Data
