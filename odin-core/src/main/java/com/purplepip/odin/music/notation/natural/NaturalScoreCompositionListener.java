@@ -59,7 +59,7 @@ public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
 
   @Override
   public void enterLetter(NaturalScoreParser.LetterContext context) {
-    LOG.debug("Entering note {}", context.getText());
+    LOG.trace("Entering note {}", context.getText());
     letter = Letter.valueOf(context.getText());
     intonation = 0;
   }
@@ -77,7 +77,7 @@ public class NaturalScoreCompositionListener extends NaturalScoreBaseListener {
   @Override
   public void enterDuration(NaturalScoreParser.DurationContext context) {
     duration = reference.getDurationLength(context.getText());
-    LOG.debug("Entering duration {} = {}", context.getText(), duration);
+    LOG.trace("Entering duration {} = {}", context.getText(), duration);
   }
 
   @Override

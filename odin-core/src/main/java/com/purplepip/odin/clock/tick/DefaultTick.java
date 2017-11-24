@@ -62,7 +62,7 @@ public class DefaultTick implements Tick {
   }
 
   public String toString() {
-    return this.getTimeUnit() +
-        (this.getFactor().equals(Wholes.ONE) ? "" : "x" + this.getFactor());
+    return this.getTimeUnit()
+        + (this.getFactor().equals(Wholes.ONE) ? "" : "x" + this.getFactor());
   }
 }

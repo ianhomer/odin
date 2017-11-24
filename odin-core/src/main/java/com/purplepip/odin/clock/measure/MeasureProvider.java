@@ -57,4 +57,12 @@ public interface MeasureProvider {
    * @return tick position in the current measure
    */
   Real getCount(Real count);
+
+  /**
+   * Where the next measure starts.
+   *
+   * @param count tick count
+   * @return tick position for the start of the next measure
+   */
+  Real getNextMeasureStart(Real count);
 }

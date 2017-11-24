@@ -53,4 +53,9 @@ public class StaticBeatMeasureProvider implements MeasureProvider {
   public Real getCount(Real count) {
     return count.modulo(beatsPerMeasure);
   }
+
+  @Override
+  public Real getNextMeasureStart(Real count) {
+    return count.floor(beatsPerMeasure).plus(beatsPerMeasure);
+  }
 }

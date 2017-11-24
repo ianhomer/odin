@@ -104,9 +104,14 @@ public class DefaultTickConverter extends AbstractTickConverter {
     }
   }
 
+  /**
+   * To String.
+   *
+   * @return string value
+   */
   public String toString() {
-    return "DefaultTickConverter(sourceOffset=" +
-        this.getSourceOffset() + ", sourceTick=" +
-        this.getSourceTick() + ", targetTick=" + this.getTargetTick() + ")";
+    return "DefaultTickConverter(sourceOffset="
+        + this.getSourceOffset() + ", sourceTick="
+        + this.getSourceTick() + ", targetTick=" + this.getTargetTick() + ")";
   }
 }

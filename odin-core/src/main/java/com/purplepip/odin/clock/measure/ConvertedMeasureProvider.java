@@ -63,4 +63,11 @@ public class ConvertedMeasureProvider implements MeasureProvider {
         .getCount(tickConverter.convertBack(count));
     return tickConverter.convertDuration(count, underlyingTickCount);
   }
+
+  @Override
+  public Real getNextMeasureStart(Real count) {
+    Real underlyingTickCount = underlyingMeasureProvider
+        .getNextMeasureStart(tickConverter.convertBack(count));
+    return tickConverter.convert(underlyingTickCount);
+  }
 }

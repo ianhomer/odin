@@ -90,11 +90,11 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
   public List<Operation> react(Operation operation) {
     if (trigger.isTriggeredBy(operation)) {
       List<Operation> ripples = new ArrayList<>();
-      LOG.debug("Trigger {} triggered", trigger);
+      LOG.debug("Trigger {} triggered", trigger.getName());
       getTracks().forEach(entry -> {
         Track track = entry.getKey();
         Action action = entry.getValue();
-        LOG.debug("Track {} triggered with {}", track, action);
+        LOG.debug("Track {} triggered with {}", track.getName(), action);
         ripples.add(new ActionOperation(action, track.getName(), operation));
         switch (action)  {
           case ENABLE:

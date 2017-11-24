@@ -30,4 +30,9 @@ public class StaticBeatMeasureProviderTest {
 
     assertEquals(Whole.valueOf(4), measureProvider.getTicksInMeasure(Wholes.ZERO));
   }
+
+  @Test
+  public void testMeasureStart() {
+    assertEquals(Whole.valueOf(12), measureProvider.getNextMeasureStart(Whole.valueOf(9)));
+  }
 }

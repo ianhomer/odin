@@ -51,6 +51,7 @@ public class ConvertedMeasureProviderTest {
     assertEquals(Wholes.ONE, measureProvider.getCount(Wholes.ONE));
     assertEquals(Whole.valueOf(7), measureProvider.getCount(Whole.valueOf(7)));
     assertEquals(Whole.valueOf(4), measureProvider.getCount(Whole.valueOf(12)));
+    assertEquals(Whole.valueOf(16), measureProvider.getNextMeasureStart(Whole.valueOf(11)));
   }
 
 

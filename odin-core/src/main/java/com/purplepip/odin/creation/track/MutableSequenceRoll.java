@@ -40,6 +40,7 @@ import com.purplepip.odin.events.ScanForwardEvent;
 import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.properties.beany.Resetter;
 import com.purplepip.odin.properties.runtime.MutableProperty;
@@ -105,7 +106,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     setEnabled(true);
     LOG.debug("current offset of sequence is {}", sequence.getOffset());
     // Start at least two beat from now, we might reduce this lag at some point ...
-    long newOffset = clock.getPosition().ceiling() + 2;
+    long newOffset = measureProvider
+        .getNextMeasureStart(clock.getPosition().plus(Wholes.ONE)).floor();
+
     resetter.set("offset", newOffset);
     LOG.debug("{} : offset of sequence set to {}", sequence.getName(), sequence.getOffset());
     refresh();
@@ -366,7 +369,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
 
   private Event<A> getNextEventInternal(MovableTock tock) {
     Event<A> event = getNextEvent(sealedTock);
-    LOG.debug("{} : Next event after {} is at {}", sequence.getName(), tock, event.getTime());
+    LOG.debug("{} : Event after {} at {}", sequence.getName(), tock, event.getTime());
     /*
      * Now increment internal tock to the time of the provided event
      */
@@ -376,7 +379,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * was found and we've handled the scanning forward above.
      */
     if (event instanceof ScanForwardEvent) {
-      LOG.debug("Event is a scan forward event");
+      LOG.trace("Event is a scan forward event");
       return null;
     }
     return event;
