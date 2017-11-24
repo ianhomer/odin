@@ -68,7 +68,7 @@ public abstract class AbstractTickConverter implements TickConverter {
     return sourceTick.get();
   }
 
-  private long getSourceOffset() {
+  protected long getSourceOffset() {
     return sourceOffset.get();
   }
 

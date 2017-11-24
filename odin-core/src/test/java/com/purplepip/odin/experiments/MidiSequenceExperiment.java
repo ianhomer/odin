@@ -1,6 +1,5 @@
 package com.purplepip.odin.experiments;
 
-import com.codahale.metrics.ConsoleReporter;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
@@ -51,7 +50,7 @@ public class MidiSequenceExperiment {
 
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();
-      LOG.info("Received operation {}", operation);
+      LOG.trace("Received operation {}", operation);
     };
 
     LOG.info("Creating sequence");
@@ -109,19 +108,12 @@ public class MidiSequenceExperiment {
       container.addApplyListener(sequencer);
       container.apply();
 
-      try (ConsoleReporter reporter = ConsoleReporter.forRegistry(configuration.getMetrics())
-          .convertRatesTo(TimeUnit.SECONDS)
-          .convertDurationsTo(TimeUnit.MILLISECONDS)
-          .build()) {
-        // Report metrics
-        reporter.start(1, TimeUnit.SECONDS);
-        sequencer.start();
+      sequencer.start();
 
-        try {
-          lock.await(8000, TimeUnit.MILLISECONDS);
-        } finally {
-          sequencer.stop();
-        }
+      try {
+        lock.await(8000, TimeUnit.MILLISECONDS);
+      } finally {
+        sequencer.stop();
       }
       LOG.info("... stopping");
     } finally {

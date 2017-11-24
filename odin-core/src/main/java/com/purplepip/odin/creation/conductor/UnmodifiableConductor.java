@@ -18,9 +18,7 @@ package com.purplepip.odin.creation.conductor;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import java.util.stream.Stream;
-import lombok.ToString;
 
-@ToString
 public class UnmodifiableConductor implements Conductor {
   private Conductor underlyingConductor;
 
@@ -76,5 +74,9 @@ public class UnmodifiableConductor implements Conductor {
   @Override
   public boolean isActive(long microseconds) {
     return underlyingConductor.isActive(microseconds);
+  }
+
+  public String toString() {
+    return "(" + underlyingConductor.toString() + ")";
   }
 }

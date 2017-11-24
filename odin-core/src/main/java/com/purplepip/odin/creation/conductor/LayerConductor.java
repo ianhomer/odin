@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
  * would be good to relax this constraint one day.
  */
 @Slf4j
-@ToString(exclude = {"clock"})
+@ToString(exclude = {"clock", "parent", "children", "windows"})
 public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   private Layer layer;
   private BeatClock clock;

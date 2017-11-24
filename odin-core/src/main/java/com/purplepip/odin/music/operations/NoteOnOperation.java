@@ -15,15 +15,12 @@
 
 package com.purplepip.odin.music.operations;
 
-import lombok.ToString;
-
 /**
  * Note on operation.
  *
  * <p>Note that this is bias towards music, but it will be abstracted at some point to other
  * operations.
  */
-@ToString(callSuper = true)
 public class NoteOnOperation extends AbstractNoteVelocityOperation {
 
   /**
@@ -37,5 +34,9 @@ public class NoteOnOperation extends AbstractNoteVelocityOperation {
     setChannel(channel);
     setNumber(number);
     setVelocity(velocity);
+  }
+
+  public String toString() {
+    return "NoteOn(" + + this.getNumber() + "^" + this.getVelocity() + " @ " + super.getChannel() +")";
   }
 }

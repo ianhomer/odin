@@ -193,7 +193,7 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
     if (active) {
       return event;
     }
-    LOG.debug("Event filtered out through conductors : {}", conductors);
+    LOG.trace("Event filtered out through conductors : {}", conductors);
     return new SwallowedEvent<>(event.getTime());
   }
 }

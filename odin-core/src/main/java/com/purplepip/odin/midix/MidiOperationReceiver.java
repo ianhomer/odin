@@ -70,7 +70,7 @@ public class MidiOperationReceiver implements OperationReceiver {
       try {
         MidiDevice receiver = midiDeviceWrapper.getReceivingDevice();
         if (receiver.isOpen()) {
-          LOG.debug("Sending MIDI signal {} for time {}", resolvedOperation, time);
+          LOG.debug("Sending MIDI {} for time {}", resolvedOperation, time);
           midiDeviceWrapper.getReceivingDevice().getReceiver().send(midiMessage, time);
         }
       } catch (MidiUnavailableException e) {

@@ -209,7 +209,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
      * Force next event to be taken from sequence flow.
      */
     nextEvent = null;
-    LOG.debug("{} : afterSequenceChange executed", sequence.getName());
+    LOG.trace("{} : afterSequenceChange executed", sequence.getName());
   }
 
   private void afterTickChange() {
@@ -291,7 +291,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
         typeNameDirty = false;
         flowDirty = false;
       } else {
-        LOG.debug("Waiting until clock is set to create flow");
+        LOG.trace("Waiting until clock is set to create flow");
       }
     } else {
       flowFactory.refreshSequence(getFlow(), sequence);

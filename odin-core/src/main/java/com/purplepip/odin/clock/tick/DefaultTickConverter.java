@@ -103,4 +103,10 @@ public class DefaultTickConverter extends AbstractTickConverter {
         return throwUnexpectedTimeUnit();
     }
   }
+
+  public String toString() {
+    return "DefaultTickConverter(sourceOffset=" +
+        this.getSourceOffset() + ", sourceTick=" +
+        this.getSourceTick() + ", targetTick=" + this.getTargetTick() + ")";
+  }
 }

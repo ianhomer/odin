@@ -15,35 +15,13 @@
 
 package com.purplepip.odin.clock.tick;
 
-import com.purplepip.odin.math.Bound;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Tock where the count can be moved.
- */
-public class MovableTock implements Tock {
-  private Bound position;
-  private Tick tick;
+import org.junit.Test;
 
-  public MovableTock(Tick tick, Bound position) {
-    this.tick = tick;
-    this.position = position;
-  }
-
-  public void setPosition(Bound position) {
-    this.position = position;
-  }
-
-  @Override
-  public Tick getTick() {
-    return tick;
-  }
-
-  @Override
-  public Bound getPosition() {
-    return position;
-  }
-
-  public String toString() {
-    return "(" + tick + " @ " + position + ")";
+public class DefaultTickTest {
+  @Test
+  public void testToString() {
+    assertEquals("BEAT", Ticks.BEAT.toString());
   }
 }
