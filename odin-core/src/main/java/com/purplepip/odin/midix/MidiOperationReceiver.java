@@ -22,9 +22,7 @@ import com.purplepip.odin.operation.ChannelOperation;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import javax.sound.midi.Instrument;
-import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
-import javax.sound.midi.MidiUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -66,15 +64,8 @@ public class MidiOperationReceiver implements OperationReceiver {
       } else {
         resolvedOperation = (ChannelOperation) operation;
       }
-      MidiMessage midiMessage = createMidiMessage(resolvedOperation);
-      try {
-        MidiDevice receiver = midiDeviceWrapper.getReceivingDevice();
-        if (receiver.isOpen()) {
-          LOG.debug("Sending MIDI {} for time {}", resolvedOperation, time);
-          midiDeviceWrapper.getReceivingDevice().getReceiver().send(midiMessage, time);
-        }
-      } catch (MidiUnavailableException e) {
-        throw new OdinException("Cannot send MIDI message for " + midiMessage, e);
+      if (midiDeviceWrapper.send(createMidiMessage(resolvedOperation), time)) {
+        LOG.debug("Sent MIDI {} for time {}", resolvedOperation, time);
       }
     } else {
       LOG.trace("Ignoring non channel based operation");
@@ -84,5 +75,15 @@ public class MidiOperationReceiver implements OperationReceiver {
   private static MidiMessage
       createMidiMessage(ChannelOperation operation) throws OdinException {
     return new RawMidiMessage(new RawMessage(operation).getBytes());
+  }
+
+  @Override
+  public void onPerformanceStart() {
+    midiDeviceWrapper.onPerformanceStart();
+  }
+
+  @Override
+  public void onPerformanceStop() {
+    midiDeviceWrapper.onPerformanceStop();
   }
 }

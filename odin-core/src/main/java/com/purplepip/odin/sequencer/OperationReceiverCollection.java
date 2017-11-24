@@ -48,4 +48,18 @@ public class OperationReceiverCollection implements
   public Iterator<OperationReceiver> iterator() {
     return operationReceiverList.iterator();
   }
+
+  @Override
+  public void onPerformanceStart() {
+    for (OperationReceiver operationReceiver : operationReceiverList) {
+      operationReceiver.onPerformanceStart();
+    }
+  }
+
+  @Override
+  public void onPerformanceStop() {
+    for (OperationReceiver operationReceiver : operationReceiverList) {
+      operationReceiver.onPerformanceStop();
+    }
+  }
 }

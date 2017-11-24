@@ -135,7 +135,7 @@ public class OdinSequencerMatchNoteTest {
       assertEquals("Success notes should have fired after correct note",
           0, successEventsLatch.getCount());
       // TODO : verify success notes in right order
-      //assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
+      assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
 
       startTrackLatch.await(1000,TimeUnit.MILLISECONDS);
       resetTrackLatch.await(1000,TimeUnit.MILLISECONDS);

@@ -21,10 +21,12 @@ import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.runtime.Property;
+import lombok.ToString;
 
 /**
- * Clock for the given roll.
+ * Clock where the ticks have been converted to a different unit and offset.
  */
+@ToString
 public class TickConvertedClock extends AbstractClock {
   private Property<Tick> tick;
   private BeatClock beatClock;

@@ -24,11 +24,11 @@ import java.util.Comparator;
  * for example runtime sequences need to have started before processors start.  This comparator
  * looks for the ListenerPriority annotation and sorts priorities with lower numbers first.
  */
-public class ClockListenerComparator implements Comparator<ClockListener>, Serializable {
+public class ClockListenerComparator implements Comparator<PerformanceListener>, Serializable {
   private static final long serialVersionUID = 1;
 
   @Override
-  public int compare(ClockListener listener1, ClockListener listener2) {
+  public int compare(PerformanceListener listener1, PerformanceListener listener2) {
     int result = getPriority(listener1) - getPriority(listener2);
     if (result == 0) {
       /*
@@ -39,7 +39,7 @@ public class ClockListenerComparator implements Comparator<ClockListener>, Seria
     return result;
   }
 
-  private static int getPriority(ClockListener listener) {
+  private static int getPriority(PerformanceListener listener) {
     ListenerPriority annotation =
         listener.getClass().getAnnotation(ListenerPriority.class);
     return annotation == null ? 0 : annotation.value();

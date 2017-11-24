@@ -52,6 +52,11 @@ public interface OdinSequencerConfiguration {
    */
   OperationTransmitter getOperationTransmitter();
 
+  /**
+   * System microsecond position provider.
+   *
+   * @return system microsecond position provider
+   */
   MicrosecondPositionProvider getMicrosecondPositionProvider();
 
   FlowFactory<Note> getFlowFactory();

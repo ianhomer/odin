@@ -16,10 +16,10 @@
 package com.purplepip.odin.clock;
 
 /**
- * Clock listener.
+ * Performance listener.
  */
-public interface ClockListener {
-  void onClockStart();
+public interface PerformanceListener {
+  default void onPerformanceStart() {}
 
-  void onClockStop();
+  default void onPerformanceStop() {}
 }

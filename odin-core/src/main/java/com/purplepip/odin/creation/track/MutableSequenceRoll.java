@@ -19,7 +19,7 @@ import static com.purplepip.odin.math.LessThan.lessThan;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.Clock;
-import com.purplepip.odin.clock.ClockListener;
+import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.clock.TickConvertedClock;
 import com.purplepip.odin.clock.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.clock.measure.MeasureProvider;
@@ -56,7 +56,7 @@ import org.slf4j.LoggerFactory;
 @ListenerPriority()
 @ToString(exclude = { "clock", "beatMeasureProvider", "nextEvent", "sealedTock", "resetter",
     "flowFactory", "measureProvider", "flow", "tick"})
-public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
+public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
   private final MutableProperty<Tick> tick = new ObservableProperty<>();
   private MutableFlow<Sequence<A>, A> flow;
@@ -83,13 +83,13 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   /**
    * Create a base line mutable sequence roll onto which a sequence can be set and reset.
    *
-   * @param clock clock
+   * @param beatClock clock
    * @param flowFactory flow factory
    * @param beatMeasureProvider beat measure provider
    */
-  public MutableSequenceRoll(BeatClock clock, FlowFactory<A> flowFactory,
+  public MutableSequenceRoll(BeatClock beatClock, FlowFactory<A> flowFactory,
                              MeasureProvider beatMeasureProvider) {
-    this.beatClock = clock;
+    this.beatClock = beatClock;
     beatClock.addListener(this);
     this.beatMeasureProvider = beatMeasureProvider;
     this.flowFactory = flowFactory;
@@ -106,10 +106,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
     setEnabled(true);
     LOG.debug("current offset of sequence is {}", sequence.getOffset());
     // Start at least two beat from now, we might reduce this lag at some point ...
+    LOG.debug("Clock {}", clock);
     long newOffset = measureProvider
         .getNextMeasureStart(clock.getPosition().plus(Wholes.ONE)).floor();
 
     resetter.set("offset", newOffset);
+    setTock(lessThan(Whole.valueOf(newOffset)));
     LOG.debug("{} : offset of sequence set to {}", sequence.getName(), sequence.getOffset());
     refresh();
   }
@@ -234,7 +236,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
             () -> - microsecondOffset);
 
     /*
-     * Create the measure provider with a tick converter converting form beats.
+     * Create the measure provider with a tick converter converting from beats.
      */
     long beatOffset = new DefaultTickConverter(beatClock, getTick(),
         () -> Ticks.BEAT, () -> 0L).convert(Whole.valueOf(getSequence().getOffset())).floor();
@@ -328,7 +330,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    * Action on beatClock start.
    */
   @Override
-  public void onClockStart() {
+  public void onPerformanceStart() {
     if (tickDirty) {
       afterTickChange();
     }
@@ -338,7 +340,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
    * Action on beatClock stop.
    */
   @Override
-  public void onClockStop() {
+  public void onPerformanceStop() {
     /*
      * No action is needed on a clock stop.
      */

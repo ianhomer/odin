@@ -13,21 +13,11 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
-
-import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.operation.Operation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.purplepip.odin.clock;
 
 /**
- * Operation receiver that logs each operation.
+ * Converts time from one local to another.
  */
-public class LoggingOperationReceiver implements OperationReceiver {
-  private static final Logger LOG = LoggerFactory.getLogger(LoggingOperationReceiver.class);
-
-  @Override
-  public void send(Operation operation, long time) throws OdinException {
-    LOG.debug("Operation {} at time {}", operation, time);
-  }
+public interface TimeConverter {
+  long convert(long performanceTime);
 }

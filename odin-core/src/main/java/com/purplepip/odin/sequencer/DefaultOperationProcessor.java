@@ -17,7 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.clock.ClockListener;
+import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.ListenerPriority;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ListenerPriority(9)
 @Slf4j
-public class DefaultOperationProcessor implements OperationProcessor, ClockListener {
+public class DefaultOperationProcessor implements OperationProcessor, PerformanceListener {
   protected static final long REFRESH_PERIOD = 50;
   private PriorityBlockingQueue<OperationEvent> queue = new PriorityBlockingQueue<>(127,
       new OperationEventComparator());
@@ -82,12 +82,12 @@ public class DefaultOperationProcessor implements OperationProcessor, ClockListe
   }
 
   @Override
-  public void onClockStart() {
+  public void onPerformanceStart() {
     start();
   }
 
   @Override
-  public void onClockStop() {
+  public void onPerformanceStop() {
     stop();
   }
 }

@@ -15,13 +15,23 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.Operation;
 
 /**
- * Sequenced Operation Receiver.
+ * Sequenced Operation Receiver.  Note that the operation receiver extends a PerformanceListener
+ * since the time that the operation is sent is a performance time.  If the receiver has it's
+ * own microsecond provider (e.g. a MIDI receiver) then it needs to be able to convert times
+ * to it's own timing based on when the performance started.
  */
-@FunctionalInterface
-public interface OperationReceiver {
+public interface OperationReceiver extends PerformanceListener {
+  /**
+   * Operation to send at the given performance time.
+   *
+   * @param operation operation to send
+   * @param time performance time
+   * @throws OdinException exception
+   */
   void send(Operation operation, long time) throws OdinException;
 }

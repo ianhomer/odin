@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.clock.PerformanceListener;
+import com.purplepip.odin.clock.PerformanceTimeConverter;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
@@ -29,6 +31,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Synthesizer;
@@ -39,7 +42,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Provider of a MIDI device.
  */
-public class MidiDeviceWrapper implements AutoCloseable {
+public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
   private MidiDevice receivingDevice;
@@ -47,6 +50,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
   private List<Transmitter> transmitters = new ArrayList<>();
   private List<Receiver> receivers = new ArrayList<>();
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
+  private PerformanceTimeConverter timeConverter;
 
   public MidiDeviceWrapper() {
     this(false);
@@ -205,6 +209,41 @@ public class MidiDeviceWrapper implements AutoCloseable {
     return transmittingDevice != null && transmittingDevice.getMaxTransmitters() != 0;
   }
 
+  /**
+   * Send MIDI message.
+   *
+   * @param midiMessage MIDI message
+   * @param time performance time
+   */
+  public boolean send(MidiMessage midiMessage, long time) throws OdinException {
+    try {
+      if (getReceivingDevice().isOpen()) {
+        getReceivingDevice().getReceiver().send(midiMessage,
+            timeConverter.convert(time));
+        return true;
+      }
+      return false;
+    } catch (MidiUnavailableException e) {
+      throw new OdinException("Cannot send MIDI message for " + midiMessage, e);
+    }
+  }
+
+  private void setReceivingDevice(MidiDevice receivingDevice) {
+    this.receivingDevice = receivingDevice;
+    timeConverter = new PerformanceTimeConverter(
+        new MidiDeviceMicrosecondPositionProvider(receivingDevice));
+  }
+
+  @Override
+  public void onPerformanceStart() {
+    timeConverter.onPerformanceStart();
+  }
+
+  @Override
+  public void onPerformanceStop() {
+    timeConverter.onPerformanceStop();
+  }
+
   class MidiDeviceScanner implements Runnable {
     private Set<MidiDevice.Info> knownMidiDevices = new HashSet<>();
     private MidiSystemHelper helper = new MidiSystemHelper();
@@ -224,7 +263,7 @@ public class MidiDeviceWrapper implements AutoCloseable {
 
     private void findDevice() {
       try {
-        receivingDevice = helper.getReceivingDevice();
+        setReceivingDevice(helper.getReceivingDevice());
       } catch (OdinException e) {
         LOG.error("Cannot initialise receiving MIDI device", e);
       }
@@ -235,4 +274,6 @@ public class MidiDeviceWrapper implements AutoCloseable {
       }
     }
   }
+
+
 }

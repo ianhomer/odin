@@ -132,10 +132,10 @@ public class EventsCompositionBuilder {
    */
   public EventsComposition create() {
     for (int i = measures.size() ; i < minimumMeasures ; i++) {
-      LOG.debug("Auto creating measure to reach minimum of {}", i);
+      LOG.trace("Auto creating measure to reach minimum of {}", i);
       startMeasure();
     }
-    LOG.debug("Creating composition with {} measures", measures.size());
+    LOG.trace("Creating composition with {} measures", measures.size());
     return new EventsComposition(measures);
   }
 

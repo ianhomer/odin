@@ -26,7 +26,8 @@ import java.util.TreeSet;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Primary clock that has the intelligence to know the timings of future beats.
+ * Performance clock that has the intelligence to know the timings of future beats.  First beat
+ * of the performance is always 0 microseconds.
  *
  * <p>Note that currently it is implemented with a static BPM, but note that the system in general
  * must support variable BPM, so it is essential that this Clock is the authority on timings of
@@ -35,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BeatClock extends AbstractClock {
   private final MicrosecondPositionProvider microsecondPositionProvider;
-  private final Set<ClockListener> listeners = new TreeSet<>(new ClockListenerComparator());
+  private final Set<PerformanceListener> listeners = new TreeSet<>(new ClockListenerComparator());
   private final BeatsPerMinute beatsPerMinute;
 
   private long microsecondsPositionOfFirstBeat;
@@ -95,7 +96,7 @@ public class BeatClock extends AbstractClock {
     this.startOffset = startOffset;
   }
 
-  public void addListener(ClockListener listener) {
+  public void addListener(PerformanceListener listener) {
     boolean result = listeners.add(listener);
     LOG.debug("Clock listener {} added {} : 1 of {} listeners", listener, result, listeners.size());
   }
@@ -106,7 +107,7 @@ public class BeatClock extends AbstractClock {
   public void start() {
     setMicroseconds(0);
     started = true;
-    listeners.forEach(ClockListener::onClockStart);
+    listeners.forEach(PerformanceListener::onPerformanceStart);
   }
 
   /**
@@ -137,7 +138,7 @@ public class BeatClock extends AbstractClock {
    * Stop the clock.
    */
   public void stop() {
-    listeners.forEach(ClockListener::onClockStop);
+    listeners.forEach(PerformanceListener::onPerformanceStop);
   }
 
   /**

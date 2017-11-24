@@ -18,7 +18,7 @@ package com.purplepip.odin.sequencer;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.clock.ClockListener;
+import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.ListenerPriority;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @ListenerPriority(9)
-public class TrackProcessor implements ClockListener {
+public class TrackProcessor implements PerformanceListener {
   /*
    * Time in milliseconds between each processor execution.
    */
@@ -63,13 +63,13 @@ public class TrackProcessor implements ClockListener {
   }
 
   @Override
-  public void onClockStart() {
+  public void onPerformanceStart() {
     start();
   }
 
 
   @Override
-  public void onClockStop() {
+  public void onPerformanceStop() {
     stop();
   }
 
