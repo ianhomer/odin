@@ -368,7 +368,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       return false;
     }
     boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
-    LOG.debug("{} : isRolling {} : {} < {}", sequence.getName(),
+    LOG.trace("{} : isRolling {} : {} < {}", sequence.getName(),
         result, tock.getPosition(), getLength());
     return result;
   }
