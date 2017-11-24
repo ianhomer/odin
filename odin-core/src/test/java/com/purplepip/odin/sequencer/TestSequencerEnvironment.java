@@ -51,7 +51,7 @@ public class TestSequencerEnvironment {
         .setFlowFactory(flowFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))
         .setBeatsPerMinute(new StaticBeatsPerMinute(60000))
-        .setClockStartOffset(10000)
+        .setClockStartOffset(20000)
         .setClockStartRoundingFactor(1000)
         .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
         .setOperationReceiver(operationReceiver);

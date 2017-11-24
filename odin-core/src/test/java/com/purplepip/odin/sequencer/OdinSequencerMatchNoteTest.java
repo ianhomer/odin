@@ -84,6 +84,7 @@ public class OdinSequencerMatchNoteTest {
             .lower(60).upper(72)
             .bits(1).note(newNote())
             .trigger("success-start-trigger", Action.RESET)
+            .length(4)
             .channel(1).layer("groove")
             .name("random"))
         .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
@@ -134,7 +135,6 @@ public class OdinSequencerMatchNoteTest {
        */
       assertEquals("Success notes should have fired after correct note",
           0, successEventsLatch.getCount());
-      // TODO : verify success notes in right order
       assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
 
       startTrackLatch.await(1000,TimeUnit.MILLISECONDS);
