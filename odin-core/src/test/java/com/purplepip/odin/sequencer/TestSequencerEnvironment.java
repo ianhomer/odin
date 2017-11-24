@@ -50,7 +50,7 @@ public class TestSequencerEnvironment {
     configuration = new DefaultOdinSequencerConfiguration()
         .setFlowFactory(flowFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))
-        .setBeatsPerMinute(new StaticBeatsPerMinute(12000))
+        .setBeatsPerMinute(new StaticBeatsPerMinute(60000))
         .setClockStartOffset(10000)
         .setClockStartRoundingFactor(1000)
         .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())

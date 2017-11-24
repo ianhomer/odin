@@ -64,17 +64,17 @@ public class MovingClockTickConverterTest {
      */
     microsecondPositionProvider.setMicroseconds(0);
     beatClock.setMicroseconds(60_000_000);
-    assertEquals(Whole.valueOf(120), tickConverter.convert(Wholes.ZERO));
-    assertEquals(Whole.valueOf(140), tickConverter.convert(Whole.valueOf(10_000)));
-    assertEquals(Whole.valueOf(240), tickConverter.convert(Whole.valueOf(60_000)));
+    assertEquals(Whole.valueOf(0), tickConverter.convert(Wholes.ZERO));
+    assertEquals(Whole.valueOf(20), tickConverter.convert(Whole.valueOf(10_000)));
+    assertEquals(Whole.valueOf(120), tickConverter.convert(Whole.valueOf(60_000)));
 
     /*
      * If we wait 10 seconds and then move sequence to 60 seconds in ...
      */
     microsecondPositionProvider.setMicroseconds(10_000_000);
     beatClock.setMicroseconds(60_000_000);
-    assertEquals(Whole.valueOf(100), tickConverter.convert(Wholes.ZERO));
-    assertEquals(Whole.valueOf(120), tickConverter.convert(Whole.valueOf(10_000)));
-    assertEquals(Whole.valueOf(220), tickConverter.convert(Whole.valueOf(60_000)));
+    assertEquals(Whole.valueOf(0), tickConverter.convert(Wholes.ZERO));
+    assertEquals(Whole.valueOf(20), tickConverter.convert(Whole.valueOf(10_000)));
+    assertEquals(Whole.valueOf(120), tickConverter.convert(Whole.valueOf(60_000)));
   }
 }

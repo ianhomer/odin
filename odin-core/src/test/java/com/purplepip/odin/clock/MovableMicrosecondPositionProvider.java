@@ -29,4 +29,8 @@ public class MovableMicrosecondPositionProvider implements MicrosecondPositionPr
   public long getMicroseconds() {
     return microseconds;
   }
+
+  public void incrementMicroseconds(long increment) {
+    this.microseconds += increment;
+  }
 }

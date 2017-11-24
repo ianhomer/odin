@@ -63,9 +63,9 @@ public class TickConvertedClockTest {
      * Fast forward sequence to 30 seconds in
      */
     beatClock.setMicroseconds(30_000_000);
-    assertEquals(Whole.valueOf(40), beatClock.getPosition(70_000_000));
-    assertEquals(Whole.valueOf(160), clock.getPosition(70_000_000));
-    assertEquals(60_000_000, beatClock.getMicroseconds());
+    assertEquals(Whole.valueOf(70), beatClock.getPosition(70_000_000));
+    assertEquals(Whole.valueOf(280), clock.getPosition(70_000_000));
+    assertEquals(30_000_000, beatClock.getMicroseconds());
     assertEquals(Whole.valueOf(30), beatClock.getPosition());
     assertEquals(Whole.valueOf(120), clock.getPosition());
   }

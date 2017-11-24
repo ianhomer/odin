@@ -57,7 +57,6 @@ public class OdinSequencer implements PerformanceApplyListener {
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private BeatClock clock;
-  private boolean started;
   private MutableOdinSequencerStatistics statistics =
       new DefaultOdinSequencerStatistics(
           tracks.getStatistics(), reactors.getStatistics());
@@ -80,8 +79,8 @@ public class OdinSequencer implements PerformanceApplyListener {
   private void init() {
     clock = new BeatClock(configuration.getBeatsPerMinute(),
         configuration.getMicrosecondPositionProvider(),
-        configuration.getClockStartRoundingFactor(),
         configuration.getClockStartOffset());
+    clock.addListener(configuration.getOperationReceiver());
 
     /*
      * Create the reactor receiver.
@@ -187,7 +186,6 @@ public class OdinSequencer implements PerformanceApplyListener {
    * Start the sequencer.
    */
   public void start() {
-    started = true;
     /*
      * Start the clock.
      */
@@ -205,10 +203,9 @@ public class OdinSequencer implements PerformanceApplyListener {
     // TODO : When we stop the sequencer we should play out the buffer, since there
     // might be note off operations to complete.
     clock.stop();
-    started = false;
   }
 
   public boolean isStarted() {
-    return started;
+    return clock.isStarted();
   }
 }

@@ -63,6 +63,7 @@ public class ChannelUpdatedAtRuntimeTest {
         .changeProgramTo("violin")
         .withOffset(OFFSET)
         .withLength(LENGTH)
+        .withName("metronome0")
         .addMetronome();
     LOG.debug("*** *** *** Added first metronome");
     environment.start();
@@ -78,6 +79,7 @@ public class ChannelUpdatedAtRuntimeTest {
       assertEquals("Not enough channel 0 events fired", 0, channel0Events.getCount());
       builder
           .withChannel(1).changeProgramTo("cello")
+          .withName("metronome1")
           .withLength(LENGTH).withOffset(OFFSET + LENGTH * 2).addMetronome()
           .withChannel(2).changeProgramTo("piano");
       LOG.debug("*** *** *** Changed channel 1 to cello, channel 2 to piano and adding channel 1"
@@ -95,7 +97,8 @@ public class ChannelUpdatedAtRuntimeTest {
        */
       builder
           .withChannel(1).changeProgramTo("violin")
-          .withChannel(3).withLength(LENGTH).withOffset(OFFSET + LENGTH * 4).addMetronome()
+          .withChannel(3).withName("metronome3")
+          .withLength(LENGTH).withOffset(OFFSET + LENGTH * 8).addMetronome()
           .removeSequence(channel0metronome);
       LOG.debug("*** *** *** Removed channel 0 metronome");
       environment.getContainer().apply();

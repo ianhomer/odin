@@ -39,9 +39,8 @@ public class BeatClock extends AbstractClock {
   private final Set<PerformanceListener> listeners = new TreeSet<>(new ClockListenerComparator());
   private final BeatsPerMinute beatsPerMinute;
 
-  private long microsecondsPositionOfFirstBeat;
-  private long startRoundingFactor = 1;
-  private final long startOffset;
+  private long microsecondsOffset;
+  private long startOffset;
   private boolean started;
 
   public static BeatClock newBeatClock(int staticBeatsPerMinute) {
@@ -69,13 +68,7 @@ public class BeatClock extends AbstractClock {
 
   public BeatClock(BeatsPerMinute beatsPerMinute,
                    MicrosecondPositionProvider microsecondPositionProvider) {
-    this(beatsPerMinute, microsecondPositionProvider, 1);
-  }
-
-  public BeatClock(BeatsPerMinute beatsPerMinute,
-                   MicrosecondPositionProvider microsecondPositionProvider,
-                   long startRoundingFactor) {
-    this(beatsPerMinute, microsecondPositionProvider, startRoundingFactor, 0);
+    this(beatsPerMinute, microsecondPositionProvider, 0);
   }
 
   /**
@@ -83,15 +76,11 @@ public class BeatClock extends AbstractClock {
    *
    * @param beatsPerMinute beats per minute
    * @param microsecondPositionProvider microsecond provider
-   * @param startOffset how many microseconds to start in
-   * @param startRoundingFactor start rounding factor
    */
   public BeatClock(BeatsPerMinute beatsPerMinute,
                    MicrosecondPositionProvider microsecondPositionProvider,
-                   long startRoundingFactor,
                    long startOffset) {
     this.beatsPerMinute = beatsPerMinute;
-    this.startRoundingFactor = startRoundingFactor;
     this.microsecondPositionProvider = microsecondPositionProvider;
     this.startOffset = startOffset;
   }
@@ -105,9 +94,11 @@ public class BeatClock extends AbstractClock {
    * Start the clock.
    */
   public void start() {
+    LOG.debug("Starting clock in {}μs", startOffset);
     setMicroseconds(0);
     started = true;
     listeners.forEach(PerformanceListener::onPerformanceStart);
+
   }
 
   /**
@@ -119,19 +110,10 @@ public class BeatClock extends AbstractClock {
    * @param microseconds microsecond position for the beat clock
    */
   public void setMicroseconds(long microseconds) {
-    /*
-     * Note that the first beat is never in the past, so the first beat timing needs to be
-     * rounded up if necessary.  This rounding takes place after adding start offset.
-     *
-     * Note that (startRoundingFactor - 1) ensure we don't round up if we are already
-     * on a rounding boundary.
-     */
-    long currentMicrosecondPosition = microsecondPositionProvider.getMicroseconds();
-    microsecondsPositionOfFirstBeat = startRoundingFactor
-        * ((startOffset + startRoundingFactor - 1 + currentMicrosecondPosition - microseconds)
-        / startRoundingFactor);
+    microsecondsOffset = microsecondPositionProvider.getMicroseconds() - microseconds
+        + startOffset;
     LOG.debug("Setting clock to {}μs in from first beat at {}μs", microseconds,
-        microsecondsPositionOfFirstBeat);
+        microsecondsOffset);
   }
 
   /**
@@ -139,6 +121,7 @@ public class BeatClock extends AbstractClock {
    */
   public void stop() {
     listeners.forEach(PerformanceListener::onPerformanceStop);
+    started = false;
   }
 
   /**
@@ -148,24 +131,22 @@ public class BeatClock extends AbstractClock {
    */
   @Override
   public long getMicroseconds() {
-    return microsecondPositionProvider.getMicroseconds();
+    return microsecondPositionProvider.getMicroseconds() - microsecondsOffset;
   }
 
   @Override
   public long getMicroseconds(Real position) {
-    return microsecondsPositionOfFirstBeat
-        + position.times(beatsPerMinute.getMicroSecondsPerBeat()).floor();
+    return position.times(beatsPerMinute.getMicroSecondsPerBeat()).floor();
   }
 
   @Override
   public Real getPosition() {
-    return getPosition(microsecondPositionProvider.getMicroseconds());
+    return getPosition(microsecondPositionProvider.getMicroseconds() - microsecondsOffset);
   }
 
   @Override
   public Real getPosition(long microseconds) {
-    return Whole.valueOf(microseconds - microsecondsPositionOfFirstBeat)
-        .divide(beatsPerMinute.getMicroSecondsPerBeat());
+    return Whole.valueOf(microseconds).divide(beatsPerMinute.getMicroSecondsPerBeat());
   }
 
   @Override

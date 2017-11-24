@@ -356,15 +356,15 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   private boolean isRolling() {
     if (tock == null) {
-      LOG.trace("is rolling false : not started");
+      LOG.debug("is rolling false : not started");
       return false;
     }
     if (!enabled) {
-      LOG.trace("is rolling false : track not enabled");
+      LOG.debug("is rolling false : track not enabled");
       return false;
     }
     boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
-    LOG.trace("{} : isRolling {} : {} < {}", sequence.getName(),
+    LOG.debug("{} : isRolling {} : {} < {}", sequence.getName(),
         result, tock.getPosition(), getLength());
     return result;
   }
