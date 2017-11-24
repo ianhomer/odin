@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
  * Abstract sequence.
  */
 @Slf4j
-@ToString(exclude = "project", callSuper = true)
+@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GenericSequence extends AbstractTimeThing implements MutableSequenceConfiguration {

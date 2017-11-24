@@ -42,12 +42,12 @@ public class OdinSequencerMatchNoteTest {
       if (operation instanceof NoteOnOperation) {
         NoteOnOperation noteOnOperation =
             (NoteOnOperation) operation;
-        if (noteOnOperation.getChannel() == 0) {
+        if (noteOnOperation.getChannel() == 1) {
           // Input channel
-        } else if (noteOnOperation.getChannel() == 1) {
+        } else if (noteOnOperation.getChannel() == 2) {
           randomNote.set(noteOnOperation.getNumber());
           randomNoteLatch.countDown();
-        } else if (noteOnOperation.getChannel() == 2) {
+        } else if (noteOnOperation.getChannel() == 6) {
           if (successEventsLatch.getCount() > 0) {
             successNotes.add(noteOnOperation.getNumber());
           }
@@ -87,15 +87,17 @@ public class OdinSequencerMatchNoteTest {
             .bits(1).note(newNote())
             .trigger("success-start-trigger", Action.RESET)
             .length(4)
-            .channel(1).layer("groove")
+            .channel(2).layer("groove")
             .name("random"))
         .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
         .addTrigger(new SequenceStartTrigger()
             .sequenceName("success").name("success-start-trigger"))
+        .addTrigger(new SequenceStartTrigger()
+            .sequenceName("random").name("random-start-trigger"))
         .addSequence(new Notation()
             .notation("C D E F")
             .trigger("random-note-trigger", Action.START)
-            .channel(2).layer("groove")
+            .channel(6).layer("groove")
             .length(4)
             .enabled(false)
             .name("success"));
@@ -119,19 +121,22 @@ public class OdinSequencerMatchNoteTest {
        * Confirm success sequence does not fire with wrong note
        */
       environment.getConfiguration().getOperationTransmitter().send(
-          new NoteOnOperation(0,randomNote.get() - 1,5), -1
+          new NoteOnOperation(1,randomNote.get() - 1,5), -1
       );
       successEventsLatch.await(100, TimeUnit.MILLISECONDS);
       assertEquals("Success sequence should not have fired after wrote note pressed",
           successEventsLatch.getCount(), SUCCESS_NOTES.size());
 
+      int number = randomNote.get();
+      LOG.debug("random note = {}", number);
+
       /*
        * Confirm success sequence fires with correct note
        */
       environment.getConfiguration().getOperationTransmitter().send(
-          new NoteOnOperation(0,randomNote.get(),5), -1
+          new NoteOnOperation(1, number, 5), -1
       );
-      successEventsLatch.await(1000,TimeUnit.MILLISECONDS);
+      successEventsLatch.await(1000, TimeUnit.MILLISECONDS);
 
       /*
        * We'll check that at least the expected number of events have fired.
@@ -140,8 +145,8 @@ public class OdinSequencerMatchNoteTest {
           0, successEventsLatch.getCount());
       assertEquals("Success notes not correct", SUCCESS_NOTES, successNotes);
 
-      startTrackLatch.await(1000,TimeUnit.MILLISECONDS);
-      resetTrackLatch.await(1000,TimeUnit.MILLISECONDS);
+      startTrackLatch.await(1000, TimeUnit.MILLISECONDS);
+      resetTrackLatch.await(1000, TimeUnit.MILLISECONDS);
 
       assertEquals("Start track operation not fired",
           0, startTrackLatch.getCount());
