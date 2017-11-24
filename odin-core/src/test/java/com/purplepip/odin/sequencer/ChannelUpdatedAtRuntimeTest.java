@@ -80,7 +80,7 @@ public class ChannelUpdatedAtRuntimeTest {
       builder
           .withChannel(1).changeProgramTo("cello")
           .withName("metronome1")
-          .withLength(LENGTH).withOffset(OFFSET + LENGTH * 2).addMetronome()
+          .withLength(LENGTH).withOffset(OFFSET + LENGTH * 4).addMetronome()
           .withChannel(2).changeProgramTo("piano");
       LOG.debug("*** *** *** Changed channel 1 to cello, channel 2 to piano and adding channel 1"
           + " metronome");

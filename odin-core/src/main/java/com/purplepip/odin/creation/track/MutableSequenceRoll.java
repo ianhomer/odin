@@ -261,6 +261,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       tockCountStart = 0;
     }
     LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
+    if (tockCountStart > sequence.getLength()) {
+      LOG.warn("Sequence roll is starting too late, no events will fire.  "
+          + "Tock {} > sequence length {}", tockCountStart, sequence.getLength());
+    }
     setTock(lessThan(Whole.valueOf(tockCountStart)));
 
     clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
@@ -356,15 +360,15 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   private boolean isRolling() {
     if (tock == null) {
-      LOG.debug("is rolling false : not started");
+      LOG.trace("is rolling false : not started");
       return false;
     }
     if (!enabled) {
-      LOG.debug("is rolling false : track not enabled");
+      LOG.trace("is rolling false : track not enabled");
       return false;
     }
     boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
-    LOG.debug("{} : isRolling {} : {} < {}", sequence.getName(),
+    LOG.trace("{} : isRolling {} : {} < {}", sequence.getName(),
         result, tock.getPosition(), getLength());
     return result;
   }
