@@ -104,8 +104,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
   public void start() {
     setEnabled(true);
     LOG.debug("current offset of sequence is {}", sequence.getOffset());
-    // Start at least a beat from now, we might reduce this lag at some point ...
-    long newOffset = clock.getPosition().ceiling() + 1;
+    // Start at least two beat from now, we might reduce this lag at some point ...
+    long newOffset = clock.getPosition().ceiling() + 2;
     resetter.set("offset", newOffset);
     LOG.debug("{} : offset of sequence set to {}", sequence.getName(), sequence.getOffset());
     refresh();
