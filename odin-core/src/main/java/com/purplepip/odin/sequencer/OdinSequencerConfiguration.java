@@ -70,4 +70,18 @@ public interface OdinSequencerConfiguration {
    * give time for the processors to start and determine first events before the clock starts.
    */
   long getClockStartOffset();
+
+  /**
+   * Track processor refresh period in milliseconds.
+   *
+   * @return track processor refresh period in milliseconds
+   */
+  long getTrackProcessorRefreshPeriod();
+
+  /**
+   * Operation processor refresh period in milliseconds
+   *
+   * @return operation processor refresh period in milliseconds.
+   */
+  long getOperationProcessorRefreshPeriod();
 }

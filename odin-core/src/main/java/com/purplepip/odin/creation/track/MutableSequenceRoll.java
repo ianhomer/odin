@@ -40,7 +40,6 @@ import com.purplepip.odin.events.ScanForwardEvent;
 import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
-import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.properties.beany.Resetter;
 import com.purplepip.odin.properties.runtime.MutableProperty;
@@ -106,13 +105,18 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     setEnabled(true);
     LOG.debug("current offset of sequence is {}", sequence.getOffset());
     // Start at least two beat from now, we might reduce this lag at some point ...
+    // TODO : Start in future should be based on microseconds not ticks, since tests
+    // are run at very high tick rate, and this refresh needs to be in the next
+    // processor execution cycle.
     LOG.debug("Clock {}", clock);
     long newOffset = measureProvider
-        .getNextMeasureStart(clock.getPosition().plus(Wholes.ONE)).floor();
+        .getNextMeasureStart(
+            clock.getPosition(clock.getMicroseconds() + 10_000)).ceiling();
 
     resetter.set("offset", newOffset);
-    setTock(lessThan(Whole.valueOf(newOffset)));
-    LOG.debug("{} : offset of sequence set to {}", sequence.getName(), sequence.getOffset());
+    LOG.debug("{} {} : sequence offset set to {} at", beatClock, sequence.getName(),
+        sequence.getOffset());
+    tickDirty = true;
     refresh();
   }
 
@@ -261,10 +265,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       tockCountStart = 0;
     }
     LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
-    if (tockCountStart > sequence.getLength()) {
-      LOG.warn("Sequence roll is starting too late, no events will fire.  "
-          + "Tock {} > sequence length {}", tockCountStart, sequence.getLength());
-    }
     setTock(lessThan(Whole.valueOf(tockCountStart)));
 
     clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
@@ -274,14 +274,16 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      * After a tick change the flow is dirty.
      */
     flowDirty = true;
-    /*
-     * ... and we can refresh the flow
-     */
-    refreshFlow();
+
   }
 
   @Override
   public void setTock(Bound tockToSet) {
+    if (sequence.getLength() > -1 && !tockToSet.lt(Whole.valueOf(sequence.getLength()))) {
+      LOG.warn("Sequence roll is starting too late, no events will fire.  "
+          + "Tock {} > sequence length {}", tockToSet, sequence.getLength());
+    }
+
     tock = new MovableTock(getSequence().getTick(), tockToSet);
     sealedTock = new SealedTock(tock);
     /*
@@ -335,9 +337,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
    */
   @Override
   public void onPerformanceStart() {
-    if (tickDirty) {
-      afterTickChange();
-    }
+    refresh();
   }
 
   /**
@@ -368,7 +368,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       return false;
     }
     boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
-    LOG.trace("{} : isRolling {} : {} < {}", sequence.getName(),
+    LOG.debug("{} : isRolling {} : {} < {}", sequence.getName(),
         result, tock.getPosition(), getLength());
     return result;
   }

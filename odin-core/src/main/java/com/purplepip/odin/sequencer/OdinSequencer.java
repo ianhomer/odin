@@ -102,9 +102,11 @@ public class OdinSequencer implements PerformanceApplyListener {
      * Create the processors early.  Note that they'll start when the clock starts.
      */
     operationProcessor = new DefaultOperationProcessor(
-        clock, configuration.getOperationReceiver(), configuration.getMetrics());
+        clock, configuration.getOperationReceiver(),
+        configuration.getMetrics(), configuration.getOperationProcessorRefreshPeriod());
     sequenceProcessor = new TrackProcessor(
-        clock, immutableTracks, operationProcessor, statistics, configuration.getMetrics());
+        clock, immutableTracks, operationProcessor, statistics,
+        configuration.getMetrics(), configuration.getTrackProcessorRefreshPeriod());
   }
 
   public OdinSequencerStatistics getStatistics() {

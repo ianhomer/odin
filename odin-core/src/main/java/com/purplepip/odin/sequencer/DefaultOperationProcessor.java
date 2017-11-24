@@ -38,11 +38,11 @@ import lombok.extern.slf4j.Slf4j;
 @ListenerPriority(9)
 @Slf4j
 public class DefaultOperationProcessor implements OperationProcessor, PerformanceListener {
-  protected static final long REFRESH_PERIOD = 50;
   private PriorityBlockingQueue<OperationEvent> queue = new PriorityBlockingQueue<>(127,
       new OperationEventComparator());
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
   private DefaultOperationProcessorExecutor executor;
+  private long refreshPeriod;
 
   /**
    * Create an operation processor.
@@ -51,12 +51,14 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
    * @param operationReceiver operation receiver
    */
   DefaultOperationProcessor(BeatClock clock, OperationReceiver operationReceiver,
-                            MetricRegistry metrics) {
+                            MetricRegistry metrics, long refreshPeriod) {
+    this.refreshPeriod = refreshPeriod;
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }
     clock.addListener(this);
-    executor = new DefaultOperationProcessorExecutor(clock, queue, operationReceiver, metrics);
+    executor = new DefaultOperationProcessorExecutor(clock, queue, operationReceiver, metrics,
+        refreshPeriod);
     LOG.debug("Created operation processor");
   }
 
@@ -67,7 +69,7 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
   }
 
   private void start() {
-    scheduledPool.scheduleAtFixedRate(executor, 0, REFRESH_PERIOD, TimeUnit.MILLISECONDS);
+    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     LOG.debug("Started operation processor");
   }
 

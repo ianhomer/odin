@@ -16,7 +16,6 @@
 package com.purplepip.odin.sequencer;
 
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
-import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 
 import com.codahale.metrics.MetricRegistry;
@@ -29,7 +28,6 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
-import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
@@ -49,6 +47,8 @@ public class DefaultOdinSequencerConfiguration
   private TriggerFactory triggerFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
+  private long trackProcessorRefreshPeriod;
+  private long operationProcessorRefreshPeriod;
   private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
   private MetricRegistry metrics;
 
@@ -65,6 +65,8 @@ public class DefaultOdinSequencerConfiguration
     setClockStartOffset(0);
     setMetrics(new MetricRegistry());
     setOperationTransmitter(new DefaultOperationTransmitter());
+    setOperationProcessorRefreshPeriod(50);
+    setTrackProcessorRefreshPeriod(200);
   }
 
   public final DefaultOdinSequencerConfiguration
@@ -184,6 +186,28 @@ public class DefaultOdinSequencerConfiguration
   @Override
   public long getClockStartOffset() {
     return clockStartOffset;
+  }
+
+  @Override
+  public long getTrackProcessorRefreshPeriod() {
+    return trackProcessorRefreshPeriod;
+  }
+
+  public DefaultOdinSequencerConfiguration setTrackProcessorRefreshPeriod(
+      long trackProcessorRefreshPeriod) {
+    this.trackProcessorRefreshPeriod = trackProcessorRefreshPeriod;
+    return this;
+  }
+
+  @Override
+  public long getOperationProcessorRefreshPeriod() {
+    return operationProcessorRefreshPeriod;
+  }
+
+  public DefaultOdinSequencerConfiguration setOperationProcessorRefreshPeriod(
+      long operationProcessorRefreshPeriod) {
+    this.operationProcessorRefreshPeriod = operationProcessorRefreshPeriod;
+    return this;
   }
 
   public final DefaultOdinSequencerConfiguration setFlowConfiguration(

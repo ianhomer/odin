@@ -17,10 +17,12 @@ package com.purplepip.odin.creation.sequence;
 
 import com.purplepip.odin.operation.AbstractOperation;
 import com.purplepip.odin.operation.Operation;
+import lombok.ToString;
 
 /**
  * Operation fired to start an operation.
  */
+@ToString
 public class ActionOperation extends AbstractOperation {
   private String trackName;
   private Action action;

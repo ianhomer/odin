@@ -26,8 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DefaultOperationProcessorExecutor implements Runnable {
   private static final int MAX_OPERATIONS_PER_EXECUTION = 1000;
-  private static final long FORWARD_POLLING_TIME =
-      DefaultOperationProcessor.REFRESH_PERIOD * 1000 * 5;
 
   private final BeatClock clock;
   private final PriorityBlockingQueue<OperationEvent> queue;
@@ -35,11 +33,14 @@ public class DefaultOperationProcessorExecutor implements Runnable {
   private final Timer jobMetric;
   private final Meter sentMetric;
   private final Meter failureMetric;
+  private final long forwardPollingTime;
 
   DefaultOperationProcessorExecutor(BeatClock clock,
                                     PriorityBlockingQueue<OperationEvent> queue,
                                     OperationReceiver operationReceiver,
-                                    MetricRegistry metrics) {
+                                    MetricRegistry metrics,
+                                    long refreshPeriod) {
+    forwardPollingTime = refreshPeriod * 1000 * 5;
     this.clock = clock;
     this.queue = queue;
     jobMetric = metrics.timer("operation.job");
@@ -69,7 +70,7 @@ public class DefaultOperationProcessorExecutor implements Runnable {
      */
     OperationEvent nextEvent = queue.peek();
     while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
-        < microsecondPosition + FORWARD_POLLING_TIME) {
+        < microsecondPosition + forwardPollingTime) {
       /*
        * If we are ready for next event then take it off the queue and process.
        */

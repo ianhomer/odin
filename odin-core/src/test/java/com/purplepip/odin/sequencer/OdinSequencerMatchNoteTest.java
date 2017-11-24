@@ -42,7 +42,9 @@ public class OdinSequencerMatchNoteTest {
       if (operation instanceof NoteOnOperation) {
         NoteOnOperation noteOnOperation =
             (NoteOnOperation) operation;
-        if (noteOnOperation.getChannel() == 1) {
+        if (noteOnOperation.getChannel() == 0) {
+          // Input channel
+        } else if (noteOnOperation.getChannel() == 1) {
           randomNote.set(noteOnOperation.getNumber());
           randomNoteLatch.countDown();
         } else if (noteOnOperation.getChannel() == 2) {
@@ -51,7 +53,7 @@ public class OdinSequencerMatchNoteTest {
           }
           successEventsLatch.countDown();
         } else {
-          LOG.warn("Unexpected note operation : {}", noteOnOperation);
+          LOG.warn("Unexpected note on operation : {}", noteOnOperation);
         }
       } else if (operation instanceof NoteOffOperation) {
         LOG.trace("Ignoring note off operation : {}", operation);
@@ -94,6 +96,7 @@ public class OdinSequencerMatchNoteTest {
             .notation("C D E F")
             .trigger("random-note-trigger", Action.START)
             .channel(2).layer("groove")
+            .length(4)
             .enabled(false)
             .name("success"));
 

@@ -52,7 +52,9 @@ public class TrackProcessor implements PerformanceListener {
                  Things<Track> tracks,
                  OperationProcessor operationProcessor,
                  MutableSequenceProcessorStatistics statistics,
-                  MetricRegistry metrics) {
+                 MetricRegistry metrics,
+                 long refreshPeriod) {
+    this.refreshPeriod = refreshPeriod;
     scheduledPool = Executors.newScheduledThreadPool(1);
     executor = new TrackProcessorExecutor(
         clock, tracks, operationProcessor, refreshPeriod,

@@ -53,6 +53,8 @@ public class TestSequencerEnvironment {
         .setBeatsPerMinute(new StaticBeatsPerMinute(60000))
         .setClockStartOffset(20000)
         .setClockStartRoundingFactor(1000)
+        .setTrackProcessorRefreshPeriod(10)
+        .setOperationProcessorRefreshPeriod(10)
         .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
         .setOperationReceiver(operationReceiver);
     sequencer = new OdinSequencer(configuration);
