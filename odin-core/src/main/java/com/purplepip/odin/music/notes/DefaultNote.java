@@ -17,13 +17,12 @@ package com.purplepip.odin.music.notes;
 
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Default Note.
  */
-@ToString
 @EqualsAndHashCode
 public class DefaultNote implements Note {
   private final int number;
@@ -67,5 +66,10 @@ public class DefaultNote implements Note {
   @Override
   public Real getDuration() {
     return duration;
+  }
+
+  public String toString() {
+    return "Note(" + number + "^" + velocity
+        + (duration.equals(Wholes.ONE) ? "" : "~" + duration) + ")";
   }
 }

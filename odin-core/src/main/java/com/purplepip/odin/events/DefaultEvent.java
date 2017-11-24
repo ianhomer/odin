@@ -18,14 +18,12 @@ package com.purplepip.odin.events;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
-import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Default Event.
  */
-@ToString
 public class DefaultEvent<A> implements Event<A> {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultEvent.class);
   private A value;
@@ -64,5 +62,9 @@ public class DefaultEvent<A> implements Event<A> {
   @Override
   public Real getTime() {
     return time;
+  }
+
+  public String toString() {
+    return "Event(" + value + " @ " + time + ")";
   }
 }

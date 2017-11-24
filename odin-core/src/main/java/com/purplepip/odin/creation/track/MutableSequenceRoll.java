@@ -369,7 +369,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, ClockListener {
 
   private Event<A> getNextEventInternal(MovableTock tock) {
     Event<A> event = getNextEvent(sealedTock);
-    LOG.debug("{} : Event after {} at {}", sequence.getName(), tock, event.getTime());
+    LOG.debug("{} : {} is next after {}", sequence.getName(), event, tock);
     /*
      * Now increment internal tock to the time of the provided event
      */
