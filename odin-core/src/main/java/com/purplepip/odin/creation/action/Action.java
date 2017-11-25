@@ -17,6 +17,6 @@ package com.purplepip.odin.creation.action;
 
 import com.purplepip.odin.creation.plugin.Plugin;
 
-public interface Action extends Plugin, ActionConfiguration {
+public interface Action extends ActionConfiguration {
   void execute(ActionContext context);
 }

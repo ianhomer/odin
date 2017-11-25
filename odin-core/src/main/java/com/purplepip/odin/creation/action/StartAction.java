@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Name("start")
 @ToString(callSuper = true)
-public class StartAction extends GenericAction implements SpecialisedAction {
+public class StartAction extends GenericAction implements ActionPlugin {
   @Override
   public void execute(ActionContext context) {
     context.getTrack().start();

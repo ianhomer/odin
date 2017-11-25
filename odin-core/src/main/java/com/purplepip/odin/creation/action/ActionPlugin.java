@@ -15,7 +15,9 @@
 
 package com.purplepip.odin.creation.action;
 
-public interface SpecialisedAction extends MutableActionConfiguration, Action {
+import com.purplepip.odin.creation.plugin.Plugin;
+
+public interface ActionPlugin extends MutableActionConfiguration, Action, Plugin {
   @Override
   default boolean arePropertiesDeclared() {
     return true;
