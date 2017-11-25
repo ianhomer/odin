@@ -117,7 +117,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
          * If the original is of the correct type then we can simply take a copy
          */
         newInstance = (S) expectedType.cast(original).copy();
-        LOG.trace("Creating new instance with direct copy of {}", newInstance);
+        LOG.debug("Creating new instance with direct copy of {}", newInstance);
       } else {
         LOG.trace("Creating new instance of {}", expectedType);
         try {
