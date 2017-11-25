@@ -51,12 +51,12 @@ public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
    */
   @Override
   public NoteTrigger copy() {
-    return copy(new NoteTrigger(), this);
+    return copy(new NoteTrigger());
   }
 
-  protected NoteTrigger copy(NoteTrigger copy, NoteTrigger original) {
-    super.copy(copy, original);
-    copy.note = original.note;
+  protected NoteTrigger copy(NoteTrigger copy) {
+    super.copy(copy);
+    copy.note = this.note;
     return copy;
   }
 

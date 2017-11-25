@@ -99,12 +99,12 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     triggers.remove(trigger);
   }
 
-  protected GenericSequence copy(GenericSequence copy, GenericSequence original) {
-    copy.setChannel(original.getChannel());
-    copy.setType(original.getType());
-    original.getLayers().forEach(copy::addLayer);
-    original.getTriggers().forEach(copy::addTrigger);
-    super.copy(copy, original);
+  protected GenericSequence copy(GenericSequence copy) {
+    copy.setChannel(this.getChannel());
+    copy.setType(this.getType());
+    this.getLayers().forEach(copy::addLayer);
+    this.getTriggers().forEach(copy::addTrigger);
+    super.copy(copy);
     return copy;
   }
 

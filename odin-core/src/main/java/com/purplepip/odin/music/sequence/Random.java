@@ -65,13 +65,13 @@ public class Random extends Pattern {
    */
   @Override
   public Random copy() {
-    return copy(new Random(), this);
+    return copy(new Random());
   }
 
-  protected Random copy(Random copy, Random original) {
-    copy.lower = original.lower;
-    copy.upper = original.upper;
-    super.copy(copy, original);
+  protected Random copy(Random copy) {
+    copy.lower = this.lower;
+    copy.upper = this.upper;
+    super.copy(copy);
     return copy;
   }
 

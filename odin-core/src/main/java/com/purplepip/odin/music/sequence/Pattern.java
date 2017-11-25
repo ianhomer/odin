@@ -73,13 +73,13 @@ public class Pattern extends GenericSequence implements SpecialisedSequence {
    */
   @Override
   public Pattern copy() {
-    return copy(new Pattern(), this);
+    return copy(new Pattern());
   }
 
-  protected Pattern copy(Pattern copy, Pattern original) {
-    super.copy(copy, original);
-    copy.bits = original.bits;
-    copy.note = original.note;
+  protected Pattern copy(Pattern copy) {
+    super.copy(copy);
+    copy.bits = this.bits;
+    copy.note = this.note;
     return copy;
   }
 

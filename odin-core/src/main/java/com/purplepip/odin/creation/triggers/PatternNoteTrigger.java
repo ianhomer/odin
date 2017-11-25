@@ -51,12 +51,12 @@ public class PatternNoteTrigger extends GenericTrigger implements SpecialisedTri
    */
   @Override
   public PatternNoteTrigger copy() {
-    return copy(new PatternNoteTrigger(), this);
+    return copy(new PatternNoteTrigger());
   }
 
-  protected PatternNoteTrigger copy(PatternNoteTrigger copy, PatternNoteTrigger original) {
-    copy.patternName = original.patternName;
-    super.copy(copy, original);
+  protected PatternNoteTrigger copy(PatternNoteTrigger copy) {
+    copy.patternName = this.patternName;
+    super.copy(copy);
     return copy;
   }
 

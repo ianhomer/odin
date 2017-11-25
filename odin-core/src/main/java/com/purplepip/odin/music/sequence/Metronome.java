@@ -66,13 +66,13 @@ public class Metronome extends GenericSequence implements SpecialisedSequence {
    */
   @Override
   public Metronome copy() {
-    return copy(new Metronome(), this);
+    return copy(new Metronome());
   }
 
-  protected Metronome copy(Metronome copy, Metronome original) {
-    super.copy(copy, original);
-    copy.noteBarStart = original.noteBarStart;
-    copy.noteBarMid = original.noteBarMid;
+  protected Metronome copy(Metronome copy) {
+    super.copy(copy);
+    copy.noteBarStart = this.noteBarStart;
+    copy.noteBarMid = this.noteBarMid;
     return copy;
   }
 }

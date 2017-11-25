@@ -39,12 +39,12 @@ public class SequenceStartTrigger extends GenericTrigger implements SpecialisedT
    */
   @Override
   public SequenceStartTrigger copy() {
-    return copy(new SequenceStartTrigger(), this);
+    return copy(new SequenceStartTrigger());
   }
 
-  protected SequenceStartTrigger copy(SequenceStartTrigger copy, SequenceStartTrigger original) {
-    copy.sequenceName = original.sequenceName;
-    super.copy(copy, original);
+  protected SequenceStartTrigger copy(SequenceStartTrigger copy) {
+    copy.sequenceName = this.sequenceName;
+    super.copy(copy);
     return copy;
   }
 

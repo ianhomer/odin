@@ -49,9 +49,9 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
     dependsOn.add(dependency);
   }
 
-  protected GenericTrigger copy(GenericTrigger copy, GenericTrigger original) {
-    copy.type = original.type;
-    super.copy(copy, original);
+  protected GenericTrigger copy(GenericTrigger copy) {
+    copy.type = this.type;
+    super.copy(copy);
     return copy;
   }
 

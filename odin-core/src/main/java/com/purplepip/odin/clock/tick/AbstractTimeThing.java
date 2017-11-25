@@ -45,12 +45,12 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
     super(id);
   }
 
-  protected AbstractTimeThing copy(AbstractTimeThing copy, AbstractTimeThing original) {
-    copy.enabled = original.enabled;
-    copy.tick = original.tick;
-    copy.length = original.length;
-    copy.offset = original.offset;
-    super.copy(copy, original);
+  protected AbstractTimeThing copy(AbstractTimeThing copy) {
+    copy.enabled = this.enabled;
+    copy.tick = this.tick;
+    copy.length = this.length;
+    copy.offset = this.offset;
+    super.copy(copy);
     return copy;
   }
 

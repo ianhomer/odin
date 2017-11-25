@@ -77,13 +77,13 @@ public class Notation extends GenericSequence implements SpecialisedSequence {
    */
   @Override
   public Notation copy() {
-    return copy(new Notation(), this);
+    return copy(new Notation());
   }
 
-  protected Notation copy(Notation copy, Notation original) {
+  protected Notation copy(Notation copy) {
     copy.notation = this.notation;
     copy.format = this.format;
-    super.copy(copy, original);
+    super.copy(copy);
     return copy;
   }
 
