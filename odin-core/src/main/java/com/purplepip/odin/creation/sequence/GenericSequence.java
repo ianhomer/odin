@@ -44,10 +44,6 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     super();
   }
 
-  public GenericSequence(String name) {
-    super(name);
-  }
-
   public GenericSequence(long id) {
     super(id);
   }

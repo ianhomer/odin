@@ -37,10 +37,6 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
     super();
   }
 
-  public AbstractTimeThing(String name) {
-    super(name);
-  }
-
   public AbstractTimeThing(long id) {
     super(id);
   }

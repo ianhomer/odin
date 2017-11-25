@@ -26,7 +26,7 @@ import org.junit.Test;
 public class LayerRuntimeTest {
   @Test
   public void testLayerRuntime() {
-    DefaultLayer layer = new DefaultLayer("test");
+    DefaultLayer layer = new DefaultLayer().name("test");
     layer.setTick(Ticks.BEAT);
     LayerConductor conductor = new LayerConductor(mock(BeatClock.class));
     conductor.setConfiguration(layer);

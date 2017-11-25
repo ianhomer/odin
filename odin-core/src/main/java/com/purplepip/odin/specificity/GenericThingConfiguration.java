@@ -29,10 +29,6 @@ public class GenericThingConfiguration extends AbstractPropertiesThing
     super();
   }
 
-  public GenericThingConfiguration(String name) {
-    super(name);
-  }
-
   public GenericThingConfiguration(long id) {
     super(id);
   }

@@ -36,10 +36,6 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
      */
   }
 
-  public DefaultLayer(String name) {
-    super(name);
-  }
-
   @Override
   public List<String> getLayers() {
     return layers;

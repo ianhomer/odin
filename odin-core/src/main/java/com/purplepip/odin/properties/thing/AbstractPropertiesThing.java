@@ -37,10 +37,6 @@ public abstract class AbstractPropertiesThing extends AbstractThing
     super();
   }
 
-  public AbstractPropertiesThing(String name) {
-    super(name);
-  }
-
   public AbstractPropertiesThing(long id) {
     super(id);
   }

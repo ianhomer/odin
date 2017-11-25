@@ -31,7 +31,7 @@ public class UnmodifiableConductorTest {
   public void testGetActive() throws Exception {
     MutableThings<Conductor> mutableConductors = new MutableThings<>();
     LayerConductor newConductor = new LayerConductor(new BeatClock(new StaticBeatsPerMinute(60)));
-    DefaultLayer layer = new DefaultLayer("test");
+    DefaultLayer layer = new DefaultLayer().name("test");
     layer.setTick(Ticks.BEAT);
     newConductor.setConfiguration(layer);
     mutableConductors.add(newConductor);

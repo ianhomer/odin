@@ -41,13 +41,6 @@ public abstract class AbstractThing implements MutableThing {
   }
 
   /**
-   * Name taken from constructor.
-   */
-  public AbstractThing(String name) {
-    this.name = name;
-  }
-
-  /**
    * ID taken from constructor.
    */
   public AbstractThing(long id) {
