@@ -15,5 +15,20 @@
 
 package com.purplepip.odin.creation.action;
 
+import com.purplepip.odin.creation.track.Track;
+
+/**
+ * Context for action execution.  Actions currently only act upon tracks.
+ */
 public class ActionContext {
+  private Track track;
+
+  public ActionContext(Track track) {
+    this.track = track;
+  }
+
+  public Track getTrack() {
+    return track;
+  }
 }
+

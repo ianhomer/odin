@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StartAction extends GenericAction implements SpecialisedAction {
   @Override
   public void execute(ActionContext context) {
-    LOG.debug("Start action");
+    context.getTrack().start();
   }
 
   /**

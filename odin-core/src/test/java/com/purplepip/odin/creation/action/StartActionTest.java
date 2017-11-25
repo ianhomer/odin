@@ -16,7 +16,11 @@
 package com.purplepip.odin.creation.action;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+import com.purplepip.odin.creation.track.Track;
 import org.junit.Test;
 
 public class StartActionTest {
@@ -24,6 +28,8 @@ public class StartActionTest {
   public void testStartAction() {
     Action startAction = new StartAction();
     assertTrue(startAction.arePropertiesDeclared());
-    startAction.execute(new ActionContext());
+    Track track = spy(Track.class);
+    startAction.execute(new ActionContext(track));
+    verify(track, times(1)).start();
   }
 }
