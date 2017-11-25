@@ -15,7 +15,9 @@
 
 package com.purplepip.odin.creation.triggers;
 
-public interface SpecialisedTrigger extends MutableTriggerConfiguration, Trigger {
+import com.purplepip.odin.creation.plugin.Plugin;
+
+public interface TriggerPlugin extends MutableTriggerConfiguration, Trigger, Plugin {
   @Override
   default boolean arePropertiesDeclared() {
     return true;

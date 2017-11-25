@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Name("note")
-public class NoteTrigger extends GenericTrigger implements SpecialisedTrigger {
+public class NoteTrigger extends GenericTrigger implements TriggerPlugin {
   private Note note = newNote();
 
   public NoteTrigger note(Note note) {

@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 /**
  * Trigger rule.
  */
-public interface Trigger extends Plugin, TriggerConfiguration {
+public interface Trigger extends TriggerConfiguration {
   boolean isTriggeredBy(Operation operation);
 
   /**
