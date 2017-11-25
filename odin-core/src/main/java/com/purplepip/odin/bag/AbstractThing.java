@@ -37,7 +37,7 @@ public abstract class AbstractThing implements MutableThing {
    * ID auto generated.
    */
   public AbstractThing() {
-    id = LAST_PATTERN_ID.incrementAndGet();
+    this(LAST_PATTERN_ID.incrementAndGet());
   }
 
   /**
@@ -51,7 +51,7 @@ public abstract class AbstractThing implements MutableThing {
    * ID taken from constructor.
    */
   public AbstractThing(long id) {
-    this.id = id;
+    setId(id);
   }
 
   @Override
@@ -59,7 +59,7 @@ public abstract class AbstractThing implements MutableThing {
     return id;
   }
 
-  protected void setId(long id) {
+  private void setId(long id) {
     this.id = id;
     /*
      * Auto generate name if one has not been provided.
