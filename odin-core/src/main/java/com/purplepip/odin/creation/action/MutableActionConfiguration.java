@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.specificity;
+package com.purplepip.odin.creation.action;
 
-import com.purplepip.odin.bag.MutableThing;
+import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import com.purplepip.odin.specificity.MutableThingConfiguration;
 
-public interface MutableThingConfiguration extends MutableThing, ThingConfiguration {
-  void setType(String type);
+public interface MutableActionConfiguration extends
+    ActionConfiguration, MutableThingConfiguration, MutablePropertiesProvider {
 }

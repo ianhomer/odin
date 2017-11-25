@@ -13,36 +13,20 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.sequence;
+package com.purplepip.odin.creation.action;
 
-/**
- * Actions that can effect change on a sequence.  For example these might happen when a trigger
- * fires.
- */
-public enum Action {
+import com.purplepip.odin.specificity.ThingConfiguration;
+
+public interface ActionConfiguration extends ThingConfiguration {
   /**
-   * Enable the object attached to this trigger.
+   * Create a copy of this action.
+   *
+   * @return copy
    */
-  ENABLE,
-
-  /*
-   * Disable the object attached to this trigger.
-   */
-  DISABLE,
-
-  /**
-   * Reset the sequence.
-   */
-  RESET,
-
-  /**
-   * Start the object attached to this trigger.  Start is similar to enable, however will also set
-   * the offset of the sequence to the next beat.
-   */
-  START,
-
-  /**
-   * Stop the object attached to this trigger.  Stop is currently implemented the same as disable.
-   */
-  STOP
+  @Override
+  default ActionConfiguration copy() {
+    MutableActionConfiguration copy = new GenericAction(this.getId());
+    Actions.copyCoreValues(this, copy);
+    return copy;
+  }
 }

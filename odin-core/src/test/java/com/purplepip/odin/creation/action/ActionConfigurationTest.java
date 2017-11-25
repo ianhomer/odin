@@ -13,10 +13,23 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.specificity;
+package com.purplepip.odin.creation.action;
 
-import com.purplepip.odin.bag.MutableThing;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-public interface MutableThingConfiguration extends MutableThing, ThingConfiguration {
-  void setType(String type);
+import org.junit.Test;
+
+public class ActionConfigurationTest {
+  @Test
+  public void testCopy() {
+    ActionConfiguration configuration = mock(ActionConfiguration.class);
+    when(configuration.getType()).thenReturn("start");
+    when(configuration.copy()).thenCallRealMethod();
+    ActionConfiguration copy = configuration.copy();
+    assertNotNull(copy);
+    assertEquals("start", copy.getType());
+  }
 }

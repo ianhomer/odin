@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.sequence;
+package com.purplepip.odin.creation.action;
 
 import com.purplepip.odin.operation.AbstractOperation;
 import com.purplepip.odin.operation.Operation;
@@ -25,7 +25,7 @@ import lombok.ToString;
 @ToString
 public class ActionOperation extends AbstractOperation {
   private String trackName;
-  private Action action;
+  private ActionType action;
 
   /**
    * Create an action operation.
@@ -34,13 +34,13 @@ public class ActionOperation extends AbstractOperation {
    * @param trackName track name action is applied to
    * @param cause operation that caused this action
    */
-  public ActionOperation(Action action, String trackName, Operation cause) {
+  public ActionOperation(ActionType action, String trackName, Operation cause) {
     setCause(cause);
     this.trackName = trackName;
     this.action = action;
   }
 
-  public Action getAction() {
+  public ActionType getAction() {
     return action;
   }
 

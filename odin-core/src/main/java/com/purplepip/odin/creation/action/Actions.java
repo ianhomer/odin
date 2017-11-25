@@ -13,10 +13,26 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.specificity;
+package com.purplepip.odin.creation.action;
 
-import com.purplepip.odin.bag.MutableThing;
+import com.purplepip.odin.properties.Properties;
 
-public interface MutableThingConfiguration extends MutableThing, ThingConfiguration {
-  void setType(String type);
+/**
+ * Sequences utility methods.
+ */
+public final class Actions {
+  private Actions() {
+  }
+
+  /**
+   * Copy core values from one action to another.
+   *
+   * @param from where to copy values from
+   * @param to where to copy values to
+   */
+  public static void copyCoreValues(ActionConfiguration from, MutableActionConfiguration to) {
+    to.setName(from.getName());
+    to.setType(from.getType());
+    Properties.copyProperties(from, to);
+  }
 }

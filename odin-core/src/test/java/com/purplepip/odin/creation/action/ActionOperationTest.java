@@ -13,10 +13,18 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.specificity;
+package com.purplepip.odin.creation.action;
 
-import com.purplepip.odin.bag.MutableThing;
+import static org.junit.Assert.assertEquals;
 
-public interface MutableThingConfiguration extends MutableThing, ThingConfiguration {
-  void setType(String type);
+import org.junit.Test;
+
+public class ActionOperationTest {
+  @Test
+  public void testActionOperation() {
+    ActionOperation operation = new ActionOperation(ActionType.START, "test", null);
+    assertEquals(ActionType.START, operation.getAction());
+    assertEquals("test", operation.getTrackName());
+
+  }
 }

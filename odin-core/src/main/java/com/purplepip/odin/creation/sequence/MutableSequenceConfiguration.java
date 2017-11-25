@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.sequence;
 
 import com.purplepip.odin.clock.tick.MutableTimeThing;
+import com.purplepip.odin.creation.action.ActionType;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.specificity.MutableThingConfiguration;
 
@@ -30,7 +31,7 @@ public interface MutableSequenceConfiguration extends SequenceConfiguration,
 
   void removeLayer(String layerName);
 
-  void addTrigger(String triggerName, Action action);
+  void addTrigger(String triggerName, ActionType action);
 
   void removeTrigger(String triggerName);
 }

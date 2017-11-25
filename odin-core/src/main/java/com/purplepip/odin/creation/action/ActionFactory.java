@@ -13,10 +13,18 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.specificity;
+package com.purplepip.odin.creation.action;
 
-import com.purplepip.odin.bag.MutableThing;
+import com.purplepip.odin.specificity.AbstractSpecificThingFactory;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
-public interface MutableThingConfiguration extends MutableThing, ThingConfiguration {
-  void setType(String type);
+/**
+ * Create actions.
+ */
+@Slf4j
+public class ActionFactory extends AbstractSpecificThingFactory<Action> {
+  public ActionFactory(List<Class<? extends Action>> classes) {
+    super(classes);
+  }
 }

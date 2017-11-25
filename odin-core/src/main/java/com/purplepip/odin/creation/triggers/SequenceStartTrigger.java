@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.triggers;
 
-import com.purplepip.odin.creation.sequence.ActionOperation;
+import com.purplepip.odin.creation.action.ActionOperation;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;

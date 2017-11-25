@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.creation.sequence.Action;
+import com.purplepip.odin.creation.action.ActionType;
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.performance.Performance;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class PersistableSequence
   private List<String> layers = new ArrayList<>(0);
 
   @ElementCollection
-  private Map<String, Action> triggers = new HashMap<>(0);
+  private Map<String, ActionType> triggers = new HashMap<>(0);
 
   @Override
   public void addLayer(String layer) {
@@ -78,7 +78,7 @@ public class PersistableSequence
   }
 
   @Override
-  public void addTrigger(String trigger, Action action) {
+  public void addTrigger(String trigger, ActionType action) {
     LOG.debug("Adding trigger {} to {}", trigger, this);
     triggers.put(trigger, action);
   }

@@ -21,12 +21,12 @@ import com.google.common.collect.Lists;
 import com.purplepip.odin.clock.tick.DefaultTick;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
+import com.purplepip.odin.creation.action.ActionType;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.channel.DefaultChannel;
 import com.purplepip.odin.creation.layer.DefaultLayer;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.layer.MutableLayer;
-import com.purplepip.odin.creation.sequence.Action;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.creation.sequence.Sequence;
@@ -77,7 +77,7 @@ public class PerformanceBuilder {
   private int offset;
   private Tick tick = BEAT;
   private List<String> layerNamesToAdd = new ArrayList<>();
-  private Map<String, Action> triggersToAdd = new HashMap<>();
+  private Map<String, ActionType> triggersToAdd = new HashMap<>();
   private List<Long> sequenceIds = new ArrayList<>();
   private List<Long> channelIds = new ArrayList<>();
   private List<Long> layerIds = new ArrayList<>();
@@ -141,7 +141,7 @@ public class PerformanceBuilder {
   }
 
   private static MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
-                                                Class<? extends Sequence> clazz) {
+                                                       Class<? extends Sequence> clazz) {
     sequence.setType(Specifics.getName(clazz));
     return sequence;
   }
@@ -429,7 +429,7 @@ public class PerformanceBuilder {
    * @param action action to take place when this trigger fires
    * @return project builder
    */
-  public PerformanceBuilder withTrigger(String trigger, Action action) {
+  public PerformanceBuilder withTrigger(String trigger, ActionType action) {
     triggersToAdd.put(trigger, action);
     LOG.debug("Triggers to add : {}", triggersToAdd);
     return this;

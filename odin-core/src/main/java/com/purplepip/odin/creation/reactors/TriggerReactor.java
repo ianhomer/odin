@@ -15,9 +15,9 @@
 
 package com.purplepip.odin.creation.reactors;
 
+import com.purplepip.odin.creation.action.ActionOperation;
+import com.purplepip.odin.creation.action.ActionType;
 import com.purplepip.odin.creation.plugin.PluggableAspect;
-import com.purplepip.odin.creation.sequence.Action;
-import com.purplepip.odin.creation.sequence.ActionOperation;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.creation.triggers.Trigger;
@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfiguration> {
   private TriggerConfiguration triggerConfiguration;
   private Trigger trigger;
-  private Map<Track, Action> trackActions = new HashMap<>();
+  private Map<Track, ActionType> trackActions = new HashMap<>();
   private TriggerFactory triggerFactory;
 
   public TriggerReactor(TriggerFactory triggerFactory) {
@@ -70,7 +70,7 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
     return triggerConfiguration;
   }
 
-  public void addTrackAction(Track track, Action action) {
+  public void addTrackAction(Track track, ActionType action) {
     trackActions.put(track, action);
   }
 
@@ -78,7 +78,7 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
     trackActions.remove(track);
   }
 
-  public Stream<Map.Entry<Track, Action>> getTracks() {
+  public Stream<Map.Entry<Track, ActionType>> getTracks() {
     return trackActions.entrySet().stream();
   }
 
@@ -93,7 +93,7 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
       LOG.debug("Trigger {} triggered", trigger.getName());
       getTracks().forEach(entry -> {
         Track track = entry.getKey();
-        Action action = entry.getValue();
+        ActionType action = entry.getValue();
         LOG.debug("Track {} triggered with {}", track.getName(), action);
         ripples.add(new ActionOperation(action, track.getName(), operation));
         switch (action)  {

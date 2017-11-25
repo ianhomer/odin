@@ -5,8 +5,8 @@ import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.sequence.Action;
-import com.purplepip.odin.creation.sequence.ActionOperation;
+import com.purplepip.odin.creation.action.ActionOperation;
+import com.purplepip.odin.creation.action.ActionType;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
 import com.purplepip.odin.music.operations.NoteOffOperation;
@@ -85,7 +85,7 @@ public class OdinSequencerMatchNoteTest {
         .addSequence(new Random()
             .lower(60).upper(72)
             .bits(1).note(newNote())
-            .trigger("success-start-trigger", Action.RESET)
+            .trigger("success-start-trigger", ActionType.RESET)
             .length(4)
             .channel(2).layer("groove")
             .name("random"))
@@ -96,7 +96,7 @@ public class OdinSequencerMatchNoteTest {
             .sequenceName("random").name("random-start-trigger"))
         .addSequence(new Notation()
             .notation("C D E F")
-            .trigger("random-note-trigger", Action.START)
+            .trigger("random-note-trigger", ActionType.START)
             .channel(6).layer("groove")
             .length(4)
             .enabled(false)
