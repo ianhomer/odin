@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.action;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -25,7 +26,14 @@ import org.junit.Test;
 
 public class StartActionTest {
   @Test
-  public void testStartAction() {
+  public void testCopy() {
+    StartAction startAction = (StartAction) new StartAction().type("start");
+    StartAction copy = startAction.copy();
+    assertEquals("start", copy.getType());
+  }
+
+  @Test
+  public void testExecute() {
     Action startAction = new StartAction();
     assertTrue(startAction.arePropertiesDeclared());
     Track track = spy(Track.class);
