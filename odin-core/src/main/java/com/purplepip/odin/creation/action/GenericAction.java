@@ -37,9 +37,9 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
     super(id);
   }
 
-  protected <T extends GenericAction> T copy(T copy, T original, Class<T> type) {
-    copy.setType(original.getType());
-    super.copy(copy, original);
+  protected <T extends GenericAction> T copy(T copy, Class<T> type) {
+    copy.setType(this.getType());
+    super.copy(copy, this);
     return copy;
   }
 

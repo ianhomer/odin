@@ -35,6 +35,6 @@ public class StartAction extends GenericAction implements SpecialisedAction {
    */
   @Override
   public StartAction copy() {
-    return copy(new StartAction(), this, StartAction.class);
+    return copy(new StartAction(), StartAction.class);
   }
 }
