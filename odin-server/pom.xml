@@ -18,6 +18,7 @@
     <spring.boot.version>1.5.8.RELEASE</spring.boot.version>
     <start-class>com.purplepip.odin.server.Application</start-class>
     <jvm.properties.debug/>
+    <purplepip.tests.log.jvm>--add-modules java.xml.bind -Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
   </properties>
 
   <dependencyManagement>
@@ -70,11 +71,13 @@
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
+    <!-- devtools disabled until Spring Boot 2.0.0 available with support for Java 9
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
     </dependency>
+      -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
@@ -187,7 +190,7 @@
         </executions>
         <configuration>
           <addResources>true</addResources>
-          <jvmArguments>-Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
+          <jvmArguments>--add-modules java.xml.bind -Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
           <mainClass>${start-class}</mainClass>
         </configuration>
       </plugin>
