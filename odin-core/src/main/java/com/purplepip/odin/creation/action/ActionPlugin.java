@@ -18,6 +18,8 @@ package com.purplepip.odin.creation.action;
 import com.purplepip.odin.creation.plugin.Plugin;
 
 public interface ActionPlugin extends MutableActionConfiguration, Action, Plugin {
+  // TODO : arePropertiesDeclared can be moved onto Plugin interface and Plugin interface
+  // can extend PropertiesProvider
   @Override
   default boolean arePropertiesDeclared() {
     return true;
