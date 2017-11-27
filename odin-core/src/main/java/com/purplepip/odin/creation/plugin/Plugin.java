@@ -15,9 +15,15 @@
 
 package com.purplepip.odin.creation.plugin;
 
+import com.purplepip.odin.properties.beany.PropertiesProvider;
+
 /**
  * Plugin for the composition.   A plugin provides composition logic over and above pure data
  * configuration.
  */
-public interface Plugin {
+public interface Plugin extends PropertiesProvider {
+  @Override
+  default boolean arePropertiesDeclared() {
+    return true;
+  }
 }

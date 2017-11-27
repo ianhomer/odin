@@ -18,8 +18,4 @@ package com.purplepip.odin.creation.triggers;
 import com.purplepip.odin.creation.plugin.Plugin;
 
 public interface TriggerPlugin extends MutableTriggerConfiguration, Trigger, Plugin {
-  @Override
-  default boolean arePropertiesDeclared() {
-    return true;
-  }
 }
