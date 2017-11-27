@@ -18,7 +18,7 @@ package com.purplepip.odin.music.sequence;
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.creation.sequence.GenericSequence;
-import com.purplepip.odin.creation.sequence.SpecialisedSequence;
+import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 @Name("metronome")
-public class Metronome extends GenericSequence implements SpecialisedSequence {
+public class Metronome extends GenericSequence implements SequencePlugin {
   private Note noteBarStart = Notes.newNote();
   private Note noteBarMid = Notes.newNote();
 

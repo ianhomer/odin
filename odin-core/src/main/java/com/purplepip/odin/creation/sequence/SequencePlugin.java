@@ -15,9 +15,10 @@
 
 package com.purplepip.odin.creation.sequence;
 
+import com.purplepip.odin.creation.plugin.Plugin;
 import com.purplepip.odin.music.notes.Note;
 
-public interface SpecialisedSequence extends MutableSequenceConfiguration, Sequence<Note> {
+public interface SequencePlugin extends MutableSequenceConfiguration, Sequence<Note>, Plugin {
   @Override
   default boolean arePropertiesDeclared() {
     return true;
