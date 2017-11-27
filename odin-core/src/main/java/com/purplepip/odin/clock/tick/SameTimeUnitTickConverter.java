@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.clock.tick;
 
+import com.purplepip.odin.clock.tick.direction.Direction;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.runtime.Property;
 

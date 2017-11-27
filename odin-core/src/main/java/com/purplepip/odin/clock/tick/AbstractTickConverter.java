@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.clock.tick;
 
+import com.purplepip.odin.clock.tick.direction.DefaultDirection;
+import com.purplepip.odin.clock.tick.direction.Direction;
+import com.purplepip.odin.clock.tick.direction.UnreadyDirection;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
@@ -61,8 +64,13 @@ public abstract class AbstractTickConverter implements TickConverter {
         LOG.debug("Refreshed {}", this);
       }
     }
-    forwards = new Direction(sourceTick.get(), targetTick.get());
-    backwards = new Direction(targetTick.get(), sourceTick.get());
+    if (sourceTick.get() == null || targetTick.get() == null) {
+      forwards = new UnreadyDirection(sourceTick.get(), targetTick.get());
+      backwards = new UnreadyDirection(targetTick.get(), sourceTick.get());
+    } else {
+      forwards = new DefaultDirection(sourceTick.get(), targetTick.get());
+      backwards = new DefaultDirection(targetTick.get(), sourceTick.get());
+    }
   }
 
   @Override
@@ -116,30 +124,5 @@ public abstract class AbstractTickConverter implements TickConverter {
   Real throwUnexpectedTimeUnit() {
     throw new OdinRuntimeException("Unexpected time unit " + getSourceTick().getTimeUnit() + ":"
         + getTargetTick().getTimeUnit());
-  }
-
-  final class Direction {
-    private final Tick sourceTick;
-    private final Tick targetTick;
-    private final Real scaleFactor;
-
-    private Direction(Tick sourceTick, Tick targetTick) {
-      this.sourceTick = sourceTick;
-      this.targetTick = targetTick;
-      scaleFactor = sourceTick.getFactor().divide(targetTick.getFactor());
-      LOG.trace("{} to {} factor is {}", sourceTick, targetTick, scaleFactor);
-    }
-
-    Tick getSourceTick() {
-      return sourceTick;
-    }
-
-    Tick getTargetTick() {
-      return targetTick;
-    }
-
-    Real scaleTime(Real time) {
-      return time.times(scaleFactor);
-    }
   }
 }

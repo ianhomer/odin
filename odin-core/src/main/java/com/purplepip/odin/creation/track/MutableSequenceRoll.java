@@ -79,6 +79,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private boolean flowDirty;
   private boolean enabled;
 
+  private TickConverter tickToMicrosecondConverter;
+
   /**
    * Create a base line mutable sequence roll onto which a sequence can be set and reset.
    *
@@ -93,6 +95,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     this.beatMeasureProvider = beatMeasureProvider;
     this.flowFactory = flowFactory;
     assert flowFactory != null;
+    tickToMicrosecondConverter = new DefaultTickConverter(beatClock, getTick(),
+        () -> Ticks.MICROSECOND, () -> 0L);
   }
 
   @Override
@@ -231,9 +235,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     /*
      * Calculate offset of this sequence in microseconds ...
      */
-    long microsecondOffset = new DefaultTickConverter(beatClock, getTick(),
-        () -> Ticks.MICROSECOND,
-        () -> 0L)
+    long microsecondOffset = tickToMicrosecondConverter
         .convert(Whole.valueOf(getSequence().getOffset())).floor();
     LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
         getSequence().getOffset());
