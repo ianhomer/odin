@@ -18,7 +18,7 @@
     <spring.boot.version>1.5.8.RELEASE</spring.boot.version>
     <start-class>com.purplepip.odin.server.Application</start-class>
     <jvm.properties.debug/>
-    <purplepip.tests.log.jvm>--add-modules java.xml.bind -Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
+    <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
   </properties>
 
   <dependencyManagement>
@@ -190,13 +190,22 @@
         </executions>
         <configuration>
           <addResources>true</addResources>
-          <jvmArguments>--add-modules java.xml.bind -Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
+          <jvmArguments>${purplepip.jvm.args} -Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
           <mainClass>${start-class}</mainClass>
         </configuration>
       </plugin>
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>jdk9</id>
+      <activation>
+        <jdk>9</jdk>
+      </activation>
+      <properties>
+        <purplepip.jvm.args>--add-modules java.xml.bind</purplepip.jvm.args>
+      </properties>
+    </profile>
     <profile>
       <id>no-frontend</id>
       <build>
