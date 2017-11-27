@@ -102,7 +102,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   @Override
   public void start() {
+    LOG.debug("{} : ... start : start", sequence.getName());
     setEnabled(true);
+    refresh();
     LOG.debug("current offset of sequence is {}", sequence.getOffset());
     // Start at least two beat from now, we might reduce this lag at some point ...
     // TODO : Start in future should be based on microseconds not ticks, since tests
@@ -118,6 +120,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
         sequence.getOffset());
     tickDirty = true;
     refresh();
+    LOG.debug("{} : ... start : done", sequence.getName());
   }
 
   @Override
@@ -202,6 +205,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
 
   private void afterSequenceChange() {
+    LOG.debug("{} : ... afterSequenceChange : start", sequence.getName());
+
     /*
      * Determine if the tick has changed.
      */
@@ -218,10 +223,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      * Force next event to be taken from sequence flow.
      */
     nextEvent = null;
-    LOG.trace("{} : afterSequenceChange executed", sequence.getName());
+    LOG.debug("{} : ... afterSequenceChange : done", sequence.getName());
   }
 
   private void afterTickChange() {
+    LOG.debug("{} : ... afterTickChange : start", sequence.getName());
     /*
      * Calculate offset of this sequence in microseconds ...
      */
@@ -269,12 +275,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
     clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
     tickDirty = false;
-    LOG.debug("afterTickChange executed");
     /*
      * After a tick change the flow is dirty.
      */
     flowDirty = true;
-
+    LOG.debug("{} : ... afterTickChange : done", sequence.getName());
   }
 
   @Override
@@ -293,6 +298,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   }
 
   private void refreshFlow() {
+    LOG.debug("{} : ... refreshFlow : start", sequence.getName());
     /*
      * Only update the flow if the flow name has changed.
      */
@@ -307,6 +313,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     } else {
       flowFactory.refreshSequence(getFlow(), sequence);
     }
+    LOG.debug("{} : ... refreshFlow : done", sequence.getName());
   }
 
   /**

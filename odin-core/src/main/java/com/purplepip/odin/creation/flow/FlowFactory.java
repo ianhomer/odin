@@ -20,12 +20,14 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Factory to create flows.
  *
  * @param <A> type of object delivered by the flow.
  */
+@Slf4j
 public class FlowFactory<A> {
   private SequenceFactory<A> sequenceFactory;
   private FlowConfiguration flowConfiguration;
@@ -45,6 +47,7 @@ public class FlowFactory<A> {
    */
   public MutableFlow<Sequence<A>, A> createFlow(
       SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
+    LOG.debug("Creating flow for sequence {}", sequence.getName());
     MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
     flow.setSequence(sequenceFactory.newInstance(sequence));
     flow.setConfiguration(flowConfiguration);
