@@ -47,7 +47,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.9</java.version>
+    <java.version>1.8</java.version>
     <antlr.version>4.7</antlr.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
     <jacoco.version>0.7.9</jacoco.version>

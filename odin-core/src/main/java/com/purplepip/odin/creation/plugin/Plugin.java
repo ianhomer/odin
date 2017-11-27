@@ -22,6 +22,11 @@ import com.purplepip.odin.properties.beany.PropertiesProvider;
  * configuration.
  */
 public interface Plugin extends PropertiesProvider {
+  /**
+   * Plugins MUST define properties as explicitly defined bean properties.
+   *
+   * @return true
+   */
   @Override
   default boolean arePropertiesDeclared() {
     return true;
