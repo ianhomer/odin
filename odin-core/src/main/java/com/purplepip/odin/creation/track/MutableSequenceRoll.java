@@ -64,7 +64,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   /*
    * Tick converted clock.
    */
-  private Clock clock;
+  private final Clock clock;
+
   private MeasureProvider beatMeasureProvider;
   private MeasureProvider measureProvider;
   private Event<A> nextEvent;
@@ -79,7 +80,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private boolean flowDirty;
   private boolean enabled;
 
-  private TickConverter tickToMicrosecondConverter;
+  private final TickConverter tickToMicrosecondConverter;
+  private final TickConverter tickToBeatConverter;
 
   /**
    * Create a base line mutable sequence roll onto which a sequence can be set and reset.
@@ -97,6 +99,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     assert flowFactory != null;
     tickToMicrosecondConverter = new DefaultTickConverter(beatClock, getTick(),
         () -> Ticks.MICROSECOND, () -> 0L);
+    clock = new TickConvertedClock(beatClock, getTick(), getOffsetProperty());
+    tickToBeatConverter = new DefaultTickConverter(beatClock, getTick(),
+        () -> Ticks.BEAT, () -> 0L);
   }
 
   @Override
@@ -239,6 +244,18 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
         .convert(Whole.valueOf(getSequence().getOffset())).floor();
     LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
         getSequence().getOffset());
+
+    /*
+     * Create the measure provider with a tick converter converting from beats.
+     */
+    long beatOffset = tickToBeatConverter
+        .convert(Whole.valueOf(getSequence().getOffset())).floor();
+    TickConverter beatToSequenceTickConverter =
+        new DefaultTickConverter(beatClock, () -> Ticks.BEAT, getTick(),
+            () -> - beatOffset);
+    measureProvider = new ConvertedMeasureProvider(beatMeasureProvider,
+        beatToSequenceTickConverter);
+
     /*
      * ... and use this to create a converter that will convert microseconds into tock count
      * for this sequence runtime.
@@ -246,18 +263,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     TickConverter microsecondToSequenceTickConverter =
         new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, getTick(),
             () -> - microsecondOffset);
-
-    /*
-     * Create the measure provider with a tick converter converting from beats.
-     */
-    long beatOffset = new DefaultTickConverter(beatClock, getTick(),
-        () -> Ticks.BEAT, () -> 0L).convert(Whole.valueOf(getSequence().getOffset())).floor();
-    TickConverter beatToSequenceTickConverter =
-        new DefaultTickConverter(beatClock, () -> Ticks.BEAT, getTick(),
-            () -> - beatOffset);
-    measureProvider = new ConvertedMeasureProvider(beatMeasureProvider,
-        beatToSequenceTickConverter);
-
     /*
      * Set the tock count, that this sequence runtime should start at, to the current tock
      * count according to the beatClock.  There is no point starting the tock any earlier since
@@ -275,7 +280,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
     setTock(lessThan(Whole.valueOf(tockCountStart)));
 
-    clock = new TickConvertedClock(beatClock, tick, getOffsetProperty());
     tickDirty = false;
     /*
      * After a tick change the flow is dirty.
