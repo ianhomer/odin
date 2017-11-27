@@ -54,9 +54,15 @@ public abstract class AbstractTickConverter implements TickConverter {
   }
 
   final void refresh() {
+    if (LOG.isDebugEnabled()) {
+      if (forwards == null) {
+        LOG.debug("Initial refresh {}", this);
+      } else {
+        LOG.debug("Refreshed {}", this);
+      }
+    }
     forwards = new Direction(sourceTick.get(), targetTick.get());
     backwards = new Direction(targetTick.get(), sourceTick.get());
-    LOG.debug("Refreshed {}", this);
   }
 
   @Override
