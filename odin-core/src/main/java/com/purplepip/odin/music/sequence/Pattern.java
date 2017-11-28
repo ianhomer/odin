@@ -57,7 +57,7 @@ public class Pattern extends SequencePlugin {
 
   @Override
   public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
-    Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
+    Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
     long countInMeasure = context.getMeasureProvider().getCount(nextTock).floor();
     if (bits == -1 || ((bits >> countInMeasure) & 1) == 1)  {
       return new DefaultEvent<>(note, nextTock);

@@ -45,7 +45,7 @@ public class Metronome extends SequencePlugin {
   @Override
   public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
     Note note;
-    Real nextTock = loop.getPosition().getLimit().plus(Wholes.ONE);
+    Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
     if (nextTock.modulo(Wholes.TWO).equals(Wholes.ZERO)) {
       if (context.getMeasureProvider().getCount(nextTock).floor() == 0) {
         note = noteBarStart;
@@ -53,7 +53,7 @@ public class Metronome extends SequencePlugin {
         note = noteBarMid;
       }
       LOG.trace("Creating metronome note {} at {}", note, loop);
-      return new DefaultEvent<>(note, loop.getAbsolutePosition(nextTock));
+      return new DefaultEvent<>(note, nextTock);
     }
     return null;
   }

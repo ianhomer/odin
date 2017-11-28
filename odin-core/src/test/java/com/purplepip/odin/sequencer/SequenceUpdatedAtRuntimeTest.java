@@ -38,7 +38,7 @@ public class SequenceUpdatedAtRuntimeTest {
           LOG.warn("Unexpected note operation : {}", noteVelocityOperation);
         }
       } else if (operation instanceof NoteOffOperation) {
-        LOG.debug("Ignored operation : {}", operation);
+        LOG.trace("Ignored operation : {}", operation);
       } else {
         LOG.warn("Unexpected operation : {}", operation);
       }
