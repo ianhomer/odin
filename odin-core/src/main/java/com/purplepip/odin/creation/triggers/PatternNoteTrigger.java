@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Name("patternNote")
-public class PatternNoteTrigger extends GenericTrigger implements TriggerPlugin {
+public class PatternNoteTrigger extends TriggerPlugin {
   private Note note = Notes.newNote();
   private String patternName;
   private Pattern pattern;

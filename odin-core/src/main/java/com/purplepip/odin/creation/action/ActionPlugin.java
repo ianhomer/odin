@@ -17,5 +17,6 @@ package com.purplepip.odin.creation.action;
 
 import com.purplepip.odin.creation.plugin.Plugin;
 
-public interface ActionPlugin extends MutableActionConfiguration, Action, Plugin {
+public abstract class ActionPlugin extends GenericAction
+    implements MutableActionConfiguration, Action, Plugin {
 }

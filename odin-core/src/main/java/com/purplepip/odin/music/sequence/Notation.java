@@ -17,7 +17,6 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
-import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
@@ -39,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Data
 @Name("notation")
-public class Notation extends GenericSequence implements SequencePlugin {
+public class Notation extends SequencePlugin {
   private String format;
   private String notation;
   private IndexedComposition indexedComposition;

@@ -18,5 +18,6 @@ package com.purplepip.odin.creation.sequence;
 import com.purplepip.odin.creation.plugin.Plugin;
 import com.purplepip.odin.music.notes.Note;
 
-public interface SequencePlugin extends MutableSequenceConfiguration, Sequence<Note>, Plugin {
+public abstract class SequencePlugin extends GenericSequence
+    implements MutableSequenceConfiguration, Sequence<Note>, Plugin {
 }

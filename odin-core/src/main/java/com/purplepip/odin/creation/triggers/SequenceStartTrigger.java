@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data()
 @Name("sequenceStart")
-public class SequenceStartTrigger extends GenericTrigger implements TriggerPlugin {
+public class SequenceStartTrigger extends TriggerPlugin {
   private String sequenceName;
 
   public SequenceStartTrigger sequenceName(String sequenceName) {
