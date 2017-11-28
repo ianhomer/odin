@@ -219,7 +219,7 @@ public class Real implements Bound {
    */
   public Rational floor(Rational radix) {
     long multiples = (long) (value / radix.getValue());
-    return radix.times(Rational.valueOf(multiples));
+    return radix.times(Whole.valueOf(multiples));
   }
 
   /**
