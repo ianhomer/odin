@@ -63,8 +63,13 @@ public class FlowFactory<A> {
    */
   public void refreshSequence(MutableFlow<Sequence<A>, A> flow, SequenceConfiguration sequence) {
     if (!sequence.equals(flow.getSequence())) {
-      LOG.debug("Recreating sequence {} in flow", sequence.getName());
-      flow.setSequence(sequenceFactory.newInstance(sequence));
+      if (sequence instanceof Sequence) {
+        LOG.debug("Resetting sequence {} in flow", sequence.getName());
+        flow.setSequence(sequenceFactory.cast(sequence));
+      } else {
+        LOG.debug("Recreating sequence {} in flow", sequence.getName());
+        flow.setSequence(sequenceFactory.newInstance(sequence));
+      }
     } else {
       LOG.debug("Sequence {} not changed in flow", sequence.getName());
     }

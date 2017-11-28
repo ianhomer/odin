@@ -118,7 +118,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   public void start() {
     LOG.debug("{} : ... start : start", sequence.getName());
     setEnabled(true);
-    refresh();
     LOG.debug("current offset of sequence is {}", sequence.getOffset());
     // Start at least two beat from now, we might reduce this lag at some point ...
     // TODO : Start in future should be based on microseconds not ticks, since tests

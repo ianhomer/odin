@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Notation extends SequencePlugin {
   private String format;
   private String notation;
-  private IndexedComposition indexedComposition;
+  private transient IndexedComposition indexedComposition;
 
   @Override
   public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
