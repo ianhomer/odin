@@ -81,6 +81,22 @@ public class Rational extends Real {
   }
 
   /**
+   * Create Whole number.  Please use the Whole.valueOf method.  This only exists
+   * to prevent auto use of the valueOf with a double argument when an long is passed in.
+   *
+   * @param integer integer to create the whole number from
+   * @return whole number
+   */
+  public static Whole valueOf(long integer) {
+    StackTraceElement stackTraceElement = new Exception().getStackTrace()[1];
+    LOG.warn("Please call 'Whole.valueOf({})' not 'Rational.valueOf({})' "
+            + "in {} @ line {} "
+            + "given you know at compile time you what a whole number", integer, integer,
+        stackTraceElement.getClassName(), stackTraceElement.getLineNumber());
+    return Whole.valueOf(integer);
+  }
+
+  /**
    * Create a simplified rational number from a given numerator and denominator.  Note a Whole
    * number is returned if the numerator is multiple of the denominator.
    *
