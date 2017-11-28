@@ -137,7 +137,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   public C cast(ThingConfiguration configuration) {
     return (C) configuration;
   }
-  
+
   protected void populate(C destination, ThingConfiguration source) {
     LOG.trace("Populating bean properties from source");
     BeanCopy.from(source).to(destination).copy();

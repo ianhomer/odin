@@ -123,13 +123,13 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     // TODO : Start in future should be based on microseconds not ticks, since tests
     // are run at very high tick rate, and this refresh needs to be in the next
     // processor execution cycle.
-    // TODO : We should reduce this start increment below 40 ms.  It is currently
+    // TODO : We should reduce this start increment below 20 ms.  It is currently
     // set high due to timing variability of run on build machine.  We should be able to
     // optimise system to make this more reliable.
     LOG.debug("Clock {}", clock);
     long newOffset = measureProvider
         .getNextMeasureStart(
-            clock.getPosition(clock.getMicroseconds() + 40_000)).ceiling();
+            clock.getPosition(clock.getMicroseconds() + 20_000)).ceiling();
 
     resetter.set("offset", newOffset);
     LOG.debug("{} {} : sequence offset set to {}", beatClock, sequence.getName(),
