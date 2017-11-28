@@ -160,8 +160,8 @@ public class BeatClock extends AbstractClock {
   }
 
   @Override public String toString() {
-    return getMicroseconds() + "μs (beat=" +
-        new DecimalFormat("#.0").format(getPosition().getValue()) + ")";
+    return getMicroseconds() + "μs (beat="
+        + new DecimalFormat("#.0").format(getPosition().getValue()) + ")";
   }
 
   public BeatsPerMinute getBeatsPerMinute() {

@@ -29,6 +29,7 @@ import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
@@ -78,7 +79,7 @@ public class MutableSequenceRollTest {
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
     assertEquals(60, nextEvent.getValue().getNumber());
-    assertEquals(Wholes.ZERO, nextEvent.getTime());
+    assertEquals(Whole.valueOf(8), nextEvent.getTime());
 
     /*
      * Test change offset
