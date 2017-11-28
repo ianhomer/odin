@@ -79,7 +79,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private boolean tickDirty;
   private boolean sequenceDirty;
   private boolean typeNameDirty;
-  private boolean flowDirty;
   private boolean enabled;
 
   private final TickConverter tickToMicrosecondConverter;
@@ -294,10 +293,6 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     setTock(lessThan(Whole.valueOf(tockCountStart)));
 
     tickDirty = false;
-    /*
-     * After a tick change the flow is dirty.
-     */
-    flowDirty = true;
     LOG.debug("{} : ... afterTickChange : done", sequence.getName());
   }
 
@@ -321,11 +316,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     /*
      * Only update the flow if the flow name has changed.
      */
-    if (getFlow() == null || flowDirty || typeNameDirty) {
+    if (getFlow() == null || typeNameDirty) {
       if (clock != null) {
         setFlow(flowFactory.createFlow(sequence, clock, measureProvider));
         typeNameDirty = false;
-        flowDirty = false;
       } else {
         LOG.trace("Waiting until clock is set to create flow");
       }
