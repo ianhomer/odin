@@ -106,7 +106,9 @@ public class OdinSequencer implements PerformanceApplyListener {
         configuration.getMetrics(), configuration.getOperationProcessorRefreshPeriod());
     sequenceProcessor = new TrackProcessor(
         clock, immutableTracks, operationProcessor, statistics,
-        configuration.getMetrics(), configuration.getTrackProcessorRefreshPeriod());
+        configuration.getMetrics(),
+        configuration.getTrackProcessorRefreshPeriod(),
+        configuration.getTrackProcessorMaxNotesPerBuffer());
   }
 
   public OdinSequencerStatistics getStatistics() {

@@ -58,6 +58,7 @@ public class TrackProcessorExecutor implements Runnable {
                          Things<Track> tracks,
                          OperationProcessor operationProcessor,
                          long refreshPeriod,
+                         int maxNotesPerBuffer,
                          MutableSequenceProcessorStatistics statistics,
                          MetricRegistry metrics) {
     this.clock = clock;
@@ -68,6 +69,7 @@ public class TrackProcessorExecutor implements Runnable {
      * We need to scan forward more that the interval between executions of this processor.
      */
     timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
+    this.maxNotesPerBuffer = maxNotesPerBuffer;
     this.statistics = statistics;
     jobMetric = metrics.timer("sequence.job");
     tracksProcessedMetric = metrics.meter("sequence.tracks");

@@ -48,6 +48,7 @@ public class DefaultOdinSequencerConfiguration
   private long clockStartRoundingFactor;
   private long clockStartOffset;
   private long trackProcessorRefreshPeriod;
+  private int trackProcessorMaxNotesPerBuffer;
   private long operationProcessorRefreshPeriod;
   private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
   private MetricRegistry metrics;
@@ -67,6 +68,7 @@ public class DefaultOdinSequencerConfiguration
     setOperationTransmitter(new DefaultOperationTransmitter());
     setOperationProcessorRefreshPeriod(50);
     setTrackProcessorRefreshPeriod(200);
+    setTrackProcessorMaxNotesPerBuffer(1000);
   }
 
   public final DefaultOdinSequencerConfiguration
@@ -196,6 +198,17 @@ public class DefaultOdinSequencerConfiguration
   public DefaultOdinSequencerConfiguration setTrackProcessorRefreshPeriod(
       long trackProcessorRefreshPeriod) {
     this.trackProcessorRefreshPeriod = trackProcessorRefreshPeriod;
+    return this;
+  }
+
+  @Override
+  public int getTrackProcessorMaxNotesPerBuffer() {
+    return trackProcessorMaxNotesPerBuffer;
+  }
+
+  public DefaultOdinSequencerConfiguration setTrackProcessorMaxNotesPerBuffer(
+      int trackProcessorMaxNotesPerBuffer) {
+    this.trackProcessorMaxNotesPerBuffer = trackProcessorMaxNotesPerBuffer;
     return this;
   }
 

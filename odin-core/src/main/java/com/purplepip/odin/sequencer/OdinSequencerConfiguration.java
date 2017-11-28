@@ -79,9 +79,17 @@ public interface OdinSequencerConfiguration {
   long getTrackProcessorRefreshPeriod();
 
   /**
+   * Track processor max notes per buffer.
+   *
+   * @return track processor max notes per buffer
+   */
+  int getTrackProcessorMaxNotesPerBuffer();
+
+  /**
    * Operation processor refresh period in milliseconds
    *
    * @return operation processor refresh period in milliseconds.
    */
   long getOperationProcessorRefreshPeriod();
+
 }

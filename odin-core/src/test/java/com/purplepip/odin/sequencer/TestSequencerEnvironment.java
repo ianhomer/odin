@@ -54,6 +54,7 @@ public class TestSequencerEnvironment {
         .setClockStartOffset(20000)
         .setClockStartRoundingFactor(1000)
         .setTrackProcessorRefreshPeriod(10)
+        .setTrackProcessorMaxNotesPerBuffer(2000)
         .setOperationProcessorRefreshPeriod(10)
         .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
         .setOperationReceiver(operationReceiver);
