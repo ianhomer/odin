@@ -40,7 +40,8 @@ public class TrackProcessorExecutor implements Runnable {
   private final BeatClock clock;
   private final OperationProcessor operationProcessor;
   private long timeBufferInMicroSeconds;
-  private int maxNotesPerBuffer = 1000;
+  private int maxNotesPerBuffer;
+  private int maxNotesPerBufferEarlyWarning;
   private MutableSequenceProcessorStatistics statistics;
   private MetricRegistry metrics;
   private Timer jobMetric;
@@ -70,6 +71,7 @@ public class TrackProcessorExecutor implements Runnable {
      */
     timeBufferInMicroSeconds = 2 * refreshPeriod * 1000;
     this.maxNotesPerBuffer = maxNotesPerBuffer;
+    maxNotesPerBufferEarlyWarning = maxNotesPerBuffer - 20;
     this.statistics = statistics;
     jobMetric = metrics.timer("sequence.job");
     tracksProcessedMetric = metrics.meter("sequence.tracks");
@@ -154,10 +156,12 @@ public class TrackProcessorExecutor implements Runnable {
     while (nextEvent != null
         && nextEvent.getTime().lt(Whole.valueOf(maxMicrosecondPosition))) {
       if (noteCount > maxNotesPerBuffer) {
-        LOG.warn("Too many notes in this buffer {} > {} ", noteCount,
-            maxNotesPerBuffer);
+        LOG.warn("Too many notes in this buffer {} > {} before {}", noteCount,
+            maxNotesPerBuffer, maxMicrosecondPosition);
         bufferMaxedMetric.mark();
         return noteCount;
+      } else if (noteCount > maxNotesPerBufferEarlyWarning) {
+        LOG.warn("Approaching max notes in buffer with : {} from {}", nextEvent, track.getName());
       }
       /*
        * Pop event to get it off the buffer.

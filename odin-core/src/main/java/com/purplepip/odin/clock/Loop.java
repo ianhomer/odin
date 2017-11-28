@@ -97,6 +97,10 @@ public class Loop {
     }
   }
 
+  public Real getAbsolutePosition(Real position) {
+    return position.plus(getStart());
+  }
+
   public Rational getLength() {
     return length;
   }

@@ -53,7 +53,7 @@ public class Metronome extends SequencePlugin {
         note = noteBarMid;
       }
       LOG.trace("Creating metronome note {} at {}", note, loop);
-      return new DefaultEvent<>(note, nextTock);
+      return new DefaultEvent<>(note, loop.getAbsolutePosition(nextTock));
     }
     return null;
   }

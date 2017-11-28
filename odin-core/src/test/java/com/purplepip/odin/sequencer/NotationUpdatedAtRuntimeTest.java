@@ -45,6 +45,7 @@ public class NotationUpdatedAtRuntimeTest {
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
     new PerformanceBuilder(environment.getContainer())
         .addLayer("groove").withLayers("groove")
+        .withName("notation-updated")
         .addNotation(Ticks.BEAT, "C");
     environment.start();
     OdinSequencerStatistics statistics = environment.getSequencer().getStatistics();

@@ -51,7 +51,7 @@ public class Notation extends SequencePlugin {
       /*
        * Use the absolute tock position for the returned event.
        */
-      Real eventTime = event.getTime().plus(loop.getStart());
+      Real eventTime = loop.getAbsolutePosition(event.getTime());
       LOG.trace("Returning event at tock {}", eventTime);
       return new DefaultEvent<>(event.getValue(), eventTime);
     }
