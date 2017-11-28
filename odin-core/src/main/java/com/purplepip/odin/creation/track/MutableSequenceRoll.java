@@ -109,7 +109,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   @Override
   public Property<Long> getOffsetProperty() {
-    return () -> getSequence().getOffset();
+    return offset;
   }
 
   @Override
@@ -131,8 +131,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
             clock.getPosition(clock.getMicroseconds() + 40_000)).ceiling();
 
     resetter.set("offset", newOffset);
-    LOG.debug("{} {} : sequence offset set to {} at", beatClock, sequence.getName(),
+    LOG.debug("{} {} : sequence offset set to {}", beatClock, sequence.getName(),
         sequence.getOffset());
+    offset.set(newOffset);
     tickDirty = true;
     refresh();
     LOG.debug("{} : ... start : done", sequence.getName());

@@ -83,12 +83,12 @@ public class MutableSequenceRollTest {
     /*
      * Test change offset
      */
-    //notation.setOffset(20);
-    //roll.setSequence(notation.copy());
-    //assertEquals(Long.valueOf(20), roll.getOffsetProperty().get());
-    //nextEvent = roll.pop();
-    //LOG.debug("Next Event : {}", nextEvent);
-    //assertEquals(60, nextEvent.getValue().getNumber());
-    //assertEquals(Wholes.ZERO, nextEvent.getTime());
+    notation.setOffset(20);
+    roll.setSequence(notation.copy());
+    assertEquals(Long.valueOf(20), roll.getOffsetProperty().get());
+    nextEvent = roll.pop();
+    LOG.debug("Next Event : {}", nextEvent);
+    assertEquals(60, nextEvent.getValue().getNumber());
+    assertEquals(Wholes.ZERO, nextEvent.getTime());
   }
 }

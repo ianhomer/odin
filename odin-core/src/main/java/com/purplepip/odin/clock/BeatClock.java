@@ -21,6 +21,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
+import java.text.DecimalFormat;
 import java.util.Set;
 import java.util.TreeSet;
 import lombok.extern.slf4j.Slf4j;
@@ -159,7 +160,8 @@ public class BeatClock extends AbstractClock {
   }
 
   @Override public String toString() {
-    return getMicroseconds() + "μs (beat=" + getPosition().getValue() + ")";
+    return getMicroseconds() + "μs (beat=" +
+        new DecimalFormat("#.0").format(getPosition().getValue()) + ")";
   }
 
   public BeatsPerMinute getBeatsPerMinute() {
