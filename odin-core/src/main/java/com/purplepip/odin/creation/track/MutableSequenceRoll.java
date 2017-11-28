@@ -57,7 +57,10 @@ import org.slf4j.LoggerFactory;
     "flowFactory", "measureProvider", "flow", "tick"})
 public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
+
   private final MutableProperty<Tick> tick = new ObservableProperty<>();
+  private final MutableProperty<Long> offset = new ObservableProperty<>(0L);
+
   private MutableFlow<Sequence<A>, A> flow;
   private BeatClock beatClock;
 
@@ -165,6 +168,13 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       enabled = sequence.isEnabled();
     }
 
+    if (this.sequence == null || this.sequence.getOffset() != sequence.getOffset()) {
+      offset.set(sequence.getOffset());
+    }
+
+    // TODO : We currently do setSequence(sequence.copy()) in  SequenceRollTrack when
+    // sequence is set.  Perhaps we should use sequence.copy() in this method instead
+    // to ensure use is predictable.
     this.sequence = sequence;
     if (sequence instanceof MutablePropertiesProvider) {
       resetter.reset((MutablePropertiesProvider) sequence);

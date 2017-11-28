@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.action;
 
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
+import com.purplepip.odin.specificity.NameValue;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
@@ -26,9 +27,12 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GenericAction extends AbstractPropertiesThing implements MutableActionConfiguration {
-  private String type;
+  private String type = new NameValue(this).get();
   private Map<String, String> properties = new HashMap<>();
 
+  /**
+   * Create a new generic action.
+   */
   public GenericAction() {
     super();
   }

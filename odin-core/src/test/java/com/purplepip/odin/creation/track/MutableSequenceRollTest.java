@@ -25,9 +25,11 @@ import static org.junit.Assert.assertNull;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
 import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +53,7 @@ public class MutableSequenceRollTest {
         .channel(2).layer("groove")
         .enabled(false)
         .name("success");
-    roll.setSequence(notation);
+    roll.setSequence(notation.copy());
     Event<Note> nextEvent = roll.pop();
     assertNull("Next event of disabled sequence should be null", nextEvent);
     microsecondPositionProvider.setMicroseconds(4000000);
@@ -61,8 +63,32 @@ public class MutableSequenceRollTest {
     roll.start();
     assertEquals(8, roll.getSequence().getOffset());
     nextEvent = roll.pop();
-    LOG.info("Next Event : {}", nextEvent);
+    LOG.debug("Next Event : {}", nextEvent);
     assertNotNull("Next event after roll started should not be null", nextEvent);
     assertEquals(60,nextEvent.getValue().getNumber());
+    assertEquals(Wholes.ZERO, nextEvent.getTime());
+
+
+    /*
+     * Test tick change
+     */
+    notation.setTick(Ticks.HALF);
+    roll.setSequence(notation.copy());
+    assertEquals(Ticks.HALF, roll.getTick().get());
+    nextEvent = roll.pop();
+    LOG.debug("Next Event : {}", nextEvent);
+    assertEquals(60, nextEvent.getValue().getNumber());
+    assertEquals(Wholes.ZERO, nextEvent.getTime());
+
+    /*
+     * Test change offset
+     */
+    //notation.setOffset(20);
+    //roll.setSequence(notation.copy());
+    //assertEquals(Long.valueOf(20), roll.getOffsetProperty().get());
+    //nextEvent = roll.pop();
+    //LOG.debug("Next Event : {}", nextEvent);
+    //assertEquals(60, nextEvent.getValue().getNumber());
+    //assertEquals(Wholes.ZERO, nextEvent.getTime());
   }
 }

@@ -18,6 +18,7 @@ package com.purplepip.odin.creation.sequence;
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.specificity.NameValue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +37,13 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 public class GenericSequence extends AbstractTimeThing implements MutableSequenceConfiguration {
   private int channel;
-  private String type;
+  private String type = new NameValue(this).get();
   private List<String> layers = new ArrayList<>();
   private Map<String, ActionType> triggers = new HashMap<>();
 
+  /**
+   * Create new generic sequence.
+   */
   public GenericSequence() {
     super();
   }

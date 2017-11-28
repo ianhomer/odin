@@ -13,24 +13,22 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.sequence;
+package com.purplepip.odin.specificity;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import java.util.Optional;
 
-import org.junit.Test;
+/**
+ * Convenience accessor for Name annotation.
+ */
+public class NameValue {
+  private String value;
 
-public class GenericSequenceTest {
-  @Test
-  public void testArePropertiesDeclared() {
-    SequenceConfiguration sequence = new GenericSequence();
-    assertFalse("Generic sequence should not have properties declared",
-        sequence.arePropertiesDeclared());
+  public NameValue(ThingConfiguration thingConfiguration) {
+    value = Optional.ofNullable(thingConfiguration.getClass().getAnnotation(Name.class))
+        .map(Name::value).orElse(null);
   }
 
-  @Test
-  public void testDefaultType() {
-    SequenceConfiguration sequence = new GenericSequence();
-    assertNull(sequence.getType());
+  public String get() {
+    return value;
   }
 }

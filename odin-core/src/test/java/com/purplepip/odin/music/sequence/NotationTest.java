@@ -28,6 +28,12 @@ public class NotationTest {
   }
 
   @Test
+  public void testType() {
+    Notation notation = new Notation();
+    assertEquals("notation", notation.getType());
+  }
+
+  @Test
   public void testCopyNotation() {
     Notation notation = (Notation) new Notation()
         .format("test-format").notation("ABC")
