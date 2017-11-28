@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
  * Abstract sequence roll.
  */
 @ListenerPriority()
-@ToString(exclude = { "clock", "beatMeasureProvider", "nextEvent", "sealedTock", "resetter",
+@ToString(exclude = { "clock", "nextEvent", "sealedTock", "resetter",
     "flowFactory", "measureProvider", "flow", "tick"})
 public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
@@ -126,6 +126,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     // TODO : We should reduce this start increment below 20 ms.  It is currently
     // set high due to timing variability of run on build machine.  We should be able to
     // optimise system to make this more reliable.
+    // TODO : Perhaps we send fire events straight to the processors to reduce further
+    // need for lag.
     LOG.debug("Clock {}", clock);
     long newOffset = measureProvider
         .getNextMeasureStart(

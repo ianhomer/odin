@@ -17,11 +17,9 @@ package com.purplepip.odin.properties.runtime;
 
 import java.util.HashSet;
 import java.util.Set;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ToString(exclude = "observers")
 public class ObservableProperty<T> extends DefaultMutableProperty<T> implements Observable {
   private Set<Observer> observers = new HashSet<>();
 
@@ -55,4 +53,7 @@ public class ObservableProperty<T> extends DefaultMutableProperty<T> implements 
     observers.forEach(Observer::onChange);
   }
 
+  public String toString() {
+    return "*(" + get() + ")";
+  }
 }
