@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
+import com.purplepip.odin.bag.Thing;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ import lombok.ToString;
 @Entity(name = "Thing")
 @EqualsAndHashCode(of = "id")
 @ToString()
-public class PersistableThing {
+public class PersistableThing implements Thing {
   @Version
   private Long version;
 
@@ -51,5 +52,10 @@ public class PersistableThing {
     return "PersistableThing(version=" + this.getVersion()
         + ", id=" + this.getId()
         + ", name=" + this.getName() + ")";
+  }
+
+  @Override
+  public void initialise() {
+    // No operation
   }
 }
