@@ -19,6 +19,7 @@ import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.action.DisableAction;
 import com.purplepip.odin.creation.action.EnableAction;
+import com.purplepip.odin.creation.action.IncrementAction;
 import com.purplepip.odin.creation.action.ResetAction;
 import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.action.StartAction;
@@ -35,6 +36,7 @@ public final class ActionFactories {
     List<Class<? extends Action>> classes = new ArrayList<>();
     classes.add(DisableAction.class);
     classes.add(EnableAction.class);
+    classes.add(IncrementAction.class);
     classes.add(ResetAction.class);
     classes.add(SetAction.class);
     classes.add(StartAction.class);

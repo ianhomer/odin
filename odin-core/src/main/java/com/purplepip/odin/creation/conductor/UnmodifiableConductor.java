@@ -18,7 +18,9 @@ package com.purplepip.odin.creation.conductor;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import java.util.stream.Stream;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UnmodifiableConductor implements Conductor {
   private Conductor underlyingConductor;
 
@@ -34,6 +36,11 @@ public class UnmodifiableConductor implements Conductor {
   @Override
   public String getName() {
     return underlyingConductor.getName();
+  }
+
+  @Override
+  public void initialise() {
+    LOG.warn("Initialise on {} ignored", this);
   }
 
   @Override

@@ -57,6 +57,11 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
   }
 
   @Override
+  public void initialise() {
+    LOG.warn("Initialise on {} ignored", this);
+  }
+
+  @Override
   public void setConfiguration(TriggerConfiguration triggerConfiguration) {
     this.triggerConfiguration = triggerConfiguration;
     trigger = triggerFactory.newInstance(triggerConfiguration);

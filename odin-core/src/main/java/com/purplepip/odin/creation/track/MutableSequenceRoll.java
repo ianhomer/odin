@@ -181,6 +181,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   @Override
   public String getProperty(String name) {
+    // TODO : Handle special properties more generically
+    if (name.equals("channel")) {
+      return String.valueOf(sequence.getChannel());
+    }
     return sequence.getProperty(name);
   }
 

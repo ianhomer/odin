@@ -72,6 +72,11 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   }
 
   @Override
+  public void initialise() {
+    LOG.warn("Initialise on {} ignored", this);
+  }
+
+  @Override
   public Layer getConfiguration() {
     return layer;
   }

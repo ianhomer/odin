@@ -43,5 +43,5 @@ public interface Thing {
    * and the system should be able to restore a valid state.  Note that initialise does not
    * always need to restore the same state since their might be random elements or external inputs.
    */
-  default void initialise() { }
+  void initialise();
 }
