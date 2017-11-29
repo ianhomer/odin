@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.track;
 
 import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
@@ -78,6 +79,17 @@ public class UnmodifiableTrack implements Track {
   @Override
   public void setEnabled(boolean enabled) {
     underlyingTrack.setEnabled(enabled);
+  }
+
+  @Override
+  public void setProperty(String name, String value) {
+    throw new OdinRuntimeException(getName() + " is unmodifiable track, can not set "
+        + name + " to " + value);
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return underlyingTrack.getProperty(name);
   }
 
   @Override

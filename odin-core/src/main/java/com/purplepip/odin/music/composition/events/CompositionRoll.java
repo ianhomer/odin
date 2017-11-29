@@ -16,6 +16,7 @@
 package com.purplepip.odin.music.composition.events;
 
 import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SequentialEventComparator;
@@ -78,6 +79,16 @@ public class CompositionRoll implements Roll<Note> {
   @Override
   public void reset() {
     position = 0;
+  }
+
+  @Override
+  public void setProperty(String name, String value) {
+    throw new OdinRuntimeException("Cannot set property on " + getClass().getName());
+  }
+
+  @Override
+  public String getProperty(String name) {
+    throw new OdinRuntimeException("Cannot get property on " + getClass().getName());
   }
 
   @Override

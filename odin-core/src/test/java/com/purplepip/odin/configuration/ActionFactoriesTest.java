@@ -30,8 +30,7 @@ public class ActionFactoriesTest {
   @Test
   public void testCreateFromSpecialised() {
     ActionFactory factory = newActionFactory();
-    // TODO : Setting type should not be needed.
-    ActionConfiguration configuration = new StartAction().type("start");
+    ActionConfiguration configuration = new StartAction();
     Action action = factory.newInstance(configuration);
     assertEquals("start", action.getType());
     assertTrue(action instanceof StartAction);

@@ -2,6 +2,7 @@ package com.purplepip.odin.series;
 
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Bound;
@@ -61,5 +62,15 @@ public class HeartBeat implements Roll<Boolean> {
   @Override
   public void reset() {
     LOG.warn("Redundant operation for reset on {}", this);
+  }
+
+  @Override
+  public void setProperty(String name, String value) {
+    throw new OdinRuntimeException("Cannot set property on " + getClass().getName());
+  }
+
+  @Override
+  public String getProperty(String name) {
+    throw new OdinRuntimeException("Cannot get property on " + getClass().getName());
   }
 }

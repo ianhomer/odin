@@ -166,6 +166,16 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
   }
 
   @Override
+  public void setProperty(String name, String value) {
+    getSequenceRoll().setProperty(name, value);
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return getSequenceRoll().getProperty(name);
+  }
+
+  @Override
   public void start() {
     getSequenceRoll().start();
   }

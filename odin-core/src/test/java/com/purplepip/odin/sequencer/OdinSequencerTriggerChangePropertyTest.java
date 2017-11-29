@@ -17,9 +17,10 @@ package com.purplepip.odin.sequencer;
 
 import static com.purplepip.odin.creation.layer.Layers.newLayer;
 import static com.purplepip.odin.music.notes.Notes.newNote;
+import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.action.ResetAction;
+import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
@@ -33,7 +34,8 @@ import org.junit.Test;
 public class OdinSequencerTriggerChangePropertyTest {
   @Test
   public void testSequencer() throws OdinException, InterruptedException {
-    final CountDownLatch noteLatch = new CountDownLatch(16);
+    final CountDownLatch note60Latch = new CountDownLatch(16);
+    final CountDownLatch note61Latch = new CountDownLatch(16);
 
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
@@ -42,7 +44,13 @@ public class OdinSequencerTriggerChangePropertyTest {
         if (noteOnOperation.getChannel() == 1) {
           // Input channel
         } else if (noteOnOperation.getChannel() == 2) {
-          noteLatch.countDown();
+          if (noteOnOperation.getNumber() == 60) {
+            note60Latch.countDown();
+          } else if (noteOnOperation.getNumber() == 61) {
+            note61Latch.countDown();
+          } else {
+            LOG.warn("Unexpected note number for note on operation : {}", noteOnOperation);
+          }
         } else {
           LOG.warn("Unexpected note on operation : {}", noteOnOperation);
         }
@@ -60,20 +68,23 @@ public class OdinSequencerTriggerChangePropertyTest {
             .bits(1).note(newNote(60))
             .length(-1)
             .channel(2).layer("groove")
-            .trigger("success-start-trigger", new ResetAction())
+            .trigger("note-trigger",
+                new SetAction().nameValuePairs("note.number=61"))
             .name("note"))
         .addTrigger(new NoteTrigger().note(70).name("note-trigger"));
-
-    // TODO : Change the note value when note 70 pressed
 
     environment.start();
 
     try {
-      noteLatch.await(1000, TimeUnit.MILLISECONDS);
+      note60Latch.await(1000, TimeUnit.MILLISECONDS);
+      assertEquals("Note 60 should have been fired",0, note60Latch.getCount());
 
       environment.getConfiguration().getOperationTransmitter().send(
           new NoteOnOperation(1, 70, 5), -1
       );
+
+      note61Latch.await(1000, TimeUnit.MILLISECONDS);
+      assertEquals("Note 61 should have been fired",0, note61Latch.getCount());
 
     } finally {
       environment.stop();

@@ -79,6 +79,10 @@ public interface Track extends Aspect {
    */
   void setEnabled(boolean enabled);
 
+  void setProperty(String name, String value);
+
+  String getProperty(String name);
+
   /**
    * Start the track.
    */

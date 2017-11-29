@@ -104,6 +104,16 @@ public class TickConvertedRoll implements Roll<Note> {
     LOG.warn("Redundant operation for reset on {}", this);
   }
 
+  @Override
+  public void setProperty(String name, String value) {
+    roll.setProperty(name, value);
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return roll.getProperty(name);
+  }
+
   private Event<Note> convertTimeUnits(Event<Note> event) {
     if (event == null) {
       LOG.trace("No event on roll {} to convert", roll.getName());

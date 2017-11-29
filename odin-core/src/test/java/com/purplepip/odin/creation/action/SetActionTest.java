@@ -15,10 +15,22 @@
 
 package com.purplepip.odin.creation.action;
 
-import com.purplepip.odin.creation.plugin.Plugin;
-import lombok.EqualsAndHashCode;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-@EqualsAndHashCode(callSuper = true)
-public abstract class ActionPlugin extends GenericAction
-    implements MutableActionConfiguration, Action, Plugin {
+import com.purplepip.odin.creation.track.Track;
+import org.junit.Test;
+
+public class SetActionTest {
+  @Test
+  public void testSetAction() {
+    SetAction action = new SetAction().nameValuePairs("a=1;b=2");
+    action.afterPropertiesSet();
+    Track track = spy(Track.class);
+    action.execute(new ActionContext(track));
+    verify(track, times(1)).setProperty("a", "1");
+    verify(track, times(1)).setProperty("b", "2");
+    verify(track, times(0)).setProperty("not-set", "3");
+  }
 }

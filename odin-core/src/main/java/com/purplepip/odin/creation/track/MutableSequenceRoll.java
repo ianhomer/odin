@@ -152,6 +152,16 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     flow.reset();
   }
 
+  @Override
+  public void setProperty(String name, String value) {
+    resetter.set(name, value);
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return sequence.getProperty(name);
+  }
+
   /**
    * Set configuration for this sequence runtime.
    *

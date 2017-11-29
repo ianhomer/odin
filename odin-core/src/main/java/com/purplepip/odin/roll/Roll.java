@@ -58,4 +58,8 @@ public interface Roll<A> {
   void stop();
 
   void reset();
+
+  void setProperty(String name, String value);
+
+  String getProperty(String name);
 }
