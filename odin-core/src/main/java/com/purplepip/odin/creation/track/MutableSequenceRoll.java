@@ -114,7 +114,14 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
         new DefaultTickConverter(beatClock, () -> Ticks.BEAT, getTick(), beatOffset);
     measureProvider = new ConvertedMeasureProvider(beatMeasureProvider,
         beatToSequenceTickConverter);
-    setSequence(sequenceConfiguration);
+
+    typeNameDirty = true;
+    this.sequence = sequenceConfiguration;
+    enabled = sequence.isEnabled();
+    offset.set(sequence.getOffset());
+    resetter.reset((MutablePropertiesProvider) sequence);
+    sequenceDirty = true;
+    refresh();
   }
 
   @Override
@@ -183,8 +190,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
    */
   @Override
   public void setSequence(SequenceConfiguration sequence) {
-    if (this.sequence == null
-        || !this.sequence.getType().equals(sequence.getType())) {
+    if (this.sequence.getType().equals(sequence.getType())) {
       typeNameDirty = true;
     }
 
@@ -195,11 +201,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      * sequence has not change then we leave the active flag as it is - this is the case where
      * a trigger might have changed and we don't want to loose the effect of this trigger.
      */
-    if (this.sequence == null || this.sequence.isEnabled() != sequence.isEnabled()) {
+    if (this.sequence.isEnabled() != sequence.isEnabled()) {
       enabled = sequence.isEnabled();
     }
 
-    if (this.sequence == null || this.sequence.getOffset() != sequence.getOffset()) {
+    if (this.sequence.getOffset() != sequence.getOffset()) {
       offset.set(sequence.getOffset());
     }
 
@@ -211,7 +217,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     if (sequence instanceof MutablePropertiesProvider) {
       resetter.reset((MutablePropertiesProvider) sequence);
     } else {
-      resetter.reset(null);
+      LOG.warn("Sequence {} is not a MutablePropertiesProvider", sequence);
     }
     sequenceDirty = true;
     refresh();
