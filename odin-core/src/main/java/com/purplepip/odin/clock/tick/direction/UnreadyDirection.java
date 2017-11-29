@@ -24,6 +24,10 @@ import com.purplepip.odin.math.Real;
  * based on source and target tick changes.  If at any time one of the ticks is not set then
  * the direction is not ready to be used and is waiting for an update.
  */
+/*
+ * // TODO : Work to remove the need for this now that sequence is available in Mutable Roll
+ * at start up
+ */
 public class UnreadyDirection extends AbstractDirection {
   /**
    * Create a new direction that is not ready for use.
@@ -33,6 +37,7 @@ public class UnreadyDirection extends AbstractDirection {
    */
   public UnreadyDirection(Tick sourceTick, Tick targetTick) {
     super(sourceTick, targetTick);
+
     if (sourceTick != null && targetTick != null) {
       throw new OdinRuntimeException("UnreadyDirection should only be created if either"
           + " source tick or target tick is null");
@@ -46,5 +51,21 @@ public class UnreadyDirection extends AbstractDirection {
     } else {
       throw new OdinRuntimeException("Direction is not ready, target tick is null");
     }
+  }
+
+  @Override
+  public Tick getSourceTick() {
+    if (super.getSourceTick() == null) {
+      throw new OdinRuntimeException("Direction does not have source tick set yet");
+    }
+    return super.getSourceTick();
+  }
+
+  @Override
+  public Tick getTargetTick() {
+    if (super.getTargetTick() == null) {
+      throw new OdinRuntimeException("Direction does not have target tick set yet");
+    }
+    return super.getTargetTick();
   }
 }
