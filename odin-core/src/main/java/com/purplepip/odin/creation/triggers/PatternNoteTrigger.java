@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PatternNoteTrigger extends TriggerPlugin {
   private Note note = Notes.newNote();
   private String patternName;
-  private Pattern pattern;
+  private transient Pattern pattern;
 
   public PatternNoteTrigger patternName(String patternName) {
     this.patternName = patternName;

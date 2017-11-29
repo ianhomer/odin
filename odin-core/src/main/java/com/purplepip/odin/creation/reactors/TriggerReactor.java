@@ -114,6 +114,7 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
   }
 
   public void inject(SequenceConfiguration sequence) {
+    LOG.debug("Injecting sequence {} into trigger {}", sequence.getName(), trigger.getName());
     trigger.inject(sequence);
   }
 }

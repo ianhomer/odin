@@ -205,6 +205,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     // sequence is set.  Perhaps we should use sequence.copy() in this method instead
     // to ensure use is predictable.
     this.sequence = sequence;
+
     if (sequence instanceof MutablePropertiesProvider) {
       resetter.reset((MutablePropertiesProvider) sequence);
     } else {

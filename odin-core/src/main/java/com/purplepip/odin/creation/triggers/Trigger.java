@@ -16,7 +16,6 @@
 package com.purplepip.odin.creation.triggers;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.creation.plugin.Plugin;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.operation.Operation;
 import java.util.stream.Stream;
@@ -34,7 +33,7 @@ public interface Trigger extends TriggerConfiguration {
    * @param sequence sequence configuration to inject
    */
   default void inject(SequenceConfiguration sequence) {
-    throw new OdinRuntimeException("Sequences should not be injected into "
+    throw new OdinRuntimeException("Sequence can not be injected into "
         + this.getClass().getName());
   }
 
