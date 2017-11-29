@@ -35,6 +35,7 @@ public class SetAction extends ActionPlugin {
   /**
    * Properties as a string, e.g. a=1;b=2
    */
+  // TODO : We'll support expressions here one day, e.g. a=${a+1};b=2
   private String nameValuePairs;
   private transient Map<String, String> values;
 

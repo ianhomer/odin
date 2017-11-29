@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Name("reset")
 @ToString(callSuper = true)
+// TODO : Rename to initialise to align with method name
 public class ResetAction extends ActionPlugin {
   @Override
   public void execute(ActionContext context) {
