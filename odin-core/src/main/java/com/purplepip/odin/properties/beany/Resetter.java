@@ -44,8 +44,8 @@ public class Resetter extends Setter {
 
   @Override
   public Setter set(String name, Object value) {
-    if (!hasProvider()) {
-      LOG.warn("Resetter does not have a provider, ignoring setting {} to {}", name, value);
+    if (!hasDestination()) {
+      LOG.warn("Resetter does not have a destination, ignoring setting {} to {}", name, value);
       return this;
     }
     super.set(name, value);

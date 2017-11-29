@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Setter {
-  private MutablePropertiesProvider provider;
+  private MutablePropertiesProvider destination;
   private Mode mode = Mode.BEST;
 
   Setter() {
@@ -36,29 +36,29 @@ public class Setter {
   /**
    * Create new setter for a properties provider.
    *
-   * @param provider sequence to set properties on
+   * @param destination sequence to set properties on
    */
-  public Setter(MutablePropertiesProvider provider) {
-    this.provider = provider;
+  public Setter(MutablePropertiesProvider destination) {
+    this.destination = destination;
   }
 
   /**
    * Create new setter for a properties provider.
    *
-   * @param provider sequence to set properties on
+   * @param destination sequence to set properties on
    * @param mode setting mode
    */
-  public Setter(MutablePropertiesProvider provider, Mode mode) {
-    this.provider = provider;
+  public Setter(MutablePropertiesProvider destination, Mode mode) {
+    this.destination = destination;
     this.mode = mode;
   }
 
-  protected void setProvider(MutablePropertiesProvider provider) {
-    this.provider = provider;
+  protected void setProvider(MutablePropertiesProvider destination) {
+    this.destination = destination;
   }
 
-  protected boolean hasProvider() {
-    return provider != null;
+  protected boolean hasDestination() {
+    return destination != null;
   }
 
   /**
@@ -94,7 +94,7 @@ public class Setter {
   }
 
   private void setBest(String name, Object value) {
-    if (BeanUtil.declared.hasProperty(provider, name)) {
+    if (BeanUtil.declared.hasProperty(destination, name)) {
       setDeclared(name, value);
     } else {
       setProperty(name, value);
@@ -103,22 +103,22 @@ public class Setter {
 
   private void setDeclared(String name, Object value) {
     try {
-      BeanUtil.declared.setProperty(provider, name, value);
+      BeanUtil.declared.setProperty(destination, name, value);
     } catch (BeanException e) {
       LOG.debug("Ignoring non-valid property (full stack)", e);
       LOG.warn("Ignoring non-valid property {} = {} for {}",
-          name, value, provider);
+          name, value, destination);
     }
   }
 
   private void setProperty(String name, Object value) {
     if (value instanceof Note) {
       Note note = (Note) value;
-      provider.setProperty(name + ".number", note.getNumber());
-      provider.setProperty(name + ".velocity", note.getVelocity());
-      provider.setProperty(name + ".duration", note.getDuration());
+      destination.setProperty(name + ".number", note.getNumber());
+      destination.setProperty(name + ".velocity", note.getVelocity());
+      destination.setProperty(name + ".duration", note.getDuration());
     } else {
-      provider.setProperty(name, value.toString());
+      destination.setProperty(name, value.toString());
     }
   }
 
@@ -133,8 +133,8 @@ public class Setter {
    * @param properties to apply.
    */
   public void applyProperties(Map<String, String> properties) {
-    properties.forEach(provider::setProperty);
-    if (provider.arePropertiesDeclared()) {
+    properties.forEach(destination::setProperty);
+    if (destination.arePropertiesDeclared()) {
       properties.keySet().forEach(name -> set(name, properties.get(name)));
     }
   }
