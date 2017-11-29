@@ -20,15 +20,12 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.typeconverters.RationalTypeConverter;
 import com.purplepip.odin.math.typeconverters.RealTypeConverter;
-import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import com.purplepip.odin.properties.thing.ThingCopy;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-import jodd.bean.BeanCopy;
-import jodd.bean.BeanException;
-import jodd.bean.BeanUtil;
 import jodd.typeconverter.TypeConverterManager;
 import lombok.extern.slf4j.Slf4j;
 
@@ -139,20 +136,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   }
 
   protected void populate(C destination, ThingConfiguration source) {
-    LOG.trace("Populating bean properties from source");
-    BeanCopy.from(source).to(destination).copy();
-    LOG.trace("Populating properties map from source");
-    if (destination instanceof MutablePropertiesProvider) {
-      source.getPropertyNames().forEach(name -> {
-        ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name));
-        try {
-          BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
-        } catch (BeanException e) {
-          LOG.debug("Whilst populating thing {} (full stack)", e);
-          LOG.warn("Whilst populating thing {}", e.getMessage());
-        }
-      });
-    }
+    new ThingCopy().from(source).to(destination).copy();
   }
 
   public Class<? extends C> getClass(String name) {

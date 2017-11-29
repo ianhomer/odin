@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
  * Sequence configuration.   This class contains pure data that can be readily persisted.
  * @see Sequence for interface which can include sequence logic.
  */
-public interface SequenceConfiguration extends ThingConfiguration, TimeThing  {
+public interface SequenceConfiguration extends ThingConfiguration, TimeThing {
 
   /**
    * Create a copy of this sequence.
