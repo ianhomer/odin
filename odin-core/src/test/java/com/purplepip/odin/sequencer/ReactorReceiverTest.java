@@ -64,15 +64,15 @@ public class ReactorReceiverTest {
     LayerConductors conductors = new LayerConductors();
     conductors.refresh(
         project.getLayers().stream(),
-        () -> new LayerConductor(clock));
+        layer -> new LayerConductor(layer, clock));
     SequenceTracks tracks = new SequenceTracks(conductors);
     tracks.refresh(
         project.getSequences().stream(),
-        () -> new SequenceRollTrack(clock, measureProvider, flowFactory));
+        sequence -> new SequenceRollTrack(sequence, clock, measureProvider, flowFactory));
     TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(
         project.getTriggers().stream(),
-        () -> new TriggerReactor(triggerFactory));
+        trigger -> new TriggerReactor(trigger, triggerFactory));
     MetricRegistry metricRegistry = new MetricRegistry();
     ReactorReceiver receiver = new ReactorReceiver(reactors, metricRegistry,
         new LoggingOperationReceiver());

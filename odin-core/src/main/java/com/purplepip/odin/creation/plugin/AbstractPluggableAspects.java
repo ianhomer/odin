@@ -19,7 +19,7 @@ import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Thing;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
+import java.util.function.Function;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,10 +30,10 @@ public abstract class AbstractPluggableAspects<A extends PluggableAspect<C>,
    * Refresh the bag of aspects.
    *
    * @param configurationStream configuration stream to use to do the refresh
-   * @param aspectSupplier supplier of new aspects
+   * @param aspectCreator creator of new aspects
    */
   public final void refresh(Stream<C> configurationStream,
-                      Supplier<A> aspectSupplier) {
+                      Function<C, A> aspectCreator) {
 
     Set<Long> ids = getIds();
     configurationStream.forEach(configuration -> {
@@ -57,8 +57,7 @@ public abstract class AbstractPluggableAspects<A extends PluggableAspect<C>,
         }
       } else {
         LOG.debug("Creating new aspect for {}", configuration);
-        aspect = aspectSupplier.get();
-        aspect.setConfiguration(configuration);
+        aspect = aspectCreator.apply(configuration);
         add(aspect);
       }
     });

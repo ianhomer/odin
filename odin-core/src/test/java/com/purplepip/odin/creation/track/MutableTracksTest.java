@@ -82,9 +82,9 @@ public class MutableTracksTest {
   private void refresh() {
     conductors.refresh(
         container.getLayerStream(),
-        () -> new LayerConductor(clock));
+        layer -> new LayerConductor(layer, clock));
     tracks.refresh(
         container.getSequenceStream(),
-        () -> new SequenceRollTrack(clock, measureProvider, flowFactory));
+        sequence -> new SequenceRollTrack(sequence, clock, measureProvider, flowFactory));
   }
 }

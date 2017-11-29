@@ -30,10 +30,10 @@ public class UnmodifiableConductorTest {
   @Test
   public void testGetActive() throws Exception {
     MutableThings<Conductor> mutableConductors = new MutableThings<>();
-    LayerConductor newConductor = new LayerConductor(new BeatClock(new StaticBeatsPerMinute(60)));
-    DefaultLayer layer = new DefaultLayer().name("test");
+    DefaultLayer layer = new DefaultLayer().name("test").tick(Ticks.BEAT);
     layer.setTick(Ticks.BEAT);
-    newConductor.setConfiguration(layer);
+    LayerConductor newConductor = new LayerConductor(layer,
+        new BeatClock(new StaticBeatsPerMinute(60)));
     mutableConductors.add(newConductor);
     Things<Conductor> conductors = new UnmodifiableConductors(mutableConductors);
     Conductor conductor = conductors.stream().findFirst().orElse(null);

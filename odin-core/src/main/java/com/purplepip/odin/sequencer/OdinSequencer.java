@@ -130,14 +130,14 @@ public class OdinSequencer implements PerformanceApplyListener {
     refreshChannels(project);
     conductors.refresh(
         project.getLayers().stream(),
-        () -> new LayerConductor(clock));
+        layer -> new LayerConductor(layer, clock));
     tracks.refresh(
         project.getSequences().stream(),
-        () -> new SequenceRollTrack(clock, configuration.getMeasureProvider(),
+        sequence -> new SequenceRollTrack(sequence, clock, configuration.getMeasureProvider(),
             configuration.getFlowFactory()));
     reactors.refresh(
         project.getTriggers().stream(),
-        () -> new TriggerReactor(configuration.getTriggerFactory()));
+        trigger -> new TriggerReactor(trigger, configuration.getTriggerFactory()));
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 

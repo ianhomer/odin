@@ -55,11 +55,12 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
    * @param measureProvider measure provider
    * @param flowFactory flow factory
    */
-  public SequenceRollTrack(BeatClock clock,
+  public SequenceRollTrack(SequenceConfiguration sequenceConfiguration, BeatClock clock,
                     MeasureProvider measureProvider,
                     FlowFactory<Note> flowFactory) {
     this(clock,
         new MutableSequenceRoll<>(clock, flowFactory, measureProvider));
+    setConfiguration(sequenceConfiguration);
   }
 
   /**

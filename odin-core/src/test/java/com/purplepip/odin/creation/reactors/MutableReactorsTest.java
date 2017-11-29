@@ -41,7 +41,7 @@ public class MutableReactorsTest {
         new LayerConductors());
     reactors.refresh(
         project.getTriggers().stream(),
-        () -> new TriggerReactor(triggerFactory));
+        trigger -> new TriggerReactor(trigger, triggerFactory));
 
     assertEquals(1, reactors.getStatistics().getAddedCount());
   }
@@ -55,7 +55,7 @@ public class MutableReactorsTest {
     SequenceTracks tracks = new SequenceTracks(conductors);
     TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(project.getTriggers().stream(),
-        () -> new TriggerReactor(triggerFactory));
+        trigger -> new TriggerReactor(trigger, triggerFactory));
     // TODO : Complete test.
   }
 }

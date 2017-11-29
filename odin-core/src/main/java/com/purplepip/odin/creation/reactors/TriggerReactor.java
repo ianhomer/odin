@@ -40,8 +40,9 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
   private Map<Track, Action> trackActions = new HashMap<>();
   private TriggerFactory triggerFactory;
 
-  public TriggerReactor(TriggerFactory triggerFactory) {
+  public TriggerReactor(TriggerConfiguration triggerConfiguration, TriggerFactory triggerFactory) {
     this.triggerFactory = triggerFactory;
+    setConfiguration(triggerConfiguration);
   }
 
   @Override

@@ -55,8 +55,9 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   private Real loopLength = Wholes.ZERO;
   private Map<String, Window> windows = new HashMap<>();
 
-  public LayerConductor(BeatClock clock) {
+  public LayerConductor(Layer layer, BeatClock clock) {
     this.clock = clock;
+    setConfiguration(layer);
   }
 
   @Override
