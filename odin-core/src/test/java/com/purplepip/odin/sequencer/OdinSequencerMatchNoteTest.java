@@ -196,6 +196,7 @@ public class OdinSequencerMatchNoteTest {
           new NoteOnOperation(1, number3, 5), -1
       );
       successEventsLatch7.await(1000, TimeUnit.MILLISECONDS);
+      assertEquals("Success notes on channel 7 not correct", SUCCESS_NOTES, successNotes7);
 
     } finally {
       environment.stop();
