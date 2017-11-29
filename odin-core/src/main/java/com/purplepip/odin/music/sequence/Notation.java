@@ -42,6 +42,7 @@ public class Notation extends SequencePlugin {
   private String format;
   private String notation;
   private transient IndexedComposition indexedComposition;
+  private transient String indexedCompositionNotation;
 
   @Override
   public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
@@ -64,8 +65,14 @@ public class Notation extends SequencePlugin {
   @Override
   public void initialise() {
     LOG.debug("Initialising notation for {}", this);
-    EventsComposition composition = new NaturalScoreCompositionFactory().create(notation);
-    indexedComposition = new IndexedComposition(composition);
+    /*
+     * Only reinitialise indexed composition if notation has changed
+     */
+    if (notation != null && !notation.equals(indexedCompositionNotation)) {
+      indexedCompositionNotation = notation;
+      EventsComposition composition = new NaturalScoreCompositionFactory().create(notation);
+      indexedComposition = new IndexedComposition(composition);
+    }
     super.initialise();
   }
 

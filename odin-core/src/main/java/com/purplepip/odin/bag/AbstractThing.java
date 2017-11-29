@@ -19,7 +19,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @EqualsAndHashCode(of = "id")
 @ToString
 @Data
@@ -32,6 +34,7 @@ public abstract class AbstractThing implements MutableThing {
   private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
   protected long id = LAST_PATTERN_ID.incrementAndGet();
   private String name;
+  private transient int initialisationCount = 0;
 
   /**
    * ID auto generated.
@@ -71,5 +74,11 @@ public abstract class AbstractThing implements MutableThing {
   public AbstractThing name(String name) {
     this.name = name;
     return this;
+  }
+
+  @Override
+  public void initialise() {
+    initialisationCount++;
+    LOG.debug("{} : initialising : count = {}", getName(), initialisationCount);
   }
 }
