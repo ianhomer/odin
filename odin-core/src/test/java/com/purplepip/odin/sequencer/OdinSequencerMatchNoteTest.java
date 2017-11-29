@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ActionOperation;
+import com.purplepip.odin.creation.action.IncrementAction;
 import com.purplepip.odin.creation.action.ResetAction;
 import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.action.StartAction;
@@ -113,10 +114,10 @@ public class OdinSequencerMatchNoteTest {
             .sequenceName("success").name("success-start-trigger-3"))
         .addSequence(new Notation()
             .notation("C D E F")
-            //.trigger("random-note-trigger",
-            //    new IncrementAction().propertyName("channel").increment(1))
-            .trigger("random-note-trigger", new StartAction())
-            .channel(6).layer("groove")
+            .trigger("random-note-trigger",
+                new IncrementAction().propertyName("channel").increment(1))
+            .trigger("random-note-trigger-2", new StartAction())
+            .channel(5).layer("groove")
             .length(4)
             .enabled(false)
             .name("success"));
@@ -194,7 +195,7 @@ public class OdinSequencerMatchNoteTest {
       environment.getConfiguration().getOperationTransmitter().send(
           new NoteOnOperation(1, number3, 5), -1
       );
-      //successEventsLatch7.await(1000, TimeUnit.MILLISECONDS);
+      successEventsLatch7.await(1000, TimeUnit.MILLISECONDS);
 
     } finally {
       environment.stop();

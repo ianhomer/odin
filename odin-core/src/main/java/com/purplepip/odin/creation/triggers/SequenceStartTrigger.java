@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.triggers;
 
 import com.purplepip.odin.creation.action.ActionOperation;
+import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
@@ -51,6 +52,7 @@ public class SequenceStartTrigger extends TriggerPlugin {
   @Override
   public boolean isTriggeredBy(Operation operation) {
     return (operation instanceof ActionOperation)
+        && ((ActionOperation) operation).getAction() instanceof StartAction
         && ((ActionOperation) operation).getTrackName().equals(sequenceName);
   }
 }
