@@ -59,8 +59,8 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
                     MeasureProvider measureProvider,
                     FlowFactory<Note> flowFactory) {
     this(clock,
-        new MutableSequenceRoll<>(clock, flowFactory, measureProvider));
-    setConfiguration(sequenceConfiguration);
+        new MutableSequenceRoll<>(sequenceConfiguration.copy(),
+            clock, flowFactory, measureProvider));
   }
 
   /**
@@ -73,7 +73,7 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
     this.sequenceRoll = sequenceRoll;
     this.tickConverter = new DefaultTickConverter(clock,
         this.sequenceRoll.getTick(), () -> Ticks.MICROSECOND,
-        sequenceRoll.getOffsetProperty(), false
+        sequenceRoll.getOffsetProperty(), true
     );
     roll = new TickConvertedRoll(sequenceRoll, tickConverter);
   }

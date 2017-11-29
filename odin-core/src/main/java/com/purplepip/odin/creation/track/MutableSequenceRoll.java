@@ -98,7 +98,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
    * @param flowFactory flow factory
    * @param beatMeasureProvider beat measure provider
    */
-  public MutableSequenceRoll(BeatClock beatClock, FlowFactory<A> flowFactory,
+  public MutableSequenceRoll(SequenceConfiguration sequenceConfiguration,
+                             BeatClock beatClock, FlowFactory<A> flowFactory,
                              MeasureProvider beatMeasureProvider) {
     this.beatClock = beatClock;
     beatClock.addListener(this);
@@ -113,6 +114,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
         new DefaultTickConverter(beatClock, () -> Ticks.BEAT, getTick(), beatOffset);
     measureProvider = new ConvertedMeasureProvider(beatMeasureProvider,
         beatToSequenceTickConverter);
+    setSequence(sequenceConfiguration);
   }
 
   @Override

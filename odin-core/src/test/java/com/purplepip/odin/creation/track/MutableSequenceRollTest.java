@@ -48,13 +48,13 @@ public class MutableSequenceRollTest {
   public void testStart() {
     microsecondPositionProvider.setMicroseconds(0);
     clock.start();
-    MutableSequenceRoll<Note> roll = new MutableSequenceRoll<>(clock, flowFactory, measureProvider);
     GenericSequence notation = new Notation()
         .notation("C D E")
         .channel(2).layer("groove")
         .enabled(false)
         .name("success");
-    roll.setSequence(notation.copy());
+    MutableSequenceRoll<Note> roll = new MutableSequenceRoll<>(notation.copy(), clock,
+        flowFactory, measureProvider);
     Event<Note> nextEvent = roll.pop();
     assertNull("Next event of disabled sequence should be null", nextEvent);
     microsecondPositionProvider.setMicroseconds(4000000);
