@@ -98,15 +98,12 @@ public class NoteMatchExperiment {
           .withChannel(9).changeProgramTo("TR-909")
           .withChannel(1).changeProgramTo("piano");
 
-      Random random = (Random) new Random()
+      container.addSequence(new Random()
           .lower(65).upper(70)
           .bits(1).note(newNote())
           .trigger("success-start-trigger", new ResetAction())
           .channel(1).layer("groove")
-          .tick(Ticks.FOUR_BEAT).name("random");
-      random.initialise();
-
-      container.addSequence(random)
+          .tick(Ticks.FOUR_BEAT).name("random"))
           .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
           .addTrigger(new SequenceStartTrigger()
               .sequenceName("success").name("success-start-trigger"))

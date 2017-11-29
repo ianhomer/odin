@@ -261,6 +261,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   private void afterSequenceChange() {
     LOG.debug("{} : ... afterSequenceChange : start", sequence.getName());
+    sequence.initialise();
 
     /*
      * Determine if the tick has changed.
