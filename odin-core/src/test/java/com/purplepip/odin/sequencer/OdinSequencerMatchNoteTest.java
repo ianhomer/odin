@@ -5,8 +5,10 @@ import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ActionOperation;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.ResetAction;
+import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
 import com.purplepip.odin.music.operations.NoteOffOperation;
@@ -58,21 +60,13 @@ public class OdinSequencerMatchNoteTest {
       } else if (operation instanceof NoteOffOperation) {
         LOG.trace("Ignoring note off operation : {}", operation);
       } else if (operation instanceof ActionOperation) {
-        switch (((ActionOperation) operation).getAction()) {
-          case ENABLE:
-            break;
-          case DISABLE:
-            break;
-          case RESET:
-            resetTrackLatch.countDown();
-            break;
-          case START:
-            startTrackLatch.countDown();
-            break;
-          case STOP:
-            break;
-          default:
-            LOG.warn("Unexpected action operation : {}", operation);
+        Action action = ((ActionOperation) operation).getAction();
+        if ("reset".equals(action.getType())) {
+          resetTrackLatch.countDown();
+        } else if ("start".equals(action.getType())) {
+          startTrackLatch.countDown();
+        } else {
+          LOG.warn("Unexpected action operation : {}", operation);
         }
       } else {
         LOG.warn("Unexpected operation : {}", operation);
@@ -85,7 +79,7 @@ public class OdinSequencerMatchNoteTest {
         .addSequence(new Random()
             .lower(60).upper(72)
             .bits(1).note(newNote())
-            .trigger("success-start-trigger", ActionType.RESET)
+            .trigger("success-start-trigger", new ResetAction())
             .length(4)
             .channel(2).layer("groove")
             .name("random"))
@@ -96,7 +90,7 @@ public class OdinSequencerMatchNoteTest {
             .sequenceName("random").name("random-start-trigger"))
         .addSequence(new Notation()
             .notation("C D E F")
-            .trigger("random-note-trigger", ActionType.START)
+            .trigger("random-note-trigger", new StartAction())
             .channel(6).layer("groove")
             .length(4)
             .enabled(false)

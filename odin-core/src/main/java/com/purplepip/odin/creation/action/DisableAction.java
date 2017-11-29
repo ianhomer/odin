@@ -15,34 +15,29 @@
 
 package com.purplepip.odin.creation.action;
 
-/**
- * Actions that can effect change on a sequence.  For example these might happen when a trigger
- * fires.
+import com.purplepip.odin.specificity.Name;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
+/*
+ * Disable the object attached to this trigger.
  */
-public enum ActionType {
-  /**
-   * Enable the object attached to this trigger.
-   */
-  ENABLE,
-
-  /*
-   * Disable the object attached to this trigger.
-   */
-  DISABLE,
+@Slf4j
+@Name("disable")
+@ToString(callSuper = true)
+public class DisableAction extends ActionPlugin {
+  @Override
+  public void execute(ActionContext context) {
+    context.getTrack().setEnabled(false);
+  }
 
   /**
-   * Reset the sequence.
+   * Create a copy of this action.
+   *
+   * @return copy
    */
-  RESET,
-
-  /**
-   * Start the object attached to this trigger.  Start is similar to enable, however will also set
-   * the offset of the sequence to the next beat.
-   */
-  START,
-
-  /**
-   * Stop the object attached to this trigger.  Stop is currently implemented the same as disable.
-   */
-  STOP
+  @Override
+  public DisableAction copy() {
+    return copy(new DisableAction(), DisableAction.class);
+  }
 }

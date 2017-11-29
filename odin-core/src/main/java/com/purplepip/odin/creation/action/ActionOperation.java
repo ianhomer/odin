@@ -25,7 +25,7 @@ import lombok.ToString;
 @ToString
 public class ActionOperation extends AbstractOperation {
   private String trackName;
-  private ActionType action;
+  private Action action;
 
   /**
    * Create an action operation.
@@ -34,13 +34,13 @@ public class ActionOperation extends AbstractOperation {
    * @param trackName track name action is applied to
    * @param cause operation that caused this action
    */
-  public ActionOperation(ActionType action, String trackName, Operation cause) {
+  public ActionOperation(Action action, String trackName, Operation cause) {
     setCause(cause);
     this.trackName = trackName;
     this.action = action;
   }
 
-  public ActionType getAction() {
+  public Action getAction() {
     return action;
   }
 

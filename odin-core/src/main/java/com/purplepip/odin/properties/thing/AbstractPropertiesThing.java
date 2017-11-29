@@ -56,6 +56,11 @@ public abstract class AbstractPropertiesThing extends AbstractThing
     properties.put(propertyName, value);
   }
 
+  public AbstractPropertiesThing property(String propertyName, String value) {
+    setProperty(propertyName, value);
+    return this;
+  }
+
   protected AbstractPropertiesThing copy(AbstractPropertiesThing copy) {
     Properties.copyProperties(this, copy);
     super.copy(copy);

@@ -20,16 +20,15 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Start the object attached to this trigger.  Start is similar to enable, however will also set
- * the offset of the sequence to the next beat.
+ * Enable the object attached to this trigger.
  */
 @Slf4j
-@Name("start")
+@Name("enable")
 @ToString(callSuper = true)
-public class StartAction extends ActionPlugin {
+public class EnableAction extends ActionPlugin {
   @Override
   public void execute(ActionContext context) {
-    context.getTrack().start();
+    context.getTrack().setEnabled(true);
   }
 
   /**
@@ -38,7 +37,7 @@ public class StartAction extends ActionPlugin {
    * @return copy
    */
   @Override
-  public StartAction copy() {
-    return copy(new StartAction(), StartAction.class);
+  public EnableAction copy() {
+    return copy(new EnableAction(), EnableAction.class);
   }
 }

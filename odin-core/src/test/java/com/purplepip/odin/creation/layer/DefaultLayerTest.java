@@ -13,31 +13,16 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.action;
+package com.purplepip.odin.creation.layer;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
-import com.purplepip.odin.creation.track.Track;
 import org.junit.Test;
 
-public class StartActionTest {
+public class DefaultLayerTest {
   @Test
   public void testCopy() {
-    StartAction startAction = new StartAction();
-    StartAction copy = startAction.copy();
-    assertEquals("start", copy.getType());
-  }
-
-  @Test
-  public void testExecute() {
-    Action startAction = new StartAction();
-    assertTrue(startAction.arePropertiesDeclared());
-    Track track = spy(Track.class);
-    startAction.execute(new ActionContext(track));
-    verify(track, times(1)).start();
+    DefaultLayer layer = new DefaultLayer().name("test");
+    assertEquals("test", layer.getName());
   }
 }

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
@@ -162,9 +162,9 @@ public class PerformanceBuilderTest {
     /*
      * Add pattern using this trigger.
      */
-    builder.withTrigger("trigger1", ActionType.ENABLE)
+    builder.withTrigger("trigger1", new EnableAction())
         .withEnabled(false).addPattern(BEAT, 1);
     Pattern pattern = (Pattern) builder.getSequenceByOrder(0);
-    assertEquals(ActionType.ENABLE, pattern.getTriggers().get("trigger1"));
+    assertEquals("enable", pattern.getTriggers().get("trigger1").getType());
   }
 }

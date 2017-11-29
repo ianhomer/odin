@@ -16,7 +16,7 @@
 package com.purplepip.odin.creation.track;
 
 import com.purplepip.odin.clock.tick.Tick;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
 import java.util.Map;
@@ -66,7 +66,7 @@ public class UnmodifiableTrack implements Track {
   }
 
   @Override
-  public Map<String, ActionType> getTriggers() {
+  public Map<String, Action> getTriggers() {
     return underlyingTrack.getTriggers();
   }
 

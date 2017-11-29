@@ -101,7 +101,7 @@ public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
       performanceContainer.save();
       LOG.info("Default sequences loaded");
       performanceContainer.apply();
-      LOG.info("Default rerformance populated");
+      LOG.info("Default performance populated");
       performanceContainer.load();
     } else {
       LOG.warn("Default performance has already been loaded");

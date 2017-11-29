@@ -56,4 +56,9 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
     super.setName(name);
     return this;
   }
+
+  public GenericAction property(String propertyName, String value) {
+    super.property(propertyName, value);
+    return this;
+  }
 }

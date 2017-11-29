@@ -15,19 +15,23 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.performance.Performance;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
@@ -62,8 +66,10 @@ public class PersistableSequence
   @ElementCollection
   private List<String> layers = new ArrayList<>(0);
 
-  @ElementCollection
-  private Map<String, ActionType> triggers = new HashMap<>(0);
+  @OneToMany(targetEntity = PersistableAction.class, cascade = CascadeType.ALL,
+      fetch = FetchType.EAGER, mappedBy = "sequence", orphanRemoval = true)
+  @MapKey(name = "id")
+  private Map<String, Action> triggers = new HashMap<>(0);
 
   @Override
   public void addLayer(String layer) {
@@ -78,7 +84,7 @@ public class PersistableSequence
   }
 
   @Override
-  public void addTrigger(String trigger, ActionType action) {
+  public void addTrigger(String trigger, Action action) {
     LOG.debug("Adding trigger {} to {}", trigger, this);
     triggers.put(trigger, action);
   }

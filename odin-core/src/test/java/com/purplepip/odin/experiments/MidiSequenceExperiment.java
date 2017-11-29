@@ -5,7 +5,7 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
@@ -90,7 +90,7 @@ public class MidiSequenceExperiment {
           .withLength(-1).withOffset(0)
           .addMetronome()
           .withChannel(1).changeProgramTo("rock")
-          .withTrigger("note-60-trigger", ActionType.ENABLE)
+          .withTrigger("note-60-trigger", new EnableAction())
           .withEnabled(false).withVelocity(50).withNote(62).addPattern(Ticks.BEAT, 7)
           .withDefaults()
           .withLayers("start")

@@ -27,7 +27,8 @@ import static org.junit.Assert.assertTrue;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.DisableAction;
+import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.LayerConductors;
 import com.purplepip.odin.creation.flow.FlowFactory;
@@ -57,8 +58,8 @@ public class ReactorReceiverTest {
         .withName("trigger2").withNote(61).addNoteTrigger()
         .addLayer("layer1")
         .withName("track1").withLayers("layer1").withEnabled(false)
-        .withTrigger("trigger1", ActionType.ENABLE)
-        .withTrigger("trigger2", ActionType.DISABLE)
+        .withTrigger("trigger1", new EnableAction())
+        .withTrigger("trigger2", new DisableAction())
         .addPattern(BEAT, 7);
     LayerConductors conductors = new LayerConductors();
     conductors.refresh(

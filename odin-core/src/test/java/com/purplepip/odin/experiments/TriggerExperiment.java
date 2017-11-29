@@ -22,7 +22,8 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.ResetAction;
+import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
@@ -100,7 +101,7 @@ public class TriggerExperiment {
       container.addSequence(new Random()
           .lower(60).upper(60)
           .bits(1).note(newNote())
-          .trigger("success-start-trigger", ActionType.RESET)
+          .trigger("success-start-trigger", new ResetAction())
           .channel(1).layer("groove")
           .tick(Ticks.FOUR_BEAT).name("random"))
           .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
@@ -109,7 +110,7 @@ public class TriggerExperiment {
           .addSequence(new Notation()
             .notation("C D E F")
             .trigger(
-                "random-note-trigger", ActionType.START)
+                "random-note-trigger", new StartAction())
             .channel(2).layer("groove")
             .enabled(false).length(3)
             .name("success"));

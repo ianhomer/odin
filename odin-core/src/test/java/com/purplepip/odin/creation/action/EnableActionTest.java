@@ -15,30 +15,15 @@
 
 package com.purplepip.odin.creation.action;
 
-import com.purplepip.odin.specificity.Name;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Start the object attached to this trigger.  Start is similar to enable, however will also set
- * the offset of the sequence to the next beat.
- */
-@Slf4j
-@Name("start")
-@ToString(callSuper = true)
-public class StartAction extends ActionPlugin {
-  @Override
-  public void execute(ActionContext context) {
-    context.getTrack().start();
-  }
+import org.junit.Test;
 
-  /**
-   * Create a copy of this action.
-   *
-   * @return copy
-   */
-  @Override
-  public StartAction copy() {
-    return copy(new StartAction(), StartAction.class);
+public class EnableActionTest {
+  @Test
+  public void testCopy() {
+    EnableAction action = new EnableAction();
+    EnableAction copy = action.copy();
+    assertEquals("enable", copy.getType());
   }
 }

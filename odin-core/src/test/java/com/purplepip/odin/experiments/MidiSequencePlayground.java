@@ -8,7 +8,7 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
@@ -92,7 +92,7 @@ public class MidiSequencePlayground {
           .withChannel(1).changeProgramTo("piano")
           .withLayers("groove")
           .withEnabled(false)
-          .withTrigger("trigger", ActionType.ENABLE)
+          .withTrigger("trigger", new EnableAction())
           .withName("success").addNotation(Ticks.BEAT, "B4/8, C, D, E");
 
       container.addTrigger(

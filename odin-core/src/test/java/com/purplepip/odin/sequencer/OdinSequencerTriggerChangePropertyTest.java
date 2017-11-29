@@ -19,7 +19,7 @@ import static com.purplepip.odin.creation.layer.Layers.newLayer;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.ResetAction;
 import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
@@ -60,7 +60,7 @@ public class OdinSequencerTriggerChangePropertyTest {
             .bits(1).note(newNote(60))
             .length(-1)
             .channel(2).layer("groove")
-            .trigger("success-start-trigger", ActionType.RESET)
+            .trigger("success-start-trigger", new ResetAction())
             .name("note"))
         .addTrigger(new NoteTrigger().note(70).name("note-trigger"));
 

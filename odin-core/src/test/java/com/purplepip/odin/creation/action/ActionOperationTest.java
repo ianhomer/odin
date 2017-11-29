@@ -22,9 +22,8 @@ import org.junit.Test;
 public class ActionOperationTest {
   @Test
   public void testActionOperation() {
-    ActionOperation operation = new ActionOperation(ActionType.START, "test", null);
-    assertEquals(ActionType.START, operation.getAction());
+    ActionOperation operation = new ActionOperation(new StartAction(), "test", null);
+    assertEquals("start", operation.getAction().getType());
     assertEquals("test", operation.getTrackName());
-
   }
 }

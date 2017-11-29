@@ -16,7 +16,7 @@
 package com.purplepip.odin.creation.track;
 
 import com.purplepip.odin.clock.tick.Tick;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.aspect.Aspect;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.notes.Note;
@@ -65,7 +65,7 @@ public interface Track extends Aspect {
   /**
    * Triggers that this track listens for.
    */
-  Map<String, ActionType> getTriggers();
+  Map<String, Action> getTriggers();
 
   /**
    * Whether track is enabled.

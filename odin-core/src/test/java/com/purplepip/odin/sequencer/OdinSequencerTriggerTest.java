@@ -3,7 +3,7 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.action.ActionType;
+import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +30,7 @@ public class OdinSequencerTriggerTest {
         .addLayer("groove")
         .withName("metronome")
         .withLayers("groove")
-        .withTrigger("note-60-trigger", ActionType.ENABLE)
+        .withTrigger("note-60-trigger", new EnableAction())
         .withOffset(OFFSET)
         .withLength(LENGTH)
         .withEnabled(false)

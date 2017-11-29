@@ -16,18 +16,29 @@
 package com.purplepip.odin.creation.action;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 public class GenericActionTest {
   @Test
-  public void testCore() {
-    GenericAction action = new GenericAction().name("test").type("start");
+  public void testCopy() {
+    assertCopy(new GenericAction().name("test").type("start"));
+    assertCopy(new GenericAction().name("test"));
+    assertCopy(new GenericAction(1).name("test"));
+    assertCopy(new GenericAction().property("property1","value1"));
+  }
+
+  private void assertCopy(GenericAction action) {
     assertNotNull(action.toString());
     ActionConfiguration copy = action.copy();
     assertEquals(action, copy);
     assertEquals(action.hashCode(), copy.hashCode());
+    GenericAction notEqualsAction = new GenericAction(1).name("test")
+        .property("property1", "not-equals-value");
+    assertNotEquals(action, notEqualsAction);
+    assertNotEquals(action.hashCode(), notEqualsAction.hashCode());
   }
 
   @Test
