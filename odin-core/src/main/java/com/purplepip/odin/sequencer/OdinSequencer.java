@@ -51,6 +51,9 @@ public class OdinSequencer implements PerformanceApplyListener {
       new UnmodifiableConductors(conductors);
   private SequenceTracks tracks = new SequenceTracks(immutableConductors);
   private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
+  /*
+   * Note that reactors can change tracks so we use the mutable tracks for the trigger reactors.
+   */
   private TriggerReactors reactors = new TriggerReactors(tracks, immutableConductors);
 
   private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();

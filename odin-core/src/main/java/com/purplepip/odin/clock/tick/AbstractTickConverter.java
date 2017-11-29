@@ -54,6 +54,9 @@ public abstract class AbstractTickConverter implements TickConverter {
 
   final void setSourceOffset(Property<Long> sourceOffset) {
     this.sourceOffset = sourceOffset;
+    if (sourceOffset instanceof Observable) {
+      ((Observable) sourceOffset).addObserver(this::refresh);
+    }
   }
 
   final void refresh() {

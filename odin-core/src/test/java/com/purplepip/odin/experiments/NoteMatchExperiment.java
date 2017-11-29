@@ -48,10 +48,10 @@ import javax.sound.midi.MidiUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TriggerExperiment {
+public class NoteMatchExperiment {
   public static void main(String[] args) throws OdinException, InterruptedException,
       MidiUnavailableException {
-    TriggerExperiment experiment = new TriggerExperiment();
+    NoteMatchExperiment experiment = new NoteMatchExperiment();
     experiment.doExperiment();
   }
 
@@ -99,7 +99,7 @@ public class TriggerExperiment {
           .withChannel(1).changeProgramTo("piano");
 
       container.addSequence(new Random()
-          .lower(60).upper(60)
+          .lower(60).upper(65)
           .bits(1).note(newNote())
           .trigger("success-start-trigger", new ResetAction())
           .channel(1).layer("groove")
@@ -108,7 +108,7 @@ public class TriggerExperiment {
           .addTrigger(new SequenceStartTrigger()
               .sequenceName("success").name("success-start-trigger"))
           .addSequence(new Notation()
-            .notation("C D E F")
+            .notation("C/8 D E F")
             .trigger(
                 "random-note-trigger", new StartAction())
             .channel(2).layer("groove")
@@ -119,6 +119,9 @@ public class TriggerExperiment {
       container.apply();
 
       sequencer.start();
+
+      // TODO : PatternNoteTrigger current has a version of pattern injected that does not
+      // pick up changes to pattern, e.g. after note change after reset
 
       try {
         lock.await(60, TimeUnit.SECONDS);

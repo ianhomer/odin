@@ -59,7 +59,13 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
 
   private final MutableProperty<Tick> tick = new ObservableProperty<>();
+  /*
+   * offset is the offset of the sequence.
+   */
   private final MutableProperty<Long> offset = new ObservableProperty<>(0L);
+  /*
+   * beat offset is the offset measure in performance beats.
+   */
   private final MutableProperty<Long> beatOffset = new ObservableProperty<>(0L);
 
   private MutableFlow<Sequence<A>, A> flow;
@@ -128,7 +134,13 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     // optimise system to make this more reliable.
     // TODO : Perhaps we send fire events straight to the processors to reduce further
     // need for lag.
+    // TODO : This implementation needs to be sanitised, logic is confusing and fragile.
     LOG.debug("Clock {}", clock);
+    /*
+     * Reset beat offset so we can work out where this new offset should be ...
+     */
+    offset.set(0L);
+    beatOffset.set(0L);
     long newOffset = measureProvider
         .getNextMeasureStart(
             clock.getPosition(clock.getMicroseconds() + 20_000)).ceiling();
