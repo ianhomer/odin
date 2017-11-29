@@ -73,8 +73,9 @@ public class MutableSequenceRollTest {
     /*
      * Test tick change
      */
+    LOG.debug("Changing tick to {}", Ticks.HALF);
     notation.setTick(Ticks.HALF);
-    roll.setSequence(notation.copy());
+    roll.setSequence(notation);
     assertEquals(Ticks.HALF, roll.getTick().get());
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
@@ -89,7 +90,7 @@ public class MutableSequenceRollTest {
     assertEquals(Long.valueOf(20), roll.getOffsetProperty().get());
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
-    assertEquals(60, nextEvent.getValue().getNumber());
-    assertEquals(Wholes.ZERO, nextEvent.getTime());
+    assertEquals(62, nextEvent.getValue().getNumber());
+    assertEquals(Whole.valueOf(9), nextEvent.getTime());
   }
 }

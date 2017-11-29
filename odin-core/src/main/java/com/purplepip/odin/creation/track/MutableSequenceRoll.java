@@ -45,6 +45,7 @@ import com.purplepip.odin.properties.beany.Resetter;
 import com.purplepip.odin.properties.runtime.MutableProperty;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
+import com.purplepip.odin.properties.thing.ThingCopy;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +80,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private Event<A> nextEvent;
   private MovableTock tock;
   private Tock sealedTock;
-  private SequenceConfiguration sequence;
+  private final SequenceConfiguration sequence;
   private Resetter resetter = new Resetter();
   private FlowFactory<A> flowFactory;
   private boolean tickDirty;
@@ -186,11 +187,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   /**
    * Set configuration for this sequence runtime.
    *
-   * @param sequence sequence configuration
+   * @param sequenceConfiguration sequence configuration
    */
   @Override
-  public void setSequence(SequenceConfiguration sequence) {
-    if (this.sequence.getType().equals(sequence.getType())) {
+  public void setSequence(SequenceConfiguration sequenceConfiguration) {
+    if (sequence.getType().equals(sequenceConfiguration.getType())) {
       typeNameDirty = true;
     }
 
@@ -201,23 +202,20 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      * sequence has not change then we leave the active flag as it is - this is the case where
      * a trigger might have changed and we don't want to loose the effect of this trigger.
      */
-    if (this.sequence.isEnabled() != sequence.isEnabled()) {
-      enabled = sequence.isEnabled();
+    if (sequence.isEnabled() != sequenceConfiguration.isEnabled()) {
+      enabled = sequenceConfiguration.isEnabled();
     }
 
-    if (this.sequence.getOffset() != sequence.getOffset()) {
-      offset.set(sequence.getOffset());
+    if (sequence.getOffset() != sequenceConfiguration.getOffset()) {
+      offset.set(sequenceConfiguration.getOffset());
     }
 
-    // TODO : We currently do setSequence(sequence.copy()) in  SequenceRollTrack when
-    // sequence is set.  Perhaps we should use sequence.copy() in this method instead
-    // to ensure use is predictable.
-    this.sequence = sequence;
+    new ThingCopy().from(sequenceConfiguration).to(sequence).copy();
 
-    if (sequence instanceof MutablePropertiesProvider) {
-      resetter.reset((MutablePropertiesProvider) sequence);
+    if (sequenceConfiguration instanceof MutablePropertiesProvider) {
+      resetter.reset((MutablePropertiesProvider) sequenceConfiguration);
     } else {
-      LOG.warn("Sequence {} is not a MutablePropertiesProvider", sequence);
+      LOG.warn("Sequence {} is not a MutablePropertiesProvider", sequenceConfiguration);
     }
     sequenceDirty = true;
     refresh();
@@ -267,7 +265,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     /*
      * Determine if the tick has changed.
      */
-    if (this.getTick() == null || !this.getTick().equals(getSequence().getTick())) {
+    if (!getSequence().getTick().equals(this.getTick().get())) {
       tickDirty = true;
       /*
        * Change tick.

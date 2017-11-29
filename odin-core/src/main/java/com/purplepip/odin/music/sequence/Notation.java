@@ -89,6 +89,7 @@ public class Notation extends SequencePlugin {
   @Override
   public boolean isEmpty() {
     return notation == null || notation.length() == 0 || super.isEmpty()
+        || indexedComposition == null
         || indexedComposition.isEmpty();
   }
 

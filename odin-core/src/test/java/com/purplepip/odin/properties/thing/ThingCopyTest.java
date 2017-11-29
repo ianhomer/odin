@@ -17,17 +17,27 @@ package com.purplepip.odin.properties.thing;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.music.sequence.Notation;
 import org.junit.Test;
 
 public class ThingCopyTest {
   @Test
-  public void testCopy() {
-    GenericSequence notation = new Notation().name("test");
-    GenericSequence sequence = new GenericSequence().property("offset", "8");
-    new ThingCopy().from(sequence).to(notation).copy();
-    assertEquals("8", notation.getProperty("offset"));
-    assertEquals(8, notation.getOffset());
+  public void testCopyFromGeneric() {
+    GenericSequence destination = new Notation().name("test");
+    GenericSequence source = new GenericSequence().property("offset", "8");
+    new ThingCopy().from(source).to(destination).copy();
+    assertEquals("8", destination.getProperty("offset"));
+    assertEquals(8, destination.getOffset());
   }
+
+  @Test
+  public void testCopyFromPlugin() {
+    GenericSequence destination = new Notation().name("test").tick(Ticks.BEAT);
+    GenericSequence source = new Notation().tick(Ticks.HALF);
+    new ThingCopy().from(source).to(destination).copy();
+    assertEquals(Ticks.HALF, destination.getTick());
+  }
+
 }
