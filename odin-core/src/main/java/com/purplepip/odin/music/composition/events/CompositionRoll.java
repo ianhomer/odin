@@ -68,7 +68,7 @@ public class CompositionRoll implements Roll<Note> {
 
   @Override
   public void start() {
-    reset();
+    initialise();
   }
 
   @Override
@@ -77,7 +77,7 @@ public class CompositionRoll implements Roll<Note> {
   }
 
   @Override
-  public void reset() {
+  public void initialise() {
     position = 0;
   }
 

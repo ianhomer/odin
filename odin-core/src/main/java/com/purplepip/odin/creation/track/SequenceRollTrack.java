@@ -187,8 +187,8 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
   }
 
   @Override
-  public void reset() {
-    getSequenceRoll().reset();
+  public void initialise() {
+    getSequenceRoll().initialise();
   }
 
   private Event<Note> filter(Event<Note> event) {

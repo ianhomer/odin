@@ -86,7 +86,7 @@ public class PatternNoteTrigger extends TriggerPlugin {
    * Initialisation after properties are set.
    */
   @Override
-  public void afterPropertiesSet() {
+  public void initialise() {
     LOG.debug("Initialising pattern note trigger with {}", patternName);
     registerDependency(patternName);
   }

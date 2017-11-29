@@ -38,6 +38,6 @@ public class ResetActionTest {
     assertTrue(action.arePropertiesDeclared());
     Track track = spy(Track.class);
     action.execute(new ActionContext(track));
-    verify(track, times(1)).reset();
+    verify(track, times(1)).initialise();
   }
 }

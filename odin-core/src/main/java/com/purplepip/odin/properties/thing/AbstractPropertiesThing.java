@@ -64,7 +64,7 @@ public abstract class AbstractPropertiesThing extends AbstractThing
   protected AbstractPropertiesThing copy(AbstractPropertiesThing copy) {
     Properties.copyProperties(this, copy);
     super.copy(copy);
-    copy.afterPropertiesSet();
+    copy.initialise();
     return copy;
   }
 }

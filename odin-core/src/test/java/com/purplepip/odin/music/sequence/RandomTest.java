@@ -37,7 +37,7 @@ public class RandomTest {
   @Test
   public void testGetNextEvent() {
     Pattern sequence = new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1);
-    sequence.afterPropertiesSet();
+    sequence.initialise();
     MeasureContext context = new StaticMeasureContext(60, 4);
     Event<Note> nextEvent = sequence.getNextEvent(context, new Loop());
     assertNotNull("Event at first beat should not be null", nextEvent);

@@ -62,11 +62,11 @@ public class Notation extends SequencePlugin {
    * Initialisation after properties are set.
    */
   @Override
-  public void afterPropertiesSet() {
-    LOG.debug("Initialising notation flow with {}", notation);
+  public void initialise() {
+    LOG.debug("Initialising notation for {}", this);
     EventsComposition composition = new NaturalScoreCompositionFactory().create(notation);
     indexedComposition = new IndexedComposition(composition);
-    super.afterPropertiesSet();
+    super.initialise();
   }
 
   /**

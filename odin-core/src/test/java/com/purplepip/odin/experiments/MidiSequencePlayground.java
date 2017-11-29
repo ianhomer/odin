@@ -109,7 +109,7 @@ public class MidiSequencePlayground {
       sequence.setTick(Ticks.BEAT);
       sequence.setEnabled(true);
       sequence.addLayer("groove");
-      sequence.afterPropertiesSet();
+      sequence.initialise();
       container.addSequence(sequence);
 
       container.addApplyListener(sequencer);

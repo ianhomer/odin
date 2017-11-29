@@ -103,7 +103,7 @@ public class UnmodifiableTrack implements Track {
   }
 
   @Override
-  public void reset() {
-    underlyingTrack.reset();
+  public void initialise() {
+    underlyingTrack.initialise();
   }
 }

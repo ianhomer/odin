@@ -123,7 +123,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
           throw new OdinRuntimeException("Cannot create new instance of " + expectedType, e);
         }
         populate(newInstance, original);
-        newInstance.afterPropertiesSet();
+        newInstance.initialise();
         LOG.debug("Creating instance with typed copy {}", newInstance);
       }
     }

@@ -42,10 +42,10 @@ public class SetAction extends ActionPlugin {
    * Initialisation after properties are set.
    */
   @Override
-  public void afterPropertiesSet() {
+  public void initialise() {
     LOG.debug("Initialising {}", this);
     initialiseValues();
-    super.afterPropertiesSet();
+    super.initialise();
   }
 
   @Override

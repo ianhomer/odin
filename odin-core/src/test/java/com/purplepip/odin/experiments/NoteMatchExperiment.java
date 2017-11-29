@@ -104,7 +104,7 @@ public class NoteMatchExperiment {
           .trigger("success-start-trigger", new ResetAction())
           .channel(1).layer("groove")
           .tick(Ticks.FOUR_BEAT).name("random");
-      random.reset();
+      random.initialise();
 
       container.addSequence(random)
           .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))

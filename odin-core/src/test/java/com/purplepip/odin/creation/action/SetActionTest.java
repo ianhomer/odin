@@ -26,7 +26,7 @@ public class SetActionTest {
   @Test
   public void testSetAction() {
     SetAction action = new SetAction().nameValuePairs("a=1;b=2");
-    action.afterPropertiesSet();
+    action.initialise();
     Track track = spy(Track.class);
     action.execute(new ActionContext(track));
     verify(track, times(1)).setProperty("a", "1");

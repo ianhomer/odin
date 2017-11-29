@@ -100,8 +100,8 @@ public class TickConvertedRoll implements Roll<Note> {
   }
 
   @Override
-  public void reset() {
-    LOG.warn("Redundant operation for reset on {}", this);
+  public void initialise() {
+    LOG.warn("Redundant operation for initialise on {}", this);
   }
 
   @Override

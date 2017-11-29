@@ -51,7 +51,7 @@ public class FlowFactory<A> {
     MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
     flow.setSequence(sequenceFactory.newInstance(sequence));
     flow.setConfiguration(flowConfiguration);
-    flow.afterPropertiesSet();
+    flow.initialise();
     return flow;
   }
 

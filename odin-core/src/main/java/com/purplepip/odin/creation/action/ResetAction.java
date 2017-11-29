@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ResetAction extends ActionPlugin {
   @Override
   public void execute(ActionContext context) {
-    context.getTrack().reset();
+    context.getTrack().initialise();
   }
 
   /**

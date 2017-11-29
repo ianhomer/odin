@@ -42,7 +42,5 @@ public interface Flow<S extends SequenceConfiguration, A> {
     return false;
   }
 
-  default void afterPropertiesSet() {}
-
-  default void reset() {}
+  default void initialise() {}
 }

@@ -170,8 +170,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   }
 
   @Override
-  public void reset() {
-    flow.reset();
+  public void initialise() {
+    flow.initialise();
   }
 
   @Override

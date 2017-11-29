@@ -57,7 +57,7 @@ public interface Roll<A> {
 
   void stop();
 
-  void reset();
+  void initialise();
 
   void setProperty(String name, String value);
 

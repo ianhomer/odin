@@ -79,16 +79,20 @@ public class Random extends Pattern {
    * Initialisation after properties are set.
    */
   @Override
-  public void afterPropertiesSet() {
+  public void initialise() {
     LOG.debug("Initialising random sequence {}", this);
-    reset();
+    randomise();
   }
 
-  @Override
-  public void reset() {
+  private void randomise() {
     /*
      * Note that nextInt treats bound as exclusive.
      */
+    // TODO : Random variation of properties should be covered by a filter.  There is value in
+    // many properties of many plugins to vary, either randomness at initialisation or
+    // random variations over time.   This implementation of specific use case for randomness
+    // is just an initial lightweight solution.  We MUST not use this as a pattern for other
+    // random property values.
     int number = ThreadLocalRandom.current().nextInt(lower, upper + 1);
     setNote(new DefaultNote(number, getNote().getVelocity(), getNote().getDuration()));
   }

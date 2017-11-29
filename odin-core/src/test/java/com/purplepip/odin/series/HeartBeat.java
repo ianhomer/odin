@@ -60,8 +60,8 @@ public class HeartBeat implements Roll<Boolean> {
   }
 
   @Override
-  public void reset() {
-    LOG.warn("Redundant operation for reset on {}", this);
+  public void initialise() {
+    LOG.warn("Redundant operation for initialise on {}", this);
   }
 
   @Override
