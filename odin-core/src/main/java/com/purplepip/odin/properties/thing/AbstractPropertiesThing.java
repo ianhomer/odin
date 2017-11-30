@@ -52,6 +52,15 @@ public abstract class AbstractPropertiesThing extends AbstractThing
   }
 
   @Override
+  public Stream<Map.Entry<String, String>> getPropertyEntries() {
+    return properties.entrySet().stream();
+  }
+
+  public boolean hasProperties() {
+    return !properties.isEmpty();
+  }
+
+  @Override
   public void setProperty(String propertyName, String value) {
     properties.put(propertyName, value);
   }

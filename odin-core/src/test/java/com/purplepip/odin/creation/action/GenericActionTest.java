@@ -42,6 +42,13 @@ public class GenericActionTest {
   }
 
   @Test
+  public void testToString() {
+    assertEquals("GenericAction(name=test, type=start, properties={property1=value1})",
+        new GenericAction().name("test").type("start")
+            .property("property1", "value1").toString());
+  }
+
+  @Test
   public void testGenericAction() {
     GenericAction action = new GenericAction().name("test").type("start");
     assertEquals("start", action.copy().getType());

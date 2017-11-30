@@ -33,6 +33,12 @@ public class StartActionTest {
   }
 
   @Test
+  public void testToString() {
+    GenericAction startAction = new StartAction().name("test-start");
+    assertEquals("StartAction(super=GenericAction(name=test-start))", startAction.toString());
+  }
+
+  @Test
   public void testExecute() {
     Action startAction = new StartAction();
     assertTrue(startAction.arePropertiesDeclared());

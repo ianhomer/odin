@@ -16,6 +16,7 @@
 package com.purplepip.odin.properties.beany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public interface PropertiesProvider {
@@ -31,6 +32,11 @@ public interface PropertiesProvider {
    */
   @JsonIgnore
   Stream<String> getPropertyNames();
+
+  @JsonIgnore
+  Stream<Map.Entry<String, String>> getPropertyEntries();
+
+  boolean hasProperties();
 
   /**
    * Are properties explicitly declared.  This should be true if all the properties set
