@@ -50,6 +50,11 @@ public class Stringy {
     this.object = object;
   }
 
+  /**
+   * Specify that nulls should be included.
+   *
+   * @return this
+   */
   public Stringy includeNulls() {
     includeNulls = true;
     return this;
@@ -111,6 +116,11 @@ public class Stringy {
     nameValues.put(name, value);
   }
 
+  /**
+   * Build string.
+   *
+   * @return object as string
+   */
   public String build() {
     String className = (object != null && !object.getClass().equals(clazz))
         ? "." : clazz.getSimpleName();

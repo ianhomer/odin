@@ -75,6 +75,11 @@ public abstract class AbstractThing implements MutableThing {
     LOG.debug("{} : initialising : count = {}", getName(), initialisationCount);
   }
 
+  /**
+   * To string.
+   *
+   * @return to string
+   */
   public String toString() {
     return Stringy.of(AbstractThing.class, this)
         .add("name", getName())

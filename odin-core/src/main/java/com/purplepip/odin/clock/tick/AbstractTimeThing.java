@@ -69,6 +69,11 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
     return this;
   }
 
+  /**
+   * To string.
+   *
+   * @return to string
+   */
   public String toString() {
     return Stringy.of(AbstractTimeThing.class, this)
         .add("name", getName())

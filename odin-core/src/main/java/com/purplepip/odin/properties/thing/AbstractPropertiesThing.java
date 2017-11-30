@@ -76,6 +76,11 @@ public abstract class AbstractPropertiesThing extends AbstractThing
     return copy;
   }
 
+  /**
+   * To string.
+   *
+   * @return to string
+   */
   public String toString() {
     return Stringy.of(AbstractPropertiesThing.class, this)
         .add("name", getName())

@@ -34,8 +34,8 @@ public class StartActionTest {
 
   @Test
   public void testToString() {
-    GenericAction startAction = new StartAction().name("test-start");
-    assertEquals("StartAction(super=GenericAction(name=test-start))", startAction.toString());
+    GenericAction startAction = new StartAction();
+    assertEquals("StartAction()", startAction.toString());
   }
 
   @Test
