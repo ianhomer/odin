@@ -15,12 +15,11 @@
 
 package com.purplepip.odin.clock.tick;
 
+import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 public abstract class AbstractTimeThing extends AbstractPropertiesThing
@@ -68,5 +67,16 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   public AbstractTimeThing offset(long offset) {
     this.offset = offset;
     return this;
+  }
+
+  public String toString() {
+    return Stringy.of(AbstractTimeThing.class, this)
+        .add("name", getName())
+        .add("properties", getPropertyEntries())
+        .add("enabled", enabled)
+        .add("tick", tick)
+        .add("length", length)
+        .add("offset", offset)
+        .build();
   }
 }

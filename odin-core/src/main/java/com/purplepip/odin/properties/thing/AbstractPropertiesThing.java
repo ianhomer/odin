@@ -78,7 +78,7 @@ public abstract class AbstractPropertiesThing extends AbstractThing
 
   public String toString() {
     return Stringy.of(AbstractPropertiesThing.class, this)
-        .add("super", super.toString())
+        .add("name", getName())
         .add("properties", properties.entrySet().stream())
         .build();
   }
