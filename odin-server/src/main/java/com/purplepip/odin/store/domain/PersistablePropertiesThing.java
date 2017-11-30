@@ -51,4 +51,14 @@ public class PersistablePropertiesThing extends PersistableThing
   public Stream<String> getPropertyNames() {
     return properties.keySet().stream();
   }
+
+  @Override
+  public Stream<Map.Entry<String, String>> getPropertyEntries() {
+    return properties.entrySet().stream();
+  }
+
+  @Override
+  public boolean hasProperties() {
+    return properties.isEmpty();
+  }
 }
