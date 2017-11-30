@@ -29,6 +29,7 @@ public class Stringy {
   private static final char CLOSE = ')';
 
   private Class clazz;
+  private Object object;
   private Map<String, String> nameValues = new LinkedHashMap<>();
   private boolean includeNulls = false;
 
@@ -36,8 +37,17 @@ public class Stringy {
     return new Stringy(clazz);
   }
 
+  public static Stringy of(Class clazz, Object object) {
+    return new Stringy(clazz, object);
+  }
+
   private Stringy(Class clazz) {
     this.clazz = clazz;
+  }
+
+  private Stringy(Class clazz, Object object) {
+    this.clazz = clazz;
+    this.object = object;
   }
 
   public Stringy includeNulls() {
@@ -69,7 +79,11 @@ public class Stringy {
    * @return this
    */
   public Stringy add(String name, Object value, Predicate<Object> predicate) {
-    if (value != null && predicate.test(value)) {
+    /*
+     * Predicate is not run if value is null (or includeNulls is true) since this is the
+     * primary use case and reduces a little bit of code in the usage of this.
+     */
+    if ((includeNulls || value != null) && predicate.test(value)) {
       add(name, value);
     }
     return this;
@@ -98,7 +112,13 @@ public class Stringy {
   }
 
   public String build() {
-    return clazz.getSimpleName() + OPEN + toString(nameValues) + CLOSE;
+    String className = (object != null && !object.getClass().equals(clazz))
+        ? "." : clazz.getSimpleName();
+    if (nameValues.isEmpty()) {
+      return className;
+    } else {
+      return className + OPEN + toString(nameValues) + CLOSE;
+    }
   }
 
   private String toString(Map<String, String> map) {

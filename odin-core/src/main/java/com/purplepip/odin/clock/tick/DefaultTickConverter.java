@@ -109,7 +109,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
    * @return string value
    */
   public String toString() {
-    return "DefaultTickConverter("
+    return "("
         + this.getSourceTick() + " @ " + this.getSourceOffset() + " -> "
         + this.getTargetTick() + ")";
   }

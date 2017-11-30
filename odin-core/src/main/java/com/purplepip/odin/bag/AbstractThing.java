@@ -15,15 +15,14 @@
 
 package com.purplepip.odin.bag;
 
+import com.purplepip.odin.common.Stringy;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @EqualsAndHashCode(of = "id")
-@ToString
 @Data
 public abstract class AbstractThing implements MutableThing {
   /*
@@ -74,5 +73,11 @@ public abstract class AbstractThing implements MutableThing {
   public void initialise() {
     initialisationCount++;
     LOG.debug("{} : initialising : count = {}", getName(), initialisationCount);
+  }
+
+  public String toString() {
+    return Stringy.of(AbstractThing.class, this)
+        .add("name", getName())
+        .build();
   }
 }

@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.junit.Test;
 
 public class StringyTest {
@@ -40,6 +41,28 @@ public class StringyTest {
             .add("test-nok", o.test, value -> !value.equals("test-value"))
             .add("test-ok", o.test, value -> value.equals("test-value"))
             .add("properties", o.properties.entrySet().stream())
+            .build());
+  }
+
+  @Test
+  public void testExtends() {
+    ExtendsStringyObject o = new ExtendsStringyObject();
+    o.setName("my-name");
+    o.extra = "extra-value";
+    assertEquals(".(name=my-name, extra=extra-value)",
+        Stringy.of(StringyObject.class, o)
+            .add("name", o.getName())
+            .add("extra", o.getExtra())
+            .build());
+  }
+
+  @Test
+  public void testExtendsEmpty() {
+    ExtendsStringyObject o = new ExtendsStringyObject();
+    assertEquals(".",
+        Stringy.of(StringyObject.class, o)
+            .add("name", o.getName())
+            .add("extra", o.getExtra())
             .build());
   }
 
@@ -71,10 +94,17 @@ public class StringyTest {
   }
 
   @Data
+  @EqualsAndHashCode
   private class StringyObject {
     private String name;
     private String property;
     private String test;
     private Map<String, String> properties = new HashMap<>();
+  }
+
+  @Data
+  @EqualsAndHashCode(callSuper = true)
+  private class ExtendsStringyObject extends StringyObject {
+    private String extra;
   }
 }

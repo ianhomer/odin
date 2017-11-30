@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Name("enable")
-@ToString(callSuper = true)
+@ToString
 public class EnableAction extends ActionPlugin {
   @Override
   public void execute(ActionContext context) {
