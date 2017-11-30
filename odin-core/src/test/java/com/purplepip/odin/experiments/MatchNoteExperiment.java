@@ -48,10 +48,10 @@ import javax.sound.midi.MidiUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class NoteMatchExperiment {
+public class MatchNoteExperiment {
   public static void main(String[] args) throws OdinException, InterruptedException,
       MidiUnavailableException {
-    NoteMatchExperiment experiment = new NoteMatchExperiment();
+    MatchNoteExperiment experiment = new MatchNoteExperiment();
     experiment.doExperiment();
   }
 
@@ -99,7 +99,7 @@ public class NoteMatchExperiment {
           .withChannel(1).changeProgramTo("piano");
 
       container.addSequence(new Random()
-          .lower(65).upper(70)
+          .lower(60).upper(72)
           .bits(1).note(newNote())
           .trigger("success-start-trigger", new ResetAction())
           .channel(1).layer("groove")
@@ -108,11 +108,11 @@ public class NoteMatchExperiment {
           .addTrigger(new SequenceStartTrigger()
               .sequenceName("success").name("success-start-trigger"))
           .addSequence(new Notation()
-            .notation("C/8 D E F")
+            .notation("C6/8 C# D D# E F")
             .trigger(
                 "random-note-trigger", new StartAction())
             .channel(2).layer("groove")
-            .enabled(false).length(3)
+            .enabled(false).length(3).tick(Ticks.HALF)
             .name("success"));
 
       container.addApplyListener(sequencer);
