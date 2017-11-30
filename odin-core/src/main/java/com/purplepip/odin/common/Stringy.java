@@ -60,8 +60,16 @@ public class Stringy {
     return this;
   }
 
+  /**
+   * Add name value.
+   *
+   * @param name name
+   * @param value value
+   * @param predicate predicate
+   * @return this
+   */
   public Stringy add(String name, Object value, Predicate<Object> predicate) {
-    if (predicate.test(value)) {
+    if (value != null && predicate.test(value)) {
       add(name, value);
     }
     return this;

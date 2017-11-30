@@ -57,12 +57,6 @@ public abstract class AbstractThing implements MutableThing {
 
   private void setId(long id) {
     this.id = id;
-    /*
-     * Auto generate name if one has not been provided.
-     */
-    if (name == null) {
-      setName(String.valueOf(id));
-    }
   }
 
   protected AbstractThing copy(AbstractThing copy) {
