@@ -102,7 +102,8 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
         Track track = entry.getKey();
         Action action = entry.getValue();
         LOG.debug("Track {} triggered with {}", track.getName(), action);
-        ripples.add(new ActionOperation(action, track.getName(), operation));
+        action.getRipples().forEach(rippleAction
+            -> ripples.add(new ActionOperation(rippleAction, track.getName(), operation)));
         action.execute(new ActionContext(track));
       });
       return ripples;

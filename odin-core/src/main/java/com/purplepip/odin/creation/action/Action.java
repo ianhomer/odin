@@ -15,6 +15,10 @@
 
 package com.purplepip.odin.creation.action;
 
+import java.util.stream.Stream;
+
 public interface Action extends ActionConfiguration {
   void execute(ActionContext context);
+
+  Stream<Action> getRipples();
 }

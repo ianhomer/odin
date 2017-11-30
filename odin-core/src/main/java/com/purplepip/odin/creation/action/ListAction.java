@@ -15,21 +15,33 @@
 
 package com.purplepip.odin.creation.action;
 
-import com.purplepip.odin.creation.plugin.Plugin;
+import com.google.common.collect.Lists;
+import com.purplepip.odin.specificity.Name;
+import java.util.List;
 import java.util.stream.Stream;
-import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
-@EqualsAndHashCode(callSuper = true)
-public abstract class ActionPlugin extends GenericAction
-    implements MutableActionConfiguration, Action, Plugin {
+/**
+ * Execute multiple actions in order.  Note that when we come to performance persistence we
+ * may need to refactor how we manage a collection of actions from one trigger.
+ */
+@Slf4j
+@Name("start")
+@ToString(callSuper = true)
+public class ListAction extends ActionPlugin {
+  private List<Action> actionList;
 
-  /**
-   * By default the ripples from an action plugin is just this plugin itself.  The ListAction
-   * is an example of an action plugin that overrides this behaviour.
-   *
-   * @return ripples from this action
-   */
+  public ListAction(Action... actions) {
+    actionList = Lists.newArrayList(actions);
+  }
+
   public Stream<Action> getRipples() {
-    return Stream.of(this);
+    return actionList.stream();
+  }
+
+  @Override
+  public void execute(ActionContext context) {
+    actionList.forEach(action -> action.execute(context));
   }
 }

@@ -97,26 +97,22 @@ public class OdinSequencerMatchNoteTest {
         .addSequence(new Random()
             .lower(60).upper(72)
             .bits(1).note(newNote())
-            // TODO : It'd be useful for a single trigger to be able to fire multiple actions
-            .trigger("success-start-trigger", new SetAction().nameValuePairs("channel=3"))
-            .trigger("success-start-trigger-2", new InitialiseAction())
-            .trigger("success-start-trigger-3", new StartAction())
+            .trigger("success-start-trigger",
+                new SetAction().nameValuePairs("channel=3"),
+                new InitialiseAction(),
+                new StartAction()
+            )
             .length(4)
             .channel(2).layer("groove")
             .name("random"))
         .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
-        .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger-2"))
         .addTrigger(new SequenceStartTrigger()
             .sequenceName("success").name("success-start-trigger"))
-        .addTrigger(new SequenceStartTrigger()
-            .sequenceName("success").name("success-start-trigger-2"))
-        .addTrigger(new SequenceStartTrigger()
-            .sequenceName("success").name("success-start-trigger-3"))
         .addSequence(new Notation()
             .notation("C D E F")
             .trigger("random-note-trigger",
-                new IncrementAction().propertyName("channel").increment(1))
-            .trigger("random-note-trigger-2", new StartAction())
+                new IncrementAction().propertyName("channel").increment(1),
+                new StartAction())
             .channel(5).layer("groove")
             .length(4)
             .enabled(false)
@@ -168,15 +164,15 @@ public class OdinSequencerMatchNoteTest {
       assertEquals("Success notes on channel 6 not correct", SUCCESS_NOTES, successNotes6);
 
       startTrackLatch.await(1000, TimeUnit.MILLISECONDS);
-      assertEquals("Start track operation not fired",
+      assertEquals("Start success track operation not fired",
           0, startTrackLatch.getCount());
 
       initialiseTrackLatch.await(1000, TimeUnit.MILLISECONDS);
-      assertEquals("Reset track operation not fired",
+      assertEquals("Initialise random track operation not fired",
           0, initialiseTrackLatch.getCount());
 
       initialiseTrackLatch.await(1000, TimeUnit.MILLISECONDS);
-      assertEquals("Set track operation not fired",
+      assertEquals("Set random track operation not fired",
           0, setTrackLatch.getCount());
 
       /*

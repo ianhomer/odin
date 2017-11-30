@@ -18,6 +18,7 @@ package com.purplepip.odin.creation.sequence;
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.action.Action;
+import com.purplepip.odin.creation.action.ListAction;
 import com.purplepip.odin.specificity.NameValue;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,8 +90,19 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     triggers.put(trigger, action);
   }
 
-  public GenericSequence trigger(String trigger, Action action) {
-    addTrigger(trigger, action);
+  /**
+   * Set which action (or actions) are fired by the given trigger name.
+   *
+   * @param trigger trigger name to respond to
+   * @param actions actions that should be fired
+   * @return this
+   */
+  public GenericSequence trigger(String trigger, Action... actions) {
+    if (actions.length == 1) {
+      addTrigger(trigger, actions[0]);
+    } else {
+      addTrigger(trigger, new ListAction(actions));
+    }
     return this;
   }
 
