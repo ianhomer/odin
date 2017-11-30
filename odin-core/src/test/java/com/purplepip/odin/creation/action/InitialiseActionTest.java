@@ -24,17 +24,17 @@ import static org.mockito.Mockito.verify;
 import com.purplepip.odin.creation.track.Track;
 import org.junit.Test;
 
-public class ResetActionTest {
+public class InitialiseActionTest {
   @Test
   public void testCopy() {
-    ResetAction action = new ResetAction();
-    ResetAction copy = action.copy();
-    assertEquals("reset", copy.getType());
+    InitialiseAction action = new InitialiseAction();
+    InitialiseAction copy = action.copy();
+    assertEquals("initialise", copy.getType());
   }
 
   @Test
   public void testExecute() {
-    Action action = new ResetAction();
+    Action action = new InitialiseAction();
     assertTrue(action.arePropertiesDeclared());
     Track track = spy(Track.class);
     action.execute(new ActionContext(track));

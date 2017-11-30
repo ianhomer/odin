@@ -22,7 +22,7 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.action.ResetAction;
+import com.purplepip.odin.creation.action.InitialiseAction;
 import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
@@ -101,7 +101,7 @@ public class MatchNoteExperiment {
       container.addSequence(new Random()
           .lower(60).upper(72)
           .bits(1).note(newNote())
-          .trigger("success-start-trigger", new ResetAction())
+          .trigger("success-start-trigger", new InitialiseAction())
           .channel(1).layer("groove")
           .tick(Ticks.FOUR_BEAT).name("random"))
           .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))

@@ -8,7 +8,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ActionOperation;
 import com.purplepip.odin.creation.action.IncrementAction;
-import com.purplepip.odin.creation.action.ResetAction;
+import com.purplepip.odin.creation.action.InitialiseAction;
 import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
@@ -44,7 +44,7 @@ public class OdinSequencerMatchNoteTest {
     final ArrayList<Integer> successNotes6 = new ArrayList<>();
     final ArrayList<Integer> successNotes7 = new ArrayList<>();
     final CountDownLatch startTrackLatch = new CountDownLatch(1);
-    final CountDownLatch resetTrackLatch = new CountDownLatch(1);
+    final CountDownLatch initialiseTrackLatch = new CountDownLatch(1);
     final CountDownLatch setTrackLatch = new CountDownLatch(1);
 
 
@@ -77,11 +77,11 @@ public class OdinSequencerMatchNoteTest {
         LOG.trace("Ignoring note off operation : {}", operation);
       } else if (operation instanceof ActionOperation) {
         Action action = ((ActionOperation) operation).getAction();
-        if ("reset".equals(action.getType())) {
-          resetTrackLatch.countDown();
-        } else if ("start".equals(action.getType())) {
+        if (action instanceof InitialiseAction) {
+          initialiseTrackLatch.countDown();
+        } else if (action instanceof  StartAction) {
           startTrackLatch.countDown();
-        } else if ("set".equals(action.getType())) {
+        } else if (action instanceof SetAction) {
           setTrackLatch.countDown();
         } else {
           LOG.warn("Unexpected action operation : {}", operation);
@@ -99,7 +99,7 @@ public class OdinSequencerMatchNoteTest {
             .bits(1).note(newNote())
             // TODO : It'd be useful for a single trigger to be able to fire multiple actions
             .trigger("success-start-trigger", new SetAction().nameValuePairs("channel=3"))
-            .trigger("success-start-trigger-2", new ResetAction())
+            .trigger("success-start-trigger-2", new InitialiseAction())
             .trigger("success-start-trigger-3", new StartAction())
             .length(4)
             .channel(2).layer("groove")
@@ -171,11 +171,11 @@ public class OdinSequencerMatchNoteTest {
       assertEquals("Start track operation not fired",
           0, startTrackLatch.getCount());
 
-      resetTrackLatch.await(1000, TimeUnit.MILLISECONDS);
+      initialiseTrackLatch.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Reset track operation not fired",
-          0, resetTrackLatch.getCount());
+          0, initialiseTrackLatch.getCount());
 
-      resetTrackLatch.await(1000, TimeUnit.MILLISECONDS);
+      initialiseTrackLatch.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Set track operation not fired",
           0, setTrackLatch.getCount());
 

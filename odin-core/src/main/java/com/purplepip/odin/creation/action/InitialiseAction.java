@@ -20,13 +20,12 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Reset the sequence.
+ * Initialise the sequence.
  */
 @Slf4j
-@Name("reset")
+@Name("initialise")
 @ToString(callSuper = true)
-// TODO : Rename to initialise to align with method name
-public class ResetAction extends ActionPlugin {
+public class InitialiseAction extends ActionPlugin {
   @Override
   public void execute(ActionContext context) {
     context.getTrack().initialise();
@@ -38,7 +37,7 @@ public class ResetAction extends ActionPlugin {
    * @return copy
    */
   @Override
-  public ResetAction copy() {
-    return copy(new ResetAction(), ResetAction.class);
+  public InitialiseAction copy() {
+    return copy(new InitialiseAction(), InitialiseAction.class);
   }
 }
