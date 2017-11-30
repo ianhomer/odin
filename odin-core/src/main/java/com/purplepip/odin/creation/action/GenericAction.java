@@ -15,12 +15,9 @@
 
 package com.purplepip.odin.creation.action;
 
+import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 import com.purplepip.odin.specificity.NameValue;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -69,31 +66,16 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
    */
   // TODO : Wrap this toString logic up in utility class ready for reuse.
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("GenericAction(");
-    Map<String, String> nameValuePairs = new HashMap<>();
+    Stringy stringy = Stringy.of(GenericAction.class);
     if (type == null || !type.equals(typeFromAnnotation)) {
-      nameValuePairs.put("type", this.getType());
+      stringy.add("type", getType());
     }
     if (getName() != null) {
-      nameValuePairs.put("name", this.getName());
+      stringy.add("name", this.getName());
     }
     if (hasProperties()) {
-      nameValuePairs.put("properties", "{" + toString(getPropertyEntries()) + "}");
+      stringy.add("properties", getPropertyEntries());
     }
-    sb.append(toString(nameValuePairs));
-    sb.append(")");
-    return sb.toString();
+    return stringy.build();
   }
-
-  private String toString(Map<String, String> map) {
-    return toString(map.entrySet().stream());
-  }
-
-  private String toString(Stream<Map.Entry<String, String>> entries) {
-    return entries
-        .map(entry -> entry.getKey() + "=" + entry.getValue())
-        .collect(Collectors.joining(", "));
-  }
-
 }
