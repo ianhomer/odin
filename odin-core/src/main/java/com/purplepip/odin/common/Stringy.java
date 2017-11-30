@@ -17,6 +17,7 @@ package com.purplepip.odin.common;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -55,6 +56,13 @@ public class Stringy {
     String entriesAsString = toString(entries);
     if (entriesAsString.length() > 0 || includeNulls) {
       put(name, "[" + entriesAsString + "]");
+    }
+    return this;
+  }
+
+  public Stringy add(String name, Object value, Predicate<Object> predicate) {
+    if (predicate.test(value)) {
+      add(name, value);
     }
     return this;
   }

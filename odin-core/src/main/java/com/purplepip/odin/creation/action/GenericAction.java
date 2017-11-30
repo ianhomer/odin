@@ -64,18 +64,11 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
    *
    * @return object as string
    */
-  // TODO : Wrap this toString logic up in utility class ready for reuse.
   public String toString() {
-    Stringy stringy = Stringy.of(GenericAction.class);
-    if (type == null || !type.equals(typeFromAnnotation)) {
-      stringy.add("type", getType());
-    }
-    if (getName() != null) {
-      stringy.add("name", this.getName());
-    }
-    if (hasProperties()) {
-      stringy.add("properties", getPropertyEntries());
-    }
-    return stringy.build();
+    return Stringy.of(GenericAction.class)
+        .add("type", type, type -> !type.equals(typeFromAnnotation))
+        .add("name", getName())
+        .add("properties", getPropertyEntries())
+        .build();
   }
 }

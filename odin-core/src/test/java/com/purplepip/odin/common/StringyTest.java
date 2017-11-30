@@ -28,13 +28,17 @@ public class StringyTest {
     StringyObject o = new StringyObject();
     o.name = "my-name";
     o.property = "my-value";
+    o.test = "test-value";
     o.properties.put("property1", "value1");
     o.properties.put("property2", "value2");
     assertEquals("StringyObject(name=my-name, property=my-value, "
+            + "test-ok=test-value, "
             + "properties=[property2=value2, property1=value1])",
         Stringy.of(StringyObject.class)
             .add("name", o.name)
             .add("property", o.property)
+            .add("test-nok", o.test, value -> !value.equals("test-value"))
+            .add("test-ok", o.test, value -> value.equals("test-value"))
             .add("properties", o.properties.entrySet().stream())
             .build());
   }
@@ -70,6 +74,7 @@ public class StringyTest {
   private class StringyObject {
     private String name;
     private String property;
+    private String test;
     private Map<String, String> properties = new HashMap<>();
   }
 }
