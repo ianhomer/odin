@@ -33,37 +33,53 @@ import com.purplepip.odin.performance.TransientPerformance;
  * Play random note and expect incoming note to match the note.  If the note matches the
  * expected note then a success sequence is played and new random note is played.
  */
-public class MatchNotePerformance {
+public class MatchNotePerformanceContainer extends PerformanceContainer {
+  private int channelIncrement = 0;
+
   /**
-   * Create performance.
+   * Create new performance.
    *
-   * @return performance container
+   * @param incrementChannel increment channel after each successful note.
    */
-  public PerformanceContainer create() {
-    return new PerformanceContainer(new TransientPerformance())
-        .addLayer(newLayer("groove"))
-        .addSequence(new Random()
-            .lower(60).upper(72)
-            .bits(1).note(newNote())
-            .trigger("success-start-trigger",
-                new SetAction().nameValuePairs("channel=3"),
-                new InitialiseAction(),
-                new StartAction()
-            )
-            .length(4)
-            .channel(2).layer("groove")
-            .name("random"))
-        .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
-        .addTrigger(new SequenceStartTrigger()
-            .sequenceName("success").name("success-start-trigger"))
-        .addSequence(new Notation()
-            .notation("C D E F")
-            .trigger("random-note-trigger",
-                new IncrementAction().propertyName("channel").increment(1),
-                new StartAction())
-            .channel(5).layer("groove")
-            .length(4)
-            .enabled(false)
-            .name("success"));
+  public MatchNotePerformanceContainer(boolean incrementChannel) {
+    super(new TransientPerformance());
+    if (incrementChannel) {
+      channelIncrement = 1;
+    }
+    initialise();
+  }
+
+    /**
+     * Create performance.
+     *
+     * @return performance container
+     */
+  public void initialise() {
+    this
+      .addLayer(newLayer("groove"))
+      .addSequence(new Random()
+          .lower(60).upper(72)
+          .bits(1).note(newNote())
+          .trigger("success-start-trigger",
+              new SetAction().nameValuePairs("channel=" + (2 + channelIncrement)),
+              new InitialiseAction(),
+              new StartAction()
+          )
+          .length(4)
+          .channel(2).layer("groove")
+          .name("random"))
+      .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
+      .addTrigger(new SequenceStartTrigger()
+          .sequenceName("success").name("success-start-trigger"))
+      .addSequence(new Notation()
+          .notation("C D E F")
+          .trigger("random-note-trigger",
+              new IncrementAction().propertyName("channel")
+                  .increment(channelIncrement),
+              new StartAction())
+          .channel(5).layer("groove")
+          .length(4)
+          .enabled(false)
+          .name("success"));
   }
 }

@@ -8,7 +8,7 @@ import com.purplepip.odin.creation.action.ActionOperation;
 import com.purplepip.odin.creation.action.InitialiseAction;
 import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.action.StartAction;
-import com.purplepip.odin.demo.MatchNotePerformance;
+import com.purplepip.odin.demo.MatchNotePerformanceContainer;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class OdinSequencerMatchNoteTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver,
-        new MatchNotePerformance().create());
+        new MatchNotePerformanceContainer(true));
     environment.start();
 
     try {
