@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TestSequencerEnvironment {
-  private PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+  private PerformanceContainer container;
 
   private OdinSequencerConfiguration configuration;
   private OdinSequencer sequencer;
@@ -38,13 +38,19 @@ public class TestSequencerEnvironment {
   private FlowFactory<Note> flowFactory;
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver) throws OdinException {
+    this(operationReceiver, new PerformanceContainer(new TransientPerformance()));
+  }
+
+  public TestSequencerEnvironment(OperationReceiver operationReceiver,
+                                  PerformanceContainer container) throws OdinException {
+    this.container = container;
     initialiseSequencer(operationReceiver);
   }
+
 
   private void initialiseSequencer(OperationReceiver operationReceiver) throws OdinException {
     DefaultFlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
     flowConfiguration.setMaxForwardScan(1000000);
-
 
     flowFactory = newNoteFlowFactory(flowConfiguration);
     configuration = new DefaultOdinSequencerConfiguration()

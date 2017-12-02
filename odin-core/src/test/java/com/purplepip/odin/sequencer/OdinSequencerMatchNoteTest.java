@@ -1,22 +1,16 @@
 package com.purplepip.odin.sequencer;
 
-import static com.purplepip.odin.creation.layer.Layers.newLayer;
-import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ActionOperation;
-import com.purplepip.odin.creation.action.IncrementAction;
 import com.purplepip.odin.creation.action.InitialiseAction;
 import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.action.StartAction;
-import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
-import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
+import com.purplepip.odin.demo.MatchNotePerformance;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.music.sequence.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +40,6 @@ public class OdinSequencerMatchNoteTest {
     final CountDownLatch startTrackLatch = new CountDownLatch(1);
     final CountDownLatch initialiseTrackLatch = new CountDownLatch(1);
     final CountDownLatch setTrackLatch = new CountDownLatch(1);
-
 
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
@@ -91,33 +84,8 @@ public class OdinSequencerMatchNoteTest {
       }
     };
 
-    TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    environment.getContainer()
-        .addLayer(newLayer("groove"))
-        .addSequence(new Random()
-            .lower(60).upper(72)
-            .bits(1).note(newNote())
-            .trigger("success-start-trigger",
-                new SetAction().nameValuePairs("channel=3"),
-                new InitialiseAction(),
-                new StartAction()
-            )
-            .length(4)
-            .channel(2).layer("groove")
-            .name("random"))
-        .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
-        .addTrigger(new SequenceStartTrigger()
-            .sequenceName("success").name("success-start-trigger"))
-        .addSequence(new Notation()
-            .notation("C D E F")
-            .trigger("random-note-trigger",
-                new IncrementAction().propertyName("channel").increment(1),
-                new StartAction())
-            .channel(5).layer("groove")
-            .length(4)
-            .enabled(false)
-            .name("success"));
-
+    TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver,
+        new MatchNotePerformance().create());
     environment.start();
 
     try {
