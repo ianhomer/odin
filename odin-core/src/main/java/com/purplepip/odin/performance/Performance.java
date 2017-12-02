@@ -60,42 +60,42 @@ public interface Performance {
   /**
    * Add channel.
    */
-  void addChannel(Channel channel);
+  Performance addChannel(Channel channel);
 
   /**
    * Remove channel.
    */
-  void removeChannel(Channel channel);
+  Performance removeChannel(Channel channel);
 
   /**
    * Add layer.
    */
-  void addLayer(MutableLayer layer);
+  Performance addLayer(MutableLayer layer);
 
   /**
    * Remove layer.
    */
-  void removeLayer(Layer layer);
+  Performance removeLayer(Layer layer);
 
   /**
    * Add trigger.
    */
-  void addTrigger(MutableTriggerConfiguration trigger);
+  Performance addTrigger(MutableTriggerConfiguration trigger);
 
   /**
    * Remove trigger.
    */
-  void removeTrigger(TriggerConfiguration trigger);
+  Performance removeTrigger(TriggerConfiguration trigger);
 
   /**
    * Add sequence.
    */
-  void addSequence(SequenceConfiguration sequence);
+  Performance addSequence(SequenceConfiguration sequence);
 
   /**
    * Remove channel.
    */
-  void removeSequence(SequenceConfiguration sequence);
+  Performance removeSequence(SequenceConfiguration sequence);
 
   /**
    * Clear the project's content.

@@ -66,7 +66,7 @@ public class PersistablePerformance implements Performance {
   private Set<SequenceConfiguration> sequences = new HashSet<>();
 
   @Override
-  public void addChannel(Channel channel) {
+  public PersistablePerformance addChannel(Channel channel) {
     if (channel instanceof PersistableChannel) {
       ((PersistableChannel) channel).setPerformance(this);
     }
@@ -78,21 +78,22 @@ public class PersistablePerformance implements Performance {
     if (!result) {
       LOG.warn("Cannot add channel {}", channel);
     }
-
+    return this;
   }
 
   @Override
-  public void removeChannel(Channel channel) {
+  public PersistablePerformance removeChannel(Channel channel) {
     boolean result = channels.remove(channel);
     if (!result) {
       LOG.warn("Could not remove channel {} from performance", channel);
     } else {
       LOG.debug("Removed channel from performance");
     }
+    return this;
   }
 
   @Override
-  public void addSequence(SequenceConfiguration sequence) {
+  public PersistablePerformance addSequence(SequenceConfiguration sequence) {
     if (sequence instanceof PersistableSequence) {
       ((PersistableSequence) sequence).setPerformance(this);
     }
@@ -102,20 +103,22 @@ public class PersistablePerformance implements Performance {
     } else {
       LOG.debug("Added sequence to performance");
     }
+    return this;
   }
 
   @Override
-  public void removeSequence(SequenceConfiguration sequence) {
+  public PersistablePerformance removeSequence(SequenceConfiguration sequence) {
     boolean result = sequences.remove(sequence);
     if (!result) {
       LOG.warn("Could not remove sequence {} from performance", sequence);
     } else {
       LOG.debug("Removed sequence from performance");
     }
+    return this;
   }
 
   @Override
-  public void addLayer(MutableLayer layer) {
+  public PersistablePerformance addLayer(MutableLayer layer) {
     if (layer instanceof PersistableLayer) {
       ((PersistableLayer) layer).setPerformance(this);
     }
@@ -125,10 +128,11 @@ public class PersistablePerformance implements Performance {
     } else {
       LOG.debug("Added layer to performance");
     }
+    return this;
   }
 
   @Override
-  public void removeLayer(Layer layer) {
+  public PersistablePerformance removeLayer(Layer layer) {
     boolean result = layers.remove(layer);
     if (!result) {
       LOG.warn("Could not remove layer {} from performance with layers {}", layer, getLayers());
@@ -136,10 +140,11 @@ public class PersistablePerformance implements Performance {
       LOG.debug("Removed layer {} from performance which now has layers = {}  ",
           layer, getLayers());
     }
+    return this;
   }
 
   @Override
-  public void addTrigger(MutableTriggerConfiguration trigger) {
+  public PersistablePerformance addTrigger(MutableTriggerConfiguration trigger) {
     if (trigger instanceof PersistableTrigger) {
       ((PersistableTrigger) trigger).setPerformance(this);
     }
@@ -149,10 +154,11 @@ public class PersistablePerformance implements Performance {
     } else {
       LOG.debug("Added trigger to performance");
     }
+    return this;
   }
 
   @Override
-  public void removeTrigger(TriggerConfiguration trigger) {
+  public PersistablePerformance removeTrigger(TriggerConfiguration trigger) {
     boolean result = triggers.remove(trigger);
     if (!result) {
       LOG.warn("Could not remove trigger {} from performance with triggers {}",
@@ -161,5 +167,6 @@ public class PersistablePerformance implements Performance {
       LOG.debug("Removed trigger {} from performance which now has layers = {}  ",
           trigger, getTriggers());
     }
+    return this;
   }
 }

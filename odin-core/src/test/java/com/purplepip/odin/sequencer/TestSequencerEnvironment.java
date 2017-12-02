@@ -24,6 +24,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import lombok.extern.slf4j.Slf4j;
@@ -38,12 +39,12 @@ public class TestSequencerEnvironment {
   private FlowFactory<Note> flowFactory;
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver) throws OdinException {
-    this(operationReceiver, new PerformanceContainer(new TransientPerformance()));
+    this(operationReceiver, new TransientPerformance());
   }
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
-                                  PerformanceContainer container) throws OdinException {
-    this.container = container;
+                                  Performance performance) throws OdinException {
+    this.container = new PerformanceContainer(performance);
     initialiseSequencer(operationReceiver);
   }
 

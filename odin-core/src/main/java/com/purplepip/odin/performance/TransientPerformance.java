@@ -67,42 +67,50 @@ public class TransientPerformance implements Performance {
   }
 
   @Override
-  public void addChannel(Channel channel) {
+  public TransientPerformance addChannel(Channel channel) {
     channels.add(channel);
+    return this;
   }
 
   @Override
-  public void removeChannel(Channel channel) {
+  public TransientPerformance removeChannel(Channel channel) {
     channels.remove(channel);
+    return this;
   }
 
   @Override
-  public void addLayer(MutableLayer layer) {
+  public TransientPerformance addLayer(MutableLayer layer) {
     layers.add(layer);
+    return this;
   }
 
   @Override
-  public void removeLayer(Layer layer) {
+  public TransientPerformance removeLayer(Layer layer) {
     layers.remove(layer);
+    return this;
   }
 
   @Override
-  public void addTrigger(MutableTriggerConfiguration trigger) {
+  public TransientPerformance addTrigger(MutableTriggerConfiguration trigger) {
     triggers.add(trigger);
+    return this;
   }
 
   @Override
-  public void removeTrigger(TriggerConfiguration trigger) {
+  public TransientPerformance removeTrigger(TriggerConfiguration trigger) {
     triggers.remove(trigger);
+    return this;
   }
 
   @Override
-  public void addSequence(SequenceConfiguration sequence) {
+  public TransientPerformance addSequence(SequenceConfiguration sequence) {
     sequences.add(sequence);
+    return this;
   }
 
   @Override
-  public void removeSequence(SequenceConfiguration sequence) {
+  public TransientPerformance removeSequence(SequenceConfiguration sequence) {
     sequences.remove(sequence);
+    return this;
   }
 }
