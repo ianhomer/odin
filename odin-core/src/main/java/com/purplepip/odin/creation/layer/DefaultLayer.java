@@ -58,4 +58,16 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
     super.tick(tick);
     return this;
   }
+
+  @Override
+  public DefaultLayer offset(long offset) {
+    super.offset(offset);
+    return this;
+  }
+
+  @Override
+  public DefaultLayer length(long length) {
+    super.length(length);
+    return this;
+  }
 }

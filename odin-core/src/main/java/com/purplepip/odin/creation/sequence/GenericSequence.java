@@ -149,6 +149,12 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   }
 
   @Override
+  public GenericSequence offset(long offset) {
+    super.offset(offset);
+    return this;
+  }
+
+  @Override
   public GenericSequence tick(Tick tick) {
     super.tick(tick);
     return this;

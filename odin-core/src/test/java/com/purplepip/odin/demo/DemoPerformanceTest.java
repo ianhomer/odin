@@ -13,13 +13,17 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.layer;
+package com.purplepip.odin.demo;
 
-public final class Layers {
-  private Layers() {
-  }
+import static org.junit.Assert.assertTrue;
 
-  public static DefaultLayer newLayer(String layerName) {
-    return new DefaultLayer().name(layerName);
+import com.purplepip.odin.performance.Performance;
+import org.junit.Test;
+
+public class DemoPerformanceTest {
+  @Test
+  public void testScratch() {
+    Performance performance = new ScratchPerformance();
+    assertTrue(performance.getLayers().size() > 2);
   }
 }

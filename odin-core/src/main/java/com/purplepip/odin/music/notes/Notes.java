@@ -37,4 +37,7 @@ public final class Notes {
     return new DefaultNote(number, DEFAULT_VELOCITY, DEFAULT_DURATION);
   }
 
+  public static DefaultNote newNote(int number, int velocity) {
+    return new DefaultNote(number, velocity, DEFAULT_DURATION);
+  }
 }

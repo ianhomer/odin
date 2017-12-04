@@ -44,6 +44,15 @@ public class DefaultChannel implements Channel {
     id = LAST_PATTERN_ID.incrementAndGet();
   }
 
+  public DefaultChannel(int number) {
+    this();
+    setNumber(number);
+  }
+
+  public static final DefaultChannel newChannel(int number) {
+    return new DefaultChannel(number);
+  }
+
   @Override
   public long getId() {
     return id;
@@ -77,5 +86,15 @@ public class DefaultChannel implements Channel {
   @Override
   public void setProgram(int program) {
     this.program = program;
+  }
+
+  public DefaultChannel number(int number) {
+    this.number = number;
+    return this;
+  }
+
+  public DefaultChannel programName(String programName) {
+    this.programName = programName;
+    return this;
   }
 }
