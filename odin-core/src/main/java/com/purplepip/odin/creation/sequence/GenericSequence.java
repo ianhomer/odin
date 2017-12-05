@@ -64,8 +64,16 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     layers.add(layer);
   }
 
-  public GenericSequence layer(String layer) {
-    addLayer(layer);
+  /**
+   * Set layer names.
+   *
+   * @param layers layer names
+   * @return this
+   */
+  public GenericSequence layer(String... layers) {
+    for (String layer : layers) {
+      addLayer(layer);
+    }
     return this;
   }
 

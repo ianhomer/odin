@@ -70,4 +70,18 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
     super.length(length);
     return this;
   }
+
+  /**
+   * Set layer names.
+   *
+   * @param layers layer names
+   * @return this
+   */
+  public DefaultLayer layer(String... layers) {
+    for (String layer : layers) {
+      addLayer(layer);
+    }
+    return this;
+  }
+
 }
