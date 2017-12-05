@@ -47,6 +47,8 @@ public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     if (performanceContainer.isEmpty()) {
+      // TODO : Create a way for converting a performance like GroovePerformance into the
+      // persistence domain.
       new PersistablePerformanceBuilder(performanceContainer)
           .withChannel(1).changeProgramTo("piano")
           .withChannel(2).changeProgramTo("rock")

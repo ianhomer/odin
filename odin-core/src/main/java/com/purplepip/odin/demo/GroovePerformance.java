@@ -38,6 +38,8 @@ public class GroovePerformance extends TransientPerformance {
   /**
    * Create performance.
    */
+  // TODO : Once we have strong assertion of performance output in GroovePerformanceTest,
+  // work on improving the semantics of this performance generation, to be simpler & clearer
   public GroovePerformance() {
     this
         .addChannel(newChannel(1).programName("piano"))

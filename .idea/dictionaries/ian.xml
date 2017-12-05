@@ -19,6 +19,7 @@
       <w>dlogback</w>
       <w>dodin</w>
       <w>drumkit</w>
+      <w>dupdate</w>
       <w>ecma</w>
       <w>electro</w>
       <w>eslint</w>
@@ -55,6 +56,7 @@
       <w>segoe</w>
       <w>sinon</w>
       <w>slint</w>
+      <w>snapshotter</w>
       <w>sonatype</w>
       <w>soundbank</w>
       <w>sourcemaps</w>
