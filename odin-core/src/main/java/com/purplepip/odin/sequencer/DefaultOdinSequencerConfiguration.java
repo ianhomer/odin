@@ -52,6 +52,7 @@ public class DefaultOdinSequencerConfiguration
   private long operationProcessorRefreshPeriod;
   private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
   private MetricRegistry metrics;
+  private boolean strictEventOrder;
 
   /**
    * Create new configuration with defaults set.
@@ -69,6 +70,7 @@ public class DefaultOdinSequencerConfiguration
     setOperationProcessorRefreshPeriod(50);
     setTrackProcessorRefreshPeriod(200);
     setTrackProcessorMaxNotesPerBuffer(1000);
+    setStrictEventOrder(false);
   }
 
   public final DefaultOdinSequencerConfiguration
@@ -253,6 +255,16 @@ public class DefaultOdinSequencerConfiguration
   public final DefaultOdinSequencerConfiguration setLoggingOperationReceiverEnabled(
       boolean isLoggingOperationReceiverEnabled) {
     this.isLoggingOperationReceiverEnabled = isLoggingOperationReceiverEnabled;
+    return this;
+  }
+
+  public final boolean isStrictEventOrder() {
+    return strictEventOrder;
+  }
+
+  public final DefaultOdinSequencerConfiguration setStrictEventOrder(
+      boolean strictEventOrder) {
+    this.strictEventOrder = strictEventOrder;
     return this;
   }
 }

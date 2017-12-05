@@ -82,7 +82,8 @@ public class TestSequencerEnvironment {
         .setTrackProcessorMaxNotesPerBuffer(2000)
         .setOperationProcessorRefreshPeriod(10)
         .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
-        .setOperationReceiver(operationReceiver);
+        .setOperationReceiver(operationReceiver)
+        .setStrictEventOrder(true);
     sequencer = new OdinSequencer(configuration);
     container.addApplyListener(sequencer);
   }

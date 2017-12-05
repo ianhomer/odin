@@ -16,26 +16,26 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.CompareHelper;
-import java.io.Serializable;
-import java.util.Comparator;
-import lombok.extern.slf4j.Slf4j;
+import com.purplepip.odin.operation.ChannelOperation;
 
 /**
- * Comparator for a operation message.
+ * Strict ordered event comparator.  This allows operations on the queue to be place in a
+ * predictable order.  It is required for tests where strict order makes assertions easier to
+ * make, but is unnecessary for general runtime.
  */
-@Slf4j
-public class OperationEventComparator implements Comparator<OperationEvent>, Serializable {
-  private static final long serialVersionUID = 1;
-
-  /**
-   * Compare two operation events.
-   *
-   * @param x first operation
-   * @param y second operation
-   * @return -1, 0 or 1 depending on relative positioning of the two operation events
-   */
+public class StrictOperationEventComparator extends OperationEventComparator {
   @Override
   public int compare(OperationEvent x, OperationEvent y) {
-    return CompareHelper.compare(x.getTime(), y.getTime());
+    int result = super.compare(x, y);
+    if (result == 0) {
+      if (x.getOperation() instanceof ChannelOperation
+          && y.getOperation() instanceof ChannelOperation) {
+        return CompareHelper.compare(
+            ((ChannelOperation) x.getOperation()).getChannel(),
+            ((ChannelOperation) y.getOperation()).getChannel());
+      }
+      return 0;
+    }
+    return result;
   }
 }

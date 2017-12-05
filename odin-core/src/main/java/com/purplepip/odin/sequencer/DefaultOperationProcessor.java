@@ -22,6 +22,7 @@ import com.purplepip.odin.common.ListenerPriority;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.operation.Operation;
+import java.util.Comparator;
 import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
@@ -38,8 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @ListenerPriority(9)
 @Slf4j
 public class DefaultOperationProcessor implements OperationProcessor, PerformanceListener {
-  private PriorityBlockingQueue<OperationEvent> queue = new PriorityBlockingQueue<>(127,
-      new OperationEventComparator());
+  private final PriorityBlockingQueue<OperationEvent> queue;
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
   private DefaultOperationProcessorExecutor executor;
   private long refreshPeriod;
@@ -51,8 +51,13 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
    * @param operationReceiver operation receiver
    */
   DefaultOperationProcessor(BeatClock clock, OperationReceiver operationReceiver,
-                            MetricRegistry metrics, long refreshPeriod) {
+                            MetricRegistry metrics, long refreshPeriod,
+                            boolean strictOrder) {
     this.refreshPeriod = refreshPeriod;
+
+    Comparator<OperationEvent> comparator = strictOrder
+        ? new StrictOperationEventComparator() : new OperationEventComparator();
+    queue = new PriorityBlockingQueue<>(127, comparator);
     if (operationReceiver == null) {
       throw new OdinRuntimeException("OperationReceiver must not be null");
     }

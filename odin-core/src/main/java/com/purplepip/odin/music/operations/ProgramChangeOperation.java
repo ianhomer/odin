@@ -15,15 +15,14 @@
 
 package com.purplepip.odin.music.operations;
 
+import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.operation.AbstractChannelOperation;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Program change operation.
  */
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class ProgramChangeOperation extends AbstractChannelOperation {
   private int bank;
@@ -96,4 +95,19 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
   public boolean isAbsolute() {
     return programName == null;
   }
+
+  /**
+   * To string.
+   *
+   * @return object as string
+   */
+  public String toString() {
+    return Stringy.of(ProgramChangeOperation.class)
+        .add("channel", super.getChannel())
+        .add("bank", getBank())
+        .add("program", getProgram())
+        .add("programName", getProgramName())
+        .build();
+  }
+
 }

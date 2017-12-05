@@ -36,7 +36,7 @@ import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.UnmodifiableOdinSequencerStatistics;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,7 +56,7 @@ public class OdinSequencer implements PerformanceApplyListener {
    */
   private TriggerReactors reactors = new TriggerReactors(tracks, immutableConductors);
 
-  private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
+  private Set<ProgramChangeOperation> programChangeOperations = new LinkedHashSet<>();
   private TrackProcessor sequenceProcessor;
   private OperationProcessor operationProcessor;
   private BeatClock clock;
@@ -106,7 +106,9 @@ public class OdinSequencer implements PerformanceApplyListener {
      */
     operationProcessor = new DefaultOperationProcessor(
         clock, configuration.getOperationReceiver(),
-        configuration.getMetrics(), configuration.getOperationProcessorRefreshPeriod());
+        configuration.getMetrics(),
+        configuration.getOperationProcessorRefreshPeriod(),
+        configuration.isStrictEventOrder());
     sequenceProcessor = new TrackProcessor(
         clock, immutableTracks, operationProcessor, statistics,
         configuration.getMetrics(),

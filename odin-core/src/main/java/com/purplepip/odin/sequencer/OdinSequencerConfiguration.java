@@ -61,6 +61,10 @@ public interface OdinSequencerConfiguration {
 
   FlowFactory<Note> getFlowFactory();
 
+  default boolean isStrictEventOrder() {
+    return false;
+  }
+
   TriggerFactory getTriggerFactory();
 
   long getClockStartRoundingFactor();

@@ -32,6 +32,7 @@ public class Stringy {
   private Object object;
   private Map<String, String> nameValues = new LinkedHashMap<>();
   private boolean includeNulls = false;
+  private boolean includeZeros = false;
 
   public static Stringy of(Class clazz) {
     return new Stringy(clazz);
@@ -57,6 +58,16 @@ public class Stringy {
    */
   public Stringy includeNulls() {
     includeNulls = true;
+    return this;
+  }
+
+  /**
+   * Specify that zeros should be included.
+   *
+   * @return this
+   */
+  public Stringy includeZeros() {
+    includeZeros = true;
     return this;
   }
 
@@ -90,6 +101,20 @@ public class Stringy {
      */
     if ((includeNulls || value != null) && predicate.test(value)) {
       add(name, value);
+    }
+    return this;
+  }
+
+  /**
+   * Add a named integer.
+   *
+   * @param name property name
+   * @param value value
+   * @return this
+   */
+  public Stringy add(String name, int value) {
+    if (value != 0 || includeZeros) {
+      add(name, Integer.valueOf(value));
     }
     return this;
   }

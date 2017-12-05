@@ -21,7 +21,6 @@ import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.ToString;
@@ -33,9 +32,9 @@ import lombok.ToString;
 public class TransientPerformance implements Performance {
   private static final String TRANSIENT_PERFORMANCE_NAME = "transient";
 
-  private Set<SequenceConfiguration> sequences = new HashSet<>();
+  private Set<SequenceConfiguration> sequences = new LinkedHashSet<>();
 
-  private Set<Channel> channels = new HashSet<>();
+  private Set<Channel> channels = new LinkedHashSet<>();
 
   private Set<Layer> layers = new LinkedHashSet<>();
 
