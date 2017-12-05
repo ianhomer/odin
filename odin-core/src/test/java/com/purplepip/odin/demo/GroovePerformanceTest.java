@@ -15,28 +15,38 @@
 
 package com.purplepip.odin.demo;
 
+import com.purplepip.odin.clock.beats.BeatsPerMinute;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.sequencer.BaseOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
+import com.purplepip.odin.snapshot.Snapshot;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 @Slf4j
 public class GroovePerformanceTest {
-
-  // TODO : Generate text output from sequenced output and then assert that this
-  // matches expected stored in a file.
   @Test
   public void testPerformance() throws OdinException, InterruptedException {
-    SnapshotOperationReceiver snapshotter = new SnapshotOperationReceiver();
+    Snapshot snapshot = new Snapshot(GroovePerformance.class);
+    SnapshotOperationReceiver snapshotter = new SnapshotOperationReceiver(snapshot);
 
     TestSequencerEnvironment environment =
-        new TestSequencerEnvironment(snapshotter, new GroovePerformance());
+        new TestSequencerEnvironment(snapshotter, new GroovePerformance(),
+        new BaseOdinSequencerConfiguration() {
+          @Override
+          public BeatsPerMinute getBeatsPerMinute() {
+            return new StaticBeatsPerMinute(60);
+          }
+        });
     environment.start();
     try {
       snapshotter.getLatch().await(1000, TimeUnit.MILLISECONDS);
     } finally {
       environment.stop();
     }
+
+    //snapshot.expectMatch();
   }
 }

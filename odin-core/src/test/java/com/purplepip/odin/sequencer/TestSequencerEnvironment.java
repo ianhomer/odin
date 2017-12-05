@@ -27,6 +27,7 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -35,6 +36,7 @@ public class TestSequencerEnvironment {
 
   private OdinSequencerConfiguration configuration;
   private OdinSequencer sequencer;
+  private OdinSequencerConfiguration deltaConfiguration;
 
   private FlowFactory<Note> flowFactory;
 
@@ -44,10 +46,24 @@ public class TestSequencerEnvironment {
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
                                   Performance performance) throws OdinException {
-    this.container = new PerformanceContainer(performance);
-    initialiseSequencer(operationReceiver);
+    this(operationReceiver, performance, new BaseOdinSequencerConfiguration());
   }
 
+  /**
+   * Create test sequencer environment.
+   *
+   * @param operationReceiver operation receiver
+   * @param performance performance
+   * @param configuration configuration
+   * @throws OdinException exception
+   */
+  public TestSequencerEnvironment(OperationReceiver operationReceiver,
+                                  Performance performance,
+                                  OdinSequencerConfiguration configuration) throws OdinException {
+    this.container = new PerformanceContainer(performance);
+    this.deltaConfiguration = configuration;
+    initialiseSequencer(operationReceiver);
+  }
 
   private void initialiseSequencer(OperationReceiver operationReceiver) throws OdinException {
     DefaultFlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
@@ -57,7 +73,9 @@ public class TestSequencerEnvironment {
     configuration = new DefaultOdinSequencerConfiguration()
         .setFlowFactory(flowFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))
-        .setBeatsPerMinute(new StaticBeatsPerMinute(60000))
+        .setBeatsPerMinute(
+            Optional.ofNullable(deltaConfiguration.getBeatsPerMinute())
+                .orElse(new StaticBeatsPerMinute(60000)))
         .setClockStartOffset(20000)
         .setClockStartRoundingFactor(1000)
         .setTrackProcessorRefreshPeriod(10)

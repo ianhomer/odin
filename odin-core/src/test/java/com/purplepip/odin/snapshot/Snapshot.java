@@ -80,27 +80,33 @@ public class Snapshot {
    * @throws IOException exception
    */
   private void commit() throws IOException {
-    if (UPDATE_SNAPSHOT) {
-      File file = new File(path.toUri());
-      if (!file.exists()) {
-        File parent = file.getParentFile();
-        if (!parent.exists()) {
-          if (!parent.mkdirs()) {
-            throw new OdinRuntimeException(
-                "Cannot create snapshot parent directory : " + parent);
-          }
-          LOG.info("Creating directory : {}", parent);
+    File file = new File(path.toUri());
+    if (!file.exists()) {
+      File parent = file.getParentFile();
+      if (!parent.exists()) {
+        if (!parent.mkdirs()) {
+          throw new OdinRuntimeException(
+              "Cannot create snapshot parent directory : " + parent);
         }
-        LOG.info("Creating snapshot file : {}", file);
-      } else {
-        LOG.info("Updating snapshot file : {}", file);
+        LOG.info("Creating directory : {}", parent);
       }
+      LOG.info("Creating snapshot file : {}", file);
+      Files.write(path, lines);
+    } else if (UPDATE_SNAPSHOT) {
+      LOG.info("Updating snapshot file : {}", file);
       Files.write(path, lines);
     }
   }
 
-  public void expectMatch() throws IOException {
-    commit();
+  /**
+   * Expect snapshot to match snapshot file.
+   */
+  public void expectMatch() {
+    try {
+      commit();
+    } catch (IOException e) {
+      LOG.error("Cannot commit snapshot", e);
+    }
     assertThat(path).hasContent(lines.stream().collect(Collectors.joining("\n")));
   }
 

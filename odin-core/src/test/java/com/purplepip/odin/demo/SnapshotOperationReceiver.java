@@ -18,27 +18,29 @@ package com.purplepip.odin.demo;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
+import com.purplepip.odin.snapshot.Snapshot;
 import java.util.concurrent.CountDownLatch;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SnapshotOperationReceiver implements OperationReceiver {
-  private static final int DEFAULT_OPERATION_COUNT = 1000;
+  private static final int DEFAULT_OPERATION_COUNT = 6;
   private final CountDownLatch latch;
-  private StringBuilder sb = new StringBuilder();
+  private Snapshot snapshot;
 
-  public SnapshotOperationReceiver() {
-    this(DEFAULT_OPERATION_COUNT);
+  public SnapshotOperationReceiver(Snapshot snapshot) {
+    this(snapshot, DEFAULT_OPERATION_COUNT);
   }
 
-  public SnapshotOperationReceiver(int operationCount) {
+  public SnapshotOperationReceiver(Snapshot snapshot, int operationCount) {
     latch = new CountDownLatch(operationCount);
+    this.snapshot = snapshot;
   }
 
   @Override
   public void send(Operation operation, long time) throws OdinException {
     latch.countDown();
-    sb.append(operation.toString());
+    snapshot.writeLine(String.format("%15d %s", time, operation));
     LOG.trace("Received operation {}", operation);
   }
 

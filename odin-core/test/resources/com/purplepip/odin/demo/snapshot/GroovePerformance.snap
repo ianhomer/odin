@@ -1,0 +1,7 @@
+SNAPSHOT : com.purplepip.odin.demo.GroovePerformance
+             -1 ProgramChangeOperation(super=AbstractChannelOperation(channel=4), bank=0, program=0, programName=aahs)
+             -1 ProgramChangeOperation(super=AbstractChannelOperation(channel=2), bank=0, program=0, programName=rock)
+             -1 ProgramChangeOperation(super=AbstractChannelOperation(channel=9), bank=0, program=0, programName=Power Drums)
+             -1 ProgramChangeOperation(super=AbstractChannelOperation(channel=3), bank=0, program=0, programName=strings)
+             -1 ProgramChangeOperation(super=AbstractChannelOperation(channel=1), bank=0, program=0, programName=piano)
+             -1 ProgramChangeOperation(super=AbstractChannelOperation(channel=5), bank=0, program=0, programName=bass)
