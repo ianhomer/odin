@@ -20,6 +20,7 @@ import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.creation.action.ActionOperation;
 import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.music.operations.NoteOffOperation;
@@ -54,7 +55,7 @@ public class OdinSequencerTriggerChangePropertyTest {
         } else {
           LOG.warn("Unexpected note on operation : {}", noteOnOperation);
         }
-      } else if (operation instanceof NoteOffOperation) {
+      } else if (operation instanceof NoteOffOperation || operation instanceof ActionOperation) {
         LOG.trace("Ignoring note off operation : {}", operation);
       } else {
         LOG.warn("Unexpected operation : {}", operation);
