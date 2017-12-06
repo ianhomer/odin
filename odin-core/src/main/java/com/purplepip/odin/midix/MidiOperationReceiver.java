@@ -30,10 +30,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MidiOperationReceiver implements OperationReceiver {
-  private MidiDeviceWrapper midiDeviceWrapper;
+  private MidiDeviceReceiver midiDeviceReceiver;
 
-  public MidiOperationReceiver(MidiDeviceWrapper midiDeviceWrapper) {
-    this.midiDeviceWrapper = midiDeviceWrapper;
+  public MidiOperationReceiver(MidiDeviceReceiver midiDeviceReceiver) {
+    this.midiDeviceReceiver = midiDeviceReceiver;
   }
 
   @Override
@@ -45,11 +45,11 @@ public class MidiOperationReceiver implements OperationReceiver {
         if (programChangeOperation.isAbsolute()) {
           resolvedOperation = programChangeOperation;
         } else {
-          if (midiDeviceWrapper.isOpenSynthesizer()) {
+          if (midiDeviceReceiver.isOpenSynthesizer()) {
             /*
              * Handle program change operation by resolving string name for program.
              */
-            Instrument instrument = midiDeviceWrapper
+            Instrument instrument = midiDeviceReceiver
                 .findInstrument(programChangeOperation.getChannel(),
                     programChangeOperation.getProgramName());
             resolvedOperation = new ProgramChangeOperation(programChangeOperation.getChannel(),
@@ -64,7 +64,7 @@ public class MidiOperationReceiver implements OperationReceiver {
       } else {
         resolvedOperation = (ChannelOperation) operation;
       }
-      if (midiDeviceWrapper.send(createMidiMessage(resolvedOperation), time)) {
+      if (midiDeviceReceiver.send(createMidiMessage(resolvedOperation), time)) {
         LOG.debug("Sent MIDI {} for time {}", resolvedOperation, time);
       }
     } else {
@@ -79,11 +79,11 @@ public class MidiOperationReceiver implements OperationReceiver {
 
   @Override
   public void onPerformanceStart() {
-    midiDeviceWrapper.onPerformanceStart();
+    midiDeviceReceiver.onPerformanceStart();
   }
 
   @Override
   public void onPerformanceStop() {
-    midiDeviceWrapper.onPerformanceStop();
+    midiDeviceReceiver.onPerformanceStop();
   }
 }

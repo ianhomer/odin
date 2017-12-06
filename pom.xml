@@ -460,11 +460,6 @@
     </profile>
     <profile>
       <id>info</id>
-      <activation>
-        <property>
-          <name>test</name>
-        </property>
-      </activation>
       <properties>
         <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
       </properties>

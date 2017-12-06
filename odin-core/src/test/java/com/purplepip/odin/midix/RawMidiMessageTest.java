@@ -15,32 +15,20 @@
 
 package com.purplepip.odin.midix;
 
-import javax.sound.midi.MidiDevice;
-import lombok.ToString;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Match MIDI devices where the name matches the given starts with string.
- */
-@ToString
-public class MidiDeviceNameStartsWithMatcher implements MidiDeviceMatcher {
-  private String prefix;
+import org.junit.Test;
 
-  public MidiDeviceNameStartsWithMatcher(String prefix) {
-    this.prefix = prefix;
-  }
+public class RawMidiMessageTest {
+  @Test
+  public void testRawMidiMessage() {
+    byte[] buffer = new byte[] { (byte) 0x12, (byte) 11, (byte) 13 };
 
-  @Override
-  public boolean matches(MidiDevice.Info info) {
-    return info.getName().startsWith(prefix);
-  }
-
-  @Override
-  public boolean matches(MidiDevice device) {
-    return matches(device.getDeviceInfo());
-  }
-
-  @Override
-  public String getDescription() {
-    return "Starts with " + prefix;
+    RawMidiMessage message = new RawMidiMessage(buffer);
+    assertEquals("Channel not correct", 2, message.getChannel());
+    assertEquals("Command not correct",16, message.getCommand());
+    assertEquals("Data1 not correct",11, message.getData1());
+    assertEquals("Data2 not correct",13, message.getData2());
+    assertEquals("Status not correct",18, message.getStatus());
   }
 }

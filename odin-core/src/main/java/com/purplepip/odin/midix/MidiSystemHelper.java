@@ -119,8 +119,14 @@ public class MidiSystemHelper {
     }
 
     if (device == null) {
-      device = new MidiSystemHelper().findMidiDeviceByName(
-          new MidiDeviceNameStartsWithMatcher("Gervill"));
+      LOG.debug("Device not found for {}, falling back to default", midiDeviceMatcherFunction);
+      if (new AudioSystemWrapper().isAudioOutputSupported()) {
+        device = new MidiSystemHelper().findMidiDeviceByName(
+            new MidiDeviceNameStartsWithMatcher("Gervill"));
+      } else {
+        throw new OdinException("No matching device for " + midiDeviceMatcherFunction + " and "
+          + "cannot fall back to default synthesizer since audio output not supported");
+      }
     }
 
     if (device != null) {

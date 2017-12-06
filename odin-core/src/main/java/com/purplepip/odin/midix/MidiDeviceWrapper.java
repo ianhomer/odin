@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Provider of a MIDI device.
  */
-public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
+public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
   private MidiDevice receivingDevice;
@@ -52,7 +52,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
   private PerformanceTimeConverter timeConverter;
 
-  public MidiDeviceWrapper() {
+  public MidiDeviceWrapper() throws OdinException {
     this(false);
   }
 
@@ -61,12 +61,18 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
    *
    * @param scan whether to support MIDI device change detection scanning
    */
-  public MidiDeviceWrapper(boolean scan) {
-    MidiDeviceScanner scanner = new MidiDeviceScanner();
-    scanner.run();
+  public MidiDeviceWrapper(boolean scan) throws OdinException {
+    final MidiDeviceFinder finder = new MidiDeviceFinder();
+    finder.find();
     if (scan) {
       LOG.debug("MIDI Device scanning enabled");
-      scheduledPool.scheduleWithFixedDelay(scanner, 0, 1, TimeUnit.SECONDS);
+      scheduledPool.scheduleWithFixedDelay(() -> {
+        try {
+          finder.find();
+        } catch (OdinException e) {
+          LOG.error("MIDI device scan failed", e);
+        }
+      }, 0, 1, TimeUnit.SECONDS);
     }
   }
 
@@ -164,6 +170,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
    * @return instrument
    * @throws OdinException exception
    */
+  @Override
   public Instrument findInstrument(int channel, String instrumentName) throws OdinException {
     if (!isSynthesizer()) {
       throw new OdinException("Cannot search for instrument name if not local synthesizer");
@@ -197,6 +204,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
     return receivingDevice instanceof Synthesizer;
   }
 
+  @Override
   public boolean isOpenSynthesizer() {
     return isSynthesizer() && receivingDevice.isOpen() && Container.getContainer().isAudioEnabled();
   }
@@ -215,6 +223,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
    * @param midiMessage MIDI message
    * @param time performance time
    */
+  @Override
   public boolean send(MidiMessage midiMessage, long time) throws OdinException {
     try {
       if (getReceivingDevice().isOpen()) {
@@ -244,12 +253,11 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
     timeConverter.onPerformanceStop();
   }
 
-  class MidiDeviceScanner implements Runnable {
+  class MidiDeviceFinder {
     private Set<MidiDevice.Info> knownMidiDevices = new HashSet<>();
     private MidiSystemHelper helper = new MidiSystemHelper();
 
-    @Override
-    public void run() {
+    public void find() throws OdinException {
       // FIX : https://github.com/ianhomer/odin/issues/1
       LOG.debug("Scanning MIDI devices");
       Set<MidiDevice.Info> midiDevices = new MidiSystemWrapper().getMidiDeviceInfos();
@@ -261,19 +269,17 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
       }
     }
 
-    private void findDevice() {
+    private void findDevice() throws OdinException {
       try {
         setReceivingDevice(helper.getReceivingDevice());
       } catch (OdinException e) {
-        LOG.error("Cannot initialise receiving MIDI device", e);
+        throw new OdinException("Cannot initialise receiving MIDI device", e);
       }
       try {
         transmittingDevice = helper.getTransmittingDevice();
       } catch (OdinException e) {
-        LOG.error("Cannot initialise transmitting MIDI device", e);
+        throw new OdinException("Cannot initialise transmitting MIDI device", e);
       }
     }
   }
-
-
 }

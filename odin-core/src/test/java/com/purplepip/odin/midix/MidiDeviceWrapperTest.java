@@ -2,6 +2,7 @@ package com.purplepip.odin.midix;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.odin.common.OdinException;
@@ -16,8 +17,18 @@ import org.junit.Test;
 public class MidiDeviceWrapperTest {
   @Test
   public void testMidiDeviceWrapper() {
-    try (MidiDeviceWrapper wrapper = new MidiDeviceWrapper()) {
-      assertNotNull("Wrapped device should not be null", wrapper.getReceivingDevice());
+    try {
+      try (MidiDeviceWrapper wrapper = new MidiDeviceWrapper()) {
+        assertNotNull("Wrapped device should not be null", wrapper.getReceivingDevice());
+      }
+    } catch (OdinException e) {
+      if (new AudioSystemWrapper().isAudioOutputSupported()) {
+        LOG.error("Cannot create MidiDeviceWrapper", e);
+        fail("Unexpected exception when initialising MidiDeviceWrapper");
+      } else {
+        LOG.debug("Expected exception when initialising MidiDeviceWrapper when audio support "
+            + " is disabled", e);
+      }
     }
   }
 

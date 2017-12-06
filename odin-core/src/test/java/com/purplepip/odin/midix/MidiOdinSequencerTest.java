@@ -1,6 +1,7 @@
 package com.purplepip.odin.midix;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
@@ -25,6 +26,7 @@ import org.junit.Test;
 public class MidiOdinSequencerTest {
   @Test
   public void testSequencer() throws OdinException, InterruptedException {
+    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
     try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(true)) {
       final CountDownLatch lock = new CountDownLatch(16);
 

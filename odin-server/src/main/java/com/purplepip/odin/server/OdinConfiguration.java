@@ -49,7 +49,7 @@ public class OdinConfiguration {
   private MetricRegistry metrics;
 
   @Bean
-  public MidiDeviceWrapper midiDeviceWrapper() {
+  public MidiDeviceWrapper midiDeviceWrapper() throws OdinException {
     return new MidiDeviceWrapper();
   }
 

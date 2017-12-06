@@ -15,32 +15,18 @@
 
 package com.purplepip.odin.midix;
 
-import javax.sound.midi.MidiDevice;
-import lombok.ToString;
+import com.purplepip.odin.clock.PerformanceListener;
+import com.purplepip.odin.common.OdinException;
+import javax.sound.midi.Instrument;
+import javax.sound.midi.MidiMessage;
 
 /**
- * Match MIDI devices where the name matches the given starts with string.
+ * MIDI Device receiver.
  */
-@ToString
-public class MidiDeviceNameStartsWithMatcher implements MidiDeviceMatcher {
-  private String prefix;
+public interface MidiDeviceReceiver extends PerformanceListener {
+  Instrument findInstrument(int channel, String instrumentName) throws OdinException;
 
-  public MidiDeviceNameStartsWithMatcher(String prefix) {
-    this.prefix = prefix;
-  }
+  boolean isOpenSynthesizer();
 
-  @Override
-  public boolean matches(MidiDevice.Info info) {
-    return info.getName().startsWith(prefix);
-  }
-
-  @Override
-  public boolean matches(MidiDevice device) {
-    return matches(device.getDeviceInfo());
-  }
-
-  @Override
-  public String getDescription() {
-    return "Starts with " + prefix;
-  }
+  boolean send(MidiMessage midiMessage, long time) throws OdinException;
 }
