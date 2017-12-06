@@ -17,26 +17,13 @@ package com.purplepip.odin.demo;
 
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.performance.Performance;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
 import org.junit.Test;
 
 @Slf4j
-public class GroovePerformanceTest extends AbstractPerformanceTest {
-  @Before
-  public void setUp() {
-    setStaticBeatsPerMinute(600);
-    setExpectedOperationCount(6);
-  }
-
+public class GroovePerformanceTest {
   @Test
   public void testGroove() {
-    assertTrue(getPerformance().getLayers().size() > 2);
-  }
-
-  @Override
-  protected Performance newPerformance() {
-    return new GroovePerformance();
+    assertTrue(new GroovePerformance().getLayers().size() > 2);
   }
 }

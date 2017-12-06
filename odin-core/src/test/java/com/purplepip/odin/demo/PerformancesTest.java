@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.demo;
 
+import static com.purplepip.odin.demo.PerformanceTestParameter.newParameter;
 import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
 import static org.junit.Assert.assertEquals;
 
@@ -22,38 +23,48 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import com.purplepip.odin.snapshot.Snapshot;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 @Slf4j
-public abstract class AbstractPerformanceTest {
-  private static final int DEFAULT_STATIC_BEATS_PER_MINUTE = 6000;
-  private static final int DEFAULT_EXPECTED_OPERATION_COUNT = 20;
-  private static final long DEFAULT_WAIT = 2000;
-
-  private int staticBeatsPerMinute = DEFAULT_STATIC_BEATS_PER_MINUTE;
-  private int expectedOperationCount = DEFAULT_EXPECTED_OPERATION_COUNT;
+@RunWith(Parameterized.class)
+public class PerformancesTest {
   private Performance performance;
+  private long testWait;
+  private int staticBeatsPerMinute;
+  private int expectedOperationCount;
 
-  protected abstract Performance newPerformance();
-
-  protected void setStaticBeatsPerMinute(int staticBeatsPerMinute) {
-    this.staticBeatsPerMinute = staticBeatsPerMinute;
+  /**
+   * Create performances test from injected parameter.
+   *
+   * @param parameter injected parameter
+   */
+  public PerformancesTest(PerformanceTestParameter parameter) {
+    performance = parameter.performance();
+    staticBeatsPerMinute = parameter.staticBeatsPerMinute();
+    expectedOperationCount = parameter.expectedOperationCount();
+    testWait = parameter.testWait();
   }
 
-  protected void setExpectedOperationCount(int expectedOperationCount) {
-    this.expectedOperationCount = expectedOperationCount;
-  }
-
-  protected Performance getPerformance() {
-    return performance;
-  }
-
-  @Before
-  public void baseSetUp() {
-    performance = newPerformance();
+  /**
+   * Get parameters for parameterized tests.
+   *
+   * @return parameters
+   */
+  @Parameterized.Parameters
+  public static Collection<PerformanceTestParameter[]> parameters() {
+    Collection<PerformanceTestParameter[]> parameters = new ArrayList<>();
+    parameters.add(newParameter(new SimplePerformance())
+        .expectedOperationCount(12).asArray());
+    parameters.add(newParameter(new GroovePerformance())
+        .expectedOperationCount(6)
+        .staticBeatsPerMinute(600).asArray());
+    return parameters;
   }
 
   @Test
@@ -68,7 +79,7 @@ public abstract class AbstractPerformanceTest {
     long time = System.currentTimeMillis();
     environment.start();
     try {
-      snapshotReceiver.getLatch().await(DEFAULT_WAIT, TimeUnit.MILLISECONDS);
+      snapshotReceiver.getLatch().await(testWait, TimeUnit.MILLISECONDS);
     } finally {
       environment.stop();
     }
@@ -78,8 +89,8 @@ public abstract class AbstractPerformanceTest {
      * that risk of failure due to time out is high.
      */
     long delta = System.currentTimeMillis() - time;
-    if (System.currentTimeMillis() - time > DEFAULT_WAIT / 2) {
-      LOG.warn("Test is running slow : {} > {}", delta, DEFAULT_WAIT / 2);
+    if (System.currentTimeMillis() - time > testWait / 2) {
+      LOG.warn("Test is running slow : {} > {}", delta, testWait / 2);
     }
 
     /*
