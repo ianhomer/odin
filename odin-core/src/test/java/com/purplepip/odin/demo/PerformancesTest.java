@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.demo;
 
-import static com.purplepip.odin.demo.PerformanceTestParameter.newParameter;
 import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
 import static org.junit.Assert.assertEquals;
 
@@ -26,6 +25,9 @@ import com.purplepip.odin.snapshot.Snapshot;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -104,5 +106,33 @@ public class PerformancesTest {
     snapshot.expectMatch();
     assertEquals(0, actualCount);
     LOG.debug("Performance snapshot AOK");
+  }
+
+  static PerformanceTestParameter newParameter(Performance performance) {
+    return new PerformanceTestParameter().performance(performance);
+  }
+
+  @Accessors(fluent = true)
+  private static class PerformanceTestParameter {
+    private static final int DEFAULT_STATIC_BEATS_PER_MINUTE = 6000;
+    private static final int DEFAULT_EXPECTED_OPERATION_COUNT = 20;
+    private static final long DEFAULT_WAIT = 2000;
+
+    @Getter
+    @Setter
+    private Performance performance;
+
+    @Getter @Setter
+    private int staticBeatsPerMinute = DEFAULT_STATIC_BEATS_PER_MINUTE;
+
+    @Getter @Setter
+    private int expectedOperationCount = DEFAULT_EXPECTED_OPERATION_COUNT;
+
+    @Getter @Setter
+    private long testWait = DEFAULT_WAIT;
+
+    PerformanceTestParameter[] asArray() {
+      return new PerformanceTestParameter[] { this };
+    }
   }
 }
