@@ -90,7 +90,7 @@ public interface OdinSequencerConfiguration {
   int getTrackProcessorMaxNotesPerBuffer();
 
   /**
-   * Operation processor refresh period in milliseconds
+   * Operation processor refresh period in milliseconds.
    *
    * @return operation processor refresh period in milliseconds.
    */

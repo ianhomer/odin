@@ -17,8 +17,6 @@ package com.purplepip.odin.demo;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.clock.beats.BeatsPerMinute;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequencer.BaseOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
@@ -35,12 +33,8 @@ public class SimplePerformanceTest {
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(snapshotter, new SimplePerformance(),
-            new BaseOdinSequencerConfiguration() {
-            @Override
-            public BeatsPerMinute getBeatsPerMinute() {
-              return new StaticBeatsPerMinute(6000);
-            }
-        });
+            new BaseOdinSequencerConfiguration()
+                .staticBeatsPerMinute(6000));
     environment.start();
     try {
       snapshotter.getLatch().await(1000, TimeUnit.MILLISECONDS);

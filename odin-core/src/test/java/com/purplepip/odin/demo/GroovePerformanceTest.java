@@ -15,8 +15,6 @@
 
 package com.purplepip.odin.demo;
 
-import com.purplepip.odin.clock.beats.BeatsPerMinute;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequencer.BaseOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
@@ -34,12 +32,8 @@ public class GroovePerformanceTest {
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(snapshotter, new GroovePerformance(),
-            new BaseOdinSequencerConfiguration() {
-            @Override
-            public BeatsPerMinute getBeatsPerMinute() {
-              return new StaticBeatsPerMinute(60);
-            }
-        });
+            new BaseOdinSequencerConfiguration().staticBeatsPerMinute(60)
+        );
     environment.start();
     try {
       snapshotter.getLatch().await(1000, TimeUnit.MILLISECONDS);

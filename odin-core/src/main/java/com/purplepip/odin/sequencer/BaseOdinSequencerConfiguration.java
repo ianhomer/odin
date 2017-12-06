@@ -18,20 +18,42 @@ package com.purplepip.odin.sequencer;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.notes.Note;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
+@Accessors(fluent = true)
 public class BaseOdinSequencerConfiguration implements OdinSequencerConfiguration {
+  @Getter
+  @Setter
+  private MeasureProvider measureProvider;
+
+  public BaseOdinSequencerConfiguration beatsPerMeasure(int beatsPerMeasure) {
+    return measureProvider(new StaticBeatMeasureProvider(beatsPerMeasure));
+  }
+
+  @Getter
+  @Setter
+  private BeatsPerMinute beatsPerMinute;
+
+  public BaseOdinSequencerConfiguration staticBeatsPerMinute(int staticBeatsPerMinute) {
+    return beatsPerMinute(new StaticBeatsPerMinute(staticBeatsPerMinute));
+  }
+
   @Override
   public BeatsPerMinute getBeatsPerMinute() {
-    return null;
+    return beatsPerMinute;
   }
 
   @Override
   public MeasureProvider getMeasureProvider() {
-    return null;
+    return measureProvider;
   }
 
   @Override

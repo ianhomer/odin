@@ -28,7 +28,7 @@ public class Measure<S extends Staff> {
   private String key;
 
   /**
-   * Create a measure in given a time signature and for a given key
+   * Create a measure in given a time signature and for a given key.
    *
    * @param time time signature
    * @param key key signature.
