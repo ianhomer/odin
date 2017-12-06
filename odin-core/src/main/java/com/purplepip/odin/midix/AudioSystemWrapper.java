@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.system.Container;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -48,6 +49,10 @@ final class AudioSystemWrapper {
 
   boolean hasMixers() {
     return !mixerWrappers.isEmpty();
+  }
+
+  boolean isAudioOutputSupported() {
+    return hasMixers() && Container.getContainer().isAudioEnabled();
   }
 
   void dump() {

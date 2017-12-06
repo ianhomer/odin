@@ -15,21 +15,32 @@
 
 package com.purplepip.odin.creation.reactors;
 
+import static com.purplepip.odin.clock.BeatClock.newBeatClock;
+import static com.purplepip.odin.clock.measure.StaticBeatMeasureProvider.newMeasureProvider;
+import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.conductor.LayerConductors;
+import com.purplepip.odin.creation.flow.FlowFactory;
+import com.purplepip.odin.creation.track.SequenceRollTrack;
 import com.purplepip.odin.creation.track.SequenceTracks;
 import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Random;
 import com.purplepip.odin.performance.TransientPerformance;
 import org.junit.Test;
 
 public class MutableReactorsTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
+  private FlowFactory<Note> flowFactory = newNoteFlowFactory();
+  private BeatClock clock = newBeatClock(120);
+  private MeasureProvider measureProvider = newMeasureProvider(4);
 
   @Test
   public void testRefresh() {
@@ -53,6 +64,8 @@ public class MutableReactorsTest {
     project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));
     LayerConductors conductors = new LayerConductors();
     SequenceTracks tracks = new SequenceTracks(conductors);
+    tracks.refresh(project.getSequences().stream(),
+        sequence -> new SequenceRollTrack(sequence, clock, measureProvider, flowFactory));
     TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(project.getTriggers().stream(),
         trigger -> new TriggerReactor(trigger, triggerFactory));

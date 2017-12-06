@@ -5,13 +5,13 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ActionOperation;
+import com.purplepip.odin.creation.action.IncrementAction;
 import com.purplepip.odin.creation.action.InitialiseAction;
 import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.demo.MatchNotePerformance;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.performance.PerformanceContainer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -77,6 +77,8 @@ public class OdinSequencerMatchNoteTest {
           startTrackLatch.countDown();
         } else if (action instanceof SetAction) {
           setTrackLatch.countDown();
+        } else if (action instanceof IncrementAction) {
+          LOG.debug("Ignoring IncrementAction {}", action);
         } else {
           LOG.warn("Unexpected action operation : {}", operation);
         }
