@@ -31,7 +31,7 @@ import org.junit.Test;
 public abstract class AbstractPerformanceTest {
   private static final int DEFAULT_STATIC_BEATS_PER_MINUTE = 6000;
   private static final int DEFAULT_EXPECTED_OPERATION_COUNT = 20;
-  private static final long DEFAULT_WAIT = 1000;
+  private static final long DEFAULT_WAIT = 2000;
 
   private int staticBeatsPerMinute = DEFAULT_STATIC_BEATS_PER_MINUTE;
   private int expectedOperationCount = DEFAULT_EXPECTED_OPERATION_COUNT;
@@ -65,11 +65,21 @@ public abstract class AbstractPerformanceTest {
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(snapshotReceiver, performance,
             deltaConfiguration().staticBeatsPerMinute(staticBeatsPerMinute));
+    long time = System.currentTimeMillis();
     environment.start();
     try {
       snapshotReceiver.getLatch().await(DEFAULT_WAIT, TimeUnit.MILLISECONDS);
     } finally {
       environment.stop();
+    }
+
+    /*
+     * Warn when test is taking more than half of the wait period.  This is an indication
+     * that risk of failure due to time out is high.
+     */
+    long delta = System.currentTimeMillis() - time;
+    if (System.currentTimeMillis() - time > DEFAULT_WAIT / 2) {
+      LOG.warn("Test is running slow : {} > {}", delta, DEFAULT_WAIT / 2);
     }
 
     /*
