@@ -27,6 +27,7 @@ public class GroovePerformanceTest extends AbstractPerformanceTest {
   @Before
   public void setUp() {
     setStaticBeatsPerMinute(60);
+    setExpectedOperationCount(6);
   }
 
   @Test
@@ -37,10 +38,5 @@ public class GroovePerformanceTest extends AbstractPerformanceTest {
   @Override
   protected Performance newPerformance() {
     return new GroovePerformance();
-  }
-
-  @Override
-  protected int getExpectedOperationCount() {
-    return 6;
   }
 }

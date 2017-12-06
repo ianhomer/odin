@@ -30,17 +30,21 @@ import org.junit.Test;
 @Slf4j
 public abstract class AbstractPerformanceTest {
   private static final int DEFAULT_STATIC_BEATS_PER_MINUTE = 6000;
+  private static final int DEFAULT_EXPECTED_OPERATION_COUNT = 20;
   private static final long DEFAULT_WAIT = 1000;
 
   private int staticBeatsPerMinute = DEFAULT_STATIC_BEATS_PER_MINUTE;
+  private int expectedOperationCount = DEFAULT_EXPECTED_OPERATION_COUNT;
   private Performance performance;
 
   protected abstract Performance newPerformance();
 
-  protected abstract int getExpectedOperationCount();
-
   protected void setStaticBeatsPerMinute(int staticBeatsPerMinute) {
     this.staticBeatsPerMinute = staticBeatsPerMinute;
+  }
+
+  protected void setExpectedOperationCount(int expectedOperationCount) {
+    this.expectedOperationCount = expectedOperationCount;
   }
 
   protected Performance getPerformance() {
@@ -56,7 +60,7 @@ public abstract class AbstractPerformanceTest {
   public void testPerformance() throws OdinException, InterruptedException {
     Snapshot snapshot = new Snapshot(performance.getClass());
     SnapshotOperationReceiver snapshotReceiver =
-        new SnapshotOperationReceiver(snapshot, getExpectedOperationCount());
+        new SnapshotOperationReceiver(snapshot, expectedOperationCount);
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(snapshotReceiver, performance,
@@ -68,8 +72,16 @@ public abstract class AbstractPerformanceTest {
       environment.stop();
     }
 
+    /*
+     * WARN early to give more information to help when snapshot match fails.
+     */
+    long actualCount = snapshotReceiver.getLatch().getCount();
+    if (actualCount != 0) {
+      LOG.warn("Only {} operations were recorded, {} were expected", actualCount,
+          expectedOperationCount);
+    }
     snapshot.expectMatch();
-    assertEquals(0, snapshotReceiver.getLatch().getCount());
+    assertEquals(0, actualCount);
     LOG.debug("Performance snapshot AOK");
   }
 }

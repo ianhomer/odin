@@ -16,16 +16,16 @@
 package com.purplepip.odin.demo;
 
 import com.purplepip.odin.performance.Performance;
+import org.junit.Before;
 
 public class SimplePerformanceTest extends AbstractPerformanceTest {
+  @Before
+  public void setUp() {
+    setExpectedOperationCount(12);
+  }
 
   @Override
   protected Performance newPerformance() {
     return new SimplePerformance();
-  }
-
-  @Override
-  protected int getExpectedOperationCount() {
-    return 12;
   }
 }
