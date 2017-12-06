@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -39,7 +40,7 @@ public class Snapshot {
   private static final Pattern lastSlash = Pattern.compile("(?:/)?[^/]*$");
   private Class<?> clazz;
   private Path path;
-  private List<String> lines = new ArrayList<>();
+  private List<String> lines = Collections.synchronizedList(new ArrayList<>());
 
   public Snapshot(Class<?> clazz) {
     this.clazz = clazz;

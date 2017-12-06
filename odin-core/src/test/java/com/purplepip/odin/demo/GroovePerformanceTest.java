@@ -26,7 +26,7 @@ import org.junit.Test;
 public class GroovePerformanceTest extends AbstractPerformanceTest {
   @Before
   public void setUp() {
-    setStaticBeatsPerMinute(60);
+    setStaticBeatsPerMinute(600);
     setExpectedOperationCount(6);
   }
 
