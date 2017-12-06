@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.demo;
 
+import static org.junit.Assert.assertEquals;
+
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.common.OdinException;
@@ -22,22 +24,21 @@ import com.purplepip.odin.sequencer.BaseOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import com.purplepip.odin.snapshot.Snapshot;
 import java.util.concurrent.TimeUnit;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-@Slf4j
-public class GroovePerformanceTest {
+public class SimplePerformanceTest {
   @Test
   public void testPerformance() throws OdinException, InterruptedException {
-    Snapshot snapshot = new Snapshot(GroovePerformance.class);
-    SnapshotOperationReceiver snapshotter = new SnapshotOperationReceiver(snapshot);
+    Snapshot snapshot = new Snapshot(SimplePerformance.class);
+    SnapshotOperationReceiver snapshotter =
+        new SnapshotOperationReceiver(snapshot, 12);
 
     TestSequencerEnvironment environment =
-        new TestSequencerEnvironment(snapshotter, new GroovePerformance(),
+        new TestSequencerEnvironment(snapshotter, new SimplePerformance(),
             new BaseOdinSequencerConfiguration() {
             @Override
             public BeatsPerMinute getBeatsPerMinute() {
-              return new StaticBeatsPerMinute(60);
+              return new StaticBeatsPerMinute(6000);
             }
         });
     environment.start();
@@ -48,5 +49,6 @@ public class GroovePerformanceTest {
     }
 
     snapshot.expectMatch();
+    assertEquals(0, snapshotter.getLatch().getCount());
   }
 }
