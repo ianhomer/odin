@@ -40,6 +40,10 @@ public class Snapshot {
   private static final Pattern lastSlash = Pattern.compile("(?:/)?[^/]*$");
   private Class<?> clazz;
   private Path path;
+  /*
+   * Snapshot could be written to by multiple threads so we need to guarantee thread safety
+   * with a synchronised list.
+   */
   private List<String> lines = Collections.synchronizedList(new ArrayList<>());
 
   public Snapshot(Class<?> clazz) {

@@ -1,9 +1,13 @@
 package com.purplepip.odin.midix;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
+import javax.sound.midi.MidiDevice;
 import org.junit.Test;
 
 /**
@@ -11,11 +15,18 @@ import org.junit.Test;
  */
 public class MidiDeviceMicrosecondPositionProviderTest {
   @Test
+  public void testMockedMicrosecondPosition() {
+    MidiDevice device = mock(MidiDevice.class);
+    when(device.getMicrosecondPosition()).thenReturn(10L);
+    assertEquals(10, new MidiDeviceMicrosecondPositionProvider(device).getMicroseconds());
+  }
+
+  @Test
   public void testMicrosecondPosition() {
+    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     MicrosecondPositionProvider provider = new MidiDeviceMicrosecondPositionProvider(
         wrapper.getReceivingDevice());
-    assumeTrue(wrapper.getReceivingDevice().isOpen());
     long time = provider.getMicroseconds();
     assertTrue("Microsecond not +ve : " + time, time > -1);
   }
