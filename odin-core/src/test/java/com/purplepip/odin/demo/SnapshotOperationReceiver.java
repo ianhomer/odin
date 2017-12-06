@@ -16,6 +16,7 @@
 package com.purplepip.odin.demo;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.common.Pretty;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.snapshot.Snapshot;
@@ -43,7 +44,8 @@ public class SnapshotOperationReceiver implements OperationReceiver {
   public void send(Operation operation, long time) throws OdinException {
     if (latch.getCount() > 0) {
       latch.countDown();
-      snapshot.writeLine(String.format("%15d %s", time, operation));
+      snapshot.writeLine(String.format("%15s %s",
+          Pretty.replaceTrailingZeros(time, 4), operation));
       LOG.debug("Received operation {}", operation);
     } else {
       /*
