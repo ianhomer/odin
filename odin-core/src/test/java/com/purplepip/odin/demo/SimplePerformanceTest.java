@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.demo;
 
+import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequencer.BaseOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import com.purplepip.odin.snapshot.Snapshot;
 import java.util.concurrent.TimeUnit;
@@ -33,8 +33,7 @@ public class SimplePerformanceTest {
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(snapshotter, new SimplePerformance(),
-            new BaseOdinSequencerConfiguration()
-                .staticBeatsPerMinute(6000));
+            deltaConfiguration().staticBeatsPerMinute(6000));
     environment.start();
     try {
       snapshotter.getLatch().await(1000, TimeUnit.MILLISECONDS);

@@ -27,7 +27,6 @@ import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -46,7 +45,7 @@ public class TestSequencerEnvironment {
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
                                   Performance performance) throws OdinException {
-    this(operationReceiver, performance, new BaseOdinSequencerConfiguration());
+    this(operationReceiver, performance, new DeltaOdinSequencerConfiguration());
   }
 
   /**
@@ -73,9 +72,7 @@ public class TestSequencerEnvironment {
     configuration = new DefaultOdinSequencerConfiguration()
         .setFlowFactory(flowFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))
-        .setBeatsPerMinute(
-            Optional.ofNullable(deltaConfiguration.getBeatsPerMinute())
-                .orElse(new StaticBeatsPerMinute(60000)))
+        .setBeatsPerMinute(new StaticBeatsPerMinute(60000))
         .setClockStartOffset(20000)
         .setClockStartRoundingFactor(1000)
         .setTrackProcessorRefreshPeriod(10)
@@ -83,7 +80,7 @@ public class TestSequencerEnvironment {
         .setOperationProcessorRefreshPeriod(10)
         .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
         .setOperationReceiver(operationReceiver)
-        .setStrictEventOrder(true);
+        .setStrictEventOrder(true).merge(deltaConfiguration);
     sequencer = new OdinSequencer(configuration);
     container.addApplyListener(sequencer);
   }

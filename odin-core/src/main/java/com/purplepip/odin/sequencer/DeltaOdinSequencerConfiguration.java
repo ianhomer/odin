@@ -28,13 +28,21 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+/**
+ * Sequencer configuration that can be used as a delta over and above another sequencer
+ * configuration.
+ */
 @Accessors(fluent = true)
-public class BaseOdinSequencerConfiguration implements OdinSequencerConfiguration {
+public class DeltaOdinSequencerConfiguration implements OdinSequencerConfiguration {
+  public static final DeltaOdinSequencerConfiguration deltaConfiguration() {
+    return new DeltaOdinSequencerConfiguration();
+  }
+
   @Getter
   @Setter
   private MeasureProvider measureProvider;
 
-  public BaseOdinSequencerConfiguration beatsPerMeasure(int beatsPerMeasure) {
+  public DeltaOdinSequencerConfiguration beatsPerMeasure(int beatsPerMeasure) {
     return measureProvider(new StaticBeatMeasureProvider(beatsPerMeasure));
   }
 
@@ -42,7 +50,7 @@ public class BaseOdinSequencerConfiguration implements OdinSequencerConfiguratio
   @Setter
   private BeatsPerMinute beatsPerMinute;
 
-  public BaseOdinSequencerConfiguration staticBeatsPerMinute(int staticBeatsPerMinute) {
+  public DeltaOdinSequencerConfiguration staticBeatsPerMinute(int staticBeatsPerMinute) {
     return beatsPerMinute(new StaticBeatsPerMinute(staticBeatsPerMinute));
   }
 

@@ -15,8 +15,9 @@
 
 package com.purplepip.odin.demo;
 
+import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
+
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequencer.BaseOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import com.purplepip.odin.snapshot.Snapshot;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +33,7 @@ public class GroovePerformanceTest {
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(snapshotter, new GroovePerformance(),
-            new BaseOdinSequencerConfiguration().staticBeatsPerMinute(60)
+            deltaConfiguration().staticBeatsPerMinute(60)
         );
     environment.start();
     try {

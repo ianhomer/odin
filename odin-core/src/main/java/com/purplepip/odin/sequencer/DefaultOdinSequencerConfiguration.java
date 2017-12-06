@@ -73,6 +73,21 @@ public class DefaultOdinSequencerConfiguration
     setStrictEventOrder(false);
   }
 
+  /**
+   * Override configuration with non null property values in the provided override configuration.
+   *
+   * @param override configuration to use to override property values
+   * @return this
+   */
+  public DefaultOdinSequencerConfiguration merge(
+      OdinSequencerConfiguration override) {
+
+    if (override.getBeatsPerMinute() != null) {
+      setBeatsPerMinute(override.getBeatsPerMinute());
+    }
+    return this;
+  }
+
   public final DefaultOdinSequencerConfiguration
       setBeatsPerMinute(BeatsPerMinute beatsPerMinute) {
     this.beatsPerMinute = beatsPerMinute;
