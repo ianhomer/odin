@@ -313,6 +313,14 @@
           <compilerArgs>
             <arg>-Xlint:unchecked</arg>
           </compilerArgs>
+          <excludes>
+            <!--
+              Exclude from compilation since causing compile stale check to fail since
+              these classes are empty and do not generate a class file.  This in turn
+              leads to slower builds when source to recompiled when not necessary
+              -->
+            <exclude>**/package-info.java</exclude>
+          </excludes>
         </configuration>
         <executions>
           <execution>

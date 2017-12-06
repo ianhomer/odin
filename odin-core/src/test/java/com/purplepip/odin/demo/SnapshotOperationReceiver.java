@@ -46,7 +46,7 @@ public class SnapshotOperationReceiver implements OperationReceiver {
       latch.countDown();
       snapshot.writeLine(String.format("%15s %s",
           Pretty.replaceTrailingZeros(time, 4), operation));
-      LOG.debug("Received operation {}", operation);
+      LOG.trace("Received operation {}", operation);
     } else {
       /*
        * We should be strict about not sending too much.  If test is complete then operations
