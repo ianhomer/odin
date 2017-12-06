@@ -43,9 +43,9 @@ public class SnapshotOperationReceiver implements OperationReceiver {
   @Override
   public void send(Operation operation, long time) throws OdinException {
     if (latch.getCount() > 0) {
-      latch.countDown();
       snapshot.writeLine(String.format("%15s %s",
           Pretty.replaceTrailingZeros(time, 4), operation));
+      latch.countDown();
       LOG.trace("Received operation {}", operation);
     } else {
       /*
