@@ -120,13 +120,13 @@ public class MidiSystemHelper {
 
     if (device == null) {
       LOG.debug("Device not found for {}, falling back to default", midiDeviceMatcherFunction);
-      if (new AudioSystemWrapper().isAudioOutputSupported()) {
-        device = new MidiSystemHelper().findMidiDeviceByName(
-            new MidiDeviceNameStartsWithMatcher("Gervill"));
-      } else {
-        throw new OdinException("No matching device for " + midiDeviceMatcherFunction + " and "
-          + "cannot fall back to default synthesizer since audio output not supported");
-      }
+      /*
+       * Note that we currently create the internal synthesizer device, but we are
+       * careful later to not open it.  This seems a little fragile and could do with
+       * improvement.
+       */
+      device = new MidiSystemHelper().findMidiDeviceByName(
+          new MidiDeviceNameStartsWithMatcher("Gervill"));
     }
 
     if (device != null) {

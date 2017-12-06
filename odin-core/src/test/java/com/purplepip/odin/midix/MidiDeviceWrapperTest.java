@@ -19,7 +19,11 @@ public class MidiDeviceWrapperTest {
   public void testMidiDeviceWrapper() {
     try {
       try (MidiDeviceWrapper wrapper = new MidiDeviceWrapper()) {
-        assertNotNull("Wrapped device should not be null", wrapper.getReceivingDevice());
+        // TODO : Need to make MidiDeviceWrapper throw exception on not found, however
+        // notes in MidiDeviceWrapper indicate pre-requisites to achieve this.
+        if (new AudioSystemWrapper().isAudioOutputSupported()) {
+          assertNotNull("Wrapped device should not be null", wrapper.getReceivingDevice());
+        }
       }
     } catch (OdinException e) {
       if (new AudioSystemWrapper().isAudioOutputSupported()) {

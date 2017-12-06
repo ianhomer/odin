@@ -63,7 +63,16 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
    */
   public MidiDeviceWrapper(boolean scan) throws OdinException {
     final MidiDeviceFinder finder = new MidiDeviceFinder();
-    finder.find();
+    try {
+      finder.find();
+    } catch (OdinException e) {
+      /*
+       * TODO : Not being able to initialise the device should be fatal, however to do that
+       * we need to support a stub mode for -PnoAudio mode / audio not available (on build machine)
+       */
+      LOG.warn("Cannot initialise MIDI device : {}", e.getMessage());
+    }
+
     if (scan) {
       LOG.debug("MIDI Device scanning enabled");
       scheduledPool.scheduleWithFixedDelay(() -> {
@@ -271,14 +280,14 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
 
     private void findDevice() throws OdinException {
       try {
-        setReceivingDevice(helper.getReceivingDevice());
-      } catch (OdinException e) {
-        throw new OdinException("Cannot initialise receiving MIDI device", e);
-      }
-      try {
         transmittingDevice = helper.getTransmittingDevice();
       } catch (OdinException e) {
         throw new OdinException("Cannot initialise transmitting MIDI device", e);
+      }
+      try {
+        setReceivingDevice(helper.getReceivingDevice());
+      } catch (OdinException e) {
+        throw new OdinException("Cannot initialise receiving MIDI device", e);
       }
     }
   }
