@@ -37,7 +37,7 @@ public class NoteOnOperation extends AbstractNoteVelocityOperation {
   }
 
   public String toString() {
-    return "NoteOn(" + this.getNumber() + "^" + this.getVelocity() + " @ "
-        + super.getChannel() + ")";
+    return "▼" + this.getNumber() + "↑" + this.getVelocity() + " → "
+        + super.getChannel();
   }
 }

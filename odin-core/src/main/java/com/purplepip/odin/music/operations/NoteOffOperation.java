@@ -33,6 +33,6 @@ public class NoteOffOperation extends AbstractNoteVelocityOperation {
   }
 
   public String toString() {
-    return "NoteOff(" + this.getNumber() + " @ " + super.getChannel() + ")";
+    return "▲" + this.getNumber() + "    → " + super.getChannel();
   }
 }
