@@ -15,33 +15,32 @@
 
 package com.purplepip.odin.demo;
 
-import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
+import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequencer.TestSequencerEnvironment;
-import com.purplepip.odin.snapshot.Snapshot;
-import java.util.concurrent.TimeUnit;
+import com.purplepip.odin.performance.Performance;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
 
 @Slf4j
-public class GroovePerformanceTest {
+public class GroovePerformanceTest extends AbstractPerformanceTest {
+  @Before
+  public void setUp() {
+    setStaticBeatsPerMinute(60);
+  }
+
   @Test
-  public void testPerformance() throws OdinException, InterruptedException {
-    Snapshot snapshot = new Snapshot(GroovePerformance.class);
-    SnapshotOperationReceiver snapshotter = new SnapshotOperationReceiver(snapshot);
+  public void testGroove() {
+    assertTrue(getPerformance().getLayers().size() > 2);
+  }
 
-    TestSequencerEnvironment environment =
-        new TestSequencerEnvironment(snapshotter, new GroovePerformance(),
-            deltaConfiguration().staticBeatsPerMinute(60)
-        );
-    environment.start();
-    try {
-      snapshotter.getLatch().await(1000, TimeUnit.MILLISECONDS);
-    } finally {
-      environment.stop();
-    }
+  @Override
+  protected Performance newPerformance() {
+    return new GroovePerformance();
+  }
 
-    snapshot.expectMatch();
+  @Override
+  protected int getExpectedOperationCount() {
+    return 6;
   }
 }

@@ -115,6 +115,7 @@ public class Snapshot {
   }
 
   public void writeLine(String s) {
+    LOG.debug("Writing to snapshot : {}", s);
     lines.add(s);
   }
 }

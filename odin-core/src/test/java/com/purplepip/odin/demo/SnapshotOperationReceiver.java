@@ -24,24 +24,34 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SnapshotOperationReceiver implements OperationReceiver {
-  private static final int DEFAULT_OPERATION_COUNT = 6;
   private final CountDownLatch latch;
   private Snapshot snapshot;
 
-  public SnapshotOperationReceiver(Snapshot snapshot) {
-    this(snapshot, DEFAULT_OPERATION_COUNT);
-  }
-
-  public SnapshotOperationReceiver(Snapshot snapshot, int operationCount) {
-    latch = new CountDownLatch(operationCount);
+  /**
+   * Create new snapshot operation receiver.
+   *
+   * @param snapshot snapshot to compare with
+   * @param expectedOperationCount expected operation count
+   */
+  SnapshotOperationReceiver(Snapshot snapshot, int expectedOperationCount) {
+    LOG.debug("Creating SnapshotOperationReceiver with expected count {}", expectedOperationCount);
+    latch = new CountDownLatch(expectedOperationCount);
     this.snapshot = snapshot;
   }
 
   @Override
   public void send(Operation operation, long time) throws OdinException {
-    latch.countDown();
-    snapshot.writeLine(String.format("%15d %s", time, operation));
-    LOG.trace("Received operation {}", operation);
+    if (latch.getCount() > 0) {
+      latch.countDown();
+      snapshot.writeLine(String.format("%15d %s", time, operation));
+      LOG.debug("Received operation {}", operation);
+    } else {
+      /*
+       * We should be strict about not sending too much.  If test is complete then operations
+       * should not be sent any more.
+       */
+      LOG.warn("Receiving operations even though latch count down complete");
+    }
   }
 
   public CountDownLatch getLatch() {

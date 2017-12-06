@@ -26,11 +26,4 @@ public class DemoPerformanceTest {
     Performance performance = new ScratchPerformance();
     assertTrue(performance.getLayers().size() > 2);
   }
-
-
-  @Test
-  public void testGroove() {
-    Performance performance = new GroovePerformance();
-    assertTrue(performance.getLayers().size() > 2);
-  }
 }
