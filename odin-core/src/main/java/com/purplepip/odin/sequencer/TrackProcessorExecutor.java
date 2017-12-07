@@ -176,7 +176,8 @@ public class TrackProcessorExecutor implements Runnable {
       } else if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
         statistics.incrementEventTooLateCount();
         tooLateMetric.mark();
-        LOG.warn("Skipping event, too late to process  {} < {}", nextEvent.getTime(),
+        LOG.warn("Skipping {}, too late to process  {} < {}", nextEvent,
+            nextEvent.getTime(),
             microsecondPosition);
       } else if (nextEvent instanceof NullValueEvent) {
         /*

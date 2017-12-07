@@ -69,7 +69,7 @@ public class DefaultNote implements Note {
   }
 
   public String toString() {
-    return "Note(" + number + "^" + velocity
+    return "♪(" + number + "↓" + velocity
         + (duration.equals(Wholes.ONE) ? "" : "~" + duration) + ")";
   }
 }

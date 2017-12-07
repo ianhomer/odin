@@ -64,7 +64,7 @@ public class PerformancesTest {
   public static Iterable<PerformanceTestParameter> parameters() {
     Collection<PerformanceTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance(), 12));
-    parameters.add(newParameter(new GroovePerformance(), 30)
+    parameters.add(newParameter(new GroovePerformance(), 6)
         .staticBeatsPerMinute(600));
     return parameters;
   }
