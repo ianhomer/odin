@@ -42,9 +42,10 @@ public class SnapshotOperationReceiver implements OperationReceiver {
 
   @Override
   public void send(Operation operation, long time) throws OdinException {
+    String prettyTime = Pretty.replaceTrailingZeros(time, 4);
     if (latch.getCount() > 0) {
       snapshot.writeLine(String.format("%15s %s",
-          Pretty.replaceTrailingZeros(time, 4), operation));
+          prettyTime, operation));
       latch.countDown();
       LOG.trace("Received operation {}", operation);
     } else {
@@ -52,7 +53,8 @@ public class SnapshotOperationReceiver implements OperationReceiver {
        * We should be strict about not sending too much.  If test is complete then operations
        * should not be sent any more.
        */
-      LOG.warn("Received operation {} even though latch count down complete", operation);
+      LOG.warn("Received operation {} {} even though latch count down complete", prettyTime,
+          operation);
     }
   }
 

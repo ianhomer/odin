@@ -37,6 +37,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class PerformancesTest {
   private Performance performance;
+  private String testName;
   private long testWait;
   private int staticBeatsPerMinute;
   private int expectedOperationCount;
@@ -51,6 +52,7 @@ public class PerformancesTest {
     staticBeatsPerMinute = parameter.staticBeatsPerMinute();
     expectedOperationCount = parameter.expectedOperationCount();
     testWait = parameter.testWait();
+    testName = performance.getClass().getSimpleName();
   }
 
   /**
@@ -62,7 +64,7 @@ public class PerformancesTest {
   public static Iterable<PerformanceTestParameter> parameters() {
     Collection<PerformanceTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance(), 12));
-    parameters.add(newParameter(new GroovePerformance(), 50)
+    parameters.add(newParameter(new GroovePerformance(), 30)
         .staticBeatsPerMinute(600));
     return parameters;
   }
@@ -90,7 +92,7 @@ public class PerformancesTest {
      */
     long delta = System.currentTimeMillis() - time;
     if (System.currentTimeMillis() - time > testWait / 2) {
-      LOG.warn("Test is running slow : {} > {}", delta, testWait / 2);
+      LOG.warn("{} : test is running slow : {} > {}", testName, delta, testWait / 2);
     }
 
     /*
@@ -98,12 +100,12 @@ public class PerformancesTest {
      */
     long actualCount = snapshotReceiver.getLatch().getCount();
     if (actualCount != 0) {
-      LOG.warn("Only {} operations were recorded, {} were expected", actualCount,
+      LOG.warn("{} : only {} operations were recorded, {} were expected", testName, actualCount,
           expectedOperationCount);
     }
     snapshot.expectMatch();
-    assertEquals(0, actualCount);
-    LOG.debug("Performance snapshot AOK");
+    assertEquals(testName + " operation count not as expected", 0, actualCount);
+    LOG.debug("{} : performance snapshot AOK", testName);
   }
 
   static PerformanceTestParameter newParameter(Performance performance,
