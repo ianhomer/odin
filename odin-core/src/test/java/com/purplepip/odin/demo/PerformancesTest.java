@@ -59,13 +59,11 @@ public class PerformancesTest {
    * @return parameters
    */
   @Parameterized.Parameters
-  public static Collection<PerformanceTestParameter[]> parameters() {
-    Collection<PerformanceTestParameter[]> parameters = new ArrayList<>();
-    parameters.add(newParameter(new SimplePerformance())
-        .expectedOperationCount(12).asArray());
-    parameters.add(newParameter(new GroovePerformance())
-        .expectedOperationCount(6)
-        .staticBeatsPerMinute(600).asArray());
+  public static Iterable<PerformanceTestParameter> parameters() {
+    Collection<PerformanceTestParameter> parameters = new ArrayList<>();
+    parameters.add(newParameter(new SimplePerformance(), 12));
+    parameters.add(newParameter(new GroovePerformance(), 50)
+        .staticBeatsPerMinute(600));
     return parameters;
   }
 
@@ -108,8 +106,10 @@ public class PerformancesTest {
     LOG.debug("Performance snapshot AOK");
   }
 
-  static PerformanceTestParameter newParameter(Performance performance) {
-    return new PerformanceTestParameter().performance(performance);
+  static PerformanceTestParameter newParameter(Performance performance,
+                                               int expectedOperationCount) {
+    return new PerformanceTestParameter().performance(performance)
+        .expectedOperationCount(expectedOperationCount);
   }
 
   @Accessors(fluent = true)
@@ -130,9 +130,5 @@ public class PerformancesTest {
 
     @Getter @Setter
     private long testWait = DEFAULT_WAIT;
-
-    PerformanceTestParameter[] asArray() {
-      return new PerformanceTestParameter[] { this };
-    }
   }
 }

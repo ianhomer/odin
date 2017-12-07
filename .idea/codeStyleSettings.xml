@@ -25,6 +25,9 @@
           </value>
         </option>
         <option name="RIGHT_MARGIN" value="100" />
+        <MarkdownNavigatorCodeStyleSettings>
+          <option name="RIGHT_MARGIN" value="72" />
+        </MarkdownNavigatorCodeStyleSettings>
         <codeStyleSettings language="HTML">
           <indentOptions>
             <option name="INDENT_SIZE" value="2" />
