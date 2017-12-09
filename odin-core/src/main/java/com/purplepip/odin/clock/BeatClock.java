@@ -95,11 +95,20 @@ public class BeatClock extends AbstractClock {
    * Start the clock.
    */
   public void start() {
-    LOG.debug("Starting clock in {}μs", startOffset);
-    setMicroseconds(0);
+    setMicroseconds(-startOffset);
+    LOG.debug("Starting clock in {}μs : {}", startOffset, this);
     started = true;
     listeners.forEach(PerformanceListener::onPerformanceStart);
-
+    LOG.debug("... started clock : {}", startOffset, this);
+    if (getMicroseconds() > 0) {
+      /*
+       * If all performance listeners did not start before the clock reaches 0 microseconds
+       * then there is a risk that some sequenced events did not fire in time.
+       */
+      LOG.warn("Clock listeners started slowly after clock start, please increase clock start"
+          + " offset.  Current offset = {}, clock microseconds = {} > 0", startOffset,
+          getMicroseconds());
+    }
   }
 
   /**
@@ -111,8 +120,7 @@ public class BeatClock extends AbstractClock {
    * @param microseconds microsecond position for the beat clock
    */
   public void setMicroseconds(long microseconds) {
-    microsecondsOffset = microsecondPositionProvider.getMicroseconds() - microseconds
-        + startOffset;
+    microsecondsOffset = microsecondPositionProvider.getMicroseconds() - microseconds;
     LOG.debug("Setting clock to {}μs in from first beat at {}μs", microseconds,
         microsecondsOffset);
   }

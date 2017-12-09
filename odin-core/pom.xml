@@ -107,7 +107,7 @@
       <id>faster</id>
       <properties>
         <!-- TODO : Allow speed to be passed in as parameter as well -->
-        <odin.test.speed>100</odin.test.speed>
+        <odin.test.speed>10</odin.test.speed>
       </properties>
     </profile>
   </profiles>

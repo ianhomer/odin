@@ -300,8 +300,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      */
     long microsecondOffset = tickToMicrosecondConverter
         .convert(Whole.valueOf(offset.get())).floor();
-    LOG.debug("Microsecond start for this sequence {} for tick offset {}", microsecondOffset,
-        offset.get());
+    LOG.debug("Microsecond start is {} for {} for tick offset {}", microsecondOffset,
+        getName(), offset.get());
 
     /*
      * ... and use this to create a converter that will convert microseconds into tock count
@@ -334,8 +334,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   @Override
   public void setTock(Bound tockToSet) {
     if (sequence.getLength() > -1 && !tockToSet.lt(Whole.valueOf(sequence.getLength()))) {
-      LOG.warn("Sequence roll is starting too late, no events will fire.  "
-          + "Tock {} > sequence length {}", tockToSet, sequence.getLength());
+      LOG.warn("Sequence roll {} is starting too late, no events will fire.  "
+          + "Tock {} > sequence length {}", getName(), tockToSet, sequence.getLength());
     }
 
     tock = new MovableTock(getSequence().getTick(), tockToSet);
