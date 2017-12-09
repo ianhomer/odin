@@ -153,7 +153,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     beatOffset.set(0L);
     long newOffset = measureProvider
         .getNextMeasureStart(
-            clock.getPosition(clock.getMicroseconds() + 20_000)).ceiling();
+            clock.getPosition(clock.getMicroseconds() + 100_000)).ceiling();
 
     resetter.set("offset", newOffset);
     LOG.debug("{} {} : sequence offset set to {}", beatClock, sequence.getName(),
