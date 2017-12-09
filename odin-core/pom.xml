@@ -13,6 +13,16 @@
 
   <name>Odin Core</name>
 
+  <properties>
+    <odin.test.speed>1</odin.test.speed>
+    <!--
+        TODO : How do we teak the surefire JVM parameters to incrementally add speed factor
+        when profile set.  Can we add argument by argument as opposed to building up the
+        full command line?
+        TODO : Output some properties in build output so we are clear what build is running with
+        -->
+    <purplepip.tests.jvm>-Dodin.audio.enabled=${odin.audio.enabled} -DupdateSnapshot=${purplepip.test.updateSnapshot} -Dodin.test.speed=${odin.test.speed}</purplepip.tests.jvm>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -91,4 +101,14 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>faster</id>
+      <properties>
+        <!-- TODO : Allow speed to be passed in as parameter as well -->
+        <odin.test.speed>100</odin.test.speed>
+      </properties>
+    </profile>
+  </profiles>
 </project>

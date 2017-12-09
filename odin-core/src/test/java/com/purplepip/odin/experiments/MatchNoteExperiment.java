@@ -71,7 +71,7 @@ public class MatchNoteExperiment {
     OperationTransmitter transmitter = new DefaultOperationTransmitter();
     midiDeviceWrapper.registerWithTransmitter(transmitter);
     OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
-        .setBeatsPerMinute(new StaticBeatsPerMinute(120))
+        .setBeatsPerMinute(new StaticBeatsPerMinute(60))
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(
             new OperationReceiverCollection(

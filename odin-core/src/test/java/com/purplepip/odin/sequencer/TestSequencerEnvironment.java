@@ -16,6 +16,8 @@
 package com.purplepip.odin.sequencer;
 
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
+import static com.purplepip.odin.system.TestContainer.factorSpeed;
+import static com.purplepip.odin.system.TestContainer.factorTime;
 
 import com.purplepip.odin.clock.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
@@ -72,8 +74,8 @@ public class TestSequencerEnvironment {
     configuration = new DefaultOdinSequencerConfiguration()
         .setFlowFactory(flowFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))
-        .setBeatsPerMinute(new StaticBeatsPerMinute(60000))
-        .setClockStartOffset(20000)
+        .setBeatsPerMinute(new StaticBeatsPerMinute(factorSpeed(60000)))
+        .setClockStartOffset(factorTime(20000))
         .setClockStartRoundingFactor(1000)
         .setTrackProcessorRefreshPeriod(10)
         .setTrackProcessorMaxNotesPerBuffer(2000)
