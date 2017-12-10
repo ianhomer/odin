@@ -12,6 +12,7 @@
         <module name="logcapture" />
         <module name="odin-checkstyle" />
         <module name="odin-core" />
+        <module name="odin-profile" />
         <module name="odin-server" />
       </profile>
     </annotationProcessing>
@@ -24,6 +25,7 @@
       <module name="odin" target="1.8" />
       <module name="odin-checkstyle" target="1.8" />
       <module name="odin-core" target="1.8" />
+      <module name="odin-profile" target="1.8" />
       <module name="odin-server" target="1.8" />
       <module name="tile-code-coverage" target="1.5" />
       <module name="tile-logging" target="1.5" />

@@ -1,0 +1,8 @@
+<aspectj>
+  <aspects>
+    <aspect name="com.purplepip.odin.profile.ProfileAspect"/>
+  </aspects>
+  <weaver options="-verbose -showWeaveInfo">
+    <include within="com.purplepip.odin.clock.*"/>
+  </weaver>
+</aspectj>

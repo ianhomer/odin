@@ -17,6 +17,7 @@
     <module>odin-checkstyle</module>
     <module>odin-core</module>
     <module>odin-server</module>
+    <module>odin-profile</module>
   </modules>
 
   <url>http://purplepip.com</url>
@@ -102,6 +103,12 @@
       <dependency>
         <groupId>com.purplepip</groupId>
         <artifactId>odin-core</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.purplepip</groupId>
+        <artifactId>odin-core</artifactId>
+        <type>test-jar</type>
         <version>1.0-SNAPSHOT</version>
       </dependency>
       <dependency>

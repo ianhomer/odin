@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/log-capture" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/odin-checkstyle" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/odin-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/odin-profile" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/odin-server" charset="UTF-8" />
   </component>
 </project>

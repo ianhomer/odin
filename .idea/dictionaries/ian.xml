@@ -6,6 +6,7 @@
       <w>ableton</w>
       <w>antlr</w>
       <w>appenders</w>
+      <w>aspectjweaver</w>
       <w>asserter</w>
       <w>autowired</w>
       <w>backends</w>
@@ -28,6 +29,7 @@
       <w>gervill</w>
       <w>ianhomer</w>
       <w>ivanov</w>
+      <w>javaagent</w>
       <w>javadocs</w>
       <w>jsonschema</w>
       <w>keypress</w>
