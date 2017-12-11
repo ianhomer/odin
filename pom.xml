@@ -343,6 +343,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <argLine>@{jacoco.argLine} ${purplepip.jvm.args} ${purplepip.tests.log.jvm} ${purplepip.tests.jvm}</argLine>
+          <trimStackTrace>false</trimStackTrace>
         </configuration>
       </plugin>
       <plugin>

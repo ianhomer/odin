@@ -55,7 +55,6 @@ public class TrackProcessor implements PerformanceListener {
                  MetricRegistry metrics,
                  long refreshPeriod, int maxNotesPerBuffer) {
     this.refreshPeriod = refreshPeriod;
-    scheduledPool = Executors.newScheduledThreadPool(1);
     executor = new TrackProcessorExecutor(
         clock, tracks, operationProcessor, refreshPeriod, maxNotesPerBuffer,
         statistics, metrics
@@ -76,6 +75,7 @@ public class TrackProcessor implements PerformanceListener {
   }
 
   private void start() {
+    scheduledPool = Executors.newScheduledThreadPool(1);
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     running = true;
     LOG.debug("Started sequence processor");

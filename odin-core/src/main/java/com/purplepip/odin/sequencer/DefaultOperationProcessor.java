@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DefaultOperationProcessor implements OperationProcessor, PerformanceListener {
   private final PriorityBlockingQueue<OperationEvent> queue;
-  private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
+  private ScheduledExecutorService scheduledPool;
   private DefaultOperationProcessorExecutor executor;
   private long refreshPeriod;
 
@@ -74,6 +74,7 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
   }
 
   private void start() {
+    scheduledPool = Executors.newScheduledThreadPool(1);
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     LOG.debug("Started operation processor");
   }
