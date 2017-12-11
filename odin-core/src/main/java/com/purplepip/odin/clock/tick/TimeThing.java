@@ -38,7 +38,7 @@ public interface TimeThing extends Thing {
   Tick getTick();
 
   /**
-   * Length of this thin in ticks from the offset point.  Note that thing will stop
+   * Length of this thing in ticks from the offset point.  Note that thing will stop
    * at offset + length ticks.
    *
    * @return length

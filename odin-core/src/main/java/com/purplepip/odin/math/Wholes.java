@@ -25,6 +25,11 @@ public final class Wholes {
   public static final Whole TWO = new Whole(2);
   public static final Whole THREE = new Whole(3);
   public static final Whole FOUR = new Whole(4);
+  public static final Whole FIVE = new Whole(5);
+  public static final Whole SIX = new Whole(6);
+  public static final Whole SEVEN = new Whole(7);
+  public static final Whole EIGHT = new Whole(8);
+  public static final Whole NINE = new Whole(9);
 
   private Wholes() {
   }
