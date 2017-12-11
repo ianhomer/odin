@@ -43,7 +43,7 @@ public class MetricsReport {
           formatter.format("%20.0f : %5d : %10.0f : %s\n",
               snapshot.getMean(), entry.getValue().getCount(),
               snapshot.getMean() * entry.getValue().getCount(),
-              entry.getKey());
+              entry.getKey().replace("com.purplepip.odin.", ""));
         });
     return sb.toString();
   }
