@@ -99,9 +99,13 @@ public class DeltaOdinSequencerConfiguration implements OdinSequencerConfigurati
     return 0;
   }
 
+  @Getter
+  @Setter
+  private long clockStartOffset = 0;
+
   @Override
   public long getClockStartOffset() {
-    return 0;
+    return clockStartOffset;
   }
 
   @Override

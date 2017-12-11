@@ -85,6 +85,9 @@ public class DefaultOdinSequencerConfiguration
     if (override.getBeatsPerMinute() != null) {
       setBeatsPerMinute(override.getBeatsPerMinute());
     }
+    if (override.getClockStartOffset() > 0) {
+      setClockStartOffset(override.getClockStartOffset());
+    }
     return this;
   }
 

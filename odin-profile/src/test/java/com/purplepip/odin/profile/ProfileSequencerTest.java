@@ -15,18 +15,29 @@
 
 package com.purplepip.odin.profile;
 
+import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
+
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.sequencer.LoggingOperationReceiver;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProfileSequencerTest {
+  private static final Logger LOG = LoggerFactory.getLogger(TriggerFactory.class);
+
   @Test
-  public void profileSequencer() throws OdinException {
+  public void testProfileSequencer() throws OdinException {
+    Profile.reset();
     TestSequencerEnvironment environment =
-        new TestSequencerEnvironment(new LoggingOperationReceiver(), new GroovePerformance());
+        new TestSequencerEnvironment(
+            new LoggingOperationReceiver(), new GroovePerformance(),
+            deltaConfiguration().clockStartOffset(500000));
     environment.start();
     environment.stop();
+    LOG.info(Profile.getReport().toString());
   }
 }

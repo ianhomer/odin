@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.profile;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,12 +22,10 @@ import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
 public class ProfileAspect {
-  static {
-    System.out.println("ASPECT : Loading");
-  }
-
-
   @Pointcut("execution(* com.purplepip.odin.clock.BeatClock.start(..))")
+  public void onBeatClockStart() {}
+
+  @Pointcut("execution(* *.onPerformanceStart(..))")
   public void onPerformanceStartMethods() {}
 
   @Pointcut("execution(* *(..))")
@@ -41,17 +38,13 @@ public class ProfileAspect {
    * @return object
    * @throws Throwable throwable
    */
-  @Around("onPerformanceStartMethods()")
+  @Around("onBeatClockStart() || onPerformanceStartMethods()")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
     long start = System.nanoTime();
     Object object = pjp.proceed();
     long delta = System.nanoTime() - start;
-    System.out.println(pjp.toLongString() + " in " + delta);
+    String name = pjp.getTarget().getClass().getName() + "." + pjp.getSignature().getName();
+    Profile.getSnapshot().add(new Record(name, delta));
     return object;
-  }
-
-  //@After("anyExecution()")
-  public void after(JoinPoint pointcut) throws Throwable {
-    System.out.println("ASPECT : AFTER : " + pointcut.toLongString());
   }
 }

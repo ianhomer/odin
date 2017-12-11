@@ -3,6 +3,6 @@
     <aspect name="com.purplepip.odin.profile.ProfileAspect"/>
   </aspects>
   <weaver options="-verbose -showWeaveInfo">
-    <include within="com.purplepip.odin.clock.*"/>
+    <include within="com.purplepip..*"/>
   </weaver>
 </aspectj>
