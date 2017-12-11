@@ -28,6 +28,12 @@ public class ProfileAspect {
   @Pointcut("execution(* *.onPerformanceStart(..))")
   public void onPerformanceStartMethods() {}
 
+  @Pointcut("execution(* com.purplepip.odin.creation.track.MutableSequenceRoll.*(..))")
+  public void inMutableSequenceRoll() {}
+
+  @Pointcut("execution(* com.purplepip.odin.creation.flow.FlowFactory.*(..))")
+  public void inFlowFactory() {}
+
   @Pointcut("execution(* *(..))")
   public void anyExecution(){}
 
@@ -38,13 +44,34 @@ public class ProfileAspect {
    * @return object
    * @throws Throwable throwable
    */
-  @Around("onBeatClockStart() || onPerformanceStartMethods()")
+  @Around("onBeatClockStart()"
+      + " || onPerformanceStartMethods()"
+      + " || inMutableSequenceRoll()"
+      + " || inFlowFactory()")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
     long start = System.nanoTime();
     Object object = pjp.proceed();
     long delta = System.nanoTime() - start;
-    String name = pjp.getTarget().getClass().getName() + "." + pjp.getSignature().getName();
-    Profile.getSnapshot().add(new Record(name, delta));
+    Profile.getSnapshot().add(new Record(toString(pjp), delta));
     return object;
+  }
+
+  private String toString(ProceedingJoinPoint pjp) {
+    StringBuilder name = new StringBuilder();
+    if (pjp.getTarget() != null) {
+      if (pjp.getTarget().getClass() != null) {
+        name.append(pjp.getTarget().getClass().getName());
+      } else {
+        name.append("{class-null}");
+      }
+    } else {
+      name.append("{target-null}");
+    }
+    if (pjp.getSignature() != null) {
+      name.append('.').append(pjp.getSignature().getName());
+    } else {
+      name.append("{signature-null");
+    }
+    return name.toString();
   }
 }

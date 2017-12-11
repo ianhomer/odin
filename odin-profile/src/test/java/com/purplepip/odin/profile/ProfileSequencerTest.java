@@ -30,7 +30,7 @@ public class ProfileSequencerTest {
   private static final Logger LOG = LoggerFactory.getLogger(TriggerFactory.class);
 
   @Test
-  public void testProfileSequencer() throws OdinException {
+  public void testProfileSequencer() throws OdinException, InterruptedException {
     Profile.reset();
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(
@@ -38,6 +38,13 @@ public class ProfileSequencerTest {
             deltaConfiguration().clockStartOffset(500000));
     environment.start();
     environment.stop();
-    LOG.info(Profile.getReport().toString());
+    // BeatClock start running at : 5919978micros on local dev machine ... convert this into
+    // hardware specific assertion and work to improve and assert lower.
+    LOG.info("1st Execution : " + Profile.getReport().toString());
+    // TODO : Support restart
+    // Profile.reset();
+    // environment.start();
+    // LOG.info("2nd Execution : " + Profile.getReport().toString());
+    // environment.stop();
   }
 }
