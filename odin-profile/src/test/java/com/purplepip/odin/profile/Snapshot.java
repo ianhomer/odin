@@ -24,21 +24,32 @@ import java.util.stream.Stream;
  * Profile snapshot store.
  */
 public class Snapshot {
-  public List<Record> records = new ArrayList<>();
+  public List<Metric> records = new ArrayList<>();
 
-  public void add(Record record) {
+  Snapshot() {
+  }
+
+  private Snapshot(List<Metric> records) {
+    this.records.addAll(records);
+  }
+
+  public void add(Metric record) {
     records.add(record);
   }
 
-  public Stream<Record> getStream() {
+  public Stream<Metric> getStream() {
     return records.stream();
   }
 
-  public Stream<Record> getSortedStream() {
+  public Stream<Metric> getSortedStream() {
     return records.stream().sorted(Comparator.comparing(record -> -record.getTime()));
   }
 
   public void reset() {
     records.clear();
+  }
+
+  public Snapshot copy() {
+    return new Snapshot(records);
   }
 }

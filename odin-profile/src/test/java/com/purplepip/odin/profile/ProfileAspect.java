@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.profile;
 
+import com.codahale.metrics.Timer;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -49,11 +50,16 @@ public class ProfileAspect {
       + " || inMutableSequenceRoll()"
       + " || inFlowFactory()")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
+    Timer.Context context = Profile.getMetrics().timer(toString(pjp)).time();
     long start = System.nanoTime();
-    Object object = pjp.proceed();
-    long delta = System.nanoTime() - start;
-    Profile.getSnapshot().add(new Record(toString(pjp), delta));
-    return object;
+    try {
+      long delta = System.nanoTime() - start;
+      Object object = pjp.proceed();
+      Profile.getSnapshot().add(new ValueMetric(toString(pjp), delta));
+      return object;
+    } finally {
+      context.stop();
+    }
   }
 
   private String toString(ProceedingJoinPoint pjp) {

@@ -15,18 +15,48 @@
 
 package com.purplepip.odin.profile;
 
+import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.MetricRegistry;
+import java.util.concurrent.TimeUnit;
+
 public class Profile {
   private static final Snapshot SNAPSHOT = new Snapshot();
+  private static final MetricRegistry METRICS = new MetricRegistry();
 
   public static Snapshot getSnapshot() {
     return SNAPSHOT;
   }
 
-  public static Report getReport() {
-    return new Report(getSnapshot());
+  public static MetricRegistry getMetrics() {
+    return METRICS;
   }
 
+  public static SnapshotReport getReport() {
+    return new SnapshotReport(getSnapshot());
+  }
+
+  public static String getReportAsString() {
+    return new MetricsReport(getMetrics()).toString();
+  }
+
+  /**
+   * Report metrics.
+   */
+  public static void report() {
+    final ConsoleReporter reporter = ConsoleReporter.forRegistry(getMetrics())
+        .convertRatesTo(TimeUnit.SECONDS)
+        .convertDurationsTo(TimeUnit.MILLISECONDS)
+        .build();
+    reporter.report();
+  }
+
+  /**
+   * Reset profiling.
+   */
   public static void reset() {
     SNAPSHOT.reset();
+    METRICS.getMetrics().forEach((name, metric) -> {
+      METRICS.remove(name);
+    });
   }
 }

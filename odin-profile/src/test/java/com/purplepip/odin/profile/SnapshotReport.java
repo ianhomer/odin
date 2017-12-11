@@ -15,20 +15,25 @@
 
 package com.purplepip.odin.profile;
 
-public class Record {
-  private long time;
-  private String name;
+import java.util.Formatter;
+import java.util.Locale;
 
-  public Record(String name, long time) {
-    this.time = time;
-    this.name = name;
+public class SnapshotReport {
+  private Snapshot snapshot;
+
+  public SnapshotReport(Snapshot snapshot) {
+    this.snapshot = snapshot;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public long getTime() {
-    return time;
+  /**
+   * Send report summary to log.
+   */
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    Formatter formatter = new Formatter(sb, Locale.ENGLISH);
+    snapshot.copy().getSortedStream().forEach(record -> {
+      formatter.format("%20d : %s\n", record.getTime(), record.getName());
+    });
+    return sb.toString();
   }
 }

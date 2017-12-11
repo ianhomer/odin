@@ -15,5 +15,8 @@
 
 package com.purplepip.odin.profile;
 
-public class Report {
+public interface Metric {
+  String getName();
+
+  long getTime();
 }

@@ -15,5 +15,20 @@
 
 package com.purplepip.odin.profile;
 
-public class Report {
+public class ValueMetric implements Metric {
+  private long time;
+  private String name;
+
+  public ValueMetric(String name, long time) {
+    this.time = time;
+    this.name = name;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public long getTime() {
+    return time;
+  }
 }

@@ -36,15 +36,14 @@ public class ProfileSequencerTest {
         new TestSequencerEnvironment(
             new LoggingOperationReceiver(), new GroovePerformance(),
             deltaConfiguration().clockStartOffset(500000));
-    environment.start();
-    environment.stop();
-    // BeatClock start running at : 5919978micros on local dev machine ... convert this into
-    // hardware specific assertion and work to improve and assert lower.
-    LOG.info("1st Execution : " + Profile.getReport().toString());
-    // TODO : Support restart
-    // Profile.reset();
-    // environment.start();
-    // LOG.info("2nd Execution : " + Profile.getReport().toString());
-    // environment.stop();
+    for (int i = 1 ; i < 3 ; i++) {
+      environment.start();
+      environment.stop();
+      // BeatClock start running at : 5919978micros on local dev machine for
+      // first execution... convert this into
+      // hardware specific assertion and work to improve and assert lower.
+      LOG.info("Execution {} : \n{}", i , Profile.getReportAsString());
+      Profile.reset();
+    }
   }
 }
