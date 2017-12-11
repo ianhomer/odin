@@ -75,7 +75,7 @@ public class ChannelUpdatedAtRuntimeTest {
     assertEquals("Unexpected program change", "violin", channel0.getProgramName());
 
     try {
-      channel0Events.await(1000, TimeUnit.MILLISECONDS);
+      channel0Events.await(5000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough channel 0 events fired", 0, channel0Events.getCount());
       builder
           .withChannel(1).changeProgramTo("cello")
@@ -85,7 +85,7 @@ public class ChannelUpdatedAtRuntimeTest {
       LOG.debug("*** *** *** Changed channel 1 to cello, channel 2 to piano and adding channel 1"
           + " metronome");
       environment.getContainer().apply();
-      channel1Events.await(1000, TimeUnit.MILLISECONDS);
+      channel1Events.await(5000, TimeUnit.MILLISECONDS);
       /*
        * Verify that only the explicit program changes are received and earlier ones are not
        * repeated.
@@ -102,7 +102,7 @@ public class ChannelUpdatedAtRuntimeTest {
           .removeSequence(channel0metronome);
       LOG.debug("*** *** *** Removed channel 0 metronome");
       environment.getContainer().apply();
-      channel3Events.await(1000, TimeUnit.MILLISECONDS);
+      channel3Events.await(5000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough channel 3 events fired", 0, channel3Events.getCount());
       assertEquals("Incorrect number of program change events", 4,
           programChangeEventCount.get());

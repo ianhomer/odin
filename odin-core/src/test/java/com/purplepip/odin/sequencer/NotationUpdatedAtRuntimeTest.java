@@ -52,7 +52,7 @@ public class NotationUpdatedAtRuntimeTest {
     Notation notation = (Notation) environment.getContainer().getSequences().iterator().next();
 
     try {
-      note60Events.await(2000, TimeUnit.MILLISECONDS);
+      note60Events.await(3000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough note 60 events fired", 0, note60Events.getCount());
       assertEquals("No note 61 notes should have been fired yet", 16, note61Events.getCount());
       LOG.debug("Updating pattern");
@@ -67,7 +67,7 @@ public class NotationUpdatedAtRuntimeTest {
         // should be robust to this.
         environment.getSequencer().getClock().setMicroseconds(1000);
         environment.getContainer().apply();
-        note61Events.await(2000, TimeUnit.MILLISECONDS);
+        note61Events.await(5000, TimeUnit.MILLISECONDS);
         if (captor.hasMessages()) {
           for (int i = 0; i < captor.size(); i++) {
             LOG.error("Captured WARN message {}", captor.getMessage(i));

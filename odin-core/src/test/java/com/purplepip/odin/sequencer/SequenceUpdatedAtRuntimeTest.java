@@ -55,14 +55,14 @@ public class SequenceUpdatedAtRuntimeTest {
     Pattern pattern = (Pattern) environment.getContainer().getSequences().iterator().next();
 
     try {
-      note60Events.await(1000, TimeUnit.MILLISECONDS);
+      note60Events.await(5000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough note 60 events fired", 0, note60Events.getCount());
       assertEquals("No note 61 notes should have been fired yet", 16, note61Events.getCount());
       LOG.debug("Updating pattern");
       Note note = pattern.getNote();
       pattern.setNote(new DefaultNote(61, note.getVelocity(), note.getDuration()));
       environment.getContainer().apply();
-      note61Events.await(1000, TimeUnit.MILLISECONDS);
+      note61Events.await(5000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough note 61 events fired", 0, note61Events.getCount());
     } finally {
       environment.stop();

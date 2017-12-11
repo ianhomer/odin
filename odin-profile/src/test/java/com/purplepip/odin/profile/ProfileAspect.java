@@ -29,6 +29,9 @@ public class ProfileAspect {
   @Pointcut("execution(* *.onPerformanceStart(..))")
   public void onPerformanceStartMethods() {}
 
+  @Pointcut("execution(* *.initialise(..))")
+  public void onInitialise() {}
+
   @Pointcut("execution(* com.purplepip.odin.creation.track.MutableSequenceRoll.*(..))")
   public void inMutableSequenceRoll() {}
 
@@ -46,6 +49,7 @@ public class ProfileAspect {
    * @throws Throwable throwable
    */
   @Around("onBeatClockStart()"
+      + " || onInitialise()"
       + " || onPerformanceStartMethods()"
       + " || inMutableSequenceRoll()"
       + " || inFlowFactory()")

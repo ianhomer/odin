@@ -75,11 +75,11 @@ public class TestSequencerEnvironment {
         .setFlowFactory(flowFactory)
         .setMeasureProvider(new StaticBeatMeasureProvider(4))
         .setBeatsPerMinute(new StaticBeatsPerMinute(factorSpeed(6000)))
-        .setClockStartOffset(factorTime(100000))
+        .setClockStartOffset(factorTime(50000))
         .setClockStartRoundingFactor(1000)
         .setTrackProcessorRefreshPeriod(10)
         .setTrackProcessorMaxNotesPerBuffer(2000)
-        .setOperationProcessorRefreshPeriod(10)
+        .setOperationProcessorRefreshPeriod(50)
         .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
         .setOperationReceiver(operationReceiver)
         .setStrictEventOrder(true).merge(deltaConfiguration);
