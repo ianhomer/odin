@@ -92,6 +92,13 @@ public class BeatClock extends AbstractClock {
   }
 
   /**
+   * Prepare the clock ready for starting.
+   */
+  public void prepare() {
+    listeners.forEach(PerformanceListener::onPerformancePrepare);
+  }
+
+  /**
    * Start the clock.
    */
   public void start() {

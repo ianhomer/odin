@@ -389,7 +389,15 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   }
 
   /**
-   * Action on beatClock start.
+   * Action on clock prepare.
+   */
+  @Override
+  public void onPerformancePrepare() {
+    refresh();
+  }
+
+  /**
+   * Action on clock prepare.
    */
   @Override
   public void onPerformanceStart() {

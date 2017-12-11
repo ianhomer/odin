@@ -31,11 +31,12 @@ public class ProfileSequencerTest {
 
   @Test
   public void testProfileSequencer() throws OdinException, InterruptedException {
-    Profile.reset();
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(
             new LoggingOperationReceiver(), new GroovePerformance(),
             deltaConfiguration().clockStartOffset(500000));
+    environment.prepare();
+    Profile.reset();
     for (int i = 1 ; i < 3 ; i++) {
       environment.start();
       environment.stop();

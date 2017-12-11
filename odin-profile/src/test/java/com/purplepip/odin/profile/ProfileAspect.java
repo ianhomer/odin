@@ -32,6 +32,10 @@ public class ProfileAspect {
   @Pointcut("execution(* *.initialise(..))")
   public void onInitialise() {}
 
+  @Pointcut("execution(* com.purplepip.odin.music.sequence.Notation.initialiseComposition(..))")
+  public void onInitialiseComposition() {}
+
+
   @Pointcut("execution(* com.purplepip.odin.creation.track.MutableSequenceRoll.*(..))")
   public void inMutableSequenceRoll() {}
 
@@ -50,6 +54,7 @@ public class ProfileAspect {
    */
   @Around("onBeatClockStart()"
       + " || onInitialise()"
+      + " || onInitialiseComposition()"
       + " || onPerformanceStartMethods()"
       + " || inMutableSequenceRoll()"
       + " || inFlowFactory()")

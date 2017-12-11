@@ -22,4 +22,10 @@ public interface PerformanceListener {
   default void onPerformanceStart() {}
 
   default void onPerformanceStop() {}
+
+  /**
+   * Prior to performance starting prepare will be called with give an opportunity for any
+   * component pre-initialise.
+   */
+  default void onPerformancePrepare() {}
 }

@@ -38,6 +38,7 @@ public class TestSequencerEnvironment {
   private OdinSequencerConfiguration configuration;
   private OdinSequencer sequencer;
   private OdinSequencerConfiguration deltaConfiguration;
+  private boolean prepared = false;
 
   private FlowFactory<Note> flowFactory;
 
@@ -104,11 +105,22 @@ public class TestSequencerEnvironment {
   }
 
   /**
+   * Prepare the environment prior to starting.
+   */
+  public void prepare() {
+    container.apply();
+    sequencer.prepare();
+    prepared = true;
+  }
+
+  /**
    * Start the environment.
    */
   public void start() {
     LOG.debug("Test environment starting");
-    container.apply();
+    if (!prepared) {
+      prepare();
+    }
     sequencer.start();
     LOG.debug("... test environment started");
   }

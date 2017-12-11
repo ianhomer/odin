@@ -69,11 +69,15 @@ public class Notation extends SequencePlugin {
      * Only reinitialise indexed composition if notation has changed
      */
     if (notation != null && !notation.equals(indexedCompositionNotation)) {
-      indexedCompositionNotation = notation;
-      EventsComposition composition = new NaturalScoreCompositionFactory().create(notation);
-      indexedComposition = new IndexedComposition(composition);
+      initialiseComposition();
     }
     super.initialise();
+  }
+
+  private void initialiseComposition() {
+    indexedCompositionNotation = notation;
+    EventsComposition composition = new NaturalScoreCompositionFactory().create(notation);
+    indexedComposition = new IndexedComposition(composition);
   }
 
   /**

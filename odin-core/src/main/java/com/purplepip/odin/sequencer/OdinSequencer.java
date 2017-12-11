@@ -201,6 +201,13 @@ public class OdinSequencer implements PerformanceApplyListener {
     clock.start();
   }
 
+  /**
+   * Prepare the sequencer.
+   */
+  public void prepare() {
+    clock.prepare();
+  }
+
   public BeatClock getClock() {
     return clock;
   }
