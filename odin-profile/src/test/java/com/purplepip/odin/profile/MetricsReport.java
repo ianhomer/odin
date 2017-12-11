@@ -20,9 +20,11 @@ import com.codahale.metrics.Snapshot;
 import java.util.Comparator;
 import java.util.Formatter;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class MetricsReport {
   private MetricRegistry registry;
+  private Pattern removeExecution = Pattern.compile("execution\\(([^)]*)\\)");
 
   public MetricsReport(MetricRegistry registry) {
     this.registry = registry;
@@ -43,8 +45,14 @@ public class MetricsReport {
           formatter.format("%20.0f : %5d : %10.0f : %s\n",
               snapshot.getMean(), entry.getValue().getCount(),
               snapshot.getMean() * entry.getValue().getCount(),
-              entry.getKey().replace("com.purplepip.odin.", ""));
+              entry.getKey());
         });
     return sb.toString();
+  }
+
+  private String toPretty(String name) {
+    return name
+        .replaceFirst("execution\\(", "")
+        .replaceFirst("\\)$", "");
   }
 }

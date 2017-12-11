@@ -31,6 +31,7 @@ public class ProfileSequencerTest {
 
   @Test
   public void testProfileSequencer() throws OdinException, InterruptedException {
+    spinUp();
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(
             new LoggingOperationReceiver(), new GroovePerformance(),
@@ -45,6 +46,16 @@ public class ProfileSequencerTest {
       // hardware specific assertion and work to improve and assert lower.
       LOG.info("Execution {} : \n{}", i , Profile.getReportAsString());
       Profile.reset();
+    }
+  }
+
+  private void spinUp() throws OdinException {
+    for (int i = 0; i < 5 ; i++) {
+      TestSequencerEnvironment environment =
+          new TestSequencerEnvironment(
+              new LoggingOperationReceiver(), new GroovePerformance());
+      environment.start();
+      environment.stop();
     }
   }
 }

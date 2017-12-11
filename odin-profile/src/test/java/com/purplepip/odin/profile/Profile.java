@@ -17,22 +17,20 @@ package com.purplepip.odin.profile;
 
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
 import java.util.concurrent.TimeUnit;
 
 public class Profile {
-  private static final Snapshot SNAPSHOT = new Snapshot();
   private static final MetricRegistry METRICS = new MetricRegistry();
 
-  public static Snapshot getSnapshot() {
-    return SNAPSHOT;
+  static {
+    spinUp();
+    reset();
+    timeOverhead();
   }
 
   public static MetricRegistry getMetrics() {
     return METRICS;
-  }
-
-  public static SnapshotReport getReport() {
-    return new SnapshotReport(getSnapshot());
   }
 
   public static String getReportAsString() {
@@ -54,9 +52,26 @@ public class Profile {
    * Reset profiling.
    */
   public static void reset() {
-    SNAPSHOT.reset();
     METRICS.getMetrics().forEach((name, metric) -> {
       METRICS.remove(name);
     });
+    timeOverhead();
+  }
+
+  private static void spinUp() {
+    for (int i = 0 ; i < 10 ; i++) {
+      timeOverhead();
+    }
+  }
+
+  private static void timeOverhead() {
+    for (int i = 0 ; i < 10 ; i++) {
+      Timer.Context context = Profile.getMetrics().timer("timer overhead").time();
+      try {
+        // Overhead of collecting statistics
+      } finally {
+        context.stop();
+      }
+    }
   }
 }

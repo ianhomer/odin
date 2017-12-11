@@ -36,7 +36,8 @@ public class ProfileAspect {
   public void onInitialiseComposition() {}
 
 
-  @Pointcut("execution(* com.purplepip.odin.creation.track.MutableSequenceRoll.*(..))")
+  @Pointcut("execution(* com.purplepip.odin.creation.track.MutableSequenceRoll.*(..))"
+      + " && !execution(* *.getSequence(..))")
   public void inMutableSequenceRoll() {}
 
   @Pointcut("execution(* com.purplepip.odin.creation.flow.FlowFactory.*(..))")
@@ -59,34 +60,11 @@ public class ProfileAspect {
       + " || inMutableSequenceRoll()"
       + " || inFlowFactory()")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
-    Timer.Context context = Profile.getMetrics().timer(toString(pjp)).time();
-    long start = System.nanoTime();
+    Timer.Context context = Profile.getMetrics().timer(pjp.toShortString()).time();
     try {
-      long delta = System.nanoTime() - start;
-      Object object = pjp.proceed();
-      Profile.getSnapshot().add(new ValueMetric(toString(pjp), delta));
-      return object;
+      return pjp.proceed();
     } finally {
       context.stop();
     }
-  }
-
-  private String toString(ProceedingJoinPoint pjp) {
-    StringBuilder name = new StringBuilder();
-    if (pjp.getTarget() != null) {
-      if (pjp.getTarget().getClass() != null) {
-        name.append(pjp.getTarget().getClass().getName());
-      } else {
-        name.append("{class-null}");
-      }
-    } else {
-      name.append("{target-null}");
-    }
-    if (pjp.getSignature() != null) {
-      name.append('.').append(pjp.getSignature().getName());
-    } else {
-      name.append("{signature-null");
-    }
-    return name.toString();
   }
 }
