@@ -36,6 +36,7 @@ public class ProfileSequencerTest {
         new TestSequencerEnvironment(
             new LoggingOperationReceiver(), new GroovePerformance(),
             deltaConfiguration().clockStartOffset(500000));
+    LOG.info("Sequence count : {}", environment.getContainer().getSequenceStream().count());
     environment.prepare();
     Profile.reset();
     for (int i = 1 ; i < 3 ; i++) {

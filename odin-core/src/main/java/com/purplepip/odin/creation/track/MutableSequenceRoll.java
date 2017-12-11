@@ -72,6 +72,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private MutableFlow<Sequence<A>, A> flow;
   private BeatClock beatClock;
 
+  private Rational length;
+
   /*
    * Tick converted clock.
    */
@@ -226,7 +228,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   }
 
   protected Rational getLength() {
-    return Whole.valueOf(getSequence().getLength());
+    return length;
   }
 
   @Override
@@ -266,6 +268,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private void afterSequenceChange() {
     LOG.debug("{} : ... afterSequenceChange : start", sequence.getName());
     sequence.initialise();
+    length = Whole.valueOf(getSequence().getLength());
 
     /*
      * Determine if the tick has changed.
@@ -333,9 +336,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   @Override
   public void setTock(Bound tockToSet) {
-    if (sequence.getLength() > -1 && !tockToSet.lt(Whole.valueOf(sequence.getLength()))) {
+    if (!length.isNegative() && !tockToSet.lt(length)) {
       LOG.warn("Sequence roll {} is starting too late, no events will fire.  "
-          + "Tock {} > sequence length {}", getName(), tockToSet, sequence.getLength());
+          + "Tock {} > sequence length {}", getName(), tockToSet, length);
     }
 
     tock = new MovableTock(getSequence().getTick(), tockToSet);
@@ -431,9 +434,9 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       LOG.trace("is rolling false : track not enabled");
       return false;
     }
-    boolean result = getLength().isNegative() || tock.getPosition().lt(getLength());
+    boolean result = length.isNegative() || tock.getPosition().lt(length);
     LOG.trace("{} : isRolling {} : {} < {}", sequence.getName(),
-        result, tock.getPosition(), getLength());
+        result, tock.getPosition(),length);
     return result;
   }
 
