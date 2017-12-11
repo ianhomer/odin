@@ -64,6 +64,11 @@ public class TrackProcessor implements PerformanceListener {
   }
 
   @Override
+  public void onPerformancePrepare() {
+    scheduledPool = Executors.newScheduledThreadPool(1);
+  }
+
+  @Override
   public void onPerformanceStart() {
     start();
   }
@@ -75,7 +80,6 @@ public class TrackProcessor implements PerformanceListener {
   }
 
   private void start() {
-    scheduledPool = Executors.newScheduledThreadPool(1);
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     running = true;
     LOG.debug("Started sequence processor");

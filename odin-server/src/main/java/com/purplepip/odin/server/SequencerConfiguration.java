@@ -31,6 +31,7 @@ public class SequencerConfiguration implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+    sequencer.prepare();
     sequencer.start();
     LOG.info("Sequencer started");
   }

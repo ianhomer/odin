@@ -74,7 +74,6 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
   }
 
   private void start() {
-    scheduledPool = Executors.newScheduledThreadPool(1);
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     LOG.debug("Started operation processor");
   }
@@ -99,6 +98,11 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
   @Override
   public void close() {
     stop();
+  }
+
+  @Override
+  public void onPerformancePrepare() {
+    scheduledPool = Executors.newScheduledThreadPool(1);
   }
 
   @Override
