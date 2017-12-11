@@ -42,6 +42,8 @@ public interface Thing {
    * Initialise transient properties before use.  Initialise should be executable at any time
    * and the system should be able to restore a valid state.  Note that initialise does not
    * always need to restore the same state since their might be random elements or external inputs.
+   * Furthermore initialise might be relatively expensive to run so the system will only
+   * call initialise just before it is needed.
    */
   void initialise();
 }

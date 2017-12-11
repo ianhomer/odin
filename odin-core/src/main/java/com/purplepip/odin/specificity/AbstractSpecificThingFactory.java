@@ -111,9 +111,10 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
     } else {
       if (expectedType.isAssignableFrom(original.getClass())) {
         /*
-         * If the original is of the correct type then we can simply take a copy
+         * If the original is of the correct type then we can simply cast
          */
-        newInstance = (S) expectedType.cast(original).copy();
+        // TODO : Since we cast not copy then the name of the method newInstance is misleading
+        newInstance = expectedType.cast(original);
         LOG.debug("Creating new instance with direct copy of {}", newInstance);
       } else {
         LOG.trace("Creating new instance of {}", expectedType);
@@ -123,7 +124,6 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
           throw new OdinRuntimeException("Cannot create new instance of " + expectedType, e);
         }
         populate(newInstance, original);
-        newInstance.initialise();
         LOG.debug("Creating instance with typed copy {}", newInstance);
       }
     }

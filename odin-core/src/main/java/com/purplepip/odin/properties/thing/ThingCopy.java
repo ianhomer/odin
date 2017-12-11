@@ -61,6 +61,5 @@ public class ThingCopy {
         }
       });
     }
-    destination.initialise();
   }
 }

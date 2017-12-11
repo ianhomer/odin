@@ -40,7 +40,7 @@ public class PatternNoteTrigger extends TriggerPlugin {
   private transient Pattern pattern;
 
   public PatternNoteTrigger patternName(String patternName) {
-    this.patternName = patternName;
+    setPatternName(patternName);
     return this;
   }
 
@@ -55,9 +55,14 @@ public class PatternNoteTrigger extends TriggerPlugin {
   }
 
   protected PatternNoteTrigger copy(PatternNoteTrigger copy) {
-    copy.patternName = this.patternName;
+    copy.setPatternName(this.patternName);
     super.copy(copy);
     return copy;
+  }
+
+  public void setPatternName(String patternName) {
+    this.patternName = patternName;
+    registerDependency(patternName);
   }
 
   @Override
@@ -80,14 +85,5 @@ public class PatternNoteTrigger extends TriggerPlugin {
       throw new OdinRuntimeException("Only sequences of type Pattern should be injected into a "
           + PatternNoteTrigger.class.getName());
     }
-  }
-
-  /**
-   * Initialisation after properties are set.
-   */
-  @Override
-  public void initialise() {
-    LOG.debug("Initialising pattern note trigger with {}", patternName);
-    registerDependency(patternName);
   }
 }

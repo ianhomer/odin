@@ -60,7 +60,7 @@ public class Notation extends SequencePlugin {
   }
 
   /**
-   * Initialisation after properties are set.
+   * Initialisation which must be run before this sequence can be used.
    */
   @Override
   public void initialise() {

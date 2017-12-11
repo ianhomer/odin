@@ -57,6 +57,7 @@ public class NotationFlowTest {
   @Test
   public void testGetNextEvent() {
     Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/q, E5, G5, C5");
+    flow.initialise();
     Event<Note> event = flow
         .getNextEvent(new MovableTock(Ticks.BEAT, Rationals.MINUS_ONE));
     assertEquals(Wholes.ZERO, event.getTime());
@@ -66,6 +67,7 @@ public class NotationFlowTest {
   @Test
   public void testGetMultipleEvents() {
     Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
+    flow.initialise();
     List<Event> events = new ArrayList<>();
     Real previousEventTime = Rationals.MINUS_ONE;
     for (int i = 0; i < 10 ;i++) {

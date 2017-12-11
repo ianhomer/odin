@@ -361,6 +361,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     } else {
       flowFactory.refreshSequence(getFlow(), sequence);
     }
+    flow.initialise();
     LOG.debug("{} : ... refreshFlow : done", sequence.getName());
   }
 
