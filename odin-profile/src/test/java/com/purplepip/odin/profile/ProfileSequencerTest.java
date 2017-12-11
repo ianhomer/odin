@@ -37,9 +37,9 @@ public class ProfileSequencerTest {
             new LoggingOperationReceiver(), new GroovePerformance(),
             deltaConfiguration().clockStartOffset(500000));
     LOG.info("Sequence count : {}", environment.getContainer().getSequenceStream().count());
-    environment.prepare();
-    Profile.reset();
     for (int i = 1 ; i < 3 ; i++) {
+      environment.prepare();
+      Profile.reset();
       environment.start();
       environment.stop();
       // BeatClock start running at : 5919978micros on local dev machine for
@@ -55,6 +55,7 @@ public class ProfileSequencerTest {
       TestSequencerEnvironment environment =
           new TestSequencerEnvironment(
               new LoggingOperationReceiver(), new GroovePerformance());
+      environment.prepare();
       environment.start();
       environment.stop();
     }
