@@ -35,7 +35,6 @@ public class ProfileAspect {
   @Pointcut("execution(* com.purplepip.odin.music.sequence.Notation.initialiseComposition(..))")
   public void onInitialiseComposition() {}
 
-
   @Pointcut("execution(* com.purplepip.odin.creation.track.MutableSequenceRoll.*(..))"
       + " && !execution(* *.getSequence(..))")
   public void inMutableSequenceRoll() {}

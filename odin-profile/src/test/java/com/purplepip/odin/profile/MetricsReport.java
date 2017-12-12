@@ -62,7 +62,7 @@ public class MetricsReport {
     Snapshot snapshot = entry.getValue().getSnapshot();
 
     formatter.format("%20.0f : %5d : %10.0f : %s\n",
-        snapshot.getMean(), entry.getValue().getCount(),
+        snapshot.getMean() - timerOverhead, entry.getValue().getCount(),
         calculateTotal(entry.getValue()),
         toPretty(entry.getKey()));
   }

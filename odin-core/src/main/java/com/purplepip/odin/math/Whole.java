@@ -30,9 +30,14 @@ public class Whole extends Rational {
   private static Whole[] WHOLES_CACHE = new Whole[] {
       ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE
   };
+  /*
+   * Local property for numerator for direct access.
+   */
+  private long numerator;
 
   public Whole(long numerator) {
     super(numerator, 1);
+    this.numerator = numerator;
   }
 
   /**
@@ -61,7 +66,7 @@ public class Whole extends Rational {
   }
 
   public Whole plus(Whole whole) {
-    return Whole.valueOf(getNumerator() + whole.getNumerator());
+    return Whole.valueOf(numerator + whole.numerator);
   }
 
   /**
@@ -77,7 +82,7 @@ public class Whole extends Rational {
   }
 
   public Whole minus(Whole whole) {
-    return Whole.valueOf(getNumerator() - whole.getNumerator());
+    return Whole.valueOf(numerator - whole.numerator);
   }
 
   /**
@@ -93,7 +98,7 @@ public class Whole extends Rational {
   }
 
   public Whole times(Whole whole) {
-    return Whole.valueOf(getNumerator() * whole.getNumerator());
+    return Whole.valueOf(numerator * whole.numerator);
   }
 
   /**
@@ -109,7 +114,7 @@ public class Whole extends Rational {
   }
 
   public Rational divide(Whole whole) {
-    return Rational.valueOf(getNumerator(), whole.getNumerator());
+    return Rational.valueOf(numerator, whole.numerator);
   }
 
   /**
@@ -125,7 +130,7 @@ public class Whole extends Rational {
   }
 
   public Whole modulo(Whole whole) {
-    return Whole.valueOf(getNumerator() % whole.getNumerator());
+    return Whole.valueOf(numerator % whole.numerator);
   }
 
   @Override
@@ -135,7 +140,7 @@ public class Whole extends Rational {
 
   @Override
   public long floor() {
-    return getNumerator();
+    return numerator;
   }
 
   /**
@@ -151,35 +156,35 @@ public class Whole extends Rational {
   }
 
   public Whole floor(Whole radix) {
-    return Whole.valueOf(getNumerator() - (getNumerator() % radix.getNumerator()));
+    return Whole.valueOf(numerator - (numerator % radix.numerator));
   }
 
   @Override
   public Whole absolute() {
     if (isNegative()) {
-      return Whole.valueOf(-getNumerator());
+      return Whole.valueOf(-numerator);
     }
     return this;
   }
 
   @Override
   public long nextFloor() {
-    return getNumerator() + 1;
+    return numerator + 1;
   }
 
   @Override
   public Rational negative() {
-    return Whole.valueOf(-getNumerator());
+    return Whole.valueOf(-numerator);
   }
 
   @Override
   public boolean isNegative() {
-    return getNumerator() < 0;
+    return numerator < 0;
   }
 
   @Override
   public String toString() {
-    return String.valueOf(getNumerator());
+    return String.valueOf(numerator);
   }
 
   @Override
@@ -193,12 +198,12 @@ public class Whole extends Rational {
 
     Whole whole = (Whole) o;
 
-    return getNumerator() == whole.getNumerator();
+    return numerator == whole.numerator;
   }
 
   @Override
   public int hashCode() {
-    return (int) (getNumerator() ^ (getNumerator() >>> 32));
+    return (int) (numerator ^ (numerator >>> 32));
   }
 
   /**
@@ -209,6 +214,11 @@ public class Whole extends Rational {
    */
   @Override
   public long ceiling() {
-    return getNumerator();
+    return numerator;
+  }
+
+  @Override
+  public double getValue() {
+    return numerator;
   }
 }

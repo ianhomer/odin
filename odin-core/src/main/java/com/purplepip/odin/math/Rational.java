@@ -33,6 +33,8 @@ public class Rational extends Real {
   private long denominator;
   private boolean simplified;
   private static final Map<Rational, Character> fractionCharacters = new HashMap<>();
+  private double value;
+  private boolean valueCalculated;
 
   static {
     fractionCharacters.put(new Rational(1,2), '½');
@@ -182,10 +184,19 @@ public class Rational extends Real {
     return simplified;
   }
 
-  @Override
-  public double calculateValue() {
+  protected double calculateValue() {
     return (double) numerator / denominator;
   }
+
+  @Override
+  public double getValue() {
+    if (!valueCalculated) {
+      value = calculateValue();
+      valueCalculated = true;
+    }
+    return value;
+  }
+
 
   /**
    * {@inheritDoc}
