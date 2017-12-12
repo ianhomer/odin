@@ -73,6 +73,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private BeatClock beatClock;
 
   private Rational length;
+  private String name;
 
   /*
    * Tick converted clock.
@@ -108,18 +109,19 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     beatClock.addListener(this);
     this.flowFactory = flowFactory;
     assert flowFactory != null;
-    tickToMicrosecondConverter = new DefaultTickConverter(beatClock, getTick(),
+    tickToMicrosecondConverter = new DefaultTickConverter(beatClock, tick,
         () -> Ticks.MICROSECOND, () -> 0L);
-    clock = new TickConvertedClock(beatClock, getTick(), getOffsetProperty());
-    tickToBeatConverter = new DefaultTickConverter(beatClock, getTick(),
+    clock = new TickConvertedClock(beatClock, tick, offset);
+    tickToBeatConverter = new DefaultTickConverter(beatClock, tick,
         () -> Ticks.BEAT, () -> 0L);
     beatToSequenceTickConverter =
-        new DefaultTickConverter(beatClock, () -> Ticks.BEAT, getTick(), beatOffset);
+        new DefaultTickConverter(beatClock, () -> Ticks.BEAT, tick, beatOffset);
     measureProvider = new ConvertedMeasureProvider(beatMeasureProvider,
         beatToSequenceTickConverter);
 
     typeNameDirty = true;
     this.sequence = sequenceConfiguration;
+    name = sequenceConfiguration.getName();
     enabled = sequence.isEnabled();
     offset.set(sequence.getOffset());
     resetter.reset((MutablePropertiesProvider) sequence);
@@ -134,7 +136,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   @Override
   public void start() {
-    LOG.debug("{} : ... start : start", sequence.getName());
+    LOG.debug("{} : ... start : start", name);
     setEnabled(true);
     LOG.debug("current offset of sequence is {}", sequence.getOffset());
     // Start at least two beat from now, we might reduce this lag at some point ...
@@ -158,12 +160,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
             clock.getPosition(clock.getMicroseconds() + 100_000)).ceiling();
 
     resetter.set("offset", newOffset);
-    LOG.debug("{} {} : sequence offset set to {}", beatClock, sequence.getName(),
+    LOG.debug("{} {} : sequence offset set to {}", beatClock, name,
         sequence.getOffset());
     offset.set(newOffset);
     tickDirty = true;
     refresh();
-    LOG.debug("{} : ... start : done", sequence.getName());
+    LOG.debug("{} : ... start : done", name);
   }
 
   @Override
@@ -211,6 +213,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     if (sequence.isEnabled() != sequenceConfiguration.isEnabled()) {
       enabled = sequenceConfiguration.isEnabled();
     }
+
+    name = sequenceConfiguration.getName();
 
     if (sequence.getOffset() != sequenceConfiguration.getOffset()) {
       offset.set(sequenceConfiguration.getOffset());
@@ -264,16 +268,15 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     return flow;
   }
 
-
   private void afterSequenceChange() {
-    LOG.debug("{} : ... afterSequenceChange : start", sequence.getName());
+    LOG.debug("{} : ... afterSequenceChange : start", name);
     sequence.initialise();
     length = Whole.valueOf(getSequence().getLength());
 
     /*
      * Determine if the tick has changed.
      */
-    if (!getSequence().getTick().equals(this.getTick().get())) {
+    if (!getSequence().getTick().equals(tick.get())) {
       tickDirty = true;
       /*
        * Change tick.
@@ -286,11 +289,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      * Force next event to be taken from sequence flow.
      */
     nextEvent = null;
-    LOG.debug("{} : ... afterSequenceChange : done", sequence.getName());
+    LOG.debug("{} : ... afterSequenceChange : done", name);
   }
 
   private void afterTickChange() {
-    LOG.debug("{} : ... afterTickChange : start", sequence.getName());
+    LOG.debug("{} : ... afterTickChange : start", name);
 
     /*
      * Set the beat offset.
@@ -304,14 +307,14 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     long microsecondOffset = tickToMicrosecondConverter
         .convert(Whole.valueOf(offset.get())).floor();
     LOG.debug("Microsecond start is {} for {} for tick offset {}", microsecondOffset,
-        getName(), offset.get());
+        name, offset.get());
 
     /*
      * ... and use this to create a converter that will convert microseconds into tock count
      * for this sequence runtime.
      */
     TickConverter microsecondToSequenceTickConverter =
-        new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, getTick(),
+        new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, tick,
             () -> - microsecondOffset);
     /*
      * Set the tock count, that this sequence runtime should start at, to the current tock
@@ -331,14 +334,14 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     setTock(lessThan(Whole.valueOf(tockCountStart)));
 
     tickDirty = false;
-    LOG.debug("{} : ... afterTickChange : done", sequence.getName());
+    LOG.debug("{} : ... afterTickChange : done", name);
   }
 
   @Override
   public void setTock(Bound tockToSet) {
     if (!length.isNegative() && !tockToSet.lt(length)) {
       LOG.warn("Sequence roll {} is starting too late, no events will fire.  "
-          + "Tock {} > sequence length {}", getName(), tockToSet, length);
+          + "Tock {} > sequence length {}", name, tockToSet, length);
     }
 
     tock = new MovableTock(getSequence().getTick(), tockToSet);
@@ -350,11 +353,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   }
 
   private void refreshFlow() {
-    LOG.debug("{} : ... refreshFlow : start", sequence.getName());
+    LOG.debug("{} : ... refreshFlow : start", name);
     /*
      * Only update the flow if the flow name has changed.
      */
-    if (getFlow() == null || typeNameDirty) {
+    if (flow == null || typeNameDirty) {
       if (clock != null) {
         setFlow(flowFactory.createFlow(sequence, clock, measureProvider));
         typeNameDirty = false;
@@ -362,10 +365,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
         LOG.trace("Waiting until clock is set to create flow");
       }
     } else {
-      flowFactory.refreshSequence(getFlow(), sequence);
+      flowFactory.refreshSequence(flow, sequence);
     }
     flow.initialise();
-    LOG.debug("{} : ... refreshFlow : done", sequence.getName());
+    LOG.debug("{} : ... refreshFlow : done", name);
   }
 
   /**
@@ -435,14 +438,14 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       return false;
     }
     boolean result = length.isNegative() || tock.getPosition().lt(length);
-    LOG.trace("{} : isRolling {} : {} < {}", sequence.getName(),
+    LOG.trace("{} : isRolling {} : {} < {}", name,
         result, tock.getPosition(),length);
     return result;
   }
 
   private Event<A> getNextEventInternal(MovableTock tock) {
     Event<A> event = getNextEvent(sealedTock);
-    LOG.debug("{} : {} is next after {}", sequence.getName(), event, tock);
+    LOG.debug("{} : {} is next after {}", name, event, tock);
     /*
      * Now increment internal tock to the time of the provided event
      */
@@ -489,7 +492,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   @Override
   public String getName() {
-    return sequence.getName();
+    return name;
   }
 
   @Override
