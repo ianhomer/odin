@@ -32,12 +32,6 @@ public class ProfileAspect {
   @Pointcut("execution(* *.initialise(..))")
   public void onInitialise() {}
 
-  @Pointcut("execution(* *.getDuration(..))")
-  public void onGetDuration() {}
-
-  @Pointcut("execution(* com.purplepip.odin.clock.BeatClock.getPosition(..))")
-  public void onGetPosition() {}
-
   @Pointcut("execution(* com.purplepip.odin.music.sequence.Notation.initialiseComposition(..))")
   public void onInitialiseComposition() {}
 
@@ -55,6 +49,9 @@ public class ProfileAspect {
   @Pointcut("execution(* *(..))")
   public void anyExecution(){}
 
+  @Pointcut("execution(* *..lambda*(..))")
+  public void inLambda(){}
+
   /**
    * Around injection.
    *
@@ -62,14 +59,13 @@ public class ProfileAspect {
    * @return object
    * @throws Throwable throwable
    */
-  @Around("onBeatClockStart()"
+  @Around("!inLambda() && (onBeatClockStart()"
       + " || onInitialise()"
       + " || onInitialiseComposition()"
       + " || onPerformanceStartMethods()"
       + " || inMutableSequenceRoll()"
-      + " || onGetDuration() || onGetPosition()"
       + " || inFlow()"
-      + " || inFlowFactory()")
+      + " || inFlowFactory())")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
     Timer.Context context = Profile.getMetrics().timer(pjp.toShortString()).time();
     try {
