@@ -118,20 +118,18 @@ public class MatchNoteExperiment {
       container.addApplyListener(sequencer);
       container.apply();
 
+      sequencer.prepare();
       sequencer.start();
 
       // TODO : PatternNoteTrigger current has a version of pattern injected that does not
       // pick up changes to pattern, e.g. after note change after reset
 
-      try {
-        lock.await(60, TimeUnit.SECONDS);
-      } finally {
-        sequencer.stop();
-      }
-      LOG.info("... stopping");
+      lock.await(60, TimeUnit.SECONDS);
     } finally {
+      LOG.info("... stopping");
       if (sequencer != null) {
         sequencer.stop();
+        sequencer.shutdown();
       }
       midiDeviceWrapper.close();
       LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());

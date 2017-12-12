@@ -130,6 +130,7 @@ public class TestSequencerEnvironment {
    */
   public void stop() {
     sequencer.stop();
+    sequencer.shutdown();
   }
 
 }

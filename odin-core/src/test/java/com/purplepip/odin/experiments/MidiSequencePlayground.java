@@ -121,18 +121,16 @@ public class MidiSequencePlayground {
           .build()) {
         // Report metrics
         reporter.start(1, TimeUnit.SECONDS);
+        sequencer.prepare();
         sequencer.start();
 
-        try {
-          lock.await(8000, TimeUnit.MILLISECONDS);
-        } finally {
-          sequencer.stop();
-        }
+        lock.await(8000, TimeUnit.MILLISECONDS);
       }
-      LOG.info("... stopping");
     } finally {
+      LOG.info("... stopping");
       if (sequencer != null) {
         sequencer.stop();
+        sequencer.shutdown();
       }
       midiDeviceWrapper.close();
       LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());

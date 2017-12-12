@@ -82,6 +82,7 @@ public class MidiSequenceExperiment {
       container.addApplyListener(sequencer);
       container.apply();
 
+      sequencer.prepare();
       sequencer.start();
 
       try {
@@ -89,10 +90,11 @@ public class MidiSequenceExperiment {
       } finally {
         sequencer.stop();
       }
-      LOG.info("... stopping");
     } finally {
+      LOG.info("... stopping");
       if (sequencer != null) {
         sequencer.stop();
+        sequencer.shutdown();
       }
       midiDeviceWrapper.close();
       LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());

@@ -67,18 +67,30 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
     LOG.debug("Created operation processor");
   }
 
+  void runOnce() {
+    LOG.debug("Running operation processor once");
+    executor.run();
+  }
+
   @Override
   public void send(Operation operation, long time) throws OdinException {
     OperationEvent operationEvent = new OperationEvent(operation, time);
     queue.add(operationEvent);
   }
 
-  private void start() {
+  @Override
+  public void onPerformancePrepare() {
+    scheduledPool = Executors.newScheduledThreadPool(1);
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
-    LOG.debug("Started operation processor");
+    LOG.debug("Prepared operation processor");
   }
 
-  private void stop() {
+  @Override
+  public void onPerformanceShutdown() {
+    shutdown();
+  }
+
+  private void shutdown() {
     if (queue.size() > 0) {
       // TODO : Is there a better way other than just waiting?
       LOG.warn("Operation processor queue is not empty, waiting for {}ms", refreshPeriod * 2);
@@ -97,21 +109,7 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
 
   @Override
   public void close() {
-    stop();
+    shutdown();
   }
 
-  @Override
-  public void onPerformancePrepare() {
-    scheduledPool = Executors.newScheduledThreadPool(1);
-  }
-
-  @Override
-  public void onPerformanceStart() {
-    start();
-  }
-
-  @Override
-  public void onPerformanceStop() {
-    stop();
-  }
 }

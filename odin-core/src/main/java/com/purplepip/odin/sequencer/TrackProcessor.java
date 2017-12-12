@@ -63,9 +63,16 @@ public class TrackProcessor implements PerformanceListener {
     LOG.debug("Created sequence processor");
   }
 
+  void runOnce() {
+    LOG.debug("Running track processor once");
+    executor.run();
+  }
+
   @Override
   public void onPerformancePrepare() {
     scheduledPool = Executors.newScheduledThreadPool(1);
+    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
+    LOG.debug("Prepared track processor");
   }
 
   @Override
@@ -73,21 +80,24 @@ public class TrackProcessor implements PerformanceListener {
     start();
   }
 
-
   @Override
   public void onPerformanceStop() {
-    stop();
+    running = false;
+  }
+
+  @Override
+  public void onPerformanceShutdown() {
+    shutdown();
   }
 
   private void start() {
-    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     running = true;
-    LOG.debug("Started sequence processor");
+    LOG.debug("Started track processor");
   }
 
-  private void stop() {
+  private void shutdown() {
     scheduledPool.shutdown();
-    LOG.debug("Stopped sequence processor");
+    LOG.debug("Shut down track processor");
   }
 
   public void processOnce() {
@@ -102,6 +112,6 @@ public class TrackProcessor implements PerformanceListener {
    * Close sequence processor.
    */
   public void close() {
-    stop();
+    shutdown();
   }
 }

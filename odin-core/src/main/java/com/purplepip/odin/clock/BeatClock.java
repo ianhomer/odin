@@ -102,11 +102,11 @@ public class BeatClock extends AbstractClock {
    * Start the clock.
    */
   public void start() {
-    setMicroseconds(-startOffset);
-    LOG.debug("Starting clock in {}μs : {}", startOffset, this);
+    setMicroseconds(0);
+    LOG.debug("Starting clock in {}μs : now = {}", startOffset, this);
     started = true;
     listeners.forEach(PerformanceListener::onPerformanceStart);
-    LOG.debug("... started clock : {}", startOffset, this);
+    LOG.debug("... started clock : offset = {}μs : now = {}", startOffset, this);
     if (getMicroseconds() > 0) {
       /*
        * If all performance listeners did not start before the clock reaches 0 microseconds
@@ -127,17 +127,24 @@ public class BeatClock extends AbstractClock {
    * @param microseconds microsecond position for the beat clock
    */
   public void setMicroseconds(long microseconds) {
-    microsecondsOffset = microsecondPositionProvider.getMicroseconds() - microseconds;
+    microsecondsOffset = microsecondPositionProvider.getMicroseconds() + startOffset - microseconds;
     LOG.debug("Setting clock to {}μs in from first beat at {}μs", microseconds,
         microsecondsOffset);
   }
 
   /**
-   * Stop the clock.
+   * Stop the clock, although clock may be readily started again by a call to the start method.
    */
   public void stop() {
     listeners.forEach(PerformanceListener::onPerformanceStop);
     started = false;
+  }
+
+  /**
+   * Shutdown the clock and release resources.
+   */
+  public void shutdown() {
+    listeners.forEach(PerformanceListener::onPerformanceShutdown);
   }
 
   /**

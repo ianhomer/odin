@@ -16,6 +16,7 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.sequencer.OdinSequencer;
+import javax.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,5 +35,15 @@ public class SequencerConfiguration implements CommandLineRunner {
     sequencer.prepare();
     sequencer.start();
     LOG.info("Sequencer started");
+  }
+
+  /**
+   * Shutdown the sequencer.
+   */
+  @PreDestroy
+  public void shutdown() {
+    LOG.info("Sequencer stopping ...");
+    sequencer.stop();
+    sequencer.shutdown();
   }
 }

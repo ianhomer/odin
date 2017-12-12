@@ -60,9 +60,10 @@ public class MidiOdinSequencerTest {
       sequencer.start();
 
       try {
-        lock.await(100, TimeUnit.MILLISECONDS);
+        lock.await(5000, TimeUnit.MILLISECONDS);
       } finally {
         sequencer.stop();
+        sequencer.shutdown();
       }
 
       assertEquals("Some events have not yet fired", 0, lock.getCount());

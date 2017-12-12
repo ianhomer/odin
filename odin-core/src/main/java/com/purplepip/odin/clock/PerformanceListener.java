@@ -19,8 +19,16 @@ package com.purplepip.odin.clock;
  * Performance listener.
  */
 public interface PerformanceListener {
+  /**
+   * Performance start should be as efficient as possible if any processing can be done early
+   * before the start then this logic should be placed in the performance prepare.
+   */
   default void onPerformanceStart() {}
 
+  /**
+   * Stop the performance, although note that the performance should be prepared and ready to
+   * start again efficiently.
+   */
   default void onPerformanceStop() {}
 
   /**
@@ -28,4 +36,10 @@ public interface PerformanceListener {
    * component pre-initialise.
    */
   default void onPerformancePrepare() {}
+
+  /**
+   * Shutdown any resources after performance is not needed any more.  This is typically
+   * resources initialised in the prepare step.
+   */
+  default void onPerformanceShutdown() {}
 }

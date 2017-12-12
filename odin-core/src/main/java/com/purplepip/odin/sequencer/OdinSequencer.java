@@ -57,8 +57,8 @@ public class OdinSequencer implements PerformanceApplyListener {
   private TriggerReactors reactors = new TriggerReactors(tracks, immutableConductors);
 
   private Set<ProgramChangeOperation> programChangeOperations = new LinkedHashSet<>();
-  private TrackProcessor sequenceProcessor;
-  private OperationProcessor operationProcessor;
+  private TrackProcessor trackProcessor;
+  private DefaultOperationProcessor operationProcessor;
   private BeatClock clock;
   private MutableOdinSequencerStatistics statistics =
       new DefaultOdinSequencerStatistics(
@@ -109,7 +109,7 @@ public class OdinSequencer implements PerformanceApplyListener {
         configuration.getMetrics(),
         configuration.getOperationProcessorRefreshPeriod(),
         configuration.isStrictEventOrder());
-    sequenceProcessor = new TrackProcessor(
+    trackProcessor = new TrackProcessor(
         clock, immutableTracks, operationProcessor, statistics,
         configuration.getMetrics(),
         configuration.getTrackProcessorRefreshPeriod(),
@@ -147,8 +147,8 @@ public class OdinSequencer implements PerformanceApplyListener {
      * If processor is running then process one execution immediately so that the
      * refreshed trackSet can take effect.
      */
-    if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
-      sequenceProcessor.processOnce();
+    if (trackProcessor != null && trackProcessor.isRunning()) {
+      trackProcessor.processOnce();
     }
   }
 
@@ -199,6 +199,11 @@ public class OdinSequencer implements PerformanceApplyListener {
      * Start the clock.
      */
     clock.start();
+    /*
+     * Process tracks and operations immediately.
+     */
+    trackProcessor.runOnce();
+    operationProcessor.runOnce();
   }
 
   /**
@@ -219,6 +224,13 @@ public class OdinSequencer implements PerformanceApplyListener {
     // TODO : When we stop the sequencer we should play out the buffer, since there
     // might be note off operations to complete.
     clock.stop();
+  }
+
+  /**
+   * Shutdown the sequencer.
+   */
+  public void shutdown() {
+    clock.shutdown();
   }
 
   public boolean isStarted() {
