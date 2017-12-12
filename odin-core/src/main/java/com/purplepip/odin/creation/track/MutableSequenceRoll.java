@@ -74,6 +74,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   private Rational length;
   private String name;
+  private boolean endless;
 
   /*
    * Tick converted clock.
@@ -271,6 +272,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     LOG.debug("{} : ... afterSequenceChange : start", name);
     sequence.initialise();
     length = Whole.valueOf(getSequence().getLength());
+    endless = length.isNegative();
 
     /*
      * Determine if the tick has changed.
@@ -338,7 +340,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
 
   @Override
   public void setTock(Bound tockToSet) {
-    if (!length.isNegative() && !tockToSet.lt(length)) {
+    if (!endless && !tockToSet.lt(length)) {
       LOG.warn("Sequence roll {} is starting too late, no events will fire.  "
           + "Tock {} > sequence length {}", name, tockToSet, length);
     }
@@ -432,9 +434,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       LOG.trace("is rolling false : track not enabled");
       return false;
     }
-    boolean result = length.isNegative() || tock.getPosition().lt(length);
-    LOG.trace("{} : isRolling {} : {} < {}", name,
-        result, tock.getPosition(),length);
+    boolean result = endless || tock.getPosition().lt(length);
+    LOG.trace("{} : isRolling {} : {} < {}", name, result, tock, length);
     return result;
   }
 
