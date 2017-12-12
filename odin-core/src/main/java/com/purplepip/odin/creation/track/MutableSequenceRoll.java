@@ -357,12 +357,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      * Only update the flow if the flow name has changed.
      */
     if (flow == null || typeNameDirty) {
-      if (clock != null) {
-        setFlow(flowFactory.createFlow(sequence, clock, measureProvider));
-        typeNameDirty = false;
-      } else {
-        LOG.trace("Waiting until clock is set to create flow");
-      }
+      setFlow(flowFactory.createFlow(sequence, clock, measureProvider));
+      typeNameDirty = false;
     } else {
       flowFactory.refreshSequence(flow, sequence);
     }
