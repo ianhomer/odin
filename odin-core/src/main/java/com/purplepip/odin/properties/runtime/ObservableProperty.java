@@ -15,13 +15,16 @@
 
 package com.purplepip.odin.properties.runtime;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ObservableProperty<T> extends DefaultMutableProperty<T> implements Observable {
-  private Set<Observer> observers = new HashSet<>();
+  /*
+   * Observers are executed in the order they are registered.
+   */
+  private Set<Observer> observers = new LinkedHashSet<>();
 
   /**
    * Create a property without setting an initial value.

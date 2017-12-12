@@ -20,6 +20,8 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.properties.runtime.Observable;
 import com.purplepip.odin.properties.runtime.Property;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +49,20 @@ public class TickConvertedClock extends AbstractClock {
     this.beatClock = beatClock;
     tickToBeatConverter = new DefaultTickConverter(beatClock,
         tick, () -> Ticks.BEAT, offset);
+    refreshMaxLookForward();
+    if (tick instanceof Observable) {
+      ((Observable) tick).addObserver(this::refreshMaxLookForward);
+    }
+  }
+
+  /*
+   * TODO : Support BPM change.
+   */
+  private void refreshMaxLookForward() {
+    if (tick.get() != null) {
+      setMaxLookForward(tickToBeatConverter.convertDurationBack(Wholes.ZERO,
+          beatClock.getMaxLookForward()));
+    }
   }
 
   @Override

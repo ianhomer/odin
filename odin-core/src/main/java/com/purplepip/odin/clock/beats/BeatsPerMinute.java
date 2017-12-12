@@ -20,6 +20,11 @@ import com.purplepip.odin.math.Real;
 /**
  * Beats per minute provider.
  */
+/*
+ * TODO : When we come to changing BPM at run time we should allow listeners to be registered
+ * that react to changes in BPM.  This will in particular be important for the generation of
+ * getMaxLookForward given that this is returned with unit of tick.
+ */
 public interface BeatsPerMinute {
   int getBeatsPerMinute();
 

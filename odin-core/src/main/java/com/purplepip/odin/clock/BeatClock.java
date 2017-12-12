@@ -95,7 +95,16 @@ public class BeatClock extends AbstractClock {
     this.startOffset = startOffset;
     this.maxLookForwardInMicros = maxLookForwardInMillis * 1_000;
     maxLookForwardInMinutes = Real.valueOf(maxLookForwardInMillis / (double) 60_000);
+    refreshMaxLookForward();
     LOG.debug("Creating beat clock : look forward = {}", maxLookForwardInMicros);
+  }
+
+  /*
+   * TODO : Support BPM change.
+   */
+  private void refreshMaxLookForward() {
+    setMaxLookForward(maxLookForwardInMinutes
+        .times(Whole.valueOf(beatsPerMinute.getBeatsPerMinute())));
   }
 
   public void addListener(PerformanceListener listener) {
@@ -188,6 +197,8 @@ public class BeatClock extends AbstractClock {
   public Real getPosition(long microseconds) {
     return Whole.valueOf(microseconds).divide(beatsPerMinute.getMicroSecondsPerBeat());
   }
+
+
 
   @Override
   public Real getMaxLookForward(Real position) {

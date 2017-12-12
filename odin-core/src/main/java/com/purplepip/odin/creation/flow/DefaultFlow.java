@@ -71,7 +71,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
   }
 
   private Real getMaxScanForward() {
-    return getContext().getClock().getMaxLookForward();
+    return context.getClock().getMaxLookForward();
   }
 
   @Override

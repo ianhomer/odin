@@ -45,7 +45,8 @@ public class ProfileAspect {
       + " && !execution(* *.getSequence(..))")
   public void inMutableSequenceRoll() {}
 
-  @Pointcut("execution(* com.purplepip.odin.creation.flow.DefaultFlow.*(..))")
+  @Pointcut("execution(* com.purplepip.odin.creation.flow.DefaultFlow.getNextEvent(..))"
+      + " || execution(* com.purplepip.odin.creation.flow.DefaultFlow.getMaxScanForward(..))")
   public void inFlow() {}
 
   @Pointcut("execution(* com.purplepip.odin.creation.flow.FlowFactory.*(..))")

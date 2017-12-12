@@ -18,6 +18,12 @@ package com.purplepip.odin.clock;
 import com.purplepip.odin.math.Real;
 
 public abstract class AbstractClock implements Clock {
+  private Real maxLookForward;
+
+  protected void setMaxLookForward(Real maxLookForward) {
+    this.maxLookForward = maxLookForward;
+  }
+
   @Override
   public final Real getDuration(long microseconds) {
     return getDurationFromMicroseconds(microseconds, getMicroseconds());
@@ -35,6 +41,6 @@ public abstract class AbstractClock implements Clock {
 
   @Override
   public Real getMaxLookForward() {
-    return getMaxLookForward(getPosition());
+    return maxLookForward;
   }
 }
