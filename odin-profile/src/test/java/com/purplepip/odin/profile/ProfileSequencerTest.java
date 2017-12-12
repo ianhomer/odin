@@ -51,7 +51,7 @@ public class ProfileSequencerTest {
   }
 
   private void spinUp() throws OdinException {
-    for (int i = 0; i < 5 ; i++) {
+    for (int i = 0; i < 100 ; i++) {
       TestSequencerEnvironment environment =
           new TestSequencerEnvironment(
               new LoggingOperationReceiver(), new GroovePerformance());
