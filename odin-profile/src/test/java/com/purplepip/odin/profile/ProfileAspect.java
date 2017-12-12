@@ -29,7 +29,10 @@ public class ProfileAspect {
   @Pointcut("execution(* *.onPerformanceStart(..))")
   public void onPerformanceStartMethods() {}
 
-  @Pointcut("execution(* *.initialise(..))")
+  @Pointcut("execution(* *.getNextEvent(..))")
+  public void onGetNextEvent() {}
+
+  @Pointcut("execution(* com.purplepip.odin.creation.flow.DefaultFlow.initialise(..))")
   public void onInitialise() {}
 
   @Pointcut("execution(* com.purplepip.odin.music.sequence.Notation.initialiseComposition(..))")
@@ -62,6 +65,7 @@ public class ProfileAspect {
   @Around("!inLambda() && (onBeatClockStart()"
       + " || onInitialise()"
       + " || onInitialiseComposition()"
+      + " || onGetNextEvent()"
       + " || onPerformanceStartMethods()"
       + " || inMutableSequenceRoll()"
       + " || inFlow()"

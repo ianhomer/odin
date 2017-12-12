@@ -76,8 +76,13 @@ public class BeatClock extends AbstractClock {
    * TODO : Support BPM change.
    */
   private void refreshMaxLookForward() {
+    /*
+     * Note we return a whole floor of this look forward since primary use case in flow always
+     * compares against the floor.  Doing whole floor now gives a minor but cheap optimisation
+     * and does not impact functionality in any substantial way.
+     */
     setMaxLookForward(maxLookForwardInMinutes
-        .times(Whole.valueOf(beatsPerMinute.getBeatsPerMinute())));
+        .times(Whole.valueOf(beatsPerMinute.getBeatsPerMinute())).wholeFloor());
   }
 
   public void addListener(PerformanceListener listener) {

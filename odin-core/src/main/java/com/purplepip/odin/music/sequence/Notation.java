@@ -46,14 +46,12 @@ public class Notation extends SequencePlugin {
 
   @Override
   public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
-    LOG.trace("Getting notation event at {}", loop);
     Event<Note> event = indexedComposition.getEventAfter(loop.getPosition());
     if (event != null) {
       /*
        * Use the absolute tock position for the returned event.
        */
       Real eventTime = loop.getAbsolutePosition(event.getTime());
-      LOG.trace("Returning event at tock {}", eventTime);
       return new DefaultEvent<>(event.getValue(), eventTime);
     }
     return null;
