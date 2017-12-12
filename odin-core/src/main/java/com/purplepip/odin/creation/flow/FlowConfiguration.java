@@ -21,6 +21,8 @@ public interface FlowConfiguration {
    * Max time in microseconds to scan forward.
    *
    * @return max forward scan
+   * @deprecated please use max look forward in sequencer configuration
    */
+  @Deprecated
   long getMaxForwardScan();
 }

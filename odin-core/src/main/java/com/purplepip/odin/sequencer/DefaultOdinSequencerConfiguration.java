@@ -47,6 +47,7 @@ public class DefaultOdinSequencerConfiguration
   private TriggerFactory triggerFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
+  private int maxLookForward;
   private long trackProcessorRefreshPeriod;
   private int trackProcessorMaxNotesPerBuffer;
   private long operationProcessorRefreshPeriod;
@@ -65,6 +66,7 @@ public class DefaultOdinSequencerConfiguration
     setLoggingOperationReceiverEnabled(true);
     setClockStartRoundingFactor(1);
     setClockStartOffset(0);
+    setMaxLookForward(10_000);
     setMetrics(new MetricRegistry());
     setOperationTransmitter(new DefaultOperationTransmitter());
     setOperationProcessorRefreshPeriod(50);
@@ -208,6 +210,16 @@ public class DefaultOdinSequencerConfiguration
   @Override
   public long getClockStartOffset() {
     return clockStartOffset;
+  }
+
+  @Override
+  public long getMaxLookForward() {
+    return maxLookForward;
+  }
+
+  public DefaultOdinSequencerConfiguration setMaxLookForward(int maxLookForward) {
+    this.maxLookForward = maxLookForward;
+    return this;
   }
 
   @Override

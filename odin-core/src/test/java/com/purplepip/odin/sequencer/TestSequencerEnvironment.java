@@ -69,7 +69,7 @@ public class TestSequencerEnvironment {
 
   private void initialiseSequencer(OperationReceiver operationReceiver) throws OdinException {
     DefaultFlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
-    flowConfiguration.setMaxForwardScan(1000000);
+    flowConfiguration.setMaxForwardScan(1_000_000);
 
     flowFactory = newNoteFlowFactory(flowConfiguration);
     configuration = new DefaultOdinSequencerConfiguration()
@@ -78,12 +78,14 @@ public class TestSequencerEnvironment {
         .setBeatsPerMinute(new StaticBeatsPerMinute(factorSpeed(6000)))
         .setClockStartOffset(factorTime(50000))
         .setClockStartRoundingFactor(1000)
+        .setMaxLookForward(1_000)
         .setTrackProcessorRefreshPeriod(10)
         .setTrackProcessorMaxNotesPerBuffer(2000)
         .setOperationProcessorRefreshPeriod(50)
         .setMicrosecondPositionProvider(new DefaultMicrosecondPositionProvider())
         .setOperationReceiver(operationReceiver)
         .setStrictEventOrder(true).merge(deltaConfiguration);
+    LOG.debug("Max look forward : {}", configuration.getMaxLookForward());
     sequencer = new OdinSequencer(configuration);
     container.addApplyListener(sequencer);
   }

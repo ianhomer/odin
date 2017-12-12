@@ -82,7 +82,8 @@ public class OdinSequencer implements PerformanceApplyListener {
   private void init() {
     clock = new BeatClock(configuration.getBeatsPerMinute(),
         configuration.getMicrosecondPositionProvider(),
-        configuration.getClockStartOffset());
+        configuration.getClockStartOffset(),
+        configuration.getMaxLookForward());
     clock.addListener(configuration.getOperationReceiver());
 
     /*

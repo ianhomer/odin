@@ -69,4 +69,14 @@ public class TickConvertedClockTest {
     assertEquals(Whole.valueOf(30), beatClock.getPosition());
     assertEquals(Whole.valueOf(120), clock.getPosition());
   }
+
+  @Test
+  public void testMaxLookForward() {
+    BeatClock beatClock = new BeatClock(
+        new StaticBeatsPerMinute(60),  new MovableMicrosecondPositionProvider(),
+        0, 60_000);
+    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
+    assertEquals(240, clock.getMaxLookForward().floor());
+    assertEquals(240, clock.getMaxLookForward(Wholes.ONE).floor());
+  }
 }

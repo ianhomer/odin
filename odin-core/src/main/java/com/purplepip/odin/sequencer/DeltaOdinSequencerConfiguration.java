@@ -108,6 +108,15 @@ public class DeltaOdinSequencerConfiguration implements OdinSequencerConfigurati
     return clockStartOffset;
   }
 
+  @Getter
+  @Setter
+  private long maxLookForward = 0;
+
+  @Override
+  public long getMaxLookForward() {
+    return maxLookForward;
+  }
+
   @Override
   public long getTrackProcessorRefreshPeriod() {
     return 0;

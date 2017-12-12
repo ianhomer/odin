@@ -15,6 +15,12 @@
 
 package com.purplepip.odin.creation.flow;
 
+/**
+ * Default flow configuration.
+ *
+ * @deprecated max forward scan is now covered by max look forward in sequencer configuration and
+ *     available on the clock API.
+ */
 public class DefaultFlowConfiguration implements FlowConfiguration {
   private static final int DEFAULT_MAX_FORWARD_SCAN = 10_000_000;
 
@@ -24,12 +30,21 @@ public class DefaultFlowConfiguration implements FlowConfiguration {
    * Max time in microseconds that a flow can scan forward to find the next event.
    *
    * @return max forward scan in microseconds
+   * @deprecated see max look forward in sequencer configuration
    */
   @Override
   public long getMaxForwardScan() {
     return maxForwardScan;
   }
 
+  /**
+   * Set max forward scan.
+   *
+   * @param maxForwardScan max forward scan
+   * @return this
+   *
+   * @deprecated see max look forward in sequencer configuration
+   */
   public DefaultFlowConfiguration setMaxForwardScan(int maxForwardScan) {
     this.maxForwardScan = maxForwardScan;
     return this;

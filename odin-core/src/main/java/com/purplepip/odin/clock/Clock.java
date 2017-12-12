@@ -42,10 +42,10 @@ public interface Clock extends MicrosecondPositionProvider {
   /**
    * Get tick count duration for the given number of microseconds from the given tick count.
    */
-  Real getDuration(long microseconds, Real count);
+  Real getDuration(long microseconds, Real position);
 
   /**
-   * Get the tick count for the current position.
+   * Get the tick count for the current clock position.
    */
   Real getPosition();
 
@@ -53,4 +53,17 @@ public interface Clock extends MicrosecondPositionProvider {
    * Get the tick count for the given microsecond position.
    */
   Real getPosition(long microseconds);
+
+  /**
+   * Get max look forward, measured in ticks, from the current clock position.
+   *
+   * @return max look forward
+   */
+  Real getMaxLookForward();
+
+  /**
+   * Get max look forward, measured in ticks, from the given tick count. Max look forward is the
+   * maximum number of ticks that a component can look forward pre-calculate events.
+   */
+  Real getMaxLookForward(Real position);
 }

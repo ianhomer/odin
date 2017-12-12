@@ -32,4 +32,9 @@ public abstract class AbstractClock implements Clock {
     return getPosition(microsecondsPosition + microsecondsDuration)
         .minus(getPosition(microsecondsPosition));
   }
+
+  @Override
+  public Real getMaxLookForward() {
+    return getMaxLookForward(getPosition());
+  }
 }

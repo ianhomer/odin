@@ -36,6 +36,15 @@ public class BeatClockTest {
   }
 
   @Test
+  public void testMaxLookForward() {
+    BeatClock beatClock = new BeatClock(
+        new StaticBeatsPerMinute(60),  new MovableMicrosecondPositionProvider(),
+        0, 60_000);
+    assertEquals(60, beatClock.getMaxLookForward().floor());
+    assertEquals(60, beatClock.getMaxLookForward(Wholes.ONE).floor());
+  }
+
+  @Test
   public void testMovingClock() {
     MovableMicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();

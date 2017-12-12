@@ -32,12 +32,21 @@ public class ProfileAspect {
   @Pointcut("execution(* *.initialise(..))")
   public void onInitialise() {}
 
+  @Pointcut("execution(* *.getDuration(..))")
+  public void onGetDuration() {}
+
+  @Pointcut("execution(* *.getPosition(..))")
+  public void onGetPosition() {}
+
   @Pointcut("execution(* com.purplepip.odin.music.sequence.Notation.initialiseComposition(..))")
   public void onInitialiseComposition() {}
 
   @Pointcut("execution(* com.purplepip.odin.creation.track.MutableSequenceRoll.*(..))"
       + " && !execution(* *.getSequence(..))")
   public void inMutableSequenceRoll() {}
+
+  @Pointcut("execution(* com.purplepip.odin.creation.flow.DefaultFlow.*(..))")
+  public void inFlow() {}
 
   @Pointcut("execution(* com.purplepip.odin.creation.flow.FlowFactory.*(..))")
   public void inFlowFactory() {}
@@ -57,6 +66,8 @@ public class ProfileAspect {
       + " || onInitialiseComposition()"
       + " || onPerformanceStartMethods()"
       + " || inMutableSequenceRoll()"
+      + " || onGetDuration() || onGetPosition()"
+      + " || inFlow()"
       + " || inFlowFactory()")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
     Timer.Context context = Profile.getMetrics().timer(pjp.toShortString()).time();

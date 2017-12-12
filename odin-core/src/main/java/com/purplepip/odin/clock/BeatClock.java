@@ -44,6 +44,8 @@ public class BeatClock extends AbstractClock {
   private long startOffset;
   private boolean started;
   private boolean startingOrStarted;
+  private Real maxLookForwardInMinutes;
+  private long maxLookForwardInMicros;
 
   public static BeatClock newBeatClock(int staticBeatsPerMinute) {
     return newBeatClock(new StaticBeatsPerMinute(staticBeatsPerMinute));
@@ -73,6 +75,12 @@ public class BeatClock extends AbstractClock {
     this(beatsPerMinute, microsecondPositionProvider, 0);
   }
 
+  public BeatClock(BeatsPerMinute beatsPerMinute,
+                   MicrosecondPositionProvider microsecondPositionProvider,
+                   long startOffset) {
+    this(beatsPerMinute, microsecondPositionProvider, startOffset, 10_000);
+  }
+
   /**
    * Create clock.
    *
@@ -81,10 +89,13 @@ public class BeatClock extends AbstractClock {
    */
   public BeatClock(BeatsPerMinute beatsPerMinute,
                    MicrosecondPositionProvider microsecondPositionProvider,
-                   long startOffset) {
+                   long startOffset, long maxLookForwardInMillis) {
     this.beatsPerMinute = beatsPerMinute;
     this.microsecondPositionProvider = microsecondPositionProvider;
     this.startOffset = startOffset;
+    this.maxLookForwardInMicros = maxLookForwardInMillis * 1_000;
+    maxLookForwardInMinutes = Real.valueOf(maxLookForwardInMillis / (double) 60_000);
+    LOG.debug("Creating beat clock : look forward = {}", maxLookForwardInMicros);
   }
 
   public void addListener(PerformanceListener listener) {
@@ -149,6 +160,10 @@ public class BeatClock extends AbstractClock {
     listeners.forEach(PerformanceListener::onPerformanceShutdown);
   }
 
+  public long getMaxLookForwardInMicros() {
+    return maxLookForwardInMicros;
+  }
+
   /**
    * Get microsecond position.
    *
@@ -172,6 +187,11 @@ public class BeatClock extends AbstractClock {
   @Override
   public Real getPosition(long microseconds) {
     return Whole.valueOf(microseconds).divide(beatsPerMinute.getMicroSecondsPerBeat());
+  }
+
+  @Override
+  public Real getMaxLookForward(Real position) {
+    return maxLookForwardInMinutes.times(Whole.valueOf(beatsPerMinute.getBeatsPerMinute()));
   }
 
   @Override

@@ -22,11 +22,13 @@ import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.properties.runtime.Property;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Clock where the ticks have been converted to a different unit and offset.
  */
 @ToString
+@Slf4j
 public class TickConvertedClock extends AbstractClock {
   private Property<Tick> tick;
   private BeatClock beatClock;
@@ -58,8 +60,8 @@ public class TickConvertedClock extends AbstractClock {
   }
 
   @Override
-  public long getMicroseconds(Real count) {
-    return beatClock.getMicroseconds(tickToBeatConverter.convert(count));
+  public long getMicroseconds(Real position) {
+    return beatClock.getMicroseconds(tickToBeatConverter.convert(position));
   }
 
   @Override
@@ -70,5 +72,10 @@ public class TickConvertedClock extends AbstractClock {
   @Override
   public Real getPosition(long microseconds) {
     return tickToBeatConverter.convertBack(beatClock.getPosition(microseconds));
+  }
+
+  @Override
+  public Real getMaxLookForward(Real position) {
+    return getDuration(beatClock.getMaxLookForwardInMicros(), position);
   }
 }
