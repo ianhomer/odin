@@ -1,11 +1,11 @@
 package com.purplepip.odin.roll;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.tick.DefaultTickConverter;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
@@ -39,7 +39,7 @@ public class TickConvertedRollTest {
   @Before
   public void setUp() {
     when(provider.getMicroseconds()).thenReturn((long) 0);
-    clock = new BeatClock(new StaticBeatsPerMinute(60), provider);
+    clock = newPrecisionBeatClock(60, provider);
     clock.start();
   }
 

@@ -23,7 +23,6 @@ import com.purplepip.odin.math.Whole;
  */
 public class StaticBeatsPerMinute implements BeatsPerMinute {
   private static final int MICROSECONDS_PER_MINUTE = 60_000_000;
-
   private int beatsPerMinute;
   private Real microsecondsPerBeat;
 
@@ -40,5 +39,9 @@ public class StaticBeatsPerMinute implements BeatsPerMinute {
   @Override
   public Real getMicroSecondsPerBeat() {
     return microsecondsPerBeat;
+  }
+
+  public String toString() {
+    return "˻" + beatsPerMinute + " BPM˼";
   }
 }

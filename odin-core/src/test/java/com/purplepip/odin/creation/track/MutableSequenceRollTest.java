@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.track;
 
-import static com.purplepip.odin.clock.BeatClock.newBeatClock;
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.clock.measure.StaticBeatMeasureProvider.newMeasureProvider;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static org.junit.Assert.assertEquals;
@@ -41,7 +41,7 @@ public class MutableSequenceRollTest {
   private FlowFactory<Note> flowFactory = newNoteFlowFactory();
   private MovableMicrosecondPositionProvider microsecondPositionProvider =
       new MovableMicrosecondPositionProvider();
-  private BeatClock clock = newBeatClock(60, microsecondPositionProvider);
+  private BeatClock clock = newPrecisionBeatClock(60, microsecondPositionProvider);
   private MeasureProvider measureProvider = newMeasureProvider(4);
 
   @Test

@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.creation.conductor;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
@@ -74,7 +74,7 @@ public class ConductorActiveTest {
   public void setUp() {
     MicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();
-    clock = new BeatClock(new StaticBeatsPerMinute(60), microsecondPositionProvider);
+    clock = newPrecisionBeatClock(60, microsecondPositionProvider);
     conductors = new LayerConductors();
     project = new TransientPerformance();
     builder = new PerformanceBuilder(new PerformanceContainer(project));

@@ -24,6 +24,9 @@ import com.purplepip.odin.math.Whole;
 import java.text.DecimalFormat;
 import java.util.Set;
 import java.util.TreeSet;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -47,56 +50,26 @@ public class BeatClock extends AbstractClock {
   private Real maxLookForwardInMinutes;
   private long maxLookForwardInMicros;
 
-  public static BeatClock newBeatClock(int staticBeatsPerMinute) {
-    return newBeatClock(new StaticBeatsPerMinute(staticBeatsPerMinute));
-  }
-
-  public static BeatClock newBeatClock(BeatsPerMinute beatsPerMinute) {
-    return new BeatClock(beatsPerMinute);
-  }
-
-  public static BeatClock newBeatClock(int staticBeatsPerMinute,
-                                       MicrosecondPositionProvider microsecondPositionProvider) {
-    return newBeatClock(new StaticBeatsPerMinute(staticBeatsPerMinute),
-        microsecondPositionProvider);
-  }
-
-  public static BeatClock newBeatClock(BeatsPerMinute beatsPerMinute,
-                                       MicrosecondPositionProvider microsecondPositionProvider) {
-    return new BeatClock(beatsPerMinute, microsecondPositionProvider);
-  }
-
-  public BeatClock(BeatsPerMinute beatsPerMinute) {
-    this(beatsPerMinute, new DefaultMicrosecondPositionProvider());
-  }
-
-  public BeatClock(BeatsPerMinute beatsPerMinute,
-                   MicrosecondPositionProvider microsecondPositionProvider) {
-    this(beatsPerMinute, microsecondPositionProvider, 0);
-  }
-
-  public BeatClock(BeatsPerMinute beatsPerMinute,
-                   MicrosecondPositionProvider microsecondPositionProvider,
-                   long startOffset) {
-    this(beatsPerMinute, microsecondPositionProvider, startOffset, 10_000);
-  }
-
   /**
-   * Create clock.
+   * Create beat clock.
    *
-   * @param beatsPerMinute beats per minute
-   * @param microsecondPositionProvider microsecond provider
+   * @param configuration beat clock configuration.
    */
-  public BeatClock(BeatsPerMinute beatsPerMinute,
-                   MicrosecondPositionProvider microsecondPositionProvider,
-                   long startOffset, long maxLookForwardInMillis) {
-    this.beatsPerMinute = beatsPerMinute;
-    this.microsecondPositionProvider = microsecondPositionProvider;
-    this.startOffset = startOffset;
-    this.maxLookForwardInMicros = maxLookForwardInMillis * 1_000;
-    maxLookForwardInMinutes = Real.valueOf(maxLookForwardInMillis / (double) 60_000);
+  public BeatClock(Configuration configuration) {
+    assert configuration.beatsPerMinute() != null;
+    this.beatsPerMinute = configuration.beatsPerMinute();
+    if (configuration.microsecondPositionProvider == null) {
+      this.microsecondPositionProvider = new DefaultMicrosecondPositionProvider();
+    } else {
+      this.microsecondPositionProvider = configuration.microsecondPositionProvider();
+    }
+    this.startOffset = configuration.startOffset();
+    this.maxLookForwardInMicros = configuration.maxLookForwardInMillis() * 1_000;
+    maxLookForwardInMinutes = Real.valueOf(
+        configuration.maxLookForwardInMillis() / (double) 60_000);
     refreshMaxLookForward();
-    LOG.debug("Creating beat clock : look forward = {}", maxLookForwardInMicros);
+    LOG.debug("Creating beat clock : BPM = {}; ms provider = {}; look forward = {}",
+        beatsPerMinute, microsecondPositionProvider, maxLookForwardInMicros);
   }
 
   /*
@@ -195,10 +168,8 @@ public class BeatClock extends AbstractClock {
 
   @Override
   public Real getPosition(long microseconds) {
-    return Whole.valueOf(microseconds).divide(beatsPerMinute.getMicroSecondsPerBeat());
+    return Real.valueOf((double)microseconds).divide(beatsPerMinute.getMicroSecondsPerBeat());
   }
-
-
 
   @Override
   public Real getMaxLookForward(Real position) {
@@ -225,5 +196,33 @@ public class BeatClock extends AbstractClock {
 
   public BeatsPerMinute getBeatsPerMinute() {
     return beatsPerMinute;
+  }
+
+  @Accessors(fluent = true)
+  public static final class Configuration {
+    @Getter
+    @Setter
+    private BeatsPerMinute beatsPerMinute;
+
+    @Getter
+    @Setter
+    private MicrosecondPositionProvider microsecondPositionProvider;
+
+    @Getter
+    @Setter
+    private long startOffset;
+
+    @Getter
+    @Setter
+    private long maxLookForwardInMillis = 10_000;
+
+    @Getter
+    @Setter
+    private boolean precision;
+
+    public Configuration staticBeatsPerMinute(int staticBeatsPerMinute) {
+      beatsPerMinute = new StaticBeatsPerMinute(staticBeatsPerMinute);
+      return this;
+    }
   }
 }

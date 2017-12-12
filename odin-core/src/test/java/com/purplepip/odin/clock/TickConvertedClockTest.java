@@ -15,11 +15,11 @@
 
 package com.purplepip.odin.clock;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.clock.tick.Ticks.QUARTER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import org.junit.Test;
 public class TickConvertedClockTest {
   @Test
   public void testCount() {
-    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
+    BeatClock beatClock = newPrecisionBeatClock(60);
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
     assertTrue(clock.getPosition().gt(Wholes.MINUS_ONE));
     assertEquals(QUARTER, clock.getTick());
@@ -35,7 +35,7 @@ public class TickConvertedClockTest {
 
   @Test
   public void testDuration() {
-    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
+    BeatClock beatClock = newPrecisionBeatClock(60);
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
     assertEquals(Whole.valueOf(4), clock.getDuration(1000000));
     assertEquals(Whole.valueOf(4), clock.getDuration(1000000, Whole.valueOf(10)));
@@ -45,7 +45,7 @@ public class TickConvertedClockTest {
   public void testMovingClock() {
     MovableMicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();
-    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60), microsecondPositionProvider);
+    BeatClock beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
     assertEquals(Wholes.ZERO, beatClock.getPosition());
     assertEquals(Wholes.ZERO, clock.getPosition());
@@ -72,9 +72,9 @@ public class TickConvertedClockTest {
 
   @Test
   public void testMaxLookForward() {
-    BeatClock beatClock = new BeatClock(
-        new StaticBeatsPerMinute(60),  new MovableMicrosecondPositionProvider(),
-        0, 60_000);
+    BeatClock beatClock = new PrecisionBeatClock(new BeatClock.Configuration()
+        .staticBeatsPerMinute(60)
+        .maxLookForwardInMillis(60_000));
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
     assertEquals(240, clock.getMaxLookForward().floor());
     assertEquals(240, clock.getMaxLookForward(Wholes.ONE).floor());

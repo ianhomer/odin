@@ -15,15 +15,15 @@
 
 package com.purplepip.odin.clock.tick;
 
-import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
+
 import com.purplepip.odin.common.OdinImplementationException;
 import org.junit.Test;
 
 public class LazyDefaultTickConverterTest {
   @Test(expected = OdinImplementationException.class)
   public void testLazyNeedsObservableProperty() {
-    new DefaultTickConverter(new BeatClock(new StaticBeatsPerMinute(120)),
+    new DefaultTickConverter(newPrecisionBeatClock(120),
         () -> Ticks.BEAT, () -> Ticks.BEAT, () -> 0L, false);
   }
 }

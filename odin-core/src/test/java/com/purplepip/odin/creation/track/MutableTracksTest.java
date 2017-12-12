@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.creation.track;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import com.purplepip.odin.bag.AbstractUnmodifiableThings;
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
@@ -44,7 +44,7 @@ public class MutableTracksTest {
       new UnmodifiableConductors(conductors);
 
   private PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
-  private BeatClock clock = new BeatClock(new StaticBeatsPerMinute(12000));
+  private BeatClock clock = newPrecisionBeatClock(12000);
   private FlowFactory<Note> flowFactory = newNoteFlowFactory();
   private MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
   private SequenceTracks tracks = new SequenceTracks(immutableConductors);

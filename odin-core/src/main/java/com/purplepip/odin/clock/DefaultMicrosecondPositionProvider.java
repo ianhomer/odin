@@ -29,4 +29,8 @@ public class DefaultMicrosecondPositionProvider implements MicrosecondPositionPr
   public long getMicroseconds() {
     return System.nanoTime() / 1000 - microsecondsStart;
   }
+
+  public String toString() {
+    return "DefaultMicrosecondPositionProvider";
+  }
 }

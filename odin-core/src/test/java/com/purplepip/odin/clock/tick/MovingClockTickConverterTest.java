@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.clock.tick;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.clock.tick.Ticks.HALF;
 import static com.purplepip.odin.clock.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Before;
@@ -38,7 +38,7 @@ public class MovingClockTickConverterTest {
   @Before
   public void setUp() {
     microsecondPositionProvider = new MovableMicrosecondPositionProvider();
-    beatClock = new BeatClock(new StaticBeatsPerMinute(60), microsecondPositionProvider);
+    beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
     tickConverter = new DefaultTickConverter(beatClock, () -> MILLISECOND, () -> HALF, () -> 0L);
   }
 

@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.music;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.ConvertedMeasureProvider;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
@@ -81,7 +81,7 @@ public class ConvertedMeasureProviderTest {
 
   @Test
   public void testMicroseconds() {
-    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
+    BeatClock beatClock = newPrecisionBeatClock(60);
     DefaultTickConverter tickConverter = new DefaultTickConverter(beatClock,
         () -> Ticks.BEAT, () -> Ticks.MICROSECOND, () -> 0L);
 

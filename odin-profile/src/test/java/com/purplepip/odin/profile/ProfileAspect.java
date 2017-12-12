@@ -35,7 +35,7 @@ public class ProfileAspect {
   @Pointcut("execution(* *.getDuration(..))")
   public void onGetDuration() {}
 
-  @Pointcut("execution(* *.getPosition(..))")
+  @Pointcut("execution(* com.purplepip.odin.clock.BeatClock.getPosition(..))")
   public void onGetPosition() {}
 
   @Pointcut("execution(* com.purplepip.odin.music.sequence.Notation.initialiseComposition(..))")

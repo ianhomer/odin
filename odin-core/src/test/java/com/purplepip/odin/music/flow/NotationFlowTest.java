@@ -15,12 +15,12 @@
 
 package com.purplepip.odin.music.flow;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.MovableTock;
@@ -40,16 +40,18 @@ import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+@Slf4j
 public class NotationFlowTest {
   private Flow<Sequence<Note>, Note> createNotationFlow(String notationAsString) {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
-    builder.addNotation(Ticks.BEAT, notationAsString);
+    builder.withName("notation").addNotation(Ticks.BEAT, notationAsString);
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     FlowFactory<Note> flowFactory = newNoteFlowFactory();
-    BeatClock clock = new BeatClock(new StaticBeatsPerMinute(60));
+    BeatClock clock = newPrecisionBeatClock(60);
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     return flowFactory.createFlow(notation, clock, measureProvider);
   }
@@ -58,8 +60,8 @@ public class NotationFlowTest {
   public void testGetNextEvent() {
     Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/q, E5, G5, C5");
     flow.initialise();
-    Event<Note> event = flow
-        .getNextEvent(new MovableTock(Ticks.BEAT, Rationals.MINUS_ONE));
+    Event<Note> event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Rationals.MINUS_ONE));
+    LOG.debug("Clock : {}", flow.getContext().getClock());
     assertEquals(Wholes.ZERO, event.getTime());
     assertEquals(83, event.getValue().getNumber());
   }

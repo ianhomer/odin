@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.creation.reactors;
 
-import static com.purplepip.odin.clock.BeatClock.newBeatClock;
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.clock.measure.StaticBeatMeasureProvider.newMeasureProvider;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
@@ -39,7 +39,7 @@ import org.junit.Test;
 public class MutableReactorsTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
   private FlowFactory<Note> flowFactory = newNoteFlowFactory();
-  private BeatClock clock = newBeatClock(120);
+  private BeatClock clock = newPrecisionBeatClock(120);
   private MeasureProvider measureProvider = newMeasureProvider(4);
 
   @Test

@@ -15,12 +15,13 @@
 
 package com.purplepip.odin.clock;
 
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
+
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 
 public class StaticMeasureContext extends MeasureContext {
   public StaticMeasureContext(int beatsPerMinute, int beatsPerMeasure) {
-    super(new BeatClock(new StaticBeatsPerMinute(beatsPerMinute)),
+    super(newPrecisionBeatClock(beatsPerMinute),
         new StaticBeatMeasureProvider(beatsPerMeasure));
   }
 }

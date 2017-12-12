@@ -45,11 +45,11 @@ public class MetricsReport {
         .filter(entry -> !entry.getKey().equals(TIMER_OVERHEAD))
         .sorted(Comparator.comparing(entry ->
             -calculateTotal(entry.getValue())))
-        .forEach(entry -> append(formatter, entry));
+        .forEach(entry -> append(formatter, entry, timerOverhead));
 
     registry.getTimers().entrySet().stream()
         .filter(entry -> entry.getKey().equals(TIMER_OVERHEAD))
-        .forEach(entry -> append(formatter, entry));
+        .forEach(entry -> append(formatter, entry, 0));
 
     return sb.toString();
   }
@@ -58,11 +58,11 @@ public class MetricsReport {
     return (timer.getSnapshot().getMean() - timerOverhead) * timer.getCount();
   }
 
-  private void append(Formatter formatter, Map.Entry<String, Timer> entry) {
+  private void append(Formatter formatter, Map.Entry<String, Timer> entry, double overhead) {
     Snapshot snapshot = entry.getValue().getSnapshot();
 
     formatter.format("%20.0f : %5d : %10.0f : %s\n",
-        snapshot.getMean() - timerOverhead, entry.getValue().getCount(),
+        snapshot.getMean() - overhead, entry.getValue().getCount(),
         calculateTotal(entry.getValue()),
         toPretty(entry.getKey()));
   }

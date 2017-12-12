@@ -30,4 +30,10 @@ public class StaticBeatsPerMinuteTest {
     assertTrue(bpm.getMicroSecondsPerBeat() instanceof Whole);
     assertEquals(Whole.valueOf(1000000), bpm.getMicroSecondsPerBeat());
   }
+
+  @Test
+  public void testToString() {
+    BeatsPerMinute bpm = new StaticBeatsPerMinute(60);
+    assertEquals("˻60 BPM˼", bpm.toString());
+  }
 }

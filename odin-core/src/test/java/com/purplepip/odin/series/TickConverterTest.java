@@ -1,5 +1,6 @@
 package com.purplepip.odin.series;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.clock.tick.Ticks.BEAT;
 import static com.purplepip.odin.clock.tick.Ticks.HALF;
 import static com.purplepip.odin.clock.tick.Ticks.MICROSECOND;
@@ -7,7 +8,6 @@ import static com.purplepip.odin.clock.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.tick.DefaultTickConverter;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;
@@ -24,7 +24,7 @@ public class TickConverterTest {
 
   @Before
   public void initialise() {
-    clock = new BeatClock(new StaticBeatsPerMinute(120));
+    clock = newPrecisionBeatClock(120);
   }
 
   private void assertConversion(BeatClock clock, Tick sourceTick, Tick targetTick,

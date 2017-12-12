@@ -15,10 +15,11 @@
 
 package com.purplepip.odin.clock;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.tick.Ticks;
+import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
@@ -26,20 +27,22 @@ import org.junit.Test;
 public class BeatClockTest {
   @Test
   public void testBeatClock() {
-    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
+    BeatClock beatClock = newPrecisionBeatClock(60);
     assertEquals("Beats per minute not correct",
         60, beatClock.getBeatsPerMinute().getBeatsPerMinute());
     assertEquals("Tick unit not correct",
         Ticks.BEAT, beatClock.getTick());
     assertEquals("Count not correct",
         Wholes.ONE, beatClock.getPosition(1_000_000));
+    assertEquals("Count not correct",
+        Rationals.HALF, beatClock.getPosition(500_000));
   }
 
   @Test
   public void testMaxLookForward() {
-    BeatClock beatClock = new BeatClock(
-        new StaticBeatsPerMinute(60),  new MovableMicrosecondPositionProvider(),
-        0, 60_000);
+    BeatClock beatClock = new PrecisionBeatClock(new BeatClock.Configuration()
+        .staticBeatsPerMinute(60)
+        .maxLookForwardInMillis(60_000));
     assertEquals(60, beatClock.getMaxLookForward().floor());
     assertEquals(60, beatClock.getMaxLookForward(Wholes.ONE).floor());
   }
@@ -48,7 +51,7 @@ public class BeatClockTest {
   public void testMovingClock() {
     MovableMicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();
-    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60), microsecondPositionProvider);
+    BeatClock beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
     assertEquals(0, beatClock.getMicroseconds());
     assertEquals(60_000_000, beatClock.getMicroseconds(Whole.valueOf(60)));
     /*

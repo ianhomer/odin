@@ -15,13 +15,12 @@
 
 package com.purplepip.odin.creation.conductor;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
-import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.DefaultLayer;
 import org.junit.Test;
@@ -32,8 +31,7 @@ public class UnmodifiableConductorTest {
     MutableThings<Conductor> mutableConductors = new MutableThings<>();
     DefaultLayer layer = new DefaultLayer().name("test").tick(Ticks.BEAT);
     layer.setTick(Ticks.BEAT);
-    LayerConductor newConductor = new LayerConductor(layer,
-        new BeatClock(new StaticBeatsPerMinute(60)));
+    LayerConductor newConductor = new LayerConductor(layer, newPrecisionBeatClock(60));
     mutableConductors.add(newConductor);
     Things<Conductor> conductors = new UnmodifiableConductors(mutableConductors);
     Conductor conductor = conductors.stream().findFirst().orElse(null);
