@@ -99,10 +99,14 @@ public class TrackProcessorExecutor implements Runnable {
    */
   @Override
   public void run() {
-    try {
-      doJobWithTiming();
-    } catch (RuntimeException e) {
-      LOG.error("Error whilst executing sequence processing", e);
+    if (clock.isStarted()) {
+      try {
+        doJobWithTiming();
+      } catch (RuntimeException e) {
+        LOG.error("Error whilst executing sequence processing", e);
+      }
+    } else {
+      LOG.debug("Clock has not started yet");
     }
   }
 

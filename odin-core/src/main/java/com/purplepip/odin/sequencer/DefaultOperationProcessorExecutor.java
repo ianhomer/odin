@@ -51,13 +51,17 @@ public class DefaultOperationProcessorExecutor implements Runnable {
 
   @Override
   public void run() {
-    final Timer.Context timerContext = jobMetric.time();
-    try {
-      doJob();
-    } catch (RuntimeException e) {
-      LOG.error("Error whilst executing sequence processing", e);
-    } finally {
-      timerContext.stop();
+    if (clock.isStarted()) {
+      final Timer.Context timerContext = jobMetric.time();
+      try {
+        doJob();
+      } catch (RuntimeException e) {
+        LOG.error("Error whilst executing sequence processing", e);
+      } finally {
+        timerContext.stop();
+      }
+    } else {
+      LOG.debug("Clock has not started yet");
     }
   }
 

@@ -160,8 +160,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
             clock.getPosition(clock.getMicroseconds() + 100_000)).ceiling();
 
     resetter.set("offset", newOffset);
-    LOG.debug("{} {} : sequence offset set to {}", beatClock, name,
-        sequence.getOffset());
+    LOG.debug("{} {} : sequence offset set to {}", beatClock, name, sequence.getOffset());
     offset.set(newOffset);
     tickDirty = true;
     refresh();
@@ -383,7 +382,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      * Tick change handling must be after sequence change handling since the sequence may
      * change the tick.
      */
-    if (beatClock.isStarted() && tickDirty) {
+    if (beatClock.isStartingOrStarted() && tickDirty) {
       afterTickChange();
     }
     /*

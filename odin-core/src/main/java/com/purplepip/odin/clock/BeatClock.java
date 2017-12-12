@@ -43,6 +43,7 @@ public class BeatClock extends AbstractClock {
   private long microsecondsOffset;
   private long startOffset;
   private boolean started;
+  private boolean startingOrStarted;
 
   public static BeatClock newBeatClock(int staticBeatsPerMinute) {
     return newBeatClock(new StaticBeatsPerMinute(staticBeatsPerMinute));
@@ -103,8 +104,8 @@ public class BeatClock extends AbstractClock {
    */
   public void start() {
     setMicroseconds(0);
+    startingOrStarted = true;
     LOG.debug("Starting clock in {}μs : now = {}", startOffset, this);
-    started = true;
     listeners.forEach(PerformanceListener::onPerformanceStart);
     LOG.debug("... started clock : offset = {}μs : now = {}", startOffset, this);
     if (getMicroseconds() > 0) {
@@ -116,6 +117,7 @@ public class BeatClock extends AbstractClock {
           + " offset.  Current offset = {}, clock microseconds = {} > 0", startOffset,
           getMicroseconds());
     }
+    started = true;
   }
 
   /**
@@ -179,6 +181,10 @@ public class BeatClock extends AbstractClock {
 
   public boolean isStarted() {
     return started;
+  }
+
+  public boolean isStartingOrStarted() {
+    return startingOrStarted;
   }
 
   @Override public String toString() {
