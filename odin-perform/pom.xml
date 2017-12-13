@@ -11,6 +11,10 @@
 
   <artifactId>odin-perform</artifactId>
 
+  <properties>
+    <jacoco.argLine>-Dnothing</jacoco.argLine>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.purplepip</groupId>
@@ -23,5 +27,25 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Disable jacoco analysis for performance assertions -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>check</id>
+            <phase>none</phase>
+          </execution>
+          <execution>
+            <id>pre-test</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
