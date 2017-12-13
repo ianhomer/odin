@@ -103,6 +103,10 @@ public class Snapshot {
     }
   }
 
+  public void expectMatch() {
+    expectMatch(true);
+  }
+
   /**
    * Expect snapshot to match snapshot file.
    *
@@ -118,6 +122,7 @@ public class Snapshot {
       LOG.error("Cannot commit snapshot", e);
     }
     try {
+      // TODO : Remove this safety net
       assertThat(path).hasContent(lines.stream().collect(Collectors.joining("\n")));
     } catch (AssertionError e) {
       if (failOnMismatch) {
