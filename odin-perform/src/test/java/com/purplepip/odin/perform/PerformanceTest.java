@@ -121,7 +121,7 @@ public class PerformanceTest {
     environment.getConfiguration().getMetrics().removeMatching(MetricFilter.ALL);
     LOG.debug("Starting : {}", testName);
     environment.start();
-    latch.await(5000, TimeUnit.MILLISECONDS);
+    latch.await(5_000, TimeUnit.MILLISECONDS);
     environment.shutdown();
     LOG.debug("Completed : {}", testName);
     MetricRegistry metrics = environment.getConfiguration().getMetrics();

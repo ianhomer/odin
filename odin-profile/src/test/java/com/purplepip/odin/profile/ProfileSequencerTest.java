@@ -21,7 +21,10 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.sequencer.LoggingOperationReceiver;
+import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,16 +34,19 @@ public class ProfileSequencerTest {
 
   @Test
   public void testProfileSequencer() throws OdinException, InterruptedException {
+    final CountDownLatch latch = new CountDownLatch(1_000);
+    OperationReceiver operationReceiver = (operation, time) -> latch.countDown();
+
     spinUp();
     TestSequencerEnvironment environment =
-        new TestSequencerEnvironment(
-            new LoggingOperationReceiver(), new GroovePerformance(),
-            deltaConfiguration().clockStartOffset(500000));
+        new TestSequencerEnvironment(operationReceiver, new GroovePerformance(),
+            deltaConfiguration().clockStartOffset(500_000));
     LOG.info("Sequence count : {}", environment.getContainer().getSequenceStream().count());
     for (int i = 1 ; i < 3 ; i++) {
       environment.prepare();
       Profile.reset();
       environment.start();
+      latch.await(5_000, TimeUnit.MILLISECONDS);
       environment.stop();
       // BeatClock start running at : 5919978micros on local dev machine for
       // first execution... convert this into

@@ -22,7 +22,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
-public class ProfileAspect {
+public class ClockLifeCycleAspect {
   @Pointcut("execution(* com.purplepip.odin.clock.BeatClock.start(..))")
   public void onBeatClockStart() {}
 
@@ -71,11 +71,8 @@ public class ProfileAspect {
       + " || inFlow()"
       + " || inFlowFactory())")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
-    Timer.Context context = Profile.getMetrics().timer(pjp.toShortString()).time();
-    try {
+    try (Timer.Context context = Profile.getMetrics().timer(pjp.toShortString()).time()) {
       return pjp.proceed();
-    } finally {
-      context.stop();
     }
   }
 }

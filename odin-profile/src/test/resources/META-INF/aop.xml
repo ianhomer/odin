@@ -1,6 +1,7 @@
 <aspectj>
   <aspects>
-    <aspect name="com.purplepip.odin.profile.ProfileAspect"/>
+    <!--aspect name="com.purplepip.odin.profile.ClockLifeCycleAspect"/-->
+    <aspect name="com.purplepip.odin.profile.TrackProcessorAspect"/>
   </aspects>
   <weaver options="-verbose -showWeaveInfo">
     <include within="com.purplepip..*"/>

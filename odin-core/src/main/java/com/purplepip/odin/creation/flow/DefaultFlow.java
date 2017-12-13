@@ -23,7 +23,6 @@ import com.purplepip.odin.clock.tick.Tock;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.ScanForwardEvent;
-import com.purplepip.odin.math.Real;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -70,10 +69,6 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
     return configuration;
   }
 
-  private Real getMaxScanForward() {
-    return context.getClock().getMaxLookForward();
-  }
-
   @Override
   public Event<A> getNextEvent(Tock tock) {
     /*
@@ -81,10 +76,10 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
      */
     Loop loop = new Loop(sequence.getLoopLength(), tock.getPosition());
     int i = 0;
-    long maxScanForward = getMaxScanForward().floor();
+    long maxScanForward = context.getClock().getMaxLookForward().floor();
     Event<A> event = null;
     while (event == null && i < maxScanForward) {
-      event = sequence.getNextEvent(getContext(), loop);
+      event = sequence.getNextEvent(context, loop);
       if (event == null) {
         LOG.trace("{} : No event found at tock {}, incrementing loop", sequence.getName(), loop);
         loop.increment();
