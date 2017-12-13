@@ -30,7 +30,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 import lombok.Getter;
 import lombok.Setter;
@@ -105,8 +106,8 @@ public class PerformanceTest {
 
   @Test
   public void testPerformance() throws OdinException, InterruptedException {
-    final AtomicInteger operationCount = new AtomicInteger();
-    OperationReceiver operationReceiver = (operation, time) -> operationCount.incrementAndGet();
+    final CountDownLatch latch = new CountDownLatch(parameter.operationCount());
+    OperationReceiver operationReceiver = (operation, time) -> latch.countDown();
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(operationReceiver, parameter.performance());
@@ -120,6 +121,7 @@ public class PerformanceTest {
     environment.getConfiguration().getMetrics().removeMatching(MetricFilter.ALL);
     LOG.debug("Starting : {}", testName);
     environment.start();
+    latch.await(5000, TimeUnit.MILLISECONDS);
     environment.shutdown();
     LOG.debug("Completed : {}", testName);
     MetricRegistry metrics = environment.getConfiguration().getMetrics();
@@ -153,11 +155,13 @@ public class PerformanceTest {
   public static Iterable<PerformanceTestParameter> parameters() {
     Collection<PerformanceTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance())
+        .operationCount(100)
         .expect("clock.start", 20_000)
-        .expect("sequence.track.simple", 60_000));
+        .expect("sequence.track.simple", 30_000));
     parameters.add(newParameter(new GroovePerformance())
+        .operationCount(1_000)
         .expect("clock.start", 800_000)
-        .expect("sequence.track.kick2", 13_000));
+        .expect("sequence.track.kick2", 14_000));
     return parameters;
   }
 
@@ -170,6 +174,10 @@ public class PerformanceTest {
     @Getter
     @Setter
     private Performance performance;
+
+    @Setter
+    @Getter
+    private int operationCount = 100;
 
     private Map<String, Long> times = new HashMap<>();
 
