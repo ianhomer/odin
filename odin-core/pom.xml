@@ -100,6 +100,11 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+          <!--
+              Rerun a couple of times on failure since the snapshot match tests do sometimes fail.
+              We're working on fixing this reliability, however an occasional intermittent failure
+              with these is OK for now.
+              -->
           <rerunFailingTestsCount>2</rerunFailingTestsCount>
         </configuration>
       </plugin>

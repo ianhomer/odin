@@ -35,6 +35,17 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <!--
+              Rerun a couple of times on failure since machine performance does have variability
+              and at least one pass is AOK.
+              -->
+          <rerunFailingTestsCount>2</rerunFailingTestsCount>
+        </configuration>
+      </plugin>
       <!-- Disable jacoco analysis for performance assertions -->
       <plugin>
         <groupId>org.jacoco</groupId>

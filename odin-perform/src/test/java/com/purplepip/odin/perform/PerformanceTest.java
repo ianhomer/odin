@@ -132,7 +132,7 @@ public class PerformanceTest {
             + mean + " < " + maxAllowed + " ; expected = " + expect,
         mean < maxAllowed);
     long excellentThreshold = expect / EXCEL_FACTOR;
-    LOG.info("{} ({}) : Timer {} mean = {} ; expected = {} ; allowed = {}",
+    LOG.info("{} ({}) : Timer {} ; mean = {} ; expected = {} ; allowed = {}",
         testName, environmentDescription, name, mean, expect, maxAllowed);
     if (mean < excellentThreshold) {
       LOG.info("{} ({}) : Timer {} faster than expected {}, perhaps we can lower the assertion : "
@@ -149,9 +149,11 @@ public class PerformanceTest {
   public static Iterable<PerformanceTestParameter> parameters() {
     Collection<PerformanceTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance())
-        .expect("clock.start", 20_000));
+        .expect("clock.start", 20_000)
+        .expect("sequence.track.simple", 60_000));
     parameters.add(newParameter(new GroovePerformance())
-        .expect("clock.start", 800_000));
+        .expect("clock.start", 800_000)
+        .expect("sequence.track.kick2", 13_000));
     return parameters;
   }
 
