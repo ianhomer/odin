@@ -15,7 +15,11 @@
 
 package com.purplepip.odin.perform;
 
+import static org.junit.Assert.assertTrue;
+
 import com.codahale.metrics.MetricFilter;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.SimplePerformance;
@@ -24,7 +28,10 @@ import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -36,8 +43,11 @@ import org.junit.runners.Parameterized;
 @Slf4j
 @RunWith(Parameterized.class)
 public class PerformanceTest {
-  private Performance performance;
+  private static final int LENIENCY_FACTOR = 2;
+  private static final int EXCEL_FACTOR = 2;
+
   private String testName;
+  private PerformanceTestParameter parameter;
 
   /**
    * Create performances test from injected parameter.
@@ -45,8 +55,8 @@ public class PerformanceTest {
    * @param parameter injected parameter
    */
   public PerformanceTest(PerformanceTestParameter parameter) {
-    performance = parameter.performance();
-    testName = performance.getClass().getSimpleName();
+    this.parameter = parameter;
+    testName = parameter.performance().getClass().getSimpleName();
   }
 
   @Test
@@ -55,7 +65,7 @@ public class PerformanceTest {
     OperationReceiver operationReceiver = (operation, time) -> operationCount.incrementAndGet();
 
     TestSequencerEnvironment environment =
-        new TestSequencerEnvironment(operationReceiver, performance);
+        new TestSequencerEnvironment(operationReceiver, parameter.performance());
 
     LOG.debug("Spinning up : {}", testName);
     for (int i = 0 ; i < 200 ; i++) {
@@ -68,8 +78,23 @@ public class PerformanceTest {
     environment.start();
     environment.shutdown();
     LOG.debug("Completed : {}", testName);
-    LOG.info("Metrics : {}\n{}", testName,
-        new MetricsReport(environment.getConfiguration().getMetrics()));
+    MetricRegistry metrics = environment.getConfiguration().getMetrics();
+    LOG.info("Metrics : {}\n{}", testName, new MetricsReport(metrics));
+    parameter.names().forEach(name -> assertMetric(name, parameter.expect(name),
+        metrics.timer(name)));
+  }
+
+  private void assertMetric(String name, long expect, Timer timer) {
+    long mean = (long) timer.getSnapshot().getMean();
+    long maxAllowed = expect * LENIENCY_FACTOR;
+    assertTrue(testName + " : Timer " + name + " too slow : " + mean + " < " + maxAllowed,
+        mean < maxAllowed);
+    long excellentThreshold = expect / EXCEL_FACTOR;
+    LOG.info("{} : Timer {} mean = {} ; expected = {}", testName, name, mean, expect);
+    if (mean < excellentThreshold) {
+      LOG.info("{} : Timer {} faster than expected, perhaps we can lower the assertion : "
+          + "{} < {}", testName, name, mean, excellentThreshold);
+    }
   }
 
   /**
@@ -80,8 +105,10 @@ public class PerformanceTest {
   @Parameterized.Parameters
   public static Iterable<PerformanceTestParameter> parameters() {
     Collection<PerformanceTestParameter> parameters = new ArrayList<>();
-    parameters.add(newParameter(new SimplePerformance()));
-    parameters.add(newParameter(new GroovePerformance()));
+    parameters.add(newParameter(new SimplePerformance())
+        .expect("clock.start", 20_000));
+    parameters.add(newParameter(new GroovePerformance())
+        .expect("clock.start", 800_000));
     return parameters;
   }
 
@@ -94,5 +121,20 @@ public class PerformanceTest {
     @Getter
     @Setter
     private Performance performance;
+
+    private Map<String, Long> times = new HashMap<>();
+
+    public PerformanceTestParameter expect(String name, long time) {
+      times.put(name, time);
+      return this;
+    }
+
+    public long expect(String name) {
+      return times.get(name);
+    }
+
+    public Stream<String> names() {
+      return times.keySet().stream();
+    }
   }
 }
