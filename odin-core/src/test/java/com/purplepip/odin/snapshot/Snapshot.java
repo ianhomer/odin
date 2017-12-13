@@ -66,7 +66,7 @@ public class Snapshot {
     Path modulePath = containerPath.getParent().getParent();
     LOG.debug("module path : {}", modulePath);
     Path classSourcePath = Paths
-        .get(modulePath + "/test/resources/"
+        .get(modulePath + "/src/test/resources/"
         + clazz.getName().replace('.', '/'));
     LOG.debug("class source path : {}", classSourcePath);
     Path snapshotDirectoryPath = Paths.get(
