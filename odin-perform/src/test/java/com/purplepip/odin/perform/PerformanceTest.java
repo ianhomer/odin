@@ -58,7 +58,7 @@ public class PerformanceTest {
         new TestSequencerEnvironment(operationReceiver, performance);
 
     LOG.debug("Spinning up : {}", testName);
-    for (int i = 0 ; i < 10 ; i++) {
+    for (int i = 0 ; i < 200 ; i++) {
       environment.start();
       environment.shutdown();
     }
@@ -68,7 +68,8 @@ public class PerformanceTest {
     environment.start();
     environment.shutdown();
     LOG.debug("Completed : {}", testName);
-    LOG.info("Metrics : \n{}", new MetricsReport(environment.getConfiguration().getMetrics()));
+    LOG.info("Metrics : {}\n{}", testName,
+        new MetricsReport(environment.getConfiguration().getMetrics()));
   }
 
   /**
