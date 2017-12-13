@@ -41,6 +41,11 @@
     </dependency>
     <dependency>
       <groupId>com.purplepip</groupId>
+      <artifactId>common-test-logging</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.purplepip</groupId>
       <artifactId>odin-core</artifactId>
     </dependency>
     <dependency>
