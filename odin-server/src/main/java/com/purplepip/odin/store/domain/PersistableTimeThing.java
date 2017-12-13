@@ -15,31 +15,57 @@
 
 package com.purplepip.odin.store.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TimeThing;
 import com.purplepip.odin.clock.tick.TimeUnit;
+import com.purplepip.odin.math.Rational;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
+import javax.persistence.Transient;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "TimeThing")
 @EqualsAndHashCode(exclude = {"offset", "length", "tick"}, callSuper = true)
 @ToString()
+@Slf4j
 public class PersistableTimeThing extends PersistablePropertiesThing implements TimeThing {
   private boolean enabled;
   @Column(name = "o")
-  private long offset;
-  private long length;
+
+  @Min(0)
+  private long offsetNumerator;
+  @Min(1)
+  private long offsetDenominator = 1;
+
+  @Transient
+  @JsonIgnore
+  private Rational offset;
+
+  @Min(-1)
+  private long lengthNumerator;
+  @Min(1)
+  private long lengthDenominator = 1;
+
+  @Transient
+  @JsonIgnore
+  private Rational length;
+
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
   @NotNull
   private Tick tick;
@@ -55,10 +81,43 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
       newTick.setDenominator(1);
       tick = newTick;
     }
+    if (offset != null) {
+      offsetNumerator = offset.getNumerator();
+      offsetDenominator = offset.getDenominator();
+    }
+    if (length != null) {
+      lengthNumerator = length.getNumerator();
+      lengthDenominator = length.getDenominator();
+    }
   }
 
   @PrePersist
   public void preTimeThingPersist() {
     setTimeThingDefaults();
+  }
+
+  @Override
+  @JsonIgnore
+  public Rational getLength() {
+    return length;
+  }
+
+  @Override
+  @JsonIgnore
+  public Rational getOffset() {
+    return offset;
+  }
+
+  @PostPersist
+  @PostLoad
+  @PostUpdate
+  protected void afterTimeThingLoad() {
+    initialiseTimeThing();
+  }
+
+  private void initialiseTimeThing() {
+    LOG.debug("Initialising time thing : {}", this);
+    offset = Rational.valueOf(offsetNumerator, offsetDenominator);
+    length = Rational.valueOf(lengthNumerator, lengthDenominator);
   }
 }

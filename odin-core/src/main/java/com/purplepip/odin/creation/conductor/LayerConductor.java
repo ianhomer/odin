@@ -110,11 +110,11 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
 
   @Override
   public Rational getLength() {
-    return Whole.valueOf(layer.getLength());
+    return layer.getLength();
   }
 
   @Override
-  public long getOffset() {
+  public Rational getOffset() {
     return layer.getOffset();
   }
 
@@ -164,7 +164,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
        * Child length less than zero means it can always be active.
        */
       if (child.getLength().isPositive()) {
-        Rational childWindowLength = child.getLength().plus(Whole.valueOf(child.getOffset()));
+        Rational childWindowLength = child.getLength().plus(child.getOffset());
         Window window = new Window(position, childWindowLength);
         position = window.getEnd();
         windows.put(child.getName(), window);
@@ -187,7 +187,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
       return false;
     }
     Whole position = getPosition(microseconds).wholeFloor();
-    boolean result = position.ge(Whole.valueOf(getOffset()))
+    boolean result = position.ge(getOffset())
         && (getLength().isNegative() || position.lt(getLength()));
     if (LOG.isTraceEnabled()) {
       LOG.trace("isEnabled {} : {}, tock {}, µs {}, length {}, loop {}",

@@ -17,6 +17,7 @@ package com.purplepip.odin.creation.layer;
 
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.math.Rational;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.EqualsAndHashCode;
@@ -66,7 +67,19 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
   }
 
   @Override
+  public DefaultLayer offset(Rational offset) {
+    super.offset(offset);
+    return this;
+  }
+
+  @Override
   public DefaultLayer length(long length) {
+    super.length(length);
+    return this;
+  }
+
+  @Override
+  public DefaultLayer length(Rational length) {
     super.length(length);
     return this;
   }

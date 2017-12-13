@@ -18,6 +18,7 @@ package com.purplepip.odin.creation.track;
 import com.purplepip.odin.creation.flow.MutableFlow;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.roll.Roll;
 
@@ -41,5 +42,5 @@ public interface SequenceRoll<A> extends Roll<A> {
 
   MutableFlow<Sequence<A>, A> getFlow();
 
-  Property<Long> getOffsetProperty();
+  Property<Rational> getOffsetProperty();
 }

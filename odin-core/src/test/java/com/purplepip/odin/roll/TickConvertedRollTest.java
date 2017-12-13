@@ -11,6 +11,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
@@ -43,17 +44,15 @@ public class TickConvertedRollTest {
     clock.start();
   }
 
-  private TickConvertedRoll createRoll(Tick input, Tick output, long offset) {
+  private TickConvertedRoll createRoll(Tick input, Tick output, Rational offset) {
     return new TickConvertedRoll(roll,
-        new DefaultTickConverter(clock,
-            () -> input,
-            () -> output, () -> offset));
+        new DefaultTickConverter(clock, () -> input, () -> output, () -> offset));
   }
 
   @Test
   public void testNoteConversionBeatToMillis() {
     TickConvertedRoll convertedRoll =
-        createRoll(Ticks.BEAT, Ticks.MILLISECOND, 10);
+        createRoll(Ticks.BEAT, Ticks.MILLISECOND, Whole.valueOf(10));
     when(roll.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,3), 5));
@@ -67,7 +66,7 @@ public class TickConvertedRollTest {
   @Test
   public void testNoteConversionBeatToBeats() {
     TickConvertedRoll convertedRoll =
-        createRoll(Ticks.BEAT, Ticks.BEAT, 10);
+        createRoll(Ticks.BEAT, Ticks.BEAT, Whole.valueOf(10));
     when(roll.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,3), 5));
@@ -80,7 +79,7 @@ public class TickConvertedRollTest {
   @Test
   public void testNoteConversionMillisToBeats() {
     TickConvertedRoll convertedRoll =
-        createRoll(Ticks.MILLISECOND, Ticks.BEAT, 5000);
+        createRoll(Ticks.MILLISECOND, Ticks.BEAT, Whole.valueOf(5000));
     when(roll.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,7000), 4000));
@@ -92,7 +91,7 @@ public class TickConvertedRollTest {
   @Test
   public void testNoteConversionMillisToMillis() {
     TickConvertedRoll convertedRoll =
-        createRoll(Ticks.MILLISECOND, Ticks.MILLISECOND, 5000);
+        createRoll(Ticks.MILLISECOND, Ticks.MILLISECOND, Whole.valueOf(5000));
     when(roll.pop()).thenReturn(
         new DefaultEvent<>(
             new DefaultNote(1,1,7000), 4000));

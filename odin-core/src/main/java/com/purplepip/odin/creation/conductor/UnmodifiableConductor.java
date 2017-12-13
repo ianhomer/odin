@@ -64,7 +64,7 @@ public class UnmodifiableConductor implements Conductor {
   }
 
   @Override
-  public long getOffset() {
+  public Rational getOffset() {
     return underlyingConductor.getOffset();
   }
 

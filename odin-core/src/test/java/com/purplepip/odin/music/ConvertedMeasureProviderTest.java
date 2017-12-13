@@ -83,7 +83,7 @@ public class ConvertedMeasureProviderTest {
   public void testMicroseconds() {
     BeatClock beatClock = newPrecisionBeatClock(60);
     DefaultTickConverter tickConverter = new DefaultTickConverter(beatClock,
-        () -> Ticks.BEAT, () -> Ticks.MICROSECOND, () -> 0L);
+        () -> Ticks.BEAT, () -> Ticks.MICROSECOND, () -> Wholes.ZERO);
 
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         tickConverter);

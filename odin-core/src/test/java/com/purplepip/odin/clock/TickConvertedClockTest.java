@@ -28,7 +28,7 @@ public class TickConvertedClockTest {
   @Test
   public void testCount() {
     BeatClock beatClock = newPrecisionBeatClock(60);
-    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
+    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> Wholes.ZERO);
     assertTrue(clock.getPosition().gt(Wholes.MINUS_ONE));
     assertEquals(QUARTER, clock.getTick());
   }
@@ -36,7 +36,7 @@ public class TickConvertedClockTest {
   @Test
   public void testDuration() {
     BeatClock beatClock = newPrecisionBeatClock(60);
-    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
+    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> Wholes.ZERO);
     assertEquals(Whole.valueOf(4), clock.getDuration(1000000));
     assertEquals(Whole.valueOf(4), clock.getDuration(1000000, Whole.valueOf(10)));
   }
@@ -46,7 +46,7 @@ public class TickConvertedClockTest {
     MovableMicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();
     BeatClock beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
-    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
+    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> Wholes.ZERO);
     assertEquals(Wholes.ZERO, beatClock.getPosition());
     assertEquals(Wholes.ZERO, clock.getPosition());
     assertEquals(Whole.valueOf(10), beatClock.getPosition(10_000_000));
@@ -75,7 +75,7 @@ public class TickConvertedClockTest {
     BeatClock beatClock = new PrecisionBeatClock(new BeatClock.Configuration()
         .staticBeatsPerMinute(60)
         .maxLookForwardInMillis(60_000));
-    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> 0L);
+    Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> Wholes.ZERO);
     assertEquals(240, clock.getMaxLookForward().floor());
     assertEquals(240, clock.getMaxLookForward(Wholes.ONE).floor());
   }

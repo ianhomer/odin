@@ -16,7 +16,9 @@
 package com.purplepip.odin.clock.tick;
 
 import com.purplepip.odin.clock.tick.direction.Direction;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.properties.runtime.Property;
 
 /**
@@ -25,7 +27,7 @@ import com.purplepip.odin.properties.runtime.Property;
 public class SameTimeUnitTickConverter extends AbstractTickConverter {
   public SameTimeUnitTickConverter(Property<Tick> sourceTick,
                                    Property<Tick> targetTick) {
-    this(sourceTick, targetTick, () -> 0L);
+    this(sourceTick, targetTick, () -> Wholes.ZERO);
   }
 
   /**
@@ -37,7 +39,7 @@ public class SameTimeUnitTickConverter extends AbstractTickConverter {
    */
   public SameTimeUnitTickConverter(Property<Tick> sourceTick,
                                    Property<Tick> targetTick,
-                                   Property<Long> sourceOffset) {
+                                   Property<Rational> sourceOffset) {
     setSourceTick(sourceTick);
     setTargetTick(targetTick);
     setSourceOffset(sourceOffset);

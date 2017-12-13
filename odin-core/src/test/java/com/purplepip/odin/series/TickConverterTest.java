@@ -11,8 +11,10 @@ import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.tick.DefaultTickConverter;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +30,7 @@ public class TickConverterTest {
   }
 
   private void assertConversion(BeatClock clock, Tick sourceTick, Tick targetTick,
-                                long offset, boolean duration, long... times) {
+                                Rational offset, boolean duration, long... times) {
     TickConverter converter = new DefaultTickConverter(
         clock, () -> sourceTick, () -> targetTick, () -> offset);
     String label = (duration ? "duration" : "time") + " : ";
@@ -60,36 +62,36 @@ public class TickConverterTest {
 
   @Test
   public void testConvertToMilliseconds() {
-    assertConversion(clock, BEAT, MILLISECOND, 0, false, 1,500);
-    assertConversion(clock, BEAT, MILLISECOND, 0, true, 100,1,500);
+    assertConversion(clock, BEAT, MILLISECOND, Wholes.ZERO, false, 1,500);
+    assertConversion(clock, BEAT, MILLISECOND, Wholes.ZERO, true, 100,1,500);
   }
 
   @Test
   public void testConvertHalfBeatToMilliseconds() {
-    assertConversion(clock, HALF, MILLISECOND, 0, false, 1,250);
+    assertConversion(clock, HALF, MILLISECOND, Wholes.ZERO, false, 1,250);
   }
 
   @Test
   public void testConvertToMicroseconds() {
-    assertConversion(clock, BEAT, MICROSECOND, 0,false, 1,500000);
-    assertConversion(clock, HALF, MICROSECOND, 0,false, 1,250000);
+    assertConversion(clock, BEAT, MICROSECOND, Wholes.ZERO,false, 1,500000);
+    assertConversion(clock, HALF, MICROSECOND, Wholes.ZERO,false, 1,250000);
   }
 
   @Test
   public void testConvertToMicrosecondsWithOffset() {
-    assertConversion(clock, BEAT, MICROSECOND, 1, false, 1,1000000);
-    assertConversion(clock, HALF, MICROSECOND, 1, false, 1, 500000);
+    assertConversion(clock, BEAT, MICROSECOND, Wholes.ONE, false, 1,1000000);
+    assertConversion(clock, HALF, MICROSECOND, Wholes.ONE, false, 1, 500000);
   }
 
   @Test
   public void testConvertToBeat() {
-    assertConversion(clock, MICROSECOND, BEAT, 0, false, 500000, 1);
-    assertConversion(clock, MILLISECOND, BEAT, 0, false, 500, 1);
+    assertConversion(clock, MICROSECOND, BEAT, Wholes.ZERO, false, 500000, 1);
+    assertConversion(clock, MILLISECOND, BEAT, Wholes.ZERO, false, 500, 1);
   }
 
   @Test
   public void testConvertToHalfBeat() {
-    assertConversion(clock, MICROSECOND, HALF, 0, false, 1000000, 4);
-    assertConversion(clock, MILLISECOND, HALF, 0, false, 1000, 4);
+    assertConversion(clock, MICROSECOND, HALF, Wholes.ZERO, false, 1000000, 4);
+    assertConversion(clock, MILLISECOND, HALF, Wholes.ZERO, false, 1000, 4);
   }
 }

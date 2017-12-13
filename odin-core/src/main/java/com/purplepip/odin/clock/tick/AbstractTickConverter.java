@@ -19,8 +19,8 @@ import com.purplepip.odin.clock.tick.direction.DefaultDirection;
 import com.purplepip.odin.clock.tick.direction.Direction;
 import com.purplepip.odin.clock.tick.direction.UnreadyDirection;
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.Observable;
 import com.purplepip.odin.properties.runtime.Property;
 import lombok.ToString;
@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString(exclude = {"backwards", "forwards"})
 public abstract class AbstractTickConverter implements TickConverter {
-  private Property<Long> sourceOffset;
+  private Property<Rational> sourceOffset;
   private Property<Tick> sourceTick;
   private Property<Tick> targetTick;
   private Direction forwards;
@@ -52,7 +52,7 @@ public abstract class AbstractTickConverter implements TickConverter {
     }
   }
 
-  final void setSourceOffset(Property<Long> sourceOffset) {
+  final void setSourceOffset(Property<Rational> sourceOffset) {
     this.sourceOffset = sourceOffset;
     if (sourceOffset instanceof Observable) {
       ((Observable) sourceOffset).addObserver(this::refresh);
@@ -85,18 +85,18 @@ public abstract class AbstractTickConverter implements TickConverter {
     return sourceTick.get();
   }
 
-  protected long getSourceOffset() {
+  protected Rational getSourceOffset() {
     return sourceOffset.get();
   }
 
   @Override
   public Real convert(Real time) {
-    return convertTimeUnit(forwards, Whole.valueOf(getSourceOffset()).plus(time));
+    return convertTimeUnit(forwards, getSourceOffset().plus(time));
   }
 
   @Override
   public Real convertBack(Real time) {
-    return convertTimeUnit(backwards, time).minus(Whole.valueOf(getSourceOffset()));
+    return convertTimeUnit(backwards, time).minus(getSourceOffset());
   }
 
   @Override

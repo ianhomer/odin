@@ -62,7 +62,7 @@ public class MutableSequenceRollTest {
      * Start roll and then verify that events come out from the start position.
      */
     roll.start();
-    assertEquals(8, roll.getSequence().getOffset());
+    assertEquals(Whole.valueOf(8), roll.getSequence().getOffset());
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
     assertNotNull("Next event after roll started should not be null", nextEvent);
@@ -85,9 +85,9 @@ public class MutableSequenceRollTest {
     /*
      * Test change offset
      */
-    notation.setOffset(20);
+    notation.offset(20);
     roll.setSequence(notation.copy());
-    assertEquals(Long.valueOf(20), roll.getOffsetProperty().get());
+    assertEquals(Whole.valueOf(20), roll.getOffsetProperty().get());
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
     assertEquals(62, nextEvent.getValue().getNumber());

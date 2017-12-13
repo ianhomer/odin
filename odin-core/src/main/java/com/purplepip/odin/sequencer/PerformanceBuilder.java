@@ -196,8 +196,8 @@ public class PerformanceBuilder {
 
   private MutableLayer withDefaults(MutableLayer layer) {
     layer.setTick(createTick(BEAT));
-    layer.setLength(length.floor());
-    layer.setOffset(offset);
+    layer.setLength(length);
+    layer.setOffset(Whole.valueOf(offset));
     return layer;
   }
 
@@ -554,10 +554,9 @@ public class PerformanceBuilder {
   private SequenceConfiguration applyParameters(MutableSequenceConfiguration sequence) {
     sequence.setName(name);
     sequence.setEnabled(enabled);
-    sequence.setOffset(0);
     sequence.setChannel(channel);
-    sequence.setLength(length.floor());
-    sequence.setOffset(offset);
+    sequence.setLength(length);
+    sequence.setOffset(Whole.valueOf(offset));
     if (sequence.getTick() == null) {
       sequence.setTick(tick);
     }

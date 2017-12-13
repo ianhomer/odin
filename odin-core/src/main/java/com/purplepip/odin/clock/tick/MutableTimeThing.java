@@ -16,13 +16,14 @@
 package com.purplepip.odin.clock.tick;
 
 import com.purplepip.odin.bag.MutableThing;
+import com.purplepip.odin.math.Rational;
 
 public interface MutableTimeThing extends MutableThing, TimeThing {
   void setEnabled(boolean enabled);
 
   void setTick(Tick tick);
 
-  void setLength(long length);
+  void setLength(Rational length);
 
-  void setOffset(long offset);
+  void setOffset(Rational offset);
 }

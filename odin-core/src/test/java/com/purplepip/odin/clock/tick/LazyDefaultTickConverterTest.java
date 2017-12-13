@@ -18,12 +18,13 @@ package com.purplepip.odin.clock.tick;
 import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 
 import com.purplepip.odin.common.OdinImplementationException;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
 public class LazyDefaultTickConverterTest {
   @Test(expected = OdinImplementationException.class)
   public void testLazyNeedsObservableProperty() {
     new DefaultTickConverter(newPrecisionBeatClock(120),
-        () -> Ticks.BEAT, () -> Ticks.BEAT, () -> 0L, false);
+        () -> Ticks.BEAT, () -> Ticks.BEAT, () -> Wholes.ZERO, false);
   }
 }

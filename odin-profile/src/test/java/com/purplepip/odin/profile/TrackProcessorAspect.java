@@ -33,6 +33,11 @@ public class TrackProcessorAspect {
   @Pointcut("execution(* com.purplepip.odin.creation.flow.DefaultFlow.*(..))")
   public void inDefaultFlow() {}
 
+  @Pointcut("execution(* com.purplepip.odin.creation.sequence.Sequence.getLoopLength(..))")
+  public void onGetLoopLengthFlow() {}
+
+
+
   @Pointcut("execution(* *..lambda*(..))")
   public void inLambda(){}
 
@@ -46,6 +51,7 @@ public class TrackProcessorAspect {
   @Around("!inLambda() && (inMutableSequenceRoll()"
       + " || inDefaultFlow()"
       + " || onGetNextEvent()"
+      + " || onGetLoopLengthFlow()"
       + ")")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
     try (Timer.Context context = Profile.getMetrics().timer(pjp.toShortString()).time()) {

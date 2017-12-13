@@ -39,7 +39,8 @@ public class MovingClockTickConverterTest {
   public void setUp() {
     microsecondPositionProvider = new MovableMicrosecondPositionProvider();
     beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
-    tickConverter = new DefaultTickConverter(beatClock, () -> MILLISECOND, () -> HALF, () -> 0L);
+    tickConverter = new DefaultTickConverter(beatClock, () -> MILLISECOND, () -> HALF,
+        () -> Wholes.ZERO);
   }
 
   @Test

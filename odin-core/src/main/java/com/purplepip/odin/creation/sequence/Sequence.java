@@ -20,7 +20,6 @@ import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Whole;
 
 public interface Sequence<A> extends SequenceConfiguration {
   /**
@@ -37,6 +36,6 @@ public interface Sequence<A> extends SequenceConfiguration {
 
   @JsonIgnore
   default Rational getLoopLength() {
-    return Whole.valueOf(getLength());
+    return getLength();
   }
 }

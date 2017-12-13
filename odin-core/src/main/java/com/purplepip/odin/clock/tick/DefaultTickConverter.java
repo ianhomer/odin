@@ -18,6 +18,7 @@ package com.purplepip.odin.clock.tick;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.tick.direction.Direction;
 import com.purplepip.odin.common.OdinImplementationException;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
@@ -40,7 +41,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
   public DefaultTickConverter(BeatClock clock,
                               Property<Tick> sourceTick,
                               Property<Tick> targetTick,
-                              Property<Long> sourceOffset) {
+                              Property<Rational> sourceOffset) {
     this(clock, sourceTick, targetTick, sourceOffset, true);
   }
 
@@ -58,11 +59,12 @@ public class DefaultTickConverter extends AbstractTickConverter {
   public DefaultTickConverter(BeatClock clock,
                               Property<Tick> sourceTick,
                               Property<Tick> targetTick,
-                              Property<Long> sourceOffset,
+                              Property<Rational> sourceOffset,
                               boolean initialise) {
     this.clock = clock;
     setSourceTick(sourceTick);
     setTargetTick(targetTick);
+    assert sourceOffset.get() != null;
     setSourceOffset(sourceOffset);
     if (initialise) {
       refresh();

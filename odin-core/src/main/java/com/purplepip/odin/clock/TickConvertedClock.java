@@ -19,6 +19,7 @@ import com.purplepip.odin.clock.tick.DefaultTickConverter;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.properties.runtime.Observable;
@@ -44,7 +45,7 @@ public class TickConvertedClock extends AbstractClock {
    * @param offset offset property for the sequence roll
    */
   public TickConvertedClock(BeatClock beatClock, Property<Tick> tick,
-                            Property<Long> offset) {
+                            Property<Rational> offset) {
     this.tick = tick;
     this.beatClock = beatClock;
     tickToBeatConverter = new DefaultTickConverter(beatClock,

@@ -10,8 +10,8 @@
   <!--
       Categories for this code base.
       -->
-  <logger name="com.purplepip" level="INFO"/>
-  <logger name="com.purplepip.odin.store" level="INFO"/>
+  <logger name="com.purplepip" level="DEBUG"/>
+  <logger name="com.purplepip.odin.store" level="DEBUG"/>
 
   <!--
       Log messages for spring bean creation and access.

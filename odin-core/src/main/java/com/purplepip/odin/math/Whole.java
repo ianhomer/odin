@@ -139,6 +139,11 @@ public class Whole extends Rational {
   }
 
   @Override
+  public Whole wholeCeiling() {
+    return this;
+  }
+
+  @Override
   public long floor() {
     return numerator;
   }

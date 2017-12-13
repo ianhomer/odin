@@ -19,6 +19,7 @@ import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ListAction;
+import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.specificity.NameValue;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,7 +158,19 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   }
 
   @Override
+  public GenericSequence length(Rational length) {
+    super.length(length);
+    return this;
+  }
+
+  @Override
   public GenericSequence offset(long offset) {
+    super.offset(offset);
+    return this;
+  }
+
+  @Override
+  public GenericSequence offset(Rational offset) {
     super.offset(offset);
     return this;
   }

@@ -25,6 +25,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.Flow;
 import com.purplepip.odin.creation.flow.FlowFactory;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
@@ -60,7 +61,7 @@ public class SequenceFactoryTest {
     SequenceConfiguration sequence = container.getSequenceStream()
         .findFirst().orElseThrow(OdinException::new);
     Metronome metronome = sequenceFactory.newInstance(sequence, Metronome.class);
-    assertEquals(16, metronome.getLength());
+    assertEquals(Whole.valueOf(16), metronome.getLength());
     assertEquals(1, metronome.getLayers().size());
     assertEquals("groove", metronome.getLayers().get(0));
   }

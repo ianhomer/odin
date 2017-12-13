@@ -22,7 +22,6 @@ import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.composition.events.IndexedComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
@@ -104,13 +103,13 @@ public class Notation extends SequencePlugin {
 
   @Override
   public Rational getLoopLength() {
-    if (super.getLength() < 0 && indexedComposition != null) {
+    if (super.getLength().isNegative() && indexedComposition != null) {
       /*
        * Length is taken from composition.
        */
       return indexedComposition.getLength();
     }
-    return Whole.valueOf(super.getLength());
+    return super.getLength();
   }
 
   public Notation notation(String notation) {

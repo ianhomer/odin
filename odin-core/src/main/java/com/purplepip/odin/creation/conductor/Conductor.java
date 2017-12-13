@@ -63,7 +63,7 @@ public interface Conductor extends Thing {
    *
    * @return offset
    */
-  long getOffset();
+  Rational getOffset();
 
   /**
    * Get the tock position of the given microsecond in this conductor, relative to the start

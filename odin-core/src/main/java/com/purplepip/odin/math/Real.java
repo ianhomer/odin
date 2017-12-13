@@ -223,6 +223,16 @@ public class Real implements Bound {
   }
 
   /**
+   * Calculate the largest whole number greater than or equal to this real number.
+   *
+   * @return floored value
+   */
+  public Whole wholeCeiling() {
+    return Whole.valueOf(ceiling());
+  }
+
+
+  /**
    * Calculate the smallest whole number greater than this real number.  Note that this function is
    * NOT the standard "ceil" function since this function will return the next whole number for
    * a whole number.

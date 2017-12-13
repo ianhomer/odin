@@ -28,7 +28,7 @@ public final class TestPersistables {
   public static PersistableLayer newLayer(String name) {
     PersistableLayer layer = new PersistableLayer();
     layer.setName(name);
-    layer.setLength(-1);
+    layer.setLengthNumerator(-1);
     return layer;
   }
 

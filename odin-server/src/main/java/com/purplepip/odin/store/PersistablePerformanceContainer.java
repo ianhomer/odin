@@ -25,10 +25,12 @@ import com.purplepip.odin.server.rest.repositories.SequenceRepository;
 import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistableSequence;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class PersistablePerformanceContainer extends PerformanceContainer {
   @Autowired
   private LayerRepository layerRepository;
@@ -50,8 +52,11 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
 
   @Override
   public PersistablePerformanceContainer addSequence(SequenceConfiguration sequence) {
+    LOG.debug("Adding sequence : {}", sequence);
     if (sequence instanceof PersistableSequence) {
-      ((PersistableSequence) sequence).setPerformance(getPerformance());
+      PersistableSequence persistableSequence = ((PersistableSequence) sequence);
+      LOG.debug("Saving persistable sequence : {}", sequence);
+      persistableSequence.setPerformance(getPerformance());
       sequenceRepository.save((PersistableSequence) sequence);
     }
     super.addSequence(sequence);

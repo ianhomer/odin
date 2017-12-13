@@ -40,6 +40,7 @@ import com.purplepip.odin.events.ScanForwardEvent;
 import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.properties.beany.Resetter;
 import com.purplepip.odin.properties.runtime.MutableProperty;
@@ -63,11 +64,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   /*
    * offset is the offset of the sequence.
    */
-  private final MutableProperty<Long> offset = new ObservableProperty<>(0L);
+  private final MutableProperty<Rational> offset = new ObservableProperty<>(Wholes.ZERO);
   /*
    * beat offset is the offset measure in performance beats.
    */
-  private final MutableProperty<Long> beatOffset = new ObservableProperty<>(0L);
+  private final MutableProperty<Rational> beatOffset = new ObservableProperty<>(Wholes.ZERO);
 
   private MutableFlow<Sequence<A>, A> flow;
   private BeatClock beatClock;
@@ -111,10 +112,10 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     this.flowFactory = flowFactory;
     assert flowFactory != null;
     tickToMicrosecondConverter = new DefaultTickConverter(beatClock, tick,
-        () -> Ticks.MICROSECOND, () -> 0L);
+        () -> Ticks.MICROSECOND, () -> Wholes.ZERO);
     clock = new TickConvertedClock(beatClock, tick, offset);
     tickToBeatConverter = new DefaultTickConverter(beatClock, tick,
-        () -> Ticks.BEAT, () -> 0L);
+        () -> Ticks.BEAT, () -> Wholes.ZERO);
     beatToSequenceTickConverter =
         new DefaultTickConverter(beatClock, () -> Ticks.BEAT, tick, beatOffset);
     measureProvider = new ConvertedMeasureProvider(beatMeasureProvider,
@@ -131,7 +132,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   }
 
   @Override
-  public Property<Long> getOffsetProperty() {
+  public Property<Rational> getOffsetProperty() {
     return offset;
   }
 
@@ -154,11 +155,11 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     /*
      * Reset beat offset so we can work out where this new offset should be ...
      */
-    offset.set(0L);
-    beatOffset.set(0L);
-    long newOffset = measureProvider
+    offset.set(Wholes.ZERO);
+    beatOffset.set(Wholes.ZERO);
+    Rational newOffset = measureProvider
         .getNextMeasureStart(
-            clock.getPosition(clock.getMicroseconds() + 100_000)).ceiling();
+            clock.getPosition(clock.getMicroseconds() + 100_000)).wholeCeiling();
 
     resetter.set("offset", newOffset);
     LOG.debug("{} {} : sequence offset set to {}", beatClock, name, sequence.getOffset());
@@ -271,7 +272,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   private void afterSequenceChange() {
     LOG.debug("{} : ... afterSequenceChange : start", name);
     sequence.initialise();
-    length = Whole.valueOf(getSequence().getLength());
+    length = getSequence().getLength();
     endless = length.isNegative();
 
     /*
@@ -299,14 +300,13 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     /*
      * Set the beat offset.
      */
-    beatOffset.set(-tickToBeatConverter
-        .convert(Whole.valueOf(offset.get())).floor());
+    // TODO : Can we do this conversion by maintaining rational precision?
+    beatOffset.set(tickToBeatConverter.convert(offset.get()).wholeFloor().negative());
 
     /*
      * Calculate offset of this sequence in microseconds ...
      */
-    long microsecondOffset = tickToMicrosecondConverter
-        .convert(Whole.valueOf(offset.get())).floor();
+    Whole microsecondOffset = tickToMicrosecondConverter.convert(offset.get()).wholeFloor();
     LOG.debug("Microsecond start is {} for {} for tick offset {}", microsecondOffset,
         name, offset.get());
 
@@ -316,7 +316,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      */
     TickConverter microsecondToSequenceTickConverter =
         new DefaultTickConverter(beatClock, () -> Ticks.MICROSECOND, tick,
-            () -> - microsecondOffset);
+            microsecondOffset::negative);
     /*
      * Set the tock count, that this sequence runtime should start at, to the current tock
      * count according to the beatClock.  There is no point starting the tock any earlier since

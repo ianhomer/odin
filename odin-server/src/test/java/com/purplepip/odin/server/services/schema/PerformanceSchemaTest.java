@@ -37,12 +37,13 @@ public class PerformanceSchemaTest {
     JsonNode properties = schema.get("properties");
     String type = properties.get("layers").get("type").asText();
     assertEquals("array", type);
+
     JsonNode sequenceDefinition = schema.get("definitions").get("SequenceConfiguration");
     assertNotNull("Sequence definition not provided in " + schema.get("definitions"),
         sequenceDefinition);
-    JsonNode lengthType = sequenceDefinition.get("properties").get("length").get("type");
-    assertNotNull("length definition not correct in " + sequenceDefinition, lengthType);
-    assertEquals("integer", lengthType.asText());
+    JsonNode lengthRef = sequenceDefinition.get("properties").get("length").get("$ref");
+    assertNotNull("length definition not correct in " + sequenceDefinition, lengthRef);
+    assertEquals("#/definitions/Rational", lengthRef.asText());
   }
 
   @Test

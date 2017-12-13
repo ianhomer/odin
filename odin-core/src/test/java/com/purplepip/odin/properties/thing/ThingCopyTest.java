@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.sequence.GenericSequence;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.music.sequence.Notation;
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class ThingCopyTest {
     GenericSequence source = new GenericSequence().property("offset", "8");
     new ThingCopy().from(source).to(destination).copy();
     assertEquals("8", destination.getProperty("offset"));
-    assertEquals(8, destination.getOffset());
+    assertEquals(Whole.valueOf(8), destination.getOffset());
   }
 
   @Test
