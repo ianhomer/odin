@@ -117,4 +117,9 @@ public class MutableThings<T extends Thing> implements Things<T> {
   protected Set<Long> getIds() {
     return new TreeSet<>(things.keySet());
   }
+
+  public void clear() {
+    things.clear();
+    thingsByName.clear();
+  }
 }

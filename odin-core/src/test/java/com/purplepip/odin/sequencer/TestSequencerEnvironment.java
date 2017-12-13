@@ -123,9 +123,6 @@ public class TestSequencerEnvironment {
     if (!prepared) {
       prepare();
     }
-    if (!prepared) {
-      prepare();
-    }
     sequencer.start();
     LOG.debug("... test environment started");
   }
@@ -139,6 +136,7 @@ public class TestSequencerEnvironment {
 
   public void shutdown() {
     sequencer.shutdown();
+    prepared = false;
   }
 
 }

@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.perform;
 
+import com.codahale.metrics.MetricFilter;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.SimplePerformance;
@@ -56,11 +57,18 @@ public class PerformanceTest {
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(operationReceiver, performance);
 
+    LOG.debug("Spinning up : {}", testName);
+    for (int i = 0 ; i < 10 ; i++) {
+      environment.start();
+      environment.shutdown();
+    }
+
+    environment.getConfiguration().getMetrics().removeMatching(MetricFilter.ALL);
     LOG.debug("Starting : {}", testName);
     environment.start();
     environment.shutdown();
     LOG.debug("Completed : {}", testName);
-    LOG.info("Metrics : {}", new MetricsReport(environment.getConfiguration().getMetrics()));
+    LOG.info("Metrics : \n{}", new MetricsReport(environment.getConfiguration().getMetrics()));
   }
 
   /**

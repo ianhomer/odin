@@ -13,16 +13,22 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.demo;
+package com.purplepip.odin.metrics;
 
-import static com.purplepip.odin.creation.layer.Layers.newLayer;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.SharedMetricRegistries;
 
-import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.performance.TransientPerformance;
+/**
+ * Configure default metric registry for system.
+ */
+public class DefaultMetricRegistry {
+  private static final String DEFUALT_NAME = "default";
 
-public class SimplePerformance extends TransientPerformance {
-  public SimplePerformance() {
-    addLayer(newLayer("performance"));
-    addSequence(new Pattern().bits(7).offset(4).length(8).layer("performance").name("simple"));
+  static {
+    SharedMetricRegistries.setDefault(DEFUALT_NAME);
+  }
+
+  public static MetricRegistry get() {
+    return SharedMetricRegistries.getDefault();
   }
 }

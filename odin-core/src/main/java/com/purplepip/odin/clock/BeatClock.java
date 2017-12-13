@@ -15,12 +15,15 @@
 
 package com.purplepip.odin.clock;
 
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.metrics.DefaultMetricRegistry;
 import java.text.DecimalFormat;
 import java.util.Set;
 import java.util.TreeSet;
@@ -50,6 +53,8 @@ public class BeatClock extends AbstractClock {
   private Real maxLookForwardInMinutes;
   private long maxLookForwardInMicros;
 
+  private MetricRegistry metrics;
+
   /**
    * Create beat clock.
    *
@@ -68,6 +73,10 @@ public class BeatClock extends AbstractClock {
     maxLookForwardInMinutes = Real.valueOf(
         configuration.maxLookForwardInMillis() / (double) 60_000);
     refreshMaxLookForward();
+    metrics = configuration.metrics();
+    if (metrics == null) {
+      metrics = DefaultMetricRegistry.get();
+    }
     LOG.debug("Creating beat clock : BPM = {}; ms provider = {}; look forward = {}",
         beatsPerMinute, microsecondPositionProvider, maxLookForwardInMicros);
   }
@@ -94,28 +103,32 @@ public class BeatClock extends AbstractClock {
    * Prepare the clock ready for starting.
    */
   public void prepare() {
-    listeners.forEach(PerformanceListener::onPerformancePrepare);
+    try (Timer.Context context = metrics.timer("clock.prepare").time()) {
+      listeners.forEach(PerformanceListener::onPerformancePrepare);
+    }
   }
 
   /**
    * Start the clock.
    */
   public void start() {
-    setMicroseconds(0);
-    startingOrStarted = true;
-    LOG.debug("Starting clock in {}μs : now = {}", startOffset, this);
-    listeners.forEach(PerformanceListener::onPerformanceStart);
-    LOG.debug("... started clock : offset = {}μs : now = {}", startOffset, this);
-    if (getMicroseconds() > 0) {
-      /*
-       * If all performance listeners did not start before the clock reaches 0 microseconds
-       * then there is a risk that some sequenced events did not fire in time.
-       */
-      LOG.warn("Clock listeners started slowly after clock start, please increase clock start"
-          + " offset.  Current offset = {}, clock microseconds = {} > 0", startOffset,
-          getMicroseconds());
+    try (Timer.Context context = metrics.timer("clock.start").time()) {
+      setMicroseconds(0);
+      startingOrStarted = true;
+      LOG.debug("Starting clock in {}μs : now = {}", startOffset, this);
+      listeners.forEach(PerformanceListener::onPerformanceStart);
+      LOG.debug("... started clock : offset = {}μs : now = {}", startOffset, this);
+      if (getMicroseconds() > 0) {
+        /*
+         * If all performance listeners did not start before the clock reaches 0 microseconds
+         * then there is a risk that some sequenced events did not fire in time.
+         */
+        LOG.warn("Clock listeners started slowly after clock start, please increase clock start"
+            + " offset.  Current offset = {}, clock microseconds = {} > 0", startOffset,
+            getMicroseconds());
+      }
+      started = true;
     }
-    started = true;
   }
 
   /**
@@ -216,6 +229,10 @@ public class BeatClock extends AbstractClock {
     @Getter
     @Setter
     private long startOffset;
+
+    @Getter
+    @Setter
+    private MetricRegistry metrics;
 
     @Getter
     @Setter

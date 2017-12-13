@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import com.purplepip.odin.bag.Things;
@@ -30,8 +29,6 @@ import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -44,16 +41,6 @@ public class TrackProcessorExecutor implements Runnable {
   private int maxNotesPerBufferEarlyWarning;
   private MutableSequenceProcessorStatistics statistics;
   private MetricRegistry metrics;
-  private Timer jobMetric;
-  private Meter tracksProcessedMetric;
-  private Meter noEventsMetric;
-  private Meter nextEventNullMetric;
-  private Meter sentMetric;
-  private Meter bufferMaxedMetric;
-  private Meter tooLateMetric;
-  private Meter nullEventMetric;
-  private Meter failureMetric;
-  private Map<String, Timer> trackTimers = new HashMap<>();
 
   TrackProcessorExecutor(BeatClock clock,
                          Things<Track> tracks,
@@ -73,25 +60,6 @@ public class TrackProcessorExecutor implements Runnable {
     this.maxNotesPerBuffer = maxNotesPerBuffer;
     maxNotesPerBufferEarlyWarning = maxNotesPerBuffer - 20;
     this.statistics = statistics;
-    jobMetric = metrics.timer("sequence.job");
-    tracksProcessedMetric = metrics.meter("sequence.tracks");
-    noEventsMetric = metrics.meter("sequence.noEvents");
-    nextEventNullMetric = metrics.meter("sequence.nextEventNull");
-    sentMetric = metrics.meter("sequence.sent");
-    bufferMaxedMetric = metrics.meter("sequence.bufferMaxed");
-    tooLateMetric = metrics.meter("sequence.tooLate");
-    nullEventMetric = metrics.meter("sequence.nullEvent");
-    failureMetric = metrics.meter("sequence.failure");
-  }
-
-  private Timer getTrackTimer(String name) {
-    String metricName = "sequence.track." + name;
-    if (trackTimers.containsKey(metricName)) {
-      return trackTimers.get(metricName);
-    }
-    Timer timer = metrics.timer(metricName);
-    trackTimers.put(metricName, timer);
-    return timer;
   }
 
   /**
@@ -113,8 +81,7 @@ public class TrackProcessorExecutor implements Runnable {
   private void doJob() {
     int noteCountThisBuffer = 0;
     for (Track track : tracks) {
-      final Timer.Context trackTimerContext = getTrackTimer(track.getName()).time();
-      try {
+      try (Timer.Context context = metrics.timer("sequence.track." + track.getName()).time()) {
         LOG.trace("Processing track {}", track);
         if (noteCountThisBuffer > maxNotesPerBuffer) {
           LOG.warn("Too many notes in this buffer {} > {} ",
@@ -122,8 +89,6 @@ public class TrackProcessorExecutor implements Runnable {
           break;
         }
         noteCountThisBuffer += process(track);
-      } finally {
-        trackTimerContext.stop();
       }
     }
     LOG.trace("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
@@ -131,22 +96,19 @@ public class TrackProcessorExecutor implements Runnable {
 
   // TODO : Can we use a metric annotation for this?
   private void doJobWithTiming() {
-    final Timer.Context jobTimerContext = jobMetric.time();
-    try {
+    try (Timer.Context jobTimerContext = metrics.timer("sequence.job").time()) {
       doJob();
-    } finally {
-      jobTimerContext.stop();
     }
   }
 
   private int process(Track track) {
-    tracksProcessedMetric.mark();
+    metrics.meter("sequence.tracks").mark();
     int noteCount = 0;
     Event<Note> nextEvent = track.peek();
 
     if (nextEvent == null) {
       LOG.trace("No event on roll");
-      noEventsMetric.mark();
+      metrics.meter("sequence.noEvent").mark();
       return noteCount;
     }
 
@@ -162,7 +124,7 @@ public class TrackProcessorExecutor implements Runnable {
       if (noteCount > maxNotesPerBuffer) {
         LOG.warn("Too many notes in this buffer {} > {} before {}", noteCount,
             maxNotesPerBuffer, maxMicrosecondPosition);
-        bufferMaxedMetric.mark();
+        metrics.meter("sequence.bufferMaxed").mark();
         return noteCount;
       } else if (noteCount > maxNotesPerBufferEarlyWarning) {
         LOG.warn("Approaching max notes in buffer with : {} from {}", nextEvent, track.getName());
@@ -173,13 +135,13 @@ public class TrackProcessorExecutor implements Runnable {
       nextEvent = track.pop();
       LOG.trace("Processing Event {}", nextEvent);
       if (nextEvent == null) {
-        nextEventNullMetric.mark();
+        metrics.meter("sequence.nextEventNull").mark();
         // TODO : Understand why this can happen, it might be that another thread has beaten
         // this thread to it.  It occasionally happens in the tests.
         LOG.warn("Next event gone from stack, it was null when we popped it");
       } else if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
         statistics.incrementEventTooLateCount();
-        tooLateMetric.mark();
+        metrics.meter("sequence.tooLate").mark();
         LOG.warn("Skipping {}, too late to process  {} < {}", nextEvent,
             nextEvent.getTime(),
             microsecondPosition);
@@ -189,7 +151,7 @@ public class TrackProcessorExecutor implements Runnable {
          * be sent to the processor.
          */
         LOG.trace("NullValueEvent ignored : {}", nextEvent);
-        nullEventMetric.mark();
+        metrics.meter("sequence.nullEvent").mark();
       } else {
         sendToProcessor(nextEvent.getValue(), nextEvent, track);
       }
@@ -218,10 +180,10 @@ public class TrackProcessorExecutor implements Runnable {
           note, sequenceTrack.getChannel(), nextEvent.getTime());
       operationProcessor.send(noteOn, nextEvent.getTime().floor());
       operationProcessor.send(noteOff, nextEvent.getTime().plus(note.getDuration()).floor());
-      sentMetric.mark();
+      metrics.meter("sequence.sent").mark();
     } catch (OdinException e) {
       LOG.error("Cannot send operation to processor", e);
-      failureMetric.mark();
+      metrics.meter("sequence.failure").mark();
     }
   }
 }

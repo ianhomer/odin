@@ -84,7 +84,8 @@ public class OdinSequencer implements PerformanceApplyListener {
         .beatsPerMinute(configuration.getBeatsPerMinute())
         .microsecondPositionProvider(configuration.getMicrosecondPositionProvider())
         .startOffset(configuration.getClockStartOffset())
-        .maxLookForwardInMillis(configuration.getMaxLookForward()));
+        .maxLookForwardInMillis(configuration.getMaxLookForward())
+        .metrics(configuration.getMetrics()));
     clock.addListener(configuration.getOperationReceiver());
 
     /*
@@ -236,6 +237,9 @@ public class OdinSequencer implements PerformanceApplyListener {
       clock.stop();
     }
     clock.shutdown();
+    conductors.clear();
+    tracks.clear();
+    reactors.clear();
   }
 
   public boolean isStarted() {

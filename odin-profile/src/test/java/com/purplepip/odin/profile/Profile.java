@@ -16,6 +16,7 @@
 package com.purplepip.odin.profile;
 
 import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import java.util.concurrent.TimeUnit;
@@ -52,9 +53,7 @@ public class Profile {
    * Reset profiling.
    */
   public static void reset() {
-    METRICS.getMetrics().forEach((name, metric) -> {
-      METRICS.remove(name);
-    });
+    METRICS.removeMatching(MetricFilter.ALL);
     timeOverhead();
   }
 
