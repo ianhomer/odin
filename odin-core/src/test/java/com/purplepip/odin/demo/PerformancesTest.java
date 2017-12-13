@@ -103,7 +103,7 @@ public class PerformancesTest {
       LOG.warn("{} : only {} operations were recorded, {} were expected", testName, actualCount,
           expectedOperationCount);
     }
-    snapshot.expectMatch(false);
+    snapshot.expectMatch();
     assertEquals(testName + " operation count not as expected", 0, actualCount);
     LOG.debug("{} : performance snapshot AOK", testName);
   }

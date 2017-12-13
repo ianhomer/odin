@@ -103,34 +103,16 @@ public class Snapshot {
     }
   }
 
-  public void expectMatch() {
-    expectMatch(true);
-  }
-
   /**
    * Expect snapshot to match snapshot file.
-   *
-   * @param failOnMismatch if true the mismatch leads to test failure otherwise, mismatch is
-   *                       just logged as an error.  This assists development and troubleshooting
-   *                       when their is occasional variation in snapshots, but not serious enough
-   *                       to halt the build.
    */
-  public void expectMatch(boolean failOnMismatch) {
+  public void expectMatch() {
     try {
       commit();
     } catch (IOException e) {
       LOG.error("Cannot commit snapshot", e);
     }
-    try {
-      // TODO : Remove this safety net
-      assertThat(path).hasContent(lines.stream().collect(Collectors.joining("\n")));
-    } catch (AssertionError e) {
-      if (failOnMismatch) {
-        throw e;
-      } else {
-        LOG.error("Snapshot mismatch : " + path, e);
-      }
-    }
+    assertThat(path).hasContent(lines.stream().collect(Collectors.joining("\n")));
   }
 
   public Path getPath() {
