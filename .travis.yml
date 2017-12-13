@@ -1,3 +1,8 @@
 language: java
 jdk:
   - oraclejdk9
+cache:
+  directories:
+  - $HOME/.m2
+  - odin-server/node
+  - odin-server/node_modules

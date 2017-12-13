@@ -45,9 +45,48 @@ import org.junit.runners.Parameterized;
 public class PerformanceTest {
   private static final int LENIENCY_FACTOR = 2;
   private static final int EXCEL_FACTOR = 2;
+  private static String environmentDescription;
+
+  /*
+   * Leniency factors for different environments.
+   */
+  private static Map<String, Integer> environmentFactors = new HashMap<>();
+  /*
+   * Default environment leniency factor for unknown system.
+   */
+  private static final int DEFAULT_ENVIRONMENT_FACTOR = 5;
 
   private String testName;
   private PerformanceTestParameter parameter;
+
+  static {
+    environmentDescription = generateEnvironmentDescription();
+    /*
+     * Explicitly register known environments that we've can give better estimate on performance.
+     * Note that this is pretty crude, since this doesn't tell us how fast CPU is, nor how much
+     * load it is already under.
+     */
+    environmentFactors.put("Mac OS X x86_64 x8", 1);
+  }
+
+  private static int getEnvironmentalFactor() {
+    return environmentFactors.getOrDefault(environmentDescription, DEFAULT_ENVIRONMENT_FACTOR);
+  }
+
+  private static String generateEnvironmentDescription() {
+
+    // TODO : When we shift to Java 9 we can get more info from ProcessHandle including total CPU
+    // duration
+    //System.getProperties().stringPropertyNames().forEach(name ->
+    //    LOG.info("{} = {}", name, System.getProperty(name))
+    //);
+    //System.getenv().forEach((key, value) -> LOG.info("env : {} = {}", key, value));
+    StringBuilder sb = new StringBuilder();
+    sb.append(System.getProperty("os.name", "OS")).append(' ')
+        .append(System.getProperty("os.arch", "CPU")).append(" x")
+        .append(Runtime.getRuntime().availableProcessors());
+    return sb.toString();
+  }
 
   /**
    * Create performances test from injected parameter.
@@ -58,6 +97,8 @@ public class PerformanceTest {
     this.parameter = parameter;
     testName = parameter.performance().getClass().getSimpleName();
   }
+
+
 
   @Test
   public void testPerformance() throws OdinException, InterruptedException {
@@ -80,20 +121,22 @@ public class PerformanceTest {
     LOG.debug("Completed : {}", testName);
     MetricRegistry metrics = environment.getConfiguration().getMetrics();
     LOG.info("Metrics : {}\n{}", testName, new MetricsReport(metrics));
-    parameter.names().forEach(name -> assertMetric(name, parameter.expect(name),
+    parameter.names().forEach(name -> assertTimer(name, parameter.expect(name),
         metrics.timer(name)));
   }
 
-  private void assertMetric(String name, long expect, Timer timer) {
+  private void assertTimer(String name, long expect, Timer timer) {
     long mean = (long) timer.getSnapshot().getMean();
-    long maxAllowed = expect * LENIENCY_FACTOR;
-    assertTrue(testName + " : Timer " + name + " too slow : " + mean + " < " + maxAllowed,
+    long maxAllowed = expect * LENIENCY_FACTOR * getEnvironmentalFactor();
+    assertTrue(testName + "(" + environmentDescription + ") : Timer " + name + " too slow : "
+            + mean + " < " + maxAllowed + " ; expected = " + expect,
         mean < maxAllowed);
     long excellentThreshold = expect / EXCEL_FACTOR;
-    LOG.info("{} : Timer {} mean = {} ; expected = {}", testName, name, mean, expect);
+    LOG.info("{} ({}) : Timer {} mean = {} ; expected = {} ; allowed = {}",
+        testName, environmentDescription, name, mean, expect, maxAllowed);
     if (mean < excellentThreshold) {
-      LOG.info("{} : Timer {} faster than expected, perhaps we can lower the assertion : "
-          + "{} < {}", testName, name, mean, excellentThreshold);
+      LOG.info("{} ({}) : Timer {} faster than expected {}, perhaps we can lower the assertion : "
+          + "{} < {}", testName, environmentDescription, name, expect, mean, excellentThreshold);
     }
   }
 
