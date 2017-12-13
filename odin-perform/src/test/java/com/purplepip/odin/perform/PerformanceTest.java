@@ -66,7 +66,10 @@ public class PerformanceTest {
      * Note that this is pretty crude, since this doesn't tell us how fast CPU is, nor how much
      * load it is already under.
      */
+    // Local mac development
     environmentFactors.put("Mac OS X x86_64 x8", 1);
+    // Travis build node
+    environmentFactors.put("Linux amd64 x2", 1);
   }
 
   private static int getEnvironmentalFactor() {
@@ -135,7 +138,8 @@ public class PerformanceTest {
     LOG.info("{} ({}) : Timer {} ; mean = {} ; expected = {} ; allowed = {}",
         testName, environmentDescription, name, mean, expect, maxAllowed);
     if (mean < excellentThreshold) {
-      LOG.info("{} ({}) : Timer {} faster than expected {}, perhaps we can lower the assertion : "
+      LOG.info("{} ({}) : Timer {} much faster than expected {}, "
+          + " perhaps we can lower the assertion : "
           + "{} < {}", testName, environmentDescription, name, expect, mean, excellentThreshold);
     }
   }
