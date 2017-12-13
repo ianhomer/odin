@@ -232,6 +232,9 @@ public class OdinSequencer implements PerformanceApplyListener {
    * Shutdown the sequencer.
    */
   public void shutdown() {
+    if (clock.isStartingOrStarted()) {
+      clock.stop();
+    }
     clock.shutdown();
   }
 

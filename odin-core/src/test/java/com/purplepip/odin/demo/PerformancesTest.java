@@ -47,7 +47,7 @@ public class PerformancesTest {
    *
    * @param parameter injected parameter
    */
-  public PerformancesTest(PerformanceTestParameter parameter) {
+  public PerformancesTest(PerformancesTestParameter parameter) {
     performance = parameter.performance();
     staticBeatsPerMinute = parameter.staticBeatsPerMinute();
     expectedOperationCount = parameter.expectedOperationCount();
@@ -61,8 +61,8 @@ public class PerformancesTest {
    * @return parameters
    */
   @Parameterized.Parameters
-  public static Iterable<PerformanceTestParameter> parameters() {
-    Collection<PerformanceTestParameter> parameters = new ArrayList<>();
+  public static Iterable<PerformancesTestParameter> parameters() {
+    Collection<PerformancesTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance(), 12));
     parameters.add(newParameter(new GroovePerformance(), 6)
         .staticBeatsPerMinute(600));
@@ -108,14 +108,14 @@ public class PerformancesTest {
     LOG.debug("{} : performance snapshot AOK", testName);
   }
 
-  static PerformanceTestParameter newParameter(Performance performance,
-                                               int expectedOperationCount) {
-    return new PerformanceTestParameter().performance(performance)
+  private static PerformancesTestParameter newParameter(Performance performance,
+                                                int expectedOperationCount) {
+    return new PerformancesTestParameter().performance(performance)
         .expectedOperationCount(expectedOperationCount);
   }
 
   @Accessors(fluent = true)
-  private static class PerformanceTestParameter {
+  private static class PerformancesTestParameter {
     private static final int DEFAULT_STATIC_BEATS_PER_MINUTE = 6000;
     private static final int DEFAULT_EXPECTED_OPERATION_COUNT = 20;
     private static final long DEFAULT_WAIT = 2000;
