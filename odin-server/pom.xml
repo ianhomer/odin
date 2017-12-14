@@ -251,6 +251,10 @@
                 <id>npm-install</id>
                 <phase>none</phase>
               </execution>
+              <execution>
+                <id>npm-test</id>
+                <phase>none</phase>
+              </execution>
             </executions>
           </plugin>
         </plugins>

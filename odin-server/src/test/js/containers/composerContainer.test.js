@@ -1,3 +1,5 @@
+import TIMEOUT from '../constants.js'
+
 import React from 'react'
 import ComposerContainer from 'odin/containers/ComposerContainer.js'
 import {Provider} from 'react-redux'
@@ -14,5 +16,5 @@ describe('Composer container', () => {
       </Provider>
     )
     expect(component).toMatchSnapshot()
-  })
+  }, TIMEOUT)
 })
