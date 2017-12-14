@@ -34,6 +34,7 @@ public abstract class AbstractThing implements MutableThing {
   private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
   protected long id = LAST_PATTERN_ID.incrementAndGet();
   private String name;
+  @JsonIgnore
   private transient int initialisationCount = 0;
 
   /**

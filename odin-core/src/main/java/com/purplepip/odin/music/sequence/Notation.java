@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.music.sequence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
@@ -40,7 +41,9 @@ import lombok.extern.slf4j.Slf4j;
 public class Notation extends SequencePlugin {
   private String format;
   private String notation;
+  @JsonIgnore
   private transient IndexedComposition indexedComposition;
+  @JsonIgnore
   private transient String indexedCompositionNotation;
 
   @Override
