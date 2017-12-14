@@ -16,6 +16,7 @@
 package com.purplepip.odin.store.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TimeThing;
 import com.purplepip.odin.clock.tick.TimeUnit;
@@ -30,6 +31,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
 import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -76,6 +78,7 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
    * Set default values.
    */
   private void setTimeThingDefaults() {
+    LOG.debug("Initialising time thing defaults : {}", this);
     if (tick == null) {
       PersistableTick newTick = new PersistableTick();
       newTick.setTimeUnit(TimeUnit.BEAT);
@@ -83,9 +86,22 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
       newTick.setDenominator(1);
       tick = newTick;
     }
+    /*
+     * lengthNumerator etc needs be set in PreUpdate / PrePersist since the value set in the
+     * corresponding rational setter does not persist.
+     */
+    if (length != null) {
+      lengthNumerator = length.getNumerator();
+      lengthDenominator = length.getDenominator();
+    }
+    if (offset != null) {
+      offsetNumerator = offset.getNumerator();
+      offsetDenominator = offset.getDenominator();
+    }
   }
 
   @PrePersist
+  @PreUpdate
   public void preTimeThingPersist() {
     setTimeThingDefaults();
   }
@@ -100,11 +116,12 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
    *
    * @param length length
    */
+  @JsonSetter
   public void setLength(Rational length) {
-    LOG.debug("Setting length : {}", length);
     this.length = length;
-    setLengthNumerator(length.getNumerator());
-    setLengthDenominator(length.getDenominator());
+    lengthNumerator = length.getNumerator();
+    lengthDenominator = length.getDenominator();
+    LOG.debug("Setting length : {} ; {}", length, this);
   }
 
   @Override

@@ -39,7 +39,7 @@ public class RationalDeserializer extends StdDeserializer<Rational> {
       throws IOException {
     ObjectCodec codec = parser.getCodec();
     JsonNode node = codec.readTree(parser);
-    LOG.debug("Deserializing : {}", node);
+    LOG.info("Deserializing : {}", node);
     return Rational.valueOf(node.asText());
   }
 }
