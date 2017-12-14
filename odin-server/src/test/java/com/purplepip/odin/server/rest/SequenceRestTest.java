@@ -47,8 +47,8 @@ public class SequenceRestTest {
                 .property("name", "new-notations-name")
                 .property("performance", performanceUri)
                 .property("type", "notation")
-                .property("lengthNumerator", "2")
-                .property("lengthDenominator", "1")
+                .property("offset", "3")
+                .property("length", "2")
                 .properties()
                 .property("notation", "A B C D")
                 .property("format", "natural")
@@ -71,8 +71,10 @@ public class SequenceRestTest {
 
     mvc.perform(sendingJson(get(entityUri)))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.offsetNumerator", is(0)))
-        .andExpect(jsonPath("$.lengthNumerator", is(2)))
+        .andExpect(jsonPath("$.offset.numerator", is(3)))
+        .andExpect(jsonPath("$.offset.denominator", is(1)))
+        .andExpect(jsonPath("$.length.numerator", is(2)))
+        .andExpect(jsonPath("$.length.denominator", is(1)))
         .andExpect(jsonPath("$.properties.notation", is("A B C D")));
 
     /*

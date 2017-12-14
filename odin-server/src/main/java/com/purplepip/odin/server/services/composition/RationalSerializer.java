@@ -20,12 +20,14 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.purplepip.odin.math.Rational;
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 /*
  * TODO : Move this to generic package since this is to be used by whole REST service.
  */
+@Slf4j
 public class RationalSerializer extends StdSerializer<Rational> {
   private static final long serialVersionUID = 1;
 
@@ -37,9 +39,10 @@ public class RationalSerializer extends StdSerializer<Rational> {
   public void serialize(Rational rational,
                         JsonGenerator jsonGenerator,
                         SerializerProvider serializerProvider) throws IOException {
+    LOG.debug("Serializing : {}", rational);
     jsonGenerator.writeStartObject();
     jsonGenerator.writeObjectField("numerator", rational.getNumerator());
-    jsonGenerator.writeObjectField("denominator", rational.getNumerator());
+    jsonGenerator.writeObjectField("denominator", rational.getDenominator());
     jsonGenerator.writeEndObject();
   }
 }

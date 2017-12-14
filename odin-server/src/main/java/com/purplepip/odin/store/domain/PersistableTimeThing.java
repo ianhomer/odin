@@ -20,6 +20,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TimeThing;
 import com.purplepip.odin.clock.tick.TimeUnit;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Whole;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,22 +49,24 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
   private boolean enabled;
   @Column(name = "o")
 
+  @JsonIgnore
   @Min(0)
   private long offsetNumerator;
+  @JsonIgnore
   @Min(1)
   private long offsetDenominator = 1;
 
   @Transient
-  @JsonIgnore
   private Rational offset;
 
   @Min(-1)
+  @JsonIgnore
   private long lengthNumerator;
   @Min(1)
+  @JsonIgnore
   private long lengthDenominator = 1;
 
   @Transient
-  @JsonIgnore
   private Rational length;
 
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -81,14 +84,6 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
       newTick.setDenominator(1);
       tick = newTick;
     }
-    if (offset != null) {
-      offsetNumerator = offset.getNumerator();
-      offsetDenominator = offset.getDenominator();
-    }
-    if (length != null) {
-      lengthNumerator = length.getNumerator();
-      lengthDenominator = length.getDenominator();
-    }
   }
 
   @PrePersist
@@ -97,15 +92,44 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
   }
 
   @Override
-  @JsonIgnore
   public Rational getLength() {
     return length;
   }
 
+  /**
+   * Set length.
+   *
+   * @param length length
+   */
+  public void setLength(Rational length) {
+    LOG.debug("Setting length : {}", length);
+    this.length = length;
+    lengthNumerator = length.getNumerator();
+    lengthDenominator = length.getDenominator();
+  }
+
+  public void setLength(int length) {
+    setLength(Whole.valueOf(length));
+  }
+
   @Override
-  @JsonIgnore
   public Rational getOffset() {
     return offset;
+  }
+
+  /**
+   * Set offset.
+   *
+   * @param offset offset
+   */
+  public void setOffset(Rational offset) {
+    this.offset = offset;
+    offsetNumerator = offset.getNumerator();
+    offsetDenominator = offset.getDenominator();
+  }
+
+  public void setOffset(int offset) {
+    setOffset(Whole.valueOf(offset));
   }
 
   @PostPersist
