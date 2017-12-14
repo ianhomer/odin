@@ -15,18 +15,15 @@
 
 package com.purplepip.odin.specificity;
 
+import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.requireMathTypeConverters;
+
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.typeconverters.RationalTypeConverter;
-import com.purplepip.odin.math.typeconverters.RealTypeConverter;
 import com.purplepip.odin.properties.thing.ThingCopy;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-import jodd.typeconverter.TypeConverterManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -40,12 +37,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration> {
-  private final Map<String, Class<? extends C>> specificClasses = new HashMap<>();
-
   static {
-    TypeConverterManager.register(Real.class, new RealTypeConverter());
-    TypeConverterManager.register(Rational.class, new RationalTypeConverter());
+    requireMathTypeConverters();
   }
+
+  private final Map<String, Class<? extends C>> specificClasses = new HashMap<>();
 
   protected AbstractSpecificThingFactory(List<Class<? extends C>> classes) {
     for (Class<? extends C> clazz: classes) {

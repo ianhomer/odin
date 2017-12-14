@@ -103,8 +103,8 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
   public void setLength(Rational length) {
     LOG.debug("Setting length : {}", length);
     this.length = length;
-    lengthNumerator = length.getNumerator();
-    lengthDenominator = length.getDenominator();
+    setLengthNumerator(length.getNumerator());
+    setLengthDenominator(length.getDenominator());
   }
 
   @Override
@@ -119,8 +119,8 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
    */
   public void setOffset(Rational offset) {
     this.offset = offset;
-    offsetNumerator = offset.getNumerator();
-    offsetDenominator = offset.getDenominator();
+    setOffsetNumerator(offset.getNumerator());
+    setOffsetDenominator(offset.getDenominator());
   }
 
   @PostPersist

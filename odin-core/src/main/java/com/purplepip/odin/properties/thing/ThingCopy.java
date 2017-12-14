@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.properties.thing;
 
+import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.requireMathTypeConverters;
+
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.specificity.ThingConfiguration;
 import jodd.bean.BeanCopy;
@@ -27,6 +29,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ThingCopy {
+  static {
+    requireMathTypeConverters();
+  }
+
   private ThingConfiguration source;
   private ThingConfiguration destination;
 
@@ -53,11 +59,13 @@ public class ThingCopy {
     if (destination instanceof MutablePropertiesProvider) {
       source.getPropertyNames().forEach(name -> {
         ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name));
-        try {
-          BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
-        } catch (BeanException e) {
-          LOG.debug("Whilst populating thing {} (full stack)", e);
-          LOG.warn("Whilst populating thing {}", e.getMessage());
+        if (destination.arePropertiesDeclared()) {
+          try {
+            BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
+          } catch (BeanException e) {
+            LOG.debug("Whilst populating thing {} (full stack)", e);
+            LOG.warn("Whilst populating thing {} : {}", destination, e.getMessage());
+          }
         }
       });
     }
