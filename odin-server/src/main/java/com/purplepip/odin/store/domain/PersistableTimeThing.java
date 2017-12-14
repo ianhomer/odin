@@ -20,7 +20,6 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TimeThing;
 import com.purplepip.odin.clock.tick.TimeUnit;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Whole;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -108,10 +107,6 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
     lengthDenominator = length.getDenominator();
   }
 
-  public void setLength(int length) {
-    setLength(Whole.valueOf(length));
-  }
-
   @Override
   public Rational getOffset() {
     return offset;
@@ -126,10 +121,6 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
     this.offset = offset;
     offsetNumerator = offset.getNumerator();
     offsetDenominator = offset.getDenominator();
-  }
-
-  public void setOffset(int offset) {
-    setOffset(Whole.valueOf(offset));
   }
 
   @PostPersist

@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.bag;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.common.Stringy;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.Data;
@@ -69,6 +70,7 @@ public abstract class AbstractThing implements MutableThing {
     return this;
   }
 
+  @JsonIgnore
   @Override
   public void initialise() {
     initialisationCount++;

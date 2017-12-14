@@ -15,31 +15,31 @@
 
 package com.purplepip.odin.server.services.composition;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.purplepip.odin.math.Rational;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
-/*
- * TODO : Move this to generic package since this is to be used by whole REST service.
- */
 @Slf4j
-public class RationalSerializer extends StdSerializer<Rational> {
+public class RationalDeserializer extends StdDeserializer<Rational> {
   private static final long serialVersionUID = 1;
 
-  public RationalSerializer() {
+  public RationalDeserializer() {
     super(Rational.class);
   }
 
   @Override
-  public void serialize(Rational rational,
-                        JsonGenerator jsonGenerator,
-                        SerializerProvider serializerProvider) throws IOException {
-    LOG.debug("Serializing : {}", rational);
-    jsonGenerator.writeString(rational.toString());
+  public Rational deserialize(JsonParser parser, DeserializationContext context)
+      throws IOException {
+    ObjectCodec codec = parser.getCodec();
+    JsonNode node = codec.readTree(parser);
+    LOG.debug("Deserializing : {}", node);
+    return Rational.valueOf(node.asText());
   }
 }

@@ -24,6 +24,7 @@ import com.purplepip.odin.server.rest.Json;
 import com.purplepip.odin.server.rest.JsonSerializer;
 import com.purplepip.odin.server.services.composition.CompositionSerializer;
 import com.purplepip.odin.server.services.composition.MeasureSerializer;
+import com.purplepip.odin.server.services.composition.RationalDeserializer;
 import com.purplepip.odin.server.services.composition.RationalSerializer;
 import com.purplepip.odin.server.services.composition.StaffSerializer;
 import com.purplepip.odin.server.services.composition.VoiceSerializer;
@@ -54,6 +55,9 @@ public class JsonConfiguration {
   private RationalSerializer rationalSerializer;
 
   @Autowired
+  private RationalDeserializer rationalDeserializer;
+
+  @Autowired
   private JsonSerializer jsonSerializer;
 
   /**
@@ -70,6 +74,7 @@ public class JsonConfiguration {
       jacksonObjectMapperBuilder.serializerByType(Rational.class,  rationalSerializer);
       jacksonObjectMapperBuilder.serializerByType(EasyStaff.class, staffSerializer);
       jacksonObjectMapperBuilder.serializerByType(EasyVoice.class, voiceSerializer);
+      jacksonObjectMapperBuilder.deserializerByType(Rational.class,  rationalDeserializer);
     };
   }
 }
