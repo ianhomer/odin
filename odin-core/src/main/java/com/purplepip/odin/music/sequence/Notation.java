@@ -45,6 +45,8 @@ public class Notation extends SequencePlugin {
   private transient IndexedComposition indexedComposition;
   @JsonIgnore
   private transient String indexedCompositionNotation;
+  @JsonIgnore
+  private transient Rational loopLength;
 
   @Override
   public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
@@ -70,6 +72,15 @@ public class Notation extends SequencePlugin {
      */
     if (notation != null && !notation.equals(indexedCompositionNotation)) {
       initialiseComposition();
+    }
+
+    if (isEndless() && indexedComposition != null) {
+      /*
+       * Length is taken from composition.
+       */
+      loopLength = indexedComposition.getLength();
+    } else {
+      loopLength = super.getLength();
     }
     super.initialise();
   }
@@ -106,13 +117,7 @@ public class Notation extends SequencePlugin {
 
   @Override
   public Rational getLoopLength() {
-    if (isEndless() && indexedComposition != null) {
-      /*
-       * Length is taken from composition.
-       */
-      return indexedComposition.getLength();
-    }
-    return super.getLength();
+    return loopLength;
   }
 
   public Notation notation(String notation) {
