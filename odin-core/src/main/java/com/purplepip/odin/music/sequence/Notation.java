@@ -106,7 +106,7 @@ public class Notation extends SequencePlugin {
 
   @Override
   public Rational getLoopLength() {
-    if (super.getLength().isNegative() && indexedComposition != null) {
+    if (isEndless() && indexedComposition != null) {
       /*
        * Length is taken from composition.
        */

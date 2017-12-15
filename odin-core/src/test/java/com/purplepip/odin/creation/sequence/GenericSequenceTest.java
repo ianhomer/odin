@@ -17,10 +17,29 @@ package com.purplepip.odin.creation.sequence;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 public class GenericSequenceTest {
+  @Test
+  public void testDefaultEndless() {
+    SequenceConfiguration sequence = new GenericSequence();
+    assertTrue(sequence.isEndless());
+  }
+
+  @Test
+  public void testEndless() {
+    SequenceConfiguration sequence = new GenericSequence().length(-1);
+    assertTrue(sequence.isEndless());
+  }
+
+  @Test
+  public void testNotEndless() {
+    SequenceConfiguration sequence = new GenericSequence().length(1);
+    assertFalse(sequence.isEndless());
+  }
+
   @Test
   public void testArePropertiesDeclared() {
     SequenceConfiguration sequence = new GenericSequence();

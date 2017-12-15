@@ -434,9 +434,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       LOG.trace("is rolling false : track not enabled");
       return false;
     }
-    boolean result = endless || tock.getPosition().lt(length);
-    LOG.trace("{} : isRolling {} : {} < {}", name, result, tock, length);
-    return result;
+    return endless || tock.getPosition().lt(length);
   }
 
   private Event<A> getNextEventInternal(MovableTock tock) {

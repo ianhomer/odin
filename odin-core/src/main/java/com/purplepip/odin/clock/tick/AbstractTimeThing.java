@@ -23,11 +23,12 @@ import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "endless")
 @Data
 public abstract class AbstractTimeThing extends AbstractPropertiesThing
     implements MutableTimeThing {
   private boolean enabled = true;
+  private boolean endless = true;
   private Tick tick = Ticks.BEAT;
   /*
    * Length of the thing in ticks.
@@ -46,10 +47,19 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   protected AbstractTimeThing copy(AbstractTimeThing copy) {
     copy.enabled = this.enabled;
     copy.tick = this.tick;
-    copy.length = this.length;
+    copy.setLength(this.length);
     copy.offset = this.offset;
     super.copy(copy);
     return copy;
+  }
+
+  public void setLength(Rational length) {
+    this.length = length;
+    endless = length.isNegative();
+  }
+
+  public Rational getLength() {
+    return length;
   }
 
   public AbstractTimeThing enabled(boolean enabled) {
@@ -58,12 +68,12 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   }
 
   public AbstractTimeThing length(long length) {
-    this.length = Whole.valueOf(length);
+    setLength(Whole.valueOf(length));
     return this;
   }
 
   public AbstractTimeThing length(Rational length) {
-    this.length = length;
+    setLength(length);
     return this;
   }
 
@@ -95,6 +105,7 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
         .add("tick", tick)
         .add("length", length)
         .add("offset", offset)
+        .add("endless", endless)
         .build();
   }
 }

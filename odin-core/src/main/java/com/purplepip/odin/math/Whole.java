@@ -226,4 +226,19 @@ public class Whole extends Rational {
   public double getValue() {
     return numerator;
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean lt(Real real) {
+    if (real instanceof Whole) {
+      return lt((Whole) real);
+    }
+    return super.lt(real);
+  }
+
+  public boolean lt(Whole whole) {
+    return numerator < whole.numerator;
+  }
 }

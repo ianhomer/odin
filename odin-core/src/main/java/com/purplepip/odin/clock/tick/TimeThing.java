@@ -31,6 +31,13 @@ public interface TimeThing extends Thing {
   boolean isEnabled();
 
   /**
+   * Whether this time thing has an infinite length.
+   *
+   * @return true if thing has infinite length.
+   */
+  boolean isEndless();
+
+  /**
    * Units for 1 tick of this thing.
    *
    * @return tick units.

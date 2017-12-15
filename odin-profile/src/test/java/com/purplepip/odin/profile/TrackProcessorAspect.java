@@ -36,7 +36,8 @@ public class TrackProcessorAspect {
   @Pointcut("execution(* com.purplepip.odin.creation.sequence.Sequence.getLoopLength(..))")
   public void onGetLoopLengthFlow() {}
 
-
+  @Pointcut("execution(* com.purplepip.odin.math.Whole.lt(com.purplepip.odin.math.Real))")
+  public void onLt() {}
 
   @Pointcut("execution(* *..lambda*(..))")
   public void inLambda(){}
@@ -53,6 +54,7 @@ public class TrackProcessorAspect {
       + " || onGetNextEvent()"
       + " || onGetLoopLengthFlow()"
       + ")")
+  //    + " || onLt()"
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
     try (Timer.Context context = Profile.getMetrics().timer(pjp.toShortString()).time()) {
       return pjp.proceed();
