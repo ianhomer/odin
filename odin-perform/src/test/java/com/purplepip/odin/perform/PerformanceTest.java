@@ -134,7 +134,7 @@ public class PerformanceTest {
     long mean = (long) timer.getSnapshot().getMean();
     long maxAllowed = expect * LENIENCY_FACTOR * getEnvironmentalFactor();
     assertTrue(testName + "(" + environmentDescription + ") : Timer " + name + " too slow : "
-            + mean + " < " + maxAllowed + " ; expected = " + expect,
+            + mean + " > " + maxAllowed + " ; expected = " + expect,
         mean < maxAllowed);
     long excellentThreshold = expect / EXCEL_FACTOR;
     LOG.info("{} ({}) : Timer {} ; mean = {} ; expected = {} ; allowed = {}",

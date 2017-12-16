@@ -61,7 +61,7 @@ public class MetricsReport {
   private void append(Formatter formatter, Map.Entry<String, Timer> entry, double overhead) {
     Snapshot snapshot = entry.getValue().getSnapshot();
 
-    formatter.format("%20.0f : %5d : %10.0f : %s\n",
+    formatter.format("%20.0f : %5d : %10.0f : %-60s\n",
         snapshot.getMean() - overhead, entry.getValue().getCount(),
         calculateTotal(entry.getValue()),
         toPretty(entry.getKey()));

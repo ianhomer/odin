@@ -49,10 +49,10 @@ public class TrackProcessorAspect {
    * @return object
    * @throws Throwable throwable
    */
-  @Around("!inLambda() && (inMutableSequenceRoll()"
-      + " || inDefaultFlow()"
-      + " || onGetNextEvent()"
-      + ")")
+  @Around("!inLambda() && (inMutableSequenceRoll())")
+  //    + " || inDefaultFlow()"
+  //    + " || onGetNextEvent()"
+  //    + ")")
   //    + " || onGetLoopLength()"
   //    + " || onLt()"
   public Object around(ProceedingJoinPoint pjp) throws Throwable {

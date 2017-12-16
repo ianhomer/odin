@@ -70,6 +70,9 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
   @Transient
   private Rational length;
 
+  @Transient
+  private boolean endless = true;
+
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
   @NotNull
   private Tick tick;
@@ -151,5 +154,6 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
     LOG.debug("Initialising time thing : {}", this);
     offset = Rational.valueOf(offsetNumerator, offsetDenominator);
     length = Rational.valueOf(lengthNumerator, lengthDenominator);
+    endless = length.isNegative();
   }
 }
