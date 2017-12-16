@@ -43,7 +43,7 @@ public class MidiSequenceExperiment {
   }
 
   private void doExperiment() throws OdinException, InterruptedException {
-    final CountDownLatch lock = new CountDownLatch(800);
+    final CountDownLatch lock = new CountDownLatch(1_000_000);
 
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();
@@ -86,7 +86,7 @@ public class MidiSequenceExperiment {
       sequencer.start();
 
       try {
-        lock.await(20000, TimeUnit.MILLISECONDS);
+        lock.await(1_000_000, TimeUnit.MILLISECONDS);
       } finally {
         sequencer.stop();
       }

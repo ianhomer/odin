@@ -15,9 +15,11 @@
       <w>clazzes</w>
       <w>coveredratio</w>
       <w>darkgreen</w>
+      <w>dcom</w>
       <w>deserializing</w>
       <w>devtool</w>
       <w>diachenko</w>
+      <w>djava</w>
       <w>dlogback</w>
       <w>dlogging</w>
       <w>dodin</w>
@@ -33,6 +35,7 @@
       <w>ivanov</w>
       <w>javaagent</w>
       <w>javadocs</w>
+      <w>jmxremote</w>
       <w>jsonschema</w>
       <w>keypress</w>
       <w>korg</w>
