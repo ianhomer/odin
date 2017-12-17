@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /*
@@ -20,7 +21,14 @@ import org.junit.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@Slf4j
 public class WholeTest {
+  @Test
+  public void testValueOf() {
+    assertEquals(Wholes.MINUS_ONE, Whole.valueOf(-1));
+    assertEquals(Wholes.ZERO, Whole.valueOf(0));
+  }
+
   @Test
   public void testPlus() {
     assertEquals(Rational.valueOf(5,2), Wholes.TWO.plus(Rationals.HALF));

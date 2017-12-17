@@ -19,17 +19,17 @@ package com.purplepip.odin.math;
  * Whole numbers.
  */
 public final class Wholes {
-  public static final Whole MINUS_ONE = new Whole(-1);
-  public static final Whole ZERO = new Whole(0);
-  public static final Whole ONE = new Whole(1);
-  public static final Whole TWO = new Whole(2);
-  public static final Whole THREE = new Whole(3);
-  public static final Whole FOUR = new Whole(4);
-  public static final Whole FIVE = new Whole(5);
-  public static final Whole SIX = new Whole(6);
-  public static final Whole SEVEN = new Whole(7);
-  public static final Whole EIGHT = new Whole(8);
-  public static final Whole NINE = new Whole(9);
+  public static final Whole MINUS_ONE = Whole.valueOf(-1);
+  public static final Whole ZERO = Whole.valueOf(0);
+  public static final Whole ONE = Whole.valueOf(1);
+  public static final Whole TWO = Whole.valueOf(2);
+  public static final Whole THREE = Whole.valueOf(3);
+  public static final Whole FOUR = Whole.valueOf(4);
+  public static final Whole FIVE = Whole.valueOf(5);
+  public static final Whole SIX = Whole.valueOf(6);
+  public static final Whole SEVEN = Whole.valueOf(7);
+  public static final Whole EIGHT = Whole.valueOf(8);
+  public static final Whole NINE = Whole.valueOf(9);
 
   private Wholes() {
   }

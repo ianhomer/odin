@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EventsCompositionBuilder {
-  private static final Rational DEFAULT_TIME = new Rational(4, 4, false);
+  private static final Rational DEFAULT_TIME = Rational.valueOf(4, 4, false);
   private static final String DEFAULT_KEY = "C";
   private static final String DEFAULT_CLEF_NAME = "treble";
 
