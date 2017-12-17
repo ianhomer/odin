@@ -18,6 +18,7 @@ package com.purplepip.odin.math;
 import static com.purplepip.odin.math.Wholes.EIGHT;
 import static com.purplepip.odin.math.Wholes.FIVE;
 import static com.purplepip.odin.math.Wholes.FOUR;
+import static com.purplepip.odin.math.Wholes.MINUS_ONE;
 import static com.purplepip.odin.math.Wholes.NINE;
 import static com.purplepip.odin.math.Wholes.ONE;
 import static com.purplepip.odin.math.Wholes.SEVEN;
@@ -28,17 +29,12 @@ import static com.purplepip.odin.math.Wholes.ZERO;
 
 public class Whole extends Rational {
   private static Whole[] WHOLES_CACHE = new Whole[] {
-      ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE
+      MINUS_ONE, ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE
   };
   /*
    * Local property for numerator for direct access.
    */
-  private long numerator;
-
-  public Whole(long numerator) {
-    super(numerator, 1);
-    this.numerator = numerator;
-  }
+  private final long numerator;
 
   /**
    * Return whole for the given integer.
@@ -47,10 +43,16 @@ public class Whole extends Rational {
    * @return whole object
    */
   public static Whole valueOf(long integer) {
-    if (integer < 10 && integer > -1) {
-      return WHOLES_CACHE[(int) integer];
+    if (integer > -2 && integer < 10) {
+      return WHOLES_CACHE[(int) integer + 1];
     }
+    Integer.valueOf(1);
     return new Whole(integer);
+  }
+
+  public Whole(long numerator) {
+    super(numerator, 1, false);
+    this.numerator = numerator;
   }
 
   /**

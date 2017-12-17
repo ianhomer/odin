@@ -124,13 +124,15 @@
           <arguments>
             <argument>-classpath</argument>
             <classpath/>
-            <argument>com.purplepip.odin.experiments.MidiSequenceExperiment</argument>
             <argument>-Dcom.sun.management.jmxremote</argument>
             <argument>-Dcom.sun.management.jmxremote.port=9010</argument>
             <argument>-Dcom.sun.management.jmxremote.local.only=false</argument>
             <argument>-Dcom.sun.management.jmxremote.authenticate=false</argument>
             <argument>-Dcom.sun.management.jmxremote.ssl=false</argument>
             <argument>-Djava.rmi.server.hostname=localhost</argument>
+            <argument>-Dlogback.configurationFile=logback.xml</argument>
+            <argument>-Dlogback.debug=true</argument>
+            <argument>com.purplepip.odin.experiments.MidiSequenceExperiment</argument>
           </arguments>
           <classpathScope>test</classpathScope>
         </configuration>

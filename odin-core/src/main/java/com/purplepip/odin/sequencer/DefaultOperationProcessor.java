@@ -103,7 +103,9 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
         LOG.warn("Operation processor queue is still not empty after wait");
       }
     }
-    scheduledPool.shutdown();
+    if (scheduledPool != null) {
+      scheduledPool.shutdown();
+    }
     LOG.debug("Closed operation processor");
   }
 

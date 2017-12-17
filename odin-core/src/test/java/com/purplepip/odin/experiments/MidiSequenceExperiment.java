@@ -19,14 +19,13 @@ import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Midi Sequence Experiment.
  */
+@Slf4j
 public class MidiSequenceExperiment {
-  private static final Logger LOG = LoggerFactory.getLogger(MidiSequenceExperiment.class);
 
   /**
    * Main method.
@@ -34,6 +33,7 @@ public class MidiSequenceExperiment {
    * @param args arguments
    */
   public static void main(String[] args) throws InterruptedException {
+    System.out.println("Logging : " + LOG.getClass());
     MidiSequenceExperiment experiment = new MidiSequenceExperiment();
     try {
       experiment.doExperiment();

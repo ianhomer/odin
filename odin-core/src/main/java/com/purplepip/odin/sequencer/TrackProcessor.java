@@ -96,7 +96,9 @@ public class TrackProcessor implements PerformanceListener {
   }
 
   private void shutdown() {
-    scheduledPool.shutdown();
+    if (scheduledPool != null) {
+      scheduledPool.shutdown();
+    }
     LOG.debug("Shut down track processor");
   }
 
