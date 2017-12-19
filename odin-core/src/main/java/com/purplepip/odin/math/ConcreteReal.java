@@ -26,14 +26,14 @@ import lombok.extern.slf4j.Slf4j;
  * rhythm to retain precision such as triplets through tick conversions.
  */
 @Slf4j
-public class Real implements Bound {
+class ConcreteReal implements Real {
   private static final double DOUBLE_PRECISION = 0.00000000000000000000001;
   private double value;
 
-  Real() {
+  ConcreteReal() {
   }
 
-  public Real(double value) {
+  public ConcreteReal(double value) {
     this.value = value;
   }
 
@@ -52,6 +52,7 @@ public class Real implements Bound {
    * @param real real number to add
    * @return result of addition
    */
+  @Override
   public Real plus(Real real) {
     return Reals.valueOf(getValue() + real.getValue());
   }
@@ -62,6 +63,7 @@ public class Real implements Bound {
    * @param real real number to minus
    * @return result of subtraction
    */
+  @Override
   public Real minus(Real real) {
     return Reals.valueOf(getValue() - real.getValue());
   }
@@ -72,6 +74,7 @@ public class Real implements Bound {
    * @param real real number to multiply
    * @return result of multiplication
    */
+  @Override
   public Real times(Real real) {
     return Reals.valueOf(getValue() * real.getValue());
   }
@@ -82,6 +85,7 @@ public class Real implements Bound {
    * @param real real number to divide
    * @return result of division
    */
+  @Override
   public Real divide(Real real) {
     return Reals.valueOf(getValue() / real.getValue());
   }
@@ -92,6 +96,7 @@ public class Real implements Bound {
    * @param real real number
    * @return modulo result
    */
+  @Override
   public Real modulo(Real real) {
     return Reals.valueOf(getValue() % real.getValue());
   }
@@ -99,7 +104,7 @@ public class Real implements Bound {
 
 
   @Override
-  public Real getLimit() {
+  public ConcreteReal getLimit() {
     return this;
   }
 
@@ -109,6 +114,7 @@ public class Real implements Bound {
    *
    * @return ceiling value
    */
+  @Override
   public long ceiling() {
     if (isNegative()) {
       return (long) getValue();
@@ -125,6 +131,7 @@ public class Real implements Bound {
    *
    * @return next ceiling.
    */
+  @Override
   public long nextFloor() {
     return floor() + 1;
   }
@@ -149,6 +156,7 @@ public class Real implements Bound {
    * @param radix radix
    * @return floored value
    */
+  @Override
   public Real floor(Real radix) {
     double flooredValue = getValue() - (getValue() % radix.getValue());
     if (radix instanceof Whole) {
@@ -176,6 +184,7 @@ public class Real implements Bound {
    *
    * @return floored value
    */
+  @Override
   public Whole wholeFloor() {
     return Wholes.valueOf(floor());
   }
@@ -185,6 +194,7 @@ public class Real implements Bound {
    *
    * @return floored value
    */
+  @Override
   public Whole wholeCeiling() {
     return Wholes.valueOf(ceiling());
   }
@@ -197,6 +207,7 @@ public class Real implements Bound {
    *
    * @return next ceiling.
    */
+  @Override
   public Whole nextWholeFloor() {
     return Wholes.valueOf(nextFloor());
   }
@@ -206,6 +217,7 @@ public class Real implements Bound {
    *
    * @return absolute of this number
    */
+  @Override
   public Real absolute() {
     if (isNegative()) {
       return Reals.valueOf(-getValue());
@@ -218,16 +230,19 @@ public class Real implements Bound {
    *
    * @return negative of this number
    */
+  @Override
   public Real negative() {
     return Reals.valueOf(-getValue());
   }
 
   @JsonIgnore
+  @Override
   public boolean isNegative() {
     return getValue() < 0;
   }
 
   @JsonIgnore
+  @Override
   public boolean isPositive() {
     return getValue() > 0;
   }
@@ -237,6 +252,7 @@ public class Real implements Bound {
    *
    * @return rational version of this number
    */
+  @Override
   public Rational toRational() {
     if (this instanceof Rational) {
       return (Rational) this;
@@ -248,10 +264,12 @@ public class Real implements Bound {
     return Wholes.valueOf(this.floor());
   }
 
+  @Override
   public boolean ge(Real real) {
     return getValue() >= real.getValue();
   }
 
+  @Override
   public boolean gt(Real real) {
     return getValue() > real.getValue();
   }
@@ -261,6 +279,7 @@ public class Real implements Bound {
     return getValue() < real.getValue();
   }
 
+  @Override
   public boolean le(Real real) {
     return getValue() <= real.getValue();
   }
@@ -274,7 +293,7 @@ public class Real implements Bound {
       return false;
     }
 
-    Real real = (Real) o;
+    ConcreteReal real = (ConcreteReal) o;
 
     return Double.compare(real.value, value) == 0;
   }
