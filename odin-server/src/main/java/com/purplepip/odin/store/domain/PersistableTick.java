@@ -81,6 +81,6 @@ public class PersistableTick implements Tick {
   }
 
   private void initialise() {
-    factor = new Rational(numerator, denominator);
+    factor = Rational.valueOf(numerator, denominator);
   }
 }

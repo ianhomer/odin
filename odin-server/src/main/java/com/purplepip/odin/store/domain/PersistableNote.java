@@ -67,6 +67,6 @@ public class PersistableNote implements Note {
   }
 
   private void initialise() {
-    duration = new Rational(numerator, denominator);
+    duration = Rational.valueOf(numerator, denominator);
   }
 }
