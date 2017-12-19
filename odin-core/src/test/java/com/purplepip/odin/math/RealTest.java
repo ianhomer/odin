@@ -118,8 +118,8 @@ public class RealTest {
   @Test
   public void testToString() {
     assertEquals("0.1", Reals.valueOf(0.1).toString());
-    assertEquals("-1.0", new Real(-1).toString());
-    assertEquals("1.0", new Real(1).toString());
-    assertEquals("0.0", new Real(0).toString());
+    assertEquals("-1.0", new ConcreteReal(-1).toString());
+    assertEquals("1.0", new ConcreteReal(1).toString());
+    assertEquals("0.0", new ConcreteReal(0).toString());
   }
 }

@@ -48,7 +48,7 @@ public final class Reals {
    * @return real value
    */
   public static Real valueOf(double value) {
-    return new Real(value);
+    return new ConcreteReal(value);
   }
 
   /**

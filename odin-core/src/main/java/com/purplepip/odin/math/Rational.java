@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Rational extends Real {
+public class Rational extends ConcreteReal {
   private static final int MAX_EGYPTIAN_FRACTIONS = 20;
 
   private final long numerator;
