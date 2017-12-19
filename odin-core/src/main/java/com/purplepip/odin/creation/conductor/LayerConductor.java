@@ -205,7 +205,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   @Override
   public Real getPosition(long microseconds) {
     if (parent == null) {
-      Real absolutePosition = tickConverter.convert(Whole.valueOf(microseconds));
+      Real absolutePosition = tickConverter.convert(Wholes.valueOf(microseconds));
       if (loopLength.isPositive()) {
         return absolutePosition.modulo(loopLength);
       }

@@ -16,7 +16,8 @@
 package com.purplepip.odin.music.notation;
 
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Rationals;
+import com.purplepip.odin.math.Wholes;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,9 +37,9 @@ public class Reference {
     accidentals.put("b", -1);
     accidentals.put("n", 0);
 
-    durations.put("h", Whole.valueOf(2));
-    durations.put("q", Whole.valueOf(1));
-    durations.put("8", Rational.valueOf(1,2));
+    durations.put("h", Wholes.valueOf(2));
+    durations.put("q", Wholes.valueOf(1));
+    durations.put("8", Rationals.valueOf(1,2));
 
     durations.forEach((key, value) -> durationsReverse.put(value, key));
   }

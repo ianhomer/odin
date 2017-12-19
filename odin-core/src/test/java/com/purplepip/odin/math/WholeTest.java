@@ -25,42 +25,42 @@ import org.junit.Test;
 public class WholeTest {
   @Test
   public void testValueOf() {
-    assertEquals(Wholes.MINUS_ONE, Whole.valueOf(-1));
-    assertEquals(Wholes.ZERO, Whole.valueOf(0));
+    assertEquals(Wholes.MINUS_ONE, Wholes.valueOf(-1));
+    assertEquals(Wholes.ZERO, Wholes.valueOf(0));
   }
 
   @Test
   public void testPlus() {
-    assertEquals(Rational.valueOf(5,2), Wholes.TWO.plus(Rationals.HALF));
+    assertEquals(Rationals.valueOf(5,2), Wholes.TWO.plus(Rationals.HALF));
   }
 
   @Test
   public void testFloor() {
-    assertEquals(3, Whole.valueOf(3).floor());
-    assertEquals(2, Real.valueOf(2.1).floor());
+    assertEquals(3, Wholes.valueOf(3).floor());
+    assertEquals(2, Reals.valueOf(2.1).floor());
   }
 
   @Test
   public void testNextFloor() {
-    assertEquals(4, Whole.valueOf(3).nextFloor());
-    assertEquals(3, Real.valueOf(2.1).nextFloor());
+    assertEquals(4, Wholes.valueOf(3).nextFloor());
+    assertEquals(3, Reals.valueOf(2.1).nextFloor());
   }
 
 
   @Test
   public void testModulo() {
-    assertEquals(Whole.valueOf(2), Whole.valueOf(10).modulo(Whole.valueOf(4)));
-    assertEquals(Whole.valueOf(0), Whole.valueOf(10).modulo(Whole.valueOf(1)));
+    assertEquals(Wholes.valueOf(2), Wholes.valueOf(10).modulo(Wholes.valueOf(4)));
+    assertEquals(Wholes.valueOf(0), Wholes.valueOf(10).modulo(Wholes.valueOf(1)));
   }
 
   @Test
   public void testFloorWithRadix() {
-    assertEquals(Whole.valueOf(8), Whole.valueOf(10).floor(Whole.valueOf(4)));
+    assertEquals(Wholes.valueOf(8), Wholes.valueOf(10).floor(Wholes.valueOf(4)));
   }
 
   @Test
   public void testEquals() {
-    assertEquals(Whole.valueOf(1), new Whole(1));
+    assertEquals(Wholes.valueOf(1), new Whole(1));
   }
 
   @Test
@@ -70,29 +70,29 @@ public class WholeTest {
 
   @Test
   public void testIsNegative() {
-    assertFalse(Whole.valueOf(1).isNegative());
-    assertFalse(Whole.valueOf(0).isNegative());
-    assertTrue(Whole.valueOf(-1).isNegative());
+    assertFalse(Wholes.valueOf(1).isNegative());
+    assertFalse(Wholes.valueOf(0).isNegative());
+    assertTrue(Wholes.valueOf(-1).isNegative());
   }
 
   @Test
   public void testNegative() {
-    assertEquals(Whole.valueOf(1), Whole.valueOf(-1).negative());
-    assertEquals(Whole.valueOf(-1), Whole.valueOf(1).negative());
+    assertEquals(Wholes.valueOf(1), Wholes.valueOf(-1).negative());
+    assertEquals(Wholes.valueOf(-1), Wholes.valueOf(1).negative());
     assertEquals(Wholes.ZERO, Wholes.ZERO);
   }
 
   @Test
   public void testAbsolute() {
-    assertEquals(Whole.valueOf(1), Whole.valueOf(1).absolute());
-    assertEquals(Whole.valueOf(1), Whole.valueOf(-1).absolute());
-    assertEquals(Whole.valueOf(0), Whole.valueOf(0).absolute());
+    assertEquals(Wholes.valueOf(1), Wholes.valueOf(1).absolute());
+    assertEquals(Wholes.valueOf(1), Wholes.valueOf(-1).absolute());
+    assertEquals(Wholes.valueOf(0), Wholes.valueOf(0).absolute());
   }
 
   @Test
   public void testCeiling() {
-    assertEquals(10, Whole.valueOf(10).ceiling());
-    assertEquals(-13, Whole.valueOf(-13).ceiling());
+    assertEquals(10, Wholes.valueOf(10).ceiling());
+    assertEquals(-13, Wholes.valueOf(-13).ceiling());
   }
 
 

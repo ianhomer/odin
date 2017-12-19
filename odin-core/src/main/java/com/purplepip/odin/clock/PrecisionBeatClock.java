@@ -17,7 +17,7 @@ package com.purplepip.odin.clock;
 
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 
 /**
  * Beat clock that maintains absolute precision by using rationals instead of reals.  This is
@@ -75,6 +75,6 @@ public class PrecisionBeatClock extends BeatClock {
 
   @Override
   public Real getPosition(long microseconds) {
-    return Whole.valueOf(microseconds).divide(getBeatsPerMinute().getMicroSecondsPerBeat());
+    return Wholes.valueOf(microseconds).divide(getBeatsPerMinute().getMicroSecondsPerBeat());
   }
 }

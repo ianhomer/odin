@@ -22,7 +22,6 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,14 +46,14 @@ public class MovingClockTickConverterTest {
   public void testMovingClock() {
 
     assertEquals(Wholes.ZERO, tickConverter.convert(Wholes.ZERO));
-    assertEquals(Whole.valueOf(120), tickConverter.convert(Whole.valueOf(60_000)));
+    assertEquals(Wholes.valueOf(120), tickConverter.convert(Wholes.valueOf(60_000)));
 
     /*
      * If we wait ten seconds the conversions are still the same ...
      */
     microsecondPositionProvider.setMicroseconds(10_000_000);
     assertEquals(Wholes.ZERO, tickConverter.convert(Wholes.ZERO));
-    assertEquals(Whole.valueOf(120), tickConverter.convert(Whole.valueOf(60_000)));
+    assertEquals(Wholes.valueOf(120), tickConverter.convert(Wholes.valueOf(60_000)));
   }
 
   @Test
@@ -65,17 +64,17 @@ public class MovingClockTickConverterTest {
      */
     microsecondPositionProvider.setMicroseconds(0);
     beatClock.setMicroseconds(60_000_000);
-    assertEquals(Whole.valueOf(0), tickConverter.convert(Wholes.ZERO));
-    assertEquals(Whole.valueOf(20), tickConverter.convert(Whole.valueOf(10_000)));
-    assertEquals(Whole.valueOf(120), tickConverter.convert(Whole.valueOf(60_000)));
+    assertEquals(Wholes.valueOf(0), tickConverter.convert(Wholes.ZERO));
+    assertEquals(Wholes.valueOf(20), tickConverter.convert(Wholes.valueOf(10_000)));
+    assertEquals(Wholes.valueOf(120), tickConverter.convert(Wholes.valueOf(60_000)));
 
     /*
      * If we wait 10 seconds and then move sequence to 60 seconds in ...
      */
     microsecondPositionProvider.setMicroseconds(10_000_000);
     beatClock.setMicroseconds(60_000_000);
-    assertEquals(Whole.valueOf(0), tickConverter.convert(Wholes.ZERO));
-    assertEquals(Whole.valueOf(20), tickConverter.convert(Whole.valueOf(10_000)));
-    assertEquals(Whole.valueOf(120), tickConverter.convert(Whole.valueOf(60_000)));
+    assertEquals(Wholes.valueOf(0), tickConverter.convert(Wholes.ZERO));
+    assertEquals(Wholes.valueOf(20), tickConverter.convert(Wholes.valueOf(10_000)));
+    assertEquals(Wholes.valueOf(120), tickConverter.convert(Wholes.valueOf(60_000)));
   }
 }

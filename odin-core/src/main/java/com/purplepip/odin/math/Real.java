@@ -38,48 +38,6 @@ public class Real implements Bound {
   }
 
   /**
-   * Create Whole number.  Please use the Whole.valueOf method.  This only exists
-   * to prevent auto use of the valueOf with a double argument when an long is passed in.
-   *
-   * @param integer integer to create the whole number from
-   * @return whole number
-   */
-  public static Whole valueOf(long integer) {
-    StackTraceElement stackTraceElement = new Exception().getStackTrace()[1];
-    LOG.warn("Please call 'Whole.valueOf({})' not 'Real.valueOf({})' "
-        + "in {} @ line {} "
-        + "given you know at compile time you what a whole number", integer, integer,
-        stackTraceElement.getClassName(), stackTraceElement.getLineNumber());
-    return Whole.valueOf(integer);
-  }
-
-  /**
-   * Create a real number from the given double.  This will ALWAYS return a real number using a
-   * double underlying value.  This ensure that once a logic pathway chooses to go to double
-   * arithmetic it will stay with double arithmetic.
-   *
-   *
-   * @param value double value
-   * @return real value
-   */
-  public static Real valueOf(double value) {
-    return new Real(value);
-  }
-
-  /**
-   * Calculate real value from string.
-   *
-   * @param value real as string
-   * @return real value
-   */
-  public static Real valueOf(String value) {
-    if (value == null || value.indexOf('.') < 0) {
-      return Rational.valueOf(value);
-    }
-    return valueOf(Double.valueOf(value));
-  }
-
-  /**
    * Get value as double.
    *
    * @return value as double
@@ -95,7 +53,7 @@ public class Real implements Bound {
    * @return result of addition
    */
   public Real plus(Real real) {
-    return Real.valueOf(getValue() + real.getValue());
+    return Reals.valueOf(getValue() + real.getValue());
   }
 
   /**
@@ -105,7 +63,7 @@ public class Real implements Bound {
    * @return result of subtraction
    */
   public Real minus(Real real) {
-    return Real.valueOf(getValue() - real.getValue());
+    return Reals.valueOf(getValue() - real.getValue());
   }
 
   /**
@@ -115,7 +73,7 @@ public class Real implements Bound {
    * @return result of multiplication
    */
   public Real times(Real real) {
-    return Real.valueOf(getValue() * real.getValue());
+    return Reals.valueOf(getValue() * real.getValue());
   }
 
   /**
@@ -125,7 +83,7 @@ public class Real implements Bound {
    * @return result of division
    */
   public Real divide(Real real) {
-    return Real.valueOf(getValue() / real.getValue());
+    return Reals.valueOf(getValue() / real.getValue());
   }
 
   /**
@@ -135,7 +93,7 @@ public class Real implements Bound {
    * @return modulo result
    */
   public Real modulo(Real real) {
-    return Real.valueOf(getValue() % real.getValue());
+    return Reals.valueOf(getValue() % real.getValue());
   }
 
 
@@ -197,9 +155,9 @@ public class Real implements Bound {
       /*
        * Flooring with whole radix will always give a whole number, so lets be explicit about it.
        */
-      return Whole.valueOf((long) flooredValue);
+      return Wholes.valueOf((long) flooredValue);
     }
-    return Real.valueOf(flooredValue);
+    return Reals.valueOf(flooredValue);
   }
 
   /**
@@ -210,7 +168,7 @@ public class Real implements Bound {
    */
   public Rational floor(Rational radix) {
     long multiples = (long) (value / radix.getValue());
-    return radix.times(Whole.valueOf(multiples));
+    return radix.times(Wholes.valueOf(multiples));
   }
 
   /**
@@ -219,7 +177,7 @@ public class Real implements Bound {
    * @return floored value
    */
   public Whole wholeFloor() {
-    return Whole.valueOf(floor());
+    return Wholes.valueOf(floor());
   }
 
   /**
@@ -228,7 +186,7 @@ public class Real implements Bound {
    * @return floored value
    */
   public Whole wholeCeiling() {
-    return Whole.valueOf(ceiling());
+    return Wholes.valueOf(ceiling());
   }
 
 
@@ -240,7 +198,7 @@ public class Real implements Bound {
    * @return next ceiling.
    */
   public Whole nextWholeFloor() {
-    return Whole.valueOf(nextFloor());
+    return Wholes.valueOf(nextFloor());
   }
 
   /**
@@ -250,7 +208,7 @@ public class Real implements Bound {
    */
   public Real absolute() {
     if (isNegative()) {
-      return Real.valueOf(-getValue());
+      return Reals.valueOf(-getValue());
     }
     return this;
   }
@@ -261,7 +219,7 @@ public class Real implements Bound {
    * @return negative of this number
    */
   public Real negative() {
-    return Real.valueOf(-getValue());
+    return Reals.valueOf(-getValue());
   }
 
   @JsonIgnore
@@ -287,7 +245,7 @@ public class Real implements Bound {
     /*
      * Very cheap flooring of non-rationals which is good enough for purpose.
      */
-    return Whole.valueOf(this.floor());
+    return Wholes.valueOf(this.floor());
   }
 
   public boolean ge(Real real) {

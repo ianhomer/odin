@@ -7,7 +7,6 @@ import static com.purplepip.odin.clock.tick.Ticks.MILLISECOND;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
@@ -19,7 +18,7 @@ public class SameTimeUnitTickConverterTest {
   public void testMicrosecondToMillisecond() {
     SameTimeUnitTickConverter converter = new SameTimeUnitTickConverter(
         () -> MILLISECOND, () -> MICROSECOND);
-    assertEquals(Whole.valueOf(1000), converter.convert(Wholes.ONE));
+    assertEquals(Wholes.valueOf(1000), converter.convert(Wholes.ONE));
   }
 
   @Test

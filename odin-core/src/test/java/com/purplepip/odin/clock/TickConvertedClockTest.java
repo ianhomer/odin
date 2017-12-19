@@ -20,7 +20,6 @@ import static com.purplepip.odin.clock.tick.Ticks.QUARTER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
@@ -37,8 +36,8 @@ public class TickConvertedClockTest {
   public void testDuration() {
     BeatClock beatClock = newPrecisionBeatClock(60);
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> Wholes.ZERO);
-    assertEquals(Whole.valueOf(4), clock.getDuration(1000000));
-    assertEquals(Whole.valueOf(4), clock.getDuration(1000000, Whole.valueOf(10)));
+    assertEquals(Wholes.valueOf(4), clock.getDuration(1000000));
+    assertEquals(Wholes.valueOf(4), clock.getDuration(1000000, Wholes.valueOf(10)));
   }
 
   @Test
@@ -49,25 +48,25 @@ public class TickConvertedClockTest {
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> Wholes.ZERO);
     assertEquals(Wholes.ZERO, beatClock.getPosition());
     assertEquals(Wholes.ZERO, clock.getPosition());
-    assertEquals(Whole.valueOf(10), beatClock.getPosition(10_000_000));
-    assertEquals(Whole.valueOf(40), clock.getPosition(10_000_000));
+    assertEquals(Wholes.valueOf(10), beatClock.getPosition(10_000_000));
+    assertEquals(Wholes.valueOf(40), clock.getPosition(10_000_000));
     /*
      * Move 60 seconds into the future
      */
     microsecondPositionProvider.setMicroseconds(60_000_000);
-    assertEquals(Whole.valueOf(70), beatClock.getPosition(70_000_000));
-    assertEquals(Whole.valueOf(280), clock.getPosition(70_000_000));
-    assertEquals(Whole.valueOf(60), beatClock.getPosition());
-    assertEquals(Whole.valueOf(240), clock.getPosition());
+    assertEquals(Wholes.valueOf(70), beatClock.getPosition(70_000_000));
+    assertEquals(Wholes.valueOf(280), clock.getPosition(70_000_000));
+    assertEquals(Wholes.valueOf(60), beatClock.getPosition());
+    assertEquals(Wholes.valueOf(240), clock.getPosition());
     /*
      * Fast forward sequence to 30 seconds in
      */
     beatClock.setMicroseconds(30_000_000);
-    assertEquals(Whole.valueOf(70), beatClock.getPosition(70_000_000));
-    assertEquals(Whole.valueOf(280), clock.getPosition(70_000_000));
+    assertEquals(Wholes.valueOf(70), beatClock.getPosition(70_000_000));
+    assertEquals(Wholes.valueOf(280), clock.getPosition(70_000_000));
     assertEquals(30_000_000, beatClock.getMicroseconds());
-    assertEquals(Whole.valueOf(30), beatClock.getPosition());
-    assertEquals(Whole.valueOf(120), clock.getPosition());
+    assertEquals(Wholes.valueOf(30), beatClock.getPosition());
+    assertEquals(Wholes.valueOf(120), clock.getPosition());
   }
 
   @Test

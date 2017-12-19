@@ -37,7 +37,6 @@ import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
@@ -197,7 +196,7 @@ public class PerformanceBuilder {
   private MutableLayer withDefaults(MutableLayer layer) {
     layer.setTick(createTick(BEAT));
     layer.setLength(length);
-    layer.setOffset(Whole.valueOf(offset));
+    layer.setOffset(Wholes.valueOf(offset));
     return layer;
   }
 
@@ -395,7 +394,7 @@ public class PerformanceBuilder {
   }
 
   public PerformanceBuilder withLength(long length) {
-    this.length = Whole.valueOf(length);
+    this.length = Wholes.valueOf(length);
     return this;
   }
 
@@ -556,7 +555,7 @@ public class PerformanceBuilder {
     sequence.setEnabled(enabled);
     sequence.setChannel(channel);
     sequence.setLength(length);
-    sequence.setOffset(Whole.valueOf(offset));
+    sequence.setOffset(Wholes.valueOf(offset));
     if (sequence.getTick() == null) {
       sequence.setTick(tick);
     }

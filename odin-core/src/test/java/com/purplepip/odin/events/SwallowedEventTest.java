@@ -18,14 +18,14 @@ package com.purplepip.odin.events;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
 public class SwallowedEventTest {
   @Test
   public void testSwallowedEvent() {
-    SwallowedEvent swallowedEvent = new SwallowedEvent(Whole.valueOf(10));
-    assertEquals(Whole.valueOf(10), swallowedEvent.getTime());
+    SwallowedEvent swallowedEvent = new SwallowedEvent(Wholes.valueOf(10));
+    assertEquals(Wholes.valueOf(10), swallowedEvent.getTime());
     assertNull(swallowedEvent.getValue());
   }
 }

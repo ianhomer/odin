@@ -19,7 +19,6 @@ import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.LessThan;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +44,7 @@ public class Loop {
    * Default endless loop with given position.
    */
   public Loop(int position) {
-    this(Wholes.MINUS_ONE, Whole.valueOf(position));
+    this(Wholes.MINUS_ONE, Wholes.valueOf(position));
   }
 
 

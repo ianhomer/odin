@@ -27,138 +27,138 @@ import org.junit.Test;
 public class RationalTest {
   @Test
   public void testValueOf() {
-    assertEquals(1, Rational.valueOf(1, 1, true).getNumerator());
-    assertEquals(1, Rational.valueOf(2, 2, true).getNumerator());
-    assertEquals(1, Rational.valueOf(2, 2).getNumerator());
-    assertEquals(3, Rational.valueOf(3, 2).getNumerator());
-    assertEquals(3, Rational.valueOf(6, 4).getNumerator());
-    assertEquals(3, Rational.valueOf(6, 4, true).getNumerator());
-    assertEquals(6, Rational.valueOf(6, 4, false).getNumerator());
+    assertEquals(1, Rationals.valueOf(1, 1, true).getNumerator());
+    assertEquals(1, Rationals.valueOf(2, 2, true).getNumerator());
+    assertEquals(1, Rationals.valueOf(2, 2).getNumerator());
+    assertEquals(3, Rationals.valueOf(3, 2).getNumerator());
+    assertEquals(3, Rationals.valueOf(6, 4).getNumerator());
+    assertEquals(3, Rationals.valueOf(6, 4, true).getNumerator());
+    assertEquals(6, Rationals.valueOf(6, 4, false).getNumerator());
   }
 
   @Test
   public void testValue() {
-    assertEquals(0.5, Rational.valueOf(1,2).getValue(), 0.01);
-    assertEquals(-0.5, Rational.valueOf(-1,2).getValue(), 0.01);
-    assertEquals(3.333, Rational.valueOf(10,3).getValue(), 0.001);
+    assertEquals(0.5, Rationals.valueOf(1,2).getValue(), 0.01);
+    assertEquals(-0.5, Rationals.valueOf(-1,2).getValue(), 0.01);
+    assertEquals(3.333, Rationals.valueOf(10,3).getValue(), 0.001);
   }
 
 
   @Test
   public void testToString() {
-    assertEquals("1", Rational.valueOf(1,1).toString());
-    assertEquals("1", Rational.valueOf(1,1, false).toString());
-    assertEquals("1", Rational.valueOf(1,1, true).toString());
-    assertEquals("1", Rational.valueOf(2,2).toString());
-    assertEquals("2/2", Rational.valueOf(2,2, false).toString());
-    assertEquals("½", Rational.valueOf(1,2).toString());
-    assertEquals("1½", Rational.valueOf(3,2, true).toString());
-    assertEquals("1½", Rational.valueOf(3,2).toString());
-    assertEquals("1⅔", Rational.valueOf(5,3).toString());
-    assertEquals("1⅔", Rational.valueOf(5,3, true).toString());
-    assertEquals("½", Rational.valueOf(2,4).toString());
-    assertEquals("½", Rational.valueOf(2,4, true).toString());
-    assertEquals("2¼", Rational.valueOf(9,4).toString());
-    assertEquals("2¼", Rational.valueOf(9,4, true).toString());
-    assertEquals("1+3/7", Rational.valueOf(10,7).toString());
-    assertEquals("1+3/7", Rational.valueOf(10,7, true).toString());
-    assertEquals("-½", Rational.valueOf(-2,4).toString());
-    assertEquals("-½", Rational.valueOf(-2,4, true).toString());
-    assertEquals("½", Rational.valueOf(-2,-4).toString());
-    assertEquals("2/4", Rational.valueOf(-2,-4, false).toString());
-    assertEquals("½", Rational.valueOf(-2,-4, true).toString());
-    assertEquals("-½", Rational.valueOf(1,-2).toString());
-    assertEquals("-½", Rational.valueOf(2,-4).toString());
-    assertEquals("-1", Rational.valueOf(-1,1, false).toString());
-    assertEquals("-1", Rational.valueOf(-1,1).toString());
+    assertEquals("1", Rationals.valueOf(1,1).toString());
+    assertEquals("1", Rationals.valueOf(1,1, false).toString());
+    assertEquals("1", Rationals.valueOf(1,1, true).toString());
+    assertEquals("1", Rationals.valueOf(2,2).toString());
+    assertEquals("2/2", Rationals.valueOf(2,2, false).toString());
+    assertEquals("½", Rationals.valueOf(1,2).toString());
+    assertEquals("1½", Rationals.valueOf(3,2, true).toString());
+    assertEquals("1½", Rationals.valueOf(3,2).toString());
+    assertEquals("1⅔", Rationals.valueOf(5,3).toString());
+    assertEquals("1⅔", Rationals.valueOf(5,3, true).toString());
+    assertEquals("½", Rationals.valueOf(2,4).toString());
+    assertEquals("½", Rationals.valueOf(2,4, true).toString());
+    assertEquals("2¼", Rationals.valueOf(9,4).toString());
+    assertEquals("2¼", Rationals.valueOf(9,4, true).toString());
+    assertEquals("1+3/7", Rationals.valueOf(10,7).toString());
+    assertEquals("1+3/7", Rationals.valueOf(10,7, true).toString());
+    assertEquals("-½", Rationals.valueOf(-2,4).toString());
+    assertEquals("-½", Rationals.valueOf(-2,4, true).toString());
+    assertEquals("½", Rationals.valueOf(-2,-4).toString());
+    assertEquals("2/4", Rationals.valueOf(-2,-4, false).toString());
+    assertEquals("½", Rationals.valueOf(-2,-4, true).toString());
+    assertEquals("-½", Rationals.valueOf(1,-2).toString());
+    assertEquals("-½", Rationals.valueOf(2,-4).toString());
+    assertEquals("-1", Rationals.valueOf(-1,1, false).toString());
+    assertEquals("-1", Rationals.valueOf(-1,1).toString());
   }
 
   @Test
   public void testPlus() {
-    assertEquals("1½", Rational.valueOf(1,1, true)
-        .plus(Rational.valueOf(1,2)).toString());
-    assertEquals("1½", Rational.valueOf(1,1)
-        .plus(Rational.valueOf(1,2)).toString());
-    assertEquals("7/12", Rational.valueOf(1,3)
-        .plus(Rational.valueOf(1,4)).toString());
+    assertEquals("1½", Rationals.valueOf(1,1, true)
+        .plus(Rationals.valueOf(1,2)).toString());
+    assertEquals("1½", Rationals.valueOf(1,1)
+        .plus(Rationals.valueOf(1,2)).toString());
+    assertEquals("7/12", Rationals.valueOf(1,3)
+        .plus(Rationals.valueOf(1,4)).toString());
     assertEquals("½", Wholes.ZERO
-        .plus(Rational.valueOf(1,2)).toString());
+        .plus(Rationals.valueOf(1,2)).toString());
   }
 
   @Test
   public void testMinus() {
-    assertEquals("½", Rational.valueOf(1,1)
-        .minus(Rational.valueOf(1,2)).toString());
-    assertEquals("1/12", Rational.valueOf(1,3)
-        .minus(Rational.valueOf(1,4)).toString());
+    assertEquals("½", Rationals.valueOf(1,1)
+        .minus(Rationals.valueOf(1,2)).toString());
+    assertEquals("1/12", Rationals.valueOf(1,3)
+        .minus(Rationals.valueOf(1,4)).toString());
   }
 
   @Test
   public void testTimes() {
-    assertEquals("1", Rational.valueOf(2,1, true)
-        .times(Rational.valueOf(1,2)).toString());
-    assertEquals("1", Rational.valueOf(2,1)
-        .times(Rational.valueOf(1,2)).toString());
-    assertEquals("1/12", Rational.valueOf(1,3)
-        .times(Rational.valueOf(1,4)).toString());
+    assertEquals("1", Rationals.valueOf(2,1, true)
+        .times(Rationals.valueOf(1,2)).toString());
+    assertEquals("1", Rationals.valueOf(2,1)
+        .times(Rationals.valueOf(1,2)).toString());
+    assertEquals("1/12", Rationals.valueOf(1,3)
+        .times(Rationals.valueOf(1,4)).toString());
   }
 
   @Test
   public void testGe() {
-    assertTrue(Rational.valueOf(2, 1).ge(Rational.valueOf(2, 1)));
-    assertTrue(Rational.valueOf(2, 1).ge(Rational.valueOf(4, 2)));
+    assertTrue(Rationals.valueOf(2, 1).ge(Rationals.valueOf(2, 1)));
+    assertTrue(Rationals.valueOf(2, 1).ge(Rationals.valueOf(4, 2)));
   }
 
   @Test
   public void testGt() {
-    assertFalse(Rational.valueOf(2, 1).gt(Rational.valueOf(2, 1)));
-    assertFalse(Rational.valueOf(-2, 5).gt(Rational.valueOf(0)));
-    assertTrue(Rational.valueOf(3, 1).gt(Rational.valueOf(4, 2)));
+    assertFalse(Rationals.valueOf(2, 1).gt(Rationals.valueOf(2, 1)));
+    assertFalse(Rationals.valueOf(-2, 5).gt(Rationals.valueOf(0)));
+    assertTrue(Rationals.valueOf(3, 1).gt(Rationals.valueOf(4, 2)));
   }
 
   @Test
   public void testLt() {
-    assertFalse(Rational.valueOf(2, 1).lt(Rational.valueOf(2, 1)));
-    assertTrue(Rational.valueOf(1, 1).lt(Rational.valueOf(4, 2)));
+    assertFalse(Rationals.valueOf(2, 1).lt(Rationals.valueOf(2, 1)));
+    assertTrue(Rationals.valueOf(1, 1).lt(Rationals.valueOf(4, 2)));
   }
 
   @Test
   public void testModulo() {
-    assertEquals("0", Rational.valueOf(3, 1)
-        .modulo(Rational.valueOf(1, 1)).toString());
-    assertEquals("1", Rational.valueOf(3, 1)
-        .modulo(Rational.valueOf(2, 1)).toString());
-    assertEquals("0", Rational.valueOf(4, 1)
-        .modulo(Rational.valueOf(2, 1)).toString());
-    assertEquals("½", Rational.valueOf(3,2)
-        .modulo(Rational.valueOf(1, 1)).toString());
+    assertEquals("0", Rationals.valueOf(3, 1)
+        .modulo(Rationals.valueOf(1, 1)).toString());
+    assertEquals("1", Rationals.valueOf(3, 1)
+        .modulo(Rationals.valueOf(2, 1)).toString());
+    assertEquals("0", Rationals.valueOf(4, 1)
+        .modulo(Rationals.valueOf(2, 1)).toString());
+    assertEquals("½", Rationals.valueOf(3,2)
+        .modulo(Rationals.valueOf(1, 1)).toString());
   }
 
   @Test
   public void testFloor() {
-    assertEquals(0, Rational.valueOf(1,2).floor());
-    assertEquals(3, Rational.valueOf(10,3).floor());
+    assertEquals(0, Rationals.valueOf(1,2).floor());
+    assertEquals(3, Rationals.valueOf(10,3).floor());
   }
 
   @Test
   public void testFloorToRadix() {
-    assertEquals("2", Rational.valueOf(3, 1)
-        .floor(Rational.valueOf(2, 1)).toString());
-    assertEquals("1½", Rational.valueOf(2, 1, true)
-        .floor(Rational.valueOf(3, 2)).toString());
-    assertEquals("3", Rational.valueOf(4, 1, true)
-        .floor(Rational.valueOf(3, 2)).toString());
+    assertEquals("2", Rationals.valueOf(3, 1)
+        .floor(Rationals.valueOf(2, 1)).toString());
+    assertEquals("1½", Rationals.valueOf(2, 1, true)
+        .floor(Rationals.valueOf(3, 2)).toString());
+    assertEquals("3", Rationals.valueOf(4, 1, true)
+        .floor(Rationals.valueOf(3, 2)).toString());
 
-    assertEquals("2.0", Rational.valueOf(3, 1)
-        .floor(Real.valueOf(2.0)).toString());
-    assertEquals("2", Rational.valueOf(3, 1)
-        .floor(Whole.valueOf("2")).toString());
+    assertEquals("2.0", Rationals.valueOf(3, 1)
+        .floor(Reals.valueOf(2.0)).toString());
+    assertEquals("2", Rationals.valueOf(3, 1)
+        .floor(Rationals.valueOf("2")).toString());
   }
 
   @Test
   public void testNextFloor() {
-    assertEquals(1, Rational.valueOf(1,2).nextFloor());
-    assertEquals(4, Rational.valueOf(10,3).nextFloor());
+    assertEquals(1, Rationals.valueOf(1,2).nextFloor());
+    assertEquals(4, Rationals.valueOf(10,3).nextFloor());
   }
 
   @Test
@@ -181,13 +181,13 @@ public class RationalTest {
   }
 
   private String getEgyptianFractionsAsString(long numerator, long denominator) {
-    Rational rational = Rational.valueOf(numerator, denominator, true);
+    Rational rational = Rationals.valueOf(numerator, denominator, true);
     return join(rational.getEgyptianFractions(), rational.isNegative());
   }
 
   private String getEgyptianFractionsAsString(
       long numerator, long denominator, int maxIntegerPart) {
-    Rational rational = Rational.valueOf(numerator, denominator, true);
+    Rational rational = Rationals.valueOf(numerator, denominator, true);
     return join(rational.getEgyptianFractions(maxIntegerPart), rational.isNegative());
   }
 
@@ -199,45 +199,45 @@ public class RationalTest {
 
   @Test
   public void testIsNegative() {
-    assertTrue(Rational.valueOf(-1,2).isNegative());
-    assertTrue(Rational.valueOf(1,-2).isNegative());
-    assertFalse(Rational.valueOf(1,2).isNegative());
-    assertFalse(Rational.valueOf(-1,-2).isNegative());
+    assertTrue(Rationals.valueOf(-1,2).isNegative());
+    assertTrue(Rationals.valueOf(1,-2).isNegative());
+    assertFalse(Rationals.valueOf(1,2).isNegative());
+    assertFalse(Rationals.valueOf(-1,-2).isNegative());
   }
 
   @Test
   public void testNegative() {
-    assertEquals(Rational.valueOf(1, 2), Rational.valueOf(-1,2).negative());
-    assertEquals(Rational.valueOf(1, 2), Rational.valueOf(1,-2).negative());
-    assertEquals(Rational.valueOf(1, 2), Rational.valueOf(1,-2, false).negative());
-    assertEquals(Rational.valueOf(-1, 2), Rational.valueOf(1,2).negative());
+    assertEquals(Rationals.valueOf(1, 2), Rationals.valueOf(-1,2).negative());
+    assertEquals(Rationals.valueOf(1, 2), Rationals.valueOf(1,-2).negative());
+    assertEquals(Rationals.valueOf(1, 2), Rationals.valueOf(1,-2, false).negative());
+    assertEquals(Rationals.valueOf(-1, 2), Rationals.valueOf(1,2).negative());
   }
 
   @Test
   public void testAbsolute() {
-    assertEquals(Rational.valueOf(1,2), Rational.valueOf(1,2).absolute());
-    assertEquals(Rational.valueOf(1,2), Rational.valueOf(-1,2).absolute());
-    assertEquals(Rational.valueOf(1,2), Rational.valueOf(1,-2).absolute());
-    assertEquals(Rational.valueOf(1,2), Rational.valueOf(-1,-2).absolute());
+    assertEquals(Rationals.valueOf(1,2), Rationals.valueOf(1,2).absolute());
+    assertEquals(Rationals.valueOf(1,2), Rationals.valueOf(-1,2).absolute());
+    assertEquals(Rationals.valueOf(1,2), Rationals.valueOf(1,-2).absolute());
+    assertEquals(Rationals.valueOf(1,2), Rationals.valueOf(-1,-2).absolute());
   }
 
   @Test(expected = OdinRuntimeException.class)
   public void testZeroDenominator() {
-    Rational.valueOf(1,0);
+    Rationals.valueOf(1,0);
   }
 
   @Test
   public void testValueOfString() {
-    assertEquals(Wholes.ONE, Rational.valueOf("1"));
-    assertEquals(Rationals.HALF, Rational.valueOf("1/2"));
-    assertEquals(Rationals.HALF, Rational.valueOf("1 / 2"));
-    assertEquals(Wholes.ZERO, Rational.valueOf(null));
-    assertEquals(Wholes.ZERO, Rational.valueOf(""));
+    assertEquals(Wholes.ONE, Rationals.valueOf("1"));
+    assertEquals(Rationals.HALF, Rationals.valueOf("1/2"));
+    assertEquals(Rationals.HALF, Rationals.valueOf("1 / 2"));
+    assertEquals(Wholes.ZERO, Rationals.valueOf(null));
+    assertEquals(Wholes.ZERO, Rationals.valueOf(""));
   }
 
   @Test(expected = OdinRuntimeException.class)
   public void testValueOfStringFail() {
-    assertEquals(Wholes.ZERO, Rational.valueOf("/2"));
+    assertEquals(Wholes.ZERO, Rationals.valueOf("/2"));
   }
 
   @Test

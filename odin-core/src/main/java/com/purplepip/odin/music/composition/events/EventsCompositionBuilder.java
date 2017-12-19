@@ -18,6 +18,7 @@ package com.purplepip.odin.music.composition.events;
 import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
@@ -27,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EventsCompositionBuilder {
-  private static final Rational DEFAULT_TIME = Rational.valueOf(4, 4, false);
+  private static final Rational DEFAULT_TIME = Rationals.valueOf(4, 4, false);
   private static final String DEFAULT_KEY = "C";
   private static final String DEFAULT_CLEF_NAME = "treble";
 

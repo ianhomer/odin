@@ -16,11 +16,12 @@
 package com.purplepip.odin.math.typeconverters;
 
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
 import jodd.typeconverter.TypeConverter;
 
 public class RationalTypeConverter implements TypeConverter<Rational> {
   @Override
   public Rational convert(Object o) {
-    return Rational.valueOf(o.toString());
+    return Rationals.valueOf(o.toString());
   }
 }

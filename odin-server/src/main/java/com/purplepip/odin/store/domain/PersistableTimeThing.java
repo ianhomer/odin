@@ -21,6 +21,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TimeThing;
 import com.purplepip.odin.clock.tick.TimeUnit;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -152,8 +153,8 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
 
   private void initialiseTimeThing() {
     LOG.debug("Initialising time thing : {}", this);
-    offset = Rational.valueOf(offsetNumerator, offsetDenominator);
-    length = Rational.valueOf(lengthNumerator, lengthDenominator);
+    offset = Rationals.valueOf(offsetNumerator, offsetDenominator);
+    length = Rationals.valueOf(lengthNumerator, lengthDenominator);
     endless = length.isNegative();
   }
 }

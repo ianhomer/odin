@@ -29,7 +29,6 @@ import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
@@ -62,7 +61,7 @@ public class MutableSequenceRollTest {
      * Start roll and then verify that events come out from the start position.
      */
     roll.start();
-    assertEquals(Whole.valueOf(8), roll.getSequence().getOffset());
+    assertEquals(Wholes.valueOf(8), roll.getSequence().getOffset());
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
     assertNotNull("Next event after roll started should not be null", nextEvent);
@@ -80,17 +79,17 @@ public class MutableSequenceRollTest {
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
     assertEquals(60, nextEvent.getValue().getNumber());
-    assertEquals(Whole.valueOf(8), nextEvent.getTime());
+    assertEquals(Wholes.valueOf(8), nextEvent.getTime());
 
     /*
      * Test change offset
      */
     notation.offset(20);
     roll.setSequence(notation.copy());
-    assertEquals(Whole.valueOf(20), roll.getOffsetProperty().get());
+    assertEquals(Wholes.valueOf(20), roll.getOffsetProperty().get());
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
     assertEquals(62, nextEvent.getValue().getNumber());
-    assertEquals(Whole.valueOf(9), nextEvent.getTime());
+    assertEquals(Wholes.valueOf(9), nextEvent.getTime());
   }
 }

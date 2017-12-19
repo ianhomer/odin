@@ -17,7 +17,7 @@ package com.purplepip.odin.events;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +36,7 @@ public class DefaultEvent<A> implements Event<A> {
    * @param time time of the event
    */
   public DefaultEvent(A value, long time) {
-    this(value, Whole.valueOf(time));
+    this(value, Wholes.valueOf(time));
   }
 
   /**

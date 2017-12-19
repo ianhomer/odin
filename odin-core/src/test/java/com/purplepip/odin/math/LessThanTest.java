@@ -36,5 +36,4 @@ public class LessThanTest {
     Bound lessThanTwo = LessThan.lessThan(two);
     assertEquals(Wholes.ONE, lessThanTwo.floor(Wholes.ONE));
   }
-
 }

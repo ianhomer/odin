@@ -23,7 +23,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.NullValueEvent;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
@@ -120,7 +120,7 @@ public class TrackProcessorExecutor implements Runnable {
     long microsecondPosition = clock.getMicroseconds();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     while (nextEvent != null
-        && nextEvent.getTime().lt(Whole.valueOf(maxMicrosecondPosition))) {
+        && nextEvent.getTime().lt(Wholes.valueOf(maxMicrosecondPosition))) {
       if (noteCount > maxNotesPerBuffer) {
         LOG.warn("Too many notes in this buffer {} > {} before {}", noteCount,
             maxNotesPerBuffer, maxMicrosecondPosition);
@@ -139,7 +139,7 @@ public class TrackProcessorExecutor implements Runnable {
         // TODO : Understand why this can happen, it might be that another thread has beaten
         // this thread to it.  It occasionally happens in the tests.
         LOG.warn("Next event gone from stack, it was null when we popped it");
-      } else if (nextEvent.getTime().lt(Whole.valueOf(microsecondPosition))) {
+      } else if (nextEvent.getTime().lt(Wholes.valueOf(microsecondPosition))) {
         statistics.incrementEventTooLateCount();
         metrics.meter("sequence.tooLate").mark();
         LOG.warn("Skipping {}, too late to process  {} < {}", nextEvent,

@@ -18,7 +18,7 @@ package com.purplepip.odin.properties.beany;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.creation.sequence.GenericSequence;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
 public class ResetterTest {
@@ -30,10 +30,10 @@ public class ResetterTest {
     setter.set("format", "test-format");
     setter.set("offset", 9);
     assertEquals("test-format", sequence.getProperty("format"));
-    assertEquals(Whole.valueOf(9), sequence.getOffset());
+    assertEquals(Wholes.valueOf(9), sequence.getOffset());
     GenericSequence newSequence = new GenericSequence();
     setter.reset(newSequence);
     assertEquals("test-format", newSequence.getProperty("format"));
-    assertEquals(Whole.valueOf(9), newSequence.getOffset());
+    assertEquals(Wholes.valueOf(9), newSequence.getOffset());
   }
 }

@@ -16,35 +16,10 @@
 package com.purplepip.odin.math;
 
 public class Whole extends Rational {
-  private static final int LOW_CACHE = -1;
-  private static final int HIGH_CACHE = 10;
-
-  private static final Whole[] WHOLES_CACHE;
-
-  static {
-    WHOLES_CACHE = new Whole[1 + HIGH_CACHE - LOW_CACHE];
-    for (int i = LOW_CACHE ; i <= HIGH_CACHE ; i++) {
-      WHOLES_CACHE[i - LOW_CACHE] = new Whole(i);
-    }
-  }
-
   /*
    * Local property for numerator for direct access.
    */
   private final long numerator;
-
-  /**
-   * Return whole for the given integer.
-   *
-   * @param integer integer value
-   * @return whole object
-   */
-  public static Whole valueOf(long integer) {
-    if (integer >= LOW_CACHE && integer <= HIGH_CACHE) {
-      return Whole.WHOLES_CACHE[(int) integer - LOW_CACHE];
-    }
-    return new Whole(integer);
-  }
 
   public Whole(long numerator) {
     super(numerator, 1, true);
@@ -64,7 +39,7 @@ public class Whole extends Rational {
   }
 
   public Whole plus(Whole whole) {
-    return Whole.valueOf(numerator + whole.numerator);
+    return Wholes.valueOf(numerator + whole.numerator);
   }
 
   /**
@@ -80,7 +55,7 @@ public class Whole extends Rational {
   }
 
   public Whole minus(Whole whole) {
-    return Whole.valueOf(numerator - whole.numerator);
+    return Wholes.valueOf(numerator - whole.numerator);
   }
 
   /**
@@ -96,7 +71,7 @@ public class Whole extends Rational {
   }
 
   public Whole times(Whole whole) {
-    return Whole.valueOf(numerator * whole.numerator);
+    return Wholes.valueOf(numerator * whole.numerator);
   }
 
   /**
@@ -112,7 +87,7 @@ public class Whole extends Rational {
   }
 
   public Rational divide(Whole whole) {
-    return Rational.valueOf(numerator, whole.numerator);
+    return Rationals.valueOf(numerator, whole.numerator);
   }
 
   /**
@@ -128,7 +103,7 @@ public class Whole extends Rational {
   }
 
   public Whole modulo(Whole whole) {
-    return Whole.valueOf(numerator % whole.numerator);
+    return Wholes.valueOf(numerator % whole.numerator);
   }
 
   @Override
@@ -159,13 +134,13 @@ public class Whole extends Rational {
   }
 
   public Whole floor(Whole radix) {
-    return Whole.valueOf(numerator - (numerator % radix.numerator));
+    return Wholes.valueOf(numerator - (numerator % radix.numerator));
   }
 
   @Override
   public Whole absolute() {
     if (isNegative()) {
-      return Whole.valueOf(-numerator);
+      return Wholes.valueOf(-numerator);
     }
     return this;
   }
@@ -177,7 +152,7 @@ public class Whole extends Rational {
 
   @Override
   public Rational negative() {
-    return Whole.valueOf(-numerator);
+    return Wholes.valueOf(-numerator);
   }
 
   @Override

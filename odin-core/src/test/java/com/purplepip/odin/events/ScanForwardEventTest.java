@@ -18,8 +18,9 @@ package com.purplepip.odin.events;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
 public class ScanForwardEventTest {
@@ -30,7 +31,7 @@ public class ScanForwardEventTest {
 
   @Test
   public void testGetTime() throws Exception {
-    ScanForwardEvent event = new ScanForwardEvent<>(Whole.valueOf(9));
-    assertEquals(Rational.valueOf(9,1), event.getTime());
+    ScanForwardEvent event = new ScanForwardEvent<>(Wholes.valueOf(9));
+    assertEquals(Rationals.valueOf(9,1), event.getTime());
   }
 }

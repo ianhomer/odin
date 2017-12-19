@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNull;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.creation.sequence.GenericSequence;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
@@ -78,7 +78,7 @@ public class SetterTest {
     setter.set("note", new DefaultNote(11,22,33));
     assertEquals(11, sequence.getNote().getNumber());
     assertEquals(22, sequence.getNote().getVelocity());
-    assertEquals(Whole.valueOf(33), sequence.getNote().getDuration());
+    assertEquals(Wholes.valueOf(33), sequence.getNote().getDuration());
   }
 
   @Test

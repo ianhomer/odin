@@ -16,7 +16,6 @@
 package com.purplepip.odin.music.notes;
 
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import lombok.EqualsAndHashCode;
 
@@ -37,7 +36,7 @@ public class DefaultNote implements Note {
    * @param duration Duration of note
    */
   public DefaultNote(int number, int velocity, long duration) {
-    this(number, velocity, Whole.valueOf(duration));
+    this(number, velocity, Wholes.valueOf(duration));
   }
 
   /**

@@ -22,7 +22,8 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Reals;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.metrics.DefaultMetricRegistry;
 import java.text.DecimalFormat;
 import java.util.Set;
@@ -70,7 +71,7 @@ public class BeatClock extends AbstractClock {
     }
     this.startOffset = configuration.startOffset();
     this.maxLookForwardInMicros = configuration.maxLookForwardInMillis() * 1_000;
-    maxLookForwardInMinutes = Real.valueOf(
+    maxLookForwardInMinutes = Reals.valueOf(
         configuration.maxLookForwardInMillis() / (double) 60_000);
     refreshMaxLookForward();
     metrics = configuration.metrics();
@@ -91,7 +92,7 @@ public class BeatClock extends AbstractClock {
      * and does not impact functionality in any substantial way.
      */
     setMaxLookForward(maxLookForwardInMinutes
-        .times(Whole.valueOf(beatsPerMinute.getBeatsPerMinute())).wholeFloor());
+        .times(Wholes.valueOf(beatsPerMinute.getBeatsPerMinute())).wholeFloor());
   }
 
   public void addListener(PerformanceListener listener) {
@@ -186,12 +187,12 @@ public class BeatClock extends AbstractClock {
 
   @Override
   public Real getPosition(long microseconds) {
-    return Real.valueOf((double)microseconds).divide(beatsPerMinute.getMicroSecondsPerBeat());
+    return Reals.valueOf((double)microseconds).divide(beatsPerMinute.getMicroSecondsPerBeat());
   }
 
   @Override
   public Real getMaxLookForward(Real position) {
-    return maxLookForwardInMinutes.times(Whole.valueOf(beatsPerMinute.getBeatsPerMinute()));
+    return maxLookForwardInMinutes.times(Wholes.valueOf(beatsPerMinute.getBeatsPerMinute()));
   }
 
   @Override

@@ -55,112 +55,6 @@ public class Rational extends Real {
   }
 
   /**
-   * Create Whole number.  Please use the Whole.valueOf method.  This only exists
-   * to prevent auto use of the valueOf with a double argument when an long is passed in.
-   *
-   * @param integer integer to create the whole number from
-   * @return whole number
-   */
-  public static Whole valueOf(long integer) {
-    StackTraceElement stackTraceElement = new Exception().getStackTrace()[1];
-    LOG.warn("Please call 'Whole.valueOf({})' not 'Rational.valueOf({})' "
-            + "in {} @ line {} "
-            + "given you know at compile time you what a whole number", integer, integer,
-        stackTraceElement.getClassName(), stackTraceElement.getLineNumber());
-    return Whole.valueOf(integer);
-  }
-
-  /**
-   * Create a rational number from a given numerator and denominator.  Note a Whole number is
-   * returned if the numerator is multiple of the denominator.
-   *
-   * @param numerator numerator
-   * @param denominator denominator
-   * @return rational number
-   */
-  public static Rational valueOf(long numerator, long denominator) {
-    return valueOf(numerator, denominator, true);
-  }
-
-  /**
-   * Create a rational number from a given numerator and denominator.  Note a Whole number is
-   * returned if the numerator is multiple of the denominator.
-   *
-   * @param numerator numerator
-   * @param denominator denominator
-   * @param simplify whether to simplify the rational
-   * @return rational number
-   */
-  public static Rational valueOf(long numerator, long denominator, boolean simplify) {
-    if (denominator == 0) {
-      throw new OdinRuntimeException("A rational number MUST has a non-zero denominator");
-    }
-    if (denominator < 0) {
-      return valueOf(-numerator, -denominator, simplify);
-    }
-    if (numerator == 0 || denominator == 1) {
-      return new Whole(numerator);
-    }
-    if (simplify) {
-      return simplified(numerator, denominator);
-    }
-    return new Rational(numerator, denominator, false);
-  }
-
-  /**
-   * Create rational number from a string.
-   *
-   * @param value rational value as a string
-   * @return rational number
-   */
-  public static Rational valueOf(String value) {
-    if (value == null || value.length() == 0) {
-      return Wholes.ZERO;
-    }
-    int indexOfSeparator = value.indexOf('/');
-    try {
-      if (indexOfSeparator > -1) {
-        String firstPart = value.substring(0, indexOfSeparator).trim();
-        String secondPart = value.substring(indexOfSeparator + 1).trim();
-        return Rational.valueOf(Long.parseLong(firstPart),
-            Long.parseLong(secondPart));
-      }
-      return Whole.valueOf(Long.parseLong(value));
-    } catch (NumberFormatException e) {
-      throw new OdinRuntimeException("Cannot get value of " + value, e);
-    }
-  }
-
-  private static Rational simplified(long numerator, long denominator) {
-    // TODO : This is an expensive operation for large denominators, flow should be using double
-    // once converted to seconds
-    long newNumerator = numerator;
-    long newDenominator = denominator;
-    /*
-     * Reduce two negatives to positives.
-     */
-    if (newDenominator < 0) {
-      newNumerator = -newNumerator;
-      newDenominator = -newDenominator;
-    }
-
-    if (numerator % denominator == 0) {
-      return Whole.valueOf(numerator / denominator);
-    }
-
-    for (long i = 2; i <= newDenominator / i; i++) {
-      while (newDenominator % i == 0 && newNumerator % i == 0) {
-        newDenominator /= i;
-        newNumerator /= i;
-      }
-    }
-    if (newDenominator == 1) {
-      return Whole.valueOf(newNumerator);
-    }
-    return new Rational(newNumerator, newDenominator, true);
-  }
-
-  /**
    * Create rational number with fraction simplification.
    *
    * @param numerator numerator
@@ -229,7 +123,7 @@ public class Rational extends Real {
    * @return result of addition
    */
   public Rational plus(Rational rational) {
-    return Rational.valueOf(numerator * rational.denominator
+    return Rationals.valueOf(numerator * rational.denominator
             + rational.getNumerator() * getDenominator(),
         denominator * rational.denominator, simplified);
   }
@@ -253,7 +147,7 @@ public class Rational extends Real {
    * @return result of subtraction
    */
   public Rational minus(Rational rational) {
-    return Rational.valueOf(numerator * rational.getDenominator()
+    return Rationals.valueOf(numerator * rational.getDenominator()
             - rational.getNumerator() * getDenominator(),
         denominator * rational.denominator, simplified);
   }
@@ -271,7 +165,7 @@ public class Rational extends Real {
   }
 
   public Rational times(Rational rational) {
-    return Rational.valueOf(numerator * rational.getNumerator(),
+    return Rationals.valueOf(numerator * rational.getNumerator(),
         denominator * rational.getDenominator(), simplified);
   }
 
@@ -288,7 +182,7 @@ public class Rational extends Real {
   }
 
   public Rational divide(Rational rational) {
-    return Rational.valueOf(numerator * rational.getDenominator(),
+    return Rationals.valueOf(numerator * rational.getDenominator(),
         denominator * rational.getNumerator(), simplified);
   }
 
@@ -311,7 +205,7 @@ public class Rational extends Real {
    * @return result of modulo operation
    */
   public Rational modulo(Rational rational) {
-    return Rational.valueOf((numerator * rational.getDenominator())
+    return Rationals.valueOf((numerator * rational.getDenominator())
             % (rational.getNumerator() * denominator),
         rational.getDenominator() * denominator, simplified);
   }
@@ -350,19 +244,19 @@ public class Rational extends Real {
     long product1 = numerator * rational.getDenominator();
     long product2 = rational.getNumerator() * denominator;
     long product3 = denominator * rational.getDenominator();
-    return Rational.valueOf(product1 - (product1 % product2), product3, simplified);
+    return Rationals.valueOf(product1 - (product1 % product2), product3, simplified);
   }
 
   @Override
   public Rational absolute() {
     if (numerator < 0) {
       if (denominator < 0) {
-        return Rational.valueOf(-numerator, -denominator, simplified);
+        return Rationals.valueOf(-numerator, -denominator, simplified);
       } else {
-        return Rational.valueOf(-numerator, denominator, simplified);
+        return Rationals.valueOf(-numerator, denominator, simplified);
       }
     } else if (denominator < 0) {
-      return Rational.valueOf(numerator, -denominator, simplified);
+      return Rationals.valueOf(numerator, -denominator, simplified);
     } else {
       return this;
     }
@@ -370,7 +264,7 @@ public class Rational extends Real {
 
   @Override
   public Rational negative() {
-    return Rational.valueOf(-numerator, denominator, simplified);
+    return Rationals.valueOf(-numerator, denominator, simplified);
   }
 
   @Override
@@ -419,7 +313,7 @@ public class Rational extends Real {
      * Write out fraction part.
      */
     if (partNumerator != 0) {
-      Rational part = Rational.valueOf(partNumerator, absolute.getDenominator(), simplified);
+      Rational part = Rationals.valueOf(partNumerator, absolute.getDenominator(), simplified);
       Character special = fractionCharacters.get(part);
       if (special != null) {
         builder.append(special);
@@ -471,7 +365,7 @@ public class Rational extends Real {
     /*
      * Split the integer part into multiple integers less than or equal to the max integer.
      */
-    Whole maxWholePart = Whole.valueOf(maxIntegerPart);
+    Whole maxWholePart = Wholes.valueOf(maxIntegerPart);
     while (egyptianFractions.size() < MAX_EGYPTIAN_FRACTIONS && remainder.ge(maxWholePart)) {
       remainder = remainder.minus(maxWholePart);
       addEgyptianFractionPart(egyptianFractions, maxWholePart, isNegative);
@@ -496,7 +390,7 @@ public class Rational extends Real {
       count++;
       lastDenominator++;
       if (remainder.getDenominator() % lastDenominator == 0) {
-        Rational floor = remainder.floor(Rational.valueOf(1, lastDenominator, simplified));
+        Rational floor = remainder.floor(Rationals.valueOf(1, lastDenominator, simplified));
         remainder = remainder.minus(floor);
 
         /*
@@ -504,7 +398,7 @@ public class Rational extends Real {
          */
         count = count + (int) floor.getNumerator() - 1;
         for (int i = 1; i <= floor.getNumerator() && count <= MAX_EGYPTIAN_FRACTIONS; i++) {
-          Rational unitOfFloor = Rational.valueOf(1, floor.getDenominator(), simplified);
+          Rational unitOfFloor = Rationals.valueOf(1, floor.getDenominator(), simplified);
           addEgyptianFractionPart(egyptianFractions, unitOfFloor, isNegative);
         }
       }

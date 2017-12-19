@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Rationals;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
@@ -53,23 +52,23 @@ public class BeatClockTest {
         new MovableMicrosecondPositionProvider();
     BeatClock beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
     assertEquals(0, beatClock.getMicroseconds());
-    assertEquals(60_000_000, beatClock.getMicroseconds(Whole.valueOf(60)));
+    assertEquals(60_000_000, beatClock.getMicroseconds(Wholes.valueOf(60)));
     /*
      * Setting the beat clock to 60 seconds, which is equivalent to moving 60 seconds into the
      * sequence (without time changing), should lead to beat 60 being now ...
      */
     beatClock.setMicroseconds(60_000_000);
-    assertEquals(60_000_000, beatClock.getMicroseconds(Whole.valueOf(60)));
+    assertEquals(60_000_000, beatClock.getMicroseconds(Wholes.valueOf(60)));
     /*
      * Current beat is 60
      */
-    assertEquals(Whole.valueOf(60), beatClock.getPosition());
+    assertEquals(Wholes.valueOf(60), beatClock.getPosition());
 
 
     /*
      * Beat 60 seconds in the future will be ...
      */
-    assertEquals(Whole.valueOf(60), beatClock.getPosition(60_000_000));
+    assertEquals(Wholes.valueOf(60), beatClock.getPosition(60_000_000));
 
     /*
      * Current microsecond is ...
@@ -83,9 +82,9 @@ public class BeatClockTest {
     beatClock.setMicroseconds(0);
     microsecondPositionProvider.incrementMicroseconds(10_000_000);
     assertEquals(10_000_000, beatClock.getMicroseconds());
-    assertEquals(10_000_000, beatClock.getMicroseconds(Whole.valueOf(10)));
-    assertEquals(Whole.valueOf(10), beatClock.getPosition());
-    assertEquals(Whole.valueOf(10), beatClock.getPosition(10_000_000));
+    assertEquals(10_000_000, beatClock.getMicroseconds(Wholes.valueOf(10)));
+    assertEquals(Wholes.valueOf(10), beatClock.getPosition());
+    assertEquals(Wholes.valueOf(10), beatClock.getPosition(10_000_000));
 
     microsecondPositionProvider.setMicroseconds(0);
     /*
@@ -94,8 +93,8 @@ public class BeatClockTest {
     beatClock.setMicroseconds(60_000_000);
     microsecondPositionProvider.incrementMicroseconds(10_000_000);
     assertEquals(70_000_000, beatClock.getMicroseconds());
-    assertEquals(50_000_000, beatClock.getMicroseconds(Whole.valueOf(50)));
-    assertEquals(Whole.valueOf(70), beatClock.getPosition());
-    assertEquals(Whole.valueOf(20), beatClock.getPosition(20_000_000));
+    assertEquals(50_000_000, beatClock.getMicroseconds(Wholes.valueOf(50)));
+    assertEquals(Wholes.valueOf(70), beatClock.getPosition());
+    assertEquals(Wholes.valueOf(20), beatClock.getPosition(20_000_000));
   }
 }

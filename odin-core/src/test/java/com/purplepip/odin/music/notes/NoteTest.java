@@ -17,7 +17,7 @@ package com.purplepip.odin.music.notes;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
 public class NoteTest {
@@ -25,6 +25,6 @@ public class NoteTest {
   public void testCopyWithNewDuration() {
     Note note = new DefaultNote(1,2,3);
     assertEquals(new DefaultNote(1,2,4),
-        note.copyWithNewDuration(Whole.valueOf(4)));
+        note.copyWithNewDuration(Wholes.valueOf(4)));
   }
 }

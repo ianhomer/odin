@@ -102,7 +102,7 @@ public class EasyScoreCompositionBuilder {
     lastNoteDurationInVoice = null;
     builder = new StringBuilder(128);
     voice.stream().forEachOrdered(this::visit);
-    Whole expectedBeats = Whole.valueOf(currentMeasure.getTime().getNumerator());
+    Whole expectedBeats = Wholes.valueOf(currentMeasure.getTime().getNumerator());
 
     /*
      * If the measure has not enough notes then fill up with rests.

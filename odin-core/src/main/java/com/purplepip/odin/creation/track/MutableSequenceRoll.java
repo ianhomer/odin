@@ -323,7 +323,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
      * that time has passed.
      */
     long tockCountStart = microsecondToSequenceTickConverter
-        .convert(Whole.valueOf(beatClock.getMicroseconds())).floor();
+        .convert(Wholes.valueOf(beatClock.getMicroseconds())).floor();
     if (tockCountStart < 0) {
       /*
        * If sequence start is the future then set tock to 0 so that it is ready to
@@ -332,7 +332,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
       tockCountStart = 0;
     }
     LOG.debug("Tock count start is {} at {}", tockCountStart, beatClock);
-    setTock(lessThan(Whole.valueOf(tockCountStart)));
+    setTock(lessThan(Wholes.valueOf(tockCountStart)));
 
     tickDirty = false;
     LOG.debug("{} : ... afterTickChange : done", name);

@@ -23,7 +23,7 @@ import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.sequence.GenericSequence;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.sequence.Notation;
 import org.junit.Test;
 
@@ -48,7 +48,7 @@ public class ThingCopyTest {
      */
     assertEquals("value1", destination.getProperty("undeclared"));
     assertEquals("value2", destination.getProperty("undeclared.nested"));
-    assertEquals(Whole.valueOf(8), destination.getOffset());
+    assertEquals(Wholes.valueOf(8), destination.getOffset());
   }
 
   @Test
@@ -65,7 +65,7 @@ public class ThingCopyTest {
 
     assertEquals("A B C", destination.getNotation());
     assertEquals("A B C", destination.getProperty("notation"));
-    assertEquals(Whole.valueOf(8), destination.getOffset());
+    assertEquals(Wholes.valueOf(8), destination.getOffset());
   }
 
   @Test
@@ -78,7 +78,7 @@ public class ThingCopyTest {
 
     assertEquals(Ticks.HALF, destination.getTick());
     assertEquals("A B C", destination.getNotation());
-    assertEquals(Whole.valueOf(8), destination.getOffset());
+    assertEquals(Wholes.valueOf(8), destination.getOffset());
   }
 
   @Test

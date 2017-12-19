@@ -16,7 +16,7 @@
 package com.purplepip.odin.clock.measure;
 
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 
 /**
  * A simple static measure provider for the beats from the clock start
@@ -30,7 +30,7 @@ public class StaticBeatMeasureProvider implements MeasureProvider {
   }
 
   public StaticBeatMeasureProvider(int beatsPerMeasure) {
-    this.beatsPerMeasure = Whole.valueOf(beatsPerMeasure);
+    this.beatsPerMeasure = Wholes.valueOf(beatsPerMeasure);
   }
 
   @Override

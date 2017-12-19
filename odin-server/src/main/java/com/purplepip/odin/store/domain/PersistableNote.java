@@ -17,6 +17,7 @@ package com.purplepip.odin.store.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.music.notes.Note;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -67,6 +68,6 @@ public class PersistableNote implements Note {
   }
 
   private void initialise() {
-    duration = Rational.valueOf(numerator, denominator);
+    duration = Rationals.valueOf(numerator, denominator);
   }
 }

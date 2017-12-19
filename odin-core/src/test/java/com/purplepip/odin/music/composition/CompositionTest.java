@@ -17,7 +17,7 @@ package com.purplepip.odin.music.composition;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import org.junit.Test;
 
@@ -25,6 +25,6 @@ public class CompositionTest {
   @Test
   public void testLoopStart() {
     Composition composition = new NaturalScoreCompositionFactory().create("C#5/q, B4, A4, G#4");
-    assertEquals(Whole.valueOf(4), composition.getNumberOfBeats());
+    assertEquals(Wholes.valueOf(4), composition.getNumberOfBeats());
   }
 }

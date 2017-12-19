@@ -20,7 +20,7 @@ import com.purplepip.odin.clock.tick.direction.Direction;
 import com.purplepip.odin.common.OdinImplementationException;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
 
@@ -95,7 +95,7 @@ public class DefaultTickConverter extends AbstractTickConverter {
   protected Real getTimeWithMicrosecondBasedTimeUnits(Direction direction, Real time) {
     switch (direction.getSourceTick().getTimeUnit()) {
       case BEAT:
-        return Whole.valueOf(clock.getMicroseconds(
+        return Wholes.valueOf(clock.getMicroseconds(
             direction.getSourceTick().getFactor().times(time)))
                 .divide(direction.getTargetTick().getFactor());
       case MICROSECOND:

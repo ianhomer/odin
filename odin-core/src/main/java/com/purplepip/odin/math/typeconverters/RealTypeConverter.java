@@ -16,11 +16,12 @@
 package com.purplepip.odin.math.typeconverters;
 
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Reals;
 import jodd.typeconverter.TypeConverter;
 
 public class RealTypeConverter implements TypeConverter<Real> {
   @Override
   public Real convert(Object o) {
-    return Real.valueOf(o.toString());
+    return Reals.valueOf(o.toString());
   }
 }

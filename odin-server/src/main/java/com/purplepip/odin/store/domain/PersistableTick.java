@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TimeUnit;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -81,6 +82,6 @@ public class PersistableTick implements Tick {
   }
 
   private void initialise() {
-    factor = Rational.valueOf(numerator, denominator);
+    factor = Rationals.valueOf(numerator, denominator);
   }
 }

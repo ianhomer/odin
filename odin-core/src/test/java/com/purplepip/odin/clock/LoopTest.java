@@ -18,7 +18,6 @@ package com.purplepip.odin.clock;
 import static com.purplepip.odin.math.LessThan.lessThan;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
@@ -33,22 +32,22 @@ public class LoopTest {
 
   @Test
   public void testIncrement() throws Exception {
-    Loop loop = new Loop(Whole.valueOf(4), Wholes.ONE);
+    Loop loop = new Loop(Wholes.valueOf(4), Wholes.ONE);
     loop.increment();
     assertEquals(lessThan(Wholes.TWO), loop.getPosition());
     loop.increment();
     loop.increment();
     loop.increment();
     assertEquals(lessThan(Wholes.ONE), loop.getPosition());
-    assertEquals(Whole.valueOf(4), loop.getStart());
+    assertEquals(Wholes.valueOf(4), loop.getStart());
   }
 
   @Test
   public void testStart() {
-    assertEquals(Whole.valueOf(0), new Loop(Whole.valueOf(4), Whole.valueOf(0)).getStart());
-    assertEquals(Whole.valueOf(0), new Loop(Whole.valueOf(4), Whole.valueOf(1)).getStart());
-    assertEquals(Whole.valueOf(4), new Loop(Whole.valueOf(4), Whole.valueOf(5)).getStart());
-    assertEquals(Whole.valueOf(4), new Loop(Whole.valueOf(4), Whole.valueOf(4)).getStart());
+    assertEquals(Wholes.valueOf(0), new Loop(Wholes.valueOf(4), Wholes.valueOf(0)).getStart());
+    assertEquals(Wholes.valueOf(0), new Loop(Wholes.valueOf(4), Wholes.valueOf(1)).getStart());
+    assertEquals(Wholes.valueOf(4), new Loop(Wholes.valueOf(4), Wholes.valueOf(5)).getStart());
+    assertEquals(Wholes.valueOf(4), new Loop(Wholes.valueOf(4), Wholes.valueOf(4)).getStart());
   }
 
 }

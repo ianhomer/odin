@@ -16,7 +16,6 @@
 package com.purplepip.odin.clock.tick;
 
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import lombok.ToString;
 
@@ -33,7 +32,7 @@ public class DefaultTick implements Tick {
   }
 
   public DefaultTick(TimeUnit timeUnit, int numerator) {
-    this(timeUnit, Whole.valueOf(numerator));
+    this(timeUnit, Wholes.valueOf(numerator));
   }
 
   public DefaultTick(Tick tick) {

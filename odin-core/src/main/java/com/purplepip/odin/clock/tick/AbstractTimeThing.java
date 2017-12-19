@@ -17,7 +17,6 @@ package com.purplepip.odin.clock.tick;
 
 import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 import lombok.Data;
@@ -68,7 +67,7 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   }
 
   public AbstractTimeThing length(long length) {
-    setLength(Whole.valueOf(length));
+    setLength(Wholes.valueOf(length));
     return this;
   }
 
@@ -83,7 +82,7 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
   }
 
   public AbstractTimeThing offset(long offset) {
-    this.offset = Whole.valueOf(offset);
+    this.offset = Wholes.valueOf(offset);
     return this;
   }
 

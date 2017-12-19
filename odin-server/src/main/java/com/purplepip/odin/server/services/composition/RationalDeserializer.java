@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,6 @@ public class RationalDeserializer extends StdDeserializer<Rational> {
     ObjectCodec codec = parser.getCodec();
     JsonNode node = codec.readTree(parser);
     LOG.info("Deserializing : {}", node);
-    return Rational.valueOf(node.asText());
+    return Rationals.valueOf(node.asText());
   }
 }

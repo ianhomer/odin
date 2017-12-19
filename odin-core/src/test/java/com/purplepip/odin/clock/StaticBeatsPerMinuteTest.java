@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.math.Whole;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
 public class StaticBeatsPerMinuteTest {
@@ -28,7 +29,7 @@ public class StaticBeatsPerMinuteTest {
   public void testBeatsPerMinute() {
     BeatsPerMinute bpm = new StaticBeatsPerMinute(60);
     assertTrue(bpm.getMicroSecondsPerBeat() instanceof Whole);
-    assertEquals(Whole.valueOf(1000000), bpm.getMicroSecondsPerBeat());
+    assertEquals(Wholes.valueOf(1000000), bpm.getMicroSecondsPerBeat());
   }
 
   @Test
