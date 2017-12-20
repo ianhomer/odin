@@ -19,14 +19,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import com.purplepip.odin.math.Rationals;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import org.junit.Test;
 
 public class ScanForwardEventTest {
   @Test
   public void testGetValue() throws Exception {
-    assertNull(new ScanForwardEvent<>(new Whole(0)).getValue());
+    assertNull(new ScanForwardEvent<>(Wholes.ZERO).getValue());
   }
 
   @Test

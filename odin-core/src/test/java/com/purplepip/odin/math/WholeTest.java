@@ -60,12 +60,12 @@ public class WholeTest {
 
   @Test
   public void testEquals() {
-    assertEquals(Wholes.valueOf(1), new Whole(1));
+    assertEquals(Wholes.valueOf(1), Wholes.ONE);
   }
 
   @Test
   public void testToString() {
-    assertEquals("-1", new Whole(-1).toString());
+    assertEquals("-1", Wholes.MINUS_ONE.toString());
   }
 
   @Test

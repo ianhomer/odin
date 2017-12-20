@@ -79,7 +79,7 @@ public final class Rationals {
       return valueOf(-numerator, -denominator, simplify);
     }
     if (numerator == 0 || denominator == 1) {
-      return new Whole(numerator);
+      return Wholes.valueOf(numerator);
     }
     if (simplify) {
       return simplified(numerator, denominator);

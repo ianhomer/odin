@@ -26,7 +26,7 @@ public final class Wholes {
   static {
     WHOLES_CACHE = new Whole[1 + Wholes.HIGH_CACHE - Wholes.LOW_CACHE];
     for (int i = Wholes.LOW_CACHE; i <= Wholes.HIGH_CACHE ; i++) {
-      Wholes.WHOLES_CACHE[i - Wholes.LOW_CACHE] = new Whole(i);
+      Wholes.WHOLES_CACHE[i - Wholes.LOW_CACHE] = new ConcreteWhole(i);
     }
   }
 
@@ -55,6 +55,6 @@ public final class Wholes {
     if (integer >= LOW_CACHE && integer <= HIGH_CACHE) {
       return WHOLES_CACHE[(int) integer - LOW_CACHE];
     }
-    return new Whole(integer);
+    return new ConcreteWhole(integer);
   }
 }
