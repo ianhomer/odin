@@ -63,6 +63,7 @@ public class Loop {
    */
   public Loop(Rational loopLength, Bound position) {
     this.length = loopLength;
+    assert position != null : "Position must not be null in loop";
     this.position = position;
     isPositionReal = position instanceof Real;
     LOG.trace("Created loop ; position = {}, length = {}", position, loopLength);

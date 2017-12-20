@@ -30,7 +30,6 @@ import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.EventsListStringifier;
-import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
@@ -60,7 +59,7 @@ public class NotationFlowTest {
   public void testGetNextEvent() {
     Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/q, E5, G5, C5");
     flow.initialise();
-    Event<Note> event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Rationals.MINUS_ONE));
+    Event<Note> event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Wholes.MINUS_ONE));
     LOG.debug("Clock : {}", flow.getContext().getClock());
     assertEquals(Wholes.ZERO, event.getTime());
     assertEquals(83, event.getValue().getNumber());
@@ -71,7 +70,7 @@ public class NotationFlowTest {
     Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
     flow.initialise();
     List<Event> events = new ArrayList<>();
-    Real previousEventTime = Rationals.MINUS_ONE;
+    Real previousEventTime = Wholes.MINUS_ONE;
     for (int i = 0; i < 10 ;i++) {
       Event event = flow.getNextEvent(new MovableTock(Ticks.BEAT, previousEventTime));
       assertTrue("Event should be after previous one ; " + event.getTime()

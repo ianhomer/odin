@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.math;
 
-public class Whole extends Rational {
+public class Whole extends ConcreteRational {
   /*
    * Local property for numerator for direct access.
    */

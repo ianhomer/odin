@@ -23,10 +23,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public final class Rationals {
-  public static final Rational MINUS_ONE = Wholes.MINUS_ONE;
-  public static final Rational ZERO = Wholes.ZERO;
-  public static final Rational ONE = Wholes.ONE;
-  public static final Rational TWO = Wholes.TWO;
   public static final Rational HALF = valueOf(1, 2);
   public static final Rational THIRD = valueOf(1, 3);
   public static final Rational TWO_THIRDS = valueOf(2, 3);
@@ -88,7 +84,7 @@ public final class Rationals {
     if (simplify) {
       return simplified(numerator, denominator);
     }
-    return new Rational(numerator, denominator, false);
+    return new ConcreteRational(numerator, denominator, false);
   }
 
   /**
@@ -141,6 +137,6 @@ public final class Rationals {
     if (newDenominator == 1) {
       return Wholes.valueOf(newNumerator);
     }
-    return new Rational(newNumerator, newDenominator, true);
+    return new ConcreteRational(newNumerator, newDenominator, true);
   }
 }

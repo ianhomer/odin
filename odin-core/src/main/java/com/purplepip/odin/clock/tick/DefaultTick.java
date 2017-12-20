@@ -17,12 +17,10 @@ package com.purplepip.odin.clock.tick;
 
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Wholes;
-import lombok.ToString;
 
 /**
  * Default tick implementation.
  */
-@ToString
 public class DefaultTick implements Tick {
   private TimeUnit timeUnit;
   private Rational factor;
