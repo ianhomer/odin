@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.math;
 
-public class ConcreteWhole extends ConcreteRational {
+public class ConcreteWhole extends ConcreteRational implements Whole {
   /*
    * Local property for numerator for direct access.
    */
   private final long numerator;
 
-  public Whole(long numerator) {
+  public ConcreteWhole(long numerator) {
     super(numerator, 1, true);
     this.numerator = numerator;
   }
@@ -38,8 +38,9 @@ public class ConcreteWhole extends ConcreteRational {
     return super.plus(real);
   }
 
+  @Override
   public Whole plus(Whole whole) {
-    return Wholes.valueOf(numerator + whole.numerator);
+    return Wholes.valueOf(numerator + whole.getNumerator());
   }
 
   /**
@@ -54,8 +55,9 @@ public class ConcreteWhole extends ConcreteRational {
     return super.minus(real);
   }
 
+  @Override
   public Whole minus(Whole whole) {
-    return Wholes.valueOf(numerator - whole.numerator);
+    return Wholes.valueOf(numerator - whole.getNumerator());
   }
 
   /**
@@ -70,8 +72,9 @@ public class ConcreteWhole extends ConcreteRational {
     return super.times(real);
   }
 
+  @Override
   public Whole times(Whole whole) {
-    return Wholes.valueOf(numerator * whole.numerator);
+    return Wholes.valueOf(numerator * whole.getNumerator());
   }
 
   /**
@@ -86,8 +89,9 @@ public class ConcreteWhole extends ConcreteRational {
     return super.divide(real);
   }
 
+  @Override
   public Rational divide(Whole whole) {
-    return Rationals.valueOf(numerator, whole.numerator);
+    return Rationals.valueOf(numerator, whole.getNumerator());
   }
 
   /**
@@ -102,8 +106,9 @@ public class ConcreteWhole extends ConcreteRational {
     return super.modulo(real);
   }
 
+  @Override
   public Whole modulo(Whole whole) {
-    return Wholes.valueOf(numerator % whole.numerator);
+    return Wholes.valueOf(numerator % whole.getNumerator());
   }
 
   @Override
@@ -133,8 +138,9 @@ public class ConcreteWhole extends ConcreteRational {
     return super.floor(radix);
   }
 
+  @Override
   public Whole floor(Whole radix) {
-    return Wholes.valueOf(numerator - (numerator % radix.numerator));
+    return Wholes.valueOf(numerator - (numerator % radix.getNumerator()));
   }
 
   @Override
@@ -151,7 +157,7 @@ public class ConcreteWhole extends ConcreteRational {
   }
 
   @Override
-  public Rational negative() {
+  public Whole negative() {
     return Wholes.valueOf(-numerator);
   }
 
@@ -176,7 +182,7 @@ public class ConcreteWhole extends ConcreteRational {
 
     Whole whole = (Whole) o;
 
-    return numerator == whole.numerator;
+    return numerator == whole.getNumerator();
   }
 
   @Override
@@ -212,6 +218,6 @@ public class ConcreteWhole extends ConcreteRational {
   }
 
   public boolean lt(Whole whole) {
-    return numerator < whole.numerator;
+    return numerator < whole.getNumerator();
   }
 }
