@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Rational extends ConcreteReal {
+class ConcreteRational extends ConcreteReal implements Rational {
   private static final int MAX_EGYPTIAN_FRACTIONS = 20;
 
   private final long numerator;
@@ -37,21 +37,21 @@ public class Rational extends ConcreteReal {
   private boolean valueCalculated;
 
   static {
-    fractionCharacters.put(new Rational(1,2), '½');
-    fractionCharacters.put(new Rational(1,4), '¼');
-    fractionCharacters.put(new Rational(3,4), '¾');
-    fractionCharacters.put(new Rational(1,3), '⅓');
-    fractionCharacters.put(new Rational(2,3), '⅔');
-    fractionCharacters.put(new Rational(1,5), '⅕');
-    fractionCharacters.put(new Rational(2,5), '⅖');
-    fractionCharacters.put(new Rational(3,5), '⅗');
-    fractionCharacters.put(new Rational(4,5), '⅘');
-    fractionCharacters.put(new Rational(1,6), '⅙');
-    fractionCharacters.put(new Rational(5,6), '⅚');
-    fractionCharacters.put(new Rational(1,8), '⅛');
-    fractionCharacters.put(new Rational(3,8), '⅜');
-    fractionCharacters.put(new Rational(5,8), '⅝');
-    fractionCharacters.put(new Rational(7,8), '⅞');
+    fractionCharacters.put(Rationals.valueOf(1,2), '½');
+    fractionCharacters.put(Rationals.valueOf(1,4), '¼');
+    fractionCharacters.put(Rationals.valueOf(3,4), '¾');
+    fractionCharacters.put(Rationals.valueOf(1,3), '⅓');
+    fractionCharacters.put(Rationals.valueOf(2,3), '⅔');
+    fractionCharacters.put(Rationals.valueOf(1,5), '⅕');
+    fractionCharacters.put(Rationals.valueOf(2,5), '⅖');
+    fractionCharacters.put(Rationals.valueOf(3,5), '⅗');
+    fractionCharacters.put(Rationals.valueOf(4,5), '⅘');
+    fractionCharacters.put(Rationals.valueOf(1,6), '⅙');
+    fractionCharacters.put(Rationals.valueOf(5,6), '⅚');
+    fractionCharacters.put(Rationals.valueOf(1,8), '⅛');
+    fractionCharacters.put(Rationals.valueOf(3,8), '⅜');
+    fractionCharacters.put(Rationals.valueOf(5,8), '⅝');
+    fractionCharacters.put(Rationals.valueOf(7,8), '⅞');
   }
 
   /**
@@ -60,7 +60,7 @@ public class Rational extends ConcreteReal {
    * @param numerator numerator
    * @param denominator denominator
    */
-  private Rational(long numerator, long denominator) {
+  private ConcreteRational(long numerator, long denominator) {
     this(numerator, denominator, false);
   }
 
@@ -71,16 +71,18 @@ public class Rational extends ConcreteReal {
    * @param denominator denominator
    * @param simplified whether rational was simplified
    */
-  protected Rational(long numerator, long denominator, boolean simplified) {
+  protected ConcreteRational(long numerator, long denominator, boolean simplified) {
     this.numerator = numerator;
     this.denominator = denominator;
     this.simplified = simplified;
   }
 
+  @Override
   public long getNumerator() {
     return numerator;
   }
 
+  @Override
   public long getDenominator() {
     return denominator;
   }
@@ -122,10 +124,11 @@ public class Rational extends ConcreteReal {
    * @param rational rational number to add
    * @return result of addition
    */
+  @Override
   public Rational plus(Rational rational) {
-    return Rationals.valueOf(numerator * rational.denominator
+    return Rationals.valueOf(numerator * rational.getDenominator()
             + rational.getNumerator() * getDenominator(),
-        denominator * rational.denominator, simplified);
+        denominator * rational.getDenominator(), simplified);
   }
 
   /**
@@ -146,10 +149,11 @@ public class Rational extends ConcreteReal {
    * @param rational rational number
    * @return result of subtraction
    */
+  @Override
   public Rational minus(Rational rational) {
     return Rationals.valueOf(numerator * rational.getDenominator()
             - rational.getNumerator() * getDenominator(),
-        denominator * rational.denominator, simplified);
+        denominator * rational.getDenominator(), simplified);
   }
 
   /**
@@ -164,6 +168,7 @@ public class Rational extends ConcreteReal {
     return super.times(real);
   }
 
+  @Override
   public Rational times(Rational rational) {
     return Rationals.valueOf(numerator * rational.getNumerator(),
         denominator * rational.getDenominator(), simplified);
@@ -181,6 +186,7 @@ public class Rational extends ConcreteReal {
     return super.divide(real);
   }
 
+  @Override
   public Rational divide(Rational rational) {
     return Rationals.valueOf(numerator * rational.getDenominator(),
         denominator * rational.getNumerator(), simplified);
@@ -204,6 +210,7 @@ public class Rational extends ConcreteReal {
    * @param rational radix
    * @return result of modulo operation
    */
+  @Override
   public Rational modulo(Rational rational) {
     return Rationals.valueOf((numerator * rational.getDenominator())
             % (rational.getNumerator() * denominator),
@@ -342,6 +349,7 @@ public class Rational extends ConcreteReal {
    * @return egyptian fractions
    */
   @JsonIgnore
+  @Override
   public Stream<Rational> getEgyptianFractions() {
     return getEgyptianFractions(1);
   }
@@ -352,6 +360,7 @@ public class Rational extends ConcreteReal {
    * @param maxIntegerPart Max integer part
    * @return egyptian fractions
    */
+  @Override
   public Stream<Rational> getEgyptianFractions(int maxIntegerPart) {
     List<Rational> egyptianFractions = new ArrayList<>();
     Rational remainder = this;
@@ -427,7 +436,7 @@ public class Rational extends ConcreteReal {
 
     Rational rational = (Rational) o;
 
-    return numerator == rational.numerator && denominator == rational.denominator;
+    return numerator == rational.getNumerator() && denominator == rational.getDenominator();
   }
 
   @Override
