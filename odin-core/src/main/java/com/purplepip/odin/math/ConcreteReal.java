@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * rhythm to retain precision such as triplets through tick conversions.
  */
 @Slf4j
-class ConcreteReal implements Real {
+class ConcreteReal extends AbstractReal {
   private static final double DOUBLE_PRECISION = 0.00000000000000000000001;
   private double value;
 
@@ -46,65 +46,8 @@ class ConcreteReal implements Real {
     return value;
   }
 
-  /**
-   * Add real number.
-   *
-   * @param real real number to add
-   * @return result of addition
-   */
   @Override
-  public Real plus(Real real) {
-    return Reals.valueOf(getValue() + real.getValue());
-  }
-
-  /**
-   * Minus a real number.
-   *
-   * @param real real number to minus
-   * @return result of subtraction
-   */
-  @Override
-  public Real minus(Real real) {
-    return Reals.valueOf(getValue() - real.getValue());
-  }
-
-  /**
-   * Multiply a real number.
-   *
-   * @param real real number to multiply
-   * @return result of multiplication
-   */
-  @Override
-  public Real times(Real real) {
-    return Reals.valueOf(getValue() * real.getValue());
-  }
-
-  /**
-   * Divide a real number.
-   *
-   * @param real real number to divide
-   * @return result of division
-   */
-  @Override
-  public Real divide(Real real) {
-    return Reals.valueOf(getValue() / real.getValue());
-  }
-
-  /**
-   * Calculate modulo.
-   *
-   * @param real real number
-   * @return modulo result
-   */
-  @Override
-  public Real modulo(Real real) {
-    return Reals.valueOf(getValue() % real.getValue());
-  }
-
-
-
-  @Override
-  public ConcreteReal getLimit() {
+  public Real getLimit() {
     return this;
   }
 
@@ -123,19 +66,6 @@ class ConcreteReal implements Real {
     }
   }
 
-
-  /**
-   * Calculate the smallest whole number greater than this real number.  Note that this function is
-   * NOT the standard "ceil" function since this function will return the next whole number for
-   * a whole number.
-   *
-   * @return next ceiling.
-   */
-  @Override
-  public long nextFloor() {
-    return floor() + 1;
-  }
-
   /**
    * Calculate the largest integer (closest to positive infinity) less than or equal to this
    * real number.
@@ -151,24 +81,6 @@ class ConcreteReal implements Real {
   }
 
   /**
-   * Calculate the nearest multiple of base less than this real number.
-   *
-   * @param radix radix
-   * @return floored value
-   */
-  @Override
-  public Real floor(Real radix) {
-    double flooredValue = getValue() - (getValue() % radix.getValue());
-    if (radix instanceof Whole) {
-      /*
-       * Flooring with whole radix will always give a whole number, so lets be explicit about it.
-       */
-      return Wholes.valueOf((long) flooredValue);
-    }
-    return Reals.valueOf(flooredValue);
-  }
-
-  /**
    * Calculate the nearest multiple of base less than this rational number.
    *
    * @param radix radix
@@ -177,39 +89,6 @@ class ConcreteReal implements Real {
   public Rational floor(Rational radix) {
     long multiples = (long) (value / radix.getValue());
     return radix.times(Wholes.valueOf(multiples));
-  }
-
-  /**
-   * Calculate the largest whole number less than or equal to this real number.
-   *
-   * @return floored value
-   */
-  @Override
-  public Whole wholeFloor() {
-    return Wholes.valueOf(floor());
-  }
-
-  /**
-   * Calculate the largest whole number greater than or equal to this real number.
-   *
-   * @return floored value
-   */
-  @Override
-  public Whole wholeCeiling() {
-    return Wholes.valueOf(ceiling());
-  }
-
-
-  /**
-   * Calculate the smallest whole number greater than this real number.  Note that this function is
-   * NOT the standard "ceil" function since this function will return the next whole number for
-   * a whole number.
-   *
-   * @return next ceiling.
-   */
-  @Override
-  public Whole nextWholeFloor() {
-    return Wholes.valueOf(nextFloor());
   }
 
   /**
@@ -262,26 +141,6 @@ class ConcreteReal implements Real {
      * Very cheap flooring of non-rationals which is good enough for purpose.
      */
     return Wholes.valueOf(this.floor());
-  }
-
-  @Override
-  public boolean ge(Real real) {
-    return getValue() >= real.getValue();
-  }
-
-  @Override
-  public boolean gt(Real real) {
-    return getValue() > real.getValue();
-  }
-
-  @Override
-  public boolean lt(Real real) {
-    return getValue() < real.getValue();
-  }
-
-  @Override
-  public boolean le(Real real) {
-    return getValue() <= real.getValue();
   }
 
   @Override

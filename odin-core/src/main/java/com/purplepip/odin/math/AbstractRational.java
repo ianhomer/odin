@@ -15,30 +15,5 @@
 
 package com.purplepip.odin.math;
 
-import java.util.stream.Stream;
-
-public interface Rational extends Real {
-  Rational times(Rational rational);
-
-  long getNumerator();
-
-  long getDenominator();
-
-  Rational plus(Rational rational);
-
-  Rational minus(Rational rational);
-
-  Rational divide(Rational rational);
-
-  Rational modulo(Rational rational);
-
-  Rational negative();
-
-  Rational absolute();
-
-  Stream<Rational> getEgyptianFractions();
-
-  Stream<Rational> getEgyptianFractions(int maxIntegerPart);
-
-  Rational getLimit();
+abstract class AbstractRational extends AbstractReal implements Rational {
 }

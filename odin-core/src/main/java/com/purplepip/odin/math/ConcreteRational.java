@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class ConcreteRational extends ConcreteReal implements Rational {
+class ConcreteRational extends AbstractRational {
   private static final int MAX_EGYPTIAN_FRACTIONS = 20;
 
   private final long numerator;
@@ -131,6 +131,11 @@ class ConcreteRational extends ConcreteReal implements Rational {
         denominator * rational.getDenominator(), simplified);
   }
 
+  @Override
+  public boolean isPositive() {
+    return numerator > 0 == denominator > 0;
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -217,7 +222,6 @@ class ConcreteRational extends ConcreteReal implements Rational {
         rational.getDenominator() * denominator, simplified);
   }
 
-
   /**
    * {@inheritDoc}
    */
@@ -225,8 +229,6 @@ class ConcreteRational extends ConcreteReal implements Rational {
   public long floor() {
     return numerator / denominator;
   }
-
-
 
   /**
    * {@inheritDoc}
@@ -240,6 +242,7 @@ class ConcreteRational extends ConcreteReal implements Rational {
     return super.floor(radix);
   }
 
+
   /**
    * Calculate floor from a value we know is rational.
    *
@@ -252,6 +255,30 @@ class ConcreteRational extends ConcreteReal implements Rational {
     long product2 = rational.getNumerator() * denominator;
     long product3 = denominator * rational.getDenominator();
     return Rationals.valueOf(product1 - (product1 % product2), product3, simplified);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public long ceiling() {
+    if (isNegative()) {
+      return numerator / denominator;
+    } else if (numerator % denominator == 0) {
+      return numerator / denominator;
+    } else {
+      return 1 + (numerator / denominator);
+    }
+  }
+
+  @Override
+  public Rational toRational() {
+    return this;
+  }
+
+  @Override
+  public Rational getLimit() {
+    return this;
   }
 
   @Override
@@ -278,7 +305,6 @@ class ConcreteRational extends ConcreteReal implements Rational {
   public boolean isNegative() {
     return (numerator < 0) ^ (denominator < 0);
   }
-
 
   @Override
   public String toString() {
