@@ -18,7 +18,7 @@ package com.purplepip.odin.math;
 public class MutableWhole extends AbstractWhole {
   private long value;
 
-  public MutableWhole(long value) {
+  MutableWhole(long value) {
     this.value = value;
   }
 

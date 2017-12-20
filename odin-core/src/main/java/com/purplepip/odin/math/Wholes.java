@@ -57,4 +57,8 @@ public final class Wholes {
     }
     return new ConcreteWhole(integer);
   }
+
+  public static Whole mutableOf(long integer) {
+    return new MutableWhole(integer);
+  }
 }

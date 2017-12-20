@@ -1,5 +1,6 @@
 package com.purplepip.odin.math;
 
+import static com.purplepip.odin.math.Wholes.mutableOf;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -22,20 +23,20 @@ public class MutableWholeTest {
   @Test
   public void plus() throws Exception {
     assertEquals(Rationals.valueOf(5,2),
-        new MutableWhole(2).plus(Rationals.HALF));
+        Wholes.mutableOf(2).plus(Rationals.HALF));
     assertEquals(Wholes.THREE.getNumerator(),
-        new MutableWhole(2).plus(Wholes.ONE).getNumerator());
+        Wholes.mutableOf(2).plus(Wholes.ONE).getNumerator());
     assertEquals(Reals.valueOf(5.3),
-        new MutableWhole(1).plus(Reals.valueOf(4.3)));
+        Wholes.mutableOf(1).plus(Reals.valueOf(4.3)));
   }
 
   @Test
   public void minus() throws Exception {
     assertEquals(Rationals.valueOf(3,2),
-        new MutableWhole(2).minus(Rationals.HALF));
+        Wholes.mutableOf(2).minus(Rationals.HALF));
     assertEquals(Wholes.ONE.getNumerator(),
-        new MutableWhole(2).minus(Wholes.ONE).getNumerator());
+        Wholes.mutableOf(2).minus(Wholes.ONE).getNumerator());
     assertEquals(Reals.valueOf(4.7),
-        new MutableWhole(9).minus(Reals.valueOf(4.3)));
+        Wholes.mutableOf(9).minus(Reals.valueOf(4.3)));
   }
 }
