@@ -94,6 +94,26 @@ class ConcreteRational extends AbstractRational {
         numerator + getDenominator() * whole.getNumerator(), getDenominator());
   }
 
+  @Override
+  public Real minus(Real real) {
+    return real.negative().plus(this);
+  }
+
+  @Override
+  public Rational minus(Rational rational) {
+    return Rationals.valueOf(getNumerator() * rational.getDenominator()
+            - rational.getNumerator() * getDenominator(),
+        getDenominator() * rational.getDenominator(), isSimplified());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Rational minus(Whole whole) {
+    return Rationals.valueOf(
+        numerator - getDenominator() * whole.getNumerator(), getDenominator());
+  }
 
   @Override
   public long getNumerator() {

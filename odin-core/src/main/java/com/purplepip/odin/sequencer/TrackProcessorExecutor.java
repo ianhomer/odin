@@ -107,7 +107,6 @@ public class TrackProcessorExecutor implements Runnable {
     Event<Note> nextEvent = track.peek();
 
     if (nextEvent == null) {
-      LOG.trace("No event on roll");
       metrics.meter("sequence.noEvent").mark();
       return noteCount;
     }
@@ -176,8 +175,6 @@ public class TrackProcessorExecutor implements Runnable {
     Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
         note.getNumber());
     try {
-      LOG.trace("Sending note {} to channel {} at time {}",
-          note, sequenceTrack.getChannel(), nextEvent.getTime());
       operationProcessor.send(noteOn, nextEvent.getTime().floor());
       operationProcessor.send(noteOff, nextEvent.getTime().plus(note.getDuration()).floor());
       metrics.meter("sequence.sent").mark();

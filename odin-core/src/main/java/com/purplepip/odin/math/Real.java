@@ -18,8 +18,6 @@ package com.purplepip.odin.math;
 public interface Real extends Bound {
   double getValue();
 
-  Real minus(Real real);
-
   Real times(Real real);
 
   Real divide(Real real);
@@ -47,6 +45,12 @@ public interface Real extends Bound {
   Real plus(Rational rational);
 
   Real plus(Whole whole);
+
+  Real minus(Real real);
+
+  Real minus(Rational rational);
+
+  Real minus(Whole whole);
 
   Whole wholeCeiling();
 

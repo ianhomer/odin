@@ -58,6 +58,24 @@ class ConcreteReal extends AbstractReal {
     return Reals.valueOf(getValue() + whole.getNumerator());
   }
 
+  @Override
+  public Real minus(Real real) {
+    return Reals.valueOf(getValue() - real.getValue());
+  }
+
+  @Override
+  public Real minus(Rational rational) {
+    return Reals.valueOf(getValue() - rational.getValue());
+  }
+
+  @Override
+  public Real minus(Whole whole) {
+    return Reals.valueOf(getValue() - whole.getNumerator());
+  }
+
+
+
+
   /**
    * Get value as double.
    *

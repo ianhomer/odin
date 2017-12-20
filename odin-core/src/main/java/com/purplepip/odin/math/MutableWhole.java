@@ -15,36 +15,27 @@
 
 package com.purplepip.odin.math;
 
-import java.util.stream.Stream;
+public class MutableWhole extends AbstractWhole {
+  private long value;
 
-public interface Rational extends Real {
-  Rational times(Rational rational);
+  public MutableWhole(long value) {
+    this.value = value;
+  }
 
-  long getNumerator();
+  @Override
+  public long getNumerator() {
+    return value;
+  }
 
-  long getDenominator();
+  @Override
+  public Whole plus(Whole whole) {
+    value += whole.getNumerator();
+    return this;
+  }
 
-  Rational plus(Rational rational);
-
-  Rational plus(Whole whole);
-
-  Rational minus(Rational rational);
-
-  Rational minus(Whole whole);
-
-  Rational divide(Rational rational);
-
-  Rational modulo(Rational rational);
-
-  Rational negative();
-
-  Rational absolute();
-
-  Stream<Rational> getEgyptianFractions();
-
-  Stream<Rational> getEgyptianFractions(int maxIntegerPart);
-
-  Rational getLimit();
-
-  boolean isSimplified();
+  @Override
+  public Whole minus(Whole whole) {
+    value -= whole.getNumerator();
+    return this;
+  }
 }

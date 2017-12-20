@@ -211,7 +211,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
       }
       return absolutePosition;
     }
-    return getParent().getPosition(this.getName(), microseconds);
+    return getParent().getPosition(getName(), microseconds);
   }
 
   @Override
