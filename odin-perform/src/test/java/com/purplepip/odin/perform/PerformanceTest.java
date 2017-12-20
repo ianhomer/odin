@@ -70,7 +70,7 @@ public class PerformanceTest {
     // Local mac development
     environmentFactors.put("Mac OS X x86_64 x8", 1);
     // Travis build node
-    environmentFactors.put("Linux amd64 x2", 1);
+    environmentFactors.put("Linux amd64 x2", 2);
   }
 
   private static int getEnvironmentalFactor() {
