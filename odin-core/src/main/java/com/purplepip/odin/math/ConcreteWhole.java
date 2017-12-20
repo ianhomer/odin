@@ -15,15 +15,29 @@
 
 package com.purplepip.odin.math;
 
-public class ConcreteWhole extends ConcreteRational implements Whole {
+public class ConcreteWhole extends AbstractRational implements Whole {
   /*
    * Local property for numerator for direct access.
    */
   private final long numerator;
 
   public ConcreteWhole(long numerator) {
-    super(numerator, 1, true);
     this.numerator = numerator;
+  }
+
+  @Override
+  public long getNumerator() {
+    return numerator;
+  }
+
+  @Override
+  public long getDenominator() {
+    return 1;
+  }
+
+  @Override
+  public boolean isSimplified() {
+    return true;
   }
 
   /**
@@ -219,5 +233,20 @@ public class ConcreteWhole extends ConcreteRational implements Whole {
 
   public boolean lt(Whole whole) {
     return numerator < whole.getNumerator();
+  }
+
+  @Override
+  public Whole toRational() {
+    return this;
+  }
+
+  @Override
+  public Whole getLimit() {
+    return this;
+  }
+
+  @Override
+  public boolean isPositive() {
+    return numerator > 0;
   }
 }

@@ -41,4 +41,6 @@ public interface Rational extends Real {
   Stream<Rational> getEgyptianFractions(int maxIntegerPart);
 
   Rational getLimit();
+
+  boolean isSimplified();
 }
