@@ -45,13 +45,20 @@ public class ConcreteWhole extends AbstractRational implements Whole {
    */
   @Override
   public Real plus(Real real) {
-    if (real instanceof Whole) {
-      Whole whole = (Whole) real;
-      return plus(whole);
-    }
-    return super.plus(real);
+    return real.plus(this);
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Rational plus(Rational rational) {
+    return rational.plus(this);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Whole plus(Whole whole) {
     return Wholes.valueOf(numerator + whole.getNumerator());

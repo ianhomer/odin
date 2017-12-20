@@ -17,17 +17,6 @@ package com.purplepip.odin.math;
 
 abstract class AbstractReal implements Real {
   /**
-   * Add real number.
-   *
-   * @param real real number to add
-   * @return result of addition
-   */
-  @Override
-  public Real plus(Real real) {
-    return Reals.valueOf(getValue() + real.getValue());
-  }
-
-  /**
    * Minus a real number.
    *
    * @param real real number to minus

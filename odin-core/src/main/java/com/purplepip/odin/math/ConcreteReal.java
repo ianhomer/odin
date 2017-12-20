@@ -38,6 +38,27 @@ class ConcreteReal extends AbstractReal {
   }
 
   /**
+   * Add real number.
+   *
+   * @param real real number to add
+   * @return result of addition
+   */
+  @Override
+  public Real plus(Real real) {
+    return Reals.valueOf(getValue() + real.getValue());
+  }
+
+  @Override
+  public Real plus(Rational rational) {
+    return Reals.valueOf(getValue() + rational.getValue());
+  }
+
+  @Override
+  public Real plus(Whole whole) {
+    return Reals.valueOf(getValue() + whole.getNumerator());
+  }
+
+  /**
    * Get value as double.
    *
    * @return value as double

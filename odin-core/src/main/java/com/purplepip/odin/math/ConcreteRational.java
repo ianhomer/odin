@@ -70,6 +70,31 @@ class ConcreteRational extends AbstractRational {
     this.simplified = simplified;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Real plus(Real real) {
+    return real.plus(this);
+  }
+
+  @Override
+  public Rational plus(Rational rational) {
+    return Rationals.valueOf(getNumerator() * rational.getDenominator()
+            + rational.getNumerator() * getDenominator(),
+        getDenominator() * rational.getDenominator(), isSimplified());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Rational plus(Whole whole) {
+    return Rationals.valueOf(
+        numerator + getDenominator() * whole.getNumerator(), getDenominator());
+  }
+
+
   @Override
   public long getNumerator() {
     return numerator;

@@ -28,31 +28,6 @@ abstract class AbstractRational extends AbstractReal implements Rational {
    * {@inheritDoc}
    */
   @Override
-  public Real plus(Real real) {
-    if (real instanceof Rational) {
-      Rational rational = (Rational) real;
-      return plus(rational);
-    }
-    return super.plus(real);
-  }
-
-  /**
-   * Add rational number to this rational number.
-   *
-   * @param rational rational number to add
-   * @return result of addition
-   */
-  @Override
-  public Rational plus(Rational rational) {
-    return Rationals.valueOf(getNumerator() * rational.getDenominator()
-            + rational.getNumerator() * getDenominator(),
-        getDenominator() * rational.getDenominator(), isSimplified());
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public Real minus(Real real) {
     if (real instanceof Rational) {
       Rational rational = (Rational) real;

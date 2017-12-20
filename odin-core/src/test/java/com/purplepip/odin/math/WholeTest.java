@@ -32,6 +32,8 @@ public class WholeTest {
   @Test
   public void testPlus() {
     assertEquals(Rationals.valueOf(5,2), Wholes.TWO.plus(Rationals.HALF));
+    assertEquals(Wholes.THREE, Wholes.TWO.plus(Wholes.ONE));
+    assertEquals(Reals.valueOf(5.3), Wholes.ONE.plus(Reals.valueOf(4.3)));
   }
 
   @Test

@@ -28,7 +28,6 @@ public interface Real extends Bound {
 
   Real floor(Real radix);
 
-
   Whole wholeFloor();
 
   Rational toRational();
@@ -38,6 +37,16 @@ public interface Real extends Bound {
   Real modulo(Real real);
 
   Real plus(Real real);
+
+  /**
+   * Add rational number to this rational number.
+   *
+   * @param rational rational number to add
+   * @return result of addition
+   */
+  Real plus(Rational rational);
+
+  Real plus(Whole whole);
 
   Whole wholeCeiling();
 

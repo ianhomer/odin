@@ -26,6 +26,8 @@ public interface Rational extends Real {
 
   Rational plus(Rational rational);
 
+  Rational plus(Whole whole);
+
   Rational minus(Rational rational);
 
   Rational divide(Rational rational);
