@@ -49,7 +49,6 @@ public class DefaultEvent<A> implements Event<A> {
     if (value == null) {
       throw new OdinRuntimeException("Cannot create an event with a null value");
     }
-    LOG.trace("Creating new event : {} at time {}", value, time);
     this.value = value;
     this.time = time;
   }

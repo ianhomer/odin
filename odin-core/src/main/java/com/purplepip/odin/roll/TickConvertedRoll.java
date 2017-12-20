@@ -121,8 +121,6 @@ public class TickConvertedRoll implements Roll<Note> {
     }
     Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
         tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
-    long time = tickConverter.convert(event.getTime()).floor();
-    LOG.trace("Converted event {} to note {} to time {}", event, note, time);
-    return new DefaultEvent<>(note, time);
+    return new DefaultEvent<>(note, tickConverter.convert(event.getTime()).floor());
   }
 }
