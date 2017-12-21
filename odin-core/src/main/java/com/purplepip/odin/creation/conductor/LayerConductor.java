@@ -47,6 +47,8 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   private BeatClock clock;
   private TickConverter tickConverter;
   private Conductor parent;
+  private String name;
+
   /*
    * Note that ordering of children is important since dictates the ordering of children in
    * a loop.
@@ -68,7 +70,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   @Override
   @NotNull
   public String getName() {
-    return layer.getName();
+    return name;
   }
 
   @Override
@@ -89,6 +91,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   @Override
   public void setConfiguration(Layer layer) {
     this.layer = layer;
+    this.name = layer.getName();
     tickConverter = new DefaultTickConverter(clock,
         () -> Ticks.MICROSECOND, layer::getTick, layer::getOffset);
   }
@@ -204,7 +207,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
       }
       return absolutePosition;
     }
-    return getParent().getPosition(getName(), microseconds);
+    return getParent().getPosition(name, microseconds);
   }
 
   @Override
