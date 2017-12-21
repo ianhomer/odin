@@ -24,4 +24,8 @@ public interface Direction {
   Tick getTargetTick();
 
   Real scaleTime(Real time);
+
+  Real timesSourceFactor(Real time);
+
+  Real divideTargetFactor(Real time);
 }

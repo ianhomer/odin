@@ -16,6 +16,7 @@
 package com.purplepip.odin.clock.tick.direction;
 
 import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.math.Real;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,5 +35,13 @@ public  abstract class AbstractDirection implements Direction {
 
   public Tick getTargetTick() {
     return targetTick;
+  }
+
+  public Real timesSourceFactor(Real time) {
+    return time.times(getSourceTick().getFactor());
+  }
+
+  public Real divideTargetFactor(Real time) {
+    return time.divide(getTargetTick().getFactor());
   }
 }
