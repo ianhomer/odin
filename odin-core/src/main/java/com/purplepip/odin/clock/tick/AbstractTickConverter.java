@@ -15,12 +15,16 @@
 
 package com.purplepip.odin.clock.tick;
 
+import com.purplepip.odin.clock.tick.direction.BothUnityFactorDirection;
 import com.purplepip.odin.clock.tick.direction.DefaultDirection;
 import com.purplepip.odin.clock.tick.direction.Direction;
+import com.purplepip.odin.clock.tick.direction.SourceUnityFactorDirection;
+import com.purplepip.odin.clock.tick.direction.TargetUnityFactorDirection;
 import com.purplepip.odin.clock.tick.direction.UnreadyDirection;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.properties.runtime.Observable;
 import com.purplepip.odin.properties.runtime.Property;
 import lombok.ToString;
@@ -71,8 +75,24 @@ public abstract class AbstractTickConverter implements TickConverter {
       forwards = new UnreadyDirection(sourceTick.get(), targetTick.get());
       backwards = new UnreadyDirection(targetTick.get(), sourceTick.get());
     } else {
-      forwards = new DefaultDirection(sourceTick.get(), targetTick.get());
-      backwards = new DefaultDirection(targetTick.get(), sourceTick.get());
+      /*
+       * Select appropriately optimised direction implementation.
+       */
+      if (sourceTick.get().getFactor().equals(Wholes.ONE)) {
+        if (targetTick.get().getFactor().equals(Wholes.ONE)) {
+          forwards = new BothUnityFactorDirection(sourceTick.get(), targetTick.get());
+          backwards = new BothUnityFactorDirection(targetTick.get(), sourceTick.get());
+        } else {
+          forwards = new SourceUnityFactorDirection(sourceTick.get(), targetTick.get());
+          backwards = new TargetUnityFactorDirection(targetTick.get(), sourceTick.get());
+        }
+      } else if (targetTick.get().getFactor().equals(Wholes.ONE)) {
+        forwards = new TargetUnityFactorDirection(sourceTick.get(), targetTick.get());
+        backwards = new SourceUnityFactorDirection(targetTick.get(), sourceTick.get());
+      } else {
+        forwards = new DefaultDirection(sourceTick.get(), targetTick.get());
+        backwards = new DefaultDirection(targetTick.get(), sourceTick.get());
+      }
     }
   }
 

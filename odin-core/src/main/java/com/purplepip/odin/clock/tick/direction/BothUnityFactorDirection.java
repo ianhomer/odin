@@ -17,33 +17,25 @@ package com.purplepip.odin.clock.tick.direction;
 
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.math.Real;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-public  abstract class AbstractDirection implements Direction {
-  private final Tick sourceTick;
-  private final Tick targetTick;
-
-  AbstractDirection(Tick sourceTick, Tick targetTick) {
-    this.sourceTick = sourceTick;
-    this.targetTick = targetTick;
-  }
-
-  public Tick getSourceTick() {
-    return sourceTick;
-  }
-
-  public Tick getTargetTick() {
-    return targetTick;
+public class BothUnityFactorDirection extends DefaultDirection {
+  /**
+   * Create a new direction.
+   *
+   * @param sourceTick source tick
+   * @param targetTick target tick
+   */
+  public BothUnityFactorDirection(Tick sourceTick, Tick targetTick) {
+    super(sourceTick, targetTick);
   }
 
   @Override
   public Real timesSourceFactor(Real time) {
-    return time.times(getSourceTick().getFactor());
+    return time;
   }
 
   @Override
   public Real divideTargetFactor(Real time) {
-    return time.divide(getTargetTick().getFactor());
+    return time;
   }
 }
