@@ -26,9 +26,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -44,7 +46,7 @@ public class Snapshot {
    * Snapshot could be written to by multiple threads so we need to guarantee thread safety
    * with a synchronised list.
    */
-  private List<String> lines = Collections.synchronizedList(new ArrayList<>());
+  private List<Entry> lines = Collections.synchronizedList(new ArrayList<>());
 
   public Snapshot(Class<?> clazz) {
     this.clazz = clazz;
@@ -76,7 +78,7 @@ public class Snapshot {
     path = Paths.get(
         snapshotDirectoryPath.toString() + "/" + clazz.getSimpleName() + ".snap");
     LOG.debug("snapshot source path : {}", path);
-    lines.add("SNAPSHOT : " + clazz.getName());
+    lines.add(new Entry(-2,"SNAPSHOT : " + clazz.getName()));
   }
 
   /**
@@ -96,11 +98,20 @@ public class Snapshot {
         LOG.info("Creating directory : {}", parent);
       }
       LOG.info("Creating snapshot file : {}", file);
-      Files.write(path, lines);
+      Files.write(path, linesAsList());
     } else if (UPDATE_SNAPSHOT) {
       LOG.info("Updating snapshot file : {}", file);
-      Files.write(path, lines);
+      Files.write(path, linesAsList());
     }
+  }
+
+  private List<String> linesAsList() {
+    return linesAsSortedStream().collect(Collectors.toList());
+  }
+
+  private Stream<String> linesAsSortedStream() {
+    return lines.stream().sorted(Comparator
+        .comparing(Entry::getTime).thenComparing(Entry::getValue)).map(entry -> entry.value);
   }
 
   /**
@@ -112,15 +123,33 @@ public class Snapshot {
     } catch (IOException e) {
       LOG.error("Cannot commit snapshot", e);
     }
-    assertThat(path).hasContent(lines.stream().collect(Collectors.joining("\n")));
+    assertThat(path).hasContent(linesAsSortedStream().collect(Collectors.joining("\n")));
   }
 
   public Path getPath() {
     return path;
   }
 
-  public void writeLine(String s) {
-    LOG.debug("Writing to snapshot : {}", s);
-    lines.add(s);
+  public void writeLine(long time, String s) {
+    LOG.debug("Writing to snapshot {} : {}", time, s);
+    lines.add(new Entry(time, s));
+  }
+
+  private class Entry {
+    private long time;
+    private String value;
+
+    public Entry(long time, String value) {
+      this.time = time;
+      this.value = value;
+    }
+
+    public long getTime() {
+      return time;
+    }
+
+    public String getValue() {
+      return value;
+    }
   }
 }

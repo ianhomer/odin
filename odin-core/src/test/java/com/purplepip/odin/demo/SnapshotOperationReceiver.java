@@ -44,7 +44,7 @@ public class SnapshotOperationReceiver implements OperationReceiver {
   public void send(Operation operation, long time) throws OdinException {
     String prettyTime = Pretty.replaceTrailingZeros(time, 4);
     if (latch.getCount() > 0) {
-      snapshot.writeLine(String.format("%15s %s",
+      snapshot.writeLine(time, String.format("%15s %s",
           prettyTime, operation));
       latch.countDown();
       LOG.trace("Received operation {}", operation);

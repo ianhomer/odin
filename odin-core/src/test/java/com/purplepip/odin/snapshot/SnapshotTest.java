@@ -26,7 +26,7 @@ public class SnapshotTest {
     Snapshot snapshot = new Snapshot(Snapshot.class);
     assertTrue(snapshot.getPath().toString()
             .endsWith("com/purplepip/odin/snapshot/snapshot/Snapshot.snap"));
-    snapshot.writeLine("Hello");
+    snapshot.writeLine(0,"Hello");
     snapshot.expectMatch();
   }
 }
