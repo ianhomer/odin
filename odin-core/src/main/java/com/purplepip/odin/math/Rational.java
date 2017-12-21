@@ -44,8 +44,19 @@ public interface Rational extends Real {
 
   boolean isSimplified();
 
+  /**
+   * Get egyptian fractions with integer part split into multiple ones.
+   *
+   * @return egyptian fractions
+   */
   Stream<Rational> getEgyptianFractions();
 
+  /**
+   * Get egyptian fractions.
+   *
+   * @param maxIntegerPart Max integer part
+   * @return egyptian fractions
+   */
   Stream<Rational> getEgyptianFractions(int maxIntegerPart);
 
   Rational asMutable();

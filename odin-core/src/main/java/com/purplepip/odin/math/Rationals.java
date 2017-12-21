@@ -16,6 +16,9 @@
 package com.purplepip.odin.math;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -23,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public final class Rationals {
+  private static final int MAX_EGYPTIAN_FRACTIONS = 20;
+
   public static final Rational HALF = valueOf(1, 2);
   public static final Rational THIRD = valueOf(1, 3);
   public static final Rational TWO_THIRDS = valueOf(2, 3);
@@ -149,5 +154,80 @@ public final class Rationals {
 
   static long floorDenominator(long xDenominator, long yDenominator) {
     return xDenominator * yDenominator;
+  }
+
+  static Stream<Rational> getEgyptianFractions(Rational value, int maxIntegerPart) {
+    List<Rational> egyptianFractions = new ArrayList<>();
+    Rational remainder = value;
+    boolean isNegative = false;
+
+    if (remainder.isNegative()) {
+      remainder = remainder.absolute();
+      isNegative = true;
+    }
+
+    /*
+     * Split the integer part into multiple integers less than or equal to the max integer.
+     */
+    Whole maxWholePart = Wholes.valueOf(maxIntegerPart);
+    while (egyptianFractions.size() < MAX_EGYPTIAN_FRACTIONS && remainder.ge(maxWholePart)) {
+      remainder = remainder.minus(maxWholePart);
+      addEgyptianFractionPart(egyptianFractions, maxWholePart, isNegative);
+    }
+
+    /*
+     * Split out the remaining integer less than the max integer part
+     */
+    if (remainder.gt(Wholes.ONE)) {
+      Rational part = remainder.floor(Wholes.ONE);
+      remainder = remainder.minus(part);
+      addEgyptianFractionPart(egyptianFractions, part, isNegative);
+    }
+
+    /*
+     * Now split the fractions
+     */
+    int lastDenominator = 0;
+
+    int count = egyptianFractions.size();
+    while (count <= MAX_EGYPTIAN_FRACTIONS && remainder.gt(Wholes.ZERO)) {
+      count++;
+      lastDenominator++;
+      if (remainder.getDenominator() % lastDenominator == 0) {
+        Rational floor = remainder.floor(Rationals.valueOf(1, lastDenominator,
+            value.isSimplified()));
+        remainder = remainder.minus(floor);
+
+        /*
+         * Add the splits unless it takes us over the max number of egyptian fractions allowed
+         */
+        count = count + (int) floor.getNumerator() - 1;
+        for (int i = 1; i <= floor.getNumerator() && count <= MAX_EGYPTIAN_FRACTIONS; i++) {
+          Rational unitOfFloor = Rationals.valueOf(1, floor.getDenominator(),
+              value.isSimplified());
+          addEgyptianFractionPart(egyptianFractions, unitOfFloor, isNegative);
+        }
+      }
+    }
+    if (count > MAX_EGYPTIAN_FRACTIONS) {
+      throw new OdinRuntimeException(
+          "Overflow of " + count
+              + " when creating egyptian fractions for " + value + ".  Remainder = " + remainder);
+    }
+    if (!remainder.equals(Wholes.ZERO)) {
+      throw new OdinRuntimeException("Remainder, " + remainder.getDenominator()
+          + ", from egyptian fraction of "
+          + value + " is not zero");
+    }
+    return egyptianFractions.stream();
+  }
+
+  static void addEgyptianFractionPart(List<Rational> egyptianFractions,
+                                              Rational part, boolean isNegative) {
+    if (isNegative) {
+      egyptianFractions.add(part.negative());
+    } else {
+      egyptianFractions.add(part);
+    }
   }
 }

@@ -68,7 +68,7 @@ abstract class AbstractReal implements Real {
    */
   @Override
   public Real floor(Real radix) {
-    double flooredValue = getValue() - (getValue() % radix.getValue());
+    double flooredValue = Reals.floor(getValue(), radix.getValue());
     if (radix instanceof Whole) {
       /*
        * Flooring with whole radix will always give a whole number, so lets be explicit about it.
@@ -120,23 +120,11 @@ abstract class AbstractReal implements Real {
     return Wholes.valueOf(floor());
   }
 
-  /**
-   * Calculate the largest whole number greater than or equal to this real number.
-   *
-   * @return floored value
-   */
   @Override
   public Whole wholeCeiling() {
     return Wholes.valueOf(ceiling());
   }
 
-  /**
-   * Calculate the smallest whole number greater than this real number.  Note that this function is
-   * NOT the standard "ceil" function since this function will return the next whole number for
-   * a whole number.
-   *
-   * @return next ceiling.
-   */
   @Override
   public Whole nextWholeFloor() {
     return Wholes.valueOf(nextFloor());

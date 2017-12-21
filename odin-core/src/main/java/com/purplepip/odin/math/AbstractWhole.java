@@ -15,7 +15,13 @@
 
 package com.purplepip.odin.math;
 
-public abstract class AbstractWhole extends AbstractRational implements Whole {
+import static com.purplepip.odin.math.Rationals.floorDenominator;
+import static com.purplepip.odin.math.Rationals.floorNumerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.stream.Stream;
+
+public abstract class AbstractWhole implements Whole {
   @Override
   public long getDenominator() {
     return 1;
@@ -75,13 +81,17 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   @Override
   public Real times(Real real) {
     if (real instanceof Whole) {
-      return Wholes.valueOf(getNumerator() * ((Whole) real).getNumerator());
+      return times((Whole) real);
     } else if (real instanceof Rational) {
-      Rational rational = (Rational) real;
-      return Rationals.valueOf(getNumerator() * rational.getNumerator(),
-          rational.getDenominator());
+      return times((Rational) real);
     }
     return Reals.valueOf(getNumerator() * real.getValue());
+  }
+
+  @Override
+  public Rational times(Rational rational) {
+    return Rationals.valueOf(getNumerator() * rational.getNumerator(),
+        rational.getDenominator());
   }
 
   @Override
@@ -95,13 +105,17 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   @Override
   public Real divide(Real real) {
     if (real instanceof Whole) {
-      return Rationals.valueOf(getNumerator(), ((Whole) real).getNumerator());
+      return divide((Whole) real);
     } else if (real instanceof Rational) {
-      Rational rational = (Rational) real;
-      return Rationals.valueOf(getNumerator() * rational.getDenominator(),
-          rational.getNumerator());
+      return divide((Rational) real);
     }
     return Reals.valueOf(getNumerator() / real.getValue());
+  }
+
+  @Override
+  public Rational divide(Rational rational) {
+    return Rationals.valueOf(getNumerator() * rational.getDenominator(),
+        rational.getNumerator());
   }
 
   @Override
@@ -115,28 +129,22 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   @Override
   public Real modulo(Real real) {
     if (real instanceof Whole) {
-      return Wholes.valueOf(getNumerator() % ((Whole) real).getNumerator());
+      return modulo((Whole) real);
     } else if (real instanceof Rational) {
-      Rational rational = (Rational) real;
-      return Rationals.valueOf((getNumerator() * rational.getDenominator())
-              % rational.getNumerator(), rational.getDenominator());
+      return modulo((Rational) real);
     }
     return Reals.valueOf(getNumerator() % real.getValue());
   }
 
   @Override
+  public Rational modulo(Rational rational) {
+    return Rationals.valueOf((getNumerator() * rational.getDenominator())
+        % rational.getNumerator(), rational.getDenominator());
+  }
+
+  @Override
   public Whole modulo(Whole whole) {
     return Wholes.valueOf(getNumerator() % whole.getNumerator());
-  }
-
-  @Override
-  public Whole wholeFloor() {
-    return this;
-  }
-
-  @Override
-  public Whole wholeCeiling() {
-    return this;
   }
 
   @Override
@@ -150,10 +158,19 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   @Override
   public Real floor(Real radix) {
     if (radix instanceof Whole) {
-      Whole whole = (Whole) radix;
-      return floor(whole);
+      return floor((Whole) radix);
+    } else if (radix instanceof Rational) {
+      return floor((Rational) radix);
     }
-    return super.floor(radix);
+    return Reals.valueOf(Reals.floor(getValue(), radix.getValue()));
+  }
+
+  @Override
+  public Rational floor(Rational radix) {
+    return Rationals.valueOf(
+        floorNumerator(getNumerator(), 1,
+            radix.getNumerator(), radix.getDenominator()),
+        floorDenominator(1, radix.getDenominator()), true);
   }
 
   @Override
@@ -162,16 +179,31 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   }
 
   @Override
-  public Whole absolute() {
-    if (isNegative()) {
-      return Wholes.valueOf(-getNumerator());
-    }
+  public Whole wholeFloor() {
     return this;
   }
 
   @Override
   public long nextFloor() {
     return getNumerator() + 1;
+  }
+
+  @Override
+  public Whole nextWholeFloor() {
+    return Wholes.valueOf(nextFloor());
+  }
+
+  @Override
+  public Whole wholeCeiling() {
+    return this;
+  }
+
+  @Override
+  public Whole absolute() {
+    if (isNegative()) {
+      return Wholes.valueOf(-getNumerator());
+    }
+    return this;
   }
 
   @Override
@@ -209,10 +241,7 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   }
 
   /**
-   * Calculate the smallest integer (closest to negative infinity) greater than or equal to this
-   * whole number.
-   *
-   * @return ceiling value
+   * {@inheritDoc}
    */
   @Override
   public long ceiling() {
@@ -229,14 +258,35 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
    */
   @Override
   public boolean lt(Real real) {
-    if (real instanceof Whole) {
-      return lt((Whole) real);
-    }
-    return super.lt(real);
+    return real instanceof Whole ? lt((Whole) real) : getNumerator() < real.getValue();
   }
 
   public boolean lt(Whole whole) {
     return getNumerator() < whole.getNumerator();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean ge(Real real) {
+    return getNumerator() >= real.getValue();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean gt(Real real) {
+    return getNumerator() > real.getValue();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean le(Real real) {
+    return getNumerator() <= real.getValue();
   }
 
   @Override
@@ -252,5 +302,22 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   @Override
   public boolean isPositive() {
     return getNumerator() > 0;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @JsonIgnore
+  @Override
+  public Stream<Rational> getEgyptianFractions() {
+    return getEgyptianFractions(1);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Stream<Rational> getEgyptianFractions(int maxIntegerPart) {
+    return Rationals.getEgyptianFractions(this, maxIntegerPart);
   }
 }

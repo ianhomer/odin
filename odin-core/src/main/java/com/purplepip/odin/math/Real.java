@@ -48,12 +48,30 @@ public interface Real extends Bound {
 
   long nextFloor();
 
+  /**
+   * Calculate the smallest whole number greater than this real number.  Note that this function is
+   * NOT the standard "ceil" function since this function will return the next whole number for
+   * a whole number.
+   *
+   * @return next ceiling.
+   */
   Whole nextWholeFloor();
 
   Whole wholeFloor();
 
+  /**
+   * Calculate the smallest integer (closest to negative infinity) greater than or equal to this
+   * whole number.
+   *
+   * @return ceiling value
+   */
   long ceiling();
 
+  /**
+   * Calculate the largest whole number greater than or equal to this real number.
+   *
+   * @return floored value
+   */
   Whole wholeCeiling();
 
   Real negative();

@@ -63,4 +63,8 @@ public final class Reals {
     }
     return valueOf(Double.valueOf(value));
   }
+
+  static double floor(double value, double radix) {
+    return value - (value % radix);
+  }
 }
