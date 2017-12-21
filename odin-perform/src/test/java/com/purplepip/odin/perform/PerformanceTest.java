@@ -161,6 +161,7 @@ public class PerformanceTest {
     parameters.add(newParameter(new GroovePerformance())
         .operationCount(2_000)
         .expect("clock.start", 800_000)
+        .expect("sequence.job", 400_000)
         .expect("sequence.track.kick3", 20_000)
         .expect("sequence.track.kick2", 14_000));
     return parameters;
