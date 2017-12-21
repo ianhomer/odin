@@ -61,7 +61,11 @@ public class DefaultOperationProcessorExecutor implements Runnable {
         timerContext.stop();
       }
     } else {
-      LOG.debug("Clock has not started yet");
+      if (clock.isStopped()) {
+        LOG.debug("Clock has been stopped");
+      } else {
+        LOG.debug("Clock has not started yet");
+      }
     }
   }
 

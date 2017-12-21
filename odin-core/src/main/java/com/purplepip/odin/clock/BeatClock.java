@@ -51,6 +51,7 @@ public class BeatClock extends AbstractClock {
   private long startOffset;
   private boolean started;
   private boolean startingOrStarted;
+  private boolean stopped;
   private Real maxLookForwardInMinutes;
   private long maxLookForwardInMicros;
 
@@ -129,6 +130,7 @@ public class BeatClock extends AbstractClock {
             getMicroseconds());
       }
       started = true;
+      stopped = false;
     }
   }
 
@@ -152,6 +154,7 @@ public class BeatClock extends AbstractClock {
   public void stop() {
     listeners.forEach(PerformanceListener::onPerformanceStop);
     started = false;
+    stopped = true;
   }
 
   /**
@@ -206,6 +209,13 @@ public class BeatClock extends AbstractClock {
 
   public boolean isStartingOrStarted() {
     return startingOrStarted;
+  }
+
+  /**
+   * Whether the clock has been stopped after having started.
+   */
+  public boolean isStopped() {
+    return stopped;
   }
 
   @Override public String toString() {

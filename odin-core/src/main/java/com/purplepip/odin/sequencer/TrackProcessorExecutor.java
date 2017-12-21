@@ -74,7 +74,11 @@ public class TrackProcessorExecutor implements Runnable {
         LOG.error("Error whilst executing sequence processing", e);
       }
     } else {
-      LOG.debug("Clock has not started yet");
+      if (clock.isStopped()) {
+        LOG.debug("Clock has been stopped");
+      } else {
+        LOG.debug("Clock has not started yet");
+      }
     }
   }
 
