@@ -161,10 +161,6 @@ public class BeatClock extends AbstractClock {
     listeners.forEach(PerformanceListener::onPerformanceShutdown);
   }
 
-  public long getMaxLookForwardInMicros() {
-    return maxLookForwardInMicros;
-  }
-
   /**
    * Get microsecond position.
    *
@@ -187,7 +183,11 @@ public class BeatClock extends AbstractClock {
 
   @Override
   public Real getPosition(long microseconds) {
-    return Reals.valueOf((double)microseconds).divide(beatsPerMinute.getMicroSecondsPerBeat());
+    return Reals.valueOf((double)microseconds / beatsPerMinute.getMicroSecondsPerBeat().getValue());
+  }
+
+  public long getMaxLookForwardInMicros() {
+    return maxLookForwardInMicros;
   }
 
   @Override
