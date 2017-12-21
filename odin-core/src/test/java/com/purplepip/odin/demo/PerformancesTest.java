@@ -64,7 +64,7 @@ public class PerformancesTest {
   public static Iterable<PerformancesTestParameter> parameters() {
     Collection<PerformancesTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance(), 12));
-    parameters.add(newParameter(new GroovePerformance(), 6)
+    parameters.add(newParameter(new GroovePerformance(), 20)
         .staticBeatsPerMinute(600));
     return parameters;
   }
@@ -98,13 +98,14 @@ public class PerformancesTest {
     /*
      * WARN early to give more information to help when snapshot match fails.
      */
-    long actualCount = snapshotReceiver.getLatch().getCount();
-    if (actualCount != 0) {
+    long actualCount = expectedOperationCount - snapshotReceiver.getLatch().getCount();
+    if (actualCount != expectedOperationCount) {
       LOG.warn("{} : only {} operations were recorded, {} were expected", testName, actualCount,
           expectedOperationCount);
     }
     snapshot.expectMatch();
-    assertEquals(testName + " operation count not as expected", 0, actualCount);
+    assertEquals(testName + " operation count not as expected", expectedOperationCount,
+        actualCount);
     LOG.debug("{} : performance snapshot AOK", testName);
   }
 
