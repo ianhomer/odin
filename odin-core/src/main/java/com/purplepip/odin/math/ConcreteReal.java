@@ -74,8 +74,6 @@ class ConcreteReal extends AbstractReal {
   }
 
 
-
-
   /**
    * Get value as double.
    *
@@ -183,6 +181,22 @@ class ConcreteReal extends AbstractReal {
   }
 
   @Override
+  public Real asMutable() {
+    // TODO : Implement mutable real
+    return this;
+  }
+
+  @Override
+  public Real asImmutable() {
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(getValue());
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -200,10 +214,5 @@ class ConcreteReal extends AbstractReal {
   public int hashCode() {
     long temp = Double.doubleToLongBits(value);
     return (int) (temp ^ (temp >>> 32));
-  }
-
-  @Override
-  public String toString() {
-    return String.valueOf(getValue());
   }
 }

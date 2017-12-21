@@ -182,18 +182,11 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   @Override
   public boolean isActive(long microseconds) {
     if (getParent() != null && !getParent().isActive(microseconds)) {
-      LOG.debug("parent {} of {} is not active : {}", getParent().getName(),
-          getName(), microseconds);
       return false;
     }
     Whole position = getPosition(microseconds).wholeFloor();
-    boolean result = position.ge(getOffset())
+    return position.ge(getOffset())
         && (getLength().isNegative() || position.lt(getLength()));
-    if (LOG.isTraceEnabled()) {
-      LOG.trace("isEnabled {} : {}, tock {}, µs {}, length {}, loop {}",
-          getName(), result, position, microseconds, getLength(), loopLength);
-    }
-    return result;
   }
 
   /**
@@ -205,7 +198,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   @Override
   public Real getPosition(long microseconds) {
     if (parent == null) {
-      Real absolutePosition = tickConverter.convert(Wholes.valueOf(microseconds));
+      Real absolutePosition = tickConverter.convert(Wholes.mutableOf(microseconds));
       if (loopLength.isPositive()) {
         return absolutePosition.modulo(loopLength);
       }

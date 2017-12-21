@@ -220,6 +220,17 @@ class ConcreteRational extends AbstractRational {
   }
 
   @Override
+  public Rational asMutable() {
+    // TODO : Implement mutable rational
+    return this;
+  }
+
+  @Override
+  public Rational asImmutable() {
+    return this;
+  }
+
+  @Override
   public String toString() {
     if (numerator == 0) {
       return "0";

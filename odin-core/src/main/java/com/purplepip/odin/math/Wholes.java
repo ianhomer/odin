@@ -48,17 +48,17 @@ public final class Wholes {
   /**
    * Return whole for the given integer.
    *
-   * @param integer integer value
+   * @param value integer value
    * @return whole object
    */
-  public static Whole valueOf(long integer) {
-    if (integer >= LOW_CACHE && integer <= HIGH_CACHE) {
-      return WHOLES_CACHE[(int) integer - LOW_CACHE];
+  public static Whole valueOf(long value) {
+    if (value >= LOW_CACHE && value <= HIGH_CACHE) {
+      return WHOLES_CACHE[(int) value - LOW_CACHE];
     }
-    return new ConcreteWhole(integer);
+    return new ConcreteWhole(value);
   }
 
-  public static Whole mutableOf(long integer) {
-    return new MutableWhole(integer);
+  public static Whole mutableOf(long value) {
+    return new MutableWhole(value);
   }
 }

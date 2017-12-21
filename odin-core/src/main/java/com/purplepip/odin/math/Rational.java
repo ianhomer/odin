@@ -18,8 +18,6 @@ package com.purplepip.odin.math;
 import java.util.stream.Stream;
 
 public interface Rational extends Real {
-  Rational times(Rational rational);
-
   long getNumerator();
 
   long getDenominator();
@@ -32,6 +30,8 @@ public interface Rational extends Real {
 
   Rational minus(Whole whole);
 
+  Rational times(Rational rational);
+
   Rational divide(Rational rational);
 
   Rational modulo(Rational rational);
@@ -40,11 +40,15 @@ public interface Rational extends Real {
 
   Rational absolute();
 
+  Rational getLimit();
+
+  boolean isSimplified();
+
   Stream<Rational> getEgyptianFractions();
 
   Stream<Rational> getEgyptianFractions(int maxIntegerPart);
 
-  Rational getLimit();
+  Rational asMutable();
 
-  boolean isSimplified();
+  Rational asImmutable();
 }

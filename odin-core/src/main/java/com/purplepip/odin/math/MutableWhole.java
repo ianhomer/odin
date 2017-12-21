@@ -38,4 +38,14 @@ public class MutableWhole extends AbstractWhole {
     value -= whole.getNumerator();
     return this;
   }
+
+  @Override
+  public Whole asMutable() {
+    return this;
+  }
+
+  @Override
+  public Whole asImmutable() {
+    return Wholes.valueOf(value);
+  }
 }

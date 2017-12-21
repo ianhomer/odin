@@ -31,4 +31,8 @@ public interface Whole extends Rational {
   Whole negative();
 
   Whole absolute();
+
+  Whole asMutable();
+
+  Whole asImmutable();
 }

@@ -19,15 +19,15 @@ public class ConcreteWhole extends AbstractWhole {
   /*
    * Local property for numerator for direct access.
    */
-  private final long numerator;
+  private final long value;
 
-  public ConcreteWhole(long numerator) {
-    this.numerator = numerator;
+  public ConcreteWhole(long value) {
+    this.value = value;
   }
 
   @Override
   public long getNumerator() {
-    return numerator;
+    return value;
   }
 
   /**
@@ -35,7 +35,7 @@ public class ConcreteWhole extends AbstractWhole {
    */
   @Override
   public Whole plus(Whole whole) {
-    return Wholes.valueOf(numerator + whole.getNumerator());
+    return Wholes.valueOf(value + whole.getNumerator());
   }
 
   /**
@@ -43,6 +43,16 @@ public class ConcreteWhole extends AbstractWhole {
    */
   @Override
   public Whole minus(Whole whole) {
-    return Wholes.valueOf(numerator - whole.getNumerator());
+    return Wholes.valueOf(value - whole.getNumerator());
+  }
+
+  @Override
+  public Whole asMutable() {
+    return Wholes.mutableOf(value);
+  }
+
+  @Override
+  public Whole asImmutable() {
+    return this;
   }
 }

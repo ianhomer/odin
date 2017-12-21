@@ -18,22 +18,6 @@ package com.purplepip.odin.math;
 public interface Real extends Bound {
   double getValue();
 
-  Real times(Real real);
-
-  Real divide(Real real);
-
-  long floor();
-
-  Real floor(Real radix);
-
-  Whole wholeFloor();
-
-  Rational toRational();
-
-  boolean le(Real real);
-
-  Real modulo(Real real);
-
   Real plus(Real real);
 
   /**
@@ -52,23 +36,43 @@ public interface Real extends Bound {
 
   Real minus(Whole whole);
 
-  Whole wholeCeiling();
+  Real times(Real real);
 
-  boolean isPositive();
+  Real divide(Real real);
 
-  boolean isNegative();
+  long floor();
 
-  boolean gt(Real real);
+  Real floor(Real radix);
 
-  boolean ge(Real real);
+  Real modulo(Real real);
 
   long nextFloor();
 
   Whole nextWholeFloor();
 
+  Whole wholeFloor();
+
   long ceiling();
+
+  Whole wholeCeiling();
 
   Real negative();
 
   Real absolute();
+
+  boolean isPositive();
+
+  boolean isNegative();
+
+  boolean le(Real real);
+
+  boolean gt(Real real);
+
+  boolean ge(Real real);
+
+  Rational toRational();
+
+  Real asMutable();
+
+  Real asImmutable();
 }
