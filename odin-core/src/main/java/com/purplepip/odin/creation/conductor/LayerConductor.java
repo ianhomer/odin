@@ -47,6 +47,8 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   private TickConverter tickConverter;
   private Conductor parent;
   private String name;
+  private boolean zeroOffset;
+  private boolean endless;
 
   /*
    * Note that ordering of children is important since dictates the ordering of children in
@@ -91,6 +93,8 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   public void setConfiguration(Layer layer) {
     this.layer = layer;
     this.name = layer.getName();
+    zeroOffset = layer.getOffset().isZero();
+    endless = layer.getLength().isNegative();
     tickConverter = new DefaultTickConverter(clock,
         () -> Ticks.MICROSECOND, layer::getTick, layer::getOffset);
   }
@@ -185,6 +189,10 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   public boolean isActive(long microseconds) {
     if (getParent() != null && !getParent().isActive(microseconds)) {
       return false;
+    }
+    if (zeroOffset && endless) {
+      // No need to check position, since always active in this situation.
+      return true;
     }
     Real position = getPosition(microseconds);
     return position.ge(getOffset())
