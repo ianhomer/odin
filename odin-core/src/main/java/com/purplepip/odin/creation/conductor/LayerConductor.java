@@ -23,7 +23,6 @@ import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -187,7 +186,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
     if (getParent() != null && !getParent().isActive(microseconds)) {
       return false;
     }
-    Whole position = getPosition(microseconds).wholeFloor();
+    Real position = getPosition(microseconds);
     return position.ge(getOffset())
         && (getLength().isNegative() || position.lt(getLength()));
   }
