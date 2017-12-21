@@ -40,6 +40,53 @@ public class MutableWhole extends AbstractWhole {
   }
 
   @Override
+  public Whole times(Whole whole) {
+    value *= whole.getNumerator();
+    return this;
+  }
+
+  @Override
+  public Rational divide(Whole whole) {
+    if (value % whole.getNumerator() == 0) {
+      value /= whole.getNumerator();
+      return this;
+    }
+    return Rationals.valueOf(getNumerator(), whole.getNumerator());
+  }
+
+  @Override
+  public Whole modulo(Whole whole) {
+    value = value % whole.getNumerator();
+    return this;
+  }
+
+  @Override
+  public Whole floor(Whole radix) {
+    value = value - (value % radix.getNumerator());
+    return this;
+  }
+
+  @Override
+  public Whole nextWholeFloor() {
+    value = nextFloor();
+    return this;
+  }
+
+  @Override
+  public Whole negative() {
+    value = -value;
+    return this;
+  }
+
+  @Override
+  public Whole absolute() {
+    if (isNegative()) {
+      value = -value;
+    }
+    return this;
+  }
+
+  @Override
   public Whole asMutable() {
     return this;
   }

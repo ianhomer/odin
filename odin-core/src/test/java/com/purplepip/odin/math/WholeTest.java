@@ -107,9 +107,9 @@ public class WholeTest {
 
   @Test
   public void testNegative() {
-    assertEquals(Wholes.valueOf(1), newWhole.apply(-1).negative());
-    assertEquals(Wholes.valueOf(-1), newWhole.apply(1).negative());
-    assertEquals(Wholes.ZERO, Wholes.ZERO);
+    assertEquals(Wholes.valueOf(1), newWhole.apply(-1).negative().asImmutable());
+    assertEquals(Wholes.valueOf(-1), newWhole.apply(1).negative().asImmutable());
+    assertEquals(Wholes.ZERO, newWhole.apply(0).asImmutable());
   }
 
   @Test

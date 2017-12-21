@@ -47,6 +47,44 @@ public class ConcreteWhole extends AbstractWhole {
   }
 
   @Override
+  public Whole times(Whole whole) {
+    return Wholes.valueOf(getNumerator() * whole.getNumerator());
+  }
+
+  @Override
+  public Rational divide(Whole whole) {
+    return Rationals.valueOf(getNumerator(), whole.getNumerator());
+  }
+
+  @Override
+  public Whole modulo(Whole whole) {
+    return Wholes.valueOf(getNumerator() % whole.getNumerator());
+  }
+
+  @Override
+  public Whole floor(Whole radix) {
+    return Wholes.valueOf(getNumerator() - (getNumerator() % radix.getNumerator()));
+  }
+
+  @Override
+  public Whole nextWholeFloor() {
+    return Wholes.valueOf(nextFloor());
+  }
+
+  @Override
+  public Whole negative() {
+    return Wholes.valueOf(-getNumerator());
+  }
+
+  @Override
+  public Whole absolute() {
+    if (isNegative()) {
+      return Wholes.valueOf(-getNumerator());
+    }
+    return this;
+  }
+
+  @Override
   public Whole asMutable() {
     return Wholes.mutableOf(value);
   }

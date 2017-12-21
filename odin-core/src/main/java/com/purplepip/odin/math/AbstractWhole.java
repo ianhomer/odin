@@ -94,11 +94,6 @@ public abstract class AbstractWhole implements Whole {
         rational.getDenominator());
   }
 
-  @Override
-  public Whole times(Whole whole) {
-    return Wholes.valueOf(getNumerator() * whole.getNumerator());
-  }
-
   /**
    * {@inheritDoc}
    */
@@ -118,11 +113,6 @@ public abstract class AbstractWhole implements Whole {
         rational.getNumerator());
   }
 
-  @Override
-  public Rational divide(Whole whole) {
-    return Rationals.valueOf(getNumerator(), whole.getNumerator());
-  }
-
   /**
    * {@inheritDoc}
    */
@@ -140,11 +130,6 @@ public abstract class AbstractWhole implements Whole {
   public Rational modulo(Rational rational) {
     return Rationals.valueOf((getNumerator() * rational.getDenominator())
         % rational.getNumerator(), rational.getDenominator());
-  }
-
-  @Override
-  public Whole modulo(Whole whole) {
-    return Wholes.valueOf(getNumerator() % whole.getNumerator());
   }
 
   @Override
@@ -174,11 +159,6 @@ public abstract class AbstractWhole implements Whole {
   }
 
   @Override
-  public Whole floor(Whole radix) {
-    return Wholes.valueOf(getNumerator() - (getNumerator() % radix.getNumerator()));
-  }
-
-  @Override
   public Whole wholeFloor() {
     return this;
   }
@@ -189,26 +169,8 @@ public abstract class AbstractWhole implements Whole {
   }
 
   @Override
-  public Whole nextWholeFloor() {
-    return Wholes.valueOf(nextFloor());
-  }
-
-  @Override
   public Whole wholeCeiling() {
     return this;
-  }
-
-  @Override
-  public Whole absolute() {
-    if (isNegative()) {
-      return Wholes.valueOf(-getNumerator());
-    }
-    return this;
-  }
-
-  @Override
-  public Whole negative() {
-    return Wholes.valueOf(-getNumerator());
   }
 
   @Override
