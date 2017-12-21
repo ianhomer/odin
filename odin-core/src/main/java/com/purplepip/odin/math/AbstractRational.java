@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.math;
 
+import static com.purplepip.odin.math.Rationals.floorDenominator;
+import static com.purplepip.odin.math.Rationals.floorNumerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.ArrayList;
@@ -95,10 +98,11 @@ abstract class AbstractRational extends AbstractReal implements Rational {
    */
   @Override
   public Rational floor(Rational rational) {
-    long product1 = getNumerator() * rational.getDenominator();
-    long product2 = rational.getNumerator() * getDenominator();
-    long product3 = getDenominator() * rational.getDenominator();
-    return Rationals.valueOf(product1 - (product1 % product2), product3, isSimplified());
+    return Rationals.valueOf(
+        floorNumerator(getNumerator(), getDenominator(),
+            rational.getNumerator(), rational.getDenominator()),
+        floorDenominator(getDenominator(), rational.getDenominator()),
+        isSimplified());
   }
 
 

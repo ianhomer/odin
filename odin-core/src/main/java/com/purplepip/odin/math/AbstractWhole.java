@@ -75,10 +75,13 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   @Override
   public Real times(Real real) {
     if (real instanceof Whole) {
-      Whole whole = (Whole) real;
-      return times(whole);
+      return Wholes.valueOf(getNumerator() * ((Whole) real).getNumerator());
+    } else if (real instanceof Rational) {
+      Rational rational = (Rational) real;
+      return Rationals.valueOf(getNumerator() * rational.getNumerator(),
+          rational.getDenominator());
     }
-    return super.times(real);
+    return Reals.valueOf(getNumerator() * real.getValue());
   }
 
   @Override
@@ -92,10 +95,13 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   @Override
   public Real divide(Real real) {
     if (real instanceof Whole) {
-      Whole whole = (Whole) real;
-      return divide(whole);
+      return Rationals.valueOf(getNumerator(), ((Whole) real).getNumerator());
+    } else if (real instanceof Rational) {
+      Rational rational = (Rational) real;
+      return Rationals.valueOf(getNumerator() * rational.getDenominator(),
+          rational.getNumerator());
     }
-    return super.divide(real);
+    return Reals.valueOf(getNumerator() / real.getValue());
   }
 
   @Override
@@ -109,10 +115,13 @@ public abstract class AbstractWhole extends AbstractRational implements Whole {
   @Override
   public Real modulo(Real real) {
     if (real instanceof Whole) {
-      Whole whole = (Whole) real;
-      return modulo(whole);
+      return Wholes.valueOf(getNumerator() % ((Whole) real).getNumerator());
+    } else if (real instanceof Rational) {
+      Rational rational = (Rational) real;
+      return Rationals.valueOf((getNumerator() * rational.getDenominator())
+              % rational.getNumerator(), rational.getDenominator());
     }
-    return super.modulo(real);
+    return Reals.valueOf(getNumerator() % real.getValue());
   }
 
   @Override

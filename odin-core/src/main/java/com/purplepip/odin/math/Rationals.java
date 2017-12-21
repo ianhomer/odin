@@ -139,4 +139,15 @@ public final class Rationals {
     }
     return new ConcreteRational(newNumerator, newDenominator, true);
   }
+
+  static long floorNumerator(long xNumerator, long xDenominator,
+                             long yNumerator, long yDenominator) {
+    long product1 = xNumerator * yDenominator;
+    long product2 = yNumerator * xDenominator;
+    return product1 - (product1 % product2);
+  }
+
+  static long floorDenominator(long xDenominator, long yDenominator) {
+    return xDenominator * yDenominator;
+  }
 }

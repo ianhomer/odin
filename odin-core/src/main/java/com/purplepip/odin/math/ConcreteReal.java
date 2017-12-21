@@ -79,6 +79,7 @@ class ConcreteReal extends AbstractReal {
    *
    * @return value as double
    */
+  @Override
   public double getValue() {
     return value;
   }
