@@ -41,6 +41,7 @@ public abstract class AbstractTickConverter implements TickConverter {
   private Property<Tick> targetTick;
   private Direction forwards;
   private Direction backwards;
+  private boolean zeroOffset;
 
   final void setTargetTick(Property<Tick> targetTick) {
     this.targetTick = targetTick;
@@ -58,9 +59,14 @@ public abstract class AbstractTickConverter implements TickConverter {
 
   final void setSourceOffset(Property<Rational> sourceOffset) {
     this.sourceOffset = sourceOffset;
+    refreshZeroOffset();
     if (sourceOffset instanceof Observable) {
       ((Observable) sourceOffset).addObserver(this::refresh);
     }
+  }
+
+  private void refreshZeroOffset() {
+    zeroOffset = sourceOffset.get().isZero();
   }
 
   final void refresh() {
@@ -71,6 +77,8 @@ public abstract class AbstractTickConverter implements TickConverter {
         LOG.debug("Refreshed {}", this);
       }
     }
+    refreshZeroOffset();
+
     if (sourceTick.get() == null || targetTick.get() == null) {
       forwards = new UnreadyDirection(sourceTick.get(), targetTick.get());
       backwards = new UnreadyDirection(targetTick.get(), sourceTick.get());
@@ -111,12 +119,20 @@ public abstract class AbstractTickConverter implements TickConverter {
 
   @Override
   public Real convert(Real time) {
-    return convertTimeUnit(forwards, getSourceOffset().plus(time));
+    return convertTimeUnit(forwards, plusOffset(time));
+  }
+
+  private Real plusOffset(Real time) {
+    return zeroOffset ? time : time.plus(getSourceOffset());
   }
 
   @Override
   public Real convertBack(Real time) {
-    return convertTimeUnit(backwards, time).minus(getSourceOffset());
+    return minusOffset(convertTimeUnit(backwards, time));
+  }
+
+  private Real minusOffset(Real time) {
+    return zeroOffset ? time : time.minus(getSourceOffset());
   }
 
   @Override

@@ -106,6 +106,12 @@ public class WholeTest {
   }
 
   @Test
+  public void testIsZero() {
+    assertFalse(newWhole.apply(1).isZero());
+    assertTrue(newWhole.apply(0).isZero());
+  }
+
+  @Test
   public void testNegative() {
     assertEquals(Wholes.valueOf(1), newWhole.apply(-1).negative().asImmutable());
     assertEquals(Wholes.valueOf(-1), newWhole.apply(1).negative().asImmutable());

@@ -82,6 +82,8 @@ public interface Real extends Bound {
 
   boolean isNegative();
 
+  boolean isZero();
+
   boolean le(Real real);
 
   boolean gt(Real real);

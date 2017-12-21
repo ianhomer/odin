@@ -164,6 +164,12 @@ class ConcreteReal extends AbstractReal {
     return getValue() > 0;
   }
 
+  @JsonIgnore
+  @Override
+  public boolean isZero() {
+    return getValue() == 0;
+  }
+
   /**
    * Convert this to a rational number.
    *

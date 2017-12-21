@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.math;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.Map;
@@ -144,12 +145,6 @@ class ConcreteRational extends AbstractRational {
     return value;
   }
 
-
-  @Override
-  public boolean isPositive() {
-    return numerator > 0 == denominator > 0;
-  }
-
   /**
    * {@inheritDoc}
    */
@@ -214,9 +209,22 @@ class ConcreteRational extends AbstractRational {
     return Rationals.valueOf(-numerator, denominator, simplified);
   }
 
+  @JsonIgnore
+  @Override
+  public boolean isPositive() {
+    return numerator > 0 == denominator > 0;
+  }
+
+  @JsonIgnore
   @Override
   public boolean isNegative() {
     return (numerator < 0) ^ (denominator < 0);
+  }
+
+  @JsonIgnore
+  @Override
+  public boolean isZero() {
+    return numerator == 0;
   }
 
   @Override

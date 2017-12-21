@@ -178,6 +178,12 @@ public abstract class AbstractWhole implements Whole {
     return getNumerator() < 0;
   }
 
+  @JsonIgnore
+  @Override
+  public boolean isZero() {
+    return getNumerator() == 0;
+  }
+
   @Override
   public String toString() {
     return String.valueOf(getNumerator());
