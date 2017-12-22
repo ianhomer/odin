@@ -98,6 +98,11 @@ public class TrackProcessor implements PerformanceListener {
   private void shutdown() {
     if (scheduledPool != null) {
       scheduledPool.shutdown();
+      try {
+        scheduledPool.awaitTermination(refreshPeriod * 2, TimeUnit.MILLISECONDS);
+      } catch (InterruptedException e) {
+        LOG.error("Track processor executor pool not shutdown cleanly", e);
+      }
     }
     LOG.debug("Shut down track processor");
   }
