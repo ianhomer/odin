@@ -115,17 +115,21 @@ public class PerformanceTest {
     LOG.debug("Spinning up : {}", testName);
     for (int i = 0 ; i < 200 ; i++) {
       environment.start();
+      //Thread.sleep(10);
       environment.shutdown();
     }
 
+    long start = System.nanoTime();
     environment.getConfiguration().getMetrics().removeMatching(MetricFilter.ALL);
     LOG.debug("Starting : {}", testName);
     environment.start();
     latch.await(5_000, TimeUnit.MILLISECONDS);
     environment.shutdown();
+    long elapsed = System.nanoTime() - start;
     LOG.debug("Completed : {}", testName);
     MetricRegistry metrics = environment.getConfiguration().getMetrics();
     LOG.info("Metrics : {}\n{}", testName, new MetricsReport(metrics));
+    LOG.info("Run time : {}ms\n", elapsed / 1_000_000, new MetricsReport(metrics));
     parameter.names().forEach(name -> assertTimer(name, parameter.expect(name),
         metrics.timer(name)));
   }
@@ -155,9 +159,10 @@ public class PerformanceTest {
   public static Iterable<PerformanceTestParameter> parameters() {
     Collection<PerformanceTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance())
-        .operationCount(100)
+        .operationCount(12)
+        .expect("clock.prepare", 180_000)
         .expect("clock.start", 20_000)
-        .expect("sequence.track.simple", 30_000));
+        .expect("sequence.track.simple", 200_000));
     parameters.add(newParameter(new GroovePerformance())
         .operationCount(2_000)
         .expect("clock.start", 800_000)
@@ -181,6 +186,9 @@ public class PerformanceTest {
     @Getter
     private int operationCount = 100;
 
+    /**
+     * Map of timer names and expected time in nanoseconds.
+     */
     private Map<String, Long> times = new HashMap<>();
 
     public PerformanceTestParameter expect(String name, long time) {

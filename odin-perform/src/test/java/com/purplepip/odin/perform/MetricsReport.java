@@ -24,6 +24,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class MetricsReport {
+  private static final String TITLE_FORMAT = "%20s : %5s : %10s : %s\n";
+  private static final String COLUMN_FORMAT = "%,20d : %5d : %10.0f : %s\n";
   private MetricRegistry registry;
 
   public MetricsReport(MetricRegistry registry) {
@@ -37,6 +39,7 @@ public class MetricsReport {
     StringBuilder sb = new StringBuilder();
     Formatter formatter = new Formatter(sb, Locale.ENGLISH);
 
+    formatter.format(TITLE_FORMAT, "mean (ns)", "count", "total (ns)", "name");
     registry.getTimers().entrySet().stream()
         .sorted(Comparator.comparing(entry ->
             -calculateTotal(entry.getValue())))
@@ -52,8 +55,8 @@ public class MetricsReport {
   private void append(Formatter formatter, Map.Entry<String, Timer> entry) {
     Snapshot snapshot = entry.getValue().getSnapshot();
 
-    formatter.format("%20.0f : %5d : %10.0f : %s\n",
-        snapshot.getMean(), entry.getValue().getCount(),
+    formatter.format(COLUMN_FORMAT,
+        (long) snapshot.getMean(), entry.getValue().getCount(),
         calculateTotal(entry.getValue()),
         entry.getKey());
   }
