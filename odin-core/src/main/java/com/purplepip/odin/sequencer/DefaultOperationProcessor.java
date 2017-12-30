@@ -91,20 +91,20 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
   }
 
   private void shutdown() {
-    if (queue.size() > 0) {
-      // TODO : Is there a better way other than just waiting?
-      LOG.warn("Operation processor queue is not empty, waiting for {}ms", refreshPeriod * 2);
+    if (scheduledPool != null) {
+      scheduledPool.shutdown();
       try {
-        Thread.sleep(refreshPeriod * 2);
+        scheduledPool.awaitTermination(refreshPeriod * 2, TimeUnit.MILLISECONDS);
       } catch (InterruptedException e) {
-        LOG.error("Interruption whilst waiting for operation processor to execute", e);
+        LOG.error("Could not shut operation processor down cleanly", e);
       }
+    }
+    if (queue.size() > 0) {
+      LOG.warn("Operation processor queue is not empty, waiting for {}ms", refreshPeriod * 2);
+      executor.run();
       if (queue.size() > 0) {
         LOG.warn("Operation processor queue is still not empty after wait");
       }
-    }
-    if (scheduledPool != null) {
-      scheduledPool.shutdown();
     }
     LOG.debug("Closed operation processor");
   }

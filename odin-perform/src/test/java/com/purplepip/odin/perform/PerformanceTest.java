@@ -115,7 +115,7 @@ public class PerformanceTest {
     LOG.debug("Spinning up : {}", testName);
     for (int i = 0 ; i < 200 ; i++) {
       environment.start();
-      //Thread.sleep(10);
+      Thread.sleep(10);
       environment.shutdown();
     }
 

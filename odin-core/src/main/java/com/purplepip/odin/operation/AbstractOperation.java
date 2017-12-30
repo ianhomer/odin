@@ -15,9 +15,12 @@
 
 package com.purplepip.odin.operation;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * Abstract operation.
  */
+@EqualsAndHashCode
 public abstract class AbstractOperation implements Operation {
   private Operation cause;
   private int causeDepth;

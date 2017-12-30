@@ -29,7 +29,7 @@ import org.junit.Test;
 @Slf4j
 public class SequencerRestartTest {
   private static final int RESTART_COUNT = 50;
-  
+
   @Test
   public void testRestart() throws OdinException, InterruptedException {
     final CountDownLatch latch = new CountDownLatch(100);
@@ -38,14 +38,13 @@ public class SequencerRestartTest {
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(operationReceiver, new GroovePerformance());
 
-    try (LogCaptor captor = new LogCapture()
-        .from(TrackProcessorExecutor.class).error().withPassThrough().start()) {
+    try (LogCaptor captor = new LogCapture().warn().withPassThrough().start()) {
       for (int i = 0; i < RESTART_COUNT; i++) {
         environment.start();
         Thread.sleep(10);
         environment.shutdown();
       }
-      assertEquals("No errors should have been thrown", 0, captor.size());
+      assertEquals("No errors or warns should have been logged", 0, captor.size());
     }
 
     Timer timer = environment.getConfiguration().getMetrics().timer("clock.start");
