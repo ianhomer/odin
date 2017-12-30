@@ -32,13 +32,13 @@
     <orderEntry type="library" name="Maven: com.google.j2objc:j2objc-annotations:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.mojo:animal-sniffer-annotations:1.14" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.2" level="project" />
-    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:3.2.5" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-bean:3.9.1" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-core:3.9.1" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7" level="project" />
     <orderEntry type="module" module-name="common-test-logging" scope="TEST" />
     <orderEntry type="module" module-name="log-capture" scope="TEST" />
-    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-annotation:3.2.5" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-annotation:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.18" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-actuator:1.5.8.RELEASE" level="project" />

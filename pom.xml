@@ -66,7 +66,7 @@
     <guava.version>23.6-jre</guava.version>
     <logback.version>1.2.3</logback.version>
     <lombok.version>1.16.18</lombok.version>
-    <metrics.version>3.2.5</metrics.version>
+    <metrics.version>4.0.0</metrics.version>
     <mockito.version>2.13.0</mockito.version>
     <purplepip.tests.jvm>-Dodin.audio.enabled=${odin.audio.enabled} -DupdateSnapshot=${purplepip.test.updateSnapshot}</purplepip.tests.jvm>
     <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
