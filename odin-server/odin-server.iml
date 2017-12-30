@@ -35,7 +35,7 @@
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-bean:3.9.1" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-core:3.9.1" level="project" />
-    <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7" level="project" />
+    <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7.1" level="project" />
     <orderEntry type="module" module-name="common-test-logging" scope="TEST" />
     <orderEntry type="module" module-name="log-capture" scope="TEST" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-annotation:4.0.0" level="project" />
