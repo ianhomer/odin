@@ -67,7 +67,7 @@
     <logback.version>1.2.3</logback.version>
     <lombok.version>1.16.18</lombok.version>
     <metrics.version>3.2.5</metrics.version>
-    <mockito.version>2.11.0</mockito.version>
+    <mockito.version>2.13.0</mockito.version>
     <purplepip.tests.jvm>-Dodin.audio.enabled=${odin.audio.enabled} -DupdateSnapshot=${purplepip.test.updateSnapshot}</purplepip.tests.jvm>
     <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
     <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
