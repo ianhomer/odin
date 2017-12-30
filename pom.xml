@@ -61,7 +61,7 @@
     <jacoco.covered.ratio>0.75</jacoco.covered.ratio>
     <jodd.version>3.9.1</jodd.version>
     <jackson.version>2.9.3</jackson.version>
-    <javax.validation>2.0.0.Final</javax.validation>
+    <javax.validation>2.0.1.Final</javax.validation>
     <junit.version>4.12</junit.version>
     <guava.version>23.6-jre</guava.version>
     <logback.version>1.2.3</logback.version>
