@@ -15,7 +15,7 @@
   <properties>
     <!-- Lower covered ration for server side for now during prototype development -->
     <jacoco.covered.ratio>0.60</jacoco.covered.ratio>
-    <spring.boot.version>1.5.8.RELEASE</spring.boot.version>
+    <spring.boot.version>1.5.9.RELEASE</spring.boot.version>
     <start-class>com.purplepip.odin.server.Application</start-class>
     <jvm.properties.debug/>
     <purplepip.tests.log.jvm>-Dlogging.config=classpath:${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
