@@ -19,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class Reals {
+  public static final double DOUBLE_PRECISION = 0.00000000000001;
+
   private Reals() {
   }
 

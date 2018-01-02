@@ -26,14 +26,10 @@ import lombok.extern.slf4j.Slf4j;
  * rhythm to retain precision such as triplets through tick conversions.
  */
 @Slf4j
-class ConcreteReal extends AbstractReal {
-  private static final double DOUBLE_PRECISION = 0.00000000000000000000001;
+final class ConcreteReal extends AbstractReal {
   private double value;
 
-  ConcreteReal() {
-  }
-
-  public ConcreteReal(double value) {
+  ConcreteReal(double value) {
     this.value = value;
   }
 
@@ -55,12 +51,12 @@ class ConcreteReal extends AbstractReal {
 
   @Override
   public Real plus(Whole whole) {
-    return Reals.valueOf(getValue() + whole.getNumerator());
+    return Reals.valueOf(value + whole.getNumerator());
   }
 
   @Override
   public Real minus(Real real) {
-    return Reals.valueOf(getValue() - real.getValue());
+    return Reals.valueOf(value - real.getValue());
   }
 
   @Override
@@ -100,7 +96,7 @@ class ConcreteReal extends AbstractReal {
     if (isNegative()) {
       return (long) getValue();
     } else {
-      return ((getValue() % 1 < DOUBLE_PRECISION) ? 0 : 1) + (long) getValue();
+      return ((getValue() % 1 < Reals.DOUBLE_PRECISION) ? 0 : 1) + (long) getValue();
     }
   }
 
@@ -155,19 +151,19 @@ class ConcreteReal extends AbstractReal {
   @JsonIgnore
   @Override
   public boolean isNegative() {
-    return getValue() < 0;
+    return value < 0;
   }
 
   @JsonIgnore
   @Override
   public boolean isPositive() {
-    return getValue() > 0;
+    return value > 0;
   }
 
   @JsonIgnore
   @Override
   public boolean isZero() {
-    return getValue() == 0;
+    return Double.compare(value, 0) == 0;
   }
 
   /**
@@ -177,9 +173,6 @@ class ConcreteReal extends AbstractReal {
    */
   @Override
   public Rational toRational() {
-    if (this instanceof Rational) {
-      return (Rational) this;
-    }
     LOG.warn("Cheap flooring of {} to make it a rational", this);
     /*
      * Very cheap flooring of non-rationals which is good enough for purpose.

@@ -45,8 +45,21 @@ public class RealTest {
   @Test
   public void testPlus() {
     assertEquals(Wholes.TWO, Wholes.valueOf(1).plus(Wholes.valueOf(1)));
-    assertEquals(Reals.valueOf(2.1), Reals.valueOf(1.1).plus(Wholes.valueOf(1)));
-    assertEquals(Reals.valueOf(2.1), Wholes.valueOf(1).plus(Reals.valueOf(1.1)));
+    assertEquals(Reals.valueOf(2.2), Reals.valueOf(1.1).plus(Reals.valueOf(1.1)));
+    assertEquals(Reals.valueOf(1.6), Reals.valueOf(1.1).plus(Rationals.HALF));
+    assertEquals(Reals.valueOf(2.1), Reals.valueOf(1.1).plus(Wholes.ONE));
+    assertEquals(Reals.valueOf(2.1), Wholes.ONE.plus(Reals.valueOf(1.1)));
+  }
+
+  @Test
+  public void testMinus() {
+    assertEquals(Reals.valueOf(1.1).getValue(),
+        Reals.valueOf(2.1).minus(Wholes.ONE).getValue(), Reals.DOUBLE_PRECISION);
+    assertEquals(1.6,
+        Reals.valueOf(2.1).minus(Rationals.HALF).getValue(), Reals.DOUBLE_PRECISION);
+    assertEquals(1.2,
+        Reals.valueOf(2.3).minus(Reals.valueOf(1.1)).getValue(),
+        Reals.DOUBLE_PRECISION);
   }
 
   @Test
@@ -113,6 +126,12 @@ public class RealTest {
   public void testAbsolute() {
     assertEquals(Reals.valueOf(0.2), Reals.valueOf(-0.2).absolute());
     assertEquals(Reals.valueOf(0.2), Reals.valueOf(0.2).absolute());
+  }
+
+  @Test
+  public void testIsZero() {
+    assertTrue(new ConcreteReal(0).isZero());
+    assertFalse(Reals.valueOf(1.1).isZero());
   }
 
   @Test

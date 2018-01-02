@@ -66,6 +66,13 @@ public class WholeTest {
   }
 
   @Test
+  public void testMinus() {
+    assertEquals(newWhole.apply(1), newWhole.apply(2).minus(newWhole.apply(1)));
+    assertEquals(Reals.valueOf(0.9).getValue(),
+        newWhole.apply(2).minus(Reals.valueOf(1.1)).getValue(), Reals.DOUBLE_PRECISION);
+  }
+
+  @Test
   public void testFloor() {
     assertEquals(3, newWhole.apply(3).floor());
     assertEquals(2, Reals.valueOf(2.1).floor());

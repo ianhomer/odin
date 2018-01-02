@@ -22,7 +22,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class ConcreteRational extends AbstractRational {
+final class ConcreteRational extends AbstractRational {
   private final long numerator;
   private final long denominator;
   private final boolean simplified;
