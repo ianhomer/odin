@@ -97,12 +97,13 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
         scheduledPool.awaitTermination(refreshPeriod * 2, TimeUnit.MILLISECONDS);
       } catch (InterruptedException e) {
         LOG.error("Could not shut operation processor down cleanly", e);
+        Thread.currentThread().interrupt();
       }
     }
-    if (queue.size() > 0) {
+    if (!queue.isEmpty()) {
       LOG.warn("Operation processor queue is not empty, waiting for {}ms", refreshPeriod * 2);
       executor.run();
-      if (queue.size() > 0) {
+      if (!queue.isEmpty()) {
         LOG.warn("Operation processor queue is still not empty after wait");
       }
     }
