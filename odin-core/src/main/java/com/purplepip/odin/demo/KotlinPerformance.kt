@@ -15,14 +15,23 @@
 
 package com.purplepip.odin.demo
 
-import com.purplepip.odin.creation.layer.Layers.newLayer
+import com.purplepip.odin.creation.layer.DefaultLayer
+import com.purplepip.odin.creation.layer.MutableLayer
+import com.purplepip.odin.creation.sequence.SequenceConfiguration
 import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.TransientPerformance
 
-class KotlinPerformance : TransientPerformance {
-  constructor() {
-    addLayer(newLayer("performance"))
-    addSequence(Pattern().bits(7)
+fun TransientPerformance.add(value: Any) {
+  when (value) {
+    is MutableLayer -> addLayer(value)
+    is SequenceConfiguration -> addSequence(value)
+  }
+}
+
+class KotlinPerformance : TransientPerformance() {
+  init {
+    add(DefaultLayer("performance"))
+    add(Pattern().bits(7)
         .offset(4)
         .length(8).layer("performance").name("kotlin"))
   }
