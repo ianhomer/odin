@@ -17,43 +17,39 @@ package com.purplepip.odin.demo
 
 import com.purplepip.odin.clock.tick.Ticks
 import com.purplepip.odin.creation.channel.DefaultChannel
-import com.purplepip.odin.creation.layer.DefaultLayer
 import com.purplepip.odin.music.notes.Notes.newNote
 import com.purplepip.odin.music.sequence.Pattern
-import com.purplepip.odin.performance.TransientPerformance
 
-class KotlinPerformance : TransientPerformance() {
-  init {
-    performance(this).apply {
-      add(DefaultChannel(9).programName("Power Drums"))
-      add(DefaultLayer("performance"))
-      add(Pattern().apply {
-        name = "beat1" ; channel = 9
-        bits(15) ; offset(4)
-        layer("performance")
-      })
-      add(Pattern().bits(15).note(newNote(62))
-          .layer("performance")
-          .tick(Ticks.THIRD).channel(9).name("beat2"))
-      add(Pattern().bits(3).note(newNote(46))
-          .offset(4).layer("performance")
-          .tick(Ticks.BEAT).channel(9).name("beat3"))
-
-      layer("performance").apply {
-        channel(9).apply {
-          add(Pattern().apply {
-            bits(31)
-            name = "beat5"
-            tick = Ticks.HALF
-            note(newNote(68))
-          })
-          add(Pattern().apply {
-            name = "beat4"
-            bits(2)
-            note(newNote(45))
-            offset(4)
-            tick(Ticks.TWO_BEAT)
-          })
+class KotlinPerformance {
+  var context: PerformanceConfigurationContext = performance().apply {
+    add(DefaultChannel(9).programName("Power Drums"))
+    layer("performance") {
+      channel(9) {
+        this add Pattern().apply {
+          name = "beat2"
+          bits(15) ; note(newNote(62))
+          tick = Ticks.THIRD
+        }
+        this add Pattern().apply {
+          name = "beat3"
+          bits(3) ; note(newNote(46))
+          offset(4)
+          tick = Ticks.BEAT
+        }
+        this add Pattern().apply {
+          name = "beat1"
+          bits(15); offset(4)
+        }
+        this add Pattern().apply {
+          name = "beat5"
+          bits(31); note(newNote(68))
+          tick = Ticks.EIGHTH
+        }
+        this add Pattern().apply {
+          name = "beat4"
+          bits(2); note(newNote(45))
+          tick = Ticks.TWO_BEAT
+          offset(4)
         }
       }
     }

@@ -17,6 +17,7 @@
 package com.purplepip.odin.demo
 
 import com.purplepip.odin.creation.channel.Channel
+import com.purplepip.odin.creation.layer.DefaultLayer
 import com.purplepip.odin.creation.layer.MutableLayer
 import com.purplepip.odin.creation.sequence.GenericSequence
 import com.purplepip.odin.creation.sequence.SequenceConfiguration
@@ -33,29 +34,38 @@ fun TransientPerformance.add(value: Any) {
 class PerformanceConfigurationContext constructor(performance: TransientPerformance) {
   var performance : TransientPerformance = performance
   var channel : Int = 0
-  var layer : Array<out String> = emptyArray()
+  var layers : Array<out String> = emptyArray()
 
-  fun channel(channel: Int) : PerformanceConfigurationContext {
+  fun channel(channel: Int, init: () -> Unit) : PerformanceConfigurationContext {
     this.channel = channel
+    init.invoke()
     return this
   }
 
-  fun layer(vararg layer : String) : PerformanceConfigurationContext {
-    this.layer = layer
+  fun layer(vararg names : String, init: () -> Unit) : PerformanceConfigurationContext {
+    names.filter { name -> performance.layers.count { layer -> layer.name == name } == 0}
+        .forEach { name -> add(DefaultLayer(name))}
+    this.layers = names
+    init.invoke()
     return this
   }
 
-  fun add(value: Any) {
+  infix fun add(value: Any) {
     when (value) {
       is GenericSequence -> {
         if (value.channel == 0) value.channel = channel
-        if (value.layers.isEmpty()) value.layer(*layer)
+        if (value.layers.isEmpty()) value.layer(*layers)
       }
     }
     performance.add(value)
   }
+
+  infix fun sequence(sequence: GenericSequence) : PerformanceConfigurationContext {
+    add(sequence)
+    return this
+  }
 }
 
-fun performance(performance : TransientPerformance) : PerformanceConfigurationContext {
-  return PerformanceConfigurationContext(performance)
+fun performance() : PerformanceConfigurationContext {
+  return PerformanceConfigurationContext(TransientPerformance())
 }
