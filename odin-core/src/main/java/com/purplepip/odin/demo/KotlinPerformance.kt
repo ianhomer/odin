@@ -19,20 +19,21 @@ import com.purplepip.odin.clock.tick.Ticks
 import com.purplepip.odin.creation.channel.DefaultChannel
 import com.purplepip.odin.music.notes.Notes.newNote
 import com.purplepip.odin.music.sequence.Pattern
+import com.purplepip.odin.performance.StaticPerformance
 
-class KotlinPerformance {
-  var context: PerformanceConfigurationContext = performance().apply {
+class KotlinPerformance : StaticPerformance {
+  constructor() : super(performance().apply {
     add(DefaultChannel(9).programName("Power Drums"))
     layer("performance") {
       channel(9) {
         this add Pattern().apply {
           name = "beat2"
-          bits(15) ; note(newNote(62))
+          bits(15); note(newNote(62))
           tick = Ticks.THIRD
         }
         this add Pattern().apply {
           name = "beat3"
-          bits(3) ; note(newNote(46))
+          bits(3); note(newNote(46))
           offset(4)
           tick = Ticks.BEAT
         }
@@ -53,5 +54,5 @@ class KotlinPerformance {
         }
       }
     }
-  }
+  }.performance)
 }

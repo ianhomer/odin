@@ -78,7 +78,7 @@ public class MidiSequenceExperiment {
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
       PerformanceContainer container = new PerformanceContainer(
-          new KotlinPerformance().getContext().getPerformance());
+          new KotlinPerformance());
 
       container.addApplyListener(sequencer);
       container.apply();
