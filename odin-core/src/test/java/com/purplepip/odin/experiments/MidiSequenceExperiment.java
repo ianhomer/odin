@@ -4,7 +4,7 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.demo.GroovePerformance;
+import com.purplepip.odin.demo.KotlinPerformance;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
@@ -77,7 +77,7 @@ public class MidiSequenceExperiment {
         synthesizerHelper.loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
-      PerformanceContainer container = new PerformanceContainer(new GroovePerformance());
+      PerformanceContainer container = new PerformanceContainer(new KotlinPerformance());
 
       container.addApplyListener(sequencer);
       container.apply();
