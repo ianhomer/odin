@@ -21,38 +21,36 @@ import com.purplepip.odin.music.notes.Notes.newNote
 import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.StaticPerformance
 
-class KotlinPerformance : StaticPerformance {
-  constructor() : super(performance().apply {
-    add(DefaultChannel(9).programName("Power Drums"))
-    layer("performance") {
-      channel(9) {
-        this add Pattern().apply {
-          name = "beat2"
-          bits(15); note(newNote(62))
-          tick = Ticks.THIRD
-        }
-        this add Pattern().apply {
-          name = "beat3"
-          bits(3); note(newNote(46))
-          offset(4)
-          tick = Ticks.BEAT
-        }
-        this add Pattern().apply {
-          name = "beat1"
-          bits(15); offset(4)
-        }
-        this add Pattern().apply {
-          name = "beat5"
-          bits(31); note(newNote(68))
-          tick = Ticks.EIGHTH
-        }
-        this add Pattern().apply {
-          name = "beat4"
-          bits(2); note(newNote(45))
-          tick = Ticks.TWO_BEAT
-          offset(4)
-        }
+class KotlinPerformance : StaticPerformance(performance().apply {
+  add(DefaultChannel(9).programName("Power Drums"))
+  layer("performance") {
+    channel(9) {
+      this add Pattern().apply {
+        name = "beat2"
+        bits(15); note(newNote(62))
+        tick = Ticks.THIRD
+      }
+      this add Pattern().apply {
+        name = "beat3"
+        bits(3); note(newNote(46))
+        offset(4)
+        tick = Ticks.BEAT
+      }
+      this add Pattern().apply {
+        name = "beat1"
+        bits(15); offset(4)
+      }
+      this add Pattern().apply {
+        name = "beat5"
+        bits(31); note(newNote(68))
+        tick = Ticks.EIGHTH
+      }
+      this add Pattern().apply {
+        name = "beat4"
+        bits(2); note(newNote(45))
+        tick = Ticks.TWO_BEAT
+        offset(4)
       }
     }
-  }.performance)
-}
+  }
+}.performance)
