@@ -17,6 +17,7 @@
 package com.purplepip.odin.demo
 
 import com.purplepip.odin.creation.channel.Channel
+import com.purplepip.odin.creation.channel.DefaultChannel
 import com.purplepip.odin.creation.layer.DefaultLayer
 import com.purplepip.odin.creation.layer.MutableLayer
 import com.purplepip.odin.creation.sequence.GenericSequence
@@ -36,6 +37,11 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
   var channel : Int = 0
   var layers : Array<out String> = emptyArray()
 
+  fun channel(channel: Int, instrument: String, init: () -> Unit) : PerformanceConfigurationContext {
+    add(DefaultChannel(channel).programName(instrument))
+    return channel(channel, init)
+  }
+
   fun channel(channel: Int, init: () -> Unit) : PerformanceConfigurationContext {
     this.channel = channel
     init.invoke()
@@ -48,6 +54,10 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
     this.layers = names
     init.invoke()
     return this
+  }
+
+  operator fun SequenceConfiguration.unaryPlus() {
+    add(this)
   }
 
   infix fun add(value: Any) {

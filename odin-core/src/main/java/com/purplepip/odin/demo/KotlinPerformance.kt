@@ -16,36 +16,37 @@
 package com.purplepip.odin.demo
 
 import com.purplepip.odin.clock.tick.Ticks
-import com.purplepip.odin.creation.channel.DefaultChannel
 import com.purplepip.odin.music.notes.Notes.newNote
 import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.StaticPerformance
 
 class KotlinPerformance : StaticPerformance(performance().apply {
-  add(DefaultChannel(9).programName("Power Drums"))
   layer("performance") {
-    channel(9) {
-      this add Pattern().apply {
+    channel(1, "Strings") {
+      + Pattern().apply { bits(1) }
+    }
+    channel(9, "Power Drums") {
+      + Pattern().apply {
         name = "beat2"
         bits(15); note(newNote(62))
         tick = Ticks.THIRD
       }
-      this add Pattern().apply {
+      + Pattern().apply {
         name = "beat3"
         bits(3); note(newNote(46))
         offset(4)
         tick = Ticks.BEAT
       }
-      this add Pattern().apply {
+      + Pattern().apply {
         name = "beat1"
         bits(15); offset(4)
       }
-      this add Pattern().apply {
+      + Pattern().apply {
         name = "beat5"
         bits(31); note(newNote(68))
         tick = Ticks.EIGHTH
       }
-      this add Pattern().apply {
+      + Pattern().apply {
         name = "beat4"
         bits(2); note(newNote(45))
         tick = Ticks.TWO_BEAT
