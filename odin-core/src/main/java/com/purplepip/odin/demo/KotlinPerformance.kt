@@ -17,6 +17,7 @@ package com.purplepip.odin.demo
 
 import com.purplepip.odin.clock.tick.Ticks
 import com.purplepip.odin.music.notes.Notes.newNote
+import com.purplepip.odin.music.sequence.Notation
 import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.StaticPerformance
 
@@ -24,33 +25,20 @@ class KotlinPerformance : StaticPerformance(performance().apply {
   layer("performance") {
     channel(1, "Strings") {
       + Pattern().apply { bits(1) }
+      + Notation().apply { notation("A/q G/8 A/q E") }
+    }
+    channel(2, "Violin") {
+      + Notation().apply { notation("A5/q A/8 A/q E") }
     }
     channel(9, "Power Drums") {
-      + Pattern().apply {
-        name = "beat2"
-        bits(15); note(newNote(62))
-        tick = Ticks.THIRD
+      + Pattern().apply { bits(15); note(newNote(62)) ; tick = Ticks.THIRD }
+      + Pattern().apply { bits(3); note(newNote(46))
+                          offset(4) ; tick = Ticks.BEAT
       }
-      + Pattern().apply {
-        name = "beat3"
-        bits(3); note(newNote(46))
-        offset(4)
-        tick = Ticks.BEAT
-      }
-      + Pattern().apply {
-        name = "beat1"
-        bits(15); offset(4)
-      }
-      + Pattern().apply {
-        name = "beat5"
-        bits(31); note(newNote(68))
-        tick = Ticks.EIGHTH
-      }
-      + Pattern().apply {
-        name = "beat4"
-        bits(2); note(newNote(45))
-        tick = Ticks.TWO_BEAT
-        offset(4)
+      + Pattern().apply { bits(15); offset(4) }
+      + Pattern().apply { bits(31); note(newNote(68)) ; tick = Ticks.EIGHTH }
+      + Pattern().apply { bits(2); note(newNote(45))
+                          offset(4) ; tick = Ticks.TWO_BEAT
       }
     }
   }
