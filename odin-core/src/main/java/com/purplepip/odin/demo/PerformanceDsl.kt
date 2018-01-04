@@ -16,12 +16,16 @@
 
 package com.purplepip.odin.demo
 
+import com.purplepip.odin.clock.tick.Tick
 import com.purplepip.odin.creation.channel.Channel
 import com.purplepip.odin.creation.channel.DefaultChannel
 import com.purplepip.odin.creation.layer.DefaultLayer
 import com.purplepip.odin.creation.layer.MutableLayer
 import com.purplepip.odin.creation.sequence.GenericSequence
+import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration
 import com.purplepip.odin.creation.sequence.SequenceConfiguration
+import com.purplepip.odin.music.sequence.Notation
+import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.TransientPerformance
 
 fun TransientPerformance.add(value: Any) {
@@ -32,13 +36,21 @@ fun TransientPerformance.add(value: Any) {
   }
 }
 
+infix fun SequenceConfiguration.plus(block: SequenceConfiguration.() -> SequenceConfiguration) {
+  apply { block.invoke(this) }
+}
+
+infix fun MutableSequenceConfiguration.at(value: Tick) {
+  tick = value
+}
+
 class PerformanceConfigurationContext constructor(performance: TransientPerformance) {
   var performance : TransientPerformance = performance
   var channel : Int = 0
   var layers : Array<out String> = emptyArray()
 
   fun channel(channel: Int, instrument: String, init: () -> Unit) : PerformanceConfigurationContext {
-    add(DefaultChannel(channel).programName(instrument))
+    performance.add(DefaultChannel(channel).programName(instrument))
     return channel(channel, init)
   }
 
@@ -50,29 +62,41 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
 
   fun layer(vararg names : String, init: () -> Unit) : PerformanceConfigurationContext {
     names.filter { name -> performance.layers.count { layer -> layer.name == name } == 0}
-        .forEach { name -> add(DefaultLayer(name))}
+        .forEach { name -> performance.add(DefaultLayer(name))}
     this.layers = names
     init.invoke()
     return this
   }
 
-  operator fun SequenceConfiguration.unaryPlus() {
-    add(this)
+  operator fun GenericSequence.unaryPlus() {
+    play(this)
   }
 
-  infix fun add(value: Any) {
-    when (value) {
-      is GenericSequence -> {
-        if (value.channel == 0) value.channel = channel
-        if (value.layers.isEmpty()) value.layer(*layers)
-      }
-    }
+  operator fun Int.unaryPlus() : Pattern {
+    return play(this)
+  }
+
+  operator fun String.unaryPlus() : Notation {
+    return play(this)
+  }
+
+  infix fun play(value: Int) : Pattern {
+    val sequence = Pattern().apply { bits(value) }
+    play(sequence)
+    return sequence
+  }
+
+  infix fun play(value: String) : Notation {
+    val sequence = Notation().apply { notation(value) }
+    play(sequence)
+    return sequence
+  }
+
+  infix fun play(value: GenericSequence) : GenericSequence {
+    if (value.channel == 0) value.channel = channel
+    if (value.layers.isEmpty()) value.layer(*layers)
     performance.add(value)
-  }
-
-  infix fun sequence(sequence: GenericSequence) : PerformanceConfigurationContext {
-    add(sequence)
-    return this
+    return value
   }
 }
 
