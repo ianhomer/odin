@@ -23,24 +23,22 @@ import com.purplepip.odin.performance.StaticPerformance
 class KotlinPerformance : StaticPerformance(performance().apply {
   layer("performance") {
     channel(1, "Strings") {
-      this play "A/q G/8 A/q E"
+      + "A/q G/8 A/q E"
     }
     channel(2, "Violin") {
-      this play "A5/q A/8 A/q G"
+      play("A5/q A/8 A/q G")
     }
     channel(3, "bass") {
-      (this play 31).apply { note(newNote(48, 80)) } at Ticks.QUARTER
+      play(31)(48,80) at Ticks.QUARTER
     }
     channel(4, "aah") {
-      this play 1
+      play(1)(72,80)
     }
     channel(9, "Power Drums") {
-      (this play 15).apply { note(newNote(62)) ; tick = Ticks.THIRD }
-      this play Pattern().apply { bits(3); note(newNote(46))
-                          offset(4) ; tick = Ticks.BEAT
-      }
-      + Pattern().apply { bits(15); offset(4) }
-      + Pattern().apply { bits(31); note(newNote(68)) ; tick = Ticks.EIGHTH }
+      play(15)(62) at Ticks.THIRD
+      play(3)(46) + 4 at Ticks.BEAT
+      play(15) + 4
+      play(31)(68) at Ticks.EIGHTH
       + Pattern().apply { bits(2); note(newNote(45))
                           offset(4) ; tick = Ticks.TWO_BEAT
       }

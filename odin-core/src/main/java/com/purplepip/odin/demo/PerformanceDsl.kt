@@ -24,6 +24,7 @@ import com.purplepip.odin.creation.layer.MutableLayer
 import com.purplepip.odin.creation.sequence.GenericSequence
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration
 import com.purplepip.odin.creation.sequence.SequenceConfiguration
+import com.purplepip.odin.music.notes.Notes.newNote
 import com.purplepip.odin.music.sequence.Notation
 import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.TransientPerformance
@@ -42,6 +43,21 @@ infix fun SequenceConfiguration.plus(block: SequenceConfiguration.() -> Sequence
 
 infix fun MutableSequenceConfiguration.at(value: Tick) {
   tick = value
+}
+
+operator fun GenericSequence.plus(offset: Long) : GenericSequence {
+  offset(offset)
+  return this
+}
+
+operator fun Pattern.invoke(note: Int) : Pattern {
+  note(newNote(note))
+  return this
+}
+
+operator fun Pattern.invoke(note: Int, velocity : Int) : Pattern {
+  note(newNote(note, velocity))
+  return this
 }
 
 class PerformanceConfigurationContext constructor(performance: TransientPerformance) {
@@ -80,14 +96,14 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
     return play(this)
   }
 
-  infix fun play(value: Int) : Pattern {
-    val sequence = Pattern().apply { bits(value) }
+  infix fun play(bits: Int) : Pattern {
+    val sequence = Pattern().apply { bits(bits) }
     play(sequence)
     return sequence
   }
 
-  infix fun play(value: String) : Notation {
-    val sequence = Notation().apply { notation(value) }
+  infix fun play(notation: String) : Notation {
+    val sequence = Notation().apply { notation(notation) }
     play(sequence)
     return sequence
   }
