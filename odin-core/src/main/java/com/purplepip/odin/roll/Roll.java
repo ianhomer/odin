@@ -25,10 +25,10 @@ import com.purplepip.odin.properties.runtime.Property;
  * automatic pianos, which was a roll of paper with holes in to indicate when a note should
  * be played.
  */
-public interface Roll<A> {
-  Event<A> peek();
+public interface Roll {
+  Event peek();
 
-  Event<A> pop();
+  Event pop();
 
   /**
    * Move the roll to the specified tock position.

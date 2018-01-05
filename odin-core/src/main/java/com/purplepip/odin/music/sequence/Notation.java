@@ -26,7 +26,6 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.composition.events.EventsComposition;
 import com.purplepip.odin.music.composition.events.IndexedComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -49,14 +48,14 @@ public class Notation extends SequencePlugin {
   private transient Rational loopLength;
 
   @Override
-  public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
-    Event<Note> event = indexedComposition.getEventAfter(loop.getPosition());
+  public Event getNextEvent(MeasureContext context, Loop loop) {
+    Event event = indexedComposition.getEventAfter(loop.getPosition());
     if (event != null) {
       /*
        * Use the absolute tock position for the returned event.
        */
       Real eventTime = loop.getAbsolutePosition(event.getTime());
-      return new DefaultEvent<>(event.getValue(), eventTime);
+      return new DefaultEvent(event.getValue(), eventTime);
     }
     return null;
   }

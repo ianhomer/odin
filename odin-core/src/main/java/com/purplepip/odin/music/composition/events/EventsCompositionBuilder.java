@@ -118,7 +118,7 @@ public class EventsCompositionBuilder {
       addNote(note.copyWithNewDuration(remaining));
       addNote(note.copyWithNewDuration(note.getDuration().minus(remaining)));
     } else {
-      Event<Note> event = new DefaultEvent<>(note, positionInComposition);
+      Event event = new DefaultEvent(note, positionInComposition);
       currentVoice.addEvent(event);
       positionInMeasure = positionInMeasure.plus(note.getDuration().toRational());
       positionInComposition = positionInComposition.plus(note.getDuration().toRational());

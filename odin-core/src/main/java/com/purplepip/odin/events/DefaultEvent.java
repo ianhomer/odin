@@ -15,19 +15,23 @@
 
 package com.purplepip.odin.events;
 
-import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.math.Wholes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Default Event.
  */
-public class DefaultEvent<A> implements Event<A> {
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultEvent.class);
-  private A value;
-  private Real time;
+@Slf4j
+public class DefaultEvent extends AbstractEvent<Object> {
+  /**
+   * Create a default event.
+   *
+   * @param value value for the event
+   * @param time time of the event
+   */
+  public DefaultEvent(Object value, long time) {
+    super(value, time);
+  }
 
   /**
    * Create a default event.
@@ -35,35 +39,7 @@ public class DefaultEvent<A> implements Event<A> {
    * @param value value for the event
    * @param time time of the event
    */
-  public DefaultEvent(A value, long time) {
-    this(value, Wholes.valueOf(time));
-  }
-
-  /**
-   * Create a default event.
-   *
-   * @param value value for the event
-   * @param time time of the event
-   */
-  public DefaultEvent(A value, Real time) {
-    if (value == null) {
-      throw new OdinRuntimeException("Cannot create an event with a null value");
-    }
-    this.value = value;
-    this.time = time;
-  }
-
-  @Override
-  public A getValue() {
-    return value;
-  }
-
-  @Override
-  public Real getTime() {
-    return time;
-  }
-
-  public String toString() {
-    return "Event(" + value + " @ " + time + ")";
+  public DefaultEvent(Object value, Real time) {
+    super(value, time);
   }
 }

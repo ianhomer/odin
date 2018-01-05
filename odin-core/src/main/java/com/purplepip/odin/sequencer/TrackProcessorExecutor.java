@@ -108,7 +108,7 @@ public class TrackProcessorExecutor implements Runnable {
   private int process(Track track) {
     metrics.meter("sequence.tracks").mark();
     int noteCount = 0;
-    Event<Note> nextEvent = track.peek();
+    Event nextEvent = track.peek();
 
     if (nextEvent == null) {
       metrics.meter("sequence.noEvent").mark();
@@ -156,7 +156,7 @@ public class TrackProcessorExecutor implements Runnable {
         LOG.trace("NullValueEvent ignored : {}", nextEvent);
         metrics.meter("sequence.nullEvent").mark();
       } else {
-        sendToProcessor(nextEvent.getValue(), nextEvent, track);
+        sendToProcessor(nextEvent, track);
       }
       noteCount++;
       nextEvent = track.peek();
@@ -173,18 +173,23 @@ public class TrackProcessorExecutor implements Runnable {
     return noteCount;
   }
 
-  private void sendToProcessor(Note note, Event<Note> nextEvent, Track sequenceTrack) {
-    Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
-        note.getNumber(), note.getVelocity());
-    Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
-        note.getNumber());
-    try {
-      operationProcessor.send(noteOn, nextEvent.getTime().floor());
-      operationProcessor.send(noteOff, nextEvent.getTime().plus(note.getDuration()).floor());
-      metrics.meter("sequence.sent").mark();
-    } catch (OdinException e) {
-      LOG.error("Cannot send operation to processor", e);
-      metrics.meter("sequence.failure").mark();
+  private void sendToProcessor(Event nextEvent, Track sequenceTrack) {
+    if (nextEvent.getValue() instanceof Note) {
+      Note note = (Note) nextEvent.getValue();
+      Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
+          note.getNumber(), note.getVelocity());
+      Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
+          note.getNumber());
+      try {
+        operationProcessor.send(noteOn, nextEvent.getTime().floor());
+        operationProcessor.send(noteOff, nextEvent.getTime().plus(note.getDuration()).floor());
+        metrics.meter("sequence.sent").mark();
+      } catch (OdinException e) {
+        LOG.error("Cannot send operation to processor", e);
+        metrics.meter("sequence.failure").mark();
+      }
+    } else {
+      LOG.warn("Event not supported {}", nextEvent);
     }
   }
 }

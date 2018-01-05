@@ -14,14 +14,14 @@ import lombok.extern.slf4j.Slf4j;
  * Roll of heartbeats every second.
  */
 @Slf4j
-public class HeartBeat implements Roll<Boolean> {
+public class HeartBeat implements Roll {
   @Override
-  public Event<Boolean> peek() {
+  public Event peek() {
     return getNext();
   }
 
   @Override
-  public Event<Boolean> pop() {
+  public Event pop() {
     return getNext();
   }
 
@@ -35,8 +35,8 @@ public class HeartBeat implements Roll<Boolean> {
     return () -> Ticks.BEAT;
   }
 
-  private Event<Boolean> getNext() {
-    return new DefaultEvent<>(Boolean.TRUE, ((System.currentTimeMillis() + 999) / 1000) * 1000);
+  private Event getNext() {
+    return new DefaultEvent(Boolean.TRUE, ((System.currentTimeMillis() + 999) / 1000) * 1000);
   }
 
   @Override

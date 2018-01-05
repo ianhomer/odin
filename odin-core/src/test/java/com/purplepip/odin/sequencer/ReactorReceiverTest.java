@@ -37,7 +37,6 @@ import com.purplepip.odin.creation.reactors.TriggerReactors;
 import com.purplepip.odin.creation.track.SequenceRollTrack;
 import com.purplepip.odin.creation.track.SequenceTracks;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
@@ -45,7 +44,7 @@ import org.junit.Test;
 
 public class ReactorReceiverTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
-  private FlowFactory<Note> flowFactory = newNoteFlowFactory();
+  private FlowFactory flowFactory = newNoteFlowFactory();
   private BeatClock clock = newPrecisionBeatClock(120);
   private MeasureProvider measureProvider = newMeasureProvider(4);
 

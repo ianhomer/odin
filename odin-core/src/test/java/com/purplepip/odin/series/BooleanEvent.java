@@ -6,7 +6,7 @@ import com.purplepip.odin.math.Rational;
 /**
  * Boolean.
  */
-public class BooleanEvent implements Event<Boolean> {
+public class BooleanEvent implements Event {
   private final Rational time;
 
   @Override

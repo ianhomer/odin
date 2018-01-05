@@ -21,6 +21,7 @@ import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
@@ -37,7 +38,7 @@ import org.junit.Test;
 
 @Slf4j
 public class MutableSequenceRollTest {
-  private FlowFactory<Note> flowFactory = newNoteFlowFactory();
+  private FlowFactory flowFactory = newNoteFlowFactory();
   private MovableMicrosecondPositionProvider microsecondPositionProvider =
       new MovableMicrosecondPositionProvider();
   private BeatClock clock = newPrecisionBeatClock(60, microsecondPositionProvider);
@@ -52,9 +53,9 @@ public class MutableSequenceRollTest {
         .channel(2).layer("groove")
         .enabled(false)
         .name("success");
-    MutableSequenceRoll<Note> roll = new MutableSequenceRoll<>(notation.copy(), clock,
+    MutableSequenceRoll roll = new MutableSequenceRoll(notation.copy(), clock,
         flowFactory, measureProvider);
-    Event<Note> nextEvent = roll.pop();
+    Event nextEvent = roll.pop();
     assertNull("Next event of disabled sequence should be null", nextEvent);
     microsecondPositionProvider.setMicroseconds(4000000);
     /*
@@ -65,7 +66,8 @@ public class MutableSequenceRollTest {
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
     assertNotNull("Next event after roll started should not be null", nextEvent);
-    assertEquals(60,nextEvent.getValue().getNumber());
+    assertTrue(nextEvent.getValue() instanceof Note);
+    assertEquals(60,((Note) nextEvent.getValue()).getNumber());
     assertEquals(Wholes.ZERO, nextEvent.getTime());
 
 
@@ -78,7 +80,7 @@ public class MutableSequenceRollTest {
     assertEquals(Ticks.HALF, roll.getTick().get());
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
-    assertEquals(60, nextEvent.getValue().getNumber());
+    assertEquals(60, ((Note) nextEvent.getValue()).getNumber());
     assertEquals(Wholes.valueOf(8), nextEvent.getTime());
 
     /*
@@ -89,7 +91,7 @@ public class MutableSequenceRollTest {
     assertEquals(Wholes.valueOf(20), roll.getOffsetProperty().get());
     nextEvent = roll.pop();
     LOG.debug("Next Event : {}", nextEvent);
-    assertEquals(62, nextEvent.getValue().getNumber());
+    assertEquals(62, ((Note) nextEvent.getValue()).getNumber());
     assertEquals(Wholes.valueOf(9), nextEvent.getTime());
   }
 }

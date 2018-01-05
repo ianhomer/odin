@@ -29,7 +29,6 @@ import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +42,7 @@ public class DefaultOdinSequencerConfiguration
   private OperationTransmitter operationTransmitter;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
-  private FlowFactory<Note> flowFactory;
+  private FlowFactory flowFactory;
   private TriggerFactory triggerFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
@@ -106,7 +105,7 @@ public class DefaultOdinSequencerConfiguration
   }
 
   public final DefaultOdinSequencerConfiguration
-      setFlowFactory(FlowFactory<Note> flowFactory) {
+      setFlowFactory(FlowFactory flowFactory) {
     this.flowFactory = flowFactory;
     return this;
   }
@@ -187,7 +186,7 @@ public class DefaultOdinSequencerConfiguration
   }
 
   @Override
-  public FlowFactory<Note> getFlowFactory() {
+  public FlowFactory getFlowFactory() {
     return flowFactory;
   }
 

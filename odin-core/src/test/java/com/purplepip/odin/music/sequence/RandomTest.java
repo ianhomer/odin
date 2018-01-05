@@ -39,10 +39,10 @@ public class RandomTest {
     Pattern sequence = new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1);
     sequence.initialise();
     MeasureContext context = new StaticMeasureContext(60, 4);
-    Event<Note> nextEvent = sequence.getNextEvent(context, new Loop());
+    Event nextEvent = sequence.getNextEvent(context, new Loop());
     assertNotNull("Event at first beat should not be null", nextEvent);
     assertEquals(Wholes.ZERO, nextEvent.getTime());
-    int number = nextEvent.getValue().getNumber();
+    int number = ((Note) nextEvent.getValue()).getNumber();
     LOG.debug("Random note number is {}", number);
     assertTrue(number >= LOWER_LIMIT);
     assertTrue(number <= UPPER_LIMIT);

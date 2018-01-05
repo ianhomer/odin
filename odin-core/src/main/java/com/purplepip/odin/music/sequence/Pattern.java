@@ -18,8 +18,7 @@ package com.purplepip.odin.music.sequence;
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
-import com.purplepip.odin.events.DefaultEvent;
-import com.purplepip.odin.events.Event;
+import com.purplepip.odin.events.NoteEvent;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
@@ -56,11 +55,11 @@ public class Pattern extends SequencePlugin {
   }
 
   @Override
-  public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
+  public NoteEvent getNextEvent(MeasureContext context, Loop loop) {
     Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
     long countInMeasure = context.getMeasureProvider().getCount(nextTock).floor();
     if (bits == -1 || ((bits >> countInMeasure) & 1) == 1)  {
-      return new DefaultEvent<>(note, nextTock);
+      return new NoteEvent(note, nextTock);
     }
     return null;
   }

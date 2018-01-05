@@ -16,6 +16,7 @@
 package com.purplepip.odin.music.notation.events;
 
 import com.purplepip.odin.music.composition.events.EventsComposition;
+import com.purplepip.odin.music.notes.Note;
 
 /**
  * Notation for internal composition structure used only for test assertion purposes.  This
@@ -30,13 +31,15 @@ public class CompositionTestNotation {
 
   private String createNotation(EventsComposition composition) {
     StringBuilder builder = new StringBuilder(128);
-    composition.eventStream().forEachOrdered(event ->
-        builder
-          .append(event.getTime())
-          .append(".")
-          .append(event.getValue().getDuration())
-          .append("-")
-          .append(event.getValue().getNumber()).append(" ")
+    composition.eventStream().forEachOrdered(event -> {
+          Note note = (Note) event.getValue();
+          builder
+              .append(event.getTime())
+              .append(".")
+              .append(note.getDuration())
+              .append("-")
+              .append(note.getNumber()).append(" ");
+        }
     );
     return builder.toString();
   }

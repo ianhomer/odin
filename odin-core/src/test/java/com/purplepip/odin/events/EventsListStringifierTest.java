@@ -18,7 +18,6 @@ package com.purplepip.odin.events;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.notes.DefaultNote;
-import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -27,10 +26,10 @@ public class EventsListStringifierTest {
   @Test
   public void testToString() {
     List<Event> events = new ArrayList<>();
-    events.add(new DefaultEvent<Note>(new DefaultNote(60,40,1), 0));
-    events.add(new DefaultEvent<Note>(new DefaultNote(60,40,2), 0));
-    events.add(new DefaultEvent<Note>(new DefaultNote(49,50,1), 1));
-    events.add(new DefaultEvent<Note>(new DefaultNote(49,60,3), 1));
+    events.add(new DefaultEvent(new DefaultNote(60,40,1), 0));
+    events.add(new DefaultEvent(new DefaultNote(60,40,2), 0));
+    events.add(new DefaultEvent(new DefaultNote(49,50,1), 1));
+    events.add(new DefaultEvent(new DefaultNote(49,60,3), 1));
     assertEquals("0=60--;0=60--2;1=49-50-;1=49-60-3;",
         new EventsListStringifier(events).toString());
   }

@@ -18,6 +18,7 @@ package com.purplepip.odin.music.composition.events;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Note;
 import org.junit.Test;
 
 public class CompositionRollTest {
@@ -26,6 +27,6 @@ public class CompositionRollTest {
     EventsCompositionBuilder builder = new EventsCompositionBuilder();
     builder.addNote(new DefaultNote(99,50,40));
     CompositionRoll roll = new CompositionRoll(builder.create());
-    assertEquals(99, roll.pop().getValue().getNumber());
+    assertEquals(99, ((Note) roll.pop().getValue()).getNumber());
   }
 }

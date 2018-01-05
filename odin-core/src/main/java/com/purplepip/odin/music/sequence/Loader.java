@@ -24,7 +24,6 @@ import com.purplepip.odin.events.DefaultEvent;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -48,11 +47,11 @@ public class Loader extends SequencePlugin {
   }
 
   @Override
-  public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
+  public Event getNextEvent(MeasureContext context, Loop loop) {
     Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
     if (nextTock.floor() == 0) {
       // TODO : Fire a load performance event
-      return new DefaultEvent<>(newNote(60), nextTock);
+      return new DefaultEvent(newNote(60), nextTock);
     }
     return null;
   }

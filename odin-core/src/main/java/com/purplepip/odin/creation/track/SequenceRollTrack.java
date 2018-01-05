@@ -28,7 +28,6 @@ import com.purplepip.odin.creation.plugin.PluggableAspect;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.SwallowedEvent;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.roll.Roll;
 import com.purplepip.odin.roll.TickConvertedRoll;
 import java.util.HashSet;
@@ -44,8 +43,8 @@ import lombok.extern.slf4j.Slf4j;
 @ToString(of = "sequenceRoll")
 public class SequenceRollTrack implements SequenceTrack, PluggableAspect<SequenceConfiguration> {
   private Set<Conductor> conductors = new HashSet<>();
-  private Roll<Note> roll;
-  private SequenceRoll<Note> sequenceRoll;
+  private Roll roll;
+  private SequenceRoll sequenceRoll;
   private TickConverter tickConverter;
 
   /**
@@ -57,9 +56,9 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
    */
   public SequenceRollTrack(SequenceConfiguration sequenceConfiguration, BeatClock clock,
                     MeasureProvider measureProvider,
-                    FlowFactory<Note> flowFactory) {
+                    FlowFactory flowFactory) {
     this(clock,
-        new MutableSequenceRoll<>(sequenceConfiguration.copy(),
+        new MutableSequenceRoll(sequenceConfiguration.copy(),
             clock, flowFactory, measureProvider));
   }
 
@@ -69,7 +68,7 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
    * @param clock beat clock
    * @param sequenceRoll sequence roll to base this track on
    */
-  private SequenceRollTrack(BeatClock clock, SequenceRoll<Note> sequenceRoll) {
+  private SequenceRollTrack(BeatClock clock, SequenceRoll sequenceRoll) {
     this.sequenceRoll = sequenceRoll;
     this.tickConverter = new DefaultTickConverter(clock,
         this.sequenceRoll.getTick(), () -> Ticks.MICROSECOND,
@@ -94,12 +93,12 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
   }
 
   @Override
-  public Event<Note> peek() {
+  public Event peek() {
     return filter(roll.peek());
   }
 
   @Override
-  public Event<Note> pop() {
+  public Event pop() {
     return filter(roll.pop());
   }
 
@@ -113,7 +112,7 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
    *
    * @return root sequence runtime.
    */
-  public SequenceRoll<Note> getSequenceRoll() {
+  public SequenceRoll getSequenceRoll() {
     return sequenceRoll;
   }
 
@@ -191,7 +190,7 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
     getSequenceRoll().initialise();
   }
 
-  private Event<Note> filter(Event<Note> event) {
+  private Event filter(Event event) {
     if (event == null) {
       return null;
     }
@@ -204,6 +203,6 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
     if (active) {
       return event;
     }
-    return new SwallowedEvent<>(event.getTime());
+    return new SwallowedEvent(event.getTime());
   }
 }

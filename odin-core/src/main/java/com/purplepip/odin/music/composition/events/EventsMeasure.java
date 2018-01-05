@@ -29,7 +29,7 @@ public class EventsMeasure extends Measure<EventsStaff> {
     super(time, key);
   }
 
-  Stream<Event<Note>> eventStream() {
+  Stream<Event> eventStream() {
     return stream().map(EventsStaff::eventStream)
         .reduce(Stream::concat).orElseGet(Stream::empty);
   }

@@ -26,7 +26,6 @@ import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.Flow;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
@@ -40,8 +39,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SequenceFactoryTest {
-  private SequenceFactory<Note> sequenceFactory = newNoteSequenceFactory();
-  private FlowFactory<Note> flowFactory = newNoteFlowFactory(new DefaultFlowConfiguration());
+  private SequenceFactory sequenceFactory = newNoteSequenceFactory();
+  private FlowFactory flowFactory = newNoteFlowFactory(new DefaultFlowConfiguration());
 
   @Mock
   private Clock clock;
@@ -78,7 +77,7 @@ public class SequenceFactoryTest {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.addMetronome();
-    Flow<Sequence<Note>, Note> flow =
+    Flow<Sequence> flow =
         flowFactory.createFlow(project.getSequences().iterator().next(), clock, measureProvider);
     assertEquals("DefaultFlow", flow.getClass().getSimpleName());
   }

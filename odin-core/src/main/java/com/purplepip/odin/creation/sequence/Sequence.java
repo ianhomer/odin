@@ -21,7 +21,7 @@ import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
 
-public interface Sequence<A> extends SequenceConfiguration {
+public interface Sequence extends SequenceConfiguration {
   /**
    * Get event <b>after</b> the given tock.  The sequence should not scan unnecessarily ahead since
    * the platform will take care of scanning, in general the sequence need not scan more than
@@ -32,7 +32,7 @@ public interface Sequence<A> extends SequenceConfiguration {
    * @param loop time position at which to get the event
    * @return event at the given tock
    */
-  Event<A> getNextEvent(MeasureContext context, Loop loop);
+  Event getNextEvent(MeasureContext context, Loop loop);
 
   @JsonIgnore
   default Rational getLoopLength() {

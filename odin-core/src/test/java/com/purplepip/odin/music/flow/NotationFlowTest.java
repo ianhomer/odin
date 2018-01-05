@@ -44,12 +44,12 @@ import org.junit.Test;
 
 @Slf4j
 public class NotationFlowTest {
-  private Flow<Sequence<Note>, Note> createNotationFlow(String notationAsString) {
+  private Flow<Sequence> createNotationFlow(String notationAsString) {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.withName("notation").addNotation(Ticks.BEAT, notationAsString);
     Notation notation = (Notation) builder.getSequenceByOrder(0);
-    FlowFactory<Note> flowFactory = newNoteFlowFactory();
+    FlowFactory flowFactory = newNoteFlowFactory();
     BeatClock clock = newPrecisionBeatClock(60);
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     return flowFactory.createFlow(notation, clock, measureProvider);
@@ -57,17 +57,18 @@ public class NotationFlowTest {
 
   @Test
   public void testGetNextEvent() {
-    Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/q, E5, G5, C5");
+    Flow<Sequence> flow = createNotationFlow("B5/q, E5, G5, C5");
     flow.initialise();
-    Event<Note> event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Wholes.MINUS_ONE));
+    Event event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Wholes.MINUS_ONE));
     LOG.debug("Clock : {}", flow.getContext().getClock());
     assertEquals(Wholes.ZERO, event.getTime());
-    assertEquals(83, event.getValue().getNumber());
+    assertTrue(event.getValue() instanceof Note);
+    assertEquals(83, ((Note) event.getValue()).getNumber());
   }
 
   @Test
   public void testGetMultipleEvents() {
-    Flow<Sequence<Note>, Note> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
+    Flow<Sequence> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
     flow.initialise();
     List<Event> events = new ArrayList<>();
     Real previousEventTime = Wholes.MINUS_ONE;

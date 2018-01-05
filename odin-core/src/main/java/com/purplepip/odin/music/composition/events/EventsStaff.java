@@ -28,7 +28,7 @@ public class EventsStaff extends Staff<EventsVoice> {
     super(clef);
   }
 
-  Stream<Event<Note>> eventStream() {
+  Stream<Event> eventStream() {
     return stream().map(EventsVoice::stream)
         .reduce(Stream::concat).orElseGet(Stream::empty);
   }

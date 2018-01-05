@@ -19,7 +19,6 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.aspect.Aspect;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.music.notes.Note;
 import java.util.Map;
 
 public interface Track extends Aspect {
@@ -35,7 +34,7 @@ public interface Track extends Aspect {
    *
    * @return next event with microsecond time units
    */
-  Event<Note> peek();
+  Event peek();
 
   /**
    * Take next event of this track, with subsequent call to peek or pop getting the subsequent one.
@@ -43,7 +42,7 @@ public interface Track extends Aspect {
    *
    * @return next event with microsecond time units
    */
-  Event<Note> pop();
+  Event pop();
 
   /**
    * Runtime tick for the track.

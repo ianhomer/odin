@@ -25,7 +25,6 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
@@ -40,7 +39,7 @@ public class TestSequencerEnvironment {
   private OdinSequencerConfiguration deltaConfiguration;
   private boolean prepared = false;
 
-  private FlowFactory<Note> flowFactory;
+  private FlowFactory flowFactory;
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver) throws OdinException {
     this(operationReceiver, new TransientPerformance());
@@ -102,7 +101,7 @@ public class TestSequencerEnvironment {
     return configuration;
   }
 
-  public FlowFactory<Note> getFlowFactory() {
+  public FlowFactory getFlowFactory() {
     return flowFactory;
   }
 

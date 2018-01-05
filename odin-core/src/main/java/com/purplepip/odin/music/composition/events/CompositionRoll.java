@@ -24,7 +24,6 @@ import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.roll.Roll;
 import java.util.ArrayList;
@@ -35,10 +34,10 @@ import lombok.extern.slf4j.Slf4j;
  * Roll based on a composition.
  */
 @Slf4j
-public class CompositionRoll implements Roll<Note> {
+public class CompositionRoll implements Roll {
   private final Composition composition;
-  private final List<Event<Note>> events = new ArrayList<>();
-  private Event<Note> currentEvent;
+  private final List<Event> events = new ArrayList<>();
+  private Event currentEvent;
   private Rational currentLoopStart = Wholes.ZERO;
   private int position;
 
@@ -92,13 +91,13 @@ public class CompositionRoll implements Roll<Note> {
   }
 
   @Override
-  public Event<Note> peek() {
+  public Event peek() {
     return getCurrentEvent();
   }
 
   @Override
-  public Event<Note> pop() {
-    Event<Note> thisEvent = getCurrentEvent();
+  public Event pop() {
+    Event thisEvent = getCurrentEvent();
     increment();
     return thisEvent;
   }
@@ -127,13 +126,13 @@ public class CompositionRoll implements Roll<Note> {
         position, currentLoopStart, getTick().get(), tock);
   }
 
-  private Event<Note> getCurrentEvent() {
+  private Event getCurrentEvent() {
     return currentEvent;
   }
 
-  private Event<Note> calculateCurrentEvent() {
-    Event<Note> event = events.get(position);
-    currentEvent = new DefaultEvent<>(event.getValue(), event.getTime().plus(currentLoopStart));
+  private Event calculateCurrentEvent() {
+    Event event = events.get(position);
+    currentEvent = new DefaultEvent(event.getValue(), event.getTime().plus(currentLoopStart));
     return currentEvent;
   }
 

@@ -15,27 +15,50 @@
 
 package com.purplepip.odin.events;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Real;
-import lombok.ToString;
+import com.purplepip.odin.math.Wholes;
 
-/**
- * An event whose value has been swallowed and as such the event should be ignored.
- */
-@ToString
-public class SwallowedEvent implements NullValueEvent {
+public abstract class AbstractEvent<A> implements Event {
   private Real time;
+  private A value;
 
-  public SwallowedEvent(Real time) {
+  AbstractEvent(A value, long time) {
+    setValue(value);
+    setTime(time);
+  }
+
+  AbstractEvent(A value, Real time) {
+    setValue(value);
+    setTime(time);
+  }
+
+  protected void setTime(Real time) {
     this.time = time;
   }
 
-  @Override
-  public Object getValue() {
-    return null;
+  protected void setTime(long time) {
+    this.time = Wholes.valueOf(time);
   }
 
   @Override
   public Real getTime() {
     return time;
+  }
+
+  public String toString() {
+    return getClass().getSimpleName() + "(" + getValue() + " @ " + getTime() + ")";
+  }
+
+  protected void setValue(A value) {
+    if (value == null) {
+      throw new OdinRuntimeException("Cannot create an event with a null value");
+    }
+    this.value = value;
+  }
+
+  @Override
+  public A getValue() {
+    return value;
   }
 }

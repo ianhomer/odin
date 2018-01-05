@@ -13,25 +13,32 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition.events;
+package com.purplepip.odin.events;
 
-import com.purplepip.odin.events.Event;
-import com.purplepip.odin.music.composition.Voice;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.music.notes.Note;
 
 /**
- * Voice based on events.
+ * Default Event.
  */
-public class EventsVoice implements Voice {
-  private List<Event> events = new ArrayList<>();
-
-  public void addEvent(Event event) {
-    events.add(event);
+public class NoteEvent extends AbstractEvent<Note> {
+  /**
+   * Create a note event.
+   *
+   * @param value value for the event
+   * @param time time of the event
+   */
+  public NoteEvent(Note value, long time) {
+    super(value, time);
   }
 
-  public Stream<Event> stream() {
-    return events.stream();
+  /**
+   * Create a default event.
+   *
+   * @param value value for the event
+   * @param time time of the event
+   */
+  public NoteEvent(Note value, Real time) {
+    super(value, time);
   }
 }

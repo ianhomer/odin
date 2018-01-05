@@ -22,7 +22,7 @@ import com.purplepip.odin.math.Real;
  * event signal can be used to allow a tock of a runtime sequence to be moved forward to this
  * point so that future scans for values start from this point.
  */
-public class ScanForwardEvent<A> implements Event<A> {
+public class ScanForwardEvent implements Event {
   private Real time;
 
   public ScanForwardEvent(Real time) {
@@ -30,7 +30,7 @@ public class ScanForwardEvent<A> implements Event<A> {
   }
 
   @Override
-  public A getValue() {
+  public Object getValue() {
     return null;
   }
 

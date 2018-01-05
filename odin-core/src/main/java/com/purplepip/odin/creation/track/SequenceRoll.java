@@ -24,10 +24,8 @@ import com.purplepip.odin.roll.Roll;
 
 /**
  * A roll that is based on a sequence.
- *
- * @param <A> type of object controlled by this roll
  */
-public interface SequenceRoll<A> extends Roll<A> {
+public interface SequenceRoll extends Roll {
   void setSequence(SequenceConfiguration sequence);
 
   SequenceConfiguration getSequence();
@@ -38,9 +36,9 @@ public interface SequenceRoll<A> extends Roll<A> {
 
   void refresh();
 
-  void setFlow(MutableFlow<Sequence<A>, A> flow);
+  void setFlow(MutableFlow<Sequence> flow);
 
-  MutableFlow<Sequence<A>, A> getFlow();
+  MutableFlow<Sequence> getFlow();
 
   Property<Rational> getOffsetProperty();
 }

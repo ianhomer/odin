@@ -13,25 +13,22 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.music.composition.events;
+package com.purplepip.odin.events;
 
-import com.purplepip.odin.events.Event;
-import com.purplepip.odin.music.composition.Voice;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import static com.purplepip.odin.music.notes.Notes.newNote;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Voice based on events.
- */
-public class EventsVoice implements Voice {
-  private List<Event> events = new ArrayList<>();
+import com.purplepip.odin.math.Wholes;
+import org.junit.Test;
 
-  public void addEvent(Event event) {
-    events.add(event);
-  }
-
-  public Stream<Event> stream() {
-    return events.stream();
+public class NoteEventTest {
+  @Test
+  public void testCreateNoteEvent() {
+    NoteEvent event = new NoteEvent(newNote(60), 1);
+    assertEquals(60, event.getValue().getNumber());
+    assertEquals(Wholes.ONE, event.getTime());
+    event = new NoteEvent(newNote(60), Wholes.ONE);
+    assertEquals(60, event.getValue().getNumber());
+    assertEquals(Wholes.ONE, event.getTime());
   }
 }

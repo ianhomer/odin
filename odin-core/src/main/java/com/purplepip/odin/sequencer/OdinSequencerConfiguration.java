@@ -21,7 +21,6 @@ import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.music.notes.Note;
 
 /**
  * Odin Sequencer configuration.
@@ -59,7 +58,7 @@ public interface OdinSequencerConfiguration {
    */
   MicrosecondPositionProvider getMicrosecondPositionProvider();
 
-  FlowFactory<Note> getFlowFactory();
+  FlowFactory getFlowFactory();
 
   default boolean isStrictEventOrder() {
     return false;

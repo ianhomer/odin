@@ -30,7 +30,7 @@ public class TickConvertedRollTest {
   private MicrosecondPositionProvider provider;
 
   @Mock
-  private Roll<Note> roll;
+  private Roll roll;
 
   private BeatClock clock;
 
@@ -54,13 +54,13 @@ public class TickConvertedRollTest {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.BEAT, Ticks.MILLISECOND, Wholes.valueOf(10));
     when(roll.pop()).thenReturn(
-        new DefaultEvent<>(
+        new DefaultEvent(
             new DefaultNote(1,1,3), 5));
-    Event<Note> eventNote = convertedRoll.pop();
+    Event eventNote = convertedRoll.pop();
     assertEquals("event time not correct", Wholes.valueOf(15000),
         eventNote.getTime());
     assertEquals("note duration not correct", Wholes.valueOf(3000),
-        eventNote.getValue().getDuration());
+        ((Note) eventNote.getValue()).getDuration());
   }
 
   @Test
@@ -68,13 +68,13 @@ public class TickConvertedRollTest {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.BEAT, Ticks.BEAT, Wholes.valueOf(10));
     when(roll.pop()).thenReturn(
-        new DefaultEvent<>(
+        new DefaultEvent(
             new DefaultNote(1,1,3), 5));
-    Event<Note> eventNote = convertedRoll.pop();
+    Event eventNote = convertedRoll.pop();
     assertEquals("event time not correct", Wholes.valueOf(15),
         eventNote.getTime());
     assertEquals("note duration not correct", Wholes.valueOf(3),
-        eventNote.getValue().getDuration());
+        ((Note) eventNote.getValue()).getDuration());
   }
 
   @Test
@@ -82,12 +82,12 @@ public class TickConvertedRollTest {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.MILLISECOND, Ticks.BEAT, Wholes.valueOf(5000));
     when(roll.pop()).thenReturn(
-        new DefaultEvent<>(
+        new DefaultEvent(
             new DefaultNote(1,1,7000), 4000));
-    Event<Note> eventNote = convertedRoll.pop();
+    Event eventNote = convertedRoll.pop();
     assertEquals("event time not correct", Wholes.valueOf(9), eventNote.getTime());
     assertEquals("note duration not correct", Wholes.valueOf(7),
-        eventNote.getValue().getDuration());
+        ((Note) eventNote.getValue()).getDuration());
   }
 
   @Test
@@ -95,12 +95,12 @@ public class TickConvertedRollTest {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.MILLISECOND, Ticks.MILLISECOND, Wholes.valueOf(5000));
     when(roll.pop()).thenReturn(
-        new DefaultEvent<>(
+        new DefaultEvent(
             new DefaultNote(1,1,7000), 4000));
-    Event<Note> eventNote = convertedRoll.pop();
+    Event eventNote = convertedRoll.pop();
     assertEquals("event time not correct", Wholes.valueOf(9000),
         eventNote.getTime());
     assertEquals("note duration not correct", Wholes.valueOf(7000),
-        eventNote.getValue().getDuration());
+        ((Note) eventNote.getValue()).getDuration());
   }
 }

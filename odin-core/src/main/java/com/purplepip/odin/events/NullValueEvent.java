@@ -15,5 +15,5 @@
 
 package com.purplepip.odin.events;
 
-public interface NullValueEvent<A> extends Event<A> {
+public interface NullValueEvent extends Event {
 }

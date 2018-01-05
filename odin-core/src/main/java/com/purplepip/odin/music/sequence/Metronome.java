@@ -18,8 +18,7 @@ package com.purplepip.odin.music.sequence;
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
-import com.purplepip.odin.events.DefaultEvent;
-import com.purplepip.odin.events.Event;
+import com.purplepip.odin.events.NoteEvent;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
@@ -43,7 +42,7 @@ public class Metronome extends SequencePlugin {
   private Note noteBarMid = Notes.newNote();
 
   @Override
-  public Event<Note> getNextEvent(MeasureContext context, Loop loop) {
+  public NoteEvent getNextEvent(MeasureContext context, Loop loop) {
     Note note;
     Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
     if (nextTock.modulo(Wholes.TWO).equals(Wholes.ZERO)) {
@@ -53,7 +52,7 @@ public class Metronome extends SequencePlugin {
         note = noteBarMid;
       }
       LOG.trace("Creating metronome note {} at {}", note, loop);
-      return new DefaultEvent<>(note, nextTock);
+      return new NoteEvent(note, nextTock);
     }
     return null;
   }

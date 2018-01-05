@@ -19,7 +19,6 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.events.Event;
-import com.purplepip.odin.music.notes.Note;
 import java.util.Map;
 import lombok.ToString;
 
@@ -47,12 +46,12 @@ public class UnmodifiableTrack implements Track {
   }
 
   @Override
-  public Event<Note> peek() {
+  public Event peek() {
     return underlyingTrack.peek();
   }
 
   @Override
-  public Event<Note> pop() {
+  public Event pop() {
     return underlyingTrack.pop();
   }
 

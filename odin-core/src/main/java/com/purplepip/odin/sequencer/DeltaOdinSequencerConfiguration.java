@@ -23,7 +23,6 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.music.notes.Note;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -85,7 +84,7 @@ public class DeltaOdinSequencerConfiguration implements OdinSequencerConfigurati
   }
 
   @Override
-  public FlowFactory<Note> getFlowFactory() {
+  public FlowFactory getFlowFactory() {
     return null;
   }
 

@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
 @ListenerPriority()
 @ToString(exclude = { "clock", "nextEvent", "sealedTock", "resetter",
     "flowFactory", "measureProvider", "flow", "tick"})
-public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListener {
+public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
 
   private final MutableProperty<Tick> tick = new ObservableProperty<>();
@@ -70,7 +70,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
    */
   private final MutableProperty<Rational> beatOffset = new ObservableProperty<>(Wholes.ZERO);
 
-  private MutableFlow<Sequence<A>, A> flow;
+  private MutableFlow<Sequence> flow;
   private BeatClock beatClock;
 
   private Rational length;
@@ -82,12 +82,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
    */
   private final Clock clock;
   private final MeasureProvider measureProvider;
-  private Event<A> nextEvent;
+  private Event nextEvent;
   private MovableTock tock;
   private Tock sealedTock;
   private final SequenceConfiguration sequence;
   private Resetter resetter = new Resetter();
-  private FlowFactory<A> flowFactory;
+  private FlowFactory flowFactory;
   private boolean tickDirty;
   private boolean sequenceDirty;
   private boolean typeNameDirty;
@@ -105,7 +105,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
    * @param beatMeasureProvider beat measure provider
    */
   public MutableSequenceRoll(SequenceConfiguration sequenceConfiguration,
-                             BeatClock beatClock, FlowFactory<A> flowFactory,
+                             BeatClock beatClock, FlowFactory flowFactory,
                              MeasureProvider beatMeasureProvider) {
     this.beatClock = beatClock;
     beatClock.addListener(this);
@@ -260,12 +260,12 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   }
 
   @Override
-  public void setFlow(MutableFlow<Sequence<A>, A> flow) {
+  public void setFlow(MutableFlow<Sequence> flow) {
     this.flow = flow;
   }
 
   @Override
-  public MutableFlow<Sequence<A>, A> getFlow() {
+  public MutableFlow<Sequence> getFlow() {
     return flow;
   }
 
@@ -418,7 +418,7 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
   }
 
   @Override
-  public Event<A> peek() {
+  public Event peek() {
     if (isRolling() && nextEvent == null) {
       nextEvent = getNextEventInternal(tock);
     }
@@ -437,8 +437,8 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     return endless || tock.getPosition().lt(length);
   }
 
-  private Event<A> getNextEventInternal(MovableTock tock) {
-    Event<A> event = getNextEvent(sealedTock);
+  private Event getNextEventInternal(MovableTock tock) {
+    Event event = getNextEvent(sealedTock);
     LOG.debug("{} : {} is next after {}", name, event, tock);
     /*
      * Now increment internal tock to the time of the provided event
@@ -455,17 +455,17 @@ public class MutableSequenceRoll<A> implements SequenceRoll<A>, PerformanceListe
     return event;
   }
 
-  private Event<A> getNextEvent(Tock tock) {
+  private Event getNextEvent(Tock tock) {
     return flow.getNextEvent(tock);
   }
 
   @Override
-  public Event<A> pop() {
+  public Event pop() {
     /*
      * Take event from local value since we might have peeked before we pop.
      */
     if (nextEvent != null) {
-      Event<A> thisEvent = nextEvent;
+      Event thisEvent = nextEvent;
       nextEvent = null;
       return thisEvent;
     }

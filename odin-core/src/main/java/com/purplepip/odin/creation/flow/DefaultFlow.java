@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
  * Default flow implementation.
  */
 @Slf4j
-public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> {
+public class DefaultFlow<S extends Sequence> implements MutableFlow<S> {
   private FlowConfiguration configuration;
   private S sequence;
   private final MeasureContext context;
@@ -70,14 +70,14 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
   }
 
   @Override
-  public Event<A> getNextEvent(Tock tock) {
+  public Event getNextEvent(Tock tock) {
     /*
      * Create local and temporary mutable tock for this function execution.
      */
     Loop loop = new Loop(sequence.getLoopLength(), tock.getPosition());
     int i = 0;
     long maxScanForward = context.getClock().getMaxLookForward().floor();
-    Event<A> event = null;
+    Event event = null;
     while (event == null && i < maxScanForward) {
       event = sequence.getNextEvent(context, loop);
       if (event == null) {
@@ -90,7 +90,7 @@ public class DefaultFlow<S extends Sequence<A>, A> implements MutableFlow<S, A> 
     if (event == null) {
       LOG.trace("No notes found in the next {} ticks after tock {} for sequence {}",
           maxScanForward, tock, getSequence());
-      event = new ScanForwardEvent<>(loop.getPosition().getLimit());
+      event = new ScanForwardEvent(loop.getPosition().getLimit());
     }
     return event;
   }

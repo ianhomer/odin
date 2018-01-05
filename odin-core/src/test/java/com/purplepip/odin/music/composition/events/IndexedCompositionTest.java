@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNull;
 
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Note;
 import org.junit.Test;
 
 public class IndexedCompositionTest {
@@ -30,10 +31,10 @@ public class IndexedCompositionTest {
     builder.addNote(new DefaultNote(99,50,1));
     builder.addNote(new DefaultNote(98,50,1));
     IndexedComposition indexedComposition = new IndexedComposition(builder.create());
-    assertEquals(99, indexedComposition
-        .getEventAfter(lessThan(Wholes.ZERO)).getValue().getNumber());
-    assertEquals(98, indexedComposition
-        .getEventAfter(lessThan(Wholes.ONE)).getValue().getNumber());
+    assertEquals(99, ((Note) indexedComposition
+        .getEventAfter(lessThan(Wholes.ZERO)).getValue()).getNumber());
+    assertEquals(98, ((Note) indexedComposition
+        .getEventAfter(lessThan(Wholes.ONE)).getValue()).getNumber());
     assertNull(indexedComposition.getEventAfter(lessThan(Wholes.TWO)));
   }
 }

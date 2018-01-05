@@ -34,7 +34,7 @@ public class EventsComposition extends Composition<EventsMeasure> {
     super(measures);
   }
 
-  public Stream<Event<Note>> eventStream() {
+  public Stream<Event> eventStream() {
     return stream().map(EventsMeasure::eventStream)
         .reduce(Stream::concat).orElseGet(Stream::empty);
   }

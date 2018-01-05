@@ -18,7 +18,6 @@ package com.purplepip.odin.music.composition.events;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Bound;
 import com.purplepip.odin.math.Rational;
-import com.purplepip.odin.music.notes.Note;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +31,7 @@ public class IndexedComposition {
   /*
    * Events indexed on the integer
    */
-  private HashMap<Long, List<Event<Note>>> events = new HashMap<>();
+  private HashMap<Long, List<Event>> events = new HashMap<>();
   private Rational length;
 
   /**
@@ -43,7 +42,7 @@ public class IndexedComposition {
   public IndexedComposition(EventsComposition eventsComposition) {
     eventsComposition.eventStream().forEachOrdered(event -> {
           long index = event.getTime().floor();
-          List<Event<Note>> eventsAtIndex =
+          List<Event> eventsAtIndex =
               events.computeIfAbsent(index, k -> new ArrayList<>());
           eventsAtIndex.add(event);
         }
@@ -57,11 +56,11 @@ public class IndexedComposition {
    * @param bound number boundary
    * @return next event
    */
-  public Event<Note> getEventAfter(Bound bound) {
+  public Event getEventAfter(Bound bound) {
     long floor = bound.getLimit().floor();
-    List<Event<Note>> eventsAtIndex = events.get(floor);
+    List<Event> eventsAtIndex = events.get(floor);
     if (eventsAtIndex != null) {
-      for (Event<Note> event : eventsAtIndex) {
+      for (Event event : eventsAtIndex) {
         LOG.trace("{} events found at tock {}", eventsAtIndex.size(), floor);
         if (bound.lt(event.getTime())) {
           LOG.trace("Returning event at {}", event.getTime());

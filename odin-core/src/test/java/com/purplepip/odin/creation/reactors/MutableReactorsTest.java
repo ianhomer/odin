@@ -31,14 +31,13 @@ import com.purplepip.odin.creation.track.SequenceTracks;
 import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Random;
 import com.purplepip.odin.performance.TransientPerformance;
 import org.junit.Test;
 
 public class MutableReactorsTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
-  private FlowFactory<Note> flowFactory = newNoteFlowFactory();
+  private FlowFactory flowFactory = newNoteFlowFactory();
   private BeatClock clock = newPrecisionBeatClock(120);
   private MeasureProvider measureProvider = newMeasureProvider(4);
 

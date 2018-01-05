@@ -13,7 +13,7 @@ import org.junit.Test;
 public class RollTest {
   @Test
   public void testSeries() {
-    Roll<Boolean> heartBeat = new HeartBeat();
+    Roll heartBeat = new HeartBeat();
     long currentTime = System.currentTimeMillis();
     Real peekedTime = heartBeat.peek().getTime();
     Real poppedTime = heartBeat.peek().getTime();

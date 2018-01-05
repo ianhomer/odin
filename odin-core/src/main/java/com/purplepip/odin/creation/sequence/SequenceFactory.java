@@ -24,18 +24,18 @@ import lombok.extern.slf4j.Slf4j;
  * Factory to create sequences.
  */
 @Slf4j
-public class SequenceFactory<A> extends AbstractSpecificThingFactory<Sequence<A>> {
+public class SequenceFactory extends AbstractSpecificThingFactory<Sequence> {
   /**
    * Create a new sequence factory.
    *
    * @param classes sequence classes to initialise with
    */
-  public SequenceFactory(List<Class<? extends Sequence<A>>> classes) {
+  public SequenceFactory(List<Class<? extends Sequence>> classes) {
     super(classes);
   }
 
   @Override
-  protected void populate(Sequence<A> destination, ThingConfiguration source) {
+  protected void populate(Sequence destination, ThingConfiguration source) {
     if (destination instanceof MutableSequenceConfiguration
         && source instanceof SequenceConfiguration) {
       // TODO : BeanCopy doesn't seem to copy list of layers so we'll do this manually

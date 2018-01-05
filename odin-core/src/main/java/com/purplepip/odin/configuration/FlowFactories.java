@@ -20,15 +20,14 @@ import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequence
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
-import com.purplepip.odin.music.notes.Note;
 
 public final class FlowFactories {
-  public static FlowFactory<Note> newNoteFlowFactory() {
+  public static FlowFactory newNoteFlowFactory() {
     return newNoteFlowFactory(new DefaultFlowConfiguration());
   }
 
-  public static FlowFactory<Note> newNoteFlowFactory(FlowConfiguration flowConfiguration) {
-    return new FlowFactory<>(newNoteSequenceFactory(), flowConfiguration);
+  public static FlowFactory newNoteFlowFactory(FlowConfiguration flowConfiguration) {
+    return new FlowFactory(newNoteSequenceFactory(), flowConfiguration);
   }
 
   private FlowFactories() {

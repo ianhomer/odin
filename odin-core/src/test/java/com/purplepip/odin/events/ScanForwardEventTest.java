@@ -25,12 +25,12 @@ import org.junit.Test;
 public class ScanForwardEventTest {
   @Test
   public void testGetValue() throws Exception {
-    assertNull(new ScanForwardEvent<>(Wholes.ZERO).getValue());
+    assertNull(new ScanForwardEvent(Wholes.ZERO).getValue());
   }
 
   @Test
   public void testGetTime() throws Exception {
-    ScanForwardEvent event = new ScanForwardEvent<>(Wholes.valueOf(9));
+    ScanForwardEvent event = new ScanForwardEvent(Wholes.valueOf(9));
     assertEquals(Rationals.valueOf(9,1), event.getTime());
   }
 }

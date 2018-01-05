@@ -28,11 +28,11 @@ import lombok.extern.slf4j.Slf4j;
  * @param <A> type of object delivered by the flow.
  */
 @Slf4j
-public class FlowFactory<A> {
-  private SequenceFactory<A> sequenceFactory;
+public class FlowFactory {
+  private SequenceFactory sequenceFactory;
   private FlowConfiguration flowConfiguration;
 
-  public FlowFactory(SequenceFactory<A> sequenceFactory, FlowConfiguration flowConfiguration) {
+  public FlowFactory(SequenceFactory sequenceFactory, FlowConfiguration flowConfiguration) {
     this.sequenceFactory = sequenceFactory;
     this.flowConfiguration = flowConfiguration;
   }
@@ -45,10 +45,10 @@ public class FlowFactory<A> {
    * @param measureProvider measure provider
    * @return flow
    */
-  public MutableFlow<Sequence<A>, A> createFlow(
+  public MutableFlow<Sequence> createFlow(
       SequenceConfiguration sequence, Clock clock, MeasureProvider measureProvider) {
     LOG.debug("Creating flow for sequence {}", sequence.getName());
-    MutableFlow<Sequence<A>, A> flow = new DefaultFlow<>(clock, measureProvider);
+    MutableFlow<Sequence> flow = new DefaultFlow<>(clock, measureProvider);
     flow.setSequence(sequenceFactory.newInstance(sequence));
     flow.setConfiguration(flowConfiguration);
     return flow;
@@ -60,7 +60,7 @@ public class FlowFactory<A> {
    * @param flow flow to refresh
    * @param sequence sequence to update flow with
    */
-  public void refreshSequence(MutableFlow<Sequence<A>, A> flow, SequenceConfiguration sequence) {
+  public void refreshSequence(MutableFlow<Sequence> flow, SequenceConfiguration sequence) {
     if (!sequence.equals(flow.getSequence())) {
       if (sequence instanceof Sequence) {
         LOG.debug("Resetting sequence {} in flow", sequence.getName());

@@ -17,7 +17,6 @@ package com.purplepip.odin.configuration;
 
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
-import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Loader;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
@@ -32,18 +31,18 @@ public final class SequenceFactories {
    *
    * @return a new note sequence factory
    */
-  public static SequenceFactory<Note> newNoteSequenceFactory() {
+  public static SequenceFactory newNoteSequenceFactory() {
     /*
      * Coded registration of known sequences.  In the future we may design a plugin architecture,
      * but for now it is kept tight by only allowing registered classes.
      */
-    List<Class<? extends Sequence<Note>>> classes = new ArrayList<>();
+    List<Class<? extends Sequence>> classes = new ArrayList<>();
     classes.add(Loader.class);
     classes.add(Metronome.class);
     classes.add(Notation.class);
     classes.add(Pattern.class);
     classes.add(Random.class);
-    return new SequenceFactory<>(classes);
+    return new SequenceFactory(classes);
   }
 
   private SequenceFactories() {

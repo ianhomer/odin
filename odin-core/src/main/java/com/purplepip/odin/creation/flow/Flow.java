@@ -23,14 +23,14 @@ import com.purplepip.odin.events.Event;
 /**
  * A flow class has the intelligence to determine the next events in a sequence.
  */
-public interface Flow<S extends SequenceConfiguration, A> {
+public interface Flow<S extends SequenceConfiguration> {
   /**
    * Get the next event after the given tock.
    *
    * @param tock time position after which to start scanning
    * @return next event after the tock
    */
-  Event<A> getNextEvent(Tock tock);
+  Event getNextEvent(Tock tock);
 
   S getSequence();
 

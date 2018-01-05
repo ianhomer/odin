@@ -34,9 +34,9 @@ import org.slf4j.LoggerFactory;
  * Roll calculated from another roll with the tick units converted.  Note that this tick
  * unit conversion can include offset adjustment as well as time unit conversion.
  */
-public class TickConvertedRoll implements Roll<Note> {
+public class TickConvertedRoll implements Roll {
   private static final Logger LOG = LoggerFactory.getLogger(TickConvertedRoll.class);
-  private Roll<Note> roll;
+  private Roll roll;
   private TickConverter tickConverter;
 
   /**
@@ -45,19 +45,19 @@ public class TickConvertedRoll implements Roll<Note> {
    * @param roll roll to convert
    * @param tickConverter tick converter to convert the runtime with
    */
-  public TickConvertedRoll(Roll<Note> roll,
+  public TickConvertedRoll(Roll roll,
                            TickConverter tickConverter) {
     this.roll = roll;
     this.tickConverter = tickConverter;
   }
 
   @Override
-  public Event<Note> peek() {
+  public Event peek() {
     return convertTimeUnits(roll.peek());
   }
 
   @Override
-  public Event<Note> pop() {
+  public Event pop() {
     return convertTimeUnits(roll.pop());
   }
 
@@ -114,13 +114,17 @@ public class TickConvertedRoll implements Roll<Note> {
     return roll.getProperty(name);
   }
 
-  private Event<Note> convertTimeUnits(Event<Note> event) {
+  private Event convertTimeUnits(Event event) {
     if (event == null) {
       LOG.trace("No event on roll {} to convert", roll.getName());
       return null;
     }
-    Note note = new DefaultNote(event.getValue().getNumber(), event.getValue().getVelocity(),
-        tickConverter.convertDuration(event.getTime(), event.getValue().getDuration()));
-    return new DefaultEvent<>(note, tickConverter.convert(event.getTime()).floor());
+    if (event.getValue() instanceof Note) {
+      Note original = (Note) event.getValue();
+      Note note = new DefaultNote(original.getNumber(), original.getVelocity(),
+          tickConverter.convertDuration(event.getTime(), original.getDuration()));
+      return new DefaultEvent(note, tickConverter.convert(event.getTime()).floor());
+    }
+    return event;
   }
 }

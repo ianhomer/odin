@@ -20,7 +20,7 @@ import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 /**
  * Mutable flow.
  */
-public interface MutableFlow<S extends SequenceConfiguration, A> extends Flow<S, A> {
+public interface MutableFlow<S extends SequenceConfiguration> extends Flow<S> {
   void setSequence(S sequence);
 
   void setConfiguration(FlowConfiguration configuration);
