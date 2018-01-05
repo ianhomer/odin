@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class PerformanceSchema {
-  private SequenceFactory<Note> factory = newNoteSequenceFactory();
+  private SequenceFactory factory = newNoteSequenceFactory();
   private Map<String, JsonNode> types = new HashMap<>();
   private Map<String, String> flows = new HashMap<>();
 
