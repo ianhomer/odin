@@ -50,7 +50,7 @@ public class PerformanceSchemaTest {
   public void testFlows() {
     PerformanceSchema schema = new PerformanceSchema();
     logObjectAsJson(schema);
-    assertEquals(4, schema.getFlows().size());
+    assertEquals(5, schema.getFlows().size());
     JsonNode notationSchema = schema.getFlowSchema("notation");
     assertEquals("Notation", notationSchema.get("title").asText());
     logObjectAsJson(notationSchema);
