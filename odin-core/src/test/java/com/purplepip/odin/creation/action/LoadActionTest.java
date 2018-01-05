@@ -32,6 +32,5 @@ public class LoadActionTest {
     action.execute(new ActionContext(track));
     verify(track, times(1)).setProperty("performance", "new-performance");
     verify(track, times(1)).start();
-    verify(track, times(1)).stop();
   }
 }

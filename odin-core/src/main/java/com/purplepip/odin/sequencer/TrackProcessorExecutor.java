@@ -82,6 +82,13 @@ public class TrackProcessorExecutor implements Runnable {
     }
   }
 
+  // TODO : Can we use a metric annotation for this?
+  private void doJobWithTiming() {
+    try (Timer.Context jobTimerContext = metrics.timer("sequence.job").time()) {
+      doJob();
+    }
+  }
+
   private void doJob() {
     int noteCountThisBuffer = 0;
     for (Track track : tracks) {
@@ -96,13 +103,6 @@ public class TrackProcessorExecutor implements Runnable {
       }
     }
     LOG.trace("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
-  }
-
-  // TODO : Can we use a metric annotation for this?
-  private void doJobWithTiming() {
-    try (Timer.Context jobTimerContext = metrics.timer("sequence.job").time()) {
-      doJob();
-    }
   }
 
   private int process(Track track) {

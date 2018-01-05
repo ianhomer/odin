@@ -26,7 +26,8 @@ public class LoaderTest {
   @Test
   public void testLoader() {
     Loader loader = new Loader().performance("new-performance");
-    GenericEvent<LoadPerformanceOperation> event = loader.getNextEvent(null, new Loop());
+    GenericEvent<LoadPerformanceOperation> event = loader.getNextEvent(null,
+        new Loop(0));
     assertEquals("new-performance", event.getValue().getPerformanceName());
   }
 }

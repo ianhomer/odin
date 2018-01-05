@@ -47,7 +47,7 @@ public class Loader extends SequencePlugin {
   @Override
   public GenericEvent<LoadPerformanceOperation> getNextEvent(MeasureContext context, Loop loop) {
     Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
-    if (nextTock.floor() == 0) {
+    if (nextTock.floor() == 1) {
       return new GenericEvent<>(new LoadPerformanceOperation(performance), nextTock);
     }
     return null;

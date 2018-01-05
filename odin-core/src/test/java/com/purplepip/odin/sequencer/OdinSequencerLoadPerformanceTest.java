@@ -3,7 +3,7 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.demo.KotlinPerformance;
+import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
@@ -36,7 +36,7 @@ public class OdinSequencerLoadPerformanceTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver,
-        new KotlinPerformance());
+        new DemoLoaderPerformance());
     environment.start();
 
     try {
@@ -49,9 +49,9 @@ public class OdinSequencerLoadPerformanceTest {
       environment.getConfiguration().getOperationTransmitter().send(
           new NoteOnOperation(1,50,5), -1
       );
-      loadPerformanceLatch.await(100, TimeUnit.MILLISECONDS);
+      loadPerformanceLatch.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Load performance operation should have been received",
-          noteLatch.getCount(), 0);
+          loadPerformanceLatch.getCount(), 0);
 
     } finally {
       environment.stop();

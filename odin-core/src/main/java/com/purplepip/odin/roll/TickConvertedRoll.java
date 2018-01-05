@@ -119,12 +119,13 @@ public class TickConvertedRoll implements Roll {
       LOG.trace("No event on roll {} to convert", roll.getName());
       return null;
     }
+    Object convertedValue = event.getValue();
     if (event.getValue() instanceof Note) {
       Note original = (Note) event.getValue();
-      Note note = new DefaultNote(original.getNumber(), original.getVelocity(),
+      convertedValue = new DefaultNote(original.getNumber(), original.getVelocity(),
           tickConverter.convertDuration(event.getTime(), original.getDuration()));
-      return new DefaultEvent(note, tickConverter.convert(event.getTime()).floor());
     }
-    return event;
+
+    return new DefaultEvent(convertedValue, tickConverter.convert(event.getTime()).floor());
   }
 }
