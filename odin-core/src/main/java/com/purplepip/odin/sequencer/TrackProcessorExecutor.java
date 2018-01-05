@@ -173,23 +173,26 @@ public class TrackProcessorExecutor implements Runnable {
     return noteCount;
   }
 
-  private void sendToProcessor(Event nextEvent, Track sequenceTrack) {
-    if (nextEvent.getValue() instanceof Note) {
-      Note note = (Note) nextEvent.getValue();
-      Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
-          note.getNumber(), note.getVelocity());
-      Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
-          note.getNumber());
-      try {
-        operationProcessor.send(noteOn, nextEvent.getTime().floor());
-        operationProcessor.send(noteOff, nextEvent.getTime().plus(note.getDuration()).floor());
-        metrics.meter("sequence.sent").mark();
-      } catch (OdinException e) {
-        LOG.error("Cannot send operation to processor", e);
-        metrics.meter("sequence.failure").mark();
+  private void sendToProcessor(Event event, Track sequenceTrack) {
+    try {
+      if (event.getValue() instanceof Note) {
+        Note note = (Note) event.getValue();
+        Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
+            note.getNumber(), note.getVelocity());
+        Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
+            note.getNumber());
+        operationProcessor.send(noteOn, event.getTime().floor());
+        operationProcessor.send(noteOff, event.getTime().plus(note.getDuration()).floor());
+        metrics.meter("sequence.sent.note").mark();
+      } else if (event.getValue() instanceof Operation) {
+        operationProcessor.send((Operation) event.getValue(), event.getTime().floor());
+        metrics.meter("sequence.sent.operation").mark();
+      } else {
+        LOG.warn("Event not supported {}", event);
       }
-    } else {
-      LOG.warn("Event not supported {}", nextEvent);
+    } catch (OdinException e) {
+      LOG.error("Cannot send operation to processor", e);
+      metrics.meter("sequence.failure").mark();
     }
   }
 }

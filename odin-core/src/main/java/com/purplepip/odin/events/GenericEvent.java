@@ -19,16 +19,16 @@ import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 
-public abstract class AbstractEvent<A> implements Event {
+public class GenericEvent<A> implements Event {
   private Real time;
   private A value;
 
-  AbstractEvent(A value, long time) {
+  public GenericEvent(A value, long time) {
     setValue(value);
     setTime(time);
   }
 
-  AbstractEvent(A value, Real time) {
+  public GenericEvent(A value, Real time) {
     setValue(value);
     setTime(time);
   }

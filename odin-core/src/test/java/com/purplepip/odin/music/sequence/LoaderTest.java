@@ -13,32 +13,20 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.events;
+package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.notes.Note;
+import static org.junit.Assert.assertEquals;
 
-/**
- * Default Event.
- */
-public class NoteEvent extends GenericEvent<Note> {
-  /**
-   * Create a note event.
-   *
-   * @param value value for the event
-   * @param time time of the event
-   */
-  public NoteEvent(Note value, long time) {
-    super(value, time);
-  }
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.events.GenericEvent;
+import com.purplepip.odin.performance.LoadPerformanceOperation;
+import org.junit.Test;
 
-  /**
-   * Create a default event.
-   *
-   * @param value value for the event
-   * @param time time of the event
-   */
-  public NoteEvent(Note value, Real time) {
-    super(value, time);
+public class LoaderTest {
+  @Test
+  public void testLoader() {
+    Loader loader = new Loader().performance("new-performance");
+    GenericEvent<LoadPerformanceOperation> event = loader.getNextEvent(null, new Loop());
+    assertEquals("new-performance", event.getValue().getPerformanceName());
   }
 }

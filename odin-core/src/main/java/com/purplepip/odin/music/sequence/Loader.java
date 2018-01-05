@@ -15,15 +15,13 @@
 
 package com.purplepip.odin.music.sequence;
 
-import static com.purplepip.odin.music.notes.Notes.newNote;
-
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
-import com.purplepip.odin.events.DefaultEvent;
-import com.purplepip.odin.events.Event;
+import com.purplepip.odin.events.GenericEvent;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.performance.LoadPerformanceOperation;
 import com.purplepip.odin.specificity.Name;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -47,11 +45,10 @@ public class Loader extends SequencePlugin {
   }
 
   @Override
-  public Event getNextEvent(MeasureContext context, Loop loop) {
+  public GenericEvent<LoadPerformanceOperation> getNextEvent(MeasureContext context, Loop loop) {
     Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
     if (nextTock.floor() == 0) {
-      // TODO : Fire a load performance event
-      return new DefaultEvent(newNote(60), nextTock);
+      return new GenericEvent<>(new LoadPerformanceOperation(performance), nextTock);
     }
     return null;
   }

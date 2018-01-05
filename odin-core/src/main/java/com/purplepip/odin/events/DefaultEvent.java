@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
  * Default Event.
  */
 @Slf4j
-public class DefaultEvent extends AbstractEvent<Object> {
+public class DefaultEvent extends GenericEvent<Object> {
   /**
    * Create a default event.
    *
