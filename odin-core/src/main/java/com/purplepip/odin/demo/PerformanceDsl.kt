@@ -24,6 +24,8 @@ import com.purplepip.odin.creation.layer.MutableLayer
 import com.purplepip.odin.creation.sequence.GenericSequence
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration
 import com.purplepip.odin.creation.sequence.SequenceConfiguration
+import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration
+import com.purplepip.odin.creation.triggers.Trigger
 import com.purplepip.odin.music.notes.Notes.newNote
 import com.purplepip.odin.music.sequence.Notation
 import com.purplepip.odin.music.sequence.Pattern
@@ -34,6 +36,7 @@ fun TransientPerformance.add(value: Any) {
     is MutableLayer -> addLayer(value)
     is SequenceConfiguration -> addSequence(value)
     is Channel -> addChannel(value)
+    is MutableTriggerConfiguration -> addTrigger(value)
   }
 }
 
@@ -41,8 +44,9 @@ infix fun SequenceConfiguration.plus(block: SequenceConfiguration.() -> Sequence
   apply { block.invoke(this) }
 }
 
-infix fun MutableSequenceConfiguration.at(value: Tick) {
+infix fun MutableSequenceConfiguration.at(value: Tick) : MutableSequenceConfiguration {
   tick = value
+  return this
 }
 
 operator fun GenericSequence.plus(offset: Long) : GenericSequence {
@@ -113,6 +117,11 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
     if (value.layers.isEmpty()) value.layer(*layers)
     performance.add(value)
     return value
+  }
+
+  infix fun add(trigger: Trigger) : Trigger {
+    performance.add(trigger)
+    return trigger
   }
 }
 

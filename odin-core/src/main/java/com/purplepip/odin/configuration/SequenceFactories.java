@@ -18,6 +18,7 @@ package com.purplepip.odin.configuration;
 import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.sequence.Loader;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
@@ -37,6 +38,7 @@ public final class SequenceFactories {
      * but for now it is kept tight by only allowing registered classes.
      */
     List<Class<? extends Sequence<Note>>> classes = new ArrayList<>();
+    classes.add(Loader.class);
     classes.add(Metronome.class);
     classes.add(Notation.class);
     classes.add(Pattern.class);

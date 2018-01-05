@@ -21,6 +21,7 @@ import com.purplepip.odin.creation.action.DisableAction;
 import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.creation.action.IncrementAction;
 import com.purplepip.odin.creation.action.InitialiseAction;
+import com.purplepip.odin.creation.action.LoadAction;
 import com.purplepip.odin.creation.action.SetAction;
 import com.purplepip.odin.creation.action.StartAction;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public final class ActionFactories {
     classes.add(EnableAction.class);
     classes.add(IncrementAction.class);
     classes.add(InitialiseAction.class);
+    classes.add(LoadAction.class);
     classes.add(SetAction.class);
     classes.add(StartAction.class);
     return new ActionFactory(classes);

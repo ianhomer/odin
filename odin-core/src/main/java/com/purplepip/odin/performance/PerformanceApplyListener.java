@@ -16,9 +16,9 @@
 package com.purplepip.odin.performance;
 
 /**
- * Project apply listener interface.
+ * Performance apply listener interface.
  */
 @FunctionalInterface
 public interface PerformanceApplyListener {
-  void onProjectApply(Performance project);
+  void onPerformanceApply(Performance project);
 }

@@ -81,7 +81,7 @@ public class PerformanceContainer {
    */
   public final void apply() {
     for (PerformanceApplyListener listener : applyListeners) {
-      listener.onProjectApply(performance);
+      listener.onPerformanceApply(performance);
     }
   }
 

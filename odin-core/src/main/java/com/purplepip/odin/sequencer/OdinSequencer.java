@@ -124,24 +124,24 @@ public class OdinSequencer implements PerformanceApplyListener {
   }
 
   @Override
-  public void onProjectApply(Performance project) {
-    refreshTracks(project);
+  public void onPerformanceApply(Performance performance) {
+    refreshTracks(performance);
   }
 
   /**
-   * Refresh sequencer trackSet from the project configuration.
+   * Refresh sequencer trackSet from the performance configuration.
    */
-  private void refreshTracks(Performance project) {
-    refreshChannels(project);
+  private void refreshTracks(Performance performance) {
+    refreshChannels(performance);
     conductors.refresh(
-        project.getLayers().stream(),
+        performance.getLayers().stream(),
         layer -> new LayerConductor(layer, clock));
     tracks.refresh(
-        project.getSequences().stream(),
+        performance.getSequences().stream(),
         sequence -> new SequenceRollTrack(sequence, clock, configuration.getMeasureProvider(),
             configuration.getFlowFactory()));
     reactors.refresh(
-        project.getTriggers().stream(),
+        performance.getTriggers().stream(),
         trigger -> new TriggerReactor(trigger, configuration.getTriggerFactory()));
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
@@ -155,8 +155,8 @@ public class OdinSequencer implements PerformanceApplyListener {
     }
   }
 
-  private void refreshChannels(Performance project) {
-    for (Channel channel : project.getChannels()) {
+  private void refreshChannels(Performance performance) {
+    for (Channel channel : performance.getChannels()) {
       try {
         /*
          * Only send program change operation if it has not already been sent.

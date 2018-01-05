@@ -37,10 +37,10 @@ public class PerformanceContainerTest {
     container.addApplyListener(listener);
     container.apply();
     container.apply();
-    verify(listener, times(2)).onProjectApply(performance);
+    verify(listener, times(2)).onPerformanceApply(performance);
     container.removeApplyListener(listener);
     container.apply();
-    verify(listener, times(2)).onProjectApply(performance);
+    verify(listener, times(2)).onPerformanceApply(performance);
   }
 
   @Test
