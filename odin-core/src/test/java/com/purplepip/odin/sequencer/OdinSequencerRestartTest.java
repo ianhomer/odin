@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 @Slf4j
-public class OdinSequencerRestart {
+public class OdinSequencerRestartTest {
   @Test
   public void testRestart() throws OdinException {
     TestSequencerEnvironment environment =

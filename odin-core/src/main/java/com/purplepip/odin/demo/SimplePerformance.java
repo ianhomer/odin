@@ -21,8 +21,12 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.performance.TransientPerformance;
 
 public class SimplePerformance extends TransientPerformance {
+  /**
+   * Create new simple performance.
+   */
   public SimplePerformance() {
     addLayer(newLayer("performance"));
-    addSequence(new Pattern().bits(7).offset(4).length(8).layer("performance").name("simple"));
+    addSequence(new Pattern().bits(7).offset(4).length(8).channel(1)
+        .layer("performance").name("simple"));
   }
 }

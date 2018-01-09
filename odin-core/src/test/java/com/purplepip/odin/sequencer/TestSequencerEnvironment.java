@@ -50,18 +50,29 @@ public class TestSequencerEnvironment {
     this(operationReceiver, performance, new DeltaOdinSequencerConfiguration());
   }
 
+  public TestSequencerEnvironment(OperationReceiver operationReceiver,
+                                  Performance performance,
+                                  OdinSequencerConfiguration configuration) throws OdinException {
+    this(operationReceiver, new PerformanceContainer(performance), configuration);
+  }
+
+  public TestSequencerEnvironment(OperationReceiver operationReceiver,
+                                  PerformanceContainer container) throws OdinException {
+    this(operationReceiver, container, new DeltaOdinSequencerConfiguration());
+  }
+
   /**
    * Create test sequencer environment.
    *
    * @param operationReceiver operation receiver
-   * @param performance performance
+   * @param container performance container
    * @param configuration configuration
    * @throws OdinException exception
    */
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
-                                  Performance performance,
+                                  PerformanceContainer container,
                                   OdinSequencerConfiguration configuration) throws OdinException {
-    this.container = new PerformanceContainer(performance);
+    this.container = container;
     this.deltaConfiguration = configuration;
     initialiseSequencer(operationReceiver);
   }
