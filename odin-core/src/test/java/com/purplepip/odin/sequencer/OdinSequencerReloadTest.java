@@ -33,7 +33,6 @@ public class OdinSequencerReloadTest {
     final CountDownLatch channel1Latch = new CountDownLatch(2);
     final CountDownLatch channel9Latch = new CountDownLatch(EXPECTED_COUNT);
 
-    PerformanceContainer container = new PerformanceContainer(new SimplePerformance());
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
         NoteOnOperation noteOnOperation = (NoteOnOperation) operation;
@@ -52,6 +51,7 @@ public class OdinSequencerReloadTest {
       }
     };
 
+    PerformanceContainer container = new PerformanceContainer(new SimplePerformance());
     TestSequencerEnvironment environment = new TestSequencerEnvironment(
         new OperationReceiverCollection(operationReceiver, new ClassPerformanceLoader(container)),
         container);

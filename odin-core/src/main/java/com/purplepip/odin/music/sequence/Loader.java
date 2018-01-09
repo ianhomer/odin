@@ -40,6 +40,8 @@ import lombok.extern.slf4j.Slf4j;
 @Name("loader")
 public class Loader extends SequencePlugin {
   private URI performanceUri;
+  private String scheme = "classpath";
+  private String performance;
 
   /**
    * Set performance that loader should load.
@@ -48,19 +50,34 @@ public class Loader extends SequencePlugin {
    * @return this
    */
   public Loader performance(String performance) {
-    try {
-      this.performanceUri = new URI("default", performance, null);
-    } catch (URISyntaxException e) {
-      LOG.error("Cannot create URI for performance : " + performance, e);
-    }
+    this.performance = performance;
+    return this;
+  }
+
+  public Loader scheme(String scheme) {
+    this.scheme = scheme;
     return this;
   }
 
   @Override
+  public void initialise() {
+    if (performance != null) {
+      try {
+        performanceUri = new URI(scheme, performance, null);
+      } catch (URISyntaxException e) {
+        LOG.error("Cannot create URI for performance : " + performance, e);
+      }
+    }
+  }
+
+
+  @Override
   public GenericEvent<LoadPerformanceOperation> getNextEvent(MeasureContext context, Loop loop) {
-    Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
-    if (nextTock.floor() == 1) {
-      return new GenericEvent<>(new LoadPerformanceOperation(performanceUri), nextTock);
+    if (performanceUri != null) {
+      Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
+      if (nextTock.floor() == 1) {
+        return new GenericEvent<>(new LoadPerformanceOperation(performanceUri), nextTock);
+      }
     }
     return null;
   }
@@ -77,6 +94,8 @@ public class Loader extends SequencePlugin {
 
   protected Loader copy(Loader copy) {
     super.copy(copy);
+    copy.performance = this.performance;
+    copy.scheme = this.scheme;
     copy.performanceUri = this.performanceUri;
     return copy;
   }
