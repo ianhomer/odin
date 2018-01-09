@@ -34,8 +34,6 @@ public class OdinSequencerReloadTest {
     final CountDownLatch channel9Latch = new CountDownLatch(EXPECTED_COUNT);
 
     PerformanceContainer container = new PerformanceContainer(new SimplePerformance());
-    ClassPerformanceLoader loader = new ClassPerformanceLoader(container);
-
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
         NoteOnOperation noteOnOperation = (NoteOnOperation) operation;
@@ -46,8 +44,6 @@ public class OdinSequencerReloadTest {
         } else {
           LOG.warn("Unexpected note operation : {}", operation);
         }
-      } else if (operation instanceof LoadPerformanceOperation) {
-        loader.load((LoadPerformanceOperation) operation);
       } else if (operation instanceof NoteOffOperation
           || operation instanceof ProgramChangeOperation) {
         LOG.trace("Ignored {} : ", operation);
@@ -56,7 +52,8 @@ public class OdinSequencerReloadTest {
       }
     };
 
-    TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver,
+    TestSequencerEnvironment environment = new TestSequencerEnvironment(
+        new OperationReceiverCollection(operationReceiver, new ClassPerformanceLoader(container)),
         container);
     environment.start();
 

@@ -16,9 +16,11 @@
 package com.purplepip.odin.performance;
 
 import com.purplepip.odin.common.OdinRuntimeException;
+import com.purplepip.odin.operation.Operation;
+import com.purplepip.odin.operation.OperationReceiver;
 import java.net.URI;
 
-public interface PerformanceLoader {
+public interface PerformanceLoader extends OperationReceiver {
   void load(URI getPerformanceUri);
 
   /**
@@ -26,13 +28,15 @@ public interface PerformanceLoader {
    *
    * @param operation load performance operation
    */
-  default void load(LoadPerformanceOperation operation) {
-    URI performanceUri = operation.getPerformanceUri();
-    if (canLoad(performanceUri)) {
-      load(performanceUri);
-    } else {
-      throw new OdinRuntimeException("Loader " + this + " does not know how to load performance "
-          + performanceUri);
+  default void handle(Operation operation, long time) {
+    if (operation instanceof LoadPerformanceOperation) {
+      URI performanceUri = ((LoadPerformanceOperation) operation).getPerformanceUri();
+      if (canLoad(performanceUri)) {
+        load(performanceUri);
+      } else {
+        throw new OdinRuntimeException("Loader " + this + " does not know how to load performance "
+            + performanceUri);
+      }
     }
   }
 
