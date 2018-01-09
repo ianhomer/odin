@@ -36,7 +36,7 @@ public class OdinSequencerTriggerTest {
         .withEnabled(false)
         .addMetronome();
     environment.start();
-    environment.getConfiguration().getOperationTransmitter().send(
+    environment.getConfiguration().getOperationTransmitter().handle(
         new NoteOnOperation(0,60,5), -1
     );
     try {

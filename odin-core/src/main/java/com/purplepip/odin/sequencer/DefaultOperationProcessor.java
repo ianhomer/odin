@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Processor responsible for taking MIDI messages off the queue and sending them to the MIDI
  * receivers in a timely manner.  Note that according to the Java MIDI specification messages
- * should not be sent to devices too early.  The time argument in the receiver send method call is
+ * should not be sent to devices too early.  The time argument in the receiver handle method call is
  * really for synchronisation.  If events are fired into a receiver too early then the MIDI
  * instrument might end up handling them early.
  */

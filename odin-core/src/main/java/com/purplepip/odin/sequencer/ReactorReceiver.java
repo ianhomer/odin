@@ -49,7 +49,7 @@ public class ReactorReceiver implements OperationReceiver {
   }
 
   @Override
-  public void send(Operation operation, long time) {
+  public void handle(Operation operation, long time) {
     LOG.debug("Operation received {} at {}", operation, time);
     reactors.stream().forEach(reactor -> {
       List<Operation> ripples = reactor.react(operation);
@@ -60,9 +60,9 @@ public class ReactorReceiver implements OperationReceiver {
         } else {
           for (Operation ripple : ripples) {
             try {
-              rippleReceiver.send(ripple, time);
+              rippleReceiver.handle(ripple, time);
             } catch (OdinException e) {
-              LOG.error("Cannot send reactor ripple " + operation, e);
+              LOG.error("Cannot handle reactor ripple " + operation, e);
             }
           }
         }

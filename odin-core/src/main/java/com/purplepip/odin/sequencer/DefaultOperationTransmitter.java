@@ -29,7 +29,7 @@ public class DefaultOperationTransmitter implements OperationTransmitter {
   private List<OperationReceiver> receivers = new ArrayList<>();
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) throws OdinException {
     receivers.forEach(receiver -> {
       try {
         /*
@@ -39,9 +39,9 @@ public class DefaultOperationTransmitter implements OperationTransmitter {
          * support this we need to make sure the times are synchronized between source and
           * destination devices.
          */
-        receiver.send(operation, -1);
+        receiver.handle(operation, -1);
       } catch (OdinException e) {
-        LOG.error("Cannot send operation " + operation + " at time " + time, e);
+        LOG.error("Cannot handle operation " + operation + " at time " + time, e);
       }
     });
   }

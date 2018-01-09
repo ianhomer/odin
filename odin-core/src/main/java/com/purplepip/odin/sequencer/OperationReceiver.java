@@ -27,11 +27,11 @@ import com.purplepip.odin.operation.Operation;
  */
 public interface OperationReceiver extends PerformanceListener {
   /**
-   * Operation to send at the given performance time.
+   * Handle operation at the given performance time.
    *
-   * @param operation operation to send
+   * @param operation operation to handle
    * @param time performance time
    * @throws OdinException exception
    */
-  void send(Operation operation, long time) throws OdinException;
+  void handle(Operation operation, long time) throws OdinException;
 }

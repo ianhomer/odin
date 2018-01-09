@@ -45,7 +45,7 @@ public class AuditingOperationReceiver implements OperationReceiver, Initializin
       Executors.newScheduledThreadPool(1);
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) throws OdinException {
     PersistableOperation persistableOperation = new PersistableOperation();
     persistableOperation.setMessage(operation.toString());
     persistableOperation.setTime(time);

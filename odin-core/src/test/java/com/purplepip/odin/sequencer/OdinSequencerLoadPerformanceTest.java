@@ -46,7 +46,7 @@ public class OdinSequencerLoadPerformanceTest {
       noteLatch.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Some notes should have been received", noteLatch.getCount(), 0);
 
-      environment.getConfiguration().getOperationTransmitter().send(
+      environment.getConfiguration().getOperationTransmitter().handle(
           new NoteOnOperation(1,50,5), -1
       );
       loadPerformanceLatch.await(1000, TimeUnit.MILLISECONDS);

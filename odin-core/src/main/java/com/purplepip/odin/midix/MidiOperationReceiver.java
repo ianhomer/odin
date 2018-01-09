@@ -37,7 +37,7 @@ public class MidiOperationReceiver implements OperationReceiver {
   }
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) throws OdinException {
     if (operation instanceof ChannelOperation) {
       ChannelOperation resolvedOperation;
       if (operation instanceof ProgramChangeOperation) {

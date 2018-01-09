@@ -80,14 +80,14 @@ public class ReactorReceiverTest {
     /*
      * Send note on operation to trigger enabling track
      */
-    receiver.send(new NoteOnOperation(0,60,50), -1);
+    receiver.handle(new NoteOnOperation(0,60,50), -1);
     assertEquals(1, metricRegistry.meter("receiver.triggered").getCount());
     assertTrue(tracks.findByName("track1").isEnabled());
 
     /*
      * Send note on operation to trigger disabling track
      */
-    receiver.send(new NoteOnOperation(0,61, 50), -1);
+    receiver.handle(new NoteOnOperation(0,61, 50), -1);
     assertEquals(2, metricRegistry.meter("receiver.triggered").getCount());
     assertFalse(tracks.findByName("track1").isEnabled());
   }

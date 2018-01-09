@@ -27,7 +27,7 @@ public class LoggingOperationReceiver implements OperationReceiver {
   private static final Logger LOG = LoggerFactory.getLogger(LoggingOperationReceiver.class);
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) throws OdinException {
     LOG.debug("Operation {} at time {}", operation, time);
   }
 }

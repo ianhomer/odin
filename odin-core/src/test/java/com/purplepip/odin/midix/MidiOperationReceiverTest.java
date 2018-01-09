@@ -31,7 +31,7 @@ public class MidiOperationReceiverTest {
     MidiOperationReceiver operationReceiver = new MidiOperationReceiver(deviceReceiver);
     operationReceiver.onPerformanceStart();
     verify(deviceReceiver).onPerformanceStart();
-    operationReceiver.send(new NoteOnOperation(1,2,3), 10);
+    operationReceiver.handle(new NoteOnOperation(1,2,3), 10);
     ArgumentCaptor<MidiMessage> message = ArgumentCaptor.forClass(MidiMessage.class);
     ArgumentCaptor<Long> time = ArgumentCaptor.forClass(Long.class);
     verify(deviceReceiver).send(message.capture(), time.capture());

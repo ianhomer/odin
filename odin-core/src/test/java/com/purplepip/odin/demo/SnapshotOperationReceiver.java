@@ -41,7 +41,7 @@ public class SnapshotOperationReceiver implements OperationReceiver {
   }
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) throws OdinException {
     String prettyTime = Pretty.replaceTrailingZeros(time, 4);
     if (latch.getCount() > 0) {
       snapshot.writeLine(time, String.format("%15s %s",

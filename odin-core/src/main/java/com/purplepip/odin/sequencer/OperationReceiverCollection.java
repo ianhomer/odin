@@ -38,9 +38,9 @@ public class OperationReceiverCollection implements
   }
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) throws OdinException {
     for (OperationReceiver operationReceiver : operationReceiverList) {
-      operationReceiver.send(operation, time);
+      operationReceiver.handle(operation, time);
     }
   }
 

@@ -159,7 +159,7 @@ public class OdinSequencer implements PerformanceApplyListener {
     for (Channel channel : performance.getChannels()) {
       try {
         /*
-         * Only send program change operation if it has not already been sent.
+         * Only handle program change operation if it has not already been sent.
          */
         ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
         if (!programChangeOperations.contains(programChangeOperation)) {
@@ -170,7 +170,7 @@ public class OdinSequencer implements PerformanceApplyListener {
           LOG.debug("Channel operation already sent : {}", channel);
         }
       } catch (OdinException e) {
-        LOG.warn("Cannot send operation", e);
+        LOG.warn("Cannot handle operation", e);
       }
     }
   }

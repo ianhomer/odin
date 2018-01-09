@@ -108,7 +108,7 @@ public class OdinSequencerMatchNoteTest {
       /*
        * Confirm success sequence does not fire with wrong note
        */
-      environment.getConfiguration().getOperationTransmitter().send(
+      environment.getConfiguration().getOperationTransmitter().handle(
           new NoteOnOperation(1,randomNote2.get() - 1,5), -1
       );
       successEventsLatch6.await(100, TimeUnit.MILLISECONDS);
@@ -122,7 +122,7 @@ public class OdinSequencerMatchNoteTest {
       /*
        * Confirm success sequence fires with correct note
        */
-      environment.getConfiguration().getOperationTransmitter().send(
+      environment.getConfiguration().getOperationTransmitter().handle(
           new NoteOnOperation(1, number2, 5), -1
       );
       successEventsLatch6.await(1000, TimeUnit.MILLISECONDS);
@@ -159,7 +159,7 @@ public class OdinSequencerMatchNoteTest {
       /*
        * Confirm success sequence fires with correct note
        */
-      environment.getConfiguration().getOperationTransmitter().send(
+      environment.getConfiguration().getOperationTransmitter().handle(
           new NoteOnOperation(1, number3, 5), -1
       );
       successEventsLatch7.await(1000, TimeUnit.MILLISECONDS);

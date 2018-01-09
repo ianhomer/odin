@@ -242,7 +242,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
       }
       return false;
     } catch (MidiUnavailableException e) {
-      throw new OdinException("Cannot send MIDI message for " + midiMessage, e);
+      throw new OdinException("Cannot handle MIDI message for " + midiMessage, e);
     }
   }
 

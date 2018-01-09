@@ -84,7 +84,7 @@ public class DefaultOperationProcessorExecutor implements Runnable {
        */
       nextEvent = queue.poll();
       try {
-        operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
+        operationReceiver.handle(nextEvent.getOperation(), nextEvent.getTime());
         sentMetric.mark();
         count++;
       } catch (OdinException e) {

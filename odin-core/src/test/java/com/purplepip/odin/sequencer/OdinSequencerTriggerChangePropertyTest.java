@@ -80,7 +80,7 @@ public class OdinSequencerTriggerChangePropertyTest {
       note60Latch.await(5000, TimeUnit.MILLISECONDS);
       assertEquals("Note 60 should have been fired",0, note60Latch.getCount());
 
-      environment.getConfiguration().getOperationTransmitter().send(
+      environment.getConfiguration().getOperationTransmitter().handle(
           new NoteOnOperation(1, 70, 5), -1
       );
 

@@ -66,7 +66,7 @@ public class OdinSequencerReloadTest {
       assertEquals("No channel 9 events should be fired yet", EXPECTED_COUNT,
           channel9Latch.getCount());
 
-      environment.getConfiguration().getOperationTransmitter().send(
+      environment.getConfiguration().getOperationTransmitter().handle(
           new LoadPerformanceOperation(
               new URI("classpath", BeatPerformance.class.getName(), null)), -1
       );

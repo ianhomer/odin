@@ -148,7 +148,7 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
     // TODO : We should reduce this start increment below 20 ms.  It is currently
     // set high due to timing variability of run on build machine.  We should be able to
     // optimise system to make this more reliable.
-    // TODO : Perhaps we send fire events straight to the processors to reduce further
+    // TODO : Perhaps we handle fire events straight to the processors to reduce further
     // need for lag.
     // TODO : This implementation needs to be sanitised, logic is confusing and fragile.
     LOG.debug("Clock {}", clock);

@@ -12,7 +12,7 @@ public class CapturingOperationReceiver implements OperationReceiver {
   private final List<OperationEvent> operationEventList = new ArrayList<>();
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) throws OdinException {
     operationEventList.add(new OperationEvent(operation, time));
   }
 

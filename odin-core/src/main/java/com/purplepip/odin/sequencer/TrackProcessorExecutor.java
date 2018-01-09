@@ -191,7 +191,7 @@ public class TrackProcessorExecutor implements Runnable {
         LOG.warn("Event not supported {}", event);
       }
     } catch (OdinException e) {
-      LOG.error("Cannot send operation to processor", e);
+      LOG.error("Cannot handle operation to processor", e);
       metrics.meter("sequence.failure").mark();
     }
   }
