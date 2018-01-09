@@ -33,7 +33,7 @@ class KotlinPerformance : StaticPerformance(performance().apply {
       )
     })
     channel(1, "Strings") {
-      + "A/q G/8 A/q E"
+      play("A/q G/8 A/q E")
     }
     channel(2, "Violin") {
       play("A5/q A/8 A/q G")

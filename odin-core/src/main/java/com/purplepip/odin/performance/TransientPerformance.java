@@ -17,9 +17,7 @@ package com.purplepip.odin.performance;
 
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
-import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -78,7 +76,7 @@ public class TransientPerformance implements Performance {
   }
 
   @Override
-  public TransientPerformance addLayer(MutableLayer layer) {
+  public TransientPerformance addLayer(Layer layer) {
     layers.add(layer);
     return this;
   }
@@ -90,7 +88,7 @@ public class TransientPerformance implements Performance {
   }
 
   @Override
-  public TransientPerformance addTrigger(MutableTriggerConfiguration trigger) {
+  public TransientPerformance addTrigger(TriggerConfiguration trigger) {
     triggers.add(trigger);
     return this;
   }

@@ -17,9 +17,7 @@ package com.purplepip.odin.performance;
 
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
-import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import java.util.Set;
 
@@ -70,7 +68,7 @@ public interface Performance {
   /**
    * Add layer.
    */
-  Performance addLayer(MutableLayer layer);
+  Performance addLayer(Layer layer);
 
   /**
    * Remove layer.
@@ -80,7 +78,7 @@ public interface Performance {
   /**
    * Add trigger.
    */
-  Performance addTrigger(MutableTriggerConfiguration trigger);
+  Performance addTrigger(TriggerConfiguration trigger);
 
   /**
    * Remove trigger.
@@ -104,5 +102,18 @@ public interface Performance {
     getLayers().clear();
     getSequences().clear();
     getChannels().clear();
+    getTriggers().clear();
+  }
+
+  /**
+   * Mixin a performance into this performance.
+   *
+   * @param performance performance to mixin
+   */
+  default void mixin(Performance performance) {
+    performance.getLayers().forEach(this::addLayer);
+    performance.getSequences().forEach(this::addSequence);
+    performance.getChannels().forEach(this::addChannel);
+    performance.getTriggers().forEach(this::addTrigger);
   }
 }

@@ -17,9 +17,7 @@ package com.purplepip.odin.store.domain;
 
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
-import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.performance.Performance;
 import java.util.HashSet;
@@ -118,7 +116,7 @@ public class PersistablePerformance implements Performance {
   }
 
   @Override
-  public PersistablePerformance addLayer(MutableLayer layer) {
+  public PersistablePerformance addLayer(Layer layer) {
     if (layer instanceof PersistableLayer) {
       ((PersistableLayer) layer).setPerformance(this);
     }
@@ -144,7 +142,7 @@ public class PersistablePerformance implements Performance {
   }
 
   @Override
-  public PersistablePerformance addTrigger(MutableTriggerConfiguration trigger) {
+  public PersistablePerformance addTrigger(TriggerConfiguration trigger) {
     if (trigger instanceof PersistableTrigger) {
       ((PersistableTrigger) trigger).setPerformance(this);
     }

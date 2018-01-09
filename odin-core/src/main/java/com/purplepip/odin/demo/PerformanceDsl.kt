@@ -29,6 +29,7 @@ import com.purplepip.odin.creation.triggers.Trigger
 import com.purplepip.odin.music.notes.Notes.newNote
 import com.purplepip.odin.music.sequence.Notation
 import com.purplepip.odin.music.sequence.Pattern
+import com.purplepip.odin.performance.Performance
 import com.purplepip.odin.performance.TransientPerformance
 
 fun TransientPerformance.add(value: Any) {
@@ -80,6 +81,10 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
     return this
   }
 
+  fun mixin(performance: Performance) {
+    this.performance.mixin(performance)
+  }
+
   fun layer(vararg names : String, init: () -> Unit) : PerformanceConfigurationContext {
     names.filter { name -> performance.layers.count { layer -> layer.name == name } == 0}
         .forEach { name -> performance.add(DefaultLayer(name))}
@@ -90,14 +95,6 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
 
   operator fun GenericSequence.unaryPlus() {
     play(this)
-  }
-
-  operator fun Int.unaryPlus() : Pattern {
-    return play(this)
-  }
-
-  operator fun String.unaryPlus() : Notation {
-    return play(this)
   }
 
   infix fun play(bits: Int) : Pattern {

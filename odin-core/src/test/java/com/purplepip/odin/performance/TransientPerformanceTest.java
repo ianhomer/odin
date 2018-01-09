@@ -3,8 +3,12 @@ package com.purplepip.odin.performance;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.purplepip.odin.creation.channel.DefaultChannel;
+import com.purplepip.odin.creation.layer.DefaultLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import org.junit.Test;
 
@@ -37,5 +41,27 @@ public class TransientPerformanceTest {
   public void testGetName() {
     Performance performance = new TransientPerformance();
     assertEquals("transient", performance.getName());
+  }
+
+  @Test
+  public void testMixin() {
+    Performance mixinPerformance = new TransientPerformance();
+    mixinPerformance.addChannel(new DefaultChannel(8).programName("channel-8"));
+    mixinPerformance.addLayer(new DefaultLayer("layer-from-mixin"));
+    mixinPerformance.addSequence(new Pattern().name("sequence-from-mixin"));
+    mixinPerformance.addTrigger(new NoteTrigger().name("trigger-from-mixin"));
+
+    Performance performance = new TransientPerformance();
+    performance.addChannel(new DefaultChannel(9).programName("channel-9"));
+    performance.addLayer(new DefaultLayer("my-layer"));
+    performance.addSequence(new Pattern().name("my-sequence"));
+    performance.addTrigger(new NoteTrigger().name("my-trigger"));
+
+    performance.mixin(mixinPerformance);
+
+    assertEquals(2, performance.getChannels().size());
+    assertEquals(2, performance.getLayers().size());
+    assertEquals(2, performance.getSequences().size());
+    assertEquals(2, performance.getTriggers().size());
   }
 }
