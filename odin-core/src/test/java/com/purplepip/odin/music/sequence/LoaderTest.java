@@ -28,6 +28,6 @@ public class LoaderTest {
     Loader loader = new Loader().performance("new-performance");
     GenericEvent<LoadPerformanceOperation> event = loader.getNextEvent(null,
         new Loop(0));
-    assertEquals("new-performance", event.getValue().getPerformanceName());
+    assertEquals("new-performance", event.getValue().getPerformanceUri().getSchemeSpecificPart());
   }
 }

@@ -23,6 +23,8 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
 import com.purplepip.odin.specificity.Name;
+import java.net.URI;
+import java.net.URISyntaxException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -37,10 +39,20 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Name("loader")
 public class Loader extends SequencePlugin {
-  private String performance;
+  private URI performanceUri;
 
+  /**
+   * Set performance that loader should load.
+   *
+   * @param performance performance to load
+   * @return this
+   */
   public Loader performance(String performance) {
-    this.performance = performance;
+    try {
+      this.performanceUri = new URI("default", performance, null);
+    } catch (URISyntaxException e) {
+      LOG.error("Cannot create URI for performance : " + performance, e);
+    }
     return this;
   }
 
@@ -48,7 +60,7 @@ public class Loader extends SequencePlugin {
   public GenericEvent<LoadPerformanceOperation> getNextEvent(MeasureContext context, Loop loop) {
     Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
     if (nextTock.floor() == 1) {
-      return new GenericEvent<>(new LoadPerformanceOperation(performance), nextTock);
+      return new GenericEvent<>(new LoadPerformanceOperation(performanceUri), nextTock);
     }
     return null;
   }
@@ -65,7 +77,7 @@ public class Loader extends SequencePlugin {
 
   protected Loader copy(Loader copy) {
     super.copy(copy);
-    copy.performance = this.performance;
+    copy.performanceUri = this.performanceUri;
     return copy;
   }
 }

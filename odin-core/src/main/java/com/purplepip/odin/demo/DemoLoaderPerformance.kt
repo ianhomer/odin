@@ -29,7 +29,7 @@ class DemoLoaderPerformance : StaticPerformance(performance().apply {
       offset(4)
       length(4)
       trigger("note-50-trigger",
-          LoadAction().performance("com.purplepip.odin.demo.SimplePerformance")
+          LoadAction().performance("com/purplepip/odin/demo/SimplePerformance")
       )
     })
     /*

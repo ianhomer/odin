@@ -7,9 +7,12 @@ import com.purplepip.odin.demo.BeatPerformance;
 import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.music.operations.ProgramChangeOperation;
+import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
-import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
@@ -25,11 +28,12 @@ public class OdinSequencerReloadTest {
   private static final int EXPECTED_COUNT = 16;
 
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  public void testSequencer() throws OdinException, InterruptedException, URISyntaxException {
     final CountDownLatch channel1Latch = new CountDownLatch(2);
     final CountDownLatch channel9Latch = new CountDownLatch(EXPECTED_COUNT);
 
     PerformanceContainer container = new PerformanceContainer(new SimplePerformance());
+    ClassPerformanceLoader loader = new ClassPerformanceLoader(container);
 
     OperationReceiver operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
@@ -42,21 +46,13 @@ public class OdinSequencerReloadTest {
           LOG.warn("Unexpected note operation : {}", operation);
         }
       } else if (operation instanceof LoadPerformanceOperation) {
-        String performanceName = ((LoadPerformanceOperation) operation).getPerformanceName();
-        try {
-          container.setPerformance((Performance)
-              getClass().getClassLoader().loadClass(performanceName).newInstance());
-          LOG.info("Loaded {}", performanceName);
-          container.apply();
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-          LOG.error("Cannot load " + performanceName,e);
-        }
-      } else if (operation instanceof NoteOffOperation) {
+        loader.load((LoadPerformanceOperation) operation);
+      } else if (operation instanceof NoteOffOperation
+          || operation instanceof ProgramChangeOperation) {
         LOG.trace("Ignored {} : ", operation);
       } else {
         LOG.warn("Unexpected operation : {}", operation);
       }
-
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver,
@@ -71,7 +67,8 @@ public class OdinSequencerReloadTest {
           channel9Latch.getCount());
 
       environment.getConfiguration().getOperationTransmitter().send(
-          new LoadPerformanceOperation(BeatPerformance.class.getName()), -1
+          new LoadPerformanceOperation(
+              new URI("classpath", BeatPerformance.class.getName(), null)), -1
       );
 
       channel9Latch.await(2000, TimeUnit.MILLISECONDS);

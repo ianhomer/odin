@@ -17,12 +17,14 @@ package com.purplepip.odin.performance;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.URI;
 import org.junit.Test;
 
 public class LoadPerformanceOperationTest {
   @Test
   public void getPerformanceName() throws Exception {
-    LoadPerformanceOperation operation = new LoadPerformanceOperation("performance-name");
-    assertEquals("performance-name", operation.getPerformanceName());
+    LoadPerformanceOperation operation =
+        new LoadPerformanceOperation(new URI("default:performance-name"));
+    assertEquals("performance-name", operation.getPerformanceUri().getSchemeSpecificPart());
   }
 }
