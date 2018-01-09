@@ -8,6 +8,7 @@ import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;

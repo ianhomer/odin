@@ -17,7 +17,7 @@ package com.purplepip.odin.experiments;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.sequencer.OperationReceiver;
+import com.purplepip.odin.operation.OperationReceiver;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import javax.sound.midi.MidiMessage;

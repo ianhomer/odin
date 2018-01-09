@@ -17,7 +17,6 @@ package com.purplepip.odin.music.composition.events;
 
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.music.composition.Composition;
-import com.purplepip.odin.music.notes.Note;
 import java.util.List;
 import java.util.stream.Stream;
 

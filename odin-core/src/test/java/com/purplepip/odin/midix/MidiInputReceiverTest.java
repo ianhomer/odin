@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.midi.Status;
-import com.purplepip.odin.sequencer.OperationReceiver;
+import com.purplepip.odin.operation.OperationReceiver;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.midi.ShortMessage;
 import org.junit.Test;

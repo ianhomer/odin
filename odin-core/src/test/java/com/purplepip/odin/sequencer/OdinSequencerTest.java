@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.operation.OperationReceiver;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;

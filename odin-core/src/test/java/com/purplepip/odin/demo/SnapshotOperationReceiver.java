@@ -18,7 +18,7 @@ package com.purplepip.odin.demo;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.Pretty;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.sequencer.OperationReceiver;
+import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.snapshot.Snapshot;
 import java.util.concurrent.CountDownLatch;
 import lombok.extern.slf4j.Slf4j;

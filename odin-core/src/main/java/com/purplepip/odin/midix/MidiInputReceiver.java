@@ -18,7 +18,7 @@ package com.purplepip.odin.midix;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.sequencer.OperationReceiver;
+import com.purplepip.odin.operation.OperationReceiver;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
 import lombok.extern.slf4j.Slf4j;

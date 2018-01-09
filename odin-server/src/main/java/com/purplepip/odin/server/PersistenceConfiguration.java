@@ -17,7 +17,6 @@ package com.purplepip.odin.server;
 
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceContainer;
-import com.purplepip.odin.store.domain.PersistablePerformance;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

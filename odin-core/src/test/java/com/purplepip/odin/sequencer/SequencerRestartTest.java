@@ -22,6 +22,7 @@ import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.GroovePerformance;
+import com.purplepip.odin.operation.OperationReceiver;
 import java.util.concurrent.CountDownLatch;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

@@ -17,6 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.Operation;
+import com.purplepip.odin.operation.OperationReceiver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

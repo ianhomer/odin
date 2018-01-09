@@ -18,7 +18,6 @@ package com.purplepip.odin.music.composition.events;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.composition.Measure;
-import com.purplepip.odin.music.notes.Note;
 import java.util.stream.Stream;
 
 /**

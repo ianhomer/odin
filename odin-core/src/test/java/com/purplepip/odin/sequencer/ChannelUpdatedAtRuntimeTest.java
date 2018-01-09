@@ -7,6 +7,7 @@ import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.operation.ChannelOperation;
+import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;

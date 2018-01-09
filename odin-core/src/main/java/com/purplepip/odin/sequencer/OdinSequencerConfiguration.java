@@ -21,6 +21,7 @@ import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
+import com.purplepip.odin.operation.OperationReceiver;
 
 /**
  * Odin Sequencer configuration.

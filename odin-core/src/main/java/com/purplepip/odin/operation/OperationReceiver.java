@@ -13,11 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.sequencer;
+package com.purplepip.odin.operation;
 
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.operation.Operation;
 
 /**
  * Sequenced Operation Receiver.  Note that the operation receiver extends a PerformanceListener

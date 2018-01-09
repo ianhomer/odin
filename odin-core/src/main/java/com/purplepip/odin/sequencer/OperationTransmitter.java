@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.operation.OperationReceiver;
+
 /**
  * An operation transmitter receives operations from a source and transmits the operations onto
  * the operation receivers that are listening.

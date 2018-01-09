@@ -20,7 +20,7 @@ import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.operation.ChannelOperation;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.sequencer.OperationReceiver;
+import com.purplepip.odin.operation.OperationReceiver;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiMessage;
 import lombok.extern.slf4j.Slf4j;
