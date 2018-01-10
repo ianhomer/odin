@@ -21,8 +21,8 @@ import com.purplepip.odin.music.sequence.Loader
 import com.purplepip.odin.performance.StaticPerformance
 
 class DemoLoaderPerformance : StaticPerformance({
-  add(NoteTrigger().apply { note(50) ; name("note-48-trigger") })
-  add(NoteTrigger().apply { note(50) ; name("note-49-trigger") })
+  add(NoteTrigger().apply { note(48) ; name("note-48-trigger") })
+  add(NoteTrigger().apply { note(49) ; name("note-49-trigger") })
   add(NoteTrigger().apply { note(50) ; name("note-50-trigger") })
   layer("loader") {
     play(Loader().apply {
@@ -40,7 +40,7 @@ class DemoLoaderPerformance : StaticPerformance({
           LoadAction().performance("com/purplepip/odin/demo/SimplePerformance")
       )
     })
-    
+
     /*
      * Currently need click track for tests so that we know that sequence has started.  In the
      * future we'll create a way for external caller to know that sequencer has started / clock is
