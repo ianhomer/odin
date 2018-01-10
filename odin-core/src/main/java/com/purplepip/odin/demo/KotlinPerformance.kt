@@ -16,22 +16,13 @@
 package com.purplepip.odin.demo
 
 import com.purplepip.odin.clock.tick.Ticks
-import com.purplepip.odin.creation.action.LoadAction
-import com.purplepip.odin.creation.triggers.NoteTrigger
 import com.purplepip.odin.music.notes.Notes.newNote
-import com.purplepip.odin.music.sequence.Loader
 import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.StaticPerformance
 
 class KotlinPerformance : StaticPerformance({
-  add(NoteTrigger().apply { note(50) ; name("note-50-trigger") })
+  mixin(DemoLoaderPerformance())
   layer("performance") {
-    play(Loader().apply {
-      offset(4)
-      trigger("note-50-trigger",
-          LoadAction().performance("com.purplepip.odin.demo.SimplePerformance")
-      )
-    })
     channel(1, "Strings") {
       play("A/q G/8 A/q E")
     }
