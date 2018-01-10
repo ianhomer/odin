@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,18 +17,13 @@ package com.purplepip.odin.demo
 
 import com.purplepip.odin.clock.tick.Tick
 import com.purplepip.odin.creation.channel.Channel
-import com.purplepip.odin.creation.channel.DefaultChannel
-import com.purplepip.odin.creation.layer.DefaultLayer
 import com.purplepip.odin.creation.layer.MutableLayer
 import com.purplepip.odin.creation.sequence.GenericSequence
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration
 import com.purplepip.odin.creation.sequence.SequenceConfiguration
 import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration
-import com.purplepip.odin.creation.triggers.Trigger
-import com.purplepip.odin.music.notes.Notes.newNote
-import com.purplepip.odin.music.sequence.Notation
+import com.purplepip.odin.music.notes.Notes
 import com.purplepip.odin.music.sequence.Pattern
-import com.purplepip.odin.performance.Performance
 import com.purplepip.odin.performance.TransientPerformance
 
 fun TransientPerformance.add(value: Any) {
@@ -56,72 +50,11 @@ operator fun GenericSequence.plus(offset: Long) : GenericSequence {
 }
 
 operator fun Pattern.invoke(note: Int) : Pattern {
-  note(newNote(note))
+  note(Notes.newNote(note))
   return this
 }
 
 operator fun Pattern.invoke(note: Int, velocity : Int) : Pattern {
-  note(newNote(note, velocity))
+  note(Notes.newNote(note, velocity))
   return this
-}
-
-class PerformanceConfigurationContext constructor(performance: TransientPerformance) {
-  var performance : TransientPerformance = performance
-  var channel : Int = 0
-  var layers : Array<out String> = emptyArray()
-
-  fun channel(channel: Int, instrument: String, init: () -> Unit) : PerformanceConfigurationContext {
-    performance.add(DefaultChannel(channel).programName(instrument))
-    return channel(channel, init)
-  }
-
-  fun channel(channel: Int, init: () -> Unit) : PerformanceConfigurationContext {
-    this.channel = channel
-    init.invoke()
-    return this
-  }
-
-  fun mixin(performance: Performance) {
-    this.performance.mixin(performance)
-  }
-
-  fun layer(vararg names : String, init: () -> Unit) : PerformanceConfigurationContext {
-    names.filter { name -> performance.layers.count { layer -> layer.name == name } == 0}
-        .forEach { name -> performance.add(DefaultLayer(name))}
-    this.layers = names
-    init.invoke()
-    return this
-  }
-
-  operator fun GenericSequence.unaryPlus() {
-    play(this)
-  }
-
-  infix fun play(bits: Int) : Pattern {
-    val sequence = Pattern().apply { bits(bits) }
-    play(sequence)
-    return sequence
-  }
-
-  infix fun play(notation: String) : Notation {
-    val sequence = Notation().apply { notation(notation) }
-    play(sequence)
-    return sequence
-  }
-
-  infix fun play(value: GenericSequence) : GenericSequence {
-    if (value.channel == 0) value.channel = channel
-    if (value.layers.isEmpty()) value.layer(*layers)
-    performance.add(value)
-    return value
-  }
-
-  infix fun add(trigger: Trigger) : Trigger {
-    performance.add(trigger)
-    return trigger
-  }
-}
-
-fun performance() : PerformanceConfigurationContext {
-  return PerformanceConfigurationContext(TransientPerformance())
 }

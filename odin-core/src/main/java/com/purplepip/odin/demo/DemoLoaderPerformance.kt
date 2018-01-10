@@ -20,7 +20,7 @@ import com.purplepip.odin.creation.triggers.NoteTrigger
 import com.purplepip.odin.music.sequence.Loader
 import com.purplepip.odin.performance.StaticPerformance
 
-class DemoLoaderPerformance : StaticPerformance(performance().apply {
+class DemoLoaderPerformance : StaticPerformance({
   add(NoteTrigger().apply { note(50) ; name("note-50-trigger") })
   layer("loader") {
     play(Loader().apply {
@@ -41,4 +41,4 @@ class DemoLoaderPerformance : StaticPerformance(performance().apply {
       play(31)
     }
   }
-}.performance)
+})

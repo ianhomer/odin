@@ -17,10 +17,10 @@ package com.purplepip.odin.demo
 
 import com.purplepip.odin.performance.StaticPerformance
 
-class BeatPerformance : StaticPerformance(performance().apply {
+class BeatPerformance : StaticPerformance({
   layer("beat") {
     channel(9, "Power Drums") {
       play(15)(62)
     }
   }
-}.performance)
+})

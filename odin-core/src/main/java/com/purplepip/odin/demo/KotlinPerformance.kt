@@ -23,7 +23,7 @@ import com.purplepip.odin.music.sequence.Loader
 import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.StaticPerformance
 
-class KotlinPerformance : StaticPerformance(performance().apply {
+class KotlinPerformance : StaticPerformance({
   add(NoteTrigger().apply { note(50) ; name("note-50-trigger") })
   layer("performance") {
     play(Loader().apply {
@@ -54,4 +54,4 @@ class KotlinPerformance : StaticPerformance(performance().apply {
       }
     }
   }
-}.performance)
+})
