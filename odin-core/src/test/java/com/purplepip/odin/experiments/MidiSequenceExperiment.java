@@ -10,6 +10,7 @@ import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
@@ -57,12 +58,14 @@ public class MidiSequenceExperiment {
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     OperationTransmitter transmitter = new DefaultOperationTransmitter();
     midiDeviceWrapper.registerWithTransmitter(transmitter);
+    PerformanceContainer container = new PerformanceContainer(new KotlinPerformance());
     OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(
             new OperationReceiverCollection(
                 new MidiOperationReceiver(midiDeviceWrapper),
+                new ClassPerformanceLoader(container),
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)
@@ -77,8 +80,6 @@ public class MidiSequenceExperiment {
         synthesizerHelper.loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
-      PerformanceContainer container = new PerformanceContainer(
-          new KotlinPerformance());
 
       container.addApplyListener(sequencer);
       container.apply();
