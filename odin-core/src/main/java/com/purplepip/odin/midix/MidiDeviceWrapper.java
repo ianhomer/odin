@@ -108,13 +108,13 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
             new MidiDeviceMicrosecondPositionProvider(getTransmittingDevice()));
         receivers.add(receiver);
         transmitter.setReceiver(receiver);
-        LOG.debug("Registered {} as receiver for {}", receiver, transmitter);
+        LOG.info("Registered {} as receiver for {}", receiver, transmitter);
       } catch (MidiUnavailableException e) {
         LOG.error("Cannot register receiver : {}", e.getMessage());
         LOG.debug("Cannot register receiver", e);
       }
     } else {
-      LOG.debug("Device does not support transmitting");
+      LOG.info("Device {} does not support transmitting", transmittingDevice);
     }
   }
 

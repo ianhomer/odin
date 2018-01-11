@@ -15,18 +15,24 @@
 
 package com.purplepip.odin.midix;
 
-import static org.junit.Assert.assertEquals;
+import javax.sound.midi.Transmitter;
 
-import com.purplepip.logcapture.LogCaptor;
-import com.purplepip.logcapture.LogCapture;
-import org.junit.Test;
+public class MidiTransmitterWrapper {
+  private Transmitter transmitter;
 
-public class MidiSystemWrapperTest {
-  @Test
-  public void testDump() throws Exception {
-    try (LogCaptor captor = new LogCapture().info().from(MidiSystemWrapper.class).start()) {
-      new MidiSystemWrapper().extended().dump();
-      assertEquals(1, captor.size());
+  public MidiTransmitterWrapper(Transmitter transmitter) {
+    this.transmitter = transmitter;
+  }
+
+  /**
+   * Wrapper as string.
+   *
+   * @return string representation
+   */
+  public String toString() {
+    if (transmitter == null) {
+      return "(null transmitter)";
     }
+    return transmitter.getClass().getName();
   }
 }

@@ -21,7 +21,9 @@ import java.util.Set;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
 import javax.sound.midi.Synthesizer;
+import javax.sound.midi.Transmitter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -83,11 +85,36 @@ public class MidiSystemWrapper {
         if (extended) {
           try {
             MidiDevice device = MidiSystem.getMidiDevice(info);
-            sb.append(" - microsecond position = ").append(device.getMicrosecondPosition());
+            sb.append("\n          μs position = ").append(device.getMicrosecondPosition());
             if (device instanceof Synthesizer) {
-              sb.append(" ; synthesizer latency = ")
+              sb.append(" - synthesizer latency = ")
                   .append(((Synthesizer) device).getLatency() / 1000).append("ms");
             }
+            if (device.getMaxReceivers() != 0) {
+              sb.append("\n               - receivers : max = ").append(device.getMaxReceivers());
+              try (Receiver receiver = device.getReceiver()) {
+                if (receiver != null) {
+                  sb.append(" : default  = ").append(new MidiReceiverWrapper(receiver));
+                }
+              }
+            }
+            device.getReceivers().forEach(receiver ->
+                sb.append(" ; active receiver = ").append(new MidiReceiverWrapper(receiver))
+            );
+            if (device.getMaxTransmitters() != 0) {
+              sb.append("\n               - transmitters : max = ")
+                  .append(device.getMaxTransmitters());
+              try (Transmitter transmitter = device.getTransmitter()) {
+                if (transmitter != null) {
+                  sb.append(" : default = ")
+                      .append(new MidiTransmitterWrapper(transmitter));
+                }
+              }
+            }
+            device.getTransmitters().forEach(transmitter ->
+                sb.append(" ; transmitter = ")
+                    .append(new MidiTransmitterWrapper(transmitter))
+            );
           } catch (MidiUnavailableException e) {
             LOG.error("Cannot get device " + info, e);
           }

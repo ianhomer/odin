@@ -17,16 +17,11 @@ package com.purplepip.odin.midix;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.logcapture.LogCaptor;
-import com.purplepip.logcapture.LogCapture;
 import org.junit.Test;
 
-public class MidiSystemWrapperTest {
+public class MidiTransmitterWrapperTest {
   @Test
-  public void testDump() throws Exception {
-    try (LogCaptor captor = new LogCapture().info().from(MidiSystemWrapper.class).start()) {
-      new MidiSystemWrapper().extended().dump();
-      assertEquals(1, captor.size());
-    }
+  public void testToString() throws Exception {
+    assertEquals("(null transmitter)", new MidiTransmitterWrapper(null).toString());
   }
 }

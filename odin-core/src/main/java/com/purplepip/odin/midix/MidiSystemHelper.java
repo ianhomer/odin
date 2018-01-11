@@ -37,11 +37,13 @@ public class MidiSystemHelper {
   /**
    * Log MIDI system info.
    *
+   * @deprecated please use MidiSystemWrapper.dump
    * @return this MIDI system helper
    */
+  @Deprecated
   public MidiSystemHelper logInfo() {
     for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      LOG.debug("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(),
+      LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(),
           info.getDescription());
     }
     return this;

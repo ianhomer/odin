@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.music.operations;
 
+import com.purplepip.odin.operation.Operation;
+
 /**
  * Note on operation.
  *
@@ -23,6 +25,10 @@ package com.purplepip.odin.music.operations;
  */
 public class NoteOnOperation extends AbstractNoteVelocityOperation {
 
+  public NoteOnOperation(int channel, int number, int velocity) {
+    this(channel, number, velocity, null);
+  }
+
   /**
    * Create an operation.
    *
@@ -30,10 +36,11 @@ public class NoteOnOperation extends AbstractNoteVelocityOperation {
    * @param number Number for the operation
    * @param velocity Velocity for the operation
    */
-  public NoteOnOperation(int channel, int number, int velocity) {
+  public NoteOnOperation(int channel, int number, int velocity, Operation cause) {
     setChannel(channel);
     setNumber(number);
     setVelocity(velocity);
+    setCause(cause);
   }
 
   public String toString() {

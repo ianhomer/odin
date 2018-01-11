@@ -8,6 +8,7 @@ import com.purplepip.odin.demo.KotlinPerformance;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
+import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
@@ -49,6 +50,9 @@ public class MidiSequenceExperiment {
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();
       LOG.trace("Received operation {}", operation);
+      if (operation.hasCause()) {
+        LOG.info("Caused Operation : {}", operation);
+      }
     };
 
     LOG.info("Creating sequence");
@@ -83,6 +87,7 @@ public class MidiSequenceExperiment {
 
       container.addApplyListener(sequencer);
       container.apply();
+      new MidiSystemWrapper().extended().dump();
 
       sequencer.prepare();
       sequencer.start();

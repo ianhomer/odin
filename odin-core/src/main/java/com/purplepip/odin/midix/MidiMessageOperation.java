@@ -15,18 +15,19 @@
 
 package com.purplepip.odin.midix;
 
-import static org.junit.Assert.assertEquals;
+import com.purplepip.odin.operation.AbstractOperation;
+import javax.sound.midi.MidiMessage;
+import lombok.ToString;
 
-import com.purplepip.logcapture.LogCaptor;
-import com.purplepip.logcapture.LogCapture;
-import org.junit.Test;
+@ToString
+public class MidiMessageOperation extends AbstractOperation {
+  private MidiMessage midiMessage;
 
-public class MidiSystemWrapperTest {
-  @Test
-  public void testDump() throws Exception {
-    try (LogCaptor captor = new LogCapture().info().from(MidiSystemWrapper.class).start()) {
-      new MidiSystemWrapper().extended().dump();
-      assertEquals(1, captor.size());
-    }
+  public MidiMessageOperation(MidiMessage midiMessage) {
+    this.midiMessage = midiMessage;
+  }
+
+  public MidiMessage getMidiMessage() {
+    return midiMessage;
   }
 }
