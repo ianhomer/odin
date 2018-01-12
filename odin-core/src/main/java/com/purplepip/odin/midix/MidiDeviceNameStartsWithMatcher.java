@@ -23,6 +23,7 @@ import lombok.ToString;
  */
 @ToString
 public class MidiDeviceNameStartsWithMatcher implements MidiDeviceMatcher {
+  private static final String MATCH_ALL = "*";
   private String prefix;
 
   public MidiDeviceNameStartsWithMatcher(String prefix) {
@@ -31,7 +32,7 @@ public class MidiDeviceNameStartsWithMatcher implements MidiDeviceMatcher {
 
   @Override
   public boolean matches(MidiDevice.Info info) {
-    return info.getName().startsWith(prefix);
+    return MATCH_ALL.equals(prefix) || info.getName().startsWith(prefix);
   }
 
   @Override
