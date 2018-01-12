@@ -43,7 +43,7 @@ public class DebugMessage {
   public String getStatusAsString() {
     Status status = Status.getMessage(message[0]);
     if (status == null) {
-      return "unknown " + message[0];
+      return "unknown " + Status.getMessageByte(message[0]);
     }
     return "(" + status.getValue() + " = 0x" + BaseEncoding.base16().encode(message, 0, 1)
       + " = " + status.name() + ")";

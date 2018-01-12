@@ -25,10 +25,14 @@ public enum Status {
   /*
    * See https://www.midi.org/specifications/item/table-1-summary-of-midi-message
    */
-  NOTE_OFF(0x80),
-  NOTE_ON(0x90),
+  NOTE_OFF(0b1000_0000),    // 0x80 or 128
+  NOTE_ON(0b1001_0000),     // 0x90 or 144
   PROGRAM_CHANGE(0xC0);
 
+  /*
+   * We explicitly store this as a byte primarily to make it clear that it is only the byte part
+   * of the value is significant for MIDI messages.
+   */
   private byte value;
   private static Map<Byte, Status> values = new HashMap<>();
 
@@ -47,11 +51,19 @@ public enum Status {
     return value;
   }
 
-  public int asInt() {
-    return value;
+  public static Status getMessage(byte value) {
+    return values.get(getMessageByte(value));
   }
 
-  public static Status getMessage(byte value) {
-    return values.get(value);
+  static byte getMessageByte(byte value) {
+    /*
+     * As per MIDI specification system messages have first 4 bits set.  Otherwise it is a channel
+     * message with the first 4 bits specifying the status and the last 4 bits specifying the
+     * channel.
+     */
+    if (value >>> 4 != 16) {
+      return (byte) (value & 0xF0);
+    }
+    return value;
   }
 }
