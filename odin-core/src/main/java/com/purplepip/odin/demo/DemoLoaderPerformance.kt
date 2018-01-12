@@ -23,6 +23,7 @@ import com.purplepip.odin.performance.StaticPerformance
 class DemoLoaderPerformance : StaticPerformance({
   add(NoteTrigger().apply { note(48) ; name("note-48-trigger") })
   add(NoteTrigger().apply { note(49) ; name("note-49-trigger") })
+  add(NoteTrigger().apply { note(50) ; name("note-50-trigger") })
   layer("loader") {
     play(Loader().apply {
       name("loader")
@@ -34,6 +35,9 @@ class DemoLoaderPerformance : StaticPerformance({
       )
       trigger("note-49-trigger",
           LoadAction().performance(KotlinPerformance::class.java)
+      )
+      trigger("note-50-trigger",
+          LoadAction().performance(GroovePerformance::class.java)
       )
     })
 
