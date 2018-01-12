@@ -30,10 +30,10 @@ class DemoLoaderPerformance : StaticPerformance({
       offset(4)
       length(4)
       trigger("note-48-trigger",
-          LoadAction().performance("com/purplepip/odin/demo/PlutoPerformance")
+          LoadAction().performance(PlutoPerformance::class.java)
       )
       trigger("note-49-trigger",
-          LoadAction().performance("com/purplepip/odin/demo/KotlinPerformance")
+          LoadAction().performance(KotlinPerformance::class.java)
       )
     })
 

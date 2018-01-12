@@ -17,6 +17,7 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
+import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.events.GenericEvent;
 import com.purplepip.odin.math.Real;
@@ -40,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @Name("loader")
 public class Loader extends SequencePlugin {
   private URI performanceUri;
-  private String scheme = "classpath";
+  private String scheme = ClassUri.SCHEME;
   private String performance;
 
   /**

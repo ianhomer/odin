@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.creation.action;
 
+import com.purplepip.odin.common.ClassUri;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.specificity.Name;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 public class LoadAction extends ActionPlugin {
   private String performance;
+
+  public LoadAction performance(Class<? extends Performance> clazz) {
+    return performance(new ClassUri(clazz).getUri().getSchemeSpecificPart());
+  }
 
   public LoadAction performance(String performance) {
     this.performance = performance;
