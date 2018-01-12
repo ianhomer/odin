@@ -17,7 +17,6 @@ package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
-import com.codahale.metrics.Timer;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.OperationReceiver;
@@ -25,13 +24,12 @@ import java.util.concurrent.PriorityBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class DefaultOperationProcessorExecutor implements Runnable {
+public class DefaultOperationProcessorExecutor extends SequencerRunnable {
   private static final int MAX_OPERATIONS_PER_EXECUTION = 1000;
 
   private final BeatClock clock;
   private final PriorityBlockingQueue<OperationEvent> queue;
   private final OperationReceiver operationReceiver;
-  private final Timer jobMetric;
   private final Meter sentMetric;
   private final Meter failureMetric;
   private final long forwardPollingTime;
@@ -41,39 +39,17 @@ public class DefaultOperationProcessorExecutor implements Runnable {
                                     OperationReceiver operationReceiver,
                                     MetricRegistry metrics,
                                     long refreshPeriod) {
+    super("operation", clock, metrics);
     forwardPollingTime = refreshPeriod * 1000 * 5;
     this.clock = clock;
     this.queue = queue;
-    jobMetric = metrics.timer("operation.job");
     sentMetric = metrics.meter("operation.sent");
     failureMetric = metrics.meter("operation.failure");
     this.operationReceiver = operationReceiver;
   }
 
   @Override
-  public void run() {
-    if (clock.isStarted()) {
-      final Timer.Context timerContext = jobMetric.time();
-      try {
-        doJob();
-      } catch (RuntimeException e) {
-        LOG.error("Exception whilst processing operations", e);
-      } catch (Throwable t) {
-        LOG.error("Error whilst processing operations", t);
-        throw t;
-      } finally {
-        timerContext.stop();
-      }
-    } else {
-      if (clock.isStopped()) {
-        LOG.debug("Clock has been stopped");
-      } else {
-        LOG.debug("Clock has not started yet");
-      }
-    }
-  }
-
-  private void doJob() {
+  protected void doJob() {
     long size = queue.size();
     long microsecondPosition = clock.getMicroseconds();
     long count = 0;

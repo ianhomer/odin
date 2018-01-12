@@ -32,15 +32,13 @@ import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistic
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TrackProcessorExecutor implements Runnable {
+public class TrackProcessorExecutor extends SequencerRunnable {
   private final Things<Track> tracks;
-  private final BeatClock clock;
   private final OperationProcessor operationProcessor;
   private long timeBufferInMicroSeconds;
   private int maxNotesPerBuffer;
   private int maxNotesPerBufferEarlyWarning;
   private MutableSequenceProcessorStatistics statistics;
-  private MetricRegistry metrics;
 
   TrackProcessorExecutor(BeatClock clock,
                          Things<Track> tracks,
@@ -49,10 +47,9 @@ public class TrackProcessorExecutor implements Runnable {
                          int maxNotesPerBuffer,
                          MutableSequenceProcessorStatistics statistics,
                          MetricRegistry metrics) {
-    this.clock = clock;
+    super("sequence", clock, metrics);
     this.tracks = tracks;
     this.operationProcessor = operationProcessor;
-    this.metrics = metrics;
     /*
      * We need to scan forward more that the interval between executions of this processor.
      */
@@ -62,40 +59,11 @@ public class TrackProcessorExecutor implements Runnable {
     this.statistics = statistics;
   }
 
-  /**
-   * Run processor.
-   */
   @Override
-  public void run() {
-    if (clock.isStarted()) {
-      try {
-        doJobWithTiming();
-      } catch (RuntimeException e) {
-        LOG.error("Error whilst processing tracks", e);
-      } catch (Throwable t) {
-        LOG.error("Error whilst processing tracks", t);
-        throw t;
-      }
-    } else {
-      if (clock.isStopped()) {
-        LOG.debug("Clock has been stopped");
-      } else {
-        LOG.debug("Clock has not started yet");
-      }
-    }
-  }
-
-  // TODO : Can we use a metric annotation for this?
-  private void doJobWithTiming() {
-    try (Timer.Context jobTimerContext = metrics.timer("sequence.job").time()) {
-      doJob();
-    }
-  }
-
-  private void doJob() {
+  protected void doJob() {
     int noteCountThisBuffer = 0;
     for (Track track : tracks) {
-      try (Timer.Context context = metrics.timer("sequence.track." + track.getName()).time()) {
+      try (Timer.Context context = getMetrics().timer("sequence.track." + track.getName()).time()) {
         LOG.trace("Processing track {}", track);
         if (noteCountThisBuffer > maxNotesPerBuffer) {
           LOG.warn("Too many notes in this buffer {} > {} ",
@@ -105,16 +73,17 @@ public class TrackProcessorExecutor implements Runnable {
         noteCountThisBuffer += process(track);
       }
     }
-    LOG.trace("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(), clock);
+    LOG.trace("Processed {} notes in {} tracks : {}", noteCountThisBuffer, tracks.size(),
+        getClock());
   }
 
   private int process(Track track) {
-    metrics.meter("sequence.tracks").mark();
+    getMetrics().meter("sequence.tracks").mark();
     int noteCount = 0;
     Event nextEvent = track.peek();
 
     if (nextEvent == null) {
-      metrics.meter("sequence.noEvent").mark();
+      getMetrics().meter("sequence.noEvent").mark();
       return noteCount;
     }
 
@@ -123,14 +92,14 @@ public class TrackProcessorExecutor implements Runnable {
      * loop processing.  In this loop it is only used for setting forward scan windows and does
      * not need the precise microsecond positioning at the time of instruction execution.
      */
-    long microsecondPosition = clock.getMicroseconds();
+    long microsecondPosition = getClock().getMicroseconds();
     long maxMicrosecondPosition = microsecondPosition + timeBufferInMicroSeconds;
     while (nextEvent != null
         && nextEvent.getTime().lt(Wholes.valueOf(maxMicrosecondPosition))) {
       if (noteCount > maxNotesPerBuffer) {
         LOG.warn("Too many notes in this buffer {} > {} before {}", noteCount,
             maxNotesPerBuffer, maxMicrosecondPosition);
-        metrics.meter("sequence.bufferMaxed").mark();
+        getMetrics().meter("sequence.bufferMaxed").mark();
         return noteCount;
       } else if (noteCount > maxNotesPerBufferEarlyWarning) {
         LOG.warn("Approaching max notes in buffer with : {} from {}", nextEvent, track.getName());
@@ -141,13 +110,13 @@ public class TrackProcessorExecutor implements Runnable {
       nextEvent = track.pop();
       LOG.trace("Processing Event {}", nextEvent);
       if (nextEvent == null) {
-        metrics.meter("sequence.nextEventNull").mark();
+        getMetrics().meter("sequence.nextEventNull").mark();
         // TODO : Understand why this can happen, it might be that another thread has beaten
         // this thread to it.  It occasionally happens in the tests.
         LOG.warn("Next event gone from stack, it was null when we popped it");
       } else if (nextEvent.getTime().lt(Wholes.valueOf(microsecondPosition))) {
         statistics.incrementEventTooLateCount();
-        metrics.meter("sequence.tooLate").mark();
+        getMetrics().meter("sequence.tooLate").mark();
         LOG.warn("Skipping {}, too late to process  {} < {}", nextEvent,
             nextEvent.getTime(),
             microsecondPosition);
@@ -157,7 +126,7 @@ public class TrackProcessorExecutor implements Runnable {
          * be sent to the processor.
          */
         LOG.trace("NullValueEvent ignored : {}", nextEvent);
-        metrics.meter("sequence.nullEvent").mark();
+        getMetrics().meter("sequence.nullEvent").mark();
       } else {
         sendToProcessor(nextEvent, track);
       }
@@ -170,7 +139,7 @@ public class TrackProcessorExecutor implements Runnable {
       LOG.trace("No more events on sequence runtime");
     } else {
       LOG.trace("Next event {} is beyond horizon {} : clock {}",
-          nextEvent, maxMicrosecondPosition, clock);
+          nextEvent, maxMicrosecondPosition, getClock());
     }
 
     return noteCount;
@@ -186,16 +155,16 @@ public class TrackProcessorExecutor implements Runnable {
             note.getNumber());
         operationProcessor.send(noteOn, event.getTime().floor());
         operationProcessor.send(noteOff, event.getTime().plus(note.getDuration()).floor());
-        metrics.meter("sequence.sent.note").mark();
+        getMetrics().meter("sequence.sent.note").mark();
       } else if (event.getValue() instanceof Operation) {
         operationProcessor.send((Operation) event.getValue(), event.getTime().floor());
-        metrics.meter("sequence.sent.operation").mark();
+        getMetrics().meter("sequence.sent.operation").mark();
       } else {
         LOG.warn("Event not supported {}", event);
       }
     } catch (OdinException e) {
       LOG.error("Cannot handle operation to processor", e);
-      metrics.meter("sequence.failure").mark();
+      getMetrics().meter("sequence.failure").mark();
     }
   }
 }
