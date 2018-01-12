@@ -29,12 +29,14 @@ public class ClassPerformanceLoader implements PerformanceLoader {
   @Override
   public void load(URI performanceUri) {
     try {
+      String schemeSpecificPart = performanceUri.getSchemeSpecificPart();
+      String className = schemeSpecificPart.replace('/', '.');
       container.setPerformance((Performance)
-          getClass().getClassLoader()
-              .loadClass(performanceUri.getSchemeSpecificPart()).newInstance());
+          getClass().getClassLoader().loadClass(className).newInstance());
       container.apply();
       LOG.info("Loaded performance {}", performanceUri);
-    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+    } catch (NoClassDefFoundError | ClassNotFoundException | IllegalAccessException |
+        InstantiationException e) {
       LOG.error("Cannot load performance " + performanceUri,e);
     }
   }
