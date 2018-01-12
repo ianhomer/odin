@@ -87,11 +87,12 @@ public class MidiSystemHelper {
   MidiDevice getTransmittingDevice() throws OdinException {
     List<String> deviceNames = new ArrayList<>();
     /*
-     * Priority list for discovering transmitting device.
+     * Priority list for discovering transmitting device, i.e. external devices that can send
+     * MIDI signals to Odin.
      */
     deviceNames.add("Scarlett");
     deviceNames.add("USB");
-    deviceNames.add("MidiMock IN");
+    deviceNames.add("MidiMock OUT");
     deviceNames.add("KEYBOARD");
     deviceNames.add("CTRL");
     deviceNames.add("*");
@@ -101,12 +102,12 @@ public class MidiSystemHelper {
   MidiDevice getReceivingDevice() throws OdinException {
     List<String> deviceNames = new ArrayList<>();
     /*
-     * Priority list for discovering receiving device.
+     * Priority list for discovering receiving device, i.e. external devices that can receive
+     * MIDI signals from Odin.
      */
     deviceNames.add("Scarlett");
     deviceNames.add("FluidSynth");
     deviceNames.add("USB");
-    deviceNames.add("MidiMock OUT");
     return getInitialisedDevice(deviceNames, MidiDeviceReceiverMatcher::new);
   }
 

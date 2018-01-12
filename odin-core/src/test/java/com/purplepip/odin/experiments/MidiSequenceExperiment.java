@@ -12,6 +12,7 @@ import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
+import com.purplepip.odin.performance.LoadPerformanceOperation;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
@@ -52,6 +53,8 @@ public class MidiSequenceExperiment {
       LOG.trace("Received operation {}", operation);
       if (operation.hasCause()) {
         LOG.info("Caused Operation : {}", operation);
+      } else if (operation instanceof LoadPerformanceOperation) {
+        LOG.info("Load Performance Operation Operation : {}", operation);
       }
     };
 

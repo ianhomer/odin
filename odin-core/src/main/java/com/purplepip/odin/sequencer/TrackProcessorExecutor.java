@@ -71,7 +71,10 @@ public class TrackProcessorExecutor implements Runnable {
       try {
         doJobWithTiming();
       } catch (RuntimeException e) {
-        LOG.error("Error whilst executing sequence processing", e);
+        LOG.error("Error whilst processing tracks", e);
+      } catch (Throwable t) {
+        LOG.error("Error whilst processing tracks", t);
+        throw t;
       }
     } else {
       if (clock.isStopped()) {
