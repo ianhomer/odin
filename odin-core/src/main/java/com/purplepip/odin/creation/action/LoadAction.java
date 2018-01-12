@@ -39,7 +39,7 @@ public class LoadAction extends ActionPlugin {
 
   @Override
   public void execute(ActionContext context) {
-    LOG.debug("Executing {}", this);
+    LOG.debug("Executing {} on track {}", this, context.getTrack().getName());
     context.getTrack().setProperty("performance", performance);
     context.getTrack().start();
   }
