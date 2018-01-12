@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.performance;
 
+import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
@@ -37,6 +38,12 @@ public class TransientPerformance implements Performance {
   private Set<Layer> layers = new LinkedHashSet<>();
 
   private Set<TriggerConfiguration> triggers = new LinkedHashSet<>();
+
+  private <T extends Thing> void removeNamedDuplicate(T thing, Set<T> set) {
+    if (thing.getName() != null) {
+      set.removeIf(existing -> thing.getName().equals(existing.getName()));
+    }
+  }
 
   @Override
   public String getName() {
@@ -77,6 +84,7 @@ public class TransientPerformance implements Performance {
 
   @Override
   public TransientPerformance addLayer(Layer layer) {
+    removeNamedDuplicate(layer, layers);
     layers.add(layer);
     return this;
   }
@@ -89,6 +97,7 @@ public class TransientPerformance implements Performance {
 
   @Override
   public TransientPerformance addTrigger(TriggerConfiguration trigger) {
+    removeNamedDuplicate(trigger, triggers);
     triggers.add(trigger);
     return this;
   }
@@ -101,6 +110,7 @@ public class TransientPerformance implements Performance {
 
   @Override
   public TransientPerformance addSequence(SequenceConfiguration sequence) {
+    removeNamedDuplicate(sequence, sequences);
     sequences.add(sequence);
     return this;
   }

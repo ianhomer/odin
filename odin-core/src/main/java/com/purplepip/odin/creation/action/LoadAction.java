@@ -47,6 +47,7 @@ public class LoadAction extends ActionPlugin {
   public void execute(ActionContext context) {
     LOG.debug("Executing {} on track {}", this, context.getTrack().getName());
     context.getTrack().setProperty("performance", performance);
+    context.getTrack().initialise();
     context.getTrack().start();
   }
 

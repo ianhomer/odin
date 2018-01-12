@@ -19,10 +19,15 @@ import java.net.URI;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ClassPerformanceLoader implements PerformanceLoader {
+public class ClassPerformanceLoader extends AbstractPerformanceLoader {
   private final PerformanceContainer container;
 
   public ClassPerformanceLoader(PerformanceContainer container) {
+    this.container = container;
+  }
+
+  public ClassPerformanceLoader(PerformanceContainer container, Performance overlay) {
+    super(overlay);
     this.container = container;
   }
 
@@ -31,8 +36,8 @@ public class ClassPerformanceLoader implements PerformanceLoader {
     try {
       String schemeSpecificPart = performanceUri.getSchemeSpecificPart();
       String className = schemeSpecificPart.replace('/', '.');
-      container.setPerformance((Performance)
-          getClass().getClassLoader().loadClass(className).newInstance());
+      container.setPerformance(overlay((Performance)
+          getClass().getClassLoader().loadClass(className).newInstance()));
       container.apply();
       LOG.info("Loaded performance {}", performanceUri);
     } catch (NoClassDefFoundError | ClassNotFoundException | IllegalAccessException

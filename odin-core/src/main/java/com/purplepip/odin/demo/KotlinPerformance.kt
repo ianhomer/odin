@@ -21,7 +21,6 @@ import com.purplepip.odin.music.sequence.Pattern
 import com.purplepip.odin.performance.StaticPerformance
 
 class KotlinPerformance : StaticPerformance({
-  mixin(DemoLoaderPerformance())
   layer("performance") {
     channel(1, "Strings") {
       play("A/q G/8 A/q E")

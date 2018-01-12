@@ -53,7 +53,8 @@ public class OdinSequencerReloadTest {
 
     PerformanceContainer container = new PerformanceContainer(new SimplePerformance());
     TestSequencerEnvironment environment = new TestSequencerEnvironment(
-        new OperationReceiverCollection(operationReceiver, new ClassPerformanceLoader(container)),
+        new OperationReceiverCollection(operationReceiver,
+            new ClassPerformanceLoader(container)),
         container);
     environment.start();
 

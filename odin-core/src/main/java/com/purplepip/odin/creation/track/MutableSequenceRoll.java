@@ -160,7 +160,6 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
     Rational newOffset = measureProvider
         .getNextMeasureStart(
             clock.getPosition(clock.getMicroseconds() + 100_000)).wholeCeiling();
-
     resetter.set("offset", newOffset);
     LOG.debug("{} {} : sequence offset set to {}", beatClock, name, sequence.getOffset());
     offset.set(newOffset);
@@ -223,8 +222,8 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
 
     new ThingCopy().from(sequenceConfiguration).to(sequence).copy();
 
-    if (sequenceConfiguration instanceof MutablePropertiesProvider) {
-      resetter.reset((MutablePropertiesProvider) sequenceConfiguration);
+    if (sequence instanceof MutablePropertiesProvider) {
+      resetter.reset((MutablePropertiesProvider) sequence);
     } else {
       LOG.warn("Sequence {} is not a MutablePropertiesProvider", sequenceConfiguration);
     }

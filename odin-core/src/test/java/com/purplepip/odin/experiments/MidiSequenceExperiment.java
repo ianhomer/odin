@@ -5,6 +5,7 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.demo.KotlinPerformance;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
@@ -16,6 +17,7 @@ import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
+import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
 import com.purplepip.odin.sequencer.OdinSequencer;
@@ -67,8 +69,8 @@ public class MidiSequenceExperiment {
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     OperationTransmitter transmitter = new DefaultOperationTransmitter();
     midiDeviceWrapper.registerWithTransmitter(transmitter);
-    PerformanceContainer container = new PerformanceContainer(new KotlinPerformance());
-    PerformanceLoader loader = new ClassPerformanceLoader(container);
+    PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+    PerformanceLoader loader = new ClassPerformanceLoader(container, new DemoLoaderPerformance());
     OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))
         .setMeasureProvider(measureProvider)
