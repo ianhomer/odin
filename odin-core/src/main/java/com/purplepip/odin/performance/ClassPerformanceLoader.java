@@ -35,8 +35,8 @@ public class ClassPerformanceLoader implements PerformanceLoader {
           getClass().getClassLoader().loadClass(className).newInstance());
       container.apply();
       LOG.info("Loaded performance {}", performanceUri);
-    } catch (NoClassDefFoundError | ClassNotFoundException | IllegalAccessException |
-        InstantiationException e) {
+    } catch (NoClassDefFoundError | ClassNotFoundException | IllegalAccessException
+        | InstantiationException e) {
       LOG.error("Cannot load performance " + performanceUri,e);
     }
   }

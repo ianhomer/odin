@@ -46,8 +46,8 @@ public abstract class SequencerRunnable implements Runnable {
          * In an exceptional circumstance where the exception is not handled then log exception
          * and rethrow.
          */
-        LOG.error("Uncaught Error whilst processing operations.  " +
-            "Note that thread processing might be stopped", t);
+        LOG.error("Uncaught Error whilst processing operations.  "
+            + "Note that thread processing might be stopped", t);
         throw t;
       }
     } else {
