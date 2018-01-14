@@ -37,7 +37,7 @@ public class NoteOnOperation extends AbstractNoteVelocityOperation {
    * @param velocity Velocity for the operation
    */
   public NoteOnOperation(int channel, int number, int velocity, Operation cause) {
-    setChannel(channel);
+    super(channel);
     setNumber(number);
     setVelocity(velocity);
     setCause(cause);

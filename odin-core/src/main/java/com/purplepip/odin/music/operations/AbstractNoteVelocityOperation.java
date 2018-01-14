@@ -28,6 +28,10 @@ public abstract class AbstractNoteVelocityOperation extends AbstractChannelOpera
   private int number;
   private int velocity;
 
+  protected AbstractNoteVelocityOperation(int channel) {
+    super(channel);
+  }
+
   protected final void setNumber(int number) {
     this.number = number;
   }

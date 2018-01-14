@@ -27,7 +27,7 @@ public class NoteOffOperation extends AbstractNoteVelocityOperation {
    * @param number note number
    */
   public NoteOffOperation(int channel, int number) {
-    setChannel(channel);
+    super(channel);
     setNumber(number);
     setVelocity(0);
   }

@@ -37,7 +37,7 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
    * @param program program
    */
   public ProgramChangeOperation(int channel, int bank, int program) {
-    setChannel(channel);
+    super(channel);
     setBank(bank);
     setProgram(program);
   }
@@ -63,7 +63,7 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
    * @param channel channel configuration
    */
   public ProgramChangeOperation(Channel channel) {
-    setChannel(channel.getNumber());
+    super(channel.getNumber());
     setProgram(channel.getProgram());
     setProgramName(channel.getProgramName());
   }

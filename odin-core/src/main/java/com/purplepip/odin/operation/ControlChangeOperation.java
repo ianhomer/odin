@@ -27,7 +27,7 @@ public class ControlChangeOperation extends AbstractChannelOperation {
    * @param value value to set
    */
   public ControlChangeOperation(int channel, int control, int value) {
-    setChannel(channel);
+    super(channel);
     this.control = control;
     this.value = value;
   }

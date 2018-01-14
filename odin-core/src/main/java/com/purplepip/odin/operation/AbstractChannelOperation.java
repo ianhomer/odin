@@ -22,13 +22,12 @@ import lombok.ToString;
  * Channel operation.
  */
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public abstract class AbstractChannelOperation extends AbstractOperation
     implements ChannelOperation {
-  // TODO : Make channel final and set in constructor
-  private int channel;
+  private final int channel;
 
-  protected final void setChannel(int channel) {
+  protected AbstractChannelOperation(int channel) {
     this.channel = channel;
   }
 
