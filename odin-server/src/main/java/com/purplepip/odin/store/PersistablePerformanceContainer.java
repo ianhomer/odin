@@ -18,12 +18,14 @@ package com.purplepip.odin.store;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.LayerRepository;
 import com.purplepip.odin.server.rest.repositories.SequenceRepository;
 import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistableLayer;
+import com.purplepip.odin.store.domain.PersistablePerformance;
 import com.purplepip.odin.store.domain.PersistableSequence;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,17 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
 
   @Autowired
   private SequenceRepository sequenceRepository;
+
+  @Override
+  public void setPerformance(Performance performance) {
+    if (!(performance instanceof PersistablePerformance)) {
+      PersistablePerformance persistablePerformance = new PersistablePerformance();
+      persistablePerformance.mixin(performance);
+      super.setPerformance(persistablePerformance);
+    } else {
+      super.setPerformance(performance);
+    }
+  }
 
   @Override
   public void addChannel(Channel channel) {

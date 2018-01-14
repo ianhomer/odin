@@ -6,7 +6,7 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
-import com.purplepip.odin.demo.KotlinPerformance;
+import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
@@ -94,7 +94,7 @@ public class MidiSequenceExperiment {
       }
 
       container.addApplyListener(sequencer);
-      loader.load(new ClassUri(KotlinPerformance.class).getUri());
+      loader.load(new ClassUri(GroovePerformance.class).getUri());
       container.apply();
       new MidiSystemWrapper().extended().dump();
 
