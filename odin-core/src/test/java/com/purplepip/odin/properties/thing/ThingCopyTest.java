@@ -17,18 +17,24 @@ package com.purplepip.odin.properties.thing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.sequence.GenericSequence;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.performance.Performance;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Slf4j
 public class ThingCopyTest {
-
   @Test
   public void testCopyFromGenericToGeneric() {
     GenericSequence destination = new GenericSequence().name("test");
@@ -53,10 +59,10 @@ public class ThingCopyTest {
 
   @Test
   public void testCopyFromGenericToSpecific() {
-    Notation destination = (Notation) new Notation().name("test");
-    assertTrue(destination.arePropertiesDeclared());
     GenericSequence source = new GenericSequence().offset(8)
         .property("notation", "A B C");
+    Notation destination = (Notation) new Notation().name("test");
+    assertTrue(destination.arePropertiesDeclared());
     try (LogCaptor captor = new LogCapture().warn().from(ThingCopy.class)
         .withPassThrough().start()) {
       new ThingCopy().from(source).to(destination).copy();
@@ -64,16 +70,29 @@ public class ThingCopyTest {
     }
 
     assertEquals("A B C", destination.getNotation());
-    assertEquals("A B C", destination.getProperty("notation"));
+    /*
+     * Property map should not be populated in specific plugins.
+     */
+    assertNull(destination.getProperty("notation"));
     assertEquals(Wholes.valueOf(8), destination.getOffset());
   }
 
   @Test
-  public void testCopyFromPlugin() {
+  public void testCopyFromSpecificToGeneric() {
+    GenericSequence destination = new GenericSequence();
+    Notation source = (Notation) new Notation().notation("A B C")
+        .offset(8).name("test");
+    new ThingCopy().from(source).to(destination).copy();
+    assertEquals(Wholes.valueOf(8), destination.getOffset());
+    assertEquals("A B C", destination.getProperty("notation"));
+    assertEquals("test", destination.getName());
+  }
+
+  @Test
+  public void testCopyFromPluginToPlugin() {
+    GenericSequence source = new Notation().notation("A B C").offset(8)
+        .tick(Ticks.HALF);
     Notation destination = (Notation) new Notation().name("test").tick(Ticks.BEAT);
-    GenericSequence source = new Notation().offset(8)
-        .tick(Ticks.HALF)
-        .property("notation", "A B C");
     new ThingCopy().from(source).to(destination).copy();
 
     assertEquals(Ticks.HALF, destination.getTick());
@@ -85,7 +104,7 @@ public class ThingCopyTest {
   public void testCopyFromGenericToSpecificWithUndeclaredProperty() {
     GenericSequence destination = new Notation().name("test").tick(Ticks.BEAT);
     assertTrue(destination.arePropertiesDeclared());
-    GenericSequence source = new Notation()
+    GenericSequence source = new GenericSequence()
         .tick(Ticks.HALF)
         .property("undeclared", "value1")
         .property("undeclared.nested", "value2");
@@ -99,6 +118,26 @@ public class ThingCopyTest {
       assertEquals("2 warnings should be logged", 2, captor.size());
     }
     assertEquals(Ticks.HALF, destination.getTick());
+  }
+
+  @Test
+  @Ignore
+  /*
+   * Implement this test ...
+   */
+  public void testFullCycle() {
+    Performance performance = new GroovePerformance();
+    performance.getSequences().forEach(source -> {
+      GenericSequence destination = new GenericSequence();
+      new ThingCopy().from(source).to(destination).copy();
+      try {
+        SequenceConfiguration copyOfCopy = source.getClass().newInstance();
+        new ThingCopy().from(destination).to(copyOfCopy).copy();
+        assertEquals(source, copyOfCopy);
+      } catch (InstantiationException | IllegalAccessException e) {
+        LOG.error("Cannot create new instance", e);
+      }
+    });
   }
 
 }

@@ -19,6 +19,12 @@ import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.re
 
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.specificity.ThingConfiguration;
+import java.beans.BeanInfo;
+import java.beans.FeatureDescriptor;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.Arrays;
 import jodd.bean.BeanCopy;
 import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
@@ -57,17 +63,46 @@ public class ThingCopy {
     BeanCopy.from(source).to(destination).copy();
     LOG.trace("Populating properties map from source");
     if (destination instanceof MutablePropertiesProvider) {
-      source.getPropertyNames().forEach(name -> {
-        ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name));
-        if (destination.arePropertiesDeclared()) {
+      /*
+       * Copy generic to specific.
+       */
+      if (!source.arePropertiesDeclared() && destination.arePropertiesDeclared()) {
+        source.getPropertyNames().forEach(name -> {
           try {
             BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
           } catch (BeanException e) {
-            LOG.debug("Whilst populating thing {} (full stack)", e);
+            LOG.debug("Whilst populating thing " + destination + " (full stack)", e);
             LOG.warn("Whilst populating thing {} : {}", destination, e.getMessage());
           }
+        });
+      } else if (source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
+        /*
+         * Copy specific to generic.
+         */
+        try {
+          BeanInfo beanInfo = Introspector.getBeanInfo(source.getClass());
+          PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+          Arrays.stream(propertyDescriptors)
+              .map(FeatureDescriptor::getName)
+              .filter(name -> !"class".equals(name))
+              .forEach(name -> {
+                Object value = BeanUtil.declared.getProperty(source, name);
+                if (value != null) {
+                  ((MutablePropertiesProvider) destination).setProperty(name, value.toString());
+                }
+              });
+        } catch (IntrospectionException e) {
+          LOG.debug("Whilst getting bean info for thing " + destination + " (full stack)", e);
+          LOG.warn("Whilst getting bean info for thing {} : {}", destination, e.getMessage());
         }
-      });
+      } else if (!source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
+        /*
+         * Copy generic to generic.
+         */
+        source.getPropertyNames().forEach(name ->
+            ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name))
+        );
+      }
     }
   }
 }
