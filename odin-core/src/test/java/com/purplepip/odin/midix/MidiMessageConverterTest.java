@@ -18,10 +18,13 @@ package com.purplepip.odin.midix;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midi.Status;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.operation.ControlChangeOperation;
 import com.purplepip.odin.operation.Operation;
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 import org.junit.Test;
 
@@ -47,5 +50,15 @@ public class MidiMessageConverterTest {
     assertEquals(60, noteOffOperation.getNumber());
     // Note that velocity is not used for note off operation in this system.
     assertEquals(0, noteOffOperation.getVelocity());
+  }
+
+  @Test
+  public void testControlChangeOperation() throws InvalidMidiDataException, OdinException {
+    Operation operation = new MidiMessageConverter(new ShortMessage(-72,123,0))
+        .toOperation();
+    assertTrue(operation instanceof ControlChangeOperation);
+    ControlChangeOperation controlChangeOperation = (ControlChangeOperation) operation;
+    assertEquals(123, controlChangeOperation.getControl());
+    assertEquals(0, controlChangeOperation.getValue());
   }
 }

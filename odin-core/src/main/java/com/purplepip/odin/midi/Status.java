@@ -19,7 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * MIDI command.
+ * MIDI command.  Note that int representations of bytes are 0x01 = 1, 0x10 = 16, 0x7F = 127,
+ * 0x80 = -128.
  */
 public enum Status {
   /*
@@ -27,7 +28,8 @@ public enum Status {
    */
   NOTE_OFF(0b1000_0000),    // 0x80 or 128
   NOTE_ON(0b1001_0000),     // 0x90 or 144
-  PROGRAM_CHANGE(0xC0);
+  CONTROL_CHANGE(0xB0),     // 176
+  PROGRAM_CHANGE(0xC0);     // 192
 
   /*
    * We explicitly store this as a byte primarily to make it clear that it is only the byte part
@@ -55,6 +57,12 @@ public enum Status {
     return values.get(getMessageByte(value));
   }
 
+  /**
+   * Get message byte for the given value.
+   *
+   * @param value value to get message byte for
+   * @return byte
+   */
   static byte getMessageByte(byte value) {
     /*
      * As per MIDI specification system messages have first 4 bits set.  Otherwise it is a channel
@@ -65,5 +73,9 @@ public enum Status {
       return (byte) (value & 0xF0);
     }
     return value;
+  }
+
+  static int getMessageUnsignedInt(byte value) {
+    return getMessageByte(value) & 0xFF;
   }
 }

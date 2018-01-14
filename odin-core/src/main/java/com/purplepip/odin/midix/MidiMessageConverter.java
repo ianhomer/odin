@@ -20,6 +20,7 @@ import com.purplepip.odin.midi.DebugMessage;
 import com.purplepip.odin.midi.Status;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.operation.ControlChangeOperation;
 import com.purplepip.odin.operation.Operation;
 import javax.sound.midi.MidiMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +55,8 @@ public class MidiMessageConverter {
             return new NoteOnOperation(1, message[1], message[2], midiMessageOperation);
           case NOTE_OFF:
             return new NoteOffOperation(1, message[1]);
+          case CONTROL_CHANGE:
+            return new ControlChangeOperation(1, message[1], message[2]);
           default:
             throw new OdinException(new DebugMessage(midiMessage.getMessage())
                 + " not currently mapped to an operation");

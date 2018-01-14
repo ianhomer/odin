@@ -15,26 +15,28 @@
 
 package com.purplepip.odin.operation;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+public class ControlChangeOperation extends AbstractChannelOperation {
+  private int control;
+  private int value;
 
-/**
- * Channel operation.
- */
-@ToString
-@EqualsAndHashCode
-public abstract class AbstractChannelOperation extends AbstractOperation
-    implements ChannelOperation {
-  // TODO : Make channel final and set in constructor
-  private int channel;
-
-  protected final void setChannel(int channel) {
-    this.channel = channel;
+  /**
+   * Create a control change operation.
+   *
+   * @param channel channel
+   * @param control control function
+   * @param value value to set
+   */
+  public ControlChangeOperation(int channel, int control, int value) {
+    setChannel(channel);
+    this.control = control;
+    this.value = value;
   }
 
-  @Override
-  public int getChannel() {
-    return channel;
+  public int getControl() {
+    return control;
+  }
+
+  public int getValue() {
+    return value;
   }
 }
-
