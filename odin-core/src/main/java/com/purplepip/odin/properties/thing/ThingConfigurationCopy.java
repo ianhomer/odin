@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  * Copy one properties thing to another.
  */
 @Slf4j
-public class ThingCopy {
+public class ThingConfigurationCopy {
   private static Set<String> IGNORE_PROPERTIES = Sets
       .newHashSet("class", "propertyEntries", "propertyNames");
 
@@ -48,15 +48,15 @@ public class ThingCopy {
   private ThingConfiguration source;
   private ThingConfiguration destination;
 
-  public ThingCopy() {
+  public ThingConfigurationCopy() {
   }
 
-  public ThingCopy from(ThingConfiguration source) {
+  public ThingConfigurationCopy from(ThingConfiguration source) {
     this.source = source;
     return this;
   }
 
-  public ThingCopy to(ThingConfiguration destination) {
+  public ThingConfigurationCopy to(ThingConfiguration destination) {
     this.destination = destination;
     return this;
   }

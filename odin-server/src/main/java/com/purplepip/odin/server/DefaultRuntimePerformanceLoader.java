@@ -16,6 +16,7 @@
 package com.purplepip.odin.server;
 
 import com.purplepip.odin.clock.tick.Ticks;
+import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import lombok.extern.slf4j.Slf4j;

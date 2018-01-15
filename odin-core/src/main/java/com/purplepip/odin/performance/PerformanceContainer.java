@@ -46,7 +46,7 @@ public class PerformanceContainer {
     this.performance = performance;
   }
 
-  protected Performance getPerformance() {
+  public Performance getPerformance() {
     return performance;
   }
 

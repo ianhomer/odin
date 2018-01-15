@@ -115,6 +115,15 @@ public class PersistablePerformance implements Performance {
     return this;
   }
 
+  //@Override
+  //public PersistablePerformance addLayer(Layer layer) {
+  //PersistableLayer persistableLayer = new PersistableLayer();
+  // TODO : Should we use BeanCopy directly here or perhaps create a ThingCopy class that
+  // ThingConfigurationCopy extends from.
+  //BeanCopy.from(layer).to(persistableLayer).copy();
+  //return addLayer(persistableLayer);
+  //}
+
   @Override
   public PersistablePerformance addLayer(Layer layer) {
     if (layer instanceof PersistableLayer) {

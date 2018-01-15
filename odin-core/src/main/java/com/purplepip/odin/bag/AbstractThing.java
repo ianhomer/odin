@@ -30,7 +30,9 @@ import lombok.extern.slf4j.Slf4j;
  * Note that two objects are equal if they are the same type and have all the
  * same properties are equal, without the ID being taken into account.   The ID however is used
  * for persistence model and updating things in AbstractPluggableAspects.  These two definitions
- * of equality seem a little inconsistent and may cause issues in the future.
+ * of equality seem a little inconsistent and may cause issues in the future.  For example equality
+ * is used in set storage, so we need to think what duplicate means.  Maybe equality
+ * should be based only on ID and we should have separate API to check whether data is the same.
  */
 @Slf4j
 @EqualsAndHashCode(of = "name")
