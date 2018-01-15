@@ -15,21 +15,36 @@
 
 package com.purplepip.odin.properties.thing;
 
-import static org.junit.Assert.assertEquals;
+import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.requireMathTypeConverters;
 
 import com.purplepip.odin.bag.Thing;
-import com.purplepip.odin.creation.layer.DefaultLayer;
+import jodd.bean.BeanCopy;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
 @Slf4j
-public class ThingCopyTest {
-  @Test
-  public void copy() throws Exception {
-    Thing source = new DefaultLayer("test")
-        .layer("layer1", "layer2").length(1).offset(8).enabled(false);
-    Thing destination = new DefaultLayer(source.getId());
-    new ThingCopy().from(source).to(destination).copy();
-    assertEquals(source, destination);
+public class ThingCopy {
+  static {
+    requireMathTypeConverters();
+  }
+
+  private Thing source;
+  private Thing destination;
+
+  public ThingCopy from(Thing source) {
+    this.source = source;
+    return this;
+  }
+
+  public ThingCopy to(Thing destination) {
+    this.destination = destination;
+    return this;
+  }
+
+  /**
+   * Copy things.
+   */
+  public void copy() {
+    LOG.trace("Populating bean properties from source");
+    BeanCopy.from(source).to(destination).declared(true).copy();
   }
 }

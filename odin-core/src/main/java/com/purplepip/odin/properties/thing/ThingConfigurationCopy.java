@@ -28,7 +28,6 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.Arrays;
 import java.util.Set;
-import jodd.bean.BeanCopy;
 import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
  * Copy one properties thing to another.
  */
 @Slf4j
-public class ThingConfigurationCopy {
+public class ThingConfigurationCopy extends ThingCopy {
   private static Set<String> IGNORE_PROPERTIES = Sets
       .newHashSet("class", "propertyEntries", "propertyNames");
 
@@ -48,16 +47,27 @@ public class ThingConfigurationCopy {
   private ThingConfiguration source;
   private ThingConfiguration destination;
 
-  public ThingConfigurationCopy() {
-  }
-
+  /**
+   * Set source of copy.
+   *
+   * @param source source
+   * @return this
+   */
   public ThingConfigurationCopy from(ThingConfiguration source) {
     this.source = source;
+    super.from(source);
     return this;
   }
 
+  /**
+   * Set destination of copy.
+   *
+   * @param destination destination
+   * @return this
+   */
   public ThingConfigurationCopy to(ThingConfiguration destination) {
     this.destination = destination;
+    super.to(destination);
     return this;
   }
 
@@ -65,8 +75,7 @@ public class ThingConfigurationCopy {
    * Copy things.
    */
   public void copy() {
-    LOG.trace("Populating bean properties from source");
-    BeanCopy.from(source).to(destination).copy();
+    super.copy();
     LOG.trace("Populating properties map from source");
     if (destination instanceof MutablePropertiesProvider) {
       /*
