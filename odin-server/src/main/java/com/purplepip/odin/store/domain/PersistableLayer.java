@@ -41,7 +41,8 @@ import lombok.extern.slf4j.Slf4j;
 @ToString(exclude = "performance", callSuper = true)
 @EqualsAndHashCode(exclude = {"performance", "layers"}, callSuper = true)
 @Slf4j
-public class PersistableLayer extends PersistableTimeThing implements MutableLayer {
+public class PersistableLayer extends PersistableTimeThing
+    implements PerformanceBound, MutableLayer {
   @ManyToOne(targetEntity = PersistablePerformance.class)
   @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
   private Performance performance;

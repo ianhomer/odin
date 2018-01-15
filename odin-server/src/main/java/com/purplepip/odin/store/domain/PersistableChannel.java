@@ -18,8 +18,6 @@ package com.purplepip.odin.store.domain;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.performance.Performance;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
@@ -36,13 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Entity(name = "Channel")
 @Table(name = "Channel")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(callSuper = true)
 @ToString(exclude = "performance")
 @Slf4j
-public class PersistableChannel implements Channel {
-  @Id
-  @GeneratedValue
-  private long id;
+public class PersistableChannel extends PersistableThing implements Channel, PerformanceBound {
   private int number;
   private String programName;
   private int program;

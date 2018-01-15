@@ -52,8 +52,8 @@ import lombok.extern.slf4j.Slf4j;
 @ToString(exclude = "performance", callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
-public class PersistableSequence
-    extends PersistableTimeThing implements MutableSequenceConfiguration {
+public class PersistableSequence  extends PersistableTimeThing
+    implements MutableSequenceConfiguration, PerformanceBound {
   @ManyToOne(targetEntity = PersistablePerformance.class)
   @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
   private Performance performance;

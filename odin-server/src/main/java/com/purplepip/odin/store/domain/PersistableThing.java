@@ -21,6 +21,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.PrePersist;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -42,6 +43,17 @@ public class PersistableThing implements Thing {
 
   @NotNull
   private String name;
+
+  /**
+   * Initialise name.
+   */
+  // TODO : Should we mandate that the caller sets the name?
+  @PrePersist
+  public void initialiseName() {
+    if (name == null) {
+      name = String.valueOf(id);
+    }
+  }
 
   /**
    * Generate string of just the core thing properties.

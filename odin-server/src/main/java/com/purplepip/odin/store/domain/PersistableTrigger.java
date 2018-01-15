@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(exclude = {"performance"}, callSuper = true)
 @Slf4j
 public class PersistableTrigger extends PersistableTimeThing
-    implements MutableTriggerConfiguration {
+    implements MutableTriggerConfiguration, PerformanceBound {
   @ManyToOne(targetEntity = PersistablePerformance.class)
   @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
   private Performance performance;

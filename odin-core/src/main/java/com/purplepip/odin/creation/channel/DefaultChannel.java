@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.channel;
 
+import com.purplepip.odin.bag.AbstractThing;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -23,8 +24,8 @@ import lombok.ToString;
  * Default channel implementation.
  */
 @ToString
-@EqualsAndHashCode
-public class DefaultChannel implements Channel {
+@EqualsAndHashCode(callSuper = true)
+public class DefaultChannel extends AbstractThing implements Channel {
   /*
    * Cheap ID generator for default channels.  Note that persistence implementation used for
    * the runtime has a more robust ID generation mechanism, however for the transient usage,

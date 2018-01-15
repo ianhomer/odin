@@ -17,9 +17,12 @@ package com.purplepip.odin.store;
 
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.demo.GroovePerformance;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.store.domain.PersistablePerformance;
+import com.purplepip.odin.store.domain.PersistableThing;
 import org.junit.Test;
 
 public class PersistablePerformanceContainerTest {
@@ -27,6 +30,15 @@ public class PersistablePerformanceContainerTest {
   public void testSetNonPersistablePerformance() {
     PerformanceContainer container = new PersistablePerformanceContainer();
     container.setPerformance(new GroovePerformance());
-    assertTrue(container.getPerformance() instanceof PersistablePerformance);
+    Performance performance = container.getPerformance();
+    performance.mixin(new DemoLoaderPerformance());
+    assertTrue(performance instanceof PersistablePerformance);
+    assertTrue(performance.getLayers().iterator().next() instanceof PersistableThing);
+    assertTrue(performance.getSequences().iterator().next() instanceof PersistableThing);
+    assertTrue(performance.getTriggers().iterator().next() instanceof PersistableThing);
+    assertTrue(performance.getChannels().iterator().next() instanceof PersistableThing);
+    //assertTrue("Some properties should exist in the crash sequence", performance.getSequences().stream()
+    //    .filter(sequence -> "crash".equals(sequence.getName()))
+    //    .filter(sequence -> sequence.getPropertyNames().count() > 0).count() > 0);
   }
 }

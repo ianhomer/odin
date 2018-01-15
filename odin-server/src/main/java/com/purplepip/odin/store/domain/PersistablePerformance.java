@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
+import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
@@ -66,18 +67,14 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance addChannel(Channel channel) {
-    if (channel instanceof PersistableChannel) {
-      ((PersistableChannel) channel).setPerformance(this);
-    }
     /*
      * Replace any existing channel for same channel number.
      */
     channels.removeIf(c -> c.getNumber() == channel.getNumber());
-    boolean result = channels.add(channel);
-    if (!result) {
-      LOG.warn("Cannot add channel {}", channel);
-    }
-    return this;
+    return add(bind(
+        channel instanceof PersistableChannel
+            ? (PersistableChannel) channel : copy(channel, new PersistableChannel())
+    ), channels);
   }
 
   @Override
@@ -93,16 +90,10 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance addSequence(SequenceConfiguration sequence) {
-    if (sequence instanceof PersistableSequence) {
-      ((PersistableSequence) sequence).setPerformance(this);
-    }
-    boolean result = sequences.add(sequence);
-    if (!result) {
-      LOG.warn("Could not add sequence {} to performance", sequence);
-    } else {
-      LOG.debug("Added sequence to performance");
-    }
-    return this;
+    return add(bind(
+        sequence instanceof PersistableSequence
+            ? (PersistableSequence) sequence : copy(sequence, new PersistableSequence())
+    ), sequences);
   }
 
   @Override
@@ -118,30 +109,31 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance addLayer(Layer layer) {
-    if (layer instanceof PersistableLayer) {
-      return addLayer((PersistableLayer) layer);
-    }
-    /*
-     * For non-persistable layers we copy the layer into the a new persistable layer.
-     */
-    PersistableLayer persistableLayer = new PersistableLayer();
-    new ThingCopy().from(layer).to(persistableLayer).copy();
-    return addLayer(persistableLayer);
+    return add(bind(
+        layer instanceof PersistableLayer
+          ? (PersistableLayer) layer : copy(layer, new PersistableLayer())
+    ), layers);
   }
 
-  /**
-   * Add persistable layer.
-   *
-   * @param layer persistable layer
-   * @return this performance
+  /*
+   * For non-persistable thing we copy the thing into the a new persistable thing.
    */
-  public PersistablePerformance addLayer(PersistableLayer layer) {
-    layer.setPerformance(this);
-    boolean result = layers.add(layer);
+  private <T extends Thing> T copy(Thing source, T destination) {
+    new ThingCopy().from(source).to(destination).copy();
+    return destination;
+  }
+
+  private <T extends PerformanceBound> T bind(T thing) {
+    thing.setPerformance(this);
+    return thing;
+  }
+
+  private <T extends Thing> PersistablePerformance add(T thing, Set<T> things) {
+    boolean result = things.add(thing);
     if (!result) {
-      LOG.warn("Could not add layer {} to performance", layer);
+      LOG.warn("Could not add {} to performance", thing);
     } else {
-      LOG.debug("Added layer to performance");
+      LOG.debug("Added {} to performance", thing);
     }
     return this;
   }
@@ -160,16 +152,10 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance addTrigger(TriggerConfiguration trigger) {
-    if (trigger instanceof PersistableTrigger) {
-      ((PersistableTrigger) trigger).setPerformance(this);
-    }
-    boolean result = triggers.add(trigger);
-    if (!result) {
-      LOG.warn("Could not add trigger {} to performance", trigger);
-    } else {
-      LOG.debug("Added trigger to performance");
-    }
-    return this;
+    return add(bind(
+        trigger instanceof PersistableTrigger
+            ? (PersistableTrigger) trigger : copy(trigger, new PersistableTrigger())
+    ), triggers);
   }
 
   @Override

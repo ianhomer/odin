@@ -15,17 +15,12 @@
 
 package com.purplepip.odin.creation.channel;
 
+import com.purplepip.odin.bag.Thing;
+
 /**
  * Channel configuration.
  */
-public interface Channel {
-  /**
-   * Unique channel ID.
-   *
-   * @return channel ID
-   */
-  long getId();
-
+public interface Channel extends Thing {
   /**
    * Get channel number.
    *
