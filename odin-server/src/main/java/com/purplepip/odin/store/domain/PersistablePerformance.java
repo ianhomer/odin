@@ -20,6 +20,7 @@ import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.performance.Performance;
+import com.purplepip.odin.properties.thing.ThingCopy;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -115,20 +116,27 @@ public class PersistablePerformance implements Performance {
     return this;
   }
 
-  //@Override
-  //public PersistablePerformance addLayer(Layer layer) {
-  //PersistableLayer persistableLayer = new PersistableLayer();
-  // TODO : Should we use BeanCopy directly here or perhaps create a ThingCopy class that
-  // ThingConfigurationCopy extends from.
-  //BeanCopy.from(layer).to(persistableLayer).copy();
-  //return addLayer(persistableLayer);
-  //}
-
   @Override
   public PersistablePerformance addLayer(Layer layer) {
     if (layer instanceof PersistableLayer) {
-      ((PersistableLayer) layer).setPerformance(this);
+      return addLayer((PersistableLayer) layer);
     }
+    /*
+     * For non-persistable layers we copy the layer into the a new persistable layer.
+     */
+    PersistableLayer persistableLayer = new PersistableLayer();
+    new ThingCopy().from(layer).to(persistableLayer).copy();
+    return addLayer(persistableLayer);
+  }
+
+  /**
+   * Add persistable layer.
+   *
+   * @param layer persistable layer
+   * @return this performance
+   */
+  public PersistablePerformance addLayer(PersistableLayer layer) {
+    layer.setPerformance(this);
     boolean result = layers.add(layer);
     if (!result) {
       LOG.warn("Could not add layer {} to performance", layer);
