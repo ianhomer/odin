@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 @Slf4j
-public class ThingCopyTest {
+public class ThingConfigurationCopyTest {
   @Test
   public void testCopyFromGenericToGeneric() {
     GenericSequence destination = new GenericSequence().name("test");
