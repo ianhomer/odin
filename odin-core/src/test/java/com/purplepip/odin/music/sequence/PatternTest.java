@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.music.sequence;
 
+import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.properties.beany.Setter;
@@ -30,5 +31,12 @@ public class PatternTest {
     properties.put("note.number", "60");
     new Setter(pattern, Setter.Mode.DECLARED).applyProperties(properties);
     assertEquals(60, pattern.getNote().getNumber());
+  }
+
+  @Test
+  public void testEquals() {
+    Pattern pattern1 = new Pattern().note(newNote(60, 20,23));
+    Pattern pattern2 = new Pattern().note(newNote(60, 20,23));
+    assertEquals(pattern1, pattern2);
   }
 }

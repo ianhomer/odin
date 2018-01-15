@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.performance.Performance;
@@ -24,5 +25,11 @@ public class DefaultNoteTest {
     Note note = ((Pattern) project.getSequences().iterator().next()).getNote();
     assertEquals("Default note number not correct", 60, note.getNumber());
     assertEquals("Default note velocity not correct", 40, note.getVelocity());
+  }
+
+  @Test
+  public void testEquals() {
+    assertEquals(new DefaultNote(69,40,1),
+        new DefaultNote(69,40,1));
   }
 }

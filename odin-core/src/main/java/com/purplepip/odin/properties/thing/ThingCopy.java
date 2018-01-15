@@ -17,6 +17,8 @@ package com.purplepip.odin.properties.thing;
 
 import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.requireMathTypeConverters;
 
+import com.google.common.collect.Sets;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.specificity.ThingConfiguration;
 import java.beans.BeanInfo;
@@ -25,6 +27,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.Arrays;
+import java.util.Set;
 import jodd.bean.BeanCopy;
 import jodd.bean.BeanException;
 import jodd.bean.BeanUtil;
@@ -35,6 +38,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ThingCopy {
+  private static Set<String> IGNORE_PROPERTIES = Sets
+      .newHashSet("class", "propertyEntries", "propertyNames");
+
   static {
     requireMathTypeConverters();
   }
@@ -64,7 +70,8 @@ public class ThingCopy {
     LOG.trace("Populating properties map from source");
     if (destination instanceof MutablePropertiesProvider) {
       /*
-       * Copy generic to specific.
+       * Copy generic to specific.  This involves copying the properties in the property map
+       * to the declared properties.
        */
       if (!source.arePropertiesDeclared() && destination.arePropertiesDeclared()) {
         source.getPropertyNames().forEach(name -> {
@@ -77,18 +84,34 @@ public class ThingCopy {
         });
       } else if (source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
         /*
-         * Copy specific to generic.
+         * Copy specific to generic.   This involves copying the declared properties to
+         * the generic properties map.
          */
         try {
           BeanInfo beanInfo = Introspector.getBeanInfo(source.getClass());
           PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
           Arrays.stream(propertyDescriptors)
               .map(FeatureDescriptor::getName)
-              .filter(name -> !"class".equals(name))
+              .filter(name -> !IGNORE_PROPERTIES.contains(name))
               .forEach(name -> {
-                Object value = BeanUtil.declared.getProperty(source, name);
-                if (value != null) {
-                  ((MutablePropertiesProvider) destination).setProperty(name, value.toString());
+                if (!BeanUtil.declared.hasProperty(destination, name)) {
+                  /*
+                   * Only copy property into properties map if it is not a declared property
+                   * in the destination.
+                   */
+                  Object value = BeanUtil.declared.getProperty(source, name);
+                  MutablePropertiesProvider mutableDestination =
+                      (MutablePropertiesProvider) destination;
+                  if (value != null) {
+                    if (value instanceof Note) {
+                      Note note = (Note) value;
+                      mutableDestination.setProperty(name + ".number", note.getNumber());
+                      mutableDestination.setProperty(name + ".velocity", note.getVelocity());
+                      mutableDestination.setProperty(name + ".duration", note.getDuration());
+                    } else {
+                      mutableDestination.setProperty(name, value.toString());
+                    }
+                  }
                 }
               });
         } catch (IntrospectionException e) {
@@ -97,7 +120,7 @@ public class ThingCopy {
         }
       } else if (!source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
         /*
-         * Copy generic to generic.
+         * Copy generic to generic.   This involves just copying the properties map.
          */
         source.getPropertyNames().forEach(name ->
             ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name))

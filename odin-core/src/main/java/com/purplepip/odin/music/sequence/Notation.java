@@ -97,6 +97,7 @@ public class Notation extends SequencePlugin {
    */
   @Override
   public Notation copy() {
+    // TODO : Should copy end up copying ID?  Or do we want it have a new ID?
     return copy(new Notation());
   }
 

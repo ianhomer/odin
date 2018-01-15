@@ -22,8 +22,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Abstract thing.
+ */
+/*
+ * TODO : Define precisely how we define equality AND how IDs are used to update entities
+ * Note that two objects are equal if they are the same type and have all the
+ * same properties are equal, without the ID being taken into account.   The ID however is used
+ * for persistence model and updating things in AbstractPluggableAspects.  These two definitions
+ * of equality seem a little inconsistent and may cause issues in the future.
+ */
 @Slf4j
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "name")
 @Data
 public abstract class AbstractThing implements MutableThing {
   /*
@@ -32,6 +42,7 @@ public abstract class AbstractThing implements MutableThing {
    * this cheap generator is good enough.
    */
   private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
+  // TODO : Make id final
   protected long id = LAST_PATTERN_ID.incrementAndGet();
   private String name;
   @JsonIgnore

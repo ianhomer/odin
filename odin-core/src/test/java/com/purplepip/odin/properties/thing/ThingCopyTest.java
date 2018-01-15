@@ -20,17 +20,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.google.common.collect.Lists;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.demo.GroovePerformance;
+import com.purplepip.odin.demo.KotlinPerformance;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.performance.Performance;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Ignore;
 import org.junit.Test;
 
 @Slf4j
@@ -121,23 +121,24 @@ public class ThingCopyTest {
   }
 
   @Test
-  @Ignore
   /*
-   * Implement this test ...
+   * Test that all objects in a few performances copy from specific to generic back to specific
+   * without corruption.
    */
   public void testFullCycle() {
-    Performance performance = new GroovePerformance();
-    performance.getSequences().forEach(source -> {
-      GenericSequence destination = new GenericSequence();
-      new ThingCopy().from(source).to(destination).copy();
-      try {
-        SequenceConfiguration copyOfCopy = source.getClass().newInstance();
-        new ThingCopy().from(destination).to(copyOfCopy).copy();
-        assertEquals(source, copyOfCopy);
-      } catch (InstantiationException | IllegalAccessException e) {
-        LOG.error("Cannot create new instance", e);
-      }
-    });
+    Lists.newArrayList(new GroovePerformance(), new KotlinPerformance()).forEach(performance ->
+        performance.getSequences().forEach(source -> {
+          GenericSequence destination = new GenericSequence(source.getId());
+          new ThingCopy().from(source).to(destination).copy();
+          try {
+            SequenceConfiguration copyOfCopy = source.getClass().newInstance();
+            new ThingCopy().from(destination).to(copyOfCopy).copy();
+            assertEquals(source, copyOfCopy);
+          } catch (InstantiationException | IllegalAccessException e) {
+            LOG.error("Cannot create new instance", e);
+          }
+        })
+    );
   }
 
 }

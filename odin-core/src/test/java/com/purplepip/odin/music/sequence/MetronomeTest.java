@@ -16,7 +16,6 @@
 package com.purplepip.odin.music.sequence;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
@@ -41,6 +40,6 @@ public class MetronomeTest {
     Metronome metronome1 = new Metronome();
     Metronome metronome2 = new Metronome();
     LOG.debug("Created {} and {}", metronome1, metronome2);
-    assertFalse(metronome1.equals(metronome2));
+    assertTrue(metronome1.equals(metronome2));
   }
 }

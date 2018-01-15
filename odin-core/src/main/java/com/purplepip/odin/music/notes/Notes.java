@@ -40,4 +40,8 @@ public final class Notes {
   public static DefaultNote newNote(int number, int velocity) {
     return new DefaultNote(number, velocity, DEFAULT_DURATION);
   }
+
+  public static DefaultNote newNote(int number, int velocity, int duration) {
+    return new DefaultNote(number, velocity, Wholes.valueOf(duration));
+  }
 }
