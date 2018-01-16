@@ -17,8 +17,6 @@ package com.purplepip.odin.server;
 
 import static com.purplepip.odin.server.DefaultPerformanceCreator.DEFAULT_PERFORMANCE_NAME;
 
-import com.purplepip.odin.creation.layer.MutableLayer;
-import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
@@ -61,15 +59,13 @@ public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
       Performance performance = performanceRepository.findByName(DEFAULT_PERFORMANCE_NAME);
       performanceContainer.setPerformance(performance);
       performanceContainer.save();
-      mixin.getLayers().stream()
-          .map(layer -> (MutableLayer) layer)
+      mixin.getLayers()
           .forEach(layer -> performanceContainer.addLayer(layer));
       mixin.getChannels()
           .forEach(channel -> performanceContainer.addChannel(channel));
       mixin.getSequences()
           .forEach(sequence -> performanceContainer.addSequence(sequence));
-      mixin.getTriggers().stream()
-          .map(trigger -> (MutableTriggerConfiguration) trigger)
+      mixin.getTriggers()
           .forEach(trigger -> performanceContainer.addTrigger(trigger));
       performanceContainer.save();
       LOG.info("Default sequences loaded");

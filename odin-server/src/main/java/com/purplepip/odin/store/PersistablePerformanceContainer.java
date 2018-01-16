@@ -16,7 +16,7 @@
 package com.purplepip.odin.store;
 
 import com.purplepip.odin.creation.channel.Channel;
-import com.purplepip.odin.creation.layer.MutableLayer;
+import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
@@ -77,7 +77,7 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
   }
 
   @Override
-  public PersistablePerformanceContainer addLayer(MutableLayer layer) {
+  public PersistablePerformanceContainer addLayer(Layer layer) {
     if (layer instanceof PersistableLayer) {
       ((PersistableLayer) layer).setPerformance(getPerformance());
       layerRepository.save((PersistableLayer) layer);

@@ -17,9 +17,7 @@ package com.purplepip.odin.performance;
 
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
-import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -206,7 +204,7 @@ public class PerformanceContainer {
    *
    * @param layer to add
    */
-  public PerformanceContainer addLayer(MutableLayer layer) {
+  public PerformanceContainer addLayer(Layer layer) {
     performance.addLayer(layer);
     return this;
   }
@@ -236,7 +234,7 @@ public class PerformanceContainer {
    *
    * @param trigger to add
    */
-  public PerformanceContainer addTrigger(MutableTriggerConfiguration trigger) {
+  public PerformanceContainer addTrigger(TriggerConfiguration trigger) {
     performance.addTrigger(trigger);
     return this;
   }
