@@ -78,6 +78,10 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
   @NotNull
   private Tick tick;
 
+  public void setTick(Tick tick) {
+    this.tick = tick instanceof PersistableTick ? tick : new PersistableTick(tick);
+  }
+
   /**
    * Set default values.
    */

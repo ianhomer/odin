@@ -24,6 +24,7 @@ import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import com.purplepip.odin.store.domain.PersistableThing;
+import com.purplepip.odin.store.domain.PersistableTick;
 import java.util.Optional;
 import org.junit.Test;
 
@@ -45,8 +46,8 @@ public class PersistablePerformanceContainerTest {
     assertTrue(crashOptional.isPresent());
     SequenceConfiguration crash = crashOptional.get();
     assertTrue(crash instanceof PersistableThing);
-    // TODO : Implement to support the following
-    //assertTrue("Tick should be a persistable tick", crash.getTick());
+    assertTrue("Tick should be a persistable tick",
+        crash.getTick() instanceof PersistableTick);
     assertTrue("Some properties should exist in the crash sequence",
         crash.getPropertyNames().count() > 0);
   }
