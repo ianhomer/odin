@@ -47,7 +47,7 @@ public class PersistablePerformanceContainerTest {
     assertTrue(crash instanceof PersistableThing);
     // TODO : Implement to support the following
     //assertTrue("Tick should be a persistable tick", crash.getTick());
-    //assertTrue("Some properties should exist in the crash sequence",
-    //  crash.getPropertyNames().count() > 0);
+    assertTrue("Some properties should exist in the crash sequence",
+        crash.getPropertyNames().count() > 0);
   }
 }

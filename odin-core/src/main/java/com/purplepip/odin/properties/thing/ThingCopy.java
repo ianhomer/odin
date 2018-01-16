@@ -17,8 +17,21 @@ package com.purplepip.odin.properties.thing;
 
 import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.requireMathTypeConverters;
 
+import com.google.common.collect.Sets;
 import com.purplepip.odin.bag.Thing;
+import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
+import com.purplepip.odin.specificity.ThingConfiguration;
+import java.beans.BeanInfo;
+import java.beans.FeatureDescriptor;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.Arrays;
+import java.util.Set;
 import jodd.bean.BeanCopy;
+import jodd.bean.BeanException;
+import jodd.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -46,5 +59,109 @@ public class ThingCopy {
   public void copy() {
     LOG.trace("Populating bean properties from source");
     BeanCopy.from(source).to(destination).declared(true).copy();
+    if (source instanceof ThingConfiguration && destination instanceof ThingConfiguration) {
+      new ThingConfigurationCopy()
+          .from((ThingConfiguration) source)
+          .to((ThingConfiguration) destination).copy();
+    }
+  }
+
+  private static class ThingConfigurationCopy {
+    private static Set<String> IGNORE_PROPERTIES = Sets
+        .newHashSet("class", "propertyEntries", "propertyNames");
+
+    private ThingConfiguration source;
+    private ThingConfiguration destination;
+
+    /**
+     * Set source of copy.
+     *
+     * @param source source
+     * @return this
+     */
+    public ThingConfigurationCopy from(ThingConfiguration source) {
+      this.source = source;
+      return this;
+    }
+
+    /**
+     * Set destination of copy.
+     *
+     * @param destination destination
+     * @return this
+     */
+    public ThingConfigurationCopy to(ThingConfiguration destination) {
+      this.destination = destination;
+      return this;
+    }
+
+    /**
+     * Copy thing configuration.
+     */
+    public void copy() {
+      if (!(destination instanceof MutablePropertiesProvider)) {
+        LOG.warn("Cannot copy to {}, not instance of MutablePropertiesProvider", destination);
+        return;
+      }
+
+      LOG.trace("Populating properties map from source");
+      /*
+       * Copy generic to specific.  This involves copying the properties in the property map
+       * to the declared properties.
+       */
+      if (!source.arePropertiesDeclared() && destination.arePropertiesDeclared()) {
+        source.getPropertyNames().forEach(name -> {
+          try {
+            BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
+          } catch (BeanException e) {
+            LOG.debug("Whilst populating thing " + destination + " (full stack)", e);
+            LOG.warn("Whilst populating thing {} : {}", destination, e.getMessage());
+          }
+        });
+      } else if (source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
+        /*
+         * Copy specific to generic.   This involves copying the declared properties to
+         * the generic properties map.
+         */
+        try {
+          BeanInfo beanInfo = Introspector.getBeanInfo(source.getClass());
+          PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+          Arrays.stream(propertyDescriptors)
+              .map(FeatureDescriptor::getName)
+              .filter(name -> !IGNORE_PROPERTIES.contains(name))
+              .forEach(name -> {
+                if (!BeanUtil.declared.hasProperty(destination, name)) {
+                  /*
+                   * Only copy property into properties map if it is not a declared property
+                   * in the destination.
+                   */
+                  Object value = BeanUtil.declared.getProperty(source, name);
+                  MutablePropertiesProvider mutableDestination =
+                      (MutablePropertiesProvider) destination;
+                  if (value != null) {
+                    if (value instanceof Note) {
+                      Note note = (Note) value;
+                      mutableDestination.setProperty(name + ".number", note.getNumber());
+                      mutableDestination.setProperty(name + ".velocity", note.getVelocity());
+                      mutableDestination.setProperty(name + ".duration", note.getDuration());
+                    } else {
+                      mutableDestination.setProperty(name, value.toString());
+                    }
+                  }
+                }
+              });
+        } catch (IntrospectionException e) {
+          LOG.debug("Whilst getting bean info for thing " + destination + " (full stack)", e);
+          LOG.warn("Whilst getting bean info for thing {} : {}", destination, e.getMessage());
+        }
+      } else if (!source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
+        /*
+         * Copy generic to generic.   This involves just copying the properties map.
+         */
+        source.getPropertyNames().forEach(name ->
+            ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name))
+        );
+      }
+    }
   }
 }

@@ -18,7 +18,7 @@ package com.purplepip.odin.specificity;
 import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.requireMathTypeConverters;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.properties.thing.ThingConfigurationCopy;
+import com.purplepip.odin.properties.thing.ThingCopy;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
@@ -132,7 +132,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   }
 
   protected void populate(C destination, ThingConfiguration source) {
-    new ThingConfigurationCopy().from(source).to(destination).copy();
+    new ThingCopy().from(source).to(destination).copy();
   }
 
   public Class<? extends C> getClass(String name) {

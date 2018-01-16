@@ -46,7 +46,7 @@ import com.purplepip.odin.properties.beany.Resetter;
 import com.purplepip.odin.properties.runtime.MutableProperty;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
-import com.purplepip.odin.properties.thing.ThingConfigurationCopy;
+import com.purplepip.odin.properties.thing.ThingCopy;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -220,7 +220,7 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
       offset.set(sequenceConfiguration.getOffset());
     }
 
-    new ThingConfigurationCopy().from(sequenceConfiguration).to(sequence).copy();
+    new ThingCopy().from(sequenceConfiguration).to(sequence).copy();
 
     if (sequence instanceof MutablePropertiesProvider) {
       resetter.reset((MutablePropertiesProvider) sequence);
