@@ -15,10 +15,15 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.clock.tick.Ticks;
+import static com.purplepip.odin.server.DefaultPerformanceCreator.DEFAULT_PERFORMANCE_NAME;
+
+import com.purplepip.odin.creation.layer.MutableLayer;
+import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
 import com.purplepip.odin.demo.GroovePerformance;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
-import com.purplepip.odin.store.PersistablePerformanceBuilder;
+import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
+import com.purplepip.odin.store.domain.PersistablePerformance;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -45,62 +50,27 @@ public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
   @Autowired
   private DefaultPerformanceCreator defaultPerformanceCreator;
 
+  @Autowired
+  private PerformanceRepository performanceRepository;
+
   @Override
   public void run(String... args) throws Exception {
     if (performanceContainer.isEmpty()) {
-      // TODO : Create a way for converting a performance like GroovePerformance into the
-      // persistence domain.
-      new PersistablePerformanceBuilder(performanceContainer)
-          .withChannel(1).changeProgramTo("piano")
-          .withChannel(2).changeProgramTo("rock")
-          .withChannel(3).changeProgramTo("strings")
-          .withChannel(4).changeProgramTo("aahs")
-          .withChannel(5).changeProgramTo("bass")
-          .withChannel(9).changeProgramTo("Power Drums")
-          .addLayer("overlay")
-          .withLength(16).addLayer(INTRO).addLayer(BREAK)
-          .withLength(4).addLayer("out").addLayer("in")
-          .withLength(4).addLayer("a").addLayer("b")
-          .withLength(8).addLayer("c")
-          .withLength(48).withLayers("a", "b", "c").addLayer(VERSE)
-          .withLength(-1).withLayers("in", INTRO, VERSE, BREAK, "out").addLayer("groove")
-          .withChannel(1)
-          .withLayers("a", "c")
-          .withName("piano-a").addNotation(Ticks.BEAT, "A/q G/8 A/q E")
-          .withLayers("b")
-          .withName("piano-c").addNotation(Ticks.BEAT, "C5/q A4/8 C5/q D")
-          .withLayers("a")
-          .withName("piano-a3").addNotation(Ticks.BEAT, "A3 A A/8 A A/q")
-          .withName("bass-3").withChannel(5).addNotation(Ticks.BEAT, "A3 A A/8 A A/q")
-          .withLayers("b")
-          .withChannel(1)
-          .withName("piano-c3").addNotation(Ticks.BEAT, "C3 C C/8 C C/q")
-          .withLayers("c")
-          .withName("piano-g3").addNotation(Ticks.BEAT, "G3 G G/8 A C/q G2 G G3/8 G G/q")
-          .withLayers("a").withName("notes-c5").addNotation(Ticks.BEAT, "C5/h C/q")
-          .withLayers("b").withName("notes-c4").addNotation(Ticks.BEAT, "C4/h C/q")
-          .withLayers(BREAK).withName("notes")
-          .addNotation(Ticks.BEAT, "C5/h C/q C6 A5 A5/8 C5/8 A5")
-          .withChannel(3)
-          .withLayers(INTRO).withName("strings-c5").addNotation(Ticks.BEAT, "C5/h C/q")
-          .withLayers(INTRO).withName("strings-c4").addNotation(Ticks.BEAT, "C4/h C/q")
-          .withLayers(BREAK).withName("strings").addNotation(Ticks.BEAT, "C5/h C/q C6 A5")
-          .withChannel(2)
-          .withLayers("a", "in").withName("organ-a").addNotation(Ticks.BEAT, "A5/8")
-          .withLayers("b").withName("organ-b").addNotation(Ticks.BEAT, "G5/q")
-          .withLayers("c").withName("organ-c")
-          .addNotation(Ticks.BEAT, "G/q C C/8 A/8 G/q C D/8 A/8")
-          .withChannel(4)
-          .withLayers("a").withName("aahs-a").addNotation(Ticks.BEAT, "C A C5/h C5/8")
-          .withLayers("c").withName("aahs-c").addNotation(Ticks.TWO_BEAT, "C5/h A4 G4 E C")
-          .withLayers(BREAK).withName("aahs-br").addNotation(Ticks.BEAT, "C5/h A4 G4 E C")
-          .withChannel(9)
-          .withLayers("overlay").withName("shake").withNote(69).addPattern(Ticks.BEAT, 15)
-          .withLayers("a", "b").withName("kick1").withNote(33).addPattern(Ticks.HALF, 13)
-          .withLayers("c").withName("kick2").withNote(33).addPattern(Ticks.QUARTER, 65)
-          .withLayers(BREAK).withName("kick3").withNote(33).addPattern(Ticks.QUARTER, 87)
-          .withLayers(VERSE).withName("hi").withNote(42).addPattern(Ticks.HALF, 15)
-          .withLayers("c").withName("crash").withNote(46).addPattern(Ticks.HALF, 87);
+      PersistablePerformance mixin = new PersistablePerformance();
+      mixin.mixin(new GroovePerformance());
+      Performance performance = performanceRepository.findByName(DEFAULT_PERFORMANCE_NAME);
+      performanceContainer.setPerformance(performance);
+      performanceContainer.save();
+      mixin.getLayers().stream()
+          .map(layer -> (MutableLayer) layer)
+          .forEach(layer -> performanceContainer.addLayer(layer));
+      mixin.getChannels()
+          .forEach(channel -> performanceContainer.addChannel(channel));
+      mixin.getSequences()
+          .forEach(sequence -> performanceContainer.addSequence(sequence));
+      mixin.getTriggers().stream()
+          .map(trigger -> (MutableTriggerConfiguration) trigger)
+          .forEach(trigger -> performanceContainer.addTrigger(trigger));
       performanceContainer.save();
       LOG.info("Default sequences loaded");
       performanceContainer.apply();

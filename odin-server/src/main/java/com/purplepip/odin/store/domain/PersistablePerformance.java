@@ -47,6 +47,7 @@ public class PersistablePerformance implements Performance {
   @Id
   @GeneratedValue
   private long id;
+
   private String name;
 
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,
