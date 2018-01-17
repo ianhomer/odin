@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.store.domain.PersistablePerformance;
@@ -31,7 +30,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Order(1)
 public class DefaultPerformanceCreator implements CommandLineRunner {
-  public static final String DEFAULT_PERFORMANCE_NAME = "defaultPerformance";
+  static final String DEFAULT_PERFORMANCE_NAME = "defaultPerformance";
 
   @Autowired
   private PerformanceRepository performanceRepository;
@@ -41,14 +40,21 @@ public class DefaultPerformanceCreator implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    Performance performance = performanceRepository.findByName(DEFAULT_PERFORMANCE_NAME);
-    if (performance == null) {
-      performance = new PersistablePerformance();
-      ((PersistablePerformance) performance).setName(DEFAULT_PERFORMANCE_NAME);
-      performanceRepository.save((PersistablePerformance) performance);
+    if (performanceRepository.count() == 0) {
+      PersistablePerformance performance = new PersistablePerformance();
+      performance.setName(DEFAULT_PERFORMANCE_NAME);
+      performanceRepository.save(performance);
+      performanceContainer.setPerformance(performance);
       LOG.info("Created default performance");
+    } else {
+      /*
+       * Otherwise load the first we'll find.
+       * //TODO : Control which performance to start with.
+       */
+      performanceContainer.setPerformance(
+          performanceRepository.findAll().iterator().next()
+      );
     }
-    performanceContainer.setPerformance(performance);
     performanceContainer.save();
   }
 }
