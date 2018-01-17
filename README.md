@@ -1,10 +1,22 @@
 # odin
 
-Harmonising Chaos.
+The Odin sequencer enhances a live musical performance by musicians.  This
+includes the following use cases :
 
-# Initial Use Case
+* Composition support by trying out themes, progressions and riffs to help settle on a performance.
+* Jamming support by delivering common musical sequences that a band can jam around and practice.
+* Delivery samples at appropriate time during a performance.
+* Adjusting effects during a performance.
 
-Sequencer to generate sounds to accompany and in response from a live performance.
+Performances can be written in a DSL that describes the semantics and specifics of a performance
+describing chord progressions and musical hints, along with specific sound delivery.
+
+The system will also support experiments involving how machines can enhance live musical 
+performances and how musicians can act as conductor to the machine, perhaps letting go of the 
+reigns entirely.  
+
+Overtime the system will drive other aspects of a performance beyond sound and will take direction
+from machine learning. 
 
 # Background
 

@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile("!noStore")
 @Slf4j
-@Order(1)
+@Order(5)
 public class DefaultPerformanceCreator implements CommandLineRunner {
   static final String DEFAULT_PERFORMANCE_NAME = "defaultPerformance";
 

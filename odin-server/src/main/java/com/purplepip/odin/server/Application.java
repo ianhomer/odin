@@ -49,7 +49,7 @@ public class Application {
    * @return command line runner
    */
   @Bean
-  @Order(2)
+  @Order(9)
   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     return args -> LOG.info("Odin Started.");
   }

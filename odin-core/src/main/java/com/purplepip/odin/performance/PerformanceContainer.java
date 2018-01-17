@@ -282,7 +282,7 @@ public class PerformanceContainer {
   }
 
   public boolean isEmpty() {
-    return !hasChannels() && !hasSequences() && !hasLayers();
+    return performance == null || (!hasChannels() && !hasSequences() && !hasLayers());
   }
 
   /**

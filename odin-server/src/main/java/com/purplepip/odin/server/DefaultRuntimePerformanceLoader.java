@@ -15,12 +15,9 @@
 
 package com.purplepip.odin.server;
 
-import static com.purplepip.odin.server.DefaultPerformanceCreator.DEFAULT_PERFORMANCE_NAME;
-
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
-import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,30 +31,18 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Order(4)
 public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
-  private static final String BREAK = "break";
-  private static final String INTRO = "intro";
-  private static final String VERSE = "verse";
-
   @Autowired
   private PerformanceContainer performanceContainer;
-
-  /*
-   * Default performance creator must have been loaded before loading the runtime performance, hence
-   * this is autowired, but NOT used.
-   */
-  @Autowired
-  private DefaultPerformanceCreator defaultPerformanceCreator;
-
-  @Autowired
-  private PerformanceRepository performanceRepository;
 
   @Override
   public void run(String... args) throws Exception {
     if (performanceContainer.isEmpty()) {
+      Performance performance = new GroovePerformance();
       PersistablePerformance mixin = new PersistablePerformance();
-      mixin.mixin(new GroovePerformance());
-      Performance performance = performanceRepository.findByName(DEFAULT_PERFORMANCE_NAME);
-      performanceContainer.setPerformance(performance);
+      mixin.mixin(performance);
+      PersistablePerformance persistablePerformance = new PersistablePerformance();
+      persistablePerformance.setName(performance.getName());
+      performanceContainer.setPerformance(persistablePerformance);
       performanceContainer.save();
       mixin.getLayers()
           .forEach(layer -> performanceContainer.addLayer(layer));

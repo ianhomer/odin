@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.server;
 
-import static com.purplepip.odin.server.DefaultPerformanceCreator.DEFAULT_PERFORMANCE_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
@@ -50,7 +49,7 @@ public class DefaultRuntimePerformanceLoaderTest {
   @Test
   public void testDefaultRuntimePerformanceLoader() throws Exception {
     PerformanceContainer reloadedContainer =
-        new PerformanceContainer(performanceRepository.findByName(DEFAULT_PERFORMANCE_NAME));
+        new PerformanceContainer(performanceRepository.findAll().iterator().next());
     assertThat(reloadedContainer.getChannels()).isNotEmpty();
     assertThat(reloadedContainer.getChannelStream().count()).isGreaterThan(3);
     assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(4);
