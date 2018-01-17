@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server;
+package com.purplepip.odin.store.domain;
 
 import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.server.Application;
 import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
-import com.purplepip.odin.store.domain.PersistablePerformance;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,11 +29,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest(showSql = false)
 @ActiveProfiles({"noServices", "noAuditing"})
+@ContextConfiguration(classes = Application.class)
 public class PersistablePerformanceTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
