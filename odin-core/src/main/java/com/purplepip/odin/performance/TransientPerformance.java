@@ -16,6 +16,7 @@
 package com.purplepip.odin.performance;
 
 import com.purplepip.odin.bag.Thing;
+import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
@@ -31,6 +32,8 @@ import lombok.ToString;
 public class TransientPerformance implements Performance {
   private static final String TRANSIENT_PERFORMANCE_NAME = "transient";
 
+  private final String name;
+
   private Set<SequenceConfiguration> sequences = new LinkedHashSet<>();
 
   private Set<Channel> channels = new LinkedHashSet<>();
@@ -45,9 +48,23 @@ public class TransientPerformance implements Performance {
     }
   }
 
+  /**
+   * Note that if the transient performance has been extended then the
+   * name of the performance is named after the class, however otherwise this name is fixed as
+   * transient.
+   */
+  public TransientPerformance() {
+    name = getClass().equals(TransientPerformance.class) ? TRANSIENT_PERFORMANCE_NAME
+        : new ClassUri(getClass()).toString();
+  }
+
+  public TransientPerformance(String name) {
+    this.name = name;
+  }
+
   @Override
   public String getName() {
-    return TRANSIENT_PERFORMANCE_NAME;
+    return name;
   }
 
   @Override

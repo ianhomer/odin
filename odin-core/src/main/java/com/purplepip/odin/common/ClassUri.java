@@ -28,15 +28,23 @@ public class ClassUri {
   private final Class clazz;
   private final URI uri;
 
+  public ClassUri(Class clazz) {
+    this(clazz, false);
+  }
+
   /**
    * Create a new class URI object.
    *
    * @param clazz Class to base the class URI object on
+   * @param withScheme whether the URI includes the scheme part.  If scheme is set on the URI then
+   *                   the resource MUST be located on the classpath, otherwise it is allowed to
+   *                   be located according to any supported scheme.
    */
-  public ClassUri(Class clazz) {
+  public ClassUri(Class clazz, boolean withScheme) {
     this.clazz = clazz;
     try {
-      uri = new URI(SCHEME, clazz.getName().replace('.', '/'), null);
+      uri = new URI(withScheme ? SCHEME : null,
+          clazz.getName().replace('.', '/'), null);
     } catch (URISyntaxException e) {
       throw new OdinRuntimeException("Cannot create URI for " + clazz, e);
     }
@@ -48,5 +56,9 @@ public class ClassUri {
 
   public URI getUri() {
     return uri;
+  }
+
+  public String toString() {
+    return uri.toString();
   }
 }

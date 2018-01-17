@@ -22,6 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ClassPerformanceLoader extends AbstractPerformanceLoader {
   private final PerformanceContainer container;
 
+  public ClassPerformanceLoader() {
+    this(new PerformanceContainer());
+  }
+
   public ClassPerformanceLoader(PerformanceContainer container) {
     this.container = container;
   }
@@ -48,6 +52,6 @@ public class ClassPerformanceLoader extends AbstractPerformanceLoader {
 
   @Override
   public boolean canLoad(URI performanceUri) {
-    return "classpath".equals(performanceUri.getScheme());
+    return performanceUri.getScheme() == null || "classpath".equals(performanceUri.getScheme());
   }
 }

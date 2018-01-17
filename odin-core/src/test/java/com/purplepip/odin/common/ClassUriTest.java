@@ -17,12 +17,17 @@ package com.purplepip.odin.common;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.URI;
 import org.junit.Test;
 
 public class ClassUriTest {
   @Test
   public void getUri() throws Exception {
     ClassUri classUri = new ClassUri(ClassUri.class);
-    assertEquals("classpath:com/purplepip/odin/common/ClassUri", classUri.getUri().toString());
+    assertEquals(new URI("com/purplepip/odin/common/ClassUri"),
+        classUri.getUri());
+    assertEquals("com/purplepip/odin/common/ClassUri", classUri.toString());
+    classUri = new ClassUri(ClassUri.class, true);
+    assertEquals("classpath:com/purplepip/odin/common/ClassUri", classUri.toString());
   }
 }

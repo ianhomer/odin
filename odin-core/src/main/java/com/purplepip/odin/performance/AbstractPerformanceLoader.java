@@ -27,7 +27,7 @@ public abstract class AbstractPerformanceLoader implements PerformanceLoader {
   }
 
   Performance overlay(Performance performance) {
-    TransientPerformance newPerformance = new TransientPerformance();
+    TransientPerformance newPerformance = new TransientPerformance(performance.getName());
     newPerformance.mixin(overlay);
     newPerformance.mixin(performance);
     return newPerformance;

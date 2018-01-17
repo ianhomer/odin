@@ -31,7 +31,7 @@ public class LoadAction extends ActionPlugin {
   private String performance;
 
   public LoadAction performance(Class<? extends Performance> clazz) {
-    return performance(new ClassUri(clazz).getUri().getSchemeSpecificPart());
+    return performance(new ClassUri(clazz, false).toString());
   }
 
   public LoadAction performance(String performance) {

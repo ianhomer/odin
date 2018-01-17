@@ -64,4 +64,15 @@ public class TransientPerformanceTest {
     assertEquals(2, performance.getSequences().size());
     assertEquals(2, performance.getTriggers().size());
   }
+
+  @Test
+  public void testName() {
+    assertEquals("transient", new TransientPerformance().getName());
+    assertEquals("com/purplepip/odin/performance/"
+        + "TransientPerformanceTest$ExtendedTransientPerformance",
+        new ExtendedTransientPerformance().getName());
+  }
+
+  private static class ExtendedTransientPerformance extends TransientPerformance {
+  }
 }
