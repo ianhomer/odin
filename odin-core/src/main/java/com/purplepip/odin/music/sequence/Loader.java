@@ -17,7 +17,6 @@ package com.purplepip.odin.music.sequence;
 
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.clock.MeasureContext;
-import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.events.GenericEvent;
 import com.purplepip.odin.math.Real;
@@ -41,7 +40,6 @@ import lombok.extern.slf4j.Slf4j;
 @Name("loader")
 public class Loader extends SequencePlugin {
   private URI performanceUri;
-  private String scheme = ClassUri.SCHEME;
   private String performance;
 
   /**
@@ -55,16 +53,17 @@ public class Loader extends SequencePlugin {
     return this;
   }
 
-  public Loader scheme(String scheme) {
-    this.scheme = scheme;
-    return this;
-  }
-
   @Override
   public void initialise() {
     if (performance != null) {
       try {
-        performanceUri = new URI(scheme, performance, null);
+        /*
+         * Note that the URI generated has an empty scheme implying that it may be loaded from
+         * various locations.  This is the only use case at the moment, since we want a performance
+         * to be discoverable via various channels depending on the configuration, e.g. classpath,
+         * local database, HTTP.
+         */
+        performanceUri = new URI(null, performance, null);
       } catch (URISyntaxException e) {
         LOG.error("Cannot create URI for performance : " + performance, e);
       }
@@ -96,7 +95,6 @@ public class Loader extends SequencePlugin {
   protected Loader copy(Loader copy) {
     super.copy(copy);
     copy.performance = this.performance;
-    copy.scheme = this.scheme;
     copy.performanceUri = this.performanceUri;
     return copy;
   }

@@ -25,11 +25,10 @@ import org.junit.Test;
 public class LoaderTest {
   @Test
   public void testLoader() {
-    Loader loader = new Loader().scheme("my").performance("new-performance");
+    Loader loader = new Loader().performance("new-performance");
     loader.initialise();
     GenericEvent<LoadPerformanceOperation> event = loader.getNextEvent(null,
         new Loop(0));
     assertEquals("new-performance", event.getValue().getPerformanceUri().getSchemeSpecificPart());
-    assertEquals("my", event.getValue().getPerformanceUri().getScheme());
   }
 }
