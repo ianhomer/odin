@@ -15,17 +15,13 @@ The system will also support experiments involving how machines can enhance live
 performances and how musicians can act as conductor to the machine, perhaps letting go of the 
 reigns entirely.  
 
-Overtime the system will drive other aspects of a performance beyond sound and will take direction
+Over time the system will drive other aspects of a performance beyond sound and will take direction
 from machine learning. 
 
-# Background
+# Release Notes
 
-The general goal for the Odin system is to react to any ingested environmental state and 
-will generate live streams that can be experienced by our human senses.
-
-The first milestone of this system will focus on driving live music performance via MIDI.  Out of 
-this specific use case will emerge an abstract concept to drive other outputs and consume other 
-inputs.
+The first release of this system will focus on driving live music performance via MIDI and 
+will be installable on a Raspberry Pi to encourage portability and reduced costs.
 
 # Build
 
