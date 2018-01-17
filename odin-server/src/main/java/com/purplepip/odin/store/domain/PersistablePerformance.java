@@ -25,6 +25,7 @@ import com.purplepip.odin.properties.thing.ThingCopy;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -48,6 +49,7 @@ public class PersistablePerformance implements Performance {
   @GeneratedValue
   private long id;
 
+  @Column(unique = true)
   private String name;
 
   @OneToMany(targetEntity = PersistableChannel.class, cascade = CascadeType.ALL,
