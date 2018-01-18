@@ -31,6 +31,8 @@ import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.clock.tick.Tock;
 import com.purplepip.odin.common.ListenerPriority;
+import com.purplepip.odin.creation.action.Action;
+import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.flow.MutableFlow;
 import com.purplepip.odin.creation.sequence.Sequence;
@@ -47,6 +49,8 @@ import com.purplepip.odin.properties.runtime.MutableProperty;
 import com.purplepip.odin.properties.runtime.ObservableProperty;
 import com.purplepip.odin.properties.runtime.Property;
 import com.purplepip.odin.properties.thing.ThingCopy;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +63,8 @@ import org.slf4j.LoggerFactory;
     "flowFactory", "measureProvider", "flow", "tick"})
 public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MutableSequenceRoll.class);
+
+  private Map<String, Action> triggers = new HashMap<>();
 
   private final MutableProperty<Tick> tick = new ObservableProperty<>();
   /*
@@ -87,7 +93,8 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
   private Tock sealedTock;
   private final SequenceConfiguration sequence;
   private Resetter resetter = new Resetter();
-  private FlowFactory flowFactory;
+  private final FlowFactory flowFactory;
+  private final ActionFactory actionFactory;
   private boolean tickDirty;
   private boolean sequenceDirty;
   private boolean typeNameDirty;
@@ -102,14 +109,17 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
    *
    * @param beatClock clock
    * @param flowFactory flow factory
+   * @param actionFactory action factory
    * @param beatMeasureProvider beat measure provider
    */
   public MutableSequenceRoll(SequenceConfiguration sequenceConfiguration,
-                             BeatClock beatClock, FlowFactory flowFactory,
+                             BeatClock beatClock,
+                             FlowFactory flowFactory, ActionFactory actionFactory,
                              MeasureProvider beatMeasureProvider) {
     this.beatClock = beatClock;
     beatClock.addListener(this);
     this.flowFactory = flowFactory;
+    this.actionFactory = actionFactory;
     assert flowFactory != null;
     tickToMicrosecondConverter = new DefaultTickConverter(beatClock, tick,
         () -> Ticks.MICROSECOND, () -> Wholes.ZERO);
@@ -134,6 +144,11 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
   @Override
   public Property<Rational> getOffsetProperty() {
     return offset;
+  }
+
+  @Override
+  public Map<String, Action> getTriggers() {
+    return triggers;
   }
 
   @Override
@@ -273,6 +288,16 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
     sequence.initialise();
     length = getSequence().getLength();
     endless = length.isNegative();
+
+    /*
+     * Load action plugins into trigger.
+     */
+    triggers.clear();
+    sequence.getTriggers().forEach((key, value) -> {
+          triggers.put(key, value instanceof Action ? (Action) value :
+              actionFactory.newInstance(value));
+        }
+    );
 
     /*
      * Determine if the tick has changed.

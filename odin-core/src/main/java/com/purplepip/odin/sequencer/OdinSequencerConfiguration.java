@@ -19,6 +19,7 @@ import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.operation.OperationReceiver;
@@ -66,6 +67,8 @@ public interface OdinSequencerConfiguration {
   }
 
   TriggerFactory getTriggerFactory();
+
+  ActionFactory getActionFactory();
 
   long getClockStartRoundingFactor();
 

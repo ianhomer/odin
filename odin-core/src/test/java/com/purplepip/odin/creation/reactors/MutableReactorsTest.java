@@ -17,6 +17,7 @@ package com.purplepip.odin.creation.reactors;
 
 import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.clock.measure.StaticBeatMeasureProvider.newMeasureProvider;
+import static com.purplepip.odin.configuration.ActionFactories.newActionFactory;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 import static com.purplepip.odin.music.notes.Notes.newNote;
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.conductor.LayerConductors;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.track.SequenceRollTrack;
@@ -37,6 +39,7 @@ import org.junit.Test;
 
 public class MutableReactorsTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
+  private ActionFactory actionFactory = newActionFactory();
   private FlowFactory flowFactory = newNoteFlowFactory();
   private BeatClock clock = newPrecisionBeatClock(120);
   private MeasureProvider measureProvider = newMeasureProvider(4);
@@ -63,8 +66,8 @@ public class MutableReactorsTest {
     project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));
     LayerConductors conductors = new LayerConductors();
     SequenceTracks tracks = new SequenceTracks(conductors);
-    tracks.refresh(project.getSequences().stream(),
-        sequence -> new SequenceRollTrack(sequence, clock, measureProvider, flowFactory));
+    tracks.refresh(project.getSequences().stream(), sequence ->
+        new SequenceRollTrack(sequence, clock, measureProvider, flowFactory, actionFactory));
     TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(project.getTriggers().stream(),
         trigger -> new TriggerReactor(trigger, triggerFactory));

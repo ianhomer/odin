@@ -139,7 +139,7 @@ public class OdinSequencer implements PerformanceApplyListener {
     tracks.refresh(
         performance.getSequences().stream(),
         sequence -> new SequenceRollTrack(sequence, clock, configuration.getMeasureProvider(),
-            configuration.getFlowFactory()));
+            configuration.getFlowFactory(), configuration.getActionFactory()));
     reactors.refresh(
         performance.getTriggers().stream(),
         trigger -> new TriggerReactor(trigger, configuration.getTriggerFactory()));

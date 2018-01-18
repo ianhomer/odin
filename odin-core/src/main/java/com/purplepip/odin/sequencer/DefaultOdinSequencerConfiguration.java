@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import static com.purplepip.odin.configuration.ActionFactories.newActionFactory;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 
@@ -25,6 +26,7 @@ import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
@@ -43,6 +45,7 @@ public class DefaultOdinSequencerConfiguration
   private OperationTransmitter operationTransmitter;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
+  private ActionFactory actionFactory;
   private FlowFactory flowFactory;
   private TriggerFactory triggerFactory;
   private long clockStartRoundingFactor;
@@ -59,6 +62,7 @@ public class DefaultOdinSequencerConfiguration
    * Create new configuration with defaults set.
    */
   public DefaultOdinSequencerConfiguration() {
+    actionFactory = newActionFactory();
     flowFactory = newNoteFlowFactory(flowConfiguration);
     triggerFactory = newTriggerFactory();
     setMeasureProvider(new StaticBeatMeasureProvider(4));
@@ -105,9 +109,13 @@ public class DefaultOdinSequencerConfiguration
     return this;
   }
 
-  public final DefaultOdinSequencerConfiguration
-      setFlowFactory(FlowFactory flowFactory) {
+  public final DefaultOdinSequencerConfiguration setFlowFactory(FlowFactory flowFactory) {
     this.flowFactory = flowFactory;
+    return this;
+  }
+
+  public final DefaultOdinSequencerConfiguration setActionFactory(ActionFactory actionFactory) {
+    this.actionFactory = actionFactory;
     return this;
   }
 
@@ -189,6 +197,11 @@ public class DefaultOdinSequencerConfiguration
   @Override
   public FlowFactory getFlowFactory() {
     return flowFactory;
+  }
+
+  @Override
+  public ActionFactory getActionFactory() {
+    return actionFactory;
   }
 
   @Override

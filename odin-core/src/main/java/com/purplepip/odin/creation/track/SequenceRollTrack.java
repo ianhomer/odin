@@ -22,6 +22,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.action.Action;
+import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.plugin.PluggableAspect;
@@ -55,11 +56,11 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
    * @param flowFactory flow factory
    */
   public SequenceRollTrack(SequenceConfiguration sequenceConfiguration, BeatClock clock,
-                    MeasureProvider measureProvider,
-                    FlowFactory flowFactory) {
+                           MeasureProvider measureProvider,
+                           FlowFactory flowFactory, ActionFactory actionFactory) {
     this(clock,
         new MutableSequenceRoll(sequenceConfiguration.copy(),
-            clock, flowFactory, measureProvider));
+            clock, flowFactory, actionFactory, measureProvider));
   }
 
   /**
@@ -152,7 +153,7 @@ public class SequenceRollTrack implements SequenceTrack, PluggableAspect<Sequenc
 
   @Override
   public Map<String, Action> getTriggers() {
-    return getSequence().getTriggers();
+    return getSequenceRoll().getTriggers();
   }
 
   @Override

@@ -18,6 +18,7 @@ package com.purplepip.odin.sequencer;
 import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.clock.measure.StaticBeatMeasureProvider.newMeasureProvider;
 import static com.purplepip.odin.clock.tick.Ticks.BEAT;
+import static com.purplepip.odin.configuration.ActionFactories.newActionFactory;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 import static org.junit.Assert.assertEquals;
@@ -27,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.action.DisableAction;
 import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.creation.conductor.LayerConductor;
@@ -45,6 +47,7 @@ import org.junit.Test;
 public class ReactorReceiverTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
   private FlowFactory flowFactory = newNoteFlowFactory();
+  private ActionFactory actionFactory = newActionFactory();
   private BeatClock clock = newPrecisionBeatClock(120);
   private MeasureProvider measureProvider = newMeasureProvider(4);
 
@@ -66,8 +69,8 @@ public class ReactorReceiverTest {
         layer -> new LayerConductor(layer, clock));
     SequenceTracks tracks = new SequenceTracks(conductors);
     tracks.refresh(
-        project.getSequences().stream(),
-        sequence -> new SequenceRollTrack(sequence, clock, measureProvider, flowFactory));
+        project.getSequences().stream(), sequence ->
+            new SequenceRollTrack(sequence, clock, measureProvider, flowFactory, actionFactory));
     TriggerReactors reactors = new TriggerReactors(tracks, conductors);
     reactors.refresh(
         project.getTriggers().stream(),

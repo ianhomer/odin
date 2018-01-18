@@ -42,7 +42,7 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   private int channel;
   private String type = new NameValue(this).get();
   private List<String> layers = new ArrayList<>();
-  private Map<String, Action> triggers = new HashMap<>();
+  private Map<String, ActionConfiguration> triggers = new HashMap<>();
 
   /**
    * Create new generic sequence.
@@ -90,12 +90,12 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   }
 
   @Override
-  public Map<String, Action> getTriggers() {
+  public Map<String, ActionConfiguration> getTriggers() {
     return triggers;
   }
 
   @Override
-  public void addTrigger(String trigger, Action action) {
+  public void addTrigger(String trigger, ActionConfiguration action) {
     LOG.debug("Adding trigger : {} when {} ", action, trigger);
     triggers.put(trigger, action);
   }
@@ -107,12 +107,19 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
    * @param actions actions that should be fired
    * @return this
    */
+  // TODO : Generic sequence should not be aware of Action plugin, we need to create alternative
+  // way.
   public GenericSequence trigger(String trigger, Action... actions) {
     if (actions.length == 1) {
       addTrigger(trigger, actions[0]);
     } else {
       addTrigger(trigger, new ListAction(actions));
     }
+    return this;
+  }
+
+  public GenericSequence trigger(String trigger, ActionConfiguration action) {
+    addTrigger(trigger, action);
     return this;
   }
 

@@ -17,6 +17,7 @@ package com.purplepip.odin.creation.track;
 
 import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static com.purplepip.odin.clock.measure.StaticBeatMeasureProvider.newMeasureProvider;
+import static com.purplepip.odin.configuration.ActionFactories.newActionFactory;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,6 +28,9 @@ import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.tick.Ticks;
+import com.purplepip.odin.creation.action.ActionFactory;
+import com.purplepip.odin.creation.action.GenericAction;
+import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.events.Event;
@@ -39,6 +43,7 @@ import org.junit.Test;
 @Slf4j
 public class MutableSequenceRollTest {
   private FlowFactory flowFactory = newNoteFlowFactory();
+  private ActionFactory actionFactory = newActionFactory();
   private MovableMicrosecondPositionProvider microsecondPositionProvider =
       new MovableMicrosecondPositionProvider();
   private BeatClock clock = newPrecisionBeatClock(60, microsecondPositionProvider);
@@ -51,10 +56,17 @@ public class MutableSequenceRollTest {
     GenericSequence notation = new Notation()
         .notation("C D E")
         .channel(2).layer("groove")
+        .trigger("trigger-1", new GenericAction().type("start"))
         .enabled(false)
         .name("success");
     MutableSequenceRoll roll = new MutableSequenceRoll(notation.copy(), clock,
-        flowFactory, measureProvider);
+        flowFactory, actionFactory, measureProvider);
+
+    /*
+     * Check that action plugin has been populated OK in triggers map.
+     */
+    assertTrue(roll.getTriggers().get("trigger-1") instanceof StartAction);
+
     Event nextEvent = roll.pop();
     assertNull("Next event of disabled sequence should be null", nextEvent);
     microsecondPositionProvider.setMicroseconds(4000000);

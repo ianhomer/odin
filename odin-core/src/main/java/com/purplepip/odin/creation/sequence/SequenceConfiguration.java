@@ -17,7 +17,7 @@ package com.purplepip.odin.creation.sequence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.clock.tick.TimeThing;
-import com.purplepip.odin.creation.action.Action;
+import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.specificity.ThingConfiguration;
 import java.util.List;
 import java.util.Map;
@@ -67,5 +67,5 @@ public interface SequenceConfiguration extends ThingConfiguration, TimeThing {
    *
    * @return trigger names
    */
-  Map<String, Action> getTriggers();
+  Map<String, ActionConfiguration> getTriggers();
 }
