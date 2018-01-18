@@ -17,7 +17,6 @@ package com.purplepip.odin.creation.sequence;
 
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.clock.tick.Tick;
-import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.creation.action.ListAction;
 import com.purplepip.odin.math.Rational;
@@ -109,17 +108,12 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
    */
   // TODO : Generic sequence should not be aware of Action plugin, we need to create alternative
   // way.
-  public GenericSequence trigger(String trigger, Action... actions) {
+  public GenericSequence trigger(String trigger, ActionConfiguration... actions) {
     if (actions.length == 1) {
       addTrigger(trigger, actions[0]);
     } else {
-      addTrigger(trigger, new ListAction(actions));
+      ListAction.asActionConfigurationMap(trigger, actions).forEach(this::addTrigger);
     }
-    return this;
-  }
-
-  public GenericSequence trigger(String trigger, ActionConfiguration action) {
-    addTrigger(trigger, action);
     return this;
   }
 

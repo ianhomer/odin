@@ -33,6 +33,7 @@ import com.purplepip.odin.clock.tick.Tock;
 import com.purplepip.odin.common.ListenerPriority;
 import com.purplepip.odin.creation.action.Action;
 import com.purplepip.odin.creation.action.ActionFactory;
+import com.purplepip.odin.creation.action.ListAction;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.flow.MutableFlow;
 import com.purplepip.odin.creation.sequence.Sequence;
@@ -294,8 +295,16 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
      */
     triggers.clear();
     sequence.getTriggers().forEach((key, value) -> {
-          triggers.put(key, value instanceof Action ? (Action) value :
-              actionFactory.newInstance(value));
+          if (!key.startsWith(ListAction.LIST_ACTION_START)) {
+            Action action;
+            if ("list".equals(value.getType())) {
+              action = ListAction.asListAction(key, sequence.getTriggers(), actionFactory);
+            } else {
+              action = value instanceof Action ? (Action) value :
+                  actionFactory.newInstance(value);
+            }
+            triggers.put(key, action);
+          }
         }
     );
 
