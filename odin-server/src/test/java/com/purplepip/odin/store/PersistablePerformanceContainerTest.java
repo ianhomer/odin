@@ -22,19 +22,32 @@ import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.server.Application;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import com.purplepip.odin.store.domain.PersistableThing;
 import com.purplepip.odin.store.domain.PersistableTick;
 import java.util.Optional;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
+@DataJpaTest(showSql = false)
+@ActiveProfiles({"noServices", "noAuditing"})
+@ContextConfiguration(classes = Application.class)
 public class PersistablePerformanceContainerTest {
+  @Autowired
+  private PerformanceContainer container;
+
   @Test
   public void testSetNonPersistablePerformance() {
-    PerformanceContainer container = new PersistablePerformanceContainer();
-    container.setPerformance(new GroovePerformance());
+    container.mixin(new GroovePerformance());
+    container.mixin(new DemoLoaderPerformance());
     Performance performance = container.getPerformance();
-    performance.mixin(new DemoLoaderPerformance());
     assertTrue(performance instanceof PersistablePerformance);
     assertTrue(performance.getLayers().iterator().next() instanceof PersistableThing);
     assertTrue(performance.getSequences().iterator().next() instanceof PersistableThing);

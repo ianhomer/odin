@@ -84,6 +84,7 @@ public class PersistableSequence  extends PersistableTimeThing
   }
 
   @Override
+  // TODO : action should be a ActionConfiguration
   public void addTrigger(String trigger, Action action) {
     LOG.debug("Adding trigger {} to {}", trigger, this);
     triggers.put(trigger, action);
@@ -100,8 +101,14 @@ public class PersistableSequence  extends PersistableTimeThing
     PersistableHelper.removeDuplicates(layers);
   }
 
+  /**
+   * Pre-persist.
+   */
   @PrePersist
   public void prePesist() {
+    // TODO : Support trigger persistence, for now we clear them out before saving, since not
+    // odin-core not ready for this.
+    triggers.clear();
     addToPerformance();
   }
 

@@ -1,11 +1,13 @@
 package com.purplepip.odin.performance;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import org.junit.Test;
 
@@ -66,5 +68,13 @@ public class PerformanceContainerTest {
     PerformanceBuilder builder = new PerformanceBuilder(container);
     builder.addMetronome();
     assertFalse("Performance should NOT be empty", container.isEmpty());
+  }
+
+  @Test
+  public void testMixin() {
+    PerformanceContainer container = new PerformanceContainer();
+    container.setPerformance(new TransientPerformance());
+    container.mixin(new SimplePerformance());
+    assertEquals(1, container.getSequenceStream().count());
   }
 }

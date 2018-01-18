@@ -316,4 +316,12 @@ public class PerformanceContainer {
     return performance.getLayers() != null && !performance.getLayers().isEmpty();
   }
 
+  /**
+   * Mixin performance.
+   *
+   * @param mixin to mix in
+   */
+  public void mixin(Performance mixin) {
+    this.performance.mixin(mixin);
+  }
 }

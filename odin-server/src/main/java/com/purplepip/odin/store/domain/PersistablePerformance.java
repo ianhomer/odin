@@ -74,10 +74,7 @@ public class PersistablePerformance implements Performance {
      * Replace any existing channel for same channel number.
      */
     channels.removeIf(c -> c.getNumber() == channel.getNumber());
-    return add(bind(
-        channel instanceof PersistableChannel
-            ? (PersistableChannel) channel : copy(channel, new PersistableChannel())
-    ), channels);
+    return add(bind((PersistableChannel) channel), channels);
   }
 
   @Override
@@ -120,12 +117,19 @@ public class PersistablePerformance implements Performance {
 
   /*
    * For non-persistable thing we copy the thing into the a new persistable thing.
+   *
+   * @deprecated this responsibility is now taken by the container
    */
+  @Deprecated
   private <T extends Thing> T copy(Thing source, T destination) {
     new ThingCopy().from(source).to(destination).copy();
     return destination;
   }
 
+  /*
+   * TODO : Should this bind logic be moved to container so that it is in one place?
+   */
+  @Deprecated
   private <T extends PerformanceBound> T bind(T thing) {
     thing.setPerformance(this);
     return thing;

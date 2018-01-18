@@ -38,20 +38,11 @@ public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
   public void run(String... args) throws Exception {
     if (performanceContainer.isEmpty()) {
       Performance performance = new GroovePerformance();
-      PersistablePerformance mixin = new PersistablePerformance();
-      mixin.mixin(performance);
       PersistablePerformance persistablePerformance = new PersistablePerformance();
       persistablePerformance.setName(performance.getName());
       performanceContainer.setPerformance(persistablePerformance);
       performanceContainer.save();
-      mixin.getLayers()
-          .forEach(layer -> performanceContainer.addLayer(layer));
-      mixin.getChannels()
-          .forEach(channel -> performanceContainer.addChannel(channel));
-      mixin.getSequences()
-          .forEach(sequence -> performanceContainer.addSequence(sequence));
-      mixin.getTriggers()
-          .forEach(trigger -> performanceContainer.addTrigger(trigger));
+      performanceContainer.mixin(performance);
       performanceContainer.save();
       LOG.info("Default sequences loaded");
       performanceContainer.apply();
