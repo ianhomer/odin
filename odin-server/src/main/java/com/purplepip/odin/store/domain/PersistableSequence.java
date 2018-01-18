@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.store.domain;
 
-import com.purplepip.odin.creation.action.Action;
+import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.performance.Performance;
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class PersistableSequence  extends PersistableTimeThing
   @OneToMany(targetEntity = PersistableAction.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "sequence", orphanRemoval = true)
   @MapKey(name = "id")
-  private Map<String, Action> triggers = new HashMap<>(0);
+  private Map<String, ActionConfiguration> triggers = new HashMap<>(0);
 
   @Override
   public void addLayer(String layer) {
@@ -84,8 +84,7 @@ public class PersistableSequence  extends PersistableTimeThing
   }
 
   @Override
-  // TODO : action should be a ActionConfiguration
-  public void addTrigger(String trigger, Action action) {
+  public void addTrigger(String trigger, ActionConfiguration action) {
     LOG.debug("Adding trigger {} to {}", trigger, this);
     triggers.put(trigger, action);
   }
