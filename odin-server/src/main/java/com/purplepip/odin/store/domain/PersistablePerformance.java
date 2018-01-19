@@ -57,7 +57,7 @@ public class PersistablePerformance implements Performance {
   private Set<Channel> channels = new HashSet<>();
 
   @OneToMany(targetEntity = PersistableLayer.class, cascade = CascadeType.ALL,
-      fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
+      fetch = FetchType.LAZY, mappedBy = "performance", orphanRemoval = true)
   private Set<Layer> layers = new HashSet<>();
 
   @OneToMany(targetEntity = PersistableTrigger.class, cascade = CascadeType.ALL,

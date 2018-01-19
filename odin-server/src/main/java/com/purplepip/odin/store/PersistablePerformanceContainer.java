@@ -17,30 +17,13 @@ package com.purplepip.odin.store;
 
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
-import com.purplepip.odin.server.rest.repositories.ChannelRepository;
-import com.purplepip.odin.server.rest.repositories.LayerRepository;
-import com.purplepip.odin.server.rest.repositories.SequenceRepository;
-import com.purplepip.odin.server.rest.repositories.TriggerRepository;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class PersistablePerformanceContainer extends PerformanceContainer {
-  @Autowired
-  private LayerRepository layerRepository;
-
-  @Autowired
-  private ChannelRepository channelRepository;
-
-  @Autowired
-  private SequenceRepository sequenceRepository;
-
-  @Autowired
-  private TriggerRepository triggerRepository;
-
   @Override
   public void setPerformance(Performance performance) {
     if (performance instanceof PersistablePerformance) {
