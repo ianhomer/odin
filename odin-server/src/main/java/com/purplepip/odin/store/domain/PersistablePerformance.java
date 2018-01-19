@@ -74,7 +74,7 @@ public class PersistablePerformance implements Performance {
      * Replace any existing channel for same channel number.
      */
     channels.removeIf(c -> c.getNumber() == channel.getNumber());
-    return add(bind((PersistableChannel) channel), channels);
+    return add(bind(ThingCopy.from(channel).coerce(PersistableChannel.class)), channels);
   }
 
   @Override

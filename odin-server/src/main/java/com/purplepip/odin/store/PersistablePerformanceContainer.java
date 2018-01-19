@@ -65,12 +65,13 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
   }
 
   @Override
-  public void addChannel(Channel channel) {
+  public PersistablePerformanceContainer addChannel(Channel channel) {
     PersistableChannel persistableChannel =
         ThingCopy.from(channel).coerce(PersistableChannel.class);
     persistableChannel.setPerformance(getPerformance());
     channelRepository.save(persistableChannel);
     super.addChannel(persistableChannel);
+    return this;
   }
 
   @Override
@@ -109,12 +110,13 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
   @Override
   public void mixin(Performance performance) {
     PersistablePerformance mixin = new PersistablePerformance();
+    performance.getChannels().forEach(mixin::addChannel);
     performance.getLayers().forEach(mixin::addLayer);
     performance.getSequences().forEach(mixin::addSequence);
     performance.getTriggers().forEach(mixin::addTrigger);
 
     mixin.getLayers().forEach(this::addLayer);
-    performance.getChannels().forEach(this::addChannel);
+    mixin.getChannels().forEach(this::addChannel);
     mixin.getSequences().forEach(this::addSequence);
     mixin.getTriggers().forEach(this::addTrigger);
   }

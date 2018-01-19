@@ -184,8 +184,9 @@ public class PerformanceContainer {
    *
    * @param channel configuration to add
    */
-  public void addChannel(Channel channel) {
+  public PerformanceContainer addChannel(Channel channel) {
     performance.addChannel(channel);
+    return this;
   }
 
   /**
