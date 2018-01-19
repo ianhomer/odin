@@ -90,10 +90,7 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance addSequence(SequenceConfiguration sequence) {
-    return add(bind(
-        sequence instanceof PersistableSequence
-            ? (PersistableSequence) sequence : copy(sequence, new PersistableSequence())
-    ), sequences);
+    return add(bind(ThingCopy.from(sequence).coerce(PersistableSequence.class)), sequences);
   }
 
   @Override
@@ -109,27 +106,9 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance addLayer(Layer layer) {
-    return add(bind(
-        layer instanceof PersistableLayer
-          ? (PersistableLayer) layer : copy(layer, new PersistableLayer())
-    ), layers);
+    return add(bind(ThingCopy.from(layer).coerce(PersistableLayer.class)), layers);
   }
 
-  /*
-   * For non-persistable thing we copy the thing into the a new persistable thing.
-   *
-   * @deprecated this responsibility is now taken by the container
-   */
-  @Deprecated
-  private <T extends Thing> T copy(Thing source, T destination) {
-    new ThingCopy().source(source).destination(destination).copy();
-    return destination;
-  }
-
-  /*
-   * TODO : Should this bind logic be moved to container so that it is in one place?
-   */
-  @Deprecated
   private <T extends PerformanceBound> T bind(T thing) {
     thing.setPerformance(this);
     return thing;
@@ -159,10 +138,7 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance addTrigger(TriggerConfiguration trigger) {
-    return add(bind(
-        trigger instanceof PersistableTrigger
-            ? (PersistableTrigger) trigger : copy(trigger, new PersistableTrigger())
-    ), triggers);
+    return add(bind(ThingCopy.from(trigger).coerce(PersistableTrigger.class)), triggers);
   }
 
   @Override

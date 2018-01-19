@@ -15,8 +15,6 @@
 
 package com.purplepip.odin.store;
 
-import com.purplepip.odin.bag.Thing;
-import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
@@ -28,7 +26,6 @@ import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.LayerRepository;
 import com.purplepip.odin.server.rest.repositories.SequenceRepository;
 import com.purplepip.odin.server.rest.repositories.TriggerRepository;
-import com.purplepip.odin.store.domain.PerformanceBound;
 import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistablePerformance;
@@ -69,7 +66,9 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
 
   @Override
   public void addChannel(Channel channel) {
-    PersistableChannel persistableChannel = bind(castOrCopy(PersistableChannel.class, channel));
+    PersistableChannel persistableChannel =
+        ThingCopy.from(channel).coerce(PersistableChannel.class);
+    persistableChannel.setPerformance(getPerformance());
     channelRepository.save(persistableChannel);
     super.addChannel(persistableChannel);
   }
@@ -105,28 +104,6 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
     }
     super.addTrigger(trigger);
     return this;
-  }
-
-  private <T extends PerformanceBound> T bind(T thing) {
-    thing.setPerformance(getPerformance());
-    return thing;
-  }
-
-  private <T extends Thing, P extends T> P castOrCopy(Class<P> clazz, T thing) {
-    try {
-      return thing.getClass().isAssignableFrom(clazz)
-          ? clazz.cast(thing) : copy(thing, clazz.newInstance());
-    } catch (InstantiationException | IllegalAccessException e) {
-      throw new OdinRuntimeException("Cannot create new instance of " + clazz, e);
-    }
-  }
-
-  /*
-   * For non-persistable thing we copy the thing into the a new persistable thing.
-   */
-  private <T extends Thing> T copy(Thing source, T destination) {
-    new ThingCopy().source(source).destination(destination).copy();
-    return destination;
   }
 
   @Override
