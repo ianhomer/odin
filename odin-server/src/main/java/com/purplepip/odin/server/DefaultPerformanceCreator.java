@@ -24,13 +24,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Profile("!noStore")
 @Slf4j
 @Order(5)
 public class DefaultPerformanceCreator implements CommandLineRunner {
-  static final String DEFAULT_PERFORMANCE_NAME = "defaultPerformance";
+  private static final String DEFAULT_PERFORMANCE_NAME = "defaultPerformance";
 
   @Autowired
   private PerformanceRepository performanceRepository;
@@ -39,6 +40,7 @@ public class DefaultPerformanceCreator implements CommandLineRunner {
   private PerformanceContainer performanceContainer;
 
   @Override
+  @Transactional
   public void run(String... args) throws Exception {
     if (performanceRepository.count() == 0) {
       PersistablePerformance performance = new PersistablePerformance();
@@ -55,5 +57,6 @@ public class DefaultPerformanceCreator implements CommandLineRunner {
           performanceRepository.findAll().iterator().next()
       );
     }
+    performanceContainer.apply();
   }
 }

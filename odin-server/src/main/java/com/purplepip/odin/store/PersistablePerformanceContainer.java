@@ -50,7 +50,7 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
       persistablePerformance.setName(performance.getName());
       super.setPerformance(persistablePerformance);
       save();
-      mixin(performance);
+      persistablePerformance.mixin(performance);
       save();
     }
   }
