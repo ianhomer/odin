@@ -48,7 +48,7 @@ public class ThingCopy {
     return this;
   }
 
-  public ThingCopy to(Thing destination) {
+  public ThingCopy destination(Thing destination) {
     this.destination = destination;
     return this;
   }
