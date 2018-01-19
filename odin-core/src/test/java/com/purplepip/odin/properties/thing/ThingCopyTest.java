@@ -46,6 +46,28 @@ public class ThingCopyTest {
   }
 
   @Test
+  public void testCoerceViaCopy() {
+    GenericSequence source = new GenericSequence().name("test").type("notation");
+    Notation destination = ThingCopy.from(source).coerce(Notation.class);
+    assertEquals("test", destination.getName());
+    /*
+     * destination should be not be the same object
+     */
+    assertFalse(source == destination);
+  }
+
+  @Test
+  public void testCoerceViaCast() {
+    Notation source = (Notation) new Notation().name("test");
+    Notation destination = ThingCopy.from(source).coerce(Notation.class);
+    assertEquals("test", destination.getName());
+    /*
+     * destination should be the same object
+     */
+    assertTrue(source == destination);
+  }
+
+  @Test
   public void testCopy() throws Exception {
     Thing source = new DefaultLayer("test")
         .layer("layer1", "layer2").length(1).offset(8).enabled(false);

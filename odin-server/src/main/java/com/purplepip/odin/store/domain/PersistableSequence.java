@@ -18,6 +18,7 @@ package com.purplepip.odin.store.domain;
 import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
 import com.purplepip.odin.performance.Performance;
+import com.purplepip.odin.properties.thing.ThingCopy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +72,21 @@ public class PersistableSequence  extends PersistableTimeThing
   @MapKey(name = "id")
   private Map<String, ActionConfiguration> triggers = new HashMap<>(0);
 
+  /**
+   * Set triggers.
+   *
+   * @param triggers triggers to set
+   */
+  public void setTriggers(Map<String, ActionConfiguration> triggers) {
+    this.triggers.clear();
+    /*
+     * Copy triggers across into this object making sure that the actions are PersistableActions.
+     */
+    triggers.forEach((key, value) ->
+        this.triggers.put(key, ThingCopy.from(value).coerce(PersistableAction.class))
+    );
+  }
+
   @Override
   public void addLayer(String layer) {
     LOG.debug("Adding layer {} to {}", layer, this);
@@ -105,9 +121,6 @@ public class PersistableSequence  extends PersistableTimeThing
    */
   @PrePersist
   public void prePesist() {
-    // TODO : Support trigger persistence, for now we clear them out before saving, since not
-    // odin-core not ready for this.
-    triggers.clear();
     addToPerformance();
   }
 

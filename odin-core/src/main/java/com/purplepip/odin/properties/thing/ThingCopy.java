@@ -19,6 +19,7 @@ import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.re
 
 import com.google.common.collect.Sets;
 import com.purplepip.odin.bag.Thing;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import com.purplepip.odin.specificity.ThingConfiguration;
@@ -68,6 +69,31 @@ public class ThingCopy {
     destination(destination);
     copy();
     return destination;
+  }
+
+  /**
+   * Coerce the source into the specified class.  If source is an instance of the specified class
+   * then simply cast it, otherwise copy the source properties in a new instance of the specified
+   * class.  Only use this API if you are not concerned about return a reference to the source
+   * which could be subsequently modified bringing side effects.  This API only supports classes
+   * that provide an empty constructor.
+   *
+   * @param clazz class to coerce the source into
+   * @param <T> type of class to coerce to
+   * @return coerced source
+   */
+  public <T extends Thing> T coerce(Class<? extends T> clazz) {
+    if (clazz.isAssignableFrom(source.getClass())) {
+      destination(source);
+      return clazz.cast(source);
+    } else {
+      try {
+        return to(clazz.newInstance());
+      } catch (InstantiationException | IllegalAccessException e) {
+        throw new OdinRuntimeException("Cannot use coerce API since new instance of " + clazz
+            + " fails", e);
+      }
+    }
   }
 
   /**
