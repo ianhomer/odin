@@ -26,6 +26,7 @@ import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.PerformanceLoader;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
@@ -47,6 +48,9 @@ public class OdinConfiguration {
 
   @Autowired(required = false)
   private MetricRegistry metrics;
+
+  @Autowired(required = false)
+  private PerformanceLoader performanceLoader;
 
   @Bean
   public MidiDeviceWrapper midiDeviceWrapper() throws OdinException {
@@ -79,6 +83,9 @@ public class OdinConfiguration {
       throws OdinException {
     List<OperationReceiver> operationReceivers = new ArrayList<>();
     operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
+    if (performanceLoader != null) {
+      operationReceivers.add(performanceLoader);
+    }
     if (auditingOperationReceiver != null) {
       operationReceivers.add(auditingOperationReceiver);
     }

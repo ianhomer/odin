@@ -57,7 +57,6 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
   public void setPerformance(Performance performance) {
     if (performance instanceof PersistablePerformance) {
       super.setPerformance(performance);
-      save();
     } else {
       PersistablePerformance persistablePerformance = new PersistablePerformance();
       persistablePerformance.setName(performance.getName());

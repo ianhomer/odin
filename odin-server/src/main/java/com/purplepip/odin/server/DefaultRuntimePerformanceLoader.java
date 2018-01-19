@@ -17,6 +17,7 @@ package com.purplepip.odin.server;
 
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.PerformanceLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,18 +31,15 @@ import org.springframework.stereotype.Component;
 @Order(4)
 public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
   @Autowired
-  private PerformanceContainer performanceContainer;
+  private PerformanceLoader loader;
+
+  @Autowired
+  private PerformanceContainer container;
 
   @Override
   public void run(String... args) throws Exception {
-    if (performanceContainer.isEmpty()) {
-      performanceContainer.setPerformance(new GroovePerformance());
-      LOG.info("Default sequences loaded");
-      performanceContainer.apply();
-      LOG.info("Default performance populated");
-      performanceContainer.load();
-    } else {
-      LOG.warn("Default performance has already been loaded");
-    }
+    container.setPerformance(new GroovePerformance());
+    //loader.load(new ClassUri(GroovePerformance.class).getUri());
+    LOG.info("Loaded performance from {}", DefaultRuntimePerformanceLoader.class.getName());
   }
 }

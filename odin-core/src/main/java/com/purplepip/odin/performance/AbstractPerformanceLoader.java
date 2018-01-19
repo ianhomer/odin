@@ -18,15 +18,15 @@ package com.purplepip.odin.performance;
 public abstract class AbstractPerformanceLoader implements PerformanceLoader {
   private final Performance overlay;
 
-  AbstractPerformanceLoader() {
+  protected AbstractPerformanceLoader() {
     overlay = new TransientPerformance();
   }
 
-  AbstractPerformanceLoader(Performance overlay) {
+  protected AbstractPerformanceLoader(Performance overlay) {
     this.overlay = overlay;
   }
 
-  Performance overlay(Performance performance) {
+  protected Performance overlay(Performance performance) {
     TransientPerformance newPerformance = new TransientPerformance(performance.getName());
     newPerformance.mixin(overlay);
     newPerformance.mixin(performance);
