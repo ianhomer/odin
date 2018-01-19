@@ -55,6 +55,5 @@ public class DefaultPerformanceCreator implements CommandLineRunner {
           performanceRepository.findAll().iterator().next()
       );
     }
-    performanceContainer.save();
   }
 }
