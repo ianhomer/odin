@@ -15,20 +15,13 @@
 
 package com.purplepip.odin.store;
 
-import com.purplepip.odin.creation.channel.Channel;
-import com.purplepip.odin.creation.layer.Layer;
-import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.LayerRepository;
 import com.purplepip.odin.server.rest.repositories.SequenceRepository;
 import com.purplepip.odin.server.rest.repositories.TriggerRepository;
-import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistablePerformance;
-import com.purplepip.odin.store.domain.PersistableSequence;
-import com.purplepip.odin.store.domain.PersistableTrigger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -60,45 +53,6 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
       mixin(performance);
       save();
     }
-  }
-
-  @Override
-  public PersistablePerformanceContainer addChannel(Channel channel) {
-    super.addChannel(channel);
-    return this;
-  }
-
-  @Override
-  public PersistablePerformanceContainer addSequence(SequenceConfiguration sequence) {
-    LOG.debug("Adding sequence : {}", sequence);
-    if (sequence instanceof PersistableSequence) {
-      PersistableSequence persistableSequence = ((PersistableSequence) sequence);
-      LOG.debug("Saving persistable sequence : {}", sequence);
-      persistableSequence.setPerformance(getPerformance());
-      sequenceRepository.save((PersistableSequence) sequence);
-    }
-    super.addSequence(sequence);
-    return this;
-  }
-
-  @Override
-  public PersistablePerformanceContainer addLayer(Layer layer) {
-    if (layer instanceof PersistableLayer) {
-      ((PersistableLayer) layer).setPerformance(getPerformance());
-      layerRepository.save((PersistableLayer) layer);
-    }
-    super.addLayer(layer);
-    return this;
-  }
-
-  @Override
-  public PersistablePerformanceContainer addTrigger(TriggerConfiguration trigger) {
-    if (trigger instanceof PersistableTrigger) {
-      ((PersistableTrigger) trigger).setPerformance(getPerformance());
-      triggerRepository.save((PersistableTrigger) trigger);
-    }
-    super.addTrigger(trigger);
-    return this;
   }
 
   @Override

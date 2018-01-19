@@ -19,9 +19,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.demo.GroovePerformance;
-import com.purplepip.odin.demo.SimplePerformance;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
+import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
+import com.purplepip.odin.store.domain.PersistablePerformance;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +45,27 @@ public class PersistablePerformanceLoaderTest {
   private PerformanceLoader loader;
 
   @Autowired
+  private PerformanceRepository performanceRepository;
+
+  @Autowired
   private TestEntityManager entityManager;
 
   @Test
   public void testLoad() throws Exception {
-    container.setPerformance(new GroovePerformance());
-    container.setPerformance(new SimplePerformance());
+    save(new GroovePerformance());
+    //save(new SimplePerformance());
     //entityManager.flush();
     loader.load(new ClassUri(GroovePerformance.class).getUri());
     assertEquals("com/purplepip/odin/demo/GroovePerformance",
         container.getPerformance().getName());
+  }
+
+  private void save(Performance performance) {
+    PersistablePerformance persistablePerformance = new PersistablePerformance();
+    persistablePerformance.setName(performance.getName());
+    performanceRepository.save(persistablePerformance);
+
+    //persistablePerformance.mixin(performance);
+    //performanceRepository.save(persistablePerformance);
   }
 }
