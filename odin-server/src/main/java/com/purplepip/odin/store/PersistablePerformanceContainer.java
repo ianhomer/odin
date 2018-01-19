@@ -54,18 +54,4 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
       save();
     }
   }
-
-  @Override
-  public void mixin(Performance performance) {
-    PersistablePerformance mixin = new PersistablePerformance();
-    performance.getChannels().forEach(mixin::addChannel);
-    performance.getLayers().forEach(mixin::addLayer);
-    performance.getSequences().forEach(mixin::addSequence);
-    performance.getTriggers().forEach(mixin::addTrigger);
-
-    mixin.getLayers().forEach(this::addLayer);
-    mixin.getChannels().forEach(this::addChannel);
-    mixin.getSequences().forEach(this::addSequence);
-    mixin.getTriggers().forEach(this::addTrigger);
-  }
 }
