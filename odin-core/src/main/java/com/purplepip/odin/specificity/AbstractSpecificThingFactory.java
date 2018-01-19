@@ -132,7 +132,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   }
 
   protected void populate(C destination, ThingConfiguration source) {
-    new ThingCopy().from(source).destination(destination).copy();
+    new ThingCopy().source(source).destination(destination).copy();
   }
 
   public Class<? extends C> getClass(String name) {

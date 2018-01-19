@@ -122,7 +122,7 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
    * For non-persistable thing we copy the thing into the a new persistable thing.
    */
   private <T extends Thing> T copy(Thing source, T destination) {
-    new ThingCopy().from(source).destination(destination).copy();
+    new ThingCopy().source(source).destination(destination).copy();
     return destination;
   }
 

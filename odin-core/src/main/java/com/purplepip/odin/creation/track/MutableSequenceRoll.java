@@ -236,7 +236,7 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
       offset.set(sequenceConfiguration.getOffset());
     }
 
-    new ThingCopy().from(sequenceConfiguration).destination(sequence).copy();
+    new ThingCopy().source(sequenceConfiguration).destination(sequence).copy();
 
     if (sequence instanceof MutablePropertiesProvider) {
       resetter.reset((MutablePropertiesProvider) sequence);

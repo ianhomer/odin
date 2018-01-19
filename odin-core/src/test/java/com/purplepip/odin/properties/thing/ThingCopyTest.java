@@ -42,7 +42,7 @@ public class ThingCopyTest {
     Thing source = new DefaultLayer("test")
         .layer("layer1", "layer2").length(1).offset(8).enabled(false);
     Thing destination = new DefaultLayer(source.getId());
-    new ThingCopy().from(source).destination(destination).copy();
+    new ThingCopy().source(source).destination(destination).copy();
     assertEquals(source, destination);
   }
 
@@ -55,7 +55,7 @@ public class ThingCopyTest {
         .property("undeclared.nested", "value2");
     try (LogCaptor captor = new LogCapture().warn().from(ThingCopy.class)
         .withPassThrough().start()) {
-      new ThingCopy().from(source).destination(destination).copy();
+      new ThingCopy().source(source).destination(destination).copy();
       assertEquals("No warnings should be logged", 0, captor.size());
     }
 
@@ -76,7 +76,7 @@ public class ThingCopyTest {
     assertTrue(destination.arePropertiesDeclared());
     try (LogCaptor captor = new LogCapture().warn().from(ThingCopy.class)
         .withPassThrough().start()) {
-      new ThingCopy().from(source).destination(destination).copy();
+      new ThingCopy().source(source).destination(destination).copy();
       assertEquals("No warnings should be logged", 0, captor.size());
     }
 
@@ -93,7 +93,7 @@ public class ThingCopyTest {
     GenericSequence destination = new GenericSequence();
     Notation source = (Notation) new Notation().notation("A B C")
         .offset(8).name("test");
-    new ThingCopy().from(source).destination(destination).copy();
+    new ThingCopy().source(source).destination(destination).copy();
     assertEquals(Wholes.valueOf(8), destination.getOffset());
     assertEquals("A B C", destination.getProperty("notation"));
     assertEquals("test", destination.getName());
@@ -104,7 +104,7 @@ public class ThingCopyTest {
     GenericSequence source = new Notation().notation("A B C").offset(8)
         .tick(Ticks.HALF);
     Notation destination = (Notation) new Notation().name("test").tick(Ticks.BEAT);
-    new ThingCopy().from(source).destination(destination).copy();
+    new ThingCopy().source(source).destination(destination).copy();
 
     assertEquals(Ticks.HALF, destination.getTick());
     assertEquals("A B C", destination.getNotation());
@@ -120,7 +120,7 @@ public class ThingCopyTest {
         .property("undeclared", "value1")
         .property("undeclared.nested", "value2");
     try (LogCaptor captor = new LogCapture().warn().from(ThingCopy.class).start()) {
-      new ThingCopy().from(source).destination(destination).copy();
+      new ThingCopy().source(source).destination(destination).copy();
       /*
        * When we are copying to configuration where properties are declared, e.g. to a plugin
        * then we expect undeclared properties to be logged with a warning since it is an
@@ -140,10 +140,10 @@ public class ThingCopyTest {
     Lists.newArrayList(new GroovePerformance(), new KotlinPerformance()).forEach(performance ->
         performance.getSequences().forEach(source -> {
           GenericSequence destination = new GenericSequence(source.getId());
-          new ThingCopy().from(source).destination(destination).copy();
+          new ThingCopy().source(source).destination(destination).copy();
           try {
             SequenceConfiguration copyOfCopy = source.getClass().newInstance();
-            new ThingCopy().from(destination).destination(copyOfCopy).copy();
+            new ThingCopy().source(destination).destination(copyOfCopy).copy();
             assertEquals(source, copyOfCopy);
           } catch (InstantiationException | IllegalAccessException e) {
             LOG.error("Cannot create new instance", e);

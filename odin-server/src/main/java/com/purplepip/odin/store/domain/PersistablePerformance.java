@@ -122,7 +122,7 @@ public class PersistablePerformance implements Performance {
    */
   @Deprecated
   private <T extends Thing> T copy(Thing source, T destination) {
-    new ThingCopy().from(source).destination(destination).copy();
+    new ThingCopy().source(source).destination(destination).copy();
     return destination;
   }
 

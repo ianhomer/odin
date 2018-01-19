@@ -43,7 +43,7 @@ public class ThingCopy {
   private Thing source;
   private Thing destination;
 
-  public ThingCopy from(Thing source) {
+  public ThingCopy source(Thing source) {
     this.source = source;
     return this;
   }
