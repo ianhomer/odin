@@ -59,12 +59,6 @@ public class PersistablePerformanceListener implements
   public void onPerformanceSave(Performance performance) {
     if (performance instanceof PersistablePerformance) {
       LOG.info("Saving performance");
-      /*
-       * Until HHH-4313 resolved we need to save child objects before saving performance ...
-       */
-      //performance.getChannels().forEach(channel -> {
-      //  channelRepository.save((PersistableChannel) channel);
-      //});
       performanceRepository.save((PersistablePerformance) performance);
     }
   }

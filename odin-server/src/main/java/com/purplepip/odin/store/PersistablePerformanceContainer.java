@@ -21,12 +21,10 @@ import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
-import com.purplepip.odin.properties.thing.ThingCopy;
 import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.LayerRepository;
 import com.purplepip.odin.server.rest.repositories.SequenceRepository;
 import com.purplepip.odin.server.rest.repositories.TriggerRepository;
-import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import com.purplepip.odin.store.domain.PersistableSequence;
@@ -66,11 +64,7 @@ public class PersistablePerformanceContainer extends PerformanceContainer {
 
   @Override
   public PersistablePerformanceContainer addChannel(Channel channel) {
-    PersistableChannel persistableChannel =
-        ThingCopy.from(channel).coerce(PersistableChannel.class);
-    persistableChannel.setPerformance(getPerformance());
-    channelRepository.save(persistableChannel);
-    super.addChannel(persistableChannel);
+    super.addChannel(channel);
     return this;
   }
 
