@@ -38,7 +38,15 @@ import org.junit.Test;
 @Slf4j
 public class ThingCopyTest {
   @Test
-  public void copy() throws Exception {
+  public void testFromTo() throws Exception {
+    Thing source = new DefaultLayer("test")
+        .layer("layer1", "layer2").length(1).offset(8).enabled(false);
+    DefaultLayer destination = ThingCopy.from(source).to(new DefaultLayer(source.getId()));
+    assertEquals(source, destination);
+  }
+
+  @Test
+  public void testCopy() throws Exception {
     Thing source = new DefaultLayer("test")
         .layer("layer1", "layer2").length(1).offset(8).enabled(false);
     Thing destination = new DefaultLayer(source.getId());

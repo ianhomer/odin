@@ -43,6 +43,10 @@ public class ThingCopy {
   private Thing source;
   private Thing destination;
 
+  public static ThingCopy from(Thing source) {
+    return new ThingCopy().source(source);
+  }
+
   public ThingCopy source(Thing source) {
     this.source = source;
     return this;
@@ -51,6 +55,19 @@ public class ThingCopy {
   public ThingCopy destination(Thing destination) {
     this.destination = destination;
     return this;
+  }
+
+  /**
+   * Copy from source to the specified destination returned the strongly typed destination object.
+   *
+   * @param destination destination
+   * @param <T> destination type
+   * @return destination
+   */
+  public <T extends Thing> T to(T destination) {
+    destination(destination);
+    copy();
+    return destination;
   }
 
   /**
