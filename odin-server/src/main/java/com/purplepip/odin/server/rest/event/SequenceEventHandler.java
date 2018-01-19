@@ -41,7 +41,7 @@ public class SequenceEventHandler {
    */
   @HandleAfterSave
   public void handleSequenceSave(SequenceConfiguration sequence) {
-    LOG.info("Sequence saved : {}", sequence);
+    LOG.info("Sequence saved : {}", sequence.getName());
     performanceContainer.load();
     performanceContainer.apply();
   }
@@ -53,7 +53,7 @@ public class SequenceEventHandler {
    */
   @HandleAfterCreate
   public void handleSequenceCreate(SequenceConfiguration sequence) {
-    LOG.info("Sequence created : {}", sequence);
+    LOG.info("Sequence created : {}", sequence.getName());
     performanceContainer.load();
     performanceContainer.apply();
   }
@@ -65,7 +65,7 @@ public class SequenceEventHandler {
    */
   @HandleAfterDelete
   public void handleSequenceDelete(SequenceConfiguration sequence) {
-    LOG.info("Sequence deleted : {}", sequence);
+    LOG.info("Sequence deleted : {}", sequence.getName());
     performanceContainer.load();
     performanceContainer.apply();
   }
