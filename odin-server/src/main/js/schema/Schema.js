@@ -12,7 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// System schema class
+// System schema class.  Schemas are loaded by redux events e.g. LOAD_PROFILE_SCHEMA_REQUESTED
+// is fired and then LOAD_PROFILE_SCHEMA_SUCCEEDED is fired when the web service responds
+// which updates to state using the reducers/schema.js which in turn is picked up by App.js
+// in the createNewSchema method.   Then when an entity is updated or created the handleApply
+// method in this Schema class is called and uses this schema definition to construct the
+// appropriate JSON to send to the back end, again via these redux events.   This decoupling
+// helps separate concerns (front end state / back end state / front end rendering), allows
+// events to be handled asynchronously and makes unit testing of the front end a lot easier.
 
 const Ajv = require('ajv')
 
