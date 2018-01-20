@@ -23,7 +23,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -50,28 +49,19 @@ public class PersistableLayer extends PersistableTimeThing
   @ElementCollection
   private List<String> layers = new ArrayList<>(0);
 
-  @PrePersist
-  public void prePesist() {
-    addToPerformance();
-  }
-
   @PreUpdate
   public void preUpdate() {
     PersistableHelper.removeDuplicates(layers);
-  }
-
-  private void addToPerformance() {
-    performance.addLayer(this);
-  }
-
-  @PreRemove
-  public void removeFromPerformance() {
-    performance.removeLayer(this);
   }
 
   @Override
   public void addLayer(String layer) {
     LOG.debug("Adding layer {} to {}", layer, this);
     layers.add(layer);
+  }
+
+  @PreRemove
+  public void removeFromPerformance() {
+    performance.removeLayer(this);
   }
 }

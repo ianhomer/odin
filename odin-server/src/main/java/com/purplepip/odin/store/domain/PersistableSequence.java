@@ -33,8 +33,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -114,23 +112,6 @@ public class PersistableSequence  extends PersistableTimeThing
   @PreUpdate
   public void preUpdate() {
     PersistableHelper.removeDuplicates(layers);
-  }
-
-  /**
-   * Pre-persist.
-   */
-  @PrePersist
-  public void prePesist() {
-    addToPerformance();
-  }
-
-  public void addToPerformance() {
-    performance.addSequence(this);
-  }
-
-  @PreRemove
-  public void removeFromPerformance() {
-    performance.removeSequence(this);
   }
 
   @Override

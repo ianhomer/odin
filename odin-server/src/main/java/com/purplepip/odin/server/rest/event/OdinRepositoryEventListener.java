@@ -32,6 +32,11 @@ public class OdinRepositoryEventListener extends AbstractRepositoryEventListener
   private PerformanceContainer performanceContainer;
 
   @Override
+  public void onBeforeSave(Object entity) {
+    LOG.info("onBeforeSave {}", entity);
+  }
+
+  @Override
   public void onAfterSave(Object entity) {
     LOG.info("onAfterSave {}", entity);
   }
@@ -39,6 +44,13 @@ public class OdinRepositoryEventListener extends AbstractRepositoryEventListener
   @Override
   public void onAfterCreate(Object entity) {
     LOG.info("onAfterCreate {}", entity);
+  }
+
+  @Override
+  public void onBeforeDelete(Object entity) {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("onBeforeDelete {}", toThingString(entity));
+    }
   }
 
   @Override

@@ -20,8 +20,6 @@ import com.purplepip.odin.performance.Performance;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -44,16 +42,4 @@ public class PersistableChannel extends PersistableThing implements Channel, Per
   @ManyToOne(targetEntity = PersistablePerformance.class)
   @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
   private Performance performance;
-
-  @PrePersist
-  public void addToPerformance() {
-    LOG.info("Adding channel to performance");
-    performance.addChannel(this);
-  }
-
-  @PreRemove
-  public void removeFromPerformance() {
-    LOG.info("Removing channel from performance");
-    performance.removeChannel(this);
-  }
 }

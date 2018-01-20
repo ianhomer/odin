@@ -17,21 +17,18 @@ package com.purplepip.odin.server;
 
 import static org.junit.Assert.assertEquals;
 
-import com.google.common.collect.Sets;
 import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.demo.GroovePerformance;
+import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
-import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
-import com.purplepip.odin.store.domain.PersistableChannel;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -51,18 +48,11 @@ public class PersistablePerformanceLoaderTest {
   @Autowired
   private PerformanceRepository performanceRepository;
 
-  @Autowired
-  private ChannelRepository channelRepository;
-
-  @Autowired
-  private TestEntityManager entityManager;
-
   @Test
   @Transactional
   public void testLoad() throws Exception {
     save(new GroovePerformance());
-    //save(new SimplePerformance());
-    //entityManager.flush();
+    save(new SimplePerformance());
     loader.load(new ClassUri(GroovePerformance.class).getUri());
     assertEquals("com/purplepip/odin/demo/GroovePerformance",
         container.getPerformance().getName());
@@ -71,13 +61,7 @@ public class PersistablePerformanceLoaderTest {
   private void save(Performance performance) {
     PersistablePerformance persistablePerformance = new PersistablePerformance();
     persistablePerformance.setName(performance.getName());
-    persistablePerformance = performanceRepository.save(persistablePerformance);
     persistablePerformance.mixin(performance);
-    Sets.newHashSet(persistablePerformance.getChannels())
-        .forEach(channel -> channelRepository.save((PersistableChannel) channel));
-    persistablePerformance.getLayers().clear();
-    persistablePerformance.getTriggers().clear();
-    persistablePerformance.getSequences().clear();
     performanceRepository.save(persistablePerformance);
   }
 }
