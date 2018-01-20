@@ -56,6 +56,7 @@ public class DefaultPerformanceCreator implements CommandLineRunner {
       performanceContainer.setPerformance(
           performanceRepository.findAll().iterator().next()
       );
+      LOG.info("Loaded {} from repository", performanceContainer.getPerformance().getName());
     }
     performanceContainer.apply();
   }
