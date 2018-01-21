@@ -42,9 +42,10 @@ public class SnapshotTest {
   }
 
   @Test
-  public void testSnapshotWithExplicitPath() throws IOException {
-    // TODO : Control explicit path (not implicit from class)
+  public void testSnapshotWithJsonWithLocation() throws IOException {
     Snapshot snapshot = new Snapshot(Snapshot.class)
+        .root("src/test/resources")
+        .path("com/purplepip/odin/snapshot/snapshot/Snapshot")
         .extension("json")
         .header(false).initialise();
     String path = snapshot.getPath().toString();
@@ -53,5 +54,4 @@ public class SnapshotTest {
     snapshot.writeLine(0,"{ \"x\" : 1}");
     snapshot.expectMatch();
   }
-
 }

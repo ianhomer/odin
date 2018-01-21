@@ -46,6 +46,8 @@ public class Snapshot {
   private String variation = null;
   private String separator = "-";
   private String extension = "snap";
+  private String root = "src/test/resources";
+  private String relativePath;
 
   /*
    * Snapshot could be written to by multiple threads so we need to guarantee thread safety
@@ -120,11 +122,31 @@ public class Snapshot {
   }
 
   /**
+   * Root of snapshot files.
+   *
+   * @param root root of snapshot files relative to current module
+   * @return this
+   */
+  public Snapshot root(String root) {
+    this.root = root;
+    return this;
+  }
+
+  public Snapshot path(String path) {
+    this.relativePath = path;
+    return this;
+  }
+
+
+  /**
    * Initialise this snapshot.
    *
    * @return this
    */
   public Snapshot initialise() {
+    /*
+     * Path of the source file for the given class.
+     */
     Path containerPath;
     try {
       containerPath = Paths.get(
@@ -136,20 +158,42 @@ public class Snapshot {
     if (!containerPath.toString().endsWith("target/test-classes")) {
       throw new OdinRuntimeException("Container path is not expected : " + containerPath);
     }
+    /*
+     * Path of the maven module that the class belongs to.
+     */
     Path modulePath = containerPath.getParent().getParent();
     LOG.debug("module path : {}", modulePath);
-    Path classSourcePath = Paths
-        .get(modulePath + "/src/test/resources/"
-            + clazz.getName().replace('.', '/'));
-    LOG.debug("class source path : {}", classSourcePath);
-    Path snapshotDirectoryPath = Paths.get(
-        lastSlash.matcher(classSourcePath.toString()).replaceFirst("/snapshot"));
 
-    LOG.debug("snapshot directory path : {}", snapshotDirectoryPath);
-    path = Paths.get(
-        snapshotDirectoryPath.toString() + "/" + clazz.getSimpleName()
+    /*
+     * Path that snapshots should be stored in.
+     */
+    Path rootPath = Paths.get(modulePath + "/" + root);
+    LOG.debug("root path : {}", rootPath);
+
+    /*
+     * Path of the given snapshot without variation or extension parts.
+     */
+    Path namedPath;
+    if (relativePath == null) {
+      Path classSourcePath = Paths
+          .get(rootPath + "/"
+              + clazz.getName().replace('.', '/'));
+      LOG.debug("class source path : {}", classSourcePath);
+
+      Path snapshotDirectoryPath = Paths.get(
+          lastSlash.matcher(classSourcePath.toString()).replaceFirst("/snapshot"));
+
+      LOG.debug("snapshot directory path : {}", snapshotDirectoryPath);
+      namedPath = Paths.get(
+          snapshotDirectoryPath.toString() + "/" + clazz.getSimpleName());
+    } else {
+      namedPath = Paths.get(rootPath.toString() + "/" + relativePath);
+    }
+
+    path = Paths.get(namedPath
             + (variation == null ? "" : separator + variation)
             + (extension == null ? "" : "." + extension));
+
     LOG.debug("snapshot source path : {}", path);
     if (header) {
       lines.add(new Entry(-2, "SNAPSHOT : " + clazz.getName()));
