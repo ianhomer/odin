@@ -167,7 +167,7 @@ public class Snapshot {
     /*
      * Path that snapshots should be stored in.
      */
-    Path rootPath = Paths.get(modulePath + "/" + root);
+    Path rootPath = Paths.get(modulePath.toString(), root);
     LOG.debug("root path : {}", rootPath);
 
     /*
@@ -176,8 +176,7 @@ public class Snapshot {
     Path namedPath;
     if (relativePath == null) {
       Path classSourcePath = Paths
-          .get(rootPath + "/"
-              + clazz.getName().replace('.', '/'));
+          .get(rootPath.toString(), clazz.getName().replace('.', '/'));
       LOG.debug("class source path : {}", classSourcePath);
 
       Path snapshotDirectoryPath = Paths.get(
@@ -185,9 +184,9 @@ public class Snapshot {
 
       LOG.debug("snapshot directory path : {}", snapshotDirectoryPath);
       namedPath = Paths.get(
-          snapshotDirectoryPath.toString() + "/" + clazz.getSimpleName());
+          snapshotDirectoryPath.toString(), clazz.getSimpleName());
     } else {
-      namedPath = Paths.get(rootPath.toString() + "/" + relativePath);
+      namedPath = Paths.get(rootPath.toString(), relativePath);
     }
 
     path = Paths.get(namedPath
