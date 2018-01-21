@@ -74,7 +74,7 @@ public class PerformancesTest {
 
   @Test
   public void testPerformance() throws OdinException, InterruptedException {
-    Snapshot snapshot = new Snapshot(performance.getClass());
+    Snapshot snapshot = new Snapshot(performance.getClass(), true);
     SnapshotOperationReceiver snapshotReceiver =
         new SnapshotOperationReceiver(snapshot, expectedOperationCount);
 

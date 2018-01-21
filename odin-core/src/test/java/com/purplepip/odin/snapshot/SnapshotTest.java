@@ -22,11 +22,36 @@ import org.junit.Test;
 
 public class SnapshotTest {
   @Test
-  public void testSnapshot() throws IOException {
-    Snapshot snapshot = new Snapshot(Snapshot.class);
+  public void testSnapshotWithTime() throws IOException {
+    Snapshot snapshot = new Snapshot(Snapshot.class, true);
     assertTrue(snapshot.getPath().toString()
             .endsWith("com/purplepip/odin/snapshot/snapshot/Snapshot.snap"));
     snapshot.writeLine(0,"Hello");
     snapshot.expectMatch();
   }
+
+  @Test
+  public void testSnapshotWithTimeWithoutHeader() throws IOException {
+    Snapshot snapshot = new Snapshot(Snapshot.class)
+        .header(false).separator("-").variation("noHeader").initialise();
+    String path = snapshot.getPath().toString();
+    assertTrue(path + " not correct",
+        path.endsWith("com/purplepip/odin/snapshot/snapshot/Snapshot-noHeader.snap"));
+    snapshot.writeLine("Hello");
+    snapshot.expectMatch();
+  }
+
+  @Test
+  public void testSnapshotWithExplicitPath() throws IOException {
+    // TODO : Control explicit path (not implicit from class)
+    Snapshot snapshot = new Snapshot(Snapshot.class)
+        .extension("json")
+        .header(false).initialise();
+    String path = snapshot.getPath().toString();
+    assertTrue(path + " not correct",
+        path.endsWith("com/purplepip/odin/snapshot/snapshot/Snapshot.json"));
+    snapshot.writeLine(0,"{ \"x\" : 1}");
+    snapshot.expectMatch();
+  }
+
 }

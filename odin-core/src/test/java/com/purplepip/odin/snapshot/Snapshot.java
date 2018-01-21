@@ -42,18 +42,89 @@ public class Snapshot {
   private static final Pattern lastSlash = Pattern.compile("(?:/)?[^/]*$");
   private Class<?> clazz;
   private Path path;
+  private boolean header = true;
+  private String variation = null;
+  private String separator = "-";
+  private String extension = "snap";
+
   /*
    * Snapshot could be written to by multiple threads so we need to guarantee thread safety
    * with a synchronised list.
    */
   private List<Entry> lines = Collections.synchronizedList(new ArrayList<>());
 
+  /**
+   * Create an instance with auto initialisation.
+   *
+   * @param clazz class to base the snapshot name on
+   */
   public Snapshot(Class<?> clazz) {
-    this.clazz = clazz;
-    initialise();
+    this(clazz, false);
   }
 
-  private void initialise() {
+  /**
+   * Create an instance.
+   *
+   * @param clazz class to base the snapshot name on
+   * @param autoInitialise whether to auto initialise the snapshot
+   */
+  public Snapshot(Class<?> clazz, boolean autoInitialise) {
+    this.clazz = clazz;
+    if (autoInitialise) {
+      initialise();
+    }
+  }
+
+  /**
+   * Whether to include header in snapshot.
+   *
+   * @param header whether to include header
+   * @return this
+   */
+  public Snapshot header(boolean header) {
+    this.header = header;
+    return this;
+  }
+
+  /**
+   * Variation in snapshot name.
+   *
+   * @param variation name variation
+   * @return this
+   */
+  public Snapshot variation(String variation) {
+    this.variation = variation;
+    return this;
+  }
+
+  /**
+   * Separator between standard name and variation.
+   *
+   * @param separator separator
+   * @return this
+   */
+  public Snapshot separator(String separator) {
+    this.separator = separator;
+    return this;
+  }
+
+  /**
+   * Extension for the snapshot file.
+   *
+   * @param extension extension
+   * @return this
+   */
+  public Snapshot extension(String extension) {
+    this.extension = extension;
+    return this;
+  }
+
+  /**
+   * Initialise this snapshot.
+   *
+   * @return this
+   */
+  public Snapshot initialise() {
     Path containerPath;
     try {
       containerPath = Paths.get(
@@ -69,16 +140,21 @@ public class Snapshot {
     LOG.debug("module path : {}", modulePath);
     Path classSourcePath = Paths
         .get(modulePath + "/src/test/resources/"
-        + clazz.getName().replace('.', '/'));
+            + clazz.getName().replace('.', '/'));
     LOG.debug("class source path : {}", classSourcePath);
     Path snapshotDirectoryPath = Paths.get(
         lastSlash.matcher(classSourcePath.toString()).replaceFirst("/snapshot"));
 
     LOG.debug("snapshot directory path : {}", snapshotDirectoryPath);
     path = Paths.get(
-        snapshotDirectoryPath.toString() + "/" + clazz.getSimpleName() + ".snap");
+        snapshotDirectoryPath.toString() + "/" + clazz.getSimpleName()
+            + (variation == null ? "" : separator + variation)
+            + (extension == null ? "" : "." + extension));
     LOG.debug("snapshot source path : {}", path);
-    lines.add(new Entry(-2,"SNAPSHOT : " + clazz.getName()));
+    if (header) {
+      lines.add(new Entry(-2, "SNAPSHOT : " + clazz.getName()));
+    }
+    return this;
   }
 
   /**
@@ -128,6 +204,10 @@ public class Snapshot {
 
   public Path getPath() {
     return path;
+  }
+
+  public void writeLine(String s) {
+    writeLine(0, s);
   }
 
   public void writeLine(long time, String s) {
