@@ -44,6 +44,20 @@ export class Clazz {
     this.getClazz = getClazz
   }
 
+  // Create new instance of this class from the references to the properties from the UI
+  newInstance(refs) {
+    var entity = {}
+    // Loop through the properties defined for the class and set the fields in the entity
+    // for each of these properties.
+    Object.keys(this.properties).map(function(name) {
+      var definition = this.properties[name]
+      if (!definition.readOnly) {
+        this.setFieldValue(entity, refs, name)
+      }
+    }, this)
+    return entity
+  }
+
   getBackEndClazz() {
     return _backEndClazz.get(this)
   }
