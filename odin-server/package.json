@@ -54,6 +54,7 @@
   },
   "scripts": {
     "watch": "webpack --watch -d",
+    "test-debug": "node_modules/.bin/jest --inspect-brk --runInBand",
     "test": "jest"
   },
   "devDependencies": {
