@@ -6,15 +6,6 @@
       "type" : "object",
       "additionalProperties" : false,
       "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "sequences" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/SequenceConfiguration"
-          }
-        },
         "channels" : {
           "type" : "array",
           "items" : {
@@ -27,6 +18,15 @@
             "$ref" : "#/definitions/Layer"
           }
         },
+        "name" : {
+          "type" : "string"
+        },
+        "sequences" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SequenceConfiguration"
+          }
+        },
         "triggers" : {
           "type" : "array",
           "items" : {
@@ -35,12 +35,34 @@
         }
       },
       "definitions" : {
-        "SequenceConfiguration" : {
+        "Channel" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "channel" : {
+            "name" : {
+              "type" : "string"
+            },
+            "number" : {
               "type" : "integer"
+            },
+            "program" : {
+              "type" : "integer"
+            },
+            "programName" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "name", "number", "program" ]
+        },
+        "Layer" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "enabled" : {
+              "type" : "boolean"
+            },
+            "endless" : {
+              "type" : "boolean"
             },
             "layers" : {
               "type" : "array",
@@ -48,61 +70,27 @@
                 "type" : "string"
               }
             },
-            "triggers" : {
-              "type" : "object",
-              "additionalProperties" : {
-                "$ref" : "#/definitions/ActionConfiguration"
-              }
-            },
-            "type" : {
-              "type" : "string"
+            "length" : {
+              "$ref" : "#/definitions/Rational"
             },
             "name" : {
               "type" : "string"
-            },
-            "length" : {
-              "$ref" : "#/definitions/Rational"
             },
             "offset" : {
               "$ref" : "#/definitions/Rational"
             },
             "tick" : {
               "$ref" : "#/definitions/Tick"
-            },
-            "endless" : {
-              "type" : "boolean"
-            },
-            "enabled" : {
-              "type" : "boolean"
             }
           },
-          "required" : [ "channel", "layers", "type", "name", "tick", "endless", "enabled" ]
-        },
-        "ActionConfiguration" : {
-          "type" : "object",
-          "additionalProperties" : false,
-          "properties" : {
-            "type" : {
-              "type" : "string"
-            },
-            "name" : {
-              "type" : "string"
-            }
-          },
-          "required" : [ "type", "name" ]
+          "required" : [ "enabled", "endless", "name", "tick" ]
         },
         "Rational" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "numerator" : {
-              "type" : "integer"
-            },
             "denominator" : {
               "type" : "integer"
-            },
-            "simplified" : {
-              "type" : "boolean"
             },
             "egyptianFractions" : {
               "$ref" : "#/definitions/Stream"
@@ -110,20 +98,26 @@
             "limit" : {
               "$ref" : "#/definitions/Rational"
             },
+            "negative" : {
+              "type" : "boolean"
+            },
+            "numerator" : {
+              "type" : "integer"
+            },
+            "positive" : {
+              "type" : "boolean"
+            },
+            "simplified" : {
+              "type" : "boolean"
+            },
             "value" : {
               "type" : "number"
             },
             "zero" : {
               "type" : "boolean"
-            },
-            "negative" : {
-              "type" : "boolean"
-            },
-            "positive" : {
-              "type" : "boolean"
             }
           },
-          "required" : [ "numerator", "denominator", "simplified", "value", "zero", "negative", "positive" ]
+          "required" : [ "denominator", "negative", "numerator", "positive", "simplified", "value", "zero" ]
         },
         "Stream" : {
           "type" : "object",
@@ -148,29 +142,19 @@
             }
           }
         },
-        "Channel" : {
+        "SequenceConfiguration" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "program" : {
+            "channel" : {
               "type" : "integer"
             },
-            "number" : {
-              "type" : "integer"
+            "enabled" : {
+              "type" : "boolean"
             },
-            "programName" : {
-              "type" : "string"
+            "endless" : {
+              "type" : "boolean"
             },
-            "name" : {
-              "type" : "string"
-            }
-          },
-          "required" : [ "program", "number", "name" ]
-        },
-        "Layer" : {
-          "type" : "object",
-          "additionalProperties" : false,
-          "properties" : {
             "layers" : {
               "type" : "array",
               "items" : {
@@ -180,36 +164,55 @@
             "length" : {
               "$ref" : "#/definitions/Rational"
             },
+            "name" : {
+              "type" : "string"
+            },
             "offset" : {
               "$ref" : "#/definitions/Rational"
             },
             "tick" : {
               "$ref" : "#/definitions/Tick"
             },
-            "endless" : {
-              "type" : "boolean"
+            "triggers" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "$ref" : "#/definitions/ActionConfiguration"
+              }
             },
-            "enabled" : {
-              "type" : "boolean"
-            },
-            "name" : {
+            "type" : {
               "type" : "string"
             }
           },
-          "required" : [ "tick", "endless", "enabled", "name" ]
+          "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ]
+        },
+        "ActionConfiguration" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "name" : {
+              "type" : "string"
+            },
+            "type" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "name", "type" ]
         },
         "TriggerConfiguration" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "type" : {
-              "type" : "string"
+            "enabled" : {
+              "type" : "boolean"
             },
-            "name" : {
-              "type" : "string"
+            "endless" : {
+              "type" : "boolean"
             },
             "length" : {
               "$ref" : "#/definitions/Rational"
+            },
+            "name" : {
+              "type" : "string"
             },
             "offset" : {
               "$ref" : "#/definitions/Rational"
@@ -217,14 +220,11 @@
             "tick" : {
               "$ref" : "#/definitions/Tick"
             },
-            "endless" : {
-              "type" : "boolean"
-            },
-            "enabled" : {
-              "type" : "boolean"
+            "type" : {
+              "type" : "string"
             }
           },
-          "required" : [ "type", "name", "tick", "endless", "enabled" ]
+          "required" : [ "enabled", "endless", "name", "tick", "type" ]
         }
       }
     },
@@ -234,9 +234,9 @@
       "type" : "object",
       "additionalProperties" : false,
       "properties" : {
-        "name" : {
-          "type" : "string",
-          "title" : "Name"
+        "channel" : {
+          "type" : "integer",
+          "title" : "Channel"
         },
         "enabled" : {
           "type" : "boolean",
@@ -246,32 +246,36 @@
           "type" : "boolean",
           "title" : "Endless"
         },
-        "tick" : {
-          "$ref" : "#/definitions/PersistableTick",
-          "title" : "Tick"
-        },
-        "length" : {
-          "type" : "integer",
-          "title" : "Length"
-        },
-        "offset" : {
-          "type" : "integer",
-          "title" : "Offset"
-        },
-        "channel" : {
-          "type" : "integer",
-          "title" : "Channel"
-        },
-        "type" : {
-          "type" : "string",
-          "title" : "Type"
-        },
         "layers" : {
           "type" : "array",
           "items" : {
             "type" : "string"
           },
           "title" : "Layers"
+        },
+        "length" : {
+          "type" : "integer",
+          "title" : "Length"
+        },
+        "name" : {
+          "type" : "string",
+          "title" : "Name"
+        },
+        "offset" : {
+          "type" : "integer",
+          "title" : "Offset"
+        },
+        "performance" : {
+          "type" : "string",
+          "title" : "Performance"
+        },
+        "performanceUri" : {
+          "type" : "string",
+          "title" : "Performance Uri"
+        },
+        "tick" : {
+          "$ref" : "#/definitions/PersistableTick",
+          "title" : "Tick"
         },
         "triggers" : {
           "type" : "object",
@@ -280,53 +284,148 @@
           },
           "title" : "Triggers"
         },
-        "performanceUri" : {
+        "type" : {
           "type" : "string",
-          "title" : "Performance Uri"
-        },
-        "performance" : {
-          "type" : "string",
-          "title" : "Performance"
+          "title" : "Type"
         }
       },
-      "required" : [ "name", "enabled", "endless", "tick", "channel", "type", "layers" ],
+      "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
       "definitions" : {
         "PersistableTick" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "timeUnit" : {
-              "type" : "string",
-              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
-              "title" : "Time Unit"
+            "denominator" : {
+              "type" : "integer",
+              "minimum" : 1,
+              "title" : "Denominator"
             },
             "numerator" : {
               "type" : "integer",
               "minimum" : 1,
               "title" : "Numerator"
             },
-            "denominator" : {
-              "type" : "integer",
-              "minimum" : 1,
-              "title" : "Denominator"
+            "timeUnit" : {
+              "type" : "string",
+              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
+              "title" : "Time Unit"
             }
           },
-          "required" : [ "numerator", "denominator" ]
+          "required" : [ "denominator", "numerator" ]
         },
         "ActionConfiguration" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "type" : {
-              "type" : "string",
-              "title" : "Type"
-            },
             "name" : {
               "type" : "string",
               "title" : "Name"
+            },
+            "type" : {
+              "type" : "string",
+              "title" : "Type"
             }
           },
-          "required" : [ "type", "name" ]
+          "required" : [ "name", "type" ]
+        }
+      }
+    },
+    "urn:jsonschema:com:purplepip:odin:creation:sequence:SequenceConfiguration" : {
+      "$schema" : "http://json-schema.org/draft-04/schema#",
+      "title" : "Performance Bound Sequence",
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "channel" : {
+          "type" : "integer",
+          "title" : "Channel"
+        },
+        "enabled" : {
+          "type" : "boolean",
+          "title" : "Enabled"
+        },
+        "endless" : {
+          "type" : "boolean",
+          "title" : "Endless"
+        },
+        "layers" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "title" : "Layers"
+        },
+        "length" : {
+          "type" : "integer",
+          "title" : "Length"
+        },
+        "name" : {
+          "type" : "string",
+          "title" : "Name"
+        },
+        "offset" : {
+          "type" : "integer",
+          "title" : "Offset"
+        },
+        "performance" : {
+          "type" : "string",
+          "format" : "uri",
+          "title" : "Performance"
+        },
+        "tick" : {
+          "$ref" : "#/definitions/PersistableTick",
+          "title" : "Tick"
+        },
+        "triggers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "$ref" : "#/definitions/ActionConfiguration"
+          },
+          "title" : "Triggers"
+        },
+        "type" : {
+          "type" : "string",
+          "title" : "Type"
+        }
+      },
+      "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
+      "definitions" : {
+        "PersistableTick" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "denominator" : {
+              "type" : "integer",
+              "minimum" : 1,
+              "title" : "Denominator"
+            },
+            "numerator" : {
+              "type" : "integer",
+              "minimum" : 1,
+              "title" : "Numerator"
+            },
+            "timeUnit" : {
+              "type" : "string",
+              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
+              "title" : "Time Unit"
+            }
+          },
+          "required" : [ "denominator", "numerator" ]
+        },
+        "ActionConfiguration" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "title" : "Name"
+            },
+            "type" : {
+              "type" : "string",
+              "title" : "Type"
+            }
+          },
+          "required" : [ "name", "type" ]
         }
       }
     },
@@ -336,9 +435,13 @@
       "type" : "object",
       "additionalProperties" : false,
       "properties" : {
-        "name" : {
-          "type" : "string",
-          "title" : "Name"
+        "bits" : {
+          "type" : "integer",
+          "title" : "Bits"
+        },
+        "channel" : {
+          "type" : "integer",
+          "title" : "Channel"
         },
         "enabled" : {
           "type" : "boolean",
@@ -348,32 +451,32 @@
           "type" : "boolean",
           "title" : "Endless"
         },
-        "tick" : {
-          "$ref" : "#/definitions/PersistableTick",
-          "title" : "Tick"
-        },
-        "length" : {
-          "type" : "integer",
-          "title" : "Length"
-        },
-        "offset" : {
-          "type" : "integer",
-          "title" : "Offset"
-        },
-        "channel" : {
-          "type" : "integer",
-          "title" : "Channel"
-        },
-        "type" : {
-          "type" : "string",
-          "title" : "Type"
-        },
         "layers" : {
           "type" : "array",
           "items" : {
             "type" : "string"
           },
           "title" : "Layers"
+        },
+        "length" : {
+          "type" : "integer",
+          "title" : "Length"
+        },
+        "name" : {
+          "type" : "string",
+          "title" : "Name"
+        },
+        "note" : {
+          "$ref" : "#/definitions/PersistableNote",
+          "title" : "Note"
+        },
+        "offset" : {
+          "type" : "integer",
+          "title" : "Offset"
+        },
+        "tick" : {
+          "$ref" : "#/definitions/PersistableTick",
+          "title" : "Tick"
         },
         "triggers" : {
           "type" : "object",
@@ -382,61 +485,21 @@
           },
           "title" : "Triggers"
         },
-        "bits" : {
-          "type" : "integer",
-          "title" : "Bits"
-        },
-        "note" : {
-          "$ref" : "#/definitions/PersistableNote",
-          "title" : "Note"
+        "type" : {
+          "type" : "string",
+          "title" : "Type"
         }
       },
-      "required" : [ "name", "enabled", "endless", "tick", "channel", "type", "layers", "bits" ],
+      "required" : [ "bits", "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
       "definitions" : {
-        "PersistableTick" : {
-          "type" : "object",
-          "additionalProperties" : false,
-          "properties" : {
-            "timeUnit" : {
-              "type" : "string",
-              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
-              "title" : "Time Unit"
-            },
-            "numerator" : {
-              "type" : "integer",
-              "minimum" : 1,
-              "title" : "Numerator"
-            },
-            "denominator" : {
-              "type" : "integer",
-              "minimum" : 1,
-              "title" : "Denominator"
-            }
-          },
-          "required" : [ "numerator", "denominator" ]
-        },
-        "ActionConfiguration" : {
-          "type" : "object",
-          "additionalProperties" : false,
-          "properties" : {
-            "type" : {
-              "type" : "string",
-              "title" : "Type"
-            },
-            "name" : {
-              "type" : "string",
-              "title" : "Name"
-            }
-          },
-          "required" : [ "type", "name" ]
-        },
         "PersistableNote" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "velocity" : {
+            "denominator" : {
               "type" : "integer",
-              "title" : "Velocity"
+              "minimum" : 1,
+              "title" : "Denominator"
             },
             "number" : {
               "type" : "integer",
@@ -447,13 +510,49 @@
               "minimum" : 1,
               "title" : "Numerator"
             },
+            "velocity" : {
+              "type" : "integer",
+              "title" : "Velocity"
+            }
+          },
+          "required" : [ "denominator", "number", "numerator", "velocity" ]
+        },
+        "PersistableTick" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
             "denominator" : {
               "type" : "integer",
               "minimum" : 1,
               "title" : "Denominator"
+            },
+            "numerator" : {
+              "type" : "integer",
+              "minimum" : 1,
+              "title" : "Numerator"
+            },
+            "timeUnit" : {
+              "type" : "string",
+              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
+              "title" : "Time Unit"
             }
           },
-          "required" : [ "velocity", "number", "numerator", "denominator" ]
+          "required" : [ "denominator", "numerator" ]
+        },
+        "ActionConfiguration" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "title" : "Name"
+            },
+            "type" : {
+              "type" : "string",
+              "title" : "Type"
+            }
+          },
+          "required" : [ "name", "type" ]
         }
       }
     },
@@ -463,9 +562,9 @@
       "type" : "object",
       "additionalProperties" : false,
       "properties" : {
-        "name" : {
-          "type" : "string",
-          "title" : "Name"
+        "channel" : {
+          "type" : "integer",
+          "title" : "Channel"
         },
         "enabled" : {
           "type" : "boolean",
@@ -475,32 +574,36 @@
           "type" : "boolean",
           "title" : "Endless"
         },
-        "tick" : {
-          "$ref" : "#/definitions/PersistableTick",
-          "title" : "Tick"
-        },
-        "length" : {
-          "type" : "integer",
-          "title" : "Length"
-        },
-        "offset" : {
-          "type" : "integer",
-          "title" : "Offset"
-        },
-        "channel" : {
-          "type" : "integer",
-          "title" : "Channel"
-        },
-        "type" : {
-          "type" : "string",
-          "title" : "Type"
-        },
         "layers" : {
           "type" : "array",
           "items" : {
             "type" : "string"
           },
           "title" : "Layers"
+        },
+        "length" : {
+          "type" : "integer",
+          "title" : "Length"
+        },
+        "name" : {
+          "type" : "string",
+          "title" : "Name"
+        },
+        "noteBarMid" : {
+          "$ref" : "#/definitions/PersistableNote",
+          "title" : "Note Bar Mid"
+        },
+        "noteBarStart" : {
+          "$ref" : "#/definitions/PersistableNote",
+          "title" : "Note Bar Start"
+        },
+        "offset" : {
+          "type" : "integer",
+          "title" : "Offset"
+        },
+        "tick" : {
+          "$ref" : "#/definitions/PersistableTick",
+          "title" : "Tick"
         },
         "triggers" : {
           "type" : "object",
@@ -509,61 +612,21 @@
           },
           "title" : "Triggers"
         },
-        "noteBarStart" : {
-          "$ref" : "#/definitions/PersistableNote",
-          "title" : "Note Bar Start"
-        },
-        "noteBarMid" : {
-          "$ref" : "#/definitions/PersistableNote",
-          "title" : "Note Bar Mid"
+        "type" : {
+          "type" : "string",
+          "title" : "Type"
         }
       },
-      "required" : [ "name", "enabled", "endless", "tick", "channel", "type", "layers" ],
+      "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
       "definitions" : {
-        "PersistableTick" : {
-          "type" : "object",
-          "additionalProperties" : false,
-          "properties" : {
-            "timeUnit" : {
-              "type" : "string",
-              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
-              "title" : "Time Unit"
-            },
-            "numerator" : {
-              "type" : "integer",
-              "minimum" : 1,
-              "title" : "Numerator"
-            },
-            "denominator" : {
-              "type" : "integer",
-              "minimum" : 1,
-              "title" : "Denominator"
-            }
-          },
-          "required" : [ "numerator", "denominator" ]
-        },
-        "ActionConfiguration" : {
-          "type" : "object",
-          "additionalProperties" : false,
-          "properties" : {
-            "type" : {
-              "type" : "string",
-              "title" : "Type"
-            },
-            "name" : {
-              "type" : "string",
-              "title" : "Name"
-            }
-          },
-          "required" : [ "type", "name" ]
-        },
         "PersistableNote" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "velocity" : {
+            "denominator" : {
               "type" : "integer",
-              "title" : "Velocity"
+              "minimum" : 1,
+              "title" : "Denominator"
             },
             "number" : {
               "type" : "integer",
@@ -574,13 +637,49 @@
               "minimum" : 1,
               "title" : "Numerator"
             },
+            "velocity" : {
+              "type" : "integer",
+              "title" : "Velocity"
+            }
+          },
+          "required" : [ "denominator", "number", "numerator", "velocity" ]
+        },
+        "PersistableTick" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
             "denominator" : {
               "type" : "integer",
               "minimum" : 1,
               "title" : "Denominator"
+            },
+            "numerator" : {
+              "type" : "integer",
+              "minimum" : 1,
+              "title" : "Numerator"
+            },
+            "timeUnit" : {
+              "type" : "string",
+              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
+              "title" : "Time Unit"
             }
           },
-          "required" : [ "velocity", "number", "numerator", "denominator" ]
+          "required" : [ "denominator", "numerator" ]
+        },
+        "ActionConfiguration" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "title" : "Name"
+            },
+            "type" : {
+              "type" : "string",
+              "title" : "Type"
+            }
+          },
+          "required" : [ "name", "type" ]
         }
       }
     },
@@ -590,9 +689,13 @@
       "type" : "object",
       "additionalProperties" : false,
       "properties" : {
-        "name" : {
-          "type" : "string",
-          "title" : "Name"
+        "bits" : {
+          "type" : "integer",
+          "title" : "Bits"
+        },
+        "channel" : {
+          "type" : "integer",
+          "title" : "Channel"
         },
         "enabled" : {
           "type" : "boolean",
@@ -602,32 +705,36 @@
           "type" : "boolean",
           "title" : "Endless"
         },
-        "tick" : {
-          "$ref" : "#/definitions/PersistableTick",
-          "title" : "Tick"
-        },
-        "length" : {
-          "type" : "integer",
-          "title" : "Length"
-        },
-        "offset" : {
-          "type" : "integer",
-          "title" : "Offset"
-        },
-        "channel" : {
-          "type" : "integer",
-          "title" : "Channel"
-        },
-        "type" : {
-          "type" : "string",
-          "title" : "Type"
-        },
         "layers" : {
           "type" : "array",
           "items" : {
             "type" : "string"
           },
           "title" : "Layers"
+        },
+        "length" : {
+          "type" : "integer",
+          "title" : "Length"
+        },
+        "lower" : {
+          "type" : "integer",
+          "title" : "Lower"
+        },
+        "name" : {
+          "type" : "string",
+          "title" : "Name"
+        },
+        "note" : {
+          "$ref" : "#/definitions/PersistableNote",
+          "title" : "Note"
+        },
+        "offset" : {
+          "type" : "integer",
+          "title" : "Offset"
+        },
+        "tick" : {
+          "$ref" : "#/definitions/PersistableTick",
+          "title" : "Tick"
         },
         "triggers" : {
           "type" : "object",
@@ -636,69 +743,25 @@
           },
           "title" : "Triggers"
         },
-        "bits" : {
-          "type" : "integer",
-          "title" : "Bits"
-        },
-        "note" : {
-          "$ref" : "#/definitions/PersistableNote",
-          "title" : "Note"
+        "type" : {
+          "type" : "string",
+          "title" : "Type"
         },
         "upper" : {
           "type" : "integer",
           "title" : "Upper"
-        },
-        "lower" : {
-          "type" : "integer",
-          "title" : "Lower"
         }
       },
-      "required" : [ "name", "enabled", "endless", "tick", "channel", "type", "layers", "bits", "upper", "lower" ],
+      "required" : [ "bits", "channel", "enabled", "endless", "layers", "lower", "name", "tick", "type", "upper" ],
       "definitions" : {
-        "PersistableTick" : {
-          "type" : "object",
-          "additionalProperties" : false,
-          "properties" : {
-            "timeUnit" : {
-              "type" : "string",
-              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
-              "title" : "Time Unit"
-            },
-            "numerator" : {
-              "type" : "integer",
-              "minimum" : 1,
-              "title" : "Numerator"
-            },
-            "denominator" : {
-              "type" : "integer",
-              "minimum" : 1,
-              "title" : "Denominator"
-            }
-          },
-          "required" : [ "numerator", "denominator" ]
-        },
-        "ActionConfiguration" : {
-          "type" : "object",
-          "additionalProperties" : false,
-          "properties" : {
-            "type" : {
-              "type" : "string",
-              "title" : "Type"
-            },
-            "name" : {
-              "type" : "string",
-              "title" : "Name"
-            }
-          },
-          "required" : [ "type", "name" ]
-        },
         "PersistableNote" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "velocity" : {
+            "denominator" : {
               "type" : "integer",
-              "title" : "Velocity"
+              "minimum" : 1,
+              "title" : "Denominator"
             },
             "number" : {
               "type" : "integer",
@@ -709,13 +772,49 @@
               "minimum" : 1,
               "title" : "Numerator"
             },
+            "velocity" : {
+              "type" : "integer",
+              "title" : "Velocity"
+            }
+          },
+          "required" : [ "denominator", "number", "numerator", "velocity" ]
+        },
+        "PersistableTick" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
             "denominator" : {
               "type" : "integer",
               "minimum" : 1,
               "title" : "Denominator"
+            },
+            "numerator" : {
+              "type" : "integer",
+              "minimum" : 1,
+              "title" : "Numerator"
+            },
+            "timeUnit" : {
+              "type" : "string",
+              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
+              "title" : "Time Unit"
             }
           },
-          "required" : [ "velocity", "number", "numerator", "denominator" ]
+          "required" : [ "denominator", "numerator" ]
+        },
+        "ActionConfiguration" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "properties" : {
+            "name" : {
+              "type" : "string",
+              "title" : "Name"
+            },
+            "type" : {
+              "type" : "string",
+              "title" : "Type"
+            }
+          },
+          "required" : [ "name", "type" ]
         }
       }
     },
@@ -725,9 +824,9 @@
       "type" : "object",
       "additionalProperties" : false,
       "properties" : {
-        "name" : {
-          "type" : "string",
-          "title" : "Name"
+        "channel" : {
+          "type" : "integer",
+          "title" : "Channel"
         },
         "enabled" : {
           "type" : "boolean",
@@ -737,25 +836,9 @@
           "type" : "boolean",
           "title" : "Endless"
         },
-        "tick" : {
-          "$ref" : "#/definitions/PersistableTick",
-          "title" : "Tick"
-        },
-        "length" : {
-          "type" : "integer",
-          "title" : "Length"
-        },
-        "offset" : {
-          "type" : "integer",
-          "title" : "Offset"
-        },
-        "channel" : {
-          "type" : "integer",
-          "title" : "Channel"
-        },
-        "type" : {
+        "format" : {
           "type" : "string",
-          "title" : "Type"
+          "title" : "Format"
         },
         "layers" : {
           "type" : "array",
@@ -764,6 +847,26 @@
           },
           "title" : "Layers"
         },
+        "length" : {
+          "type" : "integer",
+          "title" : "Length"
+        },
+        "name" : {
+          "type" : "string",
+          "title" : "Name"
+        },
+        "notation" : {
+          "type" : "string",
+          "title" : "Notation"
+        },
+        "offset" : {
+          "type" : "integer",
+          "title" : "Offset"
+        },
+        "tick" : {
+          "$ref" : "#/definitions/PersistableTick",
+          "title" : "Tick"
+        },
         "triggers" : {
           "type" : "object",
           "additionalProperties" : {
@@ -771,53 +874,49 @@
           },
           "title" : "Triggers"
         },
-        "format" : {
+        "type" : {
           "type" : "string",
-          "title" : "Format"
-        },
-        "notation" : {
-          "type" : "string",
-          "title" : "Notation"
+          "title" : "Type"
         }
       },
-      "required" : [ "name", "enabled", "endless", "tick", "channel", "type", "layers" ],
+      "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
       "definitions" : {
         "PersistableTick" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "timeUnit" : {
-              "type" : "string",
-              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
-              "title" : "Time Unit"
+            "denominator" : {
+              "type" : "integer",
+              "minimum" : 1,
+              "title" : "Denominator"
             },
             "numerator" : {
               "type" : "integer",
               "minimum" : 1,
               "title" : "Numerator"
             },
-            "denominator" : {
-              "type" : "integer",
-              "minimum" : 1,
-              "title" : "Denominator"
+            "timeUnit" : {
+              "type" : "string",
+              "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ],
+              "title" : "Time Unit"
             }
           },
-          "required" : [ "numerator", "denominator" ]
+          "required" : [ "denominator", "numerator" ]
         },
         "ActionConfiguration" : {
           "type" : "object",
           "additionalProperties" : false,
           "properties" : {
-            "type" : {
-              "type" : "string",
-              "title" : "Type"
-            },
             "name" : {
               "type" : "string",
               "title" : "Name"
+            },
+            "type" : {
+              "type" : "string",
+              "title" : "Type"
             }
           },
-          "required" : [ "type", "name" ]
+          "required" : [ "name", "type" ]
         }
       }
     }
@@ -829,5 +928,5 @@
     "metronome" : "flow-metronome",
     "pattern" : "flow-pattern"
   },
-  "typeRefs" : [ "urn:jsonschema:com:purplepip:odin:performance:Performance", "flow-loader", "flow-pattern", "flow-metronome", "flow-random", "flow-notation" ]
+  "typeRefs" : [ "urn:jsonschema:com:purplepip:odin:performance:Performance", "flow-loader", "urn:jsonschema:com:purplepip:odin:creation:sequence:SequenceConfiguration", "flow-pattern", "flow-metronome", "flow-random", "flow-notation" ]
 }

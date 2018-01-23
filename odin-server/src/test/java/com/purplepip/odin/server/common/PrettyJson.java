@@ -20,6 +20,12 @@ import com.purplepip.odin.common.OdinRuntimeException;
 import java.io.IOException;
 
 public class PrettyJson {
+  /**
+   * Pretty print given JSON string.
+   *
+   * @param json JSON to pretty print
+   * @return pretty printed JSON
+   */
   public static String toPrettyJson(String json) {
     ObjectMapper mapper = new ObjectMapper();
     try {

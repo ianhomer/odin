@@ -155,8 +155,8 @@ public class Snapshot {
       throw new OdinRuntimeException("Cannot initialise path", e);
     }
     LOG.debug("container path : {}", containerPath);
-    if (!containerPath.toString().endsWith("target/test-classes") &&
-        !containerPath.toString().endsWith("target/classes")) {
+    if (!containerPath.toString().endsWith("target/test-classes")
+        && !containerPath.toString().endsWith("target/classes")) {
       throw new OdinRuntimeException("Container path is not expected : " + containerPath);
     }
     /*

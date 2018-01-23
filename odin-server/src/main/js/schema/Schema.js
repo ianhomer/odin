@@ -197,6 +197,8 @@ export class Schema {
     e.preventDefault()
     var entity = {}
     var clazz = this.getClazz(clazzId)
+    // Loop through the properties defined for the class and set the fields in the entity
+    // for each of these properties.
     Object.keys(clazz.properties).map(function(name) {
       var definition = clazz.properties[name]
       if (!definition.readOnly) {

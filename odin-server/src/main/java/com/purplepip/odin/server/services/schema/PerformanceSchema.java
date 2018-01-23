@@ -23,10 +23,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaConfig;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.sequence.SequenceFactory;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.performance.Performance;
+import com.purplepip.odin.store.domain.PerformanceBoundSequence;
 import com.purplepip.odin.store.domain.PersistableNote;
 import com.purplepip.odin.store.domain.PersistableTick;
 import java.util.HashMap;
@@ -50,6 +52,7 @@ public class PerformanceSchema {
    */
   public PerformanceSchema() {
     ObjectMapper mapper = new ObjectMapper();
+    mapper.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
     mapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
 
     Map<String, String> customType2FormatMapping = new HashMap<>();
@@ -59,6 +62,8 @@ public class PerformanceSchema {
     classTypeMapping.put(Performance.class, String.class);
     classTypeMapping.put(Tick.class, PersistableTick.class);
     classTypeMapping.put(Note.class, PersistableNote.class);
+    classTypeMapping.put(SequenceConfiguration.class, PerformanceBoundSequence.class);
+
     /*
      * TODO : Treat rationals as better than integers
      */
@@ -87,12 +92,16 @@ public class PerformanceSchema {
      */
     registerType(schemaGenerator, Performance.class, getSchemaReference(Performance.class));
 
+    JsonSchemaGenerator customSchemaGenerator = new JsonSchemaGenerator(mapper, config);
+
+    registerType(customSchemaGenerator, SequenceConfiguration.class,
+        getSchemaReference(SequenceConfiguration.class));
+
     /*
      * Register sequence flows performance referenced.
      */
-    JsonSchemaGenerator flowSchemaGenerator = new JsonSchemaGenerator(mapper, config);
     factory.getNames().forEach(name ->
-        registerFlow(flowSchemaGenerator, name, factory.getClass(name))
+        registerFlow(customSchemaGenerator, name, factory.getClass(name))
     );
   }
 

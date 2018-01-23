@@ -52,7 +52,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
 public class PersistableSequence  extends PersistableTimeThing
-    implements MutableSequenceConfiguration, PerformanceBound {
+    implements MutableSequenceConfiguration, PerformanceBoundSequence {
   @ManyToOne(targetEntity = PersistablePerformance.class)
   @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
   private Performance performance;
