@@ -150,12 +150,13 @@ public class Snapshot {
     Path containerPath;
     try {
       containerPath = Paths.get(
-          getClass().getProtectionDomain().getCodeSource().getLocation().toURI());
+          clazz.getProtectionDomain().getCodeSource().getLocation().toURI());
     } catch (URISyntaxException e) {
       throw new OdinRuntimeException("Cannot initialise path", e);
     }
     LOG.debug("container path : {}", containerPath);
-    if (!containerPath.toString().endsWith("target/test-classes")) {
+    if (!containerPath.toString().endsWith("target/test-classes") &&
+        !containerPath.toString().endsWith("target/classes")) {
       throw new OdinRuntimeException("Container path is not expected : " + containerPath);
     }
     /*
