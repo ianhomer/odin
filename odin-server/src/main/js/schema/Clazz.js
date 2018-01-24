@@ -35,12 +35,27 @@ export class Clazz {
     this.id = id
     _frontEndSchema.set(this, frontEndSchema)
     // private variable
-    this._getProperties = function() { return frontEndSchema.properties }
+    var properties = {}
+    // Copy front end schema variables into properties
+    for (var propertyName in frontEndSchema.properties) {
+      properties[propertyName] = frontEndSchema.properties[propertyName]
+    }
+
     if (backEndClazz) {
       _backEndClazz.set(this, backEndClazz)
+      // Copy back end schema variables into properties that have not been defined by front end.
+      // However do NOT set the property named properties since this is only for the purposes
+      // of the back end class.
+      for (var backEndPropertyName in backEndClazz._getProperties()) {
+        if (!(backEndPropertyName in properties) && backEndPropertyName != 'properties') {
+          properties[backEndPropertyName] = backEndClazz.getProperty(backEndPropertyName)
+        }
+      }
     } else {
       _backEndClazz.set(this, this)
     }
+
+    this._getProperties = function() { return properties }
     this.path = backEndClazz ? backEndClazz.id : id
     this.getClazz = getClazz
   }

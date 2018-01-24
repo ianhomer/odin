@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Sequences container renders OK 1`] = `
+exports[`Sequence container validation Sequences update 1`] = `
 <Notation
   clazz={
     Clazz {
@@ -252,7 +252,7 @@ exports[`Sequences container renders OK 1`] = `
 </Notation>
 `;
 
-exports[`Sequences container renders OK 2`] = `
+exports[`Sequence container validation Sequences update 2`] = `
 <Notation
   clazz={
     Clazz {
@@ -752,7 +752,7 @@ exports[`Sequences container renders OK 2`] = `
 </Notation>
 `;
 
-exports[`Sequences container renders OK 3`] = `
+exports[`Sequence container validation Sequences update 3`] = `
 <Notation
   clazz={
     Clazz {
@@ -1318,7 +1318,7 @@ exports[`Sequences container renders OK 3`] = `
 </Notation>
 `;
 
-exports[`Sequences container renders OK 4`] = `
+exports[`Sequence container validation Sequences update 4`] = `
 <Notation
   clazz={
     Clazz {
@@ -1341,6 +1341,7 @@ exports[`Sequences container renders OK 4`] = `
       ],
       "length": -1,
       "name": "aahs-changed",
+      "performance": "http://localhost:8080/api/performance/1",
       "properties": Object {
         "format": "natural",
         "notation": "C D E",
@@ -1469,6 +1470,7 @@ exports[`Sequences container renders OK 4`] = `
             ],
             "length": -1,
             "name": "aahs-changed",
+            "performance": "http://localhost:8080/api/performance/1",
             "properties": Object {
               "format": "natural",
               "notation": "C D E",

@@ -8,13 +8,17 @@ describe('Clazz validation', () => {
       'profiles': {'sequence': testSequenceJson},
       'performance': testSchemaJson
     })
-    var notationClazz = schema.getClazz('flow-notation')
+    var clazz = schema.getClazz('flow-notation')
+    // specific plugin shouldn't have general properties defined
+    expect(clazz.hasProperty('properties')).toBe(false)
+    // specific plugin should have performance defined
+    expect(clazz.hasProperty('performance')).toBe(true)
     var refs = {
       'name': {'value': 'test-name'},
       'performance': {'value': 'http://localhost:8080/api/performance/1'}
     }
-    var entity = notationClazz.newInstance(refs)
+    var entity = clazz.newInstance(refs)
     expect(entity.name).toBe('test-name')
-    //expect(entity.performance).toBe('http://localhost:8080/api/performance/1')
+    expect(entity.performance).toBe('http://localhost:8080/api/performance/1')
   })
 })

@@ -51,7 +51,7 @@ To debug a single JS test, add the line
     
 into the script to define a break point then start test with    
     
-    node --inspect-brk node_modules/.bin/jest --runInBand clazz.test.js
+    ./jest-debug.sh clazz.test.js
     
 Open up chrome://inspect in Chrome and step through the debugger
 
