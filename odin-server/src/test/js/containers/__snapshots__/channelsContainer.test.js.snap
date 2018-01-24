@@ -48,49 +48,16 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost:8080/api/channel/3",
+                  "href": "http://localhost/api/channel/3",
                 },
                 "performance": Object {
-                  "href": "http://localhost:8080/api/channel/3/performance",
+                  "href": "http://localhost/api/channel/3/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost:8080/api/channel/3",
+                  "href": "http://localhost/api/channel/3",
                 },
               },
-              "number": 2,
-              "path": "channel",
-              "program": 0,
-              "programName": "rock",
-            },
-            Object {
-              "_links": Object {
-                "channel": Object {
-                  "href": "http://localhost:8080/api/channel/4",
-                },
-                "performance": Object {
-                  "href": "http://localhost:8080/api/channel/4/performance",
-                },
-                "self": Object {
-                  "href": "http://localhost:8080/api/channel/4",
-                },
-              },
-              "number": 3,
-              "path": "channel",
-              "program": 0,
-              "programName": "strings",
-            },
-            Object {
-              "_links": Object {
-                "channel": Object {
-                  "href": "http://localhost:8080/api/channel/5",
-                },
-                "performance": Object {
-                  "href": "http://localhost:8080/api/channel/5/performance",
-                },
-                "self": Object {
-                  "href": "http://localhost:8080/api/channel/5",
-                },
-              },
+              "name": "10",
               "number": 4,
               "path": "channel",
               "program": 0,
@@ -99,15 +66,16 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost:8080/api/channel/6",
+                  "href": "http://localhost/api/channel/5",
                 },
                 "performance": Object {
-                  "href": "http://localhost:8080/api/channel/6/performance",
+                  "href": "http://localhost/api/channel/5/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost:8080/api/channel/6",
+                  "href": "http://localhost/api/channel/5",
                 },
               },
+              "name": "12",
               "number": 5,
               "path": "channel",
               "program": 0,
@@ -116,15 +84,16 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost:8080/api/channel/7",
+                  "href": "http://localhost/api/channel/7",
                 },
                 "performance": Object {
-                  "href": "http://localhost:8080/api/channel/7/performance",
+                  "href": "http://localhost/api/channel/7/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost:8080/api/channel/7",
+                  "href": "http://localhost/api/channel/7",
                 },
               },
+              "name": "14",
               "number": 9,
               "path": "channel",
               "program": 0,
@@ -133,19 +102,56 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost:8080/api/channel/4392",
+                  "href": "http://localhost/api/channel/2",
                 },
                 "performance": Object {
-                  "href": "http://localhost:8080/api/channel/4392/performance",
+                  "href": "http://localhost/api/channel/2/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost:8080/api/channel/4392",
+                  "href": "http://localhost/api/channel/2",
                 },
               },
+              "name": "4",
               "number": 1,
               "path": "channel",
               "program": 0,
-              "programName": "pianoZ",
+              "programName": "piano",
+            },
+            Object {
+              "_links": Object {
+                "channel": Object {
+                  "href": "http://localhost/api/channel/6",
+                },
+                "performance": Object {
+                  "href": "http://localhost/api/channel/6/performance",
+                },
+                "self": Object {
+                  "href": "http://localhost/api/channel/6",
+                },
+              },
+              "name": "6",
+              "number": 2,
+              "path": "channel",
+              "program": 0,
+              "programName": "rock",
+            },
+            Object {
+              "_links": Object {
+                "channel": Object {
+                  "href": "http://localhost/api/channel/4",
+                },
+                "performance": Object {
+                  "href": "http://localhost/api/channel/4/performance",
+                },
+                "self": Object {
+                  "href": "http://localhost/api/channel/4",
+                },
+              },
+              "name": "8",
+              "number": 3,
+              "path": "channel",
+              "program": 0,
+              "programName": "strings",
             },
           ],
           "newEntities": Object {},
@@ -192,49 +198,16 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost:8080/api/channel/3",
+                      "href": "http://localhost/api/channel/3",
                     },
                     "performance": Object {
-                      "href": "http://localhost:8080/api/channel/3/performance",
+                      "href": "http://localhost/api/channel/3/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost:8080/api/channel/3",
+                      "href": "http://localhost/api/channel/3",
                     },
                   },
-                  "number": 2,
-                  "path": "channel",
-                  "program": 0,
-                  "programName": "rock",
-                },
-                Object {
-                  "_links": Object {
-                    "channel": Object {
-                      "href": "http://localhost:8080/api/channel/4",
-                    },
-                    "performance": Object {
-                      "href": "http://localhost:8080/api/channel/4/performance",
-                    },
-                    "self": Object {
-                      "href": "http://localhost:8080/api/channel/4",
-                    },
-                  },
-                  "number": 3,
-                  "path": "channel",
-                  "program": 0,
-                  "programName": "strings",
-                },
-                Object {
-                  "_links": Object {
-                    "channel": Object {
-                      "href": "http://localhost:8080/api/channel/5",
-                    },
-                    "performance": Object {
-                      "href": "http://localhost:8080/api/channel/5/performance",
-                    },
-                    "self": Object {
-                      "href": "http://localhost:8080/api/channel/5",
-                    },
-                  },
+                  "name": "10",
                   "number": 4,
                   "path": "channel",
                   "program": 0,
@@ -243,15 +216,16 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost:8080/api/channel/6",
+                      "href": "http://localhost/api/channel/5",
                     },
                     "performance": Object {
-                      "href": "http://localhost:8080/api/channel/6/performance",
+                      "href": "http://localhost/api/channel/5/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost:8080/api/channel/6",
+                      "href": "http://localhost/api/channel/5",
                     },
                   },
+                  "name": "12",
                   "number": 5,
                   "path": "channel",
                   "program": 0,
@@ -260,15 +234,16 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost:8080/api/channel/7",
+                      "href": "http://localhost/api/channel/7",
                     },
                     "performance": Object {
-                      "href": "http://localhost:8080/api/channel/7/performance",
+                      "href": "http://localhost/api/channel/7/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost:8080/api/channel/7",
+                      "href": "http://localhost/api/channel/7",
                     },
                   },
+                  "name": "14",
                   "number": 9,
                   "path": "channel",
                   "program": 0,
@@ -277,19 +252,56 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost:8080/api/channel/4392",
+                      "href": "http://localhost/api/channel/2",
                     },
                     "performance": Object {
-                      "href": "http://localhost:8080/api/channel/4392/performance",
+                      "href": "http://localhost/api/channel/2/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost:8080/api/channel/4392",
+                      "href": "http://localhost/api/channel/2",
                     },
                   },
+                  "name": "4",
                   "number": 1,
                   "path": "channel",
                   "program": 0,
-                  "programName": "pianoZ",
+                  "programName": "piano",
+                },
+                Object {
+                  "_links": Object {
+                    "channel": Object {
+                      "href": "http://localhost/api/channel/6",
+                    },
+                    "performance": Object {
+                      "href": "http://localhost/api/channel/6/performance",
+                    },
+                    "self": Object {
+                      "href": "http://localhost/api/channel/6",
+                    },
+                  },
+                  "name": "6",
+                  "number": 2,
+                  "path": "channel",
+                  "program": 0,
+                  "programName": "rock",
+                },
+                Object {
+                  "_links": Object {
+                    "channel": Object {
+                      "href": "http://localhost/api/channel/4",
+                    },
+                    "performance": Object {
+                      "href": "http://localhost/api/channel/4/performance",
+                    },
+                    "self": Object {
+                      "href": "http://localhost/api/channel/4",
+                    },
+                  },
+                  "name": "8",
+                  "number": 3,
+                  "path": "channel",
+                  "program": 0,
+                  "programName": "strings",
                 },
               ],
               "newEntities": Object {},
@@ -366,111 +378,16 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost:8080/api/channel/3",
+                        "href": "http://localhost/api/channel/3",
                       },
                       "performance": Object {
-                        "href": "http://localhost:8080/api/channel/3/performance",
+                        "href": "http://localhost/api/channel/3/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost:8080/api/channel/3",
+                        "href": "http://localhost/api/channel/3",
                       },
                     },
-                    "number": 2,
-                    "path": "channel",
-                    "program": 0,
-                    "programName": "rock",
-                  }
-                }
-                onDelete={[Function]}
-              >
-                <div
-                  className="row"
-                >
-                  <div
-                    className="col-2"
-                  >
-                    2
-                  </div>
-                  <div
-                    className="col-3"
-                  >
-                    rock
-                  </div>
-                  <div
-                    className="col-1"
-                  >
-                    <button
-                      className="btn btn-primary"
-                      onClick={[Function]}
-                      type="submit"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </Channel>
-              <Channel
-                entity={
-                  Object {
-                    "_links": Object {
-                      "channel": Object {
-                        "href": "http://localhost:8080/api/channel/4",
-                      },
-                      "performance": Object {
-                        "href": "http://localhost:8080/api/channel/4/performance",
-                      },
-                      "self": Object {
-                        "href": "http://localhost:8080/api/channel/4",
-                      },
-                    },
-                    "number": 3,
-                    "path": "channel",
-                    "program": 0,
-                    "programName": "strings",
-                  }
-                }
-                onDelete={[Function]}
-              >
-                <div
-                  className="row"
-                >
-                  <div
-                    className="col-2"
-                  >
-                    3
-                  </div>
-                  <div
-                    className="col-3"
-                  >
-                    strings
-                  </div>
-                  <div
-                    className="col-1"
-                  >
-                    <button
-                      className="btn btn-primary"
-                      onClick={[Function]}
-                      type="submit"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </Channel>
-              <Channel
-                entity={
-                  Object {
-                    "_links": Object {
-                      "channel": Object {
-                        "href": "http://localhost:8080/api/channel/5",
-                      },
-                      "performance": Object {
-                        "href": "http://localhost:8080/api/channel/5/performance",
-                      },
-                      "self": Object {
-                        "href": "http://localhost:8080/api/channel/5",
-                      },
-                    },
+                    "name": "10",
                     "number": 4,
                     "path": "channel",
                     "program": 0,
@@ -510,15 +427,16 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost:8080/api/channel/6",
+                        "href": "http://localhost/api/channel/5",
                       },
                       "performance": Object {
-                        "href": "http://localhost:8080/api/channel/6/performance",
+                        "href": "http://localhost/api/channel/5/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost:8080/api/channel/6",
+                        "href": "http://localhost/api/channel/5",
                       },
                     },
+                    "name": "12",
                     "number": 5,
                     "path": "channel",
                     "program": 0,
@@ -558,15 +476,16 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost:8080/api/channel/7",
+                        "href": "http://localhost/api/channel/7",
                       },
                       "performance": Object {
-                        "href": "http://localhost:8080/api/channel/7/performance",
+                        "href": "http://localhost/api/channel/7/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost:8080/api/channel/7",
+                        "href": "http://localhost/api/channel/7",
                       },
                     },
+                    "name": "14",
                     "number": 9,
                     "path": "channel",
                     "program": 0,
@@ -606,19 +525,20 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost:8080/api/channel/4392",
+                        "href": "http://localhost/api/channel/2",
                       },
                       "performance": Object {
-                        "href": "http://localhost:8080/api/channel/4392/performance",
+                        "href": "http://localhost/api/channel/2/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost:8080/api/channel/4392",
+                        "href": "http://localhost/api/channel/2",
                       },
                     },
+                    "name": "4",
                     "number": 1,
                     "path": "channel",
                     "program": 0,
-                    "programName": "pianoZ",
+                    "programName": "piano",
                   }
                 }
                 onDelete={[Function]}
@@ -634,7 +554,105 @@ exports[`Channels container Initialise 1`] = `
                   <div
                     className="col-3"
                   >
-                    pianoZ
+                    piano
+                  </div>
+                  <div
+                    className="col-1"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Channel>
+              <Channel
+                entity={
+                  Object {
+                    "_links": Object {
+                      "channel": Object {
+                        "href": "http://localhost/api/channel/6",
+                      },
+                      "performance": Object {
+                        "href": "http://localhost/api/channel/6/performance",
+                      },
+                      "self": Object {
+                        "href": "http://localhost/api/channel/6",
+                      },
+                    },
+                    "name": "6",
+                    "number": 2,
+                    "path": "channel",
+                    "program": 0,
+                    "programName": "rock",
+                  }
+                }
+                onDelete={[Function]}
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-2"
+                  >
+                    2
+                  </div>
+                  <div
+                    className="col-3"
+                  >
+                    rock
+                  </div>
+                  <div
+                    className="col-1"
+                  >
+                    <button
+                      className="btn btn-primary"
+                      onClick={[Function]}
+                      type="submit"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Channel>
+              <Channel
+                entity={
+                  Object {
+                    "_links": Object {
+                      "channel": Object {
+                        "href": "http://localhost/api/channel/4",
+                      },
+                      "performance": Object {
+                        "href": "http://localhost/api/channel/4/performance",
+                      },
+                      "self": Object {
+                        "href": "http://localhost/api/channel/4",
+                      },
+                    },
+                    "name": "8",
+                    "number": 3,
+                    "path": "channel",
+                    "program": 0,
+                    "programName": "strings",
+                  }
+                }
+                onDelete={[Function]}
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="col-2"
+                  >
+                    3
+                  </div>
+                  <div
+                    className="col-3"
+                  >
+                    strings
                   </div>
                   <div
                     className="col-1"

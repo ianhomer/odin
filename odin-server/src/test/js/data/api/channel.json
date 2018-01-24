@@ -1,110 +1,109 @@
 {
-  "_embedded": {
-    "channel": [
-      {
-        "number": 2,
-        "programName": "rock",
-        "program": 0,
-        "_links": {
-          "self": {
-            "href": "http://localhost:8080/api/channel/3"
-          },
-          "channel": {
-            "href": "http://localhost:8080/api/channel/3"
-          },
-          "performance": {
-            "href": "http://localhost:8080/api/channel/3/performance"
-          }
+  "_embedded" : {
+    "channel" : [ {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/channel/3"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/channel/3/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/channel/3"
         }
       },
-      {
-        "number": 3,
-        "programName": "strings",
-        "program": 0,
-        "_links": {
-          "self": {
-            "href": "http://localhost:8080/api/channel/4"
-          },
-          "channel": {
-            "href": "http://localhost:8080/api/channel/4"
-          },
-          "performance": {
-            "href": "http://localhost:8080/api/channel/4/performance"
-          }
+      "name" : "10",
+      "number" : 4,
+      "program" : 0,
+      "programName" : "aahs"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/channel/5"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/channel/5/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/channel/5"
         }
       },
-      {
-        "number": 4,
-        "programName": "aahs",
-        "program": 0,
-        "_links": {
-          "self": {
-            "href": "http://localhost:8080/api/channel/5"
-          },
-          "channel": {
-            "href": "http://localhost:8080/api/channel/5"
-          },
-          "performance": {
-            "href": "http://localhost:8080/api/channel/5/performance"
-          }
+      "name" : "12",
+      "number" : 5,
+      "program" : 0,
+      "programName" : "bass"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/channel/7"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/channel/7/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/channel/7"
         }
       },
-      {
-        "number": 5,
-        "programName": "bass",
-        "program": 0,
-        "_links": {
-          "self": {
-            "href": "http://localhost:8080/api/channel/6"
-          },
-          "channel": {
-            "href": "http://localhost:8080/api/channel/6"
-          },
-          "performance": {
-            "href": "http://localhost:8080/api/channel/6/performance"
-          }
+      "name" : "14",
+      "number" : 9,
+      "program" : 0,
+      "programName" : "Power Drums"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/channel/2"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/channel/2/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/channel/2"
         }
       },
-      {
-        "number": 9,
-        "programName": "Power Drums",
-        "program": 0,
-        "_links": {
-          "self": {
-            "href": "http://localhost:8080/api/channel/7"
-          },
-          "channel": {
-            "href": "http://localhost:8080/api/channel/7"
-          },
-          "performance": {
-            "href": "http://localhost:8080/api/channel/7/performance"
-          }
+      "name" : "4",
+      "number" : 1,
+      "program" : 0,
+      "programName" : "piano"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/channel/6"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/channel/6/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/channel/6"
         }
       },
-      {
-        "number": 1,
-        "programName": "pianoZ",
-        "program": 0,
-        "_links": {
-          "self": {
-            "href": "http://localhost:8080/api/channel/4392"
-          },
-          "channel": {
-            "href": "http://localhost:8080/api/channel/4392"
-          },
-          "performance": {
-            "href": "http://localhost:8080/api/channel/4392/performance"
-          }
+      "name" : "6",
+      "number" : 2,
+      "program" : 0,
+      "programName" : "rock"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/channel/4"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/channel/4/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/channel/4"
         }
-      }
-    ]
+      },
+      "name" : "8",
+      "number" : 3,
+      "program" : 0,
+      "programName" : "strings"
+    } ]
   },
-  "_links": {
-    "self": {
-      "href": "http://localhost:8080/api/channel"
+  "_links" : {
+    "profile" : {
+      "href" : "http://localhost/api/profile/channel"
     },
-    "profile": {
-      "href": "http://localhost:8080/api/profile/channel"
+    "self" : {
+      "href" : "http://localhost/api/channel"
     }
   }
 }
