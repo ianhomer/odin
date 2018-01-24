@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server;
+package com.purplepip.odin.server.preloaded;
 
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.performance.PerformanceContainer;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
  * This loader loads performances for some test cases where we need test data data loaded.
  */
 @Component
-@Profile("testDataLoaded")
+@Profile("testPreLoaded")
 @Slf4j
 @Order(4)
 public class TestRuntimePerformanceLoader implements CommandLineRunner {

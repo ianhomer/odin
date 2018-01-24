@@ -83,11 +83,6 @@ public class SequenceRestTest {
   }
 
   @Test
-  public void testSequencesList() throws Exception {
-    new EndPointSnapshot(mvc, "/api/sequence").expectMatch();
-  }
-
-  @Test
   public void testProfile() throws Exception {
     new EndPointSnapshot(mvc, "/api/profile/sequence").expectMatch();
   }
