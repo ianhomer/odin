@@ -35,7 +35,7 @@ export class Clazz {
     this.id = id
     _frontEndSchema.set(this, frontEndSchema)
     // private variable
-    this.getProperties = function() { return frontEndSchema.properties }
+    this._getProperties = function() { return frontEndSchema.properties }
     if (backEndClazz) {
       _backEndClazz.set(this, backEndClazz)
     } else {
@@ -46,11 +46,11 @@ export class Clazz {
   }
 
   getProperty(name) {
-    return this.getProperties()[name]
+    return this._getProperties()[name]
   }
 
   getPropertyNames() {
-    return Object.keys(this.getProperties())
+    return Object.keys(this._getProperties())
   }
 
   isPropertyOfType(name, type) {
@@ -58,11 +58,11 @@ export class Clazz {
   }
 
   arePropertiesEmpty() {
-    return !this.getProperties()
+    return !this._getProperties()
   }
 
   hasProperty(name) {
-    return name in this.getProperties()
+    return name in this._getProperties()
   }
 
   // Create new instance of this class from the references to the properties from the UI

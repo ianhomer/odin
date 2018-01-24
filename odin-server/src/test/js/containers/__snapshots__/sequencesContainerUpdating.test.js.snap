@@ -4,8 +4,8 @@ exports[`Sequences container renders OK 1`] = `
 <Notation
   clazz={
     Clazz {
+      "_getProperties": [Function],
       "getClazz": [Function],
-      "getProperties": [Function],
       "id": "flow-notation",
       "path": "sequence",
     }
@@ -256,8 +256,8 @@ exports[`Sequences container renders OK 2`] = `
 <Notation
   clazz={
     Clazz {
+      "_getProperties": [Function],
       "getClazz": [Function],
-      "getProperties": [Function],
       "id": "flow-notation",
       "path": "sequence",
     }
@@ -387,8 +387,8 @@ exports[`Sequences container renders OK 2`] = `
   <EditEntity
     clazz={
       Clazz {
+        "_getProperties": [Function],
         "getClazz": [Function],
-        "getProperties": [Function],
         "id": "flow-notation",
         "path": "sequence",
       }
@@ -756,8 +756,8 @@ exports[`Sequences container renders OK 3`] = `
 <Notation
   clazz={
     Clazz {
+      "_getProperties": [Function],
       "getClazz": [Function],
-      "getProperties": [Function],
       "id": "flow-notation",
       "path": "sequence",
     }
@@ -909,8 +909,8 @@ exports[`Sequences container renders OK 3`] = `
   <EditEntity
     clazz={
       Clazz {
+        "_getProperties": [Function],
         "getClazz": [Function],
-        "getProperties": [Function],
         "id": "flow-notation",
         "path": "sequence",
       }
@@ -1322,8 +1322,8 @@ exports[`Sequences container renders OK 4`] = `
 <Notation
   clazz={
     Clazz {
+      "_getProperties": [Function],
       "getClazz": [Function],
-      "getProperties": [Function],
       "id": "flow-notation",
       "path": "sequence",
     }
