@@ -54,7 +54,11 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
 
   public void setLength(Rational length) {
     this.length = length;
-    endless = length.isNegative();
+    setEndless(length.isNegative());
+  }
+
+  private void setEndless(boolean endless) {
+    this.endless = endless;
   }
 
   public Rational getLength() {

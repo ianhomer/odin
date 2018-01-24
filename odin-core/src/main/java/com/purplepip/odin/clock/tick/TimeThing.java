@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.clock.tick;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.math.Rational;
 import javax.validation.constraints.NotNull;
@@ -35,7 +36,10 @@ public interface TimeThing extends Thing {
    *
    * @return true if thing has infinite length.
    */
-  boolean isEndless();
+  @JsonIgnore
+  default boolean isEndless()  {
+    return getLength().isNegative();
+  }
 
   /**
    * Units for 1 tick of this thing.

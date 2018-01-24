@@ -61,9 +61,6 @@
             "enabled" : {
               "type" : "boolean"
             },
-            "endless" : {
-              "type" : "boolean"
-            },
             "layers" : {
               "type" : "array",
               "items" : {
@@ -83,7 +80,7 @@
               "$ref" : "#/definitions/Tick"
             }
           },
-          "required" : [ "enabled", "endless", "name", "tick" ]
+          "required" : [ "enabled", "name", "tick" ]
         },
         "Rational" : {
           "type" : "object",
@@ -152,9 +149,6 @@
             "enabled" : {
               "type" : "boolean"
             },
-            "endless" : {
-              "type" : "boolean"
-            },
             "layers" : {
               "type" : "array",
               "items" : {
@@ -183,7 +177,7 @@
               "type" : "string"
             }
           },
-          "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ]
+          "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ]
         },
         "ActionConfiguration" : {
           "type" : "object",
@@ -205,9 +199,6 @@
             "enabled" : {
               "type" : "boolean"
             },
-            "endless" : {
-              "type" : "boolean"
-            },
             "length" : {
               "$ref" : "#/definitions/Rational"
             },
@@ -224,7 +215,7 @@
               "type" : "string"
             }
           },
-          "required" : [ "enabled", "endless", "name", "tick", "type" ]
+          "required" : [ "enabled", "name", "tick", "type" ]
         }
       }
     },
@@ -241,10 +232,6 @@
         "enabled" : {
           "type" : "boolean",
           "title" : "Enabled"
-        },
-        "endless" : {
-          "type" : "boolean",
-          "title" : "Endless"
         },
         "layers" : {
           "type" : "array",
@@ -289,7 +276,7 @@
           "title" : "Type"
         }
       },
-      "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
+      "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
       "definitions" : {
         "PersistableTick" : {
           "type" : "object",
@@ -344,10 +331,6 @@
           "type" : "boolean",
           "title" : "Enabled"
         },
-        "endless" : {
-          "type" : "boolean",
-          "title" : "Endless"
-        },
         "layers" : {
           "type" : "array",
           "items" : {
@@ -388,7 +371,7 @@
           "title" : "Type"
         }
       },
-      "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
+      "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
       "definitions" : {
         "PersistableTick" : {
           "type" : "object",
@@ -447,10 +430,6 @@
           "type" : "boolean",
           "title" : "Enabled"
         },
-        "endless" : {
-          "type" : "boolean",
-          "title" : "Endless"
-        },
         "layers" : {
           "type" : "array",
           "items" : {
@@ -490,7 +469,7 @@
           "title" : "Type"
         }
       },
-      "required" : [ "bits", "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
+      "required" : [ "bits", "channel", "enabled", "layers", "name", "tick", "type" ],
       "definitions" : {
         "PersistableNote" : {
           "type" : "object",
@@ -570,10 +549,6 @@
           "type" : "boolean",
           "title" : "Enabled"
         },
-        "endless" : {
-          "type" : "boolean",
-          "title" : "Endless"
-        },
         "layers" : {
           "type" : "array",
           "items" : {
@@ -617,7 +592,7 @@
           "title" : "Type"
         }
       },
-      "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
+      "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
       "definitions" : {
         "PersistableNote" : {
           "type" : "object",
@@ -701,10 +676,6 @@
           "type" : "boolean",
           "title" : "Enabled"
         },
-        "endless" : {
-          "type" : "boolean",
-          "title" : "Endless"
-        },
         "layers" : {
           "type" : "array",
           "items" : {
@@ -752,7 +723,7 @@
           "title" : "Upper"
         }
       },
-      "required" : [ "bits", "channel", "enabled", "endless", "layers", "lower", "name", "tick", "type", "upper" ],
+      "required" : [ "bits", "channel", "enabled", "layers", "lower", "name", "tick", "type", "upper" ],
       "definitions" : {
         "PersistableNote" : {
           "type" : "object",
@@ -832,10 +803,6 @@
           "type" : "boolean",
           "title" : "Enabled"
         },
-        "endless" : {
-          "type" : "boolean",
-          "title" : "Endless"
-        },
         "format" : {
           "type" : "string",
           "title" : "Format"
@@ -879,7 +846,7 @@
           "title" : "Type"
         }
       },
-      "required" : [ "channel", "enabled", "endless", "layers", "name", "tick", "type" ],
+      "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
       "definitions" : {
         "PersistableTick" : {
           "type" : "object",

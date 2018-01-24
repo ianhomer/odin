@@ -35,11 +35,6 @@
         "type" : "string"
       }
     },
-    "endless" : {
-      "title" : "Endless",
-      "readOnly" : true,
-      "type" : "boolean"
-    },
     "tick" : {
       "title" : "Tick",
       "readOnly" : false,
@@ -92,11 +87,6 @@
           "title" : "Length",
           "readOnly" : true,
           "type" : "object"
-        },
-        "endless" : {
-          "title" : "Endless",
-          "readOnly" : true,
-          "type" : "boolean"
         },
         "tick" : {
           "title" : "Tick",
