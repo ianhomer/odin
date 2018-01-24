@@ -81,4 +81,9 @@ public class SequenceRestTest {
     mvc.perform(sendingJson(delete(entityUri)))
         .andExpect(status().isNoContent());
   }
+
+  @Test
+  public void testProfile() throws Exception {
+    new EndPointSnapshot(mvc, "/api/profile/sequence").expectMatch();
+  }
 }

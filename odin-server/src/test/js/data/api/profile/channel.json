@@ -6,16 +6,21 @@
       "readOnly" : false,
       "type" : "integer"
     },
-    "programName" : {
-      "title" : "Program name",
-      "readOnly" : false,
-      "type" : "string"
-    },
     "performance" : {
       "title" : "Performance",
       "readOnly" : false,
       "type" : "string",
       "format" : "uri"
+    },
+    "programName" : {
+      "title" : "Program name",
+      "readOnly" : false,
+      "type" : "string"
+    },
+    "name" : {
+      "title" : "Name",
+      "readOnly" : false,
+      "type" : "string"
     },
     "program" : {
       "title" : "Program",

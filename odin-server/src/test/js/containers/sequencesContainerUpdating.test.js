@@ -59,7 +59,7 @@ describe('Sequence container validation', () => {
 
     const mounted = mount(component)
 
-    debugger
+
     const row = mounted.findWhere(n => n.key() == 'create-notation')
     expect(row).toMatchSnapshot()
 
