@@ -42,12 +42,12 @@ public class GroovePerformance extends TransientPerformance {
   // work on improving the semantics of this performance generation, to be simpler & clearer
   public GroovePerformance() {
     this
-        .addChannel(newChannel(1).programName("piano"))
-        .addChannel(newChannel(2).programName("rock"))
-        .addChannel(newChannel(3).programName("strings"))
-        .addChannel(newChannel(4).programName("aahs"))
-        .addChannel(newChannel(5).programName("bass"))
-        .addChannel(newChannel(9).programName("Power Drums"))
+        .addChannel(newChannel("piano", 1))
+        .addChannel(newChannel("rock", 2))
+        .addChannel(newChannel("strings", 3))
+        .addChannel(newChannel("aahs", 4))
+        .addChannel(newChannel("bass", 5))
+        .addChannel(newChannel("Power Drums",9))
         .addLayer(newLayer("overlay"))
         .addLayer(newLayer(INTRO).length(16))
         .addLayer(newLayer(BREAK).length(16))

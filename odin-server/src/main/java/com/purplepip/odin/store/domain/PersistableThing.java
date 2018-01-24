@@ -47,7 +47,7 @@ public class PersistableThing implements Thing {
   /**
    * Initialise name.
    */
-  // TODO : Should we mandate that the caller sets the name?
+  // TODO : We should mandate that the caller sets the name and remove this initialisation
   @PrePersist
   public void initialiseName() {
     if (name == null) {

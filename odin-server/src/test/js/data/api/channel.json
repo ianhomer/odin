@@ -3,6 +3,22 @@
     "channel" : [ {
       "_links" : {
         "channel" : {
+          "href" : "http://localhost/api/channel/7"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/channel/7/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/channel/7"
+        }
+      },
+      "name" : "Power Drums",
+      "number" : 9,
+      "program" : 0,
+      "programName" : "Power Drums"
+    }, {
+      "_links" : {
+        "channel" : {
           "href" : "http://localhost/api/channel/3"
         },
         "performance" : {
@@ -12,7 +28,7 @@
           "href" : "http://localhost/api/channel/3"
         }
       },
-      "name" : "10",
+      "name" : "aahs",
       "number" : 4,
       "program" : 0,
       "programName" : "aahs"
@@ -28,26 +44,10 @@
           "href" : "http://localhost/api/channel/5"
         }
       },
-      "name" : "12",
+      "name" : "bass",
       "number" : 5,
       "program" : 0,
       "programName" : "bass"
-    }, {
-      "_links" : {
-        "channel" : {
-          "href" : "http://localhost/api/channel/7"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/channel/7/performance"
-        },
-        "self" : {
-          "href" : "http://localhost/api/channel/7"
-        }
-      },
-      "name" : "14",
-      "number" : 9,
-      "program" : 0,
-      "programName" : "Power Drums"
     }, {
       "_links" : {
         "channel" : {
@@ -60,7 +60,7 @@
           "href" : "http://localhost/api/channel/2"
         }
       },
-      "name" : "4",
+      "name" : "piano",
       "number" : 1,
       "program" : 0,
       "programName" : "piano"
@@ -76,7 +76,7 @@
           "href" : "http://localhost/api/channel/6"
         }
       },
-      "name" : "6",
+      "name" : "rock",
       "number" : 2,
       "program" : 0,
       "programName" : "rock"
@@ -92,7 +92,7 @@
           "href" : "http://localhost/api/channel/4"
         }
       },
-      "name" : "8",
+      "name" : "strings",
       "number" : 3,
       "program" : 0,
       "programName" : "strings"

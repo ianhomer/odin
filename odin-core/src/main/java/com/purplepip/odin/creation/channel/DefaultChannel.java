@@ -54,6 +54,20 @@ public class DefaultChannel extends AbstractThing implements Channel {
     return new DefaultChannel(number);
   }
 
+  /**
+   * Create a new channel.
+   *
+   * @param name program name AND name of this entity
+   * @param number channel number
+   * @return new channel
+   */
+  public static final DefaultChannel newChannel(String name, int number) {
+    DefaultChannel channel = newChannel(number);
+    channel.setName(name);
+    channel.setProgramName(name);
+    return channel;
+  }
+
   @Override
   public long getId() {
     return id;
