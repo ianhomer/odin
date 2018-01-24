@@ -15,7 +15,10 @@
 
 package com.purplepip.odin.server.common;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.purplepip.odin.common.OdinRuntimeException;
 import java.io.IOException;
 
@@ -28,8 +31,13 @@ public class PrettyJson {
    */
   public static String toPrettyJson(String json) {
     ObjectMapper mapper = new ObjectMapper();
+    mapper.configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true);
+    mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
     try {
-      return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(json));
+      JsonNode tree = mapper.readTree(json);
+      Object sortedTree = mapper.treeToValue(tree, Object.class);
+      new JsonNodeSorter().sort(sortedTree);
+      return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(sortedTree);
     } catch (IOException e) {
       throw new OdinRuntimeException("Cannot parse JSON " + json, e);
     }

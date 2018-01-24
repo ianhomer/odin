@@ -1,34 +1,34 @@
 {
-  "title" : "Persistable channel",
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "definitions" : { },
   "properties" : {
-    "number" : {
-      "title" : "Number",
+    "name" : {
       "readOnly" : false,
+      "title" : "Name",
+      "type" : "string"
+    },
+    "number" : {
+      "readOnly" : false,
+      "title" : "Number",
       "type" : "integer"
     },
     "performance" : {
+      "format" : "uri",
+      "readOnly" : false,
       "title" : "Performance",
-      "readOnly" : false,
-      "type" : "string",
-      "format" : "uri"
-    },
-    "programName" : {
-      "title" : "Program name",
-      "readOnly" : false,
-      "type" : "string"
-    },
-    "name" : {
-      "title" : "Name",
-      "readOnly" : false,
       "type" : "string"
     },
     "program" : {
-      "title" : "Program",
       "readOnly" : false,
+      "title" : "Program",
       "type" : "integer"
+    },
+    "programName" : {
+      "readOnly" : false,
+      "title" : "Program name",
+      "type" : "string"
     }
   },
-  "definitions" : { },
-  "type" : "object",
-  "$schema" : "http://json-schema.org/draft-04/schema#"
+  "title" : "Persistable channel",
+  "type" : "object"
 }

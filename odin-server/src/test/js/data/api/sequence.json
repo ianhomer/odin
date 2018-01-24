@@ -1,754 +1,754 @@
 {
   "_embedded" : {
     "sequence" : [ {
-      "name" : "crash",
-      "properties" : {
-        "initialisationCount" : "0",
-        "bits" : "87",
-        "note.number" : "46",
-        "note.velocity" : "40",
-        "endless" : "true",
-        "note.duration" : "1"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 2
-      },
-      "type" : "pattern",
-      "channel" : 9,
-      "layers" : [ "c" ],
-      "triggers" : { },
       "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/29"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/29"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/29/performance"
-        }
-      }
-    }, {
-      "name" : "piano-c",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C5/q A4/8 C5/q D",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 1,
-      "layers" : [ "b" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/31"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/31"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/31/performance"
-        }
-      }
-    }, {
-      "name" : "strings-c4",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C4/h C/q",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 3,
-      "layers" : [ "intro" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/33"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/33"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/33/performance"
-        }
-      }
-    }, {
-      "name" : "notes-c5",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C5/h C/q",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 1,
-      "layers" : [ "a" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/35"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/35"
-        },
         "performance" : {
           "href" : "http://localhost/api/sequence/35/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/35"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/35"
         }
-      }
-    }, {
-      "name" : "aahs-br",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C5/h A4 G4 E C",
-        "endless" : "true"
       },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
       "channel" : 4,
-      "layers" : [ "break" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/37"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/37"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/37/performance"
-        }
-      }
-    }, {
-      "name" : "kick3",
+      "enabled" : true,
+      "layers" : [ "a" ],
+      "length" : "-1",
+      "name" : "aahs-a",
+      "offset" : "0",
       "properties" : {
-        "initialisationCount" : "0",
-        "bits" : "87",
-        "note.number" : "33",
-        "note.velocity" : "40",
         "endless" : "true",
-        "note.duration" : "1"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 4
-      },
-      "type" : "pattern",
-      "channel" : 9,
-      "layers" : [ "break" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/39"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/39"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/39/performance"
-        }
-      }
-    }, {
-      "name" : "kick2",
-      "properties" : {
         "initialisationCount" : "0",
-        "bits" : "65",
-        "note.number" : "33",
-        "note.velocity" : "40",
-        "endless" : "true",
-        "note.duration" : "1"
+        "notation" : "C A C5/h C5/8"
       },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
       "tick" : {
-        "timeUnit" : "BEAT",
+        "denominator" : 1,
         "numerator" : 1,
-        "denominator" : 4
+        "timeUnit" : "BEAT"
       },
-      "type" : "pattern",
-      "channel" : 9,
-      "layers" : [ "c" ],
       "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/41"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/41"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/41/performance"
-        }
-      }
+      "type" : "notation"
     }, {
-      "name" : "organ-c",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "G/q C C/8 A/8 G/q C D/8 A/8",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 2,
-      "layers" : [ "c" ],
-      "triggers" : { },
       "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/43"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/43"
-        },
         "performance" : {
           "href" : "http://localhost/api/sequence/43/performance"
-        }
-      }
-    }, {
-      "name" : "piano-g3",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "G3 G G/8 A C/q G2 G G3/8 G G/q",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 1,
-      "layers" : [ "c" ],
-      "triggers" : { },
-      "_links" : {
+        },
         "self" : {
-          "href" : "http://localhost/api/sequence/45"
+          "href" : "http://localhost/api/sequence/43"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/45"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/45/performance"
+          "href" : "http://localhost/api/sequence/43"
         }
-      }
-    }, {
-      "name" : "notes-c4",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C4/h C/q",
-        "endless" : "true"
       },
+      "channel" : 4,
       "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 1,
-      "layers" : [ "b" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/47"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/47"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/47/performance"
-        }
-      }
-    }, {
-      "name" : "strings",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C5/h C/q C6 A5",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 3,
       "layers" : [ "break" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/49"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/49"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/49/performance"
-        }
-      }
-    }, {
-      "name" : "shake",
+      "length" : "-1",
+      "name" : "aahs-br",
+      "offset" : "0",
       "properties" : {
-        "initialisationCount" : "0",
-        "bits" : "15",
-        "note.number" : "69",
-        "note.velocity" : "40",
         "endless" : "true",
-        "note.duration" : "1"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "pattern",
-      "channel" : 9,
-      "layers" : [ "overlay" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/51"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/51"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/51/performance"
-        }
-      }
-    }, {
-      "name" : "organ-a",
-      "properties" : {
         "initialisationCount" : "0",
-        "notation" : "A5/8",
-        "endless" : "true"
+        "notation" : "C5/h A4 G4 E C"
       },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
       "tick" : {
-        "timeUnit" : "BEAT",
+        "denominator" : 1,
         "numerator" : 1,
-        "denominator" : 1
+        "timeUnit" : "BEAT"
       },
-      "type" : "notation",
-      "channel" : 2,
-      "layers" : [ "a", "in" ],
       "triggers" : { },
+      "type" : "notation"
+    }, {
       "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/53"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/53"
-        },
         "performance" : {
           "href" : "http://localhost/api/sequence/53/performance"
-        }
-      }
-    }, {
-      "name" : "hi",
-      "properties" : {
-        "initialisationCount" : "0",
-        "bits" : "15",
-        "note.number" : "42",
-        "note.velocity" : "40",
-        "endless" : "true",
-        "note.duration" : "1"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 2
-      },
-      "type" : "pattern",
-      "channel" : 9,
-      "layers" : [ "verse" ],
-      "triggers" : { },
-      "_links" : {
+        },
         "self" : {
-          "href" : "http://localhost/api/sequence/55"
+          "href" : "http://localhost/api/sequence/53"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/55"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/55/performance"
+          "href" : "http://localhost/api/sequence/53"
         }
-      }
-    }, {
-      "name" : "bass-3",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "A3 A A/8 A A/q",
-        "endless" : "true"
       },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 5,
-      "layers" : [ "a" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/57"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/57"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/57/performance"
-        }
-      }
-    }, {
-      "name" : "kick1",
-      "properties" : {
-        "initialisationCount" : "0",
-        "bits" : "13",
-        "note.number" : "33",
-        "note.velocity" : "40",
-        "endless" : "true",
-        "note.duration" : "1"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 2
-      },
-      "type" : "pattern",
-      "channel" : 9,
-      "layers" : [ "a", "b" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/59"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/59"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/59/performance"
-        }
-      }
-    }, {
-      "name" : "notes",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C5/h C/q C6 A5 A5/8 C5/8 A5",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 1,
-      "layers" : [ "break" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/61"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/61"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/61/performance"
-        }
-      }
-    }, {
-      "name" : "organ-b",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "G5/q",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 2,
-      "layers" : [ "b" ],
-      "triggers" : { },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/63"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/63"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/63/performance"
-        }
-      }
-    }, {
-      "name" : "aahs-a",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C A C5/h C5/8",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
       "channel" : 4,
-      "layers" : [ "a" ],
+      "enabled" : true,
+      "layers" : [ "c" ],
+      "length" : "-1",
+      "name" : "aahs-c",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C5/h A4 G4 E C"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 2,
+        "timeUnit" : "BEAT"
+      },
       "triggers" : { },
+      "type" : "notation"
+    }, {
       "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/65"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/65"
-        },
         "performance" : {
           "href" : "http://localhost/api/sequence/65/performance"
-        }
-      }
-    }, {
-      "name" : "piano-a",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "A/q G/8 A/q E",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 1,
-      "layers" : [ "a", "c" ],
-      "triggers" : { },
-      "_links" : {
+        },
         "self" : {
-          "href" : "http://localhost/api/sequence/67"
+          "href" : "http://localhost/api/sequence/65"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/67"
+          "href" : "http://localhost/api/sequence/65"
+        }
+      },
+      "channel" : 5,
+      "enabled" : true,
+      "layers" : [ "a" ],
+      "length" : "-1",
+      "name" : "bass-3",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "A3 A A/8 A A/q"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/37/performance"
         },
+        "self" : {
+          "href" : "http://localhost/api/sequence/37"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/37"
+        }
+      },
+      "channel" : 9,
+      "enabled" : true,
+      "layers" : [ "c" ],
+      "length" : "-1",
+      "name" : "crash",
+      "offset" : "0",
+      "properties" : {
+        "bits" : "87",
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "note.duration" : "1",
+        "note.number" : "46",
+        "note.velocity" : "40"
+      },
+      "tick" : {
+        "denominator" : 2,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "pattern"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/45/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/45"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/45"
+        }
+      },
+      "channel" : 9,
+      "enabled" : true,
+      "layers" : [ "verse" ],
+      "length" : "-1",
+      "name" : "hi",
+      "offset" : "0",
+      "properties" : {
+        "bits" : "15",
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "note.duration" : "1",
+        "note.number" : "42",
+        "note.velocity" : "40"
+      },
+      "tick" : {
+        "denominator" : 2,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "pattern"
+    }, {
+      "_links" : {
         "performance" : {
           "href" : "http://localhost/api/sequence/67/performance"
-        }
-      }
-    }, {
-      "name" : "strings-c5",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C5/h C/q",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 3,
-      "layers" : [ "intro" ],
-      "triggers" : { },
-      "_links" : {
+        },
         "self" : {
-          "href" : "http://localhost/api/sequence/69"
+          "href" : "http://localhost/api/sequence/67"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/69"
+          "href" : "http://localhost/api/sequence/67"
+        }
+      },
+      "channel" : 9,
+      "enabled" : true,
+      "layers" : [ "a", "b" ],
+      "length" : "-1",
+      "name" : "kick1",
+      "offset" : "0",
+      "properties" : {
+        "bits" : "13",
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "note.duration" : "1",
+        "note.number" : "33",
+        "note.velocity" : "40"
+      },
+      "tick" : {
+        "denominator" : 2,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "pattern"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/33/performance"
         },
+        "self" : {
+          "href" : "http://localhost/api/sequence/33"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/33"
+        }
+      },
+      "channel" : 9,
+      "enabled" : true,
+      "layers" : [ "c" ],
+      "length" : "-1",
+      "name" : "kick2",
+      "offset" : "0",
+      "properties" : {
+        "bits" : "65",
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "note.duration" : "1",
+        "note.number" : "33",
+        "note.velocity" : "40"
+      },
+      "tick" : {
+        "denominator" : 4,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "pattern"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/29/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/29"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/29"
+        }
+      },
+      "channel" : 9,
+      "enabled" : true,
+      "layers" : [ "break" ],
+      "length" : "-1",
+      "name" : "kick3",
+      "offset" : "0",
+      "properties" : {
+        "bits" : "87",
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "note.duration" : "1",
+        "note.number" : "33",
+        "note.velocity" : "40"
+      },
+      "tick" : {
+        "denominator" : 4,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "pattern"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/55/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/55"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/55"
+        }
+      },
+      "channel" : 1,
+      "enabled" : true,
+      "layers" : [ "break" ],
+      "length" : "-1",
+      "name" : "notes",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C5/h C/q C6 A5 A5/8 C5/8 A5"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/39/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/39"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/39"
+        }
+      },
+      "channel" : 1,
+      "enabled" : true,
+      "layers" : [ "b" ],
+      "length" : "-1",
+      "name" : "notes-c4",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C4/h C/q"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/41/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/41"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/41"
+        }
+      },
+      "channel" : 1,
+      "enabled" : true,
+      "layers" : [ "a" ],
+      "length" : "-1",
+      "name" : "notes-c5",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C5/h C/q"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/57/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/57"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/57"
+        }
+      },
+      "channel" : 2,
+      "enabled" : true,
+      "layers" : [ "a", "in" ],
+      "length" : "-1",
+      "name" : "organ-a",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "A5/8"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/61/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/61"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/61"
+        }
+      },
+      "channel" : 2,
+      "enabled" : true,
+      "layers" : [ "b" ],
+      "length" : "-1",
+      "name" : "organ-b",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "G5/q"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/47/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/47"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/47"
+        }
+      },
+      "channel" : 2,
+      "enabled" : true,
+      "layers" : [ "c" ],
+      "length" : "-1",
+      "name" : "organ-c",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "G/q C C/8 A/8 G/q C D/8 A/8"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
         "performance" : {
           "href" : "http://localhost/api/sequence/69/performance"
-        }
-      }
-    }, {
-      "name" : "piano-c3",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C3 C C/8 C C/q",
-        "endless" : "true"
-      },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
-      "channel" : 1,
-      "layers" : [ "b" ],
-      "triggers" : { },
-      "_links" : {
+        },
         "self" : {
-          "href" : "http://localhost/api/sequence/71"
+          "href" : "http://localhost/api/sequence/69"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/71"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/71/performance"
+          "href" : "http://localhost/api/sequence/69"
         }
-      }
-    }, {
-      "name" : "piano-a3",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "A3 A A/8 A A/q",
-        "endless" : "true"
       },
-      "enabled" : true,
-      "offset" : "0",
-      "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 1,
-        "denominator" : 1
-      },
-      "type" : "notation",
       "channel" : 1,
-      "layers" : [ "a" ],
+      "enabled" : true,
+      "layers" : [ "a", "c" ],
+      "length" : "-1",
+      "name" : "piano-a",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "A/q G/8 A/q E"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
       "triggers" : { },
+      "type" : "notation"
+    }, {
       "_links" : {
-        "self" : {
-          "href" : "http://localhost/api/sequence/73"
-        },
-        "sequence" : {
-          "href" : "http://localhost/api/sequence/73"
-        },
         "performance" : {
           "href" : "http://localhost/api/sequence/73/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/73"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/73"
         }
-      }
-    }, {
-      "name" : "aahs-c",
-      "properties" : {
-        "initialisationCount" : "0",
-        "notation" : "C5/h A4 G4 E C",
-        "endless" : "true"
       },
+      "channel" : 1,
       "enabled" : true,
-      "offset" : "0",
+      "layers" : [ "a" ],
       "length" : "-1",
-      "tick" : {
-        "timeUnit" : "BEAT",
-        "numerator" : 2,
-        "denominator" : 1
+      "name" : "piano-a3",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "A3 A A/8 A A/q"
       },
-      "type" : "notation",
-      "channel" : 4,
-      "layers" : [ "c" ],
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
       "triggers" : { },
+      "type" : "notation"
+    }, {
       "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/71/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/71"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/71"
+        }
+      },
+      "channel" : 1,
+      "enabled" : true,
+      "layers" : [ "b" ],
+      "length" : "-1",
+      "name" : "piano-c",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C5/q A4/8 C5/q D"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/75/performance"
+        },
         "self" : {
           "href" : "http://localhost/api/sequence/75"
         },
         "sequence" : {
           "href" : "http://localhost/api/sequence/75"
-        },
-        "performance" : {
-          "href" : "http://localhost/api/sequence/75/performance"
         }
-      }
+      },
+      "channel" : 1,
+      "enabled" : true,
+      "layers" : [ "b" ],
+      "length" : "-1",
+      "name" : "piano-c3",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C3 C C/8 C C/q"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/63/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/63"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/63"
+        }
+      },
+      "channel" : 1,
+      "enabled" : true,
+      "layers" : [ "c" ],
+      "length" : "-1",
+      "name" : "piano-g3",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "G3 G G/8 A C/q G2 G G3/8 G G/q"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/51/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/51"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/51"
+        }
+      },
+      "channel" : 9,
+      "enabled" : true,
+      "layers" : [ "overlay" ],
+      "length" : "-1",
+      "name" : "shake",
+      "offset" : "0",
+      "properties" : {
+        "bits" : "15",
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "note.duration" : "1",
+        "note.number" : "69",
+        "note.velocity" : "40"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "pattern"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/31/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/31"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/31"
+        }
+      },
+      "channel" : 3,
+      "enabled" : true,
+      "layers" : [ "break" ],
+      "length" : "-1",
+      "name" : "strings",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C5/h C/q C6 A5"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/49/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/49"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/49"
+        }
+      },
+      "channel" : 3,
+      "enabled" : true,
+      "layers" : [ "intro" ],
+      "length" : "-1",
+      "name" : "strings-c4",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C4/h C/q"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
+    }, {
+      "_links" : {
+        "performance" : {
+          "href" : "http://localhost/api/sequence/59/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/sequence/59"
+        },
+        "sequence" : {
+          "href" : "http://localhost/api/sequence/59"
+        }
+      },
+      "channel" : 3,
+      "enabled" : true,
+      "layers" : [ "intro" ],
+      "length" : "-1",
+      "name" : "strings-c5",
+      "offset" : "0",
+      "properties" : {
+        "endless" : "true",
+        "initialisationCount" : "0",
+        "notation" : "C5/h C/q"
+      },
+      "tick" : {
+        "denominator" : 1,
+        "numerator" : 1,
+        "timeUnit" : "BEAT"
+      },
+      "triggers" : { },
+      "type" : "notation"
     } ]
   },
   "_links" : {
-    "self" : {
-      "href" : "http://localhost/api/sequence"
-    },
     "profile" : {
       "href" : "http://localhost/api/profile/sequence"
     },
     "search" : {
       "href" : "http://localhost/api/sequence/search"
+    },
+    "self" : {
+      "href" : "http://localhost/api/sequence"
     }
   }
 }

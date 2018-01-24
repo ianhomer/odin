@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
 @Profile("testPreLoaded")
 @Slf4j
 @Order(4)
-public class TestRuntimePerformanceLoader implements CommandLineRunner {
+public class PreLoadedPerformanceLoader implements CommandLineRunner {
   @Autowired
   private PerformanceContainer container;
 

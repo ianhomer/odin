@@ -1,138 +1,138 @@
 {
-  "title" : "Persistable sequence",
-  "properties" : {
-    "performance" : {
-      "title" : "Performance",
-      "readOnly" : false,
-      "type" : "string",
-      "format" : "uri"
-    },
-    "offset" : {
-      "title" : "Offset",
-      "readOnly" : true,
-      "type" : "object"
-    },
-    "name" : {
-      "title" : "Name",
-      "readOnly" : false,
-      "type" : "string"
-    },
-    "length" : {
-      "title" : "Length",
-      "readOnly" : true,
-      "type" : "object"
-    },
-    "channel" : {
-      "title" : "Channel",
-      "readOnly" : false,
-      "type" : "integer"
-    },
-    "layers" : {
-      "title" : "Layers",
-      "readOnly" : false,
-      "type" : "array",
-      "items" : {
-        "type" : "string"
-      }
-    },
-    "tick" : {
-      "title" : "Tick",
-      "readOnly" : false,
-      "type" : "object",
-      "$ref" : "#/definitions/tick"
-    },
-    "type" : {
-      "title" : "Type",
-      "readOnly" : false,
-      "type" : "string"
-    },
-    "triggers" : {
-      "title" : "Triggers",
-      "readOnly" : false,
-      "type" : "object",
-      "$ref" : "#/definitions/actionConfiguration"
-    },
-    "properties" : {
-      "title" : "Properties",
-      "readOnly" : false,
-      "type" : "object"
-    },
-    "enabled" : {
-      "title" : "Enabled",
-      "readOnly" : false,
-      "type" : "boolean"
-    }
-  },
+  "$schema" : "http://json-schema.org/draft-04/schema#",
   "definitions" : {
     "actionConfiguration" : {
-      "type" : "object",
       "properties" : {
-        "sequence" : {
-          "title" : "Sequence",
+        "enabled" : {
           "readOnly" : false,
-          "type" : "string",
-          "format" : "uri"
+          "title" : "Enabled",
+          "type" : "boolean"
         },
-        "offset" : {
-          "title" : "Offset",
+        "length" : {
           "readOnly" : true,
+          "title" : "Length",
           "type" : "object"
         },
         "name" : {
+          "readOnly" : false,
           "title" : "Name",
-          "readOnly" : false,
           "type" : "string"
         },
-        "length" : {
-          "title" : "Length",
+        "offset" : {
           "readOnly" : true,
+          "title" : "Offset",
           "type" : "object"
-        },
-        "tick" : {
-          "title" : "Tick",
-          "readOnly" : false,
-          "type" : "object",
-          "$ref" : "#/definitions/tick"
-        },
-        "type" : {
-          "title" : "Type",
-          "readOnly" : false,
-          "type" : "string"
         },
         "properties" : {
-          "title" : "Properties",
           "readOnly" : false,
+          "title" : "Properties",
           "type" : "object"
         },
-        "enabled" : {
-          "title" : "Enabled",
+        "sequence" : {
+          "format" : "uri",
           "readOnly" : false,
-          "type" : "boolean"
+          "title" : "Sequence",
+          "type" : "string"
+        },
+        "tick" : {
+          "$ref" : "#/definitions/tick",
+          "readOnly" : false,
+          "title" : "Tick",
+          "type" : "object"
+        },
+        "type" : {
+          "readOnly" : false,
+          "title" : "Type",
+          "type" : "string"
         }
-      }
+      },
+      "type" : "object"
     },
     "tick" : {
-      "type" : "object",
       "properties" : {
-        "timeUnit" : {
-          "title" : "Time unit",
+        "denominator" : {
           "readOnly" : false,
-          "type" : "string",
-          "enum" : [ "BEAT", "MICROSECOND", "MEASURE" ]
+          "title" : "Denominator",
+          "type" : "integer"
         },
         "numerator" : {
-          "title" : "Numerator",
           "readOnly" : false,
+          "title" : "Numerator",
           "type" : "integer"
         },
-        "denominator" : {
-          "title" : "Denominator",
+        "timeUnit" : {
+          "enum" : [ "BEAT", "MEASURE", "MICROSECOND" ],
           "readOnly" : false,
-          "type" : "integer"
+          "title" : "Time unit",
+          "type" : "string"
         }
-      }
+      },
+      "type" : "object"
     }
   },
-  "type" : "object",
-  "$schema" : "http://json-schema.org/draft-04/schema#"
+  "properties" : {
+    "channel" : {
+      "readOnly" : false,
+      "title" : "Channel",
+      "type" : "integer"
+    },
+    "enabled" : {
+      "readOnly" : false,
+      "title" : "Enabled",
+      "type" : "boolean"
+    },
+    "layers" : {
+      "items" : {
+        "type" : "string"
+      },
+      "readOnly" : false,
+      "title" : "Layers",
+      "type" : "array"
+    },
+    "length" : {
+      "readOnly" : true,
+      "title" : "Length",
+      "type" : "object"
+    },
+    "name" : {
+      "readOnly" : false,
+      "title" : "Name",
+      "type" : "string"
+    },
+    "offset" : {
+      "readOnly" : true,
+      "title" : "Offset",
+      "type" : "object"
+    },
+    "performance" : {
+      "format" : "uri",
+      "readOnly" : false,
+      "title" : "Performance",
+      "type" : "string"
+    },
+    "properties" : {
+      "readOnly" : false,
+      "title" : "Properties",
+      "type" : "object"
+    },
+    "tick" : {
+      "$ref" : "#/definitions/tick",
+      "readOnly" : false,
+      "title" : "Tick",
+      "type" : "object"
+    },
+    "triggers" : {
+      "$ref" : "#/definitions/actionConfiguration",
+      "readOnly" : false,
+      "title" : "Triggers",
+      "type" : "object"
+    },
+    "type" : {
+      "readOnly" : false,
+      "title" : "Type",
+      "type" : "string"
+    }
+  },
+  "title" : "Persistable sequence",
+  "type" : "object"
 }

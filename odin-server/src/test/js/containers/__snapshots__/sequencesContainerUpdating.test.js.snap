@@ -594,13 +594,13 @@ exports[`Sequence container validation Sequence update 1`] = `
     Object {
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost/api/sequence/65/performance",
+          "href": "http://localhost/api/sequence/35/performance",
         },
         "self": Object {
-          "href": "http://localhost/api/sequence/65",
+          "href": "http://localhost/api/sequence/35",
         },
         "sequence": Object {
-          "href": "http://localhost/api/sequence/65",
+          "href": "http://localhost/api/sequence/35",
         },
       },
       "channel": 4,
@@ -733,13 +733,13 @@ exports[`Sequence container validation Sequence update 1`] = `
           Object {
             "_links": Object {
               "performance": Object {
-                "href": "http://localhost/api/sequence/65/performance",
+                "href": "http://localhost/api/sequence/35/performance",
               },
               "self": Object {
-                "href": "http://localhost/api/sequence/65",
+                "href": "http://localhost/api/sequence/35",
               },
               "sequence": Object {
-                "href": "http://localhost/api/sequence/65",
+                "href": "http://localhost/api/sequence/35",
               },
             },
             "channel": 4,
@@ -776,7 +776,7 @@ exports[`Sequence container validation Sequence update 1`] = `
             C A C5/h C5/8
           </span>
           <span
-            id="http://localhost/api/sequence/65-notation-1"
+            id="http://localhost/api/sequence/35-notation-1"
           />
         </div>
       </Score>
@@ -852,13 +852,13 @@ exports[`Sequence container validation Sequence update 2`] = `
     Object {
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost/api/sequence/65/performance",
+          "href": "http://localhost/api/sequence/35/performance",
         },
         "self": Object {
-          "href": "http://localhost/api/sequence/65",
+          "href": "http://localhost/api/sequence/35",
         },
         "sequence": Object {
-          "href": "http://localhost/api/sequence/65",
+          "href": "http://localhost/api/sequence/35",
         },
       },
       "channel": 4,
@@ -986,13 +986,13 @@ exports[`Sequence container validation Sequence update 2`] = `
       Object {
         "_links": Object {
           "performance": Object {
-            "href": "http://localhost/api/sequence/65/performance",
+            "href": "http://localhost/api/sequence/35/performance",
           },
           "self": Object {
-            "href": "http://localhost/api/sequence/65",
+            "href": "http://localhost/api/sequence/35",
           },
           "sequence": Object {
-            "href": "http://localhost/api/sequence/65",
+            "href": "http://localhost/api/sequence/35",
           },
         },
         "channel": 4,
@@ -1138,13 +1138,13 @@ exports[`Sequence container validation Sequence update 2`] = `
             Object {
               "_links": Object {
                 "performance": Object {
-                  "href": "http://localhost/api/sequence/65/performance",
+                  "href": "http://localhost/api/sequence/35/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/sequence/65",
+                  "href": "http://localhost/api/sequence/35",
                 },
                 "sequence": Object {
-                  "href": "http://localhost/api/sequence/65",
+                  "href": "http://localhost/api/sequence/35",
                 },
               },
               "channel": 4,
@@ -1191,7 +1191,7 @@ exports[`Sequence container validation Sequence update 2`] = `
               />
             </span>
             <div
-              id="http://localhost/api/sequence/65-notation-1"
+              id="http://localhost/api/sequence/35-notation-1"
               style={
                 Object {
                   "height": "120px",
@@ -1330,7 +1330,7 @@ exports[`Sequence container validation Sequence update 2`] = `
         />
         <div>
           <input
-            defaultValue="http://localhost/api/sequence/65"
+            defaultValue="http://localhost/api/sequence/35"
             name="_links.self.href"
             type="hidden"
           />
@@ -1384,13 +1384,13 @@ exports[`Sequence container validation Sequence update 3`] = `
       },
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost/api/sequence/65/performance",
+          "href": "http://localhost/api/sequence/35/performance",
         },
         "self": Object {
-          "href": "http://localhost/api/sequence/65",
+          "href": "http://localhost/api/sequence/35",
         },
         "sequence": Object {
-          "href": "http://localhost/api/sequence/65",
+          "href": "http://localhost/api/sequence/35",
         },
       },
       "channel": 4,
@@ -1540,13 +1540,13 @@ exports[`Sequence container validation Sequence update 3`] = `
         },
         "_links": Object {
           "performance": Object {
-            "href": "http://localhost/api/sequence/65/performance",
+            "href": "http://localhost/api/sequence/35/performance",
           },
           "self": Object {
-            "href": "http://localhost/api/sequence/65",
+            "href": "http://localhost/api/sequence/35",
           },
           "sequence": Object {
-            "href": "http://localhost/api/sequence/65",
+            "href": "http://localhost/api/sequence/35",
           },
         },
         "channel": 4,
@@ -1714,13 +1714,13 @@ exports[`Sequence container validation Sequence update 3`] = `
               },
               "_links": Object {
                 "performance": Object {
-                  "href": "http://localhost/api/sequence/65/performance",
+                  "href": "http://localhost/api/sequence/35/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/sequence/65",
+                  "href": "http://localhost/api/sequence/35",
                 },
                 "sequence": Object {
-                  "href": "http://localhost/api/sequence/65",
+                  "href": "http://localhost/api/sequence/35",
                 },
               },
               "channel": 4,
@@ -1767,7 +1767,7 @@ exports[`Sequence container validation Sequence update 3`] = `
               />
             </span>
             <div
-              id="http://localhost/api/sequence/65-notation-2"
+              id="http://localhost/api/sequence/35-notation-2"
               style={
                 Object {
                   "height": "120px",
@@ -1906,7 +1906,7 @@ exports[`Sequence container validation Sequence update 3`] = `
         />
         <div>
           <input
-            defaultValue="http://localhost/api/sequence/65"
+            defaultValue="http://localhost/api/sequence/35"
             name="_links.self.href"
             type="hidden"
           />
@@ -1938,7 +1938,7 @@ exports[`Sequence container validation Sequence update 4`] = `
     Object {
       "_links": Object {
         "self": Object {
-          "href": "http://localhost/api/sequence/65",
+          "href": "http://localhost/api/sequence/35",
         },
       },
       "channel": 5,
@@ -2067,7 +2067,7 @@ exports[`Sequence container validation Sequence update 4`] = `
           Object {
             "_links": Object {
               "self": Object {
-                "href": "http://localhost/api/sequence/65",
+                "href": "http://localhost/api/sequence/35",
               },
             },
             "channel": 5,
@@ -2100,7 +2100,7 @@ exports[`Sequence container validation Sequence update 4`] = `
             C D E
           </span>
           <span
-            id="http://localhost/api/sequence/65-notation-1"
+            id="http://localhost/api/sequence/35-notation-1"
           />
         </div>
       </Score>
