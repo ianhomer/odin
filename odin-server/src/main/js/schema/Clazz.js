@@ -49,6 +49,14 @@ export class Clazz {
     return this.getProperties()[name]
   }
 
+  getPropertyNames() {
+    return Object.keys(this.getProperties())
+  }
+
+  isPropertyOfType(name, type) {
+    return this.getProperty(name) && this.getProperty(name).type == type
+  }
+
   arePropertiesEmpty() {
     return !this.getProperties()
   }
@@ -62,7 +70,7 @@ export class Clazz {
     var entity = {}
     // Loop through the properties defined for the class and set the fields in the entity
     // for each of these properties.
-    Object.keys(this.getProperties()).map(function(name) {
+    this.getPropertyNames().map(name => {
       var definition = this.getProperty(name)
       if (!definition.readOnly) {
         this.setFieldValue(entity, refs, name)
@@ -136,13 +144,13 @@ export class Clazz {
       // Navigate through object definition to find property names.
       var fieldClazz = this.getClazz(this.id, this.getProperty(name)['$ref'])
       var property = {}
-      for (var propertyName in fieldClazz.getProperties()) {
+      fieldClazz.getPropertyNames().forEach(propertyName => {
         var propertyKey = _key + '.' + propertyName
         property[propertyName] = fieldClazz.getFieldValue(nodes, propertyName, propertyKey)
-      }
+      })
       value = property
     // TODO : Reduce duplicated blocks of code below
-    } else if (this.getProperty(name)  && this.getProperty(name).type == 'object') {
+    } else if (this.isPropertyOfType(name, 'object')) {
       // TODO : Handle better than just JSON to object
       node = nodes[_key]
       if (node) {
@@ -153,7 +161,7 @@ export class Clazz {
       } else {
         value = null
       }
-    } else if (this.getProperty(name) && this.getProperty(name).type == 'integer') {
+    } else if (this.isPropertyOfType(name, 'integer')) {
       node = nodes[_key]
       if (node) {
         value = parseInt(node.value.trim())
