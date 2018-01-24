@@ -33,6 +33,8 @@ Enable debugger with debug logging
       -Dlogback.debug=true -Dlogback.configurationFile=src/main/resources/logback-debug.xml \
       -jar target/odin-server-1.0-SNAPSHOT.jar
 
+## Running JS tests
+
 Run JS tests
 
     npm test
@@ -40,6 +42,8 @@ Run JS tests
 Run a single JS test
 
     npm test -- channelsContainer.test.js
+
+## Debug JS
 
 To debug a single JS test, add the line
 
@@ -50,3 +54,7 @@ into the script to define a break point then start test with
     node --inspect-brk node_modules/.bin/jest --runInBand clazz.test.js
     
 Open up chrome://inspect in Chrome and step through the debugger
+
+## Update Snapshots
+
+  jest --updateSnapshot

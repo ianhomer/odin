@@ -14,7 +14,7 @@
 
 // Mock Backend
 
-import testSchema from '../data/schema.json'
+import testSchema from '../data/services/schema.json'
 import {Backend} from 'odin/backend/index.js'
 import fs from 'fs'
 

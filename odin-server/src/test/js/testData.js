@@ -1,6 +1,6 @@
 import {Schema} from 'odin/schema/schema'
 
-import testSchemaJson from './data/schema.json'
+import testSchemaJson from './data/services/schema.json'
 import testPerformanceJson from './data/performance.json'
 import testSequenceProfileSchemaJson from './data/api/profile/sequence.json'
 

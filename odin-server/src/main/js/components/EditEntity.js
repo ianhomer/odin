@@ -62,7 +62,7 @@ class EditEntity extends React.Component{
       console.warn('Clazz not defined')
       return <div/>
     }
-    if (!clazz.properties) {
+    if (!clazz.getProperties()) {
       console.warn('Clazz does not have properties')
       return <div>{JSON.stringify(clazz)}</div>
     }
@@ -91,14 +91,14 @@ class EditEntity extends React.Component{
   renderInputField(clazz, fields, fieldName, key) {
     var field = fields[fieldName]
     var size = 0
-    var definition = clazz.properties[fieldName]
+    var definition = clazz.getProperties()[fieldName]
     var type
     if (definition) {
       type = definition.type
     } else {
       type = 'string'
       console.error('Cannot find attribute : ' + fieldName + ' in ' +
-        JSON.stringify(clazz.properties))
+        JSON.stringify(clazz.getProperties()))
     }
 
     if (field.size) {

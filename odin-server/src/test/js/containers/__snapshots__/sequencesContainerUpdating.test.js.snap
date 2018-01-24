@@ -5,69 +5,9 @@ exports[`Sequences container renders OK 1`] = `
   clazz={
     Clazz {
       "getClazz": [Function],
+      "getProperties": [Function],
       "id": "flow-notation",
       "path": "sequence",
-      "properties": Object {
-        "channel": Object {
-          "title": "Channel",
-          "type": "integer",
-        },
-        "enabled": Object {
-          "title": "Enabled",
-          "type": "boolean",
-        },
-        "format": Object {
-          "title": "Format",
-          "type": "string",
-        },
-        "layers": Object {
-          "items": Object {
-            "type": "string",
-          },
-          "title": "Layers",
-          "type": "array",
-        },
-        "length": Object {
-          "title": "Length",
-          "type": "integer",
-        },
-        "name": Object {
-          "title": "Name",
-          "type": "string",
-        },
-        "notation": Object {
-          "title": "Notation",
-          "type": "string",
-        },
-        "offset": Object {
-          "title": "Offset",
-          "type": "integer",
-        },
-        "performance": Object {
-          "format": "uri",
-          "title": "Performance",
-          "type": "string",
-        },
-        "tick": Object {
-          "$ref": "#/definitions/PersistableTick",
-          "title": "Tick",
-        },
-        "triggers": Object {
-          "additionalProperties": Object {
-            "enum": Array [
-              "ENABLE",
-              "DISABLE",
-            ],
-            "type": "string",
-          },
-          "title": "Triggers",
-          "type": "object",
-        },
-        "type": Object {
-          "title": "Flow Name",
-          "type": "string",
-        },
-      },
     }
   }
   entity={
@@ -317,69 +257,9 @@ exports[`Sequences container renders OK 2`] = `
   clazz={
     Clazz {
       "getClazz": [Function],
+      "getProperties": [Function],
       "id": "flow-notation",
       "path": "sequence",
-      "properties": Object {
-        "channel": Object {
-          "title": "Channel",
-          "type": "integer",
-        },
-        "enabled": Object {
-          "title": "Enabled",
-          "type": "boolean",
-        },
-        "format": Object {
-          "title": "Format",
-          "type": "string",
-        },
-        "layers": Object {
-          "items": Object {
-            "type": "string",
-          },
-          "title": "Layers",
-          "type": "array",
-        },
-        "length": Object {
-          "title": "Length",
-          "type": "integer",
-        },
-        "name": Object {
-          "title": "Name",
-          "type": "string",
-        },
-        "notation": Object {
-          "title": "Notation",
-          "type": "string",
-        },
-        "offset": Object {
-          "title": "Offset",
-          "type": "integer",
-        },
-        "performance": Object {
-          "format": "uri",
-          "title": "Performance",
-          "type": "string",
-        },
-        "tick": Object {
-          "$ref": "#/definitions/PersistableTick",
-          "title": "Tick",
-        },
-        "triggers": Object {
-          "additionalProperties": Object {
-            "enum": Array [
-              "ENABLE",
-              "DISABLE",
-            ],
-            "type": "string",
-          },
-          "title": "Triggers",
-          "type": "object",
-        },
-        "type": Object {
-          "title": "Flow Name",
-          "type": "string",
-        },
-      },
     }
   }
   entity={
@@ -508,69 +388,9 @@ exports[`Sequences container renders OK 2`] = `
     clazz={
       Clazz {
         "getClazz": [Function],
+        "getProperties": [Function],
         "id": "flow-notation",
         "path": "sequence",
-        "properties": Object {
-          "channel": Object {
-            "title": "Channel",
-            "type": "integer",
-          },
-          "enabled": Object {
-            "title": "Enabled",
-            "type": "boolean",
-          },
-          "format": Object {
-            "title": "Format",
-            "type": "string",
-          },
-          "layers": Object {
-            "items": Object {
-              "type": "string",
-            },
-            "title": "Layers",
-            "type": "array",
-          },
-          "length": Object {
-            "title": "Length",
-            "type": "integer",
-          },
-          "name": Object {
-            "title": "Name",
-            "type": "string",
-          },
-          "notation": Object {
-            "title": "Notation",
-            "type": "string",
-          },
-          "offset": Object {
-            "title": "Offset",
-            "type": "integer",
-          },
-          "performance": Object {
-            "format": "uri",
-            "title": "Performance",
-            "type": "string",
-          },
-          "tick": Object {
-            "$ref": "#/definitions/PersistableTick",
-            "title": "Tick",
-          },
-          "triggers": Object {
-            "additionalProperties": Object {
-              "enum": Array [
-                "ENABLE",
-                "DISABLE",
-              ],
-              "type": "string",
-            },
-            "title": "Triggers",
-            "type": "object",
-          },
-          "type": Object {
-            "title": "Flow Name",
-            "type": "string",
-          },
-        },
       }
     }
     entity={
@@ -937,69 +757,9 @@ exports[`Sequences container renders OK 3`] = `
   clazz={
     Clazz {
       "getClazz": [Function],
+      "getProperties": [Function],
       "id": "flow-notation",
       "path": "sequence",
-      "properties": Object {
-        "channel": Object {
-          "title": "Channel",
-          "type": "integer",
-        },
-        "enabled": Object {
-          "title": "Enabled",
-          "type": "boolean",
-        },
-        "format": Object {
-          "title": "Format",
-          "type": "string",
-        },
-        "layers": Object {
-          "items": Object {
-            "type": "string",
-          },
-          "title": "Layers",
-          "type": "array",
-        },
-        "length": Object {
-          "title": "Length",
-          "type": "integer",
-        },
-        "name": Object {
-          "title": "Name",
-          "type": "string",
-        },
-        "notation": Object {
-          "title": "Notation",
-          "type": "string",
-        },
-        "offset": Object {
-          "title": "Offset",
-          "type": "integer",
-        },
-        "performance": Object {
-          "format": "uri",
-          "title": "Performance",
-          "type": "string",
-        },
-        "tick": Object {
-          "$ref": "#/definitions/PersistableTick",
-          "title": "Tick",
-        },
-        "triggers": Object {
-          "additionalProperties": Object {
-            "enum": Array [
-              "ENABLE",
-              "DISABLE",
-            ],
-            "type": "string",
-          },
-          "title": "Triggers",
-          "type": "object",
-        },
-        "type": Object {
-          "title": "Flow Name",
-          "type": "string",
-        },
-      },
     }
   }
   entity={
@@ -1150,69 +910,9 @@ exports[`Sequences container renders OK 3`] = `
     clazz={
       Clazz {
         "getClazz": [Function],
+        "getProperties": [Function],
         "id": "flow-notation",
         "path": "sequence",
-        "properties": Object {
-          "channel": Object {
-            "title": "Channel",
-            "type": "integer",
-          },
-          "enabled": Object {
-            "title": "Enabled",
-            "type": "boolean",
-          },
-          "format": Object {
-            "title": "Format",
-            "type": "string",
-          },
-          "layers": Object {
-            "items": Object {
-              "type": "string",
-            },
-            "title": "Layers",
-            "type": "array",
-          },
-          "length": Object {
-            "title": "Length",
-            "type": "integer",
-          },
-          "name": Object {
-            "title": "Name",
-            "type": "string",
-          },
-          "notation": Object {
-            "title": "Notation",
-            "type": "string",
-          },
-          "offset": Object {
-            "title": "Offset",
-            "type": "integer",
-          },
-          "performance": Object {
-            "format": "uri",
-            "title": "Performance",
-            "type": "string",
-          },
-          "tick": Object {
-            "$ref": "#/definitions/PersistableTick",
-            "title": "Tick",
-          },
-          "triggers": Object {
-            "additionalProperties": Object {
-              "enum": Array [
-                "ENABLE",
-                "DISABLE",
-              ],
-              "type": "string",
-            },
-            "title": "Triggers",
-            "type": "object",
-          },
-          "type": Object {
-            "title": "Flow Name",
-            "type": "string",
-          },
-        },
       }
     }
     entity={
@@ -1623,69 +1323,9 @@ exports[`Sequences container renders OK 4`] = `
   clazz={
     Clazz {
       "getClazz": [Function],
+      "getProperties": [Function],
       "id": "flow-notation",
       "path": "sequence",
-      "properties": Object {
-        "channel": Object {
-          "title": "Channel",
-          "type": "integer",
-        },
-        "enabled": Object {
-          "title": "Enabled",
-          "type": "boolean",
-        },
-        "format": Object {
-          "title": "Format",
-          "type": "string",
-        },
-        "layers": Object {
-          "items": Object {
-            "type": "string",
-          },
-          "title": "Layers",
-          "type": "array",
-        },
-        "length": Object {
-          "title": "Length",
-          "type": "integer",
-        },
-        "name": Object {
-          "title": "Name",
-          "type": "string",
-        },
-        "notation": Object {
-          "title": "Notation",
-          "type": "string",
-        },
-        "offset": Object {
-          "title": "Offset",
-          "type": "integer",
-        },
-        "performance": Object {
-          "format": "uri",
-          "title": "Performance",
-          "type": "string",
-        },
-        "tick": Object {
-          "$ref": "#/definitions/PersistableTick",
-          "title": "Tick",
-        },
-        "triggers": Object {
-          "additionalProperties": Object {
-            "enum": Array [
-              "ENABLE",
-              "DISABLE",
-            ],
-            "type": "string",
-          },
-          "title": "Triggers",
-          "type": "object",
-        },
-        "type": Object {
-          "title": "Flow Name",
-          "type": "string",
-        },
-      },
     }
   }
   entity={
@@ -1701,7 +1341,6 @@ exports[`Sequences container renders OK 4`] = `
       ],
       "length": -1,
       "name": "aahs-changed",
-      "performance": "http://localhost:8080/api/performance/1",
       "properties": Object {
         "format": "natural",
         "notation": "C D E",
@@ -1830,7 +1469,6 @@ exports[`Sequences container renders OK 4`] = `
             ],
             "length": -1,
             "name": "aahs-changed",
-            "performance": "http://localhost:8080/api/performance/1",
             "properties": Object {
               "format": "natural",
               "notation": "C D E",

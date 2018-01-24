@@ -82,7 +82,7 @@ export class Schema {
 
   getFieldClazz(path, name) {
     var clazz = this.getClazz(path)
-    var definition = clazz.properties[name]
+    var definition = clazz.getProperties()[name]
     if (definition == null) {
       throw 'Cannot get clazz definition for ' + name
     }

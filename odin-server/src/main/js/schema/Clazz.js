@@ -34,7 +34,9 @@ export class Clazz {
   constructor(getClazz, id, frontEndSchema, backEndClazz) {
     this.id = id
     _frontEndSchema.set(this, frontEndSchema)
-    this.properties = frontEndSchema.properties
+    //this.properties = frontEndSchema.properties
+    // private variable
+    this.getProperties = function() { return frontEndSchema.properties }
     if (backEndClazz) {
       _backEndClazz.set(this, backEndClazz)
     } else {
@@ -49,8 +51,8 @@ export class Clazz {
     var entity = {}
     // Loop through the properties defined for the class and set the fields in the entity
     // for each of these properties.
-    Object.keys(this.properties).map(function(name) {
-      var definition = this.properties[name]
+    Object.keys(this.getProperties()).map(function(name) {
+      var definition = this.getProperties()[name]
       if (!definition.readOnly) {
         this.setFieldValue(entity, refs, name)
       }
@@ -70,7 +72,7 @@ export class Clazz {
     var value = this.getFieldValue(nodes, name, key)
     if (value) {
       // Split array properties.
-      var definition = this.properties[name]
+      var definition = this.getProperties()[name]
       if (definition == null) {
         if (!IMPLICIT_PROPERTIES.includes(name)) {
           console.error('Why is definition null?  Trying to set property ' + name + ' in ' + entity)
@@ -80,7 +82,7 @@ export class Clazz {
           value = value.split(',')
         }
       }
-      if (name in this.getBackEndClazz().properties || IMPLICIT_PROPERTIES.includes(name)) {
+      if (name in this.getBackEndClazz().getProperties() || IMPLICIT_PROPERTIES.includes(name)) {
         // Set the property in the entity if property is defined in back end schema.
         objectPath.set(entity, name, value)
       } else {
@@ -119,17 +121,17 @@ export class Clazz {
     var _key = key ? key : name
     var value
     var node
-    if (this.properties[name] && this.properties[name]['$ref']) {
+    if (this.getProperties()[name] && this.getProperties()[name]['$ref']) {
       // Navigate through object definition to find property names.
-      var fieldClazz = this.getClazz(this.id, this.properties[name]['$ref'])
+      var fieldClazz = this.getClazz(this.id, this.getProperties()[name]['$ref'])
       var property = {}
-      for (var propertyName in fieldClazz.properties) {
+      for (var propertyName in fieldClazz.getProperties()) {
         var propertyKey = _key + '.' + propertyName
         property[propertyName] = fieldClazz.getFieldValue(nodes, propertyName, propertyKey)
       }
       value = property
     // TODO : Reduce duplicated blocks of code below
-    } else if (this.properties[name] && this.properties[name].type == 'object') {
+    } else if (this.getProperties()[name] && this.getProperties()[name].type == 'object') {
       // TODO : Handle better than just JSON to object
       node = nodes[_key]
       if (node) {
@@ -140,7 +142,7 @@ export class Clazz {
       } else {
         value = null
       }
-    } else if (this.properties[name] && this.properties[name].type == 'integer') {
+    } else if (this.getProperties()[name] && this.getProperties()[name].type == 'integer') {
       node = nodes[_key]
       if (node) {
         value = parseInt(node.value.trim())

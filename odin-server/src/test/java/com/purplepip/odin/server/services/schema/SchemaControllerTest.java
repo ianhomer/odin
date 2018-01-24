@@ -60,6 +60,8 @@ public class SchemaControllerTest {
         .andReturn().getResponse().getContentAsString();
 
     Snapshot snapshot = new Snapshot(SchemaController.class)
+        .root("src/test/js")
+        .path("data/services/schema")
         .extension("json").header(false).initialise();
     snapshot.writeLine(toPrettyJson(json));
     snapshot.expectMatch();
