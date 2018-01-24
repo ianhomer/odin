@@ -32,8 +32,8 @@ describe('Sequences container', () => {
   test('Sequences container row deletion', () => {
     // Test deleting a sequence
     const mounted = mount(component)
-    expect(mounted.find('button')).toHaveLength(24)
+    expect(mounted.find('button')).toHaveLength(26)
     mounted.find('button').at(0).simulate('click')
-    expect(mounted.find('button')).toHaveLength(23)
+    expect(mounted.find('button')).toHaveLength(25)
   }, TIMEOUT)
 })

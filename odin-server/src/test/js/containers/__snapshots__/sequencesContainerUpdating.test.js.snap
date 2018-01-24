@@ -594,25 +594,27 @@ exports[`Sequence container validation Sequence update 1`] = `
     Object {
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost:8080/api/sequence/58/performance",
+          "href": "http://localhost/api/sequence/65/performance",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/sequence/58",
+          "href": "http://localhost/api/sequence/65",
         },
         "sequence": Object {
-          "href": "http://localhost:8080/api/sequence/58",
+          "href": "http://localhost/api/sequence/65",
         },
       },
       "channel": 4,
+      "enabled": true,
       "layers": Array [
         "a",
       ],
-      "length": -1,
+      "length": "-1",
       "name": "aahs-a",
-      "offset": 0,
+      "offset": "0",
       "path": "sequence",
       "properties": Object {
-        "format": "natural",
+        "endless": "true",
+        "initialisationCount": "0",
         "notation": "C A C5/h C5/8",
       },
       "tick": Object {
@@ -620,6 +622,7 @@ exports[`Sequence container validation Sequence update 1`] = `
         "numerator": 1,
         "timeUnit": "BEAT",
       },
+      "triggers": Object {},
       "type": "notation",
     }
   }
@@ -730,25 +733,27 @@ exports[`Sequence container validation Sequence update 1`] = `
           Object {
             "_links": Object {
               "performance": Object {
-                "href": "http://localhost:8080/api/sequence/58/performance",
+                "href": "http://localhost/api/sequence/65/performance",
               },
               "self": Object {
-                "href": "http://localhost:8080/api/sequence/58",
+                "href": "http://localhost/api/sequence/65",
               },
               "sequence": Object {
-                "href": "http://localhost:8080/api/sequence/58",
+                "href": "http://localhost/api/sequence/65",
               },
             },
             "channel": 4,
+            "enabled": true,
             "layers": Array [
               "a",
             ],
-            "length": -1,
+            "length": "-1",
             "name": "aahs-a",
-            "offset": 0,
+            "offset": "0",
             "path": "sequence",
             "properties": Object {
-              "format": "natural",
+              "endless": "true",
+              "initialisationCount": "0",
               "notation": "C A C5/h C5/8",
             },
             "tick": Object {
@@ -756,6 +761,7 @@ exports[`Sequence container validation Sequence update 1`] = `
               "numerator": 1,
               "timeUnit": "BEAT",
             },
+            "triggers": Object {},
             "type": "notation",
           }
         }
@@ -770,7 +776,7 @@ exports[`Sequence container validation Sequence update 1`] = `
             C A C5/h C5/8
           </span>
           <span
-            id="http://localhost:8080/api/sequence/58-notation-1"
+            id="http://localhost/api/sequence/65-notation-1"
           />
         </div>
       </Score>
@@ -846,25 +852,27 @@ exports[`Sequence container validation Sequence update 2`] = `
     Object {
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost:8080/api/sequence/58/performance",
+          "href": "http://localhost/api/sequence/65/performance",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/sequence/58",
+          "href": "http://localhost/api/sequence/65",
         },
         "sequence": Object {
-          "href": "http://localhost:8080/api/sequence/58",
+          "href": "http://localhost/api/sequence/65",
         },
       },
       "channel": 4,
+      "enabled": true,
       "layers": Array [
         "a",
       ],
-      "length": -1,
+      "length": "-1",
       "name": "aahs-a",
-      "offset": 0,
+      "offset": "0",
       "path": "sequence",
       "properties": Object {
-        "format": "natural",
+        "endless": "true",
+        "initialisationCount": "0",
         "notation": "C A C5/h C5/8",
       },
       "tick": Object {
@@ -872,6 +880,7 @@ exports[`Sequence container validation Sequence update 2`] = `
         "numerator": 1,
         "timeUnit": "BEAT",
       },
+      "triggers": Object {},
       "type": "notation",
     }
   }
@@ -977,25 +986,27 @@ exports[`Sequence container validation Sequence update 2`] = `
       Object {
         "_links": Object {
           "performance": Object {
-            "href": "http://localhost:8080/api/sequence/58/performance",
+            "href": "http://localhost/api/sequence/65/performance",
           },
           "self": Object {
-            "href": "http://localhost:8080/api/sequence/58",
+            "href": "http://localhost/api/sequence/65",
           },
           "sequence": Object {
-            "href": "http://localhost:8080/api/sequence/58",
+            "href": "http://localhost/api/sequence/65",
           },
         },
         "channel": 4,
+        "enabled": true,
         "layers": Array [
           "a",
         ],
-        "length": -1,
+        "length": "-1",
         "name": "aahs-a",
-        "offset": 0,
+        "offset": "0",
         "path": "sequence",
         "properties": Object {
-          "format": "natural",
+          "endless": "true",
+          "initialisationCount": "0",
           "notation": "C A C5/h C5/8",
         },
         "tick": Object {
@@ -1003,6 +1014,7 @@ exports[`Sequence container validation Sequence update 2`] = `
           "numerator": 1,
           "timeUnit": "BEAT",
         },
+        "triggers": Object {},
         "type": "notation",
       }
     }
@@ -1112,7 +1124,6 @@ exports[`Sequence container validation Sequence update 2`] = `
         />
       </div>
       <input
-        defaultValue="natural"
         name="format"
         type="hidden"
       />
@@ -1127,25 +1138,27 @@ exports[`Sequence container validation Sequence update 2`] = `
             Object {
               "_links": Object {
                 "performance": Object {
-                  "href": "http://localhost:8080/api/sequence/58/performance",
+                  "href": "http://localhost/api/sequence/65/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost:8080/api/sequence/58",
+                  "href": "http://localhost/api/sequence/65",
                 },
                 "sequence": Object {
-                  "href": "http://localhost:8080/api/sequence/58",
+                  "href": "http://localhost/api/sequence/65",
                 },
               },
               "channel": 4,
+              "enabled": true,
               "layers": Array [
                 "a",
               ],
-              "length": -1,
+              "length": "-1",
               "name": "aahs-a",
-              "offset": 0,
+              "offset": "0",
               "path": "sequence",
               "properties": Object {
-                "format": "natural",
+                "endless": "true",
+                "initialisationCount": "0",
                 "notation": "C A C5/h C5/8",
               },
               "tick": Object {
@@ -1153,6 +1166,7 @@ exports[`Sequence container validation Sequence update 2`] = `
                 "numerator": 1,
                 "timeUnit": "BEAT",
               },
+              "triggers": Object {},
               "type": "notation",
             }
           }
@@ -1177,7 +1191,7 @@ exports[`Sequence container validation Sequence update 2`] = `
               />
             </span>
             <div
-              id="http://localhost:8080/api/sequence/58-notation-1"
+              id="http://localhost/api/sequence/65-notation-1"
               style={
                 Object {
                   "height": "120px",
@@ -1246,6 +1260,7 @@ exports[`Sequence container validation Sequence update 2`] = `
           placeholder="offset"
           size={3}
           type="text"
+          value="0"
         />
       </div>
       <div
@@ -1260,7 +1275,7 @@ exports[`Sequence container validation Sequence update 2`] = `
           placeholder="length"
           size={3}
           type="text"
-          value={-1}
+          value="-1"
         />
       </div>
       <div
@@ -1292,6 +1307,7 @@ exports[`Sequence container validation Sequence update 2`] = `
         />
       </div>
       <input
+        defaultValue={true}
         name="enabled"
         type="hidden"
       />
@@ -1314,7 +1330,7 @@ exports[`Sequence container validation Sequence update 2`] = `
         />
         <div>
           <input
-            defaultValue="http://localhost:8080/api/sequence/58"
+            defaultValue="http://localhost/api/sequence/65"
             name="_links.self.href"
             type="hidden"
           />
@@ -1368,25 +1384,27 @@ exports[`Sequence container validation Sequence update 3`] = `
       },
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost:8080/api/sequence/58/performance",
+          "href": "http://localhost/api/sequence/65/performance",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/sequence/58",
+          "href": "http://localhost/api/sequence/65",
         },
         "sequence": Object {
-          "href": "http://localhost:8080/api/sequence/58",
+          "href": "http://localhost/api/sequence/65",
         },
       },
       "channel": 4,
+      "enabled": true,
       "layers": Array [
         "a",
       ],
-      "length": -1,
+      "length": "-1",
       "name": "aahs-a",
-      "offset": 0,
+      "offset": "0",
       "path": "sequence",
       "properties": Object {
-        "format": "natural",
+        "endless": "true",
+        "initialisationCount": "0",
         "notation": "C A C5/h C5/8",
       },
       "tick": Object {
@@ -1394,6 +1412,7 @@ exports[`Sequence container validation Sequence update 3`] = `
         "numerator": 1,
         "timeUnit": "BEAT",
       },
+      "triggers": Object {},
       "type": "notation",
     }
   }
@@ -1521,25 +1540,27 @@ exports[`Sequence container validation Sequence update 3`] = `
         },
         "_links": Object {
           "performance": Object {
-            "href": "http://localhost:8080/api/sequence/58/performance",
+            "href": "http://localhost/api/sequence/65/performance",
           },
           "self": Object {
-            "href": "http://localhost:8080/api/sequence/58",
+            "href": "http://localhost/api/sequence/65",
           },
           "sequence": Object {
-            "href": "http://localhost:8080/api/sequence/58",
+            "href": "http://localhost/api/sequence/65",
           },
         },
         "channel": 4,
+        "enabled": true,
         "layers": Array [
           "a",
         ],
-        "length": -1,
+        "length": "-1",
         "name": "aahs-a",
-        "offset": 0,
+        "offset": "0",
         "path": "sequence",
         "properties": Object {
-          "format": "natural",
+          "endless": "true",
+          "initialisationCount": "0",
           "notation": "C A C5/h C5/8",
         },
         "tick": Object {
@@ -1547,6 +1568,7 @@ exports[`Sequence container validation Sequence update 3`] = `
           "numerator": 1,
           "timeUnit": "BEAT",
         },
+        "triggers": Object {},
         "type": "notation",
       }
     }
@@ -1656,7 +1678,6 @@ exports[`Sequence container validation Sequence update 3`] = `
         />
       </div>
       <input
-        defaultValue="natural"
         name="format"
         type="hidden"
       />
@@ -1693,25 +1714,27 @@ exports[`Sequence container validation Sequence update 3`] = `
               },
               "_links": Object {
                 "performance": Object {
-                  "href": "http://localhost:8080/api/sequence/58/performance",
+                  "href": "http://localhost/api/sequence/65/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost:8080/api/sequence/58",
+                  "href": "http://localhost/api/sequence/65",
                 },
                 "sequence": Object {
-                  "href": "http://localhost:8080/api/sequence/58",
+                  "href": "http://localhost/api/sequence/65",
                 },
               },
               "channel": 4,
+              "enabled": true,
               "layers": Array [
                 "a",
               ],
-              "length": -1,
+              "length": "-1",
               "name": "aahs-a",
-              "offset": 0,
+              "offset": "0",
               "path": "sequence",
               "properties": Object {
-                "format": "natural",
+                "endless": "true",
+                "initialisationCount": "0",
                 "notation": "C D E",
               },
               "tick": Object {
@@ -1719,6 +1742,7 @@ exports[`Sequence container validation Sequence update 3`] = `
                 "numerator": 1,
                 "timeUnit": "BEAT",
               },
+              "triggers": Object {},
               "type": "notation",
             }
           }
@@ -1743,7 +1767,7 @@ exports[`Sequence container validation Sequence update 3`] = `
               />
             </span>
             <div
-              id="http://localhost:8080/api/sequence/58-notation-2"
+              id="http://localhost/api/sequence/65-notation-2"
               style={
                 Object {
                   "height": "120px",
@@ -1812,6 +1836,7 @@ exports[`Sequence container validation Sequence update 3`] = `
           placeholder="offset"
           size={3}
           type="text"
+          value="0"
         />
       </div>
       <div
@@ -1826,7 +1851,7 @@ exports[`Sequence container validation Sequence update 3`] = `
           placeholder="length"
           size={3}
           type="text"
-          value={-1}
+          value="-1"
         />
       </div>
       <div
@@ -1858,6 +1883,7 @@ exports[`Sequence container validation Sequence update 3`] = `
         />
       </div>
       <input
+        defaultValue={true}
         name="enabled"
         type="hidden"
       />
@@ -1880,7 +1906,7 @@ exports[`Sequence container validation Sequence update 3`] = `
         />
         <div>
           <input
-            defaultValue="http://localhost:8080/api/sequence/58"
+            defaultValue="http://localhost/api/sequence/65"
             name="_links.self.href"
             type="hidden"
           />
@@ -1912,10 +1938,11 @@ exports[`Sequence container validation Sequence update 4`] = `
     Object {
       "_links": Object {
         "self": Object {
-          "href": "http://localhost:8080/api/sequence/58",
+          "href": "http://localhost/api/sequence/65",
         },
       },
       "channel": 5,
+      "enabled": "true",
       "layers": Array [
         "a",
       ],
@@ -1923,7 +1950,6 @@ exports[`Sequence container validation Sequence update 4`] = `
       "name": "aahs-changed",
       "performance": "http://localhost:8080/api/performance/1",
       "properties": Object {
-        "format": "natural",
         "notation": "C D E",
       },
       "tick": Object {
@@ -2041,10 +2067,11 @@ exports[`Sequence container validation Sequence update 4`] = `
           Object {
             "_links": Object {
               "self": Object {
-                "href": "http://localhost:8080/api/sequence/58",
+                "href": "http://localhost/api/sequence/65",
               },
             },
             "channel": 5,
+            "enabled": "true",
             "layers": Array [
               "a",
             ],
@@ -2052,7 +2079,6 @@ exports[`Sequence container validation Sequence update 4`] = `
             "name": "aahs-changed",
             "performance": "http://localhost:8080/api/performance/1",
             "properties": Object {
-              "format": "natural",
               "notation": "C D E",
             },
             "tick": Object {
@@ -2074,7 +2100,7 @@ exports[`Sequence container validation Sequence update 4`] = `
             C D E
           </span>
           <span
-            id="http://localhost:8080/api/sequence/58-notation-1"
+            id="http://localhost/api/sequence/65-notation-1"
           />
         </div>
       </Score>

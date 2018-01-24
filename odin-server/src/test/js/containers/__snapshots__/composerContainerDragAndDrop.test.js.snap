@@ -24,6 +24,13 @@ exports[`Composer container drag and drop Initialise 1`] = `
       draggable="true"
       style="opacity: 1;"
     >
+      bass-3
+    </div>
+    <div
+      class="sequenceInLayer"
+      draggable="true"
+      style="opacity: 1;"
+    >
       kick1
     </div>
     <div

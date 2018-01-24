@@ -37,7 +37,9 @@ public class EndPointSnapshot {
    * @throws Exception exception
    */
   public void expectMatch() throws Exception {
-    String json = mvc.perform(get(uri).accept("application/schema+json"))
+    String accept = uri.contains("profile") ? "application/schema+json" : "application/json";
+
+    String json = mvc.perform(get(uri).accept(accept))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
     Snapshot snapshot = new Snapshot(SequenceRestTest.class)
