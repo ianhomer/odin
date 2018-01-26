@@ -18,6 +18,8 @@ package com.purplepip.odin.snapshot;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SnapshotTest {
@@ -54,4 +56,24 @@ public class SnapshotTest {
     snapshot.writeLine(0,"{ \"x\" : 1}");
     snapshot.expectMatch();
   }
+
+  @Ignore
+  @Test
+  public void testSnapshotWithVariabilityMask() throws IOException {
+    Snapshot snapshot = new Snapshot(Snapshot.class)
+        .root("src/test/resources")
+        .path("com/purplepip/odin/snapshot/snapshot/Snapshot")
+        .variation("variable")
+        .extension("json")
+        .mask("http://localhost/api/channel/[0-9]+[^\"]*",
+            "http://localhost/api/channel/__VAR__")
+        .header(false).initialise();
+    int number = ThreadLocalRandom.current().nextInt(0, 99);
+    snapshot.writeLine(0,"{ "
+        + "\"x\" : \"http://localhost/api/channel/" + number + "\","
+        + "\"y\" : \"http://localhost/api/channel/" + number + "/performance\""
+        + "}");
+    snapshot.expectMatch();
+  }
+
 }

@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.purplepip.odin.common.OdinRuntimeException;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,6 +49,7 @@ public class Snapshot {
   private String extension = "snap";
   private String root = "src/test/resources";
   private String relativePath;
+  private Comparator<String> comparator;
 
   /*
    * Snapshot could be written to by multiple threads so we need to guarantee thread safety
@@ -85,6 +87,28 @@ public class Snapshot {
    */
   public Snapshot header(boolean header) {
     this.header = header;
+    return this;
+  }
+
+  /**
+   * Set comparator for snapshot match assertion.
+   *
+   * @param comparator comparator
+   * @return this
+   */
+  public Snapshot comparator(Comparator<String> comparator) {
+    this.comparator = comparator;
+    return this;
+  }
+
+  /**
+   * Set mask for comparator for snapshot match assertion.
+   *
+   * @param mask mask
+   * @return this
+   */
+  public Snapshot mask(String mask, String replacement) {
+    this.comparator = new MaskedComparator(mask, replacement);
     return this;
   }
 
@@ -243,7 +267,12 @@ public class Snapshot {
     } catch (IOException e) {
       LOG.error("Cannot commit snapshot", e);
     }
-    assertThat(path).hasContent(linesAsSortedStream().collect(Collectors.joining("\n")));
+    InputStream actual = new StringStreamInputStream(linesAsSortedStream());
+    try {
+      assertThat(actual).hasSameContentAs(Files.newInputStream(path));
+    } catch (IOException e) {
+      throw new OdinRuntimeException("Cannot read " + path, e);
+    }
   }
 
   public Path getPath() {
