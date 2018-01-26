@@ -4,6 +4,7 @@ import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.server.rest.EndPointSnapshot;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class PreLoadedOperationsRestTest {
   private OdinSequencerConfiguration configuration;
 
   @Test
-  public void testSequencesList() throws Exception {
+  @Ignore
+  public void testRestSnapshot() throws Exception {
     configuration.getOperationTransmitter().handle(
         new NoteOnOperation(1, 1, 99), 5
     );

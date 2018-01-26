@@ -23,7 +23,7 @@ public class PreLoadedPerformanceRestTest {
   private MockMvc mvc;
 
   @Test
-  public void testSequencesList() throws Exception {
+  public void testRestSnapshot() throws Exception {
     new EndPointSnapshot(mvc, "/api/performance").expectMatch();
   }
 }
