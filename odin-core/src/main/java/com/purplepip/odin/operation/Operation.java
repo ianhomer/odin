@@ -31,15 +31,6 @@ public interface Operation {
 
   Operation getRootCause();
 
-  /**
-   * Return either this operation or a wrapped operation if an operation has been wrapped.
-   *
-   * @return unwrapped operation
-   */
-  default Operation unwrap() {
-    return this;
-  }
-
   boolean hasCause();
 
   int getCauseDepth();

@@ -95,7 +95,7 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
 
   @Override
   public List<Operation> react(Operation operation) {
-    if (trigger.isTriggeredBy(operation.unwrap())) {
+    if (trigger.isTriggeredBy(operation)) {
       List<Operation> ripples = new ArrayList<>();
       LOG.debug("Trigger {} triggered", trigger.getName());
       getTracks().forEach(entry -> {

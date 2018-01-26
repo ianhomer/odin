@@ -33,16 +33,7 @@ public class DefaultOperationTransmitter implements OperationTransmitter {
   public void handle(Operation operation, long time) throws OdinException {
     receivers.forEach(receiver -> {
       try {
-        /*
-         * TODO : We currently transmit operation with NOW time, not the original time.  This is
-         * from the assumption that we want the incoming signal to always be processed and ASAP.
-         * There might be situations where signals are coming in from the future, however to
-         * support this we need to make sure the times are synchronized between source and
-         * destination devices.
-         */
-        receiver.handle(operation, -1);
-        // TODO : Send transmitted operation so that system can unwrap and find original time
-        //receiver.handle(new TransmittedOperation(operation, time), -1);
+        receiver.handle(operation, time);
       } catch (OdinException e) {
         LOG.error("Cannot handle operation " + operation + " at time " + time, e);
       }

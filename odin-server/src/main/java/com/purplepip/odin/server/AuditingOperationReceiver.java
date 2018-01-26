@@ -19,7 +19,6 @@ import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.operation.ChannelOperation;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.operation.OperationReceiver;
-import com.purplepip.odin.operation.TimeAwareOperation;
 import com.purplepip.odin.server.rest.repositories.OperationRepository;
 import com.purplepip.odin.store.domain.PersistableOperation;
 import java.util.Calendar;
@@ -48,7 +47,7 @@ public class AuditingOperationReceiver implements OperationReceiver, Initializin
   public void handle(Operation operation, long time) {
     PersistableOperation persistableOperation = new PersistableOperation();
     persistableOperation.setMessage(operation.toString());
-    persistableOperation.setTime(getTime(operation, time));
+    persistableOperation.setTime(time);
     persistableOperation.setType(getType(operation));
     if (operation instanceof ChannelOperation) {
       persistableOperation.setChannel(((ChannelOperation) operation).getChannel());
@@ -63,18 +62,7 @@ public class AuditingOperationReceiver implements OperationReceiver, Initializin
   }
 
   private String getType(Operation operation) {
-    // TODO : Get root cause / perhaps also make stack of cause available
-    if (operation.hasCause()) {
-      return operation.getCause().getClass().getSimpleName();
-    }
     return operation.getClass().getSimpleName();
-  }
-
-  private long getTime(Operation operation, long time) {
-    if (operation instanceof TimeAwareOperation) {
-      return ((TimeAwareOperation) operation).getTime();
-    }
-    return time;
   }
 
   @Override
