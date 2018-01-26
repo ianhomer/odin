@@ -68,10 +68,8 @@ public class OdinSequencer implements PerformanceApplyListener {
    * Create an odin sequencer.
    *
    * @param configuration configuration for the sequencer
-   * @throws OdinException exception
    */
-  public OdinSequencer(OdinSequencerConfiguration configuration)
-      throws OdinException {
+  public OdinSequencer(OdinSequencerConfiguration configuration) {
     this.configuration = configuration;
     init();
   }

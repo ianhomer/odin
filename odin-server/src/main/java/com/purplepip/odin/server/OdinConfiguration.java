@@ -29,6 +29,7 @@ import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,19 +69,15 @@ public class OdinConfiguration {
   }
 
   /**
-   * Create Odin sequencer.
+   * Create odin sequencer configuration.
    *
-   * @param measureProvider   measure provider
+   * @param measureProvider measure provider
    * @param midiDeviceWrapper MIDI device wrapper
-   * @param performanceContainer  performance container
-   * @return Odin sequencer
-   * @throws OdinException exception
+   * @return odin sequencer configuration
    */
   @Bean
-  public OdinSequencer odinSequencer(MeasureProvider measureProvider,
-                                     MidiDeviceWrapper midiDeviceWrapper,
-                                     PerformanceContainer performanceContainer)
-      throws OdinException {
+  public OdinSequencerConfiguration configuration(MeasureProvider measureProvider,
+                                                  MidiDeviceWrapper midiDeviceWrapper) {
     List<OperationReceiver> operationReceivers = new ArrayList<>();
     operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
     if (performanceLoader != null) {
@@ -103,7 +100,19 @@ public class OdinConfiguration {
     if (metrics != null) {
       configuration.setMetrics(metrics);
     }
+    return configuration;
+  }
 
+  /**
+   * Create Odin sequencer.
+   *
+   * @param configuration Odin configuration
+   * @param performanceContainer  performance container
+   * @return Odin sequencer
+   */
+  @Bean
+  public OdinSequencer odinSequencer(OdinSequencerConfiguration configuration,
+                                     PerformanceContainer performanceContainer) {
     OdinSequencer odinSequencer = new OdinSequencer(configuration);
     performanceContainer.addApplyListener(odinSequencer);
     return odinSequencer;

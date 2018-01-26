@@ -1,0 +1,23 @@
+{
+  "_embedded" : {
+    "operation" : [ ]
+  },
+  "_links" : {
+    "profile" : {
+      "href" : "http://localhost/api/profile/operation"
+    },
+    "search" : {
+      "href" : "http://localhost/api/operation/search"
+    },
+    "self" : {
+      "href" : "http://localhost/api/operation{?page,size,sort}",
+      "templated" : true
+    }
+  },
+  "page" : {
+    "number" : 0,
+    "size" : 20,
+    "totalElements" : 0,
+    "totalPages" : 0
+  }
+}
