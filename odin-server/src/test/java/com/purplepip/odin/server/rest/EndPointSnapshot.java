@@ -27,6 +27,12 @@ public class EndPointSnapshot {
   private String uri;
   private Snapshot snapshot;
 
+  /**
+   * Create an end point snapshot.
+   *
+   * @param mvc mock mvc context
+   * @param uri URI for the end point to snapshot
+   */
   public EndPointSnapshot(MockMvc mvc, String uri) {
     this.mvc = mvc;
     this.uri = uri;
