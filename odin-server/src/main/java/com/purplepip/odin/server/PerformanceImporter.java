@@ -33,10 +33,11 @@ public class PerformanceImporter {
    *
    * @param performance performance to load
    */
-  public void load(Performance performance) {
+  public PersistablePerformance load(Performance performance) {
     PersistablePerformance persistablePerformance = new PersistablePerformance();
     persistablePerformance.setName(performance.getName());
     persistablePerformance.mixin(performance);
     performanceRepository.save(persistablePerformance);
+    return persistablePerformance;
   }
 }

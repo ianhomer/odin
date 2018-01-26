@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.server;
 
+import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.demo.GroovePerformance;
-import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Profile("!test")
@@ -34,12 +35,18 @@ public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
   private PerformanceLoader loader;
 
   @Autowired
-  private PerformanceContainer container;
+  private PerformanceImporter importer;
 
   @Override
-  public void run(String... args) throws Exception {
-    container.setPerformance(new GroovePerformance());
-    //loader.load(new ClassUri(GroovePerformance.class).getUri());
-    LOG.info("Loaded performance from {}", DefaultRuntimePerformanceLoader.class.getName());
+  @Transactional
+  public void run(String... args) {
+    /*
+     * Import into persistent store
+     */
+    importer.load(new GroovePerformance());
+    /*
+     * Load performance into sequencer
+     */
+    loader.load(new ClassUri(GroovePerformance.class).getUri());
   }
 }
