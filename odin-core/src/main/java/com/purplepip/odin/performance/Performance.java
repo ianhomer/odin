@@ -15,10 +15,12 @@
 
 package com.purplepip.odin.performance;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
+import java.net.URI;
 import java.util.Set;
 
 /**
@@ -26,6 +28,11 @@ import java.util.Set;
  */
 public interface Performance {
   String getName();
+
+  @JsonIgnore
+  default URI getUri() {
+    return URI.create(getName());
+  }
 
   /**
    * Get set of the sequences stored in this project.

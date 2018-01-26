@@ -20,6 +20,7 @@ import com.purplepip.odin.creation.channel.Channel
 import com.purplepip.odin.creation.layer.Layer
 import com.purplepip.odin.creation.sequence.SequenceConfiguration
 import com.purplepip.odin.creation.triggers.TriggerConfiguration
+import java.net.URI
 
 open class StaticPerformance(private val performance: Performance) : Performance {
   constructor(block: PerformanceConfigurationContext.() -> Unit) :
@@ -27,6 +28,10 @@ open class StaticPerformance(private val performance: Performance) : Performance
 
   override fun getName(): String {
     return performance.name
+  }
+
+  override fun getUri() : URI {
+    return performance.uri
   }
 
   override fun getSequences(): Set<SequenceConfiguration> {

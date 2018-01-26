@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.performance.PerformanceLoader;
 import lombok.extern.slf4j.Slf4j;
@@ -41,12 +40,8 @@ public class DefaultRuntimePerformanceLoader implements CommandLineRunner {
   @Transactional
   public void run(String... args) {
     /*
-     * Import into persistent store
+     * Import performance into sequencer and load into sequencer
      */
-    importer.load(new GroovePerformance());
-    /*
-     * Load performance into sequencer
-     */
-    loader.load(new ClassUri(GroovePerformance.class).getUri());
+    loader.load(importer.load(new GroovePerformance()).getUri());
   }
 }

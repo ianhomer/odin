@@ -21,6 +21,7 @@ import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerConfiguration;
+import java.net.URI;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.ToString;
@@ -33,6 +34,8 @@ public class TransientPerformance implements Performance {
   private static final String TRANSIENT_PERFORMANCE_NAME = "transient";
 
   private final String name;
+
+  private final URI uri;
 
   private Set<SequenceConfiguration> sequences = new LinkedHashSet<>();
 
@@ -54,17 +57,27 @@ public class TransientPerformance implements Performance {
    * transient.
    */
   public TransientPerformance() {
-    name = getClass().equals(TransientPerformance.class) ? TRANSIENT_PERFORMANCE_NAME
-        : new ClassUri(getClass()).toString();
+    if (getClass().equals(TransientPerformance.class)) {
+      name = TRANSIENT_PERFORMANCE_NAME;
+      uri = URI.create(name);
+    } else {
+      uri = new ClassUri(getClass()).getUri();
+      name = uri.toString();
+    }
   }
 
   public TransientPerformance(String name) {
     this.name = name;
+    this.uri = URI.create(name);
   }
 
   @Override
   public String getName() {
     return name;
+  }
+
+  public URI getUri() {
+    return uri;
   }
 
   @Override

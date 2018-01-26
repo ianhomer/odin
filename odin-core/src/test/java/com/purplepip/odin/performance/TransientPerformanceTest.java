@@ -10,6 +10,7 @@ import com.purplepip.odin.creation.triggers.NoteTrigger;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
+import java.net.URI;
 import org.junit.Test;
 
 /**
@@ -41,6 +42,10 @@ public class TransientPerformanceTest {
   public void testGetName() {
     Performance performance = new TransientPerformance();
     assertEquals("transient", performance.getName());
+    assertEquals(URI.create("transient"), performance.getUri());
+    performance = new TransientPerformance("a/b/c");
+    assertEquals("a/b/c", performance.getName());
+    assertEquals(URI.create("a/b/c"), performance.getUri());
   }
 
   @Test
