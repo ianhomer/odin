@@ -43,6 +43,7 @@ public class PersistableOperation {
   private Date dateCreated;
 
   private String message;
+  private String type;
   private long time;
   private int channel;
   private int number;

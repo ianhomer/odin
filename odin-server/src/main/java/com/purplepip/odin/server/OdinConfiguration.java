@@ -56,7 +56,7 @@ public class OdinConfiguration {
   public MidiDeviceWrapper midiDeviceWrapper() throws OdinException {
     return new MidiDeviceWrapper();
   }
-  
+
   @Bean
   public MeasureProvider measureProvider() {
     return new StaticBeatMeasureProvider(FOUR_FOUR_TIME);

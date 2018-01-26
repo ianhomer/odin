@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.server;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.operation.ChannelOperation;
 import com.purplepip.odin.operation.Operation;
@@ -45,10 +44,11 @@ public class AuditingOperationReceiver implements OperationReceiver, Initializin
       Executors.newScheduledThreadPool(1);
 
   @Override
-  public void handle(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) {
     PersistableOperation persistableOperation = new PersistableOperation();
     persistableOperation.setMessage(operation.toString());
     persistableOperation.setTime(time);
+    persistableOperation.setType(operation.getClass().getSimpleName());
     if (operation instanceof ChannelOperation) {
       persistableOperation.setChannel(((ChannelOperation) operation).getChannel());
       if (operation instanceof AbstractNoteVelocityOperation) {
@@ -62,7 +62,7 @@ public class AuditingOperationReceiver implements OperationReceiver, Initializin
   }
 
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() {
     scheduledPool.scheduleAtFixedRate(() -> {
       try {
         long countBefore = repository.count();
