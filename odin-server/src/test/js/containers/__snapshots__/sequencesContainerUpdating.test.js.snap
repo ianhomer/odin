@@ -71,24 +71,44 @@ exports[`Sequence container validation Sequence create 1`] = `
   onFetchComposition={[Function]}
   performance={
     Object {
+      "_embedded": Object {
+        "performance": Array [
+          Object {
+            "_links": Object {
+              "channels": Object {
+                "href": "http://localhost/api/performance/1/channels",
+              },
+              "layers": Object {
+                "href": "http://localhost/api/performance/1/layers",
+              },
+              "performance": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "self": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "sequences": Object {
+                "href": "http://localhost/api/performance/1/sequences",
+              },
+              "triggers": Object {
+                "href": "http://localhost/api/performance/1/triggers",
+              },
+            },
+            "name": "com/purplepip/odin/demo/GroovePerformance",
+          },
+        ],
+      },
       "_links": Object {
-        "channels": Object {
-          "href": "http://localhost:8080/api/performance/1/channels",
+        "profile": Object {
+          "href": "http://localhost/api/profile/performance",
         },
-        "layers": Object {
-          "href": "http://localhost:8080/api/performance/1/layers",
-        },
-        "performance": Object {
-          "href": "http://localhost:8080/api/performance/1",
+        "search": Object {
+          "href": "http://localhost/api/performance/search",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/performance/1",
-        },
-        "sequences": Object {
-          "href": "http://localhost:8080/api/performance/1/sequences",
+          "href": "http://localhost/api/performance",
         },
       },
-      "name": "defaultPerformance",
     }
   }
   schema={
@@ -283,7 +303,7 @@ exports[`Sequence container validation Sequence create 1`] = `
       className="col-1"
     >
       <input
-        defaultValue="http://localhost:8080/api/performance/1"
+        defaultValue="http://localhost/api/performance"
         name="performance"
         type="hidden"
       />
@@ -347,7 +367,7 @@ exports[`Sequence container validation Sequence create 2`] = `
       "enabled": "true",
       "length": -1,
       "name": "new-test-sequence",
-      "performance": "http://localhost:8080/api/performance/1",
+      "performance": "http://localhost/api/performance",
       "properties": Object {
         "format": "natural",
         "notation": "A B C",
@@ -423,24 +443,44 @@ exports[`Sequence container validation Sequence create 2`] = `
   path="notation"
   performance={
     Object {
+      "_embedded": Object {
+        "performance": Array [
+          Object {
+            "_links": Object {
+              "channels": Object {
+                "href": "http://localhost/api/performance/1/channels",
+              },
+              "layers": Object {
+                "href": "http://localhost/api/performance/1/layers",
+              },
+              "performance": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "self": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "sequences": Object {
+                "href": "http://localhost/api/performance/1/sequences",
+              },
+              "triggers": Object {
+                "href": "http://localhost/api/performance/1/triggers",
+              },
+            },
+            "name": "com/purplepip/odin/demo/GroovePerformance",
+          },
+        ],
+      },
       "_links": Object {
-        "channels": Object {
-          "href": "http://localhost:8080/api/performance/1/channels",
+        "profile": Object {
+          "href": "http://localhost/api/profile/performance",
         },
-        "layers": Object {
-          "href": "http://localhost:8080/api/performance/1/layers",
-        },
-        "performance": Object {
-          "href": "http://localhost:8080/api/performance/1",
+        "search": Object {
+          "href": "http://localhost/api/performance/search",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/performance/1",
-        },
-        "sequences": Object {
-          "href": "http://localhost:8080/api/performance/1/sequences",
+          "href": "http://localhost/api/performance",
         },
       },
-      "name": "defaultPerformance",
     }
   }
   schema={
@@ -496,7 +536,7 @@ exports[`Sequence container validation Sequence create 2`] = `
             "enabled": "true",
             "length": -1,
             "name": "new-test-sequence",
-            "performance": "http://localhost:8080/api/performance/1",
+            "performance": "http://localhost/api/performance",
             "properties": Object {
               "format": "natural",
               "notation": "A B C",
@@ -689,24 +729,44 @@ exports[`Sequence container validation Sequence update 1`] = `
   path="notation"
   performance={
     Object {
+      "_embedded": Object {
+        "performance": Array [
+          Object {
+            "_links": Object {
+              "channels": Object {
+                "href": "http://localhost/api/performance/1/channels",
+              },
+              "layers": Object {
+                "href": "http://localhost/api/performance/1/layers",
+              },
+              "performance": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "self": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "sequences": Object {
+                "href": "http://localhost/api/performance/1/sequences",
+              },
+              "triggers": Object {
+                "href": "http://localhost/api/performance/1/triggers",
+              },
+            },
+            "name": "com/purplepip/odin/demo/GroovePerformance",
+          },
+        ],
+      },
       "_links": Object {
-        "channels": Object {
-          "href": "http://localhost:8080/api/performance/1/channels",
+        "profile": Object {
+          "href": "http://localhost/api/profile/performance",
         },
-        "layers": Object {
-          "href": "http://localhost:8080/api/performance/1/layers",
-        },
-        "performance": Object {
-          "href": "http://localhost:8080/api/performance/1",
+        "search": Object {
+          "href": "http://localhost/api/performance/search",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/performance/1",
-        },
-        "sequences": Object {
-          "href": "http://localhost:8080/api/performance/1/sequences",
+          "href": "http://localhost/api/performance",
         },
       },
-      "name": "defaultPerformance",
     }
   }
   schema={
@@ -947,24 +1007,44 @@ exports[`Sequence container validation Sequence update 2`] = `
   path="notation"
   performance={
     Object {
+      "_embedded": Object {
+        "performance": Array [
+          Object {
+            "_links": Object {
+              "channels": Object {
+                "href": "http://localhost/api/performance/1/channels",
+              },
+              "layers": Object {
+                "href": "http://localhost/api/performance/1/layers",
+              },
+              "performance": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "self": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "sequences": Object {
+                "href": "http://localhost/api/performance/1/sequences",
+              },
+              "triggers": Object {
+                "href": "http://localhost/api/performance/1/triggers",
+              },
+            },
+            "name": "com/purplepip/odin/demo/GroovePerformance",
+          },
+        ],
+      },
       "_links": Object {
-        "channels": Object {
-          "href": "http://localhost:8080/api/performance/1/channels",
+        "profile": Object {
+          "href": "http://localhost/api/profile/performance",
         },
-        "layers": Object {
-          "href": "http://localhost:8080/api/performance/1/layers",
-        },
-        "performance": Object {
-          "href": "http://localhost:8080/api/performance/1",
+        "search": Object {
+          "href": "http://localhost/api/performance/search",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/performance/1",
-        },
-        "sequences": Object {
-          "href": "http://localhost:8080/api/performance/1/sequences",
+          "href": "http://localhost/api/performance",
         },
       },
-      "name": "defaultPerformance",
     }
   }
   schema={
@@ -1079,24 +1159,44 @@ exports[`Sequence container validation Sequence update 2`] = `
     onFetchComposition={[Function]}
     performance={
       Object {
+        "_embedded": Object {
+          "performance": Array [
+            Object {
+              "_links": Object {
+                "channels": Object {
+                  "href": "http://localhost/api/performance/1/channels",
+                },
+                "layers": Object {
+                  "href": "http://localhost/api/performance/1/layers",
+                },
+                "performance": Object {
+                  "href": "http://localhost/api/performance/1",
+                },
+                "self": Object {
+                  "href": "http://localhost/api/performance/1",
+                },
+                "sequences": Object {
+                  "href": "http://localhost/api/performance/1/sequences",
+                },
+                "triggers": Object {
+                  "href": "http://localhost/api/performance/1/triggers",
+                },
+              },
+              "name": "com/purplepip/odin/demo/GroovePerformance",
+            },
+          ],
+        },
         "_links": Object {
-          "channels": Object {
-            "href": "http://localhost:8080/api/performance/1/channels",
+          "profile": Object {
+            "href": "http://localhost/api/profile/performance",
           },
-          "layers": Object {
-            "href": "http://localhost:8080/api/performance/1/layers",
-          },
-          "performance": Object {
-            "href": "http://localhost:8080/api/performance/1",
+          "search": Object {
+            "href": "http://localhost/api/performance/search",
           },
           "self": Object {
-            "href": "http://localhost:8080/api/performance/1",
-          },
-          "sequences": Object {
-            "href": "http://localhost:8080/api/performance/1/sequences",
+            "href": "http://localhost/api/performance",
           },
         },
-        "name": "defaultPerformance",
       }
     }
     schema={
@@ -1324,7 +1424,7 @@ exports[`Sequence container validation Sequence update 2`] = `
         className="col-1"
       >
         <input
-          defaultValue="http://localhost:8080/api/performance/1"
+          defaultValue="http://localhost/api/performance"
           name="performance"
           type="hidden"
         />
@@ -1479,24 +1579,44 @@ exports[`Sequence container validation Sequence update 3`] = `
   path="notation"
   performance={
     Object {
+      "_embedded": Object {
+        "performance": Array [
+          Object {
+            "_links": Object {
+              "channels": Object {
+                "href": "http://localhost/api/performance/1/channels",
+              },
+              "layers": Object {
+                "href": "http://localhost/api/performance/1/layers",
+              },
+              "performance": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "self": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "sequences": Object {
+                "href": "http://localhost/api/performance/1/sequences",
+              },
+              "triggers": Object {
+                "href": "http://localhost/api/performance/1/triggers",
+              },
+            },
+            "name": "com/purplepip/odin/demo/GroovePerformance",
+          },
+        ],
+      },
       "_links": Object {
-        "channels": Object {
-          "href": "http://localhost:8080/api/performance/1/channels",
+        "profile": Object {
+          "href": "http://localhost/api/profile/performance",
         },
-        "layers": Object {
-          "href": "http://localhost:8080/api/performance/1/layers",
-        },
-        "performance": Object {
-          "href": "http://localhost:8080/api/performance/1",
+        "search": Object {
+          "href": "http://localhost/api/performance/search",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/performance/1",
-        },
-        "sequences": Object {
-          "href": "http://localhost:8080/api/performance/1/sequences",
+          "href": "http://localhost/api/performance",
         },
       },
-      "name": "defaultPerformance",
     }
   }
   schema={
@@ -1633,24 +1753,44 @@ exports[`Sequence container validation Sequence update 3`] = `
     onFetchComposition={[Function]}
     performance={
       Object {
+        "_embedded": Object {
+          "performance": Array [
+            Object {
+              "_links": Object {
+                "channels": Object {
+                  "href": "http://localhost/api/performance/1/channels",
+                },
+                "layers": Object {
+                  "href": "http://localhost/api/performance/1/layers",
+                },
+                "performance": Object {
+                  "href": "http://localhost/api/performance/1",
+                },
+                "self": Object {
+                  "href": "http://localhost/api/performance/1",
+                },
+                "sequences": Object {
+                  "href": "http://localhost/api/performance/1/sequences",
+                },
+                "triggers": Object {
+                  "href": "http://localhost/api/performance/1/triggers",
+                },
+              },
+              "name": "com/purplepip/odin/demo/GroovePerformance",
+            },
+          ],
+        },
         "_links": Object {
-          "channels": Object {
-            "href": "http://localhost:8080/api/performance/1/channels",
+          "profile": Object {
+            "href": "http://localhost/api/profile/performance",
           },
-          "layers": Object {
-            "href": "http://localhost:8080/api/performance/1/layers",
-          },
-          "performance": Object {
-            "href": "http://localhost:8080/api/performance/1",
+          "search": Object {
+            "href": "http://localhost/api/performance/search",
           },
           "self": Object {
-            "href": "http://localhost:8080/api/performance/1",
-          },
-          "sequences": Object {
-            "href": "http://localhost:8080/api/performance/1/sequences",
+            "href": "http://localhost/api/performance",
           },
         },
-        "name": "defaultPerformance",
       }
     }
     schema={
@@ -1900,7 +2040,7 @@ exports[`Sequence container validation Sequence update 3`] = `
         className="col-1"
       >
         <input
-          defaultValue="http://localhost:8080/api/performance/1"
+          defaultValue="http://localhost/api/performance"
           name="performance"
           type="hidden"
         />
@@ -1948,7 +2088,7 @@ exports[`Sequence container validation Sequence update 4`] = `
       ],
       "length": -1,
       "name": "aahs-changed",
-      "performance": "http://localhost:8080/api/performance/1",
+      "performance": "http://localhost/api/performance",
       "properties": Object {
         "notation": "C D E",
       },
@@ -2023,24 +2163,44 @@ exports[`Sequence container validation Sequence update 4`] = `
   path="notation"
   performance={
     Object {
+      "_embedded": Object {
+        "performance": Array [
+          Object {
+            "_links": Object {
+              "channels": Object {
+                "href": "http://localhost/api/performance/1/channels",
+              },
+              "layers": Object {
+                "href": "http://localhost/api/performance/1/layers",
+              },
+              "performance": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "self": Object {
+                "href": "http://localhost/api/performance/1",
+              },
+              "sequences": Object {
+                "href": "http://localhost/api/performance/1/sequences",
+              },
+              "triggers": Object {
+                "href": "http://localhost/api/performance/1/triggers",
+              },
+            },
+            "name": "com/purplepip/odin/demo/GroovePerformance",
+          },
+        ],
+      },
       "_links": Object {
-        "channels": Object {
-          "href": "http://localhost:8080/api/performance/1/channels",
+        "profile": Object {
+          "href": "http://localhost/api/profile/performance",
         },
-        "layers": Object {
-          "href": "http://localhost:8080/api/performance/1/layers",
-        },
-        "performance": Object {
-          "href": "http://localhost:8080/api/performance/1",
+        "search": Object {
+          "href": "http://localhost/api/performance/search",
         },
         "self": Object {
-          "href": "http://localhost:8080/api/performance/1",
-        },
-        "sequences": Object {
-          "href": "http://localhost:8080/api/performance/1/sequences",
+          "href": "http://localhost/api/performance",
         },
       },
-      "name": "defaultPerformance",
     }
   }
   schema={
@@ -2077,7 +2237,7 @@ exports[`Sequence container validation Sequence update 4`] = `
             ],
             "length": -1,
             "name": "aahs-changed",
-            "performance": "http://localhost:8080/api/performance/1",
+            "performance": "http://localhost/api/performance",
             "properties": Object {
               "notation": "C D E",
             },

@@ -15,24 +15,44 @@ exports[`Channels container Initialise 1`] = `
   <Connect(ChannelsContainer)
     performance={
       Object {
+        "_embedded": Object {
+          "performance": Array [
+            Object {
+              "_links": Object {
+                "channels": Object {
+                  "href": "http://localhost/api/performance/1/channels",
+                },
+                "layers": Object {
+                  "href": "http://localhost/api/performance/1/layers",
+                },
+                "performance": Object {
+                  "href": "http://localhost/api/performance/1",
+                },
+                "self": Object {
+                  "href": "http://localhost/api/performance/1",
+                },
+                "sequences": Object {
+                  "href": "http://localhost/api/performance/1/sequences",
+                },
+                "triggers": Object {
+                  "href": "http://localhost/api/performance/1/triggers",
+                },
+              },
+              "name": "com/purplepip/odin/demo/GroovePerformance",
+            },
+          ],
+        },
         "_links": Object {
-          "channels": Object {
-            "href": "http://localhost:8080/api/performance/1/channels",
+          "profile": Object {
+            "href": "http://localhost/api/profile/performance",
           },
-          "layers": Object {
-            "href": "http://localhost:8080/api/performance/1/layers",
-          },
-          "performance": Object {
-            "href": "http://localhost:8080/api/performance/1",
+          "search": Object {
+            "href": "http://localhost/api/performance/search",
           },
           "self": Object {
-            "href": "http://localhost:8080/api/performance/1",
-          },
-          "sequences": Object {
-            "href": "http://localhost:8080/api/performance/1/sequences",
+            "href": "http://localhost/api/performance",
           },
         },
-        "name": "defaultPerformance",
       }
     }
     schema={
@@ -164,24 +184,44 @@ exports[`Channels container Initialise 1`] = `
       path="channel"
       performance={
         Object {
+          "_embedded": Object {
+            "performance": Array [
+              Object {
+                "_links": Object {
+                  "channels": Object {
+                    "href": "http://localhost/api/performance/1/channels",
+                  },
+                  "layers": Object {
+                    "href": "http://localhost/api/performance/1/layers",
+                  },
+                  "performance": Object {
+                    "href": "http://localhost/api/performance/1",
+                  },
+                  "self": Object {
+                    "href": "http://localhost/api/performance/1",
+                  },
+                  "sequences": Object {
+                    "href": "http://localhost/api/performance/1/sequences",
+                  },
+                  "triggers": Object {
+                    "href": "http://localhost/api/performance/1/triggers",
+                  },
+                },
+                "name": "com/purplepip/odin/demo/GroovePerformance",
+              },
+            ],
+          },
           "_links": Object {
-            "channels": Object {
-              "href": "http://localhost:8080/api/performance/1/channels",
+            "profile": Object {
+              "href": "http://localhost/api/profile/performance",
             },
-            "layers": Object {
-              "href": "http://localhost:8080/api/performance/1/layers",
-            },
-            "performance": Object {
-              "href": "http://localhost:8080/api/performance/1",
+            "search": Object {
+              "href": "http://localhost/api/performance/search",
             },
             "self": Object {
-              "href": "http://localhost:8080/api/performance/1",
-            },
-            "sequences": Object {
-              "href": "http://localhost:8080/api/performance/1/sequences",
+              "href": "http://localhost/api/performance",
             },
           },
-          "name": "defaultPerformance",
         }
       }
       schema={
@@ -329,24 +369,44 @@ exports[`Channels container Initialise 1`] = `
           path="channel"
           performance={
             Object {
+              "_embedded": Object {
+                "performance": Array [
+                  Object {
+                    "_links": Object {
+                      "channels": Object {
+                        "href": "http://localhost/api/performance/1/channels",
+                      },
+                      "layers": Object {
+                        "href": "http://localhost/api/performance/1/layers",
+                      },
+                      "performance": Object {
+                        "href": "http://localhost/api/performance/1",
+                      },
+                      "self": Object {
+                        "href": "http://localhost/api/performance/1",
+                      },
+                      "sequences": Object {
+                        "href": "http://localhost/api/performance/1/sequences",
+                      },
+                      "triggers": Object {
+                        "href": "http://localhost/api/performance/1/triggers",
+                      },
+                    },
+                    "name": "com/purplepip/odin/demo/GroovePerformance",
+                  },
+                ],
+              },
               "_links": Object {
-                "channels": Object {
-                  "href": "http://localhost:8080/api/performance/1/channels",
+                "profile": Object {
+                  "href": "http://localhost/api/profile/performance",
                 },
-                "layers": Object {
-                  "href": "http://localhost:8080/api/performance/1/layers",
-                },
-                "performance": Object {
-                  "href": "http://localhost:8080/api/performance/1",
+                "search": Object {
+                  "href": "http://localhost/api/performance/search",
                 },
                 "self": Object {
-                  "href": "http://localhost:8080/api/performance/1",
-                },
-                "sequences": Object {
-                  "href": "http://localhost:8080/api/performance/1/sequences",
+                  "href": "http://localhost/api/performance",
                 },
               },
-              "name": "defaultPerformance",
             }
           }
           schema={
