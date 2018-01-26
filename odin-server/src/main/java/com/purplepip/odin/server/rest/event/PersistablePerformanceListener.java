@@ -18,6 +18,7 @@ package com.purplepip.odin.server.rest.event;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoadListener;
+import com.purplepip.odin.performance.PerformanceLoader;
 import com.purplepip.odin.performance.PerformanceSaveListener;
 import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.store.domain.PersistablePerformance;
@@ -37,7 +38,10 @@ public class PersistablePerformanceListener implements
     PerformanceSaveListener, PerformanceLoadListener, InitializingBean {
 
   @Autowired
-  private PerformanceContainer performanceContainer;
+  private PerformanceLoader loader;
+
+  @Autowired
+  private PerformanceContainer container;
 
   @Autowired
   private PerformanceRepository performanceRepository;
@@ -48,7 +52,7 @@ public class PersistablePerformanceListener implements
   @Override
   public void onPerformanceLoad(PerformanceContainer container) {
     LOG.info("Reloading performance");
-    container.setPerformance(performanceRepository.findByName(container.getName()));
+    loader.load(container.getPerformance().getUri());
   }
 
   @Override
@@ -61,7 +65,7 @@ public class PersistablePerformanceListener implements
 
   @Override
   public void afterPropertiesSet() {
-    performanceContainer.addSaveListener(this);
-    performanceContainer.addLoadListener(this);
+    container.addSaveListener(this);
+    container.addLoadListener(this);
   }
 }

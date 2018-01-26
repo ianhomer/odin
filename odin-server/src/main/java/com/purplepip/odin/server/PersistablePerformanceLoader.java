@@ -48,8 +48,7 @@ public class PersistablePerformanceLoader extends AbstractPerformanceLoader {
     if (performance == null) {
       throw new OdinRuntimeException("Cannot find performance " + performanceName);
     }
-    // TODO : Support overlay
-    container.setPerformance(performance);
+    container.setPerformance(overlay(performance));
     container.apply();
     LOG.info("Loaded performance {}", performanceUri);
   }
