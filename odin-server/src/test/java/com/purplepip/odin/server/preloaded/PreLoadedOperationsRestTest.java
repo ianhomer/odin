@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ContextConfiguration
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles({"test", "testPreLoaded", "noAuditing"})
+@ActiveProfiles({"test", "testPreLoaded"})
 @Slf4j
 public class PreLoadedOperationsRestTest {
   @Autowired
@@ -32,9 +32,11 @@ public class PreLoadedOperationsRestTest {
   @Ignore
   public void testSequencesList() throws Exception {
     configuration.getOperationTransmitter().handle(
-        new NoteOnOperation(1, 1, 5), -1
+        new NoteOnOperation(1, 1, 99), 5
     );
 
-    new EndPointSnapshot(mvc, "/api/operation").expectMatch();
+    new EndPointSnapshot(mvc, "/api/operation")
+        .mask("(?<=\"dateCreated\" : \")[^\"]*(?=\")")
+        .expectMatch();
   }
 }

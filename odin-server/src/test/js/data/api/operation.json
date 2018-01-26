@@ -1,6 +1,134 @@
 {
   "_embedded" : {
-    "operation" : [ ]
+    "operation" : [ {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/operation/78"
+        },
+        "self" : {
+          "href" : "http://localhost/api/operation/78"
+        }
+      },
+      "channel" : 1,
+      "dateCreated" : "2018-01-26T16:49:56.396+0000",
+      "message" : "ProgramChangeOperation(channel=1, programName=piano)",
+      "number" : 0,
+      "time" : -1,
+      "type" : "ProgramChangeOperation",
+      "velocity" : 0
+    }, {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/operation/83"
+        },
+        "self" : {
+          "href" : "http://localhost/api/operation/83"
+        }
+      },
+      "channel" : 1,
+      "dateCreated" : "2018-01-26T16:49:56.840+0000",
+      "message" : "▼1↓5 → 1",
+      "number" : 1,
+      "time" : -1,
+      "type" : "NoteOnOperation",
+      "velocity" : 5
+    }, {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/operation/79"
+        },
+        "self" : {
+          "href" : "http://localhost/api/operation/79"
+        }
+      },
+      "channel" : 2,
+      "dateCreated" : "2018-01-26T16:49:56.399+0000",
+      "message" : "ProgramChangeOperation(channel=2, programName=rock)",
+      "number" : 0,
+      "time" : -1,
+      "type" : "ProgramChangeOperation",
+      "velocity" : 0
+    }, {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/operation/77"
+        },
+        "self" : {
+          "href" : "http://localhost/api/operation/77"
+        }
+      },
+      "channel" : 3,
+      "dateCreated" : "2018-01-26T16:49:56.394+0000",
+      "message" : "ProgramChangeOperation(channel=3, programName=strings)",
+      "number" : 0,
+      "time" : -1,
+      "type" : "ProgramChangeOperation",
+      "velocity" : 0
+    }, {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/operation/76"
+        },
+        "self" : {
+          "href" : "http://localhost/api/operation/76"
+        }
+      },
+      "channel" : 4,
+      "dateCreated" : "2018-01-26T16:49:56.389+0000",
+      "message" : "ProgramChangeOperation(channel=4, programName=aahs)",
+      "number" : 0,
+      "time" : -1,
+      "type" : "ProgramChangeOperation",
+      "velocity" : 0
+    }, {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/operation/80"
+        },
+        "self" : {
+          "href" : "http://localhost/api/operation/80"
+        }
+      },
+      "channel" : 5,
+      "dateCreated" : "2018-01-26T16:49:56.401+0000",
+      "message" : "ProgramChangeOperation(channel=5, programName=bass)",
+      "number" : 0,
+      "time" : -1,
+      "type" : "ProgramChangeOperation",
+      "velocity" : 0
+    }, {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/operation/81"
+        },
+        "self" : {
+          "href" : "http://localhost/api/operation/81"
+        }
+      },
+      "channel" : 9,
+      "dateCreated" : "2018-01-26T16:49:56.404+0000",
+      "message" : "ProgramChangeOperation(channel=9, programName=Power Drums)",
+      "number" : 0,
+      "time" : -1,
+      "type" : "ProgramChangeOperation",
+      "velocity" : 0
+    }, {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/operation/82"
+        },
+        "self" : {
+          "href" : "http://localhost/api/operation/82"
+        }
+      },
+      "channel" : 2,
+      "dateCreated" : "2018-01-26T16:49:56.731+0000",
+      "message" : "▼81↓40 → 2",
+      "number" : 81,
+      "time" : 0,
+      "type" : "NoteOnOperation",
+      "velocity" : 40
+    } ]
   },
   "_links" : {
     "profile" : {
@@ -17,7 +145,7 @@
   "page" : {
     "number" : 0,
     "size" : 20,
-    "totalElements" : 0,
-    "totalPages" : 0
+    "totalElements" : 8,
+    "totalPages" : 1
   }
 }

@@ -25,8 +25,23 @@ public abstract class AbstractOperation implements Operation {
   private Operation cause;
   private int causeDepth;
 
+  @Override
   public Operation getCause() {
     return cause;
+  }
+
+  /**
+   * Return the root cause.  This will return this operation if this option has no cause.
+   *
+   * @return root cause
+   */
+  @Override
+  public Operation getRootCause() {
+    if (hasCause()) {
+      return cause.getRootCause();
+    } else {
+      return this;
+    }
   }
 
   protected void setCause(Operation cause) {

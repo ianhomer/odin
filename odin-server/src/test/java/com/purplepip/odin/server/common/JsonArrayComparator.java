@@ -16,27 +16,73 @@
 package com.purplepip.odin.server.common;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import org.assertj.core.util.Lists;
 
 /**
  * Compare elements in a Json array by comparing the name property in the element if the element
  * is a Map.  This allows arrays of maps to be sorted.
  */
 public class JsonArrayComparator implements Comparator<Object> {
+  /*
+   * We sort on the first one of these keys that is found in either of the objects we're comparing
+   */
+  private static final List<String> KEYS =
+      Lists.newArrayList("name", "time", "channel", "dateCreated");
+
   @Override
   public int compare(Object o1, Object o2) {
     if (o1 instanceof Map && o2 instanceof Map) {
-      Object name1 = ((Map) o1).get("name");
-      Object name2 = ((Map) o2).get("name");
-      if (name1 == null || name2 == null) {
-        return 0;
-      } else if (name1 instanceof String && name2 instanceof String) {
-        return ((String) name1).compareTo((String) name2);
-      } else {
-        return 0;
+      Map map1 = ((Map) o1);
+      Map map2 = ((Map) o2);
+      for (String key : KEYS) {
+        int result = compare(getValues(map1, map2, key));
+        if (result != 0) {
+          return result;
+        }
       }
+      /*
+       * All compared values are the same.
+       */
+      return 0;
+    } else if (o1 == null && o2 == null) {
+      return 0;
+    } else if (o2 == null) {
+      return -1;
+    } else if (o1 == null) {
+      return 1;
     } else {
       return o1.hashCode() - o2.hashCode();
     }
+  }
+
+  private int compare(Object[] values) {
+    if (values[0] == null && values[1] == null) {
+      /*
+       * Both null => both the same
+       */
+      return 0;
+    } else if (values[1] == null) {
+      /*
+       * Value 1 null => object 1 should be first
+       */
+      return -1;
+    } else if (values[0] instanceof String && values[1] instanceof String) {
+      return ((String) values[0]).compareTo((String) values[1]);
+    } else if (values[0] instanceof String) {
+      return -1;
+    } else if (values[1] instanceof String) {
+      return 1;
+    } else {
+      return values[0].hashCode() - values[1].hashCode();
+    }
+  }
+
+  private Object[] getValues(Map map1, Map map2, String key) {
+    return new Object[] {
+        map1.get(key),
+        map2.get(key)
+    };
   }
 }

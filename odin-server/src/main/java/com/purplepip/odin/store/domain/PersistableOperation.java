@@ -39,7 +39,7 @@ public class PersistableOperation {
   @GeneratedValue
   private long id;
 
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   private Date dateCreated;
 
   private String message;
