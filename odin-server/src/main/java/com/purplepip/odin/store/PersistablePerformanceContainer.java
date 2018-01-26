@@ -15,23 +15,21 @@
 
 package com.purplepip.odin.store;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
-import com.purplepip.odin.server.PerformanceImporter;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 public class PersistablePerformanceContainer extends PerformanceContainer {
-  @Autowired
-  private PerformanceImporter importer;
-
   @Override
   public void setPerformance(Performance performance) {
-    super.setPerformance(performance instanceof PersistablePerformance
-        ? performance : importer.load(performance));
+    if (!(performance instanceof PersistablePerformance)) {
+      throw new OdinRuntimeException(performance + " is not a PersistablePerformance");
+    }
+    super.setPerformance(performance);
   }
 }

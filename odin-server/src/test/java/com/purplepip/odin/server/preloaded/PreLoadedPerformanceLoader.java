@@ -16,7 +16,7 @@
 package com.purplepip.odin.server.preloaded;
 
 import com.purplepip.odin.demo.GroovePerformance;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.server.PerformanceImporter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -33,10 +33,10 @@ import org.springframework.stereotype.Component;
 @Order(4)
 public class PreLoadedPerformanceLoader implements CommandLineRunner {
   @Autowired
-  private PerformanceContainer container;
+  private PerformanceImporter importer;
 
   @Override
   public void run(String... args) {
-    container.setPerformance(new GroovePerformance());
+    importer.load(new GroovePerformance());
   }
 }

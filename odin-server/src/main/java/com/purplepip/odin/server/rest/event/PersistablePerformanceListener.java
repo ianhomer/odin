@@ -19,7 +19,6 @@ import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoadListener;
 import com.purplepip.odin.performance.PerformanceSaveListener;
-import com.purplepip.odin.server.rest.repositories.ChannelRepository;
 import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import lombok.extern.slf4j.Slf4j;
@@ -43,9 +42,6 @@ public class PersistablePerformanceListener implements
   @Autowired
   private PerformanceRepository performanceRepository;
 
-  @Autowired
-  private ChannelRepository channelRepository;
-
   /**
    * Refresh container.
    */
@@ -64,7 +60,7 @@ public class PersistablePerformanceListener implements
   }
 
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() {
     performanceContainer.addSaveListener(this);
     performanceContainer.addLoadListener(this);
   }
