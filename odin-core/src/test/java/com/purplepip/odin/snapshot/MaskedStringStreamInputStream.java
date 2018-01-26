@@ -15,27 +15,23 @@
 
 package com.purplepip.odin.snapshot;
 
-import java.util.Comparator;
-import java.util.regex.Pattern;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.stream.Stream;
 
-public class MaskedComparator implements Comparator<String> {
-  private String replacement;
-  private Pattern pattern;
+/**
+ * Wrap a stream of strings into an input stream.
+ */
+public class MaskedStringStreamInputStream extends MaskedInputStream {
+  private Iterator<String> iterator;
 
-  public MaskedComparator(String mask, String replacement) {
-    this.replacement = replacement;
-    this.pattern = Pattern.compile(mask);
+  MaskedStringStreamInputStream(Stream<String> stream, Map<String, String> masks) {
+    super(masks);
+    iterator = stream.iterator();
   }
 
   @Override
-  public int compare(String o1, String o2) {
-    if (o1 != null && o2 != null) {
-      return mask(o1).compareTo(mask(o2));
-    }
-    return 0;
-  }
-
-  private String mask(String s) {
-    return pattern.matcher(s).replaceAll(replacement);
+  protected String readLine() {
+    return iterator.hasNext() ? iterator.next() : null;
   }
 }

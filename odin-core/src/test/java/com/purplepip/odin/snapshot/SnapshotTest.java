@@ -15,16 +15,15 @@
 
 package com.purplepip.odin.snapshot;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class SnapshotTest {
   @Test
-  public void testSnapshotWithTime() throws IOException {
+  public void testSnapshotWithTime() {
     Snapshot snapshot = new Snapshot(Snapshot.class, true);
     assertTrue(snapshot.getPath().toString()
             .endsWith("com/purplepip/odin/snapshot/snapshot/Snapshot.snap"));
@@ -33,7 +32,7 @@ public class SnapshotTest {
   }
 
   @Test
-  public void testSnapshotWithTimeWithoutHeader() throws IOException {
+  public void testSnapshotWithTimeWithoutHeader() {
     Snapshot snapshot = new Snapshot(Snapshot.class)
         .header(false).separator("-").variation("noHeader").initialise();
     String path = snapshot.getPath().toString();
@@ -44,7 +43,7 @@ public class SnapshotTest {
   }
 
   @Test
-  public void testSnapshotWithJsonWithLocation() throws IOException {
+  public void testSnapshotWithJsonWithLocation() {
     Snapshot snapshot = new Snapshot(Snapshot.class)
         .root("src/test/resources")
         .path("com/purplepip/odin/snapshot/snapshot/Snapshot")
@@ -57,16 +56,14 @@ public class SnapshotTest {
     snapshot.expectMatch();
   }
 
-  @Ignore
   @Test
-  public void testSnapshotWithVariabilityMask() throws IOException {
+  public void testSnapshotWithVariabilityMask() {
     Snapshot snapshot = new Snapshot(Snapshot.class)
         .root("src/test/resources")
         .path("com/purplepip/odin/snapshot/snapshot/Snapshot")
         .variation("variable")
         .extension("json")
-        .mask("http://localhost/api/channel/[0-9]+[^\"]*",
-            "http://localhost/api/channel/__VAR__")
+        .mask("(?<=http://localhost/api/channel/)[0-9]+(?=[^\"]*)")
         .header(false).initialise();
     int number = ThreadLocalRandom.current().nextInt(0, 99);
     snapshot.writeLine(0,"{ "
@@ -74,6 +71,9 @@ public class SnapshotTest {
         + "\"y\" : \"http://localhost/api/channel/" + number + "/performance\""
         + "}");
     snapshot.expectMatch();
+    assertEquals("{ "
+        + "\"x\" : \"http://localhost/api/channel/__VAR__\","
+        + "\"y\" : \"http://localhost/api/channel/__VAR__/performance\""
+        + "}", snapshot.getExpected());
   }
-
 }

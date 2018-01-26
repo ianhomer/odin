@@ -18,18 +18,19 @@ package com.purplepip.odin.snapshot;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Spliterator;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
-/**
- * Wrap a stream of strings into an input stream.
- */
-public class StringStreamInputStream extends InputStream {
-  private Spliterator<String> spliterator;
+public abstract class MaskedInputStream extends InputStream {
   private InputStream buffer;
+  private Map<Pattern, String> maskPatterns = new HashMap<>();
+  private boolean readSomething = false;
 
-  StringStreamInputStream(Stream<String> stream) {
-    spliterator = stream.spliterator();
+  protected abstract String readLine();
+
+  public MaskedInputStream(Map<String, String> masks) {
+    masks.forEach((k,v) -> maskPatterns.put(java.util.regex.Pattern.compile(k), v));
   }
 
   @Override
@@ -38,14 +39,25 @@ public class StringStreamInputStream extends InputStream {
       /*
        * Read next line.
        */
-      // TODO : Consider character sets
-      if (!spliterator
-          .tryAdvance(string -> buffer = new ByteArrayInputStream((string + "\n").getBytes()))) {
+      String line = readLine();
+      if (line == null) {
         /*
          * Return -1 if we'ver read all the lines
          */
         return -1;
       }
+      /*
+       * Only include line breaks between lines, not at the end of the stream.
+       */
+      if (!readSomething) {
+        readSomething = true;
+      } else {
+        line = '\n' + line;
+      }
+      for (Map.Entry<Pattern, String> entry : maskPatterns.entrySet()) {
+        line = entry.getKey().matcher(line).replaceAll(entry.getValue());
+      }
+      buffer = new ByteArrayInputStream((line).getBytes());
     }
     int result = buffer.read();
     if (result == -1) {

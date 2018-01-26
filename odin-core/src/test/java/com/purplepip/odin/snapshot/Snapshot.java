@@ -28,7 +28,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -37,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Snapshot {
   private static final String UPDATE_SNAPSHOT_PROPERTY_NAME = "updateSnapshot";
+  private static final String MASK_REPLACEMENT = "__VAR__";
   private static final boolean UPDATE_SNAPSHOT =
       "true".equals(System.getProperty(UPDATE_SNAPSHOT_PROPERTY_NAME));
 
@@ -49,7 +53,7 @@ public class Snapshot {
   private String extension = "snap";
   private String root = "src/test/resources";
   private String relativePath;
-  private Comparator<String> comparator;
+  private Map<String, String> masks = new HashMap<>();
 
   /*
    * Snapshot could be written to by multiple threads so we need to guarantee thread safety
@@ -91,24 +95,18 @@ public class Snapshot {
   }
 
   /**
-   * Set comparator for snapshot match assertion.
-   *
-   * @param comparator comparator
-   * @return this
-   */
-  public Snapshot comparator(Comparator<String> comparator) {
-    this.comparator = comparator;
-    return this;
-  }
-
-  /**
    * Set mask for comparator for snapshot match assertion.
    *
    * @param mask mask
    * @return this
    */
   public Snapshot mask(String mask, String replacement) {
-    this.comparator = new MaskedComparator(mask, replacement);
+    masks.put(mask, replacement);
+    return this;
+  }
+
+  public Snapshot mask(String mask) {
+    masks.put(mask, MASK_REPLACEMENT);
     return this;
   }
 
@@ -267,12 +265,28 @@ public class Snapshot {
     } catch (IOException e) {
       LOG.error("Cannot commit snapshot", e);
     }
-    InputStream actual = new StringStreamInputStream(linesAsSortedStream());
-    try {
-      assertThat(actual).hasSameContentAs(Files.newInputStream(path));
-    } catch (IOException e) {
-      throw new OdinRuntimeException("Cannot read " + path, e);
-    }
+    assertThat(getActualInputStream()).hasSameContentAs(getExpectedInputStream());
+  }
+
+  public InputStream getExpectedInputStream() {
+    return new MaskedFileInputStream(path, masks);
+  }
+
+  public InputStream getActualInputStream() {
+    return new MaskedStringStreamInputStream(linesAsSortedStream(), masks);
+  }
+
+  private String toString(InputStream inputStream) {
+    Scanner s = new Scanner(inputStream).useDelimiter("\\A");
+    return s.hasNext() ? s.next() : "";
+  }
+
+  public String getExpected() {
+    return toString(getExpectedInputStream());
+  }
+
+  public String getActual() {
+    return toString(getActualInputStream());
   }
 
   public Path getPath() {
