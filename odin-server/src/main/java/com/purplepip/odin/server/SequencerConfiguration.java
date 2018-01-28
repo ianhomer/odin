@@ -19,6 +19,7 @@ import com.purplepip.odin.sequencer.OdinSequencer;
 import javax.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -30,10 +31,15 @@ public class SequencerConfiguration implements CommandLineRunner {
   @Autowired
   private OdinSequencer sequencer;
 
+  @Value("${purplepip.odin.sequencer.autoStart:true}")
+  private boolean autoStart;
+
   @Override
   public void run(String... args) throws Exception {
     sequencer.prepare();
-    sequencer.start();
+    if (autoStart) {
+      sequencer.start();
+    }
     LOG.info("Sequencer started");
   }
 
