@@ -50,7 +50,7 @@
     "redux-thunk": "^2.2.0",
     "rest": "^1.3.1",
     "vexflow": "^1.2.84",
-    "webpack": "^1.12.2"
+    "webpack": "^3.10.0"
   },
   "scripts": {
     "watch": "webpack --watch -d",
@@ -59,14 +59,15 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-jest": "^21.2.0",
-    "babel-loader": "^6.4.1",
+    "babel-jest": "^22.1.0",
+    "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
-    "coffee-loader": "^0.7.3",
+    "coffeescript": "^2.1.1",
+    "coffee-loader": "^0.9.0",
     "enzyme": "^2.9.1",
     "enzyme-to-json": "^2.0.1",
     "eslint": "^4.8.0",
