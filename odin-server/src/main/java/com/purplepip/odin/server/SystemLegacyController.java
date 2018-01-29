@@ -24,8 +24,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Legacy system controller which outputs system information using HTML templates.  SystemController
+ * in the services/system package outputs JSON data which front end can render as it so desires.
+ */
 @Controller
-public class SystemController {
+public class SystemLegacyController {
   @Autowired
   private MidiDeviceWrapper midiDeviceWrapper;
 
