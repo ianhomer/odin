@@ -19,10 +19,10 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
-import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.PerformanceContainer;
@@ -36,13 +36,11 @@ import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import javax.sound.midi.MidiUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class InputExperiment {
-  public static void main(String[] args) throws OdinException, InterruptedException,
-      MidiUnavailableException {
+  public static void main(String[] args) throws OdinException, InterruptedException {
     InputExperiment experiment = new InputExperiment();
     experiment.doExperiment();
   }
@@ -50,7 +48,7 @@ public class InputExperiment {
   private void doExperiment() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(800);
 
-    new MidiSystemWrapper().extended().dump();
+    Environments.newEnvironment().dump();
 
     OperationReceiver operationReceiver = (operation, time) -> {
       lock.countDown();

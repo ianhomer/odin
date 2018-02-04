@@ -5,12 +5,12 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
-import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
@@ -96,7 +96,7 @@ public class MidiSequenceExperiment {
       container.addApplyListener(sequencer);
       loader.load(new ClassUri(GroovePerformance.class).getUri());
       container.apply();
-      new MidiSystemWrapper().extended().dump();
+      Environments.newEnvironment().dump();
 
       sequencer.prepare();
       sequencer.start();

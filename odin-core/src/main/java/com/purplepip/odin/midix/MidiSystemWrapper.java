@@ -15,9 +15,7 @@
 
 package com.purplepip.odin.midix;
 
-import com.purplepip.odin.devices.DeviceUnavailableException;
-import com.purplepip.odin.devices.Environment;
-import com.purplepip.odin.devices.Handle;
+import com.purplepip.odin.configuration.Environments;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,13 +29,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MidiSystemWrapper {
-  private boolean extended = false;
-
-  public MidiSystemWrapper extended() {
-    extended = true;
-    return this;
-  }
-
   /**
    * Return a set of MIDI device infos.
    *
@@ -50,44 +41,12 @@ public class MidiSystemWrapper {
   }
 
   /**
-   * Dump MIDI system information.
-   */
-  public void dump() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("\nSYSTEM MIDI\n");
-    sb.append("------------\n");
-    sb.append(toString());
-    sb.append('\n');
-    LOG.info(sb.toString());
-  }
-
-  /**
    * MIDI system information to string.
    *
    * @return this MIDI system helper
    */
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    Environment environment = new Environment(new OdinMidiHandleProvider());
-    if (environment.isEmpty()) {
-      sb.append("No MIDI devices available");
-    } else {
-      sb.append("Devices\n");
-      int i = 0;
-      for (Handle identifier : environment.getIdentifiers()) {
-        sb.append('\n').append(i++).append(") - ");
-        i++;
-        identifier.appendTo(sb);
-        if (extended) {
-          try {
-            identifier.connect(identifier).appendTo(sb);
-          } catch (DeviceUnavailableException e) {
-            LOG.error("Cannot get device " + identifier, e);
-          }
-        }
-      }
-    }
-    return sb.toString();
+    return Environments.newEnvironment().asString(true);
   }
 }

@@ -19,7 +19,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Environment {
   private final Set<Handle> identifiers = new HashSet<>();
   private final Set<HandleProvider> providers;
@@ -45,5 +47,51 @@ public class Environment {
 
   public Set<Handle> getIdentifiers() {
     return Collections.unmodifiableSet(identifiers);
+  }
+
+  /**
+   * Dump environment information.
+   */
+  public void dump() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("\nENVIRONMENT\n");
+    sb.append("------------\n");
+    sb.append(asString(true));
+    sb.append('\n');
+    LOG.info(sb.toString());
+  }
+
+  /**
+   * Return the environment as a string.
+   *
+   * @param withConnections if true then return an details on the devices connected by the handles.
+   * @return environment as a string
+   */
+  public String asString(boolean withConnections) {
+    StringBuilder sb = new StringBuilder();
+    if (isEmpty()) {
+      sb.append("No devices available");
+    } else {
+      sb.append("Devices\n");
+      int i = 0;
+      for (Handle identifier : getIdentifiers()) {
+        sb.append('\n').append(i++).append(") - ");
+        i++;
+        identifier.appendTo(sb);
+        if (withConnections) {
+          try {
+            identifier.connect(identifier).appendTo(sb);
+          } catch (DeviceUnavailableException e) {
+            LOG.error("Cannot get device " + identifier, e);
+          }
+        }
+      }
+    }
+    return sb.toString();
+  }
+
+  @Override
+  public String toString() {
+    return asString(false);
   }
 }
