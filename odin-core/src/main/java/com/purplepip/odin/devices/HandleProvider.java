@@ -15,21 +15,8 @@
 
 package com.purplepip.odin.devices;
 
-public interface Identifier {
-  String getName();
+import java.util.Set;
 
-  String getVendor();
-
-  String getDescription();
-
-  /**
-   * Serialised string version of this identifier to a StringBuilder.
-   *
-   * @param sb StringBuilder to serialise to
-   */
-  default void appendTo(StringBuilder sb) {
-    sb.append(getVendor());
-    sb.append(" - ").append(getName());
-    sb.append(" - ").append(getDescription());
-  }
+public interface HandleProvider {
+  Set<Handle> getIdentifiers();
 }

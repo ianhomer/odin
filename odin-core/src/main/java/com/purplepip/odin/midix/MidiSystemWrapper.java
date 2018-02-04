@@ -15,12 +15,14 @@
 
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.devices.DeviceUnavailableException;
+import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.devices.Handle;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -67,22 +69,21 @@ public class MidiSystemWrapper {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-    if (infos.length == 0) {
+    Environment environment = new Environment(new OdinMidiHandleProvider());
+    if (environment.isEmpty()) {
       sb.append("No MIDI devices available");
     } else {
       sb.append("Devices\n");
       int i = 0;
-      for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-        OdinMidiIdentifier deviceInfo = new OdinMidiIdentifier(info);
+      for (Handle identifier : environment.getIdentifiers()) {
         sb.append('\n').append(i++).append(") - ");
         i++;
-        deviceInfo.appendTo(sb);
+        identifier.appendTo(sb);
         if (extended) {
           try {
-            new OdinMidiDevice(MidiSystem.getMidiDevice(info)).appendTo(sb);
-          } catch (MidiUnavailableException e) {
-            LOG.error("Cannot get device " + info, e);
+            identifier.connect(identifier).appendTo(sb);
+          } catch (DeviceUnavailableException e) {
+            LOG.error("Cannot get device " + identifier, e);
           }
         }
       }

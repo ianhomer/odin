@@ -13,30 +13,25 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.midix;
+package com.purplepip.odin.devices;
 
-import com.purplepip.odin.devices.Identifier;
-import javax.sound.midi.MidiDevice;
+public interface Handle {
+  String getName();
 
-public class OdinMidiIdentifier implements Identifier {
-  private final MidiDevice.Info deviceInfo;
+  String getVendor();
 
-  OdinMidiIdentifier(MidiDevice.Info deviceInfo) {
-    this.deviceInfo = deviceInfo;
-  }
+  String getDescription();
 
-  @Override
-  public String getName() {
-    return deviceInfo.getName();
-  }
+  Device connect(Handle identifier) throws DeviceUnavailableException;
 
-  @Override
-  public String getVendor() {
-    return deviceInfo.getVendor();
-  }
-
-  @Override
-  public String getDescription() {
-    return deviceInfo.getDescription();
+  /**
+   * Serialised string version of this identifier to a StringBuilder.
+   *
+   * @param sb StringBuilder to serialise to
+   */
+  default void appendTo(StringBuilder sb) {
+    sb.append(getVendor());
+    sb.append(" - ").append(getName());
+    sb.append(" - ").append(getDescription());
   }
 }
