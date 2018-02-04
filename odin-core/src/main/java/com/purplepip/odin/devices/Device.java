@@ -13,20 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.midix;
+package com.purplepip.odin.devices;
 
-import static org.junit.Assert.assertEquals;
-
-import com.purplepip.logcapture.LogCaptor;
-import com.purplepip.logcapture.LogCapture;
-import org.junit.Test;
-
-public class MidiSystemWrapperTest {
-  @Test
-  public void testDump() {
-    try (LogCaptor captor = new LogCapture().info().from(MidiSystemWrapper.class).start()) {
-      new MidiSystemWrapper().extended().dump();
-      assertEquals(1, captor.size());
-    }
-  }
+public interface Device {
+  void appendTo(StringBuilder sb);
 }

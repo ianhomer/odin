@@ -13,20 +13,23 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.midix;
+package com.purplepip.odin.devices;
 
-import static org.junit.Assert.assertEquals;
+public interface Identifier {
+  String getName();
 
-import com.purplepip.logcapture.LogCaptor;
-import com.purplepip.logcapture.LogCapture;
-import org.junit.Test;
+  String getVendor();
 
-public class MidiSystemWrapperTest {
-  @Test
-  public void testDump() {
-    try (LogCaptor captor = new LogCapture().info().from(MidiSystemWrapper.class).start()) {
-      new MidiSystemWrapper().extended().dump();
-      assertEquals(1, captor.size());
-    }
+  String getDescription();
+
+  /**
+   * Serialised string version of this identifier to a StringBuilder.
+   *
+   * @param sb StringBuilder to serialise to
+   */
+  default void appendTo(StringBuilder sb) {
+    sb.append(getVendor());
+    sb.append(" - ").append(getName());
+    sb.append(" - ").append(getDescription());
   }
 }

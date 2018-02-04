@@ -15,18 +15,28 @@
 
 package com.purplepip.odin.midix;
 
-import static org.junit.Assert.assertEquals;
+import com.purplepip.odin.devices.Identifier;
+import javax.sound.midi.MidiDevice;
 
-import com.purplepip.logcapture.LogCaptor;
-import com.purplepip.logcapture.LogCapture;
-import org.junit.Test;
+public class OdinMidiIdentifier implements Identifier {
+  private final MidiDevice.Info deviceInfo;
 
-public class MidiSystemWrapperTest {
-  @Test
-  public void testDump() {
-    try (LogCaptor captor = new LogCapture().info().from(MidiSystemWrapper.class).start()) {
-      new MidiSystemWrapper().extended().dump();
-      assertEquals(1, captor.size());
-    }
+  OdinMidiIdentifier(MidiDevice.Info deviceInfo) {
+    this.deviceInfo = deviceInfo;
+  }
+
+  @Override
+  public String getName() {
+    return deviceInfo.getName();
+  }
+
+  @Override
+  public String getVendor() {
+    return deviceInfo.getVendor();
+  }
+
+  @Override
+  public String getDescription() {
+    return deviceInfo.getDescription();
   }
 }

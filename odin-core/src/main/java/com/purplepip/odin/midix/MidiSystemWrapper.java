@@ -21,9 +21,6 @@ import java.util.Set;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Synthesizer;
-import javax.sound.midi.Transmitter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -77,44 +74,13 @@ public class MidiSystemWrapper {
       sb.append("Devices\n");
       int i = 0;
       for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-        sb.append('\n').append(i).append(") ");
+        OdinMidiIdentifier deviceInfo = new OdinMidiIdentifier(info);
+        sb.append('\n').append(i++).append(") - ");
         i++;
-        sb.append(" - ").append(info.getVendor());
-        sb.append(" - ").append(info.getName());
-        sb.append(" - ").append(info.getDescription());
+        deviceInfo.appendTo(sb);
         if (extended) {
           try {
-            MidiDevice device = MidiSystem.getMidiDevice(info);
-            sb.append("\n          μs position = ").append(device.getMicrosecondPosition());
-            if (device instanceof Synthesizer) {
-              sb.append(" - synthesizer latency = ")
-                  .append(((Synthesizer) device).getLatency() / 1000).append("ms");
-            }
-            if (device.getMaxReceivers() != 0) {
-              sb.append("\n               - receivers : max = ").append(device.getMaxReceivers());
-              try (Receiver receiver = device.getReceiver()) {
-                if (receiver != null) {
-                  sb.append(" : default  = ").append(new MidiReceiverWrapper(receiver));
-                }
-              }
-            }
-            device.getReceivers().forEach(receiver ->
-                sb.append(" ; active receiver = ").append(new MidiReceiverWrapper(receiver))
-            );
-            if (device.getMaxTransmitters() != 0) {
-              sb.append("\n               - transmitters : max = ")
-                  .append(device.getMaxTransmitters());
-              try (Transmitter transmitter = device.getTransmitter()) {
-                if (transmitter != null) {
-                  sb.append(" : default = ")
-                      .append(new MidiTransmitterWrapper(transmitter));
-                }
-              }
-            }
-            device.getTransmitters().forEach(transmitter ->
-                sb.append(" ; transmitter = ")
-                    .append(new MidiTransmitterWrapper(transmitter))
-            );
+            new OdinMidiDevice(MidiSystem.getMidiDevice(info)).appendTo(sb);
           } catch (MidiUnavailableException e) {
             LOG.error("Cannot get device " + info, e);
           }
