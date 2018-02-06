@@ -30,7 +30,9 @@ class EnvironmentContainer extends React.Component {
   render() {
     return (
       <div>
-        TODO
+        {this.props.environment &&
+          <div>${JSON.stringify(this.props.environment)}</div>
+        }
       </div>
     )
   }
@@ -38,7 +40,7 @@ class EnvironmentContainer extends React.Component {
 
 function mapStateToProps() {
   return function(state) {
-    const environment = state.services && state.services.environment ? state.services.environment : {handles: []}
+    const environment = state.system && state.system.environment ? state.system.environment : {handles: []}
 
     return {
       environment
@@ -55,7 +57,8 @@ export function mapDispatchToProps(dispatch) {
 }
 
 EnvironmentContainer.propTypes = {
-  onLoadEntities: PropTypes.func.isRequired
+  onLoadEntities: PropTypes.func.isRequired,
+  environment: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EnvironmentContainer)

@@ -22,7 +22,10 @@ exports[`Environment container Initialise 1`] = `
       onLoadEntities={[Function]}
     >
       <div>
-        TODO
+        <div>
+          $
+          {"handles":[]}
+        </div>
       </div>
     </EnvironmentContainer>
   </Connect(EnvironmentContainer)>

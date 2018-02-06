@@ -43,6 +43,10 @@ Run a single JS test
 
     npm test -- channelsContainer.test.js
 
+## Run JS test with console log output
+
+    jest --silent=false environmentContainer.test.js
+
 ## Debug JS
 
 To debug a single JS test, add the line

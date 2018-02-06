@@ -32,7 +32,7 @@ const loadTestData = function(root, path) {
   } catch (e) {
     console.error(e)
     throw new Error('No test profile data available for path ' + path +
-      '.  Tried loading from '+ fullPath)
+      '.  Also tried loading from '+ fullPath)
   }
 }
 
@@ -118,5 +118,9 @@ export class MockBackend extends Backend {
 
   fetchCompositionApi(notation) {
     return loadTestData('compositions', notation)
+  }
+
+  fetchSystemApi(path) {
+    return loadTestData('services/system/', path)
   }
 }
