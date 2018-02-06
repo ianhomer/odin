@@ -14,6 +14,6 @@
  */
 
 /**
- * Web service describing the system configuration.
+ * Web service describing the environment configuration.
  */
-package com.purplepip.odin.server.services.system;
+package com.purplepip.odin.server.services.environment;

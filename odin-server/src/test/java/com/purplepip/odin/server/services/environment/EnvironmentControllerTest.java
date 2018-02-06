@@ -13,14 +13,13 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services.system;
+package com.purplepip.odin.server.services.environment;
 
 import static com.purplepip.odin.server.common.PrettyJson.toPrettyJson;
 import static com.purplepip.odin.server.rest.Rests.sendingJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.purplepip.odin.server.services.schema.SchemaController;
 import com.purplepip.odin.snapshot.Snapshot;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -39,22 +38,22 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @ActiveProfiles({"test", "noStore", "noAuditing"})
 @Slf4j
-public class SystemControllerTest {
+public class EnvironmentControllerTest {
   @Autowired
   private MockMvc mvc;
 
   @Test
-  public void testFullSchema() throws Exception {
-    String json = mvc.perform(sendingJson(get("/services/system")))
+  public void testEnvironment() throws Exception {
+    String json = mvc.perform(sendingJson(get("/services/environment")))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
-    Snapshot snapshot = new Snapshot(SchemaController.class)
+    Snapshot snapshot = new Snapshot(EnvironmentController.class)
         .root("src/test/js")
-        .path("data/services/system")
+        .path("data/services/environment")
         .extension("json").header(false).initialise();
 
     snapshot.writeLine(toPrettyJson(json));
-    LOG.info("System JSON = {}", snapshot.getActual());
+    snapshot.expectMatch();
   }
 }

@@ -13,18 +13,29 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services.system;
+package com.purplepip.odin.server.services.environment;
 
-import com.purplepip.odin.midix.MidiSystemWrapper;
+import com.purplepip.odin.devices.Environment;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Profile;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Component
-public class System {
+@RestController
+@Profile("!noServices")
+@Slf4j
+public class EnvironmentController {
   @Autowired
-  private MidiSystemWrapper midiSystemWrapper;
+  private Environment environment;
 
-  public MidiSystemWrapper getMidi() {
-    return midiSystemWrapper;
+  /**
+   * Get environment.
+   *
+   * @return environment
+   */
+  @RequestMapping("/services/environment")
+  public Environment getEnvironment() {
+    return environment;
   }
 }

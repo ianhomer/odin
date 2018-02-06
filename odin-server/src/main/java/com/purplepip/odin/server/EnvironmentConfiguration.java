@@ -13,28 +13,21 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services.system;
+package com.purplepip.odin.server;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.purplepip.odin.configuration.Environments;
+import com.purplepip.odin.devices.Environment;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
-@RestController
-@Profile("!noServices")
-@Slf4j
-public class SystemController {
-  @Autowired
-  private System system;
-
-  /**
-   * Get system configuration.
-   *
-   * @return performance json schema
-   */
-  @RequestMapping("/services/system")
-  public System getSystem() {
-    return system;
+@Component
+@Profile("!test")
+@Order(2)
+public class EnvironmentConfiguration {
+  @Bean
+  public Environment odinEnvironment() {
+    return Environments.newEnvironment();
   }
 }
