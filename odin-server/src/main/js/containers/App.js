@@ -19,6 +19,7 @@ import {connect, Provider} from 'react-redux'
 import {Schema} from '../schema/Schema'
 import Performance from './Performance'
 import Developer from '../components/developer/Developer'
+import EnvironmentContainer from './EnvironmentContainer'
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class App extends React.Component {
 
     this.renderPerformance = this.renderPerformance.bind(this)
     this.renderDeveloper = this.renderDeveloper.bind(this)
+    this.renderEnvironment = this.renderEnvironment.bind(this)
   }
 
   createNewSchema(props) {
@@ -62,6 +64,14 @@ class App extends React.Component {
     )
   }
 
+  renderEnvironment() {
+    return (
+      <div>
+        <EnvironmentContainer/>
+      </div>
+    )
+  }
+
   render() {
     if (this.state.schema) {
       return (
@@ -69,6 +79,7 @@ class App extends React.Component {
           <Router>
             <div>
               <Route exact path="/app/developer" component={this.renderDeveloper}/>
+              <Route exact path="/app/environment" component={this.renderEnvironment}/>
               <Route path="/app" component={this.renderPerformance}/>
             </div>
           </Router>

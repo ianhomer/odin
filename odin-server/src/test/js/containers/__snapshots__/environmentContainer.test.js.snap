@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Environment container Initialise 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(EnvironmentContainer)>
+    <EnvironmentContainer
+      environment={
+        Object {
+          "handles": Array [],
+        }
+      }
+      onLoadEntities={[Function]}
+    >
+      <div>
+        TODO
+      </div>
+    </EnvironmentContainer>
+  </Connect(EnvironmentContainer)>
+</Provider>
+`;
