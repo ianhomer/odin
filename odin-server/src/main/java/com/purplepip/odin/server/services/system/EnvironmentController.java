@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services.environment;
+package com.purplepip.odin.server.services.system;
 
 import com.purplepip.odin.devices.Environment;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class EnvironmentController {
    *
    * @return environment
    */
-  @RequestMapping("/services/environment")
+  @RequestMapping("/services/system/environment")
   public Environment getEnvironment() {
     return environment;
   }

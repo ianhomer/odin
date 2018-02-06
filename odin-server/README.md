@@ -58,3 +58,8 @@ Open up chrome://inspect in Chrome and step through the debugger
 ## Update Snapshots
 
   jest --updateSnapshot
+
+or
+  
+  jest -u  
+  

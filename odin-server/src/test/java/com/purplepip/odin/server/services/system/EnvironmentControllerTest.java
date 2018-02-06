@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.server.services.environment;
+package com.purplepip.odin.server.services.system;
 
 import static com.purplepip.odin.server.common.PrettyJson.toPrettyJson;
 import static com.purplepip.odin.server.rest.Rests.sendingJson;
@@ -44,13 +44,13 @@ public class EnvironmentControllerTest {
 
   @Test
   public void testEnvironment() throws Exception {
-    String json = mvc.perform(sendingJson(get("/services/environment")))
+    String json = mvc.perform(sendingJson(get("/services/system/environment")))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
     Snapshot snapshot = new Snapshot(EnvironmentController.class)
         .root("src/test/js")
-        .path("data/services/environment")
+        .path("data/services/system/environment")
         .extension("json").header(false).initialise();
 
     snapshot.writeLine(toPrettyJson(json));

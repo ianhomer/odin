@@ -15,7 +15,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {loadEnvironmentRequested} from '../actions'
+import {fetchSystemRequested} from '../actions'
 
 // Rendering of environment data
 class EnvironmentContainer extends React.Component {
@@ -24,7 +24,7 @@ class EnvironmentContainer extends React.Component {
   }
 
   componentDidMount() {
-    // TODO
+    this.props.onLoadEntities()
   }
 
   render() {
@@ -49,7 +49,7 @@ function mapStateToProps() {
 export function mapDispatchToProps(dispatch) {
   return {
     onLoadEntities: () => {
-      dispatch(loadEnvironmentRequested())
+      dispatch(fetchSystemRequested('environment'))
     }
   }
 }

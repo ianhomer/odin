@@ -22,6 +22,7 @@ import {
   DELETE_ENTITY_REQUESTED, DELETE_ENTITY_SUCCEEDED, DELETE_ENTITY_FAILED,
   PATCH_ENTITY_REQUESTED, PATCH_ENTITY_SUCCEEDED, PATCH_ENTITY_FAILED,
   FETCH_COMPOSITION_REQUESTED, FETCH_COMPOSITION_SUCCEEDED, FETCH_COMPOSITION_FAILED,
+  FETCH_SYSTEM_REQUESTED, FETCH_SYSTEM_SUCCEEDED, FETCH_SYSTEM_FAILED,
   LOAD_ENTITIES_REQUESTED, LOAD_ENTITIES_SUCCEEDED, LOAD_ENTITIES_FAILED,
   LOAD_PERFORMANCE_SCHEMA_REQUESTED, LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PERFORMANCE_SCHEMA_FAILED,
   LOAD_PROFILE_SCHEMA_REQUESTED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_FAILED
@@ -94,6 +95,27 @@ export class Backend {
         notation: action.notation, composition})
     } catch (e) {
       yield put({type: FETCH_COMPOSITION_FAILED, message: e.message})
+    }
+  }
+
+  fetchSystemApi(path) {
+    return fetch('/services/system/' + path, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .catch(reason => console.error(reason))
+  }
+
+  *fetchSystem(action) {
+    try {
+      const backend = yield getContext('backend')
+      const system = yield call(backend.fetchSystemApi, action.path)
+      yield put({type: FETCH_SYSTEM_SUCCEEDED, path: action.path, system})
+    } catch (e) {
+      yield put({type: FETCH_SYSTEM_FAILED, message: e.message})
     }
   }
 
@@ -229,6 +251,7 @@ export class Backend {
     yield takeEvery(DELETE_ENTITY_REQUESTED, backend.deleteEntity)
     yield takeEvery(PATCH_ENTITY_REQUESTED, backend.patchEntity)
     yield takeEvery(FETCH_COMPOSITION_REQUESTED, backend.fetchComposition)
+    yield takeEvery(FETCH_SYSTEM_REQUESTED, backend.fetchSystem)
     yield takeEvery(LOAD_ENTITIES_REQUESTED, backend.loadEntities)
     yield takeEvery(LOAD_PERFORMANCE_SCHEMA_REQUESTED, backend.loadPerformanceSchema)
     yield takeEvery(LOAD_PROFILE_SCHEMA_REQUESTED, backend.loadProfileSchema)
