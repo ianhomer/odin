@@ -63,7 +63,7 @@
     <jackson.version>2.9.3</jackson.version>
     <javax.validation>2.0.1.Final</javax.validation>
     <junit.version>4.12</junit.version>
-    <kotlin.version>1.2.10</kotlin.version>
+    <kotlin.version>1.2.21</kotlin.version>
     <guava.version>23.6-jre</guava.version>
     <logback.version>1.2.3</logback.version>
     <lombok.version>1.16.18</lombok.version>
