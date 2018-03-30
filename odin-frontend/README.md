@@ -2,6 +2,11 @@ Quick install development version of front end
 
     mvn frontend:webpack
 
+## Docker
+
+    docker build -t odin-frontend .
+    docker run --name odin-frontend -p 8080:80 -d odin-frontend
+
 ## Running JS tests
 
 Run JS tests

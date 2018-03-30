@@ -79,7 +79,9 @@ public class OdinConfiguration {
   public OdinSequencerConfiguration configuration(MeasureProvider measureProvider,
                                                   MidiDeviceWrapper midiDeviceWrapper) {
     List<OperationReceiver> operationReceivers = new ArrayList<>();
-    operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
+    if (midiDeviceWrapper.getReceivingDevice() != null) {
+      operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
+    }
     if (performanceLoader != null) {
       operationReceivers.add(performanceLoader);
     }
@@ -89,9 +91,12 @@ public class OdinConfiguration {
     DefaultOdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))
         .setMeasureProvider(measureProvider)
-        .setOperationReceiver(new OperationReceiverCollection(operationReceivers))
-        .setMicrosecondPositionProvider(
-            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
+        .setOperationReceiver(new OperationReceiverCollection(operationReceivers));
+
+    if (midiDeviceWrapper.getReceivingDevice() != null) {
+        configuration.setMicrosecondPositionProvider(
+          new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
+    }
 
     /*
      * Metrics is optional, e.g. not needed for most tests.  However even when not set

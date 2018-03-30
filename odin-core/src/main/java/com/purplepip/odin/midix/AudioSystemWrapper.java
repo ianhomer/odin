@@ -101,7 +101,8 @@ final class AudioSystemWrapper {
       sb.append(mixer.getMixerInfo().getName()).append(" : ")
           .append(mixer.getMixerInfo().getDescription()).append(newLine);
       for (Line.Info lineInfo : mixer.getSourceLineInfo()) {
-        try (Line line = mixer.getLine(lineInfo)) {
+        try {
+          Line line = mixer.getLine(lineInfo);
           try {
             sb.append("source port : ").append(lineInfo).append(newLine);
             if (line instanceof Clip) {
@@ -115,6 +116,12 @@ final class AudioSystemWrapper {
           } catch (IllegalArgumentException e) {
             LOG.info("ERROR {} : Cannot open line {}", e.getMessage(), line.getClass());
             LOG.debug("Cannot open line", e);
+          } finally {
+            if (line.isOpen()) {
+              line.close();
+            } else {
+              LOG.warn("Line is already closed");
+            }
           }
         } catch (LineUnavailableException e) {
           LOG.info("ERROR {} : Cannot get line {}", e.getMessage(), lineInfo);
