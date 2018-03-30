@@ -7,6 +7,14 @@ Quick install development version of front end
     docker build -t odin-frontend .
     docker run --name odin-frontend -p 8080:80 -d odin-frontend
 
+### Recycle
+
+    mvn install -P quick               && \
+      docker stop odin-frontend        && \
+      docker rm odin-frontend          ; \
+      docker build -t odin-frontend .  && \
+      docker run --name odin-frontend -p 8080:8080 -d odin-frontend
+
 ## Running JS tests
 
 Run JS tests

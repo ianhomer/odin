@@ -15,7 +15,7 @@ Quick install
     cd ../odin-core && mvn clean install -P quick && cd ../odin-api && \
       mvn install -P quick        && \
       docker stop odin-api        && \
-      docker rm odin-api          && \
+      docker rm odin-api          ; \
       docker build -t odin-api .  && \
       docker run --name odin-api -p 8081:8080 -d odin-api
       

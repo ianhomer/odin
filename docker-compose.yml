@@ -1,0 +1,8 @@
+version: '3'
+services:
+  odin-frontend:
+    build: ./odin-frontend
+    ports:
+    - "8080:8080"
+  odin-api:
+    build: ./odin-api

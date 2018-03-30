@@ -32,6 +32,14 @@ or run with developer benefits, e.g. web template reloading
 
     (cd odin-server && mvn spring-boot:run)
 
+# Docker
+
+    docker-compose up
+    
+or with rebuild    
+
+    docker-compose up --build
+        
 # Android Application
 
 See also the [Odin Android App](https://github.com/ianhomer/odin-android).  

@@ -276,31 +276,6 @@
       </build>
     </profile>
     <profile>
-      <id>quick</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>install-node-and-npm</id>
-                <phase>none</phase>
-              </execution>
-              <execution>
-                <id>npm-install</id>
-                <phase>none</phase>
-              </execution>
-              <execution>
-                <id>npm-test</id>
-                <phase>none</phase>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
       <id>debug</id>
       <properties>
         <jvm.properties.debug>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=relax:5005,suspend=y</jvm.properties.debug>
