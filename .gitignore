@@ -1,5 +1,5 @@
 .idea/workspace.xml
 target/
-odin-server/node_modules/
-odin-server/node/
-odin-server/src/main/resources/static/built
+odin-frontend/node_modules/
+odin-frontend/node/
+odin-frontend/src/main/resources/static/built
