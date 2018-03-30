@@ -1,0 +1,20 @@
+{
+  "empty" : false,
+  "identifiers" : [ {
+    "description" : "description1",
+    "name" : "name1",
+    "vendor" : "vendor1"
+  }, {
+    "description" : "description2",
+    "name" : "name2",
+    "vendor" : "vendor2"
+  }, {
+    "description" : "description3",
+    "name" : "name3",
+    "vendor" : "vendor3"
+  }, {
+    "description" : "description4",
+    "name" : "name4",
+    "vendor" : "vendor4"
+  } ]
+}

@@ -1,0 +1,38 @@
+{
+  "_embedded" : {
+    "performance" : [ {
+      "_links" : {
+        "channels" : {
+          "href" : "http://localhost/api/rest/performance/34/channels"
+        },
+        "layers" : {
+          "href" : "http://localhost/api/rest/performance/34/layers"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/rest/performance/34"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/performance/34"
+        },
+        "sequences" : {
+          "href" : "http://localhost/api/rest/performance/34/sequences"
+        },
+        "triggers" : {
+          "href" : "http://localhost/api/rest/performance/34/triggers"
+        }
+      },
+      "name" : "com/purplepip/odin/demo/GroovePerformance"
+    } ]
+  },
+  "_links" : {
+    "profile" : {
+      "href" : "http://localhost/api/rest/profile/performance"
+    },
+    "search" : {
+      "href" : "http://localhost/api/rest/performance/search"
+    },
+    "self" : {
+      "href" : "http://localhost/api/rest/performance"
+    }
+  }
+}

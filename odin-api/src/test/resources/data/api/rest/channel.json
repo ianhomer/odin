@@ -1,0 +1,109 @@
+{
+  "_embedded" : {
+    "channel" : [ {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/rest/channel/36"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/rest/channel/36/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/channel/36"
+        }
+      },
+      "name" : "Power Drums",
+      "number" : 9,
+      "program" : 0,
+      "programName" : "Power Drums"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/rest/channel/37"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/rest/channel/37/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/channel/37"
+        }
+      },
+      "name" : "aahs",
+      "number" : 4,
+      "program" : 0,
+      "programName" : "aahs"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/rest/channel/38"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/rest/channel/38/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/channel/38"
+        }
+      },
+      "name" : "bass",
+      "number" : 5,
+      "program" : 0,
+      "programName" : "bass"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/rest/channel/35"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/rest/channel/35/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/channel/35"
+        }
+      },
+      "name" : "piano",
+      "number" : 1,
+      "program" : 0,
+      "programName" : "piano"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/rest/channel/39"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/rest/channel/39/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/channel/39"
+        }
+      },
+      "name" : "rock",
+      "number" : 2,
+      "program" : 0,
+      "programName" : "rock"
+    }, {
+      "_links" : {
+        "channel" : {
+          "href" : "http://localhost/api/rest/channel/40"
+        },
+        "performance" : {
+          "href" : "http://localhost/api/rest/channel/40/performance"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/channel/40"
+        }
+      },
+      "name" : "strings",
+      "number" : 3,
+      "program" : 0,
+      "programName" : "strings"
+    } ]
+  },
+  "_links" : {
+    "profile" : {
+      "href" : "http://localhost/api/rest/profile/channel"
+    },
+    "self" : {
+      "href" : "http://localhost/api/rest/channel"
+    }
+  }
+}

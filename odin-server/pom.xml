@@ -47,6 +47,10 @@
     </dependency>
     <dependency>
       <groupId>com.purplepip</groupId>
+      <artifactId>odin-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.purplepip</groupId>
       <artifactId>odin-core</artifactId>
     </dependency>
     <dependency>

@@ -1,0 +1,138 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "definitions" : {
+    "actionConfiguration" : {
+      "properties" : {
+        "enabled" : {
+          "readOnly" : false,
+          "title" : "Enabled",
+          "type" : "boolean"
+        },
+        "length" : {
+          "readOnly" : true,
+          "title" : "Length",
+          "type" : "object"
+        },
+        "name" : {
+          "readOnly" : false,
+          "title" : "Name",
+          "type" : "string"
+        },
+        "offset" : {
+          "readOnly" : true,
+          "title" : "Offset",
+          "type" : "object"
+        },
+        "properties" : {
+          "readOnly" : false,
+          "title" : "Properties",
+          "type" : "object"
+        },
+        "sequence" : {
+          "format" : "uri",
+          "readOnly" : false,
+          "title" : "Sequence",
+          "type" : "string"
+        },
+        "tick" : {
+          "$ref" : "#/definitions/tick",
+          "readOnly" : false,
+          "title" : "Tick",
+          "type" : "object"
+        },
+        "type" : {
+          "readOnly" : false,
+          "title" : "Type",
+          "type" : "string"
+        }
+      },
+      "type" : "object"
+    },
+    "tick" : {
+      "properties" : {
+        "denominator" : {
+          "readOnly" : false,
+          "title" : "Denominator",
+          "type" : "integer"
+        },
+        "numerator" : {
+          "readOnly" : false,
+          "title" : "Numerator",
+          "type" : "integer"
+        },
+        "timeUnit" : {
+          "enum" : [ "BEAT", "MEASURE", "MICROSECOND" ],
+          "readOnly" : false,
+          "title" : "Time unit",
+          "type" : "string"
+        }
+      },
+      "type" : "object"
+    }
+  },
+  "properties" : {
+    "channel" : {
+      "readOnly" : false,
+      "title" : "Channel",
+      "type" : "integer"
+    },
+    "enabled" : {
+      "readOnly" : false,
+      "title" : "Enabled",
+      "type" : "boolean"
+    },
+    "layers" : {
+      "items" : {
+        "type" : "string"
+      },
+      "readOnly" : false,
+      "title" : "Layers",
+      "type" : "array"
+    },
+    "length" : {
+      "readOnly" : true,
+      "title" : "Length",
+      "type" : "object"
+    },
+    "name" : {
+      "readOnly" : false,
+      "title" : "Name",
+      "type" : "string"
+    },
+    "offset" : {
+      "readOnly" : true,
+      "title" : "Offset",
+      "type" : "object"
+    },
+    "performance" : {
+      "format" : "uri",
+      "readOnly" : false,
+      "title" : "Performance",
+      "type" : "string"
+    },
+    "properties" : {
+      "readOnly" : false,
+      "title" : "Properties",
+      "type" : "object"
+    },
+    "tick" : {
+      "$ref" : "#/definitions/tick",
+      "readOnly" : false,
+      "title" : "Tick",
+      "type" : "object"
+    },
+    "triggers" : {
+      "$ref" : "#/definitions/actionConfiguration",
+      "readOnly" : false,
+      "title" : "Triggers",
+      "type" : "object"
+    },
+    "type" : {
+      "readOnly" : false,
+      "title" : "Type",
+      "type" : "string"
+    }
+  },
+  "title" : "Persistable sequence",
+  "type" : "object"
+}
