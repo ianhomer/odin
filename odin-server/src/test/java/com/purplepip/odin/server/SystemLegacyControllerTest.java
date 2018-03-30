@@ -26,9 +26,9 @@ public class SystemLegacyControllerTest {
 
   @Test
   public void testSystemEndPoints() throws Exception {
-    assertEndPoint("/system");
-    assertEndPoint("/system/synthesizer");
-    assertEndPoint("/system/sequencer");
+    assertEndPoint("/api/page/system");
+    assertEndPoint("/api/page/system/synthesizer");
+    assertEndPoint("/api/page/system/sequencer");
   }
 
   private void assertEndPoint(String endpoint) throws Exception {

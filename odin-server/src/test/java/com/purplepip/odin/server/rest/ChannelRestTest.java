@@ -23,6 +23,6 @@ public class ChannelRestTest {
 
   @Test
   public void testProfile() throws Exception {
-    new EndPointSnapshot(mvc, "/api/profile/channel").expectMatch();
+    new EndPointSnapshot(mvc, "/api/rest/profile/channel").expectMatch();
   }
 }

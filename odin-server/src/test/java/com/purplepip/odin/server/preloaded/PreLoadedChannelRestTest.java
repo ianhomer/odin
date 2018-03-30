@@ -17,6 +17,6 @@ public class PreLoadedChannelRestTest {
 
   @Test
   public void testRestSnapshot() throws Exception {
-    new EndPointSnapshot(mvc, "/api/channel").expectMatch();
+    new EndPointSnapshot(mvc, "/api/rest/channel").expectMatch();
   }
 }

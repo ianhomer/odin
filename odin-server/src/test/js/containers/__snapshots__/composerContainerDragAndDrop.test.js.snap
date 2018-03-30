@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Composer container drag and drop Initialise 1`] = `
+exports[`Composer container drag and drop Initialise 1`] = `undefined`;
+
+exports[`Composer container drag and drop Initialise 2`] = `
 <div
   class="layer card"
   draggable="true"

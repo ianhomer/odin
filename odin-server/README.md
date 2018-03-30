@@ -57,7 +57,7 @@ into the script to define a break point then start test with
     
     ./jest-debug.sh clazz.test.js
     
-Open up chrome://inspect in Chrome and step through the debugger
+Open up chrome://inspect in Chrome, click inspect and play icon and step through the debugger
 
 ## Update Snapshots
 

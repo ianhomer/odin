@@ -44,13 +44,13 @@ public class EnvironmentControllerTest {
 
   @Test
   public void testEnvironment() throws Exception {
-    String json = mvc.perform(sendingJson(get("/services/system/environment")))
+    String json = mvc.perform(sendingJson(get("/api/services/system/environment")))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
     Snapshot snapshot = new Snapshot(EnvironmentController.class)
         .root("src/test/js")
-        .path("data/services/system/environment")
+        .path("data/api/services/system/environment")
         .extension("json").header(false).initialise();
 
     snapshot.writeLine(toPrettyJson(json));

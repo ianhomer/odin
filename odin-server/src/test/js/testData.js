@@ -1,8 +1,8 @@
 import {Schema} from 'odin/schema/schema'
 
-import testSchemaJson from './data/services/schema.json'
-import testPerformanceJson from './data/api/performance.json'
-import testSequenceProfileSchemaJson from './data/api/profile/sequence.json'
+import testSchemaJson from './data/api/services/schema.json'
+import testPerformanceJson from './data/api/rest/performance.json'
+import testSequenceProfileSchemaJson from './data/api/rest/profile/sequence.json'
 
 export const testSchema = function() {
   var schema = new Schema(

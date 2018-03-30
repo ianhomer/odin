@@ -55,7 +55,7 @@ public class Rest {
    */
   public String getHref(String entitiesName, int index) throws Exception {
     String href = JsonPath.parse(
-        mvc.perform(sendingJson(get("/api/" + entitiesName)))
+        mvc.perform(sendingJson(get("/api/rest/" + entitiesName)))
             .andExpect(status().isOk())
             .andReturn()
             .getResponse().getContentAsString()

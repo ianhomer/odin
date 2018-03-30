@@ -31,7 +31,7 @@ public class CompositionController {
   private final NaturalScoreCompositionFactory factory = new NaturalScoreCompositionFactory();
 
   @Timed
-  @RequestMapping("/services/composition")
+  @RequestMapping("/api/services/composition")
   public Composition createCompositionFromNotation(
       @RequestParam(value = "notation", defaultValue = "C") String notation) {
     return new EasyScoreCompositionBuilder(factory.create(notation)).build();

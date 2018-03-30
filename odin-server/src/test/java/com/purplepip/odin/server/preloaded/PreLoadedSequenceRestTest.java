@@ -17,6 +17,6 @@ public class PreLoadedSequenceRestTest {
 
   @Test
   public void testRestSnapshot() throws Exception {
-    new EndPointSnapshot(mvc, "/api/sequence").expectMatch();
+    new EndPointSnapshot(mvc, "/api/rest/sequence").expectMatch();
   }
 }

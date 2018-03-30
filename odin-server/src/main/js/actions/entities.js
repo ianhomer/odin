@@ -49,7 +49,7 @@ export const CREATE_ENTITY_SUCCEEDED = 'CREATE_ENTITY_SUCCEEDED'
 export const CREATE_ENTITY_FAILED = 'CREATE_ENTITY_FAILED'
 
 function getPathFromEntity(entity) {
-  return entity._links.self.href.match('/api/([^/]*)')[1]
+  return entity._links.self.href.match('/api/rest/([^/]*)')[1]
 }
 
 export const UPDATE_ENTITY_REQUESTED = 'UPDATE_ENTITY_REQUESTED'

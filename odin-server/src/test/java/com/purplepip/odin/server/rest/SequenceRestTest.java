@@ -42,7 +42,7 @@ public class SequenceRestTest {
      * Add Sequence
      */
     String entityUri = mvc
-        .perform(sendingJson(post("/api/sequence")).content(
+        .perform(sendingJson(post("/api/rest/sequence")).content(
             new Json(objectMapper)
                 .property("name", "new-notations-name")
                 .property("performance", performanceUri)
@@ -84,6 +84,6 @@ public class SequenceRestTest {
 
   @Test
   public void testProfile() throws Exception {
-    new EndPointSnapshot(mvc, "/api/profile/sequence").expectMatch();
+    new EndPointSnapshot(mvc, "/api/rest/profile/sequence").expectMatch();
   }
 }

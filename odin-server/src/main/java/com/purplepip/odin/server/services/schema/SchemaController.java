@@ -35,7 +35,7 @@ public class SchemaController {
    *
    * @return performance json schema
    */
-  @RequestMapping("/services/schema")
+  @RequestMapping("/api/services/schema")
   public PerformanceSchema getPerformanceSchema() {
     return performanceSchema;
   }
@@ -45,7 +45,7 @@ public class SchemaController {
    *
    * @return flow json schema
    */
-  @RequestMapping("/services/schema/flows/{name}")
+  @RequestMapping("/api/services/schema/flows/{name}")
   public JsonNode getFlowSchema(@PathVariable("name") String name) {
     return performanceSchema.getFlowSchema(name);
   }

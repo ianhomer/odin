@@ -34,7 +34,7 @@ public class EnvironmentController {
    *
    * @return environment
    */
-  @RequestMapping("/services/system/environment")
+  @RequestMapping("/api/services/system/environment")
   public Environment getEnvironment() {
     return environment;
   }

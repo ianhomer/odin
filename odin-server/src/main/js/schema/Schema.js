@@ -25,7 +25,7 @@ const Ajv = require('ajv')
 
 import {Clazz} from './Clazz'
 
-const root = '/api'
+const root = '/api/rest'
 const _ajv = new WeakMap()
 const _clazzes = new WeakMap()
 const _flux = new WeakMap()

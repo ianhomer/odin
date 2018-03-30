@@ -3,14 +3,14 @@
     "operation" : [ {
       "_links" : {
         "operation" : {
-          "href" : "http://localhost/api/operation/76"
+          "href" : "http://localhost/api/rest/operation/76"
         },
         "self" : {
-          "href" : "http://localhost/api/operation/76"
+          "href" : "http://localhost/api/rest/operation/76"
         }
       },
       "channel" : 1,
-      "dateCreated" : "2018-01-28T21:24:54.380+0000",
+      "dateCreated" : "2018-03-30T10:53:29.935+0000",
       "message" : "▼1↓99 → 1",
       "number" : 1,
       "time" : 5,
@@ -19,14 +19,14 @@
     }, {
       "_links" : {
         "operation" : {
-          "href" : "http://localhost/api/operation/77"
+          "href" : "http://localhost/api/rest/operation/77"
         },
         "self" : {
-          "href" : "http://localhost/api/operation/77"
+          "href" : "http://localhost/api/rest/operation/77"
         }
       },
       "channel" : 1,
-      "dateCreated" : "2018-01-28T21:24:54.388+0000",
+      "dateCreated" : "2018-03-30T10:53:29.938+0000",
       "message" : "▲1    → 1",
       "number" : 1,
       "time" : 10,
@@ -36,13 +36,13 @@
   },
   "_links" : {
     "profile" : {
-      "href" : "http://localhost/api/profile/operation"
+      "href" : "http://localhost/api/rest/profile/operation"
     },
     "search" : {
-      "href" : "http://localhost/api/operation/search"
+      "href" : "http://localhost/api/rest/operation/search"
     },
     "self" : {
-      "href" : "http://localhost/api/operation{?page,size,sort}",
+      "href" : "http://localhost/api/rest/operation{?page,size,sort}",
       "templated" : true
     }
   },

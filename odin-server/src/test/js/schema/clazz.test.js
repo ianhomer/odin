@@ -1,5 +1,5 @@
-import testSchemaJson from '../data/services/schema.json'
-import testSequenceJson from '../data/api/profile/sequence.json'
+import testSchemaJson from '../data/api/services/schema.json'
+import testSequenceJson from '../data/api/rest/profile/sequence.json'
 import {Schema} from 'odin/schema/Schema'
 
 describe('Clazz validation', () => {
@@ -15,10 +15,10 @@ describe('Clazz validation', () => {
     expect(clazz.hasProperty('performance')).toBe(true)
     var refs = {
       'name': {'value': 'test-name'},
-      'performance': {'value': 'http://localhost:8080/api/performance/1'}
+      'performance': {'value': 'http://localhost:8080/api/rest/performance/1'}
     }
     var entity = clazz.newInstance(refs)
     expect(entity.name).toBe('test-name')
-    expect(entity.performance).toBe('http://localhost:8080/api/performance/1')
+    expect(entity.performance).toBe('http://localhost:8080/api/rest/performance/1')
   })
 })

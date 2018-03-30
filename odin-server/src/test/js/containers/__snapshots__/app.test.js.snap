@@ -22,16 +22,16 @@ exports[`async actions App after schema loaded OK 2`] = `
       <Route
         component={[Function]}
         exact={true}
-        path="/app/developer"
+        path="/web/app/developer"
       />
       <Route
         component={[Function]}
         exact={true}
-        path="/app/environment"
+        path="/web/app/environment"
       />
       <Route
         component={[Function]}
-        path="/app"
+        path="/web/app"
       />
     </div>
   </BrowserRouter>

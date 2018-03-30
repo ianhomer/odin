@@ -48,7 +48,7 @@ public class SystemLegacyController {
    * @param model model
    * @return template to render
    */
-  @RequestMapping("/system")
+  @RequestMapping("/api/page/system")
   public String system(Model model) {
     model.addAttribute("midiSystem", midiSystemWrapper);
     model.addAttribute("midiDevice", midiDeviceWrapper);
@@ -62,7 +62,7 @@ public class SystemLegacyController {
    * @param model model
    * @return template to render
    */
-  @RequestMapping("/system/synthesizer")
+  @RequestMapping("/api/page/system/synthesizer")
   public String synthesizer(Model model) {
     model.addAttribute("midiDevice", midiDeviceWrapper);
     return "system/synthesizer";
@@ -74,7 +74,7 @@ public class SystemLegacyController {
    * @param model model
    * @return template to render
    */
-  @RequestMapping("/system/sequencer")
+  @RequestMapping("/api/page/system/sequencer")
   public String sequencer(Model model) {
     model.addAttribute("sequencer", sequencer);
     return "system/sequencer";

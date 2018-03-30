@@ -23,6 +23,6 @@ public class PerformanceRestTest {
 
   @Test
   public void testProfile() throws Exception {
-    new EndPointSnapshot(mvc, "/api/profile/performance").expectMatch();
+    new EndPointSnapshot(mvc, "/api/rest/profile/performance").expectMatch();
   }
 }

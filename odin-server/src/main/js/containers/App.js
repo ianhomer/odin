@@ -78,9 +78,9 @@ class App extends React.Component {
         <Provider store={this.props.store}>
           <Router>
             <div>
-              <Route exact path="/app/developer" component={this.renderDeveloper}/>
-              <Route exact path="/app/environment" component={this.renderEnvironment}/>
-              <Route path="/app" component={this.renderPerformance}/>
+              <Route exact path="/web/app/developer" component={this.renderDeveloper}/>
+              <Route exact path="/web/app/environment" component={this.renderEnvironment}/>
+              <Route path="/web/app" component={this.renderPerformance}/>
             </div>
           </Router>
         </Provider>

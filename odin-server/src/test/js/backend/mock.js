@@ -14,7 +14,7 @@
 
 // Mock Backend
 
-import testSchema from '../data/services/schema.json'
+import testSchema from '../data/api/services/schema.json'
 import {Backend} from 'odin/backend/index.js'
 import fs from 'fs'
 
@@ -47,7 +47,7 @@ const safe = function(entity, path) {
     entity.properties = {}
   }
   if (!entity._links) {
-    entity._links = {self: {href: 'http://localhost:8080/api/' + path + '/' + createId()}}
+    entity._links = {self: {href: 'http://localhost:8080/api/rest/' + path + '/' + createId()}}
   }
   if (path === 'layer') {
     if (!entity.layers) {
@@ -99,7 +99,7 @@ export class MockBackend extends Backend {
   loadEntitiesApi(path) {
     var json = (path => {
       try {
-        return loadTestData('api', path)
+        return loadTestData('api/rest', path)
       } catch (e) {
         console.error(e)
         throw new Error('No test entities data available for path ' + path)
@@ -113,14 +113,14 @@ export class MockBackend extends Backend {
   }
 
   loadProfileSchemaApi(path) {
-    return loadTestData('api/profile', path)
+    return loadTestData('api/rest/profile', path)
   }
 
   fetchCompositionApi(notation) {
-    return loadTestData('compositions', notation)
+    return loadTestData('api/services/composition', notation)
   }
 
   fetchSystemApi(path) {
-    return loadTestData('services/system/', path)
+    return loadTestData('api/services/system/', path)
   }
 }

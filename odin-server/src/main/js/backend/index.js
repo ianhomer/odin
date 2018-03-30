@@ -29,11 +29,12 @@ import {
 } from '../actions'
 import {withQuery} from './withQuery'
 
-const root = '/api'
+const apiRoot = '/api'
+const restRoot = apiRoot + '/rest'
 
 export class Backend {
   createEntityApi(entity, path) {
-    return fetch(root + '/' + path, {
+    return fetch(restRoot + '/' + path, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -77,7 +78,7 @@ export class Backend {
   }
 
   fetchCompositionApi(notation) {
-    return fetch(withQuery('/services/composition', {notation}), {
+    return fetch(withQuery(apiRoot + '/services/composition', {notation}), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -99,7 +100,7 @@ export class Backend {
   }
 
   fetchSystemApi(path) {
-    return fetch('/services/system/' + path, {
+    return fetch(apiRoot + '/services/system/' + path, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -176,7 +177,7 @@ export class Backend {
   }
 
   loadEntitiesApi(path) {
-    return fetch(root + '/' + path, {
+    return fetch(restRoot + '/' + path, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -203,7 +204,7 @@ export class Backend {
   }
 
   loadPerformanceSchemaApi() {
-    return fetch('/services/schema', {
+    return fetch('/api/services/schema', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -224,7 +225,7 @@ export class Backend {
   }
 
   loadProfileSchemaApi(path) {
-    return fetch(root + '/profile/' + path, {
+    return fetch(restRoot + '/profile/' + path, {
       method: 'GET',
       headers: {
         'Accept': 'application/schema+json'

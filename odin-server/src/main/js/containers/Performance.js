@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 const React = require('react')
 const PropTypes = require('prop-types')
 
@@ -39,7 +37,7 @@ class Performance extends React.Component {
   componentDidMount() {
     // Load first performance (only one performance supported for now)
     // TODO : Move this performance loading over to redux
-    fetch('/api/performance', {method: 'GET'})
+    fetch('/api/rest/performance', {method: 'GET'})
       .then(response => response.json())
       .then(json => this.setState({performance: json._embedded.performance[0]}))
   }
@@ -78,9 +76,9 @@ class Performance extends React.Component {
     return (
       <Router>
         <div>
-          <Route exact path="/app" component={this.renderComposer}/>
-          <Route exact path="/app/sequences" component={this.renderSequenceList}/>
-          <Route exact path="/app/channels" component={this.renderChannelList}/>
+          <Route exact path="/web/app" component={this.renderComposer}/>
+          <Route exact path="/web/app/sequences" component={this.renderSequenceList}/>
+          <Route exact path="/web/app/channels" component={this.renderChannelList}/>
         </div>
       </Router>
     )

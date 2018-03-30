@@ -26,7 +26,7 @@ describe('Channel async actions', () => {
   test('Delete Channel 1', done => {
     dispatchAndExpect(store, done, DELETE_ENTITY_SUCCEEDED,
       () => deleteEntityRequested({name: 'test-name-1', number: 1,
-        _links: {self: {href: 'http://localhost:8080/api/channel/7'}}}, 'channel'),
+        _links: {self: {href: 'http://localhost:8080/api/rest/channel/7'}}}, 'channel'),
       () => expect(store.getState().rest.channel.entities.length).toBe(1)
     )
   })

@@ -32,7 +32,7 @@ public class PreLoadedOperationsRestTest {
     send(new NoteOnOperation(1, 1, 99), 5);
     send(new NoteOffOperation(1, 1), 10);
 
-    new EndPointSnapshot(mvc, "/api/operation")
+    new EndPointSnapshot(mvc, "/api/rest/operation")
         .mask("(?<=\"dateCreated\" : \")[^\"]*(?=\")")
         .expectMatch();
   }

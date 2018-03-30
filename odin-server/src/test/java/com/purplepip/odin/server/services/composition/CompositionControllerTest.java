@@ -31,7 +31,7 @@ public class CompositionControllerTest {
 
   @Test
   public void testEndPoints() throws Exception {
-    MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/services/composition")
+    MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/services/composition")
         .param("notation", "C D E F")
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -41,5 +41,4 @@ public class CompositionControllerTest {
     String json = result.getResponse().getContentAsString();
     LOG.debug("JSON = {}", json);
   }
-
 }

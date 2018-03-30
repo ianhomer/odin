@@ -56,7 +56,7 @@ public class LayerRestTest {
      * Add layer
      */
     String entityUri = mvc
-        .perform(sendingJson(post("/api/layer")).content(
+        .perform(sendingJson(post("/api/rest/layer")).content(
             new Json(objectMapper)
                 .property("name", "new-layer-name")
                 .property("performance", performanceUri).toString()

@@ -13,13 +13,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/8"
+            "href": "http://localhost:8080/api/rest/layer/8"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/8"
+            "href": "http://localhost:8080/api/rest/layer/8"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/8/performance"
+            "href": "http://localhost:8080/api/rest/layer/8/performance"
           }
         }
       },
@@ -35,13 +35,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/10"
+            "href": "http://localhost:8080/api/rest/layer/10"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/10"
+            "href": "http://localhost:8080/api/rest/layer/10"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/10/performance"
+            "href": "http://localhost:8080/api/rest/layer/10/performance"
           }
         }
       },
@@ -57,13 +57,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/12"
+            "href": "http://localhost:8080/api/rest/layer/12"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/12"
+            "href": "http://localhost:8080/api/rest/layer/12"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/12/performance"
+            "href": "http://localhost:8080/api/rest/layer/12/performance"
           }
         }
       },
@@ -79,13 +79,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/14"
+            "href": "http://localhost:8080/api/rest/layer/14"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/14"
+            "href": "http://localhost:8080/api/rest/layer/14"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/14/performance"
+            "href": "http://localhost:8080/api/rest/layer/14/performance"
           }
         }
       },
@@ -101,13 +101,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/16"
+            "href": "http://localhost:8080/api/rest/layer/16"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/16"
+            "href": "http://localhost:8080/api/rest/layer/16"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/16/performance"
+            "href": "http://localhost:8080/api/rest/layer/16/performance"
           }
         }
       },
@@ -123,13 +123,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/18"
+            "href": "http://localhost:8080/api/rest/layer/18"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/18"
+            "href": "http://localhost:8080/api/rest/layer/18"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/18/performance"
+            "href": "http://localhost:8080/api/rest/layer/18/performance"
           }
         }
       },
@@ -145,13 +145,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/20"
+            "href": "http://localhost:8080/api/rest/layer/20"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/20"
+            "href": "http://localhost:8080/api/rest/layer/20"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/20/performance"
+            "href": "http://localhost:8080/api/rest/layer/20/performance"
           }
         }
       },
@@ -167,13 +167,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/22"
+            "href": "http://localhost:8080/api/rest/layer/22"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/22"
+            "href": "http://localhost:8080/api/rest/layer/22"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/22/performance"
+            "href": "http://localhost:8080/api/rest/layer/22/performance"
           }
         }
       },
@@ -193,13 +193,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/24"
+            "href": "http://localhost:8080/api/rest/layer/24"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/24"
+            "href": "http://localhost:8080/api/rest/layer/24"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/24/performance"
+            "href": "http://localhost:8080/api/rest/layer/24/performance"
           }
         }
       },
@@ -221,13 +221,13 @@
         },
         "_links": {
           "self": {
-            "href": "http://localhost:8080/api/layer/26"
+            "href": "http://localhost:8080/api/rest/layer/26"
           },
           "layer": {
-            "href": "http://localhost:8080/api/layer/26"
+            "href": "http://localhost:8080/api/rest/layer/26"
           },
           "performance": {
-            "href": "http://localhost:8080/api/layer/26/performance"
+            "href": "http://localhost:8080/api/rest/layer/26/performance"
           }
         }
       }
@@ -235,13 +235,13 @@
   },
   "_links": {
     "self": {
-      "href": "http://localhost:8080/api/layer"
+      "href": "http://localhost:8080/api/rest/layer"
     },
     "profile": {
       "href": "http://localhost:8080/api/profile/layer"
     },
     "search": {
-      "href": "http://localhost:8080/api/layer/search"
+      "href": "http://localhost:8080/api/rest/layer/search"
     }
   }
 }

@@ -3,13 +3,13 @@
     "sequence" : [ {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/35/performance"
+          "href" : "http://localhost/api/rest/sequence/62/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/35"
+          "href" : "http://localhost/api/rest/sequence/62"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/35"
+          "href" : "http://localhost/api/rest/sequence/62"
         }
       },
       "channel" : 4,
@@ -33,13 +33,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/43/performance"
+          "href" : "http://localhost/api/rest/sequence/70/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/43"
+          "href" : "http://localhost/api/rest/sequence/70"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/43"
+          "href" : "http://localhost/api/rest/sequence/70"
         }
       },
       "channel" : 4,
@@ -63,13 +63,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/53/performance"
+          "href" : "http://localhost/api/rest/sequence/56/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/53"
+          "href" : "http://localhost/api/rest/sequence/56"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/53"
+          "href" : "http://localhost/api/rest/sequence/56"
         }
       },
       "channel" : 4,
@@ -93,13 +93,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/65/performance"
+          "href" : "http://localhost/api/rest/sequence/50/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/65"
+          "href" : "http://localhost/api/rest/sequence/50"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/65"
+          "href" : "http://localhost/api/rest/sequence/50"
         }
       },
       "channel" : 5,
@@ -123,13 +123,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/37/performance"
+          "href" : "http://localhost/api/rest/sequence/28/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/37"
+          "href" : "http://localhost/api/rest/sequence/28"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/37"
+          "href" : "http://localhost/api/rest/sequence/28"
         }
       },
       "channel" : 9,
@@ -156,13 +156,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/45/performance"
+          "href" : "http://localhost/api/rest/sequence/34/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/45"
+          "href" : "http://localhost/api/rest/sequence/34"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/45"
+          "href" : "http://localhost/api/rest/sequence/34"
         }
       },
       "channel" : 9,
@@ -189,13 +189,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/67/performance"
+          "href" : "http://localhost/api/rest/sequence/54/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/67"
+          "href" : "http://localhost/api/rest/sequence/54"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/67"
+          "href" : "http://localhost/api/rest/sequence/54"
         }
       },
       "channel" : 9,
@@ -222,13 +222,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/33/performance"
+          "href" : "http://localhost/api/rest/sequence/52/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/33"
+          "href" : "http://localhost/api/rest/sequence/52"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/33"
+          "href" : "http://localhost/api/rest/sequence/52"
         }
       },
       "channel" : 9,
@@ -255,13 +255,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/29/performance"
+          "href" : "http://localhost/api/rest/sequence/72/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/29"
+          "href" : "http://localhost/api/rest/sequence/72"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/29"
+          "href" : "http://localhost/api/rest/sequence/72"
         }
       },
       "channel" : 9,
@@ -288,13 +288,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/55/performance"
+          "href" : "http://localhost/api/rest/sequence/64/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/55"
+          "href" : "http://localhost/api/rest/sequence/64"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/55"
+          "href" : "http://localhost/api/rest/sequence/64"
         }
       },
       "channel" : 1,
@@ -318,13 +318,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/39/performance"
+          "href" : "http://localhost/api/rest/sequence/40/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/39"
+          "href" : "http://localhost/api/rest/sequence/40"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/39"
+          "href" : "http://localhost/api/rest/sequence/40"
         }
       },
       "channel" : 1,
@@ -348,13 +348,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/41/performance"
+          "href" : "http://localhost/api/rest/sequence/68/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/41"
+          "href" : "http://localhost/api/rest/sequence/68"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/41"
+          "href" : "http://localhost/api/rest/sequence/68"
         }
       },
       "channel" : 1,
@@ -378,13 +378,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/57/performance"
+          "href" : "http://localhost/api/rest/sequence/42/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/57"
+          "href" : "http://localhost/api/rest/sequence/42"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/57"
+          "href" : "http://localhost/api/rest/sequence/42"
         }
       },
       "channel" : 2,
@@ -408,13 +408,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/61/performance"
+          "href" : "http://localhost/api/rest/sequence/60/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/61"
+          "href" : "http://localhost/api/rest/sequence/60"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/61"
+          "href" : "http://localhost/api/rest/sequence/60"
         }
       },
       "channel" : 2,
@@ -438,13 +438,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/47/performance"
+          "href" : "http://localhost/api/rest/sequence/66/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/47"
+          "href" : "http://localhost/api/rest/sequence/66"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/47"
+          "href" : "http://localhost/api/rest/sequence/66"
         }
       },
       "channel" : 2,
@@ -468,13 +468,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/69/performance"
+          "href" : "http://localhost/api/rest/sequence/48/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/69"
+          "href" : "http://localhost/api/rest/sequence/48"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/69"
+          "href" : "http://localhost/api/rest/sequence/48"
         }
       },
       "channel" : 1,
@@ -498,13 +498,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/73/performance"
+          "href" : "http://localhost/api/rest/sequence/32/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/73"
+          "href" : "http://localhost/api/rest/sequence/32"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/73"
+          "href" : "http://localhost/api/rest/sequence/32"
         }
       },
       "channel" : 1,
@@ -528,13 +528,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/71/performance"
+          "href" : "http://localhost/api/rest/sequence/36/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/71"
+          "href" : "http://localhost/api/rest/sequence/36"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/71"
+          "href" : "http://localhost/api/rest/sequence/36"
         }
       },
       "channel" : 1,
@@ -558,13 +558,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/75/performance"
+          "href" : "http://localhost/api/rest/sequence/44/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/75"
+          "href" : "http://localhost/api/rest/sequence/44"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/75"
+          "href" : "http://localhost/api/rest/sequence/44"
         }
       },
       "channel" : 1,
@@ -588,13 +588,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/63/performance"
+          "href" : "http://localhost/api/rest/sequence/46/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/63"
+          "href" : "http://localhost/api/rest/sequence/46"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/63"
+          "href" : "http://localhost/api/rest/sequence/46"
         }
       },
       "channel" : 1,
@@ -618,13 +618,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/51/performance"
+          "href" : "http://localhost/api/rest/sequence/58/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/51"
+          "href" : "http://localhost/api/rest/sequence/58"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/51"
+          "href" : "http://localhost/api/rest/sequence/58"
         }
       },
       "channel" : 9,
@@ -651,13 +651,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/31/performance"
+          "href" : "http://localhost/api/rest/sequence/38/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/31"
+          "href" : "http://localhost/api/rest/sequence/38"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/31"
+          "href" : "http://localhost/api/rest/sequence/38"
         }
       },
       "channel" : 3,
@@ -681,13 +681,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/49/performance"
+          "href" : "http://localhost/api/rest/sequence/30/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/49"
+          "href" : "http://localhost/api/rest/sequence/30"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/49"
+          "href" : "http://localhost/api/rest/sequence/30"
         }
       },
       "channel" : 3,
@@ -711,13 +711,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/sequence/59/performance"
+          "href" : "http://localhost/api/rest/sequence/74/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/sequence/59"
+          "href" : "http://localhost/api/rest/sequence/74"
         },
         "sequence" : {
-          "href" : "http://localhost/api/sequence/59"
+          "href" : "http://localhost/api/rest/sequence/74"
         }
       },
       "channel" : 3,
@@ -742,13 +742,13 @@
   },
   "_links" : {
     "profile" : {
-      "href" : "http://localhost/api/profile/sequence"
+      "href" : "http://localhost/api/rest/profile/sequence"
     },
     "search" : {
-      "href" : "http://localhost/api/sequence/search"
+      "href" : "http://localhost/api/rest/sequence/search"
     },
     "self" : {
-      "href" : "http://localhost/api/sequence"
+      "href" : "http://localhost/api/rest/sequence"
     }
   }
 }

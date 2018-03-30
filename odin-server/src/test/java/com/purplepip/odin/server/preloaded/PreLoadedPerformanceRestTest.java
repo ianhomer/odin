@@ -17,6 +17,6 @@ public class PreLoadedPerformanceRestTest {
 
   @Test
   public void testRestSnapshot() throws Exception {
-    new EndPointSnapshot(mvc, "/api/performance").expectMatch();
+    new EndPointSnapshot(mvc, "/api/rest/performance").expectMatch();
   }
 }

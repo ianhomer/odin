@@ -30,7 +30,7 @@ public class MainController {
    */
   @RequestMapping("/")
   public String index() {
-    return "redirect:/app";
+    return "redirect:/web/app";
   }
 
   /**
@@ -38,7 +38,7 @@ public class MainController {
    *
    * @return template to render
    */
-  @RequestMapping("/app/**")
+  @RequestMapping("/web/app/**")
   public String app() {
     return "index";
   }

@@ -34,7 +34,7 @@ public class SchemaControllerTest {
 
   @Test
   public void testFlowSchema() throws Exception {
-    String json = mvc.perform(sendingJson(get("/services/schema/flows/notation")))
+    String json = mvc.perform(sendingJson(get("/api/services/schema/flows/notation")))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
     LOG.debug("JSON = {}", json);
@@ -42,7 +42,7 @@ public class SchemaControllerTest {
 
   @Test
   public void testFullSchema() throws Exception {
-    String json = mvc.perform(sendingJson(get("/services/schema")))
+    String json = mvc.perform(sendingJson(get("/api/services/schema")))
         .andExpect(status().isOk())
         .andExpect(content().string(containsString(
                 "flow-pattern")))
@@ -61,7 +61,7 @@ public class SchemaControllerTest {
 
     Snapshot snapshot = new Snapshot(SchemaController.class)
         .root("src/test/js")
-        .path("data/services/schema")
+        .path("data/api/services/schema")
         .extension("json").header(false).initialise();
     snapshot.writeLine(toPrettyJson(json));
     snapshot.expectMatch();

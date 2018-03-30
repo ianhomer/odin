@@ -26,7 +26,7 @@ public class JsonTest {
   public void testJson() {
     String json = new Json(withJsonModule(new ObjectMapper()))
         .property("name", "new-notations-name")
-        .property("performance", "/api/performance/1")
+        .property("performance", "/api/rest/performance/1")
         .property("type", "Notation")
         .properties()
         .property("notation", "A B C D")
@@ -34,7 +34,7 @@ public class JsonTest {
         .toString();
 
     assertEquals("{"
-        + "\"performance\":\"/api/performance/1\""
+        + "\"performance\":\"/api/rest/performance/1\""
         + ",\"name\":\"new-notations-name\""
         + ",\"type\":\"Notation\""
         + ",\"properties\":{\"notation\":\"A B C D\",\"format\""

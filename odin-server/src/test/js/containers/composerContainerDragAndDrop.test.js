@@ -10,6 +10,7 @@ import {Provider} from 'react-redux'
 import {testPerformance, testSchema} from '../testData.js'
 import store from '../store'
 
+import toJson from 'enzyme-to-json'
 
 function wrapInTestContext(DecoratedComponent) {
   return DragDropContext(TestBackend)(
@@ -30,7 +31,10 @@ describe('Composer container drag and drop', () => {
       </ProviderInContext>
     )
     //const backend = root.getManager().getBackend()
+
+    expect(toJson(root)).toMatchSnapshot()
     let cardA = TestUtils.scryRenderedDOMComponentsWithClass(root, 'card').find(card => card.title == 'a')
+    expect(cardA).toBeTruthy()
     expect(cardA).toMatchSnapshot()
     expect(cardA.getAttribute('draggable')).toBeTruthy()
 
