@@ -82,19 +82,22 @@ public class OdinConfiguration {
     if (midiDeviceWrapper.getReceivingDevice() != null) {
       operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
     }
+
     if (performanceLoader != null) {
       operationReceivers.add(performanceLoader);
     }
+
     if (auditingOperationReceiver != null) {
       operationReceivers.add(auditingOperationReceiver);
     }
+
     DefaultOdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(new OperationReceiverCollection(operationReceivers));
 
     if (midiDeviceWrapper.getReceivingDevice() != null) {
-        configuration.setMicrosecondPositionProvider(
+      configuration.setMicrosecondPositionProvider(
           new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
     }
 
