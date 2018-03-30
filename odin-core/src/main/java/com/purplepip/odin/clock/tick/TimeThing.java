@@ -55,6 +55,7 @@ public interface TimeThing extends Thing {
    *
    * @return length
    */
+  @NotNull
   Rational getLength();
 
   /**
@@ -62,5 +63,6 @@ public interface TimeThing extends Thing {
    *
    * @return offset
    */
+  @NotNull
   Rational getOffset();
 }

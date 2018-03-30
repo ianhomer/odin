@@ -102,7 +102,7 @@
           "type" : "string"
         }
       },
-      "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
+      "required" : [ "channel", "enabled", "layers", "length", "offset", "name", "tick", "type" ],
       "title" : "Loader",
       "type" : "object"
     },
@@ -225,7 +225,7 @@
           "type" : "string"
         }
       },
-      "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
+      "required" : [ "channel", "enabled", "layers", "length", "offset", "name", "tick", "type" ],
       "title" : "Metronome",
       "type" : "object"
     },
@@ -323,7 +323,7 @@
           "type" : "string"
         }
       },
-      "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
+      "required" : [ "channel", "enabled", "layers", "length", "offset", "name", "tick", "type" ],
       "title" : "Notation",
       "type" : "object"
     },
@@ -446,7 +446,7 @@
           "type" : "string"
         }
       },
-      "required" : [ "bits", "channel", "enabled", "layers", "name", "tick", "type" ],
+      "required" : [ "bits", "channel", "enabled", "layers", "length", "offset", "name", "tick", "type" ],
       "title" : "Pattern",
       "type" : "object"
     },
@@ -577,7 +577,7 @@
           "type" : "integer"
         }
       },
-      "required" : [ "bits", "channel", "enabled", "layers", "name", "tick", "type", "lower", "upper" ],
+      "required" : [ "bits", "channel", "enabled", "layers", "length", "offset", "name", "tick", "type", "lower", "upper" ],
       "title" : "Random",
       "type" : "object"
     },
@@ -672,7 +672,7 @@
           "type" : "string"
         }
       },
-      "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
+      "required" : [ "channel", "enabled", "layers", "length", "offset", "name", "tick", "type" ],
       "title" : "Performance Bound Sequence",
       "type" : "object"
     },
@@ -737,7 +737,7 @@
               "$ref" : "#/definitions/Tick"
             }
           },
-          "required" : [ "enabled", "name", "tick" ],
+          "required" : [ "enabled", "length", "offset", "name", "tick" ],
           "type" : "object"
         },
         "Rational" : {
@@ -811,7 +811,7 @@
               "type" : "string"
             }
           },
-          "required" : [ "channel", "enabled", "layers", "name", "tick", "type" ],
+          "required" : [ "channel", "enabled", "layers", "length", "offset", "name", "tick", "type" ],
           "type" : "object"
         },
         "Stream" : {
@@ -859,7 +859,7 @@
               "type" : "string"
             }
           },
-          "required" : [ "enabled", "name", "tick", "type" ],
+          "required" : [ "enabled", "length", "offset", "name", "tick", "type" ],
           "type" : "object"
         }
       },

@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 public class Loop {
-  private Rational length;
+  private final Rational length;
   private Bound position;
   private boolean isPositionReal;
 

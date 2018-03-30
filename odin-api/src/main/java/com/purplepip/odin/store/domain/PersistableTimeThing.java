@@ -22,6 +22,7 @@ import com.purplepip.odin.clock.tick.TimeThing;
 import com.purplepip.odin.clock.tick.TimeUnit;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Rationals;
+import com.purplepip.odin.math.Wholes;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,23 +54,23 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
 
   @JsonIgnore
   @Min(0)
-  private long offsetNumerator;
+  private long offsetNumerator = 0;
   @JsonIgnore
   @Min(1)
   private long offsetDenominator = 1;
 
   @Transient
-  private Rational offset;
+  private Rational offset = Wholes.ZERO;
 
   @Min(-1)
   @JsonIgnore
-  private long lengthNumerator;
+  private long lengthNumerator = -1;
   @Min(1)
   @JsonIgnore
   private long lengthDenominator = 1;
 
   @Transient
-  private Rational length;
+  private Rational length = Wholes.MINUS_ONE;
 
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
   @NotNull
@@ -95,14 +96,11 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
      * lengthNumerator etc needs be set in PreUpdate / PrePersist since the value set in the
      * corresponding rational setter does not persist.
      */
-    if (length != null) {
-      lengthNumerator = length.getNumerator();
-      lengthDenominator = length.getDenominator();
-    }
-    if (offset != null) {
-      offsetNumerator = offset.getNumerator();
-      offsetDenominator = offset.getDenominator();
-    }
+    lengthNumerator = length.getNumerator();
+    lengthDenominator = length.getDenominator();
+
+    offsetNumerator = offset.getNumerator();
+    offsetDenominator = offset.getDenominator();
   }
 
   @PrePersist
