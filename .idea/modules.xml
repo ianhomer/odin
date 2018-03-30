@@ -6,8 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/log-capture/log-capture.iml" filepath="$PROJECT_DIR$/log-capture/log-capture.iml" />
       <module fileurl="file://$PROJECT_DIR$/tiles/tile-code-coverage/maven-code-coverage-tile.iml" filepath="$PROJECT_DIR$/tiles/tile-code-coverage/maven-code-coverage-tile.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin.iml" filepath="$PROJECT_DIR$/odin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/odin-api/odin-api.iml" filepath="$PROJECT_DIR$/odin-api/odin-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin-checkstyle/odin-checkstyle.iml" filepath="$PROJECT_DIR$/odin-checkstyle/odin-checkstyle.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin-core/odin-core.iml" filepath="$PROJECT_DIR$/odin-core/odin-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/odin-frontend/odin-frontend.iml" filepath="$PROJECT_DIR$/odin-frontend/odin-frontend.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin-perform/odin-perform.iml" filepath="$PROJECT_DIR$/odin-perform/odin-perform.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin-profile/odin-profile.iml" filepath="$PROJECT_DIR$/odin-profile/odin-profile.iml" />
       <module fileurl="file://$PROJECT_DIR$/odin-server/odin-server.iml" filepath="$PROJECT_DIR$/odin-server/odin-server.iml" />

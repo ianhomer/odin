@@ -19,6 +19,8 @@
     <module>odin-server</module>
     <module>odin-profile</module>
     <module>odin-perform</module>
+    <module>odin-api</module>
+    <module>odin-frontend</module>
   </modules>
 
   <url>http://purplepip.com</url>

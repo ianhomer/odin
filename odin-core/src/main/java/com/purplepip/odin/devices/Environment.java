@@ -26,6 +26,11 @@ public class Environment {
   private final Set<Handle> identifiers = new HashSet<>();
   private final Set<HandleProvider> providers;
 
+  /**
+   * Create an environment.
+   *
+   * @param providers handle providers
+   */
   public Environment(HandleProvider... providers) {
     this.providers = new HashSet<>(Arrays.asList(providers));
     refresh();

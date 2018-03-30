@@ -54,7 +54,7 @@
     <orderEntry type="library" name="Maven: org.jodd:jodd-bean:3.9.1" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-core:3.9.1" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7.1" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.2.10" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.2.21" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="module" module-name="common-test-logging" scope="TEST" />
     <orderEntry type="module" module-name="log-capture" scope="TEST" />
