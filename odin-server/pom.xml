@@ -41,7 +41,6 @@
     <dependency>
       <groupId>com.kjetland</groupId>
       <artifactId>mbknor-jackson-jsonschema_2.12</artifactId>
-      <version>1.0.25</version>
     </dependency>
     <dependency>
       <groupId>com.purplepip</groupId>
@@ -128,6 +127,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>nz.net.ultraq.thymeleaf</groupId>
+      <artifactId>thymeleaf-layout-dialect</artifactId>
     </dependency>
   </dependencies>
 

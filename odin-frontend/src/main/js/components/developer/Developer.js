@@ -52,7 +52,7 @@ class Developer extends React.Component{
       }
     }
 
-    fetch('/loggers/' + category, {
+    fetch('/actuator/loggers/' + category, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -74,7 +74,7 @@ class Developer extends React.Component{
   }
 
   loadFromServer() {
-    fetch('/loggers', {
+    fetch('/actuator/loggers', {
       method: 'GET',
       headers: {'Accept': 'application/json'}
     })
