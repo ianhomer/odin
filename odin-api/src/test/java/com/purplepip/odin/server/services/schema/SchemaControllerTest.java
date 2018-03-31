@@ -61,7 +61,7 @@ public class SchemaControllerTest {
 
     Snapshot snapshot = new Snapshot(SchemaController.class)
         .root("src/test/resources")
-        .path("data/api/services/schema")
+        .path("com/purplepip/odin/api/data/api/services/schema")
         .extension("json").header(false).initialise();
     snapshot.writeLine(toPrettyJson(json));
     snapshot.expectMatch();

@@ -50,7 +50,7 @@ public class EnvironmentControllerTest {
 
     Snapshot snapshot = new Snapshot(EnvironmentController.class)
         .root("src/test/resources")
-        .path("data/api/services/system/environment")
+        .path("com/purplepip/odin/api/data/api/services/system/environment")
         .extension("json").header(false).initialise();
 
     snapshot.writeLine(toPrettyJson(json));

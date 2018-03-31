@@ -61,7 +61,7 @@ public class EndPointSnapshot {
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();
 
-    snapshot.root("src/test/resources")
+    snapshot.root("src/test/resources/com/purplepip/odin/api")
         .path("data/" + uri)
         .extension("json").header(false).initialise();
     snapshot.writeLine(toPrettyJson(json));
