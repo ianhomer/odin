@@ -64,7 +64,7 @@
         https://www.rainerhahnekamp.com/en/ignoring-lombok-code-in-jacoco/
       -->
     <jacoco.covered.ratio>0.75</jacoco.covered.ratio>
-    <jodd.version>4.3.0</jodd.version>
+    <jodd.version>3.9.1</jodd.version>
     <jackson.version>2.9.5</jackson.version>
     <javax.validation>2.0.1.Final</javax.validation>
     <jsonschema.version>1.0.29</jsonschema.version>
