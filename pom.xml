@@ -47,6 +47,12 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!--
+        Build flags
+      -->
+    <purplepip.test.logback.debug>false</purplepip.test.logback.debug>
+
     <java.version>1.8</java.version>
     <antlr.version>4.7.1</antlr.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
@@ -71,7 +77,7 @@
     <mockito.version>2.17.0</mockito.version>
     <purplepip.tests.jvm>-Dodin.audio.enabled=${odin.audio.enabled} -DupdateSnapshot=${purplepip.test.updateSnapshot}</purplepip.tests.jvm>
     <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
-    <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
+    <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=${purplepip.test.logback.debug}</purplepip.tests.log.jvm>
     <purplepip.test.updateSnapshot>false</purplepip.test.updateSnapshot>
     <!--JDK specific arguments for tests-->
     <purplepip.jvm.args/>
@@ -82,6 +88,7 @@
 
     <spring.boot.version>2.0.0.RELEASE</spring.boot.version>
     <thymeleaf.layout.version>2.3.0</thymeleaf.layout.version>
+
     <!--odin flags-->
     <odin.audio.enabled>true</odin.audio.enabled>
   </properties>
