@@ -17,7 +17,7 @@
     <jacoco.covered.ratio>0.60</jacoco.covered.ratio>
     <start-class>com.purplepip.odin.api.Application</start-class>
     <jvm.properties.debug/>
-    <purplepip.tests.log.jvm>-Dlogging.config=classpath:${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
+    <purplepip.tests.log.jvm>-Dlogging.config=classpath:${purplepip.tests.log.file} -Dlogback.debug=${purplepip.test.logback.debug}</purplepip.tests.log.jvm>
   </properties>
 
   <dependencyManagement>
