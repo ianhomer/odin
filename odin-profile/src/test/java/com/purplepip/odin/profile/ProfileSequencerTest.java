@@ -54,6 +54,8 @@ public class ProfileSequencerTest {
       LOG.info("Execution {} : \n{}", i , Profile.getReportAsString());
       Profile.reset();
     }
+
+    environment.shutdown();
   }
 
   private void spinUp() throws OdinException {

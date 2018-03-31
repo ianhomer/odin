@@ -66,7 +66,7 @@ public class SequenceUpdatedAtRuntimeTest {
       note61Events.await(5000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough note 61 events fired", 0, note61Events.getCount());
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
 
     assertEquals("Number of added tracks not correct", 1,

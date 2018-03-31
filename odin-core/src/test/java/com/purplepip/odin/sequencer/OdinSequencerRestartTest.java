@@ -35,5 +35,6 @@ public class OdinSequencerRestartTest {
     environment.start();
     environment.stop();
     // TODO : Provide a useful assertion (other than simply no exception was thrown)
+    environment.shutdown();
   }
 }

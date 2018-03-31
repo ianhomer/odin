@@ -89,7 +89,7 @@ public class OdinSequencerTriggerChangePropertyTest {
       assertEquals("Note 61 should have been fired",0, note61Latch.getCount());
 
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
   }
 }

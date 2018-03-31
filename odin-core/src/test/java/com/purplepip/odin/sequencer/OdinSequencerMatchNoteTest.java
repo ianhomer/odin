@@ -167,7 +167,7 @@ public class OdinSequencerMatchNoteTest {
       assertEquals("Success notes on channel 7 not correct", SUCCESS_NOTES, successNotes7);
 
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
   }
 }

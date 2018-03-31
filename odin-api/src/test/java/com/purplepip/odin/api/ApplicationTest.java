@@ -21,6 +21,6 @@ public class ApplicationTest {
   @Test
   public void testContextLoads() {
     assertThat(sequencer).isNotNull();
-    assertThat(sequencer.isStarted()).isTrue();
+    assertThat(sequencer.isRunning()).isTrue();
   }
 }

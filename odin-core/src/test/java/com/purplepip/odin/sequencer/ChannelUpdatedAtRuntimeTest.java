@@ -108,7 +108,7 @@ public class ChannelUpdatedAtRuntimeTest {
       assertEquals("Incorrect number of program change events", 4,
           programChangeEventCount.get());
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
 
     OdinSequencerStatistics statistics = environment.getSequencer().getStatistics();

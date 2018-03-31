@@ -74,7 +74,7 @@ public class OdinSequencerReloadTest {
       assertEquals("Not enough channel 9 events fired", 0, channel9Latch.getCount());
 
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
 
   }

@@ -413,7 +413,7 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
      * Tick change handling must be after sequence change handling since the sequence may
      * change the tick.
      */
-    if (beatClock.isStartingOrStarted() && tickDirty) {
+    if (beatClock.isStartingOrRunning() && tickDirty) {
       afterTickChange();
     }
     /*

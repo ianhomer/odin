@@ -86,7 +86,7 @@ public class PerformancesTest {
     try {
       snapshotReceiver.getLatch().await(testWait, TimeUnit.MILLISECONDS);
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
 
     /*

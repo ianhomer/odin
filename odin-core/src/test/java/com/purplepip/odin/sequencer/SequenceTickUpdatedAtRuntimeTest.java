@@ -65,7 +65,7 @@ public class SequenceTickUpdatedAtRuntimeTest {
       note61Events.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough note 61 events fired", 0, note61Events.getCount());
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
 
     // TODO : Get this skipped count down to 0, as if it's non-zero then it's indicative something

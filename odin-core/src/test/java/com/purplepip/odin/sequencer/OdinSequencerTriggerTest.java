@@ -43,7 +43,7 @@ public class OdinSequencerTriggerTest {
     try {
       lock.await(1000, TimeUnit.MILLISECONDS);
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
 
     /*

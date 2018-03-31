@@ -231,7 +231,7 @@ public class OdinSequencer implements PerformanceApplyListener {
    * Shutdown the sequencer.
    */
   public void shutdown() {
-    if (clock.isStartingOrStarted()) {
+    if (clock.isStartingOrRunning()) {
       clock.stop();
     }
     clock.shutdown();
@@ -240,7 +240,7 @@ public class OdinSequencer implements PerformanceApplyListener {
     reactors.clear();
   }
 
-  public boolean isStarted() {
-    return clock.isStarted();
+  public boolean isRunning() {
+    return clock.isRunning();
   }
 }

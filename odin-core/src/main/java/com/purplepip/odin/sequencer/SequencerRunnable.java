@@ -18,25 +18,53 @@ package com.purplepip.odin.sequencer;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import com.purplepip.odin.clock.BeatClock;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class SequencerRunnable implements Runnable {
+  private static final int MAX_RUNS_AFTER_STOPPED = 5;
   private final String name;
   private final BeatClock clock;
   private final MetricRegistry metrics;
+  private boolean allowedExecutionAfterStopped = false;
+  private boolean executedAfterStopped = false;
+  // Keep track of runs after stopped.   If it's too many then a processor probably hasn't been
+  // stopped.
+  private AtomicInteger runsAfterStopped;
 
   SequencerRunnable(String name, BeatClock clock, MetricRegistry metrics) {
     this.name = name;
     this.clock = clock;
     this.metrics = metrics;
+    reset();
   }
 
   abstract void doJob();
 
+  /**
+   * Reset the runnable so that it can be used again.
+   */
+  public void reset() {
+    allowedExecutionAfterStopped = false;
+    executedAfterStopped = false;
+    runsAfterStopped = new AtomicInteger(0);
+  }
+
   @Override
   public void run() {
-    if (clock.isStarted()) {
+    if (!allowedExecutionAfterStopped && clock.isRunning()) {
+      allowedExecutionAfterStopped = true;
+    }
+
+    if (clock.isRunning() || allowedExecutionAfterStopped) {
+      if (!clock.isRunning()) {
+        LOG.debug("Executing runnable after clock has stopped");
+        allowedExecutionAfterStopped = false;
+        executedAfterStopped = true;
+      } else {
+        LOG.debug("Executing runnable ... ");
+      }
       try {
         doJobWithTiming();
       } catch (RuntimeException e) {
@@ -50,12 +78,18 @@ public abstract class SequencerRunnable implements Runnable {
             + "Note that thread processing might be stopped", t);
         throw t;
       }
-    } else {
-      if (clock.isStopped()) {
-        LOG.debug("Clock has been stopped");
-      } else {
-        LOG.debug("Clock has not started yet");
+    } else if (executedAfterStopped) {
+      /*
+       * Process should only execute once after clock has stopped.
+       */
+      LOG.debug("Process has already executed once after clock has stopped");
+      runsAfterStopped.incrementAndGet();
+      if (runsAfterStopped.get() > MAX_RUNS_AFTER_STOPPED) {
+        LOG.warn("Processor {} still running even though the clock has stopped - run count = {}",
+            this, runsAfterStopped);
       }
+    } else {
+      LOG.debug("Clock has not started yet");
     }
   }
 

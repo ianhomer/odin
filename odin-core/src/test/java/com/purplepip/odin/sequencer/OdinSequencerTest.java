@@ -36,7 +36,7 @@ public class OdinSequencerTest {
     try {
       lock.await(2000, TimeUnit.MILLISECONDS);
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
 
     assertEquals("Not enough events fired", 0, lock.getCount());

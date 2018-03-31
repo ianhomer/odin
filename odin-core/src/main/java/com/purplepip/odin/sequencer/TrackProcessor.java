@@ -71,6 +71,7 @@ public class TrackProcessor implements PerformanceListener {
   @Override
   public void onPerformancePrepare() {
     scheduledPool = Executors.newScheduledThreadPool(1);
+    executor.reset();
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     LOG.debug("Prepared track processor");
   }
@@ -96,6 +97,7 @@ public class TrackProcessor implements PerformanceListener {
   }
 
   private void shutdown() {
+    LOG.debug("Shutting down track processor");
     if (scheduledPool != null) {
       scheduledPool.shutdown();
       try {

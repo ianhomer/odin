@@ -55,7 +55,7 @@ public class OdinSequencerLoadPerformanceTest {
           loadPerformanceLatch.getCount(), 0);
 
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
   }
 }

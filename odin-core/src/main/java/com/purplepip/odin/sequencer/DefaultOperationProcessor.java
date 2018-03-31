@@ -102,10 +102,12 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
       }
     }
     if (!queue.isEmpty()) {
-      LOG.warn("Operation processor queue is not empty, waiting for {}ms", refreshPeriod * 2);
+      LOG.warn("Operation processor queue is not empty, size = {}, executing operator processor",
+          queue.size());
       executor.run();
       if (!queue.isEmpty()) {
-        LOG.warn("Operation processor queue is still not empty after wait");
+        LOG.warn("Operation processor queue is still not empty, size = {}, " +
+            " after operator processor execution", queue.size());
       }
     }
     LOG.debug("Closed operation processor");

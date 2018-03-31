@@ -49,9 +49,9 @@ public class BeatClock extends AbstractClock {
 
   private long microsecondsOffset;
   private long startOffset;
-  private boolean started;
-  private boolean startingOrStarted;
-  private boolean stopped;
+  private boolean starting;
+  private boolean running;
+
   private Real maxLookForwardInMinutes;
   private long maxLookForwardInMicros;
 
@@ -116,7 +116,7 @@ public class BeatClock extends AbstractClock {
   public void start() {
     try (Timer.Context context = metrics.timer("clock.start").time()) {
       setMicroseconds(0);
-      startingOrStarted = true;
+      starting = true;
       LOG.debug("Starting clock in {}μs : now = {}", startOffset, this);
       listeners.forEach(PerformanceListener::onPerformanceStart);
       LOG.debug("... started clock : offset = {}μs : now = {}", startOffset, this);
@@ -129,8 +129,8 @@ public class BeatClock extends AbstractClock {
             + " offset.  Current offset = {}, clock microseconds = {} > 0", startOffset,
             getMicroseconds());
       }
-      started = true;
-      stopped = false;
+      running = true;
+      starting = false;
     }
   }
 
@@ -153,8 +153,7 @@ public class BeatClock extends AbstractClock {
    */
   public void stop() {
     listeners.forEach(PerformanceListener::onPerformanceStop);
-    started = false;
-    stopped = true;
+    running = false;
   }
 
   /**
@@ -203,19 +202,12 @@ public class BeatClock extends AbstractClock {
     return Ticks.BEAT;
   }
 
-  public boolean isStarted() {
-    return started;
+  public boolean isStartingOrRunning() {
+    return starting || running;
   }
 
-  public boolean isStartingOrStarted() {
-    return startingOrStarted;
-  }
-
-  /**
-   * Whether the clock has been stopped after having started.
-   */
-  public boolean isStopped() {
-    return stopped;
+  public boolean isRunning() {
+    return running;
   }
 
   @Override public String toString() {
