@@ -33,17 +33,17 @@ public class OdinRepositoryEventListener extends AbstractRepositoryEventListener
 
   @Override
   public void onAfterCreate(Object entity) {
-    LOG.info("onAfterCreate {}", entity);
+    LOG.debug("onAfterCreate {}", entity);
   }
 
   @Override
   public void onBeforeSave(Object entity) {
-    LOG.info("onBeforeSave {}", entity);
+    LOG.debug("onBeforeSave {}", entity);
   }
 
   @Override
   public void onAfterSave(Object entity) {
-    LOG.info("onAfterSave {}", entity);
+    LOG.debug("onAfterSave {}", entity);
   }
 
   @Override
