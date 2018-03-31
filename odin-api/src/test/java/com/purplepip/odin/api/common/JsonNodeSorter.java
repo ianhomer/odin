@@ -26,7 +26,7 @@ import java.util.Map;
  * ObjectMapper does sort object properties so we do NOT repeat that logic here.
  */
 public class JsonNodeSorter {
-  private static final Comparator COMPARATOR = new JsonArrayComparator();
+  private static final Comparator<Object> COMPARATOR = new JsonArrayComparator();
 
   /**
    * Sort the JSON Node.
@@ -41,11 +41,11 @@ public class JsonNodeSorter {
     }
   }
 
-  private void sort(List list) {
+  private void sort(List<?> list) {
     list.sort(COMPARATOR);
   }
 
-  private void sort(Map map) {
+  private void sort(Map<?, ?> map) {
     map.values().forEach(this::sort);
   }
 }

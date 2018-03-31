@@ -63,6 +63,8 @@ public class JsonArrayComparator implements Comparator<Object> {
        * Both null => both the same
        */
       return 0;
+    } else if (values[0] == null) {
+      return 1;
     } else if (values[1] == null) {
       /*
        * Value 1 null => object 1 should be first
