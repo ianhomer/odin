@@ -14,7 +14,7 @@
 
 // Mock Backend
 
-import testSchema from '../data/api/services/schema.json'
+import testSchema from 'odin-api-snapshot/data/api/services/schema.json'
 import {Backend} from 'odin/backend/index.js'
 import {snapshotDataRoot} from '../constants.js'
 import fs from 'fs'
