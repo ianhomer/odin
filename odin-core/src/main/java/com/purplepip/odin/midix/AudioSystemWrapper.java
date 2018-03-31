@@ -119,8 +119,6 @@ final class AudioSystemWrapper {
           } finally {
             if (line.isOpen()) {
               line.close();
-            } else {
-              LOG.warn("Line is already closed");
             }
           }
         } catch (LineUnavailableException e) {

@@ -41,6 +41,8 @@ public class LogCaptureTest {
           captor.getMessage(0));
       LOG.debug("testCapture : Test debug message");
       assertEquals(2, captor.size());
+      assertEquals("[INFO] testCapture : Test info message : parameter-value; "
+          + "[DEBUG] testCapture : Test debug message", captor.toString());
     }
   }
 

@@ -22,7 +22,8 @@
   "jest": {
     "bail": false,
     "moduleNameMapper": {
-      "odin/(.*)": "<rootDir>/src/main/js/$1"
+      "odin/(.*)": "<rootDir>/src/main/js/$1",
+      "odin-api-snapshot/(.*)": "<rootDir>/target/api-snapshots/com/purplepip/odin/api/$1"
     },
     "testURL": "http://localhost:8080",
     "setupFiles": [

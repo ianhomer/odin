@@ -26,7 +26,7 @@ public class AudioSystemWrapperTest {
   public void testDump() {
     try (LogCaptor captor = new LogCapture().info().from(AudioSystemWrapper.class).start()) {
       new AudioSystemWrapper().dump();
-      assertEquals(1, captor.size());
+      assertEquals("Log message count unexpected : " + captor.toString(),1, captor.size());
     }
   }
 }

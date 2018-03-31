@@ -20,22 +20,22 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channels": Object {
-                  "href": "http://localhost/api/rest/performance/1/channels",
+                  "href": "http://localhost/api/rest/performance/34/channels",
                 },
                 "layers": Object {
-                  "href": "http://localhost/api/rest/performance/1/layers",
+                  "href": "http://localhost/api/rest/performance/34/layers",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/performance/1",
+                  "href": "http://localhost/api/rest/performance/34",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/performance/1",
+                  "href": "http://localhost/api/rest/performance/34",
                 },
                 "sequences": Object {
-                  "href": "http://localhost/api/rest/performance/1/sequences",
+                  "href": "http://localhost/api/rest/performance/34/sequences",
                 },
                 "triggers": Object {
-                  "href": "http://localhost/api/rest/performance/1/triggers",
+                  "href": "http://localhost/api/rest/performance/34/triggers",
                 },
               },
               "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -68,13 +68,13 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost/api/rest/channel/5",
+                  "href": "http://localhost/api/rest/channel/36",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/channel/5/performance",
+                  "href": "http://localhost/api/rest/channel/36/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/channel/5",
+                  "href": "http://localhost/api/rest/channel/36",
                 },
               },
               "name": "Power Drums",
@@ -86,13 +86,13 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost/api/rest/channel/3",
+                  "href": "http://localhost/api/rest/channel/37",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/channel/3/performance",
+                  "href": "http://localhost/api/rest/channel/37/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/channel/3",
+                  "href": "http://localhost/api/rest/channel/37",
                 },
               },
               "name": "aahs",
@@ -104,13 +104,13 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost/api/rest/channel/6",
+                  "href": "http://localhost/api/rest/channel/38",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/channel/6/performance",
+                  "href": "http://localhost/api/rest/channel/38/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/channel/6",
+                  "href": "http://localhost/api/rest/channel/38",
                 },
               },
               "name": "bass",
@@ -122,13 +122,13 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost/api/rest/channel/2",
+                  "href": "http://localhost/api/rest/channel/35",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/channel/2/performance",
+                  "href": "http://localhost/api/rest/channel/35/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/channel/2",
+                  "href": "http://localhost/api/rest/channel/35",
                 },
               },
               "name": "piano",
@@ -140,13 +140,13 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost/api/rest/channel/7",
+                  "href": "http://localhost/api/rest/channel/39",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/channel/7/performance",
+                  "href": "http://localhost/api/rest/channel/39/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/channel/7",
+                  "href": "http://localhost/api/rest/channel/39",
                 },
               },
               "name": "rock",
@@ -158,13 +158,13 @@ exports[`Channels container Initialise 1`] = `
             Object {
               "_links": Object {
                 "channel": Object {
-                  "href": "http://localhost/api/rest/channel/4",
+                  "href": "http://localhost/api/rest/channel/40",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/channel/4/performance",
+                  "href": "http://localhost/api/rest/channel/40/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/channel/4",
+                  "href": "http://localhost/api/rest/channel/40",
                 },
               },
               "name": "strings",
@@ -189,22 +189,22 @@ exports[`Channels container Initialise 1`] = `
               Object {
                 "_links": Object {
                   "channels": Object {
-                    "href": "http://localhost/api/rest/performance/1/channels",
+                    "href": "http://localhost/api/rest/performance/34/channels",
                   },
                   "layers": Object {
-                    "href": "http://localhost/api/rest/performance/1/layers",
+                    "href": "http://localhost/api/rest/performance/34/layers",
                   },
                   "performance": Object {
-                    "href": "http://localhost/api/rest/performance/1",
+                    "href": "http://localhost/api/rest/performance/34",
                   },
                   "self": Object {
-                    "href": "http://localhost/api/rest/performance/1",
+                    "href": "http://localhost/api/rest/performance/34",
                   },
                   "sequences": Object {
-                    "href": "http://localhost/api/rest/performance/1/sequences",
+                    "href": "http://localhost/api/rest/performance/34/sequences",
                   },
                   "triggers": Object {
-                    "href": "http://localhost/api/rest/performance/1/triggers",
+                    "href": "http://localhost/api/rest/performance/34/triggers",
                   },
                 },
                 "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -238,13 +238,13 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost/api/rest/channel/5",
+                      "href": "http://localhost/api/rest/channel/36",
                     },
                     "performance": Object {
-                      "href": "http://localhost/api/rest/channel/5/performance",
+                      "href": "http://localhost/api/rest/channel/36/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost/api/rest/channel/5",
+                      "href": "http://localhost/api/rest/channel/36",
                     },
                   },
                   "name": "Power Drums",
@@ -256,13 +256,13 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost/api/rest/channel/3",
+                      "href": "http://localhost/api/rest/channel/37",
                     },
                     "performance": Object {
-                      "href": "http://localhost/api/rest/channel/3/performance",
+                      "href": "http://localhost/api/rest/channel/37/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost/api/rest/channel/3",
+                      "href": "http://localhost/api/rest/channel/37",
                     },
                   },
                   "name": "aahs",
@@ -274,13 +274,13 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost/api/rest/channel/6",
+                      "href": "http://localhost/api/rest/channel/38",
                     },
                     "performance": Object {
-                      "href": "http://localhost/api/rest/channel/6/performance",
+                      "href": "http://localhost/api/rest/channel/38/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost/api/rest/channel/6",
+                      "href": "http://localhost/api/rest/channel/38",
                     },
                   },
                   "name": "bass",
@@ -292,13 +292,13 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost/api/rest/channel/2",
+                      "href": "http://localhost/api/rest/channel/35",
                     },
                     "performance": Object {
-                      "href": "http://localhost/api/rest/channel/2/performance",
+                      "href": "http://localhost/api/rest/channel/35/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost/api/rest/channel/2",
+                      "href": "http://localhost/api/rest/channel/35",
                     },
                   },
                   "name": "piano",
@@ -310,13 +310,13 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost/api/rest/channel/7",
+                      "href": "http://localhost/api/rest/channel/39",
                     },
                     "performance": Object {
-                      "href": "http://localhost/api/rest/channel/7/performance",
+                      "href": "http://localhost/api/rest/channel/39/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost/api/rest/channel/7",
+                      "href": "http://localhost/api/rest/channel/39",
                     },
                   },
                   "name": "rock",
@@ -328,13 +328,13 @@ exports[`Channels container Initialise 1`] = `
                 Object {
                   "_links": Object {
                     "channel": Object {
-                      "href": "http://localhost/api/rest/channel/4",
+                      "href": "http://localhost/api/rest/channel/40",
                     },
                     "performance": Object {
-                      "href": "http://localhost/api/rest/channel/4/performance",
+                      "href": "http://localhost/api/rest/channel/40/performance",
                     },
                     "self": Object {
-                      "href": "http://localhost/api/rest/channel/4",
+                      "href": "http://localhost/api/rest/channel/40",
                     },
                   },
                   "name": "strings",
@@ -374,22 +374,22 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channels": Object {
-                        "href": "http://localhost/api/rest/performance/1/channels",
+                        "href": "http://localhost/api/rest/performance/34/channels",
                       },
                       "layers": Object {
-                        "href": "http://localhost/api/rest/performance/1/layers",
+                        "href": "http://localhost/api/rest/performance/34/layers",
                       },
                       "performance": Object {
-                        "href": "http://localhost/api/rest/performance/1",
+                        "href": "http://localhost/api/rest/performance/34",
                       },
                       "self": Object {
-                        "href": "http://localhost/api/rest/performance/1",
+                        "href": "http://localhost/api/rest/performance/34",
                       },
                       "sequences": Object {
-                        "href": "http://localhost/api/rest/performance/1/sequences",
+                        "href": "http://localhost/api/rest/performance/34/sequences",
                       },
                       "triggers": Object {
-                        "href": "http://localhost/api/rest/performance/1/triggers",
+                        "href": "http://localhost/api/rest/performance/34/triggers",
                       },
                     },
                     "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -438,13 +438,13 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost/api/rest/channel/5",
+                        "href": "http://localhost/api/rest/channel/36",
                       },
                       "performance": Object {
-                        "href": "http://localhost/api/rest/channel/5/performance",
+                        "href": "http://localhost/api/rest/channel/36/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost/api/rest/channel/5",
+                        "href": "http://localhost/api/rest/channel/36",
                       },
                     },
                     "name": "Power Drums",
@@ -487,13 +487,13 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost/api/rest/channel/3",
+                        "href": "http://localhost/api/rest/channel/37",
                       },
                       "performance": Object {
-                        "href": "http://localhost/api/rest/channel/3/performance",
+                        "href": "http://localhost/api/rest/channel/37/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost/api/rest/channel/3",
+                        "href": "http://localhost/api/rest/channel/37",
                       },
                     },
                     "name": "aahs",
@@ -536,13 +536,13 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost/api/rest/channel/6",
+                        "href": "http://localhost/api/rest/channel/38",
                       },
                       "performance": Object {
-                        "href": "http://localhost/api/rest/channel/6/performance",
+                        "href": "http://localhost/api/rest/channel/38/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost/api/rest/channel/6",
+                        "href": "http://localhost/api/rest/channel/38",
                       },
                     },
                     "name": "bass",
@@ -585,13 +585,13 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost/api/rest/channel/2",
+                        "href": "http://localhost/api/rest/channel/35",
                       },
                       "performance": Object {
-                        "href": "http://localhost/api/rest/channel/2/performance",
+                        "href": "http://localhost/api/rest/channel/35/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost/api/rest/channel/2",
+                        "href": "http://localhost/api/rest/channel/35",
                       },
                     },
                     "name": "piano",
@@ -634,13 +634,13 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost/api/rest/channel/7",
+                        "href": "http://localhost/api/rest/channel/39",
                       },
                       "performance": Object {
-                        "href": "http://localhost/api/rest/channel/7/performance",
+                        "href": "http://localhost/api/rest/channel/39/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost/api/rest/channel/7",
+                        "href": "http://localhost/api/rest/channel/39",
                       },
                     },
                     "name": "rock",
@@ -683,13 +683,13 @@ exports[`Channels container Initialise 1`] = `
                   Object {
                     "_links": Object {
                       "channel": Object {
-                        "href": "http://localhost/api/rest/channel/4",
+                        "href": "http://localhost/api/rest/channel/40",
                       },
                       "performance": Object {
-                        "href": "http://localhost/api/rest/channel/4/performance",
+                        "href": "http://localhost/api/rest/channel/40/performance",
                       },
                       "self": Object {
-                        "href": "http://localhost/api/rest/channel/4",
+                        "href": "http://localhost/api/rest/channel/40",
                       },
                     },
                     "name": "strings",

@@ -24,6 +24,7 @@ import ch.qos.logback.core.read.ListAppender;
 import com.google.common.collect.ImmutableList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -101,5 +102,16 @@ public class LogCaptor implements AutoCloseable {
 
   public boolean hasMessages() {
     return size() > 0;
+  }
+
+  /**
+   * To string.
+   *
+   * @return string
+   */
+  public String toString() {
+    return capturingAppender.list.stream().map(e -> "[" + e.getLevel() + "] "
+        + e.getFormattedMessage())
+        .collect(Collectors.joining("; "));
   }
 }

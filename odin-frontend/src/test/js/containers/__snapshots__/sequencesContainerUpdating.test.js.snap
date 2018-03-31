@@ -76,22 +76,22 @@ exports[`Sequence container validation Sequence create 1`] = `
           Object {
             "_links": Object {
               "channels": Object {
-                "href": "http://localhost/api/rest/performance/1/channels",
+                "href": "http://localhost/api/rest/performance/34/channels",
               },
               "layers": Object {
-                "href": "http://localhost/api/rest/performance/1/layers",
+                "href": "http://localhost/api/rest/performance/34/layers",
               },
               "performance": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "self": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "sequences": Object {
-                "href": "http://localhost/api/rest/performance/1/sequences",
+                "href": "http://localhost/api/rest/performance/34/sequences",
               },
               "triggers": Object {
-                "href": "http://localhost/api/rest/performance/1/triggers",
+                "href": "http://localhost/api/rest/performance/34/triggers",
               },
             },
             "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -448,22 +448,22 @@ exports[`Sequence container validation Sequence create 2`] = `
           Object {
             "_links": Object {
               "channels": Object {
-                "href": "http://localhost/api/rest/performance/1/channels",
+                "href": "http://localhost/api/rest/performance/34/channels",
               },
               "layers": Object {
-                "href": "http://localhost/api/rest/performance/1/layers",
+                "href": "http://localhost/api/rest/performance/34/layers",
               },
               "performance": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "self": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "sequences": Object {
-                "href": "http://localhost/api/rest/performance/1/sequences",
+                "href": "http://localhost/api/rest/performance/34/sequences",
               },
               "triggers": Object {
-                "href": "http://localhost/api/rest/performance/1/triggers",
+                "href": "http://localhost/api/rest/performance/34/triggers",
               },
             },
             "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -634,13 +634,13 @@ exports[`Sequence container validation Sequence update 1`] = `
     Object {
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost/api/rest/sequence/62/performance",
+          "href": "http://localhost/api/rest/sequence/97/performance",
         },
         "self": Object {
-          "href": "http://localhost/api/rest/sequence/62",
+          "href": "http://localhost/api/rest/sequence/97",
         },
         "sequence": Object {
-          "href": "http://localhost/api/rest/sequence/62",
+          "href": "http://localhost/api/rest/sequence/97",
         },
       },
       "channel": 4,
@@ -734,22 +734,22 @@ exports[`Sequence container validation Sequence update 1`] = `
           Object {
             "_links": Object {
               "channels": Object {
-                "href": "http://localhost/api/rest/performance/1/channels",
+                "href": "http://localhost/api/rest/performance/34/channels",
               },
               "layers": Object {
-                "href": "http://localhost/api/rest/performance/1/layers",
+                "href": "http://localhost/api/rest/performance/34/layers",
               },
               "performance": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "self": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "sequences": Object {
-                "href": "http://localhost/api/rest/performance/1/sequences",
+                "href": "http://localhost/api/rest/performance/34/sequences",
               },
               "triggers": Object {
-                "href": "http://localhost/api/rest/performance/1/triggers",
+                "href": "http://localhost/api/rest/performance/34/triggers",
               },
             },
             "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -793,13 +793,13 @@ exports[`Sequence container validation Sequence update 1`] = `
           Object {
             "_links": Object {
               "performance": Object {
-                "href": "http://localhost/api/rest/sequence/62/performance",
+                "href": "http://localhost/api/rest/sequence/97/performance",
               },
               "self": Object {
-                "href": "http://localhost/api/rest/sequence/62",
+                "href": "http://localhost/api/rest/sequence/97",
               },
               "sequence": Object {
-                "href": "http://localhost/api/rest/sequence/62",
+                "href": "http://localhost/api/rest/sequence/97",
               },
             },
             "channel": 4,
@@ -836,7 +836,7 @@ exports[`Sequence container validation Sequence update 1`] = `
             C A C5/h C5/8
           </span>
           <span
-            id="http://localhost/api/rest/sequence/62-notation-1"
+            id="http://localhost/api/rest/sequence/97-notation-1"
           />
         </div>
       </Score>
@@ -912,13 +912,13 @@ exports[`Sequence container validation Sequence update 2`] = `
     Object {
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost/api/rest/sequence/62/performance",
+          "href": "http://localhost/api/rest/sequence/97/performance",
         },
         "self": Object {
-          "href": "http://localhost/api/rest/sequence/62",
+          "href": "http://localhost/api/rest/sequence/97",
         },
         "sequence": Object {
-          "href": "http://localhost/api/rest/sequence/62",
+          "href": "http://localhost/api/rest/sequence/97",
         },
       },
       "channel": 4,
@@ -1012,22 +1012,22 @@ exports[`Sequence container validation Sequence update 2`] = `
           Object {
             "_links": Object {
               "channels": Object {
-                "href": "http://localhost/api/rest/performance/1/channels",
+                "href": "http://localhost/api/rest/performance/34/channels",
               },
               "layers": Object {
-                "href": "http://localhost/api/rest/performance/1/layers",
+                "href": "http://localhost/api/rest/performance/34/layers",
               },
               "performance": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "self": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "sequences": Object {
-                "href": "http://localhost/api/rest/performance/1/sequences",
+                "href": "http://localhost/api/rest/performance/34/sequences",
               },
               "triggers": Object {
-                "href": "http://localhost/api/rest/performance/1/triggers",
+                "href": "http://localhost/api/rest/performance/34/triggers",
               },
             },
             "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -1066,13 +1066,13 @@ exports[`Sequence container validation Sequence update 2`] = `
       Object {
         "_links": Object {
           "performance": Object {
-            "href": "http://localhost/api/rest/sequence/62/performance",
+            "href": "http://localhost/api/rest/sequence/97/performance",
           },
           "self": Object {
-            "href": "http://localhost/api/rest/sequence/62",
+            "href": "http://localhost/api/rest/sequence/97",
           },
           "sequence": Object {
-            "href": "http://localhost/api/rest/sequence/62",
+            "href": "http://localhost/api/rest/sequence/97",
           },
         },
         "channel": 4,
@@ -1164,22 +1164,22 @@ exports[`Sequence container validation Sequence update 2`] = `
             Object {
               "_links": Object {
                 "channels": Object {
-                  "href": "http://localhost/api/rest/performance/1/channels",
+                  "href": "http://localhost/api/rest/performance/34/channels",
                 },
                 "layers": Object {
-                  "href": "http://localhost/api/rest/performance/1/layers",
+                  "href": "http://localhost/api/rest/performance/34/layers",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/performance/1",
+                  "href": "http://localhost/api/rest/performance/34",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/performance/1",
+                  "href": "http://localhost/api/rest/performance/34",
                 },
                 "sequences": Object {
-                  "href": "http://localhost/api/rest/performance/1/sequences",
+                  "href": "http://localhost/api/rest/performance/34/sequences",
                 },
                 "triggers": Object {
-                  "href": "http://localhost/api/rest/performance/1/triggers",
+                  "href": "http://localhost/api/rest/performance/34/triggers",
                 },
               },
               "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -1238,13 +1238,13 @@ exports[`Sequence container validation Sequence update 2`] = `
             Object {
               "_links": Object {
                 "performance": Object {
-                  "href": "http://localhost/api/rest/sequence/62/performance",
+                  "href": "http://localhost/api/rest/sequence/97/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/sequence/62",
+                  "href": "http://localhost/api/rest/sequence/97",
                 },
                 "sequence": Object {
-                  "href": "http://localhost/api/rest/sequence/62",
+                  "href": "http://localhost/api/rest/sequence/97",
                 },
               },
               "channel": 4,
@@ -1291,7 +1291,7 @@ exports[`Sequence container validation Sequence update 2`] = `
               />
             </span>
             <div
-              id="http://localhost/api/rest/sequence/62-notation-1"
+              id="http://localhost/api/rest/sequence/97-notation-1"
               style={
                 Object {
                   "height": "120px",
@@ -1430,7 +1430,7 @@ exports[`Sequence container validation Sequence update 2`] = `
         />
         <div>
           <input
-            defaultValue="http://localhost/api/rest/sequence/62"
+            defaultValue="http://localhost/api/rest/sequence/97"
             name="_links.self.href"
             type="hidden"
           />
@@ -1484,13 +1484,13 @@ exports[`Sequence container validation Sequence update 3`] = `
       },
       "_links": Object {
         "performance": Object {
-          "href": "http://localhost/api/rest/sequence/62/performance",
+          "href": "http://localhost/api/rest/sequence/97/performance",
         },
         "self": Object {
-          "href": "http://localhost/api/rest/sequence/62",
+          "href": "http://localhost/api/rest/sequence/97",
         },
         "sequence": Object {
-          "href": "http://localhost/api/rest/sequence/62",
+          "href": "http://localhost/api/rest/sequence/97",
         },
       },
       "channel": 4,
@@ -1584,22 +1584,22 @@ exports[`Sequence container validation Sequence update 3`] = `
           Object {
             "_links": Object {
               "channels": Object {
-                "href": "http://localhost/api/rest/performance/1/channels",
+                "href": "http://localhost/api/rest/performance/34/channels",
               },
               "layers": Object {
-                "href": "http://localhost/api/rest/performance/1/layers",
+                "href": "http://localhost/api/rest/performance/34/layers",
               },
               "performance": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "self": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "sequences": Object {
-                "href": "http://localhost/api/rest/performance/1/sequences",
+                "href": "http://localhost/api/rest/performance/34/sequences",
               },
               "triggers": Object {
-                "href": "http://localhost/api/rest/performance/1/triggers",
+                "href": "http://localhost/api/rest/performance/34/triggers",
               },
             },
             "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -1660,13 +1660,13 @@ exports[`Sequence container validation Sequence update 3`] = `
         },
         "_links": Object {
           "performance": Object {
-            "href": "http://localhost/api/rest/sequence/62/performance",
+            "href": "http://localhost/api/rest/sequence/97/performance",
           },
           "self": Object {
-            "href": "http://localhost/api/rest/sequence/62",
+            "href": "http://localhost/api/rest/sequence/97",
           },
           "sequence": Object {
-            "href": "http://localhost/api/rest/sequence/62",
+            "href": "http://localhost/api/rest/sequence/97",
           },
         },
         "channel": 4,
@@ -1758,22 +1758,22 @@ exports[`Sequence container validation Sequence update 3`] = `
             Object {
               "_links": Object {
                 "channels": Object {
-                  "href": "http://localhost/api/rest/performance/1/channels",
+                  "href": "http://localhost/api/rest/performance/34/channels",
                 },
                 "layers": Object {
-                  "href": "http://localhost/api/rest/performance/1/layers",
+                  "href": "http://localhost/api/rest/performance/34/layers",
                 },
                 "performance": Object {
-                  "href": "http://localhost/api/rest/performance/1",
+                  "href": "http://localhost/api/rest/performance/34",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/performance/1",
+                  "href": "http://localhost/api/rest/performance/34",
                 },
                 "sequences": Object {
-                  "href": "http://localhost/api/rest/performance/1/sequences",
+                  "href": "http://localhost/api/rest/performance/34/sequences",
                 },
                 "triggers": Object {
-                  "href": "http://localhost/api/rest/performance/1/triggers",
+                  "href": "http://localhost/api/rest/performance/34/triggers",
                 },
               },
               "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -1854,13 +1854,13 @@ exports[`Sequence container validation Sequence update 3`] = `
               },
               "_links": Object {
                 "performance": Object {
-                  "href": "http://localhost/api/rest/sequence/62/performance",
+                  "href": "http://localhost/api/rest/sequence/97/performance",
                 },
                 "self": Object {
-                  "href": "http://localhost/api/rest/sequence/62",
+                  "href": "http://localhost/api/rest/sequence/97",
                 },
                 "sequence": Object {
-                  "href": "http://localhost/api/rest/sequence/62",
+                  "href": "http://localhost/api/rest/sequence/97",
                 },
               },
               "channel": 4,
@@ -1907,7 +1907,7 @@ exports[`Sequence container validation Sequence update 3`] = `
               />
             </span>
             <div
-              id="http://localhost/api/rest/sequence/62-notation-2"
+              id="http://localhost/api/rest/sequence/97-notation-2"
               style={
                 Object {
                   "height": "120px",
@@ -2046,7 +2046,7 @@ exports[`Sequence container validation Sequence update 3`] = `
         />
         <div>
           <input
-            defaultValue="http://localhost/api/rest/sequence/62"
+            defaultValue="http://localhost/api/rest/sequence/97"
             name="_links.self.href"
             type="hidden"
           />
@@ -2078,7 +2078,7 @@ exports[`Sequence container validation Sequence update 4`] = `
     Object {
       "_links": Object {
         "self": Object {
-          "href": "http://localhost/api/rest/sequence/62",
+          "href": "http://localhost/api/rest/sequence/97",
         },
       },
       "channel": 5,
@@ -2168,22 +2168,22 @@ exports[`Sequence container validation Sequence update 4`] = `
           Object {
             "_links": Object {
               "channels": Object {
-                "href": "http://localhost/api/rest/performance/1/channels",
+                "href": "http://localhost/api/rest/performance/34/channels",
               },
               "layers": Object {
-                "href": "http://localhost/api/rest/performance/1/layers",
+                "href": "http://localhost/api/rest/performance/34/layers",
               },
               "performance": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "self": Object {
-                "href": "http://localhost/api/rest/performance/1",
+                "href": "http://localhost/api/rest/performance/34",
               },
               "sequences": Object {
-                "href": "http://localhost/api/rest/performance/1/sequences",
+                "href": "http://localhost/api/rest/performance/34/sequences",
               },
               "triggers": Object {
-                "href": "http://localhost/api/rest/performance/1/triggers",
+                "href": "http://localhost/api/rest/performance/34/triggers",
               },
             },
             "name": "com/purplepip/odin/demo/GroovePerformance",
@@ -2227,7 +2227,7 @@ exports[`Sequence container validation Sequence update 4`] = `
           Object {
             "_links": Object {
               "self": Object {
-                "href": "http://localhost/api/rest/sequence/62",
+                "href": "http://localhost/api/rest/sequence/97",
               },
             },
             "channel": 5,
@@ -2260,7 +2260,7 @@ exports[`Sequence container validation Sequence update 4`] = `
             C D E
           </span>
           <span
-            id="http://localhost/api/rest/sequence/62-notation-1"
+            id="http://localhost/api/rest/sequence/97-notation-1"
           />
         </div>
       </Score>
