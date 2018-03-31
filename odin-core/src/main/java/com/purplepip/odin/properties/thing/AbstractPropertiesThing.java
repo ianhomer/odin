@@ -16,6 +16,7 @@
 package com.purplepip.odin.properties.thing;
 
 import com.purplepip.odin.bag.AbstractThing;
+import com.purplepip.odin.bag.Copyable;
 import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.properties.Properties;
 import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
@@ -29,7 +30,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractPropertiesThing extends AbstractThing
-    implements MutablePropertiesProvider {
+    implements MutablePropertiesProvider, Copyable {
   private Map<String, String> properties = new HashMap<>();
 
   public AbstractPropertiesThing() {

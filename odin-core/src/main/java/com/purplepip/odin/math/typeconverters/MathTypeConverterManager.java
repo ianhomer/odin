@@ -17,6 +17,8 @@ package com.purplepip.odin.math.typeconverters;
 
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
+import jodd.bean.JoddBean;
 import jodd.typeconverter.TypeConverterManager;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 public class MathTypeConverterManager {
   static {
     LOG.debug("Math type converters loaded");
-    TypeConverterManager.register(Real.class, new RealTypeConverter());
-    TypeConverterManager.register(Rational.class, new RationalTypeConverter());
+    TypeConverterManager manager = JoddBean.defaults().getTypeConverterManager();
+    manager.register(Rational.class, new RationalTypeConverter());
+    manager.register(Real.class, new RealTypeConverter());
+    manager.register(Whole.class, new WholeTypeConverter());
   }
 
   public static void requireMathTypeConverters() {

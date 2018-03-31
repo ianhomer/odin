@@ -58,7 +58,7 @@
         https://www.rainerhahnekamp.com/en/ignoring-lombok-code-in-jacoco/
       -->
     <jacoco.covered.ratio>0.75</jacoco.covered.ratio>
-    <jodd.version>3.9.1</jodd.version>
+    <jodd.version>4.3.0</jodd.version>
     <jackson.version>2.9.5</jackson.version>
     <javax.validation>2.0.1.Final</javax.validation>
     <jsonschema.version>1.0.29</jsonschema.version>
@@ -587,11 +587,15 @@
     </profile>
     <profile>
       <id>noCoverage</id>
-      <!--activation>
+      <activation>
+        <!-- If we are only testing a sub set class then don't do coverage checks -->
         <property>
           <name>test</name>
         </property>
-      </activation-->
+      </activation>
+      <properties>
+        <jacoco.argLine/>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -656,6 +660,12 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+    <profile>
+      <id>trace</id>
+      <properties>
+        <purplepip.tests.log.file>com/purplepip/common/logback-trace.xml</purplepip.tests.log.file>
+      </properties>
     </profile>
   </profiles>
 </project>

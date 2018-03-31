@@ -45,5 +45,5 @@ public interface Thing {
    * Furthermore initialise might be relatively expensive to run so the system will only
    * call initialise just before it is needed.
    */
-  void initialise();
+  default void initialise() {}
 }

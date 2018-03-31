@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import com.google.common.collect.Lists;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
+import com.purplepip.odin.bag.Copyable;
 import com.purplepip.odin.bag.Thing;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.DefaultLayer;
@@ -30,8 +31,14 @@ import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.KotlinPerformance;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Rationals;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.specificity.ThingConfiguration;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -161,11 +168,11 @@ public class ThingCopyTest {
     assertEquals(Ticks.HALF, destination.getTick());
   }
 
-  @Test
   /*
    * Test that all objects in a few performances copy from specific to generic back to specific
    * without corruption.
    */
+  @Test
   public void testFullCycle() {
     Lists.newArrayList(new GroovePerformance(), new KotlinPerformance()).forEach(performance ->
         performance.getSequences().forEach(source -> {
@@ -181,4 +188,56 @@ public class ThingCopyTest {
         })
     );
   }
+
+  @Test
+  public void testCopyViaConverters() {
+    BasicPropertiesThing thing = new BasicPropertiesThing();
+    thing
+      .property("string","string-value")
+      .property("rational","1/2")
+      .property("whole","1")
+      .property("real","0.123");
+    SpecificThing specificThing = new SpecificThing();
+    new ThingCopy().source(thing).destination(specificThing).copy();
+
+    assertEquals("string-value", specificThing.getString());
+    assertEquals(Rationals.HALF, specificThing.getRational());
+    assertEquals(Wholes.ONE, specificThing.getWhole());
+    assertEquals(0.123, specificThing.getReal().getValue(), 0.0001);
+  }
+
+  private class BasicPropertiesThing extends AbstractPropertiesThing implements ThingConfiguration {
+    @Override
+    public Copyable copy() {
+      return copy(new BasicPropertiesThing());
+    }
+  }
+
+  @Data
+  private class SpecificThing extends AbstractPropertiesThing implements ThingConfiguration {
+    private long id;
+    private String name;
+    private String string;
+    private Rational rational;
+    private Real real;
+    private Whole whole;
+
+    @Override
+    public boolean arePropertiesDeclared() {
+      return true;
+    }
+
+    @Override
+    public Copyable copy() {
+      SpecificThing copy = new SpecificThing();
+      copy.id = id;
+      copy.name = name;
+      copy.string = string;
+      copy.rational = rational;
+      copy.real = real;
+      copy.whole = whole;
+      return copy;
+    }
+  }
+
 }

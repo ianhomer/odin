@@ -45,8 +45,8 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.5" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:2.0.1.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.jodd:jodd-bean:3.9.1" level="project" />
-    <orderEntry type="library" name="Maven: org.jodd:jodd-core:3.9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jodd:jodd-bean:4.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jodd:jodd-core:4.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7.1" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.20" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.2.31" level="project" />

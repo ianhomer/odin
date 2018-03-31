@@ -21,8 +21,19 @@ import org.junit.Test;
 
 public class DefaultLayerTest {
   @Test
-  public void testCopy() {
+  public void testCreate() {
     DefaultLayer layer = new DefaultLayer().name("test");
     assertEquals("test", layer.getName());
+  }
+
+  @Test
+  public void testCopy() {
+    DefaultLayer layer = new DefaultLayer().name("test");
+    layer.layer("layer-1", "layer-2");
+    DefaultLayer copy = layer.copy();
+    assertEquals("test", copy.getName());
+    assertEquals(2, copy.getLayers().size());
+    assertEquals("layer-1", copy.getLayers().get(0));
+    assertEquals("layer-2", copy.getLayers().get(1));
   }
 }

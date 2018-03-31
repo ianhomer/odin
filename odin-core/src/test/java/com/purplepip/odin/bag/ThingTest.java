@@ -13,21 +13,25 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.specificity;
+package com.purplepip.odin.bag;
 
-import com.purplepip.odin.bag.Copyable;
-import com.purplepip.odin.bag.Thing;
-import com.purplepip.odin.properties.beany.PropertiesProvider;
-import javax.validation.constraints.NotNull;
+import static org.junit.Assert.assertEquals;
 
-public interface ThingConfiguration extends Copyable, PropertiesProvider, Thing {
-  /**
-   * Type name for this configuration.
-   *
-   * @return type name.
-   */
-  @NotNull
-  default String getType() {
-    return "default";
+import lombok.Data;
+import org.junit.Test;
+
+public class ThingTest {
+  @Test
+  public void testInitialise() {
+    SimpleThing thing = new SimpleThing();
+    thing.setName("simple-thing");
+    thing.initialise();
+    assertEquals("simple-thing", thing.getName());
+  }
+
+  @Data
+  private class SimpleThing implements Thing {
+    long id;
+    String name;
   }
 }

@@ -100,9 +100,10 @@ public class ThingCopy {
    * Copy things.
    */
   public void copy() {
-    LOG.trace("Populating bean properties from source");
+    LOG.trace("Populating bean properties from source {} to {}", source, destination);
     BeanCopy.from(source).to(destination).declared(true).copy();
     if (source instanceof ThingConfiguration && destination instanceof ThingConfiguration) {
+      LOG.trace("Populating configuration properties from source to destination");
       new ThingConfigurationCopy()
           .from((ThingConfiguration) source)
           .to((ThingConfiguration) destination).copy();

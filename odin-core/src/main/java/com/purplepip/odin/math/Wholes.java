@@ -58,6 +58,16 @@ public final class Wholes {
     return new ConcreteWhole(value);
   }
 
+  /**
+   * Calculate whole value from string.
+   *
+   * @param value whole as string
+   * @return whole value
+   */
+  public static Whole valueOf(String value) {
+    return valueOf(Integer.parseInt(value));
+  }
+
   public static Whole mutableOf(long value) {
     return new MutableWhole(value);
   }

@@ -105,4 +105,11 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
     return this;
   }
 
+  @Override
+  public DefaultLayer copy() {
+    DefaultLayer layer = new DefaultLayer();
+    layer.layers.addAll(this.layers);
+    copy(layer);
+    return layer;
+  }
 }
