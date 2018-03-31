@@ -237,9 +237,12 @@ public class BeatClock extends AbstractClock {
     @Setter
     private MicrosecondPositionProvider microsecondPositionProvider;
 
+    /*
+     * Start offset in microseconds.
+     */
     @Getter
     @Setter
-    private long startOffset;
+    private long startOffset = 1_000;
 
     @Getter
     @Setter

@@ -44,7 +44,10 @@ public class TickConvertedClockTest {
   public void testMovingClock() {
     MovableMicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();
-    BeatClock beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
+    BeatClock beatClock = new PrecisionBeatClock(new BeatClock.Configuration()
+        .staticBeatsPerMinute(60)
+        .microsecondPositionProvider(microsecondPositionProvider)
+        .startOffset(0));
     Clock clock = new TickConvertedClock(beatClock, () -> QUARTER, () -> Wholes.ZERO);
     assertEquals(Wholes.ZERO, beatClock.getPosition());
     assertEquals(Wholes.ZERO, clock.getPosition());

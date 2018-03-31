@@ -50,7 +50,10 @@ public class BeatClockTest {
   public void testMovingClock() {
     MovableMicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();
-    BeatClock beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
+    BeatClock beatClock = new PrecisionBeatClock(new BeatClock.Configuration()
+        .staticBeatsPerMinute(60)
+        .microsecondPositionProvider(microsecondPositionProvider)
+        .startOffset(0));
     assertEquals(0, beatClock.getMicroseconds());
     assertEquals(60_000_000, beatClock.getMicroseconds(Wholes.valueOf(60)));
     /*
