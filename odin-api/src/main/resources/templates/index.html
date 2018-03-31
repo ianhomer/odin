@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorator="layout"
+<html layout:decorate="layout"
       lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -9,6 +9,7 @@
 </head>
 <body>
 <div layout:fragment="content">
+  <span th:text="${1 + 1}"></span>
   <div id="root"></div>
 </div>
 </body>

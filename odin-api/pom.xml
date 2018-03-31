@@ -15,8 +15,6 @@
   <properties>
     <!-- Lower covered ration for server side for now during prototype development -->
     <jacoco.covered.ratio>0.60</jacoco.covered.ratio>
-    <spring.boot.version>1.5.9.RELEASE</spring.boot.version>
-    <hibernate.version>5.2.12.Final</hibernate.version>
     <start-class>com.purplepip.odin.api.Application</start-class>
     <jvm.properties.debug/>
     <purplepip.tests.log.jvm>-Dlogging.config=classpath:${purplepip.tests.log.file} -Dlogback.debug=true</purplepip.tests.log.jvm>
@@ -37,6 +35,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-properties-migrator</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
@@ -44,7 +47,7 @@
     <dependency>
       <groupId>com.kjetland</groupId>
       <artifactId>mbknor-jackson-jsonschema_2.12</artifactId>
-      <version>1.0.25</version>
+      <version>1.0.29</version>
     </dependency>
     <dependency>
       <groupId>com.purplepip</groupId>
@@ -123,6 +126,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>nz.net.ultraq.thymeleaf</groupId>
+      <artifactId>thymeleaf-layout-dialect</artifactId>
     </dependency>
   </dependencies>
 
