@@ -89,39 +89,8 @@ public class PersistablePerformance implements Performance {
   }
 
   @Override
-  public PersistablePerformance addSequence(SequenceConfiguration sequence) {
-    return add(bind(ThingCopy.from(sequence).coerce(PersistableSequence.class)), sequences);
-  }
-
-  @Override
-  public PersistablePerformance removeSequence(SequenceConfiguration sequence) {
-    boolean result = sequences.remove(sequence);
-    if (!result) {
-      LOG.warn("Could not remove sequence {} from performance", sequence);
-    } else {
-      LOG.debug("Removed sequence from performance");
-    }
-    return this;
-  }
-
-  @Override
   public PersistablePerformance addLayer(Layer layer) {
     return add(bind(ThingCopy.from(layer).coerce(PersistableLayer.class)), layers);
-  }
-
-  private <T extends PerformanceBound> T bind(T thing) {
-    thing.setPerformance(this);
-    return thing;
-  }
-
-  private <T extends Thing> PersistablePerformance add(T thing, Set<T> things) {
-    boolean result = things.add(thing);
-    if (!result) {
-      LOG.warn("Could not add {} to performance", thing);
-    } else {
-      LOG.debug("Added {} to performance", thing);
-    }
-    return this;
   }
 
   @Override
@@ -152,5 +121,36 @@ public class PersistablePerformance implements Performance {
           trigger, getTriggers());
     }
     return this;
+  }
+
+  @Override
+  public PersistablePerformance addSequence(SequenceConfiguration sequence) {
+    return add(bind(ThingCopy.from(sequence).coerce(PersistableSequence.class)), sequences);
+  }
+
+  @Override
+  public PersistablePerformance removeSequence(SequenceConfiguration sequence) {
+    boolean result = sequences.remove(sequence);
+    if (!result) {
+      LOG.warn("Could not remove sequence {} from performance", sequence);
+    } else {
+      LOG.debug("Removed sequence from performance");
+    }
+    return this;
+  }
+
+  private <T extends Thing> PersistablePerformance add(T thing, Set<T> things) {
+    boolean result = things.add(thing);
+    if (!result) {
+      LOG.warn("Could not add {} to performance", thing);
+    } else {
+      LOG.debug("Added {} to performance", thing);
+    }
+    return this;
+  }
+
+  private <T extends PerformanceBound> T bind(T thing) {
+    thing.setPerformance(this);
+    return thing;
   }
 }

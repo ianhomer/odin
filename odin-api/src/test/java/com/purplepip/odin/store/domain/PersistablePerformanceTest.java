@@ -18,8 +18,8 @@ package com.purplepip.odin.store.domain;
 import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.server.Application;
-import com.purplepip.odin.server.rest.repositories.PerformanceRepository;
+import com.purplepip.odin.api.Application;
+import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Rule;
 import org.junit.Test;

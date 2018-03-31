@@ -45,6 +45,11 @@ public class PersistablePerformanceBuilder extends BeanyPerformanceBuilder {
   }
 
   @Override
+  protected MutableTriggerConfiguration createTrigger() {
+    return new PersistableTrigger();
+  }
+
+  @Override
   protected MutableSequenceConfiguration createSequence() {
     return new PersistableSequence();
   }
@@ -74,11 +79,6 @@ public class PersistablePerformanceBuilder extends BeanyPerformanceBuilder {
   @Override
   protected Channel createChannel() {
     return new PersistableChannel();
-  }
-
-  @Override
-  protected MutableTriggerConfiguration createTrigger() {
-    return new PersistableTrigger();
   }
 
   @Override

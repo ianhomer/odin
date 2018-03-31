@@ -80,6 +80,12 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
     this.tick = tick instanceof PersistableTick ? tick : new PersistableTick(tick);
   }
 
+  @PrePersist
+  @PreUpdate
+  public void preTimeThingPersist() {
+    setTimeThingDefaults();
+  }
+
   /**
    * Set default values.
    */
@@ -101,12 +107,6 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
 
     offsetNumerator = offset.getNumerator();
     offsetDenominator = offset.getDenominator();
-  }
-
-  @PrePersist
-  @PreUpdate
-  public void preTimeThingPersist() {
-    setTimeThingDefaults();
   }
 
   @Override

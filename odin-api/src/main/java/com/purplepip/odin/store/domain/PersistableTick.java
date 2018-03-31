@@ -68,6 +68,10 @@ public class PersistableTick implements Tick {
     initialise();
   }
 
+  private void initialise() {
+    factor = Rationals.valueOf(numerator, denominator);
+  }
+
   @Override
   @JsonIgnore
   public Rational getFactor() {
@@ -79,9 +83,5 @@ public class PersistableTick implements Tick {
   @PostUpdate
   protected void afterLoad() {
     initialise();
-  }
-
-  private void initialise() {
-    factor = Rationals.valueOf(numerator, denominator);
   }
 }

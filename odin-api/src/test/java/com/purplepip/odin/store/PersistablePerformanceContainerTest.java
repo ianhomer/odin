@@ -17,12 +17,12 @@ package com.purplepip.odin.store;
 
 import static org.junit.Assert.assertTrue;
 
+import com.purplepip.odin.api.Application;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
-import com.purplepip.odin.server.Application;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import com.purplepip.odin.store.domain.PersistableThing;
 import com.purplepip.odin.store.domain.PersistableTick;
