@@ -64,8 +64,8 @@ public class PerformancesTest {
   public static Iterable<PerformancesTestParameter> parameters() {
     Collection<PerformancesTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance(), 12));
-    parameters.add(newParameter(new KotlinPerformance(), 0));
-    parameters.add(newParameter(new PlutoPerformance(), 0));
+    parameters.add(newParameter(new KotlinPerformance(), 5));
+    parameters.add(newParameter(new PlutoPerformance(), 2));
     parameters.add(newParameter(new MixinPerformance(), 20));
     parameters.add(newParameter(new GroovePerformance(), 40)
         .testWait(4000).staticBeatsPerMinute(600));

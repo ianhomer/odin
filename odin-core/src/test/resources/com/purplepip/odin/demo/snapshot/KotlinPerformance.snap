@@ -1,1 +1,6 @@
 SNAPSHOT : com.purplepip.odin.demo.KotlinPerformance
+             -1 ProgramChangeOperation(channel=1, programName=Strings)
+             -1 ProgramChangeOperation(channel=2, programName=Violin)
+             -1 ProgramChangeOperation(channel=3, programName=bass)
+             -1 ProgramChangeOperation(channel=4, programName=aah)
+             -1 ProgramChangeOperation(channel=9, programName=Power Drums)

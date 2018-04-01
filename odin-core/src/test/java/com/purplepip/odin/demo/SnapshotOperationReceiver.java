@@ -52,8 +52,8 @@ public class SnapshotOperationReceiver implements OperationReceiver {
        * We should be strict about not sending too much.  If test is complete then operations
        * should not be sent any more.
        */
-      LOG.warn("Received operation {} {} even though latch count down complete", prettyTime,
-          operation);
+      LOG.warn("{} : Received operation {} {} even though latch count down complete",
+          snapshot.getName(), prettyTime, operation);
     }
   }
 

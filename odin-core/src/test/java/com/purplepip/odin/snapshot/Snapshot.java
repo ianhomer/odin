@@ -53,6 +53,7 @@ public class Snapshot {
   private String extension = "snap";
   private String root = "src/test/resources";
   private String relativePath;
+  private String name;
   private Map<String, String> masks = new HashMap<>();
 
   /*
@@ -106,8 +107,7 @@ public class Snapshot {
   }
 
   public Snapshot mask(String mask) {
-    masks.put(mask, MASK_REPLACEMENT);
-    return this;
+    return mask(mask, MASK_REPLACEMENT);
   }
 
   /**
@@ -212,9 +212,12 @@ public class Snapshot {
       namedPath = Paths.get(rootPath.toString(), relativePath);
     }
 
+    String variationWithSeparator = (variation == null ? "" : separator + variation);
     path = Paths.get(namedPath
-            + (variation == null ? "" : separator + variation)
+            + variationWithSeparator
             + (extension == null ? "" : "." + extension));
+
+    name = path.getFileName().toString().replaceFirst("[.][^.]+$", "");
 
     LOG.debug("snapshot source path : {}", path);
     if (header) {
@@ -287,6 +290,10 @@ public class Snapshot {
 
   public String getActual() {
     return toString(getActualInputStream());
+  }
+
+  public String getName() {
+    return name;
   }
 
   public Path getPath() {

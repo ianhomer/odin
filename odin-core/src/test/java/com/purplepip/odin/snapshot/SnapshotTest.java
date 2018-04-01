@@ -27,6 +27,7 @@ public class SnapshotTest {
     Snapshot snapshot = new Snapshot(Snapshot.class, true);
     assertTrue(snapshot.getPath().toString()
             .endsWith("com/purplepip/odin/snapshot/snapshot/Snapshot.snap"));
+    assertEquals("Snapshot", snapshot.getName());
     snapshot.writeLine(0,"Hello");
     snapshot.expectMatch();
   }
@@ -38,6 +39,7 @@ public class SnapshotTest {
     String path = snapshot.getPath().toString();
     assertTrue(path + " not correct",
         path.endsWith("com/purplepip/odin/snapshot/snapshot/Snapshot-noHeader.snap"));
+    assertEquals("Snapshot-noHeader", snapshot.getName());
     snapshot.writeLine("Hello");
     snapshot.expectMatch();
   }
@@ -63,7 +65,7 @@ public class SnapshotTest {
         .path("com/purplepip/odin/snapshot/snapshot/Snapshot")
         .variation("variable")
         .extension("json")
-        .mask("(?<=http://localhost/api/channel/)[0-9]+(?=[^\"]*)")
+        .mask("(?<=http://localhost/api/channel/)[0-9]+(?=[^\"]*)", "__TEST__")
         .header(false).initialise();
     int number = ThreadLocalRandom.current().nextInt(0, 99);
     snapshot.writeLine(0,"{ "
@@ -72,8 +74,8 @@ public class SnapshotTest {
         + "}");
     snapshot.expectMatch();
     assertEquals("{ "
-        + "\"x\" : \"http://localhost/api/channel/__VAR__\","
-        + "\"y\" : \"http://localhost/api/channel/__VAR__/performance\""
+        + "\"x\" : \"http://localhost/api/channel/__TEST__\","
+        + "\"y\" : \"http://localhost/api/channel/__TEST__/performance\""
         + "}", snapshot.getExpected());
   }
 }
