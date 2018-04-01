@@ -35,8 +35,8 @@ public class PatternTest {
 
   @Test
   public void testEquals() {
-    Pattern pattern1 = new Pattern().note(newNote(60, 20,23));
-    Pattern pattern2 = new Pattern().note(newNote(60, 20,23));
+    Pattern pattern1 = new Pattern().note(newNote(60, 20,23)).name("test");
+    Pattern pattern2 = new Pattern().note(newNote(60, 20,23)).name("test");
     assertEquals(pattern1, pattern2);
   }
 }

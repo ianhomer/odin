@@ -73,4 +73,9 @@ public class Metronome extends SequencePlugin {
     copy.noteBarMid = this.noteBarMid;
     return copy;
   }
+
+  public Metronome name(String name) {
+    super.name(name);
+    return this;
+  }
 }

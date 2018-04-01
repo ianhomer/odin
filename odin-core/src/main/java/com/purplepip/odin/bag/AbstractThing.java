@@ -16,6 +16,7 @@
 package com.purplepip.odin.bag;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.common.Stringy;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.Data;
@@ -43,9 +44,9 @@ public abstract class AbstractThing implements MutableThing {
    * the runtime has a more robust ID generation mechanism, however for the transient usage,
    * this cheap generator is good enough.
    */
-  private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
+  private static final AtomicLong LAST_THING_ID = new AtomicLong();
   // TODO : Make id final
-  protected long id = LAST_PATTERN_ID.incrementAndGet();
+  protected long id = LAST_THING_ID.incrementAndGet();
   private String name;
   @JsonIgnore
   private transient int initialisationCount = 0;
@@ -54,7 +55,7 @@ public abstract class AbstractThing implements MutableThing {
    * ID auto generated.
    */
   public AbstractThing() {
-    this(LAST_PATTERN_ID.incrementAndGet());
+    this(LAST_THING_ID.incrementAndGet());
   }
 
   /**
@@ -62,6 +63,10 @@ public abstract class AbstractThing implements MutableThing {
    */
   public AbstractThing(long id) {
     setId(id);
+    /*
+     * By default set the thing name to id.  Note that name must not be null.
+     */
+    setName(String.valueOf(id));
   }
 
   @Override
@@ -79,8 +84,20 @@ public abstract class AbstractThing implements MutableThing {
     return copy;
   }
 
-  public AbstractThing name(String name) {
+  /**
+   * Set name.
+   *
+   * @param name name
+   */
+  public void setName(String name) {
+    if (name == null) {
+      throw new OdinRuntimeException("Name must not be null");
+    }
     this.name = name;
+  }
+
+  public AbstractThing name(String name) {
+    setName(name);
     return this;
   }
 

@@ -26,6 +26,7 @@ public class ActionConfigurationTest {
   @Test
   public void testCopy() {
     ActionConfiguration configuration = mock(ActionConfiguration.class);
+    when(configuration.getName()).thenReturn("name");
     when(configuration.getType()).thenReturn("start");
     when(configuration.copy()).thenCallRealMethod();
     ActionConfiguration copy = configuration.copy();

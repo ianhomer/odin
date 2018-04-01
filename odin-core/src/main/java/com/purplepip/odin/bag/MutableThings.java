@@ -15,11 +15,12 @@
 
 package com.purplepip.odin.bag;
 
-import java.util.HashMap;
+import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import lombok.ToString;
@@ -31,8 +32,8 @@ public class MutableThings<T extends Thing> implements Things<T> {
   private MutableThingStatistics mutableStatistics = new DefaultThingStatistics();
   private UnmodifiableThingStatistics statistics =
       new UnmodifiableThingStatistics(mutableStatistics);
-  private Map<Long, T> things = new HashMap<>();
-  private Map<String, T> thingsByName = new HashMap<>();
+  private Map<Long, T> things = new ConcurrentHashMap<>();
+  private Map<String, T> thingsByName = new ConcurrentHashMap<>();
 
   /**
    * Add a thing to this mutable bag of things.
@@ -43,6 +44,9 @@ public class MutableThings<T extends Thing> implements Things<T> {
   public boolean add(T thing) {
     mutableStatistics.incrementAddedCount();
     things.put(thing.getId(), thing);
+    if (thing.getName() == null) {
+      throw new OdinRuntimeException("Thing name must not be null : " + thing);
+    }
     thingsByName.put(thing.getName(), thing);
     return true;
   }

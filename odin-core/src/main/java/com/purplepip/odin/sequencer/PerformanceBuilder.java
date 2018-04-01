@@ -551,7 +551,9 @@ public class PerformanceBuilder {
   }
 
   private SequenceConfiguration applyParameters(MutableSequenceConfiguration sequence) {
-    sequence.setName(name);
+    if (name != null) {
+      sequence.setName(name);
+    }
     sequence.setEnabled(enabled);
     sequence.setChannel(channel);
     sequence.setLength(length);

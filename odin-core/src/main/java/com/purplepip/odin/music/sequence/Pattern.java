@@ -85,4 +85,10 @@ public class Pattern extends SequencePlugin {
   public boolean isEmpty() {
     return bits == 0 || super.isEmpty();
   }
+
+  @Override
+  public Pattern name(String name) {
+    super.name(name);
+    return this;
+  }
 }

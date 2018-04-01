@@ -71,7 +71,7 @@ public class MutableTracksTest {
   }
 
   @Test
-  public void testEmptyNotation() throws OdinException {
+  public void testEmptyNotation() {
     clock.start();
     new PerformanceBuilder(container)
         .withProperty("notation", "")

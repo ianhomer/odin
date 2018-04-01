@@ -37,8 +37,8 @@ public class MetronomeTest {
 
   @Test
   public void testEquals() {
-    Metronome metronome1 = new Metronome();
-    Metronome metronome2 = new Metronome();
+    Metronome metronome1 = new Metronome().name("test");
+    Metronome metronome2 = new Metronome().name("test");
     LOG.debug("Created {} and {}", metronome1, metronome2);
     assertTrue(metronome1.equals(metronome2));
   }

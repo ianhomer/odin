@@ -102,6 +102,7 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
    */
   public String toString() {
     return Stringy.of(AbstractTimeThing.class, this)
+        .includeNulls()
         .add("id", getId())
         .add("name", getName())
         .add("properties", getPropertyEntries())
