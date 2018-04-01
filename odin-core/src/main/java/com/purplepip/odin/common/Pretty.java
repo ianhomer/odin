@@ -26,10 +26,8 @@ public class Pretty {
   private static final Pattern[] replaceTrailingZeros = new Pattern[MAX_REPLACE + 1];
 
   static {
-    StringBuilder trailingZeros = new StringBuilder();
     for (int i = 0 ; i < MAX_REPLACE + 1; i++) {
-      replaceTrailingZeros[i] = Pattern.compile(trailingZeros.toString() + "$");
-      trailingZeros.append('0');
+      replaceTrailingZeros[i] = Pattern.compile("0{0," + i + "}$");
     }
   }
 

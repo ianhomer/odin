@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.demo;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.Pretty;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.operation.OperationReceiver;
@@ -41,7 +40,7 @@ public class SnapshotOperationReceiver implements OperationReceiver {
   }
 
   @Override
-  public void handle(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) {
     String prettyTime = Pretty.replaceTrailingZeros(time, 4);
     if (latch.getCount() > 0) {
       snapshot.writeLine(time, String.format("%15s %s",

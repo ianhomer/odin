@@ -26,6 +26,7 @@ public class PrettyTest {
     assertEquals("100···", Pretty.replaceTrailingZeros(100000, 3));
     assertEquals("10000·", Pretty.replaceTrailingZeros(100000, 1));
     assertEquals("100000", Pretty.replaceTrailingZeros(100000, 0));
+    assertEquals("55···", Pretty.replaceTrailingZeros(55000, 4));
   }
 
   @Test(expected = OdinRuntimeException.class)
