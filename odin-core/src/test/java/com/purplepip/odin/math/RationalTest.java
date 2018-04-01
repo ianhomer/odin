@@ -112,7 +112,7 @@ public class RationalTest {
   @Test
   public void testGt() {
     assertFalse(Rationals.valueOf(2, 1).gt(Rationals.valueOf(2, 1)));
-    assertFalse(Rationals.valueOf(-2, 5).gt(Rationals.valueOf(0)));
+    assertFalse(Rationals.valueOf(-2, 5).gt(Wholes.valueOf(0)));
     assertTrue(Rationals.valueOf(3, 1).gt(Rationals.valueOf(4, 2)));
   }
 
