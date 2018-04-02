@@ -36,8 +36,16 @@ const draft04 = require('ajv/lib/refs/json-schema-draft-04.json')
 export class Schema {
   constructor(schema, flux = {}) {
     // ajv is a private property
-    _ajv.set(this, new Ajv({extendRefs: true}))
-    this.getAjv().addMetaSchema(draft04)
+    var ajv = new Ajv({
+      meta: false, // optional, to prevent adding draft-06 meta-schema
+      extendRefs: true, // optional, current default is to 'fail', spec behaviour is to 'ignore'
+      unknownFormats: 'ignore'  // optional, current default is true (fail)
+    })
+    ajv.addMetaSchema(draft04)
+    ajv._opts.defaultMeta = draft04.id
+    _ajv.set(this, ajv)
+    // Java odin API still uses draft 4 for the schema
+
     // schema is a private property
     _schema.set(this, schema)
     _flux.set(this, flux)
