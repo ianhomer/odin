@@ -1,4 +1,4 @@
-var path = require('path');
+const path = require('path');
 
 module.exports = {
   mode: 'development',
@@ -8,6 +8,7 @@ module.exports = {
     path: __dirname,
     filename: './src/main/resources/static/built/bundle.js'
   },
+
   module: {
     rules: [
       {
