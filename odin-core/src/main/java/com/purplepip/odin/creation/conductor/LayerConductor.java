@@ -125,6 +125,10 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   }
 
 
+  public boolean hasChild(Conductor conductor) {
+    return children.containsValue(conductor);
+  }
+
   /**
    * Add child conductor.
    *
@@ -135,7 +139,8 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
     if (conductor instanceof LayerConductor) {
       LayerConductor layerConductor = (LayerConductor) conductor;
       if (layerConductor.getParent() != null) {
-        LOG.warn("Conductor already has a parent defined won't be overridden");
+        LOG.warn("Conductor {} already has a parent {} defined won't be overridden with {}",
+            layerConductor.getName(), layerConductor.getParent().getName(), getName());
       } else {
         layerConductor.setParent(this);
       }

@@ -47,7 +47,7 @@ public class DefaultRuntimePerformanceLoaderTest {
   private DefaultRuntimePerformanceLoader loader;
 
   @Test
-  public void testDefaultRuntimePerformanceLoader() throws Exception {
+  public void testDefaultRuntimePerformanceLoader() {
     PerformanceContainer reloadedContainer =
         new PerformanceContainer(performanceRepository.findAll().iterator().next());
     assertThat(reloadedContainer.getChannels()).isNotEmpty();

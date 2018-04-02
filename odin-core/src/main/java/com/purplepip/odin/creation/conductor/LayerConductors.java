@@ -32,12 +32,13 @@ public class LayerConductors extends AbstractPluggableAspects<LayerConductor, La
     stream().forEach(conductor -> {
       conductor.getConfiguration().getLayers().forEach(layerName -> {
         Conductor child = findByName(layerName);
-        if (child == null) {
-          LOG.warn("Cannot find conductor named {} to wire into children of {}", layerName, this);
-        } else {
-          LOG.debug("Adding child layer {} to parent {}",
-              child.getName(), conductor.getName());
-          conductor.addChild(child);
+        if (!conductor.hasChild(child)) {
+          if (child == null) {
+            LOG.warn("Cannot find conductor named {} to wire into children of {}", layerName, this);
+          } else {
+            LOG.debug("Adding child layer {} to parent {}", child.getName(), conductor.getName());
+            conductor.addChild(child);
+          }
         }
       });
       conductor.afterChildrenAdded();
