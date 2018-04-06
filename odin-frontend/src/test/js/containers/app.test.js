@@ -1,9 +1,6 @@
 import React from 'react'
 
-const Adapter = require('enzyme-adapter-react-15')
-const enzyme = require('enzyme')
-enzyme.configure({adapter: new Adapter()})
-import {shallow} from 'enzyme'
+import {shallow} from '../enzyme.js'
 import sinon from 'sinon'
 
 import App from 'odin/containers/App.js'
