@@ -2,18 +2,18 @@ version: '3'
 services:
   odin-api:
     build: ./odin-api
-    volumes:
-    - data-volume:/var/lib/html
   odin-frontend:
     build: ./odin-frontend
     ports:
     - "8080:8080"
     volumes:
     - data-volume:/var/lib/html/web
-#  odin-nginx:
-#    build: ./odin-nginx
-#    ports:
-#    - "8080:8080"
+  odin-nginx:
+    build: ./odin-nginx
+    ports:
+    - "8080:8080"
+    volumes:
+    - data-volume:/var/lib/html
 
 volumes:
   data-volume:
