@@ -1,5 +1,5 @@
 # In your Dockerfile.
-FROM busybox
+FROM alpine:3.7
 
 # Copy files in to app
 COPY src/main/resources/static /var/lib/web
