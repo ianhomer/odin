@@ -454,6 +454,7 @@ exports[`Channels container Initialise 1`] = `
                     "programName": "Power Drums",
                   }
                 }
+                key="9"
                 onDelete={[Function]}
               >
                 <div
@@ -503,6 +504,7 @@ exports[`Channels container Initialise 1`] = `
                     "programName": "aahs",
                   }
                 }
+                key="4"
                 onDelete={[Function]}
               >
                 <div
@@ -552,6 +554,7 @@ exports[`Channels container Initialise 1`] = `
                     "programName": "bass",
                   }
                 }
+                key="5"
                 onDelete={[Function]}
               >
                 <div
@@ -601,6 +604,7 @@ exports[`Channels container Initialise 1`] = `
                     "programName": "piano",
                   }
                 }
+                key="1"
                 onDelete={[Function]}
               >
                 <div
@@ -650,6 +654,7 @@ exports[`Channels container Initialise 1`] = `
                     "programName": "rock",
                   }
                 }
+                key="2"
                 onDelete={[Function]}
               >
                 <div
@@ -699,6 +704,7 @@ exports[`Channels container Initialise 1`] = `
                     "programName": "strings",
                   }
                 }
+                key="3"
                 onDelete={[Function]}
               >
                 <div

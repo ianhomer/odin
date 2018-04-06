@@ -4683,6 +4683,7 @@ exports[`Composer container Initialise 1`] = `
                           },
                         }
                       }
+                      key="groove"
                       layers={
                         Object {
                           "a": Object {
@@ -8060,6 +8061,7 @@ exports[`Composer container Initialise 1`] = `
                                   },
                                 }
                               }
+                              key="in"
                               layers={
                                 Object {
                                   "a": Object {
@@ -11530,6 +11532,7 @@ exports[`Composer container Initialise 1`] = `
                                             "type": "notation",
                                           }
                                         }
+                                        key="organ-a-http://localhost:8080/api/rest/layer/16"
                                         onChange={[Function]}
                                       >
                                         <SequenceInLayer
@@ -11617,6 +11620,7 @@ exports[`Composer container Initialise 1`] = `
                                   },
                                 }
                               }
+                              key="intro"
                               layers={
                                 Object {
                                   "a": Object {
@@ -15086,6 +15090,7 @@ exports[`Composer container Initialise 1`] = `
                                             "type": "notation",
                                           }
                                         }
+                                        key="strings-c4-http://localhost:8080/api/rest/layer/10"
                                         onChange={[Function]}
                                       >
                                         <SequenceInLayer
@@ -15178,6 +15183,7 @@ exports[`Composer container Initialise 1`] = `
                                             "type": "notation",
                                           }
                                         }
+                                        key="strings-c5-http://localhost:8080/api/rest/layer/10"
                                         onChange={[Function]}
                                       >
                                         <SequenceInLayer
@@ -15268,6 +15274,7 @@ exports[`Composer container Initialise 1`] = `
                                   },
                                 }
                               }
+                              key="verse"
                               layers={
                                 Object {
                                   "a": Object {
@@ -18731,6 +18738,7 @@ exports[`Composer container Initialise 1`] = `
                                           },
                                         }
                                       }
+                                      key="a"
                                       layers={
                                         Object {
                                           "a": Object {
@@ -22194,6 +22202,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="aahs-a-http://localhost:8080/api/rest/layer/18"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -22286,6 +22295,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="bass-3-http://localhost:8080/api/rest/layer/18"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -22382,6 +22392,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "pattern",
                                                   }
                                                 }
+                                                key="kick1-http://localhost:8080/api/rest/layer/18"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -22478,6 +22489,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="notes-c5-http://localhost:8080/api/rest/layer/18"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -22571,6 +22583,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="organ-a-http://localhost:8080/api/rest/layer/18"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -22665,6 +22678,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="piano-a-http://localhost:8080/api/rest/layer/18"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -22758,6 +22772,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="piano-a3-http://localhost:8080/api/rest/layer/18"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -22844,6 +22859,7 @@ exports[`Composer container Initialise 1`] = `
                                           },
                                         }
                                       }
+                                      key="b"
                                       layers={
                                         Object {
                                           "a": Object {
@@ -26311,6 +26327,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "pattern",
                                                   }
                                                 }
+                                                key="kick1-http://localhost:8080/api/rest/layer/20"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -26407,6 +26424,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="notes-c4-http://localhost:8080/api/rest/layer/20"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -26499,6 +26517,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="organ-b-http://localhost:8080/api/rest/layer/20"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -26591,6 +26610,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="piano-c-http://localhost:8080/api/rest/layer/20"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -26683,6 +26703,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="piano-c3-http://localhost:8080/api/rest/layer/20"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -26769,6 +26790,7 @@ exports[`Composer container Initialise 1`] = `
                                           },
                                         }
                                       }
+                                      key="c"
                                       layers={
                                         Object {
                                           "a": Object {
@@ -30232,6 +30254,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="aahs-c-http://localhost:8080/api/rest/layer/22"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -30327,6 +30350,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "pattern",
                                                   }
                                                 }
+                                                key="crash-http://localhost:8080/api/rest/layer/22"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -30425,6 +30449,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "pattern",
                                                   }
                                                 }
+                                                key="kick2-http://localhost:8080/api/rest/layer/22"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -30520,6 +30545,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="organ-c-http://localhost:8080/api/rest/layer/22"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -30613,6 +30639,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="piano-a-http://localhost:8080/api/rest/layer/22"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -30706,6 +30733,7 @@ exports[`Composer container Initialise 1`] = `
                                                     "type": "notation",
                                                   }
                                                 }
+                                                key="piano-g3-http://localhost:8080/api/rest/layer/22"
                                                 onChange={[Function]}
                                               >
                                                 <SequenceInLayer
@@ -30809,6 +30837,7 @@ exports[`Composer container Initialise 1`] = `
                                             "type": "pattern",
                                           }
                                         }
+                                        key="hi-http://localhost:8080/api/rest/layer/24"
                                         onChange={[Function]}
                                       >
                                         <SequenceInLayer
@@ -30898,6 +30927,7 @@ exports[`Composer container Initialise 1`] = `
                                   },
                                 }
                               }
+                              key="break"
                               layers={
                                 Object {
                                   "a": Object {
@@ -34367,6 +34397,7 @@ exports[`Composer container Initialise 1`] = `
                                             "type": "notation",
                                           }
                                         }
+                                        key="aahs-br-http://localhost:8080/api/rest/layer/12"
                                         onChange={[Function]}
                                       >
                                         <SequenceInLayer
@@ -34462,6 +34493,7 @@ exports[`Composer container Initialise 1`] = `
                                             "type": "pattern",
                                           }
                                         }
+                                        key="kick3-http://localhost:8080/api/rest/layer/12"
                                         onChange={[Function]}
                                       >
                                         <SequenceInLayer
@@ -34557,6 +34589,7 @@ exports[`Composer container Initialise 1`] = `
                                             "type": "notation",
                                           }
                                         }
+                                        key="notes-http://localhost:8080/api/rest/layer/12"
                                         onChange={[Function]}
                                       >
                                         <SequenceInLayer
@@ -34649,6 +34682,7 @@ exports[`Composer container Initialise 1`] = `
                                             "type": "notation",
                                           }
                                         }
+                                        key="strings-http://localhost:8080/api/rest/layer/12"
                                         onChange={[Function]}
                                       >
                                         <SequenceInLayer
@@ -34735,6 +34769,7 @@ exports[`Composer container Initialise 1`] = `
                                   },
                                 }
                               }
+                              key="out"
                               layers={
                                 Object {
                                   "a": Object {
@@ -38204,6 +38239,7 @@ exports[`Composer container Initialise 1`] = `
                           },
                         }
                       }
+                      key="overlay"
                       layers={
                         Object {
                           "a": Object {
@@ -41586,6 +41622,7 @@ exports[`Composer container Initialise 1`] = `
                                     "type": "pattern",
                                   }
                                 }
+                                key="shake-http://localhost:8080/api/rest/layer/8"
                                 onChange={[Function]}
                               >
                                 <SequenceInLayer
@@ -41671,6 +41708,7 @@ exports[`Composer container Initialise 1`] = `
                     create new layer : 
                     <input
                       className="inline"
+                      key="new-layer-name"
                       maxLength="8"
                       onKeyPress={[Function]}
                       size="8"
@@ -41685,7 +41723,9 @@ exports[`Composer container Initialise 1`] = `
                  
               </div>
               <div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/97"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -41723,6 +41763,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/97"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -41964,7 +42005,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="a"
+                              >
                                 a
                               </div>
                             </div>
@@ -41974,7 +42017,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/63"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -42012,6 +42057,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/63"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -42253,7 +42299,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="break"
+                              >
                                 break
                               </div>
                             </div>
@@ -42263,7 +42311,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/107"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -42301,6 +42351,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/107"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -42542,7 +42593,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="c"
+                              >
                                 c
                               </div>
                             </div>
@@ -42552,7 +42605,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/79"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -42590,6 +42645,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/79"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -42831,7 +42887,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="a"
+                              >
                                 a
                               </div>
                             </div>
@@ -42841,7 +42899,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/87"
+                >
                   <DragSource(PatternCard)
                     entity={
                       Object {
@@ -42882,6 +42942,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "pattern",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/87"
                     onAddLayer={[Function]}
                     performance={
                       Object {
@@ -43079,7 +43140,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="c"
+                              >
                                 c
                               </div>
                             </div>
@@ -43089,7 +43152,9 @@ exports[`Composer container Initialise 1`] = `
                     </PatternCard>
                   </DragSource(PatternCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/67"
+                >
                   <DragSource(PatternCard)
                     entity={
                       Object {
@@ -43130,6 +43195,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "pattern",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/67"
                     onAddLayer={[Function]}
                     performance={
                       Object {
@@ -43327,7 +43393,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="verse"
+                              >
                                 verse
                               </div>
                             </div>
@@ -43337,7 +43405,9 @@ exports[`Composer container Initialise 1`] = `
                     </PatternCard>
                   </DragSource(PatternCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/91"
+                >
                   <DragSource(PatternCard)
                     entity={
                       Object {
@@ -43379,6 +43449,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "pattern",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/91"
                     onAddLayer={[Function]}
                     performance={
                       Object {
@@ -43578,10 +43649,14 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="a"
+                              >
                                 a
                               </div>
-                              <div>
+                              <div
+                                key="b"
+                              >
                                 b
                               </div>
                             </div>
@@ -43591,7 +43666,9 @@ exports[`Composer container Initialise 1`] = `
                     </PatternCard>
                   </DragSource(PatternCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/81"
+                >
                   <DragSource(PatternCard)
                     entity={
                       Object {
@@ -43632,6 +43709,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "pattern",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/81"
                     onAddLayer={[Function]}
                     performance={
                       Object {
@@ -43829,7 +43907,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="c"
+                              >
                                 c
                               </div>
                             </div>
@@ -43839,7 +43919,9 @@ exports[`Composer container Initialise 1`] = `
                     </PatternCard>
                   </DragSource(PatternCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/101"
+                >
                   <DragSource(PatternCard)
                     entity={
                       Object {
@@ -43880,6 +43962,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "pattern",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/101"
                     onAddLayer={[Function]}
                     performance={
                       Object {
@@ -44077,7 +44160,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="break"
+                              >
                                 break
                               </div>
                             </div>
@@ -44087,7 +44172,9 @@ exports[`Composer container Initialise 1`] = `
                     </PatternCard>
                   </DragSource(PatternCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/71"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -44125,6 +44212,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/71"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -44366,7 +44454,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="break"
+                              >
                                 break
                               </div>
                             </div>
@@ -44376,7 +44466,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/89"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -44414,6 +44506,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/89"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -44655,7 +44748,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="b"
+                              >
                                 b
                               </div>
                             </div>
@@ -44665,7 +44760,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/61"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -44703,6 +44800,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/61"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -44944,7 +45042,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="a"
+                              >
                                 a
                               </div>
                             </div>
@@ -44954,7 +45054,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/95"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -44993,6 +45095,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/95"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -45237,10 +45340,14 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="a"
+                              >
                                 a
                               </div>
-                              <div>
+                              <div
+                                key="in"
+                              >
                                 in
                               </div>
                             </div>
@@ -45250,7 +45357,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/105"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -45288,6 +45397,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/105"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -45529,7 +45639,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="b"
+                              >
                                 b
                               </div>
                             </div>
@@ -45539,7 +45651,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/77"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -45577,6 +45691,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/77"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -45818,7 +45933,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="c"
+                              >
                                 c
                               </div>
                             </div>
@@ -45828,7 +45945,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/99"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -45867,6 +45986,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/99"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -46111,10 +46231,14 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="a"
+                              >
                                 a
                               </div>
-                              <div>
+                              <div
+                                key="c"
+                              >
                                 c
                               </div>
                             </div>
@@ -46124,7 +46248,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/65"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -46162,6 +46288,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/65"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -46403,7 +46530,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="a"
+                              >
                                 a
                               </div>
                             </div>
@@ -46413,7 +46542,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/103"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -46451,6 +46582,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/103"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -46692,7 +46824,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="b"
+                              >
                                 b
                               </div>
                             </div>
@@ -46702,7 +46836,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/75"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -46740,6 +46876,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/75"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -46981,7 +47118,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="b"
+                              >
                                 b
                               </div>
                             </div>
@@ -46991,7 +47130,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/93"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -47029,6 +47170,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/93"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -47270,7 +47412,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="c"
+                              >
                                 c
                               </div>
                             </div>
@@ -47280,7 +47424,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/85"
+                >
                   <DragSource(PatternCard)
                     entity={
                       Object {
@@ -47321,6 +47467,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "pattern",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/85"
                     onAddLayer={[Function]}
                     performance={
                       Object {
@@ -47518,7 +47665,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="overlay"
+                              >
                                 overlay
                               </div>
                             </div>
@@ -47528,7 +47677,9 @@ exports[`Composer container Initialise 1`] = `
                     </PatternCard>
                   </DragSource(PatternCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/83"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -47566,6 +47717,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/83"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -47807,7 +47959,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="break"
+                              >
                                 break
                               </div>
                             </div>
@@ -47817,7 +47971,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/73"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -47855,6 +48011,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/73"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -48096,7 +48253,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="intro"
+                              >
                                 intro
                               </div>
                             </div>
@@ -48106,7 +48265,9 @@ exports[`Composer container Initialise 1`] = `
                     </NotationCard>
                   </DragSource(NotationCard)>
                 </div>
-                <div>
+                <div
+                  key="div-http://localhost/api/rest/sequence/69"
+                >
                   <DragSource(NotationCard)
                     entity={
                       Object {
@@ -48144,6 +48305,7 @@ exports[`Composer container Initialise 1`] = `
                         "type": "notation",
                       }
                     }
+                    key="http://localhost/api/rest/sequence/69"
                     onAddLayer={[Function]}
                     onFetchComposition={[Function]}
                     performance={
@@ -48385,7 +48547,9 @@ exports[`Composer container Initialise 1`] = `
                             }
                           >
                             <div>
-                              <div>
+                              <div
+                                key="intro"
+                              >
                                 intro
                               </div>
                             </div>

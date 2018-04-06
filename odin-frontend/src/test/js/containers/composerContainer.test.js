@@ -3,7 +3,7 @@ import TIMEOUT from '../constants.js'
 import React from 'react'
 import ComposerContainer from 'odin/containers/ComposerContainer.js'
 import {Provider} from 'react-redux'
-import {mount} from 'enzyme'
+import {mount} from '../enzyme.js'
 
 import {testPerformance, testSchema} from '../testData.js'
 import store from '../store'
