@@ -8,9 +8,7 @@ exports[`Composer container drag and drop Initialise 2`] = `
   draggable="true"
   title="a"
 >
-  <!-- react-text: 21 -->
   a
-  <!-- /react-text -->
   <div
     class="sequences"
   >
