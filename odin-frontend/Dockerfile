@@ -1,7 +1,7 @@
 # In your Dockerfile.
-FROM ubuntu
+FROM busybox
 
 # Copy files in to app
-COPY src/main/resources/static /var/lib/html/web
+COPY src/main/resources/static /var/lib/web
 
 CMD echo "Front end up"

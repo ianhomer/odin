@@ -39,6 +39,10 @@ or run with developer benefits, e.g. web template reloading
 or with rebuild    
 
     docker-compose up --build
+    
+To run interact container
+
+    docker run --rm -it --name admin -v=odin_web-volume:/var/lib/web busybox
         
 # Android Application
 
