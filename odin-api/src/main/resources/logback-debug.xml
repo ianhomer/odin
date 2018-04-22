@@ -16,8 +16,10 @@
   <!--
       Log messages for spring bean creation and access.
       -->
-  <logger name="org.springframework" level="ERROR"/>
-  <logger name="org.springframework.beans" level="ERROR"/>
+  <logger name="org.springframework" level="DEBUG"/>
+  <logger name="org.springframework.beans" level="DEBUG"/>
+  <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory"
+          level="DEBUG"/>
 
   <!--
       Log messages for spring application context caching.  Spring tests use multiple application

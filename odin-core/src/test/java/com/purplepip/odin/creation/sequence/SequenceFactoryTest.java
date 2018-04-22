@@ -73,7 +73,7 @@ public class SequenceFactoryTest {
   }
 
   @Test
-  public void testCreateFlow() throws OdinException {
+  public void testCreateFlow() {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
     builder.addMetronome();

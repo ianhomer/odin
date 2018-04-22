@@ -103,7 +103,15 @@ For performance I use a Nord Electro 5 and Nord Lead 4.
 
 ## Sonar
 
+[Install sonar](http://ianhomer.com/tools/sonar.html) and start sonar locally
+
+    sonar console
+
+And analyse with sonar
+
     mvn clean verify sonar:sonar
+
+And view sonar report at http://localhost:9000/
 
 ## JavaScript
 

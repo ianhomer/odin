@@ -31,6 +31,6 @@ public class DefaultMicrosecondPositionProvider implements MicrosecondPositionPr
   }
 
   public String toString() {
-    return "DefaultMicrosecondPositionProvider";
+    return DefaultMicrosecondPositionProvider.class.getSimpleName();
   }
 }

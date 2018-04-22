@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.clock;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -23,5 +24,11 @@ public class DefaultMicrosecondPositionProviderTest {
   @Test
   public void testGetMicroseconds() {
     assertTrue(new DefaultMicrosecondPositionProvider().getMicroseconds() > 0);
+  }
+
+  @Test
+  public void testToString() {
+    assertEquals(DefaultMicrosecondPositionProvider.class.getSimpleName(),
+        new DefaultMicrosecondPositionProvider().toString());
   }
 }

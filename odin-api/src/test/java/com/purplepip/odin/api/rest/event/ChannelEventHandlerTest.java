@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 /*
  * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,6 +12,34 @@ import static org.junit.Assert.*;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class ChannelEventHandlerTest {
 
+package com.purplepip.odin.api.rest.event;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import com.purplepip.odin.creation.channel.DefaultChannel;
+import com.purplepip.odin.performance.PerformanceContainer;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+@RunWith(SpringRunner.class)
+@Ignore("Verify that performance container events called")
+public class ChannelEventHandlerTest {
+  @SpyBean
+  private PerformanceContainer performanceContainer;
+
+  @Autowired
+  private ChannelEventHandler channelEventHandler;
+
+  @Test
+  public void testHandler() {
+    channelEventHandler.handleChannelCreate(new DefaultChannel());
+    verify(performanceContainer, times(1)).load();
+    verify(performanceContainer, times(1)).apply();
+  }
 }
