@@ -3,8 +3,8 @@ package com.purplepip.odin.api.rest.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.Performance;
-import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import org.junit.Before;
@@ -34,7 +34,7 @@ public class PerformanceRepositoryTest {
   @Before
   public void setUp() {
     performance = new PersistablePerformance();
-    builder = new PersistablePerformanceBuilder(new PerformanceContainer(performance));
+    builder = new PersistablePerformanceBuilder(new DefaultPerformanceContainer(performance));
   }
 
   @Test

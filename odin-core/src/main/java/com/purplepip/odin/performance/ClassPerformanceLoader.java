@@ -23,7 +23,7 @@ public class ClassPerformanceLoader extends AbstractPerformanceLoader {
   private final PerformanceContainer container;
 
   public ClassPerformanceLoader() {
-    this(new PerformanceContainer());
+    this(new DefaultPerformanceContainer());
   }
 
   public ClassPerformanceLoader(PerformanceContainer container) {

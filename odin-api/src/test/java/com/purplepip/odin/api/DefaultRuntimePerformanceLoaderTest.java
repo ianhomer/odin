@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.store.domain.PersistableSequence;
 import java.util.Optional;
@@ -48,8 +49,8 @@ public class DefaultRuntimePerformanceLoaderTest {
 
   @Test
   public void testDefaultRuntimePerformanceLoader() {
-    PerformanceContainer reloadedContainer =
-        new PerformanceContainer(performanceRepository.findAll().iterator().next());
+    DefaultPerformanceContainer reloadedContainer =
+        new DefaultPerformanceContainer(performanceRepository.findAll().iterator().next());
     assertThat(reloadedContainer.getChannels()).isNotEmpty();
     assertThat(reloadedContainer.getChannelStream().count()).isGreaterThan(3);
     assertThat(reloadedContainer.getLayerStream().count()).isGreaterThan(4);

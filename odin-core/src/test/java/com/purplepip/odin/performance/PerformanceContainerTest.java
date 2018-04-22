@@ -18,7 +18,7 @@ public class PerformanceContainerTest {
   @Test
   public void testSaveListener() {
     PerformanceSaveListener listener = mock(PerformanceSaveListener.class);
-    PerformanceContainer container = new PerformanceContainer();
+    DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     Performance performance = new TransientPerformance();
     container.setPerformance(performance);
     container.addSaveListener(listener);
@@ -33,7 +33,7 @@ public class PerformanceContainerTest {
   @Test
   public void testApplyListener() {
     PerformanceApplyListener listener = mock(PerformanceApplyListener.class);
-    PerformanceContainer container = new PerformanceContainer();
+    DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     Performance performance = new TransientPerformance();
     container.setPerformance(performance);
     container.addApplyListener(listener);
@@ -48,7 +48,7 @@ public class PerformanceContainerTest {
   @Test
   public void testLoadListener() {
     PerformanceLoadListener listener = mock(PerformanceLoadListener.class);
-    PerformanceContainer container = new PerformanceContainer();
+    DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     Performance performance = new TransientPerformance();
     container.setPerformance(performance);
     container.addLoadListener(listener);
@@ -62,7 +62,7 @@ public class PerformanceContainerTest {
 
   @Test
   public void testIsEmpty() {
-    PerformanceContainer container = new PerformanceContainer();
+    DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     container.setPerformance(new TransientPerformance());
     assertTrue("Performance should be empty", container.isEmpty());
     PerformanceBuilder builder = new PerformanceBuilder(container);
@@ -72,7 +72,7 @@ public class PerformanceContainerTest {
 
   @Test
   public void testMixin() {
-    PerformanceContainer container = new PerformanceContainer();
+    DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     container.setPerformance(new TransientPerformance());
     container.mixin(new SimplePerformance());
     assertEquals(1, container.getSequenceStream().count());

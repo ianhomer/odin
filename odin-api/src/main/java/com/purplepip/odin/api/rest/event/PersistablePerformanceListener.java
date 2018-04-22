@@ -16,6 +16,7 @@
 package com.purplepip.odin.api.rest.event;
 
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoadListener;
@@ -50,7 +51,7 @@ public class PersistablePerformanceListener implements
    * Refresh container.
    */
   @Override
-  public void onPerformanceLoad(PerformanceContainer container) {
+  public void onPerformanceLoad(DefaultPerformanceContainer container) {
     LOG.info("Reloading performance");
     loader.load(container.getPerformance().getUri());
   }

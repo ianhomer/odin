@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.api;
 
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -43,8 +43,8 @@ public class OdinNoStoreConfiguration {
    * @return performance container
    */
   @Bean
-  public PerformanceContainer performanceContainer() {
-    PerformanceContainer performanceContainer = new PerformanceContainer();
+  public DefaultPerformanceContainer performanceContainer() {
+    DefaultPerformanceContainer performanceContainer = new DefaultPerformanceContainer();
     performanceContainer.setPerformance(new TransientPerformance());
     return performanceContainer;
   }

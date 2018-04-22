@@ -29,7 +29,7 @@ import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import org.junit.Test;
@@ -50,7 +50,8 @@ public class SequenceFactoryTest {
 
   @Test
   public void testCopy() throws OdinException {
-    PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+    DefaultPerformanceContainer container =
+        new DefaultPerformanceContainer(new TransientPerformance());
     new PerformanceBuilder(container)
         .addLayer("groove")
         .withLayers("groove")
@@ -75,7 +76,8 @@ public class SequenceFactoryTest {
   @Test
   public void testCreateFlow() {
     TransientPerformance project = new TransientPerformance();
-    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
+    PerformanceBuilder builder = new PerformanceBuilder(
+        new DefaultPerformanceContainer(project));
     builder.addMetronome();
     Flow<Sequence> flow =
         flowFactory.createFlow(project.getSequences().iterator().next(), clock, measureProvider);

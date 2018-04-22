@@ -6,7 +6,7 @@ import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import java.util.List;
@@ -44,7 +44,7 @@ public class SequenceRepositoryTest {
   public void setUp() {
     performance = new PersistablePerformance();
     performanceRepository.save(performance);
-    builder = new PersistablePerformanceBuilder(new PerformanceContainer(performance));
+    builder = new PersistablePerformanceBuilder(new DefaultPerformanceContainer(performance));
   }
 
   @Test

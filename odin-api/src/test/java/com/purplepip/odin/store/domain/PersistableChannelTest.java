@@ -5,7 +5,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.channel.Channel;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -27,7 +27,7 @@ public class PersistableChannelTest {
   @Before
   public void setUp() {
     PersistablePerformance performance = new PersistablePerformance();
-    builder = new PersistablePerformanceBuilder(new PerformanceContainer(performance));
+    builder = new PersistablePerformanceBuilder(new DefaultPerformanceContainer(performance));
   }
 
   @Test

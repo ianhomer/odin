@@ -27,6 +27,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
@@ -55,11 +56,11 @@ public class TestSequencerEnvironment {
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
                                   Performance performance,
                                   OdinSequencerConfiguration configuration) throws OdinException {
-    this(operationReceiver, new PerformanceContainer(performance), configuration);
+    this(operationReceiver, new DefaultPerformanceContainer(performance), configuration);
   }
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
-                                  PerformanceContainer container) throws OdinException {
+                                  DefaultPerformanceContainer container) throws OdinException {
     this(operationReceiver, container, new DeltaOdinSequencerConfiguration());
   }
 
@@ -72,7 +73,7 @@ public class TestSequencerEnvironment {
    * @throws OdinException exception
    */
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
-                                  PerformanceContainer container,
+                                  DefaultPerformanceContainer container,
                                   OdinSequencerConfiguration configuration) throws OdinException {
     this.container = container;
     this.deltaConfiguration = configuration;

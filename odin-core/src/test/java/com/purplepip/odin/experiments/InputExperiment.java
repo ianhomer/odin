@@ -25,7 +25,7 @@ import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.operation.OperationReceiver;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.BeanyPerformanceBuilder;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
@@ -81,7 +81,8 @@ public class InputExperiment {
         synthesizerHelper.loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
-      PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+      DefaultPerformanceContainer container =
+          new DefaultPerformanceContainer(new TransientPerformance());
       new BeanyPerformanceBuilder(container)
           .withChannel(1).changeProgramTo("piano");
 

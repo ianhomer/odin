@@ -14,8 +14,8 @@ import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
-import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
@@ -69,7 +69,8 @@ public class MidiSequenceExperiment {
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     OperationTransmitter transmitter = new DefaultOperationTransmitter();
     midiDeviceWrapper.registerWithTransmitter(transmitter);
-    PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+    DefaultPerformanceContainer container =
+        new DefaultPerformanceContainer(new TransientPerformance());
     PerformanceLoader loader = new ClassPerformanceLoader(container, new DemoLoaderPerformance());
     OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))

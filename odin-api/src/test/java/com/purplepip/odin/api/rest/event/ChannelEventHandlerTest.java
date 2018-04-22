@@ -20,17 +20,17 @@ import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.creation.channel.DefaultChannel;
 import com.purplepip.odin.performance.PerformanceContainer;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@Ignore("Verify that performance container events called")
+@SpringBootTest(classes = ChannelEventHandler.class)
 public class ChannelEventHandlerTest {
-  @SpyBean
+  @MockBean
   private PerformanceContainer performanceContainer;
 
   @Autowired

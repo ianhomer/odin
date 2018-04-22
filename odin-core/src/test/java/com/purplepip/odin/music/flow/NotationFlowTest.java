@@ -34,7 +34,7 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ import org.junit.Test;
 public class NotationFlowTest {
   private Flow<Sequence> createNotationFlow(String notationAsString) {
     TransientPerformance project = new TransientPerformance();
-    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(project));
+    PerformanceBuilder builder = new PerformanceBuilder(new DefaultPerformanceContainer(project));
     builder.withName("notation").addNotation(Ticks.BEAT, notationAsString);
     Notation notation = (Notation) builder.getSequenceByOrder(0);
     FlowFactory flowFactory = newNoteFlowFactory();

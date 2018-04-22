@@ -20,5 +20,5 @@ package com.purplepip.odin.performance;
  */
 @FunctionalInterface
 public interface PerformanceLoadListener {
-  void onPerformanceLoad(PerformanceContainer container);
+  void onPerformanceLoad(DefaultPerformanceContainer container);
 }

@@ -34,6 +34,7 @@ import com.purplepip.odin.creation.conductor.UnmodifiableConductors;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
@@ -44,7 +45,8 @@ public class MutableTracksTest {
   private AbstractUnmodifiableThings<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
 
-  private PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+  private PerformanceContainer container =
+      new DefaultPerformanceContainer(new TransientPerformance());
   private BeatClock clock = newPrecisionBeatClock(12000);
   private FlowFactory flowFactory = newNoteFlowFactory();
   private ActionFactory actionFactory = newActionFactory();

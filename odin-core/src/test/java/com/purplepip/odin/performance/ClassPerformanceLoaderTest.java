@@ -26,7 +26,7 @@ import org.junit.Test;
 public class ClassPerformanceLoaderTest {
   @Test
   public void testLoad() throws Exception {
-    PerformanceContainer container = new PerformanceContainer();
+    DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     PerformanceLoader loader = new ClassPerformanceLoader(container);
     URI uri = new ClassUri(SimplePerformance.class, false).getUri();
     loader.load(uri);

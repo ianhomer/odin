@@ -22,7 +22,8 @@ public class TransientPerformanceTest {
   @Test
   public void testAddSequence() {
     Performance performance = new TransientPerformance();
-    PerformanceBuilder builder = new PerformanceBuilder(new PerformanceContainer(performance));
+    PerformanceBuilder builder = new PerformanceBuilder(
+        new DefaultPerformanceContainer(performance));
     builder.addMetronome();
     int count = 0;
     SequenceConfiguration firstSequence = null;

@@ -10,8 +10,8 @@ import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
-import com.purplepip.odin.performance.PerformanceContainer;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.CountDownLatch;
@@ -51,7 +51,8 @@ public class OdinSequencerReloadTest {
       }
     };
 
-    PerformanceContainer container = new PerformanceContainer(new SimplePerformance());
+    DefaultPerformanceContainer container =
+        new DefaultPerformanceContainer(new SimplePerformance());
     TestSequencerEnvironment environment = new TestSequencerEnvironment(
         new OperationReceiverCollection(operationReceiver,
             new ClassPerformanceLoader(container)),

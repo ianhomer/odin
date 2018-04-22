@@ -6,7 +6,7 @@ import com.purplepip.odin.clock.tick.TimeUnit;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -28,7 +28,7 @@ public class PersistableLayerTest {
   @Before
   public void setUp() {
     PersistablePerformance performance = new PersistablePerformance();
-    builder = new PersistablePerformanceBuilder(new PerformanceContainer(performance));
+    builder = new PersistablePerformanceBuilder(new DefaultPerformanceContainer(performance));
   }
 
   @Test

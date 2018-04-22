@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.Arrays;
@@ -77,7 +77,7 @@ public class ConductorActiveTest {
     clock = newPrecisionBeatClock(60, microsecondPositionProvider);
     conductors = new LayerConductors();
     project = new TransientPerformance();
-    builder = new PerformanceBuilder(new PerformanceContainer(project));
+    builder = new PerformanceBuilder(new DefaultPerformanceContainer(project));
   }
 
   @Test

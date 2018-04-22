@@ -8,7 +8,7 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.OperationReceiver;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
@@ -50,7 +50,8 @@ public class MidiOdinSequencerTest {
                 new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()))
               );
 
-      PerformanceContainer container = new PerformanceContainer(new TransientPerformance());
+      DefaultPerformanceContainer container =
+          new DefaultPerformanceContainer(new TransientPerformance());
       container.addApplyListener(sequencer);
       new PerformanceBuilder(container)
           .addLayer("groove").withLayers("groove")

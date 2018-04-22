@@ -25,7 +25,7 @@ import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.operation.OperationReceiver;
-import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
@@ -120,7 +120,7 @@ public class OdinConfiguration {
    */
   @Bean
   public OdinSequencer odinSequencer(OdinSequencerConfiguration configuration,
-                                     PerformanceContainer performanceContainer) {
+                                     DefaultPerformanceContainer performanceContainer) {
     OdinSequencer odinSequencer = new OdinSequencer(configuration);
     performanceContainer.addApplyListener(odinSequencer);
     return odinSequencer;

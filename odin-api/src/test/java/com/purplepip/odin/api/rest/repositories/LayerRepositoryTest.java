@@ -6,8 +6,8 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.layer.Layer;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.Performance;
-import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistablePerformance;
@@ -55,7 +55,7 @@ public class LayerRepositoryTest {
   public void setUp() {
     performance = new PersistablePerformance();
     performanceRepository.save(performance);
-    builder = new PersistablePerformanceBuilder(new PerformanceContainer(performance));
+    builder = new PersistablePerformanceBuilder(new DefaultPerformanceContainer(performance));
   }
 
   @Test
