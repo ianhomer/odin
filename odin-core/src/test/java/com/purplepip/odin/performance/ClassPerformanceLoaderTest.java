@@ -19,26 +19,38 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.common.ClassUri;
+import com.purplepip.odin.demo.DemoPerformances;
 import com.purplepip.odin.demo.SimplePerformance;
 import java.net.URI;
 import org.junit.Test;
 
 public class ClassPerformanceLoaderTest {
   @Test
-  public void testLoad() throws Exception {
+  public void testLoad() {
     DefaultPerformanceContainer container = new DefaultPerformanceContainer();
-    PerformanceLoader loader = new ClassPerformanceLoader(container);
-    URI uri = new ClassUri(SimplePerformance.class, false).getUri();
+    PerformanceLoader loader = new ClassPerformanceLoader(new SimplePerformance(), container);
+    URI uri = new ClassUri(SimplePerformance.class, true).getUri();
     loader.load(uri);
     assertEquals("com/purplepip/odin/demo/SimplePerformance",
         container.getPerformance().getName());
   }
 
   @Test
-  public void testCanLoad() throws Exception {
+  public void testCanLoad() {
     URI uri = new ClassUri(SimplePerformance.class).getUri();
-    assertTrue(new ClassPerformanceLoader().canLoad(uri));
+    assertTrue(new ClassPerformanceLoader(new SimplePerformance()).canLoad(uri));
     uri = new ClassUri(SimplePerformance.class, true).getUri();
-    assertTrue(new ClassPerformanceLoader().canLoad(uri));
+    assertTrue(new ClassPerformanceLoader(new SimplePerformance()).canLoad(uri));
+  }
+
+  @Test
+  public void testDemoPerformancesLoad() {
+    DefaultPerformanceContainer container = new DefaultPerformanceContainer();
+    PerformanceLoader loader = new ClassPerformanceLoader(new DemoPerformances().getPerformances(),
+        container);
+    URI uri = new ClassUri(SimplePerformance.class, true).getUri();
+    loader.load(uri);
+    assertEquals("com/purplepip/odin/demo/SimplePerformance",
+        container.getPerformance().getName());
   }
 }

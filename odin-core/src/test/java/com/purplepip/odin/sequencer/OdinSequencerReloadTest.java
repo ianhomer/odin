@@ -2,6 +2,7 @@ package com.purplepip.odin.sequencer;
 
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.BeatPerformance;
 import com.purplepip.odin.demo.SimplePerformance;
@@ -12,7 +13,6 @@ import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +44,8 @@ public class OdinSequencerReloadTest {
           LOG.warn("Unexpected note operation : {}", operation);
         }
       } else if (operation instanceof NoteOffOperation
-          || operation instanceof ProgramChangeOperation) {
+          || operation instanceof ProgramChangeOperation
+          || operation instanceof LoadPerformanceOperation) {
         LOG.trace("Ignored {} : ", operation);
       } else {
         LOG.warn("Unexpected operation : {}", operation);
@@ -55,7 +56,7 @@ public class OdinSequencerReloadTest {
         new DefaultPerformanceContainer(new SimplePerformance());
     TestSequencerEnvironment environment = new TestSequencerEnvironment(
         new OperationReceiverCollection(operationReceiver,
-            new ClassPerformanceLoader(container)),
+            new ClassPerformanceLoader(new BeatPerformance(), container)),
         container);
     environment.start();
 
@@ -68,7 +69,7 @@ public class OdinSequencerReloadTest {
 
       environment.getConfiguration().getOperationTransmitter().handle(
           new LoadPerformanceOperation(
-              new URI("classpath", BeatPerformance.class.getName(), null)), -1
+              new ClassUri(BeatPerformance.class, true).getUri()), -1
       );
 
       channel9Latch.await(2000, TimeUnit.MILLISECONDS);

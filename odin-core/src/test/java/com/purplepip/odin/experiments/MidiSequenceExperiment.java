@@ -7,6 +7,7 @@ import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
+import com.purplepip.odin.demo.DemoPerformances;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
@@ -71,7 +72,8 @@ public class MidiSequenceExperiment {
     midiDeviceWrapper.registerWithTransmitter(transmitter);
     DefaultPerformanceContainer container =
         new DefaultPerformanceContainer(new TransientPerformance());
-    PerformanceLoader loader = new ClassPerformanceLoader(container, new DemoLoaderPerformance());
+    PerformanceLoader loader = new ClassPerformanceLoader(
+        new DemoPerformances().getPerformances(), container, new DemoLoaderPerformance());
     OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))
         .setMeasureProvider(measureProvider)
@@ -95,7 +97,7 @@ public class MidiSequenceExperiment {
       }
 
       container.addApplyListener(sequencer);
-      loader.load(new ClassUri(GroovePerformance.class).getUri());
+      loader.load(new ClassUri(GroovePerformance.class, true).getUri());
       container.apply();
       Environments.newEnvironment().dump();
 

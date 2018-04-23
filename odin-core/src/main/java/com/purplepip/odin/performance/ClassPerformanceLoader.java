@@ -15,39 +15,64 @@
 
 package com.purplepip.odin.performance;
 
-import java.lang.reflect.InvocationTargetException;
+import com.purplepip.odin.common.ClassUri;
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ClassPerformanceLoader extends AbstractPerformanceLoader {
   private final PerformanceContainer container;
+  private final Map<URI, Performance> performanceMap;
 
-  public ClassPerformanceLoader() {
-    this(new DefaultPerformanceContainer());
+  public ClassPerformanceLoader(Performance performance) {
+    this(Collections.singletonList(performance));
   }
 
-  public ClassPerformanceLoader(PerformanceContainer container) {
+  public ClassPerformanceLoader(List<Performance> performances) {
+    this(performances, new DefaultPerformanceContainer());
+  }
+
+  public ClassPerformanceLoader(Performance performance, PerformanceContainer container) {
+    this(Collections.singletonList(performance), container);
+  }
+
+  public ClassPerformanceLoader(List<Performance> performances, PerformanceContainer container) {
     this.container = container;
+    this.performanceMap = toPerformanceMap(performances);
   }
 
-  public ClassPerformanceLoader(PerformanceContainer container, Performance overlay) {
+  /**
+   * Cerate a class performance loader.
+   *
+   * @param performances performances to load from
+   * @param container performance container
+   * @param overlay overlay
+   */
+  public ClassPerformanceLoader(List<Performance> performances, PerformanceContainer container,
+                                Performance overlay) {
     super(overlay);
     this.container = container;
+    this.performanceMap = toPerformanceMap(performances);
+  }
+
+  private Map<URI, Performance> toPerformanceMap(List<Performance> performances) {
+    return performances.stream().collect(
+        Collectors.toMap(p -> new ClassUri(p.getClass(), true).getUri(), p -> p));
   }
 
   @Override
   public void load(URI performanceUri) {
-    try {
-      String schemeSpecificPart = performanceUri.getSchemeSpecificPart();
-      String className = schemeSpecificPart.replace('/', '.');
-      container.setPerformance(overlay((Performance)
-          getClass().getClassLoader().loadClass(className).getDeclaredConstructor().newInstance()));
+    if (!performanceMap.containsKey(performanceUri)) {
+      LOG.error("Cannot load performance " + performanceUri + ", has it been registered in "
+          + performanceMap);
+    } else {
+      container.setPerformance(overlay(performanceMap.get(performanceUri)));
       container.apply();
       LOG.info("Loaded performance {}", performanceUri);
-    } catch (NoClassDefFoundError | ClassNotFoundException | IllegalAccessException
-        | NoSuchMethodException | InstantiationException | InvocationTargetException e) {
-      LOG.error("Cannot load performance " + performanceUri,e);
     }
   }
 
