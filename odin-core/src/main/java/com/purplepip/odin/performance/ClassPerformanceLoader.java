@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.performance;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,11 +42,11 @@ public class ClassPerformanceLoader extends AbstractPerformanceLoader {
       String schemeSpecificPart = performanceUri.getSchemeSpecificPart();
       String className = schemeSpecificPart.replace('/', '.');
       container.setPerformance(overlay((Performance)
-          getClass().getClassLoader().loadClass(className).newInstance()));
+          getClass().getClassLoader().loadClass(className).getDeclaredConstructor().newInstance()));
       container.apply();
       LOG.info("Loaded performance {}", performanceUri);
     } catch (NoClassDefFoundError | ClassNotFoundException | IllegalAccessException
-        | InstantiationException e) {
+        | NoSuchMethodException | InstantiationException | InvocationTargetException e) {
       LOG.error("Cannot load performance " + performanceUri,e);
     }
   }
