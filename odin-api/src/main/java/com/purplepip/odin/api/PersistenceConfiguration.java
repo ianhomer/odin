@@ -16,17 +16,30 @@
 package com.purplepip.odin.api;
 
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
+import com.purplepip.odin.performance.PerformanceContainer;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+/**
+ * Configuration for system persistence.
+ */
 @Configuration
 @EntityScan("com.purplepip.odin.store.domain")
 @Profile("!noStore")
 public class PersistenceConfiguration {
+  /**
+   * Create the performance container used persistence configuration.
+   *
+   * @return performance container.
+   */
+  /*
+   * TODO : Why do we need the persistence configuration to create a container which is not
+   * persistence specific?
+   */
   @Bean
-  public DefaultPerformanceContainer performanceContainer() {
+  public PerformanceContainer performanceContainer() {
     return new DefaultPerformanceContainer();
   }
 }

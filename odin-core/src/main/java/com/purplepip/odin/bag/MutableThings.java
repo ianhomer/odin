@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.bag;
 
-import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -44,9 +43,6 @@ public class MutableThings<T extends Thing> implements Things<T> {
   public boolean add(T thing) {
     mutableStatistics.incrementAddedCount();
     things.put(thing.getId(), thing);
-    if (thing.getName() == null) {
-      throw new OdinRuntimeException("Thing name must not be null : " + thing);
-    }
     thingsByName.put(thing.getName(), thing);
     return true;
   }

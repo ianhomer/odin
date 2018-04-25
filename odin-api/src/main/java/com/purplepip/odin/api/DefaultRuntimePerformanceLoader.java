@@ -25,6 +25,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Component that loads the default performance used for the runtime.
+ */
 @Component
 @Profile("!test")
 @Slf4j

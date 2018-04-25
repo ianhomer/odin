@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+/**
+ * Component that loads performances.
+ */
 @Component
 @Profile("!noStore")
 public class PerformanceImporter {
@@ -32,6 +35,7 @@ public class PerformanceImporter {
    * Load performance into the repository.
    *
    * @param performance performance to load
+   * @return performance that was loaded
    */
   public PersistablePerformance load(Performance performance) {
     PersistablePerformance persistablePerformance = new PersistablePerformance();

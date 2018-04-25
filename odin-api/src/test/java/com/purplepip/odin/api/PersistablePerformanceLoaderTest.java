@@ -16,12 +16,16 @@
 package com.purplepip.odin.api;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.common.ClassUri;
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
+import java.net.URI;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +60,16 @@ public class PersistablePerformanceLoaderTest {
     loader.load(new ClassUri(SimplePerformance.class).getUri());
     assertEquals("com/purplepip/odin/demo/SimplePerformance",
         container.getPerformance().getName());
+  }
+
+  @Test(expected = OdinRuntimeException.class)
+  public void testLoadPerformanceNotFound() {
+    loader.load(new ClassUri(PersistablePerformanceLoader.class).getUri());
+  }
+
+  @Test
+  public void testCanLoad() {
+    assertTrue(loader.canLoad(new ClassUri(PersistablePerformanceLoader.class).getUri()));
+    assertFalse(loader.canLoad(URI.create("http://purplepip.com")));
   }
 }

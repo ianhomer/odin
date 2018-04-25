@@ -22,10 +22,18 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * Component that loads the environment.
+ */
 @Component
 @Profile("!test")
 @Order(2)
 public class EnvironmentConfiguration {
+  /**
+   * Create new environment.
+   *
+   * @return environment
+   */
   @Bean
   public Environment odinEnvironment() {
     return Environments.newEnvironment();

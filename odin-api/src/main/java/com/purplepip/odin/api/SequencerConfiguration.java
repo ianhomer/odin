@@ -24,6 +24,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * Sequencer configuration.
+ */
 @Component
 @Order(1)
 @Slf4j

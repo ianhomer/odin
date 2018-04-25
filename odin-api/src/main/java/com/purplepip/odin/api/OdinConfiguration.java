@@ -53,16 +53,32 @@ public class OdinConfiguration {
   @Autowired(required = false)
   private PerformanceLoader performanceLoader;
 
+  /**
+   * Create the MIDI device wrapper.
+   *
+   * @return MIDI device wrapper
+   * @throws OdinException exception
+   */
   @Bean
   public MidiDeviceWrapper midiDeviceWrapper() throws OdinException {
     return new MidiDeviceWrapper();
   }
 
+  /**
+   * Create the measure provider.
+   *
+   * @return measure provider
+   */
   @Bean
   public MeasureProvider measureProvider() {
     return new StaticBeatMeasureProvider(FOUR_FOUR_TIME);
   }
 
+  /**
+   * Create the MIDI system wrapper.
+   *
+   * @return MIDI system wrapper
+   */
   @Bean
   public MidiSystemWrapper midiSystemWrapper() {
     return new MidiSystemWrapper();
@@ -114,7 +130,7 @@ public class OdinConfiguration {
   /**
    * Create Odin sequencer.
    *
-   * @param configuration        Odin configuration
+   * @param configuration Odin configuration
    * @param performanceContainer performance container
    * @return Odin sequencer
    */

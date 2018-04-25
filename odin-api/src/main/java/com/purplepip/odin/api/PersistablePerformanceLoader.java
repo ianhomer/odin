@@ -27,6 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+/**
+ * Component that loads performances.
+ */
 @Component
 @Slf4j
 @Profile("!noStore")
@@ -37,6 +40,9 @@ public class PersistablePerformanceLoader extends AbstractPerformanceLoader {
   @Autowired
   private PerformanceRepository performanceRepository;
 
+  /**
+   * Create the persistable performance loader.
+   */
   public PersistablePerformanceLoader() {
     super(new DemoLoaderPerformance());
   }

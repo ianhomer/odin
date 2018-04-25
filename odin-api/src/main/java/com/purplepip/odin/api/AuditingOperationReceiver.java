@@ -31,6 +31,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+/**
+ * An operation receiver that keeps an audit of all operations.
+ */
 @Component
 @Profile("!noAuditing")
 @Slf4j
@@ -46,7 +49,7 @@ public class AuditingOperationReceiver implements OperationReceiver, Initializin
     PersistableOperation persistableOperation = new PersistableOperation();
     persistableOperation.setMessage(operation.toString());
     persistableOperation.setTime(time);
-    persistableOperation.setType(getType(operation));
+    persistableOperation.setType(operation.getClass().getSimpleName());
     if (operation instanceof ChannelOperation) {
       persistableOperation.setChannel(((ChannelOperation) operation).getChannel());
       if (operation instanceof AbstractNoteVelocityOperation) {
@@ -57,10 +60,6 @@ public class AuditingOperationReceiver implements OperationReceiver, Initializin
       }
     }
     repository.save(persistableOperation);
-  }
-
-  private String getType(Operation operation) {
-    return operation.getClass().getSimpleName();
   }
 
   @Override

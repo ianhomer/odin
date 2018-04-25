@@ -26,6 +26,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Component that creates the default performance.
+ */
 @Component
 @Profile("!noStore")
 @Slf4j
@@ -41,7 +44,7 @@ public class DefaultPerformanceCreator implements CommandLineRunner {
 
   @Override
   @Transactional
-  public void run(String... args) throws Exception {
+  public void run(String... args) {
     if (performanceRepository.count() == 0) {
       PersistablePerformance performance = new PersistablePerformance();
       performance.setName(DEFAULT_PERFORMANCE_NAME);
