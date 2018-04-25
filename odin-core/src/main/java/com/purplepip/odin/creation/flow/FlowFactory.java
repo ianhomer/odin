@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Factory to create flows.
  *
- * @param <A> type of object delivered by the flow.
+ * @param type of object delivered by the flow.
  */
 @Slf4j
 public class FlowFactory {
