@@ -22,9 +22,10 @@ import org.junit.Test;
 public class ActionsTest {
   @Test
   public void testCopyCoreValues() {
-    GenericAction source = new GenericAction().type("start");
-    GenericAction destination = new GenericAction();
+    GenericAction source = new GenericAction("start").name("test");
+    GenericAction destination = new GenericAction("start");
     Actions.copyCoreValues(source, destination);
     assertEquals("start", destination.getType());
+    assertEquals("test", destination.getName());
   }
 }

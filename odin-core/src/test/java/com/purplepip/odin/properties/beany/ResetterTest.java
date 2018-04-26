@@ -24,14 +24,14 @@ import org.junit.Test;
 public class ResetterTest {
   @Test
   public void testReset() {
-    GenericSequence sequence = new GenericSequence();
+    GenericSequence sequence = new GenericSequence("test");
     Resetter setter = new Resetter();
     setter.reset(sequence);
     setter.set("format", "test-format");
     setter.set("offset", 9);
     assertEquals("test-format", sequence.getProperty("format"));
     assertEquals(Wholes.valueOf(9), sequence.getOffset());
-    GenericSequence newSequence = new GenericSequence();
+    GenericSequence newSequence = new GenericSequence("test");
     setter.reset(newSequence);
     assertEquals("test-format", newSequence.getProperty("format"));
     assertEquals(Wholes.valueOf(9), newSequence.getOffset());

@@ -18,5 +18,4 @@ package com.purplepip.odin.specificity;
 import com.purplepip.odin.bag.MutableThing;
 
 public interface MutableThingConfiguration extends MutableThing, ThingConfiguration {
-  void setType(String type);
 }

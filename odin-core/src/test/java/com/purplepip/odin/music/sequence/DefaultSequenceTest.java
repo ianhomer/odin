@@ -39,10 +39,9 @@ public class DefaultSequenceTest {
   }
 
   private SequenceConfiguration createSequence() {
-    GenericSequence sequence = new GenericSequence();
+    GenericSequence sequence = new GenericSequence("test-flow-name");
     sequence.setName("test-sequence");
     sequence.setProperty("my.property","my.property-value");
-    sequence.setType("test-flow-name");
     return sequence;
   }
 }

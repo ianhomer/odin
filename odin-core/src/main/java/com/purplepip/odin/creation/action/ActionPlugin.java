@@ -16,12 +16,18 @@
 package com.purplepip.odin.creation.action;
 
 import com.purplepip.odin.creation.plugin.Plugin;
+import com.purplepip.odin.specificity.NameValue;
 import java.util.stream.Stream;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 public abstract class ActionPlugin extends GenericAction
     implements MutableActionConfiguration, Action, Plugin {
+
+  protected ActionPlugin() {
+    super();
+    setType(new NameValue(getClass()).get());
+  }
 
   /**
    * By default the ripples from an action plugin is just this plugin itself.  The ListAction

@@ -39,7 +39,7 @@ public class ActionFactoriesTest {
   @Test
   public void testCreateFromGeneric() {
     ActionFactory factory = newActionFactory();
-    ActionConfiguration configuration = new GenericAction().type("start");
+    ActionConfiguration configuration = new GenericAction("start");
     Action action = factory.newInstance(configuration);
     assertEquals("start", action.getType());
     assertTrue(action instanceof StartAction);

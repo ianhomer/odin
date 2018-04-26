@@ -20,14 +20,13 @@ import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 
 public class HeartBeatSequence extends GenericSequence {
   public HeartBeatSequence(long id) {
-    super(id);
+    super("heart-beat", id);
   }
 
   @Override
   public SequenceConfiguration copy() {
     HeartBeatSequence copy = new HeartBeatSequence(this.getId());
     copy.setChannel(this.getChannel());
-    copy.setType(this.getType());
     copy.setLength(this.getLength());
     copy.setOffset(this.getOffset());
     copy.setTick(this.getTick());

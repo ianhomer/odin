@@ -17,25 +17,29 @@ package com.purplepip.odin.creation.action;
 
 import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
-import com.purplepip.odin.specificity.NameValue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GenericAction extends AbstractPropertiesThing implements MutableActionConfiguration {
-  private String typeFromAnnotation = new NameValue(this).get();
-  private String type = typeFromAnnotation;
+  private String type;
 
   /**
    * Create a new generic action.
    */
-  public GenericAction() {
+  protected GenericAction() {
     super();
   }
 
-  public GenericAction(long id) {
+  public GenericAction(String type) {
+    super();
+    this.type = type;
+  }
+
+  public GenericAction(String type, long id) {
     super(id);
+    this.type = type;
   }
 
   protected <T extends GenericAction> T copy(T copy, Class<T> type) {
@@ -44,9 +48,12 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
     return copy;
   }
 
-  public GenericAction type(String type) {
+  protected void setType(String type) {
     this.type = type;
-    return this;
+  }
+
+  public String getType() {
+    return type;
   }
 
   public GenericAction name(String name) {
@@ -66,7 +73,7 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
    */
   public String toString() {
     return Stringy.of(GenericAction.class, this)
-        .add("type", type, type -> !type.equals(typeFromAnnotation))
+        .add("type", type)
         .add("name", getName())
         .add("properties", getPropertyEntries())
         .build();

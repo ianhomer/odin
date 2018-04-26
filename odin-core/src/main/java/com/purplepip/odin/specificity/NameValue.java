@@ -21,11 +21,15 @@ import java.util.Optional;
  * Convenience accessor for Name annotation.
  */
 public class NameValue {
-  private String value;
+  private final String value;
 
   public NameValue(ThingConfiguration thingConfiguration) {
-    value = Optional.ofNullable(thingConfiguration.getClass().getAnnotation(Name.class))
-        .map(Name::value).orElse(null);
+    this(thingConfiguration.getClass());
+  }
+
+  public NameValue(Class<? extends ThingConfiguration> clazz) {
+    value = Optional.ofNullable(clazz.getAnnotation(Name.class))
+        .map(Name::value).orElse("default");
   }
 
   public String get() {

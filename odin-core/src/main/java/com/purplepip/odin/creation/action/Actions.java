@@ -32,7 +32,6 @@ public final class Actions {
    */
   public static void copyCoreValues(ActionConfiguration from, MutableActionConfiguration to) {
     to.setName(from.getName());
-    to.setType(from.getType());
     Properties.copyProperties(from, to);
   }
 }

@@ -16,7 +16,11 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
+import com.purplepip.odin.music.sequence.Metronome;
+import com.purplepip.odin.music.sequence.Notation;
+import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.performance.PerformanceContainer;
+import com.purplepip.odin.specificity.NameValue;
 
 /**
  * Project builder which generates bean based objects instead of the specialised types.  This
@@ -38,7 +42,7 @@ public class BeanyPerformanceBuilder extends PerformanceBuilder {
    */
   @Override
   protected MutableSequenceConfiguration createMetronome() {
-    return createSequence();
+    return createSequence(new NameValue(Metronome.class).get());
   }
 
   /**
@@ -49,7 +53,7 @@ public class BeanyPerformanceBuilder extends PerformanceBuilder {
    */
   @Override
   protected MutableSequenceConfiguration createNotation() {
-    return createSequence();
+    return createSequence(new NameValue(Notation.class).get());
   }
 
   /**
@@ -60,6 +64,6 @@ public class BeanyPerformanceBuilder extends PerformanceBuilder {
    */
   @Override
   protected MutableSequenceConfiguration createPattern() {
-    return createSequence();
+    return createSequence(new NameValue(Pattern.class).get());
   }
 }

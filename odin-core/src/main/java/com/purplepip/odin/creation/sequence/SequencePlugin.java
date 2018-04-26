@@ -16,7 +16,12 @@
 package com.purplepip.odin.creation.sequence;
 
 import com.purplepip.odin.creation.plugin.Plugin;
+import com.purplepip.odin.specificity.NameValue;
 
 public abstract class SequencePlugin extends GenericSequence
     implements MutableSequenceConfiguration, Sequence, Plugin {
+  protected SequencePlugin() {
+    super();
+    setType(new NameValue(getClass()).get());
+  }
 }

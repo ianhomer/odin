@@ -25,7 +25,7 @@ public interface ActionConfiguration extends ThingConfiguration {
    */
   @Override
   default ActionConfiguration copy() {
-    MutableActionConfiguration copy = new GenericAction(this.getId());
+    MutableActionConfiguration copy = new GenericAction(this.getType(), this.getId());
     Actions.copyCoreValues(this, copy);
     return copy;
   }

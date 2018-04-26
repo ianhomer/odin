@@ -30,7 +30,7 @@ import org.junit.Test;
 public class SetterTest {
   @Test
   public void testSetPropertyOnGeneric() {
-    MutablePropertiesProvider sequence = new GenericSequence();
+    MutablePropertiesProvider sequence = new GenericSequence("test");
     Setter setter = new Setter(sequence);
     setter.set("format", "test-format");
     assertEquals("test-format", sequence.getProperty("format"));
@@ -46,7 +46,7 @@ public class SetterTest {
 
   @Test
   public void testSetPropertyOnGenericWithDeclared() {
-    MutablePropertiesProvider sequence = new GenericSequence();
+    MutablePropertiesProvider sequence = new GenericSequence("test");
     Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
     try (LogCaptor captor = new LogCapture().from(Setter.class).warn().start()) {
       setter.set("format", "test-format");
@@ -83,7 +83,7 @@ public class SetterTest {
 
   @Test
   public void testSetNotePropertyOnGeneric() {
-    MutablePropertiesProvider sequence = new GenericSequence();
+    MutablePropertiesProvider sequence = new GenericSequence("test");
     Setter setter = new Setter(sequence);
     setter.set("note", new DefaultNote(11,22,33));
     assertEquals("11", sequence.getProperty("note.number"));

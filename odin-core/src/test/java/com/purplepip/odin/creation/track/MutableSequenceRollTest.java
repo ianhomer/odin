@@ -56,7 +56,7 @@ public class MutableSequenceRollTest {
     GenericSequence notation = new Notation()
         .notation("C D E")
         .channel(2).layer("groove")
-        .trigger("trigger-1", new GenericAction().type("start"))
+        .trigger("trigger-1", new GenericAction("start"))
         .enabled(false)
         .name("success");
     MutableSequenceRoll roll = new MutableSequenceRoll(notation.copy(), clock,

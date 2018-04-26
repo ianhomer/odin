@@ -29,7 +29,6 @@ import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.creation.layer.MutableLayer;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration;
-import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.creation.triggers.GenericTrigger;
 import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration;
@@ -46,7 +45,6 @@ import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.properties.beany.Setter;
-import com.purplepip.odin.specificity.Specifics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -139,16 +137,9 @@ public class PerformanceBuilder {
     return projectContainer.getTrigger(triggerIds.get(id));
   }
 
-  private static MutableSequenceConfiguration withFlow(MutableSequenceConfiguration sequence,
-                                                       Class<? extends Sequence> clazz) {
-    sequence.setType(Specifics.getName(clazz));
-    return sequence;
-  }
-
   private MutableSequenceConfiguration withDefaultsForMetronome(
       MutableSequenceConfiguration sequence) {
     sequence.setTick(createTick(Ticks.HALF));
-    withFlow(sequence, Metronome.class);
     new Setter(sequence)
         .set("noteBarStart", createNote(Notes.newNote()))
         .set("noteBarMid", createNote(new DefaultNote(64,Notes.DEFAULT_VELOCITY / 2,
@@ -158,12 +149,12 @@ public class PerformanceBuilder {
 
   private MutableSequenceConfiguration withDefaultsForPattern(
       MutableSequenceConfiguration sequence) {
-    return withFlow(withDefaults(sequence), Pattern.class);
+    return withDefaults(sequence);
   }
 
   private MutableSequenceConfiguration withDefaultsForNotation(
       MutableSequenceConfiguration sequence) {
-    return withFlow(withDefaults(sequence), Notation.class);
+    return withDefaults(sequence);
   }
 
   private MutableSequenceConfiguration withDefaults(MutableSequenceConfiguration sequence) {
@@ -214,10 +205,11 @@ public class PerformanceBuilder {
    * Create sequence.  This method can be overridden by another sequence builder that
    * uses a different model implementation.
    *
+   * @param type trigger type
    * @return sequence
    */
-  protected MutableTriggerConfiguration createTrigger() {
-    return new GenericTrigger();
+  protected MutableTriggerConfiguration createTrigger(String type) {
+    return new GenericTrigger(type);
   }
 
   /**
@@ -234,10 +226,11 @@ public class PerformanceBuilder {
    * Create sequence.  This method can be overridden by another sequence builder that
    * uses a different model implementation.
    *
+   * @param type sequence type
    * @return sequence
    */
-  protected MutableSequenceConfiguration createSequence() {
-    return new GenericSequence();
+  protected MutableSequenceConfiguration createSequence(String type) {
+    return new GenericSequence(type);
   }
 
   /**
@@ -495,7 +488,7 @@ public class PerformanceBuilder {
    * @return sequence builder
    */
   public PerformanceBuilder addSequence() {
-    MutableSequenceConfiguration sequence = withDefaults(createSequence());
+    MutableSequenceConfiguration sequence = withDefaults(createSequence(typeName));
     addSequenceToContainer(applyParameters(sequence));
     return this;
   }
@@ -560,9 +553,6 @@ public class PerformanceBuilder {
     sequence.setOffset(Wholes.valueOf(offset));
     if (sequence.getTick() == null) {
       sequence.setTick(tick);
-    }
-    if (sequence.getType() == null) {
-      sequence.setType(typeName);
     }
     layerNamesToAdd.forEach(sequence::addLayer);
     triggersToAdd.forEach(sequence::addTrigger);

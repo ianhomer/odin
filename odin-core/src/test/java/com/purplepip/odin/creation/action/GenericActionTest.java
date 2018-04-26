@@ -24,9 +24,9 @@ import org.junit.Test;
 public class GenericActionTest {
   @Test
   public void testCopy() {
-    assertCopy(new GenericAction().name("test").type("start"));
+    assertCopy(new GenericAction("start").name("test"));
     assertCopy(new GenericAction().name("test"));
-    assertCopy(new GenericAction(1).name("test"));
+    assertCopy(new GenericAction("test", 1).name("test"));
     assertCopy(new GenericAction().property("property1","value1"));
   }
 
@@ -35,7 +35,7 @@ public class GenericActionTest {
     ActionConfiguration copy = action.copy();
     assertEquals(action, copy);
     assertEquals(action.hashCode(), copy.hashCode());
-    GenericAction notEqualsAction = new GenericAction(1).name("test")
+    GenericAction notEqualsAction = new GenericAction("test", 1).name("test")
         .property("property1", "not-equals-value");
     assertNotEquals(action, notEqualsAction);
     assertNotEquals(action.hashCode(), notEqualsAction.hashCode());
@@ -44,13 +44,13 @@ public class GenericActionTest {
   @Test
   public void testToString() {
     assertEquals("GenericAction(type=start, name=test, properties=[property1=value1])",
-        new GenericAction().name("test").type("start")
+        new GenericAction("start").name("test")
             .property("property1", "value1").toString());
   }
 
   @Test
   public void testGenericAction() {
-    GenericAction action = new GenericAction().name("test").type("start");
+    GenericAction action = new GenericAction("start").name("test");
     assertEquals("start", action.copy().getType());
   }
 }

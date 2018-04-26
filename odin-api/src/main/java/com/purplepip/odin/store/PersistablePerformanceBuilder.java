@@ -45,13 +45,17 @@ public class PersistablePerformanceBuilder extends BeanyPerformanceBuilder {
   }
 
   @Override
-  protected MutableTriggerConfiguration createTrigger() {
-    return new PersistableTrigger();
+  protected MutableTriggerConfiguration createTrigger(String type) {
+    PersistableTrigger triggerConfiguration = new PersistableTrigger();
+    triggerConfiguration.setType(type);
+    return triggerConfiguration;
   }
 
   @Override
-  protected MutableSequenceConfiguration createSequence() {
-    return new PersistableSequence();
+  protected MutableSequenceConfiguration createSequence(String type) {
+    PersistableSequence persistableSequence = new PersistableSequence();
+    persistableSequence.setType(type);
+    return persistableSequence;
   }
 
   /**

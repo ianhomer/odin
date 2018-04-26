@@ -152,8 +152,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   private void warmUp() {
     LOG.debug("Warming up {}", this);
     getNames().forEach(name -> {
-      MutableThingConfiguration thingConfiguration = new GenericThingConfiguration();
-      thingConfiguration.setType(name);
+      MutableThingConfiguration thingConfiguration = new GenericThingConfiguration(name);
       newInstance(thingConfiguration);
     });
   }

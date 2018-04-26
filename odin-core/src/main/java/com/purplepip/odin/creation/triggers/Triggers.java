@@ -33,7 +33,6 @@ public final class Triggers {
   public static void copyCoreValues(TriggerConfiguration from, MutableTriggerConfiguration to) {
     to.setEnabled(from.isEnabled());
     to.setName(from.getName());
-    to.setType(from.getType());
     to.setLength(from.getLength());
     to.setOffset(from.getOffset());
     to.setTick(from.getTick());

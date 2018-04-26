@@ -54,7 +54,7 @@ public class ThingCopyTest {
 
   @Test
   public void testCoerceViaCopy() {
-    GenericSequence source = new GenericSequence().name("test").type("notation");
+    GenericSequence source = new GenericSequence("notation").name("test");
     Notation destination = ThingCopy.from(source).coerce(Notation.class);
     assertEquals("test", destination.getName());
     /*
@@ -75,7 +75,7 @@ public class ThingCopyTest {
   }
 
   @Test
-  public void testCopy() throws Exception {
+  public void testCopy() {
     Thing source = new DefaultLayer("test")
         .layer("layer1", "layer2").length(1).offset(8).enabled(false);
     Thing destination = new DefaultLayer(source.getId());
@@ -85,9 +85,9 @@ public class ThingCopyTest {
 
   @Test
   public void testCopyFromGenericToGeneric() {
-    GenericSequence destination = new GenericSequence().name("test");
+    GenericSequence destination = new GenericSequence("test").name("test");
     assertFalse(destination.arePropertiesDeclared());
-    GenericSequence source = new GenericSequence().offset(8)
+    GenericSequence source = new GenericSequence("test").offset(8)
         .property("undeclared", "value1")
         .property("undeclared.nested", "value2");
     try (LogCaptor captor = new LogCapture().warn().from(ThingCopy.class)
@@ -107,7 +107,7 @@ public class ThingCopyTest {
 
   @Test
   public void testCopyFromGenericToSpecific() {
-    GenericSequence source = new GenericSequence().offset(8)
+    GenericSequence source = new GenericSequence("notation").offset(8)
         .property("notation", "A B C");
     Notation destination = (Notation) new Notation().name("test");
     assertTrue(destination.arePropertiesDeclared());
@@ -127,7 +127,7 @@ public class ThingCopyTest {
 
   @Test
   public void testCopyFromSpecificToGeneric() {
-    GenericSequence destination = new GenericSequence();
+    GenericSequence destination = new GenericSequence("notation");
     Notation source = (Notation) new Notation().notation("A B C")
         .offset(8).name("test");
     new ThingCopy().source(source).destination(destination).copy();
@@ -152,7 +152,7 @@ public class ThingCopyTest {
   public void testCopyFromGenericToSpecificWithUndeclaredProperty() {
     GenericSequence destination = new Notation().name("test").tick(Ticks.BEAT);
     assertTrue(destination.arePropertiesDeclared());
-    GenericSequence source = new GenericSequence()
+    GenericSequence source = new GenericSequence("notation")
         .tick(Ticks.HALF)
         .property("undeclared", "value1")
         .property("undeclared.nested", "value2");
@@ -176,7 +176,7 @@ public class ThingCopyTest {
   public void testFullCycle() {
     Lists.newArrayList(new GroovePerformance(), new KotlinPerformance()).forEach(performance ->
         performance.getSequences().forEach(source -> {
-          GenericSequence destination = new GenericSequence(source.getId());
+          GenericSequence destination = new GenericSequence(source.getType(), source.getId());
           new ThingCopy().source(source).destination(destination).copy();
           try {
             SequenceConfiguration copyOfCopy = source.getClass().newInstance();

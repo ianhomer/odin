@@ -26,7 +26,7 @@ public interface TriggerConfiguration extends ThingConfiguration, TimeThing {
    */
   @Override
   default TriggerConfiguration copy() {
-    MutableTriggerConfiguration copy = new GenericTrigger(this.getId());
+    MutableTriggerConfiguration copy = new GenericTrigger(this.getType(), this.getId());
     Triggers.copyCoreValues(this, copy);
     return copy;
   }

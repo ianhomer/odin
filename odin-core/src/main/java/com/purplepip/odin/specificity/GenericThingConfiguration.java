@@ -23,26 +23,23 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class GenericThingConfiguration extends AbstractPropertiesThing
     implements MutableThingConfiguration {
-  private String type;
+  private final String type;
 
-  public GenericThingConfiguration() {
+  public GenericThingConfiguration(String type) {
     super();
+    this.type = type;
   }
 
-  public GenericThingConfiguration(long id) {
+  public GenericThingConfiguration(String type, long id) {
     super(id);
+    this.type = type;
   }
 
   @Override
   public GenericThingConfiguration copy() {
-    GenericThingConfiguration copy = new GenericThingConfiguration(this.getId());
+    GenericThingConfiguration copy = new GenericThingConfiguration(this.getType(), this.getId());
     Properties.copyProperties(this, copy);
     return copy;
-  }
-
-  @Override
-  public void setType(String type) {
-    this.type = type;
   }
 
   @Override

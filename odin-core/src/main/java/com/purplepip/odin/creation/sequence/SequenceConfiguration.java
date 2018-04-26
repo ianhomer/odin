@@ -36,7 +36,7 @@ public interface SequenceConfiguration extends ThingConfiguration, TimeThing {
    */
   @Override
   default SequenceConfiguration copy() {
-    MutableSequenceConfiguration copy = new GenericSequence(this.getId());
+    MutableSequenceConfiguration copy = new GenericSequence(getType(), getId());
     Sequences.copyCoreValues(this, copy);
     return copy;
   }

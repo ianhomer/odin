@@ -66,7 +66,7 @@ public class ListAction extends ActionPlugin {
   public static Map<String, ActionConfiguration> asActionConfigurationMap(
       String trigger, ActionConfiguration... actions) {
     Map<String, ActionConfiguration> map = new HashMap<>();
-    map.put(trigger, new GenericAction().type("list"));
+    map.put(trigger, new GenericAction("list"));
     for (int i = 0 ; i < actions.length ; i++) {
       map.put(LIST_ACTION_START + trigger + LIST_ACTION_INDEX + i, actions[i]);
     }
