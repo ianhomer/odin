@@ -63,13 +63,17 @@ public class DefaultOperationProcessorExecutor extends SequencerRunnable {
        * If we are ready for next event then take it off the queue and process.
        */
       nextEvent = queue.poll();
-      try {
-        operationReceiver.handle(nextEvent.getOperation(), nextEvent.getTime());
-        sentMetric.mark();
-        count++;
-      } catch (OdinException e) {
-        failureMetric.mark();
-        LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
+      if (nextEvent == null) {
+        LOG.warn("Next event on queue has gone missing");
+      } else {
+        try {
+          operationReceiver.handle(nextEvent.getOperation(), nextEvent.getTime());
+          sentMetric.mark();
+          count++;
+        } catch (OdinException e) {
+          failureMetric.mark();
+          LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
+        }
       }
       nextEvent = queue.peek();
     }

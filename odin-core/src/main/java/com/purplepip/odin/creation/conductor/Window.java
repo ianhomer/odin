@@ -21,9 +21,9 @@ import com.purplepip.odin.math.Rational;
  * Window of activity for a conductor.
  */
 public class Window {
-  private Rational start;
-  private Rational length;
-  private Rational end;
+  private final Rational start;
+  private final Rational length;
+  private final Rational end;
 
   /**
    * Create a window.

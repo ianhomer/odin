@@ -27,8 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TriggerReactors extends AbstractPluggableAspects<TriggerReactor,
     TriggerConfiguration> {
-  private Things<? extends Conductor> conductors;
-  private Things<? extends Track> tracks;
+  private final Things<? extends Conductor> conductors;
+  private final Things<? extends Track> tracks;
 
   public TriggerReactors(Things<? extends Track> tracks, Things<? extends Conductor> conductors) {
     this.conductors = conductors;

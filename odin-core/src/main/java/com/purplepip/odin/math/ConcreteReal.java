@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 final class ConcreteReal extends AbstractReal {
-  private double value;
+  private final double value;
 
   ConcreteReal(double value) {
     this.value = value;

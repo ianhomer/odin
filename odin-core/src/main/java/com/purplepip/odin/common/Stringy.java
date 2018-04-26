@@ -28,9 +28,9 @@ public class Stringy {
   private static final char OPEN = '(';
   private static final char CLOSE = ')';
 
-  private Class clazz;
+  private final Class clazz;
   private Object object;
-  private Map<String, String> nameValues = new LinkedHashMap<>();
+  private final Map<String, String> nameValues = new LinkedHashMap<>();
   private boolean includeNulls = false;
   private boolean includeZeros = false;
 

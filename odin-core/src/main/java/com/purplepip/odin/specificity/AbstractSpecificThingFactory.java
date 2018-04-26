@@ -69,27 +69,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
    * @param configuration for the new instance
    */
   public C newInstance(ThingConfiguration configuration) {
-    String type = configuration.getType();
-    Class<? extends C> expectedType;
-    if (type == null) {
-      /*
-       * Look for annotation to see if this is the class we're looking for ...
-       */
-      Class<? extends ThingConfiguration> clazz = configuration.getClass();
-      if (clazz.isAnnotationPresent(Name.class)) {
-        type = clazz.getAnnotation(Name.class).value();
-        expectedType = getClass(type);
-        if (!expectedType.isInstance(configuration)) {
-          throw new OdinRuntimeException("Annotated type '" + type + "' with class "
-              + clazz.getName() + " does not match expected " + expectedType.getName());
-        }
-      } else {
-        throw new OdinRuntimeException("No type is set on thing configuration " + configuration);
-      }
-    } else {
-      expectedType = getClass(type);
-    }
-    return newInstance(configuration, expectedType);
+    return newInstance(configuration, getClass(configuration.getType()));
   }
 
   /**

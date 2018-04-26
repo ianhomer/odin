@@ -43,7 +43,7 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
   private final PriorityBlockingQueue<OperationEvent> queue;
   private ScheduledExecutorService scheduledPool;
   private DefaultOperationProcessorExecutor executor;
-  private long refreshPeriod;
+  private final long refreshPeriod;
 
   /**
    * Create an operation processor.

@@ -551,9 +551,6 @@ public class PerformanceBuilder {
     sequence.setChannel(channel);
     sequence.setLength(length);
     sequence.setOffset(Wholes.valueOf(offset));
-    if (sequence.getTick() == null) {
-      sequence.setTick(tick);
-    }
     layerNamesToAdd.forEach(sequence::addLayer);
     triggersToAdd.forEach(sequence::addTrigger);
 

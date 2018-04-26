@@ -21,8 +21,8 @@ import com.purplepip.odin.operation.Operation;
  * Operation event that should fire at the given time.
  */
 public class OperationEvent {
-  private Operation operation;
-  private long time;
+  private final Operation operation;
+  private final long time;
 
   OperationEvent(Operation operation, long time) {
     this.operation = operation;

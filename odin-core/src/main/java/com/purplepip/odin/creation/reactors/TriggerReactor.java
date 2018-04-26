@@ -37,8 +37,8 @@ import lombok.extern.slf4j.Slf4j;
 public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfiguration> {
   private TriggerConfiguration triggerConfiguration;
   private Trigger trigger;
-  private Map<Track, Action> trackActions = new HashMap<>();
-  private TriggerFactory triggerFactory;
+  private final Map<Track, Action> trackActions = new HashMap<>();
+  private final TriggerFactory triggerFactory;
 
   public TriggerReactor(TriggerConfiguration triggerConfiguration, TriggerFactory triggerFactory) {
     this.triggerFactory = triggerFactory;

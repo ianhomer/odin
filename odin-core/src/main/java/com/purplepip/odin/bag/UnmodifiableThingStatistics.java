@@ -16,7 +16,7 @@
 package com.purplepip.odin.bag;
 
 public class UnmodifiableThingStatistics implements ThingStatistics {
-  private ThingStatistics thingStatistics;
+  private final ThingStatistics thingStatistics;
 
   public UnmodifiableThingStatistics(ThingStatistics thingStatistics) {
     this.thingStatistics = thingStatistics;

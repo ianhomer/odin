@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 final class AudioSystemWrapper {
-  private List<MixerWrapper> mixerWrappers;
+  private final List<MixerWrapper> mixerWrappers;
   private static final AtomicBoolean HAS_DUMPED = new AtomicBoolean(false);
 
   /**
@@ -88,7 +88,7 @@ final class AudioSystemWrapper {
   }
 
   private class MixerWrapper {
-    private Mixer mixer;
+    private final Mixer mixer;
 
     private MixerWrapper(Mixer mixer) {
       this.mixer = mixer;
@@ -131,8 +131,8 @@ final class AudioSystemWrapper {
   }
 
   private static final class ControlWrapper {
-    private Control control;
-    private Control.Type type;
+    private final Control control;
+    private final Control.Type type;
 
     private ControlWrapper(Control control) {
       this.control = control;

@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Container {
-  private static Container container = new Container();
+  private static final Container container = new Container();
 
   /*
    * Audio support can be explicitly disabled by setting this system flag to false.

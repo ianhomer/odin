@@ -35,7 +35,7 @@ import lombok.experimental.Accessors;
  */
 @Accessors(fluent = true)
 public class DeltaOdinSequencerConfiguration implements OdinSequencerConfiguration {
-  public static final DeltaOdinSequencerConfiguration deltaConfiguration() {
+  public static DeltaOdinSequencerConfiguration deltaConfiguration() {
     return new DeltaOdinSequencerConfiguration();
   }
 

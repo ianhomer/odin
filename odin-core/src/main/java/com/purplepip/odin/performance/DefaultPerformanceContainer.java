@@ -30,9 +30,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class DefaultPerformanceContainer implements PerformanceContainer {
-  private List<PerformanceApplyListener> applyListeners = new ArrayList<>();
-  private List<PerformanceLoadListener> loadListeners = new ArrayList<>();
-  private List<PerformanceSaveListener> saveListeners = new ArrayList<>();
+  private final List<PerformanceApplyListener> applyListeners = new ArrayList<>();
+  private final List<PerformanceLoadListener> loadListeners = new ArrayList<>();
+  private final List<PerformanceSaveListener> saveListeners = new ArrayList<>();
 
   private Performance performance;
 

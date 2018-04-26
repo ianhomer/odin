@@ -50,7 +50,7 @@ public class DefaultChannel extends AbstractThing implements Channel {
     setNumber(number);
   }
 
-  public static final DefaultChannel newChannel(int number) {
+  public static DefaultChannel newChannel(int number) {
     return new DefaultChannel(number);
   }
 
@@ -61,7 +61,7 @@ public class DefaultChannel extends AbstractThing implements Channel {
    * @param number channel number
    * @return new channel
    */
-  public static final DefaultChannel newChannel(String name, int number) {
+  public static DefaultChannel newChannel(String name, int number) {
     DefaultChannel channel = newChannel(number);
     channel.setName(name);
     channel.setProgramName(name);

@@ -47,7 +47,7 @@ public class DefaultOdinSequencerConfiguration
   private boolean isLoggingOperationReceiverEnabled;
   private ActionFactory actionFactory;
   private FlowFactory flowFactory;
-  private TriggerFactory triggerFactory;
+  private final TriggerFactory triggerFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
   private int maxLookForward;

@@ -31,7 +31,7 @@ public class Pretty {
     }
   }
 
-  public static final String replaceTrailingZeros(long i, int maxReplace) {
+  public static String replaceTrailingZeros(long i, int maxReplace) {
     return replaceTrailingZeros(String.valueOf(i), maxReplace);
   }
 
@@ -42,7 +42,7 @@ public class Pretty {
    * @param s String to replace
    * @return replaced string
    */
-  public static final String replaceTrailingZeros(String s, int maxReplace) {
+  private static String replaceTrailingZeros(String s, int maxReplace) {
     if (maxReplace > MAX_REPLACE) {
       throw new OdinRuntimeException("Max replace " + maxReplace + " must not be greater than "
           + MAX_REPLACE);

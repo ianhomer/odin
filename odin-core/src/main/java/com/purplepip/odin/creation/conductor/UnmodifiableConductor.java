@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class UnmodifiableConductor implements Conductor {
-  private Conductor underlyingConductor;
+  private final Conductor underlyingConductor;
 
   public UnmodifiableConductor(Conductor conductor) {
     this.underlyingConductor = conductor;

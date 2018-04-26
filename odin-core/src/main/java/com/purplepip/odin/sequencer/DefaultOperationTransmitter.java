@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class DefaultOperationTransmitter implements OperationTransmitter {
-  private List<OperationReceiver> receivers = new ArrayList<>();
+  private final List<OperationReceiver> receivers = new ArrayList<>();
 
   @Override
   public void handle(Operation operation, long time) throws OdinException {

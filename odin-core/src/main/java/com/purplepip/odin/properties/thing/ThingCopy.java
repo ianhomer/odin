@@ -111,7 +111,7 @@ public class ThingCopy {
   }
 
   private static class ThingConfigurationCopy {
-    private static Set<String> IGNORE_PROPERTIES = Sets
+    private static final Set<String> IGNORE_PROPERTIES = Sets
         .newHashSet("class", "propertyEntries", "propertyNames");
 
     private ThingConfiguration source;

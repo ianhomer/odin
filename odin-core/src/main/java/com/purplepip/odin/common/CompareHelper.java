@@ -26,7 +26,7 @@ public final class CompareHelper {
    * @param y y value
    * @return compare result
    */
-  public static final int compare(long x, long y) {
+  public static int compare(long x, long y) {
     if (x < y) {
       return -1;
     } else if (x > y) {
@@ -42,7 +42,7 @@ public final class CompareHelper {
    * @param y y value
    * @return compare result
    */
-  public static final int compare(int x, int y) {
+  public static int compare(int x, int y) {
     if (x < y) {
       return -1;
     } else if (x > y) {

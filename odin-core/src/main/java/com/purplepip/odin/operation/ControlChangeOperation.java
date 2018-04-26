@@ -16,8 +16,8 @@
 package com.purplepip.odin.operation;
 
 public class ControlChangeOperation extends AbstractChannelOperation {
-  private int control;
-  private int value;
+  private final int control;
+  private final int value;
 
   /**
    * Create a control change operation.

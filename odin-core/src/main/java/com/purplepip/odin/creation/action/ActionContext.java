@@ -21,7 +21,7 @@ import com.purplepip.odin.creation.track.Track;
  * Context for action execution.  Actions currently only act upon tracks.
  */
 public class ActionContext {
-  private Track track;
+  private final Track track;
 
   public ActionContext(Track track) {
     this.track = track;

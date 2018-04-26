@@ -37,6 +37,7 @@
       <w>javaagent</w>
       <w>javadocs</w>
       <w>jmxremote</w>
+      <w>jodd</w>
       <w>jsonschema</w>
       <w>keypress</w>
       <w>korg</w>
