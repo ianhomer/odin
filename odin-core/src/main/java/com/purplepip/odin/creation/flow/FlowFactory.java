@@ -24,13 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Factory to create flows.
- *
- * @param type of object delivered by the flow.
  */
 @Slf4j
 public class FlowFactory {
-  private SequenceFactory sequenceFactory;
-  private FlowConfiguration flowConfiguration;
+  private final SequenceFactory sequenceFactory;
+  private final FlowConfiguration flowConfiguration;
 
   public FlowFactory(SequenceFactory sequenceFactory, FlowConfiguration flowConfiguration) {
     this.sequenceFactory = sequenceFactory;

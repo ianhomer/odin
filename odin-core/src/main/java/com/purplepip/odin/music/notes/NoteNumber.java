@@ -19,7 +19,7 @@ package com.purplepip.odin.music.notes;
  * Note number, based on MIDI standard.   C4 is middle C, A4 is 440 Hz,
  */
 public class NoteNumber {
-  private int value;
+  private final int value;
 
   /**
    * Create a note number.

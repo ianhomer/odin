@@ -28,8 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString(exclude = {"statistics", "mutableStatistics"})
 public class MutableThings<T extends Thing> implements Things<T> {
-  private MutableThingStatistics mutableStatistics = new DefaultThingStatistics();
-  private UnmodifiableThingStatistics statistics =
+  private final MutableThingStatistics mutableStatistics = new DefaultThingStatistics();
+  private final UnmodifiableThingStatistics statistics =
       new UnmodifiableThingStatistics(mutableStatistics);
   private Map<Long, T> things = new ConcurrentHashMap<>();
   private Map<String, T> thingsByName = new ConcurrentHashMap<>();

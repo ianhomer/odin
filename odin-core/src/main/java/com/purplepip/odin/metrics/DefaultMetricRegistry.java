@@ -22,10 +22,10 @@ import com.codahale.metrics.SharedMetricRegistries;
  * Configure default metric registry for system.
  */
 public class DefaultMetricRegistry {
-  private static final String DEFUALT_NAME = "default";
+  private static final String DEFAULT_NAME = "default";
 
   static {
-    SharedMetricRegistries.setDefault(DEFUALT_NAME);
+    SharedMetricRegistries.setDefault(DEFAULT_NAME);
   }
 
   public static MetricRegistry get() {

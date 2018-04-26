@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  * Voice based on events.
  */
 public class EventsVoice implements Voice {
-  private List<Event> events = new ArrayList<>();
+  private final List<Event> events = new ArrayList<>();
 
   public void addEvent(Event event) {
     events.add(event);

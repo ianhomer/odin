@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SequenceTracks extends AbstractPluggableAspects<SequenceRollTrack,
     SequenceConfiguration> {
-  private Things<? extends Conductor> conductors;
+  private final Things<? extends Conductor> conductors;
 
   public SequenceTracks(Things<? extends Conductor> conductors) {
     this.conductors = conductors;

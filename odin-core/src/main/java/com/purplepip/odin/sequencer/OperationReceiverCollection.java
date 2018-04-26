@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class OperationReceiverCollection implements
     Iterable<OperationReceiver>, OperationReceiver {
-  private List<OperationReceiver> operationReceiverList;
+  private final List<OperationReceiver> operationReceiverList;
 
   public OperationReceiverCollection(OperationReceiver... operationReceivers) {
     operationReceiverList = Arrays.asList(operationReceivers);

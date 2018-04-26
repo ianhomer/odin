@@ -32,7 +32,7 @@ public class EventsCompositionBuilder {
   private static final String DEFAULT_KEY = "C";
   private static final String DEFAULT_CLEF_NAME = "treble";
 
-  private List<EventsMeasure> measures = new ArrayList<>();
+  private final List<EventsMeasure> measures = new ArrayList<>();
   private EventsMeasure currentMeasure;
   private EventsStaff currentStaff;
   private EventsVoice currentVoice;

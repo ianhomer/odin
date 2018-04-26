@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 public class SynthesizerHelper {
   private static final Logger LOG = LoggerFactory.getLogger(SynthesizerHelper.class);
 
-  private Synthesizer synthesizer;
+  private final Synthesizer synthesizer;
 
   public SynthesizerHelper(Synthesizer synthesizer) {
     this.synthesizer = synthesizer;

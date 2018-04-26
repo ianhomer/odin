@@ -23,7 +23,7 @@ import com.purplepip.odin.math.Wholes;
  * , e.g. for music this is a static time signature.
  */
 public class StaticBeatMeasureProvider implements MeasureProvider {
-  private Real beatsPerMeasure;
+  private final Real beatsPerMeasure;
 
   public static StaticBeatMeasureProvider newMeasureProvider(int staticBeatsPerMeasure) {
     return new StaticBeatMeasureProvider(staticBeatsPerMeasure);

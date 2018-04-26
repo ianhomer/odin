@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
+// TODO : This package is really about plugin management, maybe it should be renamed plugin?
 /**
  * Common logic for converting generic things into specific things.  Generic things tend to
  * be configuration focused and specific things tend to have business logic provided.
  */
-// TODO : This package is really about plugin management, maybe it should be renamed plugin?
 package com.purplepip.odin.specificity;

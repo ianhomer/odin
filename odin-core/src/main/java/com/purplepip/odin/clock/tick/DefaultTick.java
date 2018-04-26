@@ -22,8 +22,8 @@ import com.purplepip.odin.math.Wholes;
  * Default tick implementation.
  */
 public class DefaultTick implements Tick {
-  private TimeUnit timeUnit;
-  private Rational factor;
+  private final TimeUnit timeUnit;
+  private final Rational factor;
 
   public DefaultTick(TimeUnit timeUnit) {
     this(timeUnit, 1);

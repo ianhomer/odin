@@ -23,7 +23,7 @@ import com.purplepip.odin.math.Real;
  * point so that future scans for values start from this point.
  */
 public class ScanForwardEvent implements Event {
-  private Real time;
+  private final Real time;
 
   public ScanForwardEvent(Real time) {
     this.time = time;

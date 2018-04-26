@@ -30,7 +30,7 @@ public class DefaultOperationTransmitter implements OperationTransmitter {
   private final List<OperationReceiver> receivers = new ArrayList<>();
 
   @Override
-  public void handle(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) {
     receivers.forEach(receiver -> {
       try {
         receiver.handle(operation, time);

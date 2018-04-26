@@ -17,7 +17,6 @@ package com.purplepip.odin.creation.reactors;
 
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.plugin.AbstractPluggableAspects;
 import com.purplepip.odin.creation.track.SequenceTrack;
 import com.purplepip.odin.creation.track.Track;
@@ -27,11 +26,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TriggerReactors extends AbstractPluggableAspects<TriggerReactor,
     TriggerConfiguration> {
-  private final Things<? extends Conductor> conductors;
   private final Things<? extends Track> tracks;
 
-  public TriggerReactors(Things<? extends Track> tracks, Things<? extends Conductor> conductors) {
-    this.conductors = conductors;
+  public TriggerReactors(Things<? extends Track> tracks) {
     this.tracks = tracks;
   }
 

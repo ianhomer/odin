@@ -22,10 +22,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Measure<S extends Staff> {
-  private List<S> staves = new ArrayList<>();
-  private Rational time;
-  private Rational numberOfBeats;
-  private String key;
+  private final List<S> staves = new ArrayList<>();
+  private final Rational time;
+  private final Rational numberOfBeats;
+  private final String key;
 
   /**
    * Create a measure in given a time signature and for a given key.

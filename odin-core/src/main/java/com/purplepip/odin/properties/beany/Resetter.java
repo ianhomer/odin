@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Resetter extends Setter {
-  private Map<String, Object> properties = new HashMap<>();
+  private final Map<String, Object> properties = new HashMap<>();
 
   public Resetter() {
   }

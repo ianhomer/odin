@@ -52,7 +52,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
   private PerformanceTimeConverter timeConverter;
 
-  public MidiDeviceWrapper() throws OdinException {
+  public MidiDeviceWrapper() {
     this(false);
   }
 
@@ -61,7 +61,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
    *
    * @param scan whether to support MIDI device change detection scanning
    */
-  public MidiDeviceWrapper(boolean scan) throws OdinException {
+  public MidiDeviceWrapper(boolean scan) {
     final MidiDeviceFinder finder = new MidiDeviceFinder();
     try {
       finder.find();

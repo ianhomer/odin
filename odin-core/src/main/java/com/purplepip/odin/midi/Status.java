@@ -36,7 +36,7 @@ public enum Status {
    * of the value is significant for MIDI messages.
    */
   private byte value;
-  private static Map<Byte, Status> values = new HashMap<>();
+  private static final Map<Byte, Status> values = new HashMap<>();
 
   static {
     for (int i = 0; i < values().length; i++) {

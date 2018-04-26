@@ -22,7 +22,7 @@ import com.purplepip.odin.math.Bound;
  */
 public class MovableTock implements Tock {
   private Bound position;
-  private Tick tick;
+  private final Tick tick;
 
   public MovableTock(Tick tick, Bound position) {
     this.tick = tick;

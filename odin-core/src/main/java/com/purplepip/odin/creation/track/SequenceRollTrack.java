@@ -43,10 +43,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString(of = "sequenceRoll")
 public class SequenceRollTrack implements SequenceTrack, PluggableAspect<SequenceConfiguration> {
-  private Set<Conductor> conductors = new HashSet<>();
-  private Roll roll;
+  private final Set<Conductor> conductors = new HashSet<>();
+  private final Roll roll;
   private SequenceRoll sequenceRoll;
-  private TickConverter tickConverter;
+  private final TickConverter tickConverter;
 
   /**
    * Create new track.

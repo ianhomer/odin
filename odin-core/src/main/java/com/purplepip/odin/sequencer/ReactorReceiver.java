@@ -31,9 +31,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ReactorReceiver implements OperationReceiver {
   private static final int MAX_CAUSE_DEPTH = 5;
-  private Things<? extends Reactor> reactors;
-  private Meter triggered;
-  private OperationReceiver rippleReceiver;
+  private final Things<? extends Reactor> reactors;
+  private final Meter triggered;
+  private final OperationReceiver rippleReceiver;
 
   /**
    * Create a reactor receiver.

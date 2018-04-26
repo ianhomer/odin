@@ -21,7 +21,7 @@ import com.purplepip.odin.music.composition.Voice;
  * Voice based on easy score notation.
  */
 public class EasyVoice implements Voice {
-  private String notation;
+  private final String notation;
 
   public EasyVoice(String notation) {
     this.notation = notation;

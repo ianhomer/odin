@@ -18,9 +18,9 @@ package com.purplepip.odin.bag;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DefaultThingStatistics implements MutableThingStatistics {
-  private AtomicInteger addedCount = new AtomicInteger();
-  private AtomicInteger updatedCount = new AtomicInteger();
-  private AtomicInteger removedCount = new AtomicInteger();
+  private final AtomicInteger addedCount = new AtomicInteger();
+  private final AtomicInteger updatedCount = new AtomicInteger();
+  private final AtomicInteger removedCount = new AtomicInteger();
 
   @Override
   public int getAddedCount() {

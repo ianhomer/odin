@@ -43,7 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 @ToString(exclude = {"clock", "parent", "children", "windows"})
 public class LayerConductor implements Conductor, PluggableAspect<Layer> {
   private Layer layer;
-  private BeatClock clock;
+  private final BeatClock clock;
   private TickConverter tickConverter;
   private Conductor parent;
   private String name;
@@ -54,9 +54,9 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
    * Note that ordering of children is important since dictates the ordering of children in
    * a loop.
    */
-  private Map<String, Conductor> children = new LinkedHashMap<>();
+  private final Map<String, Conductor> children = new LinkedHashMap<>();
   private Real loopLength = Wholes.ZERO;
-  private Map<String, Window> windows = new HashMap<>();
+  private final Map<String, Window> windows = new HashMap<>();
 
   public LayerConductor(Layer layer, BeatClock clock) {
     this.clock = clock;

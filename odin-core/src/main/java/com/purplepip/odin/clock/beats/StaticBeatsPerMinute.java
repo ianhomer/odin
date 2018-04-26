@@ -23,8 +23,8 @@ import com.purplepip.odin.math.Wholes;
  */
 public class StaticBeatsPerMinute implements BeatsPerMinute {
   private static final int MICROSECONDS_PER_MINUTE = 60_000_000;
-  private int beatsPerMinute;
-  private Real microsecondsPerBeat;
+  private final int beatsPerMinute;
+  private final Real microsecondsPerBeat;
 
   public StaticBeatsPerMinute(int beatsPerMinute) {
     this.beatsPerMinute = beatsPerMinute;

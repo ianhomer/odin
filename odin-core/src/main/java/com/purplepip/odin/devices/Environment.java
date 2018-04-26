@@ -58,12 +58,11 @@ public class Environment {
    * Dump environment information.
    */
   public void dump() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("\nENVIRONMENT\n");
-    sb.append("------------\n");
-    sb.append(asString(true));
-    sb.append('\n');
-    LOG.info(sb.toString());
+    LOG.info("\n"
+        + "ENVIRONMENT\n"
+        + "------------\n"
+        + asString(true) + '\n'
+    );
   }
 
   /**

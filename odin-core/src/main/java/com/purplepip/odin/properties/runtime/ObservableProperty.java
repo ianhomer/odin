@@ -24,7 +24,7 @@ public class ObservableProperty<T> extends DefaultMutableProperty<T> implements 
   /*
    * Observers are executed in the order they are registered.
    */
-  private Set<Observer> observers = new LinkedHashSet<>();
+  private final Set<Observer> observers = new LinkedHashSet<>();
 
   /**
    * Create a property without setting an initial value.

@@ -71,7 +71,7 @@ public class ReactorReceiverTest {
     tracks.refresh(
         project.getSequences().stream(), sequence ->
             new SequenceRollTrack(sequence, clock, measureProvider, flowFactory, actionFactory));
-    TriggerReactors reactors = new TriggerReactors(tracks, conductors);
+    TriggerReactors reactors = new TriggerReactors(tracks);
     reactors.refresh(
         project.getTriggers().stream(),
         trigger -> new TriggerReactor(trigger, triggerFactory));

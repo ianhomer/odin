@@ -31,8 +31,8 @@ public class IndexedComposition {
   /*
    * Events indexed on the integer
    */
-  private HashMap<Long, List<Event>> events = new HashMap<>();
-  private Rational length;
+  private final HashMap<Long, List<Event>> events = new HashMap<>();
+  private final Rational length;
 
   /**
    * Create an indexed composition.

@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.operation.OperationReceiver;
 import org.slf4j.Logger;
@@ -28,7 +27,7 @@ public class LoggingOperationReceiver implements OperationReceiver {
   private static final Logger LOG = LoggerFactory.getLogger(LoggingOperationReceiver.class);
 
   @Override
-  public void handle(Operation operation, long time) throws OdinException {
+  public void handle(Operation operation, long time) {
     LOG.debug("Operation {} at time {}", operation, time);
   }
 }

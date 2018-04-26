@@ -46,7 +46,7 @@ public class ClassPerformanceLoader extends AbstractPerformanceLoader {
   }
 
   /**
-   * Cerate a class performance loader.
+   * Create a class performance loader.
    *
    * @param performances performances to load from
    * @param container performance container

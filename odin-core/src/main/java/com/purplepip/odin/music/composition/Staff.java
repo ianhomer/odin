@@ -21,10 +21,7 @@ import java.util.stream.Stream;
 
 public class Staff<V extends Voice> {
   private String clef;
-  private List<V> voices = new ArrayList<>();
-
-  private Staff() {
-  }
+  private final List<V> voices = new ArrayList<>();
 
   protected Staff(String clef) {
     this.clef = clef;

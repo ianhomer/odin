@@ -18,8 +18,8 @@ package com.purplepip.odin.clock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 
 public class MeasureContext {
-  private Clock clock;
-  private MeasureProvider measureProvider;
+  private final Clock clock;
+  private final MeasureProvider measureProvider;
 
   public MeasureContext(Clock clock, MeasureProvider measureProvider) {
     this.clock = clock;

@@ -18,7 +18,7 @@ package com.purplepip.odin.midix;
 import javax.sound.midi.Transmitter;
 
 public class MidiTransmitterWrapper {
-  private Transmitter transmitter;
+  private final Transmitter transmitter;
 
   public MidiTransmitterWrapper(Transmitter transmitter) {
     this.transmitter = transmitter;

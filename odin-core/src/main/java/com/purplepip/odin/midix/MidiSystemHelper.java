@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 public class MidiSystemHelper {
   private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
 
-  private MidiSystemWrapper midiSystemWrapper = new MidiSystemWrapper();
+  private final MidiSystemWrapper midiSystemWrapper = new MidiSystemWrapper();
 
   /**
    * Log MIDI system info.

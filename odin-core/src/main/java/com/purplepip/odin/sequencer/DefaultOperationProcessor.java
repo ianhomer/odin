@@ -19,7 +19,6 @@ import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.ListenerPriority;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.operation.OperationReceiver;
@@ -74,7 +73,7 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
   }
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
+  public void send(Operation operation, long time) {
     OperationEvent operationEvent = new OperationEvent(operation, time);
     queue.add(operationEvent);
   }
