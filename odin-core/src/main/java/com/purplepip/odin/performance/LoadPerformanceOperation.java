@@ -19,7 +19,7 @@ import com.purplepip.odin.operation.AbstractOperation;
 import java.net.URI;
 
 public class LoadPerformanceOperation extends AbstractOperation {
-  private URI performanceUri;
+  private final URI performanceUri;
 
   public LoadPerformanceOperation(URI performanceUri) {
     this.performanceUri = performanceUri;

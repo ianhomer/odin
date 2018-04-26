@@ -27,17 +27,16 @@ import com.purplepip.odin.math.Real;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.properties.runtime.Property;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Roll calculated from another roll with the tick units converted.  Note that this tick
  * unit conversion can include offset adjustment as well as time unit conversion.
  */
+@Slf4j
 public class TickConvertedRoll implements Roll {
-  private static final Logger LOG = LoggerFactory.getLogger(TickConvertedRoll.class);
-  private Roll roll;
-  private TickConverter tickConverter;
+  private final Roll roll;
+  private final TickConverter tickConverter;
 
   /**
    * Create tick converted roll.

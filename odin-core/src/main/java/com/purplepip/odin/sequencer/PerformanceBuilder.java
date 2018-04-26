@@ -63,7 +63,7 @@ public class PerformanceBuilder {
   private static final String DEFAULT_NOTATION_FORMAT = "natural";
   private static final String DEFAULT_FLOW_NAME = "pattern";
 
-  private PerformanceContainer projectContainer;
+  private final PerformanceContainer projectContainer;
   private String name;
   private String typeName = DEFAULT_FLOW_NAME;
   private boolean enabled;
@@ -74,12 +74,12 @@ public class PerformanceBuilder {
   private int offset;
   private Tick tick = BEAT;
   private List<String> layerNamesToAdd = new ArrayList<>();
-  private Map<String, Action> triggersToAdd = new HashMap<>();
-  private List<Long> sequenceIds = new ArrayList<>();
-  private List<Long> channelIds = new ArrayList<>();
-  private List<Long> layerIds = new ArrayList<>();
-  private List<Long> triggerIds = new ArrayList<>();
-  private Map<String, String> properties = new HashMap<>();
+  private final Map<String, Action> triggersToAdd = new HashMap<>();
+  private final List<Long> sequenceIds = new ArrayList<>();
+  private final List<Long> channelIds = new ArrayList<>();
+  private final List<Long> layerIds = new ArrayList<>();
+  private final List<Long> triggerIds = new ArrayList<>();
+  private final Map<String, String> properties = new HashMap<>();
 
   public PerformanceBuilder(PerformanceContainer projectContainer) {
     this.projectContainer = projectContainer;

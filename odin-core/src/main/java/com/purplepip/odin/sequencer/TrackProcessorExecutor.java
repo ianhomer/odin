@@ -19,7 +19,6 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.events.NullValueEvent;
@@ -35,10 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 public class TrackProcessorExecutor extends SequencerRunnable {
   private final Things<Track> tracks;
   private final OperationProcessor operationProcessor;
-  private long timeBufferInMicroSeconds;
-  private int maxNotesPerBuffer;
-  private int maxNotesPerBufferEarlyWarning;
-  private MutableSequenceProcessorStatistics statistics;
+  private final long timeBufferInMicroSeconds;
+  private final int maxNotesPerBuffer;
+  private final int maxNotesPerBufferEarlyWarning;
+  private final MutableSequenceProcessorStatistics statistics;
 
   TrackProcessorExecutor(BeatClock clock,
                          Things<Track> tracks,
@@ -146,25 +145,20 @@ public class TrackProcessorExecutor extends SequencerRunnable {
   }
 
   private void sendToProcessor(Event event, Track sequenceTrack) {
-    try {
-      if (event.getValue() instanceof Note) {
-        Note note = (Note) event.getValue();
-        Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
-            note.getNumber(), note.getVelocity());
-        Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
-            note.getNumber());
-        operationProcessor.send(noteOn, event.getTime().floor());
-        operationProcessor.send(noteOff, event.getTime().plus(note.getDuration()).floor());
-        getMetrics().meter("sequence.sent.note").mark();
-      } else if (event.getValue() instanceof Operation) {
-        operationProcessor.send((Operation) event.getValue(), event.getTime().floor());
-        getMetrics().meter("sequence.sent.operation").mark();
-      } else {
-        LOG.warn("Event not supported {}", event);
-      }
-    } catch (OdinException e) {
-      LOG.error("Cannot handle operation to processor", e);
-      getMetrics().meter("sequence.failure").mark();
+    if (event.getValue() instanceof Note) {
+      Note note = (Note) event.getValue();
+      Operation noteOn = new NoteOnOperation(sequenceTrack.getChannel(),
+          note.getNumber(), note.getVelocity());
+      Operation noteOff = new NoteOffOperation(sequenceTrack.getChannel(),
+          note.getNumber());
+      operationProcessor.send(noteOn, event.getTime().floor());
+      operationProcessor.send(noteOff, event.getTime().plus(note.getDuration()).floor());
+      getMetrics().meter("sequence.sent.note").mark();
+    } else if (event.getValue() instanceof Operation) {
+      operationProcessor.send((Operation) event.getValue(), event.getTime().floor());
+      getMetrics().meter("sequence.sent.operation").mark();
+    } else {
+      LOG.warn("Event not supported {}", event);
     }
   }
 }

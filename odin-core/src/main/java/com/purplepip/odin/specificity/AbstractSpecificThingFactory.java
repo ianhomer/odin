@@ -59,7 +59,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
     }
   }
 
-  protected void put(String name, Class<? extends C> clazz) {
+  private void put(String name, Class<? extends C> clazz) {
     specificClasses.put(name, clazz);
   }
 

@@ -17,7 +17,6 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.conductor.LayerConductor;
@@ -45,22 +44,22 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class OdinSequencer implements PerformanceApplyListener {
-  private OdinSequencerConfiguration configuration;
-  private LayerConductors conductors = new LayerConductors();
-  private Things<Conductor> immutableConductors =
+  private final OdinSequencerConfiguration configuration;
+  private final LayerConductors conductors = new LayerConductors();
+  private final Things<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
-  private SequenceTracks tracks = new SequenceTracks(immutableConductors);
-  private Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
+  private final SequenceTracks tracks = new SequenceTracks(immutableConductors);
+  private final Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
   /*
    * Note that reactors can change tracks so we use the mutable tracks for the trigger reactors.
    */
-  private TriggerReactors reactors = new TriggerReactors(tracks);
+  private final TriggerReactors reactors = new TriggerReactors(tracks);
 
-  private Set<ProgramChangeOperation> programChangeOperations = new LinkedHashSet<>();
+  private final Set<ProgramChangeOperation> programChangeOperations = new LinkedHashSet<>();
   private TrackProcessor trackProcessor;
   private DefaultOperationProcessor operationProcessor;
   private BeatClock clock;
-  private MutableOdinSequencerStatistics statistics =
+  private final MutableOdinSequencerStatistics statistics =
       new DefaultOdinSequencerStatistics(
           tracks.getStatistics(), reactors.getStatistics());
 
@@ -155,20 +154,16 @@ public class OdinSequencer implements PerformanceApplyListener {
 
   private void refreshChannels(Performance performance) {
     for (Channel channel : performance.getChannels()) {
-      try {
-        /*
-         * Only handle program change operation if it has not already been sent.
-         */
-        ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
-        if (!programChangeOperations.contains(programChangeOperation)) {
-          LOG.debug("Sending channel operation : {}", channel);
-          sendProgramChangeOperation(programChangeOperation);
-          statistics.incrementProgramChangeCount();
-        } else  {
-          LOG.debug("Channel operation already sent : {}", channel);
-        }
-      } catch (OdinException e) {
-        LOG.warn("Cannot handle operation", e);
+      /*
+       * Only handle program change operation if it has not already been sent.
+       */
+      ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
+      if (!programChangeOperations.contains(programChangeOperation)) {
+        LOG.debug("Sending channel operation : {}", channel);
+        sendProgramChangeOperation(programChangeOperation);
+        statistics.incrementProgramChangeCount();
+      } else  {
+        LOG.debug("Channel operation already sent : {}", channel);
       }
     }
   }
@@ -177,10 +172,8 @@ public class OdinSequencer implements PerformanceApplyListener {
    * Send program change operation.
    *
    * @param programChangeOperation program change operation
-   * @throws OdinException exception
    */
-  private void sendProgramChangeOperation(ProgramChangeOperation programChangeOperation)
-      throws OdinException {
+  private void sendProgramChangeOperation(ProgramChangeOperation programChangeOperation) {
     operationProcessor.send(programChangeOperation, -1);
     /*
      * Remove any previous program changes on this channel, since they are now historic.

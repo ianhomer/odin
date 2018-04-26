@@ -15,14 +15,13 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.Operation;
 
 /**
  * NoteOnOperation Processor that is responsible for firing the operations when the time is right.
  */
 public interface OperationProcessor {
-  void send(Operation operation, long time) throws OdinException;
+  void send(Operation operation, long time);
 
   void close();
 }

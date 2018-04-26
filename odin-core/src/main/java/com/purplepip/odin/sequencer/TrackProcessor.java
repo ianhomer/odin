@@ -36,9 +36,9 @@ public class TrackProcessor implements PerformanceListener {
   /*
    * Time in milliseconds between each processor execution.
    */
-  private long refreshPeriod = 200;
+  private long refreshPeriod;
   private ScheduledExecutorService scheduledPool;
-  private TrackProcessorExecutor executor;
+  private final TrackProcessorExecutor executor;
   private boolean running;
 
   /**

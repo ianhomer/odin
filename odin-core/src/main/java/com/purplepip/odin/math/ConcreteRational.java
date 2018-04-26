@@ -132,7 +132,7 @@ final class ConcreteRational extends AbstractRational {
     return simplified;
   }
 
-  protected double calculateValue() {
+  private double calculateValue() {
     return (double) numerator / denominator;
   }
 

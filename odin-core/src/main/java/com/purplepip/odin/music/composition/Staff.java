@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Staff<V extends Voice> {
-  private String clef;
+  private final String clef;
   private final List<V> voices = new ArrayList<>();
 
   protected Staff(String clef) {

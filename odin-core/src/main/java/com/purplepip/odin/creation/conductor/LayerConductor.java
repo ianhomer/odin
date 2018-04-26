@@ -104,7 +104,7 @@ public class LayerConductor implements Conductor, PluggableAspect<Layer> {
     return false;
   }
 
-  public void setParent(Conductor parent) {
+  private void setParent(Conductor parent) {
     this.parent = parent;
   }
 

@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ClassUri {
-  public static final String SCHEME = "classpath";
+  private static final String SCHEME = "classpath";
   private final Class clazz;
   private final URI uri;
 

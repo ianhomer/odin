@@ -47,7 +47,7 @@ final class AudioSystemWrapper {
     }
   }
 
-  boolean hasMixers() {
+  private boolean hasMixers() {
     return !mixerWrappers.isEmpty();
   }
 

@@ -37,11 +37,11 @@ public class TransientPerformance implements Performance {
 
   private final URI uri;
 
-  private Set<SequenceConfiguration> sequences = new LinkedHashSet<>();
+  private final Set<SequenceConfiguration> sequences = new LinkedHashSet<>();
 
-  private Set<Channel> channels = new LinkedHashSet<>();
+  private final Set<Channel> channels = new LinkedHashSet<>();
 
-  private Set<Layer> layers = new LinkedHashSet<>();
+  private final Set<Layer> layers = new LinkedHashSet<>();
 
   private Set<TriggerConfiguration> triggers = new LinkedHashSet<>();
 

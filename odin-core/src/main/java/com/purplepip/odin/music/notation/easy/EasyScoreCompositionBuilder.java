@@ -42,12 +42,12 @@ import lombok.extern.slf4j.Slf4j;
 public class EasyScoreCompositionBuilder {
   private static final String REST_NOTE = "B4";
 
-  private EventsComposition eventsComposition;
-  private List<EasyMeasure> easyMeasures = new ArrayList<>();
+  private final EventsComposition eventsComposition;
+  private final List<EasyMeasure> easyMeasures = new ArrayList<>();
   private StringBuilder builder;
-  private NoteNameCache noteNameCache = new NoteNameCache();
+  private final NoteNameCache noteNameCache = new NoteNameCache();
   private boolean noteWrittenInVoice;
-  private Reference reference = new EasyScoreReference();
+  private final Reference reference = new EasyScoreReference();
 
   private EasyMeasure currentMeasure;
   private EasyStaff currentStaff;

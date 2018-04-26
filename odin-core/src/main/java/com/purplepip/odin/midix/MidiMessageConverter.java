@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MidiMessageConverter {
-  private MidiMessage midiMessage;
+  private final MidiMessage midiMessage;
 
   public MidiMessageConverter(MidiMessage midiMessage) {
     this.midiMessage = midiMessage;

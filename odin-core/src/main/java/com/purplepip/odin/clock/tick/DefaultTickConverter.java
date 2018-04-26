@@ -28,7 +28,7 @@ import com.purplepip.odin.properties.runtime.Property;
  * Default tick converter.
  */
 public class DefaultTickConverter extends AbstractTickConverter {
-  private BeatClock clock;
+  private final BeatClock clock;
 
   /**
    * Create a tick converter.

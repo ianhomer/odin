@@ -19,7 +19,7 @@ package com.purplepip.odin.clock;
  * Time converter that converts from performance time to local time by a simple offset.
  */
 public class PerformanceTimeConverter implements TimeConverter, PerformanceListener {
-  private MicrosecondPositionProvider microsecondPositionProvider;
+  private final MicrosecondPositionProvider microsecondPositionProvider;
   private long offset;
 
   public PerformanceTimeConverter(MicrosecondPositionProvider microsecondPositionProvider) {

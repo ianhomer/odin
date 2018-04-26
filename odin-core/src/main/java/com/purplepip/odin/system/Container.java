@@ -29,9 +29,9 @@ public class Container {
    */
   private static final String AUDIO_ENABLED = "odin.audio.enabled";
 
-  private boolean audioEnabled;
+  private final boolean audioEnabled;
 
-  Container() {
+  private Container() {
     audioEnabled = !"false".equals(System.getProperty(AUDIO_ENABLED));
     LOG.info("Audio Enabled : {}", audioEnabled);
   }

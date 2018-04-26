@@ -93,7 +93,7 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
   private MovableTock tock;
   private Tock sealedTock;
   private final SequenceConfiguration sequence;
-  private Resetter resetter = new Resetter();
+  private final Resetter resetter = new Resetter();
   private final FlowFactory flowFactory;
   private final ActionFactory actionFactory;
   private boolean tickDirty;
