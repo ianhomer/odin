@@ -22,7 +22,7 @@ import org.junit.Test;
 public class TriggerConfigurationTest {
   @Test
   public void testCopy() {
-    MutableTriggerConfiguration trigger = new GenericTrigger();
+    MutableTriggerConfiguration trigger = new GenericTrigger("test");
     trigger.setProperty("note.number", 59);
     assertEquals("59", trigger.copy().getProperty("note.number"));
   }

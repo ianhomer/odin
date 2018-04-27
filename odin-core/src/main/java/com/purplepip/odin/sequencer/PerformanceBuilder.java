@@ -338,7 +338,6 @@ public class PerformanceBuilder {
   public PerformanceBuilder addNoteTrigger() {
     NoteTrigger trigger = createNoteTrigger();
     trigger.setNote(new DefaultNote(noteNumber, 0, 0));
-    trigger.setType("note");
     addTriggerToContainer(applyParameters(trigger));
     return this;
   }

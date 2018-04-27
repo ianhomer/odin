@@ -30,8 +30,10 @@ import org.junit.Test;
 
 public class NoteTriggerTest {
   @Test
-  public void testGetMessage() {
-    assertEquals(60, new NoteTrigger().note(newNote(60)).getNote().getNumber());
+  public void testCreateNoteTrigger() {
+    NoteTrigger trigger = new NoteTrigger().note(newNote(60));
+    assertEquals("note", trigger.getType());
+    assertEquals(60, trigger.getNote().getNumber());
   }
 
   @Test
@@ -44,7 +46,7 @@ public class NoteTriggerTest {
   }
 
   @Test
-  public void testMatches() throws Exception {
+  public void testMatches() {
     NoteTrigger trigger = new NoteTrigger();
     trigger.setNote(newNote(60));
     assertFalse(trigger.isTriggeredBy(new NoteOnOperation(0,61,50)));

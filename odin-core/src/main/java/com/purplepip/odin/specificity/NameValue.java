@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.specificity;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.Optional;
 
 /**
@@ -27,9 +28,15 @@ public class NameValue {
     this(thingConfiguration.getClass());
   }
 
+  /**
+   * Create a name value for a given thing configuration class.
+   *
+   * @param clazz thing configuration class
+   */
   public NameValue(Class<? extends ThingConfiguration> clazz) {
     value = Optional.ofNullable(clazz.getAnnotation(Name.class))
-        .map(Name::value).orElse("default");
+        .map(Name::value)
+        .orElseThrow(() -> new OdinRuntimeException("Annotation not defined on " + clazz));
   }
 
   public String get() {

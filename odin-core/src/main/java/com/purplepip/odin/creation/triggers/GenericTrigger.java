@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.triggers;
 
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
+import com.purplepip.odin.specificity.NameValue;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -29,15 +30,16 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GenericTrigger extends AbstractTimeThing implements MutableTriggerConfiguration {
-  private String type;
+  private final String type;
   private Set<String> dependsOn = new HashSet<>();
   private Map<String, String> properties = new HashMap<>();
 
   /**
    * Create a new generic trigger.
    */
-  protected GenericTrigger() {
+  GenericTrigger() {
     super();
+    type = new NameValue(getClass()).get();
   }
 
   public GenericTrigger(String type) {
@@ -59,7 +61,6 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
   }
 
   protected GenericTrigger copy(GenericTrigger copy) {
-    copy.type = this.type;
     super.copy(copy);
     return copy;
   }

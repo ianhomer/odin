@@ -16,13 +16,7 @@
 package com.purplepip.odin.creation.triggers;
 
 import com.purplepip.odin.creation.plugin.Plugin;
-import com.purplepip.odin.specificity.NameValue;
 
 public abstract class TriggerPlugin extends GenericTrigger
     implements MutableTriggerConfiguration, Trigger, Plugin {
-
-  protected TriggerPlugin() {
-    super();
-    setType(new NameValue(getClass()).get());
-  }
 }
