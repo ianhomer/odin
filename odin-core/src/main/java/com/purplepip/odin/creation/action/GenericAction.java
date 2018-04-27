@@ -17,19 +17,21 @@ package com.purplepip.odin.creation.action;
 
 import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
+import com.purplepip.odin.specificity.NameValue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GenericAction extends AbstractPropertiesThing implements MutableActionConfiguration {
-  private String type;
+  private final String type;
 
   /**
    * Create a new generic action.
    */
-  protected GenericAction() {
+  GenericAction() {
     super();
+    type = new NameValue(getClass()).get();
   }
 
   public GenericAction(String type) {
@@ -43,13 +45,8 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
   }
 
   protected <T extends GenericAction> T copy(T copy, Class<T> type) {
-    copy.setType(this.getType());
     super.copy(copy);
     return copy;
-  }
-
-  protected void setType(String type) {
-    this.type = type;
   }
 
   public String getType() {

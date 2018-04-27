@@ -15,41 +15,41 @@
 
 package com.purplepip.odin.creation.sequence;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 public class GenericSequenceTest {
   @Test
+  public void testCreateGenericSequence() {
+    SequenceConfiguration sequence = new GenericSequence("test");
+    assertEquals("test", sequence.getType());
+  }
+
+  @Test
   public void testDefaultEndless() {
-    SequenceConfiguration sequence = new GenericSequence();
+    SequenceConfiguration sequence = new GenericSequence("test");
     assertTrue(sequence.isEndless());
   }
 
   @Test
   public void testEndless() {
-    SequenceConfiguration sequence = new GenericSequence().length(-1);
+    SequenceConfiguration sequence = new GenericSequence("test").length(-1);
     assertTrue(sequence.isEndless());
   }
 
   @Test
   public void testNotEndless() {
-    SequenceConfiguration sequence = new GenericSequence().length(1);
+    SequenceConfiguration sequence = new GenericSequence("test").length(1);
     assertFalse(sequence.isEndless());
   }
 
   @Test
   public void testArePropertiesDeclared() {
-    SequenceConfiguration sequence = new GenericSequence();
+    SequenceConfiguration sequence = new GenericSequence("test");
     assertFalse("Generic sequence should not have properties declared",
         sequence.arePropertiesDeclared());
-  }
-
-  @Test
-  public void testDefaultType() {
-    SequenceConfiguration sequence = new GenericSequence();
-    assertNull(sequence.getType());
   }
 }

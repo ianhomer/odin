@@ -25,9 +25,8 @@ public class GenericActionTest {
   @Test
   public void testCopy() {
     assertCopy(new GenericAction("start").name("test"));
-    assertCopy(new GenericAction().name("test"));
     assertCopy(new GenericAction("test", 1).name("test"));
-    assertCopy(new GenericAction().property("property1","value1"));
+    assertCopy(new GenericAction("test").property("property1","value1"));
   }
 
   private void assertCopy(GenericAction action) {

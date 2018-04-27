@@ -20,6 +20,7 @@ import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.creation.action.ListAction;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.specificity.NameValue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 public class GenericSequence extends AbstractTimeThing implements MutableSequenceConfiguration {
   private int channel;
-  private String type;
+  private final String type;
   private List<String> layers = new ArrayList<>();
   private Map<String, ActionConfiguration> triggers = new HashMap<>();
 
@@ -47,6 +48,7 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
    */
   protected GenericSequence() {
     super();
+    type = new NameValue(getClass()).get();
   }
 
   public GenericSequence(String type) {
@@ -129,7 +131,6 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
 
   protected GenericSequence copy(GenericSequence copy) {
     copy.setChannel(this.getChannel());
-    copy.setType(this.getType());
     this.getLayers().forEach(copy::addLayer);
     this.getTriggers().forEach(copy::addTrigger);
     super.copy(copy);
@@ -139,10 +140,6 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   public GenericSequence channel(int channel) {
     this.channel = channel;
     return this;
-  }
-
-  protected void setType(String type) {
-    this.type = type;
   }
 
   @Override
