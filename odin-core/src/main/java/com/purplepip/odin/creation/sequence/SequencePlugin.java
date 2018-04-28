@@ -87,12 +87,12 @@ public class SequencePlugin
   }
 
   public SequencePlugin channel(int channel) {
-    sequence.channel(channel);
+    sequence.setChannel(channel);
     return this;
   }
 
   public SequencePlugin enabled(boolean enabled) {
-    sequence.enabled(enabled);
+    sequence.setEnabled(enabled);
     return this;
   }
 

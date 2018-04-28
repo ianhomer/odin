@@ -3,13 +3,13 @@
     "sequence" : [ {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/97/performance"
+          "href" : "http://localhost/api/rest/sequence/62/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/97"
+          "href" : "http://localhost/api/rest/sequence/62"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/97"
+          "href" : "http://localhost/api/rest/sequence/62"
         }
       },
       "channel" : 4,
@@ -19,8 +19,6 @@
       "name" : "aahs-a",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C A C5/h C5/8"
       },
       "tick" : {
@@ -33,13 +31,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/63/performance"
+          "href" : "http://localhost/api/rest/sequence/70/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/63"
+          "href" : "http://localhost/api/rest/sequence/70"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/63"
+          "href" : "http://localhost/api/rest/sequence/70"
         }
       },
       "channel" : 4,
@@ -49,8 +47,6 @@
       "name" : "aahs-br",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C5/h A4 G4 E C"
       },
       "tick" : {
@@ -63,13 +59,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/107/performance"
+          "href" : "http://localhost/api/rest/sequence/48/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/107"
+          "href" : "http://localhost/api/rest/sequence/48"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/107"
+          "href" : "http://localhost/api/rest/sequence/48"
         }
       },
       "channel" : 4,
@@ -79,8 +75,6 @@
       "name" : "aahs-c",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C5/h A4 G4 E C"
       },
       "tick" : {
@@ -93,13 +87,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/79/performance"
+          "href" : "http://localhost/api/rest/sequence/40/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/79"
+          "href" : "http://localhost/api/rest/sequence/40"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/79"
+          "href" : "http://localhost/api/rest/sequence/40"
         }
       },
       "channel" : 5,
@@ -109,8 +103,6 @@
       "name" : "bass-3",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "A3 A A/8 A A/q"
       },
       "tick" : {
@@ -123,13 +115,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/87/performance"
+          "href" : "http://localhost/api/rest/sequence/32/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/87"
+          "href" : "http://localhost/api/rest/sequence/32"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/87"
+          "href" : "http://localhost/api/rest/sequence/32"
         }
       },
       "channel" : 9,
@@ -140,8 +132,6 @@
       "offset" : "0",
       "properties" : {
         "bits" : "87",
-        "endless" : "true",
-        "initialisationCount" : "0",
         "note.duration" : "1",
         "note.number" : "46",
         "note.velocity" : "40"
@@ -156,13 +146,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/67/performance"
+          "href" : "http://localhost/api/rest/sequence/30/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/67"
+          "href" : "http://localhost/api/rest/sequence/30"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/67"
+          "href" : "http://localhost/api/rest/sequence/30"
         }
       },
       "channel" : 9,
@@ -173,8 +163,6 @@
       "offset" : "0",
       "properties" : {
         "bits" : "15",
-        "endless" : "true",
-        "initialisationCount" : "0",
         "note.duration" : "1",
         "note.number" : "42",
         "note.velocity" : "40"
@@ -189,13 +177,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/91/performance"
+          "href" : "http://localhost/api/rest/sequence/74/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/91"
+          "href" : "http://localhost/api/rest/sequence/74"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/91"
+          "href" : "http://localhost/api/rest/sequence/74"
         }
       },
       "channel" : 9,
@@ -206,8 +194,6 @@
       "offset" : "0",
       "properties" : {
         "bits" : "13",
-        "endless" : "true",
-        "initialisationCount" : "0",
         "note.duration" : "1",
         "note.number" : "33",
         "note.velocity" : "40"
@@ -222,13 +208,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/81/performance"
+          "href" : "http://localhost/api/rest/sequence/50/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/81"
+          "href" : "http://localhost/api/rest/sequence/50"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/81"
+          "href" : "http://localhost/api/rest/sequence/50"
         }
       },
       "channel" : 9,
@@ -239,8 +225,6 @@
       "offset" : "0",
       "properties" : {
         "bits" : "65",
-        "endless" : "true",
-        "initialisationCount" : "0",
         "note.duration" : "1",
         "note.number" : "33",
         "note.velocity" : "40"
@@ -255,13 +239,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/101/performance"
+          "href" : "http://localhost/api/rest/sequence/64/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/101"
+          "href" : "http://localhost/api/rest/sequence/64"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/101"
+          "href" : "http://localhost/api/rest/sequence/64"
         }
       },
       "channel" : 9,
@@ -272,8 +256,6 @@
       "offset" : "0",
       "properties" : {
         "bits" : "87",
-        "endless" : "true",
-        "initialisationCount" : "0",
         "note.duration" : "1",
         "note.number" : "33",
         "note.velocity" : "40"
@@ -288,13 +270,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/71/performance"
+          "href" : "http://localhost/api/rest/sequence/58/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/71"
+          "href" : "http://localhost/api/rest/sequence/58"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/71"
+          "href" : "http://localhost/api/rest/sequence/58"
         }
       },
       "channel" : 1,
@@ -304,8 +286,6 @@
       "name" : "notes",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C5/h C/q C6 A5 A5/8 C5/8 A5"
       },
       "tick" : {
@@ -318,13 +298,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/89/performance"
+          "href" : "http://localhost/api/rest/sequence/56/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/89"
+          "href" : "http://localhost/api/rest/sequence/56"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/89"
+          "href" : "http://localhost/api/rest/sequence/56"
         }
       },
       "channel" : 1,
@@ -334,8 +314,6 @@
       "name" : "notes-c4",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C4/h C/q"
       },
       "tick" : {
@@ -348,13 +326,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/61/performance"
+          "href" : "http://localhost/api/rest/sequence/66/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/61"
+          "href" : "http://localhost/api/rest/sequence/66"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/61"
+          "href" : "http://localhost/api/rest/sequence/66"
         }
       },
       "channel" : 1,
@@ -364,8 +342,6 @@
       "name" : "notes-c5",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C5/h C/q"
       },
       "tick" : {
@@ -378,13 +354,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/95/performance"
+          "href" : "http://localhost/api/rest/sequence/52/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/95"
+          "href" : "http://localhost/api/rest/sequence/52"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/95"
+          "href" : "http://localhost/api/rest/sequence/52"
         }
       },
       "channel" : 2,
@@ -394,8 +370,6 @@
       "name" : "organ-a",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "A5/8"
       },
       "tick" : {
@@ -408,13 +382,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/105/performance"
+          "href" : "http://localhost/api/rest/sequence/46/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/105"
+          "href" : "http://localhost/api/rest/sequence/46"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/105"
+          "href" : "http://localhost/api/rest/sequence/46"
         }
       },
       "channel" : 2,
@@ -424,8 +398,6 @@
       "name" : "organ-b",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "G5/q"
       },
       "tick" : {
@@ -438,13 +410,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/77/performance"
+          "href" : "http://localhost/api/rest/sequence/72/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/77"
+          "href" : "http://localhost/api/rest/sequence/72"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/77"
+          "href" : "http://localhost/api/rest/sequence/72"
         }
       },
       "channel" : 2,
@@ -454,8 +426,6 @@
       "name" : "organ-c",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "G/q C C/8 A/8 G/q C D/8 A/8"
       },
       "tick" : {
@@ -468,13 +438,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/99/performance"
+          "href" : "http://localhost/api/rest/sequence/42/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/99"
+          "href" : "http://localhost/api/rest/sequence/42"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/99"
+          "href" : "http://localhost/api/rest/sequence/42"
         }
       },
       "channel" : 1,
@@ -484,8 +454,6 @@
       "name" : "piano-a",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "A/q G/8 A/q E"
       },
       "tick" : {
@@ -498,13 +466,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/65/performance"
+          "href" : "http://localhost/api/rest/sequence/36/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/65"
+          "href" : "http://localhost/api/rest/sequence/36"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/65"
+          "href" : "http://localhost/api/rest/sequence/36"
         }
       },
       "channel" : 1,
@@ -514,8 +482,6 @@
       "name" : "piano-a3",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "A3 A A/8 A A/q"
       },
       "tick" : {
@@ -528,13 +494,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/103/performance"
+          "href" : "http://localhost/api/rest/sequence/60/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/103"
+          "href" : "http://localhost/api/rest/sequence/60"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/103"
+          "href" : "http://localhost/api/rest/sequence/60"
         }
       },
       "channel" : 1,
@@ -544,8 +510,6 @@
       "name" : "piano-c",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C5/q A4/8 C5/q D"
       },
       "tick" : {
@@ -558,13 +522,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/75/performance"
+          "href" : "http://localhost/api/rest/sequence/44/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/75"
+          "href" : "http://localhost/api/rest/sequence/44"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/75"
+          "href" : "http://localhost/api/rest/sequence/44"
         }
       },
       "channel" : 1,
@@ -574,8 +538,6 @@
       "name" : "piano-c3",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C3 C C/8 C C/q"
       },
       "tick" : {
@@ -588,13 +550,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/93/performance"
+          "href" : "http://localhost/api/rest/sequence/68/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/93"
+          "href" : "http://localhost/api/rest/sequence/68"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/93"
+          "href" : "http://localhost/api/rest/sequence/68"
         }
       },
       "channel" : 1,
@@ -604,8 +566,6 @@
       "name" : "piano-g3",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "G3 G G/8 A C/q G2 G G3/8 G G/q"
       },
       "tick" : {
@@ -618,13 +578,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/85/performance"
+          "href" : "http://localhost/api/rest/sequence/54/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/85"
+          "href" : "http://localhost/api/rest/sequence/54"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/85"
+          "href" : "http://localhost/api/rest/sequence/54"
         }
       },
       "channel" : 9,
@@ -635,8 +595,6 @@
       "offset" : "0",
       "properties" : {
         "bits" : "15",
-        "endless" : "true",
-        "initialisationCount" : "0",
         "note.duration" : "1",
         "note.number" : "69",
         "note.velocity" : "40"
@@ -651,13 +609,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/83/performance"
+          "href" : "http://localhost/api/rest/sequence/28/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/83"
+          "href" : "http://localhost/api/rest/sequence/28"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/83"
+          "href" : "http://localhost/api/rest/sequence/28"
         }
       },
       "channel" : 3,
@@ -667,8 +625,6 @@
       "name" : "strings",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C5/h C/q C6 A5"
       },
       "tick" : {
@@ -681,13 +637,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/73/performance"
+          "href" : "http://localhost/api/rest/sequence/38/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/73"
+          "href" : "http://localhost/api/rest/sequence/38"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/73"
+          "href" : "http://localhost/api/rest/sequence/38"
         }
       },
       "channel" : 3,
@@ -697,8 +653,6 @@
       "name" : "strings-c4",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C4/h C/q"
       },
       "tick" : {
@@ -711,13 +665,13 @@
     }, {
       "_links" : {
         "performance" : {
-          "href" : "http://localhost/api/rest/sequence/69/performance"
+          "href" : "http://localhost/api/rest/sequence/34/performance"
         },
         "self" : {
-          "href" : "http://localhost/api/rest/sequence/69"
+          "href" : "http://localhost/api/rest/sequence/34"
         },
         "sequence" : {
-          "href" : "http://localhost/api/rest/sequence/69"
+          "href" : "http://localhost/api/rest/sequence/34"
         }
       },
       "channel" : 3,
@@ -727,8 +681,6 @@
       "name" : "strings-c5",
       "offset" : "0",
       "properties" : {
-        "endless" : "true",
-        "initialisationCount" : "0",
         "notation" : "C5/h C/q"
       },
       "tick" : {
