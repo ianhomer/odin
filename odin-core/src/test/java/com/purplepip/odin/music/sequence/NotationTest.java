@@ -18,6 +18,7 @@ package com.purplepip.odin.music.sequence;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 
 public class NotationTest {
@@ -34,11 +35,21 @@ public class NotationTest {
   }
 
   @Test
+  public void testLayers() {
+    Notation notation = new Notation();
+    notation.layer("a", "b");
+    assertEquals("notation", notation.getType());
+    assertEquals(Lists.newArrayList("a", "b"), notation.getLayers());
+  }
+
+  @Test
   public void testCopyNotation() {
     Notation notation = (Notation) new Notation()
         .format("test-format").notation("ABC")
+        .name("test-name")
         .layer("test-layer");
     Notation notationCopy = notation.copy();
+    assertEquals("test-name", notationCopy.getName());
     assertEquals("test-format", notationCopy.getFormat());
     assertEquals("ABC", notationCopy.getNotation());
     assertEquals("test-layer", notationCopy.getLayers().iterator().next());

@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.bag;
+package com.purplepip.odin.properties.thing;
 
-public interface MutableThing extends Thing {
-  void setId(long id);
+import com.purplepip.odin.bag.MutableThing;
+import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 
-  void setName(String name);
+public interface MutablePropertiesThing extends MutableThing, MutablePropertiesProvider {
 }

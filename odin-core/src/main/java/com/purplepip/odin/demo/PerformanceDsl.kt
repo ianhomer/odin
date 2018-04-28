@@ -18,9 +18,8 @@ package com.purplepip.odin.demo
 import com.purplepip.odin.clock.tick.Tick
 import com.purplepip.odin.creation.channel.Channel
 import com.purplepip.odin.creation.layer.MutableLayer
-import com.purplepip.odin.creation.sequence.GenericSequence
-import com.purplepip.odin.creation.sequence.MutableSequenceConfiguration
 import com.purplepip.odin.creation.sequence.SequenceConfiguration
+import com.purplepip.odin.creation.sequence.SequencePlugin
 import com.purplepip.odin.creation.triggers.MutableTriggerConfiguration
 import com.purplepip.odin.music.notes.Notes
 import com.purplepip.odin.music.sequence.Pattern
@@ -39,12 +38,12 @@ infix fun SequenceConfiguration.plus(block: SequenceConfiguration.() -> Sequence
   apply { block.invoke(this) }
 }
 
-infix fun MutableSequenceConfiguration.at(value: Tick) : MutableSequenceConfiguration {
+infix fun SequencePlugin.at(value: Tick) : SequencePlugin {
   tick = value
   return this
 }
 
-operator fun GenericSequence.plus(offset: Long) : GenericSequence {
+operator fun SequencePlugin.plus(offset: Long) : SequencePlugin {
   offset(offset)
   return this
 }

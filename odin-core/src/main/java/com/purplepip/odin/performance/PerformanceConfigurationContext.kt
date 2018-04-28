@@ -17,7 +17,7 @@ package com.purplepip.odin.performance
 
 import com.purplepip.odin.creation.channel.DefaultChannel
 import com.purplepip.odin.creation.layer.DefaultLayer
-import com.purplepip.odin.creation.sequence.GenericSequence
+import com.purplepip.odin.creation.sequence.SequencePlugin
 import com.purplepip.odin.creation.triggers.Trigger
 import com.purplepip.odin.demo.add
 import com.purplepip.odin.music.sequence.Notation
@@ -51,7 +51,7 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
     return this
   }
 
-  operator fun GenericSequence.unaryPlus() {
+  operator fun SequencePlugin.unaryPlus() {
     play(this)
   }
 
@@ -67,7 +67,7 @@ class PerformanceConfigurationContext constructor(performance: TransientPerforma
     return sequence
   }
 
-  infix fun play(value: GenericSequence) : GenericSequence {
+  infix fun play(value: SequencePlugin) : SequencePlugin {
     if (value.channel == 0) value.channel = channel
     if (value.layers.isEmpty()) value.layer(*layers)
     performance.add(value)

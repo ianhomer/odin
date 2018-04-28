@@ -9,7 +9,7 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.action.EnableAction;
-import com.purplepip.odin.creation.sequence.GenericSequence;
+import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
@@ -101,7 +101,7 @@ public class MidiSequencePlayground {
               .patternName("random")
               .name("trigger"));
 
-      GenericSequence sequence = new Random()
+      SequencePlugin sequence = new Random()
           .lower(60).upper(72)
           .bits(1).note(newNote())
           .channel(1);

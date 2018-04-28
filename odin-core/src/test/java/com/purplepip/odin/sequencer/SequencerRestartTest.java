@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import com.codahale.metrics.Timer;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.operation.OperationReceiver;
 import java.util.concurrent.CountDownLatch;
@@ -32,7 +31,7 @@ public class SequencerRestartTest {
   private static final int RESTART_COUNT = 50;
 
   @Test
-  public void testRestart() throws OdinException, InterruptedException {
+  public void testRestart() throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(100);
     OperationReceiver operationReceiver = (operation, time) -> latch.countDown();
 

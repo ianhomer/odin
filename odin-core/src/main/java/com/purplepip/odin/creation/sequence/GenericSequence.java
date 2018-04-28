@@ -22,6 +22,7 @@ import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.creation.action.ListAction;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.specificity.NameValue;
+import com.purplepip.odin.specificity.ThingConfiguration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,9 +48,9 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   /**
    * Create new generic sequence.
    */
-  protected GenericSequence() {
+  GenericSequence(Class<? extends ThingConfiguration> clazz) {
     super();
-    type = new NameValue(getClass()).get();
+    type = new NameValue(clazz).get();
   }
 
   public GenericSequence(String type) {
@@ -69,7 +70,7 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
 
   @Override
   public void addLayer(String layer) {
-    LOG.debug("Adding layer : {}", layer);
+    LOG.debug("Adding layer to {} : {}", getName(), layer);
     layers.add(layer);
   }
 
@@ -143,7 +144,7 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
     triggers.remove(trigger);
   }
 
-  protected GenericSequence copy(GenericSequence copy) {
+  protected MutableSequenceConfiguration copy(MutableSequenceConfiguration copy) {
     copy.setChannel(this.getChannel());
     this.getLayers().forEach(copy::addLayer);
     this.getTriggers().forEach(copy::addTrigger);

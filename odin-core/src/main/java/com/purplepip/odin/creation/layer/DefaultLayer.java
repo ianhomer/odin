@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.layer;
 
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
+import com.purplepip.odin.clock.tick.MutableTimeThing;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.math.Rational;
 import java.util.ArrayList;
@@ -109,7 +110,7 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
   public DefaultLayer copy() {
     DefaultLayer layer = new DefaultLayer();
     layer.layers.addAll(this.layers);
-    copy(layer);
+    super.copy((MutableTimeThing) layer);
     return layer;
   }
 }

@@ -83,7 +83,9 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   public <S extends C> S newInstance(ThingConfiguration original, Class<? extends S> expectedType) {
     S newInstance;
     if (expectedType == null) {
-      throw new OdinRuntimeException("Thing configuration type for " + original + " is not set");
+      throw new OdinRuntimeException("Thing configuration type for original configuration "
+          + original + " is not set.  Type is " + original.getType() + " ; registered types = "
+          + specificClasses);
     } else {
       if (expectedType.isAssignableFrom(original.getClass())) {
         /*

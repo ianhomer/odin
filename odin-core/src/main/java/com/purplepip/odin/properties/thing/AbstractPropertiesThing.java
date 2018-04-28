@@ -19,7 +19,6 @@ import com.purplepip.odin.bag.AbstractThing;
 import com.purplepip.odin.bag.Copyable;
 import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.properties.Properties;
-import com.purplepip.odin.properties.beany.MutablePropertiesProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -30,7 +29,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractPropertiesThing extends AbstractThing
-    implements MutablePropertiesProvider, Copyable {
+    implements MutablePropertiesThing, Copyable {
   private Map<String, String> properties = new HashMap<>();
 
   public AbstractPropertiesThing() {
@@ -70,7 +69,7 @@ public abstract class AbstractPropertiesThing extends AbstractThing
     return this;
   }
 
-  protected AbstractPropertiesThing copy(AbstractPropertiesThing copy) {
+  protected MutablePropertiesThing copy(MutablePropertiesThing copy) {
     Properties.copyProperties(this, copy);
     super.copy(copy);
     return copy;

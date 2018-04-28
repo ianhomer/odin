@@ -32,7 +32,7 @@ import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.action.GenericAction;
 import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.flow.FlowFactory;
-import com.purplepip.odin.creation.sequence.GenericSequence;
+import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
@@ -53,7 +53,7 @@ public class MutableSequenceRollTest {
   public void testStart() {
     microsecondPositionProvider.setMicroseconds(0);
     clock.start();
-    GenericSequence notation = new Notation()
+    SequencePlugin notation = new Notation()
         .notation("C D E")
         .channel(2).layer("groove")
         .trigger("trigger-1", new GenericAction("start"))

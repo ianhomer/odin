@@ -16,6 +16,7 @@
 package com.purplepip.odin.creation.triggers;
 
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
+import com.purplepip.odin.clock.tick.MutableTimeThing;
 import com.purplepip.odin.specificity.NameValue;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -61,7 +62,7 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
   }
 
   protected GenericTrigger copy(GenericTrigger copy) {
-    super.copy(copy);
+    super.copy((MutableTimeThing) copy);
     return copy;
   }
 

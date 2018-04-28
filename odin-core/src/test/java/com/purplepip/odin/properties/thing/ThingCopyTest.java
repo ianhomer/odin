@@ -29,6 +29,7 @@ import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.DefaultLayer;
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
+import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.KotlinPerformance;
 import com.purplepip.odin.math.Rational;
@@ -45,7 +46,7 @@ import org.junit.Test;
 @Slf4j
 public class ThingCopyTest {
   @Test
-  public void testFromTo() throws Exception {
+  public void testFromTo() {
     Thing source = new DefaultLayer("test")
         .layer("layer1", "layer2").length(1).offset(8).enabled(false);
     DefaultLayer destination = ThingCopy.from(source).to(new DefaultLayer(source.getId()));
@@ -57,10 +58,6 @@ public class ThingCopyTest {
     GenericSequence source = new GenericSequence("notation").name("test");
     Notation destination = ThingCopy.from(source).coerce(Notation.class);
     assertEquals("test", destination.getName());
-    /*
-     * destination should be not be the same object
-     */
-    assertFalse(source == destination);
   }
 
   @Test
@@ -138,7 +135,7 @@ public class ThingCopyTest {
 
   @Test
   public void testCopyFromPluginToPlugin() {
-    GenericSequence source = new Notation().notation("A B C").offset(8)
+    SequencePlugin source = new Notation().notation("A B C").offset(8)
         .tick(Ticks.HALF);
     Notation destination = (Notation) new Notation().name("test").tick(Ticks.BEAT);
     new ThingCopy().source(source).destination(destination).copy();
@@ -150,7 +147,7 @@ public class ThingCopyTest {
 
   @Test
   public void testCopyFromGenericToSpecificWithUndeclaredProperty() {
-    GenericSequence destination = new Notation().name("test").tick(Ticks.BEAT);
+    SequencePlugin destination = new Notation().name("test").tick(Ticks.BEAT);
     assertTrue(destination.arePropertiesDeclared());
     GenericSequence source = new GenericSequence("notation")
         .tick(Ticks.HALF)
@@ -209,7 +206,7 @@ public class ThingCopyTest {
   private class BasicPropertiesThing extends AbstractPropertiesThing implements ThingConfiguration {
     @Override
     public Copyable copy() {
-      return copy(new BasicPropertiesThing());
+      return (Copyable) copy(new BasicPropertiesThing());
     }
   }
 

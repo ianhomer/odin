@@ -15,7 +15,238 @@
 
 package com.purplepip.odin.creation.sequence;
 
+import com.purplepip.odin.bag.ThingName;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
+import com.purplepip.odin.clock.tick.MutableTimeThing;
+import com.purplepip.odin.clock.tick.Tick;
+import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.creation.plugin.Plugin;
+import com.purplepip.odin.events.Event;
+import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.specificity.ThingConfiguration;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+import javax.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-public abstract class SequencePlugin extends GenericSequence implements Sequence, Plugin {
+/**
+ * Note that this NOT an abstract plugin since we want to enforce that all methods are implemented
+ * so that plugin development is as easy as possible, however constructor is protected to prevent
+ * a non-specific sequence plugin from being instantiated.
+ */
+@ToString
+@EqualsAndHashCode
+public class SequencePlugin
+    implements MutableSequenceConfiguration, MutableTimeThing, Plugin, Sequence,
+    ThingConfiguration {
+  /*
+   * Implement plugin as a wrapper of a generic sequence to keep tight control on what is
+   * exposed as the public plugin interface.
+   */
+  private final GenericSequence sequence;
+
+  protected SequencePlugin() {
+    sequence = new GenericSequence(getClass());
+  }
+
+  public SequencePlugin layer(ThingName... layerNames) {
+    sequence.layer(layerNames);
+    return this;
+  }
+
+  public SequencePlugin layer(String... layerNames) {
+    sequence.layer(layerNames);
+    return this;
+  }
+
+  public void setChannel(int channel) {
+    sequence.setChannel(channel);
+  }
+
+  @Override
+  public void addLayer(String layerName) {
+    sequence.addLayer(layerName);
+  }
+
+  @Override
+  public void removeLayer(String layerName) {
+    sequence.removeLayer(layerName);
+  }
+
+  @Override
+  public void addTrigger(String triggerName, ActionConfiguration action) {
+    sequence.addTrigger(triggerName, action);
+  }
+
+  @Override
+  public void removeTrigger(String triggerName) {
+    sequence.removeTrigger(triggerName);
+  }
+
+  public SequencePlugin channel(int channel) {
+    sequence.channel(channel);
+    return this;
+  }
+
+  public SequencePlugin enabled(boolean enabled) {
+    sequence.enabled(enabled);
+    return this;
+  }
+
+  @Override
+  public void setEnabled(boolean enabled) {
+    sequence.setEnabled(enabled);
+  }
+
+  @Override
+  public void setTick(Tick tick) {
+    sequence.setTick(tick);
+  }
+
+  public void setLength(Rational length) {
+    sequence.setLength(length);
+  }
+
+  @Override
+  public void setOffset(Rational offset) {
+    sequence.setOffset(offset);
+  }
+
+  public SequencePlugin length(long length) {
+    sequence.length(length);
+    return this;
+  }
+
+  public SequencePlugin name(String name) {
+    sequence.name(name);
+    return this;
+  }
+
+  public SequencePlugin offset(long offset) {
+    sequence.offset(offset);
+    return this;
+  }
+
+  public SequencePlugin trigger(String trigger, ActionConfiguration... actions) {
+    sequence.trigger(trigger, actions);
+    return this;
+  }
+
+  @Override
+  public void setId(long id) {
+    sequence.setId(id);
+  }
+
+  @Override
+  public void setName(String name) {
+    sequence.setName(name);
+  }
+
+  @Override
+  public int getChannel() {
+    return sequence.getChannel();
+  }
+
+  @Override
+  public @NotNull List<String> getLayers() {
+    return sequence.getLayers();
+  }
+
+  /**
+   * Set layers.
+   *
+   * @param layers layers to set
+   */
+  public void setLayers(List<String> layers) {
+    for (String layerName : layers) {
+      sequence.addLayer(layerName);
+    }
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return sequence.isEmpty();
+  }
+
+  @Override
+  public Map<String, ActionConfiguration> getTriggers() {
+    return sequence.getTriggers();
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return sequence.isEnabled();
+  }
+
+  @Override
+  public @NotNull Tick getTick() {
+    return sequence.getTick();
+  }
+
+  @Override
+  public @NotNull Rational getLength() {
+    return sequence.getLength();
+  }
+
+  @Override
+  public @NotNull Rational getOffset() {
+    return sequence.getOffset();
+  }
+
+  @Override
+  public long getId() {
+    return sequence.getId();
+  }
+
+  @Override
+  public @NotNull String getName() {
+    return sequence.getName();
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return sequence.getProperty(name);
+  }
+
+  @Override
+  public Stream<String> getPropertyNames() {
+    return sequence.getPropertyNames();
+  }
+
+  @Override
+  public Stream<Map.Entry<String, String>> getPropertyEntries() {
+    return sequence.getPropertyEntries();
+  }
+
+  @Override
+  public boolean hasProperties() {
+    return sequence.hasProperties();
+  }
+
+  @Override
+  public Event getNextEvent(MeasureContext context, Loop loop) {
+    return null;
+  }
+
+  protected SequencePlugin copy(SequencePlugin copy) {
+    sequence.copy(copy.sequence);
+    return copy;
+  }
+
+  @Override
+  public void setProperty(String name, String value) {
+    sequence.setProperty(name, value);
+  }
+
+  public SequencePlugin tick(Tick tick) {
+    sequence.tick(tick);
+    return this;
+  }
+
+  public String getType() {
+    return sequence.getType();
+  }
 }

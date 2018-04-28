@@ -74,9 +74,9 @@ public abstract class AbstractThing implements MutableThing {
     return id;
   }
 
-  protected AbstractThing copy(AbstractThing copy) {
-    copy.id = this.id;
-    copy.name = this.name;
+  protected MutableThing copy(MutableThing copy) {
+    copy.setId(this.id);
+    copy.setName(this.name);
     return copy;
   }
 

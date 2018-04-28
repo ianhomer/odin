@@ -148,12 +148,12 @@ public class ThingCopy {
         return;
       }
 
-      LOG.trace("Populating properties map from source");
-      /*
-       * Copy generic to specific.  This involves copying the properties in the property map
-       * to the declared properties.
-       */
       if (!source.arePropertiesDeclared() && destination.arePropertiesDeclared()) {
+        LOG.trace("Copying generic to specific");
+        /*
+         * Copy generic to specific.  This involves copying the properties in the property map
+         * to the declared properties.
+         */
         source.getPropertyNames().forEach(name -> {
           try {
             BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
@@ -163,8 +163,10 @@ public class ThingCopy {
           }
         });
       } else if (source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
+        LOG.trace("Copying specific to generic");
         copySpecificToGeneric();
       } else if (!source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
+        LOG.trace("Copying generic to generic");
         /*
          * Copy generic to generic.   This involves just copying the properties map.
          */
