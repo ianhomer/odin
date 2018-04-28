@@ -16,14 +16,12 @@
 package com.purplepip.odin.creation.sequence;
 
 import com.purplepip.odin.bag.ThingName;
-import com.purplepip.odin.clock.Loop;
-import com.purplepip.odin.clock.MeasureContext;
 import com.purplepip.odin.clock.tick.MutableTimeThing;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.creation.plugin.Plugin;
-import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Rational;
+import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.specificity.ThingConfiguration;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +31,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * Note that this NOT an abstract plugin since we want to enforce that all methods are implemented
- * so that plugin development is as easy as possible, however constructor is protected to prevent
- * a non-specific sequence plugin from being instantiated.
+ * Specific sequence plugins must extend this SequencePlugin class.
  */
 @ToString
 @EqualsAndHashCode
-public class SequencePlugin
+public abstract class SequencePlugin
     implements MutableSequenceConfiguration, MutableTimeThing, Plugin, Sequence,
     ThingConfiguration {
   /*
@@ -116,17 +112,17 @@ public class SequencePlugin
   }
 
   public SequencePlugin length(long length) {
-    sequence.length(length);
+    sequence.setLength(Wholes.valueOf(length));
     return this;
   }
 
   public SequencePlugin name(String name) {
-    sequence.name(name);
+    sequence.setName(name);
     return this;
   }
 
   public SequencePlugin offset(long offset) {
-    sequence.offset(offset);
+    sequence.setOffset(Wholes.valueOf(offset));
     return this;
   }
 
@@ -226,11 +222,6 @@ public class SequencePlugin
     return sequence.hasProperties();
   }
 
-  @Override
-  public Event getNextEvent(MeasureContext context, Loop loop) {
-    return null;
-  }
-
   protected SequencePlugin copy(SequencePlugin copy) {
     sequence.copy(copy.sequence);
     return copy;
@@ -242,7 +233,7 @@ public class SequencePlugin
   }
 
   public SequencePlugin tick(Tick tick) {
-    sequence.tick(tick);
+    sequence.setTick(tick);
     return this;
   }
 
