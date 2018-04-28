@@ -19,6 +19,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.operation.ChannelOperation;
+import com.purplepip.odin.operation.InvalidChannelOperation;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.operation.OperationReceiver;
 import javax.sound.midi.Instrument;
@@ -38,37 +39,48 @@ public class MidiOperationReceiver implements OperationReceiver {
 
   @Override
   public void handle(Operation operation, long time) throws OdinException {
-    if (operation instanceof ChannelOperation) {
-      ChannelOperation resolvedOperation;
-      if (operation instanceof ProgramChangeOperation) {
-        ProgramChangeOperation programChangeOperation = (ProgramChangeOperation) operation;
-        if (programChangeOperation.isAbsolute()) {
-          resolvedOperation = programChangeOperation;
-        } else {
-          if (midiDeviceReceiver.isOpenSynthesizer()) {
-            /*
-             * Handle program change operation by resolving string name for program.
-             */
-            Instrument instrument = midiDeviceReceiver
-                .findInstrument(programChangeOperation.getChannel(),
-                    programChangeOperation.getProgramName());
-            resolvedOperation = new ProgramChangeOperation(programChangeOperation.getChannel(),
-                instrument.getPatch().getBank(), instrument.getPatch().getProgram(),
-                programChangeOperation.getProgramName());
-          } else {
-            LOG.warn("Cannot change instrument since no open synthesizer available");
-            return;
-          }
-        }
-        LOG.debug("Program change operation : {}", resolvedOperation);
-      } else {
-        resolvedOperation = (ChannelOperation) operation;
-      }
-      if (midiDeviceReceiver.send(createMidiMessage(resolvedOperation), time)) {
-        LOG.debug("Sent MIDI {} for time {}", resolvedOperation, time);
-      }
-    } else {
+    if (!(operation instanceof ChannelOperation)) {
       LOG.trace("Ignoring non channel based operation");
+      return;
+    }
+
+    ChannelOperation resolvedOperation;
+    if (operation instanceof ProgramChangeOperation) {
+      ProgramChangeOperation programChangeOperation = (ProgramChangeOperation) operation;
+      if (programChangeOperation.isAbsolute()) {
+        resolvedOperation = programChangeOperation;
+      } else {
+        resolvedOperation = resolveNonAbsolute(programChangeOperation);
+        if (resolvedOperation instanceof InvalidChannelOperation) {
+          LOG.warn(((InvalidChannelOperation) resolvedOperation).getMessage());
+          return;
+        }
+      }
+      LOG.debug("Program change operation : {}", resolvedOperation);
+    } else {
+      resolvedOperation = (ChannelOperation) operation;
+    }
+
+    if (midiDeviceReceiver.send(createMidiMessage(resolvedOperation), time)) {
+      LOG.debug("Sent MIDI {} for time {}", resolvedOperation, time);
+    }
+  }
+
+  private ChannelOperation resolveNonAbsolute(ProgramChangeOperation programChangeOperation)
+      throws OdinException {
+    if (midiDeviceReceiver.isOpenSynthesizer()) {
+      /*
+       * Handle program change operation by resolving string name for program.
+       */
+      Instrument instrument = midiDeviceReceiver
+          .findInstrument(programChangeOperation.getChannel(),
+              programChangeOperation.getProgramName());
+      return new ProgramChangeOperation(programChangeOperation.getChannel(),
+          instrument.getPatch().getBank(), instrument.getPatch().getProgram(),
+          programChangeOperation.getProgramName());
+    } else {
+      return new InvalidChannelOperation(programChangeOperation,
+          "Cannot change instrument since no open synthesizer available");
     }
   }
 

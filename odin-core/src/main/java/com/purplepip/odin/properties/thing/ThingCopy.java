@@ -163,41 +163,7 @@ public class ThingCopy {
           }
         });
       } else if (source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
-        /*
-         * Copy specific to generic.   This involves copying the declared properties to
-         * the generic properties map.
-         */
-        try {
-          BeanInfo beanInfo = Introspector.getBeanInfo(source.getClass());
-          PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-          Arrays.stream(propertyDescriptors)
-              .map(FeatureDescriptor::getName)
-              .filter(name -> !IGNORE_PROPERTIES.contains(name))
-              .forEach(name -> {
-                if (!BeanUtil.declared.hasProperty(destination, name)) {
-                  /*
-                   * Only copy property into properties map if it is not a declared property
-                   * in the destination.
-                   */
-                  Object value = BeanUtil.declared.getProperty(source, name);
-                  MutablePropertiesProvider mutableDestination =
-                      (MutablePropertiesProvider) destination;
-                  if (value != null) {
-                    if (value instanceof Note) {
-                      Note note = (Note) value;
-                      mutableDestination.setProperty(name + ".number", note.getNumber());
-                      mutableDestination.setProperty(name + ".velocity", note.getVelocity());
-                      mutableDestination.setProperty(name + ".duration", note.getDuration());
-                    } else {
-                      mutableDestination.setProperty(name, value.toString());
-                    }
-                  }
-                }
-              });
-        } catch (IntrospectionException e) {
-          LOG.debug("Whilst getting bean info for thing " + destination + " (full stack)", e);
-          LOG.warn("Whilst getting bean info for thing {} : {}", destination, e.getMessage());
-        }
+        copySpecificToGeneric();
       } else if (!source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
         /*
          * Copy generic to generic.   This involves just copying the properties map.
@@ -205,6 +171,44 @@ public class ThingCopy {
         source.getPropertyNames().forEach(name ->
             ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name))
         );
+      }
+    }
+
+    private void copySpecificToGeneric() {
+      /*
+       * Copy specific to generic.  This involves copying the declared properties to
+       * the generic properties map.
+       */
+      try {
+        BeanInfo beanInfo = Introspector.getBeanInfo(source.getClass());
+        PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+        Arrays.stream(propertyDescriptors)
+            .map(FeatureDescriptor::getName)
+            .filter(name -> !IGNORE_PROPERTIES.contains(name))
+            .forEach(name -> {
+              if (!BeanUtil.declared.hasProperty(destination, name)) {
+                /*
+                 * Only copy property into properties map if it is not a declared property
+                 * in the destination.
+                 */
+                Object value = BeanUtil.declared.getProperty(source, name);
+                MutablePropertiesProvider mutableDestination =
+                    (MutablePropertiesProvider) destination;
+                if (value != null) {
+                  if (value instanceof Note) {
+                    Note note = (Note) value;
+                    mutableDestination.setProperty(name + ".number", note.getNumber());
+                    mutableDestination.setProperty(name + ".velocity", note.getVelocity());
+                    mutableDestination.setProperty(name + ".duration", note.getDuration());
+                  } else {
+                    mutableDestination.setProperty(name, value.toString());
+                  }
+                }
+              }
+            });
+      } catch (IntrospectionException e) {
+        LOG.debug("Whilst getting bean info for thing " + destination + " (full stack)", e);
+        LOG.warn("Whilst getting bean info for thing {} : {}", destination, e.getMessage());
       }
     }
   }
