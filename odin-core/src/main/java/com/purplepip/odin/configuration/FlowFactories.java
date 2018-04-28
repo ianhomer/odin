@@ -17,17 +17,11 @@ package com.purplepip.odin.configuration;
 
 import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
 
-import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
 
 public final class FlowFactories {
   public static FlowFactory newNoteFlowFactory() {
-    return newNoteFlowFactory(new DefaultFlowConfiguration());
-  }
-
-  public static FlowFactory newNoteFlowFactory(FlowConfiguration flowConfiguration) {
-    return new FlowFactory(newNoteSequenceFactory(), flowConfiguration);
+    return new FlowFactory(newNoteSequenceFactory());
   }
 
   private FlowFactories() {

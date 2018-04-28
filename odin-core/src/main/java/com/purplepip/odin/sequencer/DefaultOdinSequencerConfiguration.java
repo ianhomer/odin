@@ -27,8 +27,6 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.creation.action.ActionFactory;
-import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.creation.flow.FlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.operation.OperationReceiver;
@@ -54,7 +52,6 @@ public class DefaultOdinSequencerConfiguration
   private long trackProcessorRefreshPeriod;
   private int trackProcessorMaxNotesPerBuffer;
   private long operationProcessorRefreshPeriod;
-  private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
   private MetricRegistry metrics;
   private boolean strictEventOrder;
 
@@ -63,7 +60,7 @@ public class DefaultOdinSequencerConfiguration
    */
   public DefaultOdinSequencerConfiguration() {
     actionFactory = newActionFactory();
-    flowFactory = newNoteFlowFactory(flowConfiguration);
+    flowFactory = newNoteFlowFactory();
     triggerFactory = newTriggerFactory();
     setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
@@ -265,12 +262,6 @@ public class DefaultOdinSequencerConfiguration
   public DefaultOdinSequencerConfiguration setOperationProcessorRefreshPeriod(
       long operationProcessorRefreshPeriod) {
     this.operationProcessorRefreshPeriod = operationProcessorRefreshPeriod;
-    return this;
-  }
-
-  public final DefaultOdinSequencerConfiguration setFlowConfiguration(
-      FlowConfiguration flowConfiguration) {
-    this.flowConfiguration = flowConfiguration;
     return this;
   }
 

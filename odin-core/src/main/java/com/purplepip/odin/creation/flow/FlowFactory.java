@@ -28,11 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FlowFactory {
   private final SequenceFactory sequenceFactory;
-  private final FlowConfiguration flowConfiguration;
 
-  public FlowFactory(SequenceFactory sequenceFactory, FlowConfiguration flowConfiguration) {
+  public FlowFactory(SequenceFactory sequenceFactory) {
     this.sequenceFactory = sequenceFactory;
-    this.flowConfiguration = flowConfiguration;
   }
 
   /**
@@ -48,7 +46,6 @@ public class FlowFactory {
     LOG.debug("Creating flow for sequence {}", sequence.getName());
     MutableFlow<Sequence> flow = new DefaultFlow<>(clock, measureProvider);
     flow.setSequence(sequenceFactory.newInstance(sequence));
-    flow.setConfiguration(flowConfiguration);
     return flow;
   }
 

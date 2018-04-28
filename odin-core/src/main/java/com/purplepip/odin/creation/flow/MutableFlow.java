@@ -22,6 +22,4 @@ import com.purplepip.odin.creation.sequence.SequenceConfiguration;
  */
 public interface MutableFlow<S extends SequenceConfiguration> extends Flow<S> {
   void setSequence(S sequence);
-
-  void setConfiguration(FlowConfiguration configuration);
 }

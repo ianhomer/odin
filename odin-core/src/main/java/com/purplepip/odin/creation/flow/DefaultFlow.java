@@ -30,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class DefaultFlow<S extends Sequence> implements MutableFlow<S> {
-  private FlowConfiguration configuration;
   private S sequence;
   private final MeasureContext context;
 
@@ -57,16 +56,6 @@ public class DefaultFlow<S extends Sequence> implements MutableFlow<S> {
   @Override
   public MeasureContext getContext() {
     return context;
-  }
-
-  @Override
-  public void setConfiguration(FlowConfiguration configuration) {
-    this.configuration = configuration;
-  }
-
-  @Override
-  public FlowConfiguration getConfiguration() {
-    return configuration;
   }
 
   @Override

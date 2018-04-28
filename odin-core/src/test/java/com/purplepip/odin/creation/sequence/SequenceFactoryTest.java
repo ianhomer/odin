@@ -22,7 +22,6 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.clock.Clock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.Flow;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.math.Wholes;
@@ -40,7 +39,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class SequenceFactoryTest {
   private SequenceFactory sequenceFactory = newNoteSequenceFactory();
-  private FlowFactory flowFactory = newNoteFlowFactory(new DefaultFlowConfiguration());
+  private FlowFactory flowFactory = newNoteFlowFactory();
 
   @Mock
   private Clock clock;

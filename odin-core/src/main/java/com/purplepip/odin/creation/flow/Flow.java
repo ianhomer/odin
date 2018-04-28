@@ -36,8 +36,6 @@ public interface Flow<S extends SequenceConfiguration> {
 
   MeasureContext getContext();
 
-  FlowConfiguration getConfiguration();
-
   default boolean isEmpty() {
     return false;
   }

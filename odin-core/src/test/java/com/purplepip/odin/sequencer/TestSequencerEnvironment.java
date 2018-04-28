@@ -24,7 +24,6 @@ import com.purplepip.odin.clock.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.creation.flow.DefaultFlowConfiguration;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
@@ -44,23 +43,23 @@ public class TestSequencerEnvironment {
 
   private FlowFactory flowFactory;
 
-  public TestSequencerEnvironment(OperationReceiver operationReceiver) throws OdinException {
+  public TestSequencerEnvironment(OperationReceiver operationReceiver) {
     this(operationReceiver, new TransientPerformance());
   }
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
-                                  Performance performance) throws OdinException {
+                                  Performance performance) {
     this(operationReceiver, performance, new DeltaOdinSequencerConfiguration());
   }
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
                                   Performance performance,
-                                  OdinSequencerConfiguration configuration) throws OdinException {
+                                  OdinSequencerConfiguration configuration) {
     this(operationReceiver, new DefaultPerformanceContainer(performance), configuration);
   }
 
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
-                                  DefaultPerformanceContainer container) throws OdinException {
+                                  DefaultPerformanceContainer container) {
     this(operationReceiver, container, new DeltaOdinSequencerConfiguration());
   }
 
@@ -74,17 +73,14 @@ public class TestSequencerEnvironment {
    */
   public TestSequencerEnvironment(OperationReceiver operationReceiver,
                                   DefaultPerformanceContainer container,
-                                  OdinSequencerConfiguration configuration) throws OdinException {
+                                  OdinSequencerConfiguration configuration) {
     this.container = container;
     this.deltaConfiguration = configuration;
     initialiseSequencer(operationReceiver);
   }
 
-  private void initialiseSequencer(OperationReceiver operationReceiver) throws OdinException {
-    DefaultFlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
-    flowConfiguration.setMaxForwardScan(1_000_000);
-
-    flowFactory = newNoteFlowFactory(flowConfiguration);
+  private void initialiseSequencer(OperationReceiver operationReceiver) {
+    flowFactory = newNoteFlowFactory();
     configuration = new DefaultOdinSequencerConfiguration()
         .setFlowFactory(flowFactory)
         .setActionFactory(newActionFactory())

@@ -31,7 +31,7 @@ public class RealTest {
       /*
        * We should have received a warn message for using the Real static not the Whole static
        */
-      assertEquals(captor.size(), 1);
+      assertEquals("Warn message count not correct", captor.size(), 1);
     }
   }
 

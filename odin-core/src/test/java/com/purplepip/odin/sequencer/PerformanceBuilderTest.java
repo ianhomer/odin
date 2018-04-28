@@ -152,7 +152,7 @@ public class PerformanceBuilderTest {
       PerformanceBuilder builder = new PerformanceBuilder(
           new DefaultPerformanceContainer(project));
       builder.withLayers("layer1", "layer2", "layer2", "layer3", "layer3", "layer3", "layer4");
-      assertEquals(1, captor.size());
+      assertEquals("Warn message count correct", 1, captor.size());
       assertEquals("Creating entity with layers [layer1, layer2, layer2, layer3, "
           + "layer3, layer3, layer4] that have duplicates [layer3, layer2]", captor.getMessage(0));
     }
