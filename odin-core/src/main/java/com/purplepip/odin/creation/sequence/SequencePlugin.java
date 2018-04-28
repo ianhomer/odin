@@ -17,6 +17,5 @@ package com.purplepip.odin.creation.sequence;
 
 import com.purplepip.odin.creation.plugin.Plugin;
 
-public abstract class SequencePlugin extends GenericSequence
-    implements MutableSequenceConfiguration, Sequence, Plugin {
+public abstract class SequencePlugin extends GenericSequence implements Sequence, Plugin {
 }

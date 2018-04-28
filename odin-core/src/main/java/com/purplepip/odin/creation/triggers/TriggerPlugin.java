@@ -17,6 +17,5 @@ package com.purplepip.odin.creation.triggers;
 
 import com.purplepip.odin.creation.plugin.Plugin;
 
-public abstract class TriggerPlugin extends GenericTrigger
-    implements MutableTriggerConfiguration, Trigger, Plugin {
+public abstract class TriggerPlugin extends GenericTrigger implements Trigger, Plugin {
 }

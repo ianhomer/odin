@@ -20,8 +20,7 @@ import java.util.stream.Stream;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
-public abstract class ActionPlugin extends GenericAction
-    implements MutableActionConfiguration, Action, Plugin {
+public abstract class ActionPlugin extends GenericAction implements Action, Plugin {
 
   /**
    * By default the ripples from an action plugin is just this plugin itself.  The ListAction
