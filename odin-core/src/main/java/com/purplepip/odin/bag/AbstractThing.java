@@ -45,9 +45,9 @@ public abstract class AbstractThing implements MutableThing {
    * this cheap generator is good enough.
    */
   private static final AtomicLong LAST_THING_ID = new AtomicLong();
-  // TODO : Make id final
-  protected long id = LAST_THING_ID.incrementAndGet();
+  private long id;
   private String name;
+
   @JsonIgnore
   private transient int initialisationCount = 0;
 
@@ -62,7 +62,7 @@ public abstract class AbstractThing implements MutableThing {
    * ID taken from constructor.
    */
   public AbstractThing(long id) {
-    setId(id);
+    this.id = id;
     /*
      * By default set the thing name to id.  Note that name must not be null.
      */
@@ -72,10 +72,6 @@ public abstract class AbstractThing implements MutableThing {
   @Override
   public long getId() {
     return id;
-  }
-
-  private void setId(long id) {
-    this.id = id;
   }
 
   protected AbstractThing copy(AbstractThing copy) {

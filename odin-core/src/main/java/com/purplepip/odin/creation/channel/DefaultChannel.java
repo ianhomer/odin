@@ -32,17 +32,17 @@ public class DefaultChannel extends AbstractThing implements Channel {
    * this cheap generator is good enough.
    */
   private static final AtomicLong LAST_PATTERN_ID = new AtomicLong();
-  protected long id = LAST_PATTERN_ID.incrementAndGet();
+
+  /*
+   * ID auto generated.
+   */
+  protected final long defaultChannelId = LAST_PATTERN_ID.incrementAndGet();
 
   private int number;
   private String programName;
   private int program;
 
-  /**
-   * ID auto generated.
-   */
   public DefaultChannel() {
-    id = LAST_PATTERN_ID.incrementAndGet();
   }
 
   public DefaultChannel(int number) {
@@ -70,7 +70,7 @@ public class DefaultChannel extends AbstractThing implements Channel {
 
   @Override
   public long getId() {
-    return id;
+    return defaultChannelId;
   }
 
   @Override

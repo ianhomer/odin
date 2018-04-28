@@ -58,7 +58,6 @@ public class RandomTest {
     sequence.setName("test-name");
     Random copy = sequence.copy();
     assertEquals(sequence, copy);
-    assertEquals(sequence.getId(), copy.getId());
     assertEquals(sequence.getName(), copy.getName());
     assertEquals(sequence.getBits(), copy.getBits());
     assertEquals(sequence.getLower(), copy.getLower());
