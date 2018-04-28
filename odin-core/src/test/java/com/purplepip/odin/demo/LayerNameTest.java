@@ -13,19 +13,16 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.layer;
+package com.purplepip.odin.demo;
 
-import com.purplepip.odin.bag.ThingName;
+import static com.purplepip.odin.demo.LayerName.GROOVE;
+import static org.junit.Assert.assertEquals;
 
-public final class Layers {
-  private Layers() {
-  }
+import org.junit.Test;
 
-  public static DefaultLayer newLayer(ThingName thingName) {
-    return newLayer(thingName.getValue());
-  }
-
-  public static DefaultLayer newLayer(String layerName) {
-    return new DefaultLayer().name(layerName);
+public class LayerNameTest {
+  @Test
+  public void testValues() {
+    assertEquals("groove", GROOVE.getValue());
   }
 }

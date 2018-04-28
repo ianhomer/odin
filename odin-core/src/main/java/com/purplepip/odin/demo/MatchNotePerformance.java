@@ -16,6 +16,7 @@
 package com.purplepip.odin.demo;
 
 import static com.purplepip.odin.creation.layer.Layers.newLayer;
+import static com.purplepip.odin.demo.LayerName.GROOVE;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
 import com.purplepip.odin.creation.action.IncrementAction;
@@ -52,7 +53,7 @@ public class MatchNotePerformance extends TransientPerformance {
    */
   private void initialise() {
     this
-        .addLayer(newLayer("groove"))
+        .addLayer(newLayer(GROOVE.name()))
         .addSequence(new Random()
             .lower(60).upper(72)
             .bits(1).note(newNote())
@@ -62,7 +63,7 @@ public class MatchNotePerformance extends TransientPerformance {
                 new StartAction()
             )
             .length(4)
-            .channel(2).layer("groove")
+            .channel(2).layer(GROOVE.name())
             .name("random"))
         .addTrigger(new PatternNoteTrigger().patternName("random").name("random-note-trigger"))
         .addTrigger(new SequenceStartTrigger()
@@ -73,7 +74,7 @@ public class MatchNotePerformance extends TransientPerformance {
                 new IncrementAction().propertyName("channel")
                     .increment(channelIncrement),
                 new StartAction())
-            .channel(5).layer("groove")
+            .channel(5).layer(GROOVE.name())
             .length(4)
             .enabled(false)
             .name("success"));

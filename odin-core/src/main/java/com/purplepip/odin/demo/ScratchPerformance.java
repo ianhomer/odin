@@ -20,6 +20,7 @@ import static com.purplepip.odin.clock.tick.Ticks.EIGHTH;
 import static com.purplepip.odin.clock.tick.Ticks.TWO_THIRDS;
 import static com.purplepip.odin.creation.channel.DefaultChannel.newChannel;
 import static com.purplepip.odin.creation.layer.Layers.newLayer;
+import static com.purplepip.odin.demo.LayerName.GROOVE;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
 import com.purplepip.odin.music.sequence.Metronome;
@@ -41,21 +42,21 @@ public class ScratchPerformance extends TransientPerformance {
         .addChannel(newChannel(2).programName("aahs"))
         .addChannel(newChannel(3).programName("bass"))
         .addChannel(newChannel(9).programName("TR-909"))
-        .addLayer(newLayer("groove"))
+        .addLayer(newLayer(GROOVE))
         .addLayer(newLayer("start").offset(0).length(12))
         .addLayer(newLayer("mid").offset(8).length(8))
-        .addSequence(new Metronome().channel(9).layer("groove").length(-1).offset(0))
+        .addSequence(new Metronome().channel(9).layer(GROOVE).length(-1).offset(0))
         .addSequence(new Pattern().note(newNote(50, 50))
             .bits(7).channel(3).enabled(true).tick(BEAT)
-            .name("pattern-groove").layer("groove"))
+            .name("pattern-groove").layer(GROOVE))
         .addSequence(new Pattern().note(newNote(42, 20))
             .bits(15).channel(2).tick(BEAT).layer("start"))
         .addSequence(new Pattern().note(newNote(62, 100))
-            .bits(2).channel(9).tick(BEAT).layer("groove"))
+            .bits(2).channel(9).tick(BEAT).layer(GROOVE))
         .addSequence(new Pattern().note(newNote(60, 50))
-            .bits(127).channel(9).tick(EIGHTH).layer("groove"))
+            .bits(127).channel(9).tick(EIGHTH).layer(GROOVE))
         .addSequence(new Pattern().note(newNote(46))
-            .bits(7).channel(9).tick(TWO_THIRDS).layer("groove"))
+            .bits(7).channel(9).tick(TWO_THIRDS).layer(GROOVE))
         .addSequence(new Notation().notation("B4/8, B4, E4/q, G4, C4")
             .channel(3).tick(BEAT).layer("mid"));
   }

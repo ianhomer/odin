@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.creation.sequence;
 
+import com.purplepip.odin.bag.ThingName;
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.action.ActionConfiguration;
@@ -75,12 +76,25 @@ public class GenericSequence extends AbstractTimeThing implements MutableSequenc
   /**
    * Set layer names.
    *
-   * @param layers layer names
+   * @param layerNames layer names
    * @return this
    */
-  public GenericSequence layer(String... layers) {
-    for (String layer : layers) {
-      addLayer(layer);
+  public GenericSequence layer(ThingName... layerNames) {
+    for (ThingName layerName : layerNames) {
+      addLayer(layerName.getValue());
+    }
+    return this;
+  }
+
+  /**
+   * Set layer names.
+   *
+   * @param layerNames layer names
+   * @return this
+   */
+  public GenericSequence layer(String... layerNames) {
+    for (String layerName : layerNames) {
+      addLayer(layerName);
     }
     return this;
   }

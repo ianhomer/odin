@@ -26,9 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 public class Resetter extends Setter {
   private final Map<String, Object> properties = new HashMap<>();
 
-  public Resetter() {
-  }
-
   /**
    * Reset the properties that have been set onto the new provider AND bind this new provider
    * into this setter.

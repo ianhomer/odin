@@ -13,19 +13,8 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.creation.layer;
+package com.purplepip.odin.bag;
 
-import com.purplepip.odin.bag.ThingName;
-
-public final class Layers {
-  private Layers() {
-  }
-
-  public static DefaultLayer newLayer(ThingName thingName) {
-    return newLayer(thingName.getValue());
-  }
-
-  public static DefaultLayer newLayer(String layerName) {
-    return new DefaultLayer().name(layerName);
-  }
+public interface ThingName {
+  String getValue();
 }
