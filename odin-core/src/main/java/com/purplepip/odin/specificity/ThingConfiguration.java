@@ -27,7 +27,5 @@ public interface ThingConfiguration extends Copyable, PropertiesProvider, Thing 
    * @return type name.
    */
   @NotNull
-  default String getType() {
-    return "default";
-  }
+  String getType();
 }

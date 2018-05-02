@@ -42,7 +42,5 @@ public interface Trigger extends TriggerConfiguration {
    *
    * @return stream of sequence names that this trigger depends on
    */
-  default Stream<String> dependsOn() {
-    return Stream.empty();
-  }
+  Stream<String> dependsOn();
 }

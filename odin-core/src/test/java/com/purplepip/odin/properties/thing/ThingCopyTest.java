@@ -203,7 +203,10 @@ public class ThingCopyTest {
     assertEquals(0.123, specificThing.getReal().getValue(), 0.0001);
   }
 
+  @Data
   private class BasicPropertiesThing extends AbstractPropertiesThing implements ThingConfiguration {
+    private String type;
+
     @Override
     public Copyable copy() {
       return (Copyable) copy(new BasicPropertiesThing());
@@ -218,6 +221,7 @@ public class ThingCopyTest {
     private Rational rational;
     private Real real;
     private Whole whole;
+    private String type;
 
     @Override
     public boolean arePropertiesDeclared() {
@@ -228,6 +232,7 @@ public class ThingCopyTest {
     public Copyable copy() {
       SpecificThing copy = new SpecificThing();
       copy.id = id;
+      copy.type = type;
       copy.name = name;
       copy.string = string;
       copy.rational = rational;

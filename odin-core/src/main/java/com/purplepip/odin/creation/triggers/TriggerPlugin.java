@@ -15,7 +15,123 @@
 
 package com.purplepip.odin.creation.triggers;
 
+import com.purplepip.odin.clock.tick.Tick;
 import com.purplepip.odin.creation.plugin.Plugin;
+import com.purplepip.odin.math.Rational;
+import java.util.Map;
+import java.util.stream.Stream;
+import javax.validation.constraints.NotNull;
 
-public abstract class TriggerPlugin extends GenericTrigger implements Trigger, Plugin {
+public abstract class TriggerPlugin implements Trigger, Plugin, MutableTriggerConfiguration {
+  private final GenericTrigger trigger;
+
+  protected TriggerPlugin() {
+    trigger = new GenericTrigger(getClass());
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return trigger.isEnabled();
+  }
+
+  @Override
+  public @NotNull Tick getTick() {
+    return trigger.getTick();
+  }
+
+  @Override
+  public @NotNull Rational getLength() {
+    return trigger.getLength();
+  }
+
+  @Override
+  public @NotNull Rational getOffset() {
+    return trigger.getOffset();
+  }
+
+  @Override
+  public long getId() {
+    return trigger.getId();
+  }
+
+  @Override
+  public @NotNull String getName() {
+    return trigger.getName();
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return trigger.getProperty(name);
+  }
+
+  @Override
+  public Stream<String> getPropertyNames() {
+    return trigger.getPropertyNames();
+  }
+
+  @Override
+  public Stream<Map.Entry<String, String>> getPropertyEntries() {
+    return trigger.getPropertyEntries();
+  }
+
+  @Override
+  public boolean hasProperties() {
+    return trigger.hasProperties();
+  }
+
+  protected void copy(TriggerPlugin copy) {
+    trigger.copy(copy.trigger);
+  }
+
+  public TriggerPlugin name(String s) {
+    trigger.setName(s);
+    return this;
+  }
+
+  @Override
+  public void setEnabled(boolean enabled) {
+    trigger.setEnabled(enabled);
+  }
+
+  @Override
+  public void setTick(Tick tick) {
+    trigger.setTick(tick);
+  }
+
+  @Override
+  public void setLength(Rational length) {
+    trigger.setLength(length);
+  }
+
+  @Override
+  public void setOffset(Rational offset) {
+    trigger.setOffset(offset);
+  }
+
+  @Override
+  public void setId(long id) {
+    trigger.setId(id);
+  }
+
+  @Override
+  public void setName(String name) {
+    trigger.setName(name);
+  }
+
+  @Override
+  public void setProperty(String name, String value) {
+    trigger.setProperty(name, value);
+  }
+
+  protected void registerDependency(String dependency) {
+    trigger.registerDependency(dependency);
+  }
+
+  public String getType() {
+    return trigger.getType();
+  }
+
+  public Stream<String> dependsOn() {
+    return trigger.dependsOn();
+  }
 }

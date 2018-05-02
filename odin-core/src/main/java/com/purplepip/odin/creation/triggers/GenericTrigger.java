@@ -18,6 +18,7 @@ package com.purplepip.odin.creation.triggers;
 import com.purplepip.odin.clock.tick.AbstractTimeThing;
 import com.purplepip.odin.clock.tick.MutableTimeThing;
 import com.purplepip.odin.specificity.NameValue;
+import com.purplepip.odin.specificity.ThingConfiguration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -34,6 +35,14 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
   private final String type;
   private Set<String> dependsOn = new HashSet<>();
   private Map<String, String> properties = new HashMap<>();
+
+  /**
+   * Create new generic sequence.
+   */
+  GenericTrigger(Class<? extends ThingConfiguration> clazz) {
+    super();
+    type = new NameValue(clazz).get();
+  }
 
   /**
    * Create a new generic trigger.
