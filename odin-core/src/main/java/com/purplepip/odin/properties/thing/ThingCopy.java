@@ -139,16 +139,21 @@ public class ThingCopy {
       return this;
     }
 
-    /**
-     * Copy thing configuration.
+    /*
+     * Copy from generic source
      */
-    public void copy() {
-      if (!(destination instanceof MutablePropertiesProvider)) {
-        LOG.warn("Cannot copy to {}, not instance of MutablePropertiesProvider", destination);
-        return;
-      }
-
-      if (!source.arePropertiesDeclared() && destination.arePropertiesDeclared()) {
+    private void copyFromGenericSource() {
+      if (destination.arePropertiesDeclared()) {
+        if (!(destination instanceof MutablePropertiesProvider)) {
+          if (source.hasProperties()) {
+            LOG.warn("Source properties not copied from {} to {}, since not instance of "
+                + "MutablePropertiesProvider", source, destination);
+          } else {
+            LOG.debug("Pointless copy {} to {}, not instance of MutablePropertiesProvider",
+                source, destination);
+          }
+          return;
+        }
         LOG.trace("Copying generic to specific");
         /*
          * Copy generic to specific.  This involves copying the properties in the property map
@@ -162,10 +167,7 @@ public class ThingCopy {
             LOG.warn("Whilst populating thing {} : {}", destination, e.getMessage());
           }
         });
-      } else if (source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
-        LOG.trace("Copying specific to generic");
-        copySpecificToGeneric();
-      } else if (!source.arePropertiesDeclared() && !destination.arePropertiesDeclared()) {
+      } else {
         LOG.trace("Copying generic to generic");
         /*
          * Copy generic to generic.   This involves just copying the properties map.
@@ -173,6 +175,23 @@ public class ThingCopy {
         source.getPropertyNames().forEach(name ->
             ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name))
         );
+      }
+    }
+
+    /**
+     * Copy thing configuration.
+     */
+    public void copy() {
+      if (!source.arePropertiesDeclared()) {
+        copyFromGenericSource();
+      } else {
+        if (!destination.arePropertiesDeclared()) {
+          LOG.trace("Copying specific to generic");
+          copySpecificToGeneric();
+        } else {
+          LOG.trace("Copying specific to specific");
+          LOG.warn("Pointless call of copy of specific {} to specific {}", source, destination);
+        }
       }
     }
 

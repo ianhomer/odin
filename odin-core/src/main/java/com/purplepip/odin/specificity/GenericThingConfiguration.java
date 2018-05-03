@@ -19,8 +19,10 @@ import com.purplepip.odin.properties.Properties;
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class GenericThingConfiguration extends AbstractPropertiesThing
     implements MutableThingConfiguration {
   private final String type;
