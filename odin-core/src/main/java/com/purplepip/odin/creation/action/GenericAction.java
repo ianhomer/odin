@@ -18,6 +18,7 @@ package com.purplepip.odin.creation.action;
 import com.purplepip.odin.common.Stringy;
 import com.purplepip.odin.properties.thing.AbstractPropertiesThing;
 import com.purplepip.odin.specificity.NameValue;
+import com.purplepip.odin.specificity.ThingConfiguration;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,6 +26,14 @@ import lombok.EqualsAndHashCode;
 @Data
 public class GenericAction extends AbstractPropertiesThing implements MutableActionConfiguration {
   private final String type;
+
+  /**
+   * Create new generic sequence.
+   */
+  GenericAction(Class<? extends ThingConfiguration> clazz) {
+    super();
+    type = new NameValue(clazz).get();
+  }
 
   /**
    * Create a new generic action.
@@ -44,7 +53,7 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
     this.type = type;
   }
 
-  protected <T extends GenericAction> T copy(T copy, Class<T> type) {
+  protected GenericAction copy(GenericAction copy) {
     super.copy(copy);
     return copy;
   }

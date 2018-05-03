@@ -16,11 +16,18 @@
 package com.purplepip.odin.creation.action;
 
 import com.purplepip.odin.creation.plugin.Plugin;
+import java.util.Map;
 import java.util.stream.Stream;
+import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = true)
-public abstract class ActionPlugin extends GenericAction implements Action, Plugin {
+@EqualsAndHashCode
+public abstract class ActionPlugin implements Action, Plugin {
+  protected final GenericAction action;
+
+  protected ActionPlugin() {
+    action = new GenericAction(getClass());
+  }
 
   /**
    * By default the ripples from an action plugin is just this plugin itself.  The ListAction
@@ -30,5 +37,45 @@ public abstract class ActionPlugin extends GenericAction implements Action, Plug
    */
   public Stream<Action> getRipples() {
     return Stream.of(this);
+  }
+
+  @Override
+  public long getId() {
+    return action.getId();
+  }
+
+  @Override
+  public @NotNull String getName() {
+    return action.getName();
+  }
+
+  @Override
+  public @NotNull String getType() {
+    return action.getType();
+  }
+
+  @Override
+  public String getProperty(String name) {
+    return action.getProperty(name);
+  }
+
+  @Override
+  public Stream<String> getPropertyNames() {
+    return action.getPropertyNames();
+  }
+
+  @Override
+  public Stream<Map.Entry<String, String>> getPropertyEntries() {
+    return action.getPropertyEntries();
+  }
+
+  @Override
+  public boolean hasProperties() {
+    return action.hasProperties();
+  }
+
+  protected <T extends ActionPlugin> T copy(T copy, Class<T> type) {
+    action.copy(copy.action);
+    return copy;
   }
 }

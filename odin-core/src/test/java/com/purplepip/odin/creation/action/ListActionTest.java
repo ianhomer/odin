@@ -28,7 +28,6 @@ public class ListActionTest {
     Map<String, ActionConfiguration> map =
         ListAction.asActionConfigurationMap("test", new StartAction(), new EnableAction());
     assertEquals(3, map.size());
-    map.values().forEach(value -> assertTrue(value instanceof GenericAction));
     ListAction action = ListAction.asListAction("test", map, newActionFactory());
     assertEquals(2, action.getRipples().count());
     assertTrue(action.getRipples().toArray()[0] instanceof StartAction);

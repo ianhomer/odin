@@ -37,7 +37,7 @@ public class GenericTrigger extends AbstractTimeThing implements MutableTriggerC
   private Map<String, String> properties = new HashMap<>();
 
   /**
-   * Create new generic sequence.
+   * Create new generic trigger.
    */
   GenericTrigger(Class<? extends ThingConfiguration> clazz) {
     super();

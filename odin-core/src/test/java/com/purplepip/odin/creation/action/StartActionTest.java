@@ -34,7 +34,7 @@ public class StartActionTest {
 
   @Test
   public void testToString() {
-    GenericAction startAction = new StartAction();
+    ActionPlugin startAction = new StartAction();
     assertEquals("StartAction()", startAction.toString());
   }
 
