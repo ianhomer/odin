@@ -74,6 +74,7 @@ public class Metronome extends SequencePlugin {
     return copy;
   }
 
+  @Override
   public Metronome name(String name) {
     super.name(name);
     return this;

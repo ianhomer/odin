@@ -54,7 +54,7 @@ public class ReactorReceiver implements OperationReceiver {
     LOG.debug("Operation received {} at {}", operation, time);
     reactors.stream().forEach(reactor -> {
       List<Operation> ripples = reactor.react(operation);
-      if (ripples != null) {
+      if (!ripples.isEmpty()) {
         triggered.mark();
         if (operation.getCauseDepth() > MAX_CAUSE_DEPTH) {
           LOG.warn("Ignoring ripples from {}, max operation causation depth reached", operation);

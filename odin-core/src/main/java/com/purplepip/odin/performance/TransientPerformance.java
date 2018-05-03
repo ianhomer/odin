@@ -76,6 +76,7 @@ public class TransientPerformance implements Performance {
     return name;
   }
 
+  @Override
   public URI getUri() {
     return uri;
   }

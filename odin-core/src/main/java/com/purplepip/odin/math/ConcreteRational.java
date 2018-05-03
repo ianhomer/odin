@@ -49,16 +49,6 @@ final class ConcreteRational extends AbstractRational {
   }
 
   /**
-   * Create rational number with fraction simplification.
-   *
-   * @param numerator numerator
-   * @param denominator denominator
-   */
-  private ConcreteRational(long numerator, long denominator) {
-    this(numerator, denominator, false);
-  }
-
-  /**
    * Create rational number.
    *
    * @param numerator numerator

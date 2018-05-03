@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Name("start")
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class ListAction extends ActionPlugin {
   public static final String LIST_ACTION_START = "...";
@@ -46,6 +48,7 @@ public class ListAction extends ActionPlugin {
     this.actionList = actionList;
   }
 
+  @Override
   public Stream<Action> getRipples() {
     return actionList.stream();
   }

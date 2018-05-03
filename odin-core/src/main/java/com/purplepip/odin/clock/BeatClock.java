@@ -63,7 +63,6 @@ public class BeatClock extends AbstractClock {
    * @param configuration beat clock configuration.
    */
   public BeatClock(Configuration configuration) {
-    assert configuration.beatsPerMinute() != null;
     this.beatsPerMinute = configuration.beatsPerMinute();
     if (configuration.microsecondPositionProvider == null) {
       this.microsecondPositionProvider = new DefaultMicrosecondPositionProvider();

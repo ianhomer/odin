@@ -19,6 +19,9 @@ package com.purplepip.odin.common;
  * Compare helper.
  */
 public final class CompareHelper {
+  private CompareHelper() {
+  }
+
   /**
    * Compare two longs.
    *

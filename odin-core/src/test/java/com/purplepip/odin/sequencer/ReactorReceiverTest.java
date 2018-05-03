@@ -52,7 +52,7 @@ public class ReactorReceiverTest {
   private MeasureProvider measureProvider = newMeasureProvider(4);
 
   @Test
-  public void testSend() throws Exception {
+  public void testSend() {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(new DefaultPerformanceContainer(project));
     builder

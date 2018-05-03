@@ -32,6 +32,7 @@ public class NoteOffOperation extends AbstractNoteVelocityOperation {
     setVelocity(0);
   }
 
+  @Override
   public String toString() {
     return "▲" + this.getNumber() + "    → " + super.getChannel();
   }

@@ -100,6 +100,7 @@ public abstract class AbstractTimeThing extends AbstractPropertiesThing
    *
    * @return to string
    */
+  @Override
   public String toString() {
     return Stringy.of(AbstractTimeThing.class, this)
         .includeNulls()

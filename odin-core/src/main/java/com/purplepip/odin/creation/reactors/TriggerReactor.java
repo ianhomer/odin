@@ -26,6 +26,7 @@ import com.purplepip.odin.creation.triggers.TriggerConfiguration;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.operation.Operation;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,7 +109,7 @@ public class TriggerReactor implements Reactor, PluggableAspect<TriggerConfigura
       });
       return ripples;
     }
-    return null;
+    return Collections.emptyList();
   }
 
   /**

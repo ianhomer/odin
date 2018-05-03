@@ -40,6 +40,9 @@ public class MathTypeConverterManager {
     TypeConverterManager.register(Whole.class, new WholeTypeConverter());
   }
 
+  private MathTypeConverterManager() {
+  }
+
   public static void requireMathTypeConverters() {
     // No operation, just loading the class loads dependencies.  This method just makes
     // code more descriptive.

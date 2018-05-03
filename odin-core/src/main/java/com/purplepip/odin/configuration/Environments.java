@@ -19,6 +19,9 @@ import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.midix.OdinMidiHandleProvider;
 
 public final class Environments {
+  private Environments() {
+  }
+
   /**
    * Create the default environment for the Odin configuration.
    *

@@ -80,6 +80,7 @@ public abstract class AbstractPropertiesThing extends AbstractThing
    *
    * @return to string
    */
+  @Override
   public String toString() {
     return Stringy.of(AbstractPropertiesThing.class, this)
         .add("name", getName())

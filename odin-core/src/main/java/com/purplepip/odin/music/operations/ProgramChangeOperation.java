@@ -101,6 +101,7 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
    *
    * @return object as string
    */
+  @Override
   public String toString() {
     return Stringy.of(ProgramChangeOperation.class)
         .add("channel", super.getChannel())

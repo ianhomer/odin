@@ -292,6 +292,7 @@ public class DefaultOdinSequencerConfiguration
     return this;
   }
 
+  @Override
   public final boolean isStrictEventOrder() {
     return strictEventOrder;
   }

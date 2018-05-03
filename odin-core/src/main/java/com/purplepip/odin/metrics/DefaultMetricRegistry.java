@@ -21,11 +21,14 @@ import com.codahale.metrics.SharedMetricRegistries;
 /**
  * Configure default metric registry for system.
  */
-public class DefaultMetricRegistry {
+public final class DefaultMetricRegistry {
   private static final String DEFAULT_NAME = "default";
 
   static {
     SharedMetricRegistries.setDefault(DEFAULT_NAME);
+  }
+
+  private DefaultMetricRegistry() {
   }
 
   public static MetricRegistry get() {

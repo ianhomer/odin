@@ -21,7 +21,10 @@ import java.util.regex.Pattern;
 /**
  * Utility class to make strings prettier.
  */
-public class Pretty {
+public final class Pretty {
+  private Pretty() {
+  }
+
   private static final int MAX_REPLACE = 7;
   private static final Pattern[] replaceTrailingZeros = new Pattern[MAX_REPLACE + 1];
 

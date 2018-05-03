@@ -62,11 +62,13 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
     return type;
   }
 
+  @Override
   public GenericAction name(String name) {
     super.setName(name);
     return this;
   }
 
+  @Override
   public GenericAction property(String propertyName, String value) {
     super.property(propertyName, value);
     return this;
@@ -77,6 +79,7 @@ public class GenericAction extends AbstractPropertiesThing implements MutableAct
    *
    * @return object as string
    */
+  @Override
   public String toString() {
     return Stringy.of(GenericAction.class, this)
         .add("type", type)

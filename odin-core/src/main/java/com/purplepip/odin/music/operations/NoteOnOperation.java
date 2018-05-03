@@ -43,6 +43,7 @@ public class NoteOnOperation extends AbstractNoteVelocityOperation {
     setCause(cause);
   }
 
+  @Override
   public String toString() {
     return "▼" + this.getNumber() + "↓" + this.getVelocity() + " → "
         + super.getChannel();

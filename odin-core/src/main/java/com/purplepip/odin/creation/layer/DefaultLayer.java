@@ -82,6 +82,11 @@ public class DefaultLayer extends AbstractTimeThing implements MutableLayer {
   }
 
   @Override
+  public String toString() {
+    return super.toString();
+  }
+
+  @Override
   public DefaultLayer length(long length) {
     super.length(length);
     return this;
