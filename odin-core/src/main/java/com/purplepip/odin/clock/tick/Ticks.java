@@ -22,6 +22,7 @@ import com.purplepip.odin.math.Wholes;
  * This class consists exclusively of static properties that utilise the Tick model.
  */
 public final class Ticks {
+  public static final Tick ZERO = new DefaultTick(TimeUnit.BEAT, 0);
   public static final Tick SECOND = new DefaultTick(TimeUnit.MICROSECOND, 1_000_000);
   public static final Tick MILLISECOND = new DefaultTick(TimeUnit.MICROSECOND, 1_000);
   public static final Tick MICROSECOND = new DefaultTick(TimeUnit.MICROSECOND);

@@ -79,7 +79,8 @@ public abstract class AbstractTickConverter implements TickConverter {
     }
     refreshZeroOffset();
 
-    if (sourceTick.get() == null || targetTick.get() == null) {
+    if (sourceTick.get().getFactor().getNumerator() == 0
+        || targetTick.get().getFactor().getNumerator() == 0) {
       forwards = new UnreadyDirection(sourceTick.get(), targetTick.get());
       backwards = new UnreadyDirection(targetTick.get(), sourceTick.get());
     } else {

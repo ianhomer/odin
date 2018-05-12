@@ -26,17 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class DefaultMutableProperty<T> implements MutableProperty<T> {
   private T value;
 
-  /**
-   * Create a property without setting an initial value.
-   */
-  public DefaultMutableProperty() {
-    /*
-     * Empty constructor to explicitly differentiate with constructor that sets value.
-     */
-  }
-
   public DefaultMutableProperty(T value) {
-    this.value = value;
+    setValue(value);
   }
 
   @Override
@@ -44,9 +35,16 @@ public class DefaultMutableProperty<T> implements MutableProperty<T> {
     return value;
   }
 
-  @Override
-  public void set(T value) {
+  private void setValue(T value)  {
+    if (value == null) {
+      throw new IllegalArgumentException("Cannot set property to null");
+    }
     LOG.debug("Changing property to {}", value);
     this.value = value;
+  }
+
+  @Override
+  public void set(T value) {
+    setValue(value);
   }
 }

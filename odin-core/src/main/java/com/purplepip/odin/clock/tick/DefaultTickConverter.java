@@ -64,7 +64,6 @@ public class DefaultTickConverter extends AbstractTickConverter {
     this.clock = clock;
     setSourceTick(sourceTick);
     setTargetTick(targetTick);
-    assert sourceOffset.get() != null;
     setSourceOffset(sourceOffset);
     if (initialise) {
       refresh();

@@ -15,7 +15,15 @@
 
 package com.purplepip.odin.properties.runtime;
 
+import javax.validation.constraints.NotNull;
+
+/**
+ * Non null property reference.
+ *
+ * @param <T> type of property
+ */
 @FunctionalInterface
 public interface Property<T> {
+  @NotNull
   T get();
 }

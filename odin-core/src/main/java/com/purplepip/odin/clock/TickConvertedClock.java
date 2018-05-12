@@ -60,7 +60,7 @@ public class TickConvertedClock extends AbstractClock {
    * TODO : Support BPM change.
    */
   private void refreshMaxLookForward() {
-    if (tick.get() != null) {
+    if (tick.get().getFactor().getNumerator() != 0) {
       setMaxLookForward(tickToBeatConverter.convertDurationBack(Wholes.ZERO,
           beatClock.getMaxLookForward()));
     }

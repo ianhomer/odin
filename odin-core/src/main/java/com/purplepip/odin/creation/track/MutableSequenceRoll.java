@@ -67,7 +67,7 @@ public class MutableSequenceRoll implements SequenceRoll, PerformanceListener {
 
   private Map<String, Action> triggers = new HashMap<>();
 
-  private final MutableProperty<Tick> tick = new ObservableProperty<>();
+  private final MutableProperty<Tick> tick = new ObservableProperty<>(Ticks.ZERO);
   /*
    * offset is the offset of the sequence.
    */

@@ -13,7 +13,6 @@ import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
-import java.net.URISyntaxException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +23,10 @@ import org.junit.Test;
  */
 @Slf4j
 public class OdinSequencerReloadTest {
-  private static final int OFFSET = 100;
-  private static final int LENGTH = 16;
   private static final int EXPECTED_COUNT = 16;
 
   @Test
-  public void testSequencer() throws OdinException, InterruptedException, URISyntaxException {
+  public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch channel1Latch = new CountDownLatch(2);
     final CountDownLatch channel9Latch = new CountDownLatch(EXPECTED_COUNT);
 

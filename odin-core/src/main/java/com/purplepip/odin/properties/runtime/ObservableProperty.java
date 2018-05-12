@@ -17,6 +17,7 @@ package com.purplepip.odin.properties.runtime;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,16 +26,6 @@ public class ObservableProperty<T> extends DefaultMutableProperty<T> implements 
    * Observers are executed in the order they are registered.
    */
   private final Set<Observer> observers = new LinkedHashSet<>();
-
-  /**
-   * Create a property without setting an initial value.
-   */
-  public ObservableProperty() {
-    /*
-     * Empty constructor to explicitly differentiate with constructor that sets value.
-     */
-    super();
-  }
 
   public ObservableProperty(T value) {
     super(value);
@@ -51,7 +42,7 @@ public class ObservableProperty<T> extends DefaultMutableProperty<T> implements 
   }
 
   @Override
-  public void set(T value) {
+  public void set(@NotNull T value) {
     super.set(value);
     observers.forEach(Observer::onChange);
   }

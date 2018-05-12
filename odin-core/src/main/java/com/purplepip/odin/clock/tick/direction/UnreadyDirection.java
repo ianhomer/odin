@@ -38,15 +38,15 @@ public class UnreadyDirection extends AbstractDirection {
   public UnreadyDirection(Tick sourceTick, Tick targetTick) {
     super(sourceTick, targetTick);
 
-    if (sourceTick != null && targetTick != null) {
+    if (sourceTick.getFactor().getNumerator() != 0 && targetTick.getFactor().getNumerator() != 0) {
       throw new OdinRuntimeException("UnreadyDirection should only be created if either"
-          + " source tick or target tick is null");
+          + " source tick or target tick is zero");
     }
   }
 
   @Override
   public Real scaleTime(Real time) {
-    if (getSourceTick() == null) {
+    if (getSourceTick().getFactor().getNumerator() == 0) {
       throw new OdinRuntimeException("Direction is not ready, source tick is null");
     } else {
       throw new OdinRuntimeException("Direction is not ready, target tick is null");
@@ -55,7 +55,7 @@ public class UnreadyDirection extends AbstractDirection {
 
   @Override
   public Tick getSourceTick() {
-    if (super.getSourceTick() == null) {
+    if (super.getSourceTick().getFactor().getNumerator() == 0) {
       throw new OdinRuntimeException("Direction does not have source tick set yet");
     }
     return super.getSourceTick();
@@ -63,7 +63,7 @@ public class UnreadyDirection extends AbstractDirection {
 
   @Override
   public Tick getTargetTick() {
-    if (super.getTargetTick() == null) {
+    if (super.getTargetTick().getFactor().getNumerator() == 0) {
       throw new OdinRuntimeException("Direction does not have target tick set yet");
     }
     return super.getTargetTick();
