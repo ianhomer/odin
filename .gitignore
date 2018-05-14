@@ -1,3 +1,4 @@
+.idea/sonarlint
 .idea/workspace.xml
 target/
 odin-frontend/node_modules/

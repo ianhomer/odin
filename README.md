@@ -36,14 +36,21 @@ or run with developer benefits, e.g. web template reloading
 
     docker-compose up
     
-or with rebuild    
+or with rebuild
 
     docker-compose up --build
-    
+
+# Interact with volumes
+
 To run interact container
 
     docker run --rm -it --name admin -v=odin_web-volume:/var/lib/web busybox
-        
+
+The copy the files into the volume
+
+    docker cp src/main/resources/static/. admin:/var/lib/web/
+
+
 # Android Application
 
 See also the [Odin Android App](https://github.com/ianhomer/odin-android).  
