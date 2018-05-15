@@ -15,12 +15,12 @@
 
 package com.purplepip.odin.api;
 
+import com.purplepip.odin.api.math.RationalDeserializer;
+import com.purplepip.odin.api.math.RationalSerializer;
 import com.purplepip.odin.api.rest.Json;
 import com.purplepip.odin.api.rest.JsonSerializer;
 import com.purplepip.odin.api.services.composition.CompositionSerializer;
 import com.purplepip.odin.api.services.composition.MeasureSerializer;
-import com.purplepip.odin.api.services.composition.RationalDeserializer;
-import com.purplepip.odin.api.services.composition.RationalSerializer;
 import com.purplepip.odin.api.services.composition.StaffSerializer;
 import com.purplepip.odin.api.services.composition.VoiceSerializer;
 import com.purplepip.odin.math.Rational;
@@ -69,11 +69,11 @@ public class JsonConfiguration {
   public Jackson2ObjectMapperBuilderCustomizer customizeJson() {
     return jacksonObjectMapperBuilder -> {
       jacksonObjectMapperBuilder.serializerByType(EasyComposition.class, compositionSerializer);
-      jacksonObjectMapperBuilder.serializerByType(Json.class, jsonSerializer);
       jacksonObjectMapperBuilder.serializerByType(EasyMeasure.class, measureSerializer);
-      jacksonObjectMapperBuilder.serializerByType(Rational.class, rationalSerializer);
       jacksonObjectMapperBuilder.serializerByType(EasyStaff.class, staffSerializer);
       jacksonObjectMapperBuilder.serializerByType(EasyVoice.class, voiceSerializer);
+      jacksonObjectMapperBuilder.serializerByType(Json.class, jsonSerializer);
+      jacksonObjectMapperBuilder.serializerByType(Rational.class, rationalSerializer);
       jacksonObjectMapperBuilder.deserializerByType(Rational.class, rationalDeserializer);
     };
   }
