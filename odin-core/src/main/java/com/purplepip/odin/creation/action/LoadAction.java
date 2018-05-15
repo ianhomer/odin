@@ -58,6 +58,6 @@ public class LoadAction extends ActionPlugin {
    */
   @Override
   public LoadAction copy() {
-    return copy(new LoadAction(), LoadAction.class);
+    return copy(new LoadAction());
   }
 }

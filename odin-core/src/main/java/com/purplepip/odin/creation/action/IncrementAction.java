@@ -49,7 +49,7 @@ public class IncrementAction extends ActionPlugin {
    */
   @Override
   public IncrementAction copy() {
-    return copy(new IncrementAction(), IncrementAction.class);
+    return copy(new IncrementAction());
   }
 
   public IncrementAction propertyName(String propertyName) {

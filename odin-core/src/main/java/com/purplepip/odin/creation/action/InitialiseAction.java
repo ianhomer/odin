@@ -38,6 +38,6 @@ public class InitialiseAction extends ActionPlugin {
    */
   @Override
   public InitialiseAction copy() {
-    return copy(new InitialiseAction(), InitialiseAction.class);
+    return copy(new InitialiseAction());
   }
 }

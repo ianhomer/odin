@@ -61,7 +61,7 @@ public class SetAction extends ActionPlugin {
    */
   @Override
   public SetAction copy() {
-    return copy(new SetAction(), SetAction.class);
+    return copy(new SetAction());
   }
 
   /**

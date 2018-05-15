@@ -74,7 +74,7 @@ public abstract class ActionPlugin implements Action, Plugin {
     return action.hasProperties();
   }
 
-  protected <T extends ActionPlugin> T copy(T copy, Class<T> type) {
+  protected <T extends ActionPlugin> T copy(T copy) {
     action.copy(copy.action);
     return copy;
   }

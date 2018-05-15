@@ -39,6 +39,6 @@ public class StartAction extends ActionPlugin {
    */
   @Override
   public StartAction copy() {
-    return copy(new StartAction(), StartAction.class);
+    return copy(new StartAction());
   }
 }

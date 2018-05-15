@@ -38,6 +38,6 @@ public class EnableAction extends ActionPlugin {
    */
   @Override
   public EnableAction copy() {
-    return copy(new EnableAction(), EnableAction.class);
+    return copy(new EnableAction());
   }
 }
