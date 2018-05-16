@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.devices;
 
+/**
+ * A handle onto a device that we connect to, to get a device.
+ */
 public interface Handle {
   String getName();
 
@@ -22,7 +25,7 @@ public interface Handle {
 
   String getDescription();
 
-  Device connect(Handle identifier) throws DeviceUnavailableException;
+  Device connect() throws DeviceUnavailableException;
 
   /**
    * Serialised string version of this identifier to a StringBuilder.

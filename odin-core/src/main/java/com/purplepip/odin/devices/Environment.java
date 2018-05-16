@@ -19,12 +19,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Environment {
-  private final Set<Handle> identifiers = new HashSet<>();
+  private final Set<Handle> handles = new HashSet<>();
   private final Set<HandleProvider> providers;
+  private final Set<Class<? extends Handle>> clazzes = new HashSet<>();
 
   /**
    * Create an environment.
@@ -33,6 +36,7 @@ public class Environment {
    */
   public Environment(HandleProvider... providers) {
     this.providers = new HashSet<>(Arrays.asList(providers));
+    Stream.of(providers).forEach(provider -> clazzes.addAll(provider.getHandleClasses()));
     refresh();
   }
 
@@ -40,18 +44,31 @@ public class Environment {
    * Refresh the environment.
    */
   public void refresh() {
-    identifiers.clear();
+    handles.clear();
     for (HandleProvider provider : providers) {
-      identifiers.addAll(provider.getIdentifiers());
+      handles.addAll(provider.getHandles());
     }
   }
 
   public boolean isEmpty() {
-    return identifiers.isEmpty();
+    return handles.isEmpty();
   }
 
-  public Set<Handle> getIdentifiers() {
-    return Collections.unmodifiableSet(identifiers);
+  public Set<Handle> getHandles() {
+    return Collections.unmodifiableSet(handles);
+  }
+
+  /**
+   * Get handles for a give handle class.
+   *
+   * @param clazz handle class
+   * @return handles for the given handle class
+   */
+  private Set<Handle> getHandles(Class<? extends Handle> clazz) {
+    return Collections.unmodifiableSet(
+        handles.stream().filter(handle -> handle.getClass().isAssignableFrom(clazz))
+          .collect(Collectors.toSet())
+    );
   }
 
   /**
@@ -78,17 +95,21 @@ public class Environment {
     } else {
       sb.append("Devices\n");
       int i = 0;
-      for (Handle identifier : getIdentifiers()) {
-        sb.append('\n').append(i++).append(") - ");
-        i++;
-        identifier.appendTo(sb);
-        if (withConnections) {
-          try {
-            identifier.connect(identifier).appendTo(sb);
-          } catch (DeviceUnavailableException e) {
-            LOG.error("Cannot get device " + identifier, e);
+      for (Class<? extends Handle> clazz : clazzes) {
+        sb.append("\n ** ").append(clazz.getSimpleName()).append(" **\n");
+        for (Handle identifier : getHandles(clazz)) {
+          sb.append('\n').append(i++).append(") - ");
+          i++;
+          identifier.appendTo(sb);
+          if (withConnections) {
+            try {
+              identifier.connect().appendInfoTo(sb);
+            } catch (DeviceUnavailableException e) {
+              LOG.error("Cannot get device " + identifier, e);
+            }
           }
         }
+
       }
     }
     return sb.toString();

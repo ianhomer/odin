@@ -18,7 +18,6 @@ package com.purplepip.odin.experiments;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
@@ -40,12 +39,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class InputExperiment {
-  public static void main(String[] args) throws OdinException, InterruptedException {
+  public static void main(String[] args) throws InterruptedException {
     InputExperiment experiment = new InputExperiment();
     experiment.doExperiment();
   }
 
-  private void doExperiment() throws OdinException, InterruptedException {
+  private void doExperiment() throws InterruptedException {
     final CountDownLatch lock = new CountDownLatch(800);
 
     Environments.newEnvironment().dump();

@@ -13,43 +13,37 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.midix;
+package com.purplepip.odin.audio;
 
 import com.purplepip.odin.devices.Device;
-import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Handle;
-import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Mixer;
 
-public class OdinMidiHandle implements Handle {
-  private final MidiDevice.Info deviceInfo;
+public class AudioHandle implements Handle {
+  private final Mixer.Info mixerInfo;
 
-  OdinMidiHandle(MidiDevice.Info deviceInfo) {
-    this.deviceInfo = deviceInfo;
+  AudioHandle(Mixer.Info mixerInfo) {
+    this.mixerInfo = mixerInfo;
   }
 
   @Override
   public String getName() {
-    return deviceInfo.getName();
+    return mixerInfo.getName();
   }
 
   @Override
   public String getVendor() {
-    return deviceInfo.getVendor();
+    return mixerInfo.getVendor();
   }
 
   @Override
   public String getDescription() {
-    return deviceInfo.getDescription();
+    return mixerInfo.getDescription();
   }
 
   @Override
-  public Device connect(Handle identifier) throws DeviceUnavailableException {
-    try {
-      return new OdinMidiDevice(MidiSystem.getMidiDevice(deviceInfo));
-    } catch (MidiUnavailableException e) {
-      throw new DeviceUnavailableException(e);
-    }
+  public Device connect() {
+    return new AudioDevice(AudioSystem.getMixer(mixerInfo));
   }
 }

@@ -15,8 +15,9 @@
 
 package com.purplepip.odin.configuration;
 
+import com.purplepip.odin.audio.AudioHandleProvider;
 import com.purplepip.odin.devices.Environment;
-import com.purplepip.odin.midix.OdinMidiHandleProvider;
+import com.purplepip.odin.midix.MidiHandleProvider;
 
 public final class Environments {
   private Environments() {
@@ -28,6 +29,9 @@ public final class Environments {
    * @return default environment.
    */
   public static Environment newEnvironment() {
-    return new Environment(new OdinMidiHandleProvider());
+    return new Environment(
+        new MidiHandleProvider(),
+        new AudioHandleProvider()
+    );
   }
 }

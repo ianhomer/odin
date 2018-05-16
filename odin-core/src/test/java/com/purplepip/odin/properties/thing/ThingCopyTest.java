@@ -40,6 +40,7 @@ import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.specificity.ThingConfiguration;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -204,6 +205,7 @@ public class ThingCopyTest {
   }
 
   @Data
+  @EqualsAndHashCode(callSuper = true)
   private class BasicPropertiesThing extends AbstractPropertiesThing implements ThingConfiguration {
     private String type;
 
@@ -214,6 +216,7 @@ public class ThingCopyTest {
   }
 
   @Data
+  @EqualsAndHashCode(callSuper = true)
   private class SpecificThing extends AbstractPropertiesThing implements ThingConfiguration {
     private long id;
     private String name;

@@ -13,24 +13,20 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.midix;
+package com.purplepip.odin.audio;
 
-import com.purplepip.odin.devices.Handle;
-import com.purplepip.odin.devices.HandleProvider;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiSystem;
+import com.purplepip.odin.devices.Device;
+import javax.sound.sampled.Mixer;
 
-public class OdinMidiHandleProvider implements HandleProvider {
+public class AudioDevice implements Device {
+  private final Mixer mixer;
+
+  public AudioDevice(Mixer mixer) {
+    this.mixer = mixer;
+  }
 
   @Override
-  public Set<Handle> getIdentifiers() {
-    Set<Handle> identifiers = new HashSet<>();
-    for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      identifiers.add(new OdinMidiHandle(info));
-    }
-    return Collections.unmodifiableSet(identifiers);
+  public void appendInfoTo(StringBuilder sb) {
+    sb.append(mixer);
   }
 }

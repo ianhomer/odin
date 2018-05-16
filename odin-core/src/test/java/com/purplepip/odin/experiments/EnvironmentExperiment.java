@@ -13,23 +13,19 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.devices;
+package com.purplepip.odin.experiments;
 
-import java.util.Set;
+import com.purplepip.odin.configuration.Environments;
+import lombok.extern.slf4j.Slf4j;
 
-/**
- * A provider that gives handles on to devices.
- */
-public interface HandleProvider {
-  /**
-   * Handle classes that this handle provider can return.
-   *
-   * @return handle classes
-   */
-  Set<Class<? extends Handle>> getHandleClasses();
+@Slf4j
+public class EnvironmentExperiment {
+  public static void main(String[] args) {
+    EnvironmentExperiment experiment = new EnvironmentExperiment();
+    experiment.doExperiment();
+  }
 
-  /*
-   * Get handles for this provider
-   */
-  Set<Handle> getHandles();
+  private void doExperiment() {
+    Environments.newEnvironment().dump();
+  }
 }

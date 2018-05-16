@@ -30,8 +30,7 @@ public class OdinMidiDevice implements Device {
   }
 
   @Override
-  public void appendTo(StringBuilder sb) {
-
+  public void appendInfoTo(StringBuilder sb) {
     sb.append("\n          μs position = ").append(device.getMicrosecondPosition());
     if (device instanceof Synthesizer) {
       sb.append(" - synthesizer latency = ")
