@@ -49,7 +49,7 @@ public class MockEnvironmentConfiguration {
         mockHandle(3),
         mockHandle(4)
     );
-    when(provider.getIdentifiers()).thenReturn(handles);
+    when(provider.getHandles()).thenReturn(handles);
     return new Environment(provider);
   }
 
@@ -72,7 +72,7 @@ public class MockEnvironmentConfiguration {
     private String vendor;
 
     @Override
-    public Device connect(Handle identifier) throws DeviceUnavailableException {
+    public Device connect() throws DeviceUnavailableException {
       throw new DeviceUnavailableException("Cannot connect to mock handle");
     }
   }

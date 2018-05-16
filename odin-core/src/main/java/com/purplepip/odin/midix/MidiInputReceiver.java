@@ -28,7 +28,7 @@ public class MidiInputReceiver implements Receiver {
   private OperationReceiver receiver;
   private MicrosecondPositionProvider microsecondPositionProvider;
 
-  public MidiInputReceiver(OperationReceiver receiver,
+  MidiInputReceiver(OperationReceiver receiver,
                            MicrosecondPositionProvider microsecondPositionProvider) {
     this.receiver = receiver;
     this.microsecondPositionProvider = microsecondPositionProvider;

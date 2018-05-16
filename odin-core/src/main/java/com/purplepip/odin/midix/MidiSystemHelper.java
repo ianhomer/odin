@@ -29,25 +29,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Report information on the midi system.
  */
-public class MidiSystemHelper {
+class MidiSystemHelper {
   private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
 
   private final MidiSystemWrapper midiSystemWrapper = new MidiSystemWrapper();
-
-  /**
-   * Log MIDI system info.
-   *
-   * @deprecated please use MidiSystemWrapper.dump
-   * @return this MIDI system helper
-   */
-  @Deprecated
-  public MidiSystemHelper logInfo() {
-    for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      LOG.info("MIDI device info : {} ; {} ; {}", info.getVendor(), info.getName(),
-          info.getDescription());
-    }
-    return this;
-  }
 
   /**
    * Find a MIDI device by name.

@@ -76,7 +76,7 @@ public class SynthesizerHelper {
   /**
    * Log MIDI system instruments available.
    */
-  public void logInstruments() {
+  void logInstruments() {
     if (synthesizer != null) {
       Instrument[] instruments = synthesizer.getLoadedInstruments();
       LOG.debug("Synthesizer info");
@@ -103,7 +103,7 @@ public class SynthesizerHelper {
    * @param percussion true if wishing to find percussion instrument
    * @return Instrument instrument
    */
-  public Instrument findInstrumentByName(String name, boolean percussion) {
+  Instrument findInstrumentByName(String name, boolean percussion) {
     String lowercaseName = name.toLowerCase(Locale.ENGLISH);
     for (Instrument instrument : synthesizer.getLoadedInstruments()) {
       if ((!percussion || isPercussion(instrument))

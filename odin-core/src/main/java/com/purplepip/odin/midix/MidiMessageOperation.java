@@ -23,7 +23,7 @@ import lombok.ToString;
 public class MidiMessageOperation extends AbstractOperation {
   private MidiMessage midiMessage;
 
-  public MidiMessageOperation(MidiMessage midiMessage) {
+  MidiMessageOperation(MidiMessage midiMessage) {
     this.midiMessage = midiMessage;
   }
 

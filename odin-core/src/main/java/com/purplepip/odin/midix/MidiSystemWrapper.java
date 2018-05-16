@@ -34,6 +34,7 @@ public class MidiSystemWrapper {
    *
    * @return set of MIDI device infos
    */
+  // TODO : Remove access from odin-api server side web page so that this can be removed
   public Set<MidiDevice.Info> getMidiDeviceInfos() {
     Set<MidiDevice.Info> infos = new HashSet<>();
     Collections.addAll(infos, MidiSystem.getMidiDeviceInfo());

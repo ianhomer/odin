@@ -20,7 +20,7 @@ import javax.sound.midi.Receiver;
 public class MidiReceiverWrapper {
   private Receiver receiver;
 
-  public MidiReceiverWrapper(Receiver receiver) {
+  MidiReceiverWrapper(Receiver receiver) {
     this.receiver = receiver;
   }
 

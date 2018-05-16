@@ -136,7 +136,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
    * @param instrumentName instrument name to search for
    * @throws OdinException exception
    */
-  public Instrument changeProgram(int channel, String instrumentName) throws OdinException {
+  Instrument changeProgram(int channel, String instrumentName) throws OdinException {
     Instrument instrument = findInstrument(channel, instrumentName);
     changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
     return instrument;

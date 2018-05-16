@@ -1,6 +1,6 @@
 package com.purplepip.odin.experiments;
 
-import com.purplepip.odin.midix.MidiSystemHelper;
+import com.purplepip.odin.configuration.Environments;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
@@ -25,7 +25,7 @@ public class MidiPlayground {
   }
 
   private void dumpInfo() {
-    new MidiSystemHelper().logInfo();
+    Environments.newEnvironment().dump();
 
     ShortMessage middleC = new ShortMessage();
     ShortMessage middleD = new ShortMessage();

@@ -1,6 +1,6 @@
 {
   "empty" : false,
-  "identifiers" : [ {
+  "handles" : [ {
     "description" : "description1",
     "name" : "name1",
     "vendor" : "vendor1"

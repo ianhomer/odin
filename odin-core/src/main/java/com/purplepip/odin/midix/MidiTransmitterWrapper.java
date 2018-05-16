@@ -20,7 +20,7 @@ import javax.sound.midi.Transmitter;
 public class MidiTransmitterWrapper {
   private final Transmitter transmitter;
 
-  public MidiTransmitterWrapper(Transmitter transmitter) {
+  MidiTransmitterWrapper(Transmitter transmitter) {
     this.transmitter = transmitter;
   }
 

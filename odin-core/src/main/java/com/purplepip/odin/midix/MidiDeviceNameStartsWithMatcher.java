@@ -26,7 +26,7 @@ public class MidiDeviceNameStartsWithMatcher implements MidiDeviceMatcher {
   private static final String MATCH_ALL = "*";
   private String prefix;
 
-  public MidiDeviceNameStartsWithMatcher(String prefix) {
+  MidiDeviceNameStartsWithMatcher(String prefix) {
     this.prefix = prefix;
   }
 
