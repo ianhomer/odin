@@ -26,7 +26,7 @@ public class UnavailableDevice implements Device {
   }
 
   @Override
-  public void appendInfoTo(StringBuilder sb) {
-    sb.append("Device for ").append(handle.getName()).append(" is not available");
+  public String getSummary() {
+    return "Device for " + handle.getName() + " is not available";
   }
 }

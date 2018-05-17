@@ -29,8 +29,7 @@ public class UnavailableDeviceTest {
     when(handle.getName()).thenReturn("mock-handle");
     UnavailableDevice device = new UnavailableDevice(handle);
     StringBuilder sb = new StringBuilder();
-    device.appendInfoTo(sb);
-    assertEquals("Device for mock-handle is not available", sb.toString());
+    assertEquals("Device for mock-handle is not available", device.getSummary());
   }
 
   @Test

@@ -30,8 +30,9 @@ public class OdinMidiDevice implements Device {
   }
 
   @Override
-  public void appendInfoTo(StringBuilder sb) {
-    sb.append("\n          μs position = ").append(device.getMicrosecondPosition());
+  public String getSummary() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("μs position = ").append(device.getMicrosecondPosition());
     if (device instanceof Synthesizer) {
       sb.append(" - synthesizer latency = ")
           .append(((Synthesizer) device).getLatency() / 1000).append("ms");
@@ -65,5 +66,6 @@ public class OdinMidiDevice implements Device {
         sb.append(" ; transmitter = ")
             .append(new MidiTransmitterWrapper(transmitter))
     );
+    return sb.toString();
   }
 }

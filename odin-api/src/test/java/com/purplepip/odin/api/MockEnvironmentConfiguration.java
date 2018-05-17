@@ -83,8 +83,8 @@ public class MockEnvironmentConfiguration {
   @ToString
   private final class MockDevice implements Device {
     @Override
-    public void appendInfoTo(StringBuilder sb) {
-      sb.append("MockDevice");
+    public String getSummary() {
+      return "MockDevice";
     }
   }
 }

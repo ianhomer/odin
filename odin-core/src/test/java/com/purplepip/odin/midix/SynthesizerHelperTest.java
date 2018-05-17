@@ -9,7 +9,7 @@ import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.audio.AudioSystemWrapper;
 import javax.sound.midi.Instrument;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,16 +18,15 @@ import org.junit.Test;
  * Test synthesizer helper.
  */
 public class SynthesizerHelperTest {
-  private MidiDeviceWrapper wrapper;
   private SynthesizerHelper synthesizerHelper;
 
   /**
    * Set up test.
    */
   @Before
-  public void setUp() throws OdinException {
+  public void setUp() {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
-    wrapper = new MidiDeviceWrapper();
+    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     assumeTrue(wrapper.isOpenSynthesizer());
   }

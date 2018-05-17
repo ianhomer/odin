@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeTrue;
 
+import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.common.OdinException;
 import javax.sound.midi.Instrument;
 import lombok.extern.slf4j.Slf4j;

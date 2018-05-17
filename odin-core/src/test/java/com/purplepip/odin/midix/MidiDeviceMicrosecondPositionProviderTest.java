@@ -6,8 +6,8 @@ import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
-import com.purplepip.odin.common.OdinException;
 import javax.sound.midi.MidiDevice;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class MidiDeviceMicrosecondPositionProviderTest {
   }
 
   @Test
-  public void testMicrosecondPosition() throws OdinException {
+  public void testMicrosecondPosition() {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     MicrosecondPositionProvider provider = new MidiDeviceMicrosecondPositionProvider(

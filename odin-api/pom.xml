@@ -13,8 +13,7 @@
   <name>Odin API</name>
 
   <properties>
-    <!-- Lower covered ration for server side for now during prototype development -->
-    <jacoco.covered.ratio>0.60</jacoco.covered.ratio>
+    <jacoco.covered.ratio>0.88</jacoco.covered.ratio>
     <start-class>com.purplepip.odin.api.Application</start-class>
     <jvm.properties.debug/>
     <purplepip.tests.log.jvm/>

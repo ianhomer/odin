@@ -32,7 +32,7 @@ public class DeviceSerializer extends StdSerializer<Device> {
   public void serialize(Device device, JsonGenerator json, SerializerProvider provider)
       throws IOException {
     json.writeStartObject();
-    json.writeObjectField("device", device.toString());
+    json.writeObjectField("device", device.getSummary());
     json.writeEndObject();
   }
 }

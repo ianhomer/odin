@@ -97,21 +97,24 @@ public class Environment {
       int i = 0;
       for (Class<? extends Handle> clazz : clazzes) {
         sb.append("\n ** ").append(clazz.getSimpleName()).append(" **\n");
-        for (Handle identifier : getHandles(clazz)) {
-          sb.append('\n').append(i++).append(") - ");
-          identifier.appendTo(sb);
-          if (withConnections) {
-            try {
-              identifier.connect().appendInfoTo(sb);
-            } catch (DeviceUnavailableException e) {
-              LOG.error("Cannot get device " + identifier, e);
-            }
-          }
+        for (Handle handle : getHandles(clazz)) {
+          appendInfo(i++, sb, handle, withConnections);
         }
-
       }
     }
     return sb.toString();
+  }
+
+  private void appendInfo(int i, StringBuilder sb, Handle handle, boolean withConnections) {
+    sb.append('\n').append(i).append(") - ");
+    handle.appendTo(sb);
+    if (withConnections) {
+      try {
+        sb.append("\n          ").append(handle.connect().getSummary());
+      } catch (DeviceUnavailableException e) {
+        LOG.error("Cannot get device " + handle, e);
+      }
+    }
   }
 
   @Override

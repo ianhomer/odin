@@ -13,6 +13,10 @@
   <packaging>jar</packaging>
   <name>Purple Pip Log Capture</name>
 
+  <properties>
+    <jacoco.covered.ratio>0.88</jacoco.covered.ratio>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>ch.qos.logback</groupId>

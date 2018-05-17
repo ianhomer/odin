@@ -3,10 +3,10 @@ package com.purplepip.odin.midix;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
+import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
@@ -25,7 +25,7 @@ import org.junit.Test;
 @Slf4j
 public class MidiOdinSequencerTest {
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  public void testSequencer() throws InterruptedException {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
     try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(true)) {
       final CountDownLatch lock = new CountDownLatch(16);

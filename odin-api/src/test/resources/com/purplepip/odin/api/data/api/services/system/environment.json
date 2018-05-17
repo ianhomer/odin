@@ -1,12 +1,12 @@
 {
   "devices" : [ {
-    "device" : "MockEnvironmentConfiguration.MockDevice()"
+    "device" : "MockDevice"
   }, {
-    "device" : "MockEnvironmentConfiguration.MockDevice()"
+    "device" : "MockDevice"
   }, {
-    "device" : "MockEnvironmentConfiguration.MockDevice()"
+    "device" : "MockDevice"
   }, {
-    "device" : "MockEnvironmentConfiguration.MockDevice()"
+    "device" : "MockDevice"
   } ],
   "handles" : [ {
     "description" : "description1",

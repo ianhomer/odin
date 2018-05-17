@@ -16,5 +16,5 @@
 package com.purplepip.odin.devices;
 
 public interface Device {
-  void appendInfoTo(StringBuilder sb);
+  String getSummary();
 }

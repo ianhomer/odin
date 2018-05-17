@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
+import com.purplepip.odin.audio.AudioSystemWrapper;
 import org.junit.Test;
 
 public class AudioSystemWrapperTest {
