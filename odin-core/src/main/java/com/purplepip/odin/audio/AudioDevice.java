@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.audio;
 
-import com.purplepip.odin.devices.Device;
+import com.purplepip.odin.devices.AbstractDevice;
 import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.CompoundControl;
@@ -28,11 +28,16 @@ import javax.sound.sampled.Mixer;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class AudioDevice implements Device {
+public class AudioDevice extends AbstractDevice {
   private final Mixer mixer;
 
   AudioDevice(Mixer mixer) {
     this.mixer = mixer;
+    initialise();
+  }
+
+  public String getName() {
+    return mixer.getMixerInfo().getName();
   }
 
   @Override
@@ -68,6 +73,12 @@ public class AudioDevice implements Device {
       }
     }
     return sb.toString();
+  }
+
+  @Override
+  protected void initialise() {
+    setProperty("line.source.count", mixer.getSourceLineInfo().length);
+    setProperty("line.target.count", mixer.getTargetLineInfo().length);
   }
 
   private static final class ControlWrapper {

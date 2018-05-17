@@ -19,6 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.google.common.collect.Sets;
+import com.purplepip.odin.devices.AbstractDevice;
 import com.purplepip.odin.devices.Device;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.Handle;
@@ -81,10 +82,15 @@ public class MockEnvironmentConfiguration {
   }
 
   @ToString
-  private final class MockDevice implements Device {
+  private final class MockDevice extends AbstractDevice {
+    @Override
+    public String getName() {
+      return "MockDevice";
+    }
+
     @Override
     public String getSummary() {
-      return "MockDevice";
+      return getName();
     }
   }
 }

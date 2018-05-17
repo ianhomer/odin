@@ -15,14 +15,27 @@
 
 package com.purplepip.odin.devices;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
-public interface Device {
-  Map<String, String> getProperties();
+public abstract class AbstractDevice implements Device {
+  private final Map<String, String> properties = new HashMap<>();
+  private final Map<String, String> unmodifiableProperties =
+      Collections.unmodifiableMap(properties);
 
-  String getName();
+  protected void setProperty(String name, int value) {
+    setProperty(name, String.valueOf(value));
+  }
 
-  String getSummary();
+  protected void setProperty(String name, String value) {
+    properties.put(name, value);
+  }
 
+  protected void initialise() {
+  }
 
+  public Map<String, String> getProperties() {
+    return unmodifiableProperties;
+  }
 }

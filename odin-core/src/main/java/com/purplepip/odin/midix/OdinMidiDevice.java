@@ -15,18 +15,29 @@
 
 package com.purplepip.odin.midix;
 
-import com.purplepip.odin.devices.Device;
+import com.purplepip.odin.devices.AbstractDevice;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Transmitter;
 
-public class OdinMidiDevice implements Device {
+public class OdinMidiDevice extends AbstractDevice {
   private final MidiDevice device;
 
   OdinMidiDevice(MidiDevice device) {
     this.device = device;
+    initialise();
+  }
+
+  @Override
+  protected void initialise() {
+    setProperty("transmitters.max", device.getMaxTransmitters());
+  }
+
+  @Override
+  public String getName() {
+    return device.getDeviceInfo().getName();
   }
 
   @Override

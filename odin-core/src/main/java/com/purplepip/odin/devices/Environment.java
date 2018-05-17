@@ -110,7 +110,11 @@ public class Environment {
     handle.appendTo(sb);
     if (withConnections) {
       try {
-        sb.append("\n          ").append(handle.connect().getSummary());
+        Device device = handle.connect();
+        sb.append("\n          ").append(device.getSummary());
+        device.getProperties().forEach((key, value) ->
+            sb.append("\n          ").append(key).append('=').append(value)
+        );
       } catch (DeviceUnavailableException e) {
         LOG.error("Cannot get device " + handle, e);
       }

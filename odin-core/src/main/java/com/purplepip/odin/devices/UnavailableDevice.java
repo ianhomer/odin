@@ -18,11 +18,16 @@ package com.purplepip.odin.devices;
 import lombok.ToString;
 
 @ToString
-public class UnavailableDevice implements Device {
+public class UnavailableDevice extends AbstractDevice {
   private final Handle handle;
 
   public UnavailableDevice(Handle handle) {
     this.handle = handle;
+  }
+
+  @Override
+  public String getName() {
+    return "unavailable";
   }
 
   @Override
