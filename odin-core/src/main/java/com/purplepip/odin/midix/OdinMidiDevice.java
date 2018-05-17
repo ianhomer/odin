@@ -32,7 +32,11 @@ public class OdinMidiDevice extends AbstractDevice {
 
   @Override
   protected void initialise() {
+    setProperty("receivers.max", device.getMaxReceivers());
     setProperty("transmitters.max", device.getMaxTransmitters());
+    if (device instanceof Synthesizer) {
+      setProperty("synthesizer.latency", ((Synthesizer) device).getLatency() / 1000);
+    }
   }
 
   @Override
@@ -46,7 +50,7 @@ public class OdinMidiDevice extends AbstractDevice {
     sb.append("μs position = ").append(device.getMicrosecondPosition());
     if (device instanceof Synthesizer) {
       sb.append(" - synthesizer latency = ")
-          .append(((Synthesizer) device).getLatency() / 1000).append("ms");
+          .append(getProperty("synthesizer.latency")).append("ms");
     }
     if (device.getMaxReceivers() != 0) {
       sb.append("\n               - receivers : max = ").append(device.getMaxReceivers());

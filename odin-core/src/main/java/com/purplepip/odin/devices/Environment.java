@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
@@ -94,18 +95,23 @@ public class Environment {
       sb.append("No devices available");
     } else {
       sb.append("Devices\n");
-      int i = 0;
+      AtomicInteger i = new AtomicInteger(0);
       for (Class<? extends Handle> clazz : clazzes) {
-        sb.append("\n ** ").append(clazz.getSimpleName()).append(" **\n");
-        for (Handle handle : getHandles(clazz)) {
-          appendInfo(i++, sb, handle, withConnections);
-        }
+        appendInfo(clazz, i, sb, withConnections);
       }
     }
     return sb.toString();
   }
 
-  private void appendInfo(int i, StringBuilder sb, Handle handle, boolean withConnections) {
+  private void appendInfo(Class<? extends Handle> clazz, AtomicInteger i, StringBuilder sb,
+                          boolean withConnections) {
+    sb.append("\n ** ").append(clazz.getSimpleName()).append(" **\n");
+    for (Handle handle : getHandles(clazz)) {
+      appendInfo(handle, i.getAndIncrement(), sb,  withConnections);
+    }
+  }
+
+  private void appendInfo(Handle handle, int i, StringBuilder sb, boolean withConnections) {
     sb.append('\n').append(i).append(") - ");
     handle.appendTo(sb);
     if (withConnections) {
@@ -113,7 +119,7 @@ public class Environment {
         Device device = handle.connect();
         sb.append("\n          ").append(device.getSummary());
         device.getProperties().forEach((key, value) ->
-            sb.append("\n          ").append(key).append('=').append(value)
+            sb.append(String.format("\n%50s = %-40s", key, value))
         );
       } catch (DeviceUnavailableException e) {
         LOG.error("Cannot get device " + handle, e);
