@@ -43,6 +43,11 @@ public class AudioHandle implements Handle {
   }
 
   @Override
+  public String getType() {
+    return "audio";
+  }
+
+  @Override
   public Device connect() {
     return new AudioDevice(AudioSystem.getMixer(mixerInfo));
   }

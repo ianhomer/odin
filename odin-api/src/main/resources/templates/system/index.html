@@ -24,25 +24,6 @@
       <td th:text="${measureProvider}"/>
     </tr>
   </table>
-
-  <h1>MIDI System</h1>
-  <h2>Devices</h2>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Vendor</th>
-      <th>Version</th>
-      <th>Description</th>
-    </tr>
-    <th:block th:each="midiDeviceInfo : ${midiSystem.midiDeviceInfos}">
-      <tr>
-        <td th:text="${midiDeviceInfo.name}">Name</td>
-        <td th:text="${midiDeviceInfo.vendor}">Vendor</td>
-        <td th:text="${midiDeviceInfo.version}">Version</td>
-        <td th:text="${midiDeviceInfo.description}">Description</td>
-      </tr>
-    </th:block>
-  </table>
 </div>
 </body>
 </html>

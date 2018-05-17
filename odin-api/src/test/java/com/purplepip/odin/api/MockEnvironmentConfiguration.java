@@ -20,12 +20,12 @@ import static org.mockito.Mockito.when;
 
 import com.google.common.collect.Sets;
 import com.purplepip.odin.devices.Device;
-import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.Handle;
 import com.purplepip.odin.devices.HandleProvider;
 import java.util.Set;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
@@ -43,12 +43,12 @@ public class MockEnvironmentConfiguration {
   @Bean
   public Environment odinEnvironment() {
     HandleProvider provider = mock(HandleProvider.class);
-    Set<Handle> handles = Sets.newHashSet(
+    Set<Handle> handles = Sets.newLinkedHashSet(Sets.newHashSet(
         mockHandle(1),
         mockHandle(2),
         mockHandle(3),
         mockHandle(4)
-    );
+    ));
     when(provider.getHandles()).thenReturn(handles);
     return new Environment(provider);
   }
@@ -62,18 +62,29 @@ public class MockEnvironmentConfiguration {
     handle.setDescription(description);
     handle.setName(name);
     handle.setVendor(vendor);
+    handle.setType("mock");
     return handle;
   }
 
   @Data
+  @ToString
   private final class MockHandle implements Handle {
     private String description;
     private String name;
     private String vendor;
+    private String type;
 
     @Override
-    public Device connect() throws DeviceUnavailableException {
-      throw new DeviceUnavailableException("Cannot connect to mock handle");
+    public Device connect() {
+      return new MockDevice();
+    }
+  }
+
+  @ToString
+  private final class MockDevice implements Device {
+    @Override
+    public void appendInfoTo(StringBuilder sb) {
+      sb.append("MockDevice");
     }
   }
 }

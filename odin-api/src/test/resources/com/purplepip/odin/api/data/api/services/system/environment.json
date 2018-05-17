@@ -1,20 +1,32 @@
 {
-  "empty" : false,
+  "devices" : [ {
+    "device" : "MockEnvironmentConfiguration.MockDevice()"
+  }, {
+    "device" : "MockEnvironmentConfiguration.MockDevice()"
+  }, {
+    "device" : "MockEnvironmentConfiguration.MockDevice()"
+  }, {
+    "device" : "MockEnvironmentConfiguration.MockDevice()"
+  } ],
   "handles" : [ {
     "description" : "description1",
     "name" : "name1",
+    "type" : "mock",
     "vendor" : "vendor1"
   }, {
     "description" : "description2",
     "name" : "name2",
+    "type" : "mock",
     "vendor" : "vendor2"
   }, {
     "description" : "description3",
     "name" : "name3",
+    "type" : "mock",
     "vendor" : "vendor3"
   }, {
     "description" : "description4",
     "name" : "name4",
+    "type" : "mock",
     "vendor" : "vendor4"
   } ]
 }

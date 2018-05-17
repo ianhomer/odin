@@ -51,7 +51,6 @@ public class SystemLegacyController {
    */
   @RequestMapping("/api/page/system")
   public String system(Model model) {
-    model.addAttribute("midiSystem", midiSystemWrapper);
     model.addAttribute("midiDevice", midiDeviceWrapper);
     model.addAttribute("measureProvider", measureProvider);
     return "system/index";

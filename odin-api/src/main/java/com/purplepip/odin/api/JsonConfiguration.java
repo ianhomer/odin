@@ -23,6 +23,10 @@ import com.purplepip.odin.api.services.composition.CompositionSerializer;
 import com.purplepip.odin.api.services.composition.MeasureSerializer;
 import com.purplepip.odin.api.services.composition.StaffSerializer;
 import com.purplepip.odin.api.services.composition.VoiceSerializer;
+import com.purplepip.odin.api.services.system.DeviceSerializer;
+import com.purplepip.odin.api.services.system.EnvironmentSerializer;
+import com.purplepip.odin.devices.Device;
+import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
 import com.purplepip.odin.music.notation.easy.composition.EasyMeasure;
@@ -43,13 +47,16 @@ public class JsonConfiguration {
   private CompositionSerializer compositionSerializer;
 
   @Autowired
+  private DeviceSerializer deviceSerializer;
+
+  @Autowired
+  private EnvironmentSerializer environmentSerializer;
+
+  @Autowired
+  private JsonSerializer jsonSerializer;
+
+  @Autowired
   private MeasureSerializer measureSerializer;
-
-  @Autowired
-  private StaffSerializer staffSerializer;
-
-  @Autowired
-  private VoiceSerializer voiceSerializer;
 
   @Autowired
   private RationalSerializer rationalSerializer;
@@ -58,7 +65,10 @@ public class JsonConfiguration {
   private RationalDeserializer rationalDeserializer;
 
   @Autowired
-  private JsonSerializer jsonSerializer;
+  private StaffSerializer staffSerializer;
+
+  @Autowired
+  private VoiceSerializer voiceSerializer;
 
   /**
    * Customize the JSON output from composition service.
@@ -67,14 +77,16 @@ public class JsonConfiguration {
    */
   @Bean
   public Jackson2ObjectMapperBuilderCustomizer customizeJson() {
-    return jacksonObjectMapperBuilder -> {
-      jacksonObjectMapperBuilder.serializerByType(EasyComposition.class, compositionSerializer);
-      jacksonObjectMapperBuilder.serializerByType(EasyMeasure.class, measureSerializer);
-      jacksonObjectMapperBuilder.serializerByType(EasyStaff.class, staffSerializer);
-      jacksonObjectMapperBuilder.serializerByType(EasyVoice.class, voiceSerializer);
-      jacksonObjectMapperBuilder.serializerByType(Json.class, jsonSerializer);
-      jacksonObjectMapperBuilder.serializerByType(Rational.class, rationalSerializer);
-      jacksonObjectMapperBuilder.deserializerByType(Rational.class, rationalDeserializer);
+    return builder -> {
+      builder.serializerByType(EasyComposition.class, compositionSerializer);
+      builder.serializerByType(EasyMeasure.class, measureSerializer);
+      builder.serializerByType(EasyStaff.class, staffSerializer);
+      builder.serializerByType(EasyVoice.class, voiceSerializer);
+      builder.serializerByType(Environment.class, environmentSerializer);
+      builder.serializerByType(Device.class, deviceSerializer);
+      builder.serializerByType(Json.class, jsonSerializer);
+      builder.serializerByType(Rational.class, rationalSerializer);
+      builder.deserializerByType(Rational.class, rationalDeserializer);
     };
   }
 }

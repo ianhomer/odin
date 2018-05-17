@@ -99,7 +99,6 @@ public class Environment {
         sb.append("\n ** ").append(clazz.getSimpleName()).append(" **\n");
         for (Handle identifier : getHandles(clazz)) {
           sb.append('\n').append(i++).append(") - ");
-          i++;
           identifier.appendTo(sb);
           if (withConnections) {
             try {

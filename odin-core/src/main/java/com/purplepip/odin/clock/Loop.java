@@ -58,17 +58,17 @@ public class Loop {
   /**
    * Create a loop.
    *
-   * @param loopLength loop length
+   * @param length loop length
    * @param position position in the loop
    */
-  public Loop(Rational loopLength, Bound position) {
-    this.length = loopLength;
+  public Loop(Rational length, Bound position) {
+    this.length = length;
     if (position == null) {
       throw new IllegalArgumentException("Position must not be null in loop");
     }
     this.position = position;
     isPositionReal = position instanceof Real;
-    LOG.trace("Created loop ; position = {}, length = {}", position, loopLength);
+    LOG.trace("Created loop ; position = {}, length = {}", position, length);
   }
 
   /**

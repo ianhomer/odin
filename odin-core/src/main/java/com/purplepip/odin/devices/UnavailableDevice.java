@@ -15,28 +15,18 @@
 
 package com.purplepip.odin.devices;
 
-/**
- * A handle onto a device that we connect to, to get a device.
- */
-public interface Handle {
-  String getName();
+import lombok.ToString;
 
-  String getVendor();
+@ToString
+public class UnavailableDevice implements Device {
+  private final Handle handle;
 
-  String getDescription();
+  public UnavailableDevice(Handle handle) {
+    this.handle = handle;
+  }
 
-  String getType();
-
-  Device connect() throws DeviceUnavailableException;
-
-  /**
-   * Serialised string version of this identifier to a StringBuilder.
-   *
-   * @param sb StringBuilder to serialise to
-   */
-  default void appendTo(StringBuilder sb) {
-    sb.append(getVendor());
-    sb.append(" - ").append(getName());
-    sb.append(" - ").append(getDescription());
+  @Override
+  public void appendInfoTo(StringBuilder sb) {
+    sb.append("Device for ").append(handle.getName()).append(" is not available");
   }
 }

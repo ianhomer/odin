@@ -45,6 +45,11 @@ public class MidiHandle implements Handle {
   }
 
   @Override
+  public String getType() {
+    return "MIDI";
+  }
+
+  @Override
   public Device connect() throws DeviceUnavailableException {
     try {
       return new OdinMidiDevice(MidiSystem.getMidiDevice(deviceInfo));
