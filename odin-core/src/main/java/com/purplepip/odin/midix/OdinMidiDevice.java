@@ -32,10 +32,37 @@ public class OdinMidiDevice extends AbstractDevice {
 
   @Override
   protected void initialise() {
+    setProperty("microsecond.position", device.getMicrosecondPosition());
     setProperty("receivers.max", device.getMaxReceivers());
     setProperty("transmitters.max", device.getMaxTransmitters());
     if (device instanceof Synthesizer) {
       setProperty("synthesizer.latency", ((Synthesizer) device).getLatency() / 1000);
+    }
+    if (device.getMaxReceivers() != 0) {
+      try {
+        setProperty("receiver.default.name", device.getReceiver().getClass().getName());
+      } catch (MidiUnavailableException e) {
+        setProperty("receiver.default.exception", e.getMessage());
+      }
+      if (device.getReceivers().size() > 1) {
+        int i = 0;
+        for (Receiver receiver : device.getReceivers()) {
+          setProperty("receiver", i, "name", receiver.getClass().getName());
+        }
+      }
+    }
+    if (device.getMaxTransmitters() != 0) {
+      try {
+        setProperty("transmitter.default.name", device.getTransmitter().getClass().getName());
+      } catch (MidiUnavailableException e) {
+        setProperty("transmitter.default.exception", e.getMessage());
+      }
+      if (device.getTransmitters().size() > 1) {
+        int i = 0;
+        for (Transmitter transmitter : device.getTransmitters()) {
+          setProperty("transmitter", i, "name", transmitter.getClass().getName());
+        }
+      }
     }
   }
 

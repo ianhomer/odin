@@ -33,6 +33,8 @@ public class DeviceSerializer extends StdSerializer<Device> {
       throws IOException {
     json.writeStartObject();
     json.writeObjectField("device", device.getSummary());
+    json.writeObjectField("name", device.getName());
+    json.writeObjectField("properties", device.getProperties());
     json.writeEndObject();
   }
 }

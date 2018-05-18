@@ -83,6 +83,10 @@ public class MockEnvironmentConfiguration {
 
   @ToString
   private final class MockDevice extends AbstractDevice {
+    public MockDevice() {
+      initialise();
+    }
+
     @Override
     public String getName() {
       return "MockDevice";
@@ -92,5 +96,11 @@ public class MockEnvironmentConfiguration {
     public String getSummary() {
       return getName();
     }
+
+    @Override
+    public void initialise() {
+      setProperty("property", "value");
+    }
+
   }
 }

@@ -1,12 +1,28 @@
 {
   "devices" : [ {
-    "device" : "MockDevice"
+    "device" : "MockDevice",
+    "name" : "MockDevice",
+    "properties" : {
+      "property" : "value"
+    }
   }, {
-    "device" : "MockDevice"
+    "device" : "MockDevice",
+    "name" : "MockDevice",
+    "properties" : {
+      "property" : "value"
+    }
   }, {
-    "device" : "MockDevice"
+    "device" : "MockDevice",
+    "name" : "MockDevice",
+    "properties" : {
+      "property" : "value"
+    }
   }, {
-    "device" : "MockDevice"
+    "device" : "MockDevice",
+    "name" : "MockDevice",
+    "properties" : {
+      "property" : "value"
+    }
   } ],
   "handles" : [ {
     "description" : "description1",

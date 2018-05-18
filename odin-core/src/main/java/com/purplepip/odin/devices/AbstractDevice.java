@@ -36,6 +36,10 @@ public abstract class AbstractDevice implements Device {
     properties.put(name, value);
   }
 
+  protected void setProperty(String name, int i, String childName, String value) {
+    properties.put(name + "[" + i + "]." + childName, value);
+  }
+
   public String getProperty(String name) {
     return properties.get(name);
   }
