@@ -34,7 +34,7 @@ public class MidiReceiverExperiment {
     experiment.doExperiment();
   }
 
-  private void doExperiment() throws OdinException, InterruptedException, MidiUnavailableException {
+  private void doExperiment() throws InterruptedException, MidiUnavailableException {
     LOG.debug("running experiment");
     final CountDownLatch lock = new CountDownLatch(100);
 

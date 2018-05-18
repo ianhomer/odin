@@ -4,7 +4,6 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.ClassUri;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.demo.DemoPerformances;
@@ -43,14 +42,10 @@ public class MidiSequenceExperiment {
   public static void main(String[] args) throws InterruptedException {
     System.out.println("Logging : " + LOG.getClass());
     MidiSequenceExperiment experiment = new MidiSequenceExperiment();
-    try {
-      experiment.doExperiment();
-    } catch (OdinException e) {
-      LOG.error("Unexpected failure", e);
-    }
+    experiment.doExperiment();
   }
 
-  private void doExperiment() throws OdinException, InterruptedException {
+  private void doExperiment() throws InterruptedException {
     final CountDownLatch lock = new CountDownLatch(1_000_000);
 
     OperationReceiver operationReceiver = (operation, time) -> {
