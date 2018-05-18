@@ -55,6 +55,21 @@ public class Environment {
     return handles.isEmpty();
   }
 
+  /**
+   * Stream of devices.
+   *
+   * @return stream of devices
+   */
+  public Stream<Device> devices() {
+    return handles.stream().map(handle -> {
+      try {
+        return handle.connect();
+      } catch (DeviceUnavailableException e) {
+        return new UnavailableDevice(handle);
+      }
+    });
+  }
+
   public Set<Handle> getHandles() {
     return Collections.unmodifiableSet(handles);
   }

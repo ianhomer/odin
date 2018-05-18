@@ -15,32 +15,21 @@
 
 package com.purplepip.odin.audio;
 
+import com.purplepip.odin.devices.Device;
+import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.system.Container;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Mixer;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class AudioSystemWrapper {
-  private final List<MixerWrapper> mixerWrappers;
   private static final AtomicBoolean HAS_DUMPED = new AtomicBoolean(false);
-
-  /**
-   * Create a new audio system wrapper.
-   */
-  public AudioSystemWrapper() {
-    mixerWrappers = new ArrayList<>();
-    Mixer.Info[] mixerInfos = AudioSystem.getMixerInfo();
-    for (Mixer.Info mixerInfo : mixerInfos) {
-      mixerWrappers.add(new MixerWrapper(AudioSystem.getMixer(mixerInfo)));
-    }
-  }
+  private final Environment environment = new Environment(new AudioHandleProvider());
 
   private boolean hasMixers() {
-    return !mixerWrappers.isEmpty();
+    return !environment.isEmpty();
   }
 
   public boolean isAudioOutputSupported() {
@@ -64,31 +53,21 @@ public final class AudioSystemWrapper {
       }
       HAS_DUMPED.set(true);
     }
+
     StringBuilder sb = new StringBuilder();
     sb.append("\nSYSTEM AUDIO\n");
     sb.append("------------\n");
-    if (mixerWrappers.isEmpty()) {
+    if (environment.isEmpty()) {
       sb.append("No audio mixers available\n");
     } else {
       sb.append("Mixers\n");
+      List<String> summaries = environment.devices().map(Device::getSummary)
+          .collect(Collectors.toList());
       int i = 0;
-      for (MixerWrapper mixer : mixerWrappers) {
-        sb.append('\n').append(i++).append(") ").append(mixer.toString());
+      for (String summary : summaries) {
+        sb.append('\n').append(i++).append(") ").append(summary);
       }
     }
     LOG.info(sb.toString());
-  }
-
-  private class MixerWrapper {
-    private final Mixer mixer;
-
-    private MixerWrapper(Mixer mixer) {
-      this.mixer = mixer;
-    }
-
-    @Override
-    public String toString() {
-      return new AudioDevice(mixer).getSummary();
-    }
   }
 }
