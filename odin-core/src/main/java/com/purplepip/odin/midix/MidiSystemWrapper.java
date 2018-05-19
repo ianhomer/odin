@@ -16,11 +16,8 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.configuration.Environments;
-import java.util.Collections;
-import java.util.HashSet;
+import com.purplepip.odin.devices.Handle;
 import java.util.Set;
-import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiSystem;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -34,10 +31,8 @@ public class MidiSystemWrapper {
    *
    * @return set of MIDI device infos
    */
-  Set<MidiDevice.Info> getMidiDeviceInfos() {
-    Set<MidiDevice.Info> infos = new HashSet<>();
-    Collections.addAll(infos, MidiSystem.getMidiDeviceInfo());
-    return infos;
+  Set<Handle> getMidiDeviceInfos() {
+    return Environments.newMidiEnvironment().getHandles();
   }
 
   /**
@@ -47,6 +42,6 @@ public class MidiSystemWrapper {
    */
   @Override
   public String toString() {
-    return Environments.newEnvironment().asString(true);
+    return Environments.newMidiEnvironment().asString(true);
   }
 }

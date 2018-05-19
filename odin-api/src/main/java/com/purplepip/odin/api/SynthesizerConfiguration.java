@@ -37,7 +37,7 @@ public class SynthesizerConfiguration implements CommandLineRunner {
   }
 
   @Override
-  public void run(String... args) throws Exception {
+  public void run(String... args) {
     if (midiDeviceWrapper.isOpenSynthesizer()) {
       new SynthesizerHelper(midiDeviceWrapper.getSynthesizer())
           .loadGervillSoundBank(

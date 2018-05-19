@@ -24,5 +24,5 @@ public interface Device {
 
   String getSummary();
 
-
+  Handle getHandle();
 }

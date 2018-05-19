@@ -26,12 +26,23 @@ public final class Environments {
   /**
    * Create the default environment for the Odin configuration.
    *
-   * @return default environment.
+   * @return new default environment.
    */
   public static Environment newEnvironment() {
     return new Environment(
         new MidiHandleProvider(),
         new AudioHandleProvider()
+    );
+  }
+
+  /**
+   * Create a new environment with just MIDI devices.
+   *
+   * @return new environment with just MIDI devices
+   */
+  public static Environment newMidiEnvironment() {
+    return new Environment(
+        new MidiHandleProvider()
     );
   }
 }

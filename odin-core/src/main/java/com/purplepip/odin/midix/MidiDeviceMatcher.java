@@ -15,7 +15,8 @@
 
 package com.purplepip.odin.midix;
 
-import javax.sound.midi.MidiDevice;
+import com.purplepip.odin.devices.Device;
+import com.purplepip.odin.devices.Handle;
 
 /**
  * Matcher to detect whether MIDI device matches condition.
@@ -24,10 +25,10 @@ public interface MidiDeviceMatcher {
   /**
    * Match based on MIDI device info.
    *
-   * @param info MIDI device info to match on
+   * @param handle Device handle to match on
    * @return true if MIDI device matches
    */
-  boolean matches(MidiDevice.Info info);
+  boolean matches(Handle handle);
 
   /**
    * Match based on MIDI device.
@@ -35,7 +36,7 @@ public interface MidiDeviceMatcher {
    * @param device MIDI device to match on
    * @return true if MIDI device matches
    */
-  boolean matches(MidiDevice device);
+  boolean matches(Device device);
 
   String getDescription();
 }

@@ -18,17 +18,16 @@ package com.purplepip.odin.midix;
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.clock.PerformanceTimeConverter;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.devices.Handle;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import com.purplepip.odin.system.Container;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
@@ -52,16 +51,10 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
   private PerformanceTimeConverter timeConverter;
 
-  public MidiDeviceWrapper() {
-    this(false);
-  }
-
   /**
    * Create a MIDI device wrapper.
-   *
-   * @param scan whether to support MIDI device change detection scanning
    */
-  public MidiDeviceWrapper(boolean scan) {
+  public MidiDeviceWrapper() {
     final MidiDeviceFinder finder = new MidiDeviceFinder();
     try {
       finder.find();
@@ -71,17 +64,6 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
        * we need to support a stub mode for -PnoAudio mode / audio not available (on build machine)
        */
       LOG.warn("Cannot initialise MIDI device : {}", e.getMessage());
-    }
-
-    if (scan) {
-      LOG.debug("MIDI Device scanning enabled");
-      scheduledPool.scheduleWithFixedDelay(() -> {
-        try {
-          finder.find();
-        } catch (OdinException e) {
-          LOG.error("MIDI device scan failed", e);
-        }
-      }, 0, 1, TimeUnit.SECONDS);
     }
   }
 
@@ -263,19 +245,13 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   }
 
   class MidiDeviceFinder {
-    private Set<MidiDevice.Info> knownMidiDevices = new HashSet<>();
     private MidiSystemHelper helper = new MidiSystemHelper();
+    private Set<Handle> handles;
 
     public void find() throws OdinException {
-      // FIX : https://github.com/ianhomer/odin/issues/1
-      LOG.debug("Scanning MIDI devices");
-      Set<MidiDevice.Info> midiDevices = new MidiSystemWrapper().getMidiDeviceInfos();
-      if (!midiDevices.equals(knownMidiDevices)
-          || receivingDevice == null || transmittingDevice == null) {
-        LOG.debug("Refreshing MIDI device");
-        knownMidiDevices = midiDevices;
-        findDevice();
-      }
+      LOG.debug("Refreshing MIDI device");
+      handles = new MidiSystemWrapper().getMidiDeviceInfos();
+      findDevice();
     }
 
     private void findDevice() throws OdinException {

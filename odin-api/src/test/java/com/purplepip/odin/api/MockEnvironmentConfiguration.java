@@ -77,14 +77,17 @@ public class MockEnvironmentConfiguration {
 
     @Override
     public Device connect() {
-      return new MockDevice();
+      return new MockDevice(this);
     }
   }
 
   @ToString
   private final class MockDevice extends AbstractDevice {
-    public MockDevice() {
+    private MockHandle handle;
+
+    public MockDevice(MockHandle handle) {
       initialise();
+      this.handle = handle;
     }
 
     @Override
@@ -95,6 +98,11 @@ public class MockEnvironmentConfiguration {
     @Override
     public String getSummary() {
       return getName();
+    }
+
+    @Override
+    public Handle getHandle() {
+      return handle;
     }
 
     @Override

@@ -25,6 +25,10 @@ public class UnavailableDevice extends AbstractDevice {
     this.handle = handle;
   }
 
+  public Handle getHandle() {
+    return handle;
+  }
+
   @Override
   public String getName() {
     return "unavailable";

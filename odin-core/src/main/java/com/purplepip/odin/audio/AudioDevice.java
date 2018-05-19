@@ -30,10 +30,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AudioDevice extends AbstractDevice {
   private final Mixer mixer;
+  private final AudioHandle handle;
 
   AudioDevice(Mixer mixer) {
     this.mixer = mixer;
+    this.handle = new AudioHandle(mixer.getMixerInfo());
     initialise();
+  }
+
+  public AudioHandle getHandle() {
+    return handle;
   }
 
   public String getName() {

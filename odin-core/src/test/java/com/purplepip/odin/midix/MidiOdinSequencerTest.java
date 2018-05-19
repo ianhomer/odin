@@ -27,7 +27,7 @@ public class MidiOdinSequencerTest {
   @Test
   public void testSequencer() throws InterruptedException {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
-    try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper(true)) {
+    try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper()) {
       final CountDownLatch lock = new CountDownLatch(16);
 
       OperationReceiver operationReceiver = (operation, time) -> {

@@ -15,7 +15,8 @@
 
 package com.purplepip.odin.midix;
 
-import javax.sound.midi.MidiDevice;
+import com.purplepip.odin.devices.Device;
+import com.purplepip.odin.devices.Handle;
 import lombok.ToString;
 
 /**
@@ -31,13 +32,13 @@ public class MidiDeviceNameStartsWithMatcher implements MidiDeviceMatcher {
   }
 
   @Override
-  public boolean matches(MidiDevice.Info info) {
-    return MATCH_ALL.equals(prefix) || info.getName().startsWith(prefix);
+  public boolean matches(Handle handle) {
+    return MATCH_ALL.equals(prefix) || handle.getName().startsWith(prefix);
   }
 
   @Override
-  public boolean matches(MidiDevice device) {
-    return matches(device.getDeviceInfo());
+  public boolean matches(Device device) {
+    return matches(device.getHandle());
   }
 
   @Override

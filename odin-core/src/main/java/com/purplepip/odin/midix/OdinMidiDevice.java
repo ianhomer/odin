@@ -24,10 +24,26 @@ import javax.sound.midi.Transmitter;
 
 public class OdinMidiDevice extends AbstractDevice {
   private final MidiDevice device;
+  private final MidiHandle handle;
 
   OdinMidiDevice(MidiDevice device) {
     this.device = device;
+    this.handle = new MidiHandle(device.getDeviceInfo());
     initialise();
+  }
+
+  public MidiHandle getHandle() {
+    return handle;
+  }
+
+  /*
+   * TODO : Try to remove external access of MidiDevice, we want to encapsulate all internals
+   * by defining an appropriate device interface.  I've marked it as deprecated since it's
+   * only in place to help with a transition.
+   */
+  @Deprecated
+  MidiDevice getMidiDevice() {
+    return device;
   }
 
   @Override

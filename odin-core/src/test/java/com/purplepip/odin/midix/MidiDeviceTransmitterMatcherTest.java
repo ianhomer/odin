@@ -2,10 +2,13 @@ package com.purplepip.odin.midix;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.purplepip.odin.devices.Device;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Transmitter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -17,18 +20,20 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class MidiDeviceTransmitterMatcherTest {
   @Mock
-  private MidiDevice device;
+  private MidiDevice midiDevice;
 
   @Test
   public void testMatches() throws Exception {
-    MidiDeviceTransmitterMatcher matcher = new MidiDeviceTransmitterMatcher("Gervill");
     MidiDevice synthesizer = MidiSystem.getSynthesizer();
-    when(device.getDeviceInfo()).thenReturn(synthesizer.getDeviceInfo());
-    when(device.getMaxTransmitters()).thenReturn(1);
+    when(midiDevice.getDeviceInfo()).thenReturn(synthesizer.getDeviceInfo());
+    when(midiDevice.getMaxTransmitters()).thenReturn(1);
+    when(midiDevice.getTransmitter()).thenReturn(mock(Transmitter.class));
+    Device device = new OdinMidiDevice(midiDevice);
+    MidiDeviceTransmitterMatcher matcher = new MidiDeviceTransmitterMatcher("Gervill");
     assertTrue("Device should match", matcher.matches(device));
-    when(device.getMaxTransmitters()).thenReturn(-1);
+    when(midiDevice.getMaxTransmitters()).thenReturn(-1);
     assertTrue("Device should match", matcher.matches(device));
-    when(device.getMaxTransmitters()).thenReturn(0);
+    when(midiDevice.getMaxTransmitters()).thenReturn(0);
     assertFalse("Device should NOT match", matcher.matches(device));
   }
 }

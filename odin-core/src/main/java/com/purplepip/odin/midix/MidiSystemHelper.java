@@ -17,11 +17,13 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.devices.Device;
+import com.purplepip.odin.devices.DeviceUnavailableException;
+import com.purplepip.odin.devices.Handle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 import org.slf4j.Logger;
@@ -53,17 +55,17 @@ class MidiSystemHelper {
 
   private MidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher)
       throws OdinException {
-    for (MidiDevice.Info info : midiSystemWrapper.getMidiDeviceInfos()) {
-      if (midiDeviceMatcher.matches(info)) {
-        MidiDevice deviceCandidate;
+    for (Handle handle : midiSystemWrapper.getMidiDeviceInfos()) {
+      if (midiDeviceMatcher.matches(handle)) {
+        Device deviceCandidate;
         try {
-          deviceCandidate = MidiSystem.getMidiDevice(info);
-        } catch (MidiUnavailableException e) {
+          deviceCandidate = handle.connect();
+        } catch (DeviceUnavailableException e) {
           throw new OdinException(e);
         }
 
         if (midiDeviceMatcher.matches(deviceCandidate)) {
-          return deviceCandidate;
+          return ((OdinMidiDevice) deviceCandidate).getMidiDevice();
         }
       }
     }
