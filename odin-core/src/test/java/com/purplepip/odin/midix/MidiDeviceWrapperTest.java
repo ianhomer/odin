@@ -27,6 +27,13 @@ public class MidiDeviceWrapperTest {
   }
 
   @Test
+  public void testDefaultToGervill() {
+    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
+    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
+    assertNotNull(wrapper.getReceivingDevice());
+  }
+
+  @Test
   public void testChangeProgramByName() throws OdinException {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
     try (MidiDeviceWrapper wrapper = new MidiDeviceWrapper()) {

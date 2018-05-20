@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.configuration;
 
+import static com.purplepip.odin.devices.NamedHandle.asHandleList;
+
 import com.purplepip.odin.audio.AudioHandleProvider;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.midix.MidiHandleProvider;
@@ -30,7 +32,7 @@ public final class Environments {
    */
   public static Environment newEnvironment() {
     return new Environment(
-        new MidiHandleProvider(),
+        newMidiHandleProvider(),
         new AudioHandleProvider()
     );
   }
@@ -42,7 +44,21 @@ public final class Environments {
    */
   public static Environment newMidiEnvironment() {
     return new Environment(
-        new MidiHandleProvider()
+        newMidiHandleProvider()
+    );
+  }
+
+  /*
+      deviceNames.add("Scarlett");
+    deviceNames.add("USB");
+    deviceNames.add("MidiMock OUT");
+    deviceNames.add("KEYBOARD");
+    deviceNames.add("CTRL");
+    deviceNames.add("*");
+    */
+  private static MidiHandleProvider newMidiHandleProvider() {
+    return new MidiHandleProvider(
+        asHandleList("Scarlet", "USB", "MidiMock OUT", "KEYBOARD", "CTRL")
     );
   }
 }

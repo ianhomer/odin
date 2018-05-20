@@ -15,17 +15,21 @@
 
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.devices.AbstractHandleProvider;
 import com.purplepip.odin.devices.Handle;
-import com.purplepip.odin.devices.HandleProvider;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import javax.sound.midi.MidiDevice;
+import java.util.stream.Stream;
 import javax.sound.midi.MidiSystem;
 
-public class MidiHandleProvider implements HandleProvider {
+public class MidiHandleProvider extends AbstractHandleProvider {
   private static final Set<Class<? extends Handle>> HANDLE_CLASSES =
       Collections.singleton(MidiHandle.class);
+
+  public MidiHandleProvider(List<Handle> priorityHandles) {
+    super(priorityHandles);
+  }
 
   @Override
   public Set<Class<? extends Handle>> getHandleClasses() {
@@ -34,10 +38,6 @@ public class MidiHandleProvider implements HandleProvider {
 
   @Override
   public Set<Handle> getHandles() {
-    Set<Handle> identifiers = new HashSet<>();
-    for (MidiDevice.Info info : MidiSystem.getMidiDeviceInfo()) {
-      identifiers.add(new MidiHandle(info));
-    }
-    return Collections.unmodifiableSet(identifiers);
+    return asSet(Stream.of(MidiSystem.getMidiDeviceInfo()).map(MidiHandle::new));
   }
 }

@@ -35,6 +35,7 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Transmitter;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -228,7 +229,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
     }
   }
 
-  private void setReceivingDevice(MidiDevice receivingDevice) {
+  private void setReceivingDevice(@NotNull MidiDevice receivingDevice) {
     this.receivingDevice = receivingDevice;
     timeConverter = new PerformanceTimeConverter(
         new MidiDeviceMicrosecondPositionProvider(receivingDevice));

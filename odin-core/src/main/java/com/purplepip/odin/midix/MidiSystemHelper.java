@@ -44,11 +44,12 @@ class MidiSystemHelper {
    * @return MIDI device
    * @throws OdinException Exception
    */
-  private MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher)
+  MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher)
       throws OdinException {
     MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher);
     if (midiDevice != null) {
-      LOG.debug("Found MIDI device : {} ; {}", midiDeviceMatcher, midiDevice.getClass().getName());
+      LOG.debug("Found MIDI device : {} ; {} ; {}", midiDeviceMatcher,
+          midiDevice.getClass().getName(), midiDevice.getDeviceInfo().getName());
     }
     return midiDevice;
   }
@@ -118,7 +119,8 @@ class MidiSystemHelper {
     }
 
     if (device == null) {
-      LOG.debug("Device not found for {}, falling back to default", midiDeviceMatcherFunction);
+      LOG.debug("Device not found for matching {} against {}, falling back to default",
+          midiDeviceMatcherFunction.apply("name"), deviceNames);
       /*
        * Note that we currently create the internal synthesizer device, but we are
        * careful later to not open it.  This seems a little fragile and could do with
@@ -128,10 +130,13 @@ class MidiSystemHelper {
           new MidiDeviceNameStartsWithMatcher("Gervill"));
     }
 
-    if (device != null) {
-      open(device);
+    if (device == null) {
+      LOG.debug("Cannot find device matching {} against {}",
+          midiDeviceMatcherFunction.apply("name"), deviceNames);
+      return null;
     }
 
+    open(device);
     LOG.debug("MIDI device : {}", device);
     return device;
   }

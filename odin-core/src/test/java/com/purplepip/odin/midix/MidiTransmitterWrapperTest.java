@@ -21,7 +21,7 @@ import org.junit.Test;
 
 public class MidiTransmitterWrapperTest {
   @Test
-  public void testToString() throws Exception {
+  public void testToString() {
     assertEquals("(null transmitter)", new MidiTransmitterWrapper(null).toString());
   }
 }

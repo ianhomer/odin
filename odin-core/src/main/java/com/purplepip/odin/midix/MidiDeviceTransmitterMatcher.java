@@ -17,12 +17,14 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.devices.Device;
 import javax.sound.midi.MidiDevice;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Matches MIDI device in.
  */
+@ToString(callSuper = true)
 public class MidiDeviceTransmitterMatcher extends MidiDeviceNameStartsWithMatcher {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceTransmitterMatcher.class);
 
