@@ -18,14 +18,12 @@ package com.purplepip.odin.midix;
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.clock.PerformanceTimeConverter;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.devices.Handle;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import com.purplepip.odin.system.Container;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.sound.midi.Instrument;
@@ -129,16 +127,6 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
    * Change program via a MIDI program change message.
    *
    * @param channel channel to change
-   * @param program program to set
-   */
-  public void changeProgram(int channel, int program) {
-    changeProgram(channel, 0, program);
-  }
-
-  /**
-   * Change program via a MIDI program change message.
-   *
-   * @param channel channel to change
    * @param bank bank to set
    * @param program program to set
    */
@@ -176,15 +164,6 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
         instrument.getName(),
         instrument.getPatch().getBank(), instrument.getPatch().getProgram());
     return instrument;
-  }
-
-  /**
-   * Check whether this is the internal Java Gervill synthesizer.
-   *
-   * @return true if this is the internal Java Gervill synthesizer
-   */
-  public boolean isGervill() {
-    return "Gervill".equals(receivingDevice.getDeviceInfo().getName());
   }
 
   /**
@@ -247,11 +226,9 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
 
   class MidiDeviceFinder {
     private MidiSystemHelper helper = new MidiSystemHelper();
-    private Set<Handle> handles;
 
     public void find() throws OdinException {
       LOG.debug("Refreshing MIDI device");
-      handles = new MidiSystemWrapper().getMidiDeviceInfos();
       findDevice();
     }
 

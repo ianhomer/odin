@@ -21,7 +21,6 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.Ticks;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.action.InitialiseAction;
 import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
@@ -44,19 +43,17 @@ import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import javax.sound.midi.MidiUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MatchNoteExperiment {
-  public static void main(String[] args) throws OdinException, InterruptedException,
-      MidiUnavailableException {
+  public static void main(String[] args) throws InterruptedException {
     MatchNoteExperiment experiment = new MatchNoteExperiment();
     experiment.doExperiment();
   }
 
 
-  private void doExperiment() throws OdinException, InterruptedException {
+  private void doExperiment() throws InterruptedException {
     final CountDownLatch lock = new CountDownLatch(800);
 
     OperationReceiver operationReceiver = (operation, time) -> {

@@ -19,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.store.domain.PersistableSequence;
@@ -40,9 +39,6 @@ public class DefaultRuntimePerformanceLoaderTest {
 
   @Autowired
   private PerformanceRepository performanceRepository;
-
-  @Autowired
-  private MidiDeviceWrapper midiDeviceWrapper;
 
   @Autowired
   private DefaultRuntimePerformanceLoader loader;
