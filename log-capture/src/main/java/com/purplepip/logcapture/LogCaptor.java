@@ -33,9 +33,9 @@ import org.slf4j.LoggerFactory;
 public class LogCaptor implements AutoCloseable {
   private LogCaptureConfiguration configuration;
   private Level originalLevel;
-  private ListAppender<ILoggingEvent> capturingAppender = new ListAppender<>();
-  private LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
-  private Map<String, Appender<ILoggingEvent>> removedAppenders = new HashMap<>();
+  private ListAppender<ILoggingEvent> capturingAppender;
+  private final LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+  private final Map<String, Appender<ILoggingEvent>> removedAppenders = new HashMap<>();
 
   LogCaptor(LogCaptureConfiguration configuration) {
     this.configuration = configuration;
@@ -59,6 +59,8 @@ public class LogCaptor implements AutoCloseable {
     /*
      * Set up the capturing appender.
      */
+    capturingAppender = configuration.isAllThreads()
+        ? new ListAppender<>() : new SpecificThreadListAppender(Thread.currentThread().getName());
     Logger logger = context.getLogger(configuration.getCategory());
     capturingAppender.setContext(context);
     logger.addAppender(capturingAppender);
@@ -111,6 +113,7 @@ public class LogCaptor implements AutoCloseable {
    */
   public String toString() {
     return capturingAppender.list.stream().map(e -> "[" + e.getLevel() + "] "
+        + "(" + e.getThreadName() + ") "
         + e.getFormattedMessage())
         .collect(Collectors.joining("; "));
   }

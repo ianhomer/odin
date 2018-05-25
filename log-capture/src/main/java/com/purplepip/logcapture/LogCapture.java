@@ -58,6 +58,11 @@ public class LogCapture {
     return this;
   }
 
+  public LogCapture fromAllThreads() {
+    configuration.setAllThreads(true);
+    return this;
+  }
+
   public LogCaptor start() {
     return new LogCaptor(configuration);
   }

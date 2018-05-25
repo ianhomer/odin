@@ -24,6 +24,7 @@ public class LogCaptureConfiguration {
   private Level level = Level.INFO;
   private String category = "ROOT";
   private boolean passThrough;
+  private boolean allThreads;
 
   public Level getLevel() {
     return level;
@@ -33,19 +34,27 @@ public class LogCaptureConfiguration {
     this.level = level;
   }
 
-  public String getCategory() {
+  String getCategory() {
     return category;
   }
 
-  public void setCategory(String category) {
+  void setCategory(String category) {
     this.category = category;
   }
 
-  public void setPassThrough(boolean passThrough) {
+  void setPassThrough(boolean passThrough) {
     this.passThrough = passThrough;
   }
 
-  public boolean getPassThrough() {
+  boolean getPassThrough() {
     return passThrough;
+  }
+
+  public void setAllThreads(boolean allThreads) {
+    this.allThreads = allThreads;
+  }
+
+  public boolean isAllThreads() {
+    return allThreads;
   }
 }
