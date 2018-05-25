@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.experiments;
 
+import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.configuration.Environments;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,5 +28,6 @@ public class EnvironmentExperiment {
 
   private void doExperiment() {
     Environments.newEnvironment().dump();
+    new AudioSystemWrapper().dump();
   }
 }

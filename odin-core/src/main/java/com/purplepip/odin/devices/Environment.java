@@ -87,12 +87,17 @@ public class Environment {
     );
   }
 
+
+  public void dump() {
+    dump("ENVIRONMENT");
+  }
+
   /**
    * Dump environment information.
    */
-  public void dump() {
+  public void dump(String title) {
     LOG.info("\n"
-        + "ENVIRONMENT\n"
+        + title + "\n"
         + "------------\n"
         + asString(true) + '\n'
     );

@@ -20,12 +20,13 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.audio.AudioSystemWrapper;
+import com.purplepip.odin.devices.Environment;
 import org.junit.Test;
 
 public class AudioSystemWrapperTest {
   @Test
   public void testDump() {
-    try (LogCaptor captor = new LogCapture().info().from(AudioSystemWrapper.class).start()) {
+    try (LogCaptor captor = new LogCapture().info().from(Environment.class).start()) {
       new AudioSystemWrapper().dump();
       assertEquals("Log message count unexpected : " + captor.toString(),1, captor.size());
     }

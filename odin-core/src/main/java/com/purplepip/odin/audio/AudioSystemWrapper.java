@@ -15,12 +15,9 @@
 
 package com.purplepip.odin.audio;
 
-import com.purplepip.odin.devices.Device;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.system.Container;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -54,20 +51,6 @@ public final class AudioSystemWrapper {
       HAS_DUMPED.set(true);
     }
 
-    StringBuilder sb = new StringBuilder();
-    sb.append("\nSYSTEM AUDIO\n");
-    sb.append("------------\n");
-    if (environment.isEmpty()) {
-      sb.append("No audio mixers available\n");
-    } else {
-      sb.append("Mixers\n");
-      List<String> summaries = environment.devices().map(Device::getSummary)
-          .collect(Collectors.toList());
-      int i = 0;
-      for (String summary : summaries) {
-        sb.append('\n').append(i++).append(") ").append(summary);
-      }
-    }
-    LOG.info(sb.toString());
+    environment.dump("SYSTEM AUDIO");
   }
 }
