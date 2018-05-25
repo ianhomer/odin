@@ -17,6 +17,7 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.devices.Device;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Handle;
@@ -34,8 +35,6 @@ import org.slf4j.LoggerFactory;
  */
 class MidiSystemHelper {
   private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
-
-  private final MidiSystemWrapper midiSystemWrapper = new MidiSystemWrapper();
 
   /**
    * Find a MIDI device by name.
@@ -56,7 +55,7 @@ class MidiSystemHelper {
 
   private MidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher)
       throws OdinException {
-    for (Handle handle : midiSystemWrapper.getMidiDeviceInfos()) {
+    for (Handle handle : Environments.newMidiEnvironment().getHandles()) {
       if (midiDeviceMatcher.matches(handle)) {
         Device deviceCandidate;
         try {

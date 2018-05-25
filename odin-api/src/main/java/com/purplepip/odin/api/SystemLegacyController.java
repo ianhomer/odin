@@ -17,7 +17,6 @@ package com.purplepip.odin.api;
 
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,9 +38,6 @@ public class SystemLegacyController {
 
   @Autowired
   private OdinSequencer sequencer;
-
-  @Autowired
-  private MidiSystemWrapper midiSystemWrapper;
 
   /**
    * System page.

@@ -23,7 +23,6 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
-import com.purplepip.odin.midix.MidiSystemWrapper;
 import com.purplepip.odin.operation.OperationReceiver;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
@@ -72,16 +71,6 @@ public class OdinConfiguration {
   @Bean
   public MeasureProvider measureProvider() {
     return new StaticBeatMeasureProvider(FOUR_FOUR_TIME);
-  }
-
-  /**
-   * Create the MIDI system wrapper.
-   *
-   * @return MIDI system wrapper
-   */
-  @Bean
-  public MidiSystemWrapper midiSystemWrapper() {
-    return new MidiSystemWrapper();
   }
 
   /**
