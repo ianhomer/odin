@@ -99,14 +99,14 @@ public class OdinMidiDevice extends AbstractDevice {
       sb.append("\n               - receivers : max = ").append(device.getMaxReceivers());
       try (Receiver receiver = device.getReceiver()) {
         if (receiver != null) {
-          sb.append(" : default  = ").append(new MidiReceiverWrapper(receiver));
+          sb.append(" : default  = ").append(getClassNameOrNullMessage(receiver));
         }
       } catch (MidiUnavailableException e) {
         sb.append(" : ").append(e.getMessage());
       }
     }
     device.getReceivers().forEach(receiver ->
-        sb.append(" ; active receiver = ").append(new MidiReceiverWrapper(receiver))
+        sb.append(" ; active receiver = ").append(getClassNameOrNullMessage(receiver))
     );
     if (device.getMaxTransmitters() != 0) {
       sb.append("\n               - transmitters : max = ")
@@ -114,7 +114,7 @@ public class OdinMidiDevice extends AbstractDevice {
       try (Transmitter transmitter = device.getTransmitter()) {
         if (transmitter != null) {
           sb.append(" : default = ")
-              .append(new MidiTransmitterWrapper(transmitter));
+              .append(getClassNameOrNullMessage(transmitter));
         }
       } catch (MidiUnavailableException e) {
         sb.append(" : ").append(e.getMessage());
@@ -122,8 +122,12 @@ public class OdinMidiDevice extends AbstractDevice {
     }
     device.getTransmitters().forEach(transmitter ->
         sb.append(" ; transmitter = ")
-            .append(new MidiTransmitterWrapper(transmitter))
+            .append(getClassNameOrNullMessage(transmitter))
     );
     return sb.toString();
+  }
+
+  private String getClassNameOrNullMessage(Object o) {
+    return o == null ? "(null)" : o.getClass().getName();
   }
 }
