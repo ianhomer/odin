@@ -15,18 +15,23 @@
 
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.audio.AudioSystemWrapper;
+import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.AbstractDevice;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Transmitter;
+import javax.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class OdinMidiDevice extends AbstractDevice {
   private final MidiDevice device;
   private final MidiHandle handle;
 
-  OdinMidiDevice(MidiDevice device) {
+  OdinMidiDevice(@NotNull MidiDevice device) {
     this.device = device;
     this.handle = new MidiHandle(device.getDeviceInfo());
     initialise();
@@ -129,5 +134,37 @@ public class OdinMidiDevice extends AbstractDevice {
 
   private String getClassNameOrNullMessage(Object o) {
     return o == null ? "(null)" : o.getClass().getName();
+  }
+
+  @Override
+  public String toString() {
+    return device.getClass().getName() + " " + device.getDeviceInfo().getName();
+  }
+
+  /*
+   * TODO : Confirm the difference between connect and open.  Do we need both concepts?  Should
+   * this be on the Device interface?
+   *
+   * @throws OdinException exception
+   */
+  void open() throws OdinException {
+    if (canOpenWithWarnings()) {
+      try {
+        device.open();
+      } catch (MidiUnavailableException e) {
+        new AudioSystemWrapper().dump(true);
+        throw new OdinException("Cannot open device " + device, e);
+      }
+    }
+  }
+
+  private boolean canOpenWithWarnings() {
+    AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
+    if (device instanceof Synthesizer && !audioSystemWrapper.isAudioOutputSupported()) {
+      LOG.warn("Cannot open synthesizer device when no mixers are available");
+      new AudioSystemWrapper().dump(true);
+      return false;
+    }
+    return true;
   }
 }

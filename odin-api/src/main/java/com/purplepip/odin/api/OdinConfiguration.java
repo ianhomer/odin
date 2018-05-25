@@ -59,7 +59,7 @@ public class OdinConfiguration {
    * @throws OdinException exception
    */
   @Bean
-  public MidiDeviceWrapper midiDeviceWrapper() throws OdinException {
+  public MidiDeviceWrapper midiDeviceWrapper() {
     return new MidiDeviceWrapper();
   }
 

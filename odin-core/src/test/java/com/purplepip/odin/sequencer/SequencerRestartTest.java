@@ -44,7 +44,8 @@ public class SequencerRestartTest {
         Thread.sleep(10);
         environment.shutdown();
       }
-      assertEquals("No errors or warns should have been logged", 0, captor.size());
+      assertEquals("There should be no warn messages when sequence restarts : " + captor,
+          0, captor.size());
     }
 
     Timer timer = environment.getConfiguration().getMetrics().timer("clock.start");

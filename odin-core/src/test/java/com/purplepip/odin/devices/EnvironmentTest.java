@@ -20,14 +20,16 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.configuration.Environments;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+@Slf4j
 public class EnvironmentTest {
   @Test
   public void testDump() {
     try (LogCaptor captor = new LogCapture().info().from(Environment.class).start()) {
       Environments.newEnvironment().dump();
-      assertEquals(1, captor.size());
+      assertEquals("Environment log messages not as expected " + captor, 1, captor.size());
     }
   }
 }

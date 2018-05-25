@@ -43,8 +43,8 @@ import org.slf4j.LoggerFactory;
 public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
-  private MidiDevice receivingDevice;
-  private MidiDevice transmittingDevice;
+  private OdinMidiDevice receivingDevice;
+  private OdinMidiDevice transmittingDevice;
   private List<Transmitter> transmitters = new ArrayList<>();
   private List<Receiver> receivers = new ArrayList<>();
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
@@ -67,11 +67,11 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   }
 
   public MidiDevice getReceivingDevice() {
-    return receivingDevice;
+    return receivingDevice.getMidiDevice();
   }
 
   public MidiDevice getTransmittingDevice() {
-    return transmittingDevice;
+    return transmittingDevice.getMidiDevice();
   }
 
   /**
@@ -132,7 +132,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
    */
   private void changeProgram(int channel, int bank, int program) {
     try {
-      receivingDevice.getReceiver().send(
+      receivingDevice.getMidiDevice().getReceiver().send(
           new RawMidiMessage(new RawMessage(
               new ProgramChangeOperation(channel, bank, program)).getBytes()),
           -1);
@@ -172,20 +172,22 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
    * @return true if this is a local synthesizer
    */
   public boolean isSynthesizer() {
-    return receivingDevice instanceof Synthesizer;
+    return receivingDevice.getMidiDevice() instanceof Synthesizer;
   }
 
   @Override
   public boolean isOpenSynthesizer() {
-    return isSynthesizer() && receivingDevice.isOpen() && Container.getContainer().isAudioEnabled();
+    return isSynthesizer() && receivingDevice.getMidiDevice().isOpen()
+        && Container.getContainer().isAudioEnabled();
   }
 
   public Synthesizer getSynthesizer() {
-    return (Synthesizer) receivingDevice;
+    return (Synthesizer) receivingDevice.getMidiDevice();
   }
 
   public boolean canTransmit() {
-    return transmittingDevice != null && transmittingDevice.getMaxTransmitters() != 0;
+    return transmittingDevice != null
+        && transmittingDevice.getMidiDevice().getMaxTransmitters() != 0;
   }
 
   /**
@@ -208,10 +210,10 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
     }
   }
 
-  private void setReceivingDevice(@NotNull MidiDevice receivingDevice) {
+  private void setReceivingDevice(@NotNull OdinMidiDevice receivingDevice) {
     this.receivingDevice = receivingDevice;
     timeConverter = new PerformanceTimeConverter(
-        new MidiDeviceMicrosecondPositionProvider(receivingDevice));
+        new MidiDeviceMicrosecondPositionProvider(receivingDevice.getMidiDevice()));
   }
 
   @Override

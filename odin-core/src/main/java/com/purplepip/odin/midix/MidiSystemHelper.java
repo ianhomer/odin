@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.midix;
 
-import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.devices.Device;
@@ -24,9 +23,6 @@ import com.purplepip.odin.devices.Handle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Synthesizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,17 +39,16 @@ class MidiSystemHelper {
    * @return MIDI device
    * @throws OdinException Exception
    */
-  MidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher)
+  OdinMidiDevice findMidiDeviceByName(MidiDeviceMatcher midiDeviceMatcher)
       throws OdinException {
-    MidiDevice midiDevice = findMidiDeviceByNameInternal(midiDeviceMatcher);
-    if (midiDevice != null) {
-      LOG.debug("Found MIDI device : {} ; {} ; {}", midiDeviceMatcher,
-          midiDevice.getClass().getName(), midiDevice.getDeviceInfo().getName());
+    OdinMidiDevice device = findMidiDeviceByNameInternal(midiDeviceMatcher);
+    if (device != null) {
+      LOG.debug("Found MIDI device : {} ; {}", midiDeviceMatcher, device);
     }
-    return midiDevice;
+    return device;
   }
 
-  private MidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher)
+  private OdinMidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher)
       throws OdinException {
     for (Handle handle : Environments.newMidiEnvironment().getHandles()) {
       if (midiDeviceMatcher.matches(handle)) {
@@ -65,14 +60,14 @@ class MidiSystemHelper {
         }
 
         if (midiDeviceMatcher.matches(deviceCandidate)) {
-          return ((OdinMidiDevice) deviceCandidate).getMidiDevice();
+          return (OdinMidiDevice) deviceCandidate;
         }
       }
     }
     return null;
   }
 
-  MidiDevice getTransmittingDevice() throws OdinException {
+  OdinMidiDevice getTransmittingDevice() throws OdinException {
     List<String> deviceNames = new ArrayList<>();
     /*
      * Priority list for discovering transmitting device, i.e. external devices that can send
@@ -87,7 +82,7 @@ class MidiSystemHelper {
     return getInitialisedDevice(deviceNames, MidiDeviceTransmitterMatcher::new);
   }
 
-  MidiDevice getReceivingDevice() throws OdinException {
+  OdinMidiDevice getReceivingDevice() throws OdinException {
     List<String> deviceNames = new ArrayList<>();
     /*
      * Priority list for discovering receiving device, i.e. external devices that can receive
@@ -105,10 +100,10 @@ class MidiSystemHelper {
    * @return MIDI device
    * @throws OdinException Exception
    */
-  private static MidiDevice getInitialisedDevice(List<String> deviceNames,
+  private static OdinMidiDevice getInitialisedDevice(List<String> deviceNames,
       Function<String, MidiDeviceMatcher> midiDeviceMatcherFunction) throws OdinException {
 
-    MidiDevice device = null;
+    OdinMidiDevice device = null;
     for (String deviceName : deviceNames) {
       device = new MidiSystemHelper()
           .findMidiDeviceByName(midiDeviceMatcherFunction.apply(deviceName));
@@ -135,29 +130,8 @@ class MidiSystemHelper {
       return null;
     }
 
-    open(device);
     LOG.debug("MIDI device : {}", device);
+    device.open();
     return device;
-  }
-
-  private static void open(MidiDevice device) throws OdinException {
-    if (canOpenWithWarnings(device)) {
-      try {
-        device.open();
-      } catch (MidiUnavailableException e) {
-        new AudioSystemWrapper().dump(true);
-        throw new OdinException("Cannot open device " + device, e);
-      }
-    }
-  }
-
-  private static boolean canOpenWithWarnings(MidiDevice device) {
-    AudioSystemWrapper audioSystemWrapper = new AudioSystemWrapper();
-    if (device instanceof Synthesizer && !audioSystemWrapper.isAudioOutputSupported()) {
-      LOG.warn("Cannot open synthesizer device when no mixers are available");
-      new AudioSystemWrapper().dump(true);
-      return false;
-    }
-    return true;
   }
 }

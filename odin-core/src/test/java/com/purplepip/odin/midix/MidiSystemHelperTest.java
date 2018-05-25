@@ -30,7 +30,7 @@ public class MidiSystemHelperTest {
   @Test
   public void getTransmittingDevice() throws OdinException {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
-    MidiDevice device = new MidiSystemHelper().getTransmittingDevice();
+    MidiDevice device = new MidiSystemHelper().getTransmittingDevice().getMidiDevice();
     LOG.debug("Transmitting device : {}", device);
     assertNotNull(device);
   }
@@ -38,7 +38,7 @@ public class MidiSystemHelperTest {
   @Test
   public void getReceivingDevice() throws OdinException {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
-    MidiDevice device = new MidiSystemHelper().getReceivingDevice();
+    MidiDevice device = new MidiSystemHelper().getReceivingDevice().getMidiDevice();
     LOG.debug("Receiving device : {}", device);
     assertNotNull(device);
   }
@@ -47,7 +47,7 @@ public class MidiSystemHelperTest {
   public void testFindMidiDeviceByName() throws OdinException {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
     MidiDevice device = new MidiSystemHelper().findMidiDeviceByName(
-        new MidiDeviceNameStartsWithMatcher("Gervill"));
+        new MidiDeviceNameStartsWithMatcher("Gervill")).getMidiDevice();
     LOG.debug("Found device by name : {}", device);
     assertNotNull("Should be able to find device Gervill", device);
   }
