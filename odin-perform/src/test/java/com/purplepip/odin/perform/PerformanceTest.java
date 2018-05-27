@@ -15,12 +15,11 @@
 
 package com.purplepip.odin.perform;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.operation.OperationReceiver;
@@ -105,7 +104,7 @@ public class PerformanceTest {
 
 
   @Test
-  public void testPerformance() throws OdinException, InterruptedException {
+  public void testPerformance() throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(parameter.operationCount());
     OperationReceiver operationReceiver = (operation, time) -> latch.countDown();
 
@@ -137,9 +136,10 @@ public class PerformanceTest {
   private void assertTimer(String name, long expect, Timer timer) {
     long mean = (long) timer.getSnapshot().getMean();
     long maxAllowed = expect * LENIENCY_FACTOR * getEnvironmentalFactor();
-    assertTrue(testName + "(" + environmentDescription + ") : Timer " + name + " too slow : "
-            + mean + " > " + maxAllowed + " ; expected = " + expect,
-        mean < maxAllowed);
+    assertTrue(
+        mean < maxAllowed, () ->
+            testName + "(" + environmentDescription + ") : Timer " + name + " too slow : "
+                + mean + " > " + maxAllowed + " ; expected = " + expect);
     long excellentThreshold = expect / EXCEL_FACTOR;
     LOG.info("{} ({}) : Timer {} ; mean = {} ; expected = {} ; allowed = {}",
         testName, environmentDescription, name, mean, expect, maxAllowed);
