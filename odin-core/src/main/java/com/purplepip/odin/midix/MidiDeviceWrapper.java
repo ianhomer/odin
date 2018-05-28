@@ -16,7 +16,6 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.clock.PerformanceListener;
-import com.purplepip.odin.clock.PerformanceTimeConverter;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
@@ -47,7 +46,6 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   private List<Transmitter> transmitters = new ArrayList<>();
   private List<Receiver> receivers = new ArrayList<>();
   private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
-  private PerformanceTimeConverter timeConverter;
 
   /**
    * Create a MIDI device wrapper.
@@ -197,31 +195,21 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
    */
   @Override
   public boolean send(MidiMessage midiMessage, long time) throws OdinException {
-    try {
-      if (getReceivingDevice().isOpen()) {
-        getReceivingDevice().getMidiDevice().getReceiver().send(midiMessage,
-            timeConverter.convert(time));
-        return true;
-      }
-      return false;
-    } catch (MidiUnavailableException e) {
-      throw new OdinException("Cannot handle MIDI message for " + midiMessage, e);
-    }
+    return getReceivingDevice().send(midiMessage, time);
   }
 
   private void setReceivingDevice(@NotNull OdinMidiDevice receivingDevice) {
     this.receivingDevice = receivingDevice;
-    timeConverter = new PerformanceTimeConverter(receivingDevice);
   }
 
   @Override
   public void onPerformanceStart() {
-    timeConverter.onPerformanceStart();
+    getReceivingDevice().onPerformanceStart();
   }
 
   @Override
   public void onPerformanceStop() {
-    timeConverter.onPerformanceStop();
+    getReceivingDevice().onPerformanceStop();
   }
 
   class MidiDeviceFinder {

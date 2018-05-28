@@ -17,9 +17,12 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
+import com.purplepip.odin.clock.PerformanceTimeConverter;
+import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.AbstractDevice;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Synthesizer;
@@ -31,10 +34,12 @@ import lombok.extern.slf4j.Slf4j;
 public class OdinMidiDevice extends AbstractDevice implements MicrosecondPositionProvider {
   private final MidiDevice device;
   private final MidiHandle handle;
+  private final PerformanceTimeConverter timeConverter;
 
   OdinMidiDevice(@NotNull MidiDevice device) throws DeviceUnavailableException {
     this.device = device;
     this.handle = new MidiHandle(device.getDeviceInfo());
+    timeConverter = new PerformanceTimeConverter(this);
     open();
     initialise();
   }
@@ -177,5 +182,32 @@ public class OdinMidiDevice extends AbstractDevice implements MicrosecondPositio
   @Override
   public long getMicroseconds() {
     return device.getMicrosecondPosition();
+  }
+
+  /**
+   * Send MIDI message.
+   *
+   * @param midiMessage MIDI message
+   * @param time performance time
+   */
+  public boolean send(MidiMessage midiMessage, long time) throws OdinException {
+    try {
+      if (isOpen()) {
+        device.getReceiver().send(midiMessage, timeConverter.convert(time));
+        return true;
+      }
+      LOG.warn("Message {} sent to closed device", midiMessage);
+      return false;
+    } catch (MidiUnavailableException e) {
+      throw new OdinException("Cannot handle MIDI message for " + midiMessage, e);
+    }
+  }
+
+  public void onPerformanceStart() {
+    timeConverter.onPerformanceStart();
+  }
+
+  public void onPerformanceStop() {
+    timeConverter.onPerformanceStop();
   }
 }
