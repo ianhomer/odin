@@ -43,9 +43,9 @@ public class EnvironmentSerializer extends StdSerializer<Environment> {
     jsonGenerator.writeObjectField("devices",
         environment.getHandles().stream().map(handle -> {
           try {
-            return handle.connect();
+            return handle.open();
           } catch (DeviceUnavailableException e) {
-            LOG.warn("Cannot connect to {} : {}", handle, e.getMessage());
+            LOG.warn("Cannot open {} : {}", handle, e.getMessage());
             LOG.debug("Error when connecting to device ", e);
             return new UnavailableDevice(handle);
           }

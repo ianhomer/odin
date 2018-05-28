@@ -50,7 +50,7 @@ public class MidiHandle implements Handle {
   }
 
   @Override
-  public Device connect() throws DeviceUnavailableException {
+  public Device open() throws DeviceUnavailableException {
     try {
       return new OdinMidiDevice(MidiSystem.getMidiDevice(deviceInfo));
     } catch (MidiUnavailableException e) {

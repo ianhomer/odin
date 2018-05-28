@@ -54,7 +54,7 @@ class MidiSystemHelper {
       if (midiDeviceMatcher.matches(handle)) {
         Device deviceCandidate;
         try {
-          deviceCandidate = handle.connect();
+          deviceCandidate = handle.open();
         } catch (DeviceUnavailableException e) {
           throw new OdinException(e);
         }

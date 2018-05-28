@@ -76,7 +76,7 @@ public class NamedHandle implements Handle {
   }
 
   @Override
-  public Device connect() throws DeviceUnavailableException {
-    throw new DeviceUnavailableException("Cannot connect to a named handle : " + this);
+  public Device open() throws DeviceUnavailableException {
+    throw new DeviceUnavailableException("Cannot open a named handle : " + this);
   }
 }

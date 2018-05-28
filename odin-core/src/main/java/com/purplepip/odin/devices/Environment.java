@@ -63,7 +63,7 @@ public class Environment {
   public Stream<Device> devices() {
     return handles.stream().map(handle -> {
       try {
-        return handle.connect();
+        return handle.open();
       } catch (DeviceUnavailableException e) {
         return new UnavailableDevice(handle);
       }
@@ -136,7 +136,7 @@ public class Environment {
     handle.appendTo(sb);
     if (withConnections) {
       try {
-        Device device = handle.connect();
+        Device device = handle.open();
         sb.append("\n          ").append(device.getSummary());
         device.getProperties().forEach((key, value) ->
             sb.append(String.format("\n%50s = %-40s", key, value))

@@ -76,7 +76,7 @@ public class MockEnvironmentConfiguration {
     private String type;
 
     @Override
-    public Device connect() {
+    public Device open() {
       return new MockDevice(this);
     }
   }

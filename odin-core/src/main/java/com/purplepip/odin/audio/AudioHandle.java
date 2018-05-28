@@ -48,7 +48,7 @@ public class AudioHandle implements Handle {
   }
 
   @Override
-  public Device connect() {
+  public Device open() {
     return new AudioDevice(AudioSystem.getMixer(mixerInfo));
   }
 }

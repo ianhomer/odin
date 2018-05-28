@@ -63,8 +63,8 @@ public class UnavailableDeviceTest {
     }
 
     @Override
-    public Device connect() throws DeviceUnavailableException {
-      throw new DeviceUnavailableException("Cannot connect to test handle");
+    public Device open() throws DeviceUnavailableException {
+      throw new DeviceUnavailableException("Cannot open test handle");
     }
   }
 }

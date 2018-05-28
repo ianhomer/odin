@@ -142,8 +142,7 @@ public class OdinMidiDevice extends AbstractDevice {
   }
 
   /*
-   * TODO : Confirm the difference between connect and open.  Do we need both concepts?  Should
-   * this be on the Device interface?
+   * TODO : Remove and explicitly do when opening from handle
    *
    * @throws OdinException exception
    */
