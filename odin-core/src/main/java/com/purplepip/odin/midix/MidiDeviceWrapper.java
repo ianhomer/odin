@@ -152,15 +152,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
     if (!isSynthesizer()) {
       throw new OdinException("Cannot search for instrument name if not local synthesizer");
     }
-    Instrument instrument = new SynthesizerHelper(getSynthesizer())
-        .findInstrumentByName(instrumentName, channel == 9);
-    if (instrument == null) {
-      throw new OdinException("Cannot find instrument " + instrumentName);
-    }
-    LOG.debug("Instrument name {} resolves to {} bank {} program {}", instrumentName,
-        instrument.getName(),
-        instrument.getPatch().getBank(), instrument.getPatch().getProgram());
-    return instrument;
+    return ((SynthesizerDevice) getReceivingDevice()).findInstrument(channel, instrumentName);
   }
 
   /**
@@ -169,7 +161,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
    * @return true if this is a local synthesizer
    */
   public boolean isSynthesizer() {
-    return receivingDevice.getMidiDevice() instanceof Synthesizer;
+    return receivingDevice instanceof SynthesizerDevice;
   }
 
   @Override

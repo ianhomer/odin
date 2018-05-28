@@ -48,17 +48,10 @@ public final class Environments {
     );
   }
 
-  /*
-      deviceNames.add("Scarlett");
-    deviceNames.add("USB");
-    deviceNames.add("MidiMock OUT");
-    deviceNames.add("KEYBOARD");
-    deviceNames.add("CTRL");
-    deviceNames.add("*");
-    */
   private static MidiHandleProvider newMidiHandleProvider() {
     return new MidiHandleProvider(
-        asHandleList("Scarlet", "USB", "MidiMock OUT", "KEYBOARD", "CTRL")
+        asHandleList(
+            "Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL")
     );
   }
 }

@@ -21,6 +21,7 @@ import com.purplepip.odin.devices.Handle;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Synthesizer;
 
 public class MidiHandle implements Handle {
   private final MidiDevice.Info deviceInfo;
@@ -52,9 +53,19 @@ public class MidiHandle implements Handle {
   @Override
   public Device open() throws DeviceUnavailableException {
     try {
-      return new OdinMidiDevice(MidiSystem.getMidiDevice(deviceInfo));
+      MidiDevice device = MidiSystem.getMidiDevice(deviceInfo);
+      if (device instanceof Synthesizer) {
+        return new SynthesizerDevice((Synthesizer) device);
+      } else {
+        return new OdinMidiDevice(device);
+      }
     } catch (MidiUnavailableException e) {
       throw new DeviceUnavailableException(e);
     }
+  }
+
+  @Override
+  public String toString() {
+    return getVendor() + " " + getName();
   }
 }

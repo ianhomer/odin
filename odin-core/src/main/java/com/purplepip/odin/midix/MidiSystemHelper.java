@@ -23,14 +23,13 @@ import com.purplepip.odin.devices.Handle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Report information on the midi system.
  */
+@Slf4j
 class MidiSystemHelper {
-  private static final Logger LOG = LoggerFactory.getLogger(MidiSystemHelper.class);
 
   /**
    * Find a MIDI device by name.
@@ -51,6 +50,7 @@ class MidiSystemHelper {
   private OdinMidiDevice findMidiDeviceByNameInternal(MidiDeviceMatcher midiDeviceMatcher)
       throws OdinException {
     for (Handle handle : Environments.newMidiEnvironment().getHandles()) {
+      LOG.trace("Matching against {}", handle);
       if (midiDeviceMatcher.matches(handle)) {
         Device deviceCandidate;
         try {
