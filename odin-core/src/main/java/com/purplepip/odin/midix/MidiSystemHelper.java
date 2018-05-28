@@ -131,7 +131,6 @@ class MidiSystemHelper {
     }
 
     LOG.debug("MIDI device : {}", device);
-    device.open();
     return device;
   }
 }

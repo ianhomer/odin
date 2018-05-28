@@ -106,6 +106,16 @@ public class MockEnvironmentConfiguration {
     }
 
     @Override
+    public void close() {
+      // No Operation
+    }
+
+    @Override
+    public boolean isOpen() {
+      return true;
+    }
+
+    @Override
     public void initialise() {
       setProperty("property", "value");
     }

@@ -20,7 +20,6 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.operation.OperationReceiver;
@@ -102,8 +101,7 @@ public class OdinConfiguration {
         .setOperationReceiver(new OperationReceiverCollection(operationReceivers));
 
     if (midiDeviceWrapper.getReceivingDevice() != null) {
-      configuration.setMicrosecondPositionProvider(
-          new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
+      configuration.setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
     }
 
     /*

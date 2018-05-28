@@ -16,8 +16,9 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.audio.AudioSystemWrapper;
-import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.devices.AbstractDevice;
+import com.purplepip.odin.devices.DeviceUnavailableException;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
@@ -27,18 +28,29 @@ import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class OdinMidiDevice extends AbstractDevice {
+public class OdinMidiDevice extends AbstractDevice implements MicrosecondPositionProvider {
   private final MidiDevice device;
   private final MidiHandle handle;
 
-  OdinMidiDevice(@NotNull MidiDevice device) {
+  OdinMidiDevice(@NotNull MidiDevice device) throws DeviceUnavailableException {
     this.device = device;
     this.handle = new MidiHandle(device.getDeviceInfo());
+    open();
     initialise();
   }
 
   public MidiHandle getHandle() {
     return handle;
+  }
+
+  @Override
+  public void close() {
+    device.close();
+  }
+
+  @Override
+  public boolean isOpen() {
+    return device.isOpen();
   }
 
   /*
@@ -47,7 +59,7 @@ public class OdinMidiDevice extends AbstractDevice {
    * only in place to help with a transition.
    */
   @Deprecated
-  MidiDevice getMidiDevice() {
+  public MidiDevice getMidiDevice() {
     return device;
   }
 
@@ -141,18 +153,13 @@ public class OdinMidiDevice extends AbstractDevice {
     return device.getClass().getName() + " " + device.getDeviceInfo().getName();
   }
 
-  /*
-   * TODO : Remove and explicitly do when opening from handle
-   *
-   * @throws OdinException exception
-   */
-  void open() throws OdinException {
+  private void open() throws DeviceUnavailableException {
     if (canOpenWithWarnings()) {
       try {
         device.open();
       } catch (MidiUnavailableException e) {
         new AudioSystemWrapper().dump(true);
-        throw new OdinException("Cannot open device " + device, e);
+        throw new DeviceUnavailableException("Cannot open device " + device, e);
       }
     }
   }
@@ -165,5 +172,10 @@ public class OdinMidiDevice extends AbstractDevice {
       return false;
     }
     return true;
+  }
+
+  @Override
+  public long getMicroseconds() {
+    return device.getMicrosecondPosition();
   }
 }

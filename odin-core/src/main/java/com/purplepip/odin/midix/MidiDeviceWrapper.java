@@ -66,8 +66,8 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
     }
   }
 
-  public MidiDevice getReceivingDevice() {
-    return receivingDevice.getMidiDevice();
+  public OdinMidiDevice getReceivingDevice() {
+    return receivingDevice;
   }
 
   public MidiDevice getTransmittingDevice() {
@@ -177,7 +177,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
 
   @Override
   public boolean isOpenSynthesizer() {
-    return isSynthesizer() && receivingDevice.getMidiDevice().isOpen()
+    return isSynthesizer() && receivingDevice.isOpen()
         && Container.getContainer().isAudioEnabled();
   }
 
@@ -200,7 +200,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   public boolean send(MidiMessage midiMessage, long time) throws OdinException {
     try {
       if (getReceivingDevice().isOpen()) {
-        getReceivingDevice().getReceiver().send(midiMessage,
+        getReceivingDevice().getMidiDevice().getReceiver().send(midiMessage,
             timeConverter.convert(time));
         return true;
       }

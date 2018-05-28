@@ -26,4 +26,8 @@ public class DeviceUnavailableException extends OdinException {
   public DeviceUnavailableException(MidiUnavailableException e) {
     super(e);
   }
+
+  public DeviceUnavailableException(String description, Exception e) {
+    super(description, e);
+  }
 }

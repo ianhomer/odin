@@ -30,6 +30,16 @@ public class UnavailableDevice extends AbstractDevice {
   }
 
   @Override
+  public void close() {
+    // No operation
+  }
+
+  @Override
+  public boolean isOpen() {
+    return false;
+  }
+
+  @Override
   public String getName() {
     return "unavailable";
   }

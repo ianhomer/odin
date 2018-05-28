@@ -42,6 +42,16 @@ public class AudioDevice extends AbstractDevice {
     return handle;
   }
 
+  @Override
+  public void close() {
+    // No operation necessary for close
+  }
+
+  @Override
+  public boolean isOpen() {
+    return true;
+  }
+
   public String getName() {
     return mixer.getMixerInfo().getName();
   }

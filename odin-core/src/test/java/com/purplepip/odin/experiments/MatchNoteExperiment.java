@@ -25,7 +25,6 @@ import com.purplepip.odin.creation.action.InitialiseAction;
 import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
-import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
@@ -76,8 +75,7 @@ public class MatchNoteExperiment {
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)
-        .setMicrosecondPositionProvider(
-            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
+        .setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
     try {
       sequencer = new OdinSequencer(configuration);
       SynthesizerHelper synthesizerHelper;

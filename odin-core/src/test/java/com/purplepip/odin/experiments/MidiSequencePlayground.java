@@ -11,7 +11,6 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
-import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
@@ -75,8 +74,7 @@ public class MidiSequencePlayground {
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)
-        .setMicrosecondPositionProvider(
-            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
+        .setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
     try {
       sequencer = new OdinSequencer(configuration);
       SynthesizerHelper synthesizerHelper;

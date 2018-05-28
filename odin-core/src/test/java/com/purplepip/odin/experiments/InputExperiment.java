@@ -19,7 +19,6 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.configuration.Environments;
-import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
@@ -69,8 +68,7 @@ public class InputExperiment {
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)
-        .setMicrosecondPositionProvider(
-            new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()));
+        .setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
     try {
       sequencer = new OdinSequencer(configuration);
       SynthesizerHelper synthesizerHelper;

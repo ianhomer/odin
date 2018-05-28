@@ -25,4 +25,8 @@ public interface Device {
   String getSummary();
 
   Handle getHandle();
+
+  void close();
+
+  boolean isOpen();
 }

@@ -46,8 +46,7 @@ public class MidiOdinSequencerTest {
                       operationReceiver,
                       new MidiOperationReceiver(midiDeviceWrapper)
                   )
-              ).setMicrosecondPositionProvider(
-                new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice()))
+              ).setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice())
               );
 
       DefaultPerformanceContainer container =

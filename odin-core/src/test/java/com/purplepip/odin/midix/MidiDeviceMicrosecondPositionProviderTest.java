@@ -27,7 +27,7 @@ public class MidiDeviceMicrosecondPositionProviderTest {
     assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     MicrosecondPositionProvider provider = new MidiDeviceMicrosecondPositionProvider(
-        wrapper.getReceivingDevice());
+        wrapper.getReceivingDevice().getMidiDevice());
     long time = provider.getMicroseconds();
     assertTrue("Microsecond not +ve : " + time, time > -1);
   }
