@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.experiments;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.operation.OperationReceiver;
 import java.util.concurrent.CountDownLatch;
@@ -28,8 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MidiReceiverExperiment {
-  public static void main(String[] args) throws OdinException, InterruptedException,
-      MidiUnavailableException {
+  public static void main(String[] args) throws InterruptedException, MidiUnavailableException {
     MidiReceiverExperiment experiment = new MidiReceiverExperiment();
     experiment.doExperiment();
   }
@@ -45,10 +43,11 @@ public class MidiReceiverExperiment {
 
     try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper()) {
       if (midiDeviceWrapper.canTransmit()) {
-        try (Transmitter transmitter = midiDeviceWrapper.getTransmittingDevice().getTransmitter()) {
+        try (Transmitter transmitter = midiDeviceWrapper.getTransmittingDevice()
+            .getMidiDevice().getTransmitter()) {
           transmitter.setReceiver(
               new LoggingInputReceiver(
-                  midiDeviceWrapper.getTransmittingDevice().getDeviceInfo().toString()));
+                  midiDeviceWrapper.getTransmittingDevice().toString()));
           try {
             lock.await(20000, TimeUnit.MILLISECONDS);
           } finally {

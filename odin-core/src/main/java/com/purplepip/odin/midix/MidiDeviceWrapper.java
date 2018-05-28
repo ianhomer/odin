@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.sound.midi.Instrument;
-import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
@@ -70,8 +69,8 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
     return receivingDevice;
   }
 
-  public MidiDevice getTransmittingDevice() {
-    return transmittingDevice.getMidiDevice();
+  public OdinMidiDevice getTransmittingDevice() {
+    return transmittingDevice;
   }
 
   /**
@@ -83,13 +82,13 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   public void registerWithTransmitter(OperationTransmitter operationTransmitter) {
     if (canTransmit()) {
       try {
-        Transmitter transmitter = getTransmittingDevice().getTransmitter();
+        Transmitter transmitter = getTransmittingDevice().getMidiDevice().getTransmitter();
         transmitters.add(transmitter);
         Receiver receiver = new MidiInputReceiver(operationTransmitter,
-            new MidiDeviceMicrosecondPositionProvider(getTransmittingDevice()));
+            getTransmittingDevice());
         receivers.add(receiver);
         transmitter.setReceiver(receiver);
-        LOG.info("Registered receiver for {}", getTransmittingDevice().getDeviceInfo());
+        LOG.info("Registered receiver for {}", getTransmittingDevice());
       } catch (MidiUnavailableException e) {
         LOG.error("Cannot register receiver : {}", e.getMessage());
         LOG.debug("Cannot register receiver", e);
@@ -212,8 +211,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
 
   private void setReceivingDevice(@NotNull OdinMidiDevice receivingDevice) {
     this.receivingDevice = receivingDevice;
-    timeConverter = new PerformanceTimeConverter(
-        new MidiDeviceMicrosecondPositionProvider(receivingDevice.getMidiDevice()));
+    timeConverter = new PerformanceTimeConverter(receivingDevice);
   }
 
   @Override
