@@ -29,7 +29,6 @@ import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
-import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Transmitter;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -170,8 +169,8 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
         && Container.getContainer().isAudioEnabled();
   }
 
-  public Synthesizer getSynthesizer() {
-    return (Synthesizer) receivingDevice.getMidiDevice();
+  public SynthesizerDevice getSynthesizer() {
+    return (SynthesizerDevice) receivingDevice;
   }
 
   public boolean canTransmit() {

@@ -24,23 +24,20 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SynthesizerDevice extends OdinMidiDevice {
-  private Synthesizer synthesizer;
-
   SynthesizerDevice(@NotNull Synthesizer synthesizer) throws DeviceUnavailableException {
     super(synthesizer);
-    this.synthesizer = synthesizer;
   }
 
   /**
    * Find instrument.
    *
-   * @param channel channel
+   * @param channel        channel
    * @param instrumentName instrument name
    * @return instrument
    * @throws OdinException exception
    */
   public Instrument findInstrument(int channel, String instrumentName) throws OdinException {
-    Instrument instrument = new SynthesizerHelper(synthesizer)
+    Instrument instrument = new SynthesizerHelper(this)
         .findInstrumentByName(instrumentName, channel == 9);
     if (instrument == null) {
       throw new OdinException("Cannot find instrument " + instrumentName);
@@ -49,5 +46,10 @@ public class SynthesizerDevice extends OdinMidiDevice {
         instrument.getName(),
         instrument.getPatch().getBank(), instrument.getPatch().getProgram());
     return instrument;
+  }
+
+  @Override
+  public Synthesizer getMidiDevice() {
+    return (Synthesizer) super.getMidiDevice();
   }
 }

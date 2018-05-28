@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.purplepip.odin.devices.DeviceUnavailableException;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.Synthesizer;
 import org.junit.Test;
@@ -30,13 +31,13 @@ import org.junit.Test;
  */
 public class NoAudioSynthesizerHelperTest {
   @Test
-  public void testHelper() {
+  public void testHelper() throws DeviceUnavailableException {
     Instrument instrument = mock(Instrument.class);
     when(instrument.getName()).thenReturn("mock-instrument");
     Synthesizer synthesizer = mock(Synthesizer.class);
     Instrument[] instruments = new Instrument[] { instrument };
     when(synthesizer.getLoadedInstruments()).thenReturn(instruments);
-    SynthesizerHelper helper = new SynthesizerHelper(synthesizer);
+    SynthesizerHelper helper = new SynthesizerHelper(new SynthesizerDevice(synthesizer));
     Instrument foundInstrument =
         helper.findInstrumentByName("mock-instrument", false);
     assertEquals("mock-instrument", foundInstrument.getName());

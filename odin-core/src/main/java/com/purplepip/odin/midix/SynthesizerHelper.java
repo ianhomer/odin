@@ -23,7 +23,6 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Soundbank;
-import javax.sound.midi.Synthesizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +32,9 @@ import org.slf4j.LoggerFactory;
 public class SynthesizerHelper {
   private static final Logger LOG = LoggerFactory.getLogger(SynthesizerHelper.class);
 
-  private final Synthesizer synthesizer;
+  private final SynthesizerDevice synthesizer;
 
-  public SynthesizerHelper(Synthesizer synthesizer) {
+  public SynthesizerHelper(SynthesizerDevice synthesizer) {
     this.synthesizer = synthesizer;
   }
 
@@ -58,7 +57,8 @@ public class SynthesizerHelper {
     }
     boolean isOpenResult = synthesizer.isOpen();
     assert isOpenResult;
-    synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
+    synthesizer.getMidiDevice().unloadAllInstruments(
+        synthesizer.getMidiDevice().getDefaultSoundbank());
     Soundbank soundbank;
     try {
       soundbank = MidiSystem.getSoundbank(file);
@@ -66,8 +66,9 @@ public class SynthesizerHelper {
       LOG.error("Cannot get soundbank", e);
       return false;
     }
-    synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
-    boolean result = synthesizer.loadAllInstruments(soundbank);
+    synthesizer.getMidiDevice().unloadAllInstruments(
+        synthesizer.getMidiDevice().getDefaultSoundbank());
+    boolean result = synthesizer.getMidiDevice().loadAllInstruments(soundbank);
     LOG.info("Loaded soundbank {} : {}", soundbank.getName(), result);
 
     return result;
@@ -78,16 +79,16 @@ public class SynthesizerHelper {
    */
   void logInstruments() {
     if (synthesizer != null) {
-      Instrument[] instruments = synthesizer.getLoadedInstruments();
+      Instrument[] instruments = synthesizer.getMidiDevice().getLoadedInstruments();
       LOG.debug("Synthesizer info");
       for (Instrument instrument : instruments) {
         LOG.debug("Instruments (loaded) : {}", instrument);
       }
-      instruments = synthesizer.getAvailableInstruments();
+      instruments = synthesizer.getMidiDevice().getAvailableInstruments();
       for (Instrument instrument : instruments) {
         LOG.debug("Instruments (available) : {}", instrument);
       }
-      MidiChannel[] midiChannels = synthesizer.getChannels();
+      MidiChannel[] midiChannels = synthesizer.getMidiDevice().getChannels();
       for (MidiChannel midiChannel : midiChannels) {
         LOG.debug("Channels : {}", midiChannel.getProgram());
       }
@@ -105,7 +106,7 @@ public class SynthesizerHelper {
    */
   Instrument findInstrumentByName(String name, boolean percussion) {
     String lowercaseName = name.toLowerCase(Locale.ENGLISH);
-    for (Instrument instrument : synthesizer.getLoadedInstruments()) {
+    for (Instrument instrument : synthesizer.getMidiDevice().getLoadedInstruments()) {
       if ((!percussion || isPercussion(instrument))
           && instrument.getName().toLowerCase(Locale.ENGLISH).contains(lowercaseName)) {
         return instrument;
