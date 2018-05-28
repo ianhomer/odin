@@ -69,7 +69,7 @@
     <javax.validation>2.0.1.Final</javax.validation>
     <jsonschema.version>1.0.29</jsonschema.version>
     <junit.version>5.2.0</junit.version>
-    <kotlin.version>1.2.31</kotlin.version>
+    <kotlin.version>1.2.41</kotlin.version>
     <guava.version>24.1-jre</guava.version>
     <logback.version>1.2.3</logback.version>
     <lombok.version>1.16.20</lombok.version>
@@ -86,7 +86,7 @@
     <sonar.coverage.exclusions>**/domain/*</sonar.coverage.exclusions>
     <sonar.javascript.file.suffixes>.js,.jsx</sonar.javascript.file.suffixes>
 
-    <spring.boot.version>2.0.0.RELEASE</spring.boot.version>
+    <spring.boot.version>2.0.2.RELEASE</spring.boot.version>
     <thymeleaf.layout.version>2.3.0</thymeleaf.layout.version>
 
     <!--odin flags-->
