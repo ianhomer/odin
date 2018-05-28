@@ -1,10 +1,10 @@
 package com.purplepip.logcapture;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +86,7 @@ public class LogCaptureTest {
       }).start();
       LOG.info("testCaptureInfo : Main Thread");
       latch.await(100, TimeUnit.MILLISECONDS);
-      assertEquals(3, captor.size(), () -> "Log messages not correct " + captor);
+      assertEquals("Log messages not correct " + captor, 3, captor.size());
       info = captor.toString();
     }
     LOG.info(info);
