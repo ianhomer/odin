@@ -37,9 +37,9 @@ public class NoAudioSynthesizerHelperTest {
     Synthesizer synthesizer = mock(Synthesizer.class);
     Instrument[] instruments = new Instrument[] { instrument };
     when(synthesizer.getLoadedInstruments()).thenReturn(instruments);
-    SynthesizerHelper helper = new SynthesizerHelper(new SynthesizerDevice(synthesizer));
+    SynthesizerDevice synthesizerDevice = new SynthesizerDevice(synthesizer);
     Instrument foundInstrument =
-        helper.findInstrumentByName("mock-instrument", false);
+        synthesizerDevice.findInstrumentByName("mock-instrument", false);
     assertEquals("mock-instrument", foundInstrument.getName());
   }
 }

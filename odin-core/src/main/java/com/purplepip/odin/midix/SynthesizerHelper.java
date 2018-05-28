@@ -17,10 +17,7 @@ package com.purplepip.odin.midix;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
-import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Soundbank;
 import org.slf4j.Logger;
@@ -72,55 +69,5 @@ public class SynthesizerHelper {
     LOG.info("Loaded soundbank {} : {}", soundbank.getName(), result);
 
     return result;
-  }
-
-  /**
-   * Log MIDI system instruments available.
-   */
-  void logInstruments() {
-    if (synthesizer != null) {
-      Instrument[] instruments = synthesizer.getMidiDevice().getLoadedInstruments();
-      LOG.debug("Synthesizer info");
-      for (Instrument instrument : instruments) {
-        LOG.debug("Instruments (loaded) : {}", instrument);
-      }
-      instruments = synthesizer.getMidiDevice().getAvailableInstruments();
-      for (Instrument instrument : instruments) {
-        LOG.debug("Instruments (available) : {}", instrument);
-      }
-      MidiChannel[] midiChannels = synthesizer.getMidiDevice().getChannels();
-      for (MidiChannel midiChannel : midiChannels) {
-        LOG.debug("Channels : {}", midiChannel.getProgram());
-      }
-    } else {
-      LOG.info("Synthesizer is null");
-    }
-  }
-
-  /**
-   * Find an instrument by name.
-   *
-   * @param name Name of instrument to find
-   * @param percussion true if wishing to find percussion instrument
-   * @return Instrument instrument
-   */
-  Instrument findInstrumentByName(String name, boolean percussion) {
-    String lowercaseName = name.toLowerCase(Locale.ENGLISH);
-    for (Instrument instrument : synthesizer.getMidiDevice().getLoadedInstruments()) {
-      if ((!percussion || isPercussion(instrument))
-          && instrument.getName().toLowerCase(Locale.ENGLISH).contains(lowercaseName)) {
-        return instrument;
-      }
-    }
-    return null;
-  }
-
-  private static boolean isPercussion(Instrument instrument) {
-    /*
-     * This is fragile logic based on implementation of SF2Instrument however the
-     * com.sun.media.sound.ModelPatch which provides an isPercussion method is not public so
-     * any access onto that class is fragile too.
-     */
-    return instrument.toString().startsWith("Drumkit:");
   }
 }
