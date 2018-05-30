@@ -23,7 +23,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * Component that loads the environment.
+ * Component that loads the runtime configuration beans (that are not needed for test profile).
  */
 @Component
 @Profile("!test")

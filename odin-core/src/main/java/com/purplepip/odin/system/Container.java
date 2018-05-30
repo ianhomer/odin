@@ -40,7 +40,6 @@ public class Container {
     return container;
   }
 
-
   public boolean isAudioEnabled() {
     return audioEnabled;
   }

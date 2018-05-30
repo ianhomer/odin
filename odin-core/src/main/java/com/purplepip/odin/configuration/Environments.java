@@ -19,7 +19,10 @@ import static com.purplepip.odin.devices.NamedHandle.asHandleList;
 
 import com.purplepip.odin.audio.AudioHandleProvider;
 import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.devices.HandleProvider;
 import com.purplepip.odin.midix.MidiHandleProvider;
+import com.purplepip.odin.system.Container;
+import java.util.stream.Stream;
 
 public final class Environments {
   private Environments() {
@@ -32,9 +35,18 @@ public final class Environments {
    */
   public static Environment newEnvironment() {
     return new Environment(
-        newMidiHandleProvider(),
-        new AudioHandleProvider()
+        withAudioHandleProvider(Stream.builder())
+            .add(newMidiHandleProvider())
+            .build()
     );
+  }
+
+  private static Stream.Builder<HandleProvider>
+      withAudioHandleProvider(Stream.Builder<HandleProvider> builder) {
+    if (Container.getContainer().isAudioEnabled()) {
+      builder.accept(new AudioHandleProvider());
+    }
+    return builder;
   }
 
   /**
@@ -53,5 +65,9 @@ public final class Environments {
         asHandleList(
             "Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL")
     );
+  }
+
+  public static Environment newAudioEnvironment() {
+    return new Environment(withAudioHandleProvider(Stream.builder()).build());
   }
 }

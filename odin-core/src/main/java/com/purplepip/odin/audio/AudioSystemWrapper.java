@@ -15,6 +15,8 @@
 
 package com.purplepip.odin.audio;
 
+import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
+
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.system.Container;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -23,14 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class AudioSystemWrapper {
   private static final AtomicBoolean HAS_DUMPED = new AtomicBoolean(false);
-  private final Environment environment = new Environment(new AudioHandleProvider());
-
-  private boolean hasMixers() {
-    return !environment.isEmpty();
-  }
+  private final Environment environment = newAudioEnvironment();
 
   public boolean isAudioOutputSupported() {
-    return hasMixers() && Container.getContainer().isAudioEnabled();
+    return !environment.isEmpty() && Container.getContainer().isAudioEnabled();
   }
 
   public void dump() {

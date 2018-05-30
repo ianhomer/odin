@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Environment {
   private final Set<Handle> handles = new HashSet<>();
-  private final Set<HandleProvider> providers;
+  private final Set<HandleProvider> providers = new HashSet<>();
   private final Set<Class<? extends Handle>> clazzes = new HashSet<>();
 
   /**
@@ -36,8 +36,19 @@ public class Environment {
    * @param providers handle providers
    */
   public Environment(HandleProvider... providers) {
-    this.providers = new HashSet<>(Arrays.asList(providers));
-    Stream.of(providers).forEach(provider -> clazzes.addAll(provider.getHandleClasses()));
+    this(Arrays.stream(providers));
+  }
+
+  /**
+   * Create an environment.
+   *
+   * @param providerStream handle provider stream
+   */
+  public Environment(Stream<HandleProvider> providerStream) {
+    providerStream.forEach(provider -> {
+      clazzes.addAll(provider.getHandleClasses());
+      providers.add(provider);
+    });
     refresh();
   }
 
