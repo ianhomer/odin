@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.midix;
 
-import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
+import static com.purplepip.odin.system.Environments.newAudioEnvironment;
 
 import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;

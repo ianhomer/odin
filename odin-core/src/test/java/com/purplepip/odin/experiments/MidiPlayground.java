@@ -1,6 +1,6 @@
 package com.purplepip.odin.experiments;
 
-import com.purplepip.odin.configuration.Environments;
+import com.purplepip.odin.system.Environments;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;

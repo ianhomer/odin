@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.configuration.Environments;
+import com.purplepip.odin.system.Environments;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

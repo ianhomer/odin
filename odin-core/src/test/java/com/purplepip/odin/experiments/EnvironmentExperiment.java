@@ -16,7 +16,7 @@
 package com.purplepip.odin.experiments;
 
 import com.purplepip.odin.audio.AudioSystemWrapper;
-import com.purplepip.odin.configuration.Environments;
+import com.purplepip.odin.system.Environments;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.configuration;
+package com.purplepip.odin.system;
 
 import static com.purplepip.odin.devices.NamedHandle.asHandleList;
 
@@ -21,8 +21,6 @@ import com.purplepip.odin.audio.AudioHandleProvider;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.HandleProvider;
 import com.purplepip.odin.midix.MidiHandleProvider;
-import com.purplepip.odin.system.Container;
-import com.purplepip.odin.system.SystemContainer;
 import java.util.stream.Stream;
 
 public final class Environments {

@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.api;
 
-import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.system.Environments;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;

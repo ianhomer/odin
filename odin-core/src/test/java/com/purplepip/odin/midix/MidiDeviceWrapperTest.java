@@ -1,6 +1,6 @@
 package com.purplepip.odin.midix;
 
-import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
+import static com.purplepip.odin.system.Environments.newAudioEnvironment;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeTrue;

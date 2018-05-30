@@ -16,10 +16,10 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.configuration.Environments;
 import com.purplepip.odin.devices.Device;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Handle;
+import com.purplepip.odin.system.Environments;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;

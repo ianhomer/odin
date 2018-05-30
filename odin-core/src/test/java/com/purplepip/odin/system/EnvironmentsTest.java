@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.configuration;
+package com.purplepip.odin.system;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -21,7 +21,6 @@ import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.odin.audio.AudioHandle;
 import com.purplepip.odin.devices.Environment;
-import com.purplepip.odin.system.SystemContainer;
 import org.junit.Test;
 
 public class EnvironmentsTest {

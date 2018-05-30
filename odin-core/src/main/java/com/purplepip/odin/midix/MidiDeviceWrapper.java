@@ -15,12 +15,13 @@
 
 package com.purplepip.odin.midix;
 
+import static com.purplepip.odin.system.Environments.newAudioEnvironment;
+
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.OperationTransmitter;
-import com.purplepip.odin.system.SystemContainer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -166,7 +167,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   @Override
   public boolean isOpenSynthesizer() {
     return isSynthesizer() && receivingDevice.isOpen()
-        && SystemContainer.getContainer().isAudioEnabled();
+        && !newAudioEnvironment().isEmpty();
   }
 
   public SynthesizerDevice getSynthesizer() {

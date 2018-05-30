@@ -36,7 +36,7 @@ public class SystemContainer implements Container {
     LOG.info("Audio Enabled : {}", audioEnabled);
   }
 
-  public static Container getContainer() {
+  static Container getContainer() {
     return container;
   }
 

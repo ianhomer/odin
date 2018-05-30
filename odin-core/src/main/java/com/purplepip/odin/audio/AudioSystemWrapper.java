@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.audio;
 
-import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
+import static com.purplepip.odin.system.Environments.newAudioEnvironment;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class AudioSystemWrapper {
   private static final AtomicBoolean HAS_DUMPED = new AtomicBoolean(false);
+
   public void dump() {
     dump(false);
   }
