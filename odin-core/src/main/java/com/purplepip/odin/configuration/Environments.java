@@ -22,6 +22,7 @@ import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.HandleProvider;
 import com.purplepip.odin.midix.MidiHandleProvider;
 import com.purplepip.odin.system.Container;
+import com.purplepip.odin.system.SystemContainer;
 import java.util.stream.Stream;
 
 public final class Environments {
@@ -29,21 +30,32 @@ public final class Environments {
   }
 
   /**
-   * Create the default environment for the Odin configuration.
+   * Create a new environment.
    *
-   * @return new default environment.
+   * @param container container to base environment on.
+   * @return environment
    */
-  public static Environment newEnvironment() {
+  public static Environment newEnvironment(Container container) {
     return new Environment(
-        withAudioHandleProvider(Stream.builder())
+        withAudioHandleProvider(container, Stream.builder())
             .add(newMidiHandleProvider())
             .build()
     );
   }
 
+
+  /**
+   * Create the default environment for the Odin configuration.
+   *
+   * @return new default environment.
+   */
+  public static Environment newEnvironment() {
+    return newEnvironment(SystemContainer.getContainer());
+  }
+
   private static Stream.Builder<HandleProvider>
-      withAudioHandleProvider(Stream.Builder<HandleProvider> builder) {
-    if (Container.getContainer().isAudioEnabled()) {
+      withAudioHandleProvider(Container container, Stream.Builder<HandleProvider> builder) {
+    if (container.isAudioEnabled()) {
       builder.accept(new AudioHandleProvider());
     }
     return builder;
@@ -67,7 +79,12 @@ public final class Environments {
     );
   }
 
+  public static Environment newAudioEnvironment(Container container) {
+    return new Environment(withAudioHandleProvider(
+        container, Stream.builder()).build());
+  }
+
   public static Environment newAudioEnvironment() {
-    return new Environment(withAudioHandleProvider(Stream.builder()).build());
+    return newAudioEnvironment(SystemContainer.getContainer());
   }
 }

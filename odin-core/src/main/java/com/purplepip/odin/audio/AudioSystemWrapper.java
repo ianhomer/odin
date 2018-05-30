@@ -18,7 +18,7 @@ package com.purplepip.odin.audio;
 import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
 
 import com.purplepip.odin.devices.Environment;
-import com.purplepip.odin.system.Container;
+import com.purplepip.odin.system.SystemContainer;
 import java.util.concurrent.atomic.AtomicBoolean;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +28,7 @@ public final class AudioSystemWrapper {
   private final Environment environment = newAudioEnvironment();
 
   public boolean isAudioOutputSupported() {
-    return !environment.isEmpty() && Container.getContainer().isAudioEnabled();
+    return !environment.isEmpty() && SystemContainer.getContainer().isAudioEnabled();
   }
 
   public void dump() {

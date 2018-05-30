@@ -94,8 +94,12 @@ public class Environment {
   private Set<Handle> getHandles(Class<? extends Handle> clazz) {
     return Collections.unmodifiableSet(
         handles.stream().filter(handle -> handle.getClass().isAssignableFrom(clazz))
-          .collect(Collectors.toSet())
+            .collect(Collectors.toSet())
     );
+  }
+
+  public boolean noneMatch(Class<? extends Handle> clazz) {
+    return handles.stream().noneMatch(handle -> handle.getClass().isAssignableFrom(clazz));
   }
 
 

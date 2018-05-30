@@ -22,7 +22,7 @@ import org.junit.Test;
 public class ContainerTest {
   @Test
   public void testContainer() {
-    Container container = Container.getContainer();
+    Container container = SystemContainer.getContainer();
     assertNotNull(container);
   }
 }

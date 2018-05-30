@@ -15,32 +15,9 @@
 
 package com.purplepip.odin.system;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
- * Singleton describing the container that odin is running in.
+ * Container that odin is running in.
  */
-@Slf4j
-public class Container {
-  private static final Container container = new Container();
-
-  /*
-   * Audio support can be explicitly disabled by setting this system flag to false.
-   */
-  private static final String AUDIO_ENABLED = "odin.audio.enabled";
-
-  private final boolean audioEnabled;
-
-  private Container() {
-    audioEnabled = !"false".equals(System.getProperty(AUDIO_ENABLED));
-    LOG.info("Audio Enabled : {}", audioEnabled);
-  }
-
-  public static Container getContainer() {
-    return container;
-  }
-
-  public boolean isAudioEnabled() {
-    return audioEnabled;
-  }
+public interface Container {
+  boolean isAudioEnabled();
 }
