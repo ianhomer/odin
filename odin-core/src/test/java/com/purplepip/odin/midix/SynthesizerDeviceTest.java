@@ -15,12 +15,12 @@
 
 package com.purplepip.odin.midix;
 
+import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assume.assumeTrue;
 
-import com.purplepip.odin.audio.AudioSystemWrapper;
 import javax.sound.midi.Instrument;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class SynthesizerDeviceTest {
    */
   @Before
   public void setUp() {
-    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
+    assumeTrue(!newAudioEnvironment().isEmpty());
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     synthesizerDevice = wrapper.getSynthesizer();
     assumeTrue(wrapper.isOpenSynthesizer());

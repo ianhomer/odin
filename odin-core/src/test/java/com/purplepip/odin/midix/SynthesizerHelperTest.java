@@ -1,5 +1,6 @@
 package com.purplepip.odin.midix;
 
+import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -7,7 +8,6 @@ import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.audio.AudioSystemWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class SynthesizerHelperTest {
    */
   @Before
   public void setUp() {
-    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
+    assumeTrue(!newAudioEnvironment().isEmpty());
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
     assumeTrue(wrapper.isOpenSynthesizer());

@@ -1,9 +1,9 @@
 package com.purplepip.odin.midix;
 
+import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
-import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
@@ -26,7 +26,7 @@ import org.junit.Test;
 public class MidiOdinSequencerTest {
   @Test
   public void testSequencer() throws InterruptedException {
-    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
+    assumeTrue(!newAudioEnvironment().isEmpty());
     try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper()) {
       final CountDownLatch lock = new CountDownLatch(16);
 

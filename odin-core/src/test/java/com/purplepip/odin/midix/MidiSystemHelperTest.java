@@ -15,10 +15,10 @@
 
 package com.purplepip.odin.midix;
 
+import static com.purplepip.odin.configuration.Environments.newAudioEnvironment;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeTrue;
 
-import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.common.OdinException;
 import javax.sound.midi.MidiDevice;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class MidiSystemHelperTest {
 
   @Test
   public void getTransmittingDevice() throws OdinException {
-    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
+    assumeTrue(!newAudioEnvironment().isEmpty());
     MidiDevice device = new MidiSystemHelper().getTransmittingDevice().getMidiDevice();
     LOG.debug("Transmitting device : {}", device);
     assertNotNull(device);
@@ -37,7 +37,7 @@ public class MidiSystemHelperTest {
 
   @Test
   public void getReceivingDevice() throws OdinException {
-    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
+    assumeTrue(!newAudioEnvironment().isEmpty());
     MidiDevice device = new MidiSystemHelper().getReceivingDevice().getMidiDevice();
     LOG.debug("Receiving device : {}", device);
     assertNotNull(device);
@@ -45,7 +45,7 @@ public class MidiSystemHelperTest {
 
   @Test
   public void testFindMidiDeviceByName() throws OdinException {
-    assumeTrue(new AudioSystemWrapper().isAudioOutputSupported());
+    assumeTrue(!newAudioEnvironment().isEmpty());
     MidiDevice device = new MidiSystemHelper().findMidiDeviceByName(
         new MidiDeviceNameStartsWithMatcher("Gervill")).getMidiDevice();
     LOG.debug("Found device by name : {}", device);
