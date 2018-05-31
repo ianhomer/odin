@@ -15,8 +15,6 @@
 
 package com.purplepip.odin.midix;
 
-import static com.purplepip.odin.system.Environments.newAudioEnvironment;
-
 import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.clock.PerformanceTimeConverter;
@@ -160,24 +158,13 @@ public class OdinMidiDevice extends AbstractDevice implements MicrosecondPositio
     return device.getClass().getName() + " " + device.getDeviceInfo().getName();
   }
 
-  private void open() throws DeviceUnavailableException {
-    if (canOpenWithWarnings()) {
-      try {
-        device.open();
-      } catch (MidiUnavailableException e) {
-        new AudioSystemWrapper().dump(true);
-        throw new DeviceUnavailableException("Cannot open device " + device, e);
-      }
-    }
-  }
-
-  private boolean canOpenWithWarnings() {
-    if (device instanceof Synthesizer && newAudioEnvironment().isEmpty()) {
-      LOG.warn("Cannot open synthesizer device when no mixers are available");
+  protected void open() throws DeviceUnavailableException {
+    try {
+      device.open();
+    } catch (MidiUnavailableException e) {
       new AudioSystemWrapper().dump(true);
-      return false;
+      throw new DeviceUnavailableException("Cannot open device " + device, e);
     }
-    return true;
   }
 
   @Override
