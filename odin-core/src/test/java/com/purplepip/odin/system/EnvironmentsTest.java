@@ -21,6 +21,7 @@ import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.odin.audio.AudioHandle;
 import com.purplepip.odin.devices.Environment;
+import javax.sound.sampled.AudioSystem;
 import org.junit.Test;
 
 public class EnvironmentsTest {
@@ -33,7 +34,7 @@ public class EnvironmentsTest {
 
   @Test
   public void testAudioEnvironmentWithAudioEnabled() {
-    assumeTrue(SystemContainer.getContainer().isAudioEnabled());
+    assumeTrue(AudioSystem.getMixerInfo().length > 0);
     Environment environment = Environments.newAudioEnvironment(() -> true);
     assertFalse(environment.isEmpty());
   }
@@ -46,7 +47,7 @@ public class EnvironmentsTest {
 
   @Test
   public void testEnvironmentWithAudioEnabled() {
-    assumeTrue(SystemContainer.getContainer().isAudioEnabled());
+    assumeTrue(AudioSystem.getMixerInfo().length > 0);
     Environment environment = Environments.newAudioEnvironment(() -> true);
     assertFalse(environment.noneMatch(AudioHandle.class));
   }
