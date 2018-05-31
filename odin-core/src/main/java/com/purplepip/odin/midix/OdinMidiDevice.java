@@ -58,6 +58,11 @@ public class OdinMidiDevice extends AbstractDevice implements MicrosecondPositio
     return device.isOpen();
   }
 
+  @Override
+  public boolean canTransmit() {
+    return device.getMaxTransmitters() != 0;
+  }
+
   /*
    * TODO : Try to remove external access of MidiDevice, we want to encapsulate all internals
    * by defining an appropriate device interface.  I've marked it as deprecated since it's

@@ -29,4 +29,6 @@ public interface Device {
   void close();
 
   boolean isOpen();
+
+  boolean canTransmit();
 }

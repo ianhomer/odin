@@ -175,8 +175,7 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   }
 
   public boolean canTransmit() {
-    return transmittingDevice != null
-        && transmittingDevice.getMidiDevice().getMaxTransmitters() != 0;
+    return transmittingDevice != null && transmittingDevice.canTransmit();
   }
 
   /**
