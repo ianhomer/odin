@@ -21,7 +21,7 @@ import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.operation.ChannelOperation;
 import com.purplepip.odin.operation.InvalidChannelOperation;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
  * MIDI operation receiver.
  */
 @Slf4j
-public class MidiOperationReceiver implements OperationReceiver {
+public class MidiOperationReceiver implements OperationHandler {
   private MidiDeviceReceiver midiDeviceReceiver;
 
   public MidiOperationReceiver(MidiDeviceReceiver midiDeviceReceiver) {

@@ -8,7 +8,7 @@ import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.sequence.Notation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +25,7 @@ public class NotationUpdatedAtRuntimeTest {
     final CountDownLatch note60Events = new CountDownLatch(16);
     final CountDownLatch note61Events = new CountDownLatch(16);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       if (operation instanceof AbstractNoteVelocityOperation) {
         AbstractNoteVelocityOperation noteVelocityOperation =
             (AbstractNoteVelocityOperation) operation;

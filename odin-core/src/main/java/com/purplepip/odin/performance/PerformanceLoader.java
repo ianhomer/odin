@@ -17,10 +17,10 @@ package com.purplepip.odin.performance;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.net.URI;
 
-public interface PerformanceLoader extends OperationReceiver {
+public interface PerformanceLoader extends OperationHandler {
   void load(URI getPerformanceUri);
 
   /**

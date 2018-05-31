@@ -24,7 +24,7 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -71,7 +71,7 @@ public class DeltaOdinSequencerConfiguration implements OdinSequencerConfigurati
   }
 
   @Override
-  public OperationReceiver getOperationReceiver() {
+  public OperationHandler getOperationReceiver() {
     return null;
   }
 

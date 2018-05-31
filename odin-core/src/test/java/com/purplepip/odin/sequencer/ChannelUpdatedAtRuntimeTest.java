@@ -7,7 +7,7 @@ import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.operation.ChannelOperation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +30,7 @@ public class ChannelUpdatedAtRuntimeTest {
     final CountDownLatch channel3Events = new CountDownLatch(16);
     final AtomicInteger programChangeEventCount = new AtomicInteger();
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       if (operation instanceof ChannelOperation) {
         ChannelOperation channelOperation = (ChannelOperation) operation;
         if (channelOperation.getChannel() == 0) {

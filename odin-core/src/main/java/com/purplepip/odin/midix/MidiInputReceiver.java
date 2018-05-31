@@ -18,17 +18,17 @@ package com.purplepip.odin.midix;
 import com.purplepip.odin.clock.MicrosecondPositionProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MidiInputReceiver implements Receiver {
-  private OperationReceiver receiver;
+  private OperationHandler receiver;
   private MicrosecondPositionProvider microsecondPositionProvider;
 
-  MidiInputReceiver(OperationReceiver receiver,
+  MidiInputReceiver(OperationHandler receiver,
                            MicrosecondPositionProvider microsecondPositionProvider) {
     this.receiver = receiver;
     this.microsecondPositionProvider = microsecondPositionProvider;

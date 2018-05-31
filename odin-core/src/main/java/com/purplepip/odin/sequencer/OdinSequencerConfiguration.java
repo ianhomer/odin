@@ -22,7 +22,7 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 
 /**
  * Odin Sequencer configuration.
@@ -39,7 +39,7 @@ public interface OdinSequencerConfiguration {
    *
    * @return operation receiver
    */
-  OperationReceiver getOperationReceiver();
+  OperationHandler getOperationReceiver();
 
   /**
    * The operation transmitter is how the sequence receives operations in from external devices.

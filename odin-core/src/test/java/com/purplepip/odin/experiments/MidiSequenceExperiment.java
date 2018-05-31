@@ -10,7 +10,7 @@ import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
@@ -47,7 +47,7 @@ public class MidiSequenceExperiment {
   private void doExperiment() throws InterruptedException {
     final CountDownLatch lock = new CountDownLatch(1_000_000);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       lock.countDown();
       LOG.trace("Received operation {}", operation);
       if (operation.hasCause()) {

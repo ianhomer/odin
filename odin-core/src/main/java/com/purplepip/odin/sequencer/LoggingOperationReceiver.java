@@ -16,14 +16,14 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Operation receiver that logs each operation.
  */
-public class LoggingOperationReceiver implements OperationReceiver {
+public class LoggingOperationReceiver implements OperationHandler {
   private static final Logger LOG = LoggerFactory.getLogger(LoggingOperationReceiver.class);
 
   @Override

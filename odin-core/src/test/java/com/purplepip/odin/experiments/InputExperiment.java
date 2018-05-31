@@ -21,7 +21,7 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.BeanyPerformanceBuilder;
@@ -48,7 +48,7 @@ public class InputExperiment {
 
     Environments.newEnvironment().dump();
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       lock.countDown();
       LOG.info("Received operation {}", operation);
     };

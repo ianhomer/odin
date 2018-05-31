@@ -15,14 +15,14 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 
 /**
  * An operation transmitter receives operations from a source and transmits the operations onto
  * the operation receivers that are listening.
  */
-public interface OperationTransmitter extends OperationReceiver {
-  void addListener(OperationReceiver receiver);
+public interface OperationTransmitter extends OperationHandler {
+  void addListener(OperationHandler receiver);
 
-  void removeListener(OperationReceiver receiver);
+  void removeListener(OperationHandler receiver);
 }

@@ -17,13 +17,13 @@ package com.purplepip.odin.demo;
 
 import com.purplepip.odin.common.Pretty;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.snapshot.Snapshot;
 import java.util.concurrent.CountDownLatch;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SnapshotOperationReceiver implements OperationReceiver {
+public class SnapshotOperationReceiver implements OperationHandler {
   private final CountDownLatch latch;
   private Snapshot snapshot;
 

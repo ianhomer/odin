@@ -22,7 +22,7 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
@@ -43,7 +43,7 @@ public class OdinConfiguration {
   private static final int FOUR_FOUR_TIME = 4;
 
   @Autowired(required = false)
-  private OperationReceiver auditingOperationReceiver;
+  private OperationHandler auditingOperationReceiver;
 
   @Autowired(required = false)
   private MetricRegistry metrics;
@@ -82,7 +82,7 @@ public class OdinConfiguration {
   @Bean
   public OdinSequencerConfiguration configuration(MeasureProvider measureProvider,
                                                   MidiDeviceWrapper midiDeviceWrapper) {
-    List<OperationReceiver> operationReceivers = new ArrayList<>();
+    List<OperationHandler> operationReceivers = new ArrayList<>();
     if (midiDeviceWrapper.getReceivingDevice() != null) {
       operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
     }

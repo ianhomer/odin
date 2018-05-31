@@ -30,7 +30,7 @@ import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Random;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.BeanyPerformanceBuilder;
@@ -55,7 +55,7 @@ public class MatchNoteExperiment {
   private void doExperiment() throws InterruptedException {
     final CountDownLatch lock = new CountDownLatch(800);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       lock.countDown();
     };
 

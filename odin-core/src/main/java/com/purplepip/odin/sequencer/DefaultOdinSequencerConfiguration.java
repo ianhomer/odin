@@ -29,7 +29,7 @@ import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.ArrayList;
 
 /**
@@ -39,7 +39,7 @@ public class DefaultOdinSequencerConfiguration
     implements OdinSequencerConfiguration {
   private BeatsPerMinute beatsPerMinute;
   private MeasureProvider measureProvider;
-  private OperationReceiver operationReceiver;
+  private OperationHandler operationReceiver;
   private OperationTransmitter operationTransmitter;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
@@ -123,10 +123,10 @@ public class DefaultOdinSequencerConfiguration
    * @return this configuration
    */
   public DefaultOdinSequencerConfiguration setOperationReceiver(
-      OperationReceiver operationReceiver) {
+      OperationHandler operationReceiver) {
     if (isLoggingOperationReceiverEnabled()) {
       if (operationReceiver instanceof OperationReceiverCollection) {
-        ArrayList<OperationReceiver> operationReceiverList =
+        ArrayList<OperationHandler> operationReceiverList =
             new ArrayList<>(Lists.newArrayList(operationReceiver));
         operationReceiverList.add(new LoggingOperationReceiver());
         this.operationReceiver = new OperationReceiverCollection(operationReceiverList);
@@ -177,7 +177,7 @@ public class DefaultOdinSequencerConfiguration
   }
 
   @Override
-  public OperationReceiver getOperationReceiver() {
+  public OperationHandler getOperationReceiver() {
     return operationReceiver;
   }
 

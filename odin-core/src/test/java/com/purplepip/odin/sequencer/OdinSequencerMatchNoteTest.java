@@ -12,7 +12,7 @@ import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.demo.MatchNotePerformance;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +43,7 @@ public class OdinSequencerMatchNoteTest {
     final CountDownLatch initialiseTrackLatch = new CountDownLatch(1);
     final CountDownLatch setTrackLatch = new CountDownLatch(1);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
         NoteOnOperation noteOnOperation =
             (NoteOnOperation) operation;

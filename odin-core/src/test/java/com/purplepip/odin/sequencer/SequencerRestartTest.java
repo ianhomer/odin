@@ -21,7 +21,7 @@ import com.codahale.metrics.Timer;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.demo.GroovePerformance;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.CountDownLatch;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class SequencerRestartTest {
   @Test
   public void testRestart() throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(100);
-    OperationReceiver operationReceiver = (operation, time) -> latch.countDown();
+    OperationHandler operationReceiver = (operation, time) -> latch.countDown();
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(operationReceiver, new GroovePerformance());

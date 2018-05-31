@@ -19,7 +19,7 @@ import com.purplepip.odin.api.rest.repositories.OperationRepository;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.operation.ChannelOperation;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.store.domain.PersistableOperation;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
@@ -37,7 +37,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile("!noAuditing")
 @Slf4j
-public class AuditingOperationReceiver implements OperationReceiver, InitializingBean {
+public class AuditingOperationReceiver implements OperationHandler, InitializingBean {
   private static final long CLEAN_PERIOD = 30;
   private final ScheduledExecutorService scheduledPool =
       Executors.newScheduledThreadPool(1);

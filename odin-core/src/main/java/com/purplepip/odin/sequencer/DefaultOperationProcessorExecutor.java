@@ -19,7 +19,7 @@ import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.PriorityBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,14 +29,14 @@ public class DefaultOperationProcessorExecutor extends SequencerRunnable {
 
   private final BeatClock clock;
   private final PriorityBlockingQueue<OperationEvent> queue;
-  private final OperationReceiver operationReceiver;
+  private final OperationHandler operationReceiver;
   private final Meter sentMetric;
   private final Meter failureMetric;
   private final long forwardPollingTime;
 
   DefaultOperationProcessorExecutor(BeatClock clock,
                                     PriorityBlockingQueue<OperationEvent> queue,
-                                    OperationReceiver operationReceiver,
+                                    OperationHandler operationReceiver,
                                     MetricRegistry metrics,
                                     long refreshPeriod) {
     super("operation", clock, metrics);

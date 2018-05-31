@@ -16,7 +16,7 @@
 package com.purplepip.odin.experiments;
 
 import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import javax.sound.midi.MidiMessage;
@@ -36,7 +36,7 @@ public class MidiReceiverExperiment {
     LOG.debug("running experiment");
     final CountDownLatch lock = new CountDownLatch(100);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       lock.countDown();
       LOG.info("Received operation {}", operation);
     };

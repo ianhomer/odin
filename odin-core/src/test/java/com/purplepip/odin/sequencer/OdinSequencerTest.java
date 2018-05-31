@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class OdinSequencerTest {
   public void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(16);
 
-    OperationReceiver operationReceiver = (operation, time) -> lock.countDown();
+    OperationHandler operationReceiver = (operation, time) -> lock.countDown();
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
     new BeanyPerformanceBuilder(environment.getContainer())

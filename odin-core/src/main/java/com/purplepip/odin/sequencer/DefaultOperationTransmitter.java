@@ -17,7 +17,7 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class DefaultOperationTransmitter implements OperationTransmitter {
-  private final List<OperationReceiver> receivers = new ArrayList<>();
+  private final List<OperationHandler> receivers = new ArrayList<>();
 
   @Override
   public void handle(Operation operation, long time) {
@@ -41,12 +41,12 @@ public class DefaultOperationTransmitter implements OperationTransmitter {
   }
 
   @Override
-  public void addListener(OperationReceiver receiver) {
+  public void addListener(OperationHandler receiver) {
     receivers.add(receiver);
   }
 
   @Override
-  public void removeListener(OperationReceiver receiver) {
+  public void removeListener(OperationHandler receiver) {
     receivers.remove(receiver);
   }
 }

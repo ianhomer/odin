@@ -22,7 +22,7 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.SimplePerformance;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import java.util.ArrayList;
@@ -106,7 +106,7 @@ public class PerformanceTest {
   @Test
   public void testPerformance() throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(parameter.operationCount());
-    OperationReceiver operationReceiver = (operation, time) -> latch.countDown();
+    OperationHandler operationReceiver = (operation, time) -> latch.countDown();
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(operationReceiver, parameter.performance());

@@ -6,7 +6,7 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +23,7 @@ public class OdinSequencerLoadPerformanceTest {
     final CountDownLatch noteLatch = new CountDownLatch(4);
     final CountDownLatch loadPerformanceLatch = new CountDownLatch(1);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
         noteLatch.countDown();
       } else if (operation instanceof NoteOffOperation) {

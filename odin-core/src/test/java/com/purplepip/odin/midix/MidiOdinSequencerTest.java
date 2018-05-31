@@ -7,7 +7,7 @@ import static org.junit.Assume.assumeTrue;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
@@ -30,7 +30,7 @@ public class MidiOdinSequencerTest {
     try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper()) {
       final CountDownLatch lock = new CountDownLatch(16);
 
-      OperationReceiver operationReceiver = (operation, time) -> {
+      OperationHandler operationReceiver = (operation, time) -> {
         LOG.debug("Operation countdown {}", lock.getCount());
         lock.countDown();
       };

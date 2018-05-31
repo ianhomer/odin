@@ -21,7 +21,7 @@ import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.ListenerPriority;
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.operation.Operation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.Comparator;
 import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -50,7 +50,7 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
    * @param clock clock
    * @param operationReceiver operation receiver
    */
-  DefaultOperationProcessor(BeatClock clock, OperationReceiver operationReceiver,
+  DefaultOperationProcessor(BeatClock clock, OperationHandler operationReceiver,
                             MetricRegistry metrics, long refreshPeriod,
                             boolean strictOrder) {
     this.refreshPeriod = refreshPeriod;

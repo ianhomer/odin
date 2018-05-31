@@ -25,7 +25,7 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.FlowFactory;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
@@ -43,22 +43,22 @@ public class TestSequencerEnvironment {
 
   private FlowFactory flowFactory;
 
-  public TestSequencerEnvironment(OperationReceiver operationReceiver) {
+  public TestSequencerEnvironment(OperationHandler operationReceiver) {
     this(operationReceiver, new TransientPerformance());
   }
 
-  public TestSequencerEnvironment(OperationReceiver operationReceiver,
+  public TestSequencerEnvironment(OperationHandler operationReceiver,
                                   Performance performance) {
     this(operationReceiver, performance, new DeltaOdinSequencerConfiguration());
   }
 
-  public TestSequencerEnvironment(OperationReceiver operationReceiver,
+  public TestSequencerEnvironment(OperationHandler operationReceiver,
                                   Performance performance,
                                   OdinSequencerConfiguration configuration) {
     this(operationReceiver, new DefaultPerformanceContainer(performance), configuration);
   }
 
-  public TestSequencerEnvironment(OperationReceiver operationReceiver,
+  public TestSequencerEnvironment(OperationHandler operationReceiver,
                                   DefaultPerformanceContainer container) {
     this(operationReceiver, container, new DeltaOdinSequencerConfiguration());
   }
@@ -71,7 +71,7 @@ public class TestSequencerEnvironment {
    * @param configuration configuration
    * @throws OdinException exception
    */
-  public TestSequencerEnvironment(OperationReceiver operationReceiver,
+  public TestSequencerEnvironment(OperationHandler operationReceiver,
                                   DefaultPerformanceContainer container,
                                   OdinSequencerConfiguration configuration) {
     this.container = container;
@@ -79,7 +79,7 @@ public class TestSequencerEnvironment {
     initialiseSequencer(operationReceiver);
   }
 
-  private void initialiseSequencer(OperationReceiver operationReceiver) {
+  private void initialiseSequencer(OperationHandler operationReceiver) {
     flowFactory = newNoteFlowFactory();
     configuration = new DefaultOdinSequencerConfiguration()
         .setFlowFactory(flowFactory)

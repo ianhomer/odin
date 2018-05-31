@@ -9,7 +9,7 @@ import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.music.operations.NoteOffOperation;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
@@ -30,7 +30,7 @@ public class OdinSequencerReloadTest {
     final CountDownLatch channel1Latch = new CountDownLatch(2);
     final CountDownLatch channel9Latch = new CountDownLatch(EXPECTED_COUNT);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       if (operation instanceof NoteOnOperation) {
         NoteOnOperation noteOnOperation = (NoteOnOperation) operation;
         if (noteOnOperation.getChannel() == 1) {

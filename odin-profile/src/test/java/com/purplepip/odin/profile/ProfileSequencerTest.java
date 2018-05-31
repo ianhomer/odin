@@ -20,7 +20,7 @@ import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.delta
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.demo.GroovePerformance;
-import com.purplepip.odin.operation.OperationReceiver;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.sequencer.LoggingOperationReceiver;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import java.util.concurrent.CountDownLatch;
@@ -35,7 +35,7 @@ public class ProfileSequencerTest {
   @Test
   public void testProfileSequencer() throws OdinException, InterruptedException {
     final CountDownLatch latch = new CountDownLatch(1_000);
-    OperationReceiver operationReceiver = (operation, time) -> latch.countDown();
+    OperationHandler operationReceiver = (operation, time) -> latch.countDown();
 
     spinUp();
     TestSequencerEnvironment environment =
