@@ -25,11 +25,11 @@ import javax.sound.midi.Synthesizer;
 import org.junit.Test;
 
 /**
- * Coverage of synthesizer helper that can be done when audio output is not supported.  This
+ * Coverage of synthesizer device that can be done when audio output is not supported.  This
  * is required to provide test coverage on build machines that do not support audio output and
  * also is more strictly a unit test.
  */
-public class NoAudioSynthesizerHelperTest {
+public class NoAudioSynthesizerDeviceTest {
   @Test
   public void testHelper() throws DeviceUnavailableException {
     Instrument instrument = mock(Instrument.class);

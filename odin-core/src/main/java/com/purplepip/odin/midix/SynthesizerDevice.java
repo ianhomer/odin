@@ -22,10 +22,15 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.midi.RawMessage;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
+import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 import javax.sound.midi.Instrument;
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -146,5 +151,42 @@ public class SynthesizerDevice extends OdinMidiDevice implements SynthesizerRece
     } else {
       super.open();
     }
+  }
+
+
+  public boolean loadGervillSoundBank(String gervillSoundbankFilename) {
+    return
+        loadSoundBank(System.getProperty("user.home") + "/.gervill/" + gervillSoundbankFilename);
+  }
+
+  /**
+   * Load sound bank.
+   *
+   * @param pathname path location for the soundbank file
+   * @return true if sound bank loaded OK
+   */
+  private boolean loadSoundBank(String pathname) {
+    File file = new File(pathname);
+    if (!file.exists()) {
+      LOG.info("Cannot find file {} to load soundbank from", pathname);
+      return false;
+    }
+    boolean isOpenResult = isOpen();
+    assert isOpenResult;
+    getMidiDevice().unloadAllInstruments(
+        getMidiDevice().getDefaultSoundbank());
+    Soundbank soundbank;
+    try {
+      soundbank = MidiSystem.getSoundbank(file);
+    } catch (InvalidMidiDataException | IOException e) {
+      LOG.error("Cannot get soundbank", e);
+      return false;
+    }
+    getMidiDevice().unloadAllInstruments(
+        getMidiDevice().getDefaultSoundbank());
+    boolean result = getMidiDevice().loadAllInstruments(soundbank);
+    LOG.info("Loaded soundbank {} : {}", soundbank.getName(), result);
+
+    return result;
   }
 }

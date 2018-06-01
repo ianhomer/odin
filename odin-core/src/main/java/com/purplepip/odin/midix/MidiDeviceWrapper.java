@@ -20,8 +20,6 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Transmitter;
@@ -38,7 +36,6 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   private OdinMidiDevice transmittingDevice;
   private List<Transmitter> transmitters = new ArrayList<>();
   private List<Receiver> receivers = new ArrayList<>();
-  private ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(1);
 
   /**
    * Create a MIDI device wrapper.
@@ -95,7 +92,6 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   @Override
   public void close() {
     LOG.debug("Closing device wrapper");
-    scheduledPool.shutdown();
     transmitters.forEach(Transmitter::close);
     receivers.forEach(Receiver::close);
   }

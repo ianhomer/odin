@@ -27,7 +27,6 @@ import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
-import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Random;
 import com.purplepip.odin.operation.OperationHandler;
@@ -78,11 +77,8 @@ public class MatchNoteExperiment {
         .setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
     try {
       sequencer = new OdinSequencer(configuration);
-      SynthesizerHelper synthesizerHelper;
       if (midiDeviceWrapper.isSynthesizer()) {
-        synthesizerHelper =
-            new SynthesizerHelper(midiDeviceWrapper.getSynthesizer());
-        synthesizerHelper.loadGervillSoundBank(
+        midiDeviceWrapper.getSynthesizer().loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
       DefaultPerformanceContainer container =

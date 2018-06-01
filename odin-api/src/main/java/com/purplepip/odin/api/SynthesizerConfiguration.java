@@ -17,7 +17,6 @@ package com.purplepip.odin.api;
 
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.SynthesizerDevice;
-import com.purplepip.odin.midix.SynthesizerHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -40,8 +39,7 @@ public class SynthesizerConfiguration implements CommandLineRunner {
   @Override
   public void run(String... args) {
     if (synthesizerDevice != null && synthesizerDevice.isOpen()) {
-      new SynthesizerHelper(synthesizerDevice)
-          .loadGervillSoundBank(
+      synthesizerDevice.loadGervillSoundBank(
               "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
     }
   }

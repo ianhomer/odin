@@ -17,10 +17,14 @@ package com.purplepip.odin.midix;
 
 import static com.purplepip.odin.system.Environments.newAudioEnvironment;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
+import com.purplepip.logcapture.LogCaptor;
+import com.purplepip.logcapture.LogCapture;
 import javax.sound.midi.Instrument;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,5 +62,33 @@ public class SynthesizerDeviceTest {
     Instrument instrument = synthesizerDevice
         .findInstrumentByName("non-existing-instrument", false);
     assertNull("Cannot find Tubular Bells", instrument);
+  }
+
+  @Test
+  public void testLogInstruments() {
+    try (LogCaptor captor = new LogCapture().debug().from(SynthesizerDevice.class).start()) {
+      new MidiDeviceWrapper().getSynthesizer().logInstruments();
+      assertTrue("Not enough messages logged", captor.size() > 10);
+    }
+  }
+
+  @Test
+  public void testLoadSoundbank() {
+    try (LogCaptor captor = new LogCapture().start()) {
+      boolean result = synthesizerDevice.loadGervillSoundBank(
+          "soundbank-emg.sf2");
+      assertTrue("Cannot load emergency soundbank", result);
+      assertEquals(1, captor.size());
+    }
+  }
+
+  @Test
+  public void testLoadMissingSoundbank() {
+    try (LogCaptor logCapture = new LogCapture().start()) {
+      boolean result = synthesizerDevice.loadGervillSoundBank(
+          "soundbank-that-is-missing.sf2");
+      assertFalse("Should not be able to load missing soundbank", result);
+      assertEquals(1, logCapture.size());
+    }
   }
 }

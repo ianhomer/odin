@@ -9,7 +9,6 @@ import com.purplepip.odin.demo.DemoPerformances;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
-import com.purplepip.odin.midix.SynthesizerHelper;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
@@ -81,11 +80,8 @@ public class MidiSequenceExperiment {
         .setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
     try {
       sequencer = new OdinSequencer(configuration);
-      SynthesizerHelper synthesizerHelper;
       if (midiDeviceWrapper.isSynthesizer()) {
-        synthesizerHelper =
-            new SynthesizerHelper(midiDeviceWrapper.getSynthesizer());
-        synthesizerHelper.loadGervillSoundBank(
+        midiDeviceWrapper.getSynthesizer().loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
 

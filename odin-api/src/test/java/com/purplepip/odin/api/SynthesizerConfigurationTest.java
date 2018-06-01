@@ -21,7 +21,7 @@ import static org.junit.Assume.assumeTrue;
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.midix.SynthesizerHelper;
+import com.purplepip.odin.midix.SynthesizerDevice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class SynthesizerConfigurationTest {
     assumeTrue(midiDeviceWrapper.getSynthesizer() != null
         && midiDeviceWrapper.getSynthesizer().isOpen());
     SynthesizerConfiguration loader = new SynthesizerConfiguration(midiDeviceWrapper);
-    try (LogCaptor captor = new LogCapture().info().from(SynthesizerHelper.class).start()) {
+    try (LogCaptor captor = new LogCapture().info().from(SynthesizerDevice.class).start()) {
       loader.run();
       assertEquals(1, captor.size());
     }
