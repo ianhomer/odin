@@ -7,7 +7,6 @@ import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.clock.tick.Ticks;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.action.EnableAction;
 import com.purplepip.odin.creation.sequence.SequencePlugin;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
@@ -42,15 +41,10 @@ public class MidiSequencePlayground {
    * @param args arguments
    */
   public static void main(String[] args) throws InterruptedException {
-    MidiSequencePlayground experiment = new MidiSequencePlayground();
-    try {
-      experiment.doExperiment();
-    } catch (OdinException e) {
-      LOG.error("Unexpected failure", e);
-    }
+    new MidiSequencePlayground().doExperiment();
   }
 
-  private void doExperiment() throws OdinException, InterruptedException {
+  private void doExperiment() throws InterruptedException {
     final CountDownLatch lock = new CountDownLatch(800);
 
     OperationHandler operationReceiver = (operation, time) -> {
@@ -70,7 +64,7 @@ public class MidiSequencePlayground {
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(
             new OperationReceiverCollection(
-                new MidiOperationReceiver(midiDeviceWrapper),
+                new MidiOperationReceiver(midiDeviceWrapper.getReceivingDevice()),
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)

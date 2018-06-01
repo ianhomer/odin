@@ -22,18 +22,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Transmitter;
-import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Provider of a MIDI device.
  */
-public class MidiDeviceWrapper implements MidiMessageReceiver, AutoCloseable, PerformanceListener {
+public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
   private OdinMidiDevice receivingDevice;
@@ -119,21 +117,6 @@ public class MidiDeviceWrapper implements MidiMessageReceiver, AutoCloseable, Pe
     return transmittingDevice != null && transmittingDevice.canTransmit();
   }
 
-  /**
-   * Send MIDI message.
-   *
-   * @param midiMessage MIDI message
-   * @param time performance time
-   */
-  @Override
-  public boolean send(MidiMessage midiMessage, long time) throws OdinException {
-    return getReceivingDevice().send(midiMessage, time);
-  }
-
-  private void setReceivingDevice(@NotNull OdinMidiDevice receivingDevice) {
-    this.receivingDevice = receivingDevice;
-  }
-
   @Override
   public void onPerformanceStart() {
     getReceivingDevice().onPerformanceStart();
@@ -159,7 +142,7 @@ public class MidiDeviceWrapper implements MidiMessageReceiver, AutoCloseable, Pe
         throw new OdinException("Cannot initialise transmitting MIDI device", e);
       }
       try {
-        setReceivingDevice(helper.getReceivingDevice());
+        receivingDevice = helper.getReceivingDevice();
       } catch (OdinException e) {
         throw new OdinException("Cannot initialise receiving MIDI device", e);
       }

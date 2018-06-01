@@ -73,7 +73,7 @@ public class MidiSequenceExperiment {
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(
             new OperationReceiverCollection(
-                new MidiOperationReceiver(midiDeviceWrapper),
+                new MidiOperationReceiver(midiDeviceWrapper.getReceivingDevice()),
                 loader,
                 operationReceiver)
         )

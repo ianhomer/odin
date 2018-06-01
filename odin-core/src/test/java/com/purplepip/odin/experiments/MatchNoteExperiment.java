@@ -71,7 +71,7 @@ public class MatchNoteExperiment {
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(
             new OperationReceiverCollection(
-                new MidiOperationReceiver(midiDeviceWrapper),
+                new MidiOperationReceiver(midiDeviceWrapper.getReceivingDevice()),
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)
