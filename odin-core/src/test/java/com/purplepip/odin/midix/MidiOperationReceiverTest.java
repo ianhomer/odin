@@ -27,7 +27,7 @@ import org.mockito.ArgumentCaptor;
 public class MidiOperationReceiverTest {
   @Test
   public void send() throws Exception {
-    MidiDeviceReceiver deviceReceiver = spy(MidiDeviceReceiver.class);
+    MidiMessageReceiver deviceReceiver = spy(MidiMessageReceiver.class);
     MidiOperationReceiver operationReceiver = new MidiOperationReceiver(deviceReceiver);
     operationReceiver.onPerformanceStart();
     verify(deviceReceiver).onPerformanceStart();

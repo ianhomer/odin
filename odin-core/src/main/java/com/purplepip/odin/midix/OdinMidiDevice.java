@@ -31,7 +31,8 @@ import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class OdinMidiDevice extends AbstractDevice implements MicrosecondPositionProvider {
+public class OdinMidiDevice extends AbstractDevice
+    implements MicrosecondPositionProvider, MidiMessageReceiver {
   private final MidiDevice device;
   private final MidiHandle handle;
   private final PerformanceTimeConverter timeConverter;
@@ -183,6 +184,7 @@ public class OdinMidiDevice extends AbstractDevice implements MicrosecondPositio
    * @param midiMessage MIDI message
    * @param time performance time
    */
+  @Override
   public boolean send(MidiMessage midiMessage, long time) throws OdinException {
     try {
       if (isOpen()) {

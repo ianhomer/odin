@@ -37,7 +37,8 @@ public class MidiDeviceWrapperTest {
   public void testChangeProgramByName() throws OdinException {
     assumeTrue(!newAudioEnvironment().isEmpty());
     try (MidiDeviceWrapper wrapper = new MidiDeviceWrapper()) {
-      Instrument instrument = wrapper.changeProgram(0,"Bright");
+      Instrument instrument = wrapper.getSynthesizer()
+          .changeProgram(0,"Bright");
       assertEquals("Instrument should have been changed",
           "Bright Acoustic Pian", instrument.getName());
     }

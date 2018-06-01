@@ -17,16 +17,11 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.OdinException;
-import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiMessage;
 
 /**
  * MIDI Device receiver.
  */
-public interface MidiDeviceReceiver extends PerformanceListener {
-  Instrument findInstrument(int channel, String instrumentName) throws OdinException;
-
-  boolean isOpenSynthesizer();
-
+public interface MidiMessageReceiver extends PerformanceListener {
   boolean send(MidiMessage midiMessage, long time) throws OdinException;
 }

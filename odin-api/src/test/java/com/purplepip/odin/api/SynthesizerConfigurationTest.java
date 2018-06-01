@@ -39,7 +39,8 @@ public class SynthesizerConfigurationTest {
 
   @Test
   public void testRun() {
-    assumeTrue(midiDeviceWrapper.isOpenSynthesizer());
+    assumeTrue(midiDeviceWrapper.getSynthesizer() != null
+        && midiDeviceWrapper.getSynthesizer().isOpen());
     SynthesizerConfiguration loader = new SynthesizerConfiguration(midiDeviceWrapper);
     try (LogCaptor captor = new LogCapture().info().from(SynthesizerHelper.class).start()) {
       loader.run();

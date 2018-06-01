@@ -84,7 +84,7 @@ public class OdinConfiguration {
                                                   MidiDeviceWrapper midiDeviceWrapper) {
     List<OperationHandler> operationReceivers = new ArrayList<>();
     if (midiDeviceWrapper.getReceivingDevice() != null) {
-      operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper));
+      operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper.getReceivingDevice()));
     }
 
     if (performanceLoader != null) {

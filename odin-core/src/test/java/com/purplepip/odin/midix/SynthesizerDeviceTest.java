@@ -36,7 +36,7 @@ public class SynthesizerDeviceTest {
     assumeTrue(!newAudioEnvironment().isEmpty());
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     synthesizerDevice = wrapper.getSynthesizer();
-    assumeTrue(wrapper.isOpenSynthesizer());
+    assumeTrue(synthesizerDevice.isOpen());
   }
 
   @Test

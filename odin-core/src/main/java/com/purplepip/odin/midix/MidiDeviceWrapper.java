@@ -17,14 +17,11 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.midi.RawMessage;
-import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
@@ -36,7 +33,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Provider of a MIDI device.
  */
-public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, PerformanceListener {
+public class MidiDeviceWrapper implements MidiMessageReceiver, AutoCloseable, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
   private OdinMidiDevice receivingDevice;
@@ -106,65 +103,12 @@ public class MidiDeviceWrapper implements MidiDeviceReceiver, AutoCloseable, Per
   }
 
   /**
-   * Change channel to first instrument found that contains the given instrument name string.
-   *
-   * @param channel channel to change
-   * @param instrumentName instrument name to search for
-   * @throws OdinException exception
-   */
-  Instrument changeProgram(int channel, String instrumentName) throws OdinException {
-    Instrument instrument = findInstrument(channel, instrumentName);
-    changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
-    return instrument;
-  }
-
-  /**
-   * Change program via a MIDI program change message.
-   *
-   * @param channel channel to change
-   * @param bank bank to set
-   * @param program program to set
-   */
-  private void changeProgram(int channel, int bank, int program) {
-    try {
-      receivingDevice.getMidiDevice().getReceiver().send(
-          new RawMidiMessage(new RawMessage(
-              new ProgramChangeOperation(channel, bank, program)).getBytes()),
-          -1);
-    } catch (MidiUnavailableException | OdinException e) {
-      LOG.error("Cannot change synthesizer instruments", e);
-    }
-    LOG.debug("Changed channel {} to program {}", channel, program);
-  }
-
-  /**
-   * Find instrument.
-   *
-   * @param channel channel
-   * @param instrumentName instrument name
-   * @return instrument
-   * @throws OdinException exception
-   */
-  @Override
-  public Instrument findInstrument(int channel, String instrumentName) throws OdinException {
-    if (!isSynthesizer()) {
-      throw new OdinException("Cannot search for instrument name if not local synthesizer");
-    }
-    return ((SynthesizerDevice) getReceivingDevice()).findInstrument(channel, instrumentName);
-  }
-
-  /**
    * Check whether device is a local synthesizer.
    *
    * @return true if this is a local synthesizer
    */
   public boolean isSynthesizer() {
     return receivingDevice instanceof SynthesizerDevice;
-  }
-
-  @Override
-  public boolean isOpenSynthesizer() {
-    return isSynthesizer() && receivingDevice.isOpen();
   }
 
   public SynthesizerDevice getSynthesizer() {

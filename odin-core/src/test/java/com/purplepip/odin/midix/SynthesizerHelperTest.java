@@ -25,7 +25,7 @@ public class SynthesizerHelperTest {
     assumeTrue(!newAudioEnvironment().isEmpty());
     MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
     synthesizerHelper = new SynthesizerHelper(wrapper.getSynthesizer());
-    assumeTrue(wrapper.isOpenSynthesizer());
+    assumeTrue(wrapper.getTransmittingDevice().isOpen());
   }
 
   @Test

@@ -20,15 +20,18 @@ import static com.purplepip.odin.system.Environments.newAudioEnvironment;
 import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.DeviceUnavailableException;
+import com.purplepip.odin.midi.RawMessage;
+import com.purplepip.odin.music.operations.ProgramChangeOperation;
 import java.util.Locale;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SynthesizerDevice extends OdinMidiDevice {
+public class SynthesizerDevice extends OdinMidiDevice implements SynthesizerReceiver {
   SynthesizerDevice(@NotNull Synthesizer synthesizer) throws DeviceUnavailableException {
     super(synthesizer);
   }
@@ -41,6 +44,7 @@ public class SynthesizerDevice extends OdinMidiDevice {
    * @return instrument
    * @throws OdinException exception
    */
+  @Override
   public Instrument findInstrument(int channel, String instrumentName) throws OdinException {
     Instrument instrument = findInstrumentByName(instrumentName, channel == 9);
     if (instrument == null) {
@@ -50,6 +54,38 @@ public class SynthesizerDevice extends OdinMidiDevice {
         instrument.getName(),
         instrument.getPatch().getBank(), instrument.getPatch().getProgram());
     return instrument;
+  }
+
+  /**
+   * Change channel to first instrument found that contains the given instrument name string.
+   *
+   * @param channel channel to change
+   * @param instrumentName instrument name to search for
+   * @throws OdinException exception
+   */
+  Instrument changeProgram(int channel, String instrumentName) throws OdinException {
+    Instrument instrument = findInstrument(channel, instrumentName);
+    changeProgram(channel, instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+    return instrument;
+  }
+
+  /**
+   * Change program via a MIDI program change message.
+   *
+   * @param channel channel to change
+   * @param bank bank to set
+   * @param program program to set
+   */
+  private void changeProgram(int channel, int bank, int program) {
+    try {
+      getMidiDevice().getReceiver().send(
+          new RawMidiMessage(new RawMessage(
+              new ProgramChangeOperation(channel, bank, program)).getBytes()),
+          -1);
+    } catch (MidiUnavailableException | OdinException e) {
+      LOG.error("Cannot change synthesizer instruments", e);
+    }
+    LOG.debug("Changed channel {} to program {}", channel, program);
   }
 
   /**

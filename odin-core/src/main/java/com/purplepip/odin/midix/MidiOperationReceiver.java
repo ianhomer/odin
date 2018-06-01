@@ -31,9 +31,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MidiOperationReceiver implements OperationHandler {
-  private MidiDeviceReceiver midiDeviceReceiver;
+  private MidiMessageReceiver midiDeviceReceiver;
 
-  public MidiOperationReceiver(MidiDeviceReceiver midiDeviceReceiver) {
+  public MidiOperationReceiver(MidiMessageReceiver midiDeviceReceiver) {
     this.midiDeviceReceiver = midiDeviceReceiver;
   }
 
@@ -68,11 +68,11 @@ public class MidiOperationReceiver implements OperationHandler {
 
   private ChannelOperation resolveNonAbsolute(ProgramChangeOperation programChangeOperation)
       throws OdinException {
-    if (midiDeviceReceiver.isOpenSynthesizer()) {
+    if (midiDeviceReceiver instanceof SynthesizerReceiver) {
       /*
        * Handle program change operation by resolving string name for program.
        */
-      Instrument instrument = midiDeviceReceiver
+      Instrument instrument = ((SynthesizerReceiver) midiDeviceReceiver)
           .findInstrument(programChangeOperation.getChannel(),
               programChangeOperation.getProgramName());
       return new ProgramChangeOperation(programChangeOperation.getChannel(),
