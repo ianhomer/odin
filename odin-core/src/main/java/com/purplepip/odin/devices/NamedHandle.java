@@ -26,7 +26,7 @@ import lombok.ToString;
  * just used for comparisons.
  */
 @ToString
-public class NamedHandle implements Handle {
+public class NamedHandle extends AbstractHandle {
   private final String description;
   private final String name;
   private final String type;
@@ -78,5 +78,15 @@ public class NamedHandle implements Handle {
   @Override
   public Device open() throws DeviceUnavailableException {
     throw new DeviceUnavailableException("Cannot open a named handle : " + this);
+  }
+
+  @Override
+  public boolean isSource() {
+    return false;
+  }
+
+  @Override
+  public boolean isSink() {
+    return false;
   }
 }

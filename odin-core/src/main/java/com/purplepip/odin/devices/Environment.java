@@ -58,7 +58,8 @@ public class Environment {
   public void refresh() {
     handles.clear();
     for (HandleProvider provider : providers) {
-      handles.addAll(provider.getHandles());
+      handles.addAll(provider.getSinkHandles());
+      handles.addAll(provider.getSourceHandles());
     }
   }
 
@@ -147,7 +148,10 @@ public class Environment {
   }
 
   private void appendInfo(Handle handle, int i, StringBuilder sb, boolean withConnections) {
-    sb.append('\n').append(i).append(") - ");
+    sb.append('\n').append(i).append(") ");
+    sb.append(handle.isSink() ? " <" : "  ");
+    sb.append(handle.isEnabled() ? "+" : "-");
+    sb.append(handle.isSource() ? "> " : "  ");
     handle.appendTo(sb);
     if (withConnections) {
       try {

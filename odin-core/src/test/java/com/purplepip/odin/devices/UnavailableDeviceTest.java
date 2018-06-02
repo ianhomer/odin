@@ -40,7 +40,7 @@ public class UnavailableDeviceTest {
   }
 
   @ToString
-  private static class TestHandle implements Handle {
+  private static class TestHandle extends AbstractHandle {
 
     @Override
     public String getName() {
@@ -65,6 +65,16 @@ public class UnavailableDeviceTest {
     @Override
     public Device open() throws DeviceUnavailableException {
       throw new DeviceUnavailableException("Cannot open test handle");
+    }
+
+    @Override
+    public boolean isSource() {
+      return false;
+    }
+
+    @Override
+    public boolean isSink() {
+      return false;
     }
   }
 }

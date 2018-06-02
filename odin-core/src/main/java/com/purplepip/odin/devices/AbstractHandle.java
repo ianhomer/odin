@@ -15,47 +15,40 @@
 
 package com.purplepip.odin.devices;
 
-import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
-@ToString
-public class UnavailableDevice extends AbstractDevice {
-  private final Handle handle;
+@Slf4j
+public abstract class AbstractHandle implements Handle {
+  private boolean sink;
+  private boolean source;
+  private boolean enabled;
 
-  public UnavailableDevice(Handle handle) {
-    this.handle = handle;
-  }
-
-  public Handle getHandle() {
-    return handle;
-  }
-
-  @Override
-  public void close() {
-    // No operation
-  }
-
-  @Override
-  public boolean isOpen() {
-    return false;
+  protected void initialise() {
+    Device device = null;
+    boolean error = false;
+    try {
+      device = open();
+    } catch (DeviceUnavailableException e) {
+      LOG.warn("Cannot open device to initialise handle", e);
+      error = true;
+    }
+    enabled = !error;
+    sink = device != null && device.isSink();
+    source = device != null && device.isSource();
   }
 
   @Override
   public boolean isSource() {
-    return false;
+    return sink;
   }
 
   @Override
   public boolean isSink() {
-    return false;
+    return source;
   }
 
   @Override
-  public String getName() {
-    return "unavailable";
-  }
-
-  @Override
-  public String getSummary() {
-    return "Device for " + handle.getName() + " is not available";
+  public boolean isEnabled() {
+    return enabled;
   }
 }

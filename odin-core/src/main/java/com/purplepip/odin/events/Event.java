@@ -18,8 +18,8 @@ package com.purplepip.odin.events;
 import com.purplepip.odin.math.Real;
 
 /**
- * Generic event describing something at a given time.  Time is relative to an origin with some
- * time units that are known from the context of use.
+ * Event describing something that should happen at a given time.  Time is relative to an origin
+ * with some time units that are known from the context of use.
  */
 public interface Event {
   Object getValue();

@@ -28,7 +28,9 @@ public class MidiDeviceTransmitterMatcherTest {
     when(midiDevice.getDeviceInfo()).thenReturn(synthesizer.getDeviceInfo());
     when(midiDevice.getMaxTransmitters()).thenReturn(1);
     when(midiDevice.getTransmitter()).thenReturn(mock(Transmitter.class));
-    Device device = new OdinMidiDevice(midiDevice);
+    MidiHandle handle = mock(MidiHandle.class);
+    when(handle.getName()).thenReturn("Gervill");
+    Device device = new OdinMidiDevice(handle, midiDevice);
     MidiDeviceTransmitterMatcher matcher = new MidiDeviceTransmitterMatcher("Gervill");
     assertTrue("Device should match", matcher.matches(device));
     when(midiDevice.getMaxTransmitters()).thenReturn(-1);

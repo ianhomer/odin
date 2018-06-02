@@ -32,9 +32,9 @@ public class AudioDevice extends AbstractDevice {
   private final Mixer mixer;
   private final AudioHandle handle;
 
-  AudioDevice(Mixer mixer) {
+  AudioDevice(AudioHandle handle, Mixer mixer) {
     this.mixer = mixer;
-    this.handle = new AudioHandle(mixer.getMixerInfo());
+    this.handle = handle;
     initialise();
   }
 
@@ -50,6 +50,16 @@ public class AudioDevice extends AbstractDevice {
   @Override
   public boolean isOpen() {
     return true;
+  }
+
+  @Override
+  public boolean isSource() {
+    return mixer.getSourceLineInfo().length != 0;
+  }
+
+  @Override
+  public boolean isSink() {
+    return mixer.getTargetLineInfo().length != 0;
   }
 
   public String getName() {

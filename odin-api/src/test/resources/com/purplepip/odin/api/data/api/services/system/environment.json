@@ -26,22 +26,34 @@
   } ],
   "handles" : [ {
     "description" : "description1",
+    "enabled" : false,
     "name" : "name1",
+    "sink" : false,
+    "source" : false,
     "type" : "mock",
     "vendor" : "vendor1"
   }, {
     "description" : "description2",
+    "enabled" : false,
     "name" : "name2",
+    "sink" : false,
+    "source" : false,
     "type" : "mock",
     "vendor" : "vendor2"
   }, {
     "description" : "description3",
+    "enabled" : false,
     "name" : "name3",
+    "sink" : false,
+    "source" : false,
     "type" : "mock",
     "vendor" : "vendor3"
   }, {
     "description" : "description4",
+    "enabled" : false,
     "name" : "name4",
+    "sink" : false,
+    "source" : false,
     "type" : "mock",
     "vendor" : "vendor4"
   } ]

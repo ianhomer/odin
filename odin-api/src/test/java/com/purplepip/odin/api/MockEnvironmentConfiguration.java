@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 import com.google.common.collect.Sets;
 import com.purplepip.odin.devices.AbstractDevice;
+import com.purplepip.odin.devices.AbstractHandle;
 import com.purplepip.odin.devices.Device;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.Handle;
@@ -50,7 +51,7 @@ public class MockEnvironmentConfiguration {
         mockHandle(3),
         mockHandle(4)
     ));
-    when(provider.getHandles()).thenReturn(handles);
+    when(provider.getSinkHandles()).thenReturn(handles);
     return new Environment(provider);
   }
 
@@ -69,7 +70,7 @@ public class MockEnvironmentConfiguration {
 
   @Data
   @ToString
-  private final class MockHandle implements Handle {
+  private final class MockHandle extends AbstractHandle {
     private String description;
     private String name;
     private String vendor;
@@ -113,6 +114,16 @@ public class MockEnvironmentConfiguration {
     @Override
     public boolean isOpen() {
       return true;
+    }
+
+    @Override
+    public boolean isSource() {
+      return false;
+    }
+
+    @Override
+    public boolean isSink() {
+      return false;
     }
 
     @Override

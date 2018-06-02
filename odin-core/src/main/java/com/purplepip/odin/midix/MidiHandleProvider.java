@@ -37,7 +37,13 @@ public class MidiHandleProvider extends AbstractHandleProvider {
   }
 
   @Override
-  public Set<Handle> getHandles() {
+  public Set<Handle> getSinkHandles() {
     return asSet(Stream.of(MidiSystem.getMidiDeviceInfo()).map(MidiHandle::new));
+  }
+
+  @Override
+  public Set<Handle> getSourceHandles() {
+    // TODO : Be specific about source handles
+    return getSinkHandles();
   }
 }

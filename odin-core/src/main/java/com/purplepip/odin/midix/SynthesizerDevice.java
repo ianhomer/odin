@@ -37,8 +37,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SynthesizerDevice extends OdinMidiDevice implements SynthesizerReceiver {
-  SynthesizerDevice(@NotNull Synthesizer synthesizer) throws DeviceUnavailableException {
-    super(synthesizer);
+  SynthesizerDevice(@NotNull MidiHandle handle, @NotNull Synthesizer synthesizer)
+      throws DeviceUnavailableException {
+    super(handle, synthesizer);
   }
 
   /**

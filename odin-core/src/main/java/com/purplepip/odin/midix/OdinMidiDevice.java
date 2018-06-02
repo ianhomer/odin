@@ -37,9 +37,10 @@ public class OdinMidiDevice extends AbstractDevice
   private final MidiHandle handle;
   private final PerformanceTimeConverter timeConverter;
 
-  OdinMidiDevice(@NotNull MidiDevice device) throws DeviceUnavailableException {
+  OdinMidiDevice(@NotNull MidiHandle handle, @NotNull MidiDevice device)
+      throws DeviceUnavailableException {
     this.device = device;
-    this.handle = new MidiHandle(device.getDeviceInfo());
+    this.handle = handle;
     timeConverter = new PerformanceTimeConverter(this);
     open();
     initialise();
@@ -60,8 +61,13 @@ public class OdinMidiDevice extends AbstractDevice
   }
 
   @Override
-  public boolean canTransmit() {
+  public boolean isSource() {
     return device.getMaxTransmitters() != 0;
+  }
+
+  @Override
+  public boolean isSink() {
+    return device.getMaxReceivers() != 0;
   }
 
   /*

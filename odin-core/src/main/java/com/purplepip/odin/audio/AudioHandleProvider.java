@@ -33,11 +33,17 @@ public class AudioHandleProvider implements HandleProvider {
   }
 
   @Override
-  public Set<Handle> getHandles() {
+  public Set<Handle> getSinkHandles() {
     Set<Handle> identifiers = new HashSet<>();
     for (Mixer.Info info : AudioSystem.getMixerInfo()) {
       identifiers.add(new AudioHandle(info));
     }
     return Collections.unmodifiableSet(identifiers);
+  }
+
+  @Override
+  public Set<Handle> getSourceHandles() {
+    // TODO : Be specific about sink handles
+    return getSinkHandles();
   }
 }

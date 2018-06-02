@@ -16,7 +16,7 @@
 package com.purplepip.odin.operation;
 
 /**
- * Operation that can be fired by sequencer.
+ * Operation that can be created or processed by the system.
  */
 public interface Operation {
   /**

@@ -29,6 +29,12 @@ public interface Handle {
 
   Device open() throws DeviceUnavailableException;
 
+  boolean isEnabled();
+
+  boolean isSink();
+
+  boolean isSource();
+
   /**
    * Serialised string version of this identifier to a StringBuilder.
    *
