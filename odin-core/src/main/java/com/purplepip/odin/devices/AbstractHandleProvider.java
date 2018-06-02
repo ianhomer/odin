@@ -15,7 +15,6 @@
 
 package com.purplepip.odin.devices;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,26 +25,49 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class AbstractHandleProvider implements HandleProvider {
-  private final Comparator<Handle> comparator;
+  private final Comparator<Handle> sinkComparator;
+  private final Comparator<Handle> sourceComparator;
+
+  public AbstractHandleProvider(
+      List<Handle> prioritisedSinks,
+      List<Handle> prioritisedSources
+  ) {
+    sinkComparator = new HandleComparator(prioritisedSinks);
+    sourceComparator = new HandleComparator(prioritisedSources);
+  }
+
+
+  protected Set<Handle> asSinkSet(Stream<Handle> stream) {
+    return asSet(sinkComparator, stream);
+  }
+
+  protected Set<Handle> asSourceSet(Stream<Handle> stream) {
+    return asSet(sourceComparator, stream);
+  }
 
   /*
    * Convert stream of handles to set with sorting.
    */
-  protected Set<Handle> asSet(Stream<Handle> stream) {
-    SortedSet<Handle> handles = new TreeSet<>(getHandleComparator());
+  private Set<Handle> asSet(Comparator<Handle> comparator, Stream<Handle> stream) {
+    SortedSet<Handle> handles = new TreeSet<>(comparator);
     handles.addAll(stream.collect(Collectors.toSet()));
     return Collections.unmodifiableSortedSet(handles);
   }
 
-  public AbstractHandleProvider(Handle... priorityHandles) {
-    this(Arrays.asList(priorityHandles));
+
+  @Override
+  public Set<Handle> getSinkHandles() {
+    return asSinkSet(getHandleStream()
+        .filter(Handle::isEnabled)
+        .filter(Handle::isSink));
   }
 
-  public AbstractHandleProvider(List<Handle> priorityHandles) {
-    comparator = new HandleComparator(priorityHandles);
+  @Override
+  public Set<Handle> getSourceHandles() {
+    return asSourceSet(getHandleStream()
+        .filter(Handle::isEnabled)
+        .filter(Handle::isSource));
   }
 
-  public Comparator<Handle> getHandleComparator() {
-    return comparator;
-  }
+  protected abstract Stream<Handle> getHandleStream();
 }

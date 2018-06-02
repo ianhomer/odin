@@ -25,11 +25,11 @@ import org.junit.Test;
 public class HandleComparatorTest {
 
   @Test
-  public void compare() {
+  public void shouldCompareOk() {
     List<Handle> handles = asHandleList("A", "C", "B", "F", "E");
     HandleComparator comparator = new HandleComparator(handles);
-    assertTrue(comparator.compare(new NamedHandle("A"), new NamedHandle("B")) > 0);
-    assertTrue(comparator.compare(new NamedHandle("B"), new NamedHandle("C")) < 0);
+    assertTrue(comparator.compare(new NamedHandle("A"), new NamedHandle("B")) < 0);
+    assertTrue(comparator.compare(new NamedHandle("B"), new NamedHandle("C")) > 0);
     assertEquals(0, comparator.compare(new NamedHandle("A"), new NamedHandle("A")));
     assertTrue(comparator.compare(new NamedHandle("A"), new NamedHandle("a")) < 0);
     assertTrue(comparator.compare(new NamedHandle("G"), new NamedHandle("H")) < 0);

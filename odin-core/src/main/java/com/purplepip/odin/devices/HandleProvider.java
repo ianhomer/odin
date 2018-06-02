@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.devices;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -37,4 +38,12 @@ public interface HandleProvider {
    * Get source handles for this provider, i.e. handles for devices that can provide events.
    */
   Set<Handle> getSourceHandles();
+
+  default Optional<Handle> findOneSink() {
+    return getSinkHandles().stream().findFirst();
+  }
+
+  default Optional<Handle> findOneSource() {
+    return getSourceHandles().stream().findFirst();
+  }
 }

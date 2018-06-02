@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.events;
+package com.purplepip.odin.music.notes;
 
+import com.purplepip.odin.events.GenericEvent;
 import com.purplepip.odin.math.Real;
-import com.purplepip.odin.music.notes.Note;
 
 /**
  * Default Event.

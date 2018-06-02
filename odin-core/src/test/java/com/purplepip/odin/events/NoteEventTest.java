@@ -19,6 +19,7 @@ import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.music.notes.NoteEvent;
 import org.junit.Test;
 
 public class NoteEventTest {

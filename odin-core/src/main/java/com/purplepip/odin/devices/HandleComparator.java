@@ -40,9 +40,9 @@ public class HandleComparator implements Comparator<Handle> {
         if (o2.getName().toLowerCase().contains(priorityHandleName)) {
           return o1.getName().compareTo(o2.getName());
         }
-        return 1;
-      } else if (o2.getName().toLowerCase().contains(priorityHandleName)) {
         return -1;
+      } else if (o2.getName().toLowerCase().contains(priorityHandleName)) {
+        return 1;
       }
     }
     /*
