@@ -72,8 +72,8 @@ public final class Environments {
 
   private static MidiHandleProvider newMidiHandleProvider() {
     return new MidiHandleProvider(
-        asHandleList(
-            "Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL")
+        asHandleList("Scarlet", "FluidSynth", "USB"),
+        asHandleList("Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL")
     );
   }
 

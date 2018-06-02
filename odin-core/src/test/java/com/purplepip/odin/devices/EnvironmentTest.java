@@ -15,11 +15,14 @@
 
 package com.purplepip.odin.devices;
 
+import static com.purplepip.odin.devices.NamedHandle.asHandleList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.system.Environments;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -31,5 +34,21 @@ public class EnvironmentTest {
       Environments.newEnvironment().dump();
       assertEquals("Environment log messages not as expected " + captor, 1, captor.size());
     }
+  }
+
+  @Test
+  public void shouldFindOne() {
+    Environment environment = new Environment(new MockHandleProvider(
+        true, true,
+        asHandleList("TTTAAA", "TFTCCC"),
+        asHandleList("FTTBBB", "TTTAAA")
+    ));
+    Optional<Handle> sink = environment.findOneSink(MockHandle.class);
+    assertTrue(sink.isPresent());
+    assertEquals("Sink not correct", "TTTAAA", sink.get().getName());
+
+    Optional<Handle> source = environment.findOneSource(MockHandle.class);
+    assertTrue(source.isPresent());
+    assertEquals("Source not correct", "FTTBBB", source.get().getName());
   }
 }

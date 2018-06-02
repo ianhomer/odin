@@ -18,6 +18,7 @@ package com.purplepip.odin.devices;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -97,6 +98,24 @@ public class Environment {
         handles.stream().filter(handle -> handle.getClass().isAssignableFrom(clazz))
             .collect(Collectors.toSet())
     );
+  }
+
+  public Optional<Handle> findOneSink(Class<? extends Handle> clazz) {
+    return findOneProvider(clazz).orElse(new EmptyHandleProvider())
+        .findOneSink();
+  }
+
+  public Optional<Handle> findOneSource(Class<? extends Handle> clazz) {
+    return findOneProvider(clazz).orElse(new EmptyHandleProvider())
+        .findOneSource();
+  }
+
+  private Optional<HandleProvider> findOneProvider(Class<? extends Handle> clazz) {
+    return providers.stream()
+        .filter(provider ->
+            provider.getHandleClasses().stream().anyMatch(
+                handleClass -> handleClass.isAssignableFrom(clazz)))
+        .findFirst();
   }
 
   public boolean noneMatch(Class<? extends Handle> clazz) {

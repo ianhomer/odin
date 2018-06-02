@@ -19,13 +19,8 @@ import static com.purplepip.odin.devices.NamedHandle.asHandleList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Stream;
 import org.junit.Test;
 
 public class AbstractHandleProviderTest {
@@ -89,51 +84,5 @@ public class AbstractHandleProviderTest {
 
     Optional<Handle> source = handleProvider.findOneSource();
     assertFalse("Should not find source, but found " + source, source.isPresent());
-  }
-
-  private static class MockHandleProvider extends AbstractHandleProvider {
-    private final boolean hasSinks;
-    private final boolean hasSources;
-
-    public MockHandleProvider(boolean hasSinks, boolean hasSources,
-        List<Handle> prioritisedSinks, List<Handle> prioritisedSources) {
-      super(prioritisedSinks, prioritisedSources);
-      this.hasSinks = hasSinks;
-      this.hasSources = hasSources;
-    }
-
-    @Override
-    protected Stream<Handle> getHandleStream() {
-      Stream.Builder<Handle> builder = Stream.builder();
-      if (hasSinks) {
-        builder.accept(createHandle("TFTCCC", true, false, true));
-      }
-      if (hasSources) {
-        builder.accept(createHandle("FTTBBB", false, true, true));
-      }
-      if (hasSinks && hasSources) {
-        builder
-            .add(createHandle("TTTAAA", true, true, true))
-            .add(createHandle("TTFDDD", true, true, false))
-            .add(createHandle("TTTEEE", true, true, true))
-            .add(createHandle("TTTFFF", true, true, true));
-      }
-      return builder.build();
-    }
-
-    @Override
-    public Set<Class<? extends Handle>> getHandleClasses() {
-      return null;
-    }
-
-    private static Handle createHandle(String name, boolean sink, boolean source, boolean enabled) {
-      Handle handle = mock(Handle.class);
-      when(handle.getName()).thenReturn(name);
-      when(handle.isSink()).thenReturn(sink);
-      when(handle.isSource()).thenReturn(source);
-      when(handle.isEnabled()).thenReturn(enabled);
-      when(handle.toString()).thenReturn(name);
-      return handle;
-    }
   }
 }
