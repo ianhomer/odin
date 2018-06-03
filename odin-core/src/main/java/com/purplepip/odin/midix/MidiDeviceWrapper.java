@@ -17,7 +17,9 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.sequencer.OperationTransmitter;
+import com.purplepip.odin.system.Environments;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sound.midi.MidiUnavailableException;
@@ -124,7 +126,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   }
 
   class MidiDeviceFinder {
-    private MidiSystemHelper helper = new MidiSystemHelper();
+    private Environment environment = Environments.newEnvironment();
 
     public void find() throws OdinException {
       LOG.debug("Refreshing MIDI device");
@@ -132,15 +134,15 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
     }
 
     private void findDevice() throws OdinException {
-      try {
-        transmittingDevice = helper.getTransmittingDevice();
-      } catch (OdinException e) {
-        throw new OdinException("Cannot initialise transmitting MIDI device", e);
+      MidiHandle transmittingHandle = (MidiHandle) environment
+          .findOneSource(MidiHandle.class).orElse(null);
+      if (transmittingHandle != null) {
+        transmittingDevice = transmittingHandle.open();
       }
-      try {
-        receivingDevice = helper.getReceivingDevice();
-      } catch (OdinException e) {
-        throw new OdinException("Cannot initialise receiving MIDI device", e);
+      MidiHandle receivingHandle = (MidiHandle) environment
+          .findOneSink(MidiHandle.class).orElse(null);
+      if (receivingHandle != null) {
+        receivingDevice = receivingHandle.open();
       }
     }
   }

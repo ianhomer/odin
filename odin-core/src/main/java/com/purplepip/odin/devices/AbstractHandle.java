@@ -38,12 +38,12 @@ public abstract class AbstractHandle implements Handle {
   }
 
   @Override
-  public boolean isSource() {
+  public boolean isSink() {
     return sink;
   }
 
   @Override
-  public boolean isSink() {
+  public boolean isSource() {
     return source;
   }
 

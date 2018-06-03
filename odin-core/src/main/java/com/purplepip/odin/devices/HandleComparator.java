@@ -36,8 +36,8 @@ public class HandleComparator implements Comparator<Handle> {
      * Compare based on position in priority handle list.
      */
     for (String priorityHandleName : priorityHandleNames) {
-      if (o1.getName().toLowerCase().contains(priorityHandleName)) {
-        if (o2.getName().toLowerCase().contains(priorityHandleName)) {
+      if (o1.getName().toLowerCase().startsWith(priorityHandleName)) {
+        if (o2.getName().toLowerCase().startsWith(priorityHandleName)) {
           return o1.getName().compareTo(o2.getName());
         }
         return -1;

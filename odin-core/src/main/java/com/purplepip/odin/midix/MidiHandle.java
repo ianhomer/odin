@@ -16,7 +16,6 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.devices.AbstractHandle;
-import com.purplepip.odin.devices.Device;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
@@ -56,7 +55,7 @@ public class MidiHandle extends AbstractHandle {
   }
 
   @Override
-  public Device open() throws DeviceUnavailableException {
+  public OdinMidiDevice open() throws DeviceUnavailableException {
     try {
       MidiDevice device = MidiSystem.getMidiDevice(deviceInfo);
       if (device instanceof Synthesizer) {
