@@ -93,22 +93,23 @@ public class Environment {
    * @param clazz handle class
    * @return handles for the given handle class
    */
-  private Set<Handle> getHandles(Class<? extends Handle> clazz) {
+  private <H extends Handle> Set<H> getHandles(Class<H> clazz) {
     return Collections.unmodifiableSet(
         handles.stream()
             .filter(clazz::isInstance)
+            .map(clazz::cast)
             .collect(Collectors.toSet())
     );
   }
 
-  public Optional<Handle> findOneSink(Class<? extends Handle> clazz) {
-    return findOneProvider(clazz).orElse(new EmptyHandleProvider())
-        .findOneSink();
+  public <H extends Handle> Optional<Handle> findOneSink(Class<H> clazz) {
+    return findOneProvider(clazz)
+        .flatMap(HandleProvider::findOneSink);
   }
 
   public Optional<Handle> findOneSource(Class<? extends Handle> clazz) {
-    return findOneProvider(clazz).orElse(new EmptyHandleProvider())
-        .findOneSource();
+    return findOneProvider(clazz)
+        .flatMap(HandleProvider::findOneSource);
   }
 
   private Optional<HandleProvider> findOneProvider(Class<? extends Handle> clazz) {
