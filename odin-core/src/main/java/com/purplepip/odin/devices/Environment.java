@@ -102,14 +102,30 @@ public class Environment {
     );
   }
 
-  public <H extends Handle> Optional<Handle> findOneSink(Class<H> clazz) {
+  /**
+   * Find one sink of a given handle class.
+   *
+   * @param clazz handle class
+   * @param <H> handle class type
+   * @return handle of sink
+   */
+  public <H extends Handle> Optional<H> findOneSink(Class<H> clazz) {
     return findOneProvider(clazz)
-        .flatMap(HandleProvider::findOneSink);
+        .flatMap(HandleProvider::findOneSink)
+        .map(clazz::cast);
   }
 
-  public Optional<Handle> findOneSource(Class<? extends Handle> clazz) {
+  /**
+   * Find one source of a given handle class.
+   *
+   * @param clazz handle class
+   * @param <H> handle class type
+   * @return handle of source
+   */
+  public <H extends Handle> Optional<Handle> findOneSource(Class<H> clazz) {
     return findOneProvider(clazz)
-        .flatMap(HandleProvider::findOneSource);
+        .flatMap(HandleProvider::findOneSource)
+        .map(clazz::cast);
   }
 
   private Optional<HandleProvider> findOneProvider(Class<? extends Handle> clazz) {

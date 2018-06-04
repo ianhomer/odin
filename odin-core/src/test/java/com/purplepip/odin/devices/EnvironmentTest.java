@@ -43,7 +43,7 @@ public class EnvironmentTest {
         asHandleList("TTTAAA", "TFTCCC"),
         asHandleList("FTTBBB", "TTTAAA")
     ));
-    Optional<Handle> sink = environment.findOneSink(MockHandle.class);
+    Optional<MockHandle> sink = environment.findOneSink(MockHandle.class);
     assertTrue(sink.isPresent());
     assertEquals("Sink not correct", "TTTAAA", sink.get().getName());
 
