@@ -20,7 +20,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.odin.audio.AudioHandle;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.Handle;
@@ -39,7 +38,7 @@ public class EnvironmentsTest {
   }
 
   @Test
-  public void testAudioEnvironmentWithAudioEnabled() throws OdinException {
+  public void testAudioEnvironmentWithAudioEnabled() {
     assumeTrue(AudioSystem.getMixerInfo().length > 0);
     Environment environment = Environments.newAudioEnvironment(() -> true);
     assertFalse(environment.isEmpty());

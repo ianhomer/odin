@@ -95,7 +95,8 @@ public class Environment {
    */
   private Set<Handle> getHandles(Class<? extends Handle> clazz) {
     return Collections.unmodifiableSet(
-        handles.stream().filter(handle -> handle.getClass().isAssignableFrom(clazz))
+        handles.stream()
+            .filter(clazz::isInstance)
             .collect(Collectors.toSet())
     );
   }
@@ -113,13 +114,12 @@ public class Environment {
   private Optional<HandleProvider> findOneProvider(Class<? extends Handle> clazz) {
     return providers.stream()
         .filter(provider ->
-            provider.getHandleClasses().stream().anyMatch(
-                handleClass -> handleClass.isAssignableFrom(clazz)))
+            provider.getHandleClasses().stream().anyMatch(clazz::isAssignableFrom))
         .findFirst();
   }
 
   public boolean noneMatch(Class<? extends Handle> clazz) {
-    return handles.stream().noneMatch(handle -> handle.getClass().isAssignableFrom(clazz));
+    return handles.stream().noneMatch(clazz::isInstance);
   }
 
 
