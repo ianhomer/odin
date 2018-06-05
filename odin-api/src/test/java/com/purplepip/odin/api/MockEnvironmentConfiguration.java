@@ -21,7 +21,6 @@ import static org.mockito.Mockito.when;
 import com.google.common.collect.Sets;
 import com.purplepip.odin.devices.AbstractDevice;
 import com.purplepip.odin.devices.AbstractHandle;
-import com.purplepip.odin.devices.Device;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.Handle;
 import com.purplepip.odin.devices.HandleProvider;
@@ -69,15 +68,15 @@ public class MockEnvironmentConfiguration {
   }
 
   @Data
-  @ToString
-  private final class MockHandle extends AbstractHandle {
+  @ToString(callSuper = true)
+  private final class MockHandle extends AbstractHandle<MockDevice> {
     private String description;
     private String name;
     private String vendor;
     private String type;
 
     @Override
-    public Device open() {
+    public MockDevice open() {
       return new MockDevice(this);
     }
   }

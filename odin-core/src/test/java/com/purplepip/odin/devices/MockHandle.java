@@ -18,7 +18,7 @@ package com.purplepip.odin.devices;
 import lombok.ToString;
 
 @ToString
-public class MockHandle implements Handle {
+public class MockHandle implements Handle<MockDevice> {
   private final String name;
   private final boolean sink;
   private final boolean source;
@@ -60,8 +60,8 @@ public class MockHandle implements Handle {
   }
 
   @Override
-  public Device open() {
-    return new UnavailableDevice(this);
+  public MockDevice open() {
+    return new MockDevice(this);
   }
 
   @Override

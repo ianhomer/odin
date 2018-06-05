@@ -16,13 +16,12 @@
 package com.purplepip.odin.audio;
 
 import com.purplepip.odin.devices.AbstractHandle;
-import com.purplepip.odin.devices.Device;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Mixer;
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode
-public class AudioHandle extends AbstractHandle {
+@EqualsAndHashCode(callSuper = true)
+public class AudioHandle extends AbstractHandle<AudioDevice> {
   private final Mixer.Info mixerInfo;
 
   AudioHandle(Mixer.Info mixerInfo) {
@@ -51,7 +50,7 @@ public class AudioHandle extends AbstractHandle {
   }
 
   @Override
-  public Device open() {
+  public AudioDevice open() {
     return new AudioDevice(this, AudioSystem.getMixer(mixerInfo));
   }
 }

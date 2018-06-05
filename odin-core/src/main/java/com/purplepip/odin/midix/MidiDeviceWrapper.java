@@ -135,12 +135,12 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
 
     private void findDevice() throws OdinException {
       MidiHandle transmittingHandle = (MidiHandle) environment
-          .findOneSource(MidiHandle.class).orElse(null);
+          .findOneSourceHandle(MidiHandle.class).orElse(null);
       if (transmittingHandle != null) {
         transmittingDevice = transmittingHandle.open();
       }
       MidiHandle receivingHandle = (MidiHandle) environment
-          .findOneSink(MidiHandle.class).orElse(null);
+          .findOneSinkHandle(MidiHandle.class).orElse(null);
       if (receivingHandle != null) {
         receivingDevice = receivingHandle.open();
       }

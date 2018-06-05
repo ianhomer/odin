@@ -17,6 +17,7 @@ package com.purplepip.odin.devices;
 
 import static com.purplepip.odin.devices.NamedHandle.asHandleList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.logcapture.LogCaptor;
@@ -43,12 +44,19 @@ public class EnvironmentTest {
         asHandleList("TTTAAA", "TFTCCC"),
         asHandleList("FTTBBB", "TTTAAA")
     ));
-    Optional<MockHandle> sink = environment.findOneSink(MockHandle.class);
+    Optional<MockHandle> sink = environment.findOneSinkHandle(MockHandle.class);
     assertTrue(sink.isPresent());
     assertEquals("Sink not correct", "TTTAAA", sink.get().getName());
 
-    Optional<Handle> source = environment.findOneSource(MockHandle.class);
+    Optional<Handle> source = environment.findOneSourceHandle(MockHandle.class);
     assertTrue(source.isPresent());
     assertEquals("Source not correct", "FTTBBB", source.get().getName());
+  }
+
+  @Test
+  public void shouldOpenDevice() {
+    Environment environment = new Environment(new MockHandleProvider(true, false));
+    //TODO;
+    assertNotNull(environment);
   }
 }

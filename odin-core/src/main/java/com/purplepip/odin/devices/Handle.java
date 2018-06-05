@@ -18,7 +18,7 @@ package com.purplepip.odin.devices;
 /**
  * A handle onto a device that we open, to get a device.
  */
-public interface Handle {
+public interface Handle<D extends Device> {
   String getName();
 
   String getVendor();
@@ -27,7 +27,7 @@ public interface Handle {
 
   String getType();
 
-  Device open() throws DeviceUnavailableException;
+  D open() throws DeviceUnavailableException;
 
   boolean isEnabled();
 

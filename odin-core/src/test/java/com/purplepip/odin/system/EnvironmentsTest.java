@@ -54,7 +54,7 @@ public class EnvironmentsTest {
     assumeTrue(AudioSystem.getMixerInfo().length > 0);
     Environment environment = Environments.newEnvironment(() -> true);
     assertFalse(environment.noneMatch(AudioHandle.class));
-    Optional<MidiHandle> sink = environment.findOneSink(MidiHandle.class);
+    Optional<MidiHandle> sink = environment.findOneSinkHandle(MidiHandle.class);
     assertTrue("Sink should be present", sink.isPresent());
     assertTrue(sink.get().open() instanceof SynthesizerDevice);
   }

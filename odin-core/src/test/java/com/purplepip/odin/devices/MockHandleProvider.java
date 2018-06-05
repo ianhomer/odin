@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.devices;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,10 @@ import java.util.stream.Stream;
 public class MockHandleProvider extends AbstractHandleProvider {
   private final boolean hasSinks;
   private final boolean hasSources;
+
+  public MockHandleProvider(boolean hasSinks, boolean hasSources) {
+    this(hasSinks, hasSources, Collections.emptyList(), Collections.emptyList());
+  }
 
   /**
    * Create Mock Handle Provider.

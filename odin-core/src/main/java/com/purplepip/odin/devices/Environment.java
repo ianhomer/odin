@@ -109,7 +109,7 @@ public class Environment {
    * @param <H> handle class type
    * @return handle of sink
    */
-  public <H extends Handle> Optional<H> findOneSink(Class<H> clazz) {
+  public <H extends Handle> Optional<H> findOneSinkHandle(Class<H> clazz) {
     return findOneProvider(clazz)
         .flatMap(HandleProvider::findOneSink)
         .map(clazz::cast);
@@ -122,7 +122,7 @@ public class Environment {
    * @param <H> handle class type
    * @return handle of source
    */
-  public <H extends Handle> Optional<Handle> findOneSource(Class<H> clazz) {
+  public <H extends Handle> Optional<Handle> findOneSourceHandle(Class<H> clazz) {
     return findOneProvider(clazz)
         .flatMap(HandleProvider::findOneSource)
         .map(clazz::cast);

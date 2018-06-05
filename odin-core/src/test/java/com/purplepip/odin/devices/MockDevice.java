@@ -15,42 +15,45 @@
 
 package com.purplepip.odin.devices;
 
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
+public class MockDevice extends AbstractDevice {
+  private final MockHandle handle;
 
-@Slf4j
-@ToString
-public abstract class AbstractHandle<D extends Device> implements Handle<D> {
-  private boolean sink;
-  private boolean source;
-  private boolean enabled;
-
-  protected void initialise() {
-    D device = null;
-    boolean error = false;
-    try {
-      device = open();
-    } catch (DeviceUnavailableException e) {
-      LOG.warn("Cannot open device to initialise handle", e);
-      error = true;
-    }
-    enabled = !error;
-    sink = device != null && device.isSink();
-    source = device != null && device.isSource();
+  public MockDevice(MockHandle handle) {
+    this.handle = handle;
   }
 
   @Override
-  public boolean isSink() {
-    return sink;
+  public String getName() {
+    return handle.getName();
+  }
+
+  @Override
+  public String getSummary() {
+    return handle.getDescription();
+  }
+
+  @Override
+  public Handle getHandle() {
+    return handle;
+  }
+
+  @Override
+  public void close() {
+
+  }
+
+  @Override
+  public boolean isOpen() {
+    return false;
   }
 
   @Override
   public boolean isSource() {
-    return source;
+    return true;
   }
 
   @Override
-  public boolean isEnabled() {
-    return enabled;
+  public boolean isSink() {
+    return true;
   }
 }

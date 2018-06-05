@@ -25,8 +25,8 @@ import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@EqualsAndHashCode
-public class MidiHandle extends AbstractHandle {
+@EqualsAndHashCode(callSuper = true)
+public class MidiHandle extends AbstractHandle<OdinMidiDevice> {
   private final MidiDevice.Info deviceInfo;
 
   MidiHandle(MidiDevice.Info deviceInfo) {
