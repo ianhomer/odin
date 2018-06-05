@@ -34,8 +34,8 @@ import org.slf4j.LoggerFactory;
 public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 
-  private OdinMidiDevice receivingDevice;
-  private OdinMidiDevice transmittingDevice;
+  private MidiDevice receivingDevice;
+  private MidiDevice transmittingDevice;
   private List<Transmitter> transmitters = new ArrayList<>();
   private List<Receiver> receivers = new ArrayList<>();
 
@@ -55,11 +55,11 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
     }
   }
 
-  public OdinMidiDevice getReceivingDevice() {
+  public MidiDevice getReceivingDevice() {
     return receivingDevice;
   }
 
-  public OdinMidiDevice getTransmittingDevice() {
+  public MidiDevice getTransmittingDevice() {
     return transmittingDevice;
   }
 

@@ -16,7 +16,6 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.devices.Device;
-import javax.sound.midi.MidiDevice;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +33,10 @@ public class MidiDeviceReceiverMatcher extends MidiDeviceNameStartsWithMatcher {
 
   @Override
   public boolean matches(Device device) {
-    if (!(device instanceof OdinMidiDevice)) {
+    if (!(device instanceof MidiDevice)) {
       return false;
     }
-    MidiDevice midiDevice = ((OdinMidiDevice) device).getMidiDevice();
+    javax.sound.midi.MidiDevice midiDevice = ((MidiDevice) device).getMidiDevice();
     LOG.debug("Device {} max receivers {}", device.getName(),
         midiDevice.getMaxReceivers());
     boolean result = midiDevice.getMaxReceivers() != 0;

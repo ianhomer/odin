@@ -17,7 +17,6 @@ package com.purplepip.odin.midix;
 
 import com.purplepip.odin.devices.AbstractHandle;
 import com.purplepip.odin.devices.DeviceUnavailableException;
-import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
@@ -26,10 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @EqualsAndHashCode(callSuper = true)
-public class MidiHandle extends AbstractHandle<OdinMidiDevice> {
-  private final MidiDevice.Info deviceInfo;
+public class MidiHandle extends AbstractHandle<MidiDevice> {
+  private final javax.sound.midi.MidiDevice.Info deviceInfo;
 
-  MidiHandle(MidiDevice.Info deviceInfo) {
+  MidiHandle(javax.sound.midi.MidiDevice.Info deviceInfo) {
     this.deviceInfo = deviceInfo;
     initialise();
   }
@@ -55,13 +54,13 @@ public class MidiHandle extends AbstractHandle<OdinMidiDevice> {
   }
 
   @Override
-  public OdinMidiDevice open() throws DeviceUnavailableException {
+  public MidiDevice open() throws DeviceUnavailableException {
     try {
-      MidiDevice device = MidiSystem.getMidiDevice(deviceInfo);
+      javax.sound.midi.MidiDevice device = MidiSystem.getMidiDevice(deviceInfo);
       if (device instanceof Synthesizer) {
         return new SynthesizerDevice(this, (Synthesizer) device);
       } else {
-        return new OdinMidiDevice(this, device);
+        return new MidiDevice(this, device);
       }
     } catch (MidiUnavailableException e) {
       throw new DeviceUnavailableException(e);

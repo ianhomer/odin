@@ -36,7 +36,7 @@ import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SynthesizerDevice extends OdinMidiDevice implements SynthesizerReceiver {
+public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver {
   SynthesizerDevice(@NotNull MidiHandle handle, @NotNull Synthesizer synthesizer)
       throws DeviceUnavailableException {
     super(handle, synthesizer);

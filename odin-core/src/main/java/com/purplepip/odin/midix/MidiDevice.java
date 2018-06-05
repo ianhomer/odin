@@ -21,7 +21,6 @@ import com.purplepip.odin.clock.PerformanceTimeConverter;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.AbstractDevice;
 import com.purplepip.odin.devices.DeviceUnavailableException;
-import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
@@ -31,13 +30,13 @@ import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class OdinMidiDevice extends AbstractDevice
+public class MidiDevice extends AbstractDevice
     implements MicrosecondPositionProvider, MidiMessageReceiver {
-  private final MidiDevice device;
+  private final javax.sound.midi.MidiDevice device;
   private final MidiHandle handle;
   private final PerformanceTimeConverter timeConverter;
 
-  OdinMidiDevice(@NotNull MidiHandle handle, @NotNull MidiDevice device)
+  MidiDevice(@NotNull MidiHandle handle, @NotNull javax.sound.midi.MidiDevice device)
       throws DeviceUnavailableException {
     this.device = device;
     this.handle = handle;
@@ -76,7 +75,7 @@ public class OdinMidiDevice extends AbstractDevice
    * only in place to help with a transition.
    */
   @Deprecated
-  public MidiDevice getMidiDevice() {
+  public javax.sound.midi.MidiDevice getMidiDevice() {
     return device;
   }
 
