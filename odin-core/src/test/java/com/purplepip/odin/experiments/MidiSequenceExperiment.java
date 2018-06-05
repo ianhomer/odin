@@ -7,8 +7,13 @@ import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.demo.DemoPerformances;
 import com.purplepip.odin.demo.GroovePerformance;
+import com.purplepip.odin.devices.DeviceUnavailableException;
+import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.midix.MidiDevice;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.MidiOperationReceiver;
+import com.purplepip.odin.midix.SynthesizerDevice;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
@@ -37,13 +42,13 @@ public class MidiSequenceExperiment {
    *
    * @param args arguments
    */
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException, DeviceUnavailableException {
     System.out.println("Logging : " + LOG.getClass());
     MidiSequenceExperiment experiment = new MidiSequenceExperiment();
     experiment.doExperiment();
   }
 
-  private void doExperiment() throws InterruptedException {
+  private void doExperiment() throws InterruptedException, DeviceUnavailableException {
     final CountDownLatch lock = new CountDownLatch(1_000_000);
 
     OperationHandler operationReceiver = (operation, time) -> {
@@ -59,6 +64,9 @@ public class MidiSequenceExperiment {
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
     MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
+    Environment environment = Environments.newEnvironment();
+    MidiDevice device = environment.findOneSink(MidiHandle.class)
+        .orElseThrow(DeviceUnavailableException::new);
 
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     OperationTransmitter transmitter = new DefaultOperationTransmitter();
@@ -72,16 +80,16 @@ public class MidiSequenceExperiment {
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(
             new OperationReceiverCollection(
-                new MidiOperationReceiver(midiDeviceWrapper.getReceivingDevice()),
+                new MidiOperationReceiver(device),
                 loader,
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)
-        .setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
+        .setMicrosecondPositionProvider(device);
     try {
       sequencer = new OdinSequencer(configuration);
-      if (midiDeviceWrapper.isSynthesizer()) {
-        midiDeviceWrapper.getSynthesizer().loadGervillSoundBank(
+      if (device instanceof SynthesizerDevice) {
+        ((SynthesizerDevice) device).loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
 
