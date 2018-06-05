@@ -41,7 +41,7 @@ public class HandleComparator implements Comparator<Handle> {
           return o1.getName().compareTo(o2.getName());
         }
         return -1;
-      } else if (o2.getName().toLowerCase().contains(priorityHandleName)) {
+      } else if (o2.getName().toLowerCase().startsWith(priorityHandleName)) {
         return 1;
       }
     }

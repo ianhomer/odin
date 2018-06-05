@@ -33,5 +33,6 @@ public class HandleComparatorTest {
     assertEquals(0, comparator.compare(new NamedHandle("A"), new NamedHandle("A")));
     assertTrue(comparator.compare(new NamedHandle("A"), new NamedHandle("a")) < 0);
     assertTrue(comparator.compare(new NamedHandle("G"), new NamedHandle("H")) < 0);
+    assertTrue(comparator.compare(new NamedHandle("I"), new NamedHandle("H")) > 0);
   }
 }

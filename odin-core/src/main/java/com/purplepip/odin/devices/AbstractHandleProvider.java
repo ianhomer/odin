@@ -18,7 +18,6 @@ package com.purplepip.odin.devices;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -37,18 +36,18 @@ public abstract class AbstractHandleProvider implements HandleProvider {
   }
 
 
-  protected Set<Handle> asSinkSet(Stream<Handle> stream) {
+  protected SortedSet<Handle> asSinkSet(Stream<Handle> stream) {
     return asSet(sinkComparator, stream);
   }
 
-  protected Set<Handle> asSourceSet(Stream<Handle> stream) {
+  protected SortedSet<Handle> asSourceSet(Stream<Handle> stream) {
     return asSet(sourceComparator, stream);
   }
 
   /*
    * Convert stream of handles to set with sorting.
    */
-  private Set<Handle> asSet(Comparator<Handle> comparator, Stream<Handle> stream) {
+  private SortedSet<Handle> asSet(Comparator<Handle> comparator, Stream<Handle> stream) {
     SortedSet<Handle> handles = new TreeSet<>(comparator);
     handles.addAll(stream.collect(Collectors.toSet()));
     return Collections.unmodifiableSortedSet(handles);
@@ -56,14 +55,14 @@ public abstract class AbstractHandleProvider implements HandleProvider {
 
 
   @Override
-  public Set<Handle> getSinkHandles() {
+  public SortedSet<Handle> getSinkHandles() {
     return asSinkSet(getHandleStream()
         .filter(Handle::isEnabled)
         .filter(Handle::isSink));
   }
 
   @Override
-  public Set<Handle> getSourceHandles() {
+  public SortedSet<Handle> getSourceHandles() {
     return asSourceSet(getHandleStream()
         .filter(Handle::isEnabled)
         .filter(Handle::isSource));

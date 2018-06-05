@@ -21,9 +21,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+@Slf4j
 public class AbstractHandleProviderTest {
   @Test
   public void shouldFindOne() {
@@ -66,6 +69,10 @@ public class AbstractHandleProviderTest {
         asHandleList("XXX", "YYY"),
         asHandleList("XXX", "YYY")
     );
+
+    Stream<Handle> handles = handleProvider.findAllSinks();
+    assertEquals(5, handles.count());
+    LOG.info("All sinks {}", handleProvider.findAllSinks().collect(Collectors.toList()));
     Optional<Handle> sink = handleProvider.findOneSink();
     assertTrue(sink.isPresent());
     assertEquals("Sink not correct", "TFTCCC", sink.get().getName());
