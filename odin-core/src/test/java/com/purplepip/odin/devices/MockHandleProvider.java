@@ -47,7 +47,9 @@ public class MockHandleProvider extends AbstractHandleProvider {
   @Override
   protected Stream<Handle> getHandleStream() {
     Stream.Builder<Handle> builder = Stream.builder();
-    builder.accept(createHandle("TTFAAA", true, true, false));
+    if (hasSinks && hasSources) {
+      builder.accept(createHandle("TTTXXX", true, true, true, false));
+    }
     if (hasSinks) {
       builder.accept(createHandle("TFTCCC", true, false, true));
     }
@@ -71,7 +73,12 @@ public class MockHandleProvider extends AbstractHandleProvider {
     return handleClasses;
   }
 
+  private static Handle createHandle(String name, boolean sink, boolean source,
+                                     boolean enabled, boolean openOk) {
+    return new MockHandle(name, sink, source, enabled, openOk);
+  }
+
   private static Handle createHandle(String name, boolean sink, boolean source, boolean enabled) {
-    return new MockHandle(name, sink, source, enabled);
+    return new MockHandle(name, sink, source, enabled, true);
   }
 }

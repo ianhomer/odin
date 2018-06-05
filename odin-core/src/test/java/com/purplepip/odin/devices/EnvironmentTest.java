@@ -17,13 +17,13 @@ package com.purplepip.odin.devices;
 
 import static com.purplepip.odin.devices.NamedHandle.asHandleList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.system.Environments;
 import java.util.Optional;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -56,12 +56,21 @@ public class EnvironmentTest {
   @Test
   public void shouldOpenDevice() {
     Environment environment = new Environment(
-        new MockHandleProvider(true, false,
-            asHandleList("TTFAAA", "TFTCCC"),
+        new MockHandleProvider(true, true,
+            asHandleList("TTTXXX", "TFTCCC"),
             asHandleList("FTTBBB", "TTTAAA")
             ));
-    //TODO;
-    //environment.findOneSink(MidiDevice.class)
-    assertNotNull(environment);
+    Stream<Handle<MockDevice>> handles = environment.findAllSinkHandles(MockHandle.class);
+    Optional<Handle<MockDevice>> handle = handles.findFirst();
+    assertTrue(handle.isPresent());
+    assertEquals("TTTXXX", handle.get().getName());
+
+    Optional<MockDevice> device;
+    try (LogCaptor captor = new LogCapture().warn().from(Environment.class).start()) {
+      device = environment.findOneSink(MockHandle.class);
+      assertEquals("Device should fail to open with warning " + captor, 1, captor.size());
+    }
+    assertTrue(device.isPresent());
+    assertEquals("TFTCCC", device.get().getName());
   }
 }

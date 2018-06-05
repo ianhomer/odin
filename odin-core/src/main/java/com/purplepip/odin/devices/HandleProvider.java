@@ -17,6 +17,7 @@ package com.purplepip.odin.devices;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * A provider that gives handles on to devices.
@@ -41,6 +42,10 @@ public interface HandleProvider {
 
   default Optional<Handle> findOneSink() {
     return getSinkHandles().stream().findFirst();
+  }
+
+  default Stream<Handle> findAllSinks() {
+    return getSinkHandles().stream();
   }
 
   default Optional<Handle> findOneSource() {

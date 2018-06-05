@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.junit.Test;
 
 public class AbstractHandleProviderTest {
@@ -47,6 +48,8 @@ public class AbstractHandleProviderTest {
         asHandleList("TFTCCC", "TTTAAA"),
         asHandleList("TTTAAA", "FTTBBB")
     );
+    Stream<Handle> handles = handleProvider.findAllSinks();
+    assertEquals(5, handles.count());
     Optional<Handle> sink = handleProvider.findOneSink();
     assertTrue(sink.isPresent());
     assertEquals("Sink not correct", "TFTCCC", sink.get().getName());

@@ -23,6 +23,7 @@ public class MockHandle implements Handle<MockDevice> {
   private final boolean sink;
   private final boolean source;
   private final boolean enabled;
+  private final boolean openOk;
 
   /**
    * Create mock handle.
@@ -32,11 +33,13 @@ public class MockHandle implements Handle<MockDevice> {
    * @param source is source
    * @param enabled enabled
    */
-  public MockHandle(String name, boolean sink, boolean source, boolean enabled) {
+  public MockHandle(String name, boolean sink, boolean source, boolean enabled,
+                    boolean openOk) {
     this.name = name;
     this.sink = sink;
     this.source = source;
     this.enabled = enabled;
+    this.openOk = openOk;
   }
 
   @Override
@@ -61,7 +64,7 @@ public class MockHandle implements Handle<MockDevice> {
 
   @Override
   public MockDevice open() throws DeviceUnavailableException {
-    if (enabled) {
+    if (openOk) {
       return new MockDevice(this);
     } else {
       throw new DeviceUnavailableException("Cannot open " + name);

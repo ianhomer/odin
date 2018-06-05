@@ -18,6 +18,7 @@ package com.purplepip.odin.devices;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -105,7 +106,7 @@ public class Environment {
   /**
    * Find one sink of a given handle class.
    *
-   * @param clazz device class
+   * @param clazz handle class
    * @param <D> device class type
    * @return handle of sink
    */
@@ -115,6 +116,44 @@ public class Environment {
         .flatMap(HandleProvider::findOneSink)
         .map(clazz::cast);
   }
+
+  /**
+   * Find all sink handles.
+   *
+   * @param clazz handle class
+   * @param <D> device class type
+   * @return stream of handles
+   */
+  public <D extends Device> Stream<Handle<D>> findAllSinkHandles(
+      Class<? extends Handle<D>> clazz) {
+    Optional<HandleProvider> provider = findOneProvider(clazz);
+    if (provider.isPresent()) {
+      return provider.get().findAllSinks().map(clazz::cast);
+    } else {
+      return Stream.empty();
+    }
+  }
+
+  /**
+   * Find one sink.
+   *
+   * @param clazz handle class
+   * @param <D> device class type
+   * @return sink
+   */
+  public <D extends Device> Optional<D> findOneSink(Class<? extends Handle<D>> clazz) {
+    return findAllSinkHandles(clazz)
+        .map(handle -> {
+          try {
+            return handle.open();
+          } catch (DeviceUnavailableException e) {
+            LOG.warn(e.getMessage());
+            return null;
+          }
+        })
+        .filter(Objects::nonNull).findFirst();
+  }
+
 
   /**
    * Find one source of a given handle class.
@@ -129,6 +168,7 @@ public class Environment {
         .flatMap(HandleProvider::findOneSource)
         .map(clazz::cast);
   }
+
 
   private Optional<HandleProvider> findOneProvider(Class<? extends Handle> clazz) {
     return providers.stream()

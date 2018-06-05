@@ -19,6 +19,10 @@ import com.purplepip.odin.common.OdinException;
 import javax.sound.midi.MidiUnavailableException;
 
 public class DeviceUnavailableException extends OdinException {
+  public DeviceUnavailableException() {
+    super();
+  }
+
   public DeviceUnavailableException(String description) {
     super(description);
   }

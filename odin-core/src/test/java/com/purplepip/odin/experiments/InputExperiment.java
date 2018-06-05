@@ -18,7 +18,10 @@ package com.purplepip.odin.experiments;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.devices.DeviceUnavailableException;
+import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
@@ -37,12 +40,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class InputExperiment {
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException, DeviceUnavailableException {
     InputExperiment experiment = new InputExperiment();
     experiment.doExperiment();
   }
 
-  private void doExperiment() throws InterruptedException {
+  private void doExperiment() throws InterruptedException, DeviceUnavailableException {
     final CountDownLatch lock = new CountDownLatch(800);
 
     Environments.newEnvironment().dump();
@@ -54,6 +57,7 @@ public class InputExperiment {
 
     OdinSequencer sequencer = null;
     MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
+    Environment environment = Environments.newEnvironment();
 
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     OperationTransmitter transmitter = new DefaultOperationTransmitter();
@@ -63,7 +67,8 @@ public class InputExperiment {
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(
             new OperationReceiverCollection(
-                new MidiOperationReceiver(midiDeviceWrapper.getReceivingDevice()),
+                new MidiOperationReceiver(environment.findOneSink(MidiHandle.class)
+                    .orElseThrow(DeviceUnavailableException::new)),
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)
