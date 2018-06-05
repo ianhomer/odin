@@ -47,6 +47,7 @@ public class MockHandleProvider extends AbstractHandleProvider {
   @Override
   protected Stream<Handle> getHandleStream() {
     Stream.Builder<Handle> builder = Stream.builder();
+    builder.accept(createHandle("TTFAAA", true, true, false));
     if (hasSinks) {
       builder.accept(createHandle("TFTCCC", true, false, true));
     }

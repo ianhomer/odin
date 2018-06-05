@@ -44,19 +44,24 @@ public class EnvironmentTest {
         asHandleList("TTTAAA", "TFTCCC"),
         asHandleList("FTTBBB", "TTTAAA")
     ));
-    Optional<MockHandle> sink = environment.findOneSinkHandle(MockHandle.class);
+    Optional<Handle<MockDevice>> sink = environment.findOneSinkHandle(MockHandle.class);
     assertTrue(sink.isPresent());
     assertEquals("Sink not correct", "TTTAAA", sink.get().getName());
 
-    Optional<Handle> source = environment.findOneSourceHandle(MockHandle.class);
+    Optional<Handle<MockDevice>> source = environment.findOneSourceHandle(MockHandle.class);
     assertTrue(source.isPresent());
     assertEquals("Source not correct", "FTTBBB", source.get().getName());
   }
 
   @Test
   public void shouldOpenDevice() {
-    Environment environment = new Environment(new MockHandleProvider(true, false));
+    Environment environment = new Environment(
+        new MockHandleProvider(true, false,
+            asHandleList("TTFAAA", "TFTCCC"),
+            asHandleList("FTTBBB", "TTTAAA")
+            ));
     //TODO;
+    //environment.findOneSink(MidiDevice.class)
     assertNotNull(environment);
   }
 }

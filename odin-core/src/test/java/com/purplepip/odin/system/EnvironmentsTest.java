@@ -22,6 +22,8 @@ import static org.junit.Assume.assumeTrue;
 import com.purplepip.odin.audio.AudioHandle;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.devices.Handle;
+import com.purplepip.odin.midix.MidiDevice;
 import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.SynthesizerDevice;
 import java.util.Optional;
@@ -54,7 +56,7 @@ public class EnvironmentsTest {
     assumeTrue(AudioSystem.getMixerInfo().length > 0);
     Environment environment = Environments.newEnvironment(() -> true);
     assertFalse(environment.noneMatch(AudioHandle.class));
-    Optional<MidiHandle> sink = environment.findOneSinkHandle(MidiHandle.class);
+    Optional<Handle<MidiDevice>> sink = environment.findOneSinkHandle(MidiHandle.class);
     assertTrue("Sink should be present", sink.isPresent());
     assertTrue(sink.get().open() instanceof SynthesizerDevice);
   }

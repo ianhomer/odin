@@ -60,8 +60,12 @@ public class MockHandle implements Handle<MockDevice> {
   }
 
   @Override
-  public MockDevice open() {
-    return new MockDevice(this);
+  public MockDevice open() throws DeviceUnavailableException {
+    if (enabled) {
+      return new MockDevice(this);
+    } else {
+      throw new DeviceUnavailableException("Cannot open " + name);
+    }
   }
 
   @Override
