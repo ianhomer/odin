@@ -53,6 +53,15 @@ public class EnvironmentTest {
     assertEquals("Source not correct", "FTTBBB", source.get().getName());
   }
 
+  @Test(expected = DeviceUnavailableException.class)
+  public void shouldNotFindOne() throws DeviceUnavailableException {
+    Environment environment = new Environment(new MockHandleProvider(
+        true, true,
+        asHandleList(), asHandleList(), (handle) -> "TTTXXX".equals(handle.getName())
+    ));
+    environment.findOneSinkOrThrow(MockHandle.class);
+  }
+
   @Test
   public void shouldOpenDevice() {
     Environment environment = new Environment(

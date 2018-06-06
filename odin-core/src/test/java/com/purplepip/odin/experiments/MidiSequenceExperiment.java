@@ -65,8 +65,7 @@ public class MidiSequenceExperiment {
     OdinSequencer sequencer = null;
     MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
     Environment environment = Environments.newEnvironment();
-    MidiDevice device = environment.findOneSink(MidiHandle.class)
-        .orElseThrow(DeviceUnavailableException::new);
+    MidiDevice device = environment.findOneSinkOrThrow(MidiHandle.class);
 
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     OperationTransmitter transmitter = new DefaultOperationTransmitter();

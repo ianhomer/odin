@@ -15,19 +15,16 @@
 
 package com.purplepip.odin.devices;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class MockHandleProvider extends AbstractHandleProvider {
   private final boolean hasSinks;
   private final boolean hasSources;
-
-  public MockHandleProvider(boolean hasSinks, boolean hasSources) {
-    this(hasSinks, hasSources, Collections.emptyList(), Collections.emptyList());
-  }
+  private final Predicate<Handle> predicate;
 
   /**
    * Create Mock Handle Provider.
@@ -39,9 +36,25 @@ public class MockHandleProvider extends AbstractHandleProvider {
    */
   public MockHandleProvider(boolean hasSinks, boolean hasSources,
                             List<Handle> prioritisedSinks, List<Handle> prioritisedSources) {
+    this(hasSinks, hasSources, prioritisedSinks, prioritisedSources, (handle) -> true);
+  }
+
+  /**
+   * Create Mock Handle Provider.
+   *
+   * @param hasSinks has sinks
+   * @param hasSources has sources
+   * @param prioritisedSinks list of prioritised sinks
+   * @param prioritisedSources list of prioritised sources
+   * @param predicate filter for sinks / sources that should be returned
+   */
+  public MockHandleProvider(boolean hasSinks, boolean hasSources,
+                            List<Handle> prioritisedSinks, List<Handle> prioritisedSources,
+                            Predicate<Handle> predicate) {
     super(prioritisedSinks, prioritisedSources);
     this.hasSinks = hasSinks;
     this.hasSources = hasSources;
+    this.predicate = predicate;
   }
 
   @Override
@@ -63,7 +76,7 @@ public class MockHandleProvider extends AbstractHandleProvider {
           .add(createHandle("TTTEEE", true, true, true))
           .add(createHandle("TTTFFF", true, true, true));
     }
-    return builder.build();
+    return builder.build().filter(predicate);
   }
 
   @Override

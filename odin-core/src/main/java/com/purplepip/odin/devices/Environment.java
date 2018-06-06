@@ -154,6 +154,12 @@ public class Environment {
         .filter(Objects::nonNull).findFirst();
   }
 
+  public <D extends Device> D findOneSinkOrThrow(Class<? extends Handle<D>> clazz)
+      throws DeviceUnavailableException {
+    return findOneSink(clazz).orElseThrow(DeviceUnavailableException::new);
+  }
+
+
 
   /**
    * Find one source of a given handle class.
