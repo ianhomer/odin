@@ -16,31 +16,33 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.devices.Device;
+import com.purplepip.odin.devices.Handle;
 import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * Matches MIDI device in.
+ * Match MIDI devices where the name matches the given starts with string.
  */
-@ToString(callSuper = true)
-public class MidiDeviceTransmitterMatcher extends MidiDeviceNameStartsWithMatcher {
-  private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceTransmitterMatcher.class);
+@ToString
+public class DeviceNameStartsWithMatcher implements DeviceMatcher {
+  private static final String MATCH_ALL = "*";
+  private String prefix;
 
-  MidiDeviceTransmitterMatcher(String prefix) {
-    super(prefix);
+  DeviceNameStartsWithMatcher(String prefix) {
+    this.prefix = prefix;
+  }
+
+  @Override
+  public boolean matches(Handle handle) {
+    return MATCH_ALL.equals(prefix) || handle.getName().startsWith(prefix);
   }
 
   @Override
   public boolean matches(Device device) {
-    if (!(device instanceof MidiDevice)) {
-      return false;
-    }
-    javax.sound.midi.MidiDevice midiDevice = ((MidiDevice) device).getMidiDevice();
-    LOG.debug("Device {} max transmitters {}", device.getName(),
-        midiDevice.getMaxTransmitters());
-    boolean result = midiDevice.getMaxTransmitters() != 0;
-    LOG.debug("Device {} match {}", device.getName(), result);
-    return result && super.matches(device);
+    return matches(device.getHandle());
+  }
+
+  @Override
+  public String getDescription() {
+    return "Starts with " + prefix;
   }
 }

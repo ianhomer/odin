@@ -21,7 +21,7 @@ import com.purplepip.odin.devices.Handle;
 /**
  * Matcher to detect whether MIDI device matches condition.
  */
-public interface MidiDeviceMatcher {
+public interface DeviceMatcher {
   /**
    * Match based on MIDI device info.
    *

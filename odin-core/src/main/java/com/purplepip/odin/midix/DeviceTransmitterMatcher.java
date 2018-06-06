@@ -24,22 +24,17 @@ import org.slf4j.LoggerFactory;
  * Matches MIDI device in.
  */
 @ToString(callSuper = true)
-public class MidiDeviceReceiverMatcher extends MidiDeviceNameStartsWithMatcher {
-  private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceReceiverMatcher.class);
+public class DeviceTransmitterMatcher extends DeviceNameStartsWithMatcher {
+  private static final Logger LOG = LoggerFactory.getLogger(DeviceTransmitterMatcher.class);
 
-  MidiDeviceReceiverMatcher(String prefix) {
+  DeviceTransmitterMatcher(String prefix) {
     super(prefix);
   }
 
   @Override
   public boolean matches(Device device) {
-    if (!(device instanceof MidiDevice)) {
-      return false;
-    }
-    javax.sound.midi.MidiDevice midiDevice = ((MidiDevice) device).getMidiDevice();
-    LOG.debug("Device {} max receivers {}", device.getName(),
-        midiDevice.getMaxReceivers());
-    boolean result = midiDevice.getMaxReceivers() != 0;
+    LOG.debug("Device {} is source {}", device.getName(), device.isSource());
+    boolean result = device.isSource();
     LOG.debug("Device {} match {}", device.getName(), result);
     return result && super.matches(device);
   }

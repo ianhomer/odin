@@ -117,7 +117,7 @@ public class MidiDevice extends AbstractDevice
 
   @Override
   public String getName() {
-    return device.getDeviceInfo().getName();
+    return getHandle().getName();
   }
 
   @Override

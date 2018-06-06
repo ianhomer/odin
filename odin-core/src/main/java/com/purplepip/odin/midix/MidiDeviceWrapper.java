@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Provider of a MIDI device.
  */
+@Deprecated
 public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   private static final Logger LOG = LoggerFactory.getLogger(MidiDeviceWrapper.class);
 

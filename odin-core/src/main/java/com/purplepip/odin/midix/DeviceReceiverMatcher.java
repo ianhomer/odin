@@ -16,33 +16,26 @@
 package com.purplepip.odin.midix;
 
 import com.purplepip.odin.devices.Device;
-import com.purplepip.odin.devices.Handle;
 import lombok.ToString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Match MIDI devices where the name matches the given starts with string.
+ * Matches MIDI device in.
  */
-@ToString
-public class MidiDeviceNameStartsWithMatcher implements MidiDeviceMatcher {
-  private static final String MATCH_ALL = "*";
-  private String prefix;
+@ToString(callSuper = true)
+public class DeviceReceiverMatcher extends DeviceNameStartsWithMatcher {
+  private static final Logger LOG = LoggerFactory.getLogger(DeviceReceiverMatcher.class);
 
-  MidiDeviceNameStartsWithMatcher(String prefix) {
-    this.prefix = prefix;
-  }
-
-  @Override
-  public boolean matches(Handle handle) {
-    return MATCH_ALL.equals(prefix) || handle.getName().startsWith(prefix);
+  DeviceReceiverMatcher(String prefix) {
+    super(prefix);
   }
 
   @Override
   public boolean matches(Device device) {
-    return matches(device.getHandle());
-  }
-
-  @Override
-  public String getDescription() {
-    return "Starts with " + prefix;
+    LOG.debug("Device {} is sink {}", device.getName(), device.isSink());
+    boolean result = device.isSink();
+    LOG.debug("Device {} match {}", device.getName(), result);
+    return result && super.matches(device);
   }
 }
