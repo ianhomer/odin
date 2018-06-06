@@ -51,4 +51,8 @@ public interface HandleProvider {
   default Optional<Handle> findOneSource() {
     return getSourceHandles().stream().findFirst();
   }
+
+  default Stream<Handle> findAllSources() {
+    return getSourceHandles().stream();
+  }
 }

@@ -54,7 +54,7 @@ public class EnvironmentTest {
   }
 
   @Test(expected = DeviceUnavailableException.class)
-  public void shouldNotFindOne() throws DeviceUnavailableException {
+  public void shouldNotFindOneSink() throws DeviceUnavailableException {
     Environment environment = new Environment(new MockHandleProvider(
         true, true,
         asHandleList(), asHandleList(), (handle) -> "TTTXXX".equals(handle.getName())
@@ -62,12 +62,21 @@ public class EnvironmentTest {
     environment.findOneSinkOrThrow(MockHandle.class);
   }
 
+  @Test(expected = DeviceUnavailableException.class)
+  public void shouldNotFindOneSource() throws DeviceUnavailableException {
+    Environment environment = new Environment(new MockHandleProvider(
+        true, true,
+        asHandleList(), asHandleList(), (handle) -> "TTTXXX".equals(handle.getName())
+    ));
+    environment.findOneSourceOrThrow(MockHandle.class);
+  }
+
   @Test
-  public void shouldOpenDevice() {
+  public void shouldOpenSink() {
     Environment environment = new Environment(
-        new MockHandleProvider(true, true,
+        new MockHandleProvider(true, false,
             asHandleList("TTTXXX", "TFTCCC"),
-            asHandleList("FTTBBB", "TTTAAA")
+            asHandleList()
             ));
     Stream<Handle<MockDevice>> handles = environment.findAllSinkHandles(MockHandle.class);
     Optional<Handle<MockDevice>> handle = handles.findFirst();
@@ -81,5 +90,26 @@ public class EnvironmentTest {
     }
     assertTrue(device.isPresent());
     assertEquals("TFTCCC", device.get().getName());
+  }
+
+  @Test
+  public void shouldOpenSource() {
+    Environment environment = new Environment(
+        new MockHandleProvider(true, true,
+            asHandleList(),
+            asHandleList("TTTXXX", "FTTBBB")
+        ));
+    Stream<Handle<MockDevice>> handles = environment.findAllSourceHandles(MockHandle.class);
+    Optional<Handle<MockDevice>> handle = handles.findFirst();
+    assertTrue(handle.isPresent());
+    assertEquals("TTTXXX", handle.get().getName());
+
+    Optional<MockDevice> device;
+    try (LogCaptor captor = new LogCapture().warn().from(Environment.class).start()) {
+      device = environment.findOneSource(MockHandle.class);
+      assertEquals("Device should fail to open with warning " + captor, 1, captor.size());
+    }
+    assertTrue(device.isPresent());
+    assertEquals("FTTBBB", device.get().getName());
   }
 }

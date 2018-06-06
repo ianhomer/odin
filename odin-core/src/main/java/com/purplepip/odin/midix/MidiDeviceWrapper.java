@@ -20,11 +20,6 @@ import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import com.purplepip.odin.system.Environments;
-import java.util.ArrayList;
-import java.util.List;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Transmitter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +31,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
 
   private MidiDevice receivingDevice;
   private MidiDevice transmittingDevice;
-  private List<Transmitter> transmitters = new ArrayList<>();
-  private List<Receiver> receivers = new ArrayList<>();
+  private final MidiTransmitterBinding midiTransmitterBinding = new MidiTransmitterBinding();
 
   /**
    * Create a MIDI device wrapper.
@@ -70,22 +64,8 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
    * @param operationTransmitter operation transmitter to relay MIDI messages on to
    */
   public void registerWithTransmitter(OperationTransmitter operationTransmitter) {
-    if (canTransmit()) {
-      try {
-        Transmitter transmitter = getTransmittingDevice().getMidiDevice().getTransmitter();
-        transmitters.add(transmitter);
-        Receiver receiver = new MidiInputReceiver(operationTransmitter,
-            getTransmittingDevice());
-        receivers.add(receiver);
-        transmitter.setReceiver(receiver);
-        LOG.info("Registered receiver for {}", getTransmittingDevice());
-      } catch (MidiUnavailableException e) {
-        LOG.error("Cannot register receiver : {}", e.getMessage());
-        LOG.debug("Cannot register receiver", e);
-      }
-    } else {
-      LOG.info("Device {} does not support transmitting", transmittingDevice);
-    }
+    midiTransmitterBinding.bind(getTransmittingDevice(), operationTransmitter);
+
   }
 
   /**
@@ -94,8 +74,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   @Override
   public void close() {
     LOG.debug("Closing device wrapper");
-    transmitters.forEach(Transmitter::close);
-    receivers.forEach(Receiver::close);
+    midiTransmitterBinding.close();
   }
 
   /**

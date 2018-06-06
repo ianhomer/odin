@@ -160,6 +160,22 @@ public class Environment {
   }
 
 
+  /**
+   * Find all source handles.
+   *
+   * @param clazz handle class
+   * @param <D> device class type
+   * @return stream of handles
+   */
+  public <D extends Device> Stream<Handle<D>> findAllSourceHandles(
+      Class<? extends Handle<D>> clazz) {
+    Optional<HandleProvider> provider = findOneProvider(clazz);
+    if (provider.isPresent()) {
+      return provider.get().findAllSources().map(clazz::cast);
+    } else {
+      return Stream.empty();
+    }
+  }
 
   /**
    * Find one source of a given handle class.
@@ -175,6 +191,30 @@ public class Environment {
         .map(clazz::cast);
   }
 
+  /**
+   * Find one source.
+   *
+   * @param clazz handle class
+   * @param <D> device class type
+   * @return sink
+   */
+  public <D extends Device> Optional<D> findOneSource(Class<? extends Handle<D>> clazz) {
+    return findAllSourceHandles(clazz)
+        .map(handle -> {
+          try {
+            return handle.open();
+          } catch (DeviceUnavailableException e) {
+            LOG.warn(e.getMessage());
+            return null;
+          }
+        })
+        .filter(Objects::nonNull).findFirst();
+  }
+
+  public <D extends Device> D findOneSourceOrThrow(Class<? extends Handle<D>> clazz)
+      throws DeviceUnavailableException {
+    return findOneSink(clazz).orElseThrow(DeviceUnavailableException::new);
+  }
 
   private Optional<HandleProvider> findOneProvider(Class<? extends Handle> clazz) {
     return providers.stream()

@@ -13,6 +13,7 @@ import com.purplepip.odin.midix.MidiDevice;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.MidiOperationReceiver;
+import com.purplepip.odin.midix.MidiTransmitterBinding;
 import com.purplepip.odin.midix.SynthesizerDevice;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.ClassPerformanceLoader;
@@ -51,7 +52,23 @@ public class MidiSequenceExperiment {
   private void doExperiment() throws InterruptedException, DeviceUnavailableException {
     final CountDownLatch lock = new CountDownLatch(1_000_000);
 
-    OperationHandler operationReceiver = (operation, time) -> {
+    LOG.info("Creating sequence");
+    OdinSequencer sequencer = null;
+    MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
+    Environment environment = Environments.newEnvironment();
+    MidiDevice device = environment.findOneSinkOrThrow(MidiHandle.class);
+    MidiTransmitterBinding binding = new MidiTransmitterBinding();
+
+    MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
+    OperationTransmitter transmitter = new DefaultOperationTransmitter();
+    midiDeviceWrapper.registerWithTransmitter(transmitter);
+    environment.findOneSource(MidiHandle.class)
+        .ifPresent(it -> binding.bind(it, transmitter));
+    DefaultPerformanceContainer container =
+        new DefaultPerformanceContainer(new TransientPerformance());
+    PerformanceLoader loader = new ClassPerformanceLoader(
+        new DemoPerformances().getPerformances(), container, new DemoLoaderPerformance());
+    final OperationHandler operationReceiver = (operation, time) -> {
       lock.countDown();
       LOG.trace("Received operation {}", operation);
       if (operation.hasCause()) {
@@ -61,19 +78,6 @@ public class MidiSequenceExperiment {
       }
     };
 
-    LOG.info("Creating sequence");
-    OdinSequencer sequencer = null;
-    MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
-    Environment environment = Environments.newEnvironment();
-    MidiDevice device = environment.findOneSinkOrThrow(MidiHandle.class);
-
-    MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
-    OperationTransmitter transmitter = new DefaultOperationTransmitter();
-    midiDeviceWrapper.registerWithTransmitter(transmitter);
-    DefaultPerformanceContainer container =
-        new DefaultPerformanceContainer(new TransientPerformance());
-    PerformanceLoader loader = new ClassPerformanceLoader(
-        new DemoPerformances().getPerformances(), container, new DemoLoaderPerformance());
     OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))
         .setMeasureProvider(measureProvider)
@@ -111,7 +115,8 @@ public class MidiSequenceExperiment {
         sequencer.stop();
         sequencer.shutdown();
       }
-      midiDeviceWrapper.close();
+      device.close();
+      binding.close();
       LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());
     }
   }
