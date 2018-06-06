@@ -20,9 +20,11 @@ import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Environment;
-import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.midix.MidiDevice;
 import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.MidiOperationReceiver;
+import com.purplepip.odin.midix.MidiTransmitterBinding;
+import com.purplepip.odin.midix.SynthesizerDevice;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
@@ -56,27 +58,29 @@ public class InputExperiment {
     };
 
     OdinSequencer sequencer = null;
-    MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
     Environment environment = Environments.newEnvironment();
+    MidiDevice device = environment.findOneSink(MidiHandle.class)
+        .orElseThrow(DeviceUnavailableException::new);
+    MidiTransmitterBinding binding = new MidiTransmitterBinding();
 
     MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
     OperationTransmitter transmitter = new DefaultOperationTransmitter();
-    midiDeviceWrapper.registerWithTransmitter(transmitter);
+    environment.findOneSource(MidiHandle.class)
+        .ifPresent(it -> binding.bind(it, transmitter));
     OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
         .setBeatsPerMinute(new StaticBeatsPerMinute(120))
         .setMeasureProvider(measureProvider)
         .setOperationReceiver(
             new OperationReceiverCollection(
-                new MidiOperationReceiver(environment.findOneSink(MidiHandle.class)
-                    .orElseThrow(DeviceUnavailableException::new)),
+                new MidiOperationReceiver(device),
                 operationReceiver)
         )
         .setOperationTransmitter(transmitter)
-        .setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
+        .setMicrosecondPositionProvider(device);
     try {
       sequencer = new OdinSequencer(configuration);
-      if (midiDeviceWrapper.isSynthesizer()) {
-        midiDeviceWrapper.getSynthesizer().loadGervillSoundBank(
+      if (device instanceof SynthesizerDevice) {
+        ((SynthesizerDevice) device).loadGervillSoundBank(
             "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
       }
       DefaultPerformanceContainer container =
@@ -99,7 +103,8 @@ public class InputExperiment {
       if (sequencer != null) {
         sequencer.stop();
       }
-      midiDeviceWrapper.close();
+      binding.close();
+      device.close();
       LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());
     }
   }

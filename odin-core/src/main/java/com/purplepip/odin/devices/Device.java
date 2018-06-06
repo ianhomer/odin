@@ -30,8 +30,6 @@ public interface Device {
 
   boolean isOpen();
 
-  boolean canTransmit();
-
   boolean isSource();
 
   boolean isSink();

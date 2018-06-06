@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.midix;
 
+import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +36,9 @@ public class MidiTransmitterBinding {
    * @param operationTransmitter operation transmitter
    */
   public void bind(MidiDevice device, OperationTransmitter operationTransmitter) {
-    if (!device.canTransmit()) {
-      LOG.warn("Cannot bind transmitter to {} since it can not transmit", device);
-      return;
+    if (!device.isSource()) {
+      throw new OdinRuntimeException("Cannot bind transmitter to " + device
+          + " since it is not a source");
     }
     try {
       Transmitter transmitter = device.getMidiDevice().getTransmitter();

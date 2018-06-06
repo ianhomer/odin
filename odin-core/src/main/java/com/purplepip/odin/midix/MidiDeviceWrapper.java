@@ -92,7 +92,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   }
 
   public boolean canTransmit() {
-    return transmittingDevice != null && transmittingDevice.canTransmit();
+    return transmittingDevice != null && transmittingDevice.isSource();
   }
 
   @Override

@@ -50,9 +50,4 @@ public abstract class AbstractDevice implements Device {
   public Map<String, String> getProperties() {
     return unmodifiableProperties;
   }
-
-  @Override
-  public boolean canTransmit() {
-    return false;
-  }
 }

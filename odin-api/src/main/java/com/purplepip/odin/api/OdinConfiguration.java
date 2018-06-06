@@ -19,7 +19,6 @@ import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.midix.MidiDeviceWrapper;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.operation.OperationHandler;
@@ -55,7 +54,6 @@ public class OdinConfiguration {
    * Create the MIDI device wrapper.
    *
    * @return MIDI device wrapper
-   * @throws OdinException exception
    */
   @Bean
   public MidiDeviceWrapper midiDeviceWrapper() {

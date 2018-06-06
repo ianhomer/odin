@@ -41,50 +41,30 @@ public class MidiPlayground {
       return;
     }
 
-    Receiver receiver = null;
-    try {
-      receiver = MidiSystem.getReceiver();
+    try (Receiver receiver = MidiSystem.getReceiver()) {
       LOG.info("Receiver : " + receiver);
       receiver.send(middleD, -1);
       receiver.send(middleDOff, -1);
       LOG.info("Sent note");
     } catch (MidiUnavailableException e) {
       LOG.error("Cannot get MIDI receiver", e);
-    } finally {
-      if (receiver != null) {
-        receiver.close();
-      }
     }
 
-    Transmitter transmitter = null;
-    try {
-      transmitter = MidiSystem.getTransmitter();
+    try (Transmitter transmitter = MidiSystem.getTransmitter()) {
       LOG.info("Transmitter : " + transmitter);
     } catch (MidiUnavailableException e) {
       LOG.error("Cannot get MIDI transmitter", e);
-    } finally {
-      if (transmitter != null) {
-        transmitter.close();
-      }
     }
 
 
-    Sequencer sequencer = null;
-    try {
-      sequencer = MidiSystem.getSequencer();
+    try (Sequencer sequencer = MidiSystem.getSequencer()) {
       sequencer.open();
       LOG.info("Sequencer : " + sequencer + " ; " + getDetails(sequencer));
     } catch (MidiUnavailableException e) {
       LOG.error("Cannot get MIDI sequencer", e);
-    } finally {
-      if (sequencer != null) {
-        sequencer.close();
-      }
     }
 
-    Synthesizer synthesizer = null;
-    try {
-      synthesizer = MidiSystem.getSynthesizer();
+    try (Synthesizer synthesizer = MidiSystem.getSynthesizer()) {
       LOG.info("Synthesizer : " + synthesizer + " ; " + getDetails(synthesizer));
       synthesizer.open();
       synthesizer.getReceiver().send(middleC, -1);
@@ -92,11 +72,6 @@ public class MidiPlayground {
       LOG.info("Sent notes to synthesizer");
     } catch (MidiUnavailableException e) {
       LOG.error("Cannot get MIDI synthesizer", e);
-    } finally {
-      if (synthesizer != null) {
-        synthesizer.close();
-      }
-
     }
 
     LOG.info("... stopping");
