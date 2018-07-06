@@ -147,8 +147,8 @@ public final class Rationals {
 
   static long floorNumerator(
       long numerator1, long denominator1, long numerator2, long denominator2) {
-    long product1 = numerator1 * numerator2;
-    long product2 = denominator2 * denominator1;
+    long product1 = numerator1 * denominator2;
+    long product2 =  numerator2 * denominator1;
     return product1 - (product1 % product2);
   }
 
