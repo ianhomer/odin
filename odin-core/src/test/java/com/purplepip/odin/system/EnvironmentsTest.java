@@ -31,6 +31,12 @@ import javax.sound.sampled.AudioSystem;
 import org.junit.Test;
 
 public class EnvironmentsTest {
+  @Test
+  public void testDump() {
+    Environment environment = Environments.newEnvironment();
+    environment.dump();
+    assertTrue(environment.devices().count() > 0);
+  }
 
   @Test
   public void testAudioEnvironmentWithAudioDisabled() {
