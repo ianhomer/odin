@@ -367,6 +367,7 @@
           <consoleOutput>true</consoleOutput>
           <logViolationsToConsole>true</logViolationsToConsole>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <violationSeverity>info</violationSeverity>
           <!--
               We only enforce main source directories and hence exclude
               generated sources
@@ -379,7 +380,7 @@
         <executions>
           <execution>
             <id>checkstyle-check</id>
-            <phase>compile</phase>
+            <phase>process-sources</phase>
             <goals>
               <goal>check</goal>
             </goals>
