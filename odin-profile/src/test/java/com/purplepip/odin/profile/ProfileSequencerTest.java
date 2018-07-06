@@ -39,10 +39,12 @@ public class ProfileSequencerTest {
 
     spinUp();
     TestSequencerEnvironment environment =
-        new TestSequencerEnvironment(operationReceiver, new GroovePerformance(),
+        new TestSequencerEnvironment(
+            operationReceiver,
+            new GroovePerformance(),
             deltaConfiguration().clockStartOffset(500_000));
     LOG.info("Sequence count : {}", environment.getContainer().getSequenceStream().count());
-    for (int i = 1 ; i < 3 ; i++) {
+    for (int i = 1; i < 3; i++) {
       environment.prepare();
       Profile.reset();
       environment.start();
@@ -51,7 +53,7 @@ public class ProfileSequencerTest {
       // BeatClock start running at : 5919978micros on local dev machine for
       // first execution... convert this into
       // hardware specific assertion and work to improve and assert lower.
-      LOG.info("Execution {} : \n{}", i , Profile.getReportAsString());
+      LOG.info("Execution {} : \n{}", i, Profile.getReportAsString());
       Profile.reset();
     }
 
@@ -59,10 +61,9 @@ public class ProfileSequencerTest {
   }
 
   private void spinUp() throws OdinException {
-    for (int i = 0; i < 100 ; i++) {
+    for (int i = 0; i < 100; i++) {
       TestSequencerEnvironment environment =
-          new TestSequencerEnvironment(
-              new LoggingOperationReceiver(), new GroovePerformance());
+          new TestSequencerEnvironment(new LoggingOperationReceiver(), new GroovePerformance());
       environment.prepare();
       environment.start();
       environment.stop();

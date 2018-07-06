@@ -38,33 +38,30 @@ public class Profile {
     return new MetricsReport(getMetrics()).toString();
   }
 
-  /**
-   * Report metrics.
-   */
+  /** Report metrics. */
   public static void report() {
-    final ConsoleReporter reporter = ConsoleReporter.forRegistry(getMetrics())
-        .convertRatesTo(TimeUnit.SECONDS)
-        .convertDurationsTo(TimeUnit.MILLISECONDS)
-        .build();
+    final ConsoleReporter reporter =
+        ConsoleReporter.forRegistry(getMetrics())
+            .convertRatesTo(TimeUnit.SECONDS)
+            .convertDurationsTo(TimeUnit.MILLISECONDS)
+            .build();
     reporter.report();
   }
 
-  /**
-   * Reset profiling.
-   */
+  /** Reset profiling. */
   public static void reset() {
     METRICS.removeMatching(MetricFilter.ALL);
     timeOverhead();
   }
 
   private static void spinUp() {
-    for (int i = 0 ; i < 10 ; i++) {
+    for (int i = 0; i < 10; i++) {
       timeOverhead();
     }
   }
 
   private static void timeOverhead() {
-    for (int i = 0 ; i < 10000 ; i++) {
+    for (int i = 0; i < 10000; i++) {
       Timer.Context context = Profile.getMetrics().timer("timer overhead").time();
       try {
         // Overhead of collecting statistics

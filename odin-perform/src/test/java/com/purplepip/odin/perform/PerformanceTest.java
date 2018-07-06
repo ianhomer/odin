@@ -80,13 +80,15 @@ public class PerformanceTest {
 
     // TODO : When we shift to Java 9 we can get more info from ProcessHandle including total CPU
     // duration
-    //System.getProperties().stringPropertyNames().forEach(name ->
+    // System.getProperties().stringPropertyNames().forEach(name ->
     //    LOG.info("{} = {}", name, System.getProperty(name))
-    //);
-    //System.getenv().forEach((key, value) -> LOG.info("env : {} = {}", key, value));
+    // );
+    // System.getenv().forEach((key, value) -> LOG.info("env : {} = {}", key, value));
     StringBuilder sb = new StringBuilder();
-    sb.append(System.getProperty("os.name", "OS")).append(' ')
-        .append(System.getProperty("os.arch", "CPU")).append(" x")
+    sb.append(System.getProperty("os.name", "OS"))
+        .append(' ')
+        .append(System.getProperty("os.arch", "CPU"))
+        .append(" x")
         .append(Runtime.getRuntime().availableProcessors());
     return sb.toString();
   }
@@ -101,8 +103,6 @@ public class PerformanceTest {
     testName = parameter.performance().getClass().getSimpleName();
   }
 
-
-
   @Test
   public void testPerformance() throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(parameter.operationCount());
@@ -112,7 +112,7 @@ public class PerformanceTest {
         new TestSequencerEnvironment(operationReceiver, parameter.performance());
 
     LOG.debug("Spinning up : {}", testName);
-    for (int i = 0 ; i < 200 ; i++) {
+    for (int i = 0; i < 200; i++) {
       environment.start();
       Thread.sleep(10);
       environment.shutdown();
@@ -129,24 +129,48 @@ public class PerformanceTest {
     MetricRegistry metrics = environment.getConfiguration().getMetrics();
     LOG.info("Metrics : {}\n{}", testName, new MetricsReport(metrics));
     LOG.info("Run time : {}ms\n", elapsed / 1_000_000, new MetricsReport(metrics));
-    parameter.names().forEach(name -> assertTimer(name, parameter.expect(name),
-        metrics.timer(name)));
+    parameter
+        .names()
+        .forEach(name -> assertTimer(name, parameter.expect(name), metrics.timer(name)));
   }
 
   private void assertTimer(String name, long expect, Timer timer) {
     long mean = (long) timer.getSnapshot().getMean();
     long maxAllowed = expect * LENIENCY_FACTOR * getEnvironmentalFactor();
     assertTrue(
-        mean < maxAllowed, () ->
-            testName + "(" + environmentDescription + ") : Timer " + name + " too slow : "
-                + mean + " > " + maxAllowed + " ; expected = " + expect);
+        mean < maxAllowed,
+        () ->
+            testName
+                + "("
+                + environmentDescription
+                + ") : Timer "
+                + name
+                + " too slow : "
+                + mean
+                + " > "
+                + maxAllowed
+                + " ; expected = "
+                + expect);
     long excellentThreshold = expect / EXCEL_FACTOR;
-    LOG.info("{} ({}) : Timer {} ; mean = {} ; expected = {} ; allowed = {}",
-        testName, environmentDescription, name, mean, expect, maxAllowed);
+    LOG.info(
+        "{} ({}) : Timer {} ; mean = {} ; expected = {} ; allowed = {}",
+        testName,
+        environmentDescription,
+        name,
+        mean,
+        expect,
+        maxAllowed);
     if (mean < excellentThreshold) {
-      LOG.info("{} ({}) : Timer {} much faster than expected {}, "
-          + " perhaps we can lower the assertion : "
-          + "{} < {}", testName, environmentDescription, name, expect, mean, excellentThreshold);
+      LOG.info(
+          "{} ({}) : Timer {} much faster than expected {}, "
+              + " perhaps we can lower the assertion : "
+              + "{} < {}",
+          testName,
+          environmentDescription,
+          name,
+          expect,
+          mean,
+          excellentThreshold);
     }
   }
 
@@ -158,17 +182,19 @@ public class PerformanceTest {
   @Parameterized.Parameters
   public static Iterable<PerformanceTestParameter> parameters() {
     Collection<PerformanceTestParameter> parameters = new ArrayList<>();
-    parameters.add(newParameter(new SimplePerformance())
-        .operationCount(12)
-        .expect("clock.prepare", 180_000)
-        .expect("clock.start", 20_000)
-        .expect("sequence.track.simple", 200_000));
-    parameters.add(newParameter(new GroovePerformance())
-        .operationCount(2_000)
-        .expect("clock.start", 800_000)
-        .expect("sequence.job", 400_000)
-        .expect("sequence.track.kick3", 20_000)
-        .expect("sequence.track.kick2", 14_000));
+    parameters.add(
+        newParameter(new SimplePerformance())
+            .operationCount(12)
+            .expect("clock.prepare", 180_000)
+            .expect("clock.start", 20_000)
+            .expect("sequence.track.simple", 200_000));
+    parameters.add(
+        newParameter(new GroovePerformance())
+            .operationCount(2_000)
+            .expect("clock.start", 800_000)
+            .expect("sequence.job", 400_000)
+            .expect("sequence.track.kick3", 20_000)
+            .expect("sequence.track.kick2", 14_000));
     return parameters;
   }
 
@@ -178,17 +204,11 @@ public class PerformanceTest {
 
   @Accessors(fluent = true)
   private static class PerformanceTestParameter {
-    @Getter
-    @Setter
-    private Performance performance;
+    @Getter @Setter private Performance performance;
 
-    @Setter
-    @Getter
-    private int operationCount = 100;
+    @Setter @Getter private int operationCount = 100;
 
-    /**
-     * Map of timer names and expected time in nanoseconds.
-     */
+    /** Map of timer names and expected time in nanoseconds. */
     private Map<String, Long> times = new HashMap<>();
 
     public PerformanceTestParameter expect(String name, long time) {
