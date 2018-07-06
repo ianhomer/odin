@@ -15,6 +15,9 @@
 
 package com.purplepip.odin.midix;
 
+import static com.purplepip.odin.system.Environments.newAudioEnvironment;
+
+import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.midi.RawMessage;
@@ -42,7 +45,7 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
   /**
    * Find instrument.
    *
-   * @param channel        channel
+   * @param channel channel
    * @param instrumentName instrument name
    * @return instrument
    * @throws OdinException exception
@@ -53,9 +56,12 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
     if (instrument == null) {
       throw new OdinException("Cannot find instrument " + instrumentName);
     }
-    LOG.debug("Instrument name {} resolves to {} bank {} program {}", instrumentName,
+    LOG.debug(
+        "Instrument name {} resolves to {} bank {} program {}",
+        instrumentName,
         instrument.getName(),
-        instrument.getPatch().getBank(), instrument.getPatch().getProgram());
+        instrument.getPatch().getBank(),
+        instrument.getPatch().getProgram());
     return instrument;
   }
 
@@ -81,10 +87,12 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
    */
   private void changeProgram(int channel, int bank, int program) {
     try {
-      getMidiDevice().getReceiver().send(
-          new RawMidiMessage(new RawMessage(
-              new ProgramChangeOperation(channel, bank, program)).getBytes()),
-          -1);
+      getMidiDevice()
+          .getReceiver()
+          .send(
+              new RawMidiMessage(
+                  new RawMessage(new ProgramChangeOperation(channel, bank, program)).getBytes()),
+              -1);
     } catch (MidiUnavailableException | OdinException e) {
       LOG.error("Cannot change synthesizer instruments", e);
     }
@@ -123,9 +131,7 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
     return instrument.toString().startsWith("Drumkit:");
   }
 
-  /**
-   * Log MIDI system instruments available.
-   */
+  /** Log MIDI system instruments available. */
   void logInstruments() {
     Instrument[] instruments = getMidiDevice().getLoadedInstruments();
     LOG.debug("Synthesizer info");
@@ -142,9 +148,17 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
     }
   }
 
+  protected void open() throws DeviceUnavailableException {
+    if (newAudioEnvironment().isEmpty()) {
+      LOG.warn("Cannot open synthesizer device when no mixers are available");
+      new AudioSystemWrapper().dump(true);
+    } else {
+      super.open();
+    }
+  }
+
   public boolean loadGervillSoundBank(String gervillSoundbankFilename) {
-    return
-        loadSoundBank(System.getProperty("user.home") + "/.gervill/" + gervillSoundbankFilename);
+    return loadSoundBank(System.getProperty("user.home") + "/.gervill/" + gervillSoundbankFilename);
   }
 
   /**
@@ -161,8 +175,7 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
     }
     boolean isOpenResult = isOpen();
     assert isOpenResult;
-    getMidiDevice().unloadAllInstruments(
-        getMidiDevice().getDefaultSoundbank());
+    getMidiDevice().unloadAllInstruments(getMidiDevice().getDefaultSoundbank());
     Soundbank soundbank;
     try {
       soundbank = MidiSystem.getSoundbank(file);
@@ -170,8 +183,7 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
       LOG.error("Cannot get soundbank", e);
       return false;
     }
-    getMidiDevice().unloadAllInstruments(
-        getMidiDevice().getDefaultSoundbank());
+    getMidiDevice().unloadAllInstruments(getMidiDevice().getDefaultSoundbank());
     boolean result = getMidiDevice().loadAllInstruments(soundbank);
     LOG.info("Loaded soundbank {} : {}", soundbank.getName(), result);
 
