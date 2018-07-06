@@ -367,6 +367,14 @@
           <consoleOutput>true</consoleOutput>
           <logViolationsToConsole>true</logViolationsToConsole>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <!--
+              We only enforce main source directories and hence exclude
+              generated sources
+              -->
+          <sourceDirectories>
+            <directory>${project.build.sourceDirectory}</directory>
+            <directory>${project.build.testSourceDirectory}</directory>
+          </sourceDirectories>
         </configuration>
         <executions>
           <execution>
