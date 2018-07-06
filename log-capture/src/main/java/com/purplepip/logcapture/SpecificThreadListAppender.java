@@ -30,9 +30,9 @@ public class SpecificThreadListAppender extends ListAppender<ILoggingEvent> {
   }
 
   @Override
-  protected void append(ILoggingEvent e) {
-    if (threadName.equals(e.getThreadName())) {
-      super.append(e);
+  protected void append(ILoggingEvent event) {
+    if (threadName.equals(event.getThreadName())) {
+      super.append(event);
     }
   }
 }

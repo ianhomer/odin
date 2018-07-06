@@ -40,8 +40,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles({"noServices", "noAuditing"})
 @ContextConfiguration(classes = Application.class)
 public class PersistablePerformanceContainerTest {
-  @Autowired
-  private PerformanceContainer container;
+  @Autowired private PerformanceContainer container;
 
   @Test
   public void testSetNonPersistablePerformance() {
@@ -54,14 +53,17 @@ public class PersistablePerformanceContainerTest {
     assertTrue(performance.getTriggers().iterator().next() instanceof PersistableThing);
     assertTrue(performance.getChannels().iterator().next() instanceof PersistableThing);
 
-    Optional<SequenceConfiguration> crashOptional = performance.getSequences().stream()
-        .filter(sequence -> "crash".equals(sequence.getName())).findFirst();
+    Optional<SequenceConfiguration> crashOptional =
+        performance
+            .getSequences()
+            .stream()
+            .filter(sequence -> "crash".equals(sequence.getName()))
+            .findFirst();
     assertTrue(crashOptional.isPresent());
     SequenceConfiguration crash = crashOptional.get();
     assertTrue(crash instanceof PersistableThing);
-    assertTrue("Tick should be a persistable tick",
-        crash.getTick() instanceof PersistableTick);
-    assertTrue("Some properties should exist in the crash sequence",
-        crash.getPropertyNames().count() > 0);
+    assertTrue("Tick should be a persistable tick", crash.getTick() instanceof PersistableTick);
+    assertTrue(
+        "Some properties should exist in the crash sequence", crash.getPropertyNames().count() > 0);
   }
 }

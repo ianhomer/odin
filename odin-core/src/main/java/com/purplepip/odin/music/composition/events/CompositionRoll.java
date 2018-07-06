@@ -107,7 +107,7 @@ public class CompositionRoll implements Roll {
     currentLoopStart = tock.floor(composition.getNumberOfBeats());
     position = 0;
     boolean foundNextEvent = false;
-    for (; position < events.size() ; position++) {
+    for (; position < events.size(); position++) {
       if (tock.lt(events.get(position).getTime())) {
         foundNextEvent = true;
         break;

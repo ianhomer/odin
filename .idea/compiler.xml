@@ -11,7 +11,6 @@
         <module name="log-capture" />
         <module name="logcapture" />
         <module name="odin-api" />
-        <module name="odin-checkstyle" />
         <module name="odin-core" />
         <module name="odin-frontend" />
         <module name="odin-perform" />
