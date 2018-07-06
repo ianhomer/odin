@@ -107,9 +107,13 @@ public class EventsCompositionBuilder {
   public EventsCompositionBuilder addNote(Note note) {
     beforeAddNote();
     Real remaining = currentMeasure.getNumberOfBeats().minus(positionInMeasure);
-    LOG.debug("Tock {} ; Measure {} ; Time {} ; Remaining {} ; Duration {}",
-        positionInComposition, positionInMeasure,
-        currentMeasure.getTime(), remaining, note.getDuration());
+    LOG.debug(
+        "Tock {} ; Measure {} ; Time {} ; Remaining {} ; Duration {}",
+        positionInComposition,
+        positionInMeasure,
+        currentMeasure.getTime(),
+        remaining,
+        note.getDuration());
     if (remaining.lt(note.getDuration())) {
       /*
        * If the note goes over the end of the current measure, then split the note in two so that
@@ -132,7 +136,7 @@ public class EventsCompositionBuilder {
    * @return composition
    */
   public EventsComposition create() {
-    for (int i = measures.size() ; i < minimumMeasures ; i++) {
+    for (int i = measures.size(); i < minimumMeasures; i++) {
       LOG.trace("Auto creating measure to reach minimum of {}", i);
       startMeasure();
     }

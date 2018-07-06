@@ -19,9 +19,7 @@ import com.purplepip.odin.common.OdinRuntimeException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Note name cache for the C0 to G10 for the MIDI numbers 0 to 127.
- */
+/** Note name cache for the C0 to G10 for the MIDI numbers 0 to 127. */
 public class NoteNameCache {
   private static final Map<Integer, String> sharpCache = new HashMap<>();
   private static final Map<Integer, String> flatCache = new HashMap<>();
@@ -82,10 +80,9 @@ public class NoteNameCache {
     }
   }
 
-
   static {
     for (Letter letter : Letter.values()) {
-      for (int octave = -1 ; octave < 10 ; octave ++) {
+      for (int octave = -1; octave < 10; octave++) {
         cache(letter, 0, octave);
         cacheIntonations(letter, octave);
       }
@@ -93,7 +90,7 @@ public class NoteNameCache {
   }
 
   /**
-   * Get note name for the given number.  Sharps are always used for the intonation.
+   * Get note name for the given number. Sharps are always used for the intonation.
    *
    * @param number note number
    * @return note name

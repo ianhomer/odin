@@ -18,18 +18,15 @@ package com.purplepip.odin.common;
 import com.google.common.base.Strings;
 import java.util.regex.Pattern;
 
-/**
- * Utility class to make strings prettier.
- */
+/** Utility class to make strings prettier. */
 public final class Pretty {
-  private Pretty() {
-  }
+  private Pretty() {}
 
   private static final int MAX_REPLACE = 7;
   private static final Pattern[] replaceTrailingZeros = new Pattern[MAX_REPLACE + 1];
 
   static {
-    for (int i = 0 ; i < MAX_REPLACE + 1; i++) {
+    for (int i = 0; i < MAX_REPLACE + 1; i++) {
       replaceTrailingZeros[i] = Pattern.compile("0{0," + i + "}$");
     }
   }
@@ -39,16 +36,16 @@ public final class Pretty {
   }
 
   /**
-   * Replace trailing zeros.  In log output (especially test ones) we have large numbers
-   * ending with quite a few zeros.  We will replace this so these zeros don't become noise.
+   * Replace trailing zeros. In log output (especially test ones) we have large numbers ending with
+   * quite a few zeros. We will replace this so these zeros don't become noise.
    *
    * @param s String to replace
    * @return replaced string
    */
   private static String replaceTrailingZeros(String s, int maxReplace) {
     if (maxReplace > MAX_REPLACE) {
-      throw new OdinRuntimeException("Max replace " + maxReplace + " must not be greater than "
-          + MAX_REPLACE);
+      throw new OdinRuntimeException(
+          "Max replace " + maxReplace + " must not be greater than " + MAX_REPLACE);
     } else if (maxReplace < 0) {
       throw new OdinRuntimeException("Max replace " + maxReplace + " must not be less than 0");
     }

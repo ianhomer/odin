@@ -15,9 +15,7 @@
 
 package com.purplepip.odin.math;
 
-/**
- * Whole numbers.
- */
+/** Whole numbers. */
 public final class Wholes {
   private static final int LOW_CACHE = -1;
   private static final int HIGH_CACHE = 10;
@@ -25,7 +23,7 @@ public final class Wholes {
 
   static {
     WHOLES_CACHE = new Whole[1 + Wholes.HIGH_CACHE - Wholes.LOW_CACHE];
-    for (int i = Wholes.LOW_CACHE; i <= Wholes.HIGH_CACHE ; i++) {
+    for (int i = Wholes.LOW_CACHE; i <= Wholes.HIGH_CACHE; i++) {
       Wholes.WHOLES_CACHE[i - Wholes.LOW_CACHE] = new ConcreteWhole(i);
     }
   }
@@ -42,8 +40,7 @@ public final class Wholes {
   public static final Whole EIGHT = valueOf(8);
   public static final Whole NINE = valueOf(9);
 
-  private Wholes() {
-  }
+  private Wholes() {}
 
   /**
    * Return whole for the given integer.

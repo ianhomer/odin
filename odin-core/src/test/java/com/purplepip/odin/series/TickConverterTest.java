@@ -17,9 +17,7 @@ import com.purplepip.odin.math.Wholes;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Time Unit Converter Test.
- */
+/** Time Unit Converter Test. */
 public class TickConverterTest {
   private BeatClock clock;
 
@@ -28,13 +26,18 @@ public class TickConverterTest {
     clock = newPrecisionBeatClock(120);
   }
 
-  private void assertConversion(BeatClock clock, Tick sourceTick, Tick targetTick,
-                                Rational offset, boolean duration, long... times) {
-    TickConverter converter = new DefaultTickConverter(
-        clock, () -> sourceTick, () -> targetTick, () -> offset);
+  private void assertConversion(
+      BeatClock clock,
+      Tick sourceTick,
+      Tick targetTick,
+      Rational offset,
+      boolean duration,
+      long... times) {
+    TickConverter converter =
+        new DefaultTickConverter(clock, () -> sourceTick, () -> targetTick, () -> offset);
     String label = (duration ? "duration" : "time") + " : ";
     int increment = (duration ? 3 : 2);
-    for (int i = 0 ; i < times.length ; i = i + increment) {
+    for (int i = 0; i < times.length; i = i + increment) {
       Real forward;
       Real back;
       Real forwardExpect;
@@ -43,8 +46,8 @@ public class TickConverterTest {
       if (duration) {
         forward = converter.convertDuration(Wholes.valueOf(times[i]), Wholes.valueOf(times[i + 1]));
         forwardExpect = Wholes.valueOf(times[i + 2]);
-        back = converter.convertDurationBack(Wholes.valueOf(times[i]),
-            Wholes.valueOf(times[i + 2]));
+        back =
+            converter.convertDurationBack(Wholes.valueOf(times[i]), Wholes.valueOf(times[i + 2]));
         backExpect = Wholes.valueOf(times[i + 1]);
       } else {
         forward = converter.convert(Wholes.valueOf(times[i]));
@@ -53,33 +56,31 @@ public class TickConverterTest {
         backExpect = Wholes.valueOf(times[i]);
       }
 
-      assertEquals(label + sourceTick + " to " + targetTick + " failed",
-          forwardExpect, forward);
-      assertEquals(label + targetTick + " back to " + sourceTick + " failed",
-          backExpect, back);
+      assertEquals(label + sourceTick + " to " + targetTick + " failed", forwardExpect, forward);
+      assertEquals(label + targetTick + " back to " + sourceTick + " failed", backExpect, back);
     }
   }
 
   @Test
   public void testConvertToMilliseconds() {
-    assertConversion(clock, BEAT, MILLISECOND, Wholes.ZERO, false, 1,500);
-    assertConversion(clock, BEAT, MILLISECOND, Wholes.ZERO, true, 100,1,500);
+    assertConversion(clock, BEAT, MILLISECOND, Wholes.ZERO, false, 1, 500);
+    assertConversion(clock, BEAT, MILLISECOND, Wholes.ZERO, true, 100, 1, 500);
   }
 
   @Test
   public void testConvertHalfBeatToMilliseconds() {
-    assertConversion(clock, HALF, MILLISECOND, Wholes.ZERO, false, 1,250);
+    assertConversion(clock, HALF, MILLISECOND, Wholes.ZERO, false, 1, 250);
   }
 
   @Test
   public void testConvertToMicroseconds() {
-    assertConversion(clock, BEAT, MICROSECOND, Wholes.ZERO,false, 1,500000);
-    assertConversion(clock, HALF, MICROSECOND, Wholes.ZERO,false, 1,250000);
+    assertConversion(clock, BEAT, MICROSECOND, Wholes.ZERO, false, 1, 500000);
+    assertConversion(clock, HALF, MICROSECOND, Wholes.ZERO, false, 1, 250000);
   }
 
   @Test
   public void testConvertToMicrosecondsWithOffset() {
-    assertConversion(clock, BEAT, MICROSECOND, Wholes.ONE, false, 1,1000000);
+    assertConversion(clock, BEAT, MICROSECOND, Wholes.ONE, false, 1, 1000000);
     assertConversion(clock, HALF, MICROSECOND, Wholes.ONE, false, 1, 500000);
   }
 

@@ -21,9 +21,7 @@ import java.util.List;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Rational numbers.
- */
+/** Rational numbers. */
 @Slf4j
 public final class Rationals {
   private static final int MAX_EGYPTIAN_FRACTIONS = 20;
@@ -36,27 +34,30 @@ public final class Rationals {
   public static final Rational THREE_QUARTERS = valueOf(3, 4);
   public static final Rational EIGTH = valueOf(1, 8);
 
-  private Rationals() {
-  }
+  private Rationals() {}
 
   /**
-   * Create Whole number.  Please use the Whole.valueOf method.  This only exists
-   * to prevent auto use of the valueOf with a double argument when an long is passed in.
+   * Create Whole number. Please use the Whole.valueOf method. This only exists to prevent auto use
+   * of the valueOf with a double argument when an long is passed in.
    *
    * @param integer integer to create the whole number from
    * @return whole number
    */
   public static Whole valueOf(long integer) {
     StackTraceElement stackTraceElement = new Exception().getStackTrace()[1];
-    LOG.warn("Please call 'Whole.valueOf({})' not 'Rational.valueOf({})' "
+    LOG.warn(
+        "Please call 'Whole.valueOf({})' not 'Rational.valueOf({})' "
             + "in {} @ line {} "
-            + "given you know at compile time you what a whole number", integer, integer,
-        stackTraceElement.getClassName(), stackTraceElement.getLineNumber());
+            + "given you know at compile time you what a whole number",
+        integer,
+        integer,
+        stackTraceElement.getClassName(),
+        stackTraceElement.getLineNumber());
     return Wholes.valueOf(integer);
   }
 
   /**
-   * Create a rational number from a given numerator and denominator.  Note a Whole number is
+   * Create a rational number from a given numerator and denominator. Note a Whole number is
    * returned if the numerator is multiple of the denominator.
    *
    * @param numerator numerator
@@ -68,7 +69,7 @@ public final class Rationals {
   }
 
   /**
-   * Create a rational number from a given numerator and denominator.  Note a Whole number is
+   * Create a rational number from a given numerator and denominator. Note a Whole number is
    * returned if the numerator is multiple of the denominator.
    *
    * @param numerator numerator
@@ -107,8 +108,7 @@ public final class Rationals {
       if (indexOfSeparator > -1) {
         String firstPart = value.substring(0, indexOfSeparator).trim();
         String secondPart = value.substring(indexOfSeparator + 1).trim();
-        return valueOf(Long.parseLong(firstPart),
-            Long.parseLong(secondPart));
+        return valueOf(Long.parseLong(firstPart), Long.parseLong(secondPart));
       }
       return Wholes.valueOf(Long.parseLong(value));
     } catch (NumberFormatException e) {
@@ -145,15 +145,15 @@ public final class Rationals {
     return new ConcreteRational(newNumerator, newDenominator, true);
   }
 
-  static long floorNumerator(long xNumerator, long xDenominator,
-                             long yNumerator, long yDenominator) {
-    long product1 = xNumerator * yDenominator;
-    long product2 = yNumerator * xDenominator;
+  static long floorNumerator(
+      long numerator1, long denominator1, long numerator2, long denominator2) {
+    long product1 = numerator1 * numerator2;
+    long product2 = denominator2 * denominator1;
     return product1 - (product1 % product2);
   }
 
-  static long floorDenominator(long xDenominator, long yDenominator) {
-    return xDenominator * yDenominator;
+  static long floorDenominator(long denominator1, long denominator2) {
+    return denominator1 * denominator2;
   }
 
   static Stream<Rational> getEgyptianFractions(Rational value, int maxIntegerPart) {
@@ -194,8 +194,8 @@ public final class Rationals {
       count++;
       lastDenominator++;
       if (remainder.getDenominator() % lastDenominator == 0) {
-        Rational floor = remainder.floor(Rationals.valueOf(1, lastDenominator,
-            value.isSimplified()));
+        Rational floor =
+            remainder.floor(Rationals.valueOf(1, lastDenominator, value.isSimplified()));
         remainder = remainder.minus(floor);
 
         /*
@@ -203,27 +203,33 @@ public final class Rationals {
          */
         count = count + (int) floor.getNumerator() - 1;
         for (int i = 1; i <= floor.getNumerator() && count <= MAX_EGYPTIAN_FRACTIONS; i++) {
-          Rational unitOfFloor = Rationals.valueOf(1, floor.getDenominator(),
-              value.isSimplified());
+          Rational unitOfFloor = Rationals.valueOf(1, floor.getDenominator(), value.isSimplified());
           addEgyptianFractionPart(egyptianFractions, unitOfFloor, isNegative);
         }
       }
     }
     if (count > MAX_EGYPTIAN_FRACTIONS) {
       throw new OdinRuntimeException(
-          "Overflow of " + count
-              + " when creating egyptian fractions for " + value + ".  Remainder = " + remainder);
+          "Overflow of "
+              + count
+              + " when creating egyptian fractions for "
+              + value
+              + ".  Remainder = "
+              + remainder);
     }
     if (!remainder.equals(Wholes.ZERO)) {
-      throw new OdinRuntimeException("Remainder, " + remainder.getDenominator()
-          + ", from egyptian fraction of "
-          + value + " is not zero");
+      throw new OdinRuntimeException(
+          "Remainder, "
+              + remainder.getDenominator()
+              + ", from egyptian fraction of "
+              + value
+              + " is not zero");
     }
     return egyptianFractions.stream();
   }
 
-  static void addEgyptianFractionPart(List<Rational> egyptianFractions,
-                                              Rational part, boolean isNegative) {
+  static void addEgyptianFractionPart(
+      List<Rational> egyptianFractions, Rational part, boolean isNegative) {
     if (isNegative) {
       egyptianFractions.add(part.negative());
     } else {

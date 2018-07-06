@@ -72,16 +72,20 @@ public class NotationFlowTest {
     flow.initialise();
     List<Event> events = new ArrayList<>();
     Real previousEventTime = Wholes.MINUS_ONE;
-    for (int i = 0; i < 10 ;i++) {
+    for (int i = 0; i < 10; i++) {
       Event event = flow.getNextEvent(new MovableTock(Ticks.BEAT, previousEventTime));
-      assertTrue("Event should be after previous one ; " + event.getTime()
-              + " is not greater than " + previousEventTime,
+      assertTrue(
+          "Event should be after previous one ; "
+              + event.getTime()
+              + " is not greater than "
+              + previousEventTime,
           event.getTime().gt(previousEventTime));
       events.add(event);
       previousEventTime = event.getTime();
     }
 
-    assertEquals("0=83--½;½=83--½;1=76--;2=79--;3=72--;4=83--½;4½=83--½;5=76--;6=79--;7=72--;",
+    assertEquals(
+        "0=83--½;½=83--½;1=76--;2=79--;3=72--;4=83--½;4½=83--½;5=76--;6=79--;7=72--;",
         new EventsListStringifier(events).toString());
   }
 }

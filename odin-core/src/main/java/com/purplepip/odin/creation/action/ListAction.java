@@ -27,9 +27,9 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Execute multiple actions in order.  This is special case of the ActionPlugin and is NOT
- * available explicitly in performance configuration, it is however used to store multiple
- * actions against one trigger.
+ * Execute multiple actions in order. This is special case of the ActionPlugin and is NOT available
+ * explicitly in performance configuration, it is however used to store multiple actions against one
+ * trigger.
  */
 @Slf4j
 @Name("start")
@@ -59,8 +59,8 @@ public class ListAction extends ActionPlugin {
   }
 
   /**
-   * Get map of multiple actions applied to a single trigger store as map of trigger actions.
-   * When a list plugin is loaded then this will be assimilated into a ListAction plugin.
+   * Get map of multiple actions applied to a single trigger store as map of trigger actions. When a
+   * list plugin is loaded then this will be assimilated into a ListAction plugin.
    *
    * @param trigger trigger name
    * @param actions multiple actions to be applied to a trigger
@@ -70,7 +70,7 @@ public class ListAction extends ActionPlugin {
       String trigger, ActionConfiguration... actions) {
     Map<String, ActionConfiguration> map = new HashMap<>();
     map.put(trigger, new GenericAction("list"));
-    for (int i = 0 ; i < actions.length ; i++) {
+    for (int i = 0; i < actions.length; i++) {
       map.put(LIST_ACTION_START + trigger + LIST_ACTION_INDEX + i, actions[i]);
     }
     return map;
@@ -87,12 +87,17 @@ public class ListAction extends ActionPlugin {
   public static ListAction asListAction(
       String trigger, Map<String, ActionConfiguration> actions, ActionFactory actionFactory) {
     List<Action> actionList = new ArrayList<>();
-    actions.keySet().stream().sorted().forEach(key -> {
-      String prefix = LIST_ACTION_START + trigger + LIST_ACTION_INDEX;
-      if (key.startsWith(prefix)) {
-        actionList.add(actionFactory.newInstance(actions.get(key)));
-      }
-    });
+    actions
+        .keySet()
+        .stream()
+        .sorted()
+        .forEach(
+            key -> {
+              String prefix = LIST_ACTION_START + trigger + LIST_ACTION_INDEX;
+              if (key.startsWith(prefix)) {
+                actionList.add(actionFactory.newInstance(actions.get(key)));
+              }
+            });
     return new ListAction(actionList);
   }
 }
