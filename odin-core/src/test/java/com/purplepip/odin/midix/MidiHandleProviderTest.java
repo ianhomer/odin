@@ -25,13 +25,13 @@ import org.junit.Test;
 
 public class MidiHandleProviderTest {
   @Test
-  public void shouldHandleStreamHaveGervill() {
+  public void shouldHandleStreamHaveSequencer() {
     MidiHandleProvider provider = new MidiHandleProvider(
-        asHandleList("Scarlet", "FluidSynth", "USB", "Gervill"),
+        asHandleList("Scarlet", "FluidSynth", "USB", "Real Time Sequencer"),
         asHandleList("Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL")
     );
     Optional<Handle> handle = provider.findOneSink();
     assertTrue(handle.isPresent());
-    assertEquals("Gervill", handle.get().getName());
+    assertEquals("Real Time Sequencer", handle.get().getName());
   }
 }
