@@ -17,7 +17,6 @@ package com.purplepip.odin.devices;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -30,8 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractHandleProvider implements HandleProvider {
   private final Comparator<Handle> sinkComparator;
   private final Comparator<Handle> sourceComparator;
-  private final Set<Handle> excludeSinks;
-  private final Set<Handle> excludeSources;
+  private final Set<String> excludeSinks;
+  private final Set<String> excludeSources;
 
   AbstractHandleProvider(
       List<Handle> prioritisedSinks,
@@ -55,8 +54,8 @@ public abstract class AbstractHandleProvider implements HandleProvider {
   ) {
     sinkComparator = new HandleComparator(prioritisedSinks);
     sourceComparator = new HandleComparator(prioritisedSources);
-    this.excludeSinks = new HashSet<>(excludeSinks);
-    this.excludeSources = new HashSet<>(excludeSources);
+    this.excludeSinks = excludeSinks.stream().map(Handle::getName).collect(Collectors.toSet());
+    this.excludeSources = excludeSources.stream().map(Handle::getName).collect(Collectors.toSet());
     LOG.debug("Created handle provider {} with excluded sinks {} and excluded sources {}",
         this, excludeSinks, excludeSources);
   }
@@ -83,7 +82,7 @@ public abstract class AbstractHandleProvider implements HandleProvider {
   @Override
   public SortedSet<Handle> getSinkHandles() {
     return asSinkSet(getHandleStream()
-        .filter(handle -> !excludeSinks.contains(handle))
+        .filter(handle -> !excludeSinks.contains(handle.getName()))
         .filter(Handle::isEnabled)
         .filter(Handle::isSink));
   }
@@ -91,7 +90,7 @@ public abstract class AbstractHandleProvider implements HandleProvider {
   @Override
   public SortedSet<Handle> getSourceHandles() {
     return asSourceSet(getHandleStream()
-        .filter(handle -> !excludeSources.contains(handle))
+        .filter(handle -> !excludeSources.contains(handle.getName()))
         .filter(Handle::isEnabled)
         .filter(Handle::isSource));
   }
