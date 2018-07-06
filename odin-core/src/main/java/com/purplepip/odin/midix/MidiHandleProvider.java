@@ -27,12 +27,17 @@ public class MidiHandleProvider extends AbstractHandleProvider {
   private static final Set<Class<? extends Handle>> HANDLE_CLASSES =
       Collections.singleton(MidiHandle.class);
 
-  public MidiHandleProvider(List<Handle> prioritisedHandles) {
-    super(prioritisedHandles, prioritisedHandles);
+  public MidiHandleProvider(List<Handle> prioritisedSinks,
+      List<Handle> prioritisedSources) {
+    this(prioritisedSinks, prioritisedSources,
+        Collections.emptySet(), Collections.emptySet());
   }
 
-  public MidiHandleProvider(List<Handle> prioritisedSinks, List<Handle> prioritisedSources) {
-    super(prioritisedSinks, prioritisedSources);
+  public MidiHandleProvider(List<Handle> prioritisedSinks,
+      List<Handle> prioritisedSources,
+      Set<Handle> excludeSinks,
+      Set<Handle> excludeSources) {
+    super(prioritisedSinks, prioritisedSources, excludeSinks, excludeSources);
   }
 
   @Override

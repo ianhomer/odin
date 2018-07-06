@@ -15,9 +15,6 @@
 
 package com.purplepip.odin.midix;
 
-import static com.purplepip.odin.system.Environments.newAudioEnvironment;
-
-import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.midi.RawMessage;
@@ -144,16 +141,6 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
       LOG.debug("Channels : {}", midiChannel.getProgram());
     }
   }
-
-  protected void open() throws DeviceUnavailableException {
-    if (newAudioEnvironment().isEmpty()) {
-      LOG.warn("Cannot open synthesizer device when no mixers are available");
-      new AudioSystemWrapper().dump(true);
-    } else {
-      super.open();
-    }
-  }
-
 
   public boolean loadGervillSoundBank(String gervillSoundbankFilename) {
     return

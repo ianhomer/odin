@@ -17,22 +17,48 @@ package com.purplepip.odin.devices;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public abstract class AbstractHandleProvider implements HandleProvider {
   private final Comparator<Handle> sinkComparator;
   private final Comparator<Handle> sourceComparator;
+  private final Set<Handle> excludeSinks;
+  private final Set<Handle> excludeSources;
 
+  AbstractHandleProvider(
+      List<Handle> prioritisedSinks,
+      List<Handle> prioritisedSources) {
+    this(prioritisedSinks, prioritisedSources, Collections.emptySet(), Collections.emptySet());
+  }
+
+  /**
+   * Create abstract handle provider.
+   *
+   * @param prioritisedSinks prioritised list of sinks
+   * @param prioritisedSources prioritised list of sources
+   * @param excludeSinks sinks to be excluded
+   * @param excludeSources sources to be excluded
+   */
   public AbstractHandleProvider(
       List<Handle> prioritisedSinks,
-      List<Handle> prioritisedSources
+      List<Handle> prioritisedSources,
+      Set<Handle> excludeSinks,
+      Set<Handle> excludeSources
   ) {
     sinkComparator = new HandleComparator(prioritisedSinks);
     sourceComparator = new HandleComparator(prioritisedSources);
+    this.excludeSinks = new HashSet<>(excludeSinks);
+    this.excludeSources = new HashSet<>(excludeSources);
+    LOG.debug("Created handle provider {} with excluded sinks {} and excluded sources {}",
+        this, excludeSinks, excludeSources);
   }
 
 
@@ -57,6 +83,7 @@ public abstract class AbstractHandleProvider implements HandleProvider {
   @Override
   public SortedSet<Handle> getSinkHandles() {
     return asSinkSet(getHandleStream()
+        .filter(handle -> !excludeSinks.contains(handle))
         .filter(Handle::isEnabled)
         .filter(Handle::isSink));
   }
@@ -64,6 +91,7 @@ public abstract class AbstractHandleProvider implements HandleProvider {
   @Override
   public SortedSet<Handle> getSourceHandles() {
     return asSourceSet(getHandleStream()
+        .filter(handle -> !excludeSources.contains(handle))
         .filter(Handle::isEnabled)
         .filter(Handle::isSource));
   }

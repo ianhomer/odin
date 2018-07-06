@@ -16,13 +16,17 @@
 package com.purplepip.odin.system;
 
 import static com.purplepip.odin.devices.NamedHandle.asHandleList;
+import static com.purplepip.odin.devices.NamedHandle.asHandleSet;
 
 import com.purplepip.odin.audio.AudioHandleProvider;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.HandleProvider;
 import com.purplepip.odin.midix.MidiHandleProvider;
+import java.util.Collections;
 import java.util.stream.Stream;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public final class Environments {
   private Environments() {
   }
@@ -36,7 +40,7 @@ public final class Environments {
   public static Environment newEnvironment(Container container) {
     return new Environment(
         withAudioHandleProvider(container, Stream.builder())
-            .add(newMidiHandleProvider())
+            .add(newMidiHandleProvider(container))
             .build()
     );
   }
@@ -66,14 +70,16 @@ public final class Environments {
    */
   public static Environment newMidiEnvironment() {
     return new Environment(
-        newMidiHandleProvider()
+        newMidiHandleProvider(SystemContainer.getContainer())
     );
   }
 
-  private static MidiHandleProvider newMidiHandleProvider() {
+  private static MidiHandleProvider newMidiHandleProvider(Container container) {
     return new MidiHandleProvider(
         asHandleList("Scarlet", "FluidSynth", "USB", "Gervill"),
-        asHandleList("Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL")
+        asHandleList("Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL"),
+        container.isAudioEnabled() ? Collections.emptySet() : asHandleSet("Gervill"),
+        Collections.emptySet()
     );
   }
 

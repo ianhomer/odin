@@ -16,6 +16,7 @@
 package com.purplepip.odin.devices;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.ToString;
@@ -34,6 +35,10 @@ public class NamedHandle extends AbstractHandle {
 
   public static List<Handle> asHandleList(String... names) {
     return Stream.of(names).map(NamedHandle::new).collect(Collectors.toList());
+  }
+
+  public static Set<Handle> asHandleSet(String... names) {
+    return Stream.of(names).map(NamedHandle::new).collect(Collectors.toSet());
   }
 
   public NamedHandle(String name) {
