@@ -43,11 +43,6 @@ public class AudioDevice extends AbstractDevice {
   }
 
   @Override
-  public void close() {
-    // No operation necessary for close
-  }
-
-  @Override
   public boolean isOpen() {
     return true;
   }

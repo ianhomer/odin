@@ -66,9 +66,4 @@ public class MidiHandle extends AbstractHandle<MidiDevice> {
       throw new DeviceUnavailableException(e);
     }
   }
-
-  @Override
-  public String toString() {
-    return getVendor() + " " + getName();
-  }
 }

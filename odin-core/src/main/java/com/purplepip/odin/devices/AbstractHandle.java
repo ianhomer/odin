@@ -28,8 +28,8 @@ public abstract class AbstractHandle<D extends Device> implements Handle<D> {
 
   protected void initialise() {
     boolean error = false;
-    try {
-      D device = open();
+    LOG.trace("Initialising {}", this);
+    try (D device = open()) {
       sink = device.isSink();
       source = device.isSource();
       deviceClass = device.getClass();
@@ -40,6 +40,7 @@ public abstract class AbstractHandle<D extends Device> implements Handle<D> {
       source = false;
     }
     enabled = !error;
+    LOG.trace("Initialised {}", this);
   }
 
   @Override
@@ -60,5 +61,10 @@ public abstract class AbstractHandle<D extends Device> implements Handle<D> {
   @Override
   public Class<? extends Device> getDeviceClass() {
     return deviceClass;
+  }
+
+  @Override
+  public String toString() {
+    return getVendor() + " " + getName();
   }
 }

@@ -49,10 +49,7 @@ public class MidiDevice extends AbstractDevice
     return handle;
   }
 
-  @Override
-  public void close() {
-    device.close();
-  }
+
 
   @Override
   public boolean isOpen() {
@@ -113,6 +110,11 @@ public class MidiDevice extends AbstractDevice
         }
       }
     }
+  }
+
+  @Override
+  protected void deviceClose() {
+    device.close();
   }
 
   @Override

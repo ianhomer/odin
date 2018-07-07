@@ -18,8 +18,13 @@ package com.purplepip.odin.devices;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public abstract class AbstractDevice implements Device {
+  private final ExecutorService executor = Executors.newSingleThreadExecutor();
   private final Map<String, String> properties = new LinkedHashMap<>();
   private final Map<String, String> unmodifiableProperties =
       Collections.unmodifiableMap(properties);
@@ -49,5 +54,26 @@ public abstract class AbstractDevice implements Device {
 
   public Map<String, String> getProperties() {
     return unmodifiableProperties;
+  }
+
+  @Override
+  public void close() {
+    // Closing a device takes a few seconds, so we make this asynchronous
+    LOG.trace("Requesting closure of device {}", getHandle());
+    executor.submit(() -> {
+      long start = System.currentTimeMillis();
+      LOG.trace("Closing device {}", getHandle());
+      deviceClose();
+      long delta = System.currentTimeMillis() - start;
+      LOG.trace("Closed device {} in {}ms", getHandle(), delta);
+      if (delta > 2) {
+        LOG.debug("Slow closure of device {} in {}ms", getHandle(), delta);
+      }
+    });
+    LOG.trace("Requested closure of device {}", getHandle());
+  }
+
+  protected void deviceClose() {
+    // No operation by default
   }
 }

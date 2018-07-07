@@ -17,7 +17,7 @@ package com.purplepip.odin.devices;
 
 import java.util.Map;
 
-public interface Device {
+public interface Device extends AutoCloseable {
   Map<String, String> getProperties();
 
   String getName();
