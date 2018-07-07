@@ -70,7 +70,7 @@ public class SynthesizerDeviceTest {
   @Test
   public void testLogInstruments() {
     try (LogCaptor captor = new LogCapture().debug().from(SynthesizerDevice.class).start()) {
-      new MidiDeviceWrapper().getSynthesizer().logInstruments();
+      synthesizerDevice.logInstruments();
       assertTrue("Not enough messages logged", captor.size() > 10);
     }
   }
