@@ -27,17 +27,15 @@ public class MidiHandleProvider extends AbstractHandleProvider {
   private static final Set<Class<? extends Handle>> HANDLE_CLASSES =
       Collections.singleton(MidiHandle.class);
 
-  public MidiHandleProvider(List<Handle> prioritisedSinks,
-      List<Handle> prioritisedSources) {
-    this(prioritisedSinks, prioritisedSources,
-        Collections.emptySet(), Collections.emptySet());
+  public MidiHandleProvider(List<Handle> prioritisedSinks, List<Handle> prioritisedSources) {
+    this(prioritisedSinks, prioritisedSources, Collections.emptySet());
   }
 
-  public MidiHandleProvider(List<Handle> prioritisedSinks,
+  public MidiHandleProvider(
+      List<Handle> prioritisedSinks,
       List<Handle> prioritisedSources,
-      Set<Handle> excludeSinks,
-      Set<Handle> excludeSources) {
-    super(prioritisedSinks, prioritisedSources, excludeSinks, excludeSources);
+      Set<Handle> excludes) {
+    super(prioritisedSinks, prioritisedSources, excludes);
   }
 
   @Override
@@ -47,6 +45,9 @@ public class MidiHandleProvider extends AbstractHandleProvider {
 
   @Override
   protected Stream<Handle> getHandleStream() {
-    return Stream.of(MidiSystem.getMidiDeviceInfo()).map(MidiHandle::new);
+    return Stream.of(MidiSystem.getMidiDeviceInfo())
+        // Filter sinks by name early, to prevent unnecessary initialisation
+        .filter(info -> includeByName(info.getName()))
+        .map(MidiHandle::new);
   }
 }

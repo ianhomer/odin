@@ -19,9 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-/**
- * A provider that gives handles on to devices.
- */
+/** A provider that gives handles on to devices. */
 public interface HandleProvider {
   /**
    * Handle classes that this handle provider can return.
@@ -30,18 +28,32 @@ public interface HandleProvider {
    */
   Set<Class<? extends Handle>> getHandleClasses();
 
-  /**
-   * Get sink handles for this provider, i.e. handles for devices that can consume events
-   */
+  /** Get sink handles for this provider, i.e. handles for devices that can consume events */
   Set<Handle> getSinkHandles();
 
-  /**
-   * Get source handles for this provider, i.e. handles for devices that can provide events.
-   */
+  /** Get source handles for this provider, i.e. handles for devices that can provide events. */
   Set<Handle> getSourceHandles();
 
   default Optional<Handle> findOneSink() {
     return getSinkHandles().stream().findFirst();
+  }
+
+  /**
+   * Find first sink by class.
+   *
+   * @param deviceClass device class to match device of returned handle
+   * @return first sink handle referencing device of the given device class
+   */
+  default Optional<Handle> findFirstSinkByClass(Class<? extends Device> deviceClass) {
+    return getSinkHandles()
+        .stream()
+        .filter(handle -> deviceClass.equals(handle.getDeviceClass()))
+        .findFirst();
+  }
+
+  default Handle findFirstSinkByClassOrElseThrow(Class<? extends Device> deviceClass)
+      throws DeviceUnavailableException {
+    return findFirstSinkByClass(deviceClass).orElseThrow(DeviceUnavailableException::new);
   }
 
   default Stream<Handle> findAllSinks() {

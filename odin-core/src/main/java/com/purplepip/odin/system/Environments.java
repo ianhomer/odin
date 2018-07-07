@@ -15,14 +15,11 @@
 
 package com.purplepip.odin.system;
 
-import static com.purplepip.odin.devices.NamedHandle.asHandleList;
-import static com.purplepip.odin.devices.NamedHandle.asHandleSet;
+import static com.purplepip.odin.system.MidiHandleProviders.newMidiHandleProvider;
 
 import com.purplepip.odin.audio.AudioHandleProvider;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.devices.HandleProvider;
-import com.purplepip.odin.midix.MidiHandleProvider;
-import java.util.Collections;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +37,7 @@ public final class Environments {
   public static Environment newEnvironment(Container container) {
     return new Environment(
         withAudioHandleProvider(container, Stream.builder())
-            .add(newMidiHandleProvider(container))
+            .add(newMidiHandleProvider(isAudioEnabled(container)))
             .build()
     );
   }
@@ -70,18 +67,7 @@ public final class Environments {
    */
   public static Environment newMidiEnvironment() {
     return new Environment(
-        newMidiHandleProvider(SystemContainer.getContainer())
-    );
-  }
-
-  private static MidiHandleProvider newMidiHandleProvider(Container container) {
-    return new MidiHandleProvider(
-        asHandleList("Scarlet", "FluidSynth", "USB", "Gervill"),
-        asHandleList("Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL"),
-        // Exclude synthesizer if no audio handles present
-        newAudioEnvironment(container).isEmpty()
-            ? asHandleSet("Gervill") : Collections.emptySet(),
-        Collections.emptySet()
+        newMidiHandleProvider(isAudioEnabled())
     );
   }
 
@@ -92,5 +78,13 @@ public final class Environments {
 
   public static Environment newAudioEnvironment() {
     return newAudioEnvironment(SystemContainer.getContainer());
+  }
+
+  public static boolean isAudioEnabled() {
+    return isAudioEnabled(SystemContainer.getContainer());
+  }
+
+  public static boolean isAudioEnabled(Container container) {
+    return !newAudioEnvironment(container).isEmpty();
   }
 }

@@ -27,6 +27,8 @@ public interface Handle<D extends Device> {
 
   String getType();
 
+  Class<? extends Device> getDeviceClass();
+
   D open() throws DeviceUnavailableException;
 
   boolean isEnabled();

@@ -24,6 +24,7 @@ public class MockHandle implements Handle<MockDevice> {
   private final boolean source;
   private final boolean enabled;
   private final boolean openOk;
+  private final Class<? extends Device> deviceClass = MockDevice.class;
 
   /**
    * Create mock handle.
@@ -84,5 +85,10 @@ public class MockHandle implements Handle<MockDevice> {
   @Override
   public boolean isSource() {
     return source;
+  }
+
+  @Override
+  public Class<? extends Device> getDeviceClass() {
+    return deviceClass;
   }
 }

@@ -29,13 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractHandleProvider implements HandleProvider {
   private final Comparator<Handle> sinkComparator;
   private final Comparator<Handle> sourceComparator;
-  private final Set<String> excludeSinks;
-  private final Set<String> excludeSources;
+  private final Set<String> excludes;
 
   AbstractHandleProvider(
       List<Handle> prioritisedSinks,
       List<Handle> prioritisedSources) {
-    this(prioritisedSinks, prioritisedSources, Collections.emptySet(), Collections.emptySet());
+    this(prioritisedSinks, prioritisedSources, Collections.emptySet());
   }
 
   /**
@@ -43,21 +42,18 @@ public abstract class AbstractHandleProvider implements HandleProvider {
    *
    * @param prioritisedSinks prioritised list of sinks
    * @param prioritisedSources prioritised list of sources
-   * @param excludeSinks sinks to be excluded
-   * @param excludeSources sources to be excluded
+   * @param excludes handles to be excluded
    */
   public AbstractHandleProvider(
       List<Handle> prioritisedSinks,
       List<Handle> prioritisedSources,
-      Set<Handle> excludeSinks,
-      Set<Handle> excludeSources
+      Set<Handle> excludes
   ) {
     sinkComparator = new HandleComparator(prioritisedSinks);
     sourceComparator = new HandleComparator(prioritisedSources);
-    this.excludeSinks = excludeSinks.stream().map(Handle::getName).collect(Collectors.toSet());
-    this.excludeSources = excludeSources.stream().map(Handle::getName).collect(Collectors.toSet());
-    LOG.debug("Created handle provider {} with excluded sinks {} and excluded sources {}",
-        this, excludeSinks, excludeSources);
+    this.excludes = excludes.stream().map(Handle::getName).collect(Collectors.toSet());
+    LOG.debug("Created handle provider {} with excluded handles {}",
+        this, this.excludes);
   }
 
 
@@ -82,15 +78,19 @@ public abstract class AbstractHandleProvider implements HandleProvider {
   @Override
   public SortedSet<Handle> getSinkHandles() {
     return asSinkSet(getHandleStream()
-        .filter(handle -> !excludeSinks.contains(handle.getName()))
+        .filter(handle -> includeByName(handle.getName()))
         .filter(Handle::isEnabled)
         .filter(Handle::isSink));
+  }
+
+  protected boolean includeByName(String name) {
+    return !excludes.contains(name);
   }
 
   @Override
   public SortedSet<Handle> getSourceHandles() {
     return asSourceSet(getHandleStream()
-        .filter(handle -> !excludeSources.contains(handle.getName()))
+        .filter(handle -> includeByName(handle.getName()))
         .filter(Handle::isEnabled)
         .filter(Handle::isSource));
   }

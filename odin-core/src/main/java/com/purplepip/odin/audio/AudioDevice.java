@@ -78,7 +78,7 @@ public class AudioDevice extends AbstractDevice {
         try {
           sb.append("source port : ").append(lineInfo).append(newLine);
           if (line instanceof Clip) {
-            LOG.debug("Not opening Clip line");
+            LOG.trace("Not opening Clip line");
           } else {
             line.open();
             for (Control control : line.getControls()) {

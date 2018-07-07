@@ -24,19 +24,22 @@ public abstract class AbstractHandle<D extends Device> implements Handle<D> {
   private boolean sink;
   private boolean source;
   private boolean enabled;
+  private Class<? extends Device> deviceClass;
 
   protected void initialise() {
-    D device = null;
     boolean error = false;
     try {
-      device = open();
+      D device = open();
+      sink = device.isSink();
+      source = device.isSource();
+      deviceClass = device.getClass();
     } catch (DeviceUnavailableException e) {
       LOG.warn("Cannot open device to initialise handle", e);
       error = true;
+      sink = false;
+      source = false;
     }
     enabled = !error;
-    sink = device != null && device.isSink();
-    source = device != null && device.isSource();
   }
 
   @Override
@@ -52,5 +55,10 @@ public abstract class AbstractHandle<D extends Device> implements Handle<D> {
   @Override
   public boolean isEnabled() {
     return enabled;
+  }
+
+  @Override
+  public Class<? extends Device> getDeviceClass() {
+    return deviceClass;
   }
 }
