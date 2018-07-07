@@ -150,7 +150,8 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
 
   protected void open() throws DeviceUnavailableException {
     if (newAudioEnvironment().isEmpty()) {
-      LOG.warn("Cannot open synthesizer device {} when no audio handles are available", getHandle());
+      LOG.warn(
+          "Cannot open synthesizer device {} when no audio handles are available", getHandle());
       new AudioSystemWrapper().dump(true);
     } else {
       super.open();
