@@ -76,6 +76,10 @@ public class MidiDevice extends AbstractDevice
     return device;
   }
 
+  public Transmitter getTransmitter() throws MidiUnavailableException {
+    return device.getTransmitter();
+  }
+
   @Override
   protected void initialise() {
     setProperty("microsecond.position", device.getMicrosecondPosition());

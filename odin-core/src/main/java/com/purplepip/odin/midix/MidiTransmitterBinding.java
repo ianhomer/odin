@@ -41,7 +41,7 @@ public class MidiTransmitterBinding implements  AutoCloseable {
           + " since it is not a source");
     }
     try {
-      Transmitter transmitter = device.getMidiDevice().getTransmitter();
+      Transmitter transmitter = device.getTransmitter();
       transmitters.add(transmitter);
       Receiver receiver = new MidiInputReceiver(operationTransmitter, device);
       receivers.add(receiver);

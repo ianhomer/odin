@@ -15,8 +15,11 @@
 
 package com.purplepip.odin.experiments;
 
-import com.purplepip.odin.midix.MidiDeviceWrapper;
-import com.purplepip.odin.operation.OperationHandler;
+import static com.purplepip.odin.system.Environments.newEnvironment;
+
+import com.purplepip.odin.devices.DeviceUnavailableException;
+import com.purplepip.odin.midix.MidiDevice;
+import com.purplepip.odin.midix.MidiHandle;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import javax.sound.midi.MidiMessage;
@@ -27,35 +30,25 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MidiReceiverExperiment {
-  public static void main(String[] args) throws InterruptedException, MidiUnavailableException {
+  public static void main(String[] args)
+      throws InterruptedException, MidiUnavailableException, DeviceUnavailableException {
     MidiReceiverExperiment experiment = new MidiReceiverExperiment();
     experiment.doExperiment();
   }
 
-  private void doExperiment() throws InterruptedException, MidiUnavailableException {
+  private void doExperiment()
+      throws InterruptedException, MidiUnavailableException, DeviceUnavailableException {
     LOG.debug("running experiment");
     final CountDownLatch lock = new CountDownLatch(100);
 
-    OperationHandler operationReceiver = (operation, time) -> {
-      lock.countDown();
-      LOG.info("Received operation {}", operation);
-    };
-
-    try (MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper()) {
-      if (midiDeviceWrapper.canTransmit()) {
-        try (Transmitter transmitter = midiDeviceWrapper.getTransmittingDevice()
-            .getMidiDevice().getTransmitter()) {
-          transmitter.setReceiver(
-              new LoggingInputReceiver(
-                  midiDeviceWrapper.getTransmittingDevice().toString()));
-          try {
-            lock.await(20000, TimeUnit.MILLISECONDS);
-          } finally {
-            LOG.debug("... stopping experiment");
-          }
+    try (MidiDevice source = newEnvironment().findOneSourceOrThrow(MidiHandle.class)) {
+      try (Transmitter transmitter = source.getTransmitter()) {
+        transmitter.setReceiver(new LoggingInputReceiver(transmitter.toString()));
+        try {
+          lock.await(20000, TimeUnit.MILLISECONDS);
+        } finally {
+          LOG.debug("... stopping experiment");
         }
-      } else {
-        LOG.debug("Device does not support transmitting");
       }
     }
   }
