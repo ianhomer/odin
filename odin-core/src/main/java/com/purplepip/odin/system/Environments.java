@@ -78,7 +78,9 @@ public final class Environments {
     return new MidiHandleProvider(
         asHandleList("Scarlet", "FluidSynth", "USB", "Gervill"),
         asHandleList("Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL"),
-        container.isAudioEnabled() ? Collections.emptySet() : asHandleSet("Gervill"),
+        // Exclude synthesizer if no audio handles present
+        newAudioEnvironment(container).isEmpty()
+            ? asHandleSet("Gervill") : Collections.emptySet(),
         Collections.emptySet()
     );
   }
