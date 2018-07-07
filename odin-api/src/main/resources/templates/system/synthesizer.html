@@ -9,13 +9,18 @@
 <div layout:fragment="content">
   <table>
     <h1>Instruments</h1>
-    <th:block th:each="instrument : ${midiDevice.receivingDevice.midiDevice.loadedInstruments}">
-      <tr>
-        <td th:text="${instrument.patch.bank}"/>
-        <td th:text="${instrument.patch.program}"/>
-        <td th:text="${instrument.name}"/>
-      </tr>
-    </th:block>
+    <div th:switch="${midiDevice.isSynthesizer()}">
+      <div th:case="true">
+        <th:block th:each="instrument : ${midiDevice.receivingDevice.midiDevice.loadedInstruments}">
+          <tr>
+            <td th:text="${instrument.patch.bank}"/>
+            <td th:text="${instrument.patch.program}"/>
+            <td th:text="${instrument.name}"/>
+          </tr>
+        </th:block>
+      </div>
+      <div th:case="false">No Synthesizer is available</div>
+    </div>
   </table>
 </div>
 </body>
