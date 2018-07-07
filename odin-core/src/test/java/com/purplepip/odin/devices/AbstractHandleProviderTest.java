@@ -72,7 +72,7 @@ public class AbstractHandleProviderTest {
 
     Stream<Handle> handles = handleProvider.findAllSinks();
     assertEquals(5, handles.count());
-    LOG.info("All sinks {}", handleProvider.findAllSinks().collect(Collectors.toList()));
+    LOG.debug("All sinks {}", handleProvider.findAllSinks().collect(Collectors.toList()));
     Optional<Handle> sink = handleProvider.findOneSink();
     assertTrue(sink.isPresent());
     assertEquals("Sink not correct", "TFTCCC", sink.get().getName());
