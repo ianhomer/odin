@@ -88,7 +88,7 @@ public class MidiDeviceWrapper implements AutoCloseable, PerformanceListener {
   }
 
   public SynthesizerDevice getSynthesizer() {
-    return (SynthesizerDevice) receivingDevice;
+    return isSynthesizer() ? (SynthesizerDevice) receivingDevice : null;
   }
 
   public boolean canTransmit() {
