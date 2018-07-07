@@ -25,6 +25,9 @@ import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
+import com.purplepip.odin.devices.DeviceUnavailableException;
+import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.system.Environments;
 import javax.sound.midi.Instrument;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,10 +39,10 @@ public class SynthesizerDeviceTest {
    * Set up test.
    */
   @Before
-  public void setUp() {
+  public void setUp() throws DeviceUnavailableException {
     assumeTrue(!newAudioEnvironment().isEmpty());
-    MidiDeviceWrapper wrapper = new MidiDeviceWrapper();
-    synthesizerDevice = wrapper.getSynthesizer();
+    Environment environment = Environments.newEnvironment();
+    synthesizerDevice = (SynthesizerDevice) environment.findOneSinkOrThrow(MidiHandle.class);
     assumeTrue(synthesizerDevice.isOpen());
   }
 
