@@ -139,10 +139,26 @@ public class ThingCopy {
       return this;
     }
 
+    /**
+     * Copy thing configuration.
+     */
+    public void copy() {
+      if (!source.arePropertiesDeclared()) {
+        copyFromGenericSource();
+      } else {
+        if (!destination.arePropertiesDeclared()) {
+          copySpecificToGeneric();
+        } else {
+          LOG.trace("No configuration conversation required from specific to specific");
+        }
+      }
+    }
+
     /*
      * Copy from generic source
      */
     private void copyFromGenericSource() {
+      LOG.trace("Copying generic to specific");
       if (destination.arePropertiesDeclared()) {
         if (!(destination instanceof MutablePropertiesProvider)) {
           if (source.hasProperties()) {
@@ -178,24 +194,8 @@ public class ThingCopy {
       }
     }
 
-    /**
-     * Copy thing configuration.
-     */
-    public void copy() {
-      if (!source.arePropertiesDeclared()) {
-        copyFromGenericSource();
-      } else {
-        if (!destination.arePropertiesDeclared()) {
-          LOG.trace("Copying specific to generic");
-          copySpecificToGeneric();
-        } else {
-          LOG.trace("Copying specific to specific");
-          LOG.warn("Pointless call of copy of specific {} to specific {}", source, destination);
-        }
-      }
-    }
-
     private void copySpecificToGeneric() {
+      LOG.trace("Copying specific to generic");
       /*
        * Copy specific to generic.  This involves copying the declared properties to
        * the generic properties map.
