@@ -25,7 +25,7 @@ import javax.sound.midi.Transmitter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class MidiTransmitterBinding {
+public class MidiTransmitterBinding implements  AutoCloseable {
   private List<Transmitter> transmitters = new ArrayList<>();
   private List<Receiver> receivers = new ArrayList<>();
 

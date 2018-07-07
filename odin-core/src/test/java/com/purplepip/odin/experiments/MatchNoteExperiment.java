@@ -17,6 +17,7 @@ package com.purplepip.odin.experiments;
 
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
+import com.purplepip.odin.boot.SimpleMidiApplication;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
@@ -25,7 +26,7 @@ import com.purplepip.odin.creation.action.InitialiseAction;
 import com.purplepip.odin.creation.action.StartAction;
 import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.SequenceStartTrigger;
-import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Random;
@@ -34,24 +35,21 @@ import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.BeanyPerformanceBuilder;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
-import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
-import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MatchNoteExperiment {
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException, DeviceUnavailableException {
     MatchNoteExperiment experiment = new MatchNoteExperiment();
     experiment.doExperiment();
   }
 
 
-  private void doExperiment() throws InterruptedException {
+  private void doExperiment() throws InterruptedException, DeviceUnavailableException {
     final CountDownLatch lock = new CountDownLatch(800);
 
     OperationHandler operationReceiver = (operation, time) -> {
@@ -60,27 +58,23 @@ public class MatchNoteExperiment {
 
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
-    MidiDeviceWrapper midiDeviceWrapper = new MidiDeviceWrapper();
-
-    MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
-    OperationTransmitter transmitter = new DefaultOperationTransmitter();
-    midiDeviceWrapper.registerWithTransmitter(transmitter);
-    OdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
-        .setBeatsPerMinute(new StaticBeatsPerMinute(60))
-        .setMeasureProvider(measureProvider)
-        .setOperationReceiver(
-            new OperationReceiverCollection(
-                new MidiOperationReceiver(midiDeviceWrapper.getReceivingDevice()),
-                operationReceiver)
-        )
-        .setOperationTransmitter(transmitter)
-        .setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
-    try {
+    DefaultOdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration();
+    try (SimpleMidiApplication application = new SimpleMidiApplication()) {
+      MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
+      configuration.setBeatsPerMinute(new StaticBeatsPerMinute(60))
+          .setMeasureProvider(measureProvider)
+          .setOperationReceiver(
+              new OperationReceiverCollection(
+                  new MidiOperationReceiver(application.getSink()),
+                  operationReceiver)
+          )
+          .setOperationTransmitter(application.getTransmitter())
+          .setMicrosecondPositionProvider(application.getSink());
       sequencer = new OdinSequencer(configuration);
-      if (midiDeviceWrapper.isSynthesizer()) {
-        midiDeviceWrapper.getSynthesizer().loadGervillSoundBank(
-            "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
-      }
+      application.getSynthesizer().ifPresent(synthesizer ->
+          synthesizer.loadGervillSoundBank(
+              "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2")
+      );
       DefaultPerformanceContainer container =
           new DefaultPerformanceContainer(new TransientPerformance());
       new BeanyPerformanceBuilder(container)
@@ -123,7 +117,6 @@ public class MatchNoteExperiment {
         sequencer.stop();
         sequencer.shutdown();
       }
-      midiDeviceWrapper.close();
       LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());
     }
   }

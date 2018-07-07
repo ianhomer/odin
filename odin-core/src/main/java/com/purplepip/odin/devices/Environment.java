@@ -213,7 +213,7 @@ public class Environment {
 
   public <D extends Device> D findOneSourceOrThrow(Class<? extends Handle<D>> clazz)
       throws DeviceUnavailableException {
-    return findOneSink(clazz).orElseThrow(DeviceUnavailableException::new);
+    return findOneSource(clazz).orElseThrow(DeviceUnavailableException::new);
   }
 
   private Optional<HandleProvider> findOneProvider(Class<? extends Handle> clazz) {
