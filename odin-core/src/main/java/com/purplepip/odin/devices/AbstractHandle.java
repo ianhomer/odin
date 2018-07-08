@@ -62,9 +62,4 @@ public abstract class AbstractHandle<D extends Device> implements Handle<D> {
   public Class<? extends Device> getDeviceClass() {
     return deviceClass;
   }
-
-  @Override
-  public String toString() {
-    return getVendor() + " " + getName();
-  }
 }

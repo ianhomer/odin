@@ -405,6 +405,7 @@
               -->
             <exclude>**/package-info.java</exclude>
           </excludes>
+          <showDeprecation>true</showDeprecation>
         </configuration>
         <executions>
           <execution>
