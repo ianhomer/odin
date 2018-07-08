@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
@@ -47,16 +48,15 @@ public class Environment {
    * @param providerStream handle provider stream
    */
   public Environment(Stream<HandleProvider> providerStream) {
-    providerStream.forEach(provider -> {
-      clazzes.addAll(provider.getHandleClasses());
-      providers.add(provider);
-    });
+    providerStream.forEach(
+        provider -> {
+          clazzes.addAll(provider.getHandleClasses());
+          providers.add(provider);
+        });
     refresh();
   }
 
-  /**
-   * Refresh the environment.
-   */
+  /** Refresh the environment. */
   public void refresh() {
     handles.clear();
     for (HandleProvider provider : providers) {
@@ -75,13 +75,16 @@ public class Environment {
    * @return stream of devices
    */
   public Stream<Device> devices() {
-    return handles.stream().map(handle -> {
-      try {
-        return handle.open();
-      } catch (DeviceUnavailableException e) {
-        return new UnavailableDevice(handle);
-      }
-    });
+    return handles
+        .stream()
+        .map(
+            handle -> {
+              try {
+                return handle.open();
+              } catch (DeviceUnavailableException e) {
+                return new UnavailableDevice(handle);
+              }
+            });
   }
 
   public Set<Handle> getHandles() {
@@ -96,11 +99,7 @@ public class Environment {
    */
   private <H extends Handle> Set<H> getHandles(Class<H> clazz) {
     return Collections.unmodifiableSet(
-        handles.stream()
-            .filter(clazz::isInstance)
-            .map(clazz::cast)
-            .collect(Collectors.toSet())
-    );
+        handles.stream().filter(clazz::isInstance).map(clazz::cast).collect(Collectors.toSet()));
   }
 
   /**
@@ -112,9 +111,7 @@ public class Environment {
    */
   public <D extends Device> Optional<Handle<D>> findOneSinkHandle(
       Class<? extends Handle<D>> clazz) {
-    return findOneProvider(clazz)
-        .flatMap(HandleProvider::findOneSink)
-        .map(clazz::cast);
+    return findOneProvider(clazz).flatMap(HandleProvider::findOneSink).map(clazz::cast);
   }
 
   /**
@@ -124,8 +121,7 @@ public class Environment {
    * @param <D> device class type
    * @return stream of handles
    */
-  public <D extends Device> Stream<Handle<D>> findAllSinkHandles(
-      Class<? extends Handle<D>> clazz) {
+  public <D extends Device> Stream<Handle<D>> findAllSinkHandles(Class<? extends Handle<D>> clazz) {
     Optional<HandleProvider> provider = findOneProvider(clazz);
     if (provider.isPresent()) {
       return provider.get().findAllSinks().map(clazz::cast);
@@ -143,21 +139,24 @@ public class Environment {
    */
   public <D extends Device> Optional<D> findOneSink(Class<? extends Handle<D>> clazz) {
     return findAllSinkHandles(clazz)
-        .map(handle -> {
-          try {
-            return handle.open();
-          } catch (DeviceUnavailableException e) {
-            LOG.warn(e.getMessage());
-            return null;
-          }
-        })
-        .filter(Objects::nonNull).findFirst();
+        .map(
+            handle -> {
+              try {
+                return handle.open();
+              } catch (DeviceUnavailableException e) {
+                LOG.warn(e.getMessage());
+                return null;
+              }
+            })
+        .filter(Objects::nonNull)
+        .findFirst();
   }
 
   public <D extends Device> D findOneSinkOrThrow(Class<? extends Handle<D>> clazz)
       throws DeviceUnavailableException {
-    return findOneSink(clazz).orElseThrow(DeviceUnavailableException::new);
+    return findOneSink(clazz).orElseThrow(cannotFind(clazz, "sink"));
   }
+
 
 
   /**
@@ -186,9 +185,7 @@ public class Environment {
    */
   public <D extends Device> Optional<Handle<D>> findOneSourceHandle(
       Class<? extends Handle<D>> clazz) {
-    return findOneProvider(clazz)
-        .flatMap(HandleProvider::findOneSource)
-        .map(clazz::cast);
+    return findOneProvider(clazz).flatMap(HandleProvider::findOneSource).map(clazz::cast);
   }
 
   /**
@@ -200,26 +197,37 @@ public class Environment {
    */
   public <D extends Device> Optional<D> findOneSource(Class<? extends Handle<D>> clazz) {
     return findAllSourceHandles(clazz)
-        .map(handle -> {
-          try {
-            return handle.open();
-          } catch (DeviceUnavailableException e) {
-            LOG.warn(e.getMessage());
-            return null;
-          }
-        })
-        .filter(Objects::nonNull).findFirst();
+        .map(
+            handle -> {
+              try {
+                return handle.open();
+              } catch (DeviceUnavailableException e) {
+                LOG.warn(e.getMessage());
+                return null;
+              }
+            })
+        .filter(Objects::nonNull)
+        .findFirst();
   }
 
   public <D extends Device> D findOneSourceOrThrow(Class<? extends Handle<D>> clazz)
       throws DeviceUnavailableException {
-    return findOneSource(clazz).orElseThrow(DeviceUnavailableException::new);
+    return findOneSource(clazz).orElseThrow(cannotFind(clazz, "source"));
+  }
+
+  private Supplier<? extends DeviceUnavailableException> cannotFind(Class<?> clazz,
+      String typeName) {
+    return () -> {
+      String message = "Cannot find a " + typeName + " of class " + clazz.getName();
+      dump(message + " from ...");
+      return new DeviceUnavailableException(message);
+    };
   }
 
   private Optional<HandleProvider> findOneProvider(Class<? extends Handle> clazz) {
-    return providers.stream()
-        .filter(provider ->
-            provider.getHandleClasses().stream().anyMatch(clazz::isAssignableFrom))
+    return providers
+        .stream()
+        .filter(provider -> provider.getHandleClasses().stream().anyMatch(clazz::isAssignableFrom))
         .findFirst();
   }
 
@@ -227,20 +235,13 @@ public class Environment {
     return handles.stream().noneMatch(clazz::isInstance);
   }
 
-
   public void dump() {
     dump("ENVIRONMENT");
   }
 
-  /**
-   * Dump environment information.
-   */
+  /** Dump environment information. */
   public void dump(String title) {
-    LOG.info("\n"
-        + title + "\n"
-        + "------------\n"
-        + asString(true) + '\n'
-    );
+    LOG.info("\n" + title + "\n" + "------------\n" + asString(true) + '\n');
   }
 
   /**
@@ -263,11 +264,11 @@ public class Environment {
     return sb.toString();
   }
 
-  private void appendInfo(Class<? extends Handle> clazz, AtomicInteger i, StringBuilder sb,
-                          boolean withConnections) {
+  private void appendInfo(
+      Class<? extends Handle> clazz, AtomicInteger i, StringBuilder sb, boolean withConnections) {
     sb.append("\n ** ").append(clazz.getSimpleName()).append(" **\n");
     for (Handle handle : getHandles(clazz)) {
-      appendInfo(handle, i.getAndIncrement(), sb,  withConnections);
+      appendInfo(handle, i.getAndIncrement(), sb, withConnections);
     }
   }
 
@@ -281,9 +282,9 @@ public class Environment {
       try {
         Device device = handle.open();
         sb.append("\n          ").append(device.getSummary());
-        device.getProperties().forEach((key, value) ->
-            sb.append(String.format("\n%50s = %-40s", key, value))
-        );
+        device
+            .getProperties()
+            .forEach((key, value) -> sb.append(String.format("\n%50s = %-40s", key, value)));
       } catch (DeviceUnavailableException e) {
         LOG.error("Cannot get device " + handle, e);
       }

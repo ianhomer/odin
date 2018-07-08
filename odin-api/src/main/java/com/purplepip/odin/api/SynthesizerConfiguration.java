@@ -15,7 +15,8 @@
 
 package com.purplepip.odin.api;
 
-import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.SynthesizerDevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,24 +24,31 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-/**
- * Synthesizer configuration.
- */
+/** Synthesizer configuration. */
 @Component
 @Profile("!test")
 @Order(3)
 public class SynthesizerConfiguration implements CommandLineRunner {
-  private SynthesizerDevice synthesizerDevice;
+  private Environment environment;
 
-  public SynthesizerConfiguration(@Autowired MidiDeviceWrapper midiDeviceWrapper) {
-    synthesizerDevice = midiDeviceWrapper.getSynthesizer();
+  /**
+   * Create synthesizer configuration.
+   *
+   * @param environment environment
+   */
+  public SynthesizerConfiguration(@Autowired Environment environment) {
+    this.environment = environment;
   }
 
   @Override
   public void run(String... args) {
-    if (synthesizerDevice != null && synthesizerDevice.isOpen()) {
-      synthesizerDevice.loadGervillSoundBank(
-              "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
-    }
+    environment
+        .findOneSink(MidiHandle.class)
+        .filter(SynthesizerDevice.class::isInstance)
+        .map(SynthesizerDevice.class::cast)
+        .ifPresent(
+            synthesizer ->
+                synthesizer.loadGervillSoundBank(
+                    "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2"));
   }
 }

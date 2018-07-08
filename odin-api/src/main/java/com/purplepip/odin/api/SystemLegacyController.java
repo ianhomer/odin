@@ -16,7 +16,9 @@
 package com.purplepip.odin.api;
 
 import com.purplepip.odin.clock.measure.MeasureProvider;
-import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.midix.MidiHandle;
+import com.purplepip.odin.midix.SynthesizerDevice;
 import com.purplepip.odin.sequencer.OdinSequencer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,19 +27,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Legacy system controller which outputs system information using HTML templates.templates.
- * SystemController in the services/system package outputs JSON data which front end can render
- * as it so desires.
+ * SystemController in the services/system package outputs JSON data which front end can render as
+ * it so desires.
  */
 @Controller
 public class SystemLegacyController {
-  @Autowired
-  private MidiDeviceWrapper midiDeviceWrapper;
+  @Autowired private Environment environment;
 
-  @Autowired
-  private MeasureProvider measureProvider;
+  @Autowired private MeasureProvider measureProvider;
 
-  @Autowired
-  private OdinSequencer sequencer;
+  @Autowired private OdinSequencer sequencer;
 
   /**
    * System page.
@@ -47,7 +46,10 @@ public class SystemLegacyController {
    */
   @RequestMapping("/api/page/system")
   public String system(Model model) {
-    model.addAttribute("midiDevice", midiDeviceWrapper);
+    environment.findOneSink(MidiHandle.class).ifPresent(sink -> model.addAttribute("sink", sink));
+    environment
+        .findOneSource(MidiHandle.class)
+        .ifPresent(source -> model.addAttribute("source", source));
     model.addAttribute("measureProvider", measureProvider);
     return "system/index";
   }
@@ -60,7 +62,10 @@ public class SystemLegacyController {
    */
   @RequestMapping("/api/page/system/synthesizer")
   public String synthesizer(Model model) {
-    model.addAttribute("midiDevice", midiDeviceWrapper);
+    environment
+        .findOneSink(MidiHandle.class)
+        .filter(SynthesizerDevice.class::isInstance)
+        .ifPresent(synthesizer -> model.addAttribute("synthesizer", synthesizer));
     return "system/synthesizer";
   }
 

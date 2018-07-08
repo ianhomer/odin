@@ -37,9 +37,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver {
+  private final Synthesizer synthesizer;
+
   SynthesizerDevice(@NotNull MidiHandle handle, @NotNull Synthesizer synthesizer)
       throws DeviceUnavailableException {
     super(handle, synthesizer);
+    this.synthesizer = synthesizer;
   }
 
   /**
@@ -108,13 +111,17 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
    */
   Instrument findInstrumentByName(String name, boolean percussion) {
     String lowercaseName = name.toLowerCase(Locale.ENGLISH);
-    for (Instrument instrument : getMidiDevice().getLoadedInstruments()) {
+    for (Instrument instrument : synthesizer.getLoadedInstruments()) {
       if ((!percussion || isPercussion(instrument))
           && instrument.getName().toLowerCase(Locale.ENGLISH).contains(lowercaseName)) {
         return instrument;
       }
     }
     return null;
+  }
+
+  public Instrument[] getLoadedInstruments() {
+    return synthesizer.getLoadedInstruments();
   }
 
   @Override

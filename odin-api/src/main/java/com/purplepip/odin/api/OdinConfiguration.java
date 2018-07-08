@@ -19,7 +19,9 @@ import com.codahale.metrics.MetricRegistry;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.midix.MidiDevice;
+import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
@@ -30,13 +32,12 @@ import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Configuration for Spring Boot of Odin.
- */
+/** Configuration for Spring Boot of Odin. */
 @Configuration
 public class OdinConfiguration {
   private static final int FOUR_FOUR_TIME = 4;
@@ -51,16 +52,6 @@ public class OdinConfiguration {
   private PerformanceLoader performanceLoader;
 
   /**
-   * Create the MIDI device wrapper.
-   *
-   * @return MIDI device wrapper
-   */
-  @Bean
-  public MidiDeviceWrapper midiDeviceWrapper() {
-    return new MidiDeviceWrapper();
-  }
-
-  /**
    * Create the measure provider.
    *
    * @return measure provider
@@ -73,17 +64,16 @@ public class OdinConfiguration {
   /**
    * Create odin sequencer configuration.
    *
-   * @param measureProvider   measure provider
-   * @param midiDeviceWrapper MIDI device wrapper
+   * @param measureProvider measure provider
+   * @param environment environment
    * @return odin sequencer configuration
    */
   @Bean
-  public OdinSequencerConfiguration configuration(MeasureProvider measureProvider,
-                                                  MidiDeviceWrapper midiDeviceWrapper) {
+  public OdinSequencerConfiguration configuration(
+      MeasureProvider measureProvider, Environment environment) {
     List<OperationHandler> operationReceivers = new ArrayList<>();
-    if (midiDeviceWrapper.getReceivingDevice() != null) {
-      operationReceivers.add(new MidiOperationReceiver(midiDeviceWrapper.getReceivingDevice()));
-    }
+    Optional<MidiDevice> sink = environment.findOneSink(MidiHandle.class);
+    sink.ifPresent(midiDevice -> operationReceivers.add(new MidiOperationReceiver(midiDevice)));
 
     if (performanceLoader != null) {
       operationReceivers.add(performanceLoader);
@@ -93,14 +83,13 @@ public class OdinConfiguration {
       operationReceivers.add(auditingOperationReceiver);
     }
 
-    DefaultOdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration()
-        .setBeatsPerMinute(new StaticBeatsPerMinute(120))
-        .setMeasureProvider(measureProvider)
-        .setOperationReceiver(new OperationReceiverCollection(operationReceivers));
+    DefaultOdinSequencerConfiguration configuration =
+        new DefaultOdinSequencerConfiguration()
+            .setBeatsPerMinute(new StaticBeatsPerMinute(120))
+            .setMeasureProvider(measureProvider)
+            .setOperationReceiver(new OperationReceiverCollection(operationReceivers));
 
-    if (midiDeviceWrapper.getReceivingDevice() != null) {
-      configuration.setMicrosecondPositionProvider(midiDeviceWrapper.getReceivingDevice());
-    }
+    sink.ifPresent(configuration::setMicrosecondPositionProvider);
 
     /*
      * Metrics is optional, e.g. not needed for most tests.  However even when not set
@@ -120,8 +109,8 @@ public class OdinConfiguration {
    * @return Odin sequencer
    */
   @Bean
-  public OdinSequencer odinSequencer(OdinSequencerConfiguration configuration,
-                                     DefaultPerformanceContainer performanceContainer) {
+  public OdinSequencer odinSequencer(
+      OdinSequencerConfiguration configuration, DefaultPerformanceContainer performanceContainer) {
     OdinSequencer odinSequencer = new OdinSequencer(configuration);
     performanceContainer.addApplyListener(odinSequencer);
     return odinSequencer;

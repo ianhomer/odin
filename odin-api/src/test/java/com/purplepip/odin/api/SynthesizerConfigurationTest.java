@@ -15,12 +15,13 @@
 
 package com.purplepip.odin.api;
 
+import static com.purplepip.odin.system.Environments.isAudioEnabled;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.midix.SynthesizerDevice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,20 +29,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/**
- * Synthesizer configuration test.
- */
+/** Synthesizer configuration test. */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SynthesizerConfigurationTest {
-  @Autowired
-  private MidiDeviceWrapper midiDeviceWrapper;
+  @Autowired private Environment environment;
 
   @Test
   public void testRun() {
-    assumeTrue(midiDeviceWrapper.getSynthesizer() != null
-        && midiDeviceWrapper.getSynthesizer().isOpen());
-    SynthesizerConfiguration loader = new SynthesizerConfiguration(midiDeviceWrapper);
+    assumeTrue(isAudioEnabled());
+    SynthesizerConfiguration loader = new SynthesizerConfiguration(environment);
     try (LogCaptor captor = new LogCapture().info().from(SynthesizerDevice.class).start()) {
       loader.run();
       assertEquals(1, captor.size());
