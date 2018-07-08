@@ -54,8 +54,8 @@
 
     <java.version>1.8</java.version>
     <antlr.version>4.7.1</antlr.version>
+    <assertj.version>3.10.0</assertj.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
-    <assertj.version>3.9.1</assertj.version>
     <hibernate.version>5.2.12.Final</hibernate.version>
     <jacoco.version>0.8.1</jacoco.version>
     <!--
@@ -63,30 +63,30 @@
         https://www.rainerhahnekamp.com/en/ignoring-lombok-code-in-jacoco/
       -->
     <jacoco.covered.ratio>0.85</jacoco.covered.ratio>
-    <jodd.version>3.9.1</jodd.version>
-    <jackson.version>2.9.5</jackson.version>
+    <jackson.version>2.9.6</jackson.version>
     <javax.validation>2.0.1.Final</javax.validation>
+    <jodd.version>3.9.1</jodd.version>
     <jsonschema.version>1.0.29</jsonschema.version>
     <junit.version>5.2.0</junit.version>
-    <kotlin.version>1.2.41</kotlin.version>
-    <guava.version>24.1-jre</guava.version>
+    <kotlin.version>1.2.51</kotlin.version>
+    <guava.version>25.1-jre</guava.version>
     <logback.version>1.2.3</logback.version>
-    <lombok.version>1.16.20</lombok.version>
+    <lombok.version>1.18.0</lombok.version>
     <metrics.version>4.0.0</metrics.version>
-    <mockito.version>2.17.0</mockito.version>
+    <mockito.version>2.19.0</mockito.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
+    <thymeleaf.layout.version>2.3.0</thymeleaf.layout.version>
+
     <purplepip.tests.jvm>-Dodin.audio.enabled=${odin.audio.enabled} -DupdateSnapshot=${purplepip.test.updateSnapshot}</purplepip.tests.jvm>
     <purplepip.tests.log.file>com/purplepip/common/logback-tests.xml</purplepip.tests.log.file>
     <purplepip.tests.log.jvm>-Dlogback.configurationFile=${purplepip.tests.log.file} -Dlogback.debug=${purplepip.test.logback.debug}</purplepip.tests.log.jvm>
     <purplepip.test.updateSnapshot>false</purplepip.test.updateSnapshot>
     <!--JDK specific arguments for tests-->
     <purplepip.jvm.args/>
-    <slf4j.version>1.7.25</slf4j.version>
     <!-- #4 workaround -->
     <sonar.coverage.exclusions>**/domain/*</sonar.coverage.exclusions>
     <sonar.javascript.file.suffixes>.js,.jsx</sonar.javascript.file.suffixes>
-
-    <spring.boot.version>2.0.2.RELEASE</spring.boot.version>
-    <thymeleaf.layout.version>2.3.0</thymeleaf.layout.version>
 
     <!--odin flags-->
     <odin.audio.enabled>true</odin.audio.enabled>
