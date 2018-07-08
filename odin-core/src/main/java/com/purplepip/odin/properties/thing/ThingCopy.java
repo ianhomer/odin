@@ -28,6 +28,7 @@ import java.beans.FeatureDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Set;
 import jodd.bean.BeanCopy;
@@ -72,11 +73,11 @@ public class ThingCopy {
   }
 
   /**
-   * Coerce the source into the specified class.  If source is an instance of the specified class
+   * Coerce the source into the specified class. If source is an instance of the specified class
    * then simply cast it, otherwise copy the source properties in a new instance of the specified
-   * class.  Only use this API if you are not concerned about return a reference to the source
-   * which could be subsequently modified bringing side effects.  This API only supports classes
-   * that provide an empty constructor.
+   * class. Only use this API if you are not concerned about return a reference to the source which
+   * could be subsequently modified bringing side effects. This API only supports classes that
+   * provide an empty constructor.
    *
    * @param clazz class to coerce the source into
    * @param <T> type of class to coerce to
@@ -88,17 +89,18 @@ public class ThingCopy {
       return clazz.cast(source);
     } else {
       try {
-        return to(clazz.newInstance());
-      } catch (InstantiationException | IllegalAccessException e) {
-        throw new OdinRuntimeException("Cannot use coerce API since new instance of " + clazz
-            + " fails", e);
+        return to(clazz.getConstructor().newInstance());
+      } catch (InstantiationException
+          | IllegalAccessException
+          | NoSuchMethodException
+          | InvocationTargetException e) {
+        throw new OdinRuntimeException(
+            "Cannot use coerce API since new instance of " + clazz + " fails", e);
       }
     }
   }
 
-  /**
-   * Copy things.
-   */
+  /** Copy things. */
   public void copy() {
     LOG.trace("Populating bean properties from source {} to {}", source, destination);
     BeanCopy.from(source).to(destination).declared(true).copy();
@@ -106,13 +108,14 @@ public class ThingCopy {
       LOG.trace("Populating configuration properties from source to destination");
       new ThingConfigurationCopy()
           .from((ThingConfiguration) source)
-          .to((ThingConfiguration) destination).copy();
+          .to((ThingConfiguration) destination)
+          .copy();
     }
   }
 
   private static class ThingConfigurationCopy {
-    private static final Set<String> IGNORE_PROPERTIES = Sets
-        .newHashSet("class", "propertyEntries", "propertyNames");
+    private static final Set<String> IGNORE_PROPERTIES =
+        Sets.newHashSet("class", "propertyEntries", "propertyNames");
 
     private ThingConfiguration source;
     private ThingConfiguration destination;
@@ -139,9 +142,7 @@ public class ThingCopy {
       return this;
     }
 
-    /**
-     * Copy thing configuration.
-     */
+    /** Copy thing configuration. */
     public void copy() {
       if (!source.arePropertiesDeclared()) {
         copyFromGenericSource();
@@ -162,11 +163,16 @@ public class ThingCopy {
       if (destination.arePropertiesDeclared()) {
         if (!(destination instanceof MutablePropertiesProvider)) {
           if (source.hasProperties()) {
-            LOG.warn("Source properties not copied from {} to {}, since not instance of "
-                + "MutablePropertiesProvider", source, destination);
+            LOG.warn(
+                "Source properties not copied from {} to {}, since not instance of "
+                    + "MutablePropertiesProvider",
+                source,
+                destination);
           } else {
-            LOG.debug("Pointless copy {} to {}, not instance of MutablePropertiesProvider",
-                source, destination);
+            LOG.debug(
+                "Pointless copy {} to {}, not instance of MutablePropertiesProvider",
+                source,
+                destination);
           }
           return;
         }
@@ -175,22 +181,28 @@ public class ThingCopy {
          * Copy generic to specific.  This involves copying the properties in the property map
          * to the declared properties.
          */
-        source.getPropertyNames().forEach(name -> {
-          try {
-            BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
-          } catch (BeanException e) {
-            LOG.debug("Whilst populating thing " + destination + " (full stack)", e);
-            LOG.warn("Whilst populating thing {} : {}", destination, e.getMessage());
-          }
-        });
+        source
+            .getPropertyNames()
+            .forEach(
+                name -> {
+                  try {
+                    BeanUtil.declared.setProperty(destination, name, source.getProperty(name));
+                  } catch (BeanException e) {
+                    LOG.debug("Whilst populating thing " + destination + " (full stack)", e);
+                    LOG.warn("Whilst populating thing {} : {}", destination, e.getMessage());
+                  }
+                });
       } else {
         LOG.trace("Copying generic to generic");
         /*
          * Copy generic to generic.   This involves just copying the properties map.
          */
-        source.getPropertyNames().forEach(name ->
-            ((MutablePropertiesProvider) destination).setProperty(name, source.getProperty(name))
-        );
+        source
+            .getPropertyNames()
+            .forEach(
+                name ->
+                    ((MutablePropertiesProvider) destination)
+                        .setProperty(name, source.getProperty(name)));
       }
     }
 
@@ -206,27 +218,28 @@ public class ThingCopy {
         Arrays.stream(propertyDescriptors)
             .map(FeatureDescriptor::getName)
             .filter(name -> !IGNORE_PROPERTIES.contains(name))
-            .forEach(name -> {
-              if (!BeanUtil.declared.hasProperty(destination, name)) {
-                /*
-                 * Only copy property into properties map if it is not a declared property
-                 * in the destination.
-                 */
-                Object value = BeanUtil.declared.getProperty(source, name);
-                MutablePropertiesProvider mutableDestination =
-                    (MutablePropertiesProvider) destination;
-                if (value != null) {
-                  if (value instanceof Note) {
-                    Note note = (Note) value;
-                    mutableDestination.setProperty(name + ".number", note.getNumber());
-                    mutableDestination.setProperty(name + ".velocity", note.getVelocity());
-                    mutableDestination.setProperty(name + ".duration", note.getDuration());
-                  } else {
-                    mutableDestination.setProperty(name, value.toString());
+            .forEach(
+                name -> {
+                  if (!BeanUtil.declared.hasProperty(destination, name)) {
+                    /*
+                     * Only copy property into properties map if it is not a declared property
+                     * in the destination.
+                     */
+                    Object value = BeanUtil.declared.getProperty(source, name);
+                    MutablePropertiesProvider mutableDestination =
+                        (MutablePropertiesProvider) destination;
+                    if (value != null) {
+                      if (value instanceof Note) {
+                        Note note = (Note) value;
+                        mutableDestination.setProperty(name + ".number", note.getNumber());
+                        mutableDestination.setProperty(name + ".velocity", note.getVelocity());
+                        mutableDestination.setProperty(name + ".duration", note.getDuration());
+                      } else {
+                        mutableDestination.setProperty(name, value.toString());
+                      }
+                    }
                   }
-                }
-              }
-            });
+                });
       } catch (IntrospectionException e) {
         LOG.debug("Whilst getting bean info for thing " + destination + " (full stack)", e);
         LOG.warn("Whilst getting bean info for thing {} : {}", destination, e.getMessage());

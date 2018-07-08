@@ -20,6 +20,7 @@ import static com.purplepip.odin.math.typeconverters.MathTypeConverterManager.re
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.properties.thing.ThingCopy;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Factory that allow the generation of instances for specific classes from generic configuration
- * instances.   This allows generic configuration objects to be serialised and persisted which
- * then can be instantiated in the run time as a specific class of the object with appropriate
- * business logic attached.  The type property on the the thing configuration interface allows this
- * lookup of the specific class that should be used for instantiation of a new object.
+ * instances. This allows generic configuration objects to be serialised and persisted which then
+ * can be instantiated in the run time as a specific class of the object with appropriate business
+ * logic attached. The type property on the the thing configuration interface allows this lookup of
+ * the specific class that should be used for instantiation of a new object.
  *
  * @param <C> specific class base type
  */
@@ -44,7 +45,7 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   private final Map<String, Class<? extends C>> specificClasses = new HashMap<>();
 
   protected AbstractSpecificThingFactory(List<Class<? extends C>> classes) {
-    for (Class<? extends C> clazz: classes) {
+    for (Class<? extends C> clazz : classes) {
       register(clazz);
     }
     warmUp();
@@ -76,16 +77,20 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
    * Create an instance of the expected type using the given configuration object.
    *
    * @param expectedType expected type of the returned instance
-   * @param original     original configuration to copy values from
+   * @param original original configuration to copy values from
    * @return instance of expected type
    */
   @SuppressWarnings("unchecked")
   public <S extends C> S newInstance(ThingConfiguration original, Class<? extends S> expectedType) {
     S newInstance;
     if (expectedType == null) {
-      throw new OdinRuntimeException("Thing configuration type for original configuration "
-          + original + " is not set.  Type is " + original.getType() + " ; registered types = "
-          + specificClasses);
+      throw new OdinRuntimeException(
+          "Thing configuration type for original configuration "
+              + original
+              + " is not set.  Type is "
+              + original.getType()
+              + " ; registered types = "
+              + specificClasses);
     } else {
       if (expectedType.isAssignableFrom(original.getClass())) {
         /*
@@ -97,8 +102,11 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
       } else {
         LOG.trace("Creating new instance of {}", expectedType);
         try {
-          newInstance = expectedType.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+          newInstance = expectedType.getConstructor().newInstance();
+        } catch (InstantiationException
+            | IllegalAccessException
+            | NoSuchMethodException
+            | InvocationTargetException e) {
           throw new OdinRuntimeException("Cannot create new instance of " + expectedType, e);
         }
         populate(newInstance, original);
@@ -126,16 +134,18 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
   }
 
   /**
-   * For test cases where timing is important it may be necessary to warm the factory up
-   * so the first time it is used performance does not cause inconsistencies.  This warm up
-   * time is pretty small (around 20ms on a dev machine), but enough to throw a sequencer
-   * test that is expecting sequence to start immediately.
+   * For test cases where timing is important it may be necessary to warm the factory up so the
+   * first time it is used performance does not cause inconsistencies. This warm up time is pretty
+   * small (around 20ms on a dev machine), but enough to throw a sequencer test that is expecting
+   * sequence to start immediately.
    */
   private void warmUp() {
     LOG.debug("Warming up {}", this);
-    getNames().forEach(name -> {
-      MutableThingConfiguration thingConfiguration = new GenericThingConfiguration(name);
-      newInstance(thingConfiguration);
-    });
+    getNames()
+        .forEach(
+            name -> {
+              MutableThingConfiguration thingConfiguration = new GenericThingConfiguration(name);
+              newInstance(thingConfiguration);
+            });
   }
 }
