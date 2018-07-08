@@ -90,7 +90,7 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
    */
   private void changeProgram(int channel, int bank, int program) {
     try {
-      getMidiDevice()
+      synthesizer
           .getReceiver()
           .send(
               new RawMidiMessage(
@@ -124,11 +124,6 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
     return synthesizer.getLoadedInstruments();
   }
 
-  @Override
-  public Synthesizer getMidiDevice() {
-    return (Synthesizer) super.getMidiDevice();
-  }
-
   private static boolean isPercussion(Instrument instrument) {
     /*
      * This is fragile logic based on implementation of SF2Instrument however the
@@ -140,16 +135,16 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
 
   /** Log MIDI system instruments available. */
   void logInstruments() {
-    Instrument[] instruments = getMidiDevice().getLoadedInstruments();
+    Instrument[] instruments = synthesizer.getLoadedInstruments();
     LOG.debug("Synthesizer info");
     for (Instrument instrument : instruments) {
       LOG.debug("Instruments (loaded) : {}", instrument);
     }
-    instruments = getMidiDevice().getAvailableInstruments();
+    instruments = synthesizer.getAvailableInstruments();
     for (Instrument instrument : instruments) {
       LOG.debug("Instruments (available) : {}", instrument);
     }
-    MidiChannel[] midiChannels = getMidiDevice().getChannels();
+    MidiChannel[] midiChannels = synthesizer.getChannels();
     for (MidiChannel midiChannel : midiChannels) {
       LOG.debug("Channels : {}", midiChannel.getProgram());
     }
@@ -185,7 +180,7 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
     }
     boolean isOpenResult = isOpen();
     assert isOpenResult;
-    getMidiDevice().unloadAllInstruments(getMidiDevice().getDefaultSoundbank());
+    synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
     Soundbank soundbank;
     try {
       soundbank = MidiSystem.getSoundbank(file);
@@ -193,8 +188,8 @@ public class SynthesizerDevice extends MidiDevice implements SynthesizerReceiver
       LOG.error("Cannot get soundbank", e);
       return false;
     }
-    getMidiDevice().unloadAllInstruments(getMidiDevice().getDefaultSoundbank());
-    boolean result = getMidiDevice().loadAllInstruments(soundbank);
+    synthesizer.unloadAllInstruments(synthesizer.getDefaultSoundbank());
+    boolean result = synthesizer.loadAllInstruments(soundbank);
     LOG.info("Loaded soundbank {} : {}", soundbank.getName(), result);
 
     return result;
