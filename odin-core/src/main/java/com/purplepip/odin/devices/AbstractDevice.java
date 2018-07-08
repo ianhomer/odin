@@ -20,9 +20,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@ToString
 public abstract class AbstractDevice implements Device {
   private final ExecutorService executor = Executors.newSingleThreadExecutor();
   private final Map<String, String> properties = new LinkedHashMap<>();

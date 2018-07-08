@@ -26,6 +26,7 @@ import com.purplepip.odin.devices.Handle;
 import com.purplepip.odin.devices.HandleProvider;
 import java.util.Set;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
@@ -69,6 +70,7 @@ public class MockEnvironmentConfiguration {
 
   @Data
   @ToString(callSuper = true)
+  @EqualsAndHashCode(callSuper = true)
   private final class MockHandle extends AbstractHandle<MockDevice> {
     private String description;
     private String name;
@@ -81,7 +83,7 @@ public class MockEnvironmentConfiguration {
     }
   }
 
-  @ToString
+  @ToString(callSuper = true)
   private final class MockDevice extends AbstractDevice {
     private MockHandle handle;
 

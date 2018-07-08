@@ -96,9 +96,9 @@ public abstract class AbstractSpecificThingFactory<C extends ThingConfiguration>
         /*
          * If the original is of the correct type then we can simply cast
          */
-        // TODO : Since we cast not copy then the name of the method newInstance is misleading
+        // TODO : Since we cast not copy then the name of the method newInstance is misleading,
         newInstance = expectedType.cast(original);
-        LOG.debug("Creating new instance with direct copy of {}", newInstance);
+        LOG.debug("Creating new instance with cast of {}", newInstance);
       } else {
         LOG.trace("Creating new instance of {}", expectedType);
         try {
