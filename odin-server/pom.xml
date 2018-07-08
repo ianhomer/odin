@@ -169,9 +169,9 @@
   </build>
   <profiles>
     <profile>
-      <id>jdk9</id>
+      <id>jdk9or10</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[9,)</jdk>
       </activation>
       <properties>
         <purplepip.jvm.args>--add-modules java.xml.bind</purplepip.jvm.args>

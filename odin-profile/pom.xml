@@ -118,9 +118,9 @@
 
   <profiles>
     <profile>
-      <id>jdk9</id>
+      <id>jdk9or10</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[9,)</jdk>
       </activation>
       <build>
         <plugins>
