@@ -39,6 +39,7 @@ import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.specificity.ThingConfiguration;
+import java.lang.reflect.InvocationTargetException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
@@ -48,8 +49,8 @@ import org.junit.Test;
 public class ThingCopyTest {
   @Test
   public void testFromTo() {
-    Thing source = new DefaultLayer("test")
-        .layer("layer1", "layer2").length(1).offset(8).enabled(false);
+    Thing source =
+        new DefaultLayer("test").layer("layer1", "layer2").length(1).offset(8).enabled(false);
     DefaultLayer destination = ThingCopy.from(source).to(new DefaultLayer(source.getId()));
     assertEquals(source, destination);
   }
@@ -74,8 +75,8 @@ public class ThingCopyTest {
 
   @Test
   public void testCopy() {
-    Thing source = new DefaultLayer("test")
-        .layer("layer1", "layer2").length(1).offset(8).enabled(false);
+    Thing source =
+        new DefaultLayer("test").layer("layer1", "layer2").length(1).offset(8).enabled(false);
     Thing destination = new DefaultLayer(source.getId());
     new ThingCopy().source(source).destination(destination).copy();
     assertEquals(source, destination);
@@ -85,11 +86,13 @@ public class ThingCopyTest {
   public void testCopyFromGenericToGeneric() {
     GenericSequence destination = new GenericSequence("test").name("test");
     assertFalse(destination.arePropertiesDeclared());
-    GenericSequence source = new GenericSequence("test").offset(8)
-        .property("undeclared", "value1")
-        .property("undeclared.nested", "value2");
-    try (LogCaptor captor = new LogCapture().warn().from(ThingCopy.class)
-        .withPassThrough().start()) {
+    GenericSequence source =
+        new GenericSequence("test")
+            .offset(8)
+            .property("undeclared", "value1")
+            .property("undeclared.nested", "value2");
+    try (LogCaptor captor =
+        new LogCapture().warn().from(ThingCopy.class).withPassThrough().start()) {
       new ThingCopy().source(source).destination(destination).copy();
       assertEquals("No warnings should be logged", 0, captor.size());
     }
@@ -105,12 +108,12 @@ public class ThingCopyTest {
 
   @Test
   public void testCopyFromGenericToSpecific() {
-    GenericSequence source = new GenericSequence("notation").offset(8)
-        .property("notation", "A B C");
+    GenericSequence source =
+        new GenericSequence("notation").offset(8).property("notation", "A B C");
     Notation destination = (Notation) new Notation().name("test");
     assertTrue(destination.arePropertiesDeclared());
-    try (LogCaptor captor = new LogCapture().warn().from(ThingCopy.class)
-        .withPassThrough().start()) {
+    try (LogCaptor captor =
+        new LogCapture().warn().from(ThingCopy.class).withPassThrough().start()) {
       new ThingCopy().source(source).destination(destination).copy();
       assertEquals("No warnings should be logged", 0, captor.size());
     }
@@ -126,8 +129,7 @@ public class ThingCopyTest {
   @Test
   public void testCopyFromSpecificToGeneric() {
     GenericSequence destination = new GenericSequence("notation");
-    Notation source = (Notation) new Notation().notation("A B C")
-        .offset(8).name("test");
+    Notation source = (Notation) new Notation().notation("A B C").offset(8).name("test");
     new ThingCopy().source(source).destination(destination).copy();
     assertEquals(Wholes.valueOf(8), destination.getOffset());
     assertEquals("A B C", destination.getProperty("notation"));
@@ -136,8 +138,7 @@ public class ThingCopyTest {
 
   @Test
   public void testCopyFromPluginToPlugin() {
-    SequencePlugin source = new Notation().notation("A B C").offset(8)
-        .tick(Ticks.HALF);
+    SequencePlugin source = new Notation().notation("A B C").offset(8).tick(Ticks.HALF);
     Notation destination = (Notation) new Notation().name("test").tick(Ticks.BEAT);
     new ThingCopy().source(source).destination(destination).copy();
 
@@ -150,10 +151,11 @@ public class ThingCopyTest {
   public void testCopyFromGenericToSpecificWithUndeclaredProperty() {
     SequencePlugin destination = new Notation().name("test").tick(Ticks.BEAT);
     assertTrue(destination.arePropertiesDeclared());
-    GenericSequence source = new GenericSequence("notation")
-        .tick(Ticks.HALF)
-        .property("undeclared", "value1")
-        .property("undeclared.nested", "value2");
+    GenericSequence source =
+        new GenericSequence("notation")
+            .tick(Ticks.HALF)
+            .property("undeclared", "value1")
+            .property("undeclared.nested", "value2");
     try (LogCaptor captor = new LogCapture().warn().from(ThingCopy.class).start()) {
       new ThingCopy().source(source).destination(destination).copy();
       /*
@@ -172,29 +174,38 @@ public class ThingCopyTest {
    */
   @Test
   public void testFullCycle() {
-    Lists.newArrayList(new GroovePerformance(), new KotlinPerformance()).forEach(performance ->
-        performance.getSequences().forEach(source -> {
-          GenericSequence destination = new GenericSequence(source.getType(), source.getId());
-          new ThingCopy().source(source).destination(destination).copy();
-          try {
-            SequenceConfiguration copyOfCopy = source.getClass().newInstance();
-            new ThingCopy().source(destination).destination(copyOfCopy).copy();
-            assertEquals(source, copyOfCopy);
-          } catch (InstantiationException | IllegalAccessException e) {
-            LOG.error("Cannot create new instance", e);
-          }
-        })
-    );
+    Lists.newArrayList(new GroovePerformance(), new KotlinPerformance())
+        .forEach(
+            performance ->
+                performance
+                    .getSequences()
+                    .forEach(
+                        source -> {
+                          GenericSequence destination =
+                              new GenericSequence(source.getType(), source.getId());
+                          new ThingCopy().source(source).destination(destination).copy();
+                          try {
+                            SequenceConfiguration copyOfCopy =
+                                source.getClass().getConstructor().newInstance();
+                            new ThingCopy().source(destination).destination(copyOfCopy).copy();
+                            assertEquals(source, copyOfCopy);
+                          } catch (InstantiationException
+                              | IllegalAccessException
+                              | NoSuchMethodException
+                              | InvocationTargetException e) {
+                            LOG.error("Cannot create new instance", e);
+                          }
+                        }));
   }
 
   @Test
   public void testCopyViaConverters() {
     BasicPropertiesThing thing = new BasicPropertiesThing();
     thing
-      .property("string","string-value")
-      .property("rational","1/2")
-      .property("whole","1")
-      .property("real","0.123");
+        .property("string", "string-value")
+        .property("rational", "1/2")
+        .property("whole", "1")
+        .property("real", "0.123");
     SpecificThing specificThing = new SpecificThing();
     new ThingCopy().source(thing).destination(specificThing).copy();
 
@@ -244,5 +255,4 @@ public class ThingCopyTest {
       return copy;
     }
   }
-
 }
