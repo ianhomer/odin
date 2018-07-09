@@ -15,13 +15,13 @@
 
 package com.purplepip.odin.math.typeconverters;
 
-import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
 import jodd.typeconverter.TypeConverter;
 
-public class WholeTypeConverter implements TypeConverter<Real> {
+public class WholeTypeConverter implements TypeConverter<Whole> {
   @Override
-  public Real convert(Object o) {
+  public Whole convert(Object o) {
     return Wholes.valueOf(o.toString());
   }
 }

@@ -30,14 +30,14 @@ public class MathTypeConverterManager {
     LOG.debug("Math type converters loaded");
     // TODO : Roll Jodd up to v4.x when resolution to https://github.com/ianhomer/odin/issues/6
     // Jodd 4.x needs
-    //TypeConverterManager manager = JoddBean.defaults().getTypeConverterManager();
-    //manager.register(Rational.class, new RationalTypeConverter());
-    //manager.register(Real.class, new RealTypeConverter());
-    //manager.register(Whole.class, new WholeTypeConverter());
+    TypeConverterManager manager = TypeConverterManager.get();
+    manager.register(Rational.class, new RationalTypeConverter());
+    manager.register(Real.class, new RealTypeConverter());
+    manager.register(Whole.class, new WholeTypeConverter());
 
-    TypeConverterManager.register(Rational.class, new RationalTypeConverter());
-    TypeConverterManager.register(Real.class, new RealTypeConverter());
-    TypeConverterManager.register(Whole.class, new WholeTypeConverter());
+    //TypeConverterManager.register(Rational.class, new RationalTypeConverter());
+    //TypeConverterManager.register(Real.class, new RealTypeConverter());
+    //TypeConverterManager.register(Whole.class, new WholeTypeConverter());
   }
 
   private MathTypeConverterManager() {

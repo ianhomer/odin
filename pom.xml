@@ -67,7 +67,7 @@
     <jacoco.covered.ratio>0.85</jacoco.covered.ratio>
     <jackson.version>2.9.6</jackson.version>
     <javax.validation>2.0.1.Final</javax.validation>
-    <jodd.version>3.9.1</jodd.version>
+    <jodd.version>5.0.2</jodd.version>
     <jsonschema.version>1.0.29</jsonschema.version>
     <junit.version>5.2.0</junit.version>
     <kotlin.version>1.2.51</kotlin.version>
