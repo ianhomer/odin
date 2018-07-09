@@ -17,7 +17,6 @@ package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
-import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.conductor.Conductor;
 import com.purplepip.odin.creation.conductor.LayerConductor;
 import com.purplepip.odin.creation.conductor.LayerConductors;
@@ -153,11 +152,11 @@ public class OdinSequencer implements PerformanceApplyListener {
   }
 
   private void refreshChannels(Performance performance) {
-    for (Channel channel : performance.getChannels()) {
+    for (var channel : performance.getChannels()) {
       /*
        * Only handle program change operation if it has not already been sent.
        */
-      ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
+      var programChangeOperation = new ProgramChangeOperation(channel);
       if (!programChangeOperations.contains(programChangeOperation)) {
         LOG.debug("Sending channel operation : {}", channel);
         sendProgramChangeOperation(programChangeOperation);

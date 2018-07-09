@@ -52,7 +52,9 @@
       -->
     <purplepip.test.logback.debug>false</purplepip.test.logback.debug>
 
-    <java.version>1.8</java.version>
+    <java.version>10</java.version>
+    <maven.compiler.source>10</maven.compiler.source>
+    <maven.compiler.target>1.10</maven.compiler.target>
     <antlr.version>4.7.1</antlr.version>
     <assertj.version>3.10.0</assertj.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
@@ -391,8 +393,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
           <fork>true</fork>
           <compilerArgs>
             <arg>-Xlint:unchecked</arg>
@@ -405,9 +405,19 @@
               -->
             <exclude>**/package-info.java</exclude>
           </excludes>
+          <jdkToolchain>
+            <version>${java.version}</version>
+          </jdkToolchain>
           <showDeprecation>true</showDeprecation>
           <showWarnings>true</showWarnings>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>6.1</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <phase>compile</phase>

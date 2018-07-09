@@ -19,19 +19,19 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="common-test-logging" target="1.8" />
+      <module name="common-test-logging" target="1.10" />
       <module name="common_test_logging" target="1.8" />
-      <module name="log-capture" target="1.8" />
+      <module name="log-capture" target="1.10" />
       <module name="logcapture" target="1.8" />
       <module name="maven-code-coverage-tile" target="1.5" />
-      <module name="odin" target="1.8" />
-      <module name="odin-api" target="1.8" />
+      <module name="odin" target="1.10" />
+      <module name="odin-api" target="1.10" />
       <module name="odin-checkstyle" target="1.8" />
-      <module name="odin-core" target="1.8" />
-      <module name="odin-frontend" target="1.8" />
-      <module name="odin-perform" target="1.8" />
-      <module name="odin-profile" target="1.8" />
-      <module name="odin-server" target="1.8" />
+      <module name="odin-core" target="1.10" />
+      <module name="odin-frontend" target="1.10" />
+      <module name="odin-perform" target="1.10" />
+      <module name="odin-profile" target="1.10" />
+      <module name="odin-server" target="1.10" />
       <module name="tile-code-coverage" target="1.5" />
       <module name="tile-logging" target="1.5" />
       <module name="tiles" target="1.5" />
