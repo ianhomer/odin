@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SnapshotOperationReceiver implements OperationHandler {
   private final CountDownLatch latch;
   private Snapshot snapshot;
+  private boolean expectOverflow;
 
   /**
    * Create new snapshot operation receiver.
@@ -33,10 +34,11 @@ public class SnapshotOperationReceiver implements OperationHandler {
    * @param snapshot snapshot to compare with
    * @param expectedOperationCount expected operation count
    */
-  SnapshotOperationReceiver(Snapshot snapshot, int expectedOperationCount) {
+  SnapshotOperationReceiver(Snapshot snapshot, int expectedOperationCount, boolean expectOverflow) {
     LOG.debug("Creating SnapshotOperationReceiver with expected count {}", expectedOperationCount);
     latch = new CountDownLatch(expectedOperationCount);
     this.snapshot = snapshot;
+    this.expectOverflow = expectOverflow;
   }
 
   @Override
@@ -48,12 +50,17 @@ public class SnapshotOperationReceiver implements OperationHandler {
       latch.countDown();
       LOG.trace("Received operation {}", operation);
     } else {
-      /*
-       * We should be strict about not sending too much.  If test is complete then operations
-       * should not be sent any more.
-       */
-      LOG.warn("{} : Received operation {} {} even though latch count down complete",
-          snapshot.getName(), prettyTime, operation);
+      if (!expectOverflow) {
+        /*
+         * We should be strict about not sending too much.  If test is complete then operations
+         * should not be sent any more.
+         */
+        LOG.warn(
+            "{} : Received operation {} {} even though latch count down complete",
+            snapshot.getName(),
+            prettyTime,
+            operation);
+      }
     }
   }
 

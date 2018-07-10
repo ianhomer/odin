@@ -159,7 +159,6 @@ public class Snapshot {
     return this;
   }
 
-
   /**
    * Initialise this snapshot.
    *
@@ -171,8 +170,7 @@ public class Snapshot {
      */
     Path containerPath;
     try {
-      containerPath = Paths.get(
-          clazz.getProtectionDomain().getCodeSource().getLocation().toURI());
+      containerPath = Paths.get(clazz.getProtectionDomain().getCodeSource().getLocation().toURI());
     } catch (URISyntaxException e) {
       throw new OdinRuntimeException("Cannot initialise path", e);
     }
@@ -198,24 +196,21 @@ public class Snapshot {
      */
     Path namedPath;
     if (relativePath == null) {
-      Path classSourcePath = Paths
-          .get(rootPath.toString(), clazz.getName().replace('.', '/'));
+      Path classSourcePath = Paths.get(rootPath.toString(), clazz.getName().replace('.', '/'));
       LOG.debug("class source path : {}", classSourcePath);
 
-      Path snapshotDirectoryPath = Paths.get(
-          lastSlash.matcher(classSourcePath.toString()).replaceFirst("/snapshot"));
+      Path snapshotDirectoryPath =
+          Paths.get(lastSlash.matcher(classSourcePath.toString()).replaceFirst("/snapshot"));
 
       LOG.debug("snapshot directory path : {}", snapshotDirectoryPath);
-      namedPath = Paths.get(
-          snapshotDirectoryPath.toString(), clazz.getSimpleName());
+      namedPath = Paths.get(snapshotDirectoryPath.toString(), clazz.getSimpleName());
     } else {
       namedPath = Paths.get(rootPath.toString(), relativePath);
     }
 
     String variationWithSeparator = (variation == null ? "" : separator + variation);
-    path = Paths.get(namedPath
-            + variationWithSeparator
-            + (extension == null ? "" : "." + extension));
+    path =
+        Paths.get(namedPath + variationWithSeparator + (extension == null ? "" : "." + extension));
 
     name = path.getFileName().toString().replaceFirst("[.][^.]+$", "");
 
@@ -237,8 +232,7 @@ public class Snapshot {
       File parent = file.getParentFile();
       if (!parent.exists()) {
         if (!parent.mkdirs()) {
-          throw new OdinRuntimeException(
-              "Cannot create snapshot parent directory : " + parent);
+          throw new OdinRuntimeException("Cannot create snapshot parent directory : " + parent);
         }
         LOG.info("Creating directory : {}", parent);
       }
@@ -255,20 +249,22 @@ public class Snapshot {
   }
 
   private Stream<String> linesAsSortedStream() {
-    return lines.stream().sorted(Comparator
-        .comparing(Entry::getTime).thenComparing(Entry::getValue)).map(entry -> entry.value);
+    return lines
+        .stream()
+        .sorted(Comparator.comparing(Entry::getTime).thenComparing(Entry::getValue))
+        .map(entry -> entry.value);
   }
 
-  /**
-   * Expect snapshot to match snapshot file.
-   */
+  /** Expect snapshot to match snapshot file. */
   public void expectMatch() {
     try {
       commit();
     } catch (IOException e) {
       LOG.error("Cannot commit snapshot", e);
     }
-    assertThat(getActualInputStream()).hasSameContentAs(getExpectedInputStream());
+    assertThat(getActualInputStream())
+        .as("For " + getName())
+        .hasSameContentAs(getExpectedInputStream());
   }
 
   public InputStream getExpectedInputStream() {

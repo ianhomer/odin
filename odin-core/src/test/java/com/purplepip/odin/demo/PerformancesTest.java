@@ -18,7 +18,6 @@ package com.purplepip.odin.demo;
 import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import com.purplepip.odin.snapshot.Snapshot;
@@ -38,9 +37,10 @@ import org.junit.runners.Parameterized;
 public class PerformancesTest {
   private Performance performance;
   private String testName;
-  private long testWait;
+  private long testWaitMs;
   private int staticBeatsPerMinute;
   private int expectedOperationCount;
+  private boolean expectOverflow;
 
   /**
    * Create performances test from injected parameter.
@@ -51,8 +51,9 @@ public class PerformancesTest {
     performance = parameter.performance();
     staticBeatsPerMinute = parameter.staticBeatsPerMinute();
     expectedOperationCount = parameter.expectedOperationCount();
-    testWait = parameter.testWait();
+    testWaitMs = parameter.testWaitMs();
     testName = performance.getClass().getSimpleName();
+    expectOverflow = parameter.expectOverflow();
   }
 
   /**
@@ -64,27 +65,32 @@ public class PerformancesTest {
   public static Iterable<PerformancesTestParameter> parameters() {
     Collection<PerformancesTestParameter> parameters = new ArrayList<>();
     parameters.add(newParameter(new SimplePerformance(), 12));
-    parameters.add(newParameter(new KotlinPerformance(), 5));
-    parameters.add(newParameter(new PlutoPerformance(), 2));
-    parameters.add(newParameter(new MixinPerformance(), 20));
-    parameters.add(newParameter(new GroovePerformance(), 40)
-        .testWait(4000).staticBeatsPerMinute(600));
+    parameters.add(newParameter(new KotlinPerformance(), 5).expectOverflow(true));
+    parameters.add(newParameter(new PlutoPerformance(), 2).expectOverflow(true));
+    parameters.add(newParameter(new MixinPerformance(), 20).expectOverflow(true));
+    parameters.add(
+        newParameter(new GroovePerformance(), 40)
+            .expectOverflow(true)
+            .testWaitMs(4000)
+            .staticBeatsPerMinute(600));
     return parameters;
   }
 
   @Test
-  public void testPerformance() throws OdinException, InterruptedException {
+  public void testPerformance() throws InterruptedException {
     Snapshot snapshot = new Snapshot(performance.getClass(), true);
     SnapshotOperationReceiver snapshotReceiver =
-        new SnapshotOperationReceiver(snapshot, expectedOperationCount);
+        new SnapshotOperationReceiver(snapshot, expectedOperationCount, expectOverflow);
 
     TestSequencerEnvironment environment =
-        new TestSequencerEnvironment(snapshotReceiver, performance,
+        new TestSequencerEnvironment(
+            snapshotReceiver,
+            performance,
             deltaConfiguration().staticBeatsPerMinute(staticBeatsPerMinute));
     long time = System.currentTimeMillis();
     environment.start();
     try {
-      snapshotReceiver.getLatch().await(testWait, TimeUnit.MILLISECONDS);
+      snapshotReceiver.getLatch().await(testWaitMs, TimeUnit.MILLISECONDS);
     } finally {
       environment.shutdown();
     }
@@ -94,8 +100,8 @@ public class PerformancesTest {
      * that risk of failure due to time out is high.
      */
     long delta = System.currentTimeMillis() - time;
-    if (System.currentTimeMillis() - time > testWait / 2) {
-      LOG.warn("{} : test is running slow : {} > {}", testName, delta, testWait / 2);
+    if (System.currentTimeMillis() - time > testWaitMs / 2) {
+      LOG.warn("{} : test is running slow : {} > {}", testName, delta, testWaitMs / 2);
     }
 
     /*
@@ -103,18 +109,22 @@ public class PerformancesTest {
      */
     long actualCount = expectedOperationCount - snapshotReceiver.getLatch().getCount();
     if (actualCount != expectedOperationCount) {
-      LOG.warn("{} : only {} operations were recorded, {} were expected", testName, actualCount,
+      LOG.warn(
+          "{} : only {} operations were recorded, {} were expected",
+          testName,
+          actualCount,
           expectedOperationCount);
     }
     snapshot.expectMatch();
-    assertEquals(testName + " operation count not as expected", expectedOperationCount,
-        actualCount);
+    assertEquals(
+        testName + " operation count not as expected", expectedOperationCount, actualCount);
     LOG.debug("{} : performance snapshot AOK", testName);
   }
 
-  private static PerformancesTestParameter newParameter(Performance performance,
-                                                int expectedOperationCount) {
-    return new PerformancesTestParameter().performance(performance)
+  private static PerformancesTestParameter newParameter(
+      Performance performance, int expectedOperationCount) {
+    return new PerformancesTestParameter()
+        .performance(performance)
         .expectedOperationCount(expectedOperationCount);
   }
 
@@ -122,19 +132,16 @@ public class PerformancesTest {
   private static class PerformancesTestParameter {
     private static final int DEFAULT_STATIC_BEATS_PER_MINUTE = 6000;
     private static final int DEFAULT_EXPECTED_OPERATION_COUNT = 20;
-    private static final long DEFAULT_WAIT = 2000;
+    private static final long DEFAULT_WAIT_MS = 8000;
 
-    @Getter
-    @Setter
-    private Performance performance;
+    @Getter @Setter private Performance performance;
 
-    @Getter @Setter
-    private int staticBeatsPerMinute = DEFAULT_STATIC_BEATS_PER_MINUTE;
+    @Getter @Setter private int staticBeatsPerMinute = DEFAULT_STATIC_BEATS_PER_MINUTE;
 
-    @Getter @Setter
-    private int expectedOperationCount = DEFAULT_EXPECTED_OPERATION_COUNT;
+    @Getter @Setter private int expectedOperationCount = DEFAULT_EXPECTED_OPERATION_COUNT;
 
-    @Getter @Setter
-    private long testWait = DEFAULT_WAIT;
+    @Getter @Setter private long testWaitMs = DEFAULT_WAIT_MS;
+
+    @Getter @Setter private boolean expectOverflow = false;
   }
 }
