@@ -21,7 +21,7 @@ import static org.junit.Assume.assumeTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
-import com.purplepip.odin.devices.Environment;
+import com.purplepip.odin.boot.OptionalMidiApplication;
 import com.purplepip.odin.midix.SynthesizerDevice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,12 +33,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SynthesizerConfigurationTest {
-  @Autowired private Environment environment;
+  @Autowired private OptionalMidiApplication midiApplication;
 
   @Test
   public void testRun() {
     assumeTrue(isAudioEnabled());
-    SynthesizerConfiguration loader = new SynthesizerConfiguration(environment);
+    SynthesizerConfiguration loader = new SynthesizerConfiguration(midiApplication);
     try (LogCaptor captor = new LogCapture().info().from(SynthesizerDevice.class).start()) {
       loader.run();
       assertEquals(1, captor.size());

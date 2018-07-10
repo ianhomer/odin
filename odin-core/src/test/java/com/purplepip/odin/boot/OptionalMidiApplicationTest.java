@@ -15,15 +15,17 @@
 
 package com.purplepip.odin.boot;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 
-import com.purplepip.odin.devices.DeviceUnavailableException;
+import com.purplepip.odin.devices.Environment;
 import org.junit.Test;
 
-public class SimpleMidiApplicationTest {
+public class OptionalMidiApplicationTest {
   @Test
-  public void testApplication() throws DeviceUnavailableException {
-    GuaranteedMidiApplication application = new GuaranteedMidiApplication();
-    assertNotNull(application.getSink());
+  public void testNoSinkNoSource() {
+    var application = new OptionalMidiApplication(new Environment());
+    assertFalse(application.getSink().isPresent());
+    assertFalse(application.getSource().isPresent());
+    assertFalse(application.getSynthesizer().isPresent());
   }
 }

@@ -16,12 +16,11 @@
 package com.purplepip.odin.api;
 
 import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.boot.OptionalMidiApplication;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.devices.Environment;
-import com.purplepip.odin.midix.MidiDevice;
-import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.MidiOperationReceiver;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
@@ -32,7 +31,6 @@ import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,6 +48,9 @@ public class OdinConfiguration {
 
   @Autowired(required = false)
   private PerformanceLoader performanceLoader;
+
+  @Autowired
+  private OptionalMidiApplication midiApplication;
 
   /**
    * Create the measure provider.
@@ -72,8 +73,9 @@ public class OdinConfiguration {
   public OdinSequencerConfiguration configuration(
       MeasureProvider measureProvider, Environment environment) {
     List<OperationHandler> operationReceivers = new ArrayList<>();
-    Optional<MidiDevice> sink = environment.findOneSink(MidiHandle.class);
-    sink.ifPresent(midiDevice -> operationReceivers.add(new MidiOperationReceiver(midiDevice)));
+    midiApplication
+        .getSink()
+        .ifPresent(midiDevice -> operationReceivers.add(new MidiOperationReceiver(midiDevice)));
 
     if (performanceLoader != null) {
       operationReceivers.add(performanceLoader);
@@ -89,7 +91,7 @@ public class OdinConfiguration {
             .setMeasureProvider(measureProvider)
             .setOperationReceiver(new OperationReceiverCollection(operationReceivers));
 
-    sink.ifPresent(configuration::setMicrosecondPositionProvider);
+    midiApplication.getSink().ifPresent(configuration::setMicrosecondPositionProvider);
 
     /*
      * Metrics is optional, e.g. not needed for most tests.  However even when not set

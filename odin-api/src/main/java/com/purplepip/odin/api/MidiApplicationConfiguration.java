@@ -13,17 +13,23 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.boot;
+package com.purplepip.odin.api;
 
-import static org.junit.Assert.assertNotNull;
+import com.purplepip.odin.boot.OptionalMidiApplication;
+import com.purplepip.odin.devices.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import com.purplepip.odin.devices.DeviceUnavailableException;
-import org.junit.Test;
-
-public class SimpleMidiApplicationTest {
-  @Test
-  public void testApplication() throws DeviceUnavailableException {
-    GuaranteedMidiApplication application = new GuaranteedMidiApplication();
-    assertNotNull(application.getSink());
+@Configuration
+public class MidiApplicationConfiguration {
+  /**
+   * Create new environment.
+   *
+   * @return environment
+   */
+  @Bean
+  public OptionalMidiApplication simpleMidiApplication(@Autowired Environment environment) {
+    return new OptionalMidiApplication(environment);
   }
 }

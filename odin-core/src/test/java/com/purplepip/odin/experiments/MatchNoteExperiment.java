@@ -17,7 +17,7 @@ package com.purplepip.odin.experiments;
 
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
-import com.purplepip.odin.boot.SimpleMidiApplication;
+import com.purplepip.odin.boot.GuaranteedMidiApplication;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
@@ -59,7 +59,7 @@ public class MatchNoteExperiment {
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
     DefaultOdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration();
-    try (SimpleMidiApplication application = new SimpleMidiApplication()) {
+    try (GuaranteedMidiApplication application = new GuaranteedMidiApplication()) {
       MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
       configuration.setBeatsPerMinute(new StaticBeatsPerMinute(60))
           .setMeasureProvider(measureProvider)

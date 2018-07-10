@@ -3,7 +3,7 @@ package com.purplepip.odin.experiments;
 import static com.purplepip.odin.music.notes.Notes.newNote;
 
 import com.codahale.metrics.ConsoleReporter;
-import com.purplepip.odin.boot.SimpleMidiApplication;
+import com.purplepip.odin.boot.GuaranteedMidiApplication;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
@@ -53,7 +53,7 @@ public class MidiSequencePlayground {
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
     DefaultOdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration();
-    try (SimpleMidiApplication application = new SimpleMidiApplication()) {
+    try (GuaranteedMidiApplication application = new GuaranteedMidiApplication()) {
       MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
       OperationTransmitter transmitter = new DefaultOperationTransmitter();
       configuration

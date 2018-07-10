@@ -15,9 +15,6 @@
 
 package com.purplepip.odin.boot;
 
-import static com.purplepip.odin.system.Environments.newEnvironment;
-
-import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.midix.MidiDevice;
 import com.purplepip.odin.midix.MidiHandle;
@@ -27,25 +24,24 @@ import com.purplepip.odin.sequencer.DefaultOperationTransmitter;
 import com.purplepip.odin.sequencer.OperationTransmitter;
 import java.util.Optional;
 
-/** Simple MIDI application handy for use stand alone applications. */
-public class SimpleMidiApplication implements AutoCloseable {
+/** MIDI application where sink and / or source are optional. */
+public class OptionalMidiApplication implements AutoCloseable {
   private final MidiDevice source;
   private final MidiDevice sink;
   private final MidiTransmitterBinding binding;
   private final OperationTransmitter transmitter;
 
   /**
-   * Create a simple MIDI application.
-   *
-   * @throws DeviceUnavailableException exception
+   * Create MIDI application.
    */
-  public SimpleMidiApplication() throws DeviceUnavailableException {
-    Environment environment = newEnvironment();
-    source = environment.findOneSourceOrThrow(MidiHandle.class);
-    sink = environment.findOneSinkOrThrow(MidiHandle.class);
+  public OptionalMidiApplication(Environment environment) {
+    source = environment.findOneSource(MidiHandle.class).orElse(null);
+    sink = environment.findOneSink(MidiHandle.class).orElse(null);
     binding = new MidiTransmitterBinding();
     transmitter = new DefaultOperationTransmitter();
-    binding.bind(source, transmitter);
+    if (source != null) {
+      binding.bind(source, transmitter);
+    }
   }
 
   /**
@@ -59,12 +55,12 @@ public class SimpleMidiApplication implements AutoCloseable {
         : Optional.empty();
   }
 
-  public MidiDevice getSource() {
-    return source;
+  public Optional<MidiDevice> getSource() {
+    return Optional.ofNullable(source);
   }
 
-  public MidiDevice getSink() {
-    return sink;
+  public Optional<MidiDevice> getSink() {
+    return Optional.ofNullable(sink);
   }
 
   public OperationTransmitter getTransmitter() {
