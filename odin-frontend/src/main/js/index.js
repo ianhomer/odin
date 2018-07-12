@@ -14,45 +14,9 @@
 
 import React from 'react'
 import {render} from 'react-dom'
-
-import thunkMiddleware from 'redux-thunk'
-import {createLogger} from 'redux-logger'
-import {applyMiddleware, combineReducers, createStore} from 'redux'
 import 'babel-polyfill'
-import createSagaMiddleware from 'redux-saga'
-
+import store from './store'
 import App from './containers/App'
-import reducers from './reducers'
-import {Backend} from './backend'
-import {loadSchemaActions} from './actions'
-
-// Create the backend integration layer
-const backend = new Backend()
-
-// Create saga middleware for handling of calls to backend.  Note that the backend is
-// passed in as context for the saga middleware so that we can inject the backend API calls in.
-// Injecting backend API calls in is required for switching in different backends as required
-// for test cases which need a mock backend.
-const sagaMiddleware = createSagaMiddleware({context: {backend: backend}})
-
-var middleware = [thunkMiddleware, sagaMiddleware]
-var env = process.env.NODE_ENV || 'dev'
-if (env === 'dev') {
-  middleware.push(createLogger({collapsed: true}))
-}
-
-// Create the application store
-const store = createStore(
-  combineReducers(reducers),
-  applyMiddleware(...middleware)
-)
-
-// Hook in back end API calls
-sagaMiddleware.run(backend.saga)
-
-for (var i = 0; i < loadSchemaActions.length ; i++) {
-  store.dispatch(loadSchemaActions[i])
-}
 
 // Render application
 render(
