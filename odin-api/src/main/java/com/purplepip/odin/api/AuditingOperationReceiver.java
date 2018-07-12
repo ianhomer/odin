@@ -26,6 +26,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -37,7 +38,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Profile("!noAuditing")
 @Slf4j
-public class AuditingOperationReceiver implements OperationHandler, InitializingBean {
+public class AuditingOperationReceiver implements OperationHandler, InitializingBean,
+    DisposableBean {
   private static final long CLEAN_PERIOD = 30;
   private final ScheduledExecutorService scheduledPool =
       Executors.newScheduledThreadPool(1);
@@ -76,5 +78,10 @@ public class AuditingOperationReceiver implements OperationHandler, Initializing
         LOG.error("Error whilst executing sequence processing", e);
       }
     }, 0, CLEAN_PERIOD, TimeUnit.SECONDS);
+  }
+
+  @Override
+  public void destroy() {
+    scheduledPool.shutdown();
   }
 }

@@ -34,10 +34,6 @@ public class PersistenceConfiguration {
    *
    * @return performance container.
    */
-  /*
-   * TODO : Why do we need the persistence configuration to create a container which is not
-   * persistence specific?
-   */
   @Bean
   public PerformanceContainer performanceContainer() {
     return new DefaultPerformanceContainer();
