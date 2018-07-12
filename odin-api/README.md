@@ -30,6 +30,7 @@ Actuators at http://localhost:8080/actuator.
 API Endpoints
 
 * http://localhost:8080/api/services/system/environment
+* http://localhost:8080/api/rest/sequence
 
 # Test
     
