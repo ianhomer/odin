@@ -3,19 +3,15 @@
 <html lang="en">
 <head>
   <title id="title">sequencer : odin</title>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-  <link rel="stylesheet" href="/web/main.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="../src/main/resources/static/main.css" />
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-          data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-          aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="/">odin</a>
@@ -31,8 +27,7 @@
         <a class="nav-link" href="/web/app/channels">Channels</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/api/page/system"
-           id="navbarDropdownMenuLinkSystem"
+        <a class="nav-link dropdown-toggle" href="/api/page/system" id="navbarDropdownMenuLinkSystem"
            role="button"
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">System</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSystem">
@@ -44,9 +39,7 @@
       </li>
       <!-- Static pages be deprecated in favour of all data via web services -->
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="/api/page/system"
-           id="navbarDropdownMenuLinkLegacy" data-toggle="dropdown" aria-haspopup="true"
-           aria-expanded="false">X</a>
+        <a class="nav-link dropdown-toggle" href="/api/page/system" id="navbarDropdownMenuLinkLegacy" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">X</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkLegacy">
           <a class="dropdown-item" href="/api/page/system/">system</a>
           <a class="dropdown-item" href="/api/page/system/sequencer">sequencer</a>
@@ -61,14 +54,11 @@
     <div id="root"></div>
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-</body>
+<script>
+  var odinApiHost = 'http://localhost:8080';
+</script>
+<script src="../src/main/resources/static/built/bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script></body>
 </html>
