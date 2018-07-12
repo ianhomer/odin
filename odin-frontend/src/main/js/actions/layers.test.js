@@ -2,11 +2,10 @@ import TIMEOUT from '../constants.js'
 
 import {CREATE_ENTITY_SUCCEEDED, PATCH_ENTITY_SUCCEEDED,
   moveLayerRequested, removeLayerRequested,
-  createEntityRequested} from 'odin/actions/index.js'
+  createEntityRequested} from './index.js'
 
-
-import store from '../store'
-import {dispatchAndExpect} from '../utils/dispatchAndExpect'
+import store from '../../../test/js/store'
+import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
 
 function getLayer(name) {
   return store.getState().rest.layer.entities.find(layer => layer.name === name)
