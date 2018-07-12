@@ -30,13 +30,13 @@ import {
 import {withQuery} from './withQuery'
 
 // If global variable odinApiHost is set then use that as the host, otherwise we expect it's local
-const apiRoot = (odinApiHost ? odinApiHost : '') + '/api'
+/* global odinApiHost */
+const apiRoot = (typeof odinApiHost !== 'undefined' ? odinApiHost : '') + '/api'
 
 const restRoot = apiRoot + '/rest'
 
 export class Backend {
   createEntityApi(entity, path) {
-    console.log('yy' + odinApiHost)
     return fetch(restRoot + '/' + path, {
       method: 'POST',
       headers: {
