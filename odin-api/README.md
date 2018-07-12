@@ -4,6 +4,9 @@ Quick install
 
     mvn install -P quick
 
+## Stand alone
+
+    mvn spring-boot:run
 
 ## Docker
 
@@ -18,7 +21,16 @@ Quick install
       docker rm odin-api          ; \
       docker build -t odin-api .  && \
       docker run --name odin-api -p 8081:8080 -d odin-api
-      
+
+# End points
+
+Actuators at http://localhost:8080/actuator.
+
+
+API Endpoints
+
+* http://localhost:8080/api/services/system/environment
+
 # Test
     
 Test some tests with debug logging on
