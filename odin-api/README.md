@@ -8,6 +8,11 @@ Quick install
 
     mvn spring-boot:run
 
+Hot reload is enabled, so application will restart if you recompile a
+class (e.g. build module in IDE) or touch a class, e.g.
+
+    touch target/classes/com/purplepip/odin/api/OdinNoStoreConfiguration.class
+
 ## Docker
 
     docker build -t odin-api .
