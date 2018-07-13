@@ -80,7 +80,7 @@ class App extends React.Component {
             <div>
               <Route exact path="/web/app/developer" component={this.renderDeveloper}/>
               <Route exact path="/web/app/environment" component={this.renderEnvironment}/>
-              <Route path="/web/app" component={this.renderPerformance}/>
+              <Route component={this.renderPerformance}/>
             </div>
           </Router>
         </Provider>

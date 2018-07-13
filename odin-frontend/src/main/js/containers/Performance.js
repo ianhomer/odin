@@ -77,9 +77,9 @@ class Performance extends React.Component {
     return (
       <Router>
         <div>
-          <Route exact path="/web/app" component={this.renderComposer}/>
           <Route exact path="/web/app/sequences" component={this.renderSequenceList}/>
           <Route exact path="/web/app/channels" component={this.renderChannelList}/>
+          <Route component={this.renderComposer}/>
         </div>
       </Router>
     )
