@@ -4,5 +4,5 @@ jdk:
 cache:
   directories:
   - $HOME/.m2
-  - odin-server/node
-  - odin-server/node_modules
+  - odin-frontend/node
+  - odin-frontend/node_modules
