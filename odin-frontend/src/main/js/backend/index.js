@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 import {call, put, takeEvery, getContext} from 'redux-saga/effects'
-import fetch from 'isomorphic-fetch'
 import {
   CREATE_ENTITY_REQUESTED, CREATE_ENTITY_SUCCEEDED, CREATE_ENTITY_FAILED,
   UPDATE_ENTITY_REQUESTED, UPDATE_ENTITY_SUCCEEDED, UPDATE_ENTITY_FAILED,
@@ -28,10 +25,7 @@ import {
   LOAD_PROFILE_SCHEMA_REQUESTED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_FAILED
 } from '../actions'
 import {withQuery} from './withQuery'
-
-// If global variable odinApiHost is set then use that as the host, otherwise we expect it's local
-/* global odinApiHost */
-const apiRoot = (typeof odinApiHost !== 'undefined' ? odinApiHost : '') + '/api'
+import {apiRoot} from '../constants'
 
 const restRoot = apiRoot + '/rest'
 
@@ -207,7 +201,7 @@ export class Backend {
   }
 
   loadPerformanceSchemaApi() {
-    return fetch('/api/services/schema', {
+    return fetch(apiRoot + '/services/schema', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

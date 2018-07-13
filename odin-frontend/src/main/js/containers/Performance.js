@@ -21,6 +21,7 @@ import {connect} from 'react-redux'
 import ChannelsContainer from '../containers/ChannelsContainer'
 import SequencesContainer from '../containers/SequencesContainer'
 import ComposerContainer from '../containers/ComposerContainer'
+import {apiRoot} from '../constants'
 
 class Performance extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class Performance extends React.Component {
   componentDidMount() {
     // Load first performance (only one performance supported for now)
     // TODO : Move this performance loading over to redux
-    fetch('/api/rest/performance', {method: 'GET'})
+    fetch(apiRoot + '/rest/performance', {method: 'GET'})
       .then(response => response.json())
       .then(json => this.setState({performance: json._embedded.performance[0]}))
   }

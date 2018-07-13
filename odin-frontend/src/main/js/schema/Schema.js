@@ -24,8 +24,8 @@
 const Ajv = require('ajv')
 
 import {Clazz} from './Clazz'
+import {apiRoot} from '../constants'
 
-const root = '/api/rest'
 const _ajv = new WeakMap()
 const _clazzes = new WeakMap()
 const _flux = new WeakMap()
@@ -172,7 +172,7 @@ export class Schema {
         console.warn('loadClazz(' + path + ') should not be called anymore')
         this.getFlux().client({
           method: 'GET',
-          path: root + '/profile/' + path,
+          path: apiRoot + '/rest/profile/' + path,
           headers: {'Accept': 'application/schema+json'}
         }).then(response => {
           this.addSchemaForClazz(response.entity, path)
