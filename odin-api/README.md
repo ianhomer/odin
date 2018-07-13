@@ -9,7 +9,8 @@ Quick install
     mvn spring-boot:run
 
 Hot reload is enabled, so application will restart if you recompile a
-class (e.g. build module in IDE) or touch a class, e.g.
+class (e.g. build module in IDE), e.g. Shift-Fn-Cmd-F9 in IDEA in the
+window of the class that was changed, or even just touch a class, e.g.
 
     touch target/classes/com/purplepip/odin/api/OdinNoStoreConfiguration.class
 
