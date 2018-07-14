@@ -1,10 +1,10 @@
 import TIMEOUT from '../constants.js'
 
 import {CREATE_ENTITY_SUCCEEDED, FETCH_COMPOSITION_SUCCEEDED,
-  createEntityRequested} from 'odin/actions/index.js'
+  createEntityRequested} from './index'
 
-import store from '../store'
-import {dispatchAndExpect} from '../utils/dispatchAndExpect'
+import store from '../../../test/js/store'
+import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
 
 describe('Sequence async actions', () => {
   test('Initial State', () => {
