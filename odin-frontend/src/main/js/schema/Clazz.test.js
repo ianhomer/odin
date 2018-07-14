@@ -1,6 +1,6 @@
 import testSchemaJson from 'odin-api-snapshot/data/api/services/schema.json'
 import testSequenceJson from 'odin-api-snapshot/data/api/rest/profile/sequence.json'
-import {Schema} from 'odin/schema/Schema'
+import {Schema} from './Schema'
 
 describe('Clazz validation', () => {
   test('New Instance', () => {

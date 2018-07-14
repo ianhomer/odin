@@ -1,10 +1,10 @@
 import TIMEOUT from '../constants.js'
 
-import store from '../store'
+import store from '../../../test/js/store'
 import {LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
-  loadPerformanceSchemaRequested, loadProfileSchemaRequested} from 'odin/actions/index.js'
-import {dispatchAndExpect} from '../utils/dispatchAndExpect'
-import {Schema} from 'odin/schema/Schema'
+  loadPerformanceSchemaRequested, loadProfileSchemaRequested} from '../actions/index.js'
+import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
+import {Schema} from './Schema'
 
 describe('Schema validation', () => {
 
