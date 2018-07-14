@@ -49,6 +49,6 @@ Trash.propTypes = {
   connectDropTarget: PropTypes.func.isRequired
 }
 
-module.exports = DropTarget(
+export default DropTarget(
   [ItemTypes.SEQUENCE_IN_LAYER, ItemTypes.LAYER],
   dropTarget, collect)(Trash)
