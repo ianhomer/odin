@@ -21,11 +21,10 @@
 // helps separate concerns (front end state / back end state / front end rendering), allows
 // events to be handled asynchronously and makes unit testing of the front end a lot easier.
 
-const Ajv = require('ajv')
-
 import {Clazz} from './Clazz'
 import {apiRoot} from '../constants'
 
+const Ajv = require('ajv')
 const _ajv = new WeakMap()
 const _clazzes = new WeakMap()
 const _flux = new WeakMap()

@@ -173,5 +173,5 @@ Layer.propTypes = {
   connectDragSource: PropTypes.func.isRequired
 }
 
-module.exports = DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
+export default DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
   DropTarget([ItemTypes.SEQUENCE, ItemTypes.LAYER], dropTarget, collectDrop)(Layer))

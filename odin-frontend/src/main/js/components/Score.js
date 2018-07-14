@@ -237,5 +237,4 @@ Score.propTypes = {
   onInputChange: PropTypes.func,
   onKeyPress: PropTypes.func
 }
-
-module.exports = Score
+export default Score

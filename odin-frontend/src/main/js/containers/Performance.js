@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const React = require('react')
-const PropTypes = require('prop-types')
-
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {connect} from 'react-redux'
 
@@ -22,6 +19,9 @@ import ChannelsContainer from '../containers/ChannelsContainer'
 import SequencesContainer from '../containers/SequencesContainer'
 import ComposerContainer from '../containers/ComposerContainer'
 import {apiRoot} from '../constants'
+
+const React = require('react')
+const PropTypes = require('prop-types')
 
 class Performance extends React.Component {
   constructor(props) {

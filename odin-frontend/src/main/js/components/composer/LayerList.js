@@ -141,4 +141,4 @@ LayerList.propTypes = {
   schema: PropTypes.object.isRequired
 }
 
-module.exports = LayerList
+export default LayerList

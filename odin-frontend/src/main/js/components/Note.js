@@ -39,7 +39,7 @@ Note.propTypes = {
   velocity: PropTypes.string.isRequired
 }
 
-module.exports = Note
+export default Note
 
 
 

@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import {DragDropContext} from 'react-dnd'
@@ -23,6 +21,7 @@ import LayerList from './LayerList'
 import NotationCard from './NotationCard'
 import PatternCard from './PatternCard'
 import SequenceCard from './SequenceCard'
+
 const Sequences = {
   'notation': NotationCard,
   'pattern': PatternCard
@@ -96,4 +95,4 @@ Composer.propTypes = {
   sequences: PropTypes.object.isRequired
 }
 
-module.exports = DragDropContext(HTML5Backend)(Composer)
+export default DragDropContext(HTML5Backend)(Composer)
