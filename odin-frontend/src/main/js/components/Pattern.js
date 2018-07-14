@@ -81,4 +81,4 @@ Pattern.defaultProps = {
   }
 }
 
-export default Pattern
+module.exports = Pattern

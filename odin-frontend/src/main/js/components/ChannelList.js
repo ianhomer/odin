@@ -81,4 +81,4 @@ ChannelList.propTypes = {
   schema: PropTypes.object.isRequired
 }
 
-export default ChannelList
+module.exports = ChannelList

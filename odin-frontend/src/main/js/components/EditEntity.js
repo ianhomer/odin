@@ -103,7 +103,7 @@ class EditEntity extends React.Component{
     if (field.size) {
       size = field.size
     } else {
-      if (type === 'integer') {
+      if (type == 'integer') {
         size = 3
       }
     }
@@ -115,7 +115,7 @@ class EditEntity extends React.Component{
     if (value == null) {
       if (this.props.entity) {
         value = clazz.getEntityValue(this.props.entity, key)
-        if (type === 'object') {
+        if (type == 'object') {
           // TODO : Handle objects better than string serialisation
           value = JSON.stringify(value)
         }
@@ -125,7 +125,7 @@ class EditEntity extends React.Component{
     }
 
     // TODO : Do notation by field type NOT field name
-    if (fieldName === 'notation') {
+    if (fieldName == 'notation') {
       var scoreEntity = this.props.entity ?
         this.props.entity :
         {properties: {notation: value}}
@@ -239,4 +239,4 @@ EditEntity.propTypes = {
   schema: PropTypes.object.isRequired
 }
 
-export default EditEntity
+module.exports = EditEntity

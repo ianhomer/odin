@@ -86,4 +86,4 @@ NotationCard.propTypes = {
 }
 
 // Export the wrapped component:
-export default DragSource(ItemTypes.SEQUENCE, dragSource, collect)(NotationCard)
+module.exports = DragSource(ItemTypes.SEQUENCE, dragSource, collect)(NotationCard)

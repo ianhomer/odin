@@ -82,4 +82,4 @@ class SequenceCard extends React.Component{
 
 SequenceCard.propTypes = propTypes
 
-export default DragSource(ItemTypes.SEQUENCE, dropSource, collect)(SequenceCard)
+module.exports = DragSource(ItemTypes.SEQUENCE, dropSource, collect)(SequenceCard)

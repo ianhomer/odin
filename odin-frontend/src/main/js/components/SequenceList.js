@@ -118,4 +118,4 @@ SequenceList.propTypes = {
   schema: PropTypes.object.isRequired
 }
 
-export default SequenceList
+module.exports = SequenceList

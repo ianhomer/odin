@@ -143,4 +143,4 @@ Sequence.defaultProps = {
   }
 }
 
-export default Sequence
+module.exports = Sequence

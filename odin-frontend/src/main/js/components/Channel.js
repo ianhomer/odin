@@ -46,4 +46,4 @@ Channel.propTypes = {
   onDelete: PropTypes.func.isRequired
 }
 
-export default Channel
+module.exports = Channel

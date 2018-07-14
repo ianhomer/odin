@@ -82,4 +82,4 @@ Notation.defaultProps = {
   }
 }
 
-export default Notation
+module.exports = Notation

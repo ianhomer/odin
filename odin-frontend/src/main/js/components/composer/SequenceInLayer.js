@@ -68,4 +68,4 @@ class SequenceInLayer extends React.Component{
 SequenceInLayer.propTypes = propTypes
 
 // Export the wrapped component:
-export default DragSource(ItemTypes.SEQUENCE_IN_LAYER, cardSource, collect)(SequenceInLayer)
+module.exports = DragSource(ItemTypes.SEQUENCE_IN_LAYER, cardSource, collect)(SequenceInLayer)

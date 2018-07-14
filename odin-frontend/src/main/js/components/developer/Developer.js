@@ -120,4 +120,4 @@ class Developer extends React.Component{
   }
 }
 
-export default Developer
+module.exports = Developer
