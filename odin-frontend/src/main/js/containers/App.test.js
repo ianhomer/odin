@@ -1,13 +1,13 @@
 import React from 'react'
 
-import {shallow} from '../enzyme.js'
+import {shallow} from '../../../test/js/enzyme.js'
 import sinon from 'sinon'
 
-import App from 'odin/containers/App.js'
-import {LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, loadPerformanceSchemaRequested} from 'odin/actions/index.js'
+import App from './App'
+import {LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, loadPerformanceSchemaRequested} from '../actions/index.js'
 
-import store from '../store'
-import {dispatchAndExpect} from '../utils/dispatchAndExpect'
+import store from '../../../test/js/store'
+import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
 
 describe('async actions', () => {
   var props = {store}

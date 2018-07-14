@@ -1,5 +1,5 @@
 import React from 'react'
-import Tick from 'odin/components/Tick.js'
+import Tick from './Tick'
 import renderer from 'react-test-renderer'
 
 test('Tick renders OK', () => {
