@@ -33,7 +33,7 @@ class Developer extends React.Component{
     var value = e.target.value.trim()
     var parts = value.split(':')
     var level, category
-    if (parts.length == 2) {
+    if (parts.length === 2) {
       level = parts[0].trim()
       category = parts[1].trim()
     } else {
@@ -90,9 +90,9 @@ class Developer extends React.Component{
           defaultValue={matchLevel + ' : '} size="60"
           onKeyPress={this.handleKeyPress}
         />
-        {Object.keys(this.state.loggers).map(name => {
+        {Object.keys(this.state.loggers).forEach(name => {
           var level = this.state.loggers[name].configuredLevel
-          if (level == matchLevel) {
+          if (level === matchLevel) {
             return (
               <div className="row" key={'logging-' + name}>
                 <div className="col-2">&nbsp;</div>

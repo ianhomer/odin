@@ -36,11 +36,11 @@ const dragSource = {
   endDrag(props, monitor) {
     if (monitor.didDrop()) {
       var action = monitor.getDropResult().action
-      if (action == 'remove') {
+      if (action === 'remove') {
         props.onDelete(props.entity)
-      } else if (action == 'add') {
+      } else if (action === 'add') {
         props.onAddLayer(monitor.getDropResult().entity, props.entity, props.onChange)
-      } else if (action == 'move') {
+      } else if (action === 'move') {
         props.onMoveLayer(monitor.getDropResult().entity, props.parent, props.entity, props.onChange)
       } else {
         console.error('Action ' + action + ' has not been implemented for layers : result = ' +
@@ -62,17 +62,17 @@ const dropTarget = {
 
   canDrop(props, monitor) {
     var isOverCurrent = monitor.isOver({shallow: true})
-    if (monitor.getItem().type == ItemTypes.SEQUENCE) {
+    if (monitor.getItem().type === ItemTypes.SEQUENCE) {
       // can drop sequence
       for (var i =0 ; i < props.sequences.length ; i++) {
         // Sequence is already in layer
-        if (props.sequences[i].name == monitor.getItem().entity.name) {
+        if (props.sequences[i].name === monitor.getItem().entity.name) {
           return false
         }
       }
     } else {
       // can drop layer
-      if (props.entity.name == monitor.getItem().entity.name) {
+      if (props.entity.name === monitor.getItem().entity.name) {
         return false
       }
     }
@@ -116,7 +116,7 @@ class Layer extends React.Component{
       var sequence = sequences[sequenceName]
       for (var j = 0 ; j < sequence.layers.length ; j++) {
         var layerName = sequence.layers[j]
-        if (layerName == this.props.entity.name) {
+        if (layerName === this.props.entity.name) {
           // Push a sequence object onto the array with enough information to handle change
           sequencesInLayer.push(sequence)
         }

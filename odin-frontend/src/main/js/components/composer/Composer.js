@@ -31,10 +31,6 @@ const DefaultSequence = SequenceCard
 
 // Rendering of composer
 class Composer extends React.Component{
-  constructor(props) {
-    super(props)
-  }
-
   getExtraArguments(type) {
     var optionalArguments = {}
     if (type === 'notation') {

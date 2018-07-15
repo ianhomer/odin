@@ -23,7 +23,7 @@ gulp.task('lint', () => {
     .pipe(gulpIf(isFixed, gulp.dest('./src')))
     // To have the process exit with an error code (1) on
     // lint error, return the stream and pipe to failAfterError last.
-    //.pipe(eslint.failAfterError());
+    .pipe(eslint.failAfterError());
 });
 
 gulp.task('default', ['lint'], function () {

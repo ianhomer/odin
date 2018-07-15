@@ -32,7 +32,7 @@ describe('Sequence container validation', () => {
     expect(row.find('.property-channel').text()).toBe('4')
     row.find('.property-notation').simulate('click')
     expect(row).toMatchSnapshot()
-    const editingRow = mounted.findWhere(n => n.key() == 'aahs-a').at(1)
+    const editingRow = mounted.findWhere(n => n.key() === 'aahs-a').at(1)
     const propertyNotation = editingRow.find('input.property-notation')
     expect(propertyNotation.length).toBe(1)
     propertyNotation.simulate('change', {target: {value: 'C D E', name: 'notation'}})
@@ -40,9 +40,9 @@ describe('Sequence container validation', () => {
     editingRow.find('input.property-channel').simulate('change', {target: {value: '5', name: 'channel'}})
     expect(editingRow).toMatchSnapshot()
     editingRow.find('input.property-notation').simulate('keypress', {key: 'Enter'})
-    expect(mounted.findWhere(n => n.key() == 'aahs-a')).toHaveLength(0)
+    expect(mounted.findWhere(n => n.key() === 'aahs-a')).toHaveLength(0)
 
-    const changeNameRow = mounted.findWhere(n => n.key() == 'aahs-changed').at(1)
+    const changeNameRow = mounted.findWhere(n => n.key() === 'aahs-changed').at(1)
     expect(changeNameRow).toMatchSnapshot()
     expect(changeNameRow.find('.property-notation').text()).toBe('C D E')
     expect(changeNameRow.find('.property-name').text()).toBe('aahs-changed')
@@ -62,7 +62,7 @@ describe('Sequence container validation', () => {
 
     const mounted = mount(component)
 
-    const row = mounted.findWhere(n => n.key() == 'create-notation')
+    const row = mounted.findWhere(n => n.key() === 'create-notation')
     expect(row).toMatchSnapshot()
 
     // Fill in the new sequence form
@@ -73,11 +73,11 @@ describe('Sequence container validation', () => {
 
     // Verify that the new sequence is now in the redux store
     var entities = component.props.store.getState().rest.sequence.entities
-    var newSequence = entities.find(entity => entity.name == 'new-test-sequence')
+    var newSequence = entities.find(entity => entity.name === 'new-test-sequence')
     expect(newSequence).toBeDefined()
 
     // Verify that the new sequence rendered on the page
-    const newNameRow = mounted.findWhere(n => n.key() == 'new-test-sequence').at(1)
+    const newNameRow = mounted.findWhere(n => n.key() === 'new-test-sequence').at(1)
     expect(newNameRow).toMatchSnapshot()
     expect(newNameRow.find('.property-name').text()).toBe('new-test-sequence')
     expect(newNameRow.find('.property-notation').text()).toBe('A B C')

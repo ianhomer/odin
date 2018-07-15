@@ -32,10 +32,6 @@ function collect(connect, monitor) {
 
 // Trash component.
 class Trash extends React.Component{
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const {connectDropTarget} = this.props
     return connectDropTarget(

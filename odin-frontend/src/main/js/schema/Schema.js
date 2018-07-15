@@ -91,7 +91,7 @@ export class Schema {
     var clazz = this.getClazz(path)
     var definition = clazz.getProperty(name)
     if (definition == null) {
-      throw 'Cannot get clazz definition for ' + name
+      throw new Error('Cannot get clazz definition for ' + name)
     }
     return this.getClazz(this.getRefClazzId(path, definition['$ref']))
   }
@@ -104,7 +104,7 @@ export class Schema {
     if (clazz == null) {
       clazz = this.createClazzFromId(fullId)
       if (clazz == null) {
-        throw 'Cannot get clazz from ID ' + fullId
+        throw new Error('Cannot get clazz from ID ' + fullId)
       }
       this.getClazzes()[fullId] = clazz
     }
@@ -133,7 +133,7 @@ export class Schema {
   getClazzSchema(id) {
     var internalSchema = this.getAjv().getSchema(id)
     if (!internalSchema) {
-      throw 'Schema for ' + id + ' has not been loaded'
+      throw new Error('Schema for ' + id + ' has not been loaded')
     }
     return internalSchema.schema
   }

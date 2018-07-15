@@ -17,10 +17,6 @@ import PropTypes from 'prop-types'
 
 // CardLayers component.
 class CardLayers extends React.Component{
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <div>
