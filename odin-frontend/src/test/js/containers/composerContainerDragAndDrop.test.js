@@ -33,13 +33,13 @@ describe('Composer container drag and drop', () => {
     //const backend = root.getManager().getBackend()
 
     expect(toJson(root)).toMatchSnapshot()
-    let cardA = TestUtils.scryRenderedDOMComponentsWithClass(root, 'card').find(card => card.title == 'a')
+    let cardA = TestUtils.scryRenderedDOMComponentsWithClass(root, 'card').find(card => card.title === 'a')
     expect(cardA).toBeTruthy()
     expect(cardA).toMatchSnapshot()
     expect(cardA.getAttribute('draggable')).toBeTruthy()
 
-    let sourceComponent = TestUtils.scryRenderedComponentsWithType(root, Layer).find(card => card.props.entity.name == 'a')
-    let targetComponent = TestUtils.scryRenderedComponentsWithType(root, Layer).find(card => card.props.entity.name == 'b')
+    let sourceComponent = TestUtils.scryRenderedComponentsWithType(root, Layer).find(card => card.props.entity.name === 'a')
+    let targetComponent = TestUtils.scryRenderedComponentsWithType(root, Layer).find(card => card.props.entity.name === 'b')
     let sourceId = sourceComponent.handlerId
     let targetId = targetComponent.getDecoratedComponentInstance().getHandlerId()
     expect(sourceId).toBeTruthy()

@@ -23,7 +23,7 @@ describe('Sequence container validation', () => {
     )
 
     const mounted = mount(component)
-    const row = mounted.findWhere(n => n.key() == 'aahs-a').at(1)
+    const row = mounted.findWhere(n => n.key() === 'aahs-a').at(1)
     expect(row).toHaveLength(1)
     expect(row).toMatchSnapshot()
 

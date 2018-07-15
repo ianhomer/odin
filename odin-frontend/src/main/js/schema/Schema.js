@@ -125,7 +125,7 @@ export class Schema {
 
   // Get the schema for the clazz stored on the back end
   getBackEndClazz(id) {
-    if (Object.values(this.getSchema().performance.flows).includes(id) && id != 'sequence') {
+    if (Object.values(this.getSchema().performance.flows).includes(id) && id !== 'sequence') {
       return this.createClazzFromId('sequence')
     }
   }

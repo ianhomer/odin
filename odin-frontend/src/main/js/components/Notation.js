@@ -20,10 +20,6 @@ import Score from './Score'
 
 // Notation component.
 class Notation extends Sequence {
-  constructor(props) {
-    super(props)
-  }
-
   getExtraEditEntityArguments() {
     return {
       onFetchComposition: this.props.onFetchComposition

@@ -19,10 +19,6 @@ import {fetchSystemRequested} from '../actions'
 
 // Rendering of environment data
 class EnvironmentContainer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.onLoadEntities()
   }

@@ -18,10 +18,6 @@ import Note from './Note'
 
 // Pattern component.
 class Pattern extends Sequence {
-  constructor(props) {
-    super(props)
-  }
-
   renderProperties(sequence) {
     return (
       <div className="row">

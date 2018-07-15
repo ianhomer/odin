@@ -39,7 +39,7 @@ class App extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.schema != this.props.schema || newProps.schema.revision != this.props.schema.revision) {
+    if (newProps.schema !== this.props.schema || newProps.schema.revision !== this.props.schema.revision) {
       this.setState({schema: this.createNewSchema(newProps)})
     }
   }

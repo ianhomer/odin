@@ -16,10 +16,6 @@ const React = require('react')
 const PropTypes = require('prop-types')
 
 class EntitiesContainer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.onLoadEntities(this.props.path, this.props.schema)
   }

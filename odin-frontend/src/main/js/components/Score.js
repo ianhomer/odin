@@ -64,7 +64,7 @@ class Score extends React.Component{
     // not aware that the element is changing (via the VexFlow API) and so VexFlow draw keeps
     // appending further scores instead of replacing.
     var ending = '-notation-' + this.state.count
-    if (extra != '') {
+    if (extra !== '') {
       ending += '-' + extra
     }
     if (this.props.entity && this.props.entity._links) {
@@ -160,15 +160,15 @@ class Score extends React.Component{
           ]
         })
 
-        if (i == 0 || composition.measures[i-1].staves[j].clef != staff.clef) {
+        if (i === 0 || composition.measures[i-1].staves[j].clef !== staff.clef) {
           systemStaff.addClef(staff.clef)
         }
 
-        if (i == 0 || composition.measures[i-1].key != measure.key) {
+        if (i === 0 || composition.measures[i-1].key !== measure.key) {
           systemStaff.addKeySignature(measure.key)
         }
 
-        if (i == 0 || composition.measures[i-1].time != measure.time) {
+        if (i === 0 || composition.measures[i-1].time !== measure.time) {
           systemStaff.addTimeSignature(measure.time)
         }
       }

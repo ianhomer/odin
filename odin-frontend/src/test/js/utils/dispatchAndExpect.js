@@ -9,7 +9,7 @@ export function dispatchAndExpect(store, done, waitForActionType, action, assert
     if (matchIndex > -1) {
       waitForActionTypes.splice(matchIndex, 1)
     }
-    if (waitForActionTypes.length == 0 && !asserter.executed) {
+    if (waitForActionTypes.length === 0 && !asserter.executed) {
       // Set flag indicating that the assertion has been executed so that we don't apply
       // assertion multiple times.
       asserter.executed = true

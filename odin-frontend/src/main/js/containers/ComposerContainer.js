@@ -21,10 +21,6 @@ import {createEntityRequested, deleteEntityRequested,
   fetchCompositionRequested, loadEntitiesRequested} from '../actions'
 
 class ComposerContainer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     this.props.onLoadEntities('sequence', this.props.schema)
     this.props.onLoadEntities('layer', this.props.schema)

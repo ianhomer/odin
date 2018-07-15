@@ -17,10 +17,6 @@ import PropTypes from 'prop-types'
 
 // Tick component.
 class Tick extends React.Component{
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <div className="row">

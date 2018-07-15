@@ -27,10 +27,6 @@ const DefaultSequence = Sequence
 
 // Rendering of generic sequence list
 class SequenceList extends React.Component{
-  constructor(props) {
-    super(props)
-  }
-
   getExtraArguments(type, isEditEntry = false) {
     var optionalArguments = {}
     if (type === 'notation') {

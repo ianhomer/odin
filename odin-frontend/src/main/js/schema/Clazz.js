@@ -47,7 +47,7 @@ export class Clazz {
       // However do NOT set the property named properties since this is only for the purposes
       // of the back end class.
       for (var backEndPropertyName in backEndClazz._getProperties()) {
-        if (!(backEndPropertyName in properties) && backEndPropertyName != 'properties') {
+        if (!(backEndPropertyName in properties) && backEndPropertyName !== 'properties') {
           properties[backEndPropertyName] = backEndClazz.getProperty(backEndPropertyName)
         }
       }
@@ -69,7 +69,7 @@ export class Clazz {
   }
 
   isPropertyOfType(name, type) {
-    return this.getProperty(name) && this.getProperty(name).type == type
+    return this.getProperty(name) && this.getProperty(name).type === type
   }
 
   arePropertiesEmpty() {
@@ -85,7 +85,7 @@ export class Clazz {
     var entity = {}
     // Loop through the properties defined for the class and set the fields in the entity
     // for each of these properties.
-    this.getPropertyNames().map(name => {
+    this.getPropertyNames().forEach(name => {
       var definition = this.getProperty(name)
       if (!definition.readOnly) {
         this.setFieldValue(entity, refs, name)
@@ -112,7 +112,7 @@ export class Clazz {
           console.error('Why is definition null?  Trying to set property ' + name + ' in ' + entity)
         }
       } else {
-        if (definition.type == 'array') {
+        if (definition.type === 'array') {
           value = value.split(',')
         }
       }
@@ -179,7 +179,7 @@ export class Clazz {
     } else if (this.isPropertyOfType(name, 'integer')) {
       node = nodes[_key]
       if (node) {
-        value = parseInt(node.value.trim())
+        value = parseInt(node.value.trim(), 10)
       } else {
         if (required) {
           console.error('Cannot find field ' + _key + ' in DOM')
