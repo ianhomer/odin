@@ -1,4 +1,4 @@
-import {Schema} from 'odin/schema/Schema'
+import {Schema} from '../../main/js/schema/Schema'
 
 import testSchemaJson from 'odin-api-snapshot/data/api/services/schema.json'
 import testPerformanceJson from 'odin-api-snapshot/data/api/rest/performance.json'

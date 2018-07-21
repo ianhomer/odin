@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga'
 import thunkMiddleware from 'redux-thunk'
 
 import {MockBackend} from './backend/mock.js'
-import reducers from 'odin/reducers/index.js'
+import reducers from '../../main/js/reducers/index.js'
 import {createLogger} from 'redux-logger'
 
 // Store configuration
