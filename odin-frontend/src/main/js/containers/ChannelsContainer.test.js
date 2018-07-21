@@ -1,10 +1,10 @@
 import React from 'react'
-import ChannelsContainer from 'odin/containers/ChannelsContainer.js'
+import ChannelsContainer from './ChannelsContainer.js'
 import {Provider} from 'react-redux'
-import {mount} from '../enzyme.js'
+import {mount} from '../../../test/js/enzyme.js'
 
-import {testPerformance, testSchema} from '../testData.js'
-import store from '../store'
+import {testPerformance, testSchema} from '../../../test/js/testData.js'
+import store from '../../../test/js/store'
 
 describe('Channels container', () => {
 

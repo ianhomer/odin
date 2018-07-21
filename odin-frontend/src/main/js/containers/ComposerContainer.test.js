@@ -1,12 +1,12 @@
 import TIMEOUT from '../constants.js'
 
 import React from 'react'
-import ComposerContainer from 'odin/containers/ComposerContainer.js'
+import ComposerContainer from './ComposerContainer.js'
 import {Provider} from 'react-redux'
-import {mount} from '../enzyme.js'
+import {mount} from '../../../test/js/enzyme.js'
 
-import {testPerformance, testSchema} from '../testData.js'
-import store from '../store'
+import {testPerformance, testSchema} from '../../../test/js/testData.js'
+import store from '../../../test/js/store'
 
 describe('Composer container', () => {
   test('Initialise', () => {

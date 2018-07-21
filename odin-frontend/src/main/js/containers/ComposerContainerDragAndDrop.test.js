@@ -3,12 +3,12 @@ import TestBackend from 'react-dnd-test-backend'
 import {DragDropContext} from 'react-dnd'
 import TestUtils from 'react-dom/test-utils'
 
-import ComposerContainer from 'odin/containers/ComposerContainer.js'
-import Layer from 'odin/components/composer/Layer.js'
+import ComposerContainer from './ComposerContainer.js'
+import Layer from '../components/composer/Layer.js'
 import {Provider} from 'react-redux'
 
-import {testPerformance, testSchema} from '../testData.js'
-import store from '../store'
+import {testPerformance, testSchema} from '../../../test/js/testData.js'
+import store from '../../../test/js/store'
 
 import toJson from 'enzyme-to-json'
 

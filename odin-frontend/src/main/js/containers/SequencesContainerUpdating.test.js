@@ -1,14 +1,14 @@
 import TIMEOUT from '../constants.js'
 
 import React from 'react'
-import SequencesContainer from 'odin/containers/SequencesContainer.js'
+import SequencesContainer from './SequencesContainer.js'
 import {LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
-  loadSchemaActions} from 'odin/actions/index.js'
-import {mount} from '../enzyme.js'
+  loadSchemaActions} from '../actions/index.js'
+import {mount} from '../../../test/js/enzyme.js'
 
-import {dispatchAndExpect} from '../utils/dispatchAndExpect'
-import {testPerformance, testSchema} from '../testData.js'
-import store from '../store'
+import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
+import {testPerformance, testSchema} from '../../../test/js/testData.js'
+import store from '../../../test/js/store'
 
 describe('Sequence container validation', () => {
   test('Sequence update', done => {

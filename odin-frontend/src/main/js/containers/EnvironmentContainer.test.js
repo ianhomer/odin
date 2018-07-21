@@ -1,11 +1,11 @@
 import TIMEOUT from '../constants.js'
 
 import React from 'react'
-import EnvironmentContainer from 'odin/containers/EnvironmentContainer.js'
+import EnvironmentContainer from './EnvironmentContainer.js'
 import {Provider} from 'react-redux'
-import {mount} from '../enzyme.js'
+import {mount} from '../../../test/js/enzyme.js'
 
-import store from '../store'
+import store from '../../../test/js/store'
 
 describe('Environment container', () => {
   test('Initialise', () => {
