@@ -511,6 +511,21 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <rulesUri>classpath:///com/purplepip/maven/version/maven-version-rules.xml</rulesUri>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.purplepip</groupId>
+            <artifactId>maven-version-rules</artifactId>
+            <version>1.1.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
   </build>
 
@@ -530,6 +545,20 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <repositories>
+    <repository>
+      <id>purplepip-releases</id>
+      <url>https://packagecloud.io/purplepip/releases/maven2</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>purplepip-releases</id>
+      <url>https://packagecloud.io/purplepip/releases/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <profiles>
     <profile>
