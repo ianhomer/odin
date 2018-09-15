@@ -41,7 +41,7 @@
     <orderEntry type="module" module-name="common-test-logging" scope="TEST" />
     <orderEntry type="module" module-name="log-capture" scope="TEST" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.6" level="project" />
-    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:4.0.3" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:2.0.1.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-bean:5.0.4" level="project" />
     <orderEntry type="library" name="Maven: org.jodd:jodd-core:5.0.4" level="project" />
