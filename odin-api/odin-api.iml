@@ -67,8 +67,8 @@
     <orderEntry type="library" name="Maven: org.codehaus.mojo:animal-sniffer-annotations:1.14" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.6" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: org.jodd:jodd-bean:5.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.jodd:jodd-core:5.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.jodd:jodd-bean:5.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.jodd:jodd-core:5.0.4" level="project" />
     <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.7.1" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.2.51" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.51" level="project" />

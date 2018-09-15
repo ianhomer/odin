@@ -71,7 +71,7 @@
     <jsonschema.version>1.0.29</jsonschema.version>
     <junit.version>5.2.0</junit.version>
     <kotlin.version>1.2.51</kotlin.version>
-    <guava.version>25.1-jre</guava.version>
+    <guava.version>26.0-jre</guava.version>
     <logback.version>1.2.3</logback.version>
     <lombok.version>1.18.2</lombok.version>
     <metrics.version>4.0.0</metrics.version>
