@@ -56,7 +56,7 @@
     <maven.compiler.source>10</maven.compiler.source>
     <maven.compiler.target>1.10</maven.compiler.target>
     <antlr.version>4.7.1</antlr.version>
-    <assertj.version>3.10.0</assertj.version>
+    <assertj.version>3.11.1</assertj.version>
     <hamcrest.version>2.0.0.0</hamcrest.version>
     <hibernate.version>5.2.12.Final</hibernate.version>
     <jacoco.version>0.8.1</jacoco.version>
