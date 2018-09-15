@@ -70,7 +70,7 @@
     <jodd.version>5.0.4</jodd.version>
     <jsonschema.version>1.0.29</jsonschema.version>
     <junit.version>5.3.1</junit.version>
-    <kotlin.version>1.2.51</kotlin.version>
+    <kotlin.version>1.2.70</kotlin.version>
     <guava.version>26.0-jre</guava.version>
     <logback.version>1.2.3</logback.version>
     <lombok.version>1.18.2</lombok.version>
