@@ -17,9 +17,9 @@ package com.purplepip.odin.api.security;
 
 import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -29,9 +29,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  * TODO : Split cors configuration and CSRF disable http.cors().and().csrf().disable()
  * into a configuration that is enabled for a dev profile
  */
-@EnableWebSecurity
 @Profile("!test")
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@Configuration
+public class MainSecurityAdapter extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.cors();
