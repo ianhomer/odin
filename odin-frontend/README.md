@@ -9,7 +9,7 @@ Quick install development version of front end
 
 ## Hot Redeployment and Development cycle
 
-   See Server Development with Hot Deployment in root README.md
+   See Server Development with Hot Deployment in root DEVELOPER.md
          
 ## Running JS tests
 

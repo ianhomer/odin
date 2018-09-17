@@ -25,6 +25,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * TODO : Split cors configuration and CSRF disable http.cors().and().csrf().disable()
+ * into a configuration that is enabled for a dev profile
+ */
 @EnableWebSecurity
 @Profile("!test")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
