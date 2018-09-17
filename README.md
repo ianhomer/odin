@@ -34,11 +34,11 @@ or run with developer benefits, e.g. web template reloading
 
 # Docker
 
-    docker-compose up
+    docker-compose up -d
     
 or with rebuild
 
-    docker-compose up --build
+    docker-compose up -d --build
     docker-compose build --no-cache odin-frontend
 
 # Interact with volumes
