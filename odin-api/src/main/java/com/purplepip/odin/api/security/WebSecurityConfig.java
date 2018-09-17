@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.api;
+package com.purplepip.odin.api.security;
 
 import java.util.Arrays;
 import org.springframework.context.annotation.Bean;

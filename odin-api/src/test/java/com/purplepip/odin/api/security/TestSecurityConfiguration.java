@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.api;
+package com.purplepip.odin.api.security;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
