@@ -192,15 +192,6 @@
 
   <profiles>
     <profile>
-      <id>jdk9or10</id>
-      <activation>
-        <jdk>[9,)</jdk>
-      </activation>
-      <properties>
-        <purplepip.jvm.args>--add-modules java.xml.bind</purplepip.jvm.args>
-      </properties>
-    </profile>
-    <profile>
       <id>quick</id>
       <build>
         <plugins>

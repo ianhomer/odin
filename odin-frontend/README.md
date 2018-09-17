@@ -7,6 +7,10 @@ Quick install development version of front end
     mvn install -P quick                    && \
       docker run --name odin_odin-frontend_1
 
+## Hot Redeployment and Development cycle
+
+   See Server Development with Hot Deployment in root README.md
+         
 ## Running JS tests
 
 Run JS tests
