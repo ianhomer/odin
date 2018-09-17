@@ -68,7 +68,7 @@
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="module" module-name="odin-frontend" />
     <orderEntry type="module" module-name="odin-api" production-on-test="" />
-    <orderEntry type="module" module-name="common-test-logging" scope="TEST" />
+    <orderEntry type="module" module-name="common-logging" scope="TEST" />
     <orderEntry type="module" module-name="log-capture" scope="TEST" />
     <orderEntry type="module" module-name="odin-core" scope="TEST" production-on-test="" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-annotation:4.0.3" level="project" />

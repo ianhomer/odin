@@ -57,7 +57,7 @@
     </dependency>
     <dependency>
       <groupId>com.purplepip</groupId>
-      <artifactId>common-test-logging</artifactId>
+      <artifactId>common-logging</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
