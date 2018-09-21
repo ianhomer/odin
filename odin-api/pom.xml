@@ -185,6 +185,9 @@
           <addResources>true</addResources>
           <jvmArguments>${purplepip.jvm.args} -Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
           <mainClass>${start-class}</mainClass>
+          <profiles>
+            <profile>dev</profile>
+          </profiles>
         </configuration>
       </plugin>
     </plugins>
