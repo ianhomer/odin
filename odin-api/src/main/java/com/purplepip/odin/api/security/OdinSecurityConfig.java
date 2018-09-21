@@ -17,6 +17,10 @@ package com.purplepip.odin.api.security;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+/**
+ * Single point to enable spring web security for all contexts.   Specific
+ * WebSecurityConfigurerAdapter should be created to configure the security for different profiles.
+ */
 @EnableWebSecurity
 public class OdinSecurityConfig {
 }
