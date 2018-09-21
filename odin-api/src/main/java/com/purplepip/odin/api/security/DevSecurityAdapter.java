@@ -27,8 +27,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
- * TODO : Split cors configuration and CSRF disable http.cors().and().csrf().disable()
- * into a configuration that is enabled for a dev profile
+ * Security configuration in dev mode to allow FE dev to connect to BE APIs on different ports and
+ * different processes.  This separation encourages rapid dev and hot reloading.
  */
 @Profile("dev")
 @Configuration

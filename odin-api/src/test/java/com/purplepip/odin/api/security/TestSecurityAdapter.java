@@ -22,7 +22,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * Permit all requests in test mode.
+ * Permit all requests in test mode.  Note that order is before main security adapter to take
+ * precedence.
  */
 @Configuration
 @Profile("test")
