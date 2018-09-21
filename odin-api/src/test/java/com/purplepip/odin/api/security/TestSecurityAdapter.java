@@ -27,7 +27,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @Profile("test")
 @Order(2)
-public class TestSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class TestSecurityAdapter extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
