@@ -28,7 +28,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Order(50)
 public class MainSecurityAdapter extends WebSecurityConfigurerAdapter {
   @Override
-  protected void configure(HttpSecurity http) throws Exception {
+  protected void configure(HttpSecurity http) {
     // no operation for now
   }
 }

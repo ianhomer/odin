@@ -42,7 +42,7 @@ public class DevSecurityAdapter extends WebSecurityConfigurerAdapter {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:63342"));
+    configuration.addAllowedOrigin("*");
     configuration.setAllowedMethods(
         Arrays.asList("DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT"));
     configuration.setAllowedHeaders(

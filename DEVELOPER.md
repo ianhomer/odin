@@ -2,7 +2,7 @@
 
 Start spring boot server
 
-    (cd odin-api && mvn spring-boot:run&)
+    cd odin-api && mvn spring-boot:run &
     
 Then open odin-frontend/public/index.html in browser
   
