@@ -15,11 +15,11 @@ Quick install development version of front end
 
 Run JS tests
 
-    npm test
+    yarn test
     
 Run a single JS test
 
-    npm test -- channelsContainer.test.js
+    yarn test -- channelsContainer.test.js
 
 ## Run JS test with console log output
 
