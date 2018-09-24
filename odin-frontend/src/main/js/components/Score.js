@@ -238,4 +238,4 @@ Score.propTypes = {
   onKeyPress: PropTypes.func
 }
 
-module.exports = Score
+export default Score

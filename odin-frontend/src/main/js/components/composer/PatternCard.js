@@ -82,4 +82,4 @@ class PatternCard extends React.Component{
 
 PatternCard.propTypes = propTypes
 
-module.exports = DragSource(ItemTypes.SEQUENCE, dropSource, collect)(PatternCard)
+export default DragSource(ItemTypes.SEQUENCE, dropSource, collect)(PatternCard)

@@ -18,7 +18,7 @@ import PropTypes from 'prop-types'
 import {ItemTypes} from '../../constants'
 import {DragSource, DropTarget} from 'react-dnd'
 
-const SequenceInLayer = require('./SequenceInLayer')
+import SequenceInLayer from './SequenceInLayer'
 
 /**
  * Implements the drag source contract.
@@ -173,5 +173,5 @@ Layer.propTypes = {
   connectDragSource: PropTypes.func.isRequired
 }
 
-module.exports = DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
+export default DragSource(ItemTypes.LAYER, dragSource, collectDrag)(
   DropTarget([ItemTypes.SEQUENCE, ItemTypes.LAYER], dropTarget, collectDrop)(Layer))

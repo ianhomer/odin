@@ -32,4 +32,4 @@ CardLayers.propTypes = {
   })
 }
 
-module.exports = CardLayers
+export default CardLayers

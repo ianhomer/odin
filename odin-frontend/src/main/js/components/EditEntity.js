@@ -239,4 +239,4 @@ EditEntity.propTypes = {
   schema: PropTypes.object.isRequired
 }
 
-module.exports = EditEntity
+export default EditEntity

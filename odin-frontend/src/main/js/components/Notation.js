@@ -78,4 +78,4 @@ Notation.defaultProps = {
   }
 }
 
-module.exports = Notation
+export default Notation

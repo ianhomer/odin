@@ -36,4 +36,4 @@ Tick.propTypes = {
   numerator: PropTypes.number.isRequired
 }
 
-module.exports = Tick
+export default Tick
