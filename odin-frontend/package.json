@@ -34,7 +34,7 @@
     ]
   },
   "dependencies": {
-    "ajv": "^5.5.0",
+    "ajv": "^5.5.2",
     "ajv-keywords": "3.2.0",
     "babel-eslint": "7.2.3",
     "json-loader": "^0.5.4",
