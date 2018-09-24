@@ -19,11 +19,11 @@ Run JS tests
     
 Run a single JS test
 
-    yarn test -- channelsContainer.test.js
+    yarn test Clazz.test.js
 
 ## Run JS test with console log output
 
-    jest --silent=false environmentContainer.test.js
+    jest --silent=false Clazz.test.js
 
 ## Debug JS
 
@@ -33,7 +33,7 @@ To debug a single JS test, add the line
     
 into the script to define a break point then start test with    
     
-    ./jest-debug.sh clazz.test.js
+    ./jest-debug.sh Clazz.test.js
     
 Open up chrome://inspect in Chrome, click inspect and play icon and step through the debugger
 

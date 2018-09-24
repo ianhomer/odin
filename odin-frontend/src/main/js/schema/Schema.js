@@ -30,8 +30,6 @@ const _clazzes = new WeakMap()
 const _flux = new WeakMap()
 const _schema = new WeakMap()
 
-const draft04 = require('ajv/lib/refs/json-schema-draft-04.json')
-
 export class Schema {
   constructor(schema, flux = {}) {
     // ajv is a private property
@@ -40,6 +38,7 @@ export class Schema {
       extendRefs: true, // optional, current default is to 'fail', spec behaviour is to 'ignore'
       unknownFormats: 'ignore'  // optional, current default is true (fail)
     })
+    var draft04 = require('ajv/lib/refs/json-schema-draft-04.json')
     ajv.addMetaSchema(draft04)
     ajv._opts.defaultMeta = draft04.id
     _ajv.set(this, ajv)
