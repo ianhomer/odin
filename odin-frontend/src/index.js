@@ -17,6 +17,7 @@ import {render} from 'react-dom'
 import 'babel-polyfill'
 import store from './main/js/store'
 import App from './main/js/containers/App'
+import './index.css'
 
 // Render application
 render(
