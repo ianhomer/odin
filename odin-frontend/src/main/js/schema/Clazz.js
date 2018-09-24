@@ -182,7 +182,8 @@ export class Clazz {
         value = parseInt(node.value.trim(), 10)
       } else {
         if (required) {
-          console.error('Cannot find field ' + _key + ' in DOM')
+          console.error('Cannot find field ' + _key + ' in nodes')
+          console.log('DOM = ' + JSON.stringify(nodes))
           value = ''
         } else {
           value = null

@@ -35,7 +35,8 @@ export class Schema {
     // ajv is a private property
     var ajv = new Ajv({
       meta: false, // optional, to prevent adding draft-06 meta-schema
-      extendRefs: true, // optional, current default is to 'fail', spec behaviour is to 'ignore'
+      extendRefs: true, // optional, current default is to 'fail', spec behaviour is to 'ignore',
+      schemaId: 'id',
       unknownFormats: 'ignore'  // optional, current default is true (fail)
     })
     var draft04 = require('ajv/lib/refs/json-schema-draft-04.json')
