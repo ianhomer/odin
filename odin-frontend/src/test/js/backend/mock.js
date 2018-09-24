@@ -14,7 +14,7 @@
 
 // Mock Backend
 
-import testSchema from 'odin-api-snapshot/data/api/services/schema.json'
+import testSchema from '../../../../target/api-snapshots/com/purplepip/odin/api/data/api/services/schema.json'
 import {Backend} from '../../../main/js/backend/index.js'
 import {snapshotDataRoot} from '../constants.js'
 import fs from 'fs'

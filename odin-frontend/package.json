@@ -21,9 +21,6 @@
   "homepage": "https://github.com/ianhomer/odin",
   "jest": {
     "bail": false,
-    "moduleNameMapper": {
-      "odin-api-snapshot/(.*)": "<rootDir>/target/api-snapshots/com/purplepip/odin/api/$1"
-    },
     "testURL": "http://localhost:8080",
     "setupFiles": [
       "<rootDir>/src/test/js/setup.js"

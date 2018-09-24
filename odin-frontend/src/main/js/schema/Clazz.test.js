@@ -1,5 +1,5 @@
-import testSchemaJson from 'odin-api-snapshot/data/api/services/schema.json'
-import testSequenceJson from 'odin-api-snapshot/data/api/rest/profile/sequence.json'
+import testSchemaJson from '../../../../target/api-snapshots/com/purplepip/odin/api/data/api/services/schema.json'
+import testSequenceJson from '../../../../target/api-snapshots/com/purplepip/odin/api/data/api/rest/profile/sequence.json'
 import {Schema} from './Schema'
 
 describe('Clazz validation', () => {
