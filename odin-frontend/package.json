@@ -20,12 +20,6 @@
   },
   "homepage": "https://github.com/ianhomer/odin",
   "jest": {
-    "bail": false,
-    "testURL": "http://localhost:8080",
-    "setupFiles": [
-      "<rootDir>/src/test/js/setup.js"
-    ],
-    "silent": true,
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
@@ -53,6 +47,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch -d",
+    "start": "react-scripts start",
     "test-debug": "node_modules/.bin/jest --inspect-brk --runInBand",
     "test": "jest"
   },

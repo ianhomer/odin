@@ -9,6 +9,7 @@ import {mount} from '../../../test/js/enzyme.js'
 import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
 import {testPerformance, testSchema} from '../../../test/js/testData.js'
 import store from '../../../test/js/store'
+import '../../../test/js/global-document'
 
 describe('Sequence container validation', () => {
   test('Sequence update', done => {

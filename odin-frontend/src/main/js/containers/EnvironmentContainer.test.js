@@ -6,6 +6,7 @@ import {Provider} from 'react-redux'
 import {mount} from '../../../test/js/enzyme.js'
 
 import store from '../../../test/js/store'
+import '../../../test/js/global-document'
 
 describe('Environment container', () => {
   test('Initialise', () => {

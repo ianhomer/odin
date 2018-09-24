@@ -7,6 +7,7 @@ import {mount} from '../../../test/js/enzyme.js'
 
 import {testPerformance, testSchema} from '../../../test/js/testData.js'
 import store from '../../../test/js/store'
+import '../../../test/js/global-document'
 
 describe('Composer container', () => {
   test('Initialise', () => {

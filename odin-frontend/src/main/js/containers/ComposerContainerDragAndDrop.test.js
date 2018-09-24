@@ -9,6 +9,7 @@ import {Provider} from 'react-redux'
 
 import {testPerformance, testSchema} from '../../../test/js/testData.js'
 import store from '../../../test/js/store'
+import '../../../test/js/global-document'
 
 import toJson from 'enzyme-to-json'
 

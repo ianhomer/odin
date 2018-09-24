@@ -10,6 +10,7 @@ import {mountToJson} from 'enzyme-to-json'
 import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
 import {testPerformance, testSchema} from '../../../test/js/testData.js'
 import store from '../../../test/js/store'
+import '../../../test/js/global-document'
 
 describe('Sequences container', () => {
   const component =
