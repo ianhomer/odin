@@ -97,13 +97,11 @@
           <execution>
             <id>webpack-build</id>
             <goals>
-              <goal>webpack</goal>
+              <goal>yarn</goal>
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <!-- TODO : Provide option to use webpack.prod.js for prod mode,
-                    although note that using webpack.prod.js makes build slower -->
-              <arguments>--config webpack.config.js</arguments>
+              <arguments>build</arguments>
             </configuration>
           </execution>
         </executions>

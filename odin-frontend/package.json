@@ -53,6 +53,7 @@
     "webpack": "^4.15.1"
   },
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch -d",
     "test-debug": "node_modules/.bin/jest --inspect-brk --runInBand",
     "test": "jest"
