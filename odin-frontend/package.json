@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/ianhomer/odin",
   "jest": {
-    "testURL": "http://localhost:8080",
     "setupFiles": [
       "<rootDir>/src/test/js/setup.js"
     ],
