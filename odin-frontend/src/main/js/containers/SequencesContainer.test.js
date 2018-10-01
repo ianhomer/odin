@@ -20,16 +20,6 @@ describe('Sequences container', () => {
     expect(mountToJson(mount(component),  {mode: 'deep'})).toMatchSnapshot()
   }, TIMEOUT)
 
-  test('Sequences container load', done => {
-    dispatchAndExpect(store, done,
-      [LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED],
-      () => loadSchemaActions,
-      () => {
-        expect(mountToJson(mount(component),  {mode: 'deep'})).toMatchSnapshot()
-      }
-    )
-  }, TIMEOUT)
-
   test('Sequences container row deletion', () => {
     // Test deleting a sequence
     const mounted = mount(component)
