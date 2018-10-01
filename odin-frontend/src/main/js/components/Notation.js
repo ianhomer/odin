@@ -41,7 +41,11 @@ Notation.propTypes = {...Sequence.propTypes,
 Notation.defaultProps = {
   path: 'notation',
   fields: {
-    'name': {size: 8, maxLength: 8},
+    'name': {
+      size: 8,
+      maxLength: 8,
+      defaultValue: ''
+    },
     'format': {
       cellWidth: 1,
       defaultValue: 'natural',

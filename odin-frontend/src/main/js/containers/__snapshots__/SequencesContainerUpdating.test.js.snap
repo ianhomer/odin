@@ -32,6 +32,7 @@ exports[`Sequence container validation Sequence create 1`] = `
         "defaultValue": -1,
       },
       "name": Object {
+        "defaultValue": "",
         "maxLength": 8,
         "size": 8,
       },
@@ -134,6 +135,7 @@ exports[`Sequence container validation Sequence create 1`] = `
         placeholder="name"
         size={8}
         type="text"
+        value=""
       />
     </div>
     <input
@@ -417,6 +419,7 @@ exports[`Sequence container validation Sequence create 2`] = `
         "defaultValue": -1,
       },
       "name": Object {
+        "defaultValue": "",
         "maxLength": 8,
         "size": 8,
       },
@@ -702,6 +705,7 @@ exports[`Sequence container validation Sequence update 1`] = `
         "defaultValue": -1,
       },
       "name": Object {
+        "defaultValue": "",
         "maxLength": 8,
         "size": 8,
       },
@@ -977,6 +981,7 @@ exports[`Sequence container validation Sequence update 2`] = `
         "defaultValue": -1,
       },
       "name": Object {
+        "defaultValue": "",
         "maxLength": 8,
         "size": 8,
       },
@@ -1274,6 +1279,7 @@ exports[`Sequence container validation Sequence update 3`] = `
         "defaultValue": -1,
       },
       "name": Object {
+        "defaultValue": "",
         "maxLength": 8,
         "size": 8,
       },
@@ -1449,6 +1455,7 @@ exports[`Sequence container validation Sequence update 3`] = `
           "defaultValue": -1,
         },
         "name": Object {
+          "defaultValue": "",
           "maxLength": 8,
           "size": 8,
         },
@@ -1554,6 +1561,7 @@ exports[`Sequence container validation Sequence update 3`] = `
         />
       </div>
       <input
+        defaultValue="natural"
         key="format"
         name="format"
         type="hidden"
@@ -1837,6 +1845,7 @@ exports[`Sequence container validation Sequence update 4`] = `
       "name": "aahs-changed",
       "performance": "http://localhost/api/rest/performance",
       "properties": Object {
+        "format": "natural",
         "notation": "C D E",
       },
       "tick": Object {
@@ -1869,6 +1878,7 @@ exports[`Sequence container validation Sequence update 4`] = `
         "defaultValue": -1,
       },
       "name": Object {
+        "defaultValue": "",
         "maxLength": 8,
         "size": 8,
       },
@@ -1987,6 +1997,7 @@ exports[`Sequence container validation Sequence update 4`] = `
             "name": "aahs-changed",
             "performance": "http://localhost/api/rest/performance",
             "properties": Object {
+              "format": "natural",
               "notation": "C D E",
             },
             "tick": Object {

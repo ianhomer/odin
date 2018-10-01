@@ -112,16 +112,16 @@ class EditEntity extends React.Component{
     var cellClassName = 'col-' + cellWidth
     var inputClassName = 'property-' + fieldName
     var value = objectPath.get(this.state.properties, key)
-    if (value == null) {
-      if (this.props.entity) {
-        value = clazz.getEntityValue(this.props.entity, key)
-        if (type === 'object') {
-          // TODO : Handle objects better than string serialisation
-          value = JSON.stringify(value)
-        }
-      } else {
-        value = field.defaultValue
+    if (value == null && this.props.entity) {
+      value = clazz.getEntityValue(this.props.entity, key)
+      if (type === 'object') {
+        // TODO : Handle objects better than string serialisation
+        value = JSON.stringify(value)
       }
+    }
+    // If value is still null then set it to the default value
+    if (value == null) {
+      value = field.defaultValue
     }
 
     // TODO : Do notation by field type NOT field name

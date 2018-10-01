@@ -39,8 +39,14 @@ Pattern.propTypes = Sequence.propTypes
 Pattern.defaultProps = {
   path: 'pattern',
   fields: {
-    'name': {size: 8, maxLength: 8},
-    'bits': {defaultValue: 1},
+    'name': {
+      size: 8,
+      maxLength: 8,
+      defaultValue: ''
+    },
+    'bits': {
+      defaultValue: 1
+    },
     'note': {
       cellWidth: 2,
       fields: {
@@ -58,9 +64,15 @@ Pattern.defaultProps = {
         'timeUnit': {defaultValue: 'BEAT', hidden: true}
       }
     },
-    'offset': {defaultValue: 0},
-    'length': {defaultValue: -1},
-    'channel': {defaultValue: 1},
+    'offset': {
+      defaultValue: 0
+    },
+    'length': {
+      defaultValue: -1
+    },
+    'channel': {
+      defaultValue: 1
+    },
     'type': {
       cellWidth: 2,
       defaultValue: 'pattern',

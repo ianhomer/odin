@@ -2048,6 +2048,7 @@ exports[`Sequences container Sequences container initialise 1`] = `
             placeholder="name"
             size={8}
             type="text"
+            value=""
           />
         </div>
         <input
@@ -2247,6 +2248,7 @@ exports[`Sequences container Sequences container initialise 1`] = `
             placeholder="name"
             size={8}
             type="text"
+            value=""
           />
         </div>
         <div
@@ -4527,6 +4529,7 @@ exports[`Sequences container Sequences container load 1`] = `
             placeholder="name"
             size={8}
             type="text"
+            value=""
           />
         </div>
         <input
@@ -4726,6 +4729,7 @@ exports[`Sequences container Sequences container load 1`] = `
             placeholder="name"
             size={8}
             type="text"
+            value=""
           />
         </div>
         <div

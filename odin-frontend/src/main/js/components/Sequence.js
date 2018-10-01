@@ -115,7 +115,7 @@ Sequence.propTypes = {
 Sequence.defaultProps = {
   path: 'sequence',
   fields: {
-    'name': {size: 8, maxLength: 8},
+    'name': {size: 8, maxLength: 8, defaultValue: ''},
     'properties': {cellWidth: 3},
     'tick': {
       cellWidth: 2,
