@@ -62,7 +62,7 @@ describe('Sequence container validation', () => {
       }
     )
 
-    const mounted = mount(component)
+    const mounted = mount(component, {attachTo: newDocumentElement()})
 
     const row = mounted.findWhere(n => n.key() === 'create-notation')
     expect(row).toMatchSnapshot()
