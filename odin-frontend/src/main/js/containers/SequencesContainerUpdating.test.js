@@ -9,6 +9,7 @@ import {mount} from '../../../test/js/enzyme.js'
 import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
 import {testPerformance, testSchema} from '../../../test/js/testData.js'
 import store from '../../../test/js/store'
+import {newDocumentElement} from '../../../test/js/testCommons.js'
 import '../../../test/js/global-document'
 
 describe('Sequence container validation', () => {
@@ -23,7 +24,7 @@ describe('Sequence container validation', () => {
       }
     )
 
-    const mounted = mount(component)
+    const mounted = mount(component, {attachTo: newDocumentElement()})
     const row = mounted.findWhere(n => n.key() === 'aahs-a').at(1)
     expect(row).toHaveLength(1)
     expect(row).toMatchSnapshot()
