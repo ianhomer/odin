@@ -23,6 +23,8 @@
 // class provides the intelligence to allow the front end build intuitive UI and for the entities
 // to be appropriately serialised when sent to the back-end.
 
+import { inspect } from 'util'
+
 const objectPath = require('object-path')
 
 const IMPLICIT_PROPERTIES = ['_links.self.href']
@@ -164,38 +166,21 @@ export class Clazz {
         property[propertyName] = fieldClazz.getFieldValue(nodes, propertyName, propertyKey)
       })
       value = property
-    // TODO : Reduce duplicated blocks of code below
-    } else if (this.isPropertyOfType(name, 'object')) {
-      // TODO : Handle better than just JSON to object
-      node = nodes[_key]
-      if (node) {
-        value = node.value.trim()
-        if (value) {
-          value = JSON.parse(value)
-        }
-      } else {
-        value = null
-      }
-    } else if (this.isPropertyOfType(name, 'integer')) {
-      node = nodes[_key]
-      if (node) {
-        value = parseInt(node.value.trim(), 10)
-      } else {
-        if (required) {
-          console.error('Cannot find field ' + _key + ' in nodes')
-          console.log('DOM = ' + JSON.stringify(nodes))
-          value = ''
-        } else {
-          value = null
-        }
-      }
     } else {
       node = nodes[_key]
       if (node) {
-        value = node.value.trim()
+        var trimmed = node.value.trim()
+        if (this.isPropertyOfType(name, 'integer')) {
+          value = parseInt(trimmed, 10)
+        } else if (this.isPropertyOfType(name, 'object')) {
+          // TODO : Handle better than just JSON to object
+          value = JSON.parse(trimmed)
+        } else {
+          value = trimmed;
+        }
       } else {
         if (required) {
-          console.error('Cannot find field ' + _key + ' in DOM')
+          console.error('Cannot find field ' + _key + ' in node ' + inspect(nodes, {'depth' : 1}))
           value = ''
         } else {
           value = null
