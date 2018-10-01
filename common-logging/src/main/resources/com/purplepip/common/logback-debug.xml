@@ -7,7 +7,8 @@
   </appender>
 
   <logger name="com.purplepip" level="DEBUG"/>
-
+  <logger name="org.springframework.security" level="DEBUG"/>
+  
   <root level="WARN">
     <appender-ref ref="STDOUT"/>
   </root>

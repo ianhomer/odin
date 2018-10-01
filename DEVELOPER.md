@@ -25,6 +25,8 @@ And ctrl-c.
     cd odin-server/ && mvn clean install -P quick && cd - && \
     java -Dlogback.debug=true -Dlogging.config=common-logging/src/main/resources/com/purplepip/common/logback-debug.xml -Dspring.profiles.active=prod -jar odin-server/target/odin-server-1.0-SNAPSHOT.jar
 
+Note that need for "prod" profile will be removed as prod is default.
+
 # Increase logging levels at runtime
 
     curl -d '{"configuredLevel":"DEBUG"}' -H "Content-Type: application/json" \
