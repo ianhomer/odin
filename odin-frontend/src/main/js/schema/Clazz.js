@@ -163,7 +163,7 @@ export class Clazz {
   }
 
   // Get value of field from from fields, e.g. after form submit.
-  getFieldValue(nodes, name, key, required = true) {
+  getFieldValue(nodes, name, key) {
     var _key = key ? key : name
     var value
     var node
@@ -189,7 +189,7 @@ export class Clazz {
           value = trimmed;
         }
       } else {
-        if (required) {
+        if (this.isRequired(name)) {
           console.error('Cannot find field ' + _key + ' in node ' + inspect(nodes, {'depth' : 1}))
           value = ''
         } else {

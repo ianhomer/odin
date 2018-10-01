@@ -33,7 +33,6 @@ describe('Clazz validation', () => {
       'tick.denominator': {'value': '1'},
       'tick.numerator': {'value': '1'},
       'tick.timeUnit': {'value': 'BEAT'},
-      'triggers' : {'value': '' },
       'type': {'value': 'notation'}
     }
     var entity = clazz.newInstance(refs)

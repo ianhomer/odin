@@ -205,7 +205,7 @@ export class Schema {
     var clazz = this.getClazz(clazzId)
     var entity = clazz.newInstance(refs)
 
-    var path = clazz.getFieldValue(refs, 'path', null, false)
+    var path = clazz.getFieldValue(refs, 'path', null)
     if (path) {
       onApply(entity, path)
     } else {
