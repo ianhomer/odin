@@ -13,6 +13,13 @@ describe('Clazz validation', () => {
     expect(clazz.hasProperty('properties')).toBe(false)
     // specific plugin should have performance defined
     expect(clazz.hasProperty('performance')).toBe(true)
+    // specific plugin should have tick defined as required
+    expect(clazz.hasProperty('tick')).toBe(true)
+    expect(clazz.isRequired('tick')).toBe(true)
+    // specific plugin should have triggers defined as not required
+    expect(clazz.hasProperty('triggers')).toBe(true)
+    expect(clazz.isRequired('triggers')).toBe(false)
+
     var refs = {
       'channel' : {'value': '1' },
       'enabled' : {'value': 'true' },

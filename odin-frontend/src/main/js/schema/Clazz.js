@@ -40,7 +40,13 @@ export class Clazz {
     var properties = {}
     // Copy front end schema variables into properties
     for (var propertyName in frontEndSchema.properties) {
-      properties[propertyName] = frontEndSchema.properties[propertyName]
+      var property = frontEndSchema.properties[propertyName]
+      properties[propertyName] = {
+        'title': property.title,
+        'type': property.type,
+        '$ref': property['$ref'],
+        'required': frontEndSchema.required && frontEndSchema.required.includes(propertyName)
+      }
     }
 
     if (backEndClazz) {
@@ -72,6 +78,10 @@ export class Clazz {
 
   isPropertyOfType(name, type) {
     return this.getProperty(name) && this.getProperty(name).type === type
+  }
+
+  isRequired(name) {
+    return this.getProperty(name) && this.getProperty(name).required
   }
 
   arePropertiesEmpty() {
