@@ -19,6 +19,11 @@ Stop spring boot server
 
 And ctrl-c.
 
+# Quick full build with debug logging
+
+    cd odin-api/ && mvn install -P quick && cd - && \
+    cd odin-server/ && mvn clean install -P quick && cd - && \
+    java -Dlogback.debug=true -Dlogging.config=common-logging/src/main/resources/com/purplepip/common/logback-debug.xml -Dspring.profiles.active=prod -jar odin-server/target/odin-server-1.0-SNAPSHOT.jar
 
 # Increase logging levels at runtime
 
