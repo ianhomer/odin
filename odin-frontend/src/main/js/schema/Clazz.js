@@ -174,7 +174,7 @@ export class Clazz {
           value = parseInt(trimmed, 10)
         } else if (this.isPropertyOfType(name, 'object')) {
           // TODO : Handle better than just JSON to object
-          value = JSON.parse(trimmed)
+          value = trimmed ? JSON.parse(trimmed) : null
         } else {
           value = trimmed;
         }

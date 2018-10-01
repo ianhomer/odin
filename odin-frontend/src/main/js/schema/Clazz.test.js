@@ -14,8 +14,20 @@ describe('Clazz validation', () => {
     // specific plugin should have performance defined
     expect(clazz.hasProperty('performance')).toBe(true)
     var refs = {
+      'channel' : {'value': '1' },
+      'enabled' : {'value': 'true' },
       'name': {'value': 'test-name'},
-      'performance': {'value': 'http://localhost:8080/api/rest/performance/1'}
+      'layers' : {'value': '' },
+      'length': {'value': '1'},
+      'format': {'value': 'easy'},
+      'notation': {'value': 'C'},
+      'offset': {'value': '1'},
+      'performance': {'value': 'http://localhost:8080/api/rest/performance/1'},
+      'tick.denominator': {'value': '1'},
+      'tick.numerator': {'value': '1'},
+      'tick.timeUnit': {'value': 'BEAT'},
+      'triggers' : {'value': '' },
+      'type': {'value': 'notation'}
     }
     var entity = clazz.newInstance(refs)
     expect(entity.name).toBe('test-name')
