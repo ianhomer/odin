@@ -119,7 +119,8 @@ class Score extends React.Component{
 
     var element = document.getElementById(selector)
     if (!element) {
-      console.warn('Cannot find selector ' + selector)
+      var elements = document.querySelectorAll("*")
+      console.warn('Cannot find selector ' + selector + ' in ' + elements.length + ' elements ')
       return
     }
     var vf = new Vex.Flow.Factory({

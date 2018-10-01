@@ -10,6 +10,7 @@ import {mountToJson} from 'enzyme-to-json'
 import {dispatchAndExpect} from '../../../test/js/utils/dispatchAndExpect'
 import {testPerformance, testSchema} from '../../../test/js/testData.js'
 import store from '../../../test/js/store'
+import {newDocumentElement} from '../../../test/js/testCommons.js'
 import '../../../test/js/global-document'
 
 describe('Sequences container', () => {
@@ -25,7 +26,7 @@ describe('Sequences container', () => {
       [LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED],
       () => loadSchemaActions,
       () => {
-        expect(mountToJson(mount(component),  {mode: 'deep'})).toMatchSnapshot()
+        expect(mountToJson(mount(component, {attachTo: newDocumentElement()} ),  {mode: 'deep'})).toMatchSnapshot()
       }
     )
   }, TIMEOUT)
