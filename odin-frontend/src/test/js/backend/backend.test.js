@@ -1,5 +1,5 @@
 import {MockBackend} from './mock.js'
-import {withQuery} from '../../../main/js/backend/withQuery'
+import {withQuery} from '../../../main/js/backend/http'
 
 describe('actions', () => {
   const backend = new MockBackend()

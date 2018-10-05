@@ -35,8 +35,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class MainSecurityAdapter extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // TODO : Enable CSRF
-    http.csrf().disable()
+    http
         .authorizeRequests()
         .antMatchers(HttpMethod.DELETE).permitAll()
         .antMatchers(HttpMethod.PATCH).permitAll();

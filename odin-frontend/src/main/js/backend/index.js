@@ -24,7 +24,7 @@ import {
   LOAD_PERFORMANCE_SCHEMA_REQUESTED, LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PERFORMANCE_SCHEMA_FAILED,
   LOAD_PROFILE_SCHEMA_REQUESTED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_FAILED
 } from '../actions'
-import {withQuery} from './withQuery'
+import {withQuery, json, jsonPatch, secure} from './http'
 import {apiRoot} from '../constants'
 
 const restRoot = apiRoot + '/rest'
@@ -33,9 +33,8 @@ export class Backend {
   createEntityApi(entity, path) {
     return fetch(restRoot + '/' + path, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }, body: JSON.stringify(entity)
+      headers: secure(json()),
+      body: JSON.stringify(entity)
     })
       .then(response => response.json())
       .catch(reason => console.error(reason))
@@ -55,9 +54,8 @@ export class Backend {
   updateEntityApi(entity) {
     return fetch(entity._links.self.href, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      }, body: JSON.stringify(entity)
+      headers: secure(json()),
+      body: JSON.stringify(entity)
     })
       .then(response => response.json())
       .catch(reason => console.error(reason))
@@ -77,9 +75,7 @@ export class Backend {
   fetchCompositionApi(notation) {
     return fetch(withQuery(apiRoot + '/services/composition', {notation}), {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: json()
     })
       .then(response => response.json())
       .catch(reason => console.error(reason))
@@ -99,9 +95,7 @@ export class Backend {
   fetchSystemApi(path) {
     return fetch(apiRoot + '/services/system/' + path, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: json()
     })
       .then(response => response.json())
       .catch(reason => console.error(reason))
@@ -126,9 +120,7 @@ export class Backend {
   deleteEntityApi(entity) {
     return fetch(entity._links.self.href, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: secure(json())
     })
       .then(() => entity)
       .catch(reason => console.error(reason))
@@ -145,18 +137,15 @@ export class Backend {
   }
 
   patchEntityApi(entity, patch) {
+    // TODO : Etag support, note that entity needs to be loaded from server prior to
+    // editing to populate Etag
+    //'If-Match': entity.headers.Etag
     return fetch(entity._links.self.href, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json-patch+json'
-        // TODO : Etag support, note that entity needs to be loaded from server prior to
-        // editing to populate Etag
-        //'If-Match': entity.headers.Etag
-      },
+      headers: secure(jsonPatch()),
       body: JSON.stringify(patch)
     })
       .then(response => response.json())
-      .catch(reason => console.error(reason))
   }
 
   *patchEntity(action) {
@@ -176,9 +165,7 @@ export class Backend {
   loadEntitiesApi(path) {
     return fetch(restRoot + '/' + path, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: json()
     })
       .then(response => response.json())
       .then(json => json._embedded[path])
@@ -203,9 +190,7 @@ export class Backend {
   loadPerformanceSchemaApi() {
     return fetch(apiRoot + '/services/schema', {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: json()
     })
       .then(response => response.json())
       .catch(reason => console.error(reason))
