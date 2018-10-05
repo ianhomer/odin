@@ -16,7 +16,6 @@
 package com.purplepip.odin.api.security;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,17 +25,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * Place holder for core configuration.   Note that order is 50 to give space before to inject
  * specialised configuration for different profiles.
  */
-/*
- * TODO : Make this security base line, i.e. always, not needing explicit prod profile.
- */
-@Profile("prod")
 @Configuration
-@Order(4)
+@Order(50)
 public class MainSecurityAdapter extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
         .authorizeRequests()
+        .anyRequest().permitAll()
         .antMatchers(HttpMethod.DELETE).permitAll()
         .antMatchers(HttpMethod.PATCH).permitAll();
   }
