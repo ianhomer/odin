@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.api.web;
+package com.purplepip.odin.api.web.legacy;
 
-import com.purplepip.odin.web.app.Page;
+import com.purplepip.odin.web.app.page.Page;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.stereotype.Component;

@@ -20,7 +20,7 @@ import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.SynthesizerDevice;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.web.app.Page;
+import com.purplepip.odin.web.app.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.api;
 
-import com.purplepip.odin.web.app.Page;
+import com.purplepip.odin.web.app.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

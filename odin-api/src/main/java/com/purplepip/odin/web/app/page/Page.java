@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.web.app;
+package com.purplepip.odin.web.app.page;
 
 import java.util.List;
 
