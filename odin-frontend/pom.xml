@@ -42,7 +42,7 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/src/main/resources/com/purplepip/odin/web/app</outputDirectory>
+              <outputDirectory>${project.build.directory}/classes/com/purplepip/odin/web/app</outputDirectory>
               <resources>
                 <resource>
                   <directory>build</directory>
@@ -126,7 +126,7 @@
             </configuration>
           </execution>
           <execution>
-            <id>webpack-build</id>
+            <id>yarn-build</id>
             <goals>
               <goal>yarn</goal>
             </goals>
