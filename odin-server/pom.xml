@@ -76,6 +76,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>io.dropwizard.metrics</groupId>
       <artifactId>metrics-annotation</artifactId>
     </dependency>
@@ -172,6 +177,15 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/*IntegrationTest.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring.boot.version}</version>
@@ -198,6 +212,7 @@
           <addResources>true</addResources>
           <jvmArguments>${purplepip.jvm.args} -Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
           <mainClass>${start-class}</mainClass>
+          <fork>false</fork>
         </configuration>
       </plugin>
     </plugins>
