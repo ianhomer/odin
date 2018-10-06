@@ -363,6 +363,10 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
+          <!--
+              Can't roll up to 2.22.0 since rerunFailingTestsCount doesn't work with Junit 5 code
+              and so some flaky tests would sporadically block the build
+              -->
           <version>2.21.0</version>
         </plugin>
         <plugin>
