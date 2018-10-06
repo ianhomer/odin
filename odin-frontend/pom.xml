@@ -23,6 +23,16 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>src/main/resources/com/purplepip/odin/web/app/</directory>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
           <execution>
@@ -32,7 +42,7 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/src/main/resources/static/static</outputDirectory>
+              <outputDirectory>${basedir}/src/main/resources/com/purplepip/odin/web/app</outputDirectory>
               <resources>
                 <resource>
                   <directory>build</directory>

@@ -4,4 +4,4 @@ target/
 odin-frontend/build/
 odin-frontend/node_modules/
 odin-frontend/node/
-odin-frontend/src/main/resources/static/built
+odin-frontend/src/main/resources/com/purplepip/odin/web/app
