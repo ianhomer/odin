@@ -78,6 +78,7 @@
     <orderEntry type="module" module-name="common-logging" scope="TEST" />
     <orderEntry type="module" module-name="log-capture" scope="TEST" />
     <orderEntry type="module" module-name="odin-core" scope="TEST" production-on-test="" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java:${cucumber.version}" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-annotation:4.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.2.12.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" level="project" />
