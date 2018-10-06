@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.api;
 
+import com.purplepip.odin.api.concurrent.NamedThreadFactory;
 import com.purplepip.odin.api.rest.repositories.OperationRepository;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.operation.ChannelOperation;
@@ -42,7 +43,7 @@ public class AuditingOperationReceiver implements OperationHandler, Initializing
     DisposableBean {
   private static final long CLEAN_PERIOD = 30;
   private final ScheduledExecutorService scheduledPool =
-      Executors.newScheduledThreadPool(1);
+      Executors.newScheduledThreadPool(1, new NamedThreadFactory("auditing"));
   @Autowired
   private OperationRepository repository;
 

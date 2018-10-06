@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.api.concurrent.NamedThreadFactory;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.PerformanceListener;
@@ -70,7 +71,7 @@ public class TrackProcessor implements PerformanceListener {
 
   @Override
   public void onPerformancePrepare() {
-    scheduledPool = Executors.newScheduledThreadPool(1);
+    scheduledPool = Executors.newScheduledThreadPool(1, new NamedThreadFactory("track"));
     executor.reset();
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     LOG.debug("Prepared track processor");

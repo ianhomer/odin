@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.devices;
 
+import com.purplepip.odin.api.concurrent.NamedThreadFactory;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,7 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 public abstract class AbstractDevice implements Device {
-  private final ExecutorService executor = Executors.newSingleThreadExecutor();
+  private final ExecutorService executor =
+      Executors.newSingleThreadExecutor(new NamedThreadFactory("device"));
   private final Map<String, String> properties = new LinkedHashMap<>();
   private final Map<String, String> unmodifiableProperties =
       Collections.unmodifiableMap(properties);

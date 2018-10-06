@@ -16,6 +16,7 @@
 package com.purplepip.odin.sequencer;
 
 import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.api.concurrent.NamedThreadFactory;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.PerformanceListener;
 import com.purplepip.odin.common.ListenerPriority;
@@ -80,7 +81,7 @@ public class DefaultOperationProcessor implements OperationProcessor, Performanc
 
   @Override
   public void onPerformancePrepare() {
-    scheduledPool = Executors.newScheduledThreadPool(1);
+    scheduledPool = Executors.newScheduledThreadPool(1, new NamedThreadFactory("operation"));
     scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     LOG.debug("Prepared operation processor");
   }
