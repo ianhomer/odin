@@ -18,11 +18,8 @@
   "bugs": {
     "url": "https://github.com/ianhomer/odin/issues"
   },
-  "homepage": "https://github.com/ianhomer/odin",
+  "homepage": "/web",
   "jest": {
-    "setupFiles": [
-      "<rootDir>/src/test/js/setup.js"
-    ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
@@ -41,6 +38,7 @@
     "react-router-dom": "^4.1.2",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
+    "react-scripts": "2.0.4",
     "redux-thunk": "^2.2.0",
     "rest": "^2.0.0",
     "style-loader": "^0.23.0",
@@ -48,28 +46,21 @@
     "webpack": "^4.15.1"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "react-scripts build",
     "watch": "webpack --watch -d",
     "start": "react-scripts start",
     "test-debug": "node_modules/.bin/jest --inspect-brk --runInBand",
-    "test": "jest"
+    "test": "react-scripts test --watchAll=false"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "9.0.0",
-    "babel-jest": "^23.6.0",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
     "coffee-loader": "^0.9.0",
     "coffeescript": "^2.2.4",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.3",
-    "eslint": "^5.6.0",
+    "eslint": "5.6.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "2.1.1",
     "eslint-plugin-flowtype": "2.50.1",
@@ -81,7 +72,6 @@
     "gulp-eslint": "^5.0.0",
     "gulp-if": "^2.0.2",
     "jasmine-core": "^3.1.0",
-    "jest": "^23.6.0",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
@@ -100,5 +90,11 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

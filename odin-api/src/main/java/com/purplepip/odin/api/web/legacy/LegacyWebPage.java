@@ -13,40 +13,26 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.api;
+package com.purplepip.odin.api.web.legacy;
 
 import com.purplepip.odin.web.app.page.Page;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Collections;
+import java.util.List;
+import org.springframework.stereotype.Component;
 
 /**
- * Odin App Controller.
+ * Page object for legacy web pages.
  */
-@Controller
-public class MainController {
-  @Autowired
-  private Page page;
+@Component
+public class LegacyWebPage implements Page {
 
-  /**
-   * Index page.
-   *
-   * @return redirect reference
-   */
-  @RequestMapping("/")
-  public String index() {
-    return "redirect:/web/app";
+  @Override
+  public List<String> getCssLinks() {
+    return Collections.emptyList();
   }
 
-  /**
-   * Index page.
-   *
-   * @return template to render
-   */
-  @RequestMapping("/web/app/**")
-  public String app(Model model) {
-    model.addAttribute("page", page);
-    return "index";
+  @Override
+  public List<String> getScripts() {
+    return Collections.emptyList();
   }
 }

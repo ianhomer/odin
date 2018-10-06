@@ -20,6 +20,7 @@ import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.SynthesizerDevice;
 import com.purplepip.odin.sequencer.OdinSequencer;
+import com.purplepip.odin.web.app.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,8 @@ public class SystemLegacyController {
 
   @Autowired private OdinSequencer sequencer;
 
+  @Autowired private Page page;
+
   /**
    * System page.
    *
@@ -51,6 +54,7 @@ public class SystemLegacyController {
         .findOneSource(MidiHandle.class)
         .ifPresent(source -> model.addAttribute("source", source));
     model.addAttribute("measureProvider", measureProvider);
+    common(model);
     return "system/index";
   }
 
@@ -66,6 +70,7 @@ public class SystemLegacyController {
         .findOneSink(MidiHandle.class)
         .filter(SynthesizerDevice.class::isInstance)
         .ifPresent(synthesizer -> model.addAttribute("synthesizer", synthesizer));
+    common(model);
     return "system/synthesizer";
   }
 
@@ -78,6 +83,11 @@ public class SystemLegacyController {
   @RequestMapping("/api/page/system/sequencer")
   public String sequencer(Model model) {
     model.addAttribute("sequencer", sequencer);
+    common(model);
     return "system/sequencer";
+  }
+
+  private void common(Model model) {
+    model.addAttribute("page", page);
   }
 }

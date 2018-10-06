@@ -23,7 +23,7 @@ And ctrl-c.
 
     cd odin-api/ && mvn install -P quick && cd - && \
     cd odin-server/ && mvn clean install -P quick && cd - && \
-    java -Dspring.profiles.active=prod -jar odin-server/target/odin-server-1.0-SNAPSHOT.jar
+    java -jar odin-server/target/odin-server-1.0-SNAPSHOT.jar
 
 # Quick full build with debug logging
 

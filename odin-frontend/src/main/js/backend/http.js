@@ -12,7 +12,7 @@ export const secure = function(headers) {
       'X-CSRF-TOKEN' : csrfToken.getAttribute('content')
     }
   }
-  return {}
+  return headers
 }
 
 export const json = function() {
