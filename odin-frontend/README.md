@@ -1,16 +1,11 @@
 Quick install development version of front end
 
-    mvn frontend:webpack
-
-### Recycle
-
-    mvn install -P quick                    && \
-      docker run --name odin_odin-frontend_1
+    yarn test
 
 ## Hot Redeployment and Development cycle
 
-   See Server Development with Hot Deployment in root DEVELOPER.md
-         
+   See Server Development with Hot Deployment in root DEVELOPER.md        
+
 ## Running JS tests
 
 Run JS tests
@@ -44,3 +39,9 @@ Open up chrome://inspect in Chrome, click inspect and play icon and step through
 or
   
   jest -u  
+
+## Docker pod recycle
+
+    mvn install -P quick                    && \
+      docker run --name odin_odin-frontend_1
+  
