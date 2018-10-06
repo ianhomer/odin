@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 @Primary
 @Log
 public class WebpackPage implements Page, InitializingBean {
-  @Value( "${odin.app.package:com/purplepip/odin/web/app}" )
+  @Value("${odin.app.package:com/purplepip/odin/web/app}")
   private String appPackage;
 
   @Autowired
@@ -51,8 +51,12 @@ public class WebpackPage implements Page, InitializingBean {
 
   private String mainJs;
 
+  /**
+   * Initialise bean.
+   */
   public void afterPropertiesSet() throws IOException {
-    Resource resource = resourceLoader.getResource("classpath:" + appPackage + "/asset-manifest.json");
+    Resource resource = resourceLoader.getResource("classpath:" + appPackage
+        + "/asset-manifest.json");
     LOG.info("Loaded webpack manifest : " + resource);
     ObjectMapper mapper = new ObjectMapper();
     JsonNode node = mapper.readTree(resource.getInputStream());
