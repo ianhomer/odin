@@ -1,6 +1,8 @@
 language: java
 jdk:
   - openjdk10
+addons: # get google-chrome-stable
+  chrome: stable
 cache:
   directories:
   - $HOME/.m2
