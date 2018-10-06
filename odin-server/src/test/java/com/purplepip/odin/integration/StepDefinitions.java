@@ -17,6 +17,7 @@ package com.purplepip.odin.integration;
 
 import static org.junit.Assert.assertEquals;
 
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.util.concurrent.TimeUnit;
@@ -26,18 +27,28 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 @Log
 public class StepDefinitions {
+  private static final String DEFAULT_ROOT = "http://localhost:8080";
+
   private WebDriver driver;
+
+  private String root = DEFAULT_ROOT;
+
+  /**
+   * Before scenario.
+   */
+  @Before
+  public void beforeScenario() {
+    driver = new HtmlUnitDriver();
+    driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+    driver.manage().timeouts().setScriptTimeout(5, TimeUnit.SECONDS);
+  }
 
   /**
    * Visit home.
    */
   @When("^I visit home$")
   public void visitHome() {
-    driver = new HtmlUnitDriver();
-    driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
-    driver.manage().timeouts().setScriptTimeout(5, TimeUnit.SECONDS);
-    driver.get("http://localhost:8080/web/app");
-    LOG.info("Visiting home");
+    driver.get(root + "/web/app");
   }
 
   /**
@@ -46,6 +57,5 @@ public class StepDefinitions {
   @Then("page OK")
   public void pageOk() {
     assertEquals("sequencer : odin", driver.getTitle());
-    LOG.info("Page OK");
   }
 }
