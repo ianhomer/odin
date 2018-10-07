@@ -18,24 +18,19 @@ package com.purplepip.odin.store.domain;
 import static org.hamcrest.core.Is.isA;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.api.Application;
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
+import com.purplepip.odin.store.StoreTest;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest(showSql = false)
-@ActiveProfiles({"noServices", "noAuditing"})
-@ContextConfiguration(classes = Application.class)
+@StoreTest
 public class PersistablePerformanceTest {
   @Rule
   public ExpectedException thrown = ExpectedException.none();

@@ -64,7 +64,7 @@ public class PersistablePerformance implements Performance {
       fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
   private Set<TriggerConfiguration> triggers = new HashSet<>();
 
-  @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.PERSIST,
+  @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.ALL,
       fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
   private Set<SequenceConfiguration> sequences = new HashSet<>();
 
@@ -79,7 +79,7 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance removeChannel(Channel channel) {
-    boolean result = channels.remove(channel);
+    boolean result = channels.removeIf(c -> c.getId() == channel.getId());
     if (!result) {
       LOG.warn("Could not remove channel {} from performance", channel);
     } else {
@@ -95,7 +95,7 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance removeLayer(Layer layer) {
-    boolean result = layers.remove(layer);
+    boolean result = layers.removeIf(l -> l.getId() == layer.getId());
     if (!result) {
       LOG.warn("Could not remove layer {} from performance with layers {}", layer, getLayers());
     } else {
@@ -112,7 +112,7 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance removeTrigger(TriggerConfiguration trigger) {
-    boolean result = triggers.remove(trigger);
+    boolean result = triggers.removeIf(t -> t.getId() == trigger.getId());
     if (!result) {
       LOG.warn("Could not remove trigger {} from performance with triggers {}",
           trigger, getTriggers());

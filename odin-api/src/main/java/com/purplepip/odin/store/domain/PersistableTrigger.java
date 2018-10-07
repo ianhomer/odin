@@ -20,6 +20,7 @@ import com.purplepip.odin.performance.Performance;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -42,6 +43,11 @@ public class PersistableTrigger extends PersistableTimeThing
   @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
   private Performance performance;
 
-  @NotNull
+  @NotNull(message = "type must not be null")
   private String type;
+
+  @PreRemove
+  public void removeFromPerformance() {
+    performance.removeTrigger(this);
+  }
 }

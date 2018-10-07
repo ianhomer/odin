@@ -17,7 +17,6 @@ package com.purplepip.odin.store;
 
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.api.Application;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.demo.GroovePerformance;
@@ -30,15 +29,10 @@ import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest(showSql = false)
-@ActiveProfiles({"noServices", "noAuditing"})
-@ContextConfiguration(classes = Application.class)
+@StoreTest
 public class PersistablePerformanceContainerTest {
   @Autowired private PerformanceContainer container;
 

@@ -15,11 +15,10 @@
 
 package com.purplepip.odin.store.domain;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
-import com.purplepip.odin.api.rest.repositories.SequenceRepository;
+import com.purplepip.odin.api.rest.repositories.TriggerRepository;
 import com.purplepip.odin.store.StoreTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,39 +27,39 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @StoreTest
-public class PersistableSequenceTest {
-  private static final String PERFORMANCE_NAME = "sequence-performance";
-  private static final String SEQUENCE_NAME = "sequence";
+public class PersistableTriggerTest {
+  private static final String PERFORMANCE_NAME = "trigger-performance";
+  private static final String TRIGGER_NAME = "trigger";
 
   @Autowired
   private PerformanceRepository performanceRepository;
 
   @Autowired
-  private SequenceRepository sequenceRepository;
+  private TriggerRepository triggerRepository;
 
   @Test
   public void testCreateAndDelete() {
     PersistablePerformance performance = new PersistablePerformance();
     performance.setName(PERFORMANCE_NAME);
     performanceRepository.save(performance);
-    PersistableSequence sequence = new PersistableSequence();
-    sequence.setName(SEQUENCE_NAME);
-    sequence.setType("pattern");
-    performance.addSequence(sequence);
-    sequenceRepository.save(sequence);
-    assertTrue("Sequence should have been created", anyMatchInPerformance());
-    sequenceRepository.delete(sequence);
-    assertFalse("Sequence should have been deleted", anyMatch());
-    assertFalse("Sequence should have been deleted from performance", anyMatchInPerformance());
+    PersistableTrigger trigger = new PersistableTrigger();
+    trigger.setName(TRIGGER_NAME);
+    trigger.setType("default");
+    performance.addTrigger(trigger);
+    triggerRepository.save(trigger);
+    assertEquals("Trigger should have been created", 1, countInPerformance());
+    triggerRepository.delete(trigger);
+    assertEquals("Trigger should have been deleted", 0, count());
+    assertEquals("Trigger should have been deleted from performance", 0, countInPerformance());
   }
 
-  private boolean anyMatch() {
-    return sequenceRepository.findByName(SEQUENCE_NAME) != null;
+  private long count() {
+    return triggerRepository.findByName(TRIGGER_NAME).size();
   }
 
-  private boolean anyMatchInPerformance() {
+  private long countInPerformance() {
     return performanceRepository.findByName(PERFORMANCE_NAME)
-        .getSequences().stream()
-        .anyMatch(s -> SEQUENCE_NAME.equals(s.getName()));
+        .getTriggers().stream()
+        .filter(s -> TRIGGER_NAME.equals(s.getName())).count();
   }
 }

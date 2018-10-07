@@ -8,7 +8,7 @@ import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
-import lombok.extern.slf4j.Slf4j;
+import com.purplepip.odin.store.StoreTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Performance repository test.
  */
 @RunWith(SpringRunner.class)
-@Slf4j
+@StoreTest
 public class PersistableLayerTest {
   private PersistablePerformanceBuilder builder;
 

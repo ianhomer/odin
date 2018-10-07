@@ -16,8 +16,8 @@
 package com.purplepip.odin.api;
 
 import com.purplepip.odin.sequencer.OdinSequencer;
-import javax.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -32,7 +32,7 @@ import org.springframework.stereotype.Component;
 @Order(1)
 @Slf4j
 @Profile("!noSequencer")
-public class SequencerConfiguration implements CommandLineRunner {
+public class SequencerConfiguration implements CommandLineRunner, DisposableBean {
   @Autowired
   private OdinSequencer sequencer;
 
@@ -40,7 +40,7 @@ public class SequencerConfiguration implements CommandLineRunner {
   private boolean autoStart;
 
   @Override
-  public void run(String... args) throws Exception {
+  public void run(String... args) {
     sequencer.prepare();
     if (autoStart) {
       sequencer.start();
@@ -48,11 +48,8 @@ public class SequencerConfiguration implements CommandLineRunner {
     LOG.info("Sequencer started");
   }
 
-  /**
-   * Shutdown the sequencer.
-   */
-  @PreDestroy
-  public void shutdown() {
+  @Override
+  public void destroy() {
     LOG.info("Sequencer stopping ...");
     sequencer.stop();
     sequencer.shutdown();
