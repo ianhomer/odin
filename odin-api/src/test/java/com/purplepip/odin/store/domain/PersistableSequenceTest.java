@@ -66,7 +66,6 @@ public class PersistableSequenceTest {
     entityManager.flush();
     assertTrue("Sequence should have been created", anyMatchInPerformance());
     sequenceRepository.delete(sequence);
-    entityManager.flush();
     assertFalse("Sequence should have been deleted", anyMatch());
     assertFalse("Sequence should have been deleted from performance", anyMatchInPerformance());
   }

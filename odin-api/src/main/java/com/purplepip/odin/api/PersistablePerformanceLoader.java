@@ -17,7 +17,6 @@ package com.purplepip.odin.api;
 
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.common.OdinRuntimeException;
-import com.purplepip.odin.demo.DemoLoaderPerformance;
 import com.purplepip.odin.performance.AbstractPerformanceLoader;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.performance.PerformanceContainer;
@@ -39,13 +38,6 @@ public class PersistablePerformanceLoader extends AbstractPerformanceLoader {
 
   @Autowired
   private PerformanceRepository performanceRepository;
-
-  /**
-   * Create the persistable performance loader.
-   */
-  public PersistablePerformanceLoader() {
-    super(new DemoLoaderPerformance());
-  }
 
   @Override
   public void load(URI performanceUri) {
