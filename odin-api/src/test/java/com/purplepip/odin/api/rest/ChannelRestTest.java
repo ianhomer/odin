@@ -1,6 +1,5 @@
 package com.purplepip.odin.api.rest;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles({"test", "noAuditing"})
-@Slf4j
 public class ChannelRestTest {
   @Autowired
   private MockMvc mvc;

@@ -4,15 +4,14 @@ import static com.purplepip.odin.store.domain.TestPersistables.newLayer;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
+import com.purplepip.odin.store.StoreTest;
 import com.purplepip.odin.store.domain.PersistableLayer;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
@@ -20,17 +19,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Performance repository test.
  */
 @RunWith(SpringRunner.class)
-@DataJpaTest(showSql = false)
-@ActiveProfiles({"test", "noServices"})
+@StoreTest
 @Slf4j
 public class LayerRepositoryTest {
   @Autowired
@@ -59,7 +55,7 @@ public class LayerRepositoryTest {
   }
 
   @Test
-  public void testPerformance() throws OdinException {
+  public void testPerformance() {
     List<Layer> layers = Lists.newArrayList(repository.findAll());
     assertThat(0, equalTo(layers.size()));
 
@@ -75,7 +71,7 @@ public class LayerRepositoryTest {
   }
 
   @Test
-  public void testLayoutRemove() throws OdinException, ExecutionException, InterruptedException {
+  public void testLayoutRemove() {
     PersistablePerformance performance = new PersistablePerformance();
     performance.setName("test-performance");
     performanceRepository.save(performance);
@@ -92,7 +88,7 @@ public class LayerRepositoryTest {
   }
 
   @Test
-  public void testCreateMultipleLayers() throws OdinException {
+  public void testCreateMultipleLayers() {
     PersistablePerformance performance = new PersistablePerformance();
     performance.setName("test-performance");
     performanceRepository.save(performance);

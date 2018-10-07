@@ -7,6 +7,7 @@ import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
+import com.purplepip.odin.store.StoreTest;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -14,17 +15,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Pattern repository test.
  */
 @RunWith(SpringRunner.class)
-@DataJpaTest(showSql = false)
-@ActiveProfiles({"test", "noServices"})
+@StoreTest
 @Slf4j
 public class SequenceRepositoryTest {
   private PersistablePerformance performance;

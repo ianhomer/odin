@@ -13,15 +13,14 @@
  * limitations under the License.
  */
 
-package com.purplepip.odin.store.domain;
+package com.purplepip.odin.api.rest.repositories;
 
 import static com.purplepip.odin.store.domain.TestPersistables.newPerformance;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
-import com.purplepip.odin.api.rest.repositories.TriggerRepository;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.store.StoreTest;
+import com.purplepip.odin.store.domain.PersistableTrigger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
