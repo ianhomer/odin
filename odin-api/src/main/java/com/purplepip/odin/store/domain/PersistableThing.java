@@ -41,7 +41,7 @@ public class PersistableThing implements Thing {
   @GeneratedValue
   private long id;
 
-  @NotNull
+  @NotNull(message = "name must not be null")
   private String name;
 
   /**

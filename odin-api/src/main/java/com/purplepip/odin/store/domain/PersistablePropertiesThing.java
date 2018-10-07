@@ -31,7 +31,7 @@ import lombok.ToString;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "PropertiesThing")
 @EqualsAndHashCode(callSuper = true)
-@ToString()
+@ToString(callSuper = true)
 public class PersistablePropertiesThing extends PersistableThing
     implements MutablePropertiesProvider {
   @ElementCollection

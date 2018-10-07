@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.api.rest.repositories;
 
+import com.purplepip.odin.creation.sequence.Sequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.store.domain.PersistableSequence;
 import java.util.List;
@@ -30,4 +31,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @Profile("!noStore")
 public interface SequenceRepository extends CrudRepository<PersistableSequence, Long> {
   List<SequenceConfiguration> findByChannel(int channel);
+
+  Sequence findByName(String name);
 }

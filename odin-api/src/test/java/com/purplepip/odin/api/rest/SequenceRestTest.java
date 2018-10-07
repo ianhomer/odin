@@ -3,6 +3,7 @@ package com.purplepip.odin.api.rest;
 import static com.purplepip.odin.api.rest.Rests.sendingJson;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,6 +39,8 @@ public class SequenceRestTest {
   public void testCreateAndDeleteSequence() throws Exception {
     String performanceUri = new Rest(mvc).getFirstHref("performance");
 
+    assertNoSequences(performanceUri);
+
     /*
      * Add Sequence
      */
@@ -58,12 +61,12 @@ public class SequenceRestTest {
         .andReturn()
         .getResponse().getRedirectedUrl();
 
+    assertNotNull(entityUri);
+
     /*
      * Check entity has been created
      */
-    mvc.perform(sendingJson(get(performanceUri + "/sequences")))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$._embedded.sequence", hasSize(1)));
+    assertSequenceSize(performanceUri, 1);
 
     /*
      * Get the entity
@@ -80,7 +83,23 @@ public class SequenceRestTest {
      */
     mvc.perform(sendingJson(delete(entityUri)))
         .andExpect(status().isNoContent());
+
+    /*
+     * Check entity has been removed
+     */
+    assertNoSequences(performanceUri);
   }
+
+  private void assertSequenceSize(String performanceUri, int expected) throws Exception {
+    mvc.perform(sendingJson(get(performanceUri + "/sequences")))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$._embedded.sequence", hasSize(expected)));
+  }
+
+  private void assertNoSequences(String performanceUri) throws Exception {
+    assertSequenceSize(performanceUri,0);
+  }
+
 
   @Test
   public void testProfile() throws Exception {

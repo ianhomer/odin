@@ -64,7 +64,7 @@ public class PersistablePerformance implements Performance {
       fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
   private Set<TriggerConfiguration> triggers = new HashSet<>();
 
-  @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.ALL,
+  @OneToMany(targetEntity = PersistableSequence.class, cascade = CascadeType.PERSIST,
       fetch = FetchType.EAGER, mappedBy = "performance", orphanRemoval = true)
   private Set<SequenceConfiguration> sequences = new HashSet<>();
 
@@ -130,9 +130,10 @@ public class PersistablePerformance implements Performance {
 
   @Override
   public PersistablePerformance removeSequence(SequenceConfiguration sequence) {
-    boolean result = sequences.remove(sequence);
+    boolean result = sequences.removeIf(s -> s.getId() == sequence.getId());
     if (!result) {
-      LOG.warn("Could not remove sequence {} from performance", sequence);
+      LOG.warn("Could not remove sequence {} from performance with sequences {}",
+          sequence, getSequences());
     } else {
       LOG.debug("Removed sequence from performance");
     }

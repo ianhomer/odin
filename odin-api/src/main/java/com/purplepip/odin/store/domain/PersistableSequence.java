@@ -33,6 +33,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -57,7 +58,7 @@ public class PersistableSequence extends PersistableTimeThing
   @JoinColumn(name = "PERFORMANCE_ID", nullable = false)
   private Performance performance;
 
-  @NotNull
+  @NotNull(message = "sequence type must not be null")
   private String type;
 
   private int channel;
@@ -112,6 +113,11 @@ public class PersistableSequence extends PersistableTimeThing
   @PreUpdate
   public void preUpdate() {
     PersistableHelper.removeDuplicates(layers);
+  }
+
+  @PreRemove
+  public void removeFromPerformance() {
+    performance.removeSequence(this);
   }
 
   @Override

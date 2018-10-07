@@ -46,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity(name = "TimeThing")
 @EqualsAndHashCode(exclude = {"offset", "length", "tick"}, callSuper = true)
-@ToString()
+@ToString(callSuper = true)
 @Slf4j
 public class PersistableTimeThing extends PersistablePropertiesThing implements TimeThing {
   private boolean enabled;
@@ -73,7 +73,7 @@ public class PersistableTimeThing extends PersistablePropertiesThing implements 
   private Rational length = Wholes.MINUS_ONE;
 
   @OneToOne(targetEntity = PersistableTick.class, cascade = CascadeType.ALL, orphanRemoval = true)
-  @NotNull
+  @NotNull(message = "tick must not be null")
   private Tick tick;
 
   public void setTick(Tick tick) {
