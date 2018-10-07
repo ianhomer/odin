@@ -15,11 +15,12 @@
 
 package com.purplepip.odin.store.domain;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static com.purplepip.odin.store.domain.TestPersistables.newPerformance;
+import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.api.rest.repositories.SequenceRepository;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.store.StoreTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,38 +30,36 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @StoreTest
 public class PersistableSequenceTest {
-  private static final String PERFORMANCE_NAME = "sequence-performance";
-  private static final String SEQUENCE_NAME = "sequence";
+  private static final String SEQUENCE_NAME = PersistableSequence.class.getSimpleName();
+  private static final String PERFORMANCE_NAME = SEQUENCE_NAME + "-performance";
 
   @Autowired
   private PerformanceRepository performanceRepository;
 
   @Autowired
-  private SequenceRepository sequenceRepository;
+  private SequenceRepository repository;
 
   @Test
   public void testCreateAndDelete() {
-    PersistablePerformance performance = new PersistablePerformance();
-    performance.setName(PERFORMANCE_NAME);
-    performanceRepository.save(performance);
+    Performance performance = performanceRepository.save(newPerformance(PERFORMANCE_NAME));
     PersistableSequence sequence = new PersistableSequence();
     sequence.setName(SEQUENCE_NAME);
     sequence.setType("pattern");
     performance.addSequence(sequence);
-    sequenceRepository.save(sequence);
-    assertTrue("Sequence should have been created", anyMatchInPerformance());
-    sequenceRepository.delete(sequence);
-    assertFalse("Sequence should have been deleted", anyMatch());
-    assertFalse("Sequence should have been deleted from performance", anyMatchInPerformance());
+    repository.save(sequence);
+    assertEquals("Sequence should have been created", 1, countInPerformance());
+    repository.delete(sequence);
+    assertEquals("Sequence should have been deleted", 0, count());
+    assertEquals("Sequence should have been deleted from performance", 0, countInPerformance());
   }
 
-  private boolean anyMatch() {
-    return sequenceRepository.findByName(SEQUENCE_NAME) != null;
+  private long count() {
+    return repository.findByName(SEQUENCE_NAME) == null ? 0 : 1;
   }
 
-  private boolean anyMatchInPerformance() {
+  private long countInPerformance() {
     return performanceRepository.findByName(PERFORMANCE_NAME)
         .getSequences().stream()
-        .anyMatch(s -> SEQUENCE_NAME.equals(s.getName()));
+        .filter(s -> SEQUENCE_NAME.equals(s.getName())).count();
   }
 }

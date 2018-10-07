@@ -15,10 +15,12 @@
 
 package com.purplepip.odin.store.domain;
 
+import static com.purplepip.odin.store.domain.TestPersistables.newPerformance;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.api.rest.repositories.TriggerRepository;
+import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.store.StoreTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,33 +30,31 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @StoreTest
 public class PersistableTriggerTest {
-  private static final String PERFORMANCE_NAME = "trigger-performance";
-  private static final String TRIGGER_NAME = "trigger";
+  private static final String TRIGGER_NAME = PersistableTrigger.class.getSimpleName();
+  private static final String PERFORMANCE_NAME = TRIGGER_NAME + "-performance";
 
   @Autowired
   private PerformanceRepository performanceRepository;
 
   @Autowired
-  private TriggerRepository triggerRepository;
+  private TriggerRepository repository;
 
   @Test
   public void testCreateAndDelete() {
-    PersistablePerformance performance = new PersistablePerformance();
-    performance.setName(PERFORMANCE_NAME);
-    performanceRepository.save(performance);
+    Performance performance = performanceRepository.save(newPerformance(PERFORMANCE_NAME));
     PersistableTrigger trigger = new PersistableTrigger();
     trigger.setName(TRIGGER_NAME);
     trigger.setType("default");
     performance.addTrigger(trigger);
-    triggerRepository.save(trigger);
+    repository.save(trigger);
     assertEquals("Trigger should have been created", 1, countInPerformance());
-    triggerRepository.delete(trigger);
+    repository.delete(trigger);
     assertEquals("Trigger should have been deleted", 0, count());
     assertEquals("Trigger should have been deleted from performance", 0, countInPerformance());
   }
 
   private long count() {
-    return triggerRepository.findByName(TRIGGER_NAME).size();
+    return repository.findByName(TRIGGER_NAME).size();
   }
 
   private long countInPerformance() {

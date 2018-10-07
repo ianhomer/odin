@@ -19,6 +19,12 @@ package com.purplepip.odin.store.domain;
  * Test utility to create persistable domain objects in one line.
  */
 public final class TestPersistables {
+  static PersistablePerformance newPerformance(String name) {
+    PersistablePerformance performance = new PersistablePerformance();
+    performance.setName(name);
+    return performance;
+  }
+
   /**
    * Create new persistable layer.
    *
