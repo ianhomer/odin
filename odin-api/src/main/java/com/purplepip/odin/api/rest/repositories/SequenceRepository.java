@@ -32,5 +32,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface SequenceRepository extends CrudRepository<PersistableSequence, Long> {
   List<SequenceConfiguration> findByChannel(int channel);
 
-  Sequence findByName(String name);
+  List<Sequence> findByName(String name);
 }

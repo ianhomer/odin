@@ -3,7 +3,6 @@ package com.purplepip.odin.api.rest.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.purplepip.odin.clock.tick.Ticks;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
@@ -28,7 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ActiveProfiles({"test", "noServices"})
 @Slf4j
 public class SequenceRepositoryTest {
-  PersistablePerformance performance;
+  private PersistablePerformance performance;
   @Autowired
   private TestEntityManager entityManager;
   @Autowired
@@ -48,7 +47,7 @@ public class SequenceRepositoryTest {
   }
 
   @Test
-  public void testSequence() throws OdinException {
+  public void testSequence() {
     List<SequenceConfiguration> sequences = repository.findByChannel(0);
     assertThat(sequences.size()).isEqualTo(0);
 

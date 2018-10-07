@@ -54,7 +54,7 @@ public class PersistableSequenceTest {
   }
 
   private long count() {
-    return repository.findByName(SEQUENCE_NAME) == null ? 0 : 1;
+    return repository.findByName(SEQUENCE_NAME).size();
   }
 
   private long countInPerformance() {
