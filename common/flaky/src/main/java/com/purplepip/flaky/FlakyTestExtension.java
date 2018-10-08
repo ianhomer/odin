@@ -15,6 +15,7 @@
 
 package com.purplepip.flaky;
 
+import static com.purplepip.flaky.ExceptionUtils.extractMessage;
 import static java.util.Spliterator.ORDERED;
 import static java.util.Spliterators.spliteratorUnknownSize;
 import static java.util.stream.StreamSupport.stream;
@@ -26,8 +27,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
+import org.junit.jupiter.api.extension.ExtensionContext.Store;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
 import org.junit.jupiter.api.extension.TestTemplateInvocationContextProvider;
@@ -35,19 +39,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FlakyTestExtension implements TestTemplateInvocationContextProvider,
-    TestExecutionExceptionHandler {
-  private static final Namespace namespace = Namespace.create("com", "purplepip", "flaky");
+    TestExecutionExceptionHandler, AfterEachCallback,
+    AfterTestExecutionCallback {
+  private static final Namespace NAMESPACE = Namespace.create("com", "purplepip", "flaky");
   private static final Logger LOG = LoggerFactory.getLogger(FlakyTestExtension.class);
 
   @Override
-  public void handleTestExecutionException(ExtensionContext context, Throwable throwable) {
+  public void handleTestExecutionException(ExtensionContext context, Throwable throwable)
+      throws Throwable {
     LOG.debug("Handling flaky test exception {} : {}", throwable.getMessage(),
         context.getRequiredTestMethod().toString());
-    Attempts attempts = context.getStore(namespace)
-        .get(context.getRequiredTestMethod().toString(), Attempts.class);
-    context.publishReportEntry("flaky exception handled", throwable.getMessage());
+    Attempts attempts = getAttempts(context);
+    context.publishReportEntry("flaky exception handled", "X" + throwable.getMessage());
     if (attempts != null) {
-      LOG.warn("Flaky test exception : {}", throwable.getMessage());
       attempts.thrown(throwable);
     } else {
       LOG.warn("Cannot find attempts in context");
@@ -62,36 +66,76 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
   @Override
   public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(
       ExtensionContext context) {
-    return stream(spliteratorUnknownSize(attempts(context), ORDERED), false);
+    return stream(spliteratorUnknownSize(newAttempts(context), ORDERED), false);
   }
 
-  private Attempts attempts(ExtensionContext context) {
+  @Override
+  public void afterTestExecution(ExtensionContext context) {
+  }
+
+  @Override
+  public void afterEach(ExtensionContext context) {
+  }
+
+  private Attempts newAttempts(ExtensionContext context) {
     Method method = context.getRequiredTestMethod();
     FlakyTest flakyTest = findAnnotation(method, FlakyTest.class).orElseThrow();
-    Attempts retries = new Attempts(flakyTest.value());
-    context.getStore(namespace).put(method.toString(), retries);
-    return retries;
+    Attempts attempts = new Attempts(method.getName(), flakyTest.value());
+    getStore(context).put(method.getName(), attempts);
+    return attempts;
   }
+
+
+  private String executionTitle(ExtensionContext context) {
+    return context.getRequiredTestMethod().getName() + " : " + getFailCount(context) + "/"
+        + getAttemptsCount(context);
+  }
+
+  private Store getStore(ExtensionContext context) {
+    return context.getStore(NAMESPACE);
+  }
+
+  private Attempts getAttempts(ExtensionContext context) {
+    return getStore(context).get(context.getRequiredTestMethod().getName(), Attempts.class);
+  }
+
+  private int getFailCount(ExtensionContext context) {
+    return getAttempts(context).getExceptionCount();
+  }
+
+  private int getAttemptsCount(ExtensionContext context) {
+    return getAttempts(context).getAttemptCount();
+  }
+
 
   /**
    * Attempts iteration.
    */
   private static class Attempts implements Iterator<TestTemplateInvocationContext> {
-    private static final Logger LOG = LoggerFactory.getLogger(Attempts.class);
     private int attemptCount = 0;
     private int maxAttempts;
-    private final List<Throwable> exceptions;
+    private String name;
+    private final List<Execution> executions;
 
-    private Attempts(int maxAttempts) {
+    private Attempts(String name, int maxAttempts) {
+      this.name = name;
       this.maxAttempts = maxAttempts;
-      exceptions = new ArrayList<>();
+      executions = new ArrayList<>();
     }
 
     void thrown(Throwable throwable) {
-      exceptions.add(throwable);
-      if (exceptions.size() == maxAttempts) {
-        fail("Flaked out");
+      executions.add(new Execution(throwable, attemptCount));
+      if (executions.size() == maxAttempts) {
+        fail("Flaked out after " + maxAttempts + " attempts" + report());
       }
+    }
+
+    private String report() {
+      StringBuilder sb = new StringBuilder();
+      executions.forEach(execution -> sb.append(
+          String.format("\n  Run %s: %s: %s", execution.getIndex(),
+              extractMessage(execution.getThrowable()), name)));
+      return sb.toString();
     }
 
     @Override
@@ -100,11 +144,23 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
     }
 
     private boolean areAllFailures() {
-      return attemptCount == exceptions.size();
+      return attemptCount == executions.size();
     }
 
     private boolean areMoreAttemptsAllowed() {
       return attemptCount < maxAttempts;
+    }
+
+    int getAttemptCount() {
+      return attemptCount;
+    }
+
+    int getExceptionCount() {
+      return executions.size();
+    }
+
+    Stream<Execution> executions() {
+      return executions.stream();
     }
 
     @Override
@@ -112,5 +168,24 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
       attemptCount++;
       return new AttemptTestInvocationContext();
     }
+  }
+
+  private static class Execution {
+    private Throwable throwable;
+    private int index;
+
+    public Execution(Throwable throwable, int index) {
+      this.throwable = throwable;
+      this.index = index;
+    }
+
+    Throwable getThrowable() {
+      return throwable;
+    }
+
+    int getIndex() {
+      return index;
+    }
+
   }
 }

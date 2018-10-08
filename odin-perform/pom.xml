@@ -35,6 +35,7 @@
     <dependency>
       <groupId>com.purplepip</groupId>
       <artifactId>flaky</artifactId>
+      <version>1.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>

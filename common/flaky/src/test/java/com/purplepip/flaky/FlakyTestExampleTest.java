@@ -18,15 +18,14 @@ package com.purplepip.flaky;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * Example test for manual testing of FlakyTest annotation.
  */
 class FlakyTestExampleTest {
-  private static final Logger LOG = LoggerFactory.getLogger(FlakyTestExampleTest.class);
-  private static final AtomicInteger succeedsEveryFourTimesCount = new AtomicInteger(1);
+  private static final AtomicInteger succeedsEveryFourTimesCount = new AtomicInteger(0);
+  private static final AtomicInteger succeedsEveryTenTimesCount = new AtomicInteger(0);
 
   @FlakyTest
   void neverFails() {
@@ -37,6 +36,19 @@ class FlakyTestExampleTest {
     if (succeedsEveryFourTimesCount.incrementAndGet() % 4 != 0) {
       fail("succeedsEveryFourTimes failed");
     }
+  }
+
+  @FlakyTest(15)
+  void succeedsEveryTenTimes() {
+    if (succeedsEveryTenTimesCount.incrementAndGet() % 10 != 0) {
+      fail("succeedsEveryTenTimes failed");
+    }
+  }
+
+  @FlakyTest(3)
+  @Disabled
+  void alwaysFails() {
+    fail("alwaysFails failed");
   }
 
 }

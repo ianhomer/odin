@@ -80,7 +80,7 @@ class FlakyTestTest {
     void neverFails() {
     }
 
-    @FlakyTest
+    @FlakyTest(3)
     void alwaysFails() {
       fail("alwaysFails failed");
     }

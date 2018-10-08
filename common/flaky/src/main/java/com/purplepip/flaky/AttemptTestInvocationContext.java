@@ -18,5 +18,4 @@ package com.purplepip.flaky;
 import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
 
 public class AttemptTestInvocationContext implements TestTemplateInvocationContext {
-
 }
