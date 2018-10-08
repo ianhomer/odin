@@ -33,14 +33,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjrt</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.purplepip</groupId>
       <artifactId>common-logging</artifactId>
       <scope>test</scope>
@@ -53,6 +45,19 @@
       <groupId>com.purplepip</groupId>
       <artifactId>odin-core</artifactId>
       <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/common-logging" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/flaky" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/log-capture" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/odin-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/odin-core" charset="UTF-8" />

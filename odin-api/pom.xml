@@ -66,6 +66,15 @@
       <artifactId>metrics-annotation</artifactId>
     </dependency>
     <dependency>
+      <groupId>nz.net.ultraq.thymeleaf</groupId>
+      <artifactId>thymeleaf-layout-dialect</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
     </dependency>
@@ -116,10 +125,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>nz.net.ultraq.thymeleaf</groupId>
-      <artifactId>thymeleaf-layout-dialect</artifactId>
     </dependency>
   </dependencies>
 

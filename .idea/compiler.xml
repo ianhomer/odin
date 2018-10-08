@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="common-logging" />
         <module name="common_test_logging" />
+        <module name="flaky" />
         <module name="log-capture" />
         <module name="logcapture" />
         <module name="odin-api" />
@@ -21,6 +22,7 @@
     <bytecodeTargetLevel>
       <module name="common-logging" target="1.10" />
       <module name="common_test_logging" target="1.8" />
+      <module name="flaky" target="1.10" />
       <module name="log-capture" target="1.10" />
       <module name="logcapture" target="1.8" />
       <module name="maven-code-coverage-tile" target="1.5" />

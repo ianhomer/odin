@@ -14,6 +14,7 @@
   <modules>
     <module>common/common-logging</module>
     <module>common/log-capture</module>
+    <module>common/flaky</module>
     <module>odin-core</module>
     <module>odin-server</module>
     <module>odin-profile</module>
@@ -66,6 +67,7 @@
         https://www.rainerhahnekamp.com/en/ignoring-lombok-code-in-jacoco/
       -->
     <jacoco.covered.ratio>0.85</jacoco.covered.ratio>
+    <jacoco.missed.count>0</jacoco.missed.count>
     <jackson.version>2.9.6</jackson.version>
     <javax.validation>2.0.1.Final</javax.validation>
     <jaxb.version>2.3.0.1</jaxb.version>
@@ -255,11 +257,6 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -517,7 +514,7 @@
                     <limit>
                       <counter>CLASS</counter>
                       <value>MISSEDCOUNT</value>
-                      <maximum>0</maximum>
+                      <maximum>${jacoco.missed.count}</maximum>
                     </limit>
                   </limits>
                 </rule>
