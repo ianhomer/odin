@@ -59,9 +59,11 @@ class FlakyTestTest {
   @Test
   void succeedsEveryFourTimesSucceeds() {
     ExecutionsResult executionsResult = execute(selectMethod(TestCase.class,
-        "succeedsEveryFourTimesSucceeds"));
+        "succeedsEveryFourTimes"));
     assertThat(executionsResult.getExecutionEvents())
-        .haveExactly(1, finishedSuccessfully());
+        .haveExactly(1,
+            event(container(), displayName("succeedsEveryFourTimes()"),
+                finishedSuccessfully()));
   }
 
 
@@ -72,18 +74,10 @@ class FlakyTestTest {
 
   static class TestCase {
     private static final Logger LOG = LoggerFactory.getLogger(FlakyTestTest.TestCase.class);
-    private static final AtomicInteger mostTimeCount = new AtomicInteger(1);
+    private static final AtomicInteger succeedsEveryFourTimesCount = new AtomicInteger(1);
 
     @FlakyTest
     void neverFails() {
-    }
-
-    @FlakyTest(5)
-    void succeedsEveryFourTimes() {
-      LOG.info("mostTimeCount = {}", mostTimeCount);
-      if (mostTimeCount.incrementAndGet() % 8 != 0) {
-        fail("succeedsEveryFourTimes failed");
-      }
     }
 
     @FlakyTest
@@ -91,6 +85,11 @@ class FlakyTestTest {
       fail("alwaysFails failed");
     }
 
+    @FlakyTest(5)
+    void succeedsEveryFourTimes() {
+      if (succeedsEveryFourTimesCount.incrementAndGet() % 4 != 0) {
+        fail("succeedsEveryFourTimes failed");
+      }
+    }
   }
-
 }

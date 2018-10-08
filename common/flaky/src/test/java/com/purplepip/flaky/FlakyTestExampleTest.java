@@ -17,22 +17,26 @@ package com.purplepip.flaky;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.Disabled;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Example test for manual testing of FlakyTest annotation.
+ */
 class FlakyTestExampleTest {
   private static final Logger LOG = LoggerFactory.getLogger(FlakyTestExampleTest.class);
+  private static final AtomicInteger succeedsEveryFourTimesCount = new AtomicInteger(1);
 
   @FlakyTest
   void neverFails() {
-    LOG.info("Executing neverFails test");
+  }
+  
+  @FlakyTest(5)
+  void succeedsEveryFourTimes() {
+    if (succeedsEveryFourTimesCount.incrementAndGet() % 4 != 0) {
+      fail("succeedsEveryFourTimes failed");
+    }
   }
 
-  @FlakyTest
-  @Disabled
-  void alwaysFails() {
-    LOG.info("Executing alwaysFails test");
-    fail("example always fails");
-  }
 }

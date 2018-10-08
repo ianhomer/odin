@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
@@ -36,16 +35,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FlakyTestExtension implements TestTemplateInvocationContextProvider,
-    TestExecutionExceptionHandler, BeforeTestExecutionCallback {
+    TestExecutionExceptionHandler {
   private static final Namespace namespace = Namespace.create("com", "purplepip", "flaky");
   private static final Logger LOG = LoggerFactory.getLogger(FlakyTestExtension.class);
 
   @Override
   public void handleTestExecutionException(ExtensionContext context, Throwable throwable) {
-    LOG.info("Handling exception {} : {}", throwable.getMessage(),
+    LOG.debug("Handling flaky test exception {} : {}", throwable.getMessage(),
         context.getRequiredTestMethod().toString());
-    Retries attempts = context.getStore(namespace)
-        .get(context.getRequiredTestMethod().toString(), Retries.class);
+    Attempts attempts = context.getStore(namespace)
+        .get(context.getRequiredTestMethod().toString(), Attempts.class);
+    context.publishReportEntry("flaky exception handled", throwable.getMessage());
     if (attempts != null) {
       attempts.thrown(throwable);
     } else {
@@ -55,52 +55,55 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
 
   @Override
   public boolean supportsTestTemplate(ExtensionContext extensionContext) {
-    LOG.info("Testing if supports test template");
     return true;
   }
 
   @Override
   public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(
       ExtensionContext context) {
-    LOG.info("Providing invocation context");
-    return stream(spliteratorUnknownSize(retry(context), ORDERED), false);
+    return stream(spliteratorUnknownSize(attempts(context), ORDERED), false);
   }
 
-  private Retries retry(ExtensionContext context) {
+  private Attempts attempts(ExtensionContext context) {
     Method method = context.getRequiredTestMethod();
     FlakyTest flakyTest = findAnnotation(method, FlakyTest.class).orElseThrow();
-    Retries retries = new Retries(flakyTest.value());
+    Attempts retries = new Attempts(flakyTest.value());
     context.getStore(namespace).put(method.toString(), retries);
     return retries;
   }
 
-  @Override
-  public void beforeTestExecution(ExtensionContext extensionContext) throws Exception {
-    LOG.info("Before test");
-  }
-
-  private static class Retries implements Iterator<TestTemplateInvocationContext> {
-    private static final Logger LOG = LoggerFactory.getLogger(Retries.class);
+  /**
+   * Attempts iteration.
+   */
+  private static class Attempts implements Iterator<TestTemplateInvocationContext> {
+    private static final Logger LOG = LoggerFactory.getLogger(Attempts.class);
     private int attemptCount = 0;
-    private int maxRetries;
+    private int maxAttempts;
     private final List<Throwable> exceptions;
 
-    private Retries(int maxRetries) {
-      this.maxRetries = maxRetries;
+    private Attempts(int maxAttempts) {
+      this.maxAttempts = maxAttempts;
       exceptions = new ArrayList<>();
     }
 
-    public void thrown(Throwable throwable) {
-      LOG.info("Recorded throwable");
+    void thrown(Throwable throwable) {
       exceptions.add(throwable);
-      if (exceptions.size() == maxRetries) {
+      if (exceptions.size() == maxAttempts) {
         fail("Flaked out");
       }
     }
 
     @Override
     public boolean hasNext() {
-      return attemptCount == exceptions.size() && attemptCount < maxRetries;
+      return areAllFailures() && areMoreAttemptsAllowed();
+    }
+
+    private boolean areAllFailures() {
+      return attemptCount == exceptions.size();
+    }
+
+    private boolean areMoreAttemptsAllowed() {
+      return attemptCount < maxAttempts;
     }
 
     @Override

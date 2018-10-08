@@ -22,15 +22,19 @@ import java.lang.annotation.Target;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+/**
+ * Execute a flaky test which sometimes fails.
+ */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @ExtendWith(FlakyTestExtension.class)
 @TestTemplate
 public @interface FlakyTest {
   /**
-   * Number of attempts at running this flaky test.
+   * Number of attempts at running this flaky test.  By default we run the test up to 2 times
+   * to try to get a success.
    *
-   * @return
+   * @return number of attempts
    */
-  int value() default 1;
+  int value() default 2;
 }
