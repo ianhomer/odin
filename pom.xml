@@ -12,8 +12,8 @@
   <name>Odin</name>
 
   <modules>
-    <module>common-logging</module>
-    <module>log-capture</module>
+    <module>common/common-logging</module>
+    <module>common/log-capture</module>
     <module>odin-core</module>
     <module>odin-server</module>
     <module>odin-profile</module>
