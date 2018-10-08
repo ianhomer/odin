@@ -33,8 +33,18 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
+      <groupId>com.purplepip</groupId>
+      <artifactId>flaky</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -44,13 +54,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <!--
-              Rerun a couple of times on failure since machine performance does have variability
-              and at least one pass is AOK.
-              -->
-          <rerunFailingTestsCount>2</rerunFailingTestsCount>
-        </configuration>
+        <version>2.22.0</version>
       </plugin>
       <!-- Disable jacoco analysis for performance assertions -->
       <plugin>

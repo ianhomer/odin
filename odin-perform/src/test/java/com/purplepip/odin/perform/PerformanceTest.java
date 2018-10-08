@@ -20,13 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
+import com.purplepip.flaky.FlakyTest;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -36,13 +35,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 @Slf4j
-@RunWith(Parameterized.class)
-public class PerformanceTest {
+class PerformanceTest {
   private static final int LENIENCY_FACTOR = 2;
   private static final int EXCEL_FACTOR = 2;
   private static String environmentDescription;
@@ -55,9 +50,6 @@ public class PerformanceTest {
    * Default environment leniency factor for unknown system.
    */
   private static final int DEFAULT_ENVIRONMENT_FACTOR = 5;
-
-  private String testName;
-  private PerformanceTestParameter parameter;
 
   static {
     environmentDescription = generateEnvironmentDescription();
@@ -93,25 +85,33 @@ public class PerformanceTest {
     return sb.toString();
   }
 
-  /**
-   * Create performances test from injected parameter.
-   *
-   * @param parameter injected parameter
-   */
-  public PerformanceTest(PerformanceTestParameter parameter) {
-    this.parameter = parameter;
-    testName = parameter.performance().getClass().getSimpleName();
+  @FlakyTest(3)
+  void testSimplePerformance() throws InterruptedException {
+    testPerformance(newParameter(new SimplePerformance())
+        .operationCount(12)
+        .expect("clock.prepare", 180_000)
+        .expect("clock.start", 20_000)
+        .expect("sequence.track.simple", 200_000));
   }
 
-  @Test
-  public void testPerformance() throws InterruptedException {
+  @FlakyTest(3)
+  void testGroovePerformance() throws InterruptedException {
+    testPerformance(newParameter(new GroovePerformance())
+        .operationCount(2_000)
+        .expect("clock.start", 800_000)
+        .expect("sequence.job", 400_000)
+        .expect("sequence.track.kick3", 20_000)
+        .expect("sequence.track.kick2", 14_000));
+  }
+
+  private void testPerformance(PerformanceTestParameter parameter) throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(parameter.operationCount());
     OperationHandler operationReceiver = (operation, time) -> latch.countDown();
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(operationReceiver, parameter.performance());
 
-    LOG.debug("Spinning up : {}", testName);
+    LOG.debug("Spinning up : {}", parameter.name());
     for (int i = 0; i < 200; i++) {
       environment.start();
       Thread.sleep(10);
@@ -120,21 +120,22 @@ public class PerformanceTest {
 
     long start = System.nanoTime();
     environment.getConfiguration().getMetrics().removeMatching(MetricFilter.ALL);
-    LOG.debug("Starting : {}", testName);
+    LOG.debug("Starting : {}", parameter.name());
     environment.start();
     latch.await(5_000, TimeUnit.MILLISECONDS);
     environment.shutdown();
     long elapsed = System.nanoTime() - start;
-    LOG.debug("Completed : {}", testName);
+    LOG.debug("Completed : {}", parameter.name());
     MetricRegistry metrics = environment.getConfiguration().getMetrics();
-    LOG.info("Metrics : {}\n{}", testName, new MetricsReport(metrics));
+    LOG.info("Metrics : {}\n{}", parameter.name(), new MetricsReport(metrics));
     LOG.info("Run time : {}ms\n", elapsed / 1_000_000, new MetricsReport(metrics));
     parameter
         .names()
-        .forEach(name -> assertTimer(name, parameter.expect(name), metrics.timer(name)));
+        .forEach(name -> assertTimer(parameter.name(),
+            name, parameter.expect(name), metrics.timer(name)));
   }
 
-  private void assertTimer(String name, long expect, Timer timer) {
+  private void assertTimer(String testName, String name, long expect, Timer timer) {
     long mean = (long) timer.getSnapshot().getMean();
     long maxAllowed = expect * LENIENCY_FACTOR * getEnvironmentalFactor();
     assertTrue(
@@ -174,30 +175,6 @@ public class PerformanceTest {
     }
   }
 
-  /**
-   * Get parameters for parameterized tests.
-   *
-   * @return parameters
-   */
-  @Parameterized.Parameters
-  public static Iterable<PerformanceTestParameter> parameters() {
-    Collection<PerformanceTestParameter> parameters = new ArrayList<>();
-    parameters.add(
-        newParameter(new SimplePerformance())
-            .operationCount(12)
-            .expect("clock.prepare", 180_000)
-            .expect("clock.start", 20_000)
-            .expect("sequence.track.simple", 200_000));
-    parameters.add(
-        newParameter(new GroovePerformance())
-            .operationCount(2_000)
-            .expect("clock.start", 800_000)
-            .expect("sequence.job", 400_000)
-            .expect("sequence.track.kick3", 20_000)
-            .expect("sequence.track.kick2", 14_000));
-    return parameters;
-  }
-
   private static PerformanceTestParameter newParameter(Performance performance) {
     return new PerformanceTestParameter().performance(performance);
   }
@@ -218,6 +195,10 @@ public class PerformanceTest {
 
     public long expect(String name) {
       return times.get(name);
+    }
+
+    public String name() {
+      return performance.getClass().getSimpleName();
     }
 
     public Stream<String> names() {

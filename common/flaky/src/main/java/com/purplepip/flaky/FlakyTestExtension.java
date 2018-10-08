@@ -47,6 +47,7 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
         .get(context.getRequiredTestMethod().toString(), Attempts.class);
     context.publishReportEntry("flaky exception handled", throwable.getMessage());
     if (attempts != null) {
+      LOG.warn("Flaky test exception : {}", throwable.getMessage());
       attempts.thrown(throwable);
     } else {
       LOG.warn("Cannot find attempts in context");

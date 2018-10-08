@@ -31,7 +31,7 @@ class FlakyTestExampleTest {
   @FlakyTest
   void neverFails() {
   }
-  
+
   @FlakyTest(5)
   void succeedsEveryFourTimes() {
     if (succeedsEveryFourTimesCount.incrementAndGet() % 4 != 0) {
