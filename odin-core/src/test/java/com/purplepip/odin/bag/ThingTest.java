@@ -26,7 +26,7 @@ public class ThingTest {
     SimpleThing thing = new SimpleThing();
     thing.setName("simple-thing");
     thing.initialise();
-    assertEquals("simple-thingx", thing.getName());
+    assertEquals("simple-thing", thing.getName());
   }
 
   @Data
