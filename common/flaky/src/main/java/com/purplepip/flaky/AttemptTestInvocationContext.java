@@ -15,7 +15,18 @@
 
 package com.purplepip.flaky;
 
+import java.lang.reflect.Method;
 import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
 
-public class AttemptTestInvocationContext implements TestTemplateInvocationContext {
+class AttemptTestInvocationContext implements TestTemplateInvocationContext {
+  private Method method;
+
+  AttemptTestInvocationContext(Method method) {
+    this.method = method;
+  }
+
+  @Override
+  public String getDisplayName(int invocationIndex) {
+    return "(" + method.getDeclaringClass().getSimpleName() + ")";
+  }
 }

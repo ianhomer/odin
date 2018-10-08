@@ -45,12 +45,9 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
   private static final Logger LOG = LoggerFactory.getLogger(FlakyTestExtension.class);
 
   @Override
-  public void handleTestExecutionException(ExtensionContext context, Throwable throwable)
-      throws Throwable {
-    LOG.debug("Handling flaky test exception {} : {}", throwable.getMessage(),
-        context.getRequiredTestMethod().toString());
+  public void handleTestExecutionException(ExtensionContext context, Throwable throwable) {
     Attempts attempts = getAttempts(context);
-    context.publishReportEntry("flaky exception handled", "X" + throwable.getMessage());
+    context.publishReportEntry("flaky exception handled", throwable.getMessage());
     if (attempts != null) {
       attempts.thrown(throwable);
     } else {
@@ -80,15 +77,9 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
   private Attempts newAttempts(ExtensionContext context) {
     Method method = context.getRequiredTestMethod();
     FlakyTest flakyTest = findAnnotation(method, FlakyTest.class).orElseThrow();
-    Attempts attempts = new Attempts(method.getName(), flakyTest.value());
+    Attempts attempts = new Attempts(method, flakyTest.value());
     getStore(context).put(method.getName(), attempts);
     return attempts;
-  }
-
-
-  private String executionTitle(ExtensionContext context) {
-    return context.getRequiredTestMethod().getName() + " : " + getFailCount(context) + "/"
-        + getAttemptsCount(context);
   }
 
   private Store getStore(ExtensionContext context) {
@@ -99,26 +90,17 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
     return getStore(context).get(context.getRequiredTestMethod().getName(), Attempts.class);
   }
 
-  private int getFailCount(ExtensionContext context) {
-    return getAttempts(context).getExceptionCount();
-  }
-
-  private int getAttemptsCount(ExtensionContext context) {
-    return getAttempts(context).getAttemptCount();
-  }
-
-
   /**
    * Attempts iteration.
    */
   private static class Attempts implements Iterator<TestTemplateInvocationContext> {
     private int attemptCount = 0;
     private int maxAttempts;
-    private String name;
+    private Method method;
     private final List<Execution> executions;
 
-    private Attempts(String name, int maxAttempts) {
-      this.name = name;
+    private Attempts(Method method, int maxAttempts) {
+      this.method = method;
       this.maxAttempts = maxAttempts;
       executions = new ArrayList<>();
     }
@@ -126,6 +108,7 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
     void thrown(Throwable throwable) {
       executions.add(new Execution(throwable, attemptCount));
       if (executions.size() == maxAttempts) {
+        System.out.println("x");
         fail("Flaked out after " + maxAttempts + " attempts" + report());
       }
     }
@@ -134,7 +117,7 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
       StringBuilder sb = new StringBuilder();
       executions.forEach(execution -> sb.append(
           String.format("\n  Run %s: %s: %s", execution.getIndex(),
-              extractMessage(execution.getThrowable()), name)));
+              extractMessage(execution.getThrowable()), method.getName())));
       return sb.toString();
     }
 
@@ -159,14 +142,10 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
       return executions.size();
     }
 
-    Stream<Execution> executions() {
-      return executions.stream();
-    }
-
     @Override
     public TestTemplateInvocationContext next() {
       attemptCount++;
-      return new AttemptTestInvocationContext();
+      return new AttemptTestInvocationContext(method);
     }
   }
 
@@ -174,7 +153,7 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
     private Throwable throwable;
     private int index;
 
-    public Execution(Throwable throwable, int index) {
+    Execution(Throwable throwable, int index) {
       this.throwable = throwable;
       this.index = index;
     }

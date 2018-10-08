@@ -85,7 +85,7 @@ class PerformanceTest {
     return sb.toString();
   }
 
-  @FlakyTest(3)
+  @FlakyTest(4)
   void testSimplePerformance() throws InterruptedException {
     testPerformance(newParameter(new SimplePerformance())
         .operationCount(12)
