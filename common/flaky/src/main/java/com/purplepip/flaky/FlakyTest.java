@@ -27,5 +27,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(FlakyTestExtension.class)
 @TestTemplate
 public @interface FlakyTest {
+  /**
+   * Number of attempts at running this flaky test.
+   *
+   * @return
+   */
   int value() default 1;
 }

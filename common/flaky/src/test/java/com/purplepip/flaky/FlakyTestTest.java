@@ -56,6 +56,14 @@ class FlakyTestTest {
             event(finishedWithFailure(message(value -> value.contains("Flaked out")))));
   }
 
+  @Test
+  void succeedsEveryFourTimesSucceeds() {
+    ExecutionsResult executionsResult = execute(selectMethod(TestCase.class,
+        "succeedsEveryFourTimesSucceeds"));
+    assertThat(executionsResult.getExecutionEvents())
+        .haveExactly(1, finishedSuccessfully());
+  }
+
 
   private ExecutionsResult execute(DiscoverySelector... selectors) {
     return ExecutionRecorder.execute(new JupiterTestEngine(),
@@ -68,20 +76,18 @@ class FlakyTestTest {
 
     @FlakyTest
     void neverFails() {
-      LOG.info("FlakyTestTest.neverFails");
     }
 
     @FlakyTest(5)
-    void failsEveryFourTimes() {
-      LOG.info("FlakyTestTest.failsEveryFourTimes");
-      if (mostTimeCount.incrementAndGet() % 4 != 0) {
-        fail("failsEveryFourTimes failed");
+    void succeedsEveryFourTimes() {
+      LOG.info("mostTimeCount = {}", mostTimeCount);
+      if (mostTimeCount.incrementAndGet() % 8 != 0) {
+        fail("succeedsEveryFourTimes failed");
       }
     }
 
     @FlakyTest
     void alwaysFails() {
-      LOG.info("FlakyTestTest.alwaysFails");
       fail("alwaysFails failed");
     }
 
