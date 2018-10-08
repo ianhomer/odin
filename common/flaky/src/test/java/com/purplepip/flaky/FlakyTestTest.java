@@ -26,6 +26,7 @@ import static org.junit.platform.testkit.ExecutionEventConditions.finishedSucces
 import static org.junit.platform.testkit.ExecutionEventConditions.finishedWithFailure;
 import static org.junit.platform.testkit.TestExecutionResultConditions.message;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.engine.JupiterTestEngine;
 import org.junit.platform.engine.DiscoverySelector;
@@ -63,16 +64,25 @@ class FlakyTestTest {
 
   static class TestCase {
     private static final Logger LOG = LoggerFactory.getLogger(FlakyTestTest.TestCase.class);
+    private static final AtomicInteger mostTimeCount = new AtomicInteger(1);
 
     @FlakyTest
     void neverFails() {
       LOG.info("FlakyTestTest.neverFails");
     }
 
+    @FlakyTest(5)
+    void failsEveryFourTimes() {
+      LOG.info("FlakyTestTest.failsEveryFourTimes");
+      if (mostTimeCount.incrementAndGet() % 4 != 0) {
+        fail("failsEveryFourTimes failed");
+      }
+    }
+
     @FlakyTest
     void alwaysFails() {
       LOG.info("FlakyTestTest.alwaysFails");
-      fail("always fails");
+      fail("alwaysFails failed");
     }
 
   }

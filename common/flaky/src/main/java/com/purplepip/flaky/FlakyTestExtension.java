@@ -19,7 +19,9 @@ import static java.util.Spliterator.ORDERED;
 import static java.util.Spliterators.spliteratorUnknownSize;
 import static java.util.stream.StreamSupport.stream;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.platform.commons.util.AnnotationUtils.findAnnotation;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -65,8 +67,10 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
   }
 
   private Retries retry(ExtensionContext context) {
-    Retries retries = new Retries();
-    context.getStore(namespace).put(context.getRequiredTestMethod().toString(), retries);
+    Method method = context.getRequiredTestMethod();
+    FlakyTest flakyTest = findAnnotation(method, FlakyTest.class).orElseThrow();
+    Retries retries = new Retries(flakyTest.value());
+    context.getStore(namespace).put(method.toString(), retries);
     return retries;
   }
 
@@ -81,8 +85,8 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
     private int maxRetries;
     private final List<Throwable> exceptions;
 
-    private Retries() {
-      maxRetries = 1;
+    private Retries(int maxRetries) {
+      this.maxRetries = maxRetries;
       exceptions = new ArrayList<>();
     }
 

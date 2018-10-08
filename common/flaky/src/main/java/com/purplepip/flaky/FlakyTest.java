@@ -27,5 +27,5 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(FlakyTestExtension.class)
 @TestTemplate
 public @interface FlakyTest {
-
+  int value() default 1;
 }
