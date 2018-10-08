@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
-import com.purplepip.flaky.FlakyTest;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.operation.OperationHandler;
@@ -35,6 +34,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
 class PerformanceTest {
@@ -76,30 +76,31 @@ class PerformanceTest {
     //    LOG.info("{} = {}", name, System.getProperty(name))
     // );
     // System.getenv().forEach((key, value) -> LOG.info("env : {} = {}", key, value));
-    StringBuilder sb = new StringBuilder();
-    sb.append(System.getProperty("os.name", "OS"))
-        .append(' ')
-        .append(System.getProperty("os.arch", "CPU"))
-        .append(" x")
-        .append(Runtime.getRuntime().availableProcessors());
-    return sb.toString();
+    String sb = System.getProperty("os.name", "OS")
+        + ' '
+        + System.getProperty("os.arch", "CPU")
+        + " x"
+        + Runtime.getRuntime().availableProcessors();
+    return sb;
   }
 
-  @FlakyTest(4)
+  //@FlakyTest(3)
+  @Test
   void testSimplePerformance() throws InterruptedException {
     testPerformance(newParameter(new SimplePerformance())
         .operationCount(12)
-        .expect("clock.prepare", 180_000)
-        .expect("clock.start", 20_000)
+        .expect("clock.prepare", 250_000)
+        .expect("clock.start", 50_000)
         .expect("sequence.track.simple", 200_000));
   }
 
-  @FlakyTest(3)
+  //@FlakyTest(3)
+  @Test
   void testGroovePerformance() throws InterruptedException {
     testPerformance(newParameter(new GroovePerformance())
         .operationCount(2_000)
         .expect("clock.start", 800_000)
-        .expect("sequence.job", 400_000)
+        .expect("sequence.job", 600_000)
         .expect("sequence.track.kick3", 20_000)
         .expect("sequence.track.kick2", 14_000));
   }

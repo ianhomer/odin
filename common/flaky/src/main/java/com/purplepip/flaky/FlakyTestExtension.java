@@ -108,7 +108,6 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
     void thrown(Throwable throwable) {
       executions.add(new Execution(throwable, attemptCount));
       if (executions.size() == maxAttempts) {
-        System.out.println("x");
         fail("Flaked out after " + maxAttempts + " attempts" + report());
       }
     }
@@ -132,14 +131,6 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
 
     private boolean areMoreAttemptsAllowed() {
       return attemptCount < maxAttempts;
-    }
-
-    int getAttemptCount() {
-      return attemptCount;
-    }
-
-    int getExceptionCount() {
-      return executions.size();
     }
 
     @Override
