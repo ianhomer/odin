@@ -18,6 +18,7 @@ package com.purplepip.flaky;
 import static java.util.Spliterator.ORDERED;
 import static java.util.Spliterators.spliteratorUnknownSize;
 import static java.util.stream.StreamSupport.stream;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -89,7 +90,7 @@ public class FlakyTestExtension implements TestTemplateInvocationContextProvider
       LOG.info("Recorded throwable");
       exceptions.add(throwable);
       if (exceptions.size() == maxRetries) {
-        throw new AssertionError("Flaked out");
+        fail("Flaked out");
       }
     }
 

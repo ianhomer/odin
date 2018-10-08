@@ -15,25 +15,66 @@
 
 package com.purplepip.flaky;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
+import static org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder.request;
+import static org.junit.platform.testkit.ExecutionEventConditions.container;
+import static org.junit.platform.testkit.ExecutionEventConditions.displayName;
+import static org.junit.platform.testkit.ExecutionEventConditions.event;
+import static org.junit.platform.testkit.ExecutionEventConditions.finishedSuccessfully;
+import static org.junit.platform.testkit.ExecutionEventConditions.finishedWithFailure;
+import static org.junit.platform.testkit.TestExecutionResultConditions.message;
 
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.engine.JupiterTestEngine;
+import org.junit.platform.engine.DiscoverySelector;
+import org.junit.platform.testkit.ExecutionRecorder;
+import org.junit.platform.testkit.ExecutionsResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * See RepeatedTestTests in junit source for example on testing junit extensions.
+ */
 class FlakyTestTest {
-  private static final Logger LOG = LoggerFactory.getLogger(FlakyTestTest.class);
-
-  @FlakyTest
-  void reliable() {
-    LOG.info("Executing reliable test");
-    assertTrue(true);
+  @Test
+  void neverFailsSuccessful() {
+    ExecutionsResult executionsResult = execute(selectMethod(TestCase.class, "neverFails"));
+    assertThat(executionsResult.getExecutionEvents())
+        .haveExactly(1,
+            event(container(), displayName("neverFails()"),
+            finishedSuccessfully()));
   }
 
-  @FlakyTest
-  @Disabled
-  void unreliable() {
-    LOG.info("Executing unreliable test");
-    throw new RuntimeException("mock exception");
+  @Test
+  void alwaysFailsFails() {
+    ExecutionsResult executionsResult = execute(selectMethod(TestCase.class, "alwaysFails"));
+    assertThat(executionsResult.getExecutionEvents())
+        .haveExactly(1,
+            event(finishedWithFailure(message(value -> value.contains("Flaked out")))));
   }
+
+
+  private ExecutionsResult execute(DiscoverySelector... selectors) {
+    return ExecutionRecorder.execute(new JupiterTestEngine(),
+        request().selectors(selectors).build());
+  }
+
+  static class TestCase {
+    private static final Logger LOG = LoggerFactory.getLogger(FlakyTestTest.TestCase.class);
+
+    @FlakyTest
+    void neverFails() {
+      LOG.info("FlakyTestTest.neverFails");
+    }
+
+    @FlakyTest
+    void alwaysFails() {
+      LOG.info("FlakyTestTest.alwaysFails");
+      fail("always fails");
+    }
+
+  }
+
 }
