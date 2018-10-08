@@ -15,13 +15,8 @@
 
 package com.purplepip.flaky;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
 
-import org.junit.jupiter.api.Test;
+public class AttemptTestInvocationContext implements TestTemplateInvocationContext {
 
-class FlakyTest {
-  @Test
-  void reliable() {
-    assertTrue(true);
-  }
 }
