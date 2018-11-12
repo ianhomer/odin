@@ -82,6 +82,7 @@
     <mockito.version>2.22.0</mockito.version>
     <slf4j.version>1.7.25</slf4j.version>
     <spring.boot.version>2.0.5.RELEASE</spring.boot.version>
+    <surefire.version>2.21.0</surefire.version>
     <thymeleaf.layout.version>2.3.0</thymeleaf.layout.version>
 
     <purplepip.tests.jvm>-Dodin.audio.enabled=${odin.audio.enabled} -DupdateSnapshot=${purplepip.test.updateSnapshot}</purplepip.tests.jvm>
@@ -93,7 +94,6 @@
     <!-- #4 workaround -->
     <sonar.coverage.exclusions>**/domain/*</sonar.coverage.exclusions>
     <sonar.javascript.file.suffixes>.js,.jsx</sonar.javascript.file.suffixes>
-
     <!--odin flags-->
     <odin.audio.enabled>true</odin.audio.enabled>
   </properties>
@@ -379,7 +379,7 @@
               Can't roll up to 2.22.0 since rerunFailingTestsCount doesn't work with Junit 5 code
               and so some flaky tests would sporadically block the build
               -->
-          <version>2.21.0</version>
+          <version>${surefire.version}</version>
         </plugin>
         <plugin>
           <groupId>org.jacoco</groupId>
