@@ -31,8 +31,6 @@ import org.junit.jupiter.engine.JupiterTestEngine;
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.testkit.engine.EngineExecutionResults;
 import org.junit.platform.testkit.engine.EngineTestKit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * See RepeatedTestTests in junit source for example on testing junit extensions.
@@ -72,7 +70,6 @@ class FlakyTestTest {
   }
 
   static class TestCase {
-    private static final Logger LOG = LoggerFactory.getLogger(FlakyTestTest.TestCase.class);
     private static final AtomicInteger succeedsEveryFourTimesCount = new AtomicInteger(1);
 
     @FlakyTest
