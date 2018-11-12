@@ -17,7 +17,6 @@ package com.purplepip.odin.profile;
 
 import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.operation.OperationHandler;
@@ -29,11 +28,11 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProfileSequencerTest {
+class ProfileSequencerTest {
   private static final Logger LOG = LoggerFactory.getLogger(TriggerFactory.class);
 
   @Test
-  public void testProfileSequencer() throws OdinException, InterruptedException {
+  void testProfileSequencer() throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(1_000);
     OperationHandler operationReceiver = (operation, time) -> latch.countDown();
 
@@ -60,7 +59,7 @@ public class ProfileSequencerTest {
     environment.shutdown();
   }
 
-  private void spinUp() throws OdinException {
+  private void spinUp() {
     for (int i = 0; i < 100; i++) {
       TestSequencerEnvironment environment =
           new TestSequencerEnvironment(new LoggingOperationReceiver(), new GroovePerformance());
