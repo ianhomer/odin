@@ -17,19 +17,17 @@ package com.purplepip.odin.profile;
 
 import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
 
-import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.sequencer.LoggingOperationReceiver;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 class ProfileSequencerTest {
-  private static final Logger LOG = LoggerFactory.getLogger(TriggerFactory.class);
 
   @Test
   void testProfileSequencer() throws InterruptedException {
