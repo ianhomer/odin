@@ -803,11 +803,4 @@
       </properties>
     </profile>
   </profiles>
-
-  <repositories>
-    <repository>
-      <id>purplepip-releases</id>
-      <url>https://packagecloud.io/purplepip/releases/maven2</url>
-    </repository>
-  </repositories>
 </project>
