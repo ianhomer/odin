@@ -9,7 +9,6 @@
         <module name="common-logging" />
         <module name="common_test_logging" />
         <module name="flaky" />
-        <module name="log-capture" />
         <module name="logcapture" />
         <module name="odin-api" />
         <module name="odin-core" />

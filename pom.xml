@@ -13,7 +13,6 @@
 
   <modules>
     <module>common/common-logging</module>
-    <module>common/log-capture</module>
     <module>common/flaky</module>
     <module>odin-core</module>
     <module>odin-server</module>
@@ -76,6 +75,7 @@
     <junit.version>5.3.1</junit.version>
     <kotlin.version>1.2.70</kotlin.version>
     <guava.version>26.0-jre</guava.version>
+    <logcapture.version>1.0.7</logcapture.version>
     <logback.version>1.2.3</logback.version>
     <lombok.version>1.18.2</lombok.version>
     <metrics.version>4.0.3</metrics.version>
@@ -119,7 +119,7 @@
       <dependency>
         <groupId>com.purplepip</groupId>
         <artifactId>log-capture</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${logcapture.version}</version>
       </dependency>
       <dependency>
         <groupId>com.purplepip</groupId>
@@ -803,4 +803,11 @@
       </properties>
     </profile>
   </profiles>
+
+  <repositories>
+    <repository>
+      <id>purplepip-releases</id>
+      <url>https://packagecloud.io/purplepip/releases/maven2</url>
+    </repository>
+  </repositories>
 </project>
