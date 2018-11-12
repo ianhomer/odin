@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.codahale.metrics.MetricFilter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
+import com.purplepip.flaky.FlakyTest;
 import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.operation.OperationHandler;
@@ -34,7 +35,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 @Slf4j
 class PerformanceTest {
@@ -84,8 +84,7 @@ class PerformanceTest {
     return sb;
   }
 
-  //@FlakyTest(3)
-  @Test
+  @FlakyTest(3)
   void testSimplePerformance() throws InterruptedException {
     testPerformance(newParameter(new SimplePerformance())
         .operationCount(12)
@@ -94,8 +93,7 @@ class PerformanceTest {
         .expect("sequence.track.simple", 200_000));
   }
 
-  //@FlakyTest(3)
-  @Test
+  @FlakyTest(3)
   void testGroovePerformance() throws InterruptedException {
     testPerformance(newParameter(new GroovePerformance())
         .operationCount(2_000)
