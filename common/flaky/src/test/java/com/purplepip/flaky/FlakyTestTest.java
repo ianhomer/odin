@@ -15,23 +15,22 @@
 
 package com.purplepip.flaky;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectMethod;
 import static org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder.request;
-import static org.junit.platform.testkit.ExecutionEventConditions.container;
-import static org.junit.platform.testkit.ExecutionEventConditions.displayName;
-import static org.junit.platform.testkit.ExecutionEventConditions.event;
-import static org.junit.platform.testkit.ExecutionEventConditions.finishedSuccessfully;
-import static org.junit.platform.testkit.ExecutionEventConditions.finishedWithFailure;
-import static org.junit.platform.testkit.TestExecutionResultConditions.message;
+import static org.junit.platform.testkit.engine.EventConditions.container;
+import static org.junit.platform.testkit.engine.EventConditions.displayName;
+import static org.junit.platform.testkit.engine.EventConditions.event;
+import static org.junit.platform.testkit.engine.EventConditions.finishedSuccessfully;
+import static org.junit.platform.testkit.engine.EventConditions.finishedWithFailure;
+import static org.junit.platform.testkit.engine.TestExecutionResultConditions.message;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.engine.JupiterTestEngine;
 import org.junit.platform.engine.DiscoverySelector;
-import org.junit.platform.testkit.ExecutionRecorder;
-import org.junit.platform.testkit.ExecutionsResult;
+import org.junit.platform.testkit.engine.EngineExecutionResults;
+import org.junit.platform.testkit.engine.EngineTestKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,8 +40,8 @@ import org.slf4j.LoggerFactory;
 class FlakyTestTest {
   @Test
   void neverFailsSuccessful() {
-    ExecutionsResult executionsResult = execute(selectMethod(TestCase.class, "neverFails"));
-    assertThat(executionsResult.getExecutionEvents())
+    EngineExecutionResults executionsResult = execute(selectMethod(TestCase.class, "neverFails"));
+    executionsResult.all().assertThatEvents()
         .haveExactly(1,
             event(container(), displayName("neverFails()"),
             finishedSuccessfully()));
@@ -50,25 +49,25 @@ class FlakyTestTest {
 
   @Test
   void alwaysFailsFails() {
-    ExecutionsResult executionsResult = execute(selectMethod(TestCase.class, "alwaysFails"));
-    assertThat(executionsResult.getExecutionEvents())
+    EngineExecutionResults executionsResult = execute(selectMethod(TestCase.class, "alwaysFails"));
+    executionsResult.all().assertThatEvents()
         .haveExactly(1,
             event(finishedWithFailure(message(value -> value.contains("Flaked out")))));
   }
 
   @Test
   void succeedsEveryFourTimesSucceeds() {
-    ExecutionsResult executionsResult = execute(selectMethod(TestCase.class,
+    EngineExecutionResults executionsResult = execute(selectMethod(TestCase.class,
         "succeedsEveryFourTimes"));
-    assertThat(executionsResult.getExecutionEvents())
+    executionsResult.all().assertThatEvents()
         .haveExactly(1,
             event(container(), displayName("succeedsEveryFourTimes()"),
                 finishedSuccessfully()));
   }
 
 
-  private ExecutionsResult execute(DiscoverySelector... selectors) {
-    return ExecutionRecorder.execute(new JupiterTestEngine(),
+  private EngineExecutionResults execute(DiscoverySelector... selectors) {
+    return EngineTestKit.execute(new JupiterTestEngine(),
         request().selectors(selectors).build());
   }
 

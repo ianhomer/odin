@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.junit.platform:junit-platform-testkit:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-testkit/1.4.0-SNAPSHOT/junit-platform-testkit-1.4.0-20181008.120516-26.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-testkit/1.4.0-SNAPSHOT/junit-platform-testkit-1.4.0-20181112.133813-106.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-testkit/1.4.0-SNAPSHOT/junit-platform-testkit-1.4.0-20181008.120516-26-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-testkit/1.4.0-SNAPSHOT/junit-platform-testkit-1.4.0-20181112.133813-106-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-testkit/1.4.0-SNAPSHOT/junit-platform-testkit-1.4.0-20181008.120516-26-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-testkit/1.4.0-SNAPSHOT/junit-platform-testkit-1.4.0-20181112.133813-106-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

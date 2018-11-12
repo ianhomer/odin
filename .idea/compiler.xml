@@ -39,4 +39,18 @@
       <module name="tiles" target="1.5" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common-logging" options="-Xlint:unchecked" />
+      <module name="flaky" options="-Xlint:unchecked" />
+      <module name="log-capture" options="-Xlint:unchecked" />
+      <module name="odin" options="-Xlint:unchecked" />
+      <module name="odin-api" options="-Xlint:unchecked" />
+      <module name="odin-core" options="-Xlint:unchecked" />
+      <module name="odin-frontend" options="-Xlint:unchecked" />
+      <module name="odin-perform" options="-Xlint:unchecked" />
+      <module name="odin-profile" options="-Xlint:unchecked" />
+      <module name="odin-server" options="-Xlint:unchecked" />
+    </option>
+  </component>
 </project>
