@@ -3,6 +3,7 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.operations.NoteOnOperation;
+import com.purplepip.odin.operation.Operation;
 import org.junit.Test;
 
 /**

@@ -10,6 +10,11 @@ import org.junit.Test;
 public class OdinExceptionTest {
   @Test(expected = OdinException.class)
   public void testOdinExceptionThrow() throws OdinException {
+    throw new OdinException();
+  }
+
+  @Test(expected = OdinException.class)
+  public void testOdinExceptionWithMessageThrow() throws OdinException {
     throw new OdinException("test exception");
   }
 

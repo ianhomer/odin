@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}" lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>sequencer</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>Sequencer</h1>
+
+  <table>
+    <tr>
+      <td>BPM</td>
+      <td th:text="${sequencer.clock.beatsPerMinute.beatsPerMinute}">BPM</td>
+    </tr>
+  </table>
+
+  <h1>Statistics</h1>
+
+  <table>
+    <tr>
+      <td>Track added count</td>
+      <td th:text="${sequencer.statistics.trackStatistics.addedCount}"></td>
+    </tr>
+    <tr>
+      <td>Track removed count</td>
+      <td th:text="${sequencer.statistics.trackStatistics.removedCount}"></td>
+    </tr>
+    <tr>
+      <td>Track updated count</td>
+      <td th:text="${sequencer.statistics.trackStatistics.updatedCount}"></td>
+    </tr>
+    <tr>
+      <td>Program change count</td>
+      <td th:text="${sequencer.statistics.programChangeCount}"></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

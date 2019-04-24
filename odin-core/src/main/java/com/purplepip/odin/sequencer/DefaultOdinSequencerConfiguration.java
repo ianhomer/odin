@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,16 +15,21 @@
 
 package com.purplepip.odin.sequencer;
 
+import static com.purplepip.odin.configuration.ActionFactories.newActionFactory;
+import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
+import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
+
+import com.codahale.metrics.MetricRegistry;
 import com.google.common.collect.Lists;
-import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.BeatsPerMinute;
-import com.purplepip.odin.sequence.MicrosecondPositionProvider;
-import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.flow.DefaultFlowConfiguration;
-import com.purplepip.odin.sequence.flow.FlowConfiguration;
-import com.purplepip.odin.sequence.flow.FlowFactory;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.clock.MicrosecondPositionProvider;
+import com.purplepip.odin.clock.beats.BeatsPerMinute;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.creation.action.ActionFactory;
+import com.purplepip.odin.creation.flow.FlowFactory;
+import com.purplepip.odin.creation.triggers.TriggerFactory;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.ArrayList;
 
 /**
@@ -34,24 +39,59 @@ public class DefaultOdinSequencerConfiguration
     implements OdinSequencerConfiguration {
   private BeatsPerMinute beatsPerMinute;
   private MeasureProvider measureProvider;
-  private OperationReceiver operationReceiver;
+  private OperationHandler operationReceiver;
+  private OperationTransmitter operationTransmitter;
   private MicrosecondPositionProvider microsecondPositionProvider;
   private boolean isLoggingOperationReceiverEnabled;
-  private FlowFactory<Note> flowFactory;
+  private ActionFactory actionFactory;
+  private FlowFactory flowFactory;
+  private final TriggerFactory triggerFactory;
   private long clockStartRoundingFactor;
   private long clockStartOffset;
-  private FlowConfiguration flowConfiguration = new DefaultFlowConfiguration();
+  private int maxLookForward;
+  private long trackProcessorRefreshPeriod;
+  private int trackProcessorMaxNotesPerBuffer;
+  private long operationProcessorRefreshPeriod;
+  private MetricRegistry metrics;
+  private boolean strictEventOrder;
 
   /**
    * Create new configuration with defaults set.
    */
   public DefaultOdinSequencerConfiguration() {
-    setFlowFactory(new FlowFactory<>(flowConfiguration));
+    actionFactory = newActionFactory();
+    flowFactory = newNoteFlowFactory();
+    triggerFactory = newTriggerFactory();
     setMeasureProvider(new StaticBeatMeasureProvider(4));
     setBeatsPerMinute(new StaticBeatsPerMinute(140));
     setLoggingOperationReceiverEnabled(true);
     setClockStartRoundingFactor(1);
     setClockStartOffset(0);
+    setMaxLookForward(10_000);
+    setMetrics(new MetricRegistry());
+    setOperationTransmitter(new DefaultOperationTransmitter());
+    setOperationProcessorRefreshPeriod(50);
+    setTrackProcessorRefreshPeriod(200);
+    setTrackProcessorMaxNotesPerBuffer(1000);
+    setStrictEventOrder(false);
+  }
+
+  /**
+   * Override configuration with non null property values in the provided override configuration.
+   *
+   * @param override configuration to use to override property values
+   * @return this
+   */
+  public DefaultOdinSequencerConfiguration merge(
+      OdinSequencerConfiguration override) {
+
+    if (override.getBeatsPerMinute() != null) {
+      setBeatsPerMinute(override.getBeatsPerMinute());
+    }
+    if (override.getClockStartOffset() > 0) {
+      setClockStartOffset(override.getClockStartOffset());
+    }
+    return this;
   }
 
   public final DefaultOdinSequencerConfiguration
@@ -66,9 +106,13 @@ public class DefaultOdinSequencerConfiguration
     return this;
   }
 
-  public final DefaultOdinSequencerConfiguration
-      setFlowFactory(FlowFactory<Note> flowFactory) {
+  public final DefaultOdinSequencerConfiguration setFlowFactory(FlowFactory flowFactory) {
     this.flowFactory = flowFactory;
+    return this;
+  }
+
+  public final DefaultOdinSequencerConfiguration setActionFactory(ActionFactory actionFactory) {
+    this.actionFactory = actionFactory;
     return this;
   }
 
@@ -79,10 +123,10 @@ public class DefaultOdinSequencerConfiguration
    * @return this configuration
    */
   public DefaultOdinSequencerConfiguration setOperationReceiver(
-      OperationReceiver operationReceiver) {
+      OperationHandler operationReceiver) {
     if (isLoggingOperationReceiverEnabled()) {
       if (operationReceiver instanceof OperationReceiverCollection) {
-        ArrayList<OperationReceiver> operationReceiverList =
+        ArrayList<OperationHandler> operationReceiverList =
             new ArrayList<>(Lists.newArrayList(operationReceiver));
         operationReceiverList.add(new LoggingOperationReceiver());
         this.operationReceiver = new OperationReceiverCollection(operationReceiverList);
@@ -93,6 +137,16 @@ public class DefaultOdinSequencerConfiguration
     } else {
       this.operationReceiver = operationReceiver;
     }
+    return this;
+  }
+
+  /*
+   * TODO : Should transmitter and receiver implementations look the same, they are really
+   * the same just input and output so should support same functionality.
+   */
+  public final DefaultOdinSequencerConfiguration setOperationTransmitter(
+      OperationTransmitter operationTransmitter) {
+    this.operationTransmitter = operationTransmitter;
     return this;
   }
 
@@ -113,8 +167,23 @@ public class DefaultOdinSequencerConfiguration
   }
 
   @Override
-  public OperationReceiver getOperationReceiver() {
+  public MetricRegistry getMetrics() {
+    return metrics;
+  }
+
+  public final DefaultOdinSequencerConfiguration setMetrics(MetricRegistry metrics) {
+    this.metrics = metrics;
+    return this;
+  }
+
+  @Override
+  public OperationHandler getOperationReceiver() {
     return operationReceiver;
+  }
+
+  @Override
+  public OperationTransmitter getOperationTransmitter() {
+    return operationTransmitter;
   }
 
   @Override
@@ -123,8 +192,18 @@ public class DefaultOdinSequencerConfiguration
   }
 
   @Override
-  public FlowFactory<Note> getFlowFactory() {
+  public FlowFactory getFlowFactory() {
     return flowFactory;
+  }
+
+  @Override
+  public ActionFactory getActionFactory() {
+    return actionFactory;
+  }
+
+  @Override
+  public TriggerFactory getTriggerFactory() {
+    return triggerFactory;
   }
 
   @Override
@@ -143,9 +222,46 @@ public class DefaultOdinSequencerConfiguration
     return clockStartOffset;
   }
 
-  public final DefaultOdinSequencerConfiguration setFlowConfiguration(
-      FlowConfiguration flowConfiguration) {
-    this.flowConfiguration = flowConfiguration;
+  @Override
+  public long getMaxLookForward() {
+    return maxLookForward;
+  }
+
+  public DefaultOdinSequencerConfiguration setMaxLookForward(int maxLookForward) {
+    this.maxLookForward = maxLookForward;
+    return this;
+  }
+
+  @Override
+  public long getTrackProcessorRefreshPeriod() {
+    return trackProcessorRefreshPeriod;
+  }
+
+  public DefaultOdinSequencerConfiguration setTrackProcessorRefreshPeriod(
+      long trackProcessorRefreshPeriod) {
+    this.trackProcessorRefreshPeriod = trackProcessorRefreshPeriod;
+    return this;
+  }
+
+  @Override
+  public int getTrackProcessorMaxNotesPerBuffer() {
+    return trackProcessorMaxNotesPerBuffer;
+  }
+
+  public DefaultOdinSequencerConfiguration setTrackProcessorMaxNotesPerBuffer(
+      int trackProcessorMaxNotesPerBuffer) {
+    this.trackProcessorMaxNotesPerBuffer = trackProcessorMaxNotesPerBuffer;
+    return this;
+  }
+
+  @Override
+  public long getOperationProcessorRefreshPeriod() {
+    return operationProcessorRefreshPeriod;
+  }
+
+  public DefaultOdinSequencerConfiguration setOperationProcessorRefreshPeriod(
+      long operationProcessorRefreshPeriod) {
+    this.operationProcessorRefreshPeriod = operationProcessorRefreshPeriod;
     return this;
   }
 
@@ -173,6 +289,17 @@ public class DefaultOdinSequencerConfiguration
   public final DefaultOdinSequencerConfiguration setLoggingOperationReceiverEnabled(
       boolean isLoggingOperationReceiverEnabled) {
     this.isLoggingOperationReceiverEnabled = isLoggingOperationReceiverEnabled;
+    return this;
+  }
+
+  @Override
+  public final boolean isStrictEventOrder() {
+    return strictEventOrder;
+  }
+
+  public final DefaultOdinSequencerConfiguration setStrictEventOrder(
+      boolean strictEventOrder) {
+    this.strictEventOrder = strictEventOrder;
     return this;
   }
 }

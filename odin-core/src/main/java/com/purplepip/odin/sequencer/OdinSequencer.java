@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,19 +15,26 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.common.OdinException;
+import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.creation.conductor.Conductor;
+import com.purplepip.odin.creation.conductor.LayerConductor;
+import com.purplepip.odin.creation.conductor.LayerConductors;
+import com.purplepip.odin.creation.conductor.UnmodifiableConductors;
+import com.purplepip.odin.creation.reactors.TriggerReactor;
+import com.purplepip.odin.creation.reactors.TriggerReactors;
+import com.purplepip.odin.creation.track.SequenceRollTrack;
+import com.purplepip.odin.creation.track.SequenceTracks;
+import com.purplepip.odin.creation.track.Track;
+import com.purplepip.odin.creation.track.UnmodifiableTracks;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
-import com.purplepip.odin.project.Project;
-import com.purplepip.odin.project.ProjectApplyListener;
-import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.MutableSequenceRoll;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.performance.Performance;
+import com.purplepip.odin.performance.PerformanceApplyListener;
 import com.purplepip.odin.sequencer.statistics.DefaultOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.MutableOdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import com.purplepip.odin.sequencer.statistics.UnmodifiableOdinSequencerStatistics;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,25 +42,32 @@ import lombok.extern.slf4j.Slf4j;
  * Core Odin Sequencer.
  */
 @Slf4j
-public class OdinSequencer implements ProjectApplyListener {
-  private OdinSequencerConfiguration configuration;
-  private MutableTracks tracks = new MutableTracks();
-  private Tracks immutableTracks = new UnmodifiableTracks(tracks);
-  private Set<ProgramChangeOperation> programChangeOperations = new HashSet<>();
-  private TrackProcessor sequenceProcessor;
-  private OperationProcessor operationProcessor;
+public class OdinSequencer implements PerformanceApplyListener {
+  private final OdinSequencerConfiguration configuration;
+  private final LayerConductors conductors = new LayerConductors();
+  private final Things<Conductor> immutableConductors =
+      new UnmodifiableConductors(conductors);
+  private final SequenceTracks tracks = new SequenceTracks(immutableConductors);
+  private final Things<Track> immutableTracks = new UnmodifiableTracks(tracks);
+  /*
+   * Note that reactors can change tracks so we use the mutable tracks for the trigger reactors.
+   */
+  private final TriggerReactors reactors = new TriggerReactors(tracks);
+
+  private final Set<ProgramChangeOperation> programChangeOperations = new LinkedHashSet<>();
+  private TrackProcessor trackProcessor;
+  private DefaultOperationProcessor operationProcessor;
   private BeatClock clock;
-  private boolean started;
-  private MutableOdinSequencerStatistics statistics = new DefaultOdinSequencerStatistics();
+  private final MutableOdinSequencerStatistics statistics =
+      new DefaultOdinSequencerStatistics(
+          tracks.getStatistics(), reactors.getStatistics());
 
   /**
    * Create an odin sequencer.
    *
    * @param configuration configuration for the sequencer
-   * @throws OdinException exception
    */
-  public OdinSequencer(OdinSequencerConfiguration configuration)
-      throws OdinException {
+  public OdinSequencer(OdinSequencerConfiguration configuration) {
     this.configuration = configuration;
     init();
   }
@@ -62,16 +76,43 @@ public class OdinSequencer implements ProjectApplyListener {
    * Initialise the sequencer.
    */
   private void init() {
-    clock = new BeatClock(configuration.getBeatsPerMinute(),
-        configuration.getMicrosecondPositionProvider(),
-        configuration.getClockStartRoundingFactor(),
-        configuration.getClockStartOffset());
+    clock = new BeatClock(new BeatClock.Configuration()
+        .beatsPerMinute(configuration.getBeatsPerMinute())
+        .microsecondPositionProvider(configuration.getMicrosecondPositionProvider())
+        .startOffset(configuration.getClockStartOffset())
+        .maxLookForwardInMillis(configuration.getMaxLookForward())
+        .metrics(configuration.getMetrics()));
+    clock.addListener(configuration.getOperationReceiver());
+
+    /*
+     * Create the reactor receiver.
+     */
+    ReactorReceiver reactorReceiver = new ReactorReceiver(reactors,
+        configuration.getMetrics(), configuration.getOperationTransmitter());
+    configuration.getOperationTransmitter().addListener(reactorReceiver);
+
+    /*
+     * Transmit signals from the transmitter onto the operation receiver used by the processor.
+     * TODO : Rename these receivers to make clearer one is used by the reactor, one is
+     * used by the operation processor.  Passing all operations onto the operation transmitter
+     * might be a little expensive since we don't necessarily want all internal operations
+     * going back on to the reactor ... one to think about.
+     */
+    configuration.getOperationTransmitter().addListener(configuration.getOperationReceiver());
+
     /*
      * Create the processors early.  Note that they'll start when the clock starts.
      */
-    operationProcessor = new DefaultOperationProcessor(clock, configuration.getOperationReceiver());
-    sequenceProcessor = new TrackProcessor(
-        clock, immutableTracks, operationProcessor, statistics);
+    operationProcessor = new DefaultOperationProcessor(
+        clock, configuration.getOperationReceiver(),
+        configuration.getMetrics(),
+        configuration.getOperationProcessorRefreshPeriod(),
+        configuration.isStrictEventOrder());
+    trackProcessor = new TrackProcessor(
+        clock, immutableTracks, operationProcessor, statistics,
+        configuration.getMetrics(),
+        configuration.getTrackProcessorRefreshPeriod(),
+        configuration.getTrackProcessorMaxNotesPerBuffer());
   }
 
   public OdinSequencerStatistics getStatistics() {
@@ -79,16 +120,25 @@ public class OdinSequencer implements ProjectApplyListener {
   }
 
   @Override
-  public void onProjectApply(Project project) {
-    refreshTracks(project);
+  public void onPerformanceApply(Performance performance) {
+    refreshTracks(performance);
   }
 
   /**
-   * Refresh sequencer trackSet from the project configuration.
+   * Refresh sequencer trackSet from the performance configuration.
    */
-  private void refreshTracks(Project project) {
-    refreshChannels(project);
-    refreshSequences(project);
+  private void refreshTracks(Performance performance) {
+    refreshChannels(performance);
+    conductors.refresh(
+        performance.getLayers().stream(),
+        layer -> new LayerConductor(layer, clock));
+    tracks.refresh(
+        performance.getSequences().stream(),
+        sequence -> new SequenceRollTrack(sequence, clock, configuration.getMeasureProvider(),
+            configuration.getFlowFactory(), configuration.getActionFactory()));
+    reactors.refresh(
+        performance.getTriggers().stream(),
+        trigger -> new TriggerReactor(trigger, configuration.getTriggerFactory()));
 
     LOG.debug("Sequencer refreshed {} : {}", statistics, clock);
 
@@ -96,82 +146,23 @@ public class OdinSequencer implements ProjectApplyListener {
      * If processor is running then process one execution immediately so that the
      * refreshed trackSet can take effect.
      */
-    if (sequenceProcessor != null && sequenceProcessor.isRunning()) {
-      sequenceProcessor.processOnce();
+    if (trackProcessor != null && trackProcessor.isRunning()) {
+      trackProcessor.processOnce();
     }
   }
 
-  private void refreshChannels(Project project) {
-    for (Channel channel : project.getChannels()) {
-      try {
-        /*
-         * Only send program change operation if it has not already been sent.
-         */
-        ProgramChangeOperation programChangeOperation = new ProgramChangeOperation(channel);
-        if (!programChangeOperations.contains(programChangeOperation)) {
-          LOG.debug("Sending channel operation : {}", channel);
-          sendProgramChangeOperation(programChangeOperation);
-          statistics.incrementProgramChangeCount();
-        }
-      } catch (OdinException e) {
-        LOG.warn("Cannot send operation", e);
-      }
-    }
-  }
-
-  private void refreshSequences(Project project) {
-    /*
-     * Remove any track for which the sequence in the project has been removed.
-     */
-    int sizeBefore = tracks.size();
-
-    boolean result = tracks.removeIf(track -> project.getSequences().stream()
-        .noneMatch(
-            sequence -> track instanceof SequenceTrack
-                && sequence.getId() == ((SequenceTrack) track).getSequence().getId()
-        ));
-    if (result) {
-      int removalCount = sizeBefore - tracks.size();
-      LOG.debug("Removed {} tracks, ", removalCount);
-      statistics.incrementTrackRemovedCount(removalCount);
-    } else {
-      LOG.debug("No sequence track detected for removal {} / {}", tracks.size(),
-          project.getSequences().size());
-    }
-
-    for (Sequence sequence : project.getSequences()) {
+  private void refreshChannels(Performance performance) {
+    for (var channel : performance.getChannels()) {
       /*
-       * Add sequence if not present in tracks.
+       * Only handle program change operation if it has not already been sent.
        */
-      Optional<SequenceTrack> existingTrack =
-          tracks.stream()
-              .filter(o -> o instanceof SequenceTrack)
-              .map(o -> (SequenceTrack) o)
-              .filter(track -> sequence.getId() == track.getSequence().getId()).findFirst();
-
-      SequenceTrack sequenceTrack = null;
-      if (existingTrack.isPresent()) {
-        if (existingTrack.get().getSequence().equals(sequence)) {
-          LOG.debug("Sequence {} already added and unchanged", sequence);
-        } else {
-          LOG.debug("Updating track for {}", sequence);
-          statistics.incrementTrackUpdatedCount();
-          sequenceTrack = existingTrack.get();
-        }
-      } else {
-        statistics.incrementTrackAddedCount();
-        LOG.debug("Creating new track for {}", sequence);
-        sequenceTrack = new SequenceTrack(clock,
-            new MutableSequenceRoll<>(clock, configuration.getFlowFactory(),
-                configuration.getMeasureProvider()));
-        tracks.add(sequenceTrack);
-      }
-
-      if (sequenceTrack != null) {
-        /*
-         * Update sequence in new or modified track.
-         */
-        sequenceTrack.getSequenceRoll().setSequence(sequence.copy());
+      var programChangeOperation = new ProgramChangeOperation(channel);
+      if (!programChangeOperations.contains(programChangeOperation)) {
+        LOG.debug("Sending channel operation : {}", channel);
+        sendProgramChangeOperation(programChangeOperation);
+        statistics.incrementProgramChangeCount();
+      } else  {
+        LOG.debug("Channel operation already sent : {}", channel);
       }
     }
   }
@@ -180,10 +171,8 @@ public class OdinSequencer implements ProjectApplyListener {
    * Send program change operation.
    *
    * @param programChangeOperation program change operation
-   * @throws OdinException exception
    */
-  private void sendProgramChangeOperation(ProgramChangeOperation programChangeOperation)
-      throws OdinException {
+  private void sendProgramChangeOperation(ProgramChangeOperation programChangeOperation) {
     operationProcessor.send(programChangeOperation, -1);
     /*
      * Remove any previous program changes on this channel, since they are now historic.
@@ -199,11 +188,22 @@ public class OdinSequencer implements ProjectApplyListener {
    * Start the sequencer.
    */
   public void start() {
-    started = true;
     /*
      * Start the clock.
      */
     clock.start();
+    /*
+     * Process tracks and operations immediately.
+     */
+    trackProcessor.runOnce();
+    operationProcessor.runOnce();
+  }
+
+  /**
+   * Prepare the sequencer.
+   */
+  public void prepare() {
+    clock.prepare();
   }
 
   public BeatClock getClock() {
@@ -214,11 +214,25 @@ public class OdinSequencer implements ProjectApplyListener {
    * Stop the sequencer.
    */
   public void stop() {
+    // TODO : When we stop the sequencer we should play out the buffer, since there
+    // might be note off operations to complete.
     clock.stop();
-    started = false;
   }
 
-  public boolean isStarted() {
-    return started;
+  /**
+   * Shutdown the sequencer.
+   */
+  public void shutdown() {
+    if (clock.isStartingOrRunning()) {
+      clock.stop();
+    }
+    clock.shutdown();
+    conductors.clear();
+    tracks.clear();
+    reactors.clear();
+  }
+
+  public boolean isRunning() {
+    return clock.isRunning();
   }
 }

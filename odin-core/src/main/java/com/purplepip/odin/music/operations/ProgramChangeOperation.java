@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,15 +15,14 @@
 
 package com.purplepip.odin.music.operations;
 
-import com.purplepip.odin.sequencer.AbstractChannelOperation;
-import com.purplepip.odin.sequencer.Channel;
+import com.purplepip.odin.common.Stringy;
+import com.purplepip.odin.creation.channel.Channel;
+import com.purplepip.odin.operation.AbstractChannelOperation;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Program change operation.
  */
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class ProgramChangeOperation extends AbstractChannelOperation {
   private int bank;
@@ -38,7 +37,7 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
    * @param program program
    */
   public ProgramChangeOperation(int channel, int bank, int program) {
-    setChannel(channel);
+    super(channel);
     setBank(bank);
     setProgram(program);
   }
@@ -64,7 +63,7 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
    * @param channel channel configuration
    */
   public ProgramChangeOperation(Channel channel) {
-    setChannel(channel.getNumber());
+    super(channel.getNumber());
     setProgram(channel.getProgram());
     setProgramName(channel.getProgramName());
   }
@@ -96,4 +95,20 @@ public class ProgramChangeOperation extends AbstractChannelOperation {
   public boolean isAbsolute() {
     return programName == null;
   }
+
+  /**
+   * To string.
+   *
+   * @return object as string
+   */
+  @Override
+  public String toString() {
+    return Stringy.of(ProgramChangeOperation.class)
+        .add("channel", super.getChannel())
+        .add("bank", getBank())
+        .add("program", getProgram())
+        .add("programName", getProgramName())
+        .build();
+  }
+
 }

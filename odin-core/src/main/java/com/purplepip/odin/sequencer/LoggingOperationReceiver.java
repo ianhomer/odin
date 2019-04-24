@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,19 +15,19 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.common.OdinException;
-
+import com.purplepip.odin.operation.Operation;
+import com.purplepip.odin.operation.OperationHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Operation receiver that logs each operation.
  */
-public class LoggingOperationReceiver implements OperationReceiver {
+public class LoggingOperationReceiver implements OperationHandler {
   private static final Logger LOG = LoggerFactory.getLogger(LoggingOperationReceiver.class);
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
-    LOG.trace("Operation {} at time {}", operation, time);
+  public void handle(Operation operation, long time) {
+    LOG.debug("Operation {} at time {}", operation, time);
   }
 }

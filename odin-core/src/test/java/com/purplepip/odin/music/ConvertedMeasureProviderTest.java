@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,16 +15,18 @@
 
 package com.purplepip.odin.music;
 
+import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.DefaultTickConverter;
-import com.purplepip.odin.sequence.SameTimeUnitTickConverter;
-import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.measure.ConvertedMeasureProvider;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.measure.ConvertedMeasureProvider;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.clock.tick.DefaultTickConverter;
+import com.purplepip.odin.clock.tick.SameTimeUnitTickConverter;
+import com.purplepip.odin.clock.tick.Ticks;
+import com.purplepip.odin.math.Rationals;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,10 +47,11 @@ public class ConvertedMeasureProviderTest {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.HALF));
 
-    assertEquals(0, measureProvider.getCount(0), 0.01);
-    assertEquals(1, measureProvider.getCount(1), 0.01);
-    assertEquals(7, measureProvider.getCount(7), 0.01);
-    assertEquals(4, measureProvider.getCount(12), 0.01);
+    assertEquals(Wholes.ZERO, measureProvider.getCount(Wholes.ZERO));
+    assertEquals(Wholes.ONE, measureProvider.getCount(Wholes.ONE));
+    assertEquals(Wholes.valueOf(7), measureProvider.getCount(Wholes.valueOf(7)));
+    assertEquals(Wholes.valueOf(4), measureProvider.getCount(Wholes.valueOf(12)));
+    assertEquals(Wholes.valueOf(16), measureProvider.getNextMeasureStart(Wholes.valueOf(11)));
   }
 
 
@@ -57,8 +60,8 @@ public class ConvertedMeasureProviderTest {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.FOUR_THIRDS));
 
-    assertEquals(0, measureProvider.getCount(9), 0.001);
-    assertEquals(1, measureProvider.getCount(10), 0.01);
+    assertEquals(Wholes.ZERO, measureProvider.getCount(Wholes.valueOf(9)));
+    assertEquals(Wholes.ONE, measureProvider.getCount(Wholes.valueOf(10)));
   }
 
   @Test
@@ -66,25 +69,25 @@ public class ConvertedMeasureProviderTest {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.QUARTER));
 
-    assertEquals(16, measureProvider.getTicksInMeasure(0), 0.001);
+    assertEquals(Wholes.valueOf(16), measureProvider.getTicksInMeasure(Wholes.ZERO));
   }
 
   @Test
   public void testThreeQuarterBeats() {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.THREE_QUARTERS));
-    assertEquals(5.333, measureProvider.getTicksInMeasure(0), 0.001);
+    assertEquals(Rationals.valueOf(16, 3), measureProvider.getTicksInMeasure(Wholes.ZERO));
   }
 
   @Test
   public void testMicroseconds() {
-    BeatClock beatClock = new BeatClock(new StaticBeatsPerMinute(60));
+    BeatClock beatClock = newPrecisionBeatClock(60);
     DefaultTickConverter tickConverter = new DefaultTickConverter(beatClock,
-        () -> Ticks.BEAT, () -> Ticks.MICROSECOND, () -> 0L);
+        () -> Ticks.BEAT, () -> Ticks.MICROSECOND, () -> Wholes.ZERO);
 
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         tickConverter);
-    assertEquals(1000, measureProvider.getCount(1000), 0.001);
-    assertEquals(2000, measureProvider.getCount(4002000), 0.001);
+    assertEquals(Wholes.valueOf(1000), measureProvider.getCount(Wholes.valueOf(1000)));
+    assertEquals(Wholes.valueOf(2000), measureProvider.getCount(Wholes.valueOf(4002000)));
   }
 }

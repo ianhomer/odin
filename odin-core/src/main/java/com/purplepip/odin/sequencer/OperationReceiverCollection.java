@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,7 +16,8 @@
 package com.purplepip.odin.sequencer;
 
 import com.purplepip.odin.common.OdinException;
-
+import com.purplepip.odin.operation.Operation;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -26,26 +27,40 @@ import java.util.List;
  * List of operation processors.
  */
 public class OperationReceiverCollection implements
-    Iterable<OperationReceiver>, OperationReceiver {
-  private List<OperationReceiver> operationReceiverList;
+    Iterable<OperationHandler>, OperationHandler {
+  private final List<OperationHandler> operationReceiverList;
 
-  public OperationReceiverCollection(OperationReceiver... operationReceivers) {
+  public OperationReceiverCollection(OperationHandler... operationReceivers) {
     operationReceiverList = Arrays.asList(operationReceivers);
   }
 
-  public OperationReceiverCollection(List<OperationReceiver> operationReceivers) {
+  public OperationReceiverCollection(List<OperationHandler> operationReceivers) {
     operationReceiverList = new ArrayList<>(operationReceivers);
   }
 
   @Override
-  public void send(Operation operation, long time) throws OdinException {
-    for (OperationReceiver operationReceiver : operationReceiverList) {
-      operationReceiver.send(operation, time);
+  public void handle(Operation operation, long time) throws OdinException {
+    for (OperationHandler operationReceiver : operationReceiverList) {
+      operationReceiver.handle(operation, time);
     }
   }
 
   @Override
-  public Iterator<OperationReceiver> iterator() {
+  public Iterator<OperationHandler> iterator() {
     return operationReceiverList.iterator();
+  }
+
+  @Override
+  public void onPerformanceStart() {
+    for (OperationHandler operationReceiver : operationReceiverList) {
+      operationReceiver.onPerformanceStart();
+    }
+  }
+
+  @Override
+  public void onPerformanceStop() {
+    for (OperationHandler operationReceiver : operationReceiverList) {
+      operationReceiver.onPerformanceStop();
+    }
   }
 }

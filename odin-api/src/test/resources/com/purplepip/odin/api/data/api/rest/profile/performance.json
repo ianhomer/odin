@@ -1,0 +1,37 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "definitions" : { },
+  "properties" : {
+    "channels" : {
+      "format" : "uri",
+      "readOnly" : false,
+      "title" : "Channels",
+      "type" : "string"
+    },
+    "layers" : {
+      "format" : "uri",
+      "readOnly" : false,
+      "title" : "Layers",
+      "type" : "string"
+    },
+    "name" : {
+      "readOnly" : false,
+      "title" : "Name",
+      "type" : "string"
+    },
+    "sequences" : {
+      "format" : "uri",
+      "readOnly" : false,
+      "title" : "Sequences",
+      "type" : "string"
+    },
+    "triggers" : {
+      "format" : "uri",
+      "readOnly" : false,
+      "title" : "Triggers",
+      "type" : "string"
+    }
+  },
+  "title" : "Persistable performance",
+  "type" : "object"
+}

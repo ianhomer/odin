@@ -3,12 +3,13 @@ package com.purplepip.odin.sequencer;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.music.DefaultNote;
-import com.purplepip.odin.music.Note;
+import com.purplepip.odin.music.notes.DefaultNote;
+import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.AbstractNoteVelocityOperation;
 import com.purplepip.odin.music.sequence.Pattern;
-import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +26,7 @@ public class SequenceTickUpdatedAtRuntimeTest {
     final CountDownLatch note60Events = new CountDownLatch(16);
     final CountDownLatch note61Events = new CountDownLatch(16);
 
-    OperationReceiver operationReceiver = (operation, time) -> {
+    OperationHandler operationReceiver = (operation, time) -> {
       if (operation instanceof AbstractNoteVelocityOperation) {
         AbstractNoteVelocityOperation noteVelocityOperation =
             (AbstractNoteVelocityOperation) operation;
@@ -44,7 +45,8 @@ public class SequenceTickUpdatedAtRuntimeTest {
     };
 
     TestSequencerEnvironment environment = new TestSequencerEnvironment(operationReceiver);
-    new ProjectBuilder(environment.getContainer())
+    new PerformanceBuilder(environment.getContainer())
+        .addLayer("groove").withLayers("groove")
         .withNote(60)
         .addPattern(Ticks.EIGHTH, 1);
     environment.start();
@@ -63,14 +65,17 @@ public class SequenceTickUpdatedAtRuntimeTest {
       note61Events.await(1000, TimeUnit.MILLISECONDS);
       assertEquals("Not enough note 61 events fired", 0, note61Events.getCount());
     } finally {
-      environment.stop();
+      environment.shutdown();
     }
 
     // TODO : Get this skipped count down to 0, as if it's non-zero then it's indicative something
     // is odd.
     assertTrue("No events should have been skipped", statistics.getEventTooLateCount() < 3);
-    assertEquals("Number of added tracks not correct", 1, statistics.getTrackAddedCount());
-    assertEquals("Number of updated tracks not correct", 1, statistics.getTrackUpdatedCount());
-    assertEquals("Number of removed tracks not correct", 0, statistics.getTrackRemovedCount());
+    assertEquals("Number of added tracks not correct", 1,
+        statistics.getTrackStatistics().getAddedCount());
+    assertEquals("Number of updated tracks not correct", 1,
+        statistics.getTrackStatistics().getUpdatedCount());
+    assertEquals("Number of removed tracks not correct", 0,
+        statistics.getTrackStatistics().getRemovedCount());
   }
 }

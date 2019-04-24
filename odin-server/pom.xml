@@ -15,9 +15,9 @@
   <properties>
     <!-- Lower covered ration for server side for now during prototype development -->
     <jacoco.covered.ratio>0.60</jacoco.covered.ratio>
-    <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
-    <start-class>com.purplepip.odin.server.Application</start-class>
+    <start-class>com.purplepip.odin.api.Application</start-class>
     <jvm.properties.debug/>
+    <purplepip.tests.log.jvm>-Dlogging.config=classpath:${purplepip.tests.log.file} -Dlogback.debug=${purplepip.test.logback.debug}</purplepip.tests.log.jvm>
   </properties>
 
   <dependencyManagement>
@@ -39,8 +39,63 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
+      <groupId>com.kjetland</groupId>
+      <artifactId>mbknor-jackson-jsonschema_2.12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.purplepip</groupId>
+      <artifactId>odin-api</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.purplepip</groupId>
       <artifactId>odin-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.purplepip</groupId>
+      <artifactId>odin-frontend</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.purplepip</groupId>
+      <artifactId>common-logging</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.purplepip</groupId>
+      <artifactId>log-capture</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.purplepip</groupId>
+      <artifactId>odin-core</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.dropwizard.metrics</groupId>
+      <artifactId>metrics-annotation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <scope>compile</scope>
+      <version>${hibernate.version}</version>
+    </dependency>
+    <!-- TODO : Remove when we have upgraded to Spring boot 2 -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <scope>compile</scope>
+      <version>${hibernate.version}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -48,14 +103,24 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>htmlunit-driver</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
+    <!-- devtools disabled until Spring Boot 2.0.0 available with support for Java 9
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
     </dependency>
+      -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
@@ -81,51 +146,33 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+    <dependency>
+      <groupId>nz.net.ultraq.thymeleaf</groupId>
+      <artifactId>thymeleaf-layout-dialect</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>com.github.eirslett</groupId>
-        <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.3</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
         <configuration>
-          <installDirectory>target</installDirectory>
+          <includes>
+            <include>**/*IntegrationTest.java</include>
+          </includes>
         </configuration>
         <executions>
           <execution>
-            <id>install node and npm</id>
+            <id>integration-test</id>
             <goals>
-              <goal>install-node-and-npm</goal>
+              <goal>integration-test</goal>
             </goals>
-            <configuration>
-              <nodeVersion>v4.4.5</nodeVersion>
-              <npmVersion>3.9.2</npmVersion>
-            </configuration>
           </execution>
           <execution>
-            <id>npm install</id>
+            <id>verify</id>
             <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>install</arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>gulp build</id>
-            <goals>
-              <goal>gulp</goal>
-            </goals>
-            <phase>compile</phase>
-            <configuration>
-              <arguments>lint</arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>webpack build</id>
-            <goals>
-              <goal>webpack</goal>
+              <goal>verify</goal>
             </goals>
           </execution>
         </executions>
@@ -143,6 +190,15 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/*IntegrationTest.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring.boot.version}</version>
@@ -152,11 +208,24 @@
               <goal>repackage</goal>
             </goals>
           </execution>
+          <execution>
+            <id>pre-integration-test</id>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>post-integration-test</id>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
         </executions>
         <configuration>
           <addResources>true</addResources>
-          <jvmArguments>-Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
+          <jvmArguments>${purplepip.jvm.args} -Dlogback.debug=true ${jvm.properties.debug}</jvmArguments>
           <mainClass>${start-class}</mainClass>
+          <fork>true</fork>
         </configuration>
       </plugin>
     </plugins>

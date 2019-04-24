@@ -6,28 +6,50 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="common-test-logging" />
+        <module name="common-logging" />
         <module name="common_test_logging" />
-        <module name="log-capture" />
+        <module name="flaky" />
         <module name="logcapture" />
-        <module name="odin-checkstyle" />
+        <module name="odin-api" />
         <module name="odin-core" />
+        <module name="odin-frontend" />
+        <module name="odin-perform" />
+        <module name="odin-profile" />
         <module name="odin-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="common-test-logging" target="1.8" />
+      <module name="common-logging" target="1.10" />
       <module name="common_test_logging" target="1.8" />
-      <module name="log-capture" target="1.8" />
+      <module name="flaky" target="1.10" />
+      <module name="log-capture" target="1.10" />
       <module name="logcapture" target="1.8" />
       <module name="maven-code-coverage-tile" target="1.5" />
-      <module name="odin" target="1.8" />
+      <module name="odin" target="1.10" />
+      <module name="odin-api" target="1.10" />
       <module name="odin-checkstyle" target="1.8" />
-      <module name="odin-core" target="1.8" />
-      <module name="odin-server" target="1.8" />
+      <module name="odin-core" target="1.10" />
+      <module name="odin-frontend" target="1.10" />
+      <module name="odin-perform" target="1.10" />
+      <module name="odin-profile" target="1.10" />
+      <module name="odin-server" target="1.10" />
       <module name="tile-code-coverage" target="1.5" />
       <module name="tile-logging" target="1.5" />
       <module name="tiles" target="1.5" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common-logging" options="-Xlint:unchecked" />
+      <module name="flaky" options="-Xlint:unchecked" />
+      <module name="log-capture" options="-Xlint:unchecked" />
+      <module name="odin" options="-Xlint:unchecked" />
+      <module name="odin-api" options="-Xlint:unchecked" />
+      <module name="odin-core" options="-Xlint:unchecked" />
+      <module name="odin-frontend" options="-Xlint:unchecked" />
+      <module name="odin-perform" options="-Xlint:unchecked" />
+      <module name="odin-profile" options="-Xlint:unchecked" />
+      <module name="odin-server" options="-Xlint:unchecked" />
+    </option>
   </component>
 </project>

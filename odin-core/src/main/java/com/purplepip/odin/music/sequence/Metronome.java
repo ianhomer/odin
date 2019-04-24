@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,44 +15,68 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.MutableSequence;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
+import com.purplepip.odin.creation.sequence.SequencePlugin;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.notes.NoteEvent;
+import com.purplepip.odin.music.notes.Notes;
+import com.purplepip.odin.specificity.Name;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Metronome sequence configuration.
+ * Default implementation of the Metronome.
  */
-public interface Metronome extends MutableSequence {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Slf4j
+@Data
+@Name("metronome")
+public class Metronome extends SequencePlugin {
+  private Note noteBarStart = Notes.newNote();
+  private Note noteBarMid = Notes.newNote();
+
   @Override
-  default Sequence copy() {
-    Metronome copy = new DefaultMetronome(this.getId());
-    copy.setNoteBarMid(this.getNoteBarMid());
-    copy.setNoteBarStart(this.getNoteBarStart());
-    copy.setChannel(this.getChannel());
-    copy.setFlowName(this.getFlowName());
-    copy.setLength(this.getLength());
-    copy.setOffset(this.getOffset());
-    copy.setProject(this.getProject());
-    copy.setTick(this.getTick());
-    copy.getLayers().forEach(this::addLayer);
-    return copy;
+  public NoteEvent getNextEvent(MeasureContext context, Loop loop) {
+    Note note;
+    Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
+    if (nextTock.modulo(Wholes.TWO).equals(Wholes.ZERO)) {
+      if (context.getMeasureProvider().getCount(nextTock).floor() == 0) {
+        note = noteBarStart;
+      } else {
+        note = noteBarMid;
+      }
+      LOG.trace("Creating metronome note {} at {}", note, loop);
+      return new NoteEvent(note, nextTock);
+    }
+    return null;
   }
 
   /**
-   * Get note for the start of the bar.
+   * Create a copy of this sequence.
    *
-   * @return note
+   * @return copy
    */
-  Note getNoteBarStart();
+  @Override
+  public Metronome copy() {
+    return copy(new Metronome());
+  }
 
-  void setNoteBarStart(Note note);
+  protected Metronome copy(Metronome copy) {
+    super.copy(copy);
+    copy.noteBarStart = this.noteBarStart;
+    copy.noteBarMid = this.noteBarMid;
+    return copy;
+  }
 
-  /**
-   * Get note for mid bar.
-   *
-   * @return note
-   */
-  Note getNoteBarMid();
-
-  void setNoteBarMid(Note note);
+  @Override
+  public Metronome name(String name) {
+    super.name(name);
+    return this;
+  }
 }

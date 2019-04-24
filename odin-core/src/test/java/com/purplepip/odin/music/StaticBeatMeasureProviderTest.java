@@ -2,8 +2,9 @@ package com.purplepip.odin.music;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.math.Wholes;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,14 +21,17 @@ public class StaticBeatMeasureProviderTest {
 
   @Test
   public void testMeasure() {
-    assertEquals(1, measureProvider.getCount(9),0.001);
-    assertEquals(0, measureProvider.getCount(12),0.001);
+    assertEquals(Wholes.ONE, measureProvider.getCount(Wholes.valueOf(9)));
+    assertEquals(Wholes.ZERO, measureProvider.getCount(Wholes.valueOf(12)));
 
-    assertEquals(0, measureProvider
-        .getMeasure(0), 0.001);
-    assertEquals(2, measureProvider
-        .getMeasure(8),0.001);
+    assertEquals(Wholes.ZERO, measureProvider.getMeasure(Wholes.ZERO));
+    assertEquals(Wholes.TWO, measureProvider.getMeasure(Wholes.valueOf(8)));
 
-    assertEquals(4, measureProvider.getTicksInMeasure(0), 0.001);
+    assertEquals(Wholes.valueOf(4), measureProvider.getTicksInMeasure(Wholes.ZERO));
+  }
+
+  @Test
+  public void testMeasureStart() {
+    assertEquals(Wholes.valueOf(12), measureProvider.getNextMeasureStart(Wholes.valueOf(9)));
   }
 }

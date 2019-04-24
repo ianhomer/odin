@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,39 +15,41 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.codahale.metrics.Meter;
+import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.sequence.BeatClock;
+import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.PriorityBlockingQueue;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class DefaultOperationProcessorExecutor implements Runnable {
+public class DefaultOperationProcessorExecutor extends SequencerRunnable {
   private static final int MAX_OPERATIONS_PER_EXECUTION = 1000;
-  private static final long FORWARD_POLLING_TIME =
-      DefaultOperationProcessor.REFRESH_PERIOD * 1000 * 5;
 
-  private BeatClock clock;
-  private PriorityBlockingQueue<OperationEvent> queue;
-  private OperationReceiver operationReceiver;
+  private final BeatClock clock;
+  private final PriorityBlockingQueue<OperationEvent> queue;
+  private final OperationHandler operationReceiver;
+  private final Meter sentMetric;
+  private final Meter failureMetric;
+  private final long forwardPollingTime;
 
   DefaultOperationProcessorExecutor(BeatClock clock,
                                     PriorityBlockingQueue<OperationEvent> queue,
-                                    OperationReceiver operationReceiver) {
+                                    OperationHandler operationReceiver,
+                                    MetricRegistry metrics,
+                                    long refreshPeriod) {
+    super("operation", clock, metrics);
+    forwardPollingTime = refreshPeriod * 1000 * 5;
     this.clock = clock;
     this.queue = queue;
+    sentMetric = metrics.meter("operation.sent");
+    failureMetric = metrics.meter("operation.failure");
     this.operationReceiver = operationReceiver;
   }
 
   @Override
-  public void run() {
-    try {
-      doJob();
-    } catch (RuntimeException e) {
-      LOG.error("Error whilst executing sequence processing", e);
-    }
-  }
-
-  private void doJob() {
+  protected void doJob() {
     long size = queue.size();
     long microsecondPosition = clock.getMicroseconds();
     long count = 0;
@@ -56,19 +58,25 @@ public class DefaultOperationProcessorExecutor implements Runnable {
      */
     OperationEvent nextEvent = queue.peek();
     while (count < MAX_OPERATIONS_PER_EXECUTION && nextEvent != null && nextEvent.getTime()
-        < microsecondPosition + FORWARD_POLLING_TIME) {
+        < microsecondPosition + forwardPollingTime) {
       /*
        * If we are ready for next event then take it off the queue and process.
        */
       nextEvent = queue.poll();
-      try {
-        operationReceiver.send(nextEvent.getOperation(), nextEvent.getTime());
-        count++;
-      } catch (OdinException e) {
-        LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
+      if (nextEvent == null) {
+        LOG.warn("Next event on queue has gone missing");
+      } else {
+        try {
+          operationReceiver.handle(nextEvent.getOperation(), nextEvent.getTime());
+          sentMetric.mark();
+          count++;
+        } catch (OdinException e) {
+          failureMetric.mark();
+          LOG.error("Cannot action operation " + nextEvent.getOperation(), e);
+        }
       }
       nextEvent = queue.peek();
     }
-    LOG.debug("Processed {} of {} operations at {}", count, size, clock);
+    LOG.trace("Processed {} of {} operations at {}", count, size, clock);
   }
 }

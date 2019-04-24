@@ -1,4 +1,7 @@
+.idea/sonarlint
 .idea/workspace.xml
 target/
-node_modules/
-odin-server/src/main/resources/static/built
+odin-frontend/build/
+odin-frontend/node_modules/
+odin-frontend/node/
+odin-frontend/src/main/resources/com/purplepip/odin/web/app

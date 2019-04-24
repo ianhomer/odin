@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,9 +15,13 @@
 
 package com.purplepip.odin.sequencer;
 
-import com.purplepip.odin.sequence.BeatClock;
-import com.purplepip.odin.sequence.ClockListener;
-import com.purplepip.odin.sequence.ListenerPriority;
+import com.codahale.metrics.MetricRegistry;
+import com.purplepip.odin.api.concurrent.NamedThreadFactory;
+import com.purplepip.odin.bag.Things;
+import com.purplepip.odin.clock.BeatClock;
+import com.purplepip.odin.clock.PerformanceListener;
+import com.purplepip.odin.common.ListenerPriority;
+import com.purplepip.odin.creation.track.Track;
 import com.purplepip.odin.sequencer.statistics.MutableSequenceProcessorStatistics;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -29,13 +33,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @ListenerPriority(9)
-public class TrackProcessor implements ClockListener {
+public class TrackProcessor implements PerformanceListener {
   /*
    * Time in milliseconds between each processor execution.
    */
-  private long refreshPeriod = 200;
+  private long refreshPeriod;
   private ScheduledExecutorService scheduledPool;
-  private TrackProcessorExecutor executor;
+  private final TrackProcessorExecutor executor;
   private boolean running;
 
   /**
@@ -46,38 +50,65 @@ public class TrackProcessor implements ClockListener {
    * @param operationProcessor operation processor
    */
   TrackProcessor(BeatClock clock,
-                 Tracks tracks,
+                 Things<Track> tracks,
                  OperationProcessor operationProcessor,
-                 MutableSequenceProcessorStatistics statistics) {
-    scheduledPool = Executors.newScheduledThreadPool(1);
+                 MutableSequenceProcessorStatistics statistics,
+                 MetricRegistry metrics,
+                 long refreshPeriod, int maxNotesPerBuffer) {
+    this.refreshPeriod = refreshPeriod;
     executor = new TrackProcessorExecutor(
-        clock, tracks, operationProcessor, refreshPeriod,
-        statistics
+        clock, tracks, operationProcessor, refreshPeriod, maxNotesPerBuffer,
+        statistics, metrics
     );
     clock.addListener(this);
     LOG.debug("Created sequence processor");
   }
 
+  void runOnce() {
+    LOG.debug("Running track processor once");
+    executor.run();
+  }
+
   @Override
-  public void onClockStart() {
+  public void onPerformancePrepare() {
+    scheduledPool = Executors.newScheduledThreadPool(1, new NamedThreadFactory("track"));
+    executor.reset();
+    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
+    LOG.debug("Prepared track processor");
+  }
+
+  @Override
+  public void onPerformanceStart() {
     start();
   }
 
+  @Override
+  public void onPerformanceStop() {
+    running = false;
+  }
 
   @Override
-  public void onClockStop() {
-    stop();
+  public void onPerformanceShutdown() {
+    shutdown();
   }
 
   private void start() {
-    scheduledPool.scheduleAtFixedRate(executor, 0, refreshPeriod, TimeUnit.MILLISECONDS);
     running = true;
-    LOG.debug("Started sequence processor");
+    LOG.debug("Started track processor");
   }
 
-  private void stop() {
-    scheduledPool.shutdown();
-    LOG.debug("Stopped sequence processor");
+  private void shutdown() {
+    LOG.debug("Shutting down track processor");
+    if (scheduledPool != null) {
+      scheduledPool.shutdown();
+      try {
+        scheduledPool.awaitTermination(refreshPeriod * 2, TimeUnit.MILLISECONDS);
+      } catch (InterruptedException e) {
+        LOG.error("Track processor executor pool not shutdown cleanly", e);
+        Thread.currentThread().interrupt();
+      }
+    }
+    LOG.debug("Shut down track processor");
   }
 
   public void processOnce() {
@@ -92,6 +123,6 @@ public class TrackProcessor implements ClockListener {
    * Close sequence processor.
    */
   public void close() {
-    stop();
+    shutdown();
   }
 }

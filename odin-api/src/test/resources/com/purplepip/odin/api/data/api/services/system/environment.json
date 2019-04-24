@@ -1,0 +1,64 @@
+{
+  "devices" : [ {
+    "device" : "MockDevice",
+    "name" : "MockDevice",
+    "properties" : {
+      "property" : "value"
+    }
+  }, {
+    "device" : "MockDevice",
+    "name" : "MockDevice",
+    "properties" : {
+      "property" : "value"
+    }
+  }, {
+    "device" : "MockDevice",
+    "name" : "MockDevice",
+    "properties" : {
+      "property" : "value"
+    }
+  }, {
+    "device" : "MockDevice",
+    "name" : "MockDevice",
+    "properties" : {
+      "property" : "value"
+    }
+  } ],
+  "handles" : [ {
+    "description" : "description1",
+    "deviceClass" : null,
+    "enabled" : false,
+    "name" : "name1",
+    "sink" : false,
+    "source" : false,
+    "type" : "mock",
+    "vendor" : "vendor1"
+  }, {
+    "description" : "description2",
+    "deviceClass" : null,
+    "enabled" : false,
+    "name" : "name2",
+    "sink" : false,
+    "source" : false,
+    "type" : "mock",
+    "vendor" : "vendor2"
+  }, {
+    "description" : "description3",
+    "deviceClass" : null,
+    "enabled" : false,
+    "name" : "name3",
+    "sink" : false,
+    "source" : false,
+    "type" : "mock",
+    "vendor" : "vendor3"
+  }, {
+    "description" : "description4",
+    "deviceClass" : null,
+    "enabled" : false,
+    "name" : "name4",
+    "sink" : false,
+    "source" : false,
+    "type" : "mock",
+    "vendor" : "vendor4"
+  } ]
+}

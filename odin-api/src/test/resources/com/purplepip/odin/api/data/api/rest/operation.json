@@ -1,0 +1,55 @@
+{
+  "_embedded" : {
+    "operation" : [ {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/rest/operation/76"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/operation/76"
+        }
+      },
+      "channel" : 1,
+      "dateCreated" : "2018-03-30T13:29:29.096+0000",
+      "message" : "▼1↓99 → 1",
+      "number" : 1,
+      "time" : 5,
+      "type" : "NoteOnOperation",
+      "velocity" : 99
+    }, {
+      "_links" : {
+        "operation" : {
+          "href" : "http://localhost/api/rest/operation/77"
+        },
+        "self" : {
+          "href" : "http://localhost/api/rest/operation/77"
+        }
+      },
+      "channel" : 1,
+      "dateCreated" : "2018-03-30T13:29:29.100+0000",
+      "message" : "▲1    → 1",
+      "number" : 1,
+      "time" : 10,
+      "type" : "NoteOffOperation",
+      "velocity" : 0
+    } ]
+  },
+  "_links" : {
+    "profile" : {
+      "href" : "http://localhost/api/rest/profile/operation"
+    },
+    "search" : {
+      "href" : "http://localhost/api/rest/operation/search"
+    },
+    "self" : {
+      "href" : "http://localhost/api/rest/operation{?page,size,sort}",
+      "templated" : true
+    }
+  },
+  "page" : {
+    "number" : 0,
+    "size" : 20,
+    "totalElements" : 2,
+    "totalPages" : 1
+  }
+}

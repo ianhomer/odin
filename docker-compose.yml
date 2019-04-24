@@ -1,0 +1,17 @@
+version: '3'
+services:
+  odin-api:
+    build: ./odin-api
+  odin-frontend:
+    build: ./odin-frontend
+    volumes:
+    - web-volume:/var/lib/web
+  odin-nginx:
+    build: ./odin-nginx
+    ports:
+    - "8080:8080"
+    volumes:
+    - web-volume:/var/lib/web:ro
+
+volumes:
+  web-volume:

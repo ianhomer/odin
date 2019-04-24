@@ -1,0 +1,44 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+
+  <!--
+      Categories for this code base.
+      -->
+  <logger name="com.purplepip" level="INFO"/>
+  <logger name="com.purplepip.odin.store" level="INFO"/>
+
+  <!--
+      Log messages for spring bean creation and access.
+      -->
+  <logger name="org.springframework" level="WARN"/>
+  <logger name="org.springframework.beans" level="WARN"/>
+  <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory"
+          level="WARN"/>
+
+  <!--
+      Log messages for spring application context caching.  Spring tests use multiple application
+      contexts using caching to share contexts where appropriate.  These messages can help
+      understand how this logic is taking place.
+      -->
+  <logger name="org.springframework.test.context.cache" level="ERROR"/>
+
+  <!--
+      Hibernate logging.
+      -->
+  <logger name="org.hibernate" level="INFO"/>
+  <logger name="org.hibernate.SQL" level="INFO"/>
+  <logger name="org.hibernate.event.internal" level="INFO"/>
+  <logger name="org.hibernate.engine.internal" level="INFO"/>
+  <logger name="org.hibernate.internal.util" level="INFO"/>
+  <logger name="org.hibernate.hql.internal.ast.AST" level="INFO"/>
+
+  <root level="WARN">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.common.CompareHelper;
 import java.io.Serializable;
 import java.util.Comparator;
 import lombok.extern.slf4j.Slf4j;
@@ -35,11 +36,6 @@ public class OperationEventComparator implements Comparator<OperationEvent>, Ser
    */
   @Override
   public int compare(OperationEvent x, OperationEvent y) {
-    if (x.getTime() < y.getTime()) {
-      return -1;
-    } else if (x.getTime() > y.getTime()) {
-      return 1;
-    }
-    return 0;
+    return CompareHelper.compare(x.getTime(), y.getTime());
   }
 }

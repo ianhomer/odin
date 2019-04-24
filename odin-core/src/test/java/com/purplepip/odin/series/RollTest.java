@@ -2,7 +2,9 @@ package com.purplepip.odin.series;
 
 import static junit.framework.TestCase.assertTrue;
 
-import com.purplepip.odin.sequence.Roll;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.roll.Roll;
 import org.junit.Test;
 
 /**
@@ -11,21 +13,21 @@ import org.junit.Test;
 public class RollTest {
   @Test
   public void testSeries() {
-    Roll<Boolean> heartBeat = new HeartBeat();
+    Roll heartBeat = new HeartBeat();
     long currentTime = System.currentTimeMillis();
-    long peekedTime = heartBeat.peek().getTime();
-    long poppedTime = heartBeat.peek().getTime();
+    Real peekedTime = heartBeat.peek().getTime();
+    Real poppedTime = heartBeat.peek().getTime();
     assertTrue("Peeked time in the past : " + peekedTime + " < " + currentTime,
-        peekedTime > currentTime);
+        peekedTime.ge(Wholes.valueOf(currentTime)));
     assertTrue("Peeked time too far in the future : " + peekedTime + " > "
-            + currentTime + " + 1000",
-        peekedTime < currentTime + 1000);
+            + currentTime + " + 5000",
+        peekedTime.lt(Wholes.valueOf(currentTime + 5000)));
 
     assertTrue("Popped time in the past : " + poppedTime + " < " + currentTime,
-        peekedTime > currentTime);
+        peekedTime.gt(Wholes.valueOf(currentTime)));
     assertTrue("Popped time too far in the future : " + poppedTime + " > "
-            + currentTime + " + 1000",
-        peekedTime < currentTime + 1000);
+            + currentTime + " + 5000",
+        peekedTime.lt(Wholes.valueOf(currentTime + 5000)));
 
     // TODO : Implement such that popping takes the next off the series
   }

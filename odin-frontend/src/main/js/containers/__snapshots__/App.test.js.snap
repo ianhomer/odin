@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`async actions App after schema loaded OK 1`] = `
+<div>
+  Loading schema ...
+</div>
+`;
+
+exports[`async actions App after schema loaded OK 2`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <BrowserRouter>
+    <div>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/web/app/developer"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/web/app/environment"
+      />
+      <Route
+        component={[Function]}
+      />
+    </div>
+  </BrowserRouter>
+</Provider>
+`;
+
+exports[`async actions App before schema loaded OK 1`] = `
+<div>
+  Loading schema ...
+</div>
+`;

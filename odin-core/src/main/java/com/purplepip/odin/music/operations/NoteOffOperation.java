@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,13 +15,10 @@
 
 package com.purplepip.odin.music.operations;
 
-import lombok.ToString;
-
 /**
  * Note off operation.  Note that note off provides velocity information as per MIDI
  * specification to cater for after-touch.  Currently we explicitly velocity for note off to 0.
  */
-@ToString(callSuper = true)
 public class NoteOffOperation extends AbstractNoteVelocityOperation {
   /**
    * Create note off operation.
@@ -30,8 +27,13 @@ public class NoteOffOperation extends AbstractNoteVelocityOperation {
    * @param number note number
    */
   public NoteOffOperation(int channel, int number) {
-    setChannel(channel);
+    super(channel);
     setNumber(number);
     setVelocity(0);
+  }
+
+  @Override
+  public String toString() {
+    return "▲" + this.getNumber() + "    → " + super.getChannel();
   }
 }

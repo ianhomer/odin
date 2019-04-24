@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,7 @@
 
 package com.purplepip.odin.sequencer.statistics;
 
+import com.purplepip.odin.bag.ThingStatistics;
 import lombok.ToString;
 
 @ToString
@@ -26,18 +27,13 @@ public class UnmodifiableOdinSequencerStatistics implements OdinSequencerStatist
   }
 
   @Override
-  public int getTrackAddedCount() {
-    return statistics.getTrackAddedCount();
+  public ThingStatistics getTrackStatistics() {
+    return statistics.getTrackStatistics();
   }
 
   @Override
-  public int getTrackRemovedCount() {
-    return statistics.getTrackRemovedCount();
-  }
-
-  @Override
-  public int getTrackUpdatedCount() {
-    return statistics.getTrackUpdatedCount();
+  public ThingStatistics getReactorStatistics() {
+    return statistics.getReactorStatistics();
   }
 
   @Override

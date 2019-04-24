@@ -1,0 +1,41 @@
+SNAPSHOT : com.purplepip.odin.demo.GroovePerformance
+             -1 ProgramChangeOperation(channel=1, programName=piano)
+             -1 ProgramChangeOperation(channel=2, programName=rock)
+             -1 ProgramChangeOperation(channel=3, programName=strings)
+             -1 ProgramChangeOperation(channel=4, programName=aahs)
+             -1 ProgramChangeOperation(channel=5, programName=bass)
+             -1 ProgramChangeOperation(channel=9, programName=Power Drums)
+              · ▼81↓40 → 2
+          5···· ▲81    → 2
+         10···· ▼69↓40 → 9
+         20···· ▲69    → 9
+         20···· ▼69↓40 → 9
+         30···· ▲69    → 9
+         30···· ▼69↓40 → 9
+         40···· ▲69    → 9
+         40···· ▼60↓40 → 3
+         40···· ▼69↓40 → 9
+         40···· ▼72↓40 → 3
+         50···· ▲69    → 9
+         50···· ▼69↓40 → 9
+         60···· ▲60    → 3
+         60···· ▲69    → 9
+         60···· ▲72    → 3
+         60···· ▼60↓40 → 3
+         60···· ▼69↓40 → 9
+         60···· ▼72↓40 → 3
+         70···· ▲60    → 3
+         70···· ▲69    → 9
+         70···· ▲72    → 3
+         70···· ▼69↓40 → 9
+         80···· ▲69    → 9
+         80···· ▼60↓40 → 3
+         80···· ▼69↓40 → 9
+         80···· ▼72↓40 → 3
+         90···· ▲69    → 9
+         90···· ▼69↓40 → 9
+        100···· ▲60    → 3
+        100···· ▲69    → 9
+        100···· ▲72    → 3
+        100···· ▼60↓40 → 3
+        100···· ▼72↓40 → 3

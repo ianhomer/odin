@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,12 +15,14 @@
 
 package com.purplepip.odin.sequencer;
 
+import com.purplepip.odin.operation.Operation;
+
 /**
- * NoteOnOperation event that should fire at the given time.
+ * Operation event that should fire at the given time.
  */
 public class OperationEvent {
-  private Operation operation;
-  private long time;
+  private final Operation operation;
+  private final long time;
 
   OperationEvent(Operation operation, long time) {
     this.operation = operation;

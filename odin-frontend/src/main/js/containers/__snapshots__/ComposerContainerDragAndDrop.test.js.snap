@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Composer container drag and drop Initialise 1`] = `undefined`;
+
+exports[`Composer container drag and drop Initialise 2`] = `
+<div
+  class="layer card"
+  draggable="true"
+  title="a"
+>
+  a
+  <div
+    class="sequences"
+  >
+    <div
+      class="sequenceInLayer"
+      draggable="true"
+      style="opacity: 1;"
+    >
+      aahs-a
+    </div>
+    <div
+      class="sequenceInLayer"
+      draggable="true"
+      style="opacity: 1;"
+    >
+      bass-3
+    </div>
+    <div
+      class="sequenceInLayer"
+      draggable="true"
+      style="opacity: 1;"
+    >
+      kick1
+    </div>
+    <div
+      class="sequenceInLayer"
+      draggable="true"
+      style="opacity: 1;"
+    >
+      notes-c5
+    </div>
+    <div
+      class="sequenceInLayer"
+      draggable="true"
+      style="opacity: 1;"
+    >
+      organ-a
+    </div>
+    <div
+      class="sequenceInLayer"
+      draggable="true"
+      style="opacity: 1;"
+    >
+      piano-a
+    </div>
+    <div
+      class="sequenceInLayer"
+      draggable="true"
+      style="opacity: 1;"
+    >
+      piano-a3
+    </div>
+  </div>
+</div>
+`;

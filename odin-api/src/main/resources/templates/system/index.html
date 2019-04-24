@@ -1,0 +1,33 @@
+<html layout:decorate="~{layout}"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title id="title">system</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1>MIDI Device</h1>
+
+  <table>
+    <tr>
+      <td>Sink</td>
+      <td th:text="${sink}"/>
+    </tr>
+    <tr>
+      <td>Source</td>
+      <td th:text="${source}"/>
+    </tr>
+  </table>
+
+
+  <h1>Measure</h1>
+
+  <table>
+    <tr>
+      <td th:text="${measureProvider}"/>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

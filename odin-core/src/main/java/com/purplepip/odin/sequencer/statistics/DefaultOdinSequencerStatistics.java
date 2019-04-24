@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,51 +15,37 @@
 
 package com.purplepip.odin.sequencer.statistics;
 
+import com.purplepip.odin.bag.ThingStatistics;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.ToString;
 
 @ToString
 public class DefaultOdinSequencerStatistics
     implements MutableOdinSequencerStatistics {
-  private AtomicInteger programChangeCount = new AtomicInteger();
-  private AtomicInteger trackAddedCount = new AtomicInteger();
-  private AtomicInteger trackUpdatedCount = new AtomicInteger();
-  private AtomicInteger trackRemovedCount = new AtomicInteger();
-  private AtomicInteger eventTooLateCount = new AtomicInteger();
+  private final ThingStatistics trackStatistics;
+  private final ThingStatistics reactorStatistics;
+  private final AtomicInteger programChangeCount = new AtomicInteger();
+  private final AtomicInteger eventTooLateCount = new AtomicInteger();
 
-  @Override
-  public void incrementTrackAddedCount() {
-    trackAddedCount.incrementAndGet();
-  }
-
-  @Override
-  public int getTrackAddedCount() {
-    return trackAddedCount.get();
-  }
-
-  @Override
-  public void incrementTrackRemovedCount(int removedCount) {
-    trackRemovedCount.addAndGet(removedCount);
-  }
-
-  @Override
-  public int getTrackRemovedCount() {
-    return trackRemovedCount.get();
-  }
-
-  @Override
-  public void incrementTrackUpdatedCount() {
-    trackUpdatedCount.incrementAndGet();
-  }
-
-  @Override
-  public int getTrackUpdatedCount() {
-    return trackUpdatedCount.get();
+  public DefaultOdinSequencerStatistics(ThingStatistics trackStatistics,
+                                        ThingStatistics reactorStatistics) {
+    this.trackStatistics = trackStatistics;
+    this.reactorStatistics = reactorStatistics;
   }
 
   @Override
   public void incrementProgramChangeCount() {
     programChangeCount.incrementAndGet();
+  }
+
+  @Override
+  public ThingStatistics getTrackStatistics() {
+    return trackStatistics;
+  }
+
+  @Override
+  public ThingStatistics getReactorStatistics() {
+    return reactorStatistics;
   }
 
   @Override

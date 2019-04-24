@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.music.operations;
 
-import com.purplepip.odin.sequencer.AbstractChannelOperation;
+import com.purplepip.odin.operation.AbstractChannelOperation;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -27,6 +27,10 @@ import lombok.ToString;
 public abstract class AbstractNoteVelocityOperation extends AbstractChannelOperation {
   private int number;
   private int velocity;
+
+  protected AbstractNoteVelocityOperation(int channel) {
+    super(channel);
+  }
 
   protected final void setNumber(int number) {
     this.number = number;

@@ -1,107 +1,104 @@
 package com.purplepip.odin.experiments;
 
-import com.purplepip.odin.common.OdinException;
-import com.purplepip.odin.midix.MidiDeviceMicrosecondPositionProvider;
-import com.purplepip.odin.midix.MidiDeviceWrapper;
+import com.purplepip.odin.boot.GuaranteedMidiApplication;
+import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
+import com.purplepip.odin.clock.measure.MeasureProvider;
+import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
+import com.purplepip.odin.common.ClassUri;
+import com.purplepip.odin.demo.DemoLoaderPerformance;
+import com.purplepip.odin.demo.DemoPerformances;
+import com.purplepip.odin.demo.GroovePerformance;
+import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.midix.MidiOperationReceiver;
-import com.purplepip.odin.midix.SynthesizerHelper;
-import com.purplepip.odin.project.ProjectContainer;
-import com.purplepip.odin.project.TransientProject;
-import com.purplepip.odin.sequence.StaticBeatsPerMinute;
-import com.purplepip.odin.sequence.measure.MeasureProvider;
-import com.purplepip.odin.sequence.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.sequence.tick.Ticks;
+import com.purplepip.odin.operation.OperationHandler;
+import com.purplepip.odin.performance.ClassPerformanceLoader;
+import com.purplepip.odin.performance.DefaultPerformanceContainer;
+import com.purplepip.odin.performance.LoadPerformanceOperation;
+import com.purplepip.odin.performance.PerformanceLoader;
+import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.DefaultOdinSequencerConfiguration;
 import com.purplepip.odin.sequencer.OdinSequencer;
-import com.purplepip.odin.sequencer.OperationReceiver;
 import com.purplepip.odin.sequencer.OperationReceiverCollection;
-import com.purplepip.odin.sequencer.ProjectBuilder;
+import com.purplepip.odin.system.Environments;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
-/**
- * Midi Sequence Experiment.
- */
+/** Midi Sequence Experiment. */
+@Slf4j
 public class MidiSequenceExperiment {
-  private static final Logger LOG = LoggerFactory.getLogger(MidiSequenceExperiment.class);
 
   /**
    * Main method.
    *
    * @param args arguments
    */
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws InterruptedException, DeviceUnavailableException {
+    System.out.println("Logging : " + LOG.getClass());
     MidiSequenceExperiment experiment = new MidiSequenceExperiment();
-    try {
-      experiment.doExperiment();
-    } catch (OdinException e) {
-      LOG.error("Unexpected failure", e);
-    }
+    experiment.doExperiment();
   }
 
-  private void doExperiment() throws OdinException, InterruptedException {
-    final CountDownLatch lock = new CountDownLatch(400);
-
-    OperationReceiver operationReceiver = (operation, time) -> {
-      lock.countDown();
-      LOG.info("Received operation {}", operation);
-    };
+  private void doExperiment() throws InterruptedException, DeviceUnavailableException {
+    final CountDownLatch lock = new CountDownLatch(1_000_000);
 
     LOG.info("Creating sequence");
     OdinSequencer sequencer = null;
-    MidiDeviceWrapper midiDeviceWrapper = null;
-    try {
-      midiDeviceWrapper = new MidiDeviceWrapper();
+    DefaultOdinSequencerConfiguration configuration = new DefaultOdinSequencerConfiguration();
+    try (GuaranteedMidiApplication application = new GuaranteedMidiApplication()) {
       MeasureProvider measureProvider = new StaticBeatMeasureProvider(4);
-      sequencer = new OdinSequencer(
-          new DefaultOdinSequencerConfiguration()
-              .setBeatsPerMinute(new StaticBeatsPerMinute(120))
-              .setMeasureProvider(measureProvider)
-              .setOperationReceiver(
-                  new OperationReceiverCollection(
-                      new MidiOperationReceiver(midiDeviceWrapper),
-                      operationReceiver)
-              )
-              .setMicrosecondPositionProvider(
-                  new MidiDeviceMicrosecondPositionProvider(midiDeviceWrapper)));
+      DefaultPerformanceContainer container =
+          new DefaultPerformanceContainer(new TransientPerformance());
+      PerformanceLoader loader =
+          new ClassPerformanceLoader(
+              new DemoPerformances().getPerformances(), container, new DemoLoaderPerformance());
+      final OperationHandler operationReceiver =
+          (operation, time) -> {
+            lock.countDown();
+            LOG.trace("Received operation {}", operation);
+            if (operation.hasCause()) {
+              LOG.info("Caused Operation : {}", operation);
+            } else if (operation instanceof LoadPerformanceOperation) {
+              LOG.info("Load Performance Operation Operation : {}", operation);
+            }
+          };
 
-      SynthesizerHelper synthesizerHelper = null;
-      if (midiDeviceWrapper.isSynthesizer()) {
-        synthesizerHelper =
-            new SynthesizerHelper(midiDeviceWrapper.getSynthesizer());
-        synthesizerHelper.loadGervillSoundBank(
-            "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2");
-      }
-      ProjectContainer container = new ProjectContainer(new TransientProject());
-      new ProjectBuilder(container)
-          .addMetronome()
-          .withChannel(1).changeProgramTo("bird")
-          .withVelocity(10).withNote(62).addPattern(Ticks.BEAT, 4)
-          .withChannel(2).changeProgramTo("aahs")
-          .withVelocity(20).withNote(42).addPattern(Ticks.BEAT, 15)
-          .withChannel(9).changeProgramTo("TR-909")
-          .withVelocity(100).withNote(62).addPattern(Ticks.BEAT, 2)
-          .withVelocity(40).addPattern(Ticks.EIGHTH, 127)
-          .withNote(46).addPattern(Ticks.TWO_THIRDS, 7);
+      configuration
+          .setBeatsPerMinute(new StaticBeatsPerMinute(120))
+          .setMeasureProvider(measureProvider)
+          .setOperationReceiver(
+              new OperationReceiverCollection(
+                  new MidiOperationReceiver(application.getSink()), loader, operationReceiver))
+          .setOperationTransmitter(application.getTransmitter())
+          .setMicrosecondPositionProvider(application.getSink());
+      sequencer = new OdinSequencer(configuration);
+      application
+          .getSynthesizer()
+          .ifPresent(
+              synthesizer ->
+                  synthesizer.loadGervillSoundBank(
+                      "Timbres Of Heaven GM_GS_XG_SFX V 3.4 Final.sf2"));
+
       container.addApplyListener(sequencer);
+      loader.load(new ClassUri(GroovePerformance.class, true).getUri());
       container.apply();
+      Environments.newEnvironment().dump();
+
+      sequencer.prepare();
       sequencer.start();
 
       try {
-        lock.await(8000, TimeUnit.MILLISECONDS);
+        lock.await(1_000_000, TimeUnit.MILLISECONDS);
       } finally {
         sequencer.stop();
       }
-      LOG.info("... stopping");
     } finally {
+      LOG.info("... stopping");
       if (sequencer != null) {
         sequencer.stop();
+        sequencer.shutdown();
       }
-      if (midiDeviceWrapper != null) {
-        midiDeviceWrapper.close();
-      }
+      LOG.debug("Metrics created : {}", configuration.getMetrics().getNames());
     }
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Ian Homer. All Rights Reserved
+ * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,34 +15,80 @@
 
 package com.purplepip.odin.music.sequence;
 
-import com.purplepip.odin.music.Note;
-import com.purplepip.odin.sequence.MutableSequence;
-import com.purplepip.odin.sequence.Sequence;
+import com.purplepip.odin.clock.Loop;
+import com.purplepip.odin.clock.MeasureContext;
+import com.purplepip.odin.creation.sequence.SequencePlugin;
+import com.purplepip.odin.math.Real;
+import com.purplepip.odin.math.Wholes;
+import com.purplepip.odin.music.notes.Note;
+import com.purplepip.odin.music.notes.NoteEvent;
+import com.purplepip.odin.music.notes.Notes;
+import com.purplepip.odin.specificity.Name;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Pattern sequence configuration.
+ * Pattern sequence.
  */
-public interface Pattern extends MutableSequence {
+@Slf4j
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Name("pattern")
+public class Pattern extends SequencePlugin {
+  /*
+   * Binary pattern for series, 1 => on first tick of bar, 3 => on first two ticks of bar etc.
+   */
+  private int bits;
+  private Note note = Notes.newNote();
+
+  public Pattern bits(int bits) {
+    this.bits = bits;
+    return this;
+  }
+
+  public Pattern note(Note note) {
+    this.note = note;
+    return this;
+  }
+
   @Override
-  default Sequence copy() {
-    Pattern copy = new DefaultPattern(this.getId());
-    copy.setBits(this.getBits());
-    copy.setChannel(this.getChannel());
-    copy.setFlowName(this.getFlowName());
-    copy.setLength(this.getLength());
-    copy.setNote(this.getNote());
-    copy.setOffset(this.getOffset());
-    copy.setProject(this.getProject());
-    copy.setTick(this.getTick());
-    copy.getLayers().forEach(this::addLayer);
+  public NoteEvent getNextEvent(MeasureContext context, Loop loop) {
+    Real nextTock = loop.getAbsolutePosition().plus(Wholes.ONE);
+    long countInMeasure = context.getMeasureProvider().getCount(nextTock).floor();
+    if (bits == -1 || ((bits >> countInMeasure) & 1) == 1)  {
+      return new NoteEvent(note, nextTock);
+    }
+    return null;
+  }
+
+  /**
+   * Create a copy of this sequence.
+   *
+   * @return copy
+   */
+  @Override
+  public Pattern copy() {
+    return copy(new Pattern());
+  }
+
+  protected Pattern copy(Pattern copy) {
+    super.copy(copy);
+    copy.bits = this.bits;
+    copy.note = this.note;
     return copy;
   }
 
-  void setBits(int bits);
+  @Override
+  public boolean isEmpty() {
+    return bits == 0 || super.isEmpty();
+  }
 
-  int getBits();
-
-  void setNote(Note note);
-
-  Note getNote();
+  @Override
+  public Pattern name(String name) {
+    super.name(name);
+    return this;
+  }
 }
