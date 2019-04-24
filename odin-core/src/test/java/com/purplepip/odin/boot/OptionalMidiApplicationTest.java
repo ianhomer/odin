@@ -18,11 +18,11 @@ package com.purplepip.odin.boot;
 import static org.junit.Assert.assertFalse;
 
 import com.purplepip.odin.devices.Environment;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class OptionalMidiApplicationTest {
+public class OptionalMidiApplicationTest {
   @Test
-  void testNoSinkNoSource() {
+  public void testNoSinkNoSource() {
     var application = new OptionalMidiApplication(new Environment());
     assertFalse(application.getSink().isPresent());
     assertFalse(application.getSource().isPresent());
