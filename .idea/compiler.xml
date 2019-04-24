@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AjcSettings">
+    <option name="ajcPath" value="$MAVEN_REPOSITORY$/org/aspectj/aspectjtools/1.9.1/aspectjtools-1.9.1.jar" />
+    <option name="cmdLineParams" value="-showWeaveInfo" />
+    <option name="delegateToJavac" value="true" />
+  </component>
   <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="ajc" />
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common-logging" />
-        <module name="common_test_logging" />
-        <module name="flaky" />
-        <module name="logcapture" />
         <module name="odin-api" />
+        <module name="logcapture" />
+        <module name="odin-server" />
+        <module name="odin-profile" />
+        <module name="common_test_logging" />
         <module name="odin-core" />
         <module name="odin-frontend" />
+        <module name="flaky" />
         <module name="odin-perform" />
-        <module name="odin-profile" />
-        <module name="odin-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -31,7 +37,7 @@
       <module name="odin-core" target="1.10" />
       <module name="odin-frontend" target="1.10" />
       <module name="odin-perform" target="1.10" />
-      <module name="odin-profile" target="1.10" />
+      <module name="odin-profile" target="10" />
       <module name="odin-server" target="1.10" />
       <module name="tile-code-coverage" target="1.5" />
       <module name="tile-logging" target="1.5" />
@@ -43,7 +49,7 @@
       <module name="common-logging" options="-Xlint:unchecked" />
       <module name="flaky" options="-Xlint:unchecked" />
       <module name="log-capture" options="-Xlint:unchecked" />
-      <module name="odin" options="-Xlint:unchecked" />
+      <module name="odin" options="" />
       <module name="odin-api" options="-Xlint:unchecked" />
       <module name="odin-core" options="-Xlint:unchecked" />
       <module name="odin-frontend" options="-Xlint:unchecked" />

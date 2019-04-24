@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.junit.platform:junit-platform-launcher:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.4.0-SNAPSHOT/junit-platform-launcher-1.4.0-20181112.133754-179.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.4.0-SNAPSHOT/junit-platform-launcher-1.4.0-20190207.205516-468.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.4.0-SNAPSHOT/junit-platform-launcher-1.4.0-20181112.133754-179-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.4.0-SNAPSHOT/junit-platform-launcher-1.4.0-20190207.205516-468-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.4.0-SNAPSHOT/junit-platform-launcher-1.4.0-20181112.133754-179-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-launcher/1.4.0-SNAPSHOT/junit-platform-launcher-1.4.0-20190207.205516-468-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
