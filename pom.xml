@@ -82,7 +82,7 @@
     <mockito.version>2.22.0</mockito.version>
     <slf4j.version>1.7.25</slf4j.version>
     <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
-    <surefire.version>2.21.0</surefire.version>
+    <surefire.version>3.0.0-M3</surefire.version>
     <thymeleaf.layout.version>2.3.0</thymeleaf.layout.version>
 
     <purplepip.tests.jvm>-Dodin.audio.enabled=${odin.audio.enabled} -DupdateSnapshot=${purplepip.test.updateSnapshot}</purplepip.tests.jvm>
@@ -340,12 +340,12 @@
           <inherited>true</inherited>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>1.4.1</version>
+          <version>3.0.0-M2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>2.22.0</version>
+          <version>3.0.0-M3</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -370,7 +370,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.6</version>
+          <version>3.7.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -394,7 +394,7 @@
         <plugin>
           <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
-          <version>3.4.0.905</version>
+          <version>3.4.1.116</version>
         </plugin>
       </plugins>
     </pluginManagement>

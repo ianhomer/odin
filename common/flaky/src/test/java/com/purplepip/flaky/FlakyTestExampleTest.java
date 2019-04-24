@@ -18,7 +18,6 @@ package com.purplepip.flaky;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import org.junit.jupiter.api.Disabled;
 
 /**
  * Example test for manual testing of FlakyTest annotation.
@@ -44,11 +43,4 @@ class FlakyTestExampleTest {
       fail("succeedsEveryTenTimes failed");
     }
   }
-
-  @FlakyTest(3)
-  @Disabled
-  void alwaysFails() {
-    fail("alwaysFails failed");
-  }
-
 }
