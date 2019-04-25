@@ -42,7 +42,7 @@
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-testkit</artifactId>
-      <version>1.4.0-SNAPSHOT</version>
+      <version>1.4.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -63,14 +63,4 @@
       </plugins>
     </pluginManagement>
   </build>
-
-  <repositories>
-    <repository>
-      <id>junit-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 </project>
