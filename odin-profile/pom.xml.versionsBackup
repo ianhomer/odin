@@ -13,7 +13,7 @@
   <name>Odin Profile</name>
 
   <properties>
-    <aspectj.version>1.9.3</aspectj.version>
+    <aspectj.version>1.9.1</aspectj.version>
     <surefire.version>2.21.0</surefire.version>
   </properties>
 
