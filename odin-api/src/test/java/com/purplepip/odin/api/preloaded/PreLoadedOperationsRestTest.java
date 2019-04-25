@@ -1,5 +1,6 @@
 package com.purplepip.odin.api.preloaded;
 
+import com.purplepip.flaky.FlakyTest;
 import com.purplepip.odin.api.rest.EndPointSnapshot;
 import com.purplepip.odin.api.rest.repositories.OperationRepository;
 import com.purplepip.odin.common.OdinException;
@@ -9,7 +10,6 @@ import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @RunWith(SpringRunner.class)
 @PreLoadedTest
 @Slf4j
-public class PreLoadedOperationsRestTest {
+class PreLoadedOperationsRestTest {
   @Autowired
   private MockMvc mvc;
 
@@ -33,8 +33,8 @@ public class PreLoadedOperationsRestTest {
     operationRepository.deleteAll();
   }
 
-  @Test
-  public void testRestSnapshot() throws Exception {
+  @FlakyTest(3)
+  void testRestSnapshot() throws Exception {
     send(new NoteOnOperation(1, 1, 99), 5);
     send(new NoteOffOperation(1, 1), 10);
 

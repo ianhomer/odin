@@ -83,6 +83,7 @@
     <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.31" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="module" module-name="common-logging" scope="TEST" />
+    <orderEntry type="module" module-name="flaky" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Maven: com.purplepip:log-capture:1.0.7" level="project" />
     <orderEntry type="module" module-name="odin-core" scope="TEST" production-on-test="" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-annotation:4.0.5" level="project" />
