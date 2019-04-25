@@ -747,7 +747,7 @@
               "type" : "integer"
             },
             "egyptianFractions" : {
-              "$ref" : "#/definitions/Stream"
+              "$ref" : "#/definitions/Stream[Rational]"
             },
             "limit" : {
               "$ref" : "#/definitions/Rational"
@@ -814,7 +814,7 @@
           "required" : [ "channel", "enabled", "layers", "length", "offset", "name", "tick", "type" ],
           "type" : "object"
         },
-        "Stream" : {
+        "Stream[Rational]" : {
           "additionalProperties" : false,
           "properties" : {
             "parallel" : {
