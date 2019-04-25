@@ -6,7 +6,6 @@
     <option name="delegateToJavac" value="true" />
   </component>
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="ajc" />
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -37,7 +36,7 @@
       <module name="odin-core" target="1.10" />
       <module name="odin-frontend" target="1.10" />
       <module name="odin-perform" target="1.10" />
-      <module name="odin-profile" target="10" />
+      <module name="odin-profile" target="1.10" />
       <module name="odin-server" target="1.10" />
       <module name="tile-code-coverage" target="1.5" />
       <module name="tile-logging" target="1.5" />
