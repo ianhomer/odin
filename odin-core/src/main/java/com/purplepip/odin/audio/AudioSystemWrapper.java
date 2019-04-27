@@ -30,6 +30,8 @@ public final class AudioSystemWrapper {
 
   /**
    * Dump system audio information.
+   *
+   * @param dumpOnlyIfNotDumpedBefore dump only if not dumped before
    */
   public void dump(boolean dumpOnlyIfNotDumpedBefore) {
     /*
