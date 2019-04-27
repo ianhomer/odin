@@ -20,11 +20,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ActionConfigurationTest {
+class ActionConfigurationTest {
   @Test
-  public void testCopy() {
+  void testCopy() {
     ActionConfiguration configuration = mock(ActionConfiguration.class);
     when(configuration.getName()).thenReturn("name");
     when(configuration.getType()).thenReturn("start");

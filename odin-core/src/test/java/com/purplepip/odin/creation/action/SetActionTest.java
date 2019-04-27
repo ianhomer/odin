@@ -20,11 +20,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.creation.track.Track;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SetActionTest {
+class SetActionTest {
   @Test
-  public void testSetAction() {
+  void testSetAction() {
     SetAction action = new SetAction().nameValuePairs("a=1;b=2");
     action.initialise();
     Track track = spy(Track.class);

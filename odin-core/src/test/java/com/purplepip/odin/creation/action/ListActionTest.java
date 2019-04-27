@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ListActionTest {
+class ListActionTest {
   @Test
-  public void testMapGenericToPlugin() {
+  void testMapGenericToPlugin() {
     Map<String, ActionConfiguration> map =
         ListAction.asActionConfigurationMap("test", new StartAction(), new EnableAction());
     assertEquals(3, map.size());

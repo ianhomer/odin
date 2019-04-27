@@ -18,7 +18,7 @@ package com.purplepip.odin.boot;
 import static org.junit.Assert.assertFalse;
 
 import com.purplepip.odin.devices.Environment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class OptionalMidiApplicationTest {
   @Test

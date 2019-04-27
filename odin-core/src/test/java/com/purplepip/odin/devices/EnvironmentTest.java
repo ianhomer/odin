@@ -18,6 +18,7 @@ package com.purplepip.odin.devices;
 import static com.purplepip.odin.devices.NamedHandle.asHandleList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
@@ -25,12 +26,12 @@ import com.purplepip.odin.system.Environments;
 import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class EnvironmentTest {
+class EnvironmentTest {
   @Test
-  public void testDump() {
+  void testDump() {
     try (LogCaptor captor = new LogCapture().info().from(Environment.class).start()) {
       Environments.newEnvironment().dump();
       assertEquals("Environment log messages not as expected " + captor, 1, captor.size());
@@ -38,7 +39,7 @@ public class EnvironmentTest {
   }
 
   @Test
-  public void shouldFindOne() {
+  void shouldFindOne() {
     Environment environment = new Environment(new MockHandleProvider(
         true, true,
         asHandleList("TTTAAA", "TFTCCC"),
@@ -53,26 +54,30 @@ public class EnvironmentTest {
     assertEquals("Source not correct", "FTTBBB", source.get().getName());
   }
 
-  @Test(expected = DeviceUnavailableException.class)
-  public void shouldNotFindOneSink() throws DeviceUnavailableException {
+  @Test
+  void shouldNotFindOneSink() {
     Environment environment = new Environment(new MockHandleProvider(
         true, true,
         asHandleList(), asHandleList(), (handle) -> "TTTXXX".equals(handle.getName())
     ));
-    environment.findOneSinkOrThrow(MockHandle.class);
-  }
-
-  @Test(expected = DeviceUnavailableException.class)
-  public void shouldNotFindOneSource() throws DeviceUnavailableException {
-    Environment environment = new Environment(new MockHandleProvider(
-        true, true,
-        asHandleList(), asHandleList(), (handle) -> "TTTXXX".equals(handle.getName())
-    ));
-    environment.findOneSourceOrThrow(MockHandle.class);
+    assertThrows(DeviceUnavailableException.class, () ->
+        environment.findOneSinkOrThrow(MockHandle.class)
+    );
   }
 
   @Test
-  public void shouldOpenSink() {
+  void shouldNotFindOneSource() {
+    Environment environment = new Environment(new MockHandleProvider(
+        true, true,
+        asHandleList(), asHandleList(), (handle) -> "TTTXXX".equals(handle.getName())
+    ));
+    assertThrows(DeviceUnavailableException.class, () ->
+        environment.findOneSourceOrThrow(MockHandle.class)
+    );
+  }
+
+  @Test
+  void shouldOpenSink() {
     Environment environment = new Environment(
         new MockHandleProvider(true, false,
             asHandleList("TTTXXX", "TFTCCC"),
@@ -93,7 +98,7 @@ public class EnvironmentTest {
   }
 
   @Test
-  public void shouldOpenSource() {
+  void shouldOpenSource() {
     Environment environment = new Environment(
         new MockHandleProvider(true, true,
             asHandleList(),

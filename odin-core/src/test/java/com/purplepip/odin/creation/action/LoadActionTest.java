@@ -21,11 +21,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.creation.track.Track;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LoadActionTest {
+class LoadActionTest {
   @Test
-  public void testExecute() {
+  void testExecute() {
     Action action = new LoadAction().performance("new-performance");
     assertTrue(action.arePropertiesDeclared());
     Track track = spy(Track.class);

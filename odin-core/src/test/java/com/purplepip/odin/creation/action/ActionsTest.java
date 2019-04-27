@@ -17,11 +17,11 @@ package com.purplepip.odin.creation.action;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ActionsTest {
+class ActionsTest {
   @Test
-  public void testCopyCoreValues() {
+  void testCopyCoreValues() {
     GenericAction source = new GenericAction("start").name("test");
     GenericAction destination = new GenericAction("start");
     Actions.copyCoreValues(source, destination);

@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GenericActionTest {
+class GenericActionTest {
   @Test
-  public void testCopy() {
+  void testCopy() {
     assertCopy(new GenericAction("start").name("test"));
     assertCopy(new GenericAction("test", 1).name("test"));
     assertCopy(new GenericAction("test").property("property1","value1"));
@@ -41,14 +41,14 @@ public class GenericActionTest {
   }
 
   @Test
-  public void testToString() {
+  void testToString() {
     assertEquals("GenericAction(type=start, name=test, properties=[property1=value1])",
         new GenericAction("start").name("test")
             .property("property1", "value1").toString());
   }
 
   @Test
-  public void testGenericAction() {
+  void testGenericAction() {
     GenericAction action = new GenericAction("start").name("test");
     assertEquals("start", action.copy().getType());
   }

@@ -27,8 +27,8 @@ import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class ConductorActiveTest {
   private static final long ZERO = 0;
@@ -70,8 +70,8 @@ public class ConductorActiveTest {
   /**
    * Set up the test.
    */
-  @Before
-  public void setUp() {
+  @BeforeAll
+  void setUp() {
     MicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();
     clock = newPrecisionBeatClock(60, microsecondPositionProvider);
@@ -81,7 +81,7 @@ public class ConductorActiveTest {
   }
 
   @Test
-  public void testSingleLayer() {
+  void testSingleLayer() {
     if (refresh(() -> builder.addLayer(LAYER1))) {
       assertActive(LAYER1, ALWAYS);
     }
@@ -101,7 +101,7 @@ public class ConductorActiveTest {
   }
 
   @Test
-  public void testMultipleLayers() {
+  void testMultipleLayers() {
     if (refresh(() -> builder.withOffset(1).withLength(3).addLayer(LAYER1, LAYER2))) {
       assertNotActive(LAYER1, BEFORE_ONE_SECOND);
       assertActive(LAYER1, ONE_SECOND, TWO_SECONDS);
@@ -120,7 +120,7 @@ public class ConductorActiveTest {
    * 4 beats of layer2.
    */
   @Test
-  public void testChildLayers() {
+  void testChildLayers() {
     if (refresh(() -> builder
         .withOffset(0).withLength(4).addLayer(LAYER2)
         .withOffset(0).withLength(4).addLayer(LAYER3)
@@ -142,7 +142,7 @@ public class ConductorActiveTest {
    * 4 beats of layer2.
    */
   @Test
-  public void testDeepChildLayers() {
+  void testDeepChildLayers() {
     if (refresh(() -> builder
         .withOffset(0).withLength(2).addLayer(LAYER8)
         .withOffset(0).withLength(2).addLayer(LAYER9)

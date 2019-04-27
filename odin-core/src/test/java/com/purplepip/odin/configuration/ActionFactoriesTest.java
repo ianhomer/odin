@@ -24,7 +24,7 @@ import com.purplepip.odin.creation.action.ActionConfiguration;
 import com.purplepip.odin.creation.action.ActionFactory;
 import com.purplepip.odin.creation.action.GenericAction;
 import com.purplepip.odin.creation.action.StartAction;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ActionFactoriesTest {
   @Test

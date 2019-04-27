@@ -19,7 +19,7 @@ import static com.purplepip.odin.math.LessThan.lessThan;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LoopTest {
   @Test

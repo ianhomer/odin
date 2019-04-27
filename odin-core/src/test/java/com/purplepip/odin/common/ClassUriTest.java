@@ -18,7 +18,7 @@ package com.purplepip.odin.common;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ClassUriTest {
   @Test

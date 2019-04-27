@@ -1,8 +1,9 @@
 package com.purplepip.odin.common;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /*
  * Copyright (c) 2017 the original author or authors. All Rights Reserved
@@ -18,9 +19,9 @@ import org.junit.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class PrettyTest {
+class PrettyTest {
   @Test
-  public void testReplaceTrailingZeros() {
+  void testReplaceTrailingZeros() {
     assertEquals("1···", Pretty.replaceTrailingZeros(1000, 3));
     assertEquals("101···", Pretty.replaceTrailingZeros(101000, 3));
     assertEquals("100···", Pretty.replaceTrailingZeros(100000, 3));
@@ -29,14 +30,18 @@ public class PrettyTest {
     assertEquals("55···", Pretty.replaceTrailingZeros(55000, 4));
   }
 
-  @Test(expected = OdinRuntimeException.class)
-  public void testReplaceTrailingZerosTooHigh() {
-    Pretty.replaceTrailingZeros(1000, 8);
+  @Test
+  void testReplaceTrailingZerosTooHigh() {
+    assertThrows(OdinRuntimeException.class, () ->
+        Pretty.replaceTrailingZeros(1000, 8)
+    );
   }
 
-  @Test(expected = OdinRuntimeException.class)
-  public void testReplaceTrailingZerosTooLow() {
-    Pretty.replaceTrailingZeros(1000, -1);
+  @Test
+  void testReplaceTrailingZerosTooLow() {
+    assertThrows(OdinRuntimeException.class, () ->
+        Pretty.replaceTrailingZeros(1000, -1)
+    );
   }
 
 }

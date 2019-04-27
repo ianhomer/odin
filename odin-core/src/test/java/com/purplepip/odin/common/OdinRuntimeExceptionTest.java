@@ -1,20 +1,23 @@
 package com.purplepip.odin.common;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Odin Runtime exception test.
  */
-public class OdinRuntimeExceptionTest {
-  @Test(expected = OdinRuntimeException.class)
-  public void testOdinRuntimeExceptionThrow() throws OdinRuntimeException {
-    throw new OdinRuntimeException("test exception");
+class OdinRuntimeExceptionTest {
+  @Test
+  void testOdinRuntimeExceptionThrow() {
+    assertThrows(OdinRuntimeException.class, () -> {
+      throw new OdinRuntimeException("test exception");
+    });
   }
 
   @Test
-  public void testOdinRuntimeException() throws OdinException {
+  void testOdinRuntimeException() {
     assertEquals("test", new OdinRuntimeException("test").getMessage());
     assertEquals("test", new OdinRuntimeException("test",
         new OdinRuntimeException("internal")).getMessage());

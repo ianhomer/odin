@@ -22,7 +22,7 @@ import com.purplepip.odin.clock.beats.BeatsPerMinute;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.math.Whole;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class StaticBeatsPerMinuteTest {
   @Test

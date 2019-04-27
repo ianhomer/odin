@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BeatClockTest {
   @Test

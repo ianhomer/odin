@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class StringyTest {
   @Test

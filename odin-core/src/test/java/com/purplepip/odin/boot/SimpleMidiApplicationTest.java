@@ -18,7 +18,7 @@ package com.purplepip.odin.boot;
 import static org.junit.Assert.assertNotNull;
 
 import com.purplepip.odin.devices.DeviceUnavailableException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SimpleMidiApplicationTest {
   @Test

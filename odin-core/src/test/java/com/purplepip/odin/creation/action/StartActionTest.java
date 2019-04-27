@@ -22,24 +22,24 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.creation.track.Track;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class StartActionTest {
+class StartActionTest {
   @Test
-  public void testCopy() {
+  void testCopy() {
     StartAction startAction = new StartAction();
     StartAction copy = startAction.copy();
     assertEquals("start", copy.getType());
   }
 
   @Test
-  public void testToString() {
+  void testToString() {
     ActionPlugin startAction = new StartAction();
     assertEquals("StartAction()", startAction.toString());
   }
 
   @Test
-  public void testExecute() {
+  void testExecute() {
     Action startAction = new StartAction();
     assertTrue(startAction.arePropertiesDeclared());
     Track track = spy(Track.class);

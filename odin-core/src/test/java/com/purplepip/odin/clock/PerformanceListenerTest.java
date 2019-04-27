@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.clock;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PerformanceListenerTest {
   @Test

@@ -23,18 +23,18 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.creation.track.Track;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class IncrementActionTest {
+class IncrementActionTest {
   @Test
-  public void testCopy() {
+  void testCopy() {
     IncrementAction action = new IncrementAction();
     IncrementAction copy = action.copy();
     assertEquals("increment", copy.getType());
   }
 
   @Test
-  public void testExecute() {
+  void testExecute() {
     Action action = new IncrementAction().propertyName("channel").increment(1);
     assertTrue(action.arePropertiesDeclared());
     Track track = spy(Track.class);

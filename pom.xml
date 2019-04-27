@@ -506,8 +506,6 @@
         <configuration>
           <argLine>@{jacoco.argLine} ${purplepip.jvm.args} ${purplepip.tests.log.jvm} ${purplepip.tests.jvm}</argLine>
           <trimStackTrace>false</trimStackTrace>
-          <parallel>classesAndMethods</parallel>
-          <useUnlimitedThreads>true</useUnlimitedThreads>
         </configuration>
       </plugin>
       <plugin>

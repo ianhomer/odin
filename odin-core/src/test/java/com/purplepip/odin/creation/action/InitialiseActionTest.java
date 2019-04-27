@@ -22,18 +22,18 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.creation.track.Track;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class InitialiseActionTest {
+class InitialiseActionTest {
   @Test
-  public void testCopy() {
+  void testCopy() {
     InitialiseAction action = new InitialiseAction();
     InitialiseAction copy = action.copy();
     assertEquals("initialise", copy.getType());
   }
 
   @Test
-  public void testExecute() {
+  void testExecute() {
     Action action = new InitialiseAction();
     assertTrue(action.arePropertiesDeclared());
     Track track = spy(Track.class);

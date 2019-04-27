@@ -17,11 +17,11 @@ package com.purplepip.odin.creation.action;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class EnableActionTest {
+class EnableActionTest {
   @Test
-  public void testCopy() {
+  void testCopy() {
     EnableAction action = new EnableAction();
     EnableAction copy = action.copy();
     assertEquals("enable", copy.getType());
