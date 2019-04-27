@@ -164,7 +164,6 @@
               and at least one pass is AOK.
               -->
           <rerunFailingTestsCount>2</rerunFailingTestsCount>
-          <parallel>none</parallel>
           <systemProperties>
             <property>
               <name>logging.config</name>
