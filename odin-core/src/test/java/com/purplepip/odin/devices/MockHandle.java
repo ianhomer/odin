@@ -33,6 +33,7 @@ public class MockHandle implements Handle<MockDevice> {
    * @param sink is sink
    * @param source is source
    * @param enabled enabled
+   * @param openOk allow the device handle to be opened
    */
   public MockHandle(String name, boolean sink, boolean source, boolean enabled,
                     boolean openOk) {

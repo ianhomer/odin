@@ -37,6 +37,8 @@ public class SynthesizerDeviceTest {
 
   /**
    * Set up test.
+   *
+   * @throws DeviceUnavailableException device unavailable
    */
   @Before
   public void setUp() throws DeviceUnavailableException {

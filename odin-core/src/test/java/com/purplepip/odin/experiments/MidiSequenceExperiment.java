@@ -32,6 +32,8 @@ public class MidiSequenceExperiment {
    * Main method.
    *
    * @param args arguments
+   * @throws InterruptedException interrupted
+   * @throws DeviceUnavailableException device unavailable
    */
   public static void main(String[] args) throws InterruptedException, DeviceUnavailableException {
     System.out.println("Logging : " + LOG.getClass());

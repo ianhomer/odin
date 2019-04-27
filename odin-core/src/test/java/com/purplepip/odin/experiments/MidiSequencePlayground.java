@@ -36,6 +36,8 @@ public class MidiSequencePlayground {
    * Main method.
    *
    * @param args arguments
+   * @throws InterruptedException interrupted
+   * @throws DeviceUnavailableException device unavailable
    */
   public static void main(String[] args) throws InterruptedException, DeviceUnavailableException {
     new MidiSequencePlayground().doExperiment();

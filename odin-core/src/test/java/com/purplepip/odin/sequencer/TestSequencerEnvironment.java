@@ -23,7 +23,6 @@ import static com.purplepip.odin.system.TestContainer.factorTime;
 import com.purplepip.odin.clock.DefaultMicrosecondPositionProvider;
 import com.purplepip.odin.clock.beats.StaticBeatsPerMinute;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.flow.FlowFactory;
 import com.purplepip.odin.operation.OperationHandler;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
@@ -69,7 +68,6 @@ public class TestSequencerEnvironment {
    * @param operationReceiver operation receiver
    * @param container performance container
    * @param configuration configuration
-   * @throws OdinException exception
    */
   public TestSequencerEnvironment(OperationHandler operationReceiver,
                                   DefaultPerformanceContainer container,

@@ -23,7 +23,7 @@ import org.junit.Test;
 
 public class PropertiesProviderTest {
   @Test
-  public void testArePropertiesDeclared() throws Exception {
+  public void testArePropertiesDeclared() {
     PropertiesProvider propertiesProvider = mock(PropertiesProvider.class);
     when(propertiesProvider.arePropertiesDeclared()).thenReturn(false);
     assertFalse(propertiesProvider.arePropertiesDeclared());

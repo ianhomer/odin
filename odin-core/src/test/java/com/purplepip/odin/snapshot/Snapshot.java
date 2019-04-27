@@ -99,6 +99,7 @@ public class Snapshot {
    * Set mask for comparator for snapshot match assertion.
    *
    * @param mask mask
+   * @param replacement replacement
    * @return this
    */
   public Snapshot mask(String mask, String replacement) {

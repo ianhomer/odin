@@ -28,10 +28,18 @@ public interface HandleProvider {
    */
   Set<Class<? extends Handle>> getHandleClasses();
 
-  /** Get sink handles for this provider, i.e. handles for devices that can consume events */
+  /**
+   * Get sink handles for this provider, i.e. handles for devices that can consume events
+   *
+   * @return sink handles
+   */
   Set<Handle> getSinkHandles();
 
-  /** Get source handles for this provider, i.e. handles for devices that can provide events. */
+  /**
+   * Get source handles for this provider, i.e. handles for devices that can provide events.
+   *
+   * @return source handles
+   */
   Set<Handle> getSourceHandles();
 
   default Optional<Handle> findOneSink() {
