@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.NoteEvent;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class NoteEventTest {
+class NoteEventTest {
   @Test
-  public void testCreateNoteEvent() {
+  void testCreateNoteEvent() {
     NoteEvent event = new NoteEvent(newNote(60), 1);
     assertEquals(60, event.getValue().getNumber());
     assertEquals(Wholes.ONE, event.getTime());

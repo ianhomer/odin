@@ -21,11 +21,11 @@ import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
 import com.purplepip.odin.audio.AudioSystemWrapper;
 import com.purplepip.odin.devices.Environment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class AudioSystemWrapperTest {
+class AudioSystemWrapperTest {
   @Test
-  public void testDump() {
+  void testDump() {
     try (LogCaptor captor = new LogCapture().info().from(Environment.class).start()) {
       new AudioSystemWrapper().dump();
       assertEquals("Log INFO message count unexpected : " + captor.toString(), 1, captor.size());

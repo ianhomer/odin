@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LessThanTest {
+class LessThanTest {
   @Test
-  public void testLessThan() {
+  void testLessThan() {
     Whole two = Wholes.TWO;
     Bound lessThanTwo = LessThan.lessThan(two);
     assertTrue(lessThanTwo.lt(two));
@@ -31,7 +31,7 @@ public class LessThanTest {
   }
 
   @Test
-  public void testFloor() {
+  void testFloor() {
     Whole two = Wholes.TWO;
     Bound lessThanTwo = LessThan.lessThan(two);
     assertEquals(Wholes.ONE, lessThanTwo.floor(Wholes.ONE));

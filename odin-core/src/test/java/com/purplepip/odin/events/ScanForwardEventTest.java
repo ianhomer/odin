@@ -20,16 +20,16 @@ import static org.junit.Assert.assertNull;
 
 import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ScanForwardEventTest {
+class ScanForwardEventTest {
   @Test
-  public void testGetValue() throws Exception {
+  void testGetValue() {
     assertNull(new ScanForwardEvent(Wholes.ZERO).getValue());
   }
 
   @Test
-  public void testGetTime() throws Exception {
+  void testGetTime() {
     ScanForwardEvent event = new ScanForwardEvent(Wholes.valueOf(9));
     assertEquals(Rationals.valueOf(9,1), event.getTime());
   }

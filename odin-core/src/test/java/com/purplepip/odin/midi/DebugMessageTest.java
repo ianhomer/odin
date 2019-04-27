@@ -17,19 +17,18 @@ package com.purplepip.odin.midi;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-
-public class DebugMessageTest {
+class DebugMessageTest {
   @Test
-  public void testToString() throws Exception {
+  void testToString() {
     byte[] bytes = new byte[] { -128, 60, 50};
     assertEquals("MIDI message [-128, 60, 50] with status (-128 = 0x80 = NOTE_OFF)",
         new DebugMessage(bytes).toString());
   }
 
   @Test
-  public void testGetStatusAsString() throws Exception {
+  void testGetStatusAsString() {
     byte[] bytes = new byte[] { -128, 60, 50};
     assertEquals("(-128 = 0x80 = NOTE_OFF)", new DebugMessage(bytes).getStatusAsString());
   }

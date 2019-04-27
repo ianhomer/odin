@@ -18,24 +18,24 @@ package com.purplepip.odin.midi;
 import static org.junit.Assert.assertEquals;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class StatusTest {
+class StatusTest {
   @Test
-  public void testValue() {
+  void testValue() {
     assertEquals(-112, Status.NOTE_ON.getValue());
   }
 
   @Test
-  public void testStatus() {
+  void testStatus() {
     assertEquals(Status.NOTE_ON, Status.getMessage((byte) 0x90));
     assertEquals(Status.NOTE_ON, Status.getMessage((byte) 0x91));
     assertEquals(Status.NOTE_OFF, Status.getMessage((byte) 0x83));
   }
 
   @Test
-  public void testMessageByte() {
+  void testMessageByte() {
     assertEquals(144, Status.getMessageUnsignedInt((byte) 0x90));
     assertEquals(-112, Status.getMessageByte((byte) 0x90));
   }

@@ -6,17 +6,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.devices.Device;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * MIDI device in matcher test.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class DeviceReceiverMatcherTest {
+class DeviceReceiverMatcherTest {
   @Test
-  public void testMatches() {
+  void testMatches() {
     MidiHandle handle = mock(MidiHandle.class);
     when(handle.getName()).thenReturn("Gervill");
     Device device = mock(MidiDevice.class);

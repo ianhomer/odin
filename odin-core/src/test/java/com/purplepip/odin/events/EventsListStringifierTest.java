@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.music.notes.DefaultNote;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class EventsListStringifierTest {
+class EventsListStringifierTest {
   @Test
-  public void testToString() {
+  void testToString() {
     List<Event> events = new ArrayList<>();
     events.add(new DefaultEvent(new DefaultNote(60,40,1), 0));
     events.add(new DefaultEvent(new DefaultNote(60,40,2), 0));

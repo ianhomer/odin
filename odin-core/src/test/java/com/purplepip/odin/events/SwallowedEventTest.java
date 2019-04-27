@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SwallowedEventTest {
+class SwallowedEventTest {
   @Test
-  public void testSwallowedEvent() {
+  void testSwallowedEvent() {
     SwallowedEvent swallowedEvent = new SwallowedEvent(Wholes.valueOf(10));
     assertEquals(Wholes.valueOf(10), swallowedEvent.getTime());
     assertNull(swallowedEvent.getValue());

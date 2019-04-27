@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Raw message test.
  */
-public class RawMessageTest {
+class RawMessageTest {
   @Test
-  public void testProgramChange() throws OdinException {
+  void testProgramChange() throws OdinException {
     RawMessage message = new RawMessage(
         new ProgramChangeOperation(0,1,2));
     assertEquals(3, message.getBytes().length);

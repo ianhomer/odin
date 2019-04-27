@@ -20,12 +20,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class HandleComparatorTest {
+class HandleComparatorTest {
 
   @Test
-  public void shouldCompareOk() {
+  void shouldCompareOk() {
     List<Handle> handles = asHandleList("A", "C", "B", "F", "E");
     HandleComparator comparator = new HandleComparator(handles);
     assertTrue(comparator.compare(new NamedHandle("A"), new NamedHandle("B")) < 0);

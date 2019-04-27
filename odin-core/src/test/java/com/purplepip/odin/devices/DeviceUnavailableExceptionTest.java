@@ -19,11 +19,11 @@ import static org.junit.Assert.assertTrue;
 
 import com.purplepip.odin.common.OdinException;
 import javax.sound.midi.MidiUnavailableException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DeviceUnavailableExceptionTest {
+class DeviceUnavailableExceptionTest {
   @Test
-  public void testDeviceUnavailableException() {
+  void testDeviceUnavailableException() {
     OdinException exception = new DeviceUnavailableException(new MidiUnavailableException());
     assertTrue(exception.getCause() instanceof MidiUnavailableException);
   }

@@ -20,11 +20,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import lombok.ToString;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UnavailableDeviceTest {
+class UnavailableDeviceTest {
   @Test
-  public void testUnavailableDevice() {
+  void testUnavailableDevice() {
     Handle handle = mock(Handle.class);
     when(handle.getName()).thenReturn("mock-handle");
     UnavailableDevice device = new UnavailableDevice(handle);
@@ -32,7 +32,7 @@ public class UnavailableDeviceTest {
   }
 
   @Test
-  public void testToString() {
+  void testToString() {
     UnavailableDevice device = new UnavailableDevice(new TestHandle());
     assertEquals("UnavailableDevice(handle=UnavailableDeviceTest.TestHandle())",
         device.toString());
