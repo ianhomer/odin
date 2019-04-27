@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class InvalidChannelOperationTest {
+class InvalidChannelOperationTest {
   @Test
-  public void getMessage() {
+  void getMessage() {
     ChannelOperation operation = mock(ChannelOperation.class);
     when(operation.getChannel()).thenReturn(2);
     InvalidChannelOperation invalidChannelOperation =

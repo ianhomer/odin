@@ -2,7 +2,6 @@ package com.purplepip.odin.sequencer;
 
 import static org.junit.Assert.assertEquals;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.operations.ProgramChangeOperation;
@@ -13,18 +12,18 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test odin sequencer.
  */
 @Slf4j
-public class ChannelUpdatedAtRuntimeTest {
+class ChannelUpdatedAtRuntimeTest {
   private static final int OFFSET = 100;
   private static final int LENGTH = 16;
 
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  void testSequencer() throws InterruptedException {
     final CountDownLatch channel0Events = new CountDownLatch(16);
     final CountDownLatch channel1Events = new CountDownLatch(16);
     final CountDownLatch channel3Events = new CountDownLatch(16);

@@ -22,11 +22,11 @@ import static org.junit.Assert.assertNull;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class IndexedCompositionTest {
+class IndexedCompositionTest {
   @Test
-  public void testGetEvent() throws Exception {
+  void testGetEvent() {
     EventsCompositionBuilder builder = new EventsCompositionBuilder();
     builder.addNote(new DefaultNote(99,50,1));
     builder.addNote(new DefaultNote(98,50,1));

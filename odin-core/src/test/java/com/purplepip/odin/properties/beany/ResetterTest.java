@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ResetterTest {
+class ResetterTest {
   @Test
-  public void testReset() {
+  void testReset() {
     GenericSequence sequence = new GenericSequence("test");
     Resetter setter = new Resetter();
     setter.reset(sequence);

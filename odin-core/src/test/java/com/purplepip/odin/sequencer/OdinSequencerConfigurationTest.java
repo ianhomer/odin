@@ -19,11 +19,11 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class OdinSequencerConfigurationTest {
+class OdinSequencerConfigurationTest {
   @Test
-  public void isStrictEventOrder() throws Exception {
+  void isStrictEventOrder() {
     OdinSequencerConfiguration configuration = mock(OdinSequencerConfiguration.class);
     when(configuration.isStrictEventOrder()).thenCallRealMethod();
     assertFalse(configuration.isStrictEventOrder());

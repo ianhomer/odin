@@ -19,13 +19,13 @@ import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Odin sequencer test with real sends to MIDI. */
 @Slf4j
-public class MidiOdinSequencerTest {
+class MidiOdinSequencerTest {
   @Test
-  public void testSequencer() throws InterruptedException, DeviceUnavailableException {
+  void testSequencer() throws InterruptedException, DeviceUnavailableException {
     assumeTrue(isAudioEnabled());
     try (MidiDevice sink = newEnvironment().findOneSinkOrThrow(MidiHandle.class)) {
       final CountDownLatch lock = new CountDownLatch(16);

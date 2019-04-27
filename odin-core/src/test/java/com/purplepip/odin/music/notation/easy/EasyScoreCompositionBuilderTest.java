@@ -22,11 +22,11 @@ import com.purplepip.odin.music.notation.easy.composition.EasyComposition;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class EasyScoreCompositionBuilderTest {
+class EasyScoreCompositionBuilderTest {
   @Test
-  public void testWriter() {
+  void testWriter() {
     Map<String, String> notations = new LinkedHashMap<>();
 
     notations.put("C#5/q, B4, A4, G#4", null);
@@ -58,7 +58,7 @@ public class EasyScoreCompositionBuilderTest {
   }
 
   @Test
-  public void testMultipleMeasures() {
+  void testMultipleMeasures() {
     Map<String, String> notations = new LinkedHashMap<>();
 
     /*

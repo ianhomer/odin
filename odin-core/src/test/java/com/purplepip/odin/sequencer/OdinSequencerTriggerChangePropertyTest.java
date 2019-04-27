@@ -30,12 +30,12 @@ import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class OdinSequencerTriggerChangePropertyTest {
+class OdinSequencerTriggerChangePropertyTest {
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch note60Latch = new CountDownLatch(16);
     final CountDownLatch note61Latch = new CountDownLatch(16);
 

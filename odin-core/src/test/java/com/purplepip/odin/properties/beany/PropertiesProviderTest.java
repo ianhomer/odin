@@ -19,11 +19,11 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PropertiesProviderTest {
+class PropertiesProviderTest {
   @Test
-  public void testArePropertiesDeclared() {
+  void testArePropertiesDeclared() {
     PropertiesProvider propertiesProvider = mock(PropertiesProvider.class);
     when(propertiesProvider.arePropertiesDeclared()).thenReturn(false);
     assertFalse(propertiesProvider.arePropertiesDeclared());

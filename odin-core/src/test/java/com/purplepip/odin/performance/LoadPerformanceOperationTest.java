@@ -18,11 +18,11 @@ package com.purplepip.odin.performance;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LoadPerformanceOperationTest {
+class LoadPerformanceOperationTest {
   @Test
-  public void getPerformanceName() throws Exception {
+  void getPerformanceName() throws Exception {
     LoadPerformanceOperation operation =
         new LoadPerformanceOperation(new URI("default:performance-name"));
     assertEquals("performance-name", operation.getPerformanceUri().getSchemeSpecificPart());

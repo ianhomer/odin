@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notation.natural.NaturalScoreCompositionFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CompositionTest {
+class CompositionTest {
   @Test
-  public void testLoopStart() {
+  void testLoopStart() {
     Composition composition = new NaturalScoreCompositionFactory().create("C#5/q, B4, A4, G#4");
     assertEquals(Wholes.valueOf(4), composition.getNumberOfBeats());
   }

@@ -26,11 +26,11 @@ import com.purplepip.odin.operation.ControlChangeOperation;
 import com.purplepip.odin.operation.Operation;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class MidiMessageConverterTest {
+class MidiMessageConverterTest {
   @Test
-  public void testToOperation() throws Exception {
+  void testToOperation() throws Exception {
     MidiMessageConverter converter =
         new MidiMessageConverter(new ShortMessage(Status.NOTE_ON.getValue(),60,50));
     Operation operation = converter.toOperation();
@@ -53,7 +53,7 @@ public class MidiMessageConverterTest {
   }
 
   @Test
-  public void testControlChangeOperation() throws InvalidMidiDataException, OdinException {
+  void testControlChangeOperation() throws InvalidMidiDataException, OdinException {
     Operation operation = new MidiMessageConverter(new ShortMessage(-72,123,0))
         .toOperation();
     assertTrue(operation instanceof ControlChangeOperation);

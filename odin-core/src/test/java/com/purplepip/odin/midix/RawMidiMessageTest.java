@@ -17,11 +17,11 @@ package com.purplepip.odin.midix;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class RawMidiMessageTest {
+class RawMidiMessageTest {
   @Test
-  public void testRawMidiMessage() {
+  void testRawMidiMessage() {
     byte[] buffer = new byte[] { (byte) 0x12, (byte) 11, (byte) 13 };
 
     RawMidiMessage message = new RawMidiMessage(buffer);

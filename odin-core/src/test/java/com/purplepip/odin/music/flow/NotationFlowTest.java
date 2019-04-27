@@ -40,10 +40,10 @@ import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class NotationFlowTest {
+class NotationFlowTest {
   private Flow<Sequence> createNotationFlow(String notationAsString) {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(new DefaultPerformanceContainer(project));
@@ -56,7 +56,7 @@ public class NotationFlowTest {
   }
 
   @Test
-  public void testGetNextEvent() {
+  void testGetNextEvent() {
     Flow<Sequence> flow = createNotationFlow("B5/q, E5, G5, C5");
     flow.initialise();
     Event event = flow.getNextEvent(new MovableTock(Ticks.BEAT, Wholes.MINUS_ONE));
@@ -67,7 +67,7 @@ public class NotationFlowTest {
   }
 
   @Test
-  public void testGetMultipleEvents() {
+  void testGetMultipleEvents() {
     Flow<Sequence> flow = createNotationFlow("B5/8, B5, E5/q, G5, C5");
     flow.initialise();
     List<Event> events = new ArrayList<>();

@@ -17,15 +17,14 @@ package com.purplepip.odin.sequencer;
 
 import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.demo.GroovePerformance;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class OdinSequencerRestartTest {
+class OdinSequencerRestartTest {
   @Test
-  public void testRestart() throws OdinException {
+  void testRestart() {
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(
             new LoggingOperationReceiver(), new GroovePerformance(),

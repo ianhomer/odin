@@ -22,11 +22,11 @@ import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.demo.DemoPerformances;
 import com.purplepip.odin.demo.SimplePerformance;
 import java.net.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ClassPerformanceLoaderTest {
+class ClassPerformanceLoaderTest {
   @Test
-  public void testLoad() {
+  void testLoad() {
     DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     PerformanceLoader loader = new ClassPerformanceLoader(new SimplePerformance(), container);
     URI uri = new ClassUri(SimplePerformance.class, true).getUri();
@@ -36,7 +36,7 @@ public class ClassPerformanceLoaderTest {
   }
 
   @Test
-  public void testCanLoad() {
+  void testCanLoad() {
     URI uri = new ClassUri(SimplePerformance.class).getUri();
     assertTrue(new ClassPerformanceLoader(new SimplePerformance()).canLoad(uri));
     uri = new ClassUri(SimplePerformance.class, true).getUri();
@@ -44,7 +44,7 @@ public class ClassPerformanceLoaderTest {
   }
 
   @Test
-  public void testDemoPerformancesLoad() {
+  void testDemoPerformancesLoad() {
     DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     PerformanceLoader loader = new ClassPerformanceLoader(new DemoPerformances().getPerformances(),
         container);

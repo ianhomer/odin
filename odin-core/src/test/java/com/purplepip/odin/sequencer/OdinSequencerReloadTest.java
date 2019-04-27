@@ -16,17 +16,17 @@ import com.purplepip.odin.performance.LoadPerformanceOperation;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test odin sequencer.
  */
 @Slf4j
-public class OdinSequencerReloadTest {
+class OdinSequencerReloadTest {
   private static final int EXPECTED_COUNT = 16;
 
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch channel1Latch = new CountDownLatch(2);
     final CountDownLatch channel9Latch = new CountDownLatch(EXPECTED_COUNT);
 

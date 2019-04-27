@@ -27,12 +27,12 @@ import com.purplepip.odin.devices.Handle;
 import com.purplepip.odin.system.Environments;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class MidiHandleProviderTest {
+class MidiHandleProviderTest {
   @Test
-  public void shouldHandleStreamHaveSequencer() {
+  void shouldHandleStreamHaveSequencer() {
     MidiHandleProvider provider = new MidiHandleProvider(
         asHandleList("Scarlet", "FluidSynth", "USB", "Real Time Sequencer"),
         asHandleList("Scarlet", "FluidSynth", "USB", "MidiMock OUT", "KEYBOARD", "CTRL"),
@@ -45,7 +45,7 @@ public class MidiHandleProviderTest {
   }
 
   @Test
-  public void testChangeProgramName() throws DeviceUnavailableException {
+  void testChangeProgramName() throws DeviceUnavailableException {
     assumeTrue(Environments.isAudioEnabled());
     LOG.debug("Testing changing synthesizer program ...");
     MidiHandleProvider provider = newMidiHandleProvider(Environments.isAudioEnabled());

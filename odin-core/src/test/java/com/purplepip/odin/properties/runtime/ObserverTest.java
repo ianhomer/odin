@@ -18,11 +18,11 @@ package com.purplepip.odin.properties.runtime;
 import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ObserverTest {
+class ObserverTest {
   @Test
-  public void testChange() {
+  void testChange() {
     final AtomicInteger total = new AtomicInteger(0);
     final ObservableProperty<Integer> property = new ObservableProperty<>(1);
     Observer observer = () -> total.addAndGet(property.get());

@@ -2,6 +2,7 @@ package com.purplepip.odin.roll;
 
 import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.clock.BeatClock;
@@ -15,21 +16,13 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * TickConvertedRoll test.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class TickConvertedRollTest {
-  @Mock
-  private MicrosecondPositionProvider provider;
-
-  @Mock
+class TickConvertedRollTest {
   private Roll roll;
 
   private BeatClock clock;
@@ -37,8 +30,10 @@ public class TickConvertedRollTest {
   /**
    * Set up.
    */
-  @Before
-  public void setUp() {
+  @BeforeAll
+  void setUp() {
+    roll = mock(Roll.class);
+    MicrosecondPositionProvider provider = mock(MicrosecondPositionProvider.class);
     when(provider.getMicroseconds()).thenReturn((long) 0);
     clock = newPrecisionBeatClock(60, provider);
     clock.start();
@@ -50,7 +45,7 @@ public class TickConvertedRollTest {
   }
 
   @Test
-  public void testNoteConversionBeatToMillis() {
+  void testNoteConversionBeatToMillis() {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.BEAT, Ticks.MILLISECOND, Wholes.valueOf(10));
     when(roll.pop()).thenReturn(
@@ -64,7 +59,7 @@ public class TickConvertedRollTest {
   }
 
   @Test
-  public void testNoteConversionBeatToBeats() {
+  void testNoteConversionBeatToBeats() {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.BEAT, Ticks.BEAT, Wholes.valueOf(10));
     when(roll.pop()).thenReturn(
@@ -78,7 +73,7 @@ public class TickConvertedRollTest {
   }
 
   @Test
-  public void testNoteConversionMillisToBeats() {
+  void testNoteConversionMillisToBeats() {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.MILLISECOND, Ticks.BEAT, Wholes.valueOf(5000));
     when(roll.pop()).thenReturn(
@@ -91,7 +86,7 @@ public class TickConvertedRollTest {
   }
 
   @Test
-  public void testNoteConversionMillisToMillis() {
+  void testNoteConversionMillisToMillis() {
     TickConvertedRoll convertedRoll =
         createRoll(Ticks.MILLISECOND, Ticks.MILLISECOND, Wholes.valueOf(5000));
     when(roll.pop()).thenReturn(

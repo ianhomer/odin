@@ -9,14 +9,14 @@ import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Project container test.
  */
-public class PerformanceContainerTest {
+class PerformanceContainerTest {
   @Test
-  public void testSaveListener() {
+  void testSaveListener() {
     PerformanceSaveListener listener = mock(PerformanceSaveListener.class);
     DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     Performance performance = new TransientPerformance();
@@ -31,7 +31,7 @@ public class PerformanceContainerTest {
   }
 
   @Test
-  public void testApplyListener() {
+  void testApplyListener() {
     PerformanceApplyListener listener = mock(PerformanceApplyListener.class);
     DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     Performance performance = new TransientPerformance();
@@ -46,7 +46,7 @@ public class PerformanceContainerTest {
   }
 
   @Test
-  public void testLoadListener() {
+  void testLoadListener() {
     PerformanceLoadListener listener = mock(PerformanceLoadListener.class);
     DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     Performance performance = new TransientPerformance();
@@ -61,7 +61,7 @@ public class PerformanceContainerTest {
   }
 
   @Test
-  public void testIsEmpty() {
+  void testIsEmpty() {
     DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     container.setPerformance(new TransientPerformance());
     assertTrue("Performance should be empty", container.isEmpty());
@@ -71,7 +71,7 @@ public class PerformanceContainerTest {
   }
 
   @Test
-  public void testMixin() {
+  void testMixin() {
     DefaultPerformanceContainer container = new DefaultPerformanceContainer();
     container.setPerformance(new TransientPerformance());
     container.mixin(new SimplePerformance());

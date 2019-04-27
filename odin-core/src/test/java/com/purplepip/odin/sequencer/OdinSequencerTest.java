@@ -3,23 +3,22 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test odin sequencer.
  */
-public class OdinSequencerTest {
+class OdinSequencerTest {
   private static final int OFFSET = 100;
   private static final int LENGTH = 16;
 
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  void testSequencer() throws InterruptedException {
     final CountDownLatch lock = new CountDownLatch(16);
 
     OperationHandler operationReceiver = (operation, time) -> lock.countDown();

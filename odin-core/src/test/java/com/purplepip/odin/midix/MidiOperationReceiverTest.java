@@ -21,12 +21,13 @@ import static org.mockito.Mockito.verify;
 
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import javax.sound.midi.MidiMessage;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.ArgumentCaptor;
 
-public class MidiOperationReceiverTest {
+class MidiOperationReceiverTest {
   @Test
-  public void send() throws Exception {
+  void send() throws Exception {
     MidiMessageReceiver deviceReceiver = spy(MidiMessageReceiver.class);
     MidiOperationReceiver operationReceiver = new MidiOperationReceiver(deviceReceiver);
     operationReceiver.onPerformanceStart();

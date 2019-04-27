@@ -18,6 +18,7 @@ package com.purplepip.odin.properties.thing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import com.google.common.collect.Lists;
@@ -43,12 +44,12 @@ import java.lang.reflect.InvocationTargetException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class ThingCopyTest {
+class ThingCopyTest {
   @Test
-  public void testFromTo() {
+  void testFromTo() {
     Thing source =
         new DefaultLayer("test").layer("layer1", "layer2").length(1).offset(8).enabled(false);
     DefaultLayer destination = ThingCopy.from(source).to(new DefaultLayer(source.getId()));
@@ -56,25 +57,25 @@ public class ThingCopyTest {
   }
 
   @Test
-  public void testCoerceViaCopy() {
+  void testCoerceViaCopy() {
     GenericSequence source = new GenericSequence("notation").name("test");
     Notation destination = ThingCopy.from(source).coerce(Notation.class);
     assertEquals("test", destination.getName());
   }
 
   @Test
-  public void testCoerceViaCast() {
+  void testCoerceViaCast() {
     Notation source = (Notation) new Notation().name("test");
     Notation destination = ThingCopy.from(source).coerce(Notation.class);
     assertEquals("test", destination.getName());
     /*
      * destination should be the same object
      */
-    assertTrue(source == destination);
+    assertSame(source, destination);
   }
 
   @Test
-  public void testCopy() {
+  void testCopy() {
     Thing source =
         new DefaultLayer("test").layer("layer1", "layer2").length(1).offset(8).enabled(false);
     Thing destination = new DefaultLayer(source.getId());
@@ -83,7 +84,7 @@ public class ThingCopyTest {
   }
 
   @Test
-  public void testCopyFromGenericToGeneric() {
+  void testCopyFromGenericToGeneric() {
     GenericSequence destination = new GenericSequence("test").name("test");
     assertFalse(destination.arePropertiesDeclared());
     GenericSequence source =
@@ -107,7 +108,7 @@ public class ThingCopyTest {
   }
 
   @Test
-  public void testCopyFromGenericToSpecific() {
+  void testCopyFromGenericToSpecific() {
     GenericSequence source =
         new GenericSequence("notation").offset(8).property("notation", "A B C");
     Notation destination = (Notation) new Notation().name("test");
@@ -127,7 +128,7 @@ public class ThingCopyTest {
   }
 
   @Test
-  public void testCopyFromSpecificToGeneric() {
+  void testCopyFromSpecificToGeneric() {
     GenericSequence destination = new GenericSequence("notation");
     Notation source = (Notation) new Notation().notation("A B C").offset(8).name("test");
     new ThingCopy().source(source).destination(destination).copy();
@@ -137,7 +138,7 @@ public class ThingCopyTest {
   }
 
   @Test
-  public void testCopyFromPluginToPlugin() {
+  void testCopyFromPluginToPlugin() {
     SequencePlugin source = new Notation().notation("A B C").offset(8).tick(Ticks.HALF);
     Notation destination = (Notation) new Notation().name("test").tick(Ticks.BEAT);
     new ThingCopy().source(source).destination(destination).copy();
@@ -148,7 +149,7 @@ public class ThingCopyTest {
   }
 
   @Test
-  public void testCopyFromGenericToSpecificWithUndeclaredProperty() {
+  void testCopyFromGenericToSpecificWithUndeclaredProperty() {
     SequencePlugin destination = new Notation().name("test").tick(Ticks.BEAT);
     assertTrue(destination.arePropertiesDeclared());
     GenericSequence source =
@@ -173,7 +174,7 @@ public class ThingCopyTest {
    * without corruption.
    */
   @Test
-  public void testFullCycle() {
+  void testFullCycle() {
     Lists.newArrayList(new GroovePerformance(), new KotlinPerformance())
         .forEach(
             performance ->
@@ -199,7 +200,7 @@ public class ThingCopyTest {
   }
 
   @Test
-  public void testCopyViaConverters() {
+  void testCopyViaConverters() {
     BasicPropertiesThing thing = new BasicPropertiesThing();
     thing
         .property("string", "string-value")

@@ -20,11 +20,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.net.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PerformanceInterfaceTest {
+class PerformanceInterfaceTest {
   @Test
-  public void testGetUri() {
+  void testGetUri() {
     Performance performance = mock(Performance.class);
     when(performance.getName()).thenReturn("a/b/c");
     when(performance.getUri()).thenCallRealMethod();

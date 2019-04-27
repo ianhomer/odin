@@ -20,17 +20,17 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test match note use case odin sequencer.
  */
 @Slf4j
-public class OdinSequencerMatchNoteTest {
+class OdinSequencerMatchNoteTest {
   private static final List<Integer> SUCCESS_NOTES = Arrays.asList(60, 62, 64, 65);
 
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch randomNoteLatch2 = new CountDownLatch(1);
     final CountDownLatch randomNoteLatch3 = new CountDownLatch(1);
     final AtomicInteger randomNote2 = new AtomicInteger();

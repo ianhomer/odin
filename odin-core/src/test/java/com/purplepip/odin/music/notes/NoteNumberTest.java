@@ -9,7 +9,7 @@ import static com.purplepip.odin.music.notes.Letter.F;
 import static com.purplepip.odin.music.notes.Letter.G;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /*
  * Copyright (c) 2017 the original author or authors. All Rights Reserved
@@ -25,9 +25,9 @@ import org.junit.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class NoteNumberTest {
+class NoteNumberTest {
   @Test
-  public void testNumbers() {
+  void testNumbers() {
     assertEquals(12, new NoteNumber(C, 0, 0).getValue());
     assertEquals(72, new NoteNumber(C, 0, 5).getValue());
     assertEquals(73, new NoteNumber(C, 1, 5).getValue());

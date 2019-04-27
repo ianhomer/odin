@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CompositionRollTest {
+class CompositionRollTest {
   @Test
-  public void testPop() throws Exception {
+  void testPop() {
     EventsCompositionBuilder builder = new EventsCompositionBuilder();
     builder.addNote(new DefaultNote(99,50,40));
     CompositionRoll roll = new CompositionRoll(builder.create());

@@ -18,11 +18,11 @@ package com.purplepip.odin.music.notes;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class NoteTest {
+class NoteTest {
   @Test
-  public void testCopyWithNewDuration() {
+  void testCopyWithNewDuration() {
     Note note = new DefaultNote(1,2,3);
     assertEquals(new DefaultNote(1,2,4),
         note.copyWithNewDuration(Wholes.valueOf(4)));

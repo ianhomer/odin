@@ -3,24 +3,23 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.tick.Ticks;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Complex sequencer test.  This is in a separate class to OdinSequencerTest to make
  * troubleshooting on failure easier.
  */
 @Slf4j
-public class OdinSequencerComplexTest {
+class OdinSequencerComplexTest {
   private static final int OFFSET = 100;
   private static final int LENGTH = 16;
 
   @Test
-  public void testComplexSequencer() throws OdinException, InterruptedException {
+  void testComplexSequencer() throws InterruptedException {
     final CountDownLatch lock = new CountDownLatch(50);
 
     OperationHandler operationReceiver = (operation, time) -> {

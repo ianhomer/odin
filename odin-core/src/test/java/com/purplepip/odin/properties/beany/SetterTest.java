@@ -25,11 +25,11 @@ import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.sequence.Notation;
 import com.purplepip.odin.music.sequence.Pattern;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SetterTest {
+class SetterTest {
   @Test
-  public void testSetPropertyOnGeneric() {
+  void testSetPropertyOnGeneric() {
     MutablePropertiesProvider sequence = new GenericSequence("test");
     Setter setter = new Setter(sequence);
     setter.set("format", "test-format");
@@ -37,7 +37,7 @@ public class SetterTest {
   }
 
   @Test
-  public void testSetPropertyOnSpecific() {
+  void testSetPropertyOnSpecific() {
     Notation sequence = new Notation();
     Setter setter = new Setter(sequence);
     setter.set("format", "test-format");
@@ -45,7 +45,7 @@ public class SetterTest {
   }
 
   @Test
-  public void testSetPropertyOnGenericWithDeclared() {
+  void testSetPropertyOnGenericWithDeclared() {
     MutablePropertiesProvider sequence = new GenericSequence("test");
     Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
     try (LogCaptor captor = new LogCapture().from(Setter.class).warn().start()) {
@@ -56,7 +56,7 @@ public class SetterTest {
   }
 
   @Test
-  public void testSetPropertyOnSpecificWithDeclared() {
+  void testSetPropertyOnSpecificWithDeclared() {
     Notation sequence = new Notation();
     Setter setter = new Setter(sequence, Setter.Mode.DECLARED);
     setter.set("format", "test-format");
@@ -64,7 +64,7 @@ public class SetterTest {
   }
 
   @Test
-  public void testSetIntProperty() {
+  void testSetIntProperty() {
     Pattern sequence = new Pattern();
     Setter setter = new Setter(sequence);
     setter.set("bits", 1);
@@ -72,7 +72,7 @@ public class SetterTest {
   }
 
   @Test
-  public void testSetNoteProperty() {
+  void testSetNoteProperty() {
     Pattern sequence = new Pattern();
     Setter setter = new Setter(sequence);
     setter.set("note", new DefaultNote(11,22,33));
@@ -82,7 +82,7 @@ public class SetterTest {
   }
 
   @Test
-  public void testSetNotePropertyOnGeneric() {
+  void testSetNotePropertyOnGeneric() {
     MutablePropertiesProvider sequence = new GenericSequence("test");
     Setter setter = new Setter(sequence);
     setter.set("note", new DefaultNote(11,22,33));
@@ -90,5 +90,4 @@ public class SetterTest {
     assertEquals("22", sequence.getProperty("note.velocity"));
     assertEquals("33", sequence.getProperty("note.duration"));
   }
-
 }

@@ -22,11 +22,11 @@ import com.purplepip.odin.midi.Status;
 import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.midi.ShortMessage;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class MidiInputReceiverTest {
+class MidiInputReceiverTest {
   @Test
-  public void testSend() throws Exception {
+  void testSend() throws Exception {
     final AtomicInteger count = new AtomicInteger();
     OperationHandler operationReceiver = ((operation, time) -> count.incrementAndGet());
     MidiInputReceiver midiInputReceiver = new MidiInputReceiver(

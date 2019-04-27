@@ -22,16 +22,16 @@ import static org.mockito.Mockito.when;
 import com.purplepip.odin.devices.DeviceUnavailableException;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.Synthesizer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Coverage of synthesizer device that can be done when audio output is not supported.  This
  * is required to provide test coverage on build machines that do not support audio output and
  * also is more strictly a unit test.
  */
-public class NoAudioSynthesizerDeviceTest {
+class NoAudioSynthesizerDeviceTest {
   @Test
-  public void testHelper() throws DeviceUnavailableException {
+  void testHelper() throws DeviceUnavailableException {
     Instrument instrument = mock(Instrument.class);
     when(instrument.getName()).thenReturn("mock-instrument");
     Synthesizer synthesizer = mock(Synthesizer.class);

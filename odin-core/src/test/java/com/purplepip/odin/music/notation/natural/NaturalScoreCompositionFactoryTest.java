@@ -18,23 +18,23 @@ package com.purplepip.odin.music.notation.natural;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.composition.Composition;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class NaturalScoreCompositionFactoryTest {
+class NaturalScoreCompositionFactoryTest {
   @Test
-  public void testNotation() {
+  void testNotation() {
     Composition composition = new NaturalScoreCompositionFactory().create("C");
     assertEquals(1, composition.numberOfMeasures());
   }
 
   @Test
-  public void testEmptyStringNotation() {
+  void testEmptyStringNotation() {
     Composition composition = new NaturalScoreCompositionFactory().create("  ");
     assertEquals(1, composition.numberOfMeasures());
   }
 
   @Test
-  public void testNullNotation() {
+  void testNullNotation() {
     Composition composition = new NaturalScoreCompositionFactory().create(null);
     assertEquals(1, composition.numberOfMeasures());
   }

@@ -30,10 +30,10 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class NaturalScoreParserTest {
+class NaturalScoreParserTest {
   private ParseTree getTree(String notation) {
     Lexer lexer = new NaturalScoreLexer(CharStreams.fromString(notation));
     CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -42,7 +42,7 @@ public class NaturalScoreParserTest {
   }
 
   @Test
-  public void testParser() {
+  void testParser() {
     ParseTree tree = getTree("C#5/q, B4, A4, G#4");
     NaturalScoreTestListener listener = new NaturalScoreTestListener();
     new ParseTreeWalker().walk(listener, tree);
@@ -50,7 +50,7 @@ public class NaturalScoreParserTest {
   }
 
   @Test
-  public void testBasicCompositions() {
+  void testBasicCompositions() {
     Map<String, String> notations = new LinkedHashMap<>();
 
     notations.put("C#5/q, B4, A4, G#4",
@@ -63,7 +63,7 @@ public class NaturalScoreParserTest {
   }
 
   @Test
-  public void testBeatVariations() {
+  void testBeatVariations() {
     Map<String, String> notations = new LinkedHashMap<>();
     notations.put("C5/h, C5, C5, C5", "0.2-72 2.2-72 4.2-72 6.2-72 ");
     notations.put("C5/8, C5, C5, C5", "0.½-72 ½.½-72 1.½-72 1½.½-72 ");
@@ -72,7 +72,7 @@ public class NaturalScoreParserTest {
   }
 
   @Test
-  public void testIncompleteMeasures() {
+  void testIncompleteMeasures() {
     Map<String, String> notations = new LinkedHashMap<>();
     notations.put("C5/q, C, C/8", "0.1-72 1.1-72 2.½-72 ");
     assertCompositionsOk(notations);

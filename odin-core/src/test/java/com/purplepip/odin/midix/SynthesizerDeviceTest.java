@@ -29,10 +29,10 @@ import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.system.Environments;
 import javax.sound.midi.Instrument;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-public class SynthesizerDeviceTest {
+class SynthesizerDeviceTest {
   private SynthesizerDevice synthesizerDevice;
 
   /**
@@ -40,8 +40,8 @@ public class SynthesizerDeviceTest {
    *
    * @throws DeviceUnavailableException device unavailable
    */
-  @Before
-  public void setUp() throws DeviceUnavailableException {
+  @BeforeAll
+  void setUp() throws DeviceUnavailableException {
     assumeTrue(!newAudioEnvironment().isEmpty());
     Environment environment = Environments.newEnvironment();
     synthesizerDevice = (SynthesizerDevice) environment.findOneSinkOrThrow(MidiHandle.class);
@@ -49,28 +49,28 @@ public class SynthesizerDeviceTest {
   }
 
   @Test
-  public void testFindInstrument() {
+  void testFindInstrument() {
     Instrument instrument = synthesizerDevice.findInstrumentByName("tubular", false);
     assertNotNull(instrument);
     assertEquals("Cannot find Tubular Bells","Tubular Bells", instrument.getName());
   }
 
   @Test
-  public void testFindDrumkit() {
+  void testFindDrumkit() {
     Instrument instrument = synthesizerDevice.findInstrumentByName("standard kit", true);
     assertNotNull(instrument);
     assertEquals("Cannot find Standard Kit","Standard Kit", instrument.getName());
   }
 
   @Test
-  public void testFindMissingInstrument() {
+  void testFindMissingInstrument() {
     Instrument instrument = synthesizerDevice
         .findInstrumentByName("non-existing-instrument", false);
     assertNull("Cannot find Tubular Bells", instrument);
   }
 
   @Test
-  public void testLogInstruments() {
+  void testLogInstruments() {
     try (LogCaptor captor = new LogCapture().debug().from(SynthesizerDevice.class).start()) {
       synthesizerDevice.logInstruments();
       assertTrue("Not enough messages logged", captor.size() > 10);
@@ -78,7 +78,7 @@ public class SynthesizerDeviceTest {
   }
 
   @Test
-  public void testLoadSoundbank() {
+  void testLoadSoundbank() {
     try (LogCaptor captor = new LogCapture().start()) {
       boolean result = synthesizerDevice.loadGervillSoundBank(
           "soundbank-emg.sf2");
@@ -88,7 +88,7 @@ public class SynthesizerDeviceTest {
   }
 
   @Test
-  public void testLoadMissingSoundbank() {
+  void testLoadMissingSoundbank() {
     try (LogCaptor logCapture = new LogCapture().start()) {
       boolean result = synthesizerDevice.loadGervillSoundBank(
           "soundbank-that-is-missing.sf2");

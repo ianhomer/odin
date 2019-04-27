@@ -11,16 +11,16 @@ import com.purplepip.odin.music.sequence.Metronome;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.net.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test on transient project.
  */
-public class TransientPerformanceTest {
+class TransientPerformanceTest {
   private static final int EXPECTED_SEQUENCE_COUNT = 1;
 
   @Test
-  public void testAddSequence() {
+  void testAddSequence() {
     Performance performance = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(performance));
@@ -40,7 +40,7 @@ public class TransientPerformanceTest {
   }
 
   @Test
-  public void testGetName() {
+  void testGetName() {
     Performance performance = new TransientPerformance();
     assertEquals("transient", performance.getName());
     assertEquals(URI.create("transient"), performance.getUri());
@@ -72,7 +72,7 @@ public class TransientPerformanceTest {
   }
 
   @Test
-  public void testName() {
+  void testName() {
     assertEquals("transient", new TransientPerformance().getName());
     assertEquals("com/purplepip/odin/performance/"
         + "TransientPerformanceTest$ExtendedTransientPerformance",

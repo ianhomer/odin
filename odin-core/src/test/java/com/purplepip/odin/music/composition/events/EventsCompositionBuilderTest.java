@@ -17,11 +17,11 @@ package com.purplepip.odin.music.composition.events;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class EventsCompositionBuilderTest {
+class EventsCompositionBuilderTest {
   @Test
-  public void testEmptyHandling() {
+  void testEmptyHandling() {
     EventsCompositionBuilder builder = new EventsCompositionBuilder();
     builder.withMinimumMeasures(5);
     assertEquals(5, builder.create().numberOfMeasures());
