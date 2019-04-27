@@ -38,10 +38,10 @@ import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.sequence.Notation;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class MutableSequenceRollTest {
+class MutableSequenceRollTest {
   private FlowFactory flowFactory = newNoteFlowFactory();
   private ActionFactory actionFactory = newActionFactory();
   private MovableMicrosecondPositionProvider microsecondPositionProvider =
@@ -50,7 +50,7 @@ public class MutableSequenceRollTest {
   private MeasureProvider measureProvider = newMeasureProvider(4);
 
   @Test
-  public void testStart() {
+  void testStart() {
     microsecondPositionProvider.setMicroseconds(0);
     clock.start();
     SequencePlugin notation = new Notation()

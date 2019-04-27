@@ -17,17 +17,17 @@ package com.purplepip.odin.creation.layer;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DefaultLayerTest {
+class DefaultLayerTest {
   @Test
-  public void testCreate() {
+  void testCreate() {
     DefaultLayer layer = new DefaultLayer().name("test");
     assertEquals("test", layer.getName());
   }
 
   @Test
-  public void testCopy() {
+  void testCopy() {
     DefaultLayer layer = new DefaultLayer().name("test");
     layer.layer("layer-1", "layer-2");
     DefaultLayer copy = layer.copy();

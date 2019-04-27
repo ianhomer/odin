@@ -17,18 +17,21 @@ package com.purplepip.odin.creation.triggers;
 
 import static com.purplepip.odin.configuration.TriggerFactories.newTriggerFactory;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.purplepip.odin.common.OdinRuntimeException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TriggerFactoryTest {
-  @Test(expected = OdinRuntimeException.class)
-  public void testCreateTriggerWithNoRule() throws Exception {
-    newTriggerFactory().newInstance(new GenericTrigger());
+class TriggerFactoryTest {
+  @Test
+  void testCreateTriggerWithNoRule() {
+    assertThrows(OdinRuntimeException.class, () ->
+        newTriggerFactory().newInstance(new GenericTrigger())
+    );
   }
 
   @Test
-  public void testCreateTrigger() throws Exception {
+  void testCreateTrigger() {
     MutableTriggerConfiguration triggerConfiguration = new GenericTrigger("note");
     triggerConfiguration.setProperty("note.number", 60);
     triggerConfiguration.setProperty("note.velocity", 10);

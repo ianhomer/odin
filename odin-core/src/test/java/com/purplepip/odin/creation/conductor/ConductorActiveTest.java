@@ -30,7 +30,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class ConductorActiveTest {
+class ConductorActiveTest {
   private static final long ZERO = 0;
   private static final long HALF_SECOND = 500_000;
   private static final long ONE_SECOND = 1_000_000;

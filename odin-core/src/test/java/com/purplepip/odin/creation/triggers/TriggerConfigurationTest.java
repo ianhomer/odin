@@ -17,7 +17,7 @@ package com.purplepip.odin.creation.triggers;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TriggerConfigurationTest {
   @Test

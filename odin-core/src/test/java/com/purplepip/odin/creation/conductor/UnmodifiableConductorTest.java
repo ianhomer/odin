@@ -23,11 +23,11 @@ import com.purplepip.odin.bag.MutableThings;
 import com.purplepip.odin.bag.Things;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.DefaultLayer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class UnmodifiableConductorTest {
+class UnmodifiableConductorTest {
   @Test
-  public void testGetActive() throws Exception {
+  void testGetActive() {
     MutableThings<Conductor> mutableConductors = new MutableThings<>();
     DefaultLayer layer = new DefaultLayer().name("test").tick(Ticks.BEAT);
     layer.setTick(Ticks.BEAT);

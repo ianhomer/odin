@@ -22,11 +22,11 @@ import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.operation.Operation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PatternNoteTriggerTest {
+class PatternNoteTriggerTest {
   @Test
-  public void testIsTriggeredBy() {
+  void testIsTriggeredBy() {
     Pattern pattern = new Pattern();
     pattern.setName("test-pattern");
     pattern.setNote(new DefaultNote(62, 50,1));

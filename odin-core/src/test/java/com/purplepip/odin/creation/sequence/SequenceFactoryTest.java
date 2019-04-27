@@ -18,6 +18,7 @@ package com.purplepip.odin.creation.sequence;
 import static com.purplepip.odin.configuration.FlowFactories.newNoteFlowFactory;
 import static com.purplepip.odin.configuration.SequenceFactories.newNoteSequenceFactory;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import com.purplepip.odin.clock.Clock;
 import com.purplepip.odin.clock.measure.MeasureProvider;
@@ -31,21 +32,11 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
 
-@RunWith(MockitoJUnitRunner.class)
-public class SequenceFactoryTest {
+class SequenceFactoryTest {
   private SequenceFactory sequenceFactory = newNoteSequenceFactory();
   private FlowFactory flowFactory = newNoteFlowFactory();
-
-  @Mock
-  private Clock clock;
-
-  @Mock
-  private MeasureProvider measureProvider;
 
   @Test
   public void testCopy() throws OdinException {
@@ -66,20 +57,22 @@ public class SequenceFactoryTest {
   }
 
   @Test
-  public void testGetSequenceClass() {
+  void testGetSequenceClass() {
     assertEquals(Notation.class, sequenceFactory.getClass("notation"));
     assertEquals(Metronome.class, sequenceFactory.getClass("metronome"));
     assertEquals(Pattern.class, sequenceFactory.getClass("pattern"));
   }
 
   @Test
-  public void testCreateFlow() {
+  void testCreateFlow() {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(project));
     builder.addMetronome();
+
     Flow<Sequence> flow =
-        flowFactory.createFlow(project.getSequences().iterator().next(), clock, measureProvider);
+        flowFactory.createFlow(project.getSequences().iterator().next(), mock(Clock.class),
+            mock(MeasureProvider.class));
     assertEquals("DefaultFlow", flow.getClass().getSimpleName());
   }
 }

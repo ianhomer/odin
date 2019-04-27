@@ -18,12 +18,12 @@ package com.purplepip.odin.demo;
 import static org.junit.Assert.assertTrue;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class GroovePerformanceTest {
+class GroovePerformanceTest {
   @Test
-  public void testGroove() {
+  void testGroove() {
     assertTrue(new GroovePerformance().getLayers().size() > 2);
   }
 }

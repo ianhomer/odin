@@ -19,6 +19,7 @@ import static com.purplepip.odin.music.notes.Notes.newNote;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.purplepip.odin.common.OdinRuntimeException;
 import com.purplepip.odin.music.operations.NoteOnOperation;
@@ -26,18 +27,18 @@ import com.purplepip.odin.music.sequence.Pattern;
 import com.purplepip.odin.properties.beany.Setter;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class NoteTriggerTest {
+class NoteTriggerTest {
   @Test
-  public void testCreateNoteTrigger() {
+  void testCreateNoteTrigger() {
     NoteTrigger trigger = new NoteTrigger().note(newNote(60));
     assertEquals("note", trigger.getType());
     assertEquals(60, trigger.getNote().getNumber());
   }
 
   @Test
-  public void testSetProperties() {
+  void testSetProperties() {
     NoteTrigger trigger = new NoteTrigger();
     Map<String, String> properties = new HashMap<>();
     properties.put("note.number", "60");
@@ -46,20 +47,22 @@ public class NoteTriggerTest {
   }
 
   @Test
-  public void testMatches() {
+  void testMatches() {
     NoteTrigger trigger = new NoteTrigger();
     trigger.setNote(newNote(60));
     assertFalse(trigger.isTriggeredBy(new NoteOnOperation(0,61,50)));
     assertTrue(trigger.isTriggeredBy(new NoteOnOperation(0,60,50)));
   }
 
-  @Test(expected = OdinRuntimeException.class)
-  public void testIsTriggeredBy() {
-    new NoteTrigger().inject(new Pattern());
+  @Test
+  void testIsTriggeredBy() {
+    assertThrows(OdinRuntimeException.class, () ->
+        new NoteTrigger().inject(new Pattern())
+    );
   }
 
   @Test
-  public void testDependsOn() {
+  void testDependsOn() {
     assertEquals(0, new NoteTrigger().dependsOn().count());
   }
 

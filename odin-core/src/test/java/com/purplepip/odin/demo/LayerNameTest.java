@@ -18,11 +18,11 @@ package com.purplepip.odin.demo;
 import static com.purplepip.odin.demo.LayerName.GROOVE;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LayerNameTest {
+class LayerNameTest {
   @Test
-  public void testValues() {
+  void testValues() {
     assertEquals("groove", GROOVE.getValue());
   }
 }

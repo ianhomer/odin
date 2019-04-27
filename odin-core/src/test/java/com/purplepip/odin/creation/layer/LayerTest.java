@@ -17,11 +17,11 @@ package com.purplepip.odin.creation.layer;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LayerTest {
+class LayerTest {
   @Test
-  public void testLayer() {
+  void testLayer() {
     Layer layer = new DefaultLayer().name("test");
     assertEquals("test", layer.getName());
   }

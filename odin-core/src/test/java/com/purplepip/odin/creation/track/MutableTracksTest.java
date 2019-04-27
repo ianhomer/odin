@@ -38,9 +38,9 @@ import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class MutableTracksTest {
+class MutableTracksTest {
   private LayerConductors conductors = new LayerConductors();
   private AbstractUnmodifiableThings<Conductor> immutableConductors =
       new UnmodifiableConductors(conductors);
@@ -54,7 +54,7 @@ public class MutableTracksTest {
   private SequenceTracks tracks = new SequenceTracks(immutableConductors);
 
   @Test
-  public void testRefresh() throws OdinException {
+  void testRefresh() throws OdinException {
     clock.start();
     new PerformanceBuilder(container)
         .addLayer("layer").withLayers("layer")
@@ -73,7 +73,7 @@ public class MutableTracksTest {
   }
 
   @Test
-  public void testEmptyNotation() {
+  void testEmptyNotation() {
     clock.start();
     new PerformanceBuilder(container)
         .withProperty("notation", "")

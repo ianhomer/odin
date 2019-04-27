@@ -24,12 +24,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class AbstractHandleProviderTest {
+class AbstractHandleProviderTest {
   @Test
-  public void shouldFindOne() {
+  void shouldFindOne() {
     HandleProvider handleProvider = new MockHandleProvider(
         true, true,
         asHandleList("TTTAAA", "TFTCCC"),
@@ -45,7 +45,7 @@ public class AbstractHandleProviderTest {
   }
 
   @Test
-  public void shouldFindOneDifferentOrder() {
+  void shouldFindOneDifferentOrder() {
     HandleProvider handleProvider = new MockHandleProvider(
         true, true,
         asHandleList("TFTCCC", "TTTAAA"),
@@ -63,7 +63,7 @@ public class AbstractHandleProviderTest {
   }
 
   @Test
-  public void shouldFindOneNotInPriorityList() {
+  void shouldFindOneNotInPriorityList() {
     HandleProvider handleProvider = new MockHandleProvider(
         true, true,
         asHandleList("XXX", "YYY"),
@@ -83,7 +83,7 @@ public class AbstractHandleProviderTest {
   }
 
   @Test
-  public void shouldNotFindOne() {
+  void shouldNotFindOne() {
     HandleProvider handleProvider = new MockHandleProvider(
         false, false,
         asHandleList(),

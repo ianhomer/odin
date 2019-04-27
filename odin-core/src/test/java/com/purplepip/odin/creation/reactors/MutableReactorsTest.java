@@ -35,9 +35,9 @@ import com.purplepip.odin.creation.triggers.PatternNoteTrigger;
 import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.sequence.Random;
 import com.purplepip.odin.performance.TransientPerformance;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class MutableReactorsTest {
+class MutableReactorsTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
   private ActionFactory actionFactory = newActionFactory();
   private FlowFactory flowFactory = newNoteFlowFactory();
@@ -45,7 +45,7 @@ public class MutableReactorsTest {
   private MeasureProvider measureProvider = newMeasureProvider(4);
 
   @Test
-  public void testRefresh() {
+  void testRefresh() {
     TransientPerformance project = new TransientPerformance();
     project.addTrigger(new NoteTrigger().note(newNote(60)).name("trigger"));
 
@@ -59,7 +59,7 @@ public class MutableReactorsTest {
   }
 
   @Test
-  public void testInjection() {
+  void testInjection() {
     TransientPerformance project = new TransientPerformance();
     project.addSequence(new Random().range(60, 72).bits(1).name("random"));
     project.addTrigger(new PatternNoteTrigger().patternName("random").name("trigger"));

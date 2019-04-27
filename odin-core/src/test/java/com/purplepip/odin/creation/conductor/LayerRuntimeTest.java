@@ -21,11 +21,11 @@ import static org.mockito.Mockito.mock;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.creation.layer.DefaultLayer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LayerRuntimeTest {
+class LayerRuntimeTest {
   @Test
-  public void testLayerRuntime() {
+  void testLayerRuntime() {
     DefaultLayer layer = new DefaultLayer().name("test").tick(Ticks.BEAT);
     LayerConductor conductor = new LayerConductor(layer, mock(BeatClock.class));
     assertEquals(layer, conductor.getConfiguration());
