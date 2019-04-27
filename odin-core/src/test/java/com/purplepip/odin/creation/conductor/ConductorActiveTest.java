@@ -27,7 +27,7 @@ import com.purplepip.odin.performance.TransientPerformance;
 import com.purplepip.odin.sequencer.PerformanceBuilder;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ConductorActiveTest {
@@ -70,7 +70,7 @@ class ConductorActiveTest {
   /**
    * Set up the test.
    */
-  @BeforeAll
+  @BeforeEach
   void setUp() {
     MicrosecondPositionProvider microsecondPositionProvider =
         new MovableMicrosecondPositionProvider();

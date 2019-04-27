@@ -5,22 +5,22 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.clock.measure.MeasureProvider;
 import com.purplepip.odin.clock.measure.StaticBeatMeasureProvider;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Static measure provider test.
  */
-public class StaticBeatMeasureProviderTest {
+class StaticBeatMeasureProviderTest {
   private MeasureProvider measureProvider;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     measureProvider = new StaticBeatMeasureProvider(4);
   }
 
   @Test
-  public void testMeasure() {
+  void testMeasure() {
     assertEquals(Wholes.ONE, measureProvider.getCount(Wholes.valueOf(9)));
     assertEquals(Wholes.ZERO, measureProvider.getCount(Wholes.valueOf(12)));
 
@@ -31,7 +31,7 @@ public class StaticBeatMeasureProviderTest {
   }
 
   @Test
-  public void testMeasureStart() {
+  void testMeasureStart() {
     assertEquals(Wholes.valueOf(12), measureProvider.getNextMeasureStart(Wholes.valueOf(9)));
   }
 }

@@ -29,7 +29,7 @@ import com.purplepip.odin.devices.DeviceUnavailableException;
 import com.purplepip.odin.devices.Environment;
 import com.purplepip.odin.system.Environments;
 import javax.sound.midi.Instrument;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class SynthesizerDeviceTest {
@@ -40,7 +40,7 @@ class SynthesizerDeviceTest {
    *
    * @throws DeviceUnavailableException device unavailable
    */
-  @BeforeAll
+  @BeforeEach
   void setUp() throws DeviceUnavailableException {
     assumeTrue(!newAudioEnvironment().isEmpty());
     Environment environment = Environments.newEnvironment();

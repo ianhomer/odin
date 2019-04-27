@@ -14,15 +14,15 @@ import com.purplepip.odin.clock.tick.TickConverter;
 import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /** Time Unit Converter Test. */
-public class TickConverterTest {
+class TickConverterTest {
   private BeatClock clock;
 
-  @Before
-  public void initialise() {
+  @BeforeEach
+  void initialise() {
     clock = newPrecisionBeatClock(120);
   }
 
@@ -62,36 +62,36 @@ public class TickConverterTest {
   }
 
   @Test
-  public void testConvertToMilliseconds() {
+  void testConvertToMilliseconds() {
     assertConversion(clock, BEAT, MILLISECOND, Wholes.ZERO, false, 1, 500);
     assertConversion(clock, BEAT, MILLISECOND, Wholes.ZERO, true, 100, 1, 500);
   }
 
   @Test
-  public void testConvertHalfBeatToMilliseconds() {
+  void testConvertHalfBeatToMilliseconds() {
     assertConversion(clock, HALF, MILLISECOND, Wholes.ZERO, false, 1, 250);
   }
 
   @Test
-  public void testConvertToMicroseconds() {
+  void testConvertToMicroseconds() {
     assertConversion(clock, BEAT, MICROSECOND, Wholes.ZERO, false, 1, 500000);
     assertConversion(clock, HALF, MICROSECOND, Wholes.ZERO, false, 1, 250000);
   }
 
   @Test
-  public void testConvertToMicrosecondsWithOffset() {
+  void testConvertToMicrosecondsWithOffset() {
     assertConversion(clock, BEAT, MICROSECOND, Wholes.ONE, false, 1, 1000000);
     assertConversion(clock, HALF, MICROSECOND, Wholes.ONE, false, 1, 500000);
   }
 
   @Test
-  public void testConvertToBeat() {
+  void testConvertToBeat() {
     assertConversion(clock, MICROSECOND, BEAT, Wholes.ZERO, false, 500000, 1);
     assertConversion(clock, MILLISECOND, BEAT, Wholes.ZERO, false, 500, 1);
   }
 
   @Test
-  public void testConvertToHalfBeat() {
+  void testConvertToHalfBeat() {
     assertConversion(clock, MICROSECOND, HALF, Wholes.ZERO, false, 1000000, 4);
     assertConversion(clock, MILLISECOND, HALF, Wholes.ZERO, false, 1000, 4);
   }

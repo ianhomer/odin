@@ -17,11 +17,11 @@ package com.purplepip.odin.clock.tick;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DefaultTickTest {
+class DefaultTickTest {
   @Test
-  public void testToString() {
+  void testToString() {
     assertEquals("BEAT", Ticks.BEAT.toString());
   }
 }

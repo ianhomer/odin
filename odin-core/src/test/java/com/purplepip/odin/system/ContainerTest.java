@@ -17,11 +17,11 @@ package com.purplepip.odin.system;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ContainerTest {
+class ContainerTest {
   @Test
-  public void testContainer() {
+  void testContainer() {
     Container container = SystemContainer.getContainer();
     assertNotNull(container);
   }

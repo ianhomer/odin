@@ -23,7 +23,7 @@
         TODO : Output some properties in build output so we are clear what build is running with
         -->
     <purplepip.tests.jvm>-Dodin.audio.enabled=${odin.audio.enabled} -DupdateSnapshot=${purplepip.test.updateSnapshot} -Dodin.test.speed=${odin.test.speed}</purplepip.tests.jvm>
-    <surefire.version>2.21.0</surefire.version>
+    <surefire.version>3.0.0-M3</surefire.version>
   </properties>
 
   <dependencies>
@@ -86,11 +86,6 @@
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-launcher</artifactId>
       <version>1.5.0-M1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

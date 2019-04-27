@@ -1,13 +1,3 @@
-package com.purplepip.odin.math;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import com.purplepip.logcapture.LogCaptor;
-import com.purplepip.logcapture.LogCapture;
-import org.junit.jupiter.api.Test;
-
 /*
  * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +12,17 @@ import org.junit.jupiter.api.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.purplepip.odin.math;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import com.purplepip.logcapture.LogCaptor;
+import com.purplepip.logcapture.LogCapture;
+import org.junit.jupiter.api.Test;
+
 class RealTest {
   @Test
   void testValueOf() {

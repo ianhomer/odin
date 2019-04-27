@@ -27,23 +27,23 @@ import com.purplepip.odin.clock.tick.SameTimeUnitTickConverter;
 import com.purplepip.odin.clock.tick.Ticks;
 import com.purplepip.odin.math.Rationals;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Converted measure provider test.
  */
 
-public class ConvertedMeasureProviderTest {
+class ConvertedMeasureProviderTest {
   private MeasureProvider staticMeasureProvider;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     staticMeasureProvider = new StaticBeatMeasureProvider(4);
   }
 
   @Test
-  public void testHalfBeats() {
+  void testHalfBeats() {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.HALF));
 
@@ -56,7 +56,7 @@ public class ConvertedMeasureProviderTest {
 
 
   @Test
-  public void testFourThirdsBeats() {
+  void testFourThirdsBeats() {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.FOUR_THIRDS));
 
@@ -65,7 +65,7 @@ public class ConvertedMeasureProviderTest {
   }
 
   @Test
-  public void testQuarterBeats() {
+  void testQuarterBeats() {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.QUARTER));
 
@@ -73,14 +73,14 @@ public class ConvertedMeasureProviderTest {
   }
 
   @Test
-  public void testThreeQuarterBeats() {
+  void testThreeQuarterBeats() {
     MeasureProvider measureProvider = new ConvertedMeasureProvider(staticMeasureProvider,
         new SameTimeUnitTickConverter(() -> Ticks.BEAT, () -> Ticks.THREE_QUARTERS));
     assertEquals(Rationals.valueOf(16, 3), measureProvider.getTicksInMeasure(Wholes.ZERO));
   }
 
   @Test
-  public void testMicroseconds() {
+  void testMicroseconds() {
     BeatClock beatClock = newPrecisionBeatClock(60);
     DefaultTickConverter tickConverter = new DefaultTickConverter(beatClock,
         () -> Ticks.BEAT, () -> Ticks.MICROSECOND, () -> Wholes.ZERO);

@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.clock.Loop;
 import com.purplepip.odin.events.GenericEvent;
 import com.purplepip.odin.performance.LoadPerformanceOperation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LoaderTest {
+class LoaderTest {
   @Test
-  public void testLoader() {
+  void testLoader() {
     Loader loader = new Loader().performance("new-performance");
     loader.initialise();
     GenericEvent<LoadPerformanceOperation> event = loader.getNextEvent(null,

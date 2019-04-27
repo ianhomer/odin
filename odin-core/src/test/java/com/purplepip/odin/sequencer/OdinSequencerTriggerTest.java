@@ -8,17 +8,17 @@ import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test odin sequencer.
  */
-public class OdinSequencerTriggerTest {
+class OdinSequencerTriggerTest {
   private static final int OFFSET = 100;
   private static final int LENGTH = -1;
 
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  void testSequencer() throws OdinException, InterruptedException {
     final CountDownLatch lock = new CountDownLatch(16);
 
     OperationHandler operationReceiver = (operation, time) -> lock.countDown();

@@ -21,12 +21,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TimeThingTest {
-
+class TimeThingTest {
   @Test
-  public void isEndless() {
+  void isEndless() {
     TimeThing timeThing = mock(TimeThing.class);
     when(timeThing.isEndless()).thenCallRealMethod();
     when(timeThing.getLength()).thenReturn(Wholes.ONE);

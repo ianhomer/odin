@@ -16,15 +16,18 @@
 package com.purplepip.odin.clock.tick;
 
 import static com.purplepip.odin.clock.PrecisionBeatClock.newPrecisionBeatClock;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.purplepip.odin.common.OdinImplementationException;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class LazyDefaultTickConverterTest {
-  @Test(expected = OdinImplementationException.class)
-  public void testLazyNeedsObservableProperty() {
-    new DefaultTickConverter(newPrecisionBeatClock(120),
-        () -> Ticks.BEAT, () -> Ticks.BEAT, () -> Wholes.ZERO, false);
+class LazyDefaultTickConverterTest {
+  @Test
+  void testLazyNeedsObservableProperty() {
+    assertThrows(OdinImplementationException.class, () ->
+        new DefaultTickConverter(newPrecisionBeatClock(120),
+            () -> Ticks.BEAT, () -> Ticks.BEAT, () -> Wholes.ZERO, false)
+    );
   }
 }

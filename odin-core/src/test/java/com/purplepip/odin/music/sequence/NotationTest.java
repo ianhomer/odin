@@ -19,23 +19,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.assertj.core.util.Lists;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class NotationTest {
+class NotationTest {
   @Test
-  public void testArePropertiesDeclared() {
+  void testArePropertiesDeclared() {
     Notation notation = new Notation();
     assertTrue(notation.arePropertiesDeclared());
   }
 
   @Test
-  public void testType() {
+  void testType() {
     Notation notation = new Notation();
     assertEquals("notation", notation.getType());
   }
 
   @Test
-  public void testLayers() {
+  void testLayers() {
     Notation notation = new Notation();
     notation.layer("a", "b");
     assertEquals("notation", notation.getType());
@@ -43,7 +43,7 @@ public class NotationTest {
   }
 
   @Test
-  public void testCopyNotation() {
+  void testCopyNotation() {
     Notation notation = (Notation) new Notation()
         .format("test-format").notation("ABC")
         .name("test-name")

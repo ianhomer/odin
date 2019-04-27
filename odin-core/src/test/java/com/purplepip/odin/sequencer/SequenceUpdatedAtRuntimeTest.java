@@ -3,7 +3,6 @@ package com.purplepip.odin.sequencer;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.tick.Ticks;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
 import com.purplepip.odin.music.operations.NoteOffOperation;
@@ -14,15 +13,15 @@ import com.purplepip.odin.sequencer.statistics.OdinSequencerStatistics;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test odin sequencer.
  */
 @Slf4j
-public class SequenceUpdatedAtRuntimeTest {
+class SequenceUpdatedAtRuntimeTest {
   @Test
-  public void testSequencer() throws OdinException, InterruptedException {
+  void testSequencer() throws InterruptedException {
     final CountDownLatch note60Events = new CountDownLatch(16);
     final CountDownLatch note61Events = new CountDownLatch(16);
 

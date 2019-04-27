@@ -21,11 +21,11 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.properties.beany.Setter;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PatternTest {
+class PatternTest {
   @Test
-  public void testSetProperties() {
+  void testSetProperties() {
     Pattern pattern = new Pattern();
     Map<String, String> properties = new HashMap<>();
     properties.put("note.number", "60");
@@ -34,7 +34,7 @@ public class PatternTest {
   }
 
   @Test
-  public void testEquals() {
+  void testEquals() {
     Pattern pattern1 = new Pattern().note(newNote(60, 20,23)).name("test");
     Pattern pattern2 = new Pattern().note(newNote(60, 20,23)).name("test");
     assertEquals(pattern1, pattern2);

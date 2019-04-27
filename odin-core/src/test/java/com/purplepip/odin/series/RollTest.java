@@ -5,14 +5,14 @@ import static junit.framework.TestCase.assertTrue;
 import com.purplepip.odin.math.Real;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.roll.Roll;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Roll Test.
  */
-public class RollTest {
+class RollTest {
   @Test
-  public void testSeries() {
+  void testSeries() {
     Roll heartBeat = new HeartBeat();
     long currentTime = System.currentTimeMillis();
     Real peekedTime = heartBeat.peek().getTime();

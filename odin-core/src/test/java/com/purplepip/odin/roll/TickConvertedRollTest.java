@@ -16,7 +16,7 @@ import com.purplepip.odin.math.Rational;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.DefaultNote;
 import com.purplepip.odin.music.notes.Note;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -30,7 +30,7 @@ class TickConvertedRollTest {
   /**
    * Set up.
    */
-  @BeforeAll
+  @BeforeEach
   void setUp() {
     roll = mock(Roll.class);
     MicrosecondPositionProvider provider = mock(MicrosecondPositionProvider.class);

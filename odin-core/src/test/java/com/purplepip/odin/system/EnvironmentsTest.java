@@ -28,37 +28,37 @@ import com.purplepip.odin.midix.MidiDevice;
 import com.purplepip.odin.midix.MidiHandle;
 import com.purplepip.odin.midix.SynthesizerDevice;
 import java.util.Optional;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class EnvironmentsTest {
+class EnvironmentsTest {
   @Test
-  public void testDump() {
+  void testDump() {
     Environment environment = Environments.newEnvironment();
     environment.dump();
     assertTrue(environment.devices().count() > 0);
   }
 
   @Test
-  public void testAudioEnvironmentWithAudioDisabled() {
+  void testAudioEnvironmentWithAudioDisabled() {
     Environment environment = Environments.newAudioEnvironment(() -> false);
     assertTrue(environment.isEmpty());
   }
 
   @Test
-  public void testAudioEnvironmentWithAudioEnabled() {
+  void testAudioEnvironmentWithAudioEnabled() {
     assumeTrue(Environments.isAudioEnabled());
     Environment environment = Environments.newAudioEnvironment(() -> true);
     assertFalse(environment.isEmpty());
   }
 
   @Test
-  public void testEnvironmentWithAudioDisabled() {
+  void testEnvironmentWithAudioDisabled() {
     Environment environment = Environments.newEnvironment(() -> false);
     assertTrue(environment.noneMatch(AudioHandle.class));
   }
 
   @Test
-  public void testEnvironmentWithAudioEnabled() throws DeviceUnavailableException {
+  void testEnvironmentWithAudioEnabled() throws DeviceUnavailableException {
     assumeTrue(Environments.isAudioEnabled());
     Environment environment = Environments.newEnvironment(() -> true);
     assertFalse(environment.noneMatch(AudioHandle.class));

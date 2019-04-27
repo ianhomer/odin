@@ -27,15 +27,15 @@ import com.purplepip.odin.events.Event;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.music.notes.Note;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class RandomTest {
+class RandomTest {
   private static final int LOWER_LIMIT = 60;
   private static final int UPPER_LIMIT = 72;
 
   @Test
-  public void testGetNextEvent() {
+  void testGetNextEvent() {
     Pattern sequence = new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1);
     sequence.initialise();
     MeasureContext context = new StaticMeasureContext(60, 4);
@@ -53,7 +53,7 @@ public class RandomTest {
   }
 
   @Test
-  public void testCopy() {
+  void testCopy() {
     Random sequence = (Random) new Random().lower(LOWER_LIMIT).upper(UPPER_LIMIT).bits(1);
     sequence.setName("test-name");
     Random copy = sequence.copy();

@@ -26,14 +26,14 @@ import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
 import java.util.HashSet;
 import java.util.Optional;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Project builder test.
  */
-public class PerformanceBuilderTest {
+class PerformanceBuilderTest {
   @Test
-  public void testAddChannel() {
+  void testAddChannel() {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(project));
@@ -44,7 +44,7 @@ public class PerformanceBuilderTest {
   }
 
   @Test
-  public void testAddLayer() {
+  void testAddLayer() {
     TransientPerformance performance = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(performance));
@@ -90,7 +90,7 @@ public class PerformanceBuilderTest {
   }
 
   @Test
-  public void testAddNotation() {
+  void testAddNotation() {
     TransientPerformance performance = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(performance));
@@ -101,7 +101,7 @@ public class PerformanceBuilderTest {
   }
 
   @Test
-  public void testAddPattern() {
+  void testAddPattern() {
     TransientPerformance performance = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(performance));
@@ -113,7 +113,7 @@ public class PerformanceBuilderTest {
   }
 
   @Test
-  public void testAddDisabledPattern() {
+  void testAddDisabledPattern() {
     TransientPerformance performance = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(performance));
@@ -123,7 +123,7 @@ public class PerformanceBuilderTest {
   }
 
   @Test
-  public void testAddEnabledPattern() {
+  void testAddEnabledPattern() {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(project));
@@ -146,7 +146,7 @@ public class PerformanceBuilderTest {
   }
 
   @Test
-  public void testWithLayerDuplicationWarning() {
+  void testWithLayerDuplicationWarning() {
     try (LogCaptor captor = new LogCapture().from(PerformanceBuilder.class).warn().start()) {
       TransientPerformance project = new TransientPerformance();
       PerformanceBuilder builder = new PerformanceBuilder(
@@ -159,7 +159,7 @@ public class PerformanceBuilderTest {
   }
 
   @Test
-  public void testAddTrigger() {
+  void testAddTrigger() {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(
         new DefaultPerformanceContainer(project));

@@ -19,16 +19,16 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.creation.sequence.GenericSequence;
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DefaultSequenceTest {
+class DefaultSequenceTest {
   @Test
-  public void testCreateSequence() {
+  void testCreateSequence() {
     assertSequenceOk(createSequence());
   }
 
   @Test
-  public void testCopySequence() {
+  void testCopySequence() {
     assertSequenceOk(createSequence().copy());
   }
 

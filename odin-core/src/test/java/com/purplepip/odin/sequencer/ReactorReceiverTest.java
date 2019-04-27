@@ -42,9 +42,9 @@ import com.purplepip.odin.creation.triggers.TriggerFactory;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.performance.TransientPerformance;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ReactorReceiverTest {
+class ReactorReceiverTest {
   private TriggerFactory triggerFactory = newTriggerFactory();
   private FlowFactory flowFactory = newNoteFlowFactory();
   private ActionFactory actionFactory = newActionFactory();
@@ -52,7 +52,7 @@ public class ReactorReceiverTest {
   private MeasureProvider measureProvider = newMeasureProvider(4);
 
   @Test
-  public void testSend() {
+  void testSend() {
     TransientPerformance project = new TransientPerformance();
     PerformanceBuilder builder = new PerformanceBuilder(new DefaultPerformanceContainer(project));
     builder

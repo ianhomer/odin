@@ -24,14 +24,14 @@ import com.purplepip.odin.demo.GroovePerformance;
 import com.purplepip.odin.operation.OperationHandler;
 import java.util.concurrent.CountDownLatch;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class SequencerRestartTest {
+class SequencerRestartTest {
   private static final int RESTART_COUNT = 50;
 
   @Test
-  public void testRestart() throws InterruptedException {
+  void testRestart() throws InterruptedException {
     final CountDownLatch latch = new CountDownLatch(100);
     OperationHandler operationReceiver = (operation, time) -> latch.countDown();
 

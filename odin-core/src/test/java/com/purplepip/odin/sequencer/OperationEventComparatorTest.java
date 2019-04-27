@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.operation.Operation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * OperationEventComparator test.
  */
-public class OperationEventComparatorTest {
+class OperationEventComparatorTest {
   @Test
-  public void testOperationEventComparator() {
+  void testOperationEventComparator() {
     final Operation operation = new NoteOnOperation(0,0,0);
     final OperationEvent event1 = new OperationEvent(operation, 0);
     final OperationEvent event2 = new OperationEvent(operation, 1);

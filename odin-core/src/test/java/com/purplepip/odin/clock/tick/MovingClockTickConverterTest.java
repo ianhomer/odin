@@ -23,10 +23,10 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.clock.BeatClock;
 import com.purplepip.odin.clock.MovableMicrosecondPositionProvider;
 import com.purplepip.odin.math.Wholes;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class MovingClockTickConverterTest {
+class MovingClockTickConverterTest {
   private MovableMicrosecondPositionProvider microsecondPositionProvider;
   private BeatClock beatClock;
   private TickConverter tickConverter;
@@ -34,8 +34,8 @@ public class MovingClockTickConverterTest {
   /**
    * Set up.
    */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     microsecondPositionProvider = new MovableMicrosecondPositionProvider();
     beatClock = newPrecisionBeatClock(60, microsecondPositionProvider);
     tickConverter = new DefaultTickConverter(beatClock, () -> MILLISECOND, () -> HALF,
@@ -43,7 +43,7 @@ public class MovingClockTickConverterTest {
   }
 
   @Test
-  public void testMovingClock() {
+  void testMovingClock() {
 
     assertEquals(Wholes.ZERO, tickConverter.convert(Wholes.ZERO));
     assertEquals(Wholes.valueOf(120), tickConverter.convert(Wholes.valueOf(60_000)));
@@ -57,7 +57,7 @@ public class MovingClockTickConverterTest {
   }
 
   @Test
-  public void testMovingBeatClock() {
+  void testMovingBeatClock() {
 
     /*
      * If instead we move 60 seconds into the sequence ...

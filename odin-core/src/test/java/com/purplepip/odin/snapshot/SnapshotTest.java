@@ -19,11 +19,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.ThreadLocalRandom;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SnapshotTest {
+class SnapshotTest {
   @Test
-  public void testSnapshotWithTime() {
+  void testSnapshotWithTime() {
     Snapshot snapshot = new Snapshot(Snapshot.class, true);
     assertTrue(snapshot.getPath().toString()
             .endsWith("com/purplepip/odin/snapshot/snapshot/Snapshot.snap"));
@@ -33,7 +33,7 @@ public class SnapshotTest {
   }
 
   @Test
-  public void testSnapshotWithTimeWithoutHeader() {
+  void testSnapshotWithTimeWithoutHeader() {
     Snapshot snapshot = new Snapshot(Snapshot.class)
         .header(false).separator("-").variation("noHeader").initialise();
     String path = snapshot.getPath().toString();
@@ -45,7 +45,7 @@ public class SnapshotTest {
   }
 
   @Test
-  public void testSnapshotWithJsonWithLocation() {
+  void testSnapshotWithJsonWithLocation() {
     Snapshot snapshot = new Snapshot(Snapshot.class)
         .root("src/test/resources")
         .path("com/purplepip/odin/snapshot/snapshot/Snapshot")
@@ -59,7 +59,7 @@ public class SnapshotTest {
   }
 
   @Test
-  public void testSnapshotWithVariabilityMask() {
+  void testSnapshotWithVariabilityMask() {
     Snapshot snapshot = new Snapshot(Snapshot.class)
         .root("src/test/resources")
         .path("com/purplepip/odin/snapshot/snapshot/Snapshot")

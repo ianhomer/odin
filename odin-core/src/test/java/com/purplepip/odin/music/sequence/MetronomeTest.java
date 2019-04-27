@@ -16,30 +16,30 @@
 package com.purplepip.odin.music.sequence;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.music.notes.DefaultNote;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class MetronomeTest {
+class MetronomeTest {
   @Test
-  public void testCopy() {
+  void testCopy() {
     Metronome metronome = new Metronome();
     metronome.setNoteBarMid(new DefaultNote(1,2,3));
     SequenceConfiguration copy = metronome.copy();
-    assertTrue(copy != null);
+    assertNotNull(copy);
     Metronome metronomeCopy = (Metronome) copy;
     assertEquals(1, metronomeCopy.getNoteBarMid().getNumber());
   }
 
   @Test
-  public void testEquals() {
+  void testEquals() {
     Metronome metronome1 = new Metronome().name("test");
     Metronome metronome2 = new Metronome().name("test");
     LOG.debug("Created {} and {}", metronome1, metronome2);
-    assertTrue(metronome1.equals(metronome2));
+    assertEquals(metronome1, metronome2);
   }
 }
