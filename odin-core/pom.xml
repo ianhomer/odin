@@ -42,6 +42,11 @@
     </dependency>
     <dependency>
       <groupId>com.purplepip</groupId>
+      <artifactId>flaky</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.purplepip</groupId>
       <artifactId>log-capture</artifactId>
       <scope>test</scope>
     </dependency>
