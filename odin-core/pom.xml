@@ -128,31 +128,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <dependencies>
-          <!--dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>1.2.0</version>
-          </dependency-->
-          <!--dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>${junit.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-          </dependency-->
-        </dependencies>
-        <configuration>
-          <!--
-              Rerun a couple of times on failure since the snapshot match tests do sometimes fail.
-              We're working on fixing this reliability, however an occasional intermittent failure
-              with these is OK for now.
-              -->
-          <rerunFailingTestsCount>2</rerunFailingTestsCount>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

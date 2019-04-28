@@ -18,79 +18,62 @@ package com.purplepip.odin.demo;
 import static com.purplepip.odin.sequencer.DeltaOdinSequencerConfiguration.deltaConfiguration;
 import static org.junit.Assert.assertEquals;
 
+import com.purplepip.flaky.FlakyTest;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.sequencer.TestSequencerEnvironment;
 import com.purplepip.odin.snapshot.Snapshot;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 @Slf4j
-@RunWith(Parameterized.class)
-public class PerformancesTest {
-  private Performance performance;
-  private String testName;
-  private long testWaitMs;
-  private int staticBeatsPerMinute;
-  private int expectedOperationCount;
-  private boolean expectOverflow;
-
-  /**
-   * Create performances test from injected parameter.
-   *
-   * @param parameter injected parameter
-   */
-  public PerformancesTest(PerformancesTestParameter parameter) {
-    performance = parameter.performance();
-    staticBeatsPerMinute = parameter.staticBeatsPerMinute();
-    expectedOperationCount = parameter.expectedOperationCount();
-    testWaitMs = parameter.testWaitMs();
-    testName = performance.getClass().getSimpleName();
-    expectOverflow = parameter.expectOverflow();
+class PerformancesTest {
+  @FlakyTest(3)
+  void testSimplePerformance() throws InterruptedException {
+    testPerformance(newParameter(new SimplePerformance(), 12));
   }
 
-  /**
-   * Get parameters for parameterized tests.
-   *
-   * @return parameters
-   */
-  @Parameterized.Parameters
-  public static Iterable<PerformancesTestParameter> parameters() {
-    Collection<PerformancesTestParameter> parameters = new ArrayList<>();
-    parameters.add(newParameter(new SimplePerformance(), 12));
-    parameters.add(newParameter(new KotlinPerformance(), 5).expectOverflow(true));
-    parameters.add(newParameter(new PlutoPerformance(), 2).expectOverflow(true));
-    parameters.add(newParameter(new MixinPerformance(), 20).expectOverflow(true));
-    parameters.add(
-        newParameter(new GroovePerformance(), 40)
-            .expectOverflow(true)
-            .testWaitMs(4000)
-            .staticBeatsPerMinute(600));
-    return parameters;
+  @FlakyTest(3)
+  void testKotlinPerformance() throws InterruptedException {
+    testPerformance(newParameter(new KotlinPerformance(), 5).expectOverflow(true));
   }
 
-  @Test
-  public void testPerformance() throws InterruptedException {
-    Snapshot snapshot = new Snapshot(performance.getClass(), true);
+  @FlakyTest(3)
+  void testPlutoPerformance() throws InterruptedException {
+    testPerformance(newParameter(new PlutoPerformance(), 2).expectOverflow(true));
+  }
+
+  @FlakyTest(3)
+  void testMixinPerformance() throws InterruptedException {
+    testPerformance(newParameter(new MixinPerformance(), 20).expectOverflow(true));
+  }
+
+  @FlakyTest(3)
+  void testGroovePerformance() throws InterruptedException {
+    testPerformance(newParameter(new GroovePerformance(), 40)
+        .expectOverflow(true)
+        .testWaitMs(4000)
+        .staticBeatsPerMinute(600));
+  }
+
+  private void testPerformance(PerformancesTestParameter parameter) throws InterruptedException {
+    String testName = parameter.performance().getClass().getSimpleName();
+    Snapshot snapshot = new Snapshot(parameter.performance().getClass(), true);
     SnapshotOperationReceiver snapshotReceiver =
-        new SnapshotOperationReceiver(snapshot, expectedOperationCount, expectOverflow);
+        new SnapshotOperationReceiver(snapshot, parameter.expectedOperationCount(),
+            parameter.expectOverflow());
 
     TestSequencerEnvironment environment =
         new TestSequencerEnvironment(
             snapshotReceiver,
-            performance,
-            deltaConfiguration().staticBeatsPerMinute(staticBeatsPerMinute));
+            parameter.performance(),
+            deltaConfiguration().staticBeatsPerMinute(parameter.staticBeatsPerMinute()));
     long time = System.currentTimeMillis();
     environment.start();
     try {
-      snapshotReceiver.getLatch().await(testWaitMs, TimeUnit.MILLISECONDS);
+      snapshotReceiver.getLatch().await(parameter.testWaitMs(), TimeUnit.MILLISECONDS);
     } finally {
       environment.shutdown();
     }
@@ -100,24 +83,26 @@ public class PerformancesTest {
      * that risk of failure due to time out is high.
      */
     long delta = System.currentTimeMillis() - time;
-    if (System.currentTimeMillis() - time > testWaitMs / 2) {
-      LOG.warn("{} : test is running slow : {} > {}", testName, delta, testWaitMs / 2);
+    if (System.currentTimeMillis() - time > parameter.testWaitMs() / 2) {
+      LOG.warn("{} : test is running slow : {} > {}", testName, delta,
+          parameter.testWaitMs() / 2);
     }
 
     /*
      * WARN early to give more information to help when snapshot match fails.
      */
-    long actualCount = expectedOperationCount - snapshotReceiver.getLatch().getCount();
-    if (actualCount != expectedOperationCount) {
+    long actualCount = parameter.expectedOperationCount() - snapshotReceiver.getLatch().getCount();
+    if (actualCount != parameter.expectedOperationCount()) {
       LOG.warn(
           "{} : only {} operations were recorded, {} were expected",
           testName,
           actualCount,
-          expectedOperationCount);
+          parameter.expectedOperationCount());
     }
     snapshot.expectMatch();
     assertEquals(
-        testName + " operation count not as expected", expectedOperationCount, actualCount);
+        testName + " operation count not as expected",
+        parameter.expectedOperationCount(), actualCount);
     LOG.debug("{} : performance snapshot AOK", testName);
   }
 
