@@ -84,7 +84,7 @@ public class TrackProcessor implements PerformanceListener {
 
   @Override
   public void onPerformanceStop() {
-    running = false;
+    stop();
   }
 
   @Override
@@ -92,8 +92,15 @@ public class TrackProcessor implements PerformanceListener {
     shutdown();
   }
 
+  private void stop() {
+    running = false;
+    executor.stop();
+    LOG.debug("Stopped track processor");
+  }
+
   private void start() {
     running = true;
+    executor.start();
     LOG.debug("Started track processor");
   }
 

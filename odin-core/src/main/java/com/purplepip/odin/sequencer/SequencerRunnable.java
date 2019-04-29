@@ -32,6 +32,7 @@ public abstract class SequencerRunnable implements Runnable {
   // Keep track of runs after stopped.   If it's too many then a processor probably hasn't been
   // stopped.
   private AtomicInteger runsAfterStopped;
+  private boolean running;
 
   SequencerRunnable(String name, BeatClock clock, MetricRegistry metrics) {
     this.name = name;
@@ -78,7 +79,7 @@ public abstract class SequencerRunnable implements Runnable {
             + "Note that thread processing might be stopped", t);
         throw t;
       }
-    } else if (executedAfterStopped) {
+    } else if (executedAfterStopped && isRunning()) {
       /*
        * Process should only execute once after clock has stopped.
        */
@@ -89,7 +90,7 @@ public abstract class SequencerRunnable implements Runnable {
             this, runsAfterStopped);
       }
     } else {
-      LOG.debug("Clock has not started yet");
+      LOG.debug("Clock is not running");
     }
   }
 
@@ -112,5 +113,17 @@ public abstract class SequencerRunnable implements Runnable {
 
   protected MetricRegistry getMetrics() {
     return metrics;
+  }
+
+  public void start() {
+    running = true;
+  }
+
+  public void stop() {
+    running = false;
+  }
+
+  public boolean isRunning() {
+    return running;
   }
 }
