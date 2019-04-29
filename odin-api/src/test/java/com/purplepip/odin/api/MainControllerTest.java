@@ -19,13 +19,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles({"test", "noStore", "noAuditing"})
-public class MainControllerTest {
+class MainControllerTest {
 
   @Autowired
   private MockMvc mvc;
 
   @Test
-  public void testWebApp() throws Exception {
+  void testWebApp() throws Exception {
     mvc.perform(MockMvcRequestBuilders.get("/web/app").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(content().string(CoreMatchers.containsString("odin")));

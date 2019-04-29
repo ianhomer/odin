@@ -11,12 +11,12 @@ import org.springframework.test.web.servlet.MockMvc;
 @ExtendWith(SpringExtension.class)
 @PreLoadedTest
 @Slf4j
-public class PreLoadedPerformanceRestTest {
+class PreLoadedPerformanceRestTest {
   @Autowired
   private MockMvc mvc;
 
   @Test
-  public void testRestSnapshot() throws Exception {
+  void testRestSnapshot() throws Exception {
     new EndPointSnapshot(mvc, "/api/rest/performance").expectMatch();
   }
 }

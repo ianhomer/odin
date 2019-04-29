@@ -19,13 +19,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles({"test", "noStore", "noAuditing"})
-public class SystemLegacyControllerTest {
+class SystemLegacyControllerTest {
 
   @Autowired
   private MockMvc mvc;
 
   @Test
-  public void testSystemEndPoints() throws Exception {
+  void testSystemEndPoints() throws Exception {
     assertEndPoint("/api/page/system");
     assertEndPoint("/api/page/system/synthesizer");
     assertEndPoint("/api/page/system/sequencer");

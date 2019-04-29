@@ -19,7 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.system.DiskSpaceHealthIndicatorAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,7 +30,12 @@ import org.springframework.core.annotation.Order;
 /**
  * Odin Application.
  */
-@SpringBootApplication
+@SpringBootApplication(
+    exclude = {
+        DiskSpaceHealthIndicatorAutoConfiguration.class,
+        H2ConsoleAutoConfiguration.class
+    }
+)
 @ComponentScan("com.purplepip.odin.api")
 public class Application {
   private static final Logger LOG = LoggerFactory.getLogger(Application.class);

@@ -18,6 +18,7 @@
     <jvm.properties.debug/>
     <purplepip.tests.log.jvm/>
     <junit.version>5.2.0</junit.version>
+    <junit.platform.engine.version>1.2.0</junit.platform.engine.version>
     <surefire.version>2.22.0</surefire.version>
   </properties>
 
@@ -143,7 +144,7 @@
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-engine</artifactId>
-      <version>1.2.0</version>
+      <version>${junit.platform.engine.version}</version>
     </dependency>
   </dependencies>
 
