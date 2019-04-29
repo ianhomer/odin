@@ -84,7 +84,7 @@
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="module" module-name="common-logging" scope="TEST" />
     <orderEntry type="module" module-name="flaky" scope="TEST" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.purplepip:log-capture:1.0.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.purplepip:log-capture:1.0.8" level="project" />
     <orderEntry type="module" module-name="odin-core" scope="TEST" production-on-test="" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-annotation:4.0.5" level="project" />
     <orderEntry type="library" name="Maven: nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1" level="project" />

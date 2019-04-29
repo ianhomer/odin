@@ -93,7 +93,7 @@
     <orderEntry type="module" module-name="odin-frontend" />
     <orderEntry type="module" module-name="odin-api" production-on-test="" />
     <orderEntry type="module" module-name="common-logging" scope="TEST" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.purplepip:log-capture:1.0.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.purplepip:log-capture:1.0.8" level="project" />
     <orderEntry type="module" module-name="odin-core" scope="TEST" production-on-test="" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java:4.3.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-core:4.3.0" level="project" />
