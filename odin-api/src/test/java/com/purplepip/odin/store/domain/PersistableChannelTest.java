@@ -7,15 +7,15 @@ import com.purplepip.odin.creation.channel.Channel;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import com.purplepip.odin.store.StoreTest;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Performance repository test.
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @StoreTest
 public class PersistableChannelTest {
   private PersistablePerformanceBuilder builder;
@@ -23,7 +23,7 @@ public class PersistableChannelTest {
   /**
    * Set up.
    */
-  @Before
+  @BeforeEach
   public void setUp() {
     PersistablePerformance performance = new PersistablePerformance();
     builder = new PersistablePerformanceBuilder(new DefaultPerformanceContainer(performance));

@@ -18,6 +18,7 @@ package com.purplepip.odin.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.purplepip.odin.common.ClassUri;
 import com.purplepip.odin.common.OdinRuntimeException;
@@ -26,16 +27,16 @@ import com.purplepip.odin.demo.SimplePerformance;
 import com.purplepip.odin.performance.PerformanceContainer;
 import com.purplepip.odin.performance.PerformanceLoader;
 import java.net.URI;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @DataJpaTest(showSql = false)
 @ActiveProfiles({"test", "noServices", "noAuditing"})
 @ContextConfiguration
@@ -62,13 +63,15 @@ public class PersistablePerformanceLoaderTest {
         container.getPerformance().getName());
   }
 
-  @Test(expected = OdinRuntimeException.class)
-  public void testLoadPerformanceNotFound() {
-    loader.load(new ClassUri(PersistablePerformanceLoader.class).getUri());
+  @Test
+  void testLoadPerformanceNotFound() {
+    assertThrows(OdinRuntimeException.class, () ->
+        loader.load(new ClassUri(PersistablePerformanceLoader.class).getUri())
+    );
   }
 
   @Test
-  public void testCanLoad() {
+  void testCanLoad() {
     assertTrue(loader.canLoad(new ClassUri(PersistablePerformanceLoader.class).getUri()));
     assertFalse(loader.canLoad(URI.create("http://purplepip.com")));
   }

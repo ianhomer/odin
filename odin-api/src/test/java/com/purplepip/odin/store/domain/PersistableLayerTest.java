@@ -3,21 +3,20 @@ package com.purplepip.odin.store.domain;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.clock.tick.TimeUnit;
-import com.purplepip.odin.common.OdinException;
 import com.purplepip.odin.creation.layer.Layer;
 import com.purplepip.odin.math.Wholes;
 import com.purplepip.odin.performance.DefaultPerformanceContainer;
 import com.purplepip.odin.store.PersistablePerformanceBuilder;
 import com.purplepip.odin.store.StoreTest;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Performance repository test.
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @StoreTest
 public class PersistableLayerTest {
   private PersistablePerformanceBuilder builder;
@@ -25,14 +24,14 @@ public class PersistableLayerTest {
   /**
    * Set up.
    */
-  @Before
+  @BeforeEach
   public void setUp() {
     PersistablePerformance performance = new PersistablePerformance();
     builder = new PersistablePerformanceBuilder(new DefaultPerformanceContainer(performance));
   }
 
   @Test
-  public void testLayerEquality() throws OdinException {
+  public void testLayerEquality() {
     builder.addLayer("test-layer");
     PersistableLayer layer2 = new PersistableLayer();
     layer2.setName("test-layer");

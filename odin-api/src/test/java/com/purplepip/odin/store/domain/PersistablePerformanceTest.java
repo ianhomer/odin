@@ -15,26 +15,21 @@
 
 package com.purplepip.odin.store.domain;
 
-import static org.hamcrest.core.Is.isA;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.store.StoreTest;
 import org.hibernate.exception.ConstraintViolationException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @StoreTest
 public class PersistablePerformanceTest {
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
   @Autowired
   private TestEntityManager entityManager;
 
@@ -50,7 +45,8 @@ public class PersistablePerformanceTest {
     PersistablePerformance persistablePerformance2 = new PersistablePerformance();
     persistablePerformance2.setName("test");
     performanceRepository.save(persistablePerformance2);
-    thrown.expectCause(isA(ConstraintViolationException.class));
-    entityManager.flush();
+    assertThatThrownBy(() ->
+        entityManager.flush())
+        .hasCauseInstanceOf(ConstraintViolationException.class);
   }
 }
