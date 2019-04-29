@@ -17,6 +17,8 @@
     <start-class>com.purplepip.odin.api.Application</start-class>
     <jvm.properties.debug/>
     <purplepip.tests.log.jvm/>
+    <junit.version>5.2.0</junit.version>
+    <surefire.version>2.22.0</surefire.version>
   </properties>
 
   <dependencyManagement>
@@ -76,11 +78,6 @@
       <artifactId>thymeleaf-layout-dialect</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
     </dependency>
@@ -123,6 +120,12 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -131,6 +134,16 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-engine</artifactId>
+      <version>1.2.0</version>
     </dependency>
   </dependencies>
 
@@ -159,11 +172,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <!--
-              Rerun a couple of times on failure since machine performance does have variability
-              and at least one pass is AOK.
-              -->
-          <rerunFailingTestsCount>2</rerunFailingTestsCount>
           <systemProperties>
             <property>
               <name>logging.config</name>

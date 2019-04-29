@@ -16,7 +16,7 @@
 package com.purplepip.odin.api.rest;
 
 import static com.purplepip.odin.api.rest.Json.withJsonModule;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

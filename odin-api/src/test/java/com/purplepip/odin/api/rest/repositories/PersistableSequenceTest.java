@@ -16,7 +16,7 @@
 package com.purplepip.odin.api.rest.repositories;
 
 import static com.purplepip.odin.store.domain.TestPersistables.newPerformance;
-import static org.junit.Assert.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.store.StoreTest;
@@ -46,10 +46,10 @@ public class PersistableSequenceTest {
     sequence.setType("pattern");
     performance.addSequence(sequence);
     repository.save(sequence);
-    assertEquals("Sequence should have been created", 1, countInPerformance());
+    assertEquals("Sequence should have been created", 1L, countInPerformance());
     repository.delete(sequence);
-    assertEquals("Sequence should have been deleted", 0, count());
-    assertEquals("Sequence should have been deleted from performance", 0, countInPerformance());
+    assertEquals("Sequence should have been deleted", 0L, count());
+    assertEquals("Sequence should have been deleted from performance", 0L, countInPerformance());
   }
 
   private long count() {

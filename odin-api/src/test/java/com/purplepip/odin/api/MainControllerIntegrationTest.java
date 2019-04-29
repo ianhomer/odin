@@ -1,6 +1,6 @@
 package com.purplepip.odin.api;
 
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.net.URL;
 import org.hamcrest.CoreMatchers;
@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles({"test", "noStore", "noAuditing"})
-public class MainControllerIntegrationTest {
+class MainControllerIntegrationTest {
 
   @LocalServerPort
   private int port;
@@ -31,12 +31,12 @@ public class MainControllerIntegrationTest {
   private TestRestTemplate template;
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     this.base = new URL("http://localhost:" + port + "/");
   }
 
   @Test
-  public void testHome() {
+  void testHome() {
     ResponseEntity<String> response = template.getForEntity(base.toString(),
         String.class);
     assertThat(response.getBody(), CoreMatchers.containsString("odin"));

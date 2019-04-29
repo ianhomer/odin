@@ -15,8 +15,8 @@
 
 package com.purplepip.odin.api.services.schema;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -39,10 +39,10 @@ class PerformanceSchemaTest {
     assertEquals("array", type);
 
     JsonNode sequenceDefinition = schema.get("definitions").get("SequenceConfiguration");
-    assertNotNull("Sequence definition not provided in " + schema.get("definitions"),
-        sequenceDefinition);
+    assertNotNull(sequenceDefinition, "Sequence definition not provided in "
+        + schema.get("definitions"));
     JsonNode lengthRef = sequenceDefinition.get("properties").get("length").get("$ref");
-    assertNotNull("length definition not correct in " + sequenceDefinition, lengthRef);
+    assertNotNull(lengthRef, "length definition not correct in " + sequenceDefinition);
     assertEquals("#/definitions/Rational", lengthRef.asText());
   }
 

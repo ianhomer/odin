@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.store;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.purplepip.odin.creation.sequence.SequenceConfiguration;
 import com.purplepip.odin.demo.DemoLoaderPerformance;
@@ -56,8 +56,8 @@ public class PersistablePerformanceContainerTest {
     assertTrue(crashOptional.isPresent());
     SequenceConfiguration crash = crashOptional.get();
     assertTrue(crash instanceof PersistableThing);
-    assertTrue("Tick should be a persistable tick", crash.getTick() instanceof PersistableTick);
-    assertTrue(
-        "Some properties should exist in the crash sequence", crash.getPropertyNames().count() > 0);
+    assertTrue(crash.getTick() instanceof PersistableTick, "Tick should be a persistable tick");
+    assertTrue(crash.getPropertyNames().count() > 0,
+        "Some properties should exist in the crash sequence");
   }
 }

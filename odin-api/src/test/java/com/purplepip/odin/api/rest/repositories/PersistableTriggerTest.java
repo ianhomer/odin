@@ -16,7 +16,7 @@
 package com.purplepip.odin.api.rest.repositories;
 
 import static com.purplepip.odin.store.domain.TestPersistables.newPerformance;
-import static org.junit.Assert.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.store.StoreTest;
@@ -46,10 +46,10 @@ public class PersistableTriggerTest {
     trigger.setType("default");
     performance.addTrigger(trigger);
     repository.save(trigger);
-    assertEquals("Trigger should have been created", 1, countInPerformance());
+    assertEquals("Trigger should have been created", 1L, countInPerformance());
     repository.delete(trigger);
-    assertEquals("Trigger should have been deleted", 0, count());
-    assertEquals("Trigger should have been deleted from performance", 0, countInPerformance());
+    assertEquals("Trigger should have been deleted", 0L, count());
+    assertEquals("Trigger should have been deleted from performance", 0L, countInPerformance());
   }
 
   private long count() {

@@ -15,7 +15,7 @@
 
 package com.purplepip.odin.api.common;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -63,8 +63,8 @@ public class JsonArrayComparatorTest {
       map2.put(keys[i], values2[i]);
     }
 
-    assertEquals("map 1 " + map1 + " ; map2 = " + map2,
-        expected, comparator.compare(map1, map2));
+    assertEquals(
+        expected, comparator.compare(map1, map2), "map 1 " + map1 + " ; map2 = " + map2);
   }
 
 }

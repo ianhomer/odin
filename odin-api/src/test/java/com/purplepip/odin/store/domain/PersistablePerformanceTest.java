@@ -16,7 +16,7 @@
 package com.purplepip.odin.store.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.purplepip.odin.api.rest.repositories.PerformanceRepository;
 import com.purplepip.odin.store.StoreTest;

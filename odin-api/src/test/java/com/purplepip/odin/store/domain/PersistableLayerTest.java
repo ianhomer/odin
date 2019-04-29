@@ -1,6 +1,6 @@
 package com.purplepip.odin.store.domain;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.purplepip.odin.clock.tick.TimeUnit;
 import com.purplepip.odin.creation.layer.Layer;

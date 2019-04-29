@@ -16,8 +16,8 @@
 package com.purplepip.odin.api;
 
 import static com.purplepip.odin.system.Environments.isAudioEnabled;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.purplepip.logcapture.LogCaptor;
 import com.purplepip.logcapture.LogCapture;
@@ -32,11 +32,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 /** Synthesizer configuration test. */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class SynthesizerConfigurationTest {
+class SynthesizerConfigurationTest {
   @Autowired private OptionalMidiApplication midiApplication;
 
   @Test
-  public void testRun() {
+  void testRun() {
     assumeTrue(isAudioEnabled());
     SynthesizerConfiguration loader = new SynthesizerConfiguration(midiApplication);
     try (LogCaptor captor = new LogCapture().info().from(SynthesizerDevice.class).start()) {

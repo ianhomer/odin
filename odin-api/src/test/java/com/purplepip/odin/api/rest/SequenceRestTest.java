@@ -3,7 +3,7 @@ package com.purplepip.odin.api.rest;
 import static com.purplepip.odin.api.rest.Rests.sendingJson;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,7 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @ActiveProfiles({"test", "noAuditing"})
 @Slf4j
-public class SequenceRestTest {
+class SequenceRestTest {
   @Autowired
   private MockMvc mvc;
 
@@ -36,7 +36,7 @@ public class SequenceRestTest {
   private ObjectMapper objectMapper;
 
   @Test
-  public void testCreateAndDeleteSequence() throws Exception {
+  void testCreateAndDeleteSequence() throws Exception {
     String performanceUri = new Rest(mvc).getFirstHref("performance");
 
     assertNoSequences(performanceUri);
