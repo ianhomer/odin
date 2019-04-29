@@ -76,12 +76,11 @@ class PerformanceTest {
     //    LOG.info("{} = {}", name, System.getProperty(name))
     // );
     // System.getenv().forEach((key, value) -> LOG.info("env : {} = {}", key, value));
-    String sb = System.getProperty("os.name", "OS")
+    return System.getProperty("os.name", "OS")
         + ' '
         + System.getProperty("os.arch", "CPU")
         + " x"
         + Runtime.getRuntime().availableProcessors();
-    return sb;
   }
 
   @FlakyTest(3)
@@ -187,20 +186,20 @@ class PerformanceTest {
     /** Map of timer names and expected time in nanoseconds. */
     private Map<String, Long> times = new HashMap<>();
 
-    public PerformanceTestParameter expect(String name, long time) {
+    PerformanceTestParameter expect(String name, long time) {
       times.put(name, time);
       return this;
     }
 
-    public long expect(String name) {
+    long expect(String name) {
       return times.get(name);
     }
 
-    public String name() {
+    String name() {
       return performance.getClass().getSimpleName();
     }
 
-    public Stream<String> names() {
+    Stream<String> names() {
       return times.keySet().stream();
     }
   }

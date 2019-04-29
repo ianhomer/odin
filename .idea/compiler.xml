@@ -15,8 +15,8 @@
         <module name="odin-api" />
         <module name="odin-server" />
         <module name="logcapture" />
-        <module name="odin-profile" />
         <module name="common_test_logging" />
+        <module name="odin-profile" />
         <module name="odin-core" />
         <module name="odin-frontend" />
         <module name="flaky" />
