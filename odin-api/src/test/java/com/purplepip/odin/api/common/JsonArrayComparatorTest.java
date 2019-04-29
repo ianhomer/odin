@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class JsonArrayComparatorTest {
   private Comparator<Object> comparator = new JsonArrayComparator();

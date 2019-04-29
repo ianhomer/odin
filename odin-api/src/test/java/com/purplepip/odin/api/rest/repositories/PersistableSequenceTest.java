@@ -21,12 +21,12 @@ import static org.junit.Assert.assertEquals;
 import com.purplepip.odin.performance.Performance;
 import com.purplepip.odin.store.StoreTest;
 import com.purplepip.odin.store.domain.PersistableSequence;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @StoreTest
 public class PersistableSequenceTest {
   private static final String SEQUENCE_NAME = PersistableSequence.class.getSimpleName();

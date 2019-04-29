@@ -1,14 +1,3 @@
-package com.purplepip.odin.api.common;
-
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import org.assertj.core.util.Maps;
-import org.junit.Test;
-
 /*
  * Copyright (c) 2017 the original author or authors. All Rights Reserved
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,9 +12,21 @@ import org.junit.Test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class JsonNodeSorterTest {
+
+package com.purplepip.odin.api.common;
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import org.assertj.core.util.Maps;
+import org.junit.jupiter.api.Test;
+
+class JsonNodeSorterTest {
   @Test
-  public void testSort() {
+  void testSort() {
     Map<String, Object> node = new LinkedHashMap<>();
     node.put("element1", "string-node");
     List<Map> list = new ArrayList<>();

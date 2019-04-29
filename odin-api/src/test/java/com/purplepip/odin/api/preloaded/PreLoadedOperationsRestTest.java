@@ -9,13 +9,13 @@ import com.purplepip.odin.music.operations.NoteOnOperation;
 import com.purplepip.odin.operation.Operation;
 import com.purplepip.odin.sequencer.OdinSequencerConfiguration;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @PreLoadedTest
 @Slf4j
 class PreLoadedOperationsRestTest {
@@ -28,8 +28,8 @@ class PreLoadedOperationsRestTest {
   @Autowired
   private OdinSequencerConfiguration configuration;
 
-  @Before
-  public void before() {
+  @BeforeEach
+  void before() {
     operationRepository.deleteAll();
   }
 

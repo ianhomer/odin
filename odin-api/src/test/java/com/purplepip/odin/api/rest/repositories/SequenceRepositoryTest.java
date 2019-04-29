@@ -11,17 +11,17 @@ import com.purplepip.odin.store.StoreTest;
 import com.purplepip.odin.store.domain.PersistablePerformance;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Pattern repository test.
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @StoreTest
 @Slf4j
 public class SequenceRepositoryTest {
@@ -37,7 +37,7 @@ public class SequenceRepositoryTest {
   /**
    * Set up.
    */
-  @Before
+  @BeforeEach
   public void setUp() {
     performance = new PersistablePerformance();
     performanceRepository.save(performance);

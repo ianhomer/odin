@@ -22,28 +22,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.purplepip.odin.snapshot.Snapshot;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles({"test", "noStore", "noAuditing"})
 @Slf4j
-public class EnvironmentControllerTest {
+class EnvironmentControllerTest {
   @Autowired
   private MockMvc mvc;
 
   @Test
-  public void testEnvironment() throws Exception {
+  void testEnvironment() throws Exception {
     String json = mvc.perform(sendingJson(get("/api/services/system/environment")))
         .andExpect(status().isOk())
         .andReturn().getResponse().getContentAsString();

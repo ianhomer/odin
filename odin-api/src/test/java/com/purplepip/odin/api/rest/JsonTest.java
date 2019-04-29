@@ -19,11 +19,11 @@ import static com.purplepip.odin.api.rest.Json.withJsonModule;
 import static org.junit.Assert.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class JsonTest {
+class JsonTest {
   @Test
-  public void testJson() {
+  void testJson() {
     String json = new Json(withJsonModule(new ObjectMapper()))
         .property("name", "new-notations-name")
         .property("performance", "/api/rest/performance/1")

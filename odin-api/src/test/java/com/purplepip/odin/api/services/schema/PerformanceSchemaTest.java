@@ -22,15 +22,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Performance repository test.
  */
 @Slf4j
-public class PerformanceSchemaTest {
+class PerformanceSchemaTest {
   @Test
-  public void testPerformance() {
+  void testPerformance() {
     PerformanceSchema performance = new PerformanceSchema();
     JsonNode schema = performance.getType(
         "urn:jsonschema:com:purplepip:odin:performance:Performance");

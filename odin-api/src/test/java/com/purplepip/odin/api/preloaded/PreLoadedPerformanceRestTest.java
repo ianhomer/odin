@@ -2,13 +2,13 @@ package com.purplepip.odin.api.preloaded;
 
 import com.purplepip.odin.api.rest.EndPointSnapshot;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @PreLoadedTest
 @Slf4j
 public class PreLoadedPerformanceRestTest {
