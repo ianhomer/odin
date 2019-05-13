@@ -6,7 +6,7 @@ export const withQuery = function(uri, params) {
 }
 
 export const secure = function(headers) {
-  var csrfToken = document.head.querySelector('meta[name="_csrf"]')
+  let csrfToken = document.head.querySelector('meta[name="_csrf"]')
   if (csrfToken) {
     return {...headers,
       'X-CSRF-TOKEN' : csrfToken.getAttribute('content')

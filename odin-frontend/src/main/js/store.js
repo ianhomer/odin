@@ -30,8 +30,8 @@ const backend = new Backend()
 // for test cases which need a mock backend.
 const sagaMiddleware = createSagaMiddleware({context: {backend: backend}})
 
-var middleware = [thunkMiddleware, sagaMiddleware]
-var env = process.env.NODE_ENV || 'dev'
+const middleware = [thunkMiddleware, sagaMiddleware]
+const env = process.env.NODE_ENV || 'dev'
 if (env === 'dev') {
   middleware.push(createLogger({collapsed: true}))
 }
@@ -45,7 +45,7 @@ const store = createStore(
 // Hook in back end API calls
 sagaMiddleware.run(backend.saga)
 
-for (var i = 0; i < loadSchemaActions.length ; i++) {
+for (let i = 0; i < loadSchemaActions.length ; i++) {
   store.dispatch(loadSchemaActions[i])
 }
 
