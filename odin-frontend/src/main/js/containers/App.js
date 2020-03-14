@@ -38,7 +38,7 @@ class App extends React.Component {
     return props.schema.performance ? new Schema(props.schema, props.flux) : null
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAGE_componentWillReceiveProps(newProps) {
     if (newProps.schema !== this.props.schema || newProps.schema.revision !== this.props.schema.revision) {
       this.setState({schema: this.createNewSchema(newProps)})
     }

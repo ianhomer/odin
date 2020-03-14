@@ -87,7 +87,7 @@ class Score extends React.Component{
     return !!this.state.notation
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.entity.properties && nextProps.entity.properties.notation === this.state.notation) {
       // If notation has been persisted then we can clear the state setting
       this.setState({notation: null})
