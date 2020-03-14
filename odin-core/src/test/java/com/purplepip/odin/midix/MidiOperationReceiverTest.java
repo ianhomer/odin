@@ -22,7 +22,6 @@ import static org.mockito.Mockito.verify;
 import com.purplepip.odin.music.operations.NoteOnOperation;
 import javax.sound.midi.MidiMessage;
 import org.junit.jupiter.api.Test;
-
 import org.mockito.ArgumentCaptor;
 
 class MidiOperationReceiverTest {
