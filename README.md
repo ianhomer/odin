@@ -3,27 +3,31 @@
 The Odin sequencer enhances a live musical performance by musicians.  This
 includes the following use cases :
 
-* Composition support by trying out themes, progressions and riffs to help settle on a performance.
-* Jamming support by delivering common musical sequences that a band can jam around and practice.
+* Composition support by trying out themes, progressions and riffs to help
+    settle on a performance.
+* Jamming support by delivering common musical sequences that a band can jam
+    around and practice.
 * Delivery samples at appropriate time during a performance.
 * Adjusting effects during a performance.
 
-Performances can be written in a DSL that describes the semantics and specifics of a performance
-describing chord progressions and musical hints, along with specific sound delivery.
+Performances can be written in a DSL that describes the semantics and
+specificsof a performance describing chord progressions and musical hints, along
+with specific sound delivery.
 
-The system will also support experiments involving how machines can enhance live musical 
-performances and how musicians can act as conductor to the machine, perhaps letting go of the 
-reigns entirely.  
+The system will also support experiments involving how machines can enhance live
+musical performances and how musicians can act as conductor to the machine,
+perhaps letting go of the reigns entirely.
 
-Over time the system will drive other aspects of a performance beyond sound and will take direction
-from machine learning. 
+Over time the system will drive other aspects of a performance beyond sound and
+will take direction from machine learning.
 
-# Release Notes
+## Release Notes
 
-The first release of this system will focus on driving live music performance via MIDI and 
-will be installable on a Raspberry Pi to encourage portability and reduced costs.
+The first release of this system will focus on driving live music performance
+via MIDI and will be installable on a Raspberry Pi to encourage portability and
+reduced costs.
 
-# Build
+## Build
 
     mvn package
     java -jar odin-server/target/odin-server-1.0-SNAPSHOT.jar
@@ -32,16 +36,16 @@ or run with developer benefits, e.g. web template reloading
 
     (cd odin-server && mvn spring-boot:run)
 
-# Docker
+## Docker
 
     docker-compose up -d
-    
+
 or with rebuild
 
     docker-compose up -d --build
     docker-compose build --no-cache odin-frontend
 
-# Interact with volumes
+## Interact with volumes
 
 To run interact container
 
@@ -57,17 +61,17 @@ Or in one go
     docker cp src/main/resources/static/. admin:/var/lib/web/             && \
     docker rm admin
 
-# Android Application
+## Android Application
 
-See also the [Odin Android App](https://github.com/ianhomer/odin-android).  
+See also the [Odin Android App](https://github.com/ianhomer/odin-android).
 
-# Raspberry PI 
+## Raspberry PI
 
-## Installation
+### Installation
 
 Add "my.pi" domain name to /etc/hosts
-        
-On my.pi create .ssh directory 
+
+On my.pi create .ssh directory
 
     ssh pi@my.pi
     cd ~ && install -d -m 700 ~/.ssh
@@ -80,16 +84,16 @@ On my.pi
 
     sudo mkdir /opt/odin
     sudo chown pi /opt/odin
-        
-From **local machine** deploy jar 
-        
-    scp odin-server/target/odin-server-1.0-SNAPSHOT.jar pi@my.pi:/opt/odin
-      
-On my.pi 
-    
-    ( cd /opt/odin ; java -jar odin-server-1.0-SNAPSHOT.jar )    
 
-# Access Server
+From **local machine** deploy jar
+
+    scp odin-server/target/odin-server-1.0-SNAPSHOT.jar pi@my.pi:/opt/odin
+
+On my.pi
+
+    ( cd /opt/odin ; java -jar odin-server-1.0-SNAPSHOT.jar )
+
+## Access Server
 
 Root
 
@@ -99,22 +103,24 @@ Health check
 
     http://localhost:8080/health
 
-# Manual Testing
+## Manual Testing
 
 Run the MIDI playground script
 
     mvn exec:java
 
-Lots of combinations and choice exist to generate and receive MIDI signals, for basics I use :
+Lots of combinations and choice exist to generate and receive MIDI signals, for
+basics I use :
 
-* A Korg microKEY to act as MIDI in signal.  Midi Mock (in Mac App Store) is a software keyboard that drives MIDI in
+* A Korg microKEY to act as MIDI in signal.  Midi Mock (in Mac App Store) is a 
+    software keyboard that drives MIDI in
 * Ableton Live as a receiver for MIDI out.
 
 For performance I use a Nord Electro 5 and Nord Lead 4.
 
-# Static Code Analysis
+## Static Code Analysis
 
-## Sonar
+### Sonar
 
 [Install sonar](http://ianhomer.com/tools/sonar.html) and start sonar locally
 
@@ -126,49 +132,48 @@ And analyse with sonar
 
 And view sonar report at http://localhost:9000/
 
-## JavaScript
+### JavaScript
 
-### Karma
+#### Karma
 
     cd odin-server
     ./node_modules/karma/bin/karma start karma.conf.ci.js
 
-### ESlint
+#### ESlint
 
     ./node_modules/eslint/bin/eslint.js src/main/js/*.js
-    
-# Server Development with Hot Deployment
+
+## Server Development with Hot Deployment
 
 Start spring boot server
 
     (cd odin-api && mvn spring-boot:run&)
-    
+
 Then open odin-frontend/public/index.html in browser
-  
-Java code changes can be applied by rebuilding in IDEA with ⌘ fn-F9.  The server will restart with 
-new classes.   Front end changes can be made direct will take immediate effect.
+
+Java code changes can be applied by rebuilding in IDEA with ⌘ fn-F9.  The server
+will restart with new classes.   Front end changes can be made direct will take
+immediate effect.
 
 Stop spring boot server
-  
+
     fg
 
 And ctrl-c.
-  
-# Testing
+
+## Testing
 
 To test a single test from command line
 
     mvn test -Dtest=LogCaptureTest -pl log-capture/
-    
-# Site
-    
+
+## Site
+
 Generate site, including javadocs with
-    
+
     mvn site
-        
-# Debug
+
+## Debug
 
     cd odin-server
-    
-    
-    
+
