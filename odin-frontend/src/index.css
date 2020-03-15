@@ -1,10 +1,13 @@
-body, input {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+body,
+input {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
 body {
   padding-top: 65px;
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -22,14 +25,14 @@ table {
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 99999;
-  opacity:0;
+  opacity: 0;
   pointer-events: none;
 }
 
 .modalDialog:target {
-  opacity:1;
+  opacity: 1;
   pointer-events: auto;
 }
 
@@ -61,8 +64,8 @@ table {
 }
 
 .tick {
-  text-align : right;
-  width : 100%;
+  text-align: right;
+  width: 100%;
 }
 
 .debug {
@@ -82,32 +85,36 @@ table {
 }
 
 .hidden {
-  display : none;
+  display: none;
 }
 
 input.inline {
   padding: 0rem;
   font-size: 1rem;
   line-height: 1.25;
-  color: #483D8B;
+  color: #483d8b;
   background-color: #fff;
   background-image: none;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  border-width : 0px 0px 1px 0px;
-  border-style : dotted;
-  border-color : rgba(0,0,0,.15);
-  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  border-width: 0px 0px 1px 0px;
+  border-style: dotted;
+  border-color: rgba(0, 0, 0, 0.15);
+  -webkit-transition: border-color ease-in-out 0.15s,
+    -webkit-box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s,
+    -webkit-box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s,
+    -webkit-box-shadow ease-in-out 0.15s;
 }
 
-div.card, div.trash {
-  display : inline-block;
-  float : left;
-  border : 2px solid black;
+div.card,
+div.trash {
+  display: inline-block;
+  float: left;
+  border: 2px solid black;
   margin: 1em;
   padding: 1em;
   min-height: 5em;
@@ -118,49 +125,50 @@ div.card, div.trash {
 }
 
 div.card .content {
-  text-align : center;
+  text-align: center;
 }
 
 div.card.layer div.sequenceInLayer {
-  display : inline-block;
-  float : right;
-  border : 2px solid black;
-  background-color : #DDA0DD;
-  font-size : 0.6em;
-  color : white;
+  display: inline-block;
+  float: right;
+  border: 2px solid black;
+  background-color: #dda0dd;
+  font-size: 0.6em;
+  color: white;
   -webkit-border-radius: 1em;
   -moz-border-radius: 1em;
   border-radius: 1em;
-  text-align : center;
-  margin : 0.1em;
-  padding-left : 1em;
-  padding-right : 1em;
+  text-align: center;
+  margin: 0.1em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 div.card.sequence {
-  background-color : #DDA0DD;
+  background-color: #dda0dd;
 }
 
 div.card.layer {
-  background-color : #D8BFD8;
+  background-color: #d8bfd8;
 }
 
 div.card header {
-  font-weight : bold;
-  font-size : 0.6em;
+  font-weight: bold;
+  font-size: 0.6em;
 }
 
 div.card footer {
-  font-size : 0.6em;
-  text-align : right;
-  color : white;
+  font-size: 0.6em;
+  text-align: right;
+  color: white;
 }
 
 div.break {
-  clear : left;
+  clear: left;
 }
 
 div.logging section h1 {
-  font-size : 1em;
-  text-align : right;
+  font-size: 1em;
+  text-align: right;
 }
+
