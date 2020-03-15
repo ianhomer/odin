@@ -19,7 +19,7 @@ describe('async actions', () => {
 
   test('App after schema loaded OK', done => {
     var shallowApp = shallow(app)
-    const spyReceiveProps = sinon.spy(App.prototype, 'componentWillReceiveProps')
+    const spyReceiveProps = sinon.spy(App.prototype, 'UNSAFE_componentWillReceiveProps')
     expect(spyReceiveProps.calledOnce).toBe(false)
     expect(shallowApp.dive()).toMatchSnapshot()
     dispatchAndExpect(store, done, LOAD_PERFORMANCE_SCHEMA_SUCCEEDED,
