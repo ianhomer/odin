@@ -69,6 +69,7 @@
     "gulp-eslint": "^5.0.0",
     "gulp-if": "^2.0.2",
     "jasmine-core": "^3.4.0",
+    "minimist": ">=1.2.2",
     "karma": "4.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",

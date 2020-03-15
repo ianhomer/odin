@@ -4,4 +4,3 @@ Quick install
 
     mvn install -P quick
 
-  
