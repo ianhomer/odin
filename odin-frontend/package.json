@@ -28,6 +28,7 @@
     }
   },
   "dependencies": {
+    "@testing-library/react-hooks": "^3.3.0",
     "ajv": "^6.12.2",
     "ajv-keywords": "3.5.0",
     "css-loader": "^3.6.0",
