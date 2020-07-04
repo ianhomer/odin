@@ -22,7 +22,10 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   },
   "dependencies": {
     "ajv": "^6.12.2",
@@ -48,7 +51,7 @@
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test-debug": "node_modules/.bin/jest --inspect-brk --runInBand",
-    "test": "react-app-rewired test --watchAll=false",
+    "test": "react-scripts test --watchAll=false",
     "update": "npx npm-check-updates -u"
   },
   "devDependencies": {

@@ -38,8 +38,4 @@ exports[`async actions App after schema loaded OK 2`] = `
 </Provider>
 `;
 
-exports[`async actions App before schema loaded OK 1`] = `
-<div>
-  Loading schema ...
-</div>
-`;
+exports[`async actions App before schema loaded OK 1`] = `ShallowWrapper {}`;
