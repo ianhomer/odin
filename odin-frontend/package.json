@@ -51,7 +51,7 @@
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test-debug": "node_modules/.bin/jest --inspect-brk --runInBand",
-    "test": "react-scripts test --watchAll=false",
+    "test": "jest --watchAll=false",
     "update": "npx npm-check-updates -u"
   },
   "devDependencies": {
