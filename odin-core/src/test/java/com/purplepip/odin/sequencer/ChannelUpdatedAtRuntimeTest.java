@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,6 +24,7 @@ class ChannelUpdatedAtRuntimeTest {
   private static final int LENGTH = 16;
 
   @Test
+  @Disabled
   void testSequencer() throws InterruptedException {
     final CountDownLatch channel0Events = new CountDownLatch(16);
     final CountDownLatch channel1Events = new CountDownLatch(16);
