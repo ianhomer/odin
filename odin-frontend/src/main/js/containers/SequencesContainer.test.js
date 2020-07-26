@@ -1,6 +1,7 @@
 import TIMEOUT from '../constants.js'
 
 import React from 'react'
+import {act} from 'react-dom/test-utils';
 import SequencesContainer from './SequencesContainer.js'
 import {LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED,
   loadSchemaActions} from '../actions/index.js'
@@ -22,13 +23,13 @@ describe('Sequences container', () => {
   }, TIMEOUT)
 
   test('Sequences container load', done => {
-    dispatchAndExpect(store, done,
+    act(() => dispatchAndExpect(store, done,
       [LOAD_PERFORMANCE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED, LOAD_PROFILE_SCHEMA_SUCCEEDED],
       () => loadSchemaActions,
       () => {
         expect(mountToJson(mount(component, {attachTo: newDocumentElement()} ),  {mode: 'deep'})).toMatchSnapshot()
       }
-    )
+    ))
   }, TIMEOUT)
 
   test('Sequences container row deletion', () => {

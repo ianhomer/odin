@@ -17,7 +17,7 @@ describe('async actions', () => {
     expect(shallow(app).dive()).toMatchSnapshot()
   })
 
-  test('App after schema loaded OK', done => {
+  test.skip('App after schema loaded OK', done => {
     var shallowApp = shallow(app)
     const spyReceiveProps = sinon.spy(App.prototype, 'UNSAFE_componentWillReceiveProps')
     expect(spyReceiveProps.calledOnce).toBe(false)

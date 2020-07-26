@@ -7,6 +7,6 @@
 .vim/
 target/
 odin-frontend/build/
-odin-frontend/node_modules/
+node_modules/
 odin-frontend/node/
 odin-frontend/src/main/resources/com/purplepip/odin/web/app

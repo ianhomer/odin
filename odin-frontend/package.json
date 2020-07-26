@@ -22,12 +22,22 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   },
   "dependencies": {
+<<<<<<< HEAD
     "ajv": "^6.12.3",
     "ajv-keywords": "3.5.1",
     "css-loader": "^4.0.0",
+=======
+    "@testing-library/react-hooks": "^3.3.0",
+    "ajv": "^6.12.2",
+    "ajv-keywords": "3.5.0",
+    "css-loader": "^3.6.0",
+>>>>>>> 030e426b2926c5d0d548a1eed857725c091b7434
     "json-loader": "^0.5.7",
     "object-path": "^0.11.4",
     "react": "^16.13.1",
@@ -48,7 +58,7 @@
     "build": "react-scripts build",
     "start": "react-scripts start",
     "test-debug": "node_modules/.bin/jest --inspect-brk --runInBand",
-    "test": "react-scripts test --watchAll=false",
+    "test": "jest --watchAll=false",
     "update": "npx npm-check-updates -u"
   },
   "devDependencies": {
@@ -80,6 +90,7 @@
     "karma-sinon-chai": "^2.0.2",
     "minimist": ">=1.2.5",
     "mocha": "^8.0.1",
+    "react-app-rewired": "^2.1.6",
     "react-dnd-test-backend": "^11.1.3",
     "react-test-renderer": "^16.13.1",
     "sinon": "^9.0.2",
