@@ -28,16 +28,10 @@
     }
   },
   "dependencies": {
-<<<<<<< HEAD
     "ajv": "^6.12.3",
     "ajv-keywords": "3.5.1",
     "css-loader": "^4.0.0",
-=======
     "@testing-library/react-hooks": "^3.3.0",
-    "ajv": "^6.12.2",
-    "ajv-keywords": "3.5.0",
-    "css-loader": "^3.6.0",
->>>>>>> 030e426b2926c5d0d548a1eed857725c091b7434
     "json-loader": "^0.5.7",
     "object-path": "^0.11.4",
     "react": "^16.13.1",
