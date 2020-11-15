@@ -1,10 +1,9 @@
-.classpath
-.idea/sonarlint
-.idea/workspace.xml
-.factorypath
-.project
+.idea/
 .settings/
 .vim/
+.classpath
+.factorypath
+.project
 target/
 odin-frontend/build/
 node_modules/
