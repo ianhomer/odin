@@ -1,0 +1,6 @@
+{
+  "reject": [
+    "node-sass",
+    "react-scripts"
+  ]
+}
